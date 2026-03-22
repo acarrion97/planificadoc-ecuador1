@@ -28,6 +28,45 @@ export interface Destreza {
   indicadoresEvaluacion: string[];
 }
 
+/**
+ * Estructura de una clase completa siguiendo el ciclo de aprendizaje ERCA
+ */
+export interface EstructuraClase {
+  anticipacion: {
+    titulo: string;
+    duracion: string;
+    actividades: string[];
+  };
+  construccion: {
+    titulo: string;
+    duracion: string;
+    actividades: string[];
+  };
+  consolidacion: {
+    titulo: string;
+    duracion: string;
+    actividades: string[];
+  };
+  retroalimentacion: {
+    titulo: string;
+    duracion: string;
+    actividades: string[];
+  };
+}
+
+/**
+ * Tema sugerido para una destreza, con estructura de clase pre-generada
+ */
+export interface TemaSugerido {
+  id: string;
+  titulo: string;
+  descripcionBreve: string;
+  objetivoClase: string;
+  estructura: EstructuraClase;
+  recursos: string[];
+  evaluacionFormativa: string;
+}
+
 export interface Planificacion {
   id: string;
   fecha: string;
@@ -38,6 +77,7 @@ export interface Planificacion {
   periodos: string;
   destreza: Destreza;
   objetivoAprendizaje: string;
+  temaSeleccionado?: TemaSugerido;
   actividades: string;
   recursos: string;
   evaluacion: string;

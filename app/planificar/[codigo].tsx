@@ -8,6 +8,7 @@ import {
   Alert,
   Platform,
   KeyboardAvoidingView,
+  FlatList,
 } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
@@ -20,6 +21,8 @@ import {
   SUBNIVEL_NAMES,
   SUBNIVEL_GRADOS,
   obtenerNombreBloque,
+  obtenerTemasSugeridos,
+  TemaSugerido,
 } from "@/data";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
@@ -35,33 +38,12 @@ function getTodayDate() {
   return `${dd}/${mm}/${yyyy}`;
 }
 
-function getSugerenciaActividades(area: string, bloque: number): string {
-  const sugerencias: Record<string, string> = {
-    M: "1. Activación de conocimientos previos mediante preguntas generadoras.\n2. Presentación del tema con material concreto y manipulativo.\n3. Trabajo en parejas para resolver ejercicios guiados.\n4. Práctica individual con ejercicios de aplicación.\n5. Socialización de resultados y retroalimentación grupal.",
-    LL: "1. Exploración de conocimientos previos a través de lluvia de ideas.\n2. Lectura compartida del texto seleccionado.\n3. Análisis guiado del contenido y estructura textual.\n4. Producción escrita individual o en parejas.\n5. Revisión entre pares y corrección colaborativa.",
-    CN: "1. Observación directa o indirecta del fenómeno natural.\n2. Formulación de hipótesis por parte de los estudiantes.\n3. Experimentación guiada con materiales del entorno.\n4. Registro de observaciones y datos en cuaderno de campo.\n5. Socialización de conclusiones y elaboración de informe.",
-    CS: "1. Contextualización histórica mediante relatos o imágenes.\n2. Lectura comprensiva de fuentes primarias y secundarias.\n3. Debate dirigido sobre el tema estudiado.\n4. Elaboración de organizadores gráficos (líneas de tiempo, mapas conceptuales).\n5. Reflexión grupal sobre la importancia del tema en la actualidad.",
-    EF: "1. Calentamiento general y específico.\n2. Demostración de la actividad o juego por parte del docente.\n3. Práctica guiada en grupos pequeños.\n4. Ejecución autónoma de la actividad.\n5. Vuelta a la calma y reflexión sobre lo aprendido.",
-    ECA: "1. Apreciación de obras artísticas relacionadas con el tema.\n2. Exploración libre de materiales y técnicas.\n3. Creación artística individual o colectiva.\n4. Presentación y exposición de trabajos.\n5. Reflexión y autoevaluación del proceso creativo.",
-  };
-  return sugerencias[area] || sugerencias.M;
-}
-
-function getSugerenciaRecursos(area: string): string {
-  const recursos: Record<string, string> = {
-    M: "Texto del estudiante, cuaderno de trabajo, material concreto (bloques base 10, regletas, fichas), pizarra, marcadores, calculadora, regla, compás.",
-    LL: "Texto del estudiante, cuaderno de trabajo, diccionario, biblioteca del aula, papelotes, marcadores, fichas de lectura, material impreso.",
-    CN: "Texto del estudiante, cuaderno de trabajo, materiales del entorno, láminas didácticas, microscopio (si aplica), materiales de laboratorio, TIC.",
-    CS: "Texto del estudiante, cuaderno de trabajo, mapas, atlas, globo terráqueo, líneas de tiempo, material audiovisual, fuentes históricas.",
-    EF: "Espacio abierto o cancha, balones, conos, aros, cuerdas, silbato, cronómetro, colchonetas.",
-    ECA: "Materiales artísticos (pinturas, pinceles, tijeras, goma), papel, cartulina, materiales reciclados, instrumentos musicales, reproductor de audio.",
-  };
-  return recursos[area] || recursos.M;
-}
-
 function getSugerenciaTecnicas(): string {
   return "Técnica: Observación directa\nInstrumento: Lista de cotejo / Rúbrica de evaluación\n\nTécnica: Prueba escrita\nInstrumento: Cuestionario de preguntas abiertas y cerradas\n\nTécnica: Portafolio\nInstrumento: Registro de evidencias de aprendizaje";
 }
+
+// Paso actual del flujo
+type PasoFlujo = "seleccion-tema" | "formulario";
 
 export default function PlanificarScreen() {
   const colors = useColors();
@@ -71,6 +53,18 @@ export default function PlanificarScreen() {
 
   const destreza = buscarPorCodigo(codigo || "");
 
+  // Temas sugeridos
+  const temasSugeridos = useMemo(
+    () => (destreza ? obtenerTemasSugeridos(destreza) : []),
+    [destreza]
+  );
+
+  // Paso del flujo
+  const [paso, setPaso] = useState<PasoFlujo>("seleccion-tema");
+  const [temaSeleccionado, setTemaSeleccionado] = useState<TemaSugerido | null>(null);
+  const [temaExpandido, setTemaExpandido] = useState<string | null>(null);
+
+  // Campos del formulario
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
   const [grado, setGrado] = useState(
@@ -81,12 +75,8 @@ export default function PlanificarScreen() {
   const [objetivoAprendizaje, setObjetivoAprendizaje] = useState(
     destreza?.objetivos[0] || ""
   );
-  const [actividades, setActividades] = useState(
-    destreza ? getSugerenciaActividades(destreza.area, destreza.bloque) : ""
-  );
-  const [recursos, setRecursos] = useState(
-    destreza ? getSugerenciaRecursos(destreza.area) : ""
-  );
+  const [actividades, setActividades] = useState("");
+  const [recursos, setRecursos] = useState("");
   const [evaluacion, setEvaluacion] = useState(
     destreza?.indicadoresEvaluacion[0] || ""
   );
@@ -119,6 +109,57 @@ export default function PlanificarScreen() {
 
   const areaInfo = AREAS_INFO[destreza.area];
 
+  // Cuando el usuario selecciona un tema, rellenar los campos automáticamente
+  const handleSeleccionarTema = (tema: TemaSugerido) => {
+    setTemaSeleccionado(tema);
+    setObjetivoAprendizaje(tema.objetivoClase);
+
+    // Generar texto de actividades desde la estructura de clase
+    const { estructura } = tema;
+    const actividadesTexto = [
+      `ANTICIPACIÓN (${estructura.anticipacion.duracion})`,
+      ...estructura.anticipacion.actividades.map((a, i) => `${i + 1}. ${a}`),
+      "",
+      `CONSTRUCCIÓN DEL CONOCIMIENTO (${estructura.construccion.duracion})`,
+      ...estructura.construccion.actividades.map((a, i) => `${i + 1}. ${a}`),
+      "",
+      `CONSOLIDACIÓN (${estructura.consolidacion.duracion})`,
+      ...estructura.consolidacion.actividades.map((a, i) => `${i + 1}. ${a}`),
+      "",
+      `RETROALIMENTACIÓN (${estructura.retroalimentacion.duracion})`,
+      ...estructura.retroalimentacion.actividades.map((a, i) => `${i + 1}. ${a}`),
+    ].join("\n");
+
+    setActividades(actividadesTexto);
+    setRecursos(tema.recursos.join(", "));
+    setEvaluacion(tema.evaluacionFormativa);
+    setPaso("formulario");
+  };
+
+  const handleSinTema = () => {
+    setTemaSeleccionado(null);
+    // Usar actividades genéricas
+    const sugerenciasGenericas: Record<string, string> = {
+      M: "1. Activación de conocimientos previos mediante preguntas generadoras.\n2. Presentación del tema con material concreto y manipulativo.\n3. Trabajo en parejas para resolver ejercicios guiados.\n4. Práctica individual con ejercicios de aplicación.\n5. Socialización de resultados y retroalimentación grupal.",
+      LL: "1. Exploración de conocimientos previos a través de lluvia de ideas.\n2. Lectura compartida del texto seleccionado.\n3. Análisis guiado del contenido y estructura textual.\n4. Producción escrita individual o en parejas.\n5. Revisión entre pares y corrección colaborativa.",
+      CN: "1. Observación directa o indirecta del fenómeno natural.\n2. Formulación de hipótesis por parte de los estudiantes.\n3. Experimentación guiada con materiales del entorno.\n4. Registro de observaciones y datos en cuaderno de campo.\n5. Socialización de conclusiones y elaboración de informe.",
+      CS: "1. Contextualización histórica mediante relatos o imágenes.\n2. Lectura comprensiva de fuentes primarias y secundarias.\n3. Debate dirigido sobre el tema estudiado.\n4. Elaboración de organizadores gráficos.\n5. Reflexión grupal sobre la importancia del tema en la actualidad.",
+      EF: "1. Calentamiento general y específico.\n2. Demostración de la actividad por parte del docente.\n3. Práctica guiada en grupos pequeños.\n4. Ejecución autónoma de la actividad.\n5. Vuelta a la calma y reflexión sobre lo aprendido.",
+      ECA: "1. Apreciación de obras artísticas relacionadas con el tema.\n2. Exploración libre de materiales y técnicas.\n3. Creación artística individual o colectiva.\n4. Presentación y exposición de trabajos.\n5. Reflexión y autoevaluación del proceso creativo.",
+    };
+    const recursosGenericos: Record<string, string> = {
+      M: "Texto del estudiante, cuaderno de trabajo, material concreto, pizarra, marcadores, calculadora.",
+      LL: "Texto del estudiante, cuaderno de trabajo, diccionario, biblioteca del aula, papelotes, marcadores.",
+      CN: "Texto del estudiante, cuaderno de trabajo, materiales del entorno, láminas didácticas, TIC.",
+      CS: "Texto del estudiante, cuaderno de trabajo, mapas, atlas, material audiovisual, fuentes históricas.",
+      EF: "Espacio abierto o cancha, balones, conos, aros, cuerdas, silbato, cronómetro.",
+      ECA: "Materiales artísticos, papel, cartulina, materiales reciclados, instrumentos musicales.",
+    };
+    setActividades(sugerenciasGenericas[destreza.area] || sugerenciasGenericas.M);
+    setRecursos(recursosGenericos[destreza.area] || recursosGenericos.M);
+    setPaso("formulario");
+  };
+
   const handleSave = async () => {
     if (!docente.trim()) {
       if (Platform.OS === "web") {
@@ -139,6 +180,7 @@ export default function PlanificarScreen() {
       periodos: periodos.trim(),
       destreza,
       objetivoAprendizaje: objetivoAprendizaje.trim(),
+      temaSeleccionado: temaSeleccionado || undefined,
       actividades: actividades.trim(),
       recursos: recursos.trim(),
       evaluacion: evaluacion.trim(),
@@ -159,12 +201,12 @@ export default function PlanificarScreen() {
     router.back();
   };
 
-  return (
-    <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
+  // ==========================================
+  // PASO 1: Selección de tema
+  // ==========================================
+  if (paso === "seleccion-tema") {
+    return (
+      <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
         <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
           {/* Header */}
           <View className="px-5 pt-4">
@@ -180,13 +222,10 @@ export default function PlanificarScreen() {
                 Atrás
               </Text>
             </Pressable>
-            <Text className="text-2xl font-bold text-foreground mt-3">
-              Planificación Microcurricular
-            </Text>
           </View>
 
-          {/* Destreza info (read-only) */}
-          <View className="px-5 mt-4">
+          {/* Destreza info */}
+          <View className="px-5 mt-3">
             <View
               style={[
                 styles.destrezaInfo,
@@ -202,6 +241,135 @@ export default function PlanificarScreen() {
                 </Text>
               </View>
               <Text className="text-sm text-foreground mt-2 leading-5">
+                {destreza.descripcion}
+              </Text>
+            </View>
+          </View>
+
+          {/* Título de sección */}
+          <View className="px-5 mt-5">
+            <View style={styles.stepIndicator}>
+              <View style={[styles.stepBadge, { backgroundColor: colors.primary }]}>
+                <Text style={styles.stepBadgeText}>1</Text>
+              </View>
+              <Text className="text-xl font-bold text-foreground ml-3">
+                Elige un tema para tu clase
+              </Text>
+            </View>
+            <Text className="text-sm text-muted mt-2 leading-5">
+              Selecciona uno de los temas sugeridos para generar automáticamente la estructura completa de tu clase, o continúa sin tema para personalizar manualmente.
+            </Text>
+          </View>
+
+          {/* Tarjetas de temas */}
+          <View className="mt-4">
+            {temasSugeridos.map((tema) => (
+              <TemaCard
+                key={tema.id}
+                tema={tema}
+                colors={colors}
+                areaColor={areaInfo.color}
+                isExpanded={temaExpandido === tema.id}
+                onToggleExpand={() =>
+                  setTemaExpandido(temaExpandido === tema.id ? null : tema.id)
+                }
+                onSelect={() => handleSeleccionarTema(tema)}
+              />
+            ))}
+          </View>
+
+          {/* Botón sin tema */}
+          <View className="px-5 mt-4 mb-10">
+            <Pressable
+              onPress={handleSinTema}
+              style={({ pressed }) => [
+                styles.skipBtn,
+                {
+                  borderColor: colors.border,
+                  backgroundColor: pressed ? colors.surface : "transparent",
+                },
+              ]}
+            >
+              <MaterialIcons name="edit" size={20} color={colors.muted} />
+              <Text style={{ color: colors.muted, fontSize: 15, fontWeight: "600", marginLeft: 8 }}>
+                Continuar sin tema (personalizar manualmente)
+              </Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </ScreenContainer>
+    );
+  }
+
+  // ==========================================
+  // PASO 2: Formulario de planificación
+  // ==========================================
+  return (
+    <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+          {/* Header */}
+          <View className="px-5 pt-4">
+            <Pressable
+              onPress={() => setPaso("seleccion-tema")}
+              style={({ pressed }) => [
+                styles.backButton,
+                { opacity: pressed ? 0.6 : 1 },
+              ]}
+            >
+              <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
+              <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
+                Cambiar tema
+              </Text>
+            </Pressable>
+
+            <View style={styles.stepIndicator}>
+              <View style={[styles.stepBadge, { backgroundColor: colors.primary }]}>
+                <Text style={styles.stepBadgeText}>2</Text>
+              </View>
+              <Text className="text-xl font-bold text-foreground ml-3">
+                Planificación Microcurricular
+              </Text>
+            </View>
+          </View>
+
+          {/* Tema seleccionado badge */}
+          {temaSeleccionado && (
+            <View className="px-5 mt-3">
+              <View
+                style={[
+                  styles.temaBadge,
+                  { backgroundColor: areaInfo.color + "12", borderColor: areaInfo.color + "35" },
+                ]}
+              >
+                <MaterialIcons name="auto-awesome" size={18} color={areaInfo.color} />
+                <View style={{ flex: 1, marginLeft: 10 }}>
+                  <Text style={{ color: areaInfo.color, fontSize: 13, fontWeight: "600" }}>
+                    Tema seleccionado
+                  </Text>
+                  <Text className="text-sm font-bold text-foreground mt-1">
+                    {temaSeleccionado.titulo}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          )}
+
+          {/* Destreza info (compact) */}
+          <View className="px-5 mt-3">
+            <View
+              style={[
+                styles.destrezaCompact,
+                { backgroundColor: areaInfo.color + "08", borderColor: areaInfo.color + "20" },
+              ]}
+            >
+              <Text style={[{ color: areaInfo.color, fontSize: 15, fontWeight: "800" }]}>
+                {destreza.codigo}
+              </Text>
+              <Text className="text-xs text-muted mt-1" numberOfLines={2}>
                 {destreza.descripcion}
               </Text>
             </View>
@@ -264,10 +432,22 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
+          {/* Section: Estructura de la Clase (si hay tema seleccionado) */}
+          {temaSeleccionado && (
+            <>
+              <SectionTitle title="Estructura de la Clase (ERCA)" icon="school" colors={colors} />
+              <EstructuraClaseView
+                tema={temaSeleccionado}
+                colors={colors}
+                areaColor={areaInfo.color}
+              />
+            </>
+          )}
+
           {/* Section: Actividades */}
           <SectionTitle title="Actividades de Aprendizaje" icon="assignment" colors={colors} />
           <FormField
-            label="Actividades"
+            label="Actividades (editable)"
             value={actividades}
             onChangeText={setActividades}
             placeholder="Describe las actividades..."
@@ -339,6 +519,244 @@ export default function PlanificarScreen() {
   );
 }
 
+// ==========================================
+// COMPONENTE: Tarjeta de tema sugerido
+// ==========================================
+function TemaCard({
+  tema,
+  colors,
+  areaColor,
+  isExpanded,
+  onToggleExpand,
+  onSelect,
+}: {
+  tema: TemaSugerido;
+  colors: any;
+  areaColor: string;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+  onSelect: () => void;
+}) {
+  return (
+    <View className="px-5 mt-3">
+      <View
+        style={[
+          styles.temaCard,
+          {
+            backgroundColor: colors.surface,
+            borderColor: isExpanded ? areaColor + "50" : colors.border,
+            borderWidth: isExpanded ? 2 : 1,
+          },
+        ]}
+      >
+        {/* Cabecera del tema */}
+        <Pressable
+          onPress={onToggleExpand}
+          style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+        >
+          <View style={styles.temaCardHeader}>
+            <View style={{ flex: 1 }}>
+              <Text className="text-base font-bold text-foreground">
+                {tema.titulo}
+              </Text>
+              <Text className="text-sm text-muted mt-1 leading-5">
+                {tema.descripcionBreve}
+              </Text>
+            </View>
+            <MaterialIcons
+              name={isExpanded ? "expand-less" : "expand-more"}
+              size={26}
+              color={colors.muted}
+              style={{ marginLeft: 8 }}
+            />
+          </View>
+        </Pressable>
+
+        {/* Previsualización expandida */}
+        {isExpanded && (
+          <View style={styles.temaPreview}>
+            {/* Objetivo */}
+            <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
+              <View style={styles.previewSectionHeader}>
+                <MaterialIcons name="flag" size={16} color={areaColor} />
+                <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
+                  Objetivo de la clase
+                </Text>
+              </View>
+              <Text className="text-sm text-foreground leading-5 mt-1">
+                {tema.objetivoClase}
+              </Text>
+            </View>
+
+            {/* Fases ERCA */}
+            <FasePreview
+              icon="lightbulb"
+              label="Anticipación"
+              fase={tema.estructura.anticipacion}
+              color="#F59E0B"
+              colors={colors}
+            />
+            <FasePreview
+              icon="build"
+              label="Construcción"
+              fase={tema.estructura.construccion}
+              color="#2563EB"
+              colors={colors}
+            />
+            <FasePreview
+              icon="check-circle"
+              label="Consolidación"
+              fase={tema.estructura.consolidacion}
+              color="#16A34A"
+              colors={colors}
+            />
+            <FasePreview
+              icon="refresh"
+              label="Retroalimentación"
+              fase={tema.estructura.retroalimentacion}
+              color="#7C3AED"
+              colors={colors}
+            />
+
+            {/* Recursos */}
+            <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
+              <View style={styles.previewSectionHeader}>
+                <MaterialIcons name="inventory" size={16} color={areaColor} />
+                <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
+                  Recursos
+                </Text>
+              </View>
+              <Text className="text-sm text-muted mt-1">
+                {tema.recursos.join(" · ")}
+              </Text>
+            </View>
+
+            {/* Botón seleccionar */}
+            <Pressable
+              onPress={onSelect}
+              style={({ pressed }) => [
+                styles.selectBtn,
+                {
+                  backgroundColor: areaColor,
+                  opacity: pressed ? 0.85 : 1,
+                  transform: [{ scale: pressed ? 0.97 : 1 }],
+                },
+              ]}
+            >
+              <MaterialIcons name="check" size={20} color="#fff" />
+              <Text style={styles.selectBtnText}>Usar este tema</Text>
+            </Pressable>
+          </View>
+        )}
+      </View>
+    </View>
+  );
+}
+
+// ==========================================
+// COMPONENTE: Previsualización de fase ERCA
+// ==========================================
+function FasePreview({
+  icon,
+  label,
+  fase,
+  color,
+  colors,
+}: {
+  icon: string;
+  label: string;
+  fase: { titulo: string; duracion: string; actividades: string[] };
+  color: string;
+  colors: any;
+}) {
+  return (
+    <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
+      <View style={styles.previewSectionHeader}>
+        <View style={[styles.faseDot, { backgroundColor: color }]} />
+        <Text style={[styles.previewSectionTitle, { color }]}>
+          {label}
+        </Text>
+        <Text style={[styles.faseDuration, { color: colors.muted }]}>
+          {fase.duracion}
+        </Text>
+      </View>
+      {fase.actividades.map((act, idx) => (
+        <View key={idx} style={styles.actividadRow}>
+          <Text style={[styles.actividadBullet, { color }]}>•</Text>
+          <Text className="text-xs text-foreground flex-1 leading-4" style={{ marginLeft: 6 }}>
+            {act}
+          </Text>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+// ==========================================
+// COMPONENTE: Vista de estructura de clase en formulario
+// ==========================================
+function EstructuraClaseView({
+  tema,
+  colors,
+  areaColor,
+}: {
+  tema: TemaSugerido;
+  colors: any;
+  areaColor: string;
+}) {
+  const fases = [
+    { key: "anticipacion" as const, label: "Anticipación", color: "#F59E0B", icon: "lightbulb" },
+    { key: "construccion" as const, label: "Construcción del Conocimiento", color: "#2563EB", icon: "build" },
+    { key: "consolidacion" as const, label: "Consolidación", color: "#16A34A", icon: "check-circle" },
+    { key: "retroalimentacion" as const, label: "Retroalimentación", color: "#7C3AED", icon: "refresh" },
+  ];
+
+  return (
+    <View className="px-5 mt-2">
+      {fases.map((fase) => {
+        const data = tema.estructura[fase.key];
+        return (
+          <View
+            key={fase.key}
+            style={[
+              styles.faseCard,
+              { borderLeftColor: fase.color, backgroundColor: colors.surface, borderColor: colors.border },
+            ]}
+          >
+            <View style={styles.faseCardHeader}>
+              <MaterialIcons name={fase.icon as any} size={18} color={fase.color} />
+              <Text style={[styles.faseCardTitle, { color: fase.color }]}>
+                {fase.label}
+              </Text>
+              <View style={[styles.durationBadge, { backgroundColor: fase.color + "18" }]}>
+                <MaterialIcons name="schedule" size={12} color={fase.color} />
+                <Text style={{ color: fase.color, fontSize: 11, fontWeight: "600", marginLeft: 3 }}>
+                  {data.duracion}
+                </Text>
+              </View>
+            </View>
+            {data.actividades.map((act, idx) => (
+              <View key={idx} style={styles.faseActRow}>
+                <View style={[styles.faseActNum, { backgroundColor: fase.color + "15" }]}>
+                  <Text style={{ color: fase.color, fontSize: 11, fontWeight: "700" }}>
+                    {idx + 1}
+                  </Text>
+                </View>
+                <Text className="text-sm text-foreground flex-1 leading-5" style={{ marginLeft: 8 }}>
+                  {act}
+                </Text>
+              </View>
+            ))}
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
+// ==========================================
+// COMPONENTES DE FORMULARIO
+// ==========================================
 function SectionTitle({
   title,
   icon,
@@ -425,6 +843,145 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "800",
   },
+  destrezaCompact: {
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+  },
+  stepIndicator: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 12,
+  },
+  stepBadge: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stepBadgeText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "800",
+  },
+  // Tema card
+  temaCard: {
+    borderRadius: 16,
+    overflow: "hidden",
+  },
+  temaCardHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    padding: 16,
+  },
+  temaPreview: {
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
+  previewSection: {
+    borderTopWidth: 1,
+    paddingTop: 12,
+    marginTop: 8,
+  },
+  previewSectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  previewSectionTitle: {
+    fontSize: 13,
+    fontWeight: "700",
+    marginLeft: 6,
+  },
+  faseDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
+  faseDuration: {
+    fontSize: 11,
+    marginLeft: "auto",
+  },
+  actividadRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: 4,
+    paddingLeft: 16,
+  },
+  actividadBullet: {
+    fontSize: 14,
+    lineHeight: 16,
+  },
+  selectBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 12,
+    paddingVertical: 14,
+    marginTop: 16,
+    gap: 8,
+  },
+  selectBtnText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  skipBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 12,
+    paddingVertical: 14,
+    borderWidth: 1.5,
+    borderStyle: "dashed",
+  },
+  // Tema badge in form
+  temaBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 12,
+    padding: 14,
+    borderWidth: 1,
+  },
+  // Fase cards in form
+  faseCard: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderLeftWidth: 4,
+    padding: 14,
+    marginTop: 10,
+  },
+  faseCardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  faseCardTitle: {
+    fontSize: 14,
+    fontWeight: "700",
+    marginLeft: 8,
+    flex: 1,
+  },
+  durationBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 10,
+  },
+  faseActRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: 6,
+  },
+  faseActNum: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  // Form
   sectionTitle: {
     flexDirection: "row",
     alignItems: "center",

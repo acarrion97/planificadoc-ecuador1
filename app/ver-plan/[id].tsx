@@ -4,7 +4,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
-import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES } from "@/data";
+import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido } from "@/data";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function VerPlanScreen() {
@@ -40,6 +40,7 @@ export default function VerPlanScreen() {
   }
 
   const areaInfo = AREAS_INFO[plan.destreza.area];
+  const tema = plan.temaSeleccionado;
 
   return (
     <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
@@ -80,6 +81,31 @@ export default function VerPlanScreen() {
           </View>
         </View>
 
+        {/* Tema seleccionado */}
+        {tema && (
+          <View className="px-5 mt-3">
+            <View
+              style={[
+                styles.temaBadge,
+                { backgroundColor: areaInfo?.color + "12", borderColor: areaInfo?.color + "35" },
+              ]}
+            >
+              <MaterialIcons name="auto-awesome" size={18} color={areaInfo?.color} />
+              <View style={{ flex: 1, marginLeft: 10 }}>
+                <Text style={{ color: areaInfo?.color, fontSize: 12, fontWeight: "600" }}>
+                  Tema de la clase
+                </Text>
+                <Text className="text-base font-bold text-foreground mt-1">
+                  {tema.titulo}
+                </Text>
+                <Text className="text-sm text-muted mt-1">
+                  {tema.descripcionBreve}
+                </Text>
+              </View>
+            </View>
+          </View>
+        )}
+
         {/* Datos informativos */}
         <SectionCard title="Datos Informativos" icon="info" colors={colors}>
           <DataRow label="Institución" value={plan.institucion || "—"} colors={colors} />
@@ -109,6 +135,50 @@ export default function VerPlanScreen() {
             {plan.objetivoAprendizaje}
           </Text>
         </SectionCard>
+
+        {/* Estructura de la Clase ERCA */}
+        {tema && (
+          <View className="px-5 mt-4">
+            <View style={styles.sectionHeader}>
+              <MaterialIcons name="school" size={18} color={colors.primary} />
+              <Text
+                className="text-base font-semibold text-foreground"
+                style={{ marginLeft: 8 }}
+              >
+                Estructura de la Clase (ERCA)
+              </Text>
+            </View>
+
+            <FaseCardView
+              label="Anticipación"
+              fase={tema.estructura.anticipacion}
+              color="#F59E0B"
+              icon="lightbulb"
+              colors={colors}
+            />
+            <FaseCardView
+              label="Construcción del Conocimiento"
+              fase={tema.estructura.construccion}
+              color="#2563EB"
+              icon="build"
+              colors={colors}
+            />
+            <FaseCardView
+              label="Consolidación"
+              fase={tema.estructura.consolidacion}
+              color="#16A34A"
+              icon="check-circle"
+              colors={colors}
+            />
+            <FaseCardView
+              label="Retroalimentación"
+              fase={tema.estructura.retroalimentacion}
+              color="#7C3AED"
+              icon="refresh"
+              colors={colors}
+            />
+          </View>
+        )}
 
         {/* Actividades */}
         <SectionCard title="Actividades de Aprendizaje" icon="assignment" colors={colors}>
@@ -150,6 +220,57 @@ export default function VerPlanScreen() {
         <View style={{ height: 40 }} />
       </ScrollView>
     </ScreenContainer>
+  );
+}
+
+// ==========================================
+// COMPONENTE: Tarjeta de fase ERCA
+// ==========================================
+function FaseCardView({
+  label,
+  fase,
+  color,
+  icon,
+  colors,
+}: {
+  label: string;
+  fase: { titulo: string; duracion: string; actividades: string[] };
+  color: string;
+  icon: string;
+  colors: any;
+}) {
+  return (
+    <View
+      style={[
+        styles.faseCard,
+        { borderLeftColor: color, backgroundColor: colors.surface, borderColor: colors.border },
+      ]}
+    >
+      <View style={styles.faseCardHeader}>
+        <MaterialIcons name={icon as any} size={18} color={color} />
+        <Text style={[styles.faseCardTitle, { color }]}>
+          {label}
+        </Text>
+        <View style={[styles.durationBadge, { backgroundColor: color + "18" }]}>
+          <MaterialIcons name="schedule" size={12} color={color} />
+          <Text style={{ color, fontSize: 11, fontWeight: "600", marginLeft: 3 }}>
+            {fase.duracion}
+          </Text>
+        </View>
+      </View>
+      {fase.actividades.map((act, idx) => (
+        <View key={idx} style={styles.faseActRow}>
+          <View style={[styles.faseActNum, { backgroundColor: color + "15" }]}>
+            <Text style={{ color, fontSize: 11, fontWeight: "700" }}>
+              {idx + 1}
+            </Text>
+          </View>
+          <Text className="text-sm text-foreground flex-1 leading-5" style={{ marginLeft: 8 }}>
+            {act}
+          </Text>
+        </View>
+      ))}
+    </View>
   );
 }
 
@@ -228,6 +349,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "800",
   },
+  temaBadge: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    borderRadius: 12,
+    padding: 14,
+    borderWidth: 1,
+  },
   sectionHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -246,6 +374,44 @@ const styles = StyleSheet.create({
   metaRow: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  // Fase cards
+  faseCard: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderLeftWidth: 4,
+    padding: 14,
+    marginTop: 10,
+  },
+  faseCardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  faseCardTitle: {
+    fontSize: 14,
+    fontWeight: "700",
+    marginLeft: 8,
+    flex: 1,
+  },
+  durationBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 10,
+  },
+  faseActRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: 6,
+  },
+  faseActNum: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
   },
   backBtnFull: {
     marginTop: 20,

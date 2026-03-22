@@ -15,3 +15,8 @@
 - [x] Generar logo personalizado de la app
 - [x] Actualizar app.config.ts con nombre y branding
 - [x] Escribir pruebas unitarias para la base de datos y funciones de búsqueda
+- [x] Crear modelo de datos para temas sugeridos y estructura de clase (anticipación, construcción, consolidación, retroalimentación)
+- [x] Crear base de datos de temas sugeridos por destreza con estructura de clase completa
+- [x] Implementar pantalla de selección de temas con previsualización
+- [x] Implementar generación automática de estructura de clase al seleccionar un tema
+- [x] Integrar selección de tema y estructura de clase en la pantalla de planificación

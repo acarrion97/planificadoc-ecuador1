@@ -9,6 +9,7 @@ import {
 import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
 
 export * from "./types";
+export { obtenerTemasSugeridos } from "./temas-sugeridos";
 
 export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasMatematica,
