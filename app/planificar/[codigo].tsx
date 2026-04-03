@@ -8,6 +8,7 @@ import {
   Alert,
   Platform,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
@@ -22,8 +23,10 @@ import {
   obtenerNombreBloque,
   obtenerTemasSugeridos,
   TemaSugerido,
+  Planificacion,
 } from "@/data";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useExportPdf } from "@/hooks/use-export-pdf";
 
 function generateId() {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
@@ -48,6 +51,7 @@ export default function PlanificarScreen() {
   const router = useRouter();
   const { codigo } = useLocalSearchParams<{ codigo: string }>();
   const { addPlanificacion } = usePlanificaciones();
+  const { exportarPDF, isExporting } = useExportPdf();
 
   const destreza = buscarPorCodigo(codigo || "");
 
@@ -181,13 +185,8 @@ export default function PlanificarScreen() {
 
     await addPlanificacion(plan);
 
-    if (Platform.OS === "web") {
-      alert("Planificacion guardada correctamente");
-    } else {
-      Alert.alert("Guardado", "Planificacion guardada correctamente");
-    }
-    router.back();
-    router.back();
+    // Navegar a la pantalla de ver plan para que pueda exportar PDF
+    router.replace(`/ver-plan/${plan.id}` as any);
   };
 
   // ==========================================
@@ -485,6 +484,9 @@ export default function PlanificarScreen() {
               <MaterialIcons name="save" size={22} color="#fff" />
               <Text style={styles.saveBtnText}>Guardar Planificacion</Text>
             </Pressable>
+            <Text className="text-xs text-muted text-center mt-3">
+              Al guardar podras exportar la planificacion como PDF con formato oficial del Ministerio de Educacion
+            </Text>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

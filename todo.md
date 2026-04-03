@@ -24,4 +24,12 @@
 - [x] Unificar consolidación y retroalimentación en una sola fase "Cierre" que incluya preguntas de retroalimentación
 - [x] Cambiar todos los verbos de las actividades a infinitivo (ej: "Motivar a los estudiantes..." en vez de "Los estudiantes intentan...")
 - [x] Actualizar los tipos de datos para reflejar la nueva estructura de 3 fases
-- [ ] Preparar guía para versión premium con GPT personalizado
+- [x] Preparar guía para versión premium con GPT personalizado
+- [x] Implementar generador de HTML con formato oficial del Ministerio de Educación
+- [x] Implementar conversión de HTML a PDF usando expo-print y expo-sharing
+- [x] Agregar botón "Exportar PDF" en la pantalla ver-plan
+- [x] Agregar botón "Exportar PDF" en la pantalla de planificación (después de guardar)
+- [x] Incluir encabezado oficial con escudo del Ecuador y logo del Ministerio
+- [x] Incluir tabla de datos informativos (institución, docente, área, grado, fecha)
+- [x] Incluir tabla principal con destrezas, indicadores, estrategias y evaluación
+- [x] Incluir sección de recursos y observaciones

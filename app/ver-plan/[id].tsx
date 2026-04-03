@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { Text, View, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -6,12 +6,14 @@ import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido } from "@/data";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useExportPdf } from "@/hooks/use-export-pdf";
 
 export default function VerPlanScreen() {
   const colors = useColors();
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { getPlanificacion } = usePlanificaciones();
+  const { exportarPDF, isExporting } = useExportPdf();
 
   const plan = getPlanificacion(id || "");
 
@@ -62,6 +64,27 @@ export default function VerPlanScreen() {
           <Text className="text-2xl font-bold text-foreground mt-3">
             Planificacion Microcurricular
           </Text>
+        </View>
+
+        {/* Botón Exportar PDF */}
+        <View className="px-5 mt-3">
+          <Pressable
+            onPress={() => exportarPDF(plan)}
+            disabled={isExporting}
+            style={({ pressed }) => [
+              styles.exportButton,
+              { backgroundColor: "#003366", opacity: pressed ? 0.8 : isExporting ? 0.6 : 1 },
+            ]}
+          >
+            {isExporting ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <MaterialIcons name="picture-as-pdf" size={20} color="#fff" />
+            )}
+            <Text style={styles.exportButtonText}>
+              {isExporting ? "Generando PDF..." : "Exportar PDF"}
+            </Text>
+          </Pressable>
         </View>
 
         {/* Destreza badge */}
@@ -410,5 +433,19 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 28,
     borderRadius: 12,
+  },
+  exportButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    gap: 8,
+  },
+  exportButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });
