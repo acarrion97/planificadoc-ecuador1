@@ -8,7 +8,6 @@ import {
   Alert,
   Platform,
   KeyboardAvoidingView,
-  FlatList,
 } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
@@ -39,10 +38,9 @@ function getTodayDate() {
 }
 
 function getSugerenciaTecnicas(): string {
-  return "Técnica: Observación directa\nInstrumento: Lista de cotejo / Rúbrica de evaluación\n\nTécnica: Prueba escrita\nInstrumento: Cuestionario de preguntas abiertas y cerradas\n\nTécnica: Portafolio\nInstrumento: Registro de evidencias de aprendizaje";
+  return "Tecnica: Observacion directa\nInstrumento: Lista de cotejo / Rubrica de evaluacion\n\nTecnica: Prueba escrita\nInstrumento: Cuestionario de preguntas abiertas y cerradas\n\nTecnica: Portafolio\nInstrumento: Registro de evidencias de aprendizaje";
 }
 
-// Paso actual del flujo
 type PasoFlujo = "seleccion-tema" | "formulario";
 
 export default function PlanificarScreen() {
@@ -53,25 +51,22 @@ export default function PlanificarScreen() {
 
   const destreza = buscarPorCodigo(codigo || "");
 
-  // Temas sugeridos
   const temasSugeridos = useMemo(
     () => (destreza ? obtenerTemasSugeridos(destreza) : []),
     [destreza]
   );
 
-  // Paso del flujo
   const [paso, setPaso] = useState<PasoFlujo>("seleccion-tema");
   const [temaSeleccionado, setTemaSeleccionado] = useState<TemaSugerido | null>(null);
   const [temaExpandido, setTemaExpandido] = useState<string | null>(null);
 
-  // Campos del formulario
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
   const [grado, setGrado] = useState(
     destreza ? SUBNIVEL_GRADOS[destreza.subnivel] : ""
   );
   const [fecha, setFecha] = useState(getTodayDate());
-  const [periodos, setPeriodos] = useState("2");
+  const [periodos, setPeriodos] = useState("1");
   const [objetivoAprendizaje, setObjetivoAprendizaje] = useState(
     destreza?.objetivos[0] || ""
   );
@@ -109,25 +104,20 @@ export default function PlanificarScreen() {
 
   const areaInfo = AREAS_INFO[destreza.area];
 
-  // Cuando el usuario selecciona un tema, rellenar los campos automáticamente
   const handleSeleccionarTema = (tema: TemaSugerido) => {
     setTemaSeleccionado(tema);
     setObjetivoAprendizaje(tema.objetivoClase);
 
-    // Generar texto de actividades desde la estructura de clase
     const { estructura } = tema;
     const actividadesTexto = [
-      `ANTICIPACIÓN (${estructura.anticipacion.duracion})`,
-      ...estructura.anticipacion.actividades.map((a, i) => `${i + 1}. ${a}`),
+      `ANTICIPACION (${estructura.anticipacion.duracion})`,
+      ...estructura.anticipacion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
       "",
-      `CONSTRUCCIÓN DEL CONOCIMIENTO (${estructura.construccion.duracion})`,
-      ...estructura.construccion.actividades.map((a, i) => `${i + 1}. ${a}`),
+      `DESARROLLO (${estructura.desarrollo.duracion})`,
+      ...estructura.desarrollo.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
       "",
-      `CONSOLIDACIÓN (${estructura.consolidacion.duracion})`,
-      ...estructura.consolidacion.actividades.map((a, i) => `${i + 1}. ${a}`),
-      "",
-      `RETROALIMENTACIÓN (${estructura.retroalimentacion.duracion})`,
-      ...estructura.retroalimentacion.actividades.map((a, i) => `${i + 1}. ${a}`),
+      `CIERRE (${estructura.cierre.duracion})`,
+      ...estructura.cierre.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
     ].join("\n");
 
     setActividades(actividadesTexto);
@@ -138,22 +128,21 @@ export default function PlanificarScreen() {
 
   const handleSinTema = () => {
     setTemaSeleccionado(null);
-    // Usar actividades genéricas
     const sugerenciasGenericas: Record<string, string> = {
-      M: "1. Activación de conocimientos previos mediante preguntas generadoras.\n2. Presentación del tema con material concreto y manipulativo.\n3. Trabajo en parejas para resolver ejercicios guiados.\n4. Práctica individual con ejercicios de aplicación.\n5. Socialización de resultados y retroalimentación grupal.",
-      LL: "1. Exploración de conocimientos previos a través de lluvia de ideas.\n2. Lectura compartida del texto seleccionado.\n3. Análisis guiado del contenido y estructura textual.\n4. Producción escrita individual o en parejas.\n5. Revisión entre pares y corrección colaborativa.",
-      CN: "1. Observación directa o indirecta del fenómeno natural.\n2. Formulación de hipótesis por parte de los estudiantes.\n3. Experimentación guiada con materiales del entorno.\n4. Registro de observaciones y datos en cuaderno de campo.\n5. Socialización de conclusiones y elaboración de informe.",
-      CS: "1. Contextualización histórica mediante relatos o imágenes.\n2. Lectura comprensiva de fuentes primarias y secundarias.\n3. Debate dirigido sobre el tema estudiado.\n4. Elaboración de organizadores gráficos.\n5. Reflexión grupal sobre la importancia del tema en la actualidad.",
-      EF: "1. Calentamiento general y específico.\n2. Demostración de la actividad por parte del docente.\n3. Práctica guiada en grupos pequeños.\n4. Ejecución autónoma de la actividad.\n5. Vuelta a la calma y reflexión sobre lo aprendido.",
-      ECA: "1. Apreciación de obras artísticas relacionadas con el tema.\n2. Exploración libre de materiales y técnicas.\n3. Creación artística individual o colectiva.\n4. Presentación y exposición de trabajos.\n5. Reflexión y autoevaluación del proceso creativo.",
+      M: "ANTICIPACION (10 minutos)\n1. Activar conocimientos previos mediante preguntas generadoras.\n2. Presentar una situacion problema del contexto cotidiano.\n\nDESARROLLO (25 minutos)\n1. Presentar el tema con material concreto y manipulativo.\n2. Realizar practica guiada con ejercicios paso a paso.\n3. Asignar trabajo en parejas para resolver ejercicios.\n4. Proponer practica individual con ejercicios de aplicacion.\n\nCIERRE (10 minutos)\n1. Socializar resultados y corregir colectivamente.\n2. Formular preguntas de retroalimentacion sobre lo aprendido.\n3. Asignar tarea de refuerzo.",
+      LL: "ANTICIPACION (10 minutos)\n1. Explorar conocimientos previos a traves de lluvia de ideas.\n2. Presentar el proposito de la clase.\n\nDESARROLLO (25 minutos)\n1. Realizar lectura compartida del texto seleccionado.\n2. Guiar el analisis del contenido y estructura textual.\n3. Asignar produccion escrita individual o en parejas.\n4. Organizar revision entre pares y correccion colaborativa.\n\nCIERRE (10 minutos)\n1. Compartir las producciones escritas.\n2. Formular preguntas de retroalimentacion sobre el aprendizaje.\n3. Asignar tarea de extension.",
+      CN: "ANTICIPACION (10 minutos)\n1. Realizar observacion directa o indirecta del fenomeno natural.\n2. Solicitar la formulacion de hipotesis.\n\nDESARROLLO (25 minutos)\n1. Guiar la experimentacion con materiales del entorno.\n2. Explicar los conceptos cientificos con ejemplos.\n3. Solicitar el registro de observaciones y datos en cuaderno de campo.\n4. Asignar trabajo en grupos para analizar resultados.\n\nCIERRE (10 minutos)\n1. Socializar conclusiones de cada grupo.\n2. Formular preguntas de retroalimentacion.\n3. Asignar tarea de investigacion.",
+      CS: "ANTICIPACION (10 minutos)\n1. Contextualizar historicamente mediante relatos o imagenes.\n2. Explorar conocimientos previos sobre el tema.\n\nDESARROLLO (25 minutos)\n1. Guiar la lectura comprensiva de fuentes primarias y secundarias.\n2. Organizar debate dirigido sobre el tema estudiado.\n3. Solicitar la elaboracion de organizadores graficos.\n4. Asignar trabajo en grupos para profundizar el analisis.\n\nCIERRE (10 minutos)\n1. Presentar conclusiones de cada grupo.\n2. Formular preguntas de retroalimentacion.\n3. Reflexionar sobre la importancia del tema en la actualidad.",
+      EF: "ANTICIPACION (10 minutos)\n1. Dirigir calentamiento general y especifico.\n2. Explicar el objetivo de la clase.\n\nDESARROLLO (25 minutos)\n1. Demostrar la actividad paso a paso.\n2. Organizar practica guiada en grupos pequenos.\n3. Supervisar la ejecucion autonoma de la actividad.\n4. Corregir posturas y tecnicas.\n\nCIERRE (10 minutos)\n1. Dirigir vuelta a la calma con estiramientos.\n2. Formular preguntas de retroalimentacion sobre lo aprendido.\n3. Recordar la importancia de la hidratacion.",
+      ECA: "ANTICIPACION (10 minutos)\n1. Presentar obras artisticas relacionadas con el tema.\n2. Explorar conocimientos previos y sensibilizar.\n\nDESARROLLO (25 minutos)\n1. Explicar la tecnica artistica a trabajar.\n2. Permitir la exploracion libre de materiales.\n3. Guiar la creacion artistica individual o colectiva.\n4. Acompanar el proceso creativo individualmente.\n\nCIERRE (10 minutos)\n1. Organizar la presentacion y exposicion de trabajos.\n2. Formular preguntas de retroalimentacion.\n3. Promover la autoevaluacion del proceso creativo.",
     };
     const recursosGenericos: Record<string, string> = {
       M: "Texto del estudiante, cuaderno de trabajo, material concreto, pizarra, marcadores, calculadora.",
       LL: "Texto del estudiante, cuaderno de trabajo, diccionario, biblioteca del aula, papelotes, marcadores.",
-      CN: "Texto del estudiante, cuaderno de trabajo, materiales del entorno, láminas didácticas, TIC.",
-      CS: "Texto del estudiante, cuaderno de trabajo, mapas, atlas, material audiovisual, fuentes históricas.",
-      EF: "Espacio abierto o cancha, balones, conos, aros, cuerdas, silbato, cronómetro.",
-      ECA: "Materiales artísticos, papel, cartulina, materiales reciclados, instrumentos musicales.",
+      CN: "Texto del estudiante, cuaderno de trabajo, materiales del entorno, laminas didacticas, TIC.",
+      CS: "Texto del estudiante, cuaderno de trabajo, mapas, atlas, material audiovisual, fuentes historicas.",
+      EF: "Espacio abierto o cancha, balones, conos, aros, cuerdas, silbato, cronometro.",
+      ECA: "Materiales artisticos, papel, cartulina, materiales reciclados, instrumentos musicales.",
     };
     setActividades(sugerenciasGenericas[destreza.area] || sugerenciasGenericas.M);
     setRecursos(recursosGenericos[destreza.area] || recursosGenericos.M);
@@ -193,22 +182,21 @@ export default function PlanificarScreen() {
     await addPlanificacion(plan);
 
     if (Platform.OS === "web") {
-      alert("Planificación guardada correctamente");
+      alert("Planificacion guardada correctamente");
     } else {
-      Alert.alert("Guardado", "Planificación guardada correctamente");
+      Alert.alert("Guardado", "Planificacion guardada correctamente");
     }
     router.back();
     router.back();
   };
 
   // ==========================================
-  // PASO 1: Selección de tema
+  // PASO 1: Seleccion de tema
   // ==========================================
   if (paso === "seleccion-tema") {
     return (
       <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
         <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
-          {/* Header */}
           <View className="px-5 pt-4">
             <Pressable
               onPress={() => router.back()}
@@ -219,12 +207,11 @@ export default function PlanificarScreen() {
             >
               <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
               <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-                Atrás
+                Atras
               </Text>
             </Pressable>
           </View>
 
-          {/* Destreza info */}
           <View className="px-5 mt-3">
             <View
               style={[
@@ -246,7 +233,6 @@ export default function PlanificarScreen() {
             </View>
           </View>
 
-          {/* Título de sección */}
           <View className="px-5 mt-5">
             <View style={styles.stepIndicator}>
               <View style={[styles.stepBadge, { backgroundColor: colors.primary }]}>
@@ -257,11 +243,10 @@ export default function PlanificarScreen() {
               </Text>
             </View>
             <Text className="text-sm text-muted mt-2 leading-5">
-              Selecciona uno de los temas sugeridos para generar automáticamente la estructura completa de tu clase, o continúa sin tema para personalizar manualmente.
+              Selecciona uno de los temas sugeridos para generar automaticamente la estructura completa de tu clase de 45 minutos, o continua sin tema para personalizar manualmente.
             </Text>
           </View>
 
-          {/* Tarjetas de temas */}
           <View className="mt-4">
             {temasSugeridos.map((tema) => (
               <TemaCard
@@ -278,7 +263,6 @@ export default function PlanificarScreen() {
             ))}
           </View>
 
-          {/* Botón sin tema */}
           <View className="px-5 mt-4 mb-10">
             <Pressable
               onPress={handleSinTema}
@@ -302,7 +286,7 @@ export default function PlanificarScreen() {
   }
 
   // ==========================================
-  // PASO 2: Formulario de planificación
+  // PASO 2: Formulario de planificacion
   // ==========================================
   return (
     <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
@@ -311,7 +295,6 @@ export default function PlanificarScreen() {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
-          {/* Header */}
           <View className="px-5 pt-4">
             <Pressable
               onPress={() => setPaso("seleccion-tema")}
@@ -331,12 +314,11 @@ export default function PlanificarScreen() {
                 <Text style={styles.stepBadgeText}>2</Text>
               </View>
               <Text className="text-xl font-bold text-foreground ml-3">
-                Planificación Microcurricular
+                Planificacion Microcurricular
               </Text>
             </View>
           </View>
 
-          {/* Tema seleccionado badge */}
           {temaSeleccionado && (
             <View className="px-5 mt-3">
               <View
@@ -358,7 +340,6 @@ export default function PlanificarScreen() {
             </View>
           )}
 
-          {/* Destreza info (compact) */}
           <View className="px-5 mt-3">
             <View
               style={[
@@ -375,14 +356,13 @@ export default function PlanificarScreen() {
             </View>
           </View>
 
-          {/* Section: Datos Informativos */}
           <SectionTitle title="Datos Informativos" icon="info" colors={colors} />
 
           <FormField
-            label="Institución Educativa"
+            label="Institucion Educativa"
             value={institucion}
             onChangeText={setInstitucion}
-            placeholder="Nombre de la institución"
+            placeholder="Nombre de la institucion"
             colors={colors}
           />
           <FormField
@@ -413,15 +393,14 @@ export default function PlanificarScreen() {
             </View>
           </View>
           <FormField
-            label="Número de Períodos"
+            label="Numero de Periodos"
             value={periodos}
             onChangeText={setPeriodos}
-            placeholder="2"
+            placeholder="1"
             keyboardType="numeric"
             colors={colors}
           />
 
-          {/* Section: Objetivo de Aprendizaje */}
           <SectionTitle title="Objetivo de Aprendizaje" icon="flag" colors={colors} />
           <FormField
             label="Objetivo"
@@ -432,10 +411,9 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          {/* Section: Estructura de la Clase (si hay tema seleccionado) */}
           {temaSeleccionado && (
             <>
-              <SectionTitle title="Estructura de la Clase (ERCA)" icon="school" colors={colors} />
+              <SectionTitle title="Estructura de la Clase (45 min)" icon="school" colors={colors} />
               <EstructuraClaseView
                 tema={temaSeleccionado}
                 colors={colors}
@@ -444,7 +422,6 @@ export default function PlanificarScreen() {
             </>
           )}
 
-          {/* Section: Actividades */}
           <SectionTitle title="Actividades de Aprendizaje" icon="assignment" colors={colors} />
           <FormField
             label="Actividades (editable)"
@@ -455,8 +432,7 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          {/* Section: Recursos */}
-          <SectionTitle title="Recursos Didácticos" icon="inventory" colors={colors} />
+          <SectionTitle title="Recursos Didacticos" icon="inventory" colors={colors} />
           <FormField
             label="Recursos"
             value={recursos}
@@ -466,10 +442,9 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          {/* Section: Evaluación */}
-          <SectionTitle title="Evaluación" icon="assessment" colors={colors} />
+          <SectionTitle title="Evaluacion" icon="assessment" colors={colors} />
           <FormField
-            label="Indicadores de Evaluación"
+            label="Indicadores de Evaluacion"
             value={evaluacion}
             onChangeText={setEvaluacion}
             placeholder="Indicadores..."
@@ -477,15 +452,14 @@ export default function PlanificarScreen() {
             colors={colors}
           />
           <FormField
-            label="Técnicas e Instrumentos"
+            label="Tecnicas e Instrumentos"
             value={tecnicas}
             onChangeText={setTecnicas}
-            placeholder="Técnicas e instrumentos de evaluación..."
+            placeholder="Tecnicas e instrumentos de evaluacion..."
             multiline
             colors={colors}
           />
 
-          {/* Section: Observaciones */}
           <SectionTitle title="Observaciones" icon="note" colors={colors} />
           <FormField
             label="Observaciones"
@@ -496,7 +470,6 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          {/* Save button */}
           <View className="px-5 mt-6 mb-10">
             <Pressable
               onPress={handleSave}
@@ -510,7 +483,7 @@ export default function PlanificarScreen() {
               ]}
             >
               <MaterialIcons name="save" size={22} color="#fff" />
-              <Text style={styles.saveBtnText}>Guardar Planificación</Text>
+              <Text style={styles.saveBtnText}>Guardar Planificacion</Text>
             </Pressable>
           </View>
         </ScrollView>
@@ -549,7 +522,6 @@ function TemaCard({
           },
         ]}
       >
-        {/* Cabecera del tema */}
         <Pressable
           onPress={onToggleExpand}
           style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
@@ -572,10 +544,8 @@ function TemaCard({
           </View>
         </Pressable>
 
-        {/* Previsualización expandida */}
         {isExpanded && (
           <View style={styles.temaPreview}>
-            {/* Objetivo */}
             <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
               <View style={styles.previewSectionHeader}>
                 <MaterialIcons name="flag" size={16} color={areaColor} />
@@ -588,37 +558,39 @@ function TemaCard({
               </Text>
             </View>
 
-            {/* Fases ERCA */}
+            {/* Duracion total */}
+            <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
+              <View style={styles.previewSectionHeader}>
+                <MaterialIcons name="schedule" size={16} color={areaColor} />
+                <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
+                  Duracion total: 45 minutos
+                </Text>
+              </View>
+            </View>
+
+            {/* 3 Fases */}
             <FasePreview
               icon="lightbulb"
-              label="Anticipación"
+              label="Anticipacion"
               fase={tema.estructura.anticipacion}
               color="#F59E0B"
               colors={colors}
             />
             <FasePreview
               icon="build"
-              label="Construcción"
-              fase={tema.estructura.construccion}
+              label="Desarrollo"
+              fase={tema.estructura.desarrollo}
               color="#2563EB"
               colors={colors}
             />
             <FasePreview
               icon="check-circle"
-              label="Consolidación"
-              fase={tema.estructura.consolidacion}
+              label="Cierre"
+              fase={tema.estructura.cierre}
               color="#16A34A"
               colors={colors}
             />
-            <FasePreview
-              icon="refresh"
-              label="Retroalimentación"
-              fase={tema.estructura.retroalimentacion}
-              color="#7C3AED"
-              colors={colors}
-            />
 
-            {/* Recursos */}
             <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
               <View style={styles.previewSectionHeader}>
                 <MaterialIcons name="inventory" size={16} color={areaColor} />
@@ -627,11 +599,10 @@ function TemaCard({
                 </Text>
               </View>
               <Text className="text-sm text-muted mt-1">
-                {tema.recursos.join(" · ")}
+                {tema.recursos.join(" - ")}
               </Text>
             </View>
 
-            {/* Botón seleccionar */}
             <Pressable
               onPress={onSelect}
               style={({ pressed }) => [
@@ -654,7 +625,7 @@ function TemaCard({
 }
 
 // ==========================================
-// COMPONENTE: Previsualización de fase ERCA
+// COMPONENTE: Previsualizacion de fase
 // ==========================================
 function FasePreview({
   icon,
@@ -680,9 +651,9 @@ function FasePreview({
           {fase.duracion}
         </Text>
       </View>
-      {fase.actividades.map((act, idx) => (
+      {fase.actividades.map((act: string, idx: number) => (
         <View key={idx} style={styles.actividadRow}>
-          <Text style={[styles.actividadBullet, { color }]}>•</Text>
+          <Text style={[styles.actividadBullet, { color }]}>{"\u2022"}</Text>
           <Text className="text-xs text-foreground flex-1 leading-4" style={{ marginLeft: 6 }}>
             {act}
           </Text>
@@ -705,14 +676,21 @@ function EstructuraClaseView({
   areaColor: string;
 }) {
   const fases = [
-    { key: "anticipacion" as const, label: "Anticipación", color: "#F59E0B", icon: "lightbulb" },
-    { key: "construccion" as const, label: "Construcción del Conocimiento", color: "#2563EB", icon: "build" },
-    { key: "consolidacion" as const, label: "Consolidación", color: "#16A34A", icon: "check-circle" },
-    { key: "retroalimentacion" as const, label: "Retroalimentación", color: "#7C3AED", icon: "refresh" },
+    { key: "anticipacion" as const, label: "Anticipacion", color: "#F59E0B", icon: "lightbulb" },
+    { key: "desarrollo" as const, label: "Desarrollo", color: "#2563EB", icon: "build" },
+    { key: "cierre" as const, label: "Cierre", color: "#16A34A", icon: "check-circle" },
   ];
 
   return (
     <View className="px-5 mt-2">
+      {/* Duracion total badge */}
+      <View style={[styles.totalDurationBadge, { backgroundColor: areaColor + "10", borderColor: areaColor + "30" }]}>
+        <MaterialIcons name="schedule" size={16} color={areaColor} />
+        <Text style={{ color: areaColor, fontSize: 13, fontWeight: "700", marginLeft: 6 }}>
+          Duracion total: 45 minutos
+        </Text>
+      </View>
+
       {fases.map((fase) => {
         const data = tema.estructura[fase.key];
         return (
@@ -735,7 +713,7 @@ function EstructuraClaseView({
                 </Text>
               </View>
             </View>
-            {data.actividades.map((act, idx) => (
+            {data.actividades.map((act: string, idx: number) => (
               <View key={idx} style={styles.faseActRow}>
                 <View style={[styles.faseActNum, { backgroundColor: fase.color + "15" }]}>
                   <Text style={{ color: fase.color, fontSize: 11, fontWeight: "700" }}>
@@ -865,7 +843,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "800",
   },
-  // Tema card
   temaCard: {
     borderRadius: 16,
     overflow: "hidden",
@@ -935,7 +912,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderStyle: "dashed",
   },
-  // Tema badge in form
   temaBadge: {
     flexDirection: "row",
     alignItems: "center",
@@ -943,7 +919,14 @@ const styles = StyleSheet.create({
     padding: 14,
     borderWidth: 1,
   },
-  // Fase cards in form
+  totalDurationBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 10,
+    padding: 10,
+    borderWidth: 1,
+    marginBottom: 4,
+  },
   faseCard: {
     borderRadius: 12,
     borderWidth: 1,
@@ -981,7 +964,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  // Form
   sectionTitle: {
     flexDirection: "row",
     alignItems: "center",

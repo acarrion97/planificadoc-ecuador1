@@ -20,3 +20,8 @@
 - [x] Implementar pantalla de selección de temas con previsualización
 - [x] Implementar generación automática de estructura de clase al seleccionar un tema
 - [x] Integrar selección de tema y estructura de clase en la pantalla de planificación
+- [x] Cambiar duración de clase de 55 min a 45 min (10 anticipación, 25 desarrollo, 10 cierre)
+- [x] Unificar consolidación y retroalimentación en una sola fase "Cierre" que incluya preguntas de retroalimentación
+- [x] Cambiar todos los verbos de las actividades a infinitivo (ej: "Motivar a los estudiantes..." en vez de "Los estudiantes intentan...")
+- [x] Actualizar los tipos de datos para reflejar la nueva estructura de 3 fases
+- [ ] Preparar guía para versión premium con GPT personalizado

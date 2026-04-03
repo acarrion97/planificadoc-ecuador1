@@ -29,29 +29,24 @@ export interface Destreza {
 }
 
 /**
- * Estructura de una clase completa siguiendo el ciclo de aprendizaje ERCA
+ * Fase de una clase con título, duración y actividades.
+ */
+export interface FaseClase {
+  titulo: string;
+  duracion: string;
+  actividades: string[];
+}
+
+/**
+ * Estructura de una clase de 45 minutos distribuida en 3 fases:
+ * - Anticipación (10 min): Activación de conocimientos previos
+ * - Desarrollo (25 min): Construcción del conocimiento
+ * - Cierre (10 min): Consolidación + preguntas de retroalimentación
  */
 export interface EstructuraClase {
-  anticipacion: {
-    titulo: string;
-    duracion: string;
-    actividades: string[];
-  };
-  construccion: {
-    titulo: string;
-    duracion: string;
-    actividades: string[];
-  };
-  consolidacion: {
-    titulo: string;
-    duracion: string;
-    actividades: string[];
-  };
-  retroalimentacion: {
-    titulo: string;
-    duracion: string;
-    actividades: string[];
-  };
+  anticipacion: FaseClase;
+  desarrollo: FaseClase;
+  cierre: FaseClase;
 }
 
 /**

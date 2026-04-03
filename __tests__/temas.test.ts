@@ -4,26 +4,26 @@ import { TODAS_LAS_DESTREZAS } from "../data";
 import { Destreza, TemaSugerido, EstructuraClase } from "../data/types";
 
 describe("Temas Sugeridos", () => {
-  it("debe retornar temas para destrezas de Matemática Básica Elemental (M.2.1.x)", () => {
+  it("debe retornar temas para destrezas de Matematica Basica Elemental (M.2.1.x)", () => {
     const destreza = TODAS_LAS_DESTREZAS.find((d) => d.codigo === "M.2.1.1");
     expect(destreza).toBeDefined();
     const temas = obtenerTemasSugeridos(destreza!);
     expect(temas.length).toBeGreaterThanOrEqual(2);
   });
 
-  it("debe retornar temas para destrezas de Matemática Básica Media (M.3.1.x)", () => {
+  it("debe retornar temas para destrezas de Matematica Basica Media (M.3.1.x)", () => {
     const destreza = TODAS_LAS_DESTREZAS.find((d) => d.codigo === "M.3.1.1");
     expect(destreza).toBeDefined();
     const temas = obtenerTemasSugeridos(destreza!);
     expect(temas.length).toBeGreaterThanOrEqual(2);
   });
 
-  it("cada tema debe tener la estructura completa ERCA", () => {
+  it("cada tema debe tener la estructura completa de 3 fases (anticipacion, desarrollo, cierre)", () => {
     const destreza = TODAS_LAS_DESTREZAS.find((d) => d.codigo === "M.2.1.1");
     const temas = obtenerTemasSugeridos(destreza!);
 
     for (const tema of temas) {
-      // Campos básicos
+      // Campos basicos
       expect(tema.id).toBeTruthy();
       expect(tema.titulo).toBeTruthy();
       expect(tema.descripcionBreve).toBeTruthy();
@@ -31,37 +31,42 @@ describe("Temas Sugeridos", () => {
       expect(tema.recursos.length).toBeGreaterThan(0);
       expect(tema.evaluacionFormativa).toBeTruthy();
 
-      // Estructura ERCA
+      // Estructura de 3 fases
       const { estructura } = tema;
       expect(estructura).toBeDefined();
 
-      // Anticipación
+      // Anticipacion (10 min)
       expect(estructura.anticipacion).toBeDefined();
       expect(estructura.anticipacion.titulo).toBeTruthy();
       expect(estructura.anticipacion.duracion).toBeTruthy();
       expect(estructura.anticipacion.actividades.length).toBeGreaterThan(0);
 
-      // Construcción
-      expect(estructura.construccion).toBeDefined();
-      expect(estructura.construccion.titulo).toBeTruthy();
-      expect(estructura.construccion.duracion).toBeTruthy();
-      expect(estructura.construccion.actividades.length).toBeGreaterThan(0);
+      // Desarrollo (25 min)
+      expect(estructura.desarrollo).toBeDefined();
+      expect(estructura.desarrollo.titulo).toBeTruthy();
+      expect(estructura.desarrollo.duracion).toBeTruthy();
+      expect(estructura.desarrollo.actividades.length).toBeGreaterThan(0);
 
-      // Consolidación
-      expect(estructura.consolidacion).toBeDefined();
-      expect(estructura.consolidacion.titulo).toBeTruthy();
-      expect(estructura.consolidacion.duracion).toBeTruthy();
-      expect(estructura.consolidacion.actividades.length).toBeGreaterThan(0);
-
-      // Retroalimentación
-      expect(estructura.retroalimentacion).toBeDefined();
-      expect(estructura.retroalimentacion.titulo).toBeTruthy();
-      expect(estructura.retroalimentacion.duracion).toBeTruthy();
-      expect(estructura.retroalimentacion.actividades.length).toBeGreaterThan(0);
+      // Cierre (10 min)
+      expect(estructura.cierre).toBeDefined();
+      expect(estructura.cierre.titulo).toBeTruthy();
+      expect(estructura.cierre.duracion).toBeTruthy();
+      expect(estructura.cierre.actividades.length).toBeGreaterThan(0);
     }
   });
 
-  it("cada tema debe tener un ID único", () => {
+  it("la duracion total debe ser 45 minutos (10 + 25 + 10)", () => {
+    const destreza = TODAS_LAS_DESTREZAS.find((d) => d.codigo === "M.2.1.1");
+    const temas = obtenerTemasSugeridos(destreza!);
+
+    for (const tema of temas) {
+      expect(tema.estructura.anticipacion.duracion).toBe("10 minutos");
+      expect(tema.estructura.desarrollo.duracion).toBe("25 minutos");
+      expect(tema.estructura.cierre.duracion).toBe("10 minutos");
+    }
+  });
+
+  it("cada tema debe tener un ID unico", () => {
     const destreza = TODAS_LAS_DESTREZAS.find((d) => d.codigo === "M.3.1.1");
     const temas = obtenerTemasSugeridos(destreza!);
     const ids = temas.map((t) => t.id);
@@ -69,18 +74,15 @@ describe("Temas Sugeridos", () => {
     expect(uniqueIds.size).toBe(ids.length);
   });
 
-  it("debe generar temas genéricos para destrezas sin temas específicos", () => {
-    // Buscar una destreza que probablemente no tenga match exacto
+  it("debe generar temas genericos para destrezas sin temas especificos", () => {
     const destreza = TODAS_LAS_DESTREZAS.find((d) => d.codigo === "M.4.2.1");
     if (destreza) {
       const temas = obtenerTemasSugeridos(destreza);
       expect(temas.length).toBeGreaterThanOrEqual(1);
-      // Los temas genéricos también deben tener estructura ERCA
       for (const tema of temas) {
         expect(tema.estructura.anticipacion.actividades.length).toBeGreaterThan(0);
-        expect(tema.estructura.construccion.actividades.length).toBeGreaterThan(0);
-        expect(tema.estructura.consolidacion.actividades.length).toBeGreaterThan(0);
-        expect(tema.estructura.retroalimentacion.actividades.length).toBeGreaterThan(0);
+        expect(tema.estructura.desarrollo.actividades.length).toBeGreaterThan(0);
+        expect(tema.estructura.cierre.actividades.length).toBeGreaterThan(0);
       }
     }
   });
@@ -106,7 +108,7 @@ describe("Temas Sugeridos", () => {
     expect(temas.length).toBeGreaterThanOrEqual(1);
   });
 
-  it("debe retornar temas para destrezas de Educación Física", () => {
+  it("debe retornar temas para destrezas de Educacion Fisica", () => {
     const destreza = TODAS_LAS_DESTREZAS.find((d) => d.area === "EF");
     expect(destreza).toBeDefined();
     const temas = obtenerTemasSugeridos(destreza!);
@@ -124,6 +126,26 @@ describe("Temas Sugeridos", () => {
     for (const destreza of TODAS_LAS_DESTREZAS) {
       const temas = obtenerTemasSugeridos(destreza);
       expect(temas.length).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it("las actividades deben usar verbos en infinitivo", () => {
+    const destreza = TODAS_LAS_DESTREZAS.find((d) => d.codigo === "M.2.1.1");
+    const temas = obtenerTemasSugeridos(destreza!);
+
+    for (const tema of temas) {
+      // Verificar que las actividades comienzan con verbo en infinitivo (terminan en ar, er, ir)
+      const todasActividades = [
+        ...tema.estructura.anticipacion.actividades,
+        ...tema.estructura.desarrollo.actividades,
+        ...tema.estructura.cierre.actividades,
+      ];
+      for (const act of todasActividades) {
+        // La primera palabra debe ser un verbo en infinitivo
+        const primeraPalabra = act.split(" ")[0].toLowerCase();
+        const esInfinitivo = primeraPalabra.endsWith("ar") || primeraPalabra.endsWith("er") || primeraPalabra.endsWith("ir");
+        expect(esInfinitivo).toBe(true);
+      }
     }
   });
 });

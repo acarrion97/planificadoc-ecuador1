@@ -21,7 +21,7 @@ export default function VerPlanScreen() {
         <View className="flex-1 items-center justify-center px-5">
           <MaterialIcons name="error-outline" size={56} color={colors.error} />
           <Text className="text-lg font-semibold text-foreground mt-4">
-            Planificación no encontrada
+            Planificacion no encontrada
           </Text>
           <Pressable
             onPress={() => router.back()}
@@ -56,11 +56,11 @@ export default function VerPlanScreen() {
           >
             <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              Atrás
+              Atras
             </Text>
           </Pressable>
           <Text className="text-2xl font-bold text-foreground mt-3">
-            Planificación Microcurricular
+            Planificacion Microcurricular
           </Text>
         </View>
 
@@ -108,16 +108,16 @@ export default function VerPlanScreen() {
 
         {/* Datos informativos */}
         <SectionCard title="Datos Informativos" icon="info" colors={colors}>
-          <DataRow label="Institución" value={plan.institucion || "—"} colors={colors} />
+          <DataRow label="Institucion" value={plan.institucion || "\u2014"} colors={colors} />
           <DataRow label="Docente" value={plan.docente} colors={colors} />
           <DataRow label="Grado / Curso" value={plan.grado} colors={colors} />
           <DataRow label="Asignatura" value={plan.asignatura} colors={colors} />
           <DataRow label="Fecha" value={plan.fecha} colors={colors} />
-          <DataRow label="Períodos" value={plan.periodos} colors={colors} />
+          <DataRow label="Periodos" value={plan.periodos} colors={colors} />
         </SectionCard>
 
         {/* Destreza */}
-        <SectionCard title="Destreza con Criterio de Desempeño" icon="star" colors={colors}>
+        <SectionCard title="Destreza con Criterio de Desempeno" icon="star" colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
             {plan.destreza.descripcion}
@@ -136,7 +136,7 @@ export default function VerPlanScreen() {
           </Text>
         </SectionCard>
 
-        {/* Estructura de la Clase ERCA */}
+        {/* Estructura de la Clase - 3 fases */}
         {tema && (
           <View className="px-5 mt-4">
             <View style={styles.sectionHeader}>
@@ -145,36 +145,29 @@ export default function VerPlanScreen() {
                 className="text-base font-semibold text-foreground"
                 style={{ marginLeft: 8 }}
               >
-                Estructura de la Clase (ERCA)
+                Estructura de la Clase (45 min)
               </Text>
             </View>
 
             <FaseCardView
-              label="Anticipación"
+              label="Anticipacion"
               fase={tema.estructura.anticipacion}
               color="#F59E0B"
               icon="lightbulb"
               colors={colors}
             />
             <FaseCardView
-              label="Construcción del Conocimiento"
-              fase={tema.estructura.construccion}
+              label="Desarrollo"
+              fase={tema.estructura.desarrollo}
               color="#2563EB"
               icon="build"
               colors={colors}
             />
             <FaseCardView
-              label="Consolidación"
-              fase={tema.estructura.consolidacion}
+              label="Cierre"
+              fase={tema.estructura.cierre}
               color="#16A34A"
               icon="check-circle"
-              colors={colors}
-            />
-            <FaseCardView
-              label="Retroalimentación"
-              fase={tema.estructura.retroalimentacion}
-              color="#7C3AED"
-              icon="refresh"
               colors={colors}
             />
           </View>
@@ -188,21 +181,21 @@ export default function VerPlanScreen() {
         </SectionCard>
 
         {/* Recursos */}
-        <SectionCard title="Recursos Didácticos" icon="inventory" colors={colors}>
+        <SectionCard title="Recursos Didacticos" icon="inventory" colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.recursos}
           </Text>
         </SectionCard>
 
-        {/* Evaluación */}
-        <SectionCard title="Indicadores de Evaluación" icon="assessment" colors={colors}>
+        {/* Evaluacion */}
+        <SectionCard title="Indicadores de Evaluacion" icon="assessment" colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.evaluacion}
           </Text>
         </SectionCard>
 
-        {/* Técnicas */}
-        <SectionCard title="Técnicas e Instrumentos" icon="checklist" colors={colors}>
+        {/* Tecnicas */}
+        <SectionCard title="Tecnicas e Instrumentos" icon="checklist" colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.tecnicasInstrumentos}
           </Text>
@@ -224,7 +217,7 @@ export default function VerPlanScreen() {
 }
 
 // ==========================================
-// COMPONENTE: Tarjeta de fase ERCA
+// COMPONENTE: Tarjeta de fase
 // ==========================================
 function FaseCardView({
   label,
@@ -258,7 +251,7 @@ function FaseCardView({
           </Text>
         </View>
       </View>
-      {fase.actividades.map((act, idx) => (
+      {fase.actividades.map((act: string, idx: number) => (
         <View key={idx} style={styles.faseActRow}>
           <View style={[styles.faseActNum, { backgroundColor: color + "15" }]}>
             <Text style={{ color, fontSize: 11, fontWeight: "700" }}>
@@ -375,7 +368,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  // Fase cards
   faseCard: {
     borderRadius: 12,
     borderWidth: 1,
