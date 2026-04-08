@@ -33,3 +33,11 @@
 - [x] Incluir tabla de datos informativos (institución, docente, área, grado, fecha)
 - [x] Incluir tabla principal con destrezas, indicadores, estrategias y evaluación
 - [x] Incluir sección de recursos y observaciones
+- [x] Exportar versión web estática de la app para Vercel
+- [x] Preparar guía paso a paso para desplegar en Vercel con dominio personalizado
+- [x] Corregir íconos que aparecen como cuadrados vacíos en la versión web (Material Icons no renderizan)
+- [x] Implementar sistema de códigos de acceso (access-control) con lista de códigos válidos
+- [x] Crear pantalla de paywall con campo para ingresar código y botón de contacto WhatsApp
+- [x] Integrar paywall en el flujo de la app (bloquear acceso sin código válido)
+- [x] Guardar estado de acceso en AsyncStorage para persistencia
+- [x] Escribir pruebas unitarias para el sistema de códigos de acceso
