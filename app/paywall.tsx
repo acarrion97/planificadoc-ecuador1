@@ -18,7 +18,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 // Número de WhatsApp del vendedor (cambiar por el tuyo)
 // Formato internacional sin + ni espacios: 593XXXXXXXXX
-const WHATSAPP_NUMBER = "593XXXXXXXXX";
+const WHATSAPP_NUMBER = "593978833533";
 
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hola, quiero adquirir PlanificaDoc ($5). ¿Cómo puedo realizar el pago?"

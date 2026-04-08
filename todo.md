@@ -41,3 +41,4 @@
 - [x] Integrar paywall en el flujo de la app (bloquear acceso sin código válido)
 - [x] Guardar estado de acceso en AsyncStorage para persistencia
 - [x] Escribir pruebas unitarias para el sistema de códigos de acceso
+- [x] Configurar número de WhatsApp real del propietario en la pantalla de paywall
