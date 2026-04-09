@@ -44,3 +44,8 @@
 - [x] Configurar número de WhatsApp real del propietario en la pantalla de paywall
 - [x] Generar nuevo build web estático con paywall para actualizar en Vercel
 - [x] Corregir íconos del paywall que aparecen como cuadrados vacíos en móvil web
+- [x] Completar todas las destrezas de Matemática (Elemental, Media, Superior, Bachillerato) del currículo oficial MinEduc
+- [x] Completar todas las destrezas de Lengua y Literatura (Elemental, Media, Superior, Bachillerato) del currículo oficial MinEduc
+- [x] Actualizar contador de destrezas en el paywall
+- [x] Generar temas sugeridos para las nuevas destrezas (usa generador genérico existente)
+- [x] Rebuild y redeploy a Vercel con las destrezas completas

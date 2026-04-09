@@ -117,7 +117,7 @@ export default function PaywallScreen() {
             Planifica tu semana en 5 minutos
           </Text>
           <View style={styles.featureList}>
-            <FeatureRow emoji="🔍" text="83 destrezas del currículo ecuatoriano" color={colors.foreground} />
+            <FeatureRow emoji="🔍" text="490 destrezas del currículo ecuatoriano" color={colors.foreground} />
             <FeatureRow emoji="✨" text="Temas sugeridos con estructura de clase ERCA" color={colors.foreground} />
             <FeatureRow emoji="📄" text="Exporta a PDF con formato oficial del MinEduc" color={colors.foreground} />
             <FeatureRow emoji="💾" text="Guarda y gestiona tus planificaciones." color={colors.foreground} />
