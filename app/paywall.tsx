@@ -117,36 +117,11 @@ export default function PaywallScreen() {
             Planifica tu semana en 5 minutos
           </Text>
           <View style={styles.featureList}>
-            <FeatureItem
-              icon="search"
-              text="83 destrezas del currículo ecuatoriano"
-              color={colors.foreground}
-              mutedColor={colors.muted}
-            />
-            <FeatureItem
-              icon="auto-awesome"
-              text="Temas sugeridos con estructura de clase ERCA"
-              color={colors.foreground}
-              mutedColor={colors.muted}
-            />
-            <FeatureItem
-              icon="picture-as-pdf"
-              text="Exporta a PDF con formato oficial del MinEduc"
-              color={colors.foreground}
-              mutedColor={colors.muted}
-            />
-            <FeatureItem
-              icon="save"
-              text="Guarda y gestiona tus planificaciones"
-              color={colors.foreground}
-              mutedColor={colors.muted}
-            />
-            <FeatureItem
-              icon="update"
-              text="Actualizaciones y nuevas destrezas incluidas"
-              color={colors.foreground}
-              mutedColor={colors.muted}
-            />
+            <FeatureRow emoji="🔍" text="83 destrezas del currículo ecuatoriano" color={colors.foreground} />
+            <FeatureRow emoji="✨" text="Temas sugeridos con estructura de clase ERCA" color={colors.foreground} />
+            <FeatureRow emoji="📄" text="Exporta a PDF con formato oficial del MinEduc" color={colors.foreground} />
+            <FeatureRow emoji="💾" text="Guarda y gestiona tus planificaciones." color={colors.foreground} />
+            <FeatureRow emoji="🔄" text="Actualizaciones y nuevas destrezas incluidas." color={colors.foreground} />
           </View>
         </View>
 
@@ -259,20 +234,18 @@ export default function PaywallScreen() {
   );
 }
 
-function FeatureItem({
-  icon,
+function FeatureRow({
+  emoji,
   text,
   color,
-  mutedColor,
 }: {
-  icon: string;
+  emoji: string;
   text: string;
   color: string;
-  mutedColor: string;
 }) {
   return (
     <View style={styles.featureItem}>
-      <MaterialIcons name={icon as any} size={20} color={mutedColor} />
+      <Text style={{ fontSize: 18 }}>{emoji}</Text>
       <Text style={[styles.featureText, { color }]}>{text}</Text>
     </View>
   );

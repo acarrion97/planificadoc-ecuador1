@@ -42,3 +42,5 @@
 - [x] Guardar estado de acceso en AsyncStorage para persistencia
 - [x] Escribir pruebas unitarias para el sistema de códigos de acceso
 - [x] Configurar número de WhatsApp real del propietario en la pantalla de paywall
+- [x] Generar nuevo build web estático con paywall para actualizar en Vercel
+- [x] Corregir íconos del paywall que aparecen como cuadrados vacíos en móvil web
