@@ -49,3 +49,4 @@
 - [x] Actualizar contador de destrezas en el paywall
 - [x] Generar temas sugeridos para las nuevas destrezas (usa generador genérico existente)
 - [x] Rebuild y redeploy a Vercel con las destrezas completas
+- [x] Corregir íconos de Material Icons en paywall (campo código y botón Activar Acceso) que aparecen como cuadrados

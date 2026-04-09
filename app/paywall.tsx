@@ -14,7 +14,6 @@ import { Pressable } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { useAccess } from "@/lib/access-control";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 // Número de WhatsApp del vendedor (cambiar por el tuyo)
 // Formato internacional sin + ni espacios: 593XXXXXXXXX
@@ -69,7 +68,7 @@ export default function PaywallScreen() {
       <ScreenContainer edges={["top", "bottom", "left", "right"]}>
         <View style={styles.successContainer}>
           <View style={[styles.successIcon, { backgroundColor: colors.success + "20" }]}>
-            <MaterialIcons name="check-circle" size={64} color={colors.success} />
+            <Text style={{ fontSize: 56 }}>✅</Text>
           </View>
           <Text style={[styles.successTitle, { color: colors.foreground }]}>
             Acceso Activado
@@ -146,7 +145,7 @@ export default function PaywallScreen() {
             { backgroundColor: "#25D366", opacity: pressed ? 0.9 : 1 },
           ]}
         >
-          <MaterialIcons name="chat" size={22} color="#FFFFFF" />
+            <Text style={{ fontSize: 20 }}>💬</Text>
           <Text style={styles.whatsappButtonText}>
             Comprar por WhatsApp
           </Text>
@@ -176,7 +175,7 @@ export default function PaywallScreen() {
               },
             ]}
           >
-            <MaterialIcons name="vpn-key" size={20} color={colors.muted} />
+            <Text style={{ fontSize: 18 }}>🔑</Text>
             <TextInput
               style={[styles.codeInput, { color: colors.foreground }]}
               placeholder="Ingresa tu código de acceso"
@@ -194,7 +193,7 @@ export default function PaywallScreen() {
 
           {error ? (
             <View style={styles.errorContainer}>
-              <MaterialIcons name="error-outline" size={16} color={colors.error} />
+              <Text style={{ fontSize: 14 }}>⚠️</Text>
               <Text style={[styles.errorText, { color: colors.error }]}>
                 {error}
               </Text>
@@ -216,7 +215,7 @@ export default function PaywallScreen() {
               <ActivityIndicator size="small" color="#FFFFFF" />
             ) : (
               <>
-                <MaterialIcons name="lock-open" size={20} color="#FFFFFF" />
+                <Text style={{ fontSize: 18 }}>🔓</Text>
                 <Text style={styles.unlockButtonText}>Activar Acceso</Text>
               </>
             )}
