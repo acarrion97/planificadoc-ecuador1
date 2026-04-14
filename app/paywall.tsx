@@ -120,6 +120,7 @@ export default function PaywallScreen() {
             <FeatureRow emoji="✨" text="Temas sugeridos con estructura de clase ERCA" color={colors.foreground} />
             <FeatureRow emoji="📄" text="Exporta a PDF con formato oficial del MinEduc" color={colors.foreground} />
             <FeatureRow emoji="💾" text="Guarda y gestiona tus planificaciones." color={colors.foreground} />
+            <FeatureRow emoji="♿" text="Diseño Universal para el Aprendizaje (DUA) integrado" color={colors.foreground} />
             <FeatureRow emoji="🔄" text="Actualizaciones y nuevas destrezas incluidas." color={colors.foreground} />
           </View>
         </View>

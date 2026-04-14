@@ -24,6 +24,8 @@ import {
   obtenerTemasSugeridos,
   TemaSugerido,
   Planificacion,
+  generarTextoDUA,
+  DUA_PRINCIPIOS,
 } from "@/data";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useExportPdf } from "@/hooks/use-export-pdf";
@@ -81,6 +83,9 @@ export default function PlanificarScreen() {
   );
   const [tecnicas, setTecnicas] = useState(getSugerenciaTecnicas());
   const [observaciones, setObservaciones] = useState("");
+  const [duaRepresentacion, setDuaRepresentacion] = useState("");
+  const [duaAccionExpresion, setDuaAccionExpresion] = useState("");
+  const [duaImplicacion, setDuaImplicacion] = useState("");
 
   if (!destreza) {
     return (
@@ -111,6 +116,16 @@ export default function PlanificarScreen() {
   const handleSeleccionarTema = (tema: TemaSugerido) => {
     setTemaSeleccionado(tema);
     setObjetivoAprendizaje(tema.objetivoClase);
+    // Auto-llenar DUA con estrategias del área
+    if (destreza) {
+      const textoDUA = generarTextoDUA(destreza.area);
+      const partes = textoDUA.split("\n\n");
+      if (partes.length >= 3) {
+        setDuaRepresentacion(partes[0]);
+        setDuaAccionExpresion(partes[1]);
+        setDuaImplicacion(partes[2]);
+      }
+    }
 
     const { estructura } = tema;
     const actividadesTexto = [
@@ -150,6 +165,16 @@ export default function PlanificarScreen() {
     };
     setActividades(sugerenciasGenericas[destreza.area] || sugerenciasGenericas.M);
     setRecursos(recursosGenericos[destreza.area] || recursosGenericos.M);
+    // Auto-llenar DUA
+    if (destreza) {
+      const textoDUA = generarTextoDUA(destreza.area);
+      const partes = textoDUA.split("\n\n");
+      if (partes.length >= 3) {
+        setDuaRepresentacion(partes[0]);
+        setDuaAccionExpresion(partes[1]);
+        setDuaImplicacion(partes[2]);
+      }
+    }
     setPaso("formulario");
   };
 
@@ -179,6 +204,11 @@ export default function PlanificarScreen() {
       evaluacion: evaluacion.trim(),
       tecnicasInstrumentos: tecnicas.trim(),
       observaciones: observaciones.trim(),
+      dua: {
+        representacion: duaRepresentacion.trim(),
+        accionExpresion: duaAccionExpresion.trim(),
+        implicacion: duaImplicacion.trim(),
+      },
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -455,6 +485,73 @@ export default function PlanificarScreen() {
             value={tecnicas}
             onChangeText={setTecnicas}
             placeholder="Tecnicas e instrumentos de evaluacion..."
+            multiline
+            colors={colors}
+          />
+
+          {/* ===== SECCIÓN DUA ===== */}
+          <SectionTitle title="Diseño Universal para el Aprendizaje (DUA)" icon="accessibility" colors={colors} />
+          <View className="px-5 mt-1 mb-1">
+            <View style={[styles.duaBanner, { backgroundColor: "#7C3AED" + "10", borderColor: "#7C3AED" + "30" }]}>
+              <Text style={{ color: "#7C3AED", fontSize: 12, fontWeight: "600", textAlign: "center" }}>
+                Adaptaciones curriculares basadas en los 3 principios del DUA
+              </Text>
+            </View>
+          </View>
+
+          <View className="px-5 mt-2">
+            <View style={[styles.duaPrincipioHeader, { backgroundColor: "#2563EB" + "12" }]}>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: "#2563EB" }}>
+                Principio 1: Múltiples formas de Representación
+              </Text>
+              <Text style={{ fontSize: 10, color: "#2563EB", opacity: 0.7 }}>
+                El QUÉ del aprendizaje
+              </Text>
+            </View>
+          </View>
+          <FormField
+            label="Estrategias de Representación"
+            value={duaRepresentacion}
+            onChangeText={setDuaRepresentacion}
+            placeholder="Cómo presentará la información de múltiples formas..."
+            multiline
+            colors={colors}
+          />
+
+          <View className="px-5 mt-2">
+            <View style={[styles.duaPrincipioHeader, { backgroundColor: "#16A34A" + "12" }]}>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: "#16A34A" }}>
+                Principio 2: Múltiples formas de Acción y Expresión
+              </Text>
+              <Text style={{ fontSize: 10, color: "#16A34A", opacity: 0.7 }}>
+                El CÓMO del aprendizaje
+              </Text>
+            </View>
+          </View>
+          <FormField
+            label="Estrategias de Acción y Expresión"
+            value={duaAccionExpresion}
+            onChangeText={setDuaAccionExpresion}
+            placeholder="Cómo los estudiantes demostrarán lo aprendido..."
+            multiline
+            colors={colors}
+          />
+
+          <View className="px-5 mt-2">
+            <View style={[styles.duaPrincipioHeader, { backgroundColor: "#D97706" + "12" }]}>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: "#D97706" }}>
+                Principio 3: Múltiples formas de Implicación
+              </Text>
+              <Text style={{ fontSize: 10, color: "#D97706", opacity: 0.7 }}>
+                El POR QUÉ del aprendizaje
+              </Text>
+            </View>
+          </View>
+          <FormField
+            label="Estrategias de Implicación"
+            value={duaImplicacion}
+            onChangeText={setDuaImplicacion}
+            placeholder="Cómo motivar e involucrar a todos los estudiantes..."
             multiline
             colors={colors}
           />
@@ -1003,5 +1100,16 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 28,
     borderRadius: 12,
+  },
+  duaBanner: {
+    borderRadius: 10,
+    padding: 10,
+    borderWidth: 1,
+    alignItems: "center" as const,
+  },
+  duaPrincipioHeader: {
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 2,
   },
 });

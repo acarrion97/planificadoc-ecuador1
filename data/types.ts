@@ -78,6 +78,11 @@ export interface Planificacion {
   evaluacion: string;
   tecnicasInstrumentos: string;
   observaciones: string;
+  dua?: {
+    representacion: string;
+    accionExpresion: string;
+    implicacion: string;
+  };
   createdAt: string;
   updatedAt: string;
 }

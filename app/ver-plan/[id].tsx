@@ -224,6 +224,36 @@ export default function VerPlanScreen() {
           </Text>
         </SectionCard>
 
+        {/* DUA */}
+        {plan.dua && (plan.dua.representacion || plan.dua.accionExpresion || plan.dua.implicacion) ? (
+          <SectionCard title="Dise\u00f1o Universal para el Aprendizaje (DUA)" icon="accessibility" colors={colors}>
+            {plan.dua.representacion ? (
+              <View style={{ marginBottom: 12 }}>
+                <Text style={{ fontSize: 12, fontWeight: "700", color: "#2563EB", marginBottom: 4 }}>
+                  Principio 1: M\u00faltiples formas de Representaci\u00f3n
+                </Text>
+                <Text className="text-sm text-foreground leading-5">{plan.dua.representacion}</Text>
+              </View>
+            ) : null}
+            {plan.dua.accionExpresion ? (
+              <View style={{ marginBottom: 12 }}>
+                <Text style={{ fontSize: 12, fontWeight: "700", color: "#16A34A", marginBottom: 4 }}>
+                  Principio 2: M\u00faltiples formas de Acci\u00f3n y Expresi\u00f3n
+                </Text>
+                <Text className="text-sm text-foreground leading-5">{plan.dua.accionExpresion}</Text>
+              </View>
+            ) : null}
+            {plan.dua.implicacion ? (
+              <View style={{ marginBottom: 0 }}>
+                <Text style={{ fontSize: 12, fontWeight: "700", color: "#D97706", marginBottom: 4 }}>
+                  Principio 3: M\u00faltiples formas de Implicaci\u00f3n
+                </Text>
+                <Text className="text-sm text-foreground leading-5">{plan.dua.implicacion}</Text>
+              </View>
+            ) : null}
+          </SectionCard>
+        ) : null}
+
         {/* Observaciones */}
         {plan.observaciones ? (
           <SectionCard title="Observaciones" icon="note" colors={colors}>

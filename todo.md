@@ -50,3 +50,8 @@
 - [x] Generar temas sugeridos para las nuevas destrezas (usa generador genérico existente)
 - [x] Rebuild y redeploy a Vercel con las destrezas completas
 - [x] Corregir íconos de Material Icons en paywall (campo código y botón Activar Acceso) que aparecen como cuadrados
+- [x] Crear datos de estrategias DUA (Representación, Acción/Expresión, Implicación) por área curricular
+- [x] Agregar sección DUA en la pantalla de detalle de planificación
+- [x] Integrar DUA en la exportación PDF de planificaciones
+- [x] Actualizar el tipo Planificacion para incluir campo DUA
+- [x] Rebuild y redeploy a Vercel con la sección DUA

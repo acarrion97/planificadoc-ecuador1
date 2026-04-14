@@ -359,6 +359,49 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       min-height: 30px;
       font-size: 9px;
     }
+
+    /* ===== DUA ===== */
+    .dua-container {
+      border: 1px solid #666;
+      margin-bottom: 8px;
+    }
+
+    .dua-principio {
+      padding: 5px 8px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .dua-principio:last-child {
+      border-bottom: none;
+    }
+
+    .dua-principio-titulo {
+      font-weight: bold;
+      font-size: 8.5px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      padding: 2px 4px;
+      border-radius: 2px;
+      color: white;
+      display: inline-block;
+    }
+
+    .dua-p1 { background: #2563EB; }
+    .dua-p2 { background: #16A34A; }
+    .dua-p3 { background: #D97706; }
+
+    .dua-subtitulo {
+      font-size: 7.5px;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 3px;
+    }
+
+    .dua-texto {
+      font-size: 9px;
+      line-height: 1.4;
+      white-space: pre-line;
+    }
   </style>
 </head>
 <body>
@@ -480,8 +523,28 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     ${recursosTexto}
   </div>
 
-  <!-- SECCIÓN 5: OBSERVACIONES -->
-  <div class="seccion-titulo">5. Observaciones</div>
+  <!-- SECCIÓN 5: DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA) -->
+  <div class="seccion-titulo">5. Diseño Universal para el Aprendizaje (DUA)</div>
+  <div class="dua-container">
+    <div class="dua-principio">
+      <span class="dua-principio-titulo dua-p1">Principio 1: Múltiples formas de Representación</span>
+      <div class="dua-subtitulo">El QUÉ del aprendizaje</div>
+      <div class="dua-texto">${plan.dua?.representacion || "Presentar la información mediante recursos visuales, auditivos y manipulativos para atender diversos estilos de aprendizaje."}</div>
+    </div>
+    <div class="dua-principio">
+      <span class="dua-principio-titulo dua-p2">Principio 2: Múltiples formas de Acción y Expresión</span>
+      <div class="dua-subtitulo">El CÓMO del aprendizaje</div>
+      <div class="dua-texto">${plan.dua?.accionExpresion || "Permitir que los estudiantes demuestren lo aprendido de forma oral, escrita, gráfica o práctica según sus fortalezas."}</div>
+    </div>
+    <div class="dua-principio">
+      <span class="dua-principio-titulo dua-p3">Principio 3: Múltiples formas de Implicación</span>
+      <div class="dua-subtitulo">El POR QUÉ del aprendizaje</div>
+      <div class="dua-texto">${plan.dua?.implicacion || "Motivar a los estudiantes mediante actividades significativas, trabajo colaborativo y conexión con su contexto."}</div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 6: OBSERVACIONES -->
+  <div class="seccion-titulo">6. Observaciones</div>
   <div class="observaciones">
     ${plan.observaciones || "Sin observaciones adicionales."}
   </div>
