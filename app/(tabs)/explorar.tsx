@@ -15,7 +15,6 @@ import {
   obtenerBloquesDeAreaSubnivel,
   obtenerNombreBloque,
 } from "@/data";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const AREAS_LIST = Object.values(AREAS_INFO);
 
@@ -62,7 +61,7 @@ export default function ExplorarScreen() {
         <View className="px-5 pt-4 pb-2">
           <Text className="text-3xl font-bold text-foreground">Explorar</Text>
           <Text className="text-base text-muted mt-1">
-            Navega por áreas y subniveles
+            Navega por {"\u00E1"}reas y subniveles
           </Text>
         </View>
         <FlatList
@@ -89,11 +88,7 @@ export default function ExplorarScreen() {
                     { backgroundColor: item.color + "15" },
                   ]}
                 >
-                  <MaterialIcons
-                    name={item.icon as any}
-                    size={24}
-                    color={item.color}
-                  />
+                  <Text style={{ fontSize: 24 }}>{item.emoji}</Text>
                 </View>
                 <View style={{ flex: 1, marginLeft: 14 }}>
                   <Text className="text-base font-semibold text-foreground">
@@ -103,11 +98,7 @@ export default function ExplorarScreen() {
                     {count} destrezas
                   </Text>
                 </View>
-                <MaterialIcons
-                  name="chevron-right"
-                  size={22}
-                  color={colors.muted}
-                />
+                <Text style={{ fontSize: 18, color: colors.muted }}>{"\u203A"}</Text>
               </Pressable>
             );
           }}
@@ -128,9 +119,9 @@ export default function ExplorarScreen() {
               { opacity: pressed ? 0.6 : 1 },
             ]}
           >
-            <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
+            <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              Áreas
+              {"\u00C1"}reas
             </Text>
           </Pressable>
           <Text
@@ -183,11 +174,7 @@ export default function ExplorarScreen() {
                   </Text>
                   <Text className="text-sm text-muted">{count} destrezas</Text>
                 </View>
-                <MaterialIcons
-                  name="chevron-right"
-                  size={22}
-                  color={colors.muted}
-                />
+                <Text style={{ fontSize: 18, color: colors.muted }}>{"\u203A"}</Text>
               </Pressable>
             );
           }}
@@ -207,7 +194,7 @@ export default function ExplorarScreen() {
             { opacity: pressed ? 0.6 : 1 },
           ]}
         >
-          <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
+          <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
           <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
             {areaInfo?.name}
           </Text>

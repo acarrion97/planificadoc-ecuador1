@@ -13,6 +13,7 @@ export interface AreaInfo {
   name: string;
   color: string;
   icon: string;
+  emoji: string;
   bloques: Record<number, string>;
 }
 
@@ -109,6 +110,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Matemática",
     color: "#2563EB",
     icon: "calculate",
+    emoji: "\uD83D\uDD22", // 🔢
     bloques: {
       1: "Álgebra y funciones",
       2: "Geometría y medida",
@@ -120,6 +122,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Lengua y Literatura",
     color: "#DC2626",
     icon: "menu-book",
+    emoji: "\uD83D\uDCD6", // 📖
     bloques: {
       1: "Lengua y cultura",
       2: "Comunicación oral",
@@ -133,6 +136,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Ciencias Naturales",
     color: "#16A34A",
     icon: "science",
+    emoji: "\uD83E\uDDEA", // 🧪
     bloques: {
       1: "Los seres vivos y su ambiente",
       2: "Cuerpo humano y salud",
@@ -146,6 +150,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Estudios Sociales",
     color: "#D97706",
     icon: "public",
+    emoji: "\uD83C\uDF0D", // 🌍
     bloques: {
       1: "Historia e identidad",
       2: "Los seres humanos en el espacio",
@@ -157,6 +162,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Educación Física",
     color: "#7C3AED",
     icon: "sports-soccer",
+    emoji: "\u26BD", // ⚽
     bloques: {
       1: "Prácticas lúdicas: los juegos y el jugar",
       2: "Prácticas gimnásticas",
@@ -171,6 +177,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Educación Cultural y Artística",
     color: "#EC4899",
     icon: "palette",
+    emoji: "\uD83C\uDFA8", // 🎨
     bloques: {
       1: "El yo: la identidad",
       2: "El encuentro con otros: la alteridad",

@@ -17,7 +17,6 @@ import {
   buscarDestrezas,
   Area,
 } from "@/data";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const AREAS_LIST = Object.values(AREAS_INFO);
 
@@ -49,7 +48,7 @@ export default function HomeScreen() {
                 PlanificaDoc
               </Text>
               <Text className="text-base text-muted mt-1">
-                Planificación curricular para docentes de Ecuador
+                Planificaci{"\u00F3"}n curricular para docentes de Ecuador
               </Text>
             </View>
 
@@ -59,10 +58,10 @@ export default function HomeScreen() {
                 className="flex-row items-center bg-surface rounded-xl px-4 border border-border"
                 style={styles.searchContainer}
               >
-                <MaterialIcons name="search" size={22} color={colors.muted} />
+                <Text style={{ fontSize: 18 }}>{"\uD83D\uDD0D"}</Text>
                 <TextInput
                   className="flex-1 ml-3 text-base text-foreground"
-                  placeholder="Código de destreza (ej: M.3.1.1)"
+                  placeholder="C\u00F3digo de destreza (ej: M.3.1.1)"
                   placeholderTextColor={colors.muted}
                   value={query}
                   onChangeText={setQuery}
@@ -72,7 +71,7 @@ export default function HomeScreen() {
                 />
                 {query.length > 0 && (
                   <Pressable onPress={() => setQuery("")} style={{ padding: 4 }}>
-                    <MaterialIcons name="close" size={20} color={colors.muted} />
+                    <Text style={{ fontSize: 16 }}>{"\u2715"}</Text>
                   </Pressable>
                 )}
               </View>
@@ -90,7 +89,7 @@ export default function HomeScreen() {
               <>
                 <View className="px-5 mt-6 mb-3">
                   <Text className="text-lg font-semibold text-foreground">
-                    Áreas Curriculares
+                    {"\u00C1"}reas Curriculares
                   </Text>
                 </View>
                 <View className="px-5">
@@ -112,11 +111,7 @@ export default function HomeScreen() {
                           },
                         ]}
                       >
-                        <MaterialIcons
-                          name={area.icon as any}
-                          size={28}
-                          color={area.color}
-                        />
+                        <Text style={{ fontSize: 28 }}>{area.emoji}</Text>
                         <Text
                           style={[styles.areaCardText, { color: area.color }]}
                           numberOfLines={2}
@@ -185,11 +180,7 @@ export default function HomeScreen() {
                               {plan.fecha}
                             </Text>
                           </View>
-                          <MaterialIcons
-                            name="chevron-right"
-                            size={20}
-                            color={colors.muted}
-                          />
+                          <Text style={{ fontSize: 16, color: colors.muted }}>{"\u203A"}</Text>
                         </View>
                       </Pressable>
                     ))}
@@ -258,12 +249,12 @@ export default function HomeScreen() {
         ListEmptyComponent={
           query.trim().length >= 2 ? (
             <View className="items-center py-10 px-5">
-              <MaterialIcons name="search-off" size={48} color={colors.muted} />
+              <Text style={{ fontSize: 48 }}>{"\uD83D\uDD0E"}</Text>
               <Text className="text-base text-muted mt-3 text-center">
                 No se encontraron destrezas para "{query}"
               </Text>
               <Text className="text-sm text-muted mt-1 text-center">
-                Intenta con otro código o término
+                Intenta con otro c{"\u00F3"}digo o t{"\u00E9"}rmino
               </Text>
             </View>
           ) : null

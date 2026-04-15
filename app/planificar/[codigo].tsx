@@ -27,7 +27,6 @@ import {
   generarTextoDUA,
   DUA_PRINCIPIOS,
 } from "@/data";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 
 function generateId() {
@@ -91,7 +90,7 @@ export default function PlanificarScreen() {
     return (
       <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
         <View className="flex-1 items-center justify-center px-5">
-          <MaterialIcons name="error-outline" size={56} color={colors.error} />
+          <Text style={{ fontSize: 56 }}>{"\u26A0\uFE0F"}</Text>
           <Text className="text-lg font-semibold text-foreground mt-4">
             Destreza no encontrada
           </Text>
@@ -116,7 +115,6 @@ export default function PlanificarScreen() {
   const handleSeleccionarTema = (tema: TemaSugerido) => {
     setTemaSeleccionado(tema);
     setObjetivoAprendizaje(tema.objetivoClase);
-    // Auto-llenar DUA con estrategias del área
     if (destreza) {
       const textoDUA = generarTextoDUA(destreza.area);
       const partes = textoDUA.split("\n\n");
@@ -165,7 +163,6 @@ export default function PlanificarScreen() {
     };
     setActividades(sugerenciasGenericas[destreza.area] || sugerenciasGenericas.M);
     setRecursos(recursosGenericos[destreza.area] || recursosGenericos.M);
-    // Auto-llenar DUA
     if (destreza) {
       const textoDUA = generarTextoDUA(destreza.area);
       const partes = textoDUA.split("\n\n");
@@ -214,8 +211,6 @@ export default function PlanificarScreen() {
     };
 
     await addPlanificacion(plan);
-
-    // Navegar a la pantalla de ver plan para que pueda exportar PDF
     router.replace(`/ver-plan/${plan.id}` as any);
   };
 
@@ -234,9 +229,9 @@ export default function PlanificarScreen() {
                 { opacity: pressed ? 0.6 : 1 },
               ]}
             >
-              <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
+              <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
               <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-                Atras
+                Atr{"\u00E1"}s
               </Text>
             </Pressable>
           </View>
@@ -303,7 +298,7 @@ export default function PlanificarScreen() {
                 },
               ]}
             >
-              <MaterialIcons name="edit" size={20} color={colors.muted} />
+              <Text style={{ fontSize: 18 }}>{"\u270F\uFE0F"}</Text>
               <Text style={{ color: colors.muted, fontSize: 15, fontWeight: "600", marginLeft: 8 }}>
                 Continuar sin tema (personalizar manualmente)
               </Text>
@@ -332,7 +327,7 @@ export default function PlanificarScreen() {
                 { opacity: pressed ? 0.6 : 1 },
               ]}
             >
-              <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
+              <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
               <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
                 Cambiar tema
               </Text>
@@ -343,7 +338,7 @@ export default function PlanificarScreen() {
                 <Text style={styles.stepBadgeText}>2</Text>
               </View>
               <Text className="text-xl font-bold text-foreground ml-3">
-                Planificacion Microcurricular
+                Planificaci{"\u00F3"}n Microcurricular
               </Text>
             </View>
           </View>
@@ -356,7 +351,7 @@ export default function PlanificarScreen() {
                   { backgroundColor: areaInfo.color + "12", borderColor: areaInfo.color + "35" },
                 ]}
               >
-                <MaterialIcons name="auto-awesome" size={18} color={areaInfo.color} />
+                <Text style={{ fontSize: 18 }}>{"\u2728"}</Text>
                 <View style={{ flex: 1, marginLeft: 10 }}>
                   <Text style={{ color: areaInfo.color, fontSize: 13, fontWeight: "600" }}>
                     Tema seleccionado
@@ -385,13 +380,13 @@ export default function PlanificarScreen() {
             </View>
           </View>
 
-          <SectionTitle title="Datos Informativos" icon="info" colors={colors} />
+          <SectionTitle title="Datos Informativos" emoji={"\u2139\uFE0F"} colors={colors} />
 
           <FormField
-            label="Institucion Educativa"
+            label="Instituci\u00F3n Educativa"
             value={institucion}
             onChangeText={setInstitucion}
-            placeholder="Nombre de la institucion"
+            placeholder="Nombre de la instituci\u00F3n"
             colors={colors}
           />
           <FormField
@@ -422,7 +417,7 @@ export default function PlanificarScreen() {
             </View>
           </View>
           <FormField
-            label="Numero de Periodos"
+            label="N\u00FAmero de Per\u00EDodos"
             value={periodos}
             onChangeText={setPeriodos}
             placeholder="1"
@@ -430,7 +425,7 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          <SectionTitle title="Objetivo de Aprendizaje" icon="flag" colors={colors} />
+          <SectionTitle title="Objetivo de Aprendizaje" emoji={"\uD83C\uDFAF"} colors={colors} />
           <FormField
             label="Objetivo"
             value={objetivoAprendizaje}
@@ -442,7 +437,7 @@ export default function PlanificarScreen() {
 
           {temaSeleccionado && (
             <>
-              <SectionTitle title="Estructura de la Clase (45 min)" icon="school" colors={colors} />
+              <SectionTitle title="Estructura de la Clase (45 min)" emoji={"\uD83C\uDFEB"} colors={colors} />
               <EstructuraClaseView
                 tema={temaSeleccionado}
                 colors={colors}
@@ -451,7 +446,7 @@ export default function PlanificarScreen() {
             </>
           )}
 
-          <SectionTitle title="Actividades de Aprendizaje" icon="assignment" colors={colors} />
+          <SectionTitle title="Actividades de Aprendizaje" emoji={"\uD83D\uDCCB"} colors={colors} />
           <FormField
             label="Actividades (editable)"
             value={actividades}
@@ -461,7 +456,7 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          <SectionTitle title="Recursos Didacticos" icon="inventory" colors={colors} />
+          <SectionTitle title="Recursos Did\u00E1cticos" emoji={"\uD83D\uDCE6"} colors={colors} />
           <FormField
             label="Recursos"
             value={recursos}
@@ -471,9 +466,9 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          <SectionTitle title="Evaluacion" icon="assessment" colors={colors} />
+          <SectionTitle title="Evaluaci\u00F3n" emoji={"\uD83D\uDCCA"} colors={colors} />
           <FormField
-            label="Indicadores de Evaluacion"
+            label="Indicadores de Evaluaci\u00F3n"
             value={evaluacion}
             onChangeText={setEvaluacion}
             placeholder="Indicadores..."
@@ -481,16 +476,16 @@ export default function PlanificarScreen() {
             colors={colors}
           />
           <FormField
-            label="Tecnicas e Instrumentos"
+            label="T\u00E9cnicas e Instrumentos"
             value={tecnicas}
             onChangeText={setTecnicas}
-            placeholder="Tecnicas e instrumentos de evaluacion..."
+            placeholder="T\u00E9cnicas e instrumentos de evaluaci\u00F3n..."
             multiline
             colors={colors}
           />
 
-          {/* ===== SECCIÓN DUA ===== */}
-          <SectionTitle title="Diseño Universal para el Aprendizaje (DUA)" icon="accessibility" colors={colors} />
+          {/* ===== SECCI\u00D3N DUA ===== */}
+          <SectionTitle title="Dise\u00F1o Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors} />
           <View className="px-5 mt-1 mb-1">
             <View style={[styles.duaBanner, { backgroundColor: "#7C3AED" + "10", borderColor: "#7C3AED" + "30" }]}>
               <Text style={{ color: "#7C3AED", fontSize: 12, fontWeight: "600", textAlign: "center" }}>
@@ -502,18 +497,18 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#2563EB" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#2563EB" }}>
-                Principio 1: Múltiples formas de Representación
+                Principio 1: M{"\u00FA"}ltiples formas de Representaci{"\u00F3"}n
               </Text>
               <Text style={{ fontSize: 10, color: "#2563EB", opacity: 0.7 }}>
-                El QUÉ del aprendizaje
+                El QU{"\u00C9"} del aprendizaje
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Representación"
+            label="Estrategias de Representaci\u00F3n"
             value={duaRepresentacion}
             onChangeText={setDuaRepresentacion}
-            placeholder="Cómo presentará la información de múltiples formas..."
+            placeholder="C\u00F3mo presentar\u00E1 la informaci\u00F3n de m\u00FAltiples formas..."
             multiline
             colors={colors}
           />
@@ -521,18 +516,18 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#16A34A" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#16A34A" }}>
-                Principio 2: Múltiples formas de Acción y Expresión
+                Principio 2: M{"\u00FA"}ltiples formas de Acci{"\u00F3"}n y Expresi{"\u00F3"}n
               </Text>
               <Text style={{ fontSize: 10, color: "#16A34A", opacity: 0.7 }}>
-                El CÓMO del aprendizaje
+                El C{"\u00D3"}MO del aprendizaje
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Acción y Expresión"
+            label="Estrategias de Acci\u00F3n y Expresi\u00F3n"
             value={duaAccionExpresion}
             onChangeText={setDuaAccionExpresion}
-            placeholder="Cómo los estudiantes demostrarán lo aprendido..."
+            placeholder="C\u00F3mo los estudiantes demostrar\u00E1n lo aprendido..."
             multiline
             colors={colors}
           />
@@ -540,23 +535,23 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#D97706" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#D97706" }}>
-                Principio 3: Múltiples formas de Implicación
+                Principio 3: M{"\u00FA"}ltiples formas de Implicaci{"\u00F3"}n
               </Text>
               <Text style={{ fontSize: 10, color: "#D97706", opacity: 0.7 }}>
-                El POR QUÉ del aprendizaje
+                El POR QU{"\u00C9"} del aprendizaje
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Implicación"
+            label="Estrategias de Implicaci\u00F3n"
             value={duaImplicacion}
             onChangeText={setDuaImplicacion}
-            placeholder="Cómo motivar e involucrar a todos los estudiantes..."
+            placeholder="C\u00F3mo motivar e involucrar a todos los estudiantes..."
             multiline
             colors={colors}
           />
 
-          <SectionTitle title="Observaciones" icon="note" colors={colors} />
+          <SectionTitle title="Observaciones" emoji={"\uD83D\uDCCC"} colors={colors} />
           <FormField
             label="Observaciones"
             value={observaciones}
@@ -578,11 +573,11 @@ export default function PlanificarScreen() {
                 },
               ]}
             >
-              <MaterialIcons name="save" size={22} color="#fff" />
-              <Text style={styles.saveBtnText}>Guardar Planificacion</Text>
+              <Text style={{ fontSize: 20 }}>{"\uD83D\uDCBE"}</Text>
+              <Text style={styles.saveBtnText}>Guardar Planificaci{"\u00F3"}n</Text>
             </Pressable>
             <Text className="text-xs text-muted text-center mt-3">
-              Al guardar podras exportar la planificacion como PDF con formato oficial del Ministerio de Educacion
+              Al guardar podr{"\u00E1"}s exportar la planificaci{"\u00F3"}n como PDF con formato oficial del Ministerio de Educaci{"\u00F3"}n
             </Text>
           </View>
         </ScrollView>
@@ -634,12 +629,9 @@ function TemaCard({
                 {tema.descripcionBreve}
               </Text>
             </View>
-            <MaterialIcons
-              name={isExpanded ? "expand-less" : "expand-more"}
-              size={26}
-              color={colors.muted}
-              style={{ marginLeft: 8 }}
-            />
+            <Text style={{ fontSize: 18, marginLeft: 8, color: colors.muted }}>
+              {isExpanded ? "\u25B2" : "\u25BC"}
+            </Text>
           </View>
         </Pressable>
 
@@ -647,7 +639,7 @@ function TemaCard({
           <View style={styles.temaPreview}>
             <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
               <View style={styles.previewSectionHeader}>
-                <MaterialIcons name="flag" size={16} color={areaColor} />
+                <Text style={{ fontSize: 14 }}>{"\uD83C\uDFAF"}</Text>
                 <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
                   Objetivo de la clase
                 </Text>
@@ -660,30 +652,27 @@ function TemaCard({
             {/* Duracion total */}
             <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
               <View style={styles.previewSectionHeader}>
-                <MaterialIcons name="schedule" size={16} color={areaColor} />
+                <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
                 <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
-                  Duracion total: 45 minutos
+                  Duraci{"\u00F3"}n total: 45 minutos
                 </Text>
               </View>
             </View>
 
             {/* 3 Fases */}
             <FasePreview
-              icon="lightbulb"
-              label="Anticipacion"
+              label="Anticipaci\u00F3n"
               fase={tema.estructura.anticipacion}
               color="#F59E0B"
               colors={colors}
             />
             <FasePreview
-              icon="build"
               label="Desarrollo"
               fase={tema.estructura.desarrollo}
               color="#2563EB"
               colors={colors}
             />
             <FasePreview
-              icon="check-circle"
               label="Cierre"
               fase={tema.estructura.cierre}
               color="#16A34A"
@@ -692,7 +681,7 @@ function TemaCard({
 
             <View style={[styles.previewSection, { borderTopColor: colors.border }]}>
               <View style={styles.previewSectionHeader}>
-                <MaterialIcons name="inventory" size={16} color={areaColor} />
+                <Text style={{ fontSize: 14 }}>{"\uD83D\uDCE6"}</Text>
                 <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
                   Recursos
                 </Text>
@@ -713,7 +702,7 @@ function TemaCard({
                 },
               ]}
             >
-              <MaterialIcons name="check" size={20} color="#fff" />
+              <Text style={{ fontSize: 18 }}>{"\u2714\uFE0F"}</Text>
               <Text style={styles.selectBtnText}>Usar este tema</Text>
             </Pressable>
           </View>
@@ -727,13 +716,11 @@ function TemaCard({
 // COMPONENTE: Previsualizacion de fase
 // ==========================================
 function FasePreview({
-  icon,
   label,
   fase,
   color,
   colors,
 }: {
-  icon: string;
   label: string;
   fase: { titulo: string; duracion: string; actividades: string[] };
   color: string;
@@ -775,18 +762,18 @@ function EstructuraClaseView({
   areaColor: string;
 }) {
   const fases = [
-    { key: "anticipacion" as const, label: "Anticipacion", color: "#F59E0B", icon: "lightbulb" },
-    { key: "desarrollo" as const, label: "Desarrollo", color: "#2563EB", icon: "build" },
-    { key: "cierre" as const, label: "Cierre", color: "#16A34A", icon: "check-circle" },
+    { key: "anticipacion" as const, label: "Anticipaci\u00F3n", color: "#F59E0B", emoji: "\uD83D\uDCA1" },
+    { key: "desarrollo" as const, label: "Desarrollo", color: "#2563EB", emoji: "\uD83D\uDD27" },
+    { key: "cierre" as const, label: "Cierre", color: "#16A34A", emoji: "\u2705" },
   ];
 
   return (
     <View className="px-5 mt-2">
       {/* Duracion total badge */}
       <View style={[styles.totalDurationBadge, { backgroundColor: areaColor + "10", borderColor: areaColor + "30" }]}>
-        <MaterialIcons name="schedule" size={16} color={areaColor} />
+        <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
         <Text style={{ color: areaColor, fontSize: 13, fontWeight: "700", marginLeft: 6 }}>
-          Duracion total: 45 minutos
+          Duraci{"\u00F3"}n total: 45 minutos
         </Text>
       </View>
 
@@ -801,12 +788,12 @@ function EstructuraClaseView({
             ]}
           >
             <View style={styles.faseCardHeader}>
-              <MaterialIcons name={fase.icon as any} size={18} color={fase.color} />
+              <Text style={{ fontSize: 16 }}>{fase.emoji}</Text>
               <Text style={[styles.faseCardTitle, { color: fase.color }]}>
                 {fase.label}
               </Text>
               <View style={[styles.durationBadge, { backgroundColor: fase.color + "18" }]}>
-                <MaterialIcons name="schedule" size={12} color={fase.color} />
+                <Text style={{ fontSize: 11 }}>{"\u23F0"}</Text>
                 <Text style={{ color: fase.color, fontSize: 11, fontWeight: "600", marginLeft: 3 }}>
                   {data.duracion}
                 </Text>
@@ -836,16 +823,16 @@ function EstructuraClaseView({
 // ==========================================
 function SectionTitle({
   title,
-  icon,
+  emoji,
   colors,
 }: {
   title: string;
-  icon: string;
+  emoji: string;
   colors: any;
 }) {
   return (
     <View style={styles.sectionTitle}>
-      <MaterialIcons name={icon as any} size={20} color={colors.primary} />
+      <Text style={{ fontSize: 18 }}>{emoji}</Text>
       <Text
         className="text-lg font-semibold text-foreground"
         style={{ marginLeft: 8 }}

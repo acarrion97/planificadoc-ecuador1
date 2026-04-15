@@ -55,3 +55,16 @@
 - [x] Integrar DUA en la exportación PDF de planificaciones
 - [x] Actualizar el tipo Planificacion para incluir campo DUA
 - [x] Rebuild y redeploy a Vercel con la sección DUA
+- [x] Configurar credenciales de PayPhone en el servidor (PAYPHONE_TOKEN + PAYPHONE_STORE_ID)
+- [x] Completar destrezas de Ciencias Naturales (196 destrezas: Elemental, Media, Superior, Bachillerato) del currículo oficial
+- [x] Completar destrezas de Estudios Sociales (367 destrezas: Elemental, Media, Superior, Bachillerato) del currículo oficial
+- [x] Completar destrezas de Educación Física (188 destrezas: Elemental, Media, Superior, Bachillerato) del currículo oficial
+- [x] Completar destrezas de ECA (103 destrezas: Elemental, Media, Superior, Bachillerato) del currículo oficial
+- [x] Implementar sistema de suscripción con email (MySQL/Drizzle - tablas subscriptions + payment_transactions)
+- [x] Implementar verificación de suscripción activa con persistencia en AsyncStorage
+- [x] Integrar PayPhone Payment Box como pasarela de pago automática (endpoints /api/payment/*)
+- [x] Implementar pricing escalonado ($4.99 primeros 3 meses, $6.99 después)
+- [x] Crear flujo completo: email → PayPhone pago → confirmación → suscripción activa → acceso
+- [x] Actualizar paywall con tabs (Suscribirse con PayPhone / Tengo código legacy)
+- [x] Rebuild y redeploy con todos los cambios (checkpoint listo)
+- [x] Corregir TODOS los íconos de Material Icons dentro de la app (tabs, tarjetas, botones) reemplazándolos por emojis Unicode

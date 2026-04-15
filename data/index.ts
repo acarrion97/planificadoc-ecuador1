@@ -1,11 +1,9 @@
 import { destrezasMatematica } from "./destrezas-matematica";
 import { destrezasLengua } from "./destrezas-lengua";
-import {
-  destrezasCienciasNaturales,
-  destrezasEstudiosSociales,
-  destrezasEducacionFisica,
-  destrezasECA,
-} from "./destrezas-otras";
+import { destrezasCienciasNaturales } from "./destrezas-cn";
+import { destrezasEstudiosSociales } from "./destrezas-cs";
+import { destrezasEducacionFisica } from "./destrezas-ef";
+import { destrezasECA } from "./destrezas-eca";
 import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
 
 export * from "./types";

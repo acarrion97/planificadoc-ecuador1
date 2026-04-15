@@ -5,7 +5,6 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido } from "@/data";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 
 export default function VerPlanScreen() {
@@ -21,9 +20,9 @@ export default function VerPlanScreen() {
     return (
       <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
         <View className="flex-1 items-center justify-center px-5">
-          <MaterialIcons name="error-outline" size={56} color={colors.error} />
+          <Text style={{ fontSize: 56 }}>{"\u26A0\uFE0F"}</Text>
           <Text className="text-lg font-semibold text-foreground mt-4">
-            Planificacion no encontrada
+            Planificaci{"\u00F3"}n no encontrada
           </Text>
           <Pressable
             onPress={() => router.back()}
@@ -56,17 +55,17 @@ export default function VerPlanScreen() {
               { opacity: pressed ? 0.6 : 1 },
             ]}
           >
-            <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
+            <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              Atras
+              Atr{"\u00E1"}s
             </Text>
           </Pressable>
           <Text className="text-2xl font-bold text-foreground mt-3">
-            Planificacion Microcurricular
+            Planificaci{"\u00F3"}n Microcurricular
           </Text>
         </View>
 
-        {/* Botón Exportar PDF */}
+        {/* Bot\u00F3n Exportar PDF */}
         <View className="px-5 mt-3">
           <Pressable
             onPress={() => exportarPDF(plan)}
@@ -79,7 +78,7 @@ export default function VerPlanScreen() {
             {isExporting ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <MaterialIcons name="picture-as-pdf" size={20} color="#fff" />
+              <Text style={{ fontSize: 18 }}>{"\uD83D\uDCC4"}</Text>
             )}
             <Text style={styles.exportButtonText}>
               {isExporting ? "Generando PDF..." : "Exportar PDF"}
@@ -113,7 +112,7 @@ export default function VerPlanScreen() {
                 { backgroundColor: areaInfo?.color + "12", borderColor: areaInfo?.color + "35" },
               ]}
             >
-              <MaterialIcons name="auto-awesome" size={18} color={areaInfo?.color} />
+              <Text style={{ fontSize: 18 }}>{"\u2728"}</Text>
               <View style={{ flex: 1, marginLeft: 10 }}>
                 <Text style={{ color: areaInfo?.color, fontSize: 12, fontWeight: "600" }}>
                   Tema de la clase
@@ -130,17 +129,17 @@ export default function VerPlanScreen() {
         )}
 
         {/* Datos informativos */}
-        <SectionCard title="Datos Informativos" icon="info" colors={colors}>
-          <DataRow label="Institucion" value={plan.institucion || "\u2014"} colors={colors} />
+        <SectionCard title="Datos Informativos" emoji={"\u2139\uFE0F"} colors={colors}>
+          <DataRow label="Instituci\u00F3n" value={plan.institucion || "\u2014"} colors={colors} />
           <DataRow label="Docente" value={plan.docente} colors={colors} />
           <DataRow label="Grado / Curso" value={plan.grado} colors={colors} />
           <DataRow label="Asignatura" value={plan.asignatura} colors={colors} />
           <DataRow label="Fecha" value={plan.fecha} colors={colors} />
-          <DataRow label="Periodos" value={plan.periodos} colors={colors} />
+          <DataRow label="Per\u00EDodos" value={plan.periodos} colors={colors} />
         </SectionCard>
 
         {/* Destreza */}
-        <SectionCard title="Destreza con Criterio de Desempeno" icon="star" colors={colors}>
+        <SectionCard title="Destreza con Criterio de Desempe\u00F1o" emoji={"\u2B50"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
             {plan.destreza.descripcion}
@@ -153,7 +152,7 @@ export default function VerPlanScreen() {
         </SectionCard>
 
         {/* Objetivo */}
-        <SectionCard title="Objetivo de Aprendizaje" icon="flag" colors={colors}>
+        <SectionCard title="Objetivo de Aprendizaje" emoji={"\uD83C\uDFAF"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.objetivoAprendizaje}
           </Text>
@@ -163,7 +162,7 @@ export default function VerPlanScreen() {
         {tema && (
           <View className="px-5 mt-4">
             <View style={styles.sectionHeader}>
-              <MaterialIcons name="school" size={18} color={colors.primary} />
+              <Text style={{ fontSize: 16 }}>{"\uD83C\uDFEB"}</Text>
               <Text
                 className="text-base font-semibold text-foreground"
                 style={{ marginLeft: 8 }}
@@ -173,52 +172,52 @@ export default function VerPlanScreen() {
             </View>
 
             <FaseCardView
-              label="Anticipacion"
+              label="Anticipaci\u00F3n"
               fase={tema.estructura.anticipacion}
               color="#F59E0B"
-              icon="lightbulb"
+              emoji={"\uD83D\uDCA1"}
               colors={colors}
             />
             <FaseCardView
               label="Desarrollo"
               fase={tema.estructura.desarrollo}
               color="#2563EB"
-              icon="build"
+              emoji={"\uD83D\uDD27"}
               colors={colors}
             />
             <FaseCardView
               label="Cierre"
               fase={tema.estructura.cierre}
               color="#16A34A"
-              icon="check-circle"
+              emoji={"\u2705"}
               colors={colors}
             />
           </View>
         )}
 
         {/* Actividades */}
-        <SectionCard title="Actividades de Aprendizaje" icon="assignment" colors={colors}>
+        <SectionCard title="Actividades de Aprendizaje" emoji={"\uD83D\uDCCB"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.actividades}
           </Text>
         </SectionCard>
 
         {/* Recursos */}
-        <SectionCard title="Recursos Didacticos" icon="inventory" colors={colors}>
+        <SectionCard title="Recursos Did\u00E1cticos" emoji={"\uD83D\uDCE6"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.recursos}
           </Text>
         </SectionCard>
 
         {/* Evaluacion */}
-        <SectionCard title="Indicadores de Evaluacion" icon="assessment" colors={colors}>
+        <SectionCard title="Indicadores de Evaluaci\u00F3n" emoji={"\uD83D\uDCCA"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.evaluacion}
           </Text>
         </SectionCard>
 
         {/* Tecnicas */}
-        <SectionCard title="Tecnicas e Instrumentos" icon="checklist" colors={colors}>
+        <SectionCard title="T\u00E9cnicas e Instrumentos" emoji={"\u2611\uFE0F"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.tecnicasInstrumentos}
           </Text>
@@ -226,11 +225,11 @@ export default function VerPlanScreen() {
 
         {/* DUA */}
         {plan.dua && (plan.dua.representacion || plan.dua.accionExpresion || plan.dua.implicacion) ? (
-          <SectionCard title="Dise\u00f1o Universal para el Aprendizaje (DUA)" icon="accessibility" colors={colors}>
+          <SectionCard title="Dise\u00F1o Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors}>
             {plan.dua.representacion ? (
               <View style={{ marginBottom: 12 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#2563EB", marginBottom: 4 }}>
-                  Principio 1: M\u00faltiples formas de Representaci\u00f3n
+                  Principio 1: M{"\u00FA"}ltiples formas de Representaci{"\u00F3"}n
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.representacion}</Text>
               </View>
@@ -238,7 +237,7 @@ export default function VerPlanScreen() {
             {plan.dua.accionExpresion ? (
               <View style={{ marginBottom: 12 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#16A34A", marginBottom: 4 }}>
-                  Principio 2: M\u00faltiples formas de Acci\u00f3n y Expresi\u00f3n
+                  Principio 2: M{"\u00FA"}ltiples formas de Acci{"\u00F3"}n y Expresi{"\u00F3"}n
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.accionExpresion}</Text>
               </View>
@@ -246,7 +245,7 @@ export default function VerPlanScreen() {
             {plan.dua.implicacion ? (
               <View style={{ marginBottom: 0 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#D97706", marginBottom: 4 }}>
-                  Principio 3: M\u00faltiples formas de Implicaci\u00f3n
+                  Principio 3: M{"\u00FA"}ltiples formas de Implicaci{"\u00F3"}n
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.implicacion}</Text>
               </View>
@@ -256,7 +255,7 @@ export default function VerPlanScreen() {
 
         {/* Observaciones */}
         {plan.observaciones ? (
-          <SectionCard title="Observaciones" icon="note" colors={colors}>
+          <SectionCard title="Observaciones" emoji={"\uD83D\uDCCC"} colors={colors}>
             <Text className="text-sm text-foreground leading-5">
               {plan.observaciones}
             </Text>
@@ -276,13 +275,13 @@ function FaseCardView({
   label,
   fase,
   color,
-  icon,
+  emoji,
   colors,
 }: {
   label: string;
   fase: { titulo: string; duracion: string; actividades: string[] };
   color: string;
-  icon: string;
+  emoji: string;
   colors: any;
 }) {
   return (
@@ -293,12 +292,12 @@ function FaseCardView({
       ]}
     >
       <View style={styles.faseCardHeader}>
-        <MaterialIcons name={icon as any} size={18} color={color} />
+        <Text style={{ fontSize: 16 }}>{emoji}</Text>
         <Text style={[styles.faseCardTitle, { color }]}>
           {label}
         </Text>
         <View style={[styles.durationBadge, { backgroundColor: color + "18" }]}>
-          <MaterialIcons name="schedule" size={12} color={color} />
+          <Text style={{ fontSize: 11 }}>{"\u23F0"}</Text>
           <Text style={{ color, fontSize: 11, fontWeight: "600", marginLeft: 3 }}>
             {fase.duracion}
           </Text>
@@ -322,19 +321,19 @@ function FaseCardView({
 
 function SectionCard({
   title,
-  icon,
+  emoji,
   colors,
   children,
 }: {
   title: string;
-  icon: string;
+  emoji: string;
   colors: any;
   children: React.ReactNode;
 }) {
   return (
     <View className="px-5 mt-4">
       <View style={styles.sectionHeader}>
-        <MaterialIcons name={icon as any} size={18} color={colors.primary} />
+        <Text style={{ fontSize: 16 }}>{emoji}</Text>
         <Text
           className="text-base font-semibold text-foreground"
           style={{ marginLeft: 8 }}

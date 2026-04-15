@@ -1,6 +1,13 @@
-import { eq } from "drizzle-orm";
+import { eq, and, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import {
+  InsertUser,
+  users,
+  subscriptions,
+  paymentTransactions,
+  InsertSubscription,
+  InsertPaymentTransaction,
+} from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +96,126 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// ============= Subscription Queries =============
+
+/**
+ * Get the active subscription for an email address.
+ * Returns the most recent active subscription if any.
+ */
+export async function getActiveSubscription(email: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const now = new Date();
+  const result = await db
+    .select()
+    .from(subscriptions)
+    .where(
+      and(
+        eq(subscriptions.email, email.toLowerCase()),
+        eq(subscriptions.status, "active")
+      )
+    )
+    .orderBy(desc(subscriptions.endDate))
+    .limit(1);
+
+  if (result.length === 0) return null;
+
+  const sub = result[0];
+  // Check if subscription has expired
+  if (new Date(sub.endDate) < now) {
+    // Mark as expired
+    await db
+      .update(subscriptions)
+      .set({ status: "expired" })
+      .where(eq(subscriptions.id, sub.id));
+    return null;
+  }
+
+  return sub;
+}
+
+/**
+ * Create a new subscription after successful payment.
+ */
+export async function createSubscription(data: InsertSubscription) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(subscriptions).values({
+    ...data,
+    email: data.email.toLowerCase(),
+  });
+  return result[0].insertId;
+}
+
+// ============= Payment Transaction Queries =============
+
+/**
+ * Create a pending payment transaction.
+ */
+export async function createPaymentTransaction(data: InsertPaymentTransaction) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.insert(paymentTransactions).values({
+    ...data,
+    email: data.email.toLowerCase(),
+  });
+}
+
+/**
+ * Get a payment transaction by clientTransactionId.
+ */
+export async function getPaymentTransaction(clientTransactionId: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db
+    .select()
+    .from(paymentTransactions)
+    .where(eq(paymentTransactions.clientTransactionId, clientTransactionId))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+/**
+ * Update a payment transaction after PayPhone confirmation.
+ */
+export async function updatePaymentTransaction(
+  clientTransactionId: string,
+  data: {
+    payphoneTransactionId?: number;
+    status: "approved" | "cancelled" | "error";
+    statusCode?: number;
+    authorizationCode?: string;
+    cardType?: string;
+    cardBrand?: string;
+    lastDigits?: string;
+    payphoneResponse?: string;
+  }
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(paymentTransactions)
+    .set(data)
+    .where(eq(paymentTransactions.clientTransactionId, clientTransactionId));
+}
+
+/**
+ * Count how many approved subscriptions an email has had (for promo pricing).
+ */
+export async function countPreviousSubscriptions(email: string): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+
+  const result = await db
+    .select()
+    .from(subscriptions)
+    .where(eq(subscriptions.email, email.toLowerCase()));
+
+  return result.length;
+}

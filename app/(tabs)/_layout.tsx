@@ -1,9 +1,8 @@
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Text, Platform } from "react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
-import { IconSymbol } from "@/components/ui/icon-symbol";
-import { Platform } from "react-native";
 import { useColors } from "@/hooks/use-colors";
 
 export default function TabLayout() {
@@ -33,7 +32,7 @@ export default function TabLayout() {
         options={{
           title: "Inicio",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <Text style={{ fontSize: 22 }}>{"\uD83C\uDFE0"}</Text>
           ),
         }}
       />
@@ -42,7 +41,7 @@ export default function TabLayout() {
         options={{
           title: "Explorar",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="book.fill" color={color} />
+            <Text style={{ fontSize: 22 }}>{"\uD83D\uDD0D"}</Text>
           ),
         }}
       />
@@ -51,7 +50,7 @@ export default function TabLayout() {
         options={{
           title: "Mis Planes",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="doc.text.fill" color={color} />
+            <Text style={{ fontSize: 22 }}>{"\uD83D\uDCCB"}</Text>
           ),
         }}
       />

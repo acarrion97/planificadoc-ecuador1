@@ -5,7 +5,6 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO } from "@/data";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function PlanesScreen() {
   const colors = useColors();
@@ -14,13 +13,13 @@ export default function PlanesScreen() {
 
   const handleDelete = (id: string, codigo: string) => {
     if (Platform.OS === "web") {
-      if (confirm(`¿Eliminar la planificación de ${codigo}?`)) {
+      if (confirm(`\u00BFEliminar la planificaci\u00F3n de ${codigo}?`)) {
         deletePlanificacion(id);
       }
     } else {
       Alert.alert(
-        "Eliminar planificación",
-        `¿Deseas eliminar la planificación de ${codigo}?`,
+        "Eliminar planificaci\u00F3n",
+        `\u00BFDeseas eliminar la planificaci\u00F3n de ${codigo}?`,
         [
           { text: "Cancelar", style: "cancel" },
           {
@@ -38,7 +37,7 @@ export default function PlanesScreen() {
       <View className="px-5 pt-4 pb-2">
         <Text className="text-3xl font-bold text-foreground">Mis Planes</Text>
         <Text className="text-base text-muted mt-1">
-          {planificaciones.length} planificación(es) guardada(s)
+          {planificaciones.length} planificaci{"\u00F3"}n(es) guardada(s)
         </Text>
       </View>
       <FlatList
@@ -85,7 +84,7 @@ export default function PlanesScreen() {
                     { opacity: pressed ? 0.5 : 1 },
                   ]}
                 >
-                  <MaterialIcons name="delete-outline" size={20} color={colors.error} />
+                  <Text style={{ fontSize: 18 }}>{"\uD83D\uDDD1\uFE0F"}</Text>
                 </Pressable>
               </View>
               <Text
@@ -99,13 +98,13 @@ export default function PlanesScreen() {
               </Text>
               <View style={styles.planFooter}>
                 <View style={styles.planMeta}>
-                  <MaterialIcons name="event" size={14} color={colors.muted} />
+                  <Text style={{ fontSize: 14 }}>{"\uD83D\uDCC5"}</Text>
                   <Text className="text-xs text-muted ml-1">{item.fecha}</Text>
                 </View>
                 <View style={styles.planMeta}>
-                  <MaterialIcons name="schedule" size={14} color={colors.muted} />
+                  <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
                   <Text className="text-xs text-muted ml-1">
-                    {item.periodos} período(s)
+                    {item.periodos} per{"\u00ED"}odo(s)
                   </Text>
                 </View>
               </View>
@@ -114,12 +113,12 @@ export default function PlanesScreen() {
         }}
         ListEmptyComponent={
           <View className="items-center py-16 px-5">
-            <MaterialIcons name="description" size={56} color={colors.muted} />
+            <Text style={{ fontSize: 56 }}>{"\uD83D\uDCC4"}</Text>
             <Text className="text-lg font-semibold text-muted mt-4">
               Sin planificaciones
             </Text>
             <Text className="text-sm text-muted mt-2 text-center">
-              Busca una destreza y genera tu primera planificación microcurricular
+              Busca una destreza y genera tu primera planificaci{"\u00F3"}n microcurricular
             </Text>
           </View>
         }

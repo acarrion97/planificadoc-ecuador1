@@ -10,7 +10,6 @@ import {
   SUBNIVEL_GRADOS,
   obtenerNombreBloque,
 } from "@/data";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function DetalleDestrezaScreen() {
   const colors = useColors();
@@ -23,12 +22,12 @@ export default function DetalleDestrezaScreen() {
     return (
       <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
         <View className="flex-1 items-center justify-center px-5">
-          <MaterialIcons name="error-outline" size={56} color={colors.error} />
+          <Text style={{ fontSize: 56 }}>{"\u26A0\uFE0F"}</Text>
           <Text className="text-lg font-semibold text-foreground mt-4">
             Destreza no encontrada
           </Text>
           <Text className="text-sm text-muted mt-2 text-center">
-            El código "{codigo}" no existe en la base de datos
+            El c{"\u00F3"}digo "{codigo}" no existe en la base de datos
           </Text>
           <Pressable
             onPress={() => router.back()}
@@ -60,9 +59,9 @@ export default function DetalleDestrezaScreen() {
               { opacity: pressed ? 0.6 : 1 },
             ]}
           >
-            <MaterialIcons name="arrow-back" size={22} color={colors.primary} />
+            <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              Atrás
+              Atr{"\u00E1"}s
             </Text>
           </Pressable>
         </View>
@@ -81,11 +80,7 @@ export default function DetalleDestrezaScreen() {
                 { backgroundColor: areaInfo.color + "20" },
               ]}
             >
-              <MaterialIcons
-                name={areaInfo.icon as any}
-                size={16}
-                color={areaInfo.color}
-              />
+              <Text style={{ fontSize: 16 }}>{areaInfo.emoji}</Text>
               <Text
                 style={{
                   color: areaInfo.color,
@@ -116,7 +111,7 @@ export default function DetalleDestrezaScreen() {
             ]}
           >
             <InfoRow
-              icon="school"
+              emoji={"\uD83C\uDFEB"}
               label="Subnivel"
               value={SUBNIVEL_NAMES[destreza.subnivel]}
               sublabel={SUBNIVEL_GRADOS[destreza.subnivel]}
@@ -124,7 +119,7 @@ export default function DetalleDestrezaScreen() {
             />
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             <InfoRow
-              icon="view-module"
+              emoji={"\uD83D\uDCE6"}
               label="Bloque Curricular"
               value={`Bloque ${destreza.bloque}`}
               sublabel={obtenerNombreBloque(destreza.area, destreza.bloque)}
@@ -147,7 +142,7 @@ export default function DetalleDestrezaScreen() {
                   { backgroundColor: colors.surface, borderColor: colors.border },
                 ]}
               >
-                <MaterialIcons name="flag" size={18} color={colors.primary} />
+                <Text style={{ fontSize: 16 }}>{"\uD83C\uDFAF"}</Text>
                 <Text className="text-sm text-foreground ml-3 flex-1 leading-5">
                   {obj}
                 </Text>
@@ -160,7 +155,7 @@ export default function DetalleDestrezaScreen() {
         {destreza.criteriosEvaluacion.length > 0 && (
           <View className="px-5 mt-5">
             <Text className="text-lg font-semibold text-foreground mb-3">
-              Criterios de Evaluación
+              Criterios de Evaluaci{"\u00F3"}n
             </Text>
             {destreza.criteriosEvaluacion.map((ce, i) => (
               <View
@@ -170,7 +165,7 @@ export default function DetalleDestrezaScreen() {
                   { backgroundColor: colors.surface, borderColor: colors.border },
                 ]}
               >
-                <MaterialIcons name="checklist" size={18} color={colors.success} />
+                <Text style={{ fontSize: 16 }}>{"\u2611\uFE0F"}</Text>
                 <Text className="text-sm text-foreground ml-3 flex-1 leading-5">
                   {ce}
                 </Text>
@@ -183,7 +178,7 @@ export default function DetalleDestrezaScreen() {
         {destreza.indicadoresEvaluacion.length > 0 && (
           <View className="px-5 mt-5">
             <Text className="text-lg font-semibold text-foreground mb-3">
-              Indicadores de Evaluación
+              Indicadores de Evaluaci{"\u00F3"}n
             </Text>
             {destreza.indicadoresEvaluacion.map((ie, i) => (
               <View
@@ -193,7 +188,7 @@ export default function DetalleDestrezaScreen() {
                   { backgroundColor: colors.surface, borderColor: colors.border },
                 ]}
               >
-                <MaterialIcons name="assessment" size={18} color={colors.warning} />
+                <Text style={{ fontSize: 16 }}>{"\uD83D\uDCCA"}</Text>
                 <Text className="text-sm text-foreground ml-3 flex-1 leading-5">
                   {ie}
                 </Text>
@@ -215,8 +210,8 @@ export default function DetalleDestrezaScreen() {
               },
             ]}
           >
-            <MaterialIcons name="edit-note" size={24} color="#fff" />
-            <Text style={styles.generateBtnText}>Generar Planificación</Text>
+            <Text style={{ fontSize: 20 }}>{"\uD83D\uDCDD"}</Text>
+            <Text style={styles.generateBtnText}>Generar Planificaci{"\u00F3"}n</Text>
           </Pressable>
         </View>
       </ScrollView>
@@ -225,13 +220,13 @@ export default function DetalleDestrezaScreen() {
 }
 
 function InfoRow({
-  icon,
+  emoji,
   label,
   value,
   sublabel,
   colors,
 }: {
-  icon: string;
+  emoji: string;
   label: string;
   value: string;
   sublabel?: string;
@@ -239,7 +234,7 @@ function InfoRow({
 }) {
   return (
     <View style={styles.infoRow}>
-      <MaterialIcons name={icon as any} size={22} color={colors.primary} />
+      <Text style={{ fontSize: 20 }}>{emoji}</Text>
       <View style={{ marginLeft: 12, flex: 1 }}>
         <Text className="text-xs text-muted">{label}</Text>
         <Text className="text-base font-semibold text-foreground">{value}</Text>
