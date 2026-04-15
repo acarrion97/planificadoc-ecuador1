@@ -70,3 +70,5 @@
 - [x] Corregir TODOS los íconos de Material Icons dentro de la app (tabs, tarjetas, botones) reemplazándolos por emojis Unicode
 - [x] Verificar y actualizar la página web desplegada (plandoc-ec-evfwztie.manus.space) con los cambios más recientes - build web regenerado
 - [x] Forzar actualización de la página web desplegada - servidor Express ahora sirve dist/ estático
+- [x] Push actualización a GitHub (via Manus checkpoint)
+- [x] Desplegar versión actualizada en Vercel (planificadoc.app actualizado con PayPhone + emojis)
