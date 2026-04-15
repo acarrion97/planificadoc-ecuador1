@@ -305,7 +305,7 @@ function buildPaymentPageHTML(config: {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PlanificaDoc - Pago Seguro</title>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
-  <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
+  <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
