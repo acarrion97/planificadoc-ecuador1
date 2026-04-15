@@ -28,6 +28,8 @@ import {
   DUA_PRINCIPIOS,
 } from "@/data";
 import { useExportPdf } from "@/hooks/use-export-pdf";
+import { useAccess } from "@/lib/access-control";
+import { trpc } from "@/lib/trpc";
 
 function generateId() {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
@@ -55,11 +57,47 @@ export default function PlanificarScreen() {
   const { exportarPDF, isExporting } = useExportPdf();
 
   const destreza = buscarPorCodigo(codigo || "");
+  const { hasAccess } = useAccess();
 
   const temasSugeridos = useMemo(
     () => (destreza ? obtenerTemasSugeridos(destreza) : []),
     [destreza]
   );
+
+  const [temasIA, setTemasIA] = useState<TemaSugerido[]>([]);
+  const [generandoIA, setGenerandoIA] = useState(false);
+  const [errorIA, setErrorIA] = useState<string | null>(null);
+
+  const generateAiMutation = trpc.topics.generateAi.useMutation({
+    onSuccess: (data) => {
+      if (data.success && data.temas.length > 0) {
+        setTemasIA((prev) => [...prev, ...data.temas]);
+        setErrorIA(null);
+      } else {
+        setErrorIA(data.error || "No se pudieron generar temas");
+      }
+      setGenerandoIA(false);
+    },
+    onError: (error) => {
+      setErrorIA("Error de conexión. Intenta de nuevo.");
+      setGenerandoIA(false);
+    },
+  });
+
+  const handleGenerarTemasIA = () => {
+    if (!destreza || generandoIA) return;
+    setGenerandoIA(true);
+    setErrorIA(null);
+    const todosLosTemas = [...temasSugeridos, ...temasIA];
+    generateAiMutation.mutate({
+      codigoDestreza: destreza.codigo,
+      descripcionDestreza: destreza.descripcion,
+      area: destreza.area,
+      bloque: obtenerNombreBloque(destreza.area, destreza.bloque),
+      subnivel: destreza.subnivel,
+      temasExistentes: todosLosTemas.map((t) => t.titulo),
+    });
+  };
 
   const [paso, setPaso] = useState<PasoFlujo>("seleccion-tema");
   const [temaSeleccionado, setTemaSeleccionado] = useState<TemaSugerido | null>(null);
@@ -285,7 +323,88 @@ export default function PlanificarScreen() {
                 onSelect={() => handleSeleccionarTema(tema)}
               />
             ))}
+
+            {/* Temas generados por IA */}
+            {temasIA.length > 0 && (
+              <View className="px-5 mt-5 mb-2">
+                <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 8 }}>
+                  <Text style={{ fontSize: 16 }}>{"\u2728"}</Text>
+                  <Text className="text-base font-bold text-foreground" style={{ marginLeft: 6 }}>
+                    Temas generados con IA
+                  </Text>
+                </View>
+              </View>
+            )}
+            {temasIA.map((tema) => (
+              <TemaCard
+                key={tema.id}
+                tema={tema}
+                colors={colors}
+                areaColor={areaInfo.color}
+                isExpanded={temaExpandido === tema.id}
+                onToggleExpand={() =>
+                  setTemaExpandido(temaExpandido === tema.id ? null : tema.id)
+                }
+                onSelect={() => handleSeleccionarTema(tema)}
+              />
+            ))}
           </View>
+
+          {/* Bot\u00f3n Generar temas con IA - solo para usuarios con acceso */}
+          {hasAccess && (
+            <View className="px-5 mt-3">
+              <Pressable
+                onPress={handleGenerarTemasIA}
+                disabled={generandoIA}
+                style={({ pressed }) => [
+                  styles.aiButton,
+                  {
+                    backgroundColor: generandoIA ? colors.surface : "#7C3AED",
+                    opacity: pressed && !generandoIA ? 0.85 : 1,
+                    transform: [{ scale: pressed && !generandoIA ? 0.97 : 1 }],
+                  },
+                ]}
+              >
+                {generandoIA ? (
+                  <>
+                    <ActivityIndicator size="small" color="#7C3AED" />
+                    <Text style={{ color: colors.muted, fontSize: 15, fontWeight: "600", marginLeft: 10 }}>
+                      Generando temas con IA...
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text style={{ fontSize: 18 }}>{"\u2728"}</Text>
+                    <Text style={{ color: "#fff", fontSize: 15, fontWeight: "700", marginLeft: 8 }}>
+                      Generar m{"\u00E1"}s temas con IA
+                    </Text>
+                  </>
+                )}
+              </Pressable>
+              {errorIA && (
+                <Text style={{ color: colors.error, fontSize: 13, marginTop: 6, textAlign: "center" }}>
+                  {errorIA}
+                </Text>
+              )}
+            </View>
+          )}
+
+          {/* Bot\u00f3n para usuarios sin acceso - mostrar que es premium */}
+          {!hasAccess && (
+            <View className="px-5 mt-3">
+              <View
+                style={[
+                  styles.aiButton,
+                  { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border },
+                ]}
+              >
+                <Text style={{ fontSize: 16 }}>{"\uD83D\uDD12"}</Text>
+                <Text style={{ color: colors.muted, fontSize: 14, fontWeight: "600", marginLeft: 8 }}>
+                  Genera temas con IA (Plan Premium)
+                </Text>
+              </View>
+            </View>
+          )}
 
           <View className="px-5 mt-4 mb-10">
             <Pressable
@@ -1098,5 +1217,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 2,
+  },
+  aiButton: {
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+    justifyContent: "center" as const,
+    borderRadius: 14,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
   },
 });

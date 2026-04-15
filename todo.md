@@ -79,3 +79,6 @@
 - [x] Fix: Error "Ya existe transacción con ClientTransactionId" al recargar página de pago
 - [x] Fix: Verificar que /api/payment/confirm activa correctamente la suscripción
 - [x] Fix: Caracteres especiales (ñ, ó, á, etc.) se muestran como \u00F1, \u00F3 en la sección DUA de planificación
+- [x] Fix CRÍTICO: Los temas se repiten en todas las destrezas del mismo subnivel - deben ser específicos por destreza
+- [x] Verificar que la versión de pago tiene 3 opciones de temas por destreza
+- [x] Implementar/verificar generación de nuevos temas con IA (ChatGPT/LLM) para usuarios de pago
