@@ -68,3 +68,4 @@
 - [x] Actualizar paywall con tabs (Suscribirse con PayPhone / Tengo código legacy)
 - [x] Rebuild y redeploy con todos los cambios (checkpoint listo)
 - [x] Corregir TODOS los íconos de Material Icons dentro de la app (tabs, tarjetas, botones) reemplazándolos por emojis Unicode
+- [ ] Verificar y actualizar la página web desplegada (plandoc-ec-evfwztie.manus.space) con los cambios más recientes
