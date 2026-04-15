@@ -22,7 +22,7 @@ export default function VerPlanScreen() {
         <View className="flex-1 items-center justify-center px-5">
           <Text style={{ fontSize: 56 }}>{"\u26A0\uFE0F"}</Text>
           <Text className="text-lg font-semibold text-foreground mt-4">
-            Planificaci{"\u00F3"}n no encontrada
+            Planificaci{"ó"}n no encontrada
           </Text>
           <Pressable
             onPress={() => router.back()}
@@ -57,15 +57,15 @@ export default function VerPlanScreen() {
           >
             <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              Atr{"\u00E1"}s
+              Atr{"á"}s
             </Text>
           </Pressable>
           <Text className="text-2xl font-bold text-foreground mt-3">
-            Planificaci{"\u00F3"}n Microcurricular
+            Planificaci{"ó"}n Microcurricular
           </Text>
         </View>
 
-        {/* Bot\u00F3n Exportar PDF */}
+        {/* Botón Exportar PDF */}
         <View className="px-5 mt-3">
           <Pressable
             onPress={() => exportarPDF(plan)}
@@ -130,16 +130,16 @@ export default function VerPlanScreen() {
 
         {/* Datos informativos */}
         <SectionCard title="Datos Informativos" emoji={"\u2139\uFE0F"} colors={colors}>
-          <DataRow label="Instituci\u00F3n" value={plan.institucion || "\u2014"} colors={colors} />
+          <DataRow label="Institución" value={plan.institucion || "\u2014"} colors={colors} />
           <DataRow label="Docente" value={plan.docente} colors={colors} />
           <DataRow label="Grado / Curso" value={plan.grado} colors={colors} />
           <DataRow label="Asignatura" value={plan.asignatura} colors={colors} />
           <DataRow label="Fecha" value={plan.fecha} colors={colors} />
-          <DataRow label="Per\u00EDodos" value={plan.periodos} colors={colors} />
+          <DataRow label="Períodos" value={plan.periodos} colors={colors} />
         </SectionCard>
 
         {/* Destreza */}
-        <SectionCard title="Destreza con Criterio de Desempe\u00F1o" emoji={"\u2B50"} colors={colors}>
+        <SectionCard title="Destreza con Criterio de Desempeño" emoji={"\u2B50"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
             {plan.destreza.descripcion}
@@ -172,7 +172,7 @@ export default function VerPlanScreen() {
             </View>
 
             <FaseCardView
-              label="Anticipaci\u00F3n"
+              label="Anticipación"
               fase={tema.estructura.anticipacion}
               color="#F59E0B"
               emoji={"\uD83D\uDCA1"}
@@ -203,21 +203,21 @@ export default function VerPlanScreen() {
         </SectionCard>
 
         {/* Recursos */}
-        <SectionCard title="Recursos Did\u00E1cticos" emoji={"\uD83D\uDCE6"} colors={colors}>
+        <SectionCard title="Recursos Didácticos" emoji={"\uD83D\uDCE6"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.recursos}
           </Text>
         </SectionCard>
 
         {/* Evaluacion */}
-        <SectionCard title="Indicadores de Evaluaci\u00F3n" emoji={"\uD83D\uDCCA"} colors={colors}>
+        <SectionCard title="Indicadores de Evaluación" emoji={"\uD83D\uDCCA"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.evaluacion}
           </Text>
         </SectionCard>
 
         {/* Tecnicas */}
-        <SectionCard title="T\u00E9cnicas e Instrumentos" emoji={"\u2611\uFE0F"} colors={colors}>
+        <SectionCard title="Técnicas e Instrumentos" emoji={"\u2611\uFE0F"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.tecnicasInstrumentos}
           </Text>
@@ -225,11 +225,11 @@ export default function VerPlanScreen() {
 
         {/* DUA */}
         {plan.dua && (plan.dua.representacion || plan.dua.accionExpresion || plan.dua.implicacion) ? (
-          <SectionCard title="Dise\u00F1o Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors}>
+          <SectionCard title="Diseño Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors}>
             {plan.dua.representacion ? (
               <View style={{ marginBottom: 12 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#2563EB", marginBottom: 4 }}>
-                  Principio 1: M{"\u00FA"}ltiples formas de Representaci{"\u00F3"}n
+                  Principio 1: M{"ú"}ltiples formas de Representaci{"ó"}n
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.representacion}</Text>
               </View>
@@ -237,7 +237,7 @@ export default function VerPlanScreen() {
             {plan.dua.accionExpresion ? (
               <View style={{ marginBottom: 12 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#16A34A", marginBottom: 4 }}>
-                  Principio 2: M{"\u00FA"}ltiples formas de Acci{"\u00F3"}n y Expresi{"\u00F3"}n
+                  Principio 2: M{"ú"}ltiples formas de Acci{"ó"}n y Expresi{"ó"}n
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.accionExpresion}</Text>
               </View>
@@ -245,7 +245,7 @@ export default function VerPlanScreen() {
             {plan.dua.implicacion ? (
               <View style={{ marginBottom: 0 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#D97706", marginBottom: 4 }}>
-                  Principio 3: M{"\u00FA"}ltiples formas de Implicaci{"\u00F3"}n
+                  Principio 3: M{"ú"}ltiples formas de Implicaci{"ó"}n
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.implicacion}</Text>
               </View>

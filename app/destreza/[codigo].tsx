@@ -27,7 +27,7 @@ export default function DetalleDestrezaScreen() {
             Destreza no encontrada
           </Text>
           <Text className="text-sm text-muted mt-2 text-center">
-            El c{"\u00F3"}digo "{codigo}" no existe en la base de datos
+            El c{"ó"}digo "{codigo}" no existe en la base de datos
           </Text>
           <Pressable
             onPress={() => router.back()}
@@ -61,7 +61,7 @@ export default function DetalleDestrezaScreen() {
           >
             <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              Atr{"\u00E1"}s
+              Atr{"á"}s
             </Text>
           </Pressable>
         </View>
@@ -155,7 +155,7 @@ export default function DetalleDestrezaScreen() {
         {destreza.criteriosEvaluacion.length > 0 && (
           <View className="px-5 mt-5">
             <Text className="text-lg font-semibold text-foreground mb-3">
-              Criterios de Evaluaci{"\u00F3"}n
+              Criterios de Evaluaci{"ó"}n
             </Text>
             {destreza.criteriosEvaluacion.map((ce, i) => (
               <View
@@ -178,7 +178,7 @@ export default function DetalleDestrezaScreen() {
         {destreza.indicadoresEvaluacion.length > 0 && (
           <View className="px-5 mt-5">
             <Text className="text-lg font-semibold text-foreground mb-3">
-              Indicadores de Evaluaci{"\u00F3"}n
+              Indicadores de Evaluaci{"ó"}n
             </Text>
             {destreza.indicadoresEvaluacion.map((ie, i) => (
               <View
@@ -211,7 +211,7 @@ export default function DetalleDestrezaScreen() {
             ]}
           >
             <Text style={{ fontSize: 20 }}>{"\uD83D\uDCDD"}</Text>
-            <Text style={styles.generateBtnText}>Generar Planificaci{"\u00F3"}n</Text>
+            <Text style={styles.generateBtnText}>Generar Planificaci{"ó"}n</Text>
           </Pressable>
         </View>
       </ScrollView>

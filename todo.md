@@ -78,3 +78,4 @@
 - [x] Fix: PayPhone no redirige a responseUrl después del pago exitoso
 - [x] Fix: Error "Ya existe transacción con ClientTransactionId" al recargar página de pago
 - [x] Fix: Verificar que /api/payment/confirm activa correctamente la suscripción
+- [x] Fix: Caracteres especiales (ñ, ó, á, etc.) se muestran como \u00F1, \u00F3 en la sección DUA de planificación

@@ -13,13 +13,13 @@ export default function PlanesScreen() {
 
   const handleDelete = (id: string, codigo: string) => {
     if (Platform.OS === "web") {
-      if (confirm(`\u00BFEliminar la planificaci\u00F3n de ${codigo}?`)) {
+      if (confirm(`¿Eliminar la planificación de ${codigo}?`)) {
         deletePlanificacion(id);
       }
     } else {
       Alert.alert(
-        "Eliminar planificaci\u00F3n",
-        `\u00BFDeseas eliminar la planificaci\u00F3n de ${codigo}?`,
+        "Eliminar planificación",
+        `¿Deseas eliminar la planificación de ${codigo}?`,
         [
           { text: "Cancelar", style: "cancel" },
           {
@@ -37,7 +37,7 @@ export default function PlanesScreen() {
       <View className="px-5 pt-4 pb-2">
         <Text className="text-3xl font-bold text-foreground">Mis Planes</Text>
         <Text className="text-base text-muted mt-1">
-          {planificaciones.length} planificaci{"\u00F3"}n(es) guardada(s)
+          {planificaciones.length} planificaci{"ó"}n(es) guardada(s)
         </Text>
       </View>
       <FlatList
@@ -104,7 +104,7 @@ export default function PlanesScreen() {
                 <View style={styles.planMeta}>
                   <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
                   <Text className="text-xs text-muted ml-1">
-                    {item.periodos} per{"\u00ED"}odo(s)
+                    {item.periodos} per{"í"}odo(s)
                   </Text>
                 </View>
               </View>
@@ -118,7 +118,7 @@ export default function PlanesScreen() {
               Sin planificaciones
             </Text>
             <Text className="text-sm text-muted mt-2 text-center">
-              Busca una destreza y genera tu primera planificaci{"\u00F3"}n microcurricular
+              Busca una destreza y genera tu primera planificaci{"ó"}n microcurricular
             </Text>
           </View>
         }

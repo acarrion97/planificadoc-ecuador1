@@ -231,7 +231,7 @@ export default function PlanificarScreen() {
             >
               <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
               <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-                Atr{"\u00E1"}s
+                Atr{"á"}s
               </Text>
             </Pressable>
           </View>
@@ -338,7 +338,7 @@ export default function PlanificarScreen() {
                 <Text style={styles.stepBadgeText}>2</Text>
               </View>
               <Text className="text-xl font-bold text-foreground ml-3">
-                Planificaci{"\u00F3"}n Microcurricular
+                Planificaci{"ó"}n Microcurricular
               </Text>
             </View>
           </View>
@@ -383,10 +383,10 @@ export default function PlanificarScreen() {
           <SectionTitle title="Datos Informativos" emoji={"\u2139\uFE0F"} colors={colors} />
 
           <FormField
-            label="Instituci\u00F3n Educativa"
+            label="Institución Educativa"
             value={institucion}
             onChangeText={setInstitucion}
-            placeholder="Nombre de la instituci\u00F3n"
+            placeholder="Nombre de la institución"
             colors={colors}
           />
           <FormField
@@ -417,7 +417,7 @@ export default function PlanificarScreen() {
             </View>
           </View>
           <FormField
-            label="N\u00FAmero de Per\u00EDodos"
+            label="Número de Períodos"
             value={periodos}
             onChangeText={setPeriodos}
             placeholder="1"
@@ -456,7 +456,7 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          <SectionTitle title="Recursos Did\u00E1cticos" emoji={"\uD83D\uDCE6"} colors={colors} />
+          <SectionTitle title="Recursos Didácticos" emoji={"\uD83D\uDCE6"} colors={colors} />
           <FormField
             label="Recursos"
             value={recursos}
@@ -466,9 +466,9 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          <SectionTitle title="Evaluaci\u00F3n" emoji={"\uD83D\uDCCA"} colors={colors} />
+          <SectionTitle title="Evaluación" emoji={"\uD83D\uDCCA"} colors={colors} />
           <FormField
-            label="Indicadores de Evaluaci\u00F3n"
+            label="Indicadores de Evaluación"
             value={evaluacion}
             onChangeText={setEvaluacion}
             placeholder="Indicadores..."
@@ -476,16 +476,16 @@ export default function PlanificarScreen() {
             colors={colors}
           />
           <FormField
-            label="T\u00E9cnicas e Instrumentos"
+            label="Técnicas e Instrumentos"
             value={tecnicas}
             onChangeText={setTecnicas}
-            placeholder="T\u00E9cnicas e instrumentos de evaluaci\u00F3n..."
+            placeholder="Técnicas e instrumentos de evaluación..."
             multiline
             colors={colors}
           />
 
-          {/* ===== SECCI\u00D3N DUA ===== */}
-          <SectionTitle title="Dise\u00F1o Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors} />
+          {/* ===== SECCIÓN DUA ===== */}
+          <SectionTitle title="Diseño Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors} />
           <View className="px-5 mt-1 mb-1">
             <View style={[styles.duaBanner, { backgroundColor: "#7C3AED" + "10", borderColor: "#7C3AED" + "30" }]}>
               <Text style={{ color: "#7C3AED", fontSize: 12, fontWeight: "600", textAlign: "center" }}>
@@ -497,18 +497,18 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#2563EB" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#2563EB" }}>
-                Principio 1: M{"\u00FA"}ltiples formas de Representaci{"\u00F3"}n
+                Principio 1: M{"ú"}ltiples formas de Representaci{"ó"}n
               </Text>
               <Text style={{ fontSize: 10, color: "#2563EB", opacity: 0.7 }}>
-                El QU{"\u00C9"} del aprendizaje
+                El QU{"É"} del aprendizaje
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Representaci\u00F3n"
+            label="Estrategias de Representación"
             value={duaRepresentacion}
             onChangeText={setDuaRepresentacion}
-            placeholder="C\u00F3mo presentar\u00E1 la informaci\u00F3n de m\u00FAltiples formas..."
+            placeholder="Cómo presentará la información de múltiples formas..."
             multiline
             colors={colors}
           />
@@ -516,18 +516,18 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#16A34A" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#16A34A" }}>
-                Principio 2: M{"\u00FA"}ltiples formas de Acci{"\u00F3"}n y Expresi{"\u00F3"}n
+                Principio 2: M{"ú"}ltiples formas de Acci{"ó"}n y Expresi{"ó"}n
               </Text>
               <Text style={{ fontSize: 10, color: "#16A34A", opacity: 0.7 }}>
-                El C{"\u00D3"}MO del aprendizaje
+                El C{"Ó"}MO del aprendizaje
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Acci\u00F3n y Expresi\u00F3n"
+            label="Estrategias de Acción y Expresión"
             value={duaAccionExpresion}
             onChangeText={setDuaAccionExpresion}
-            placeholder="C\u00F3mo los estudiantes demostrar\u00E1n lo aprendido..."
+            placeholder="Cómo los estudiantes demostrarán lo aprendido..."
             multiline
             colors={colors}
           />
@@ -535,18 +535,18 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#D97706" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#D97706" }}>
-                Principio 3: M{"\u00FA"}ltiples formas de Implicaci{"\u00F3"}n
+                Principio 3: M{"ú"}ltiples formas de Implicaci{"ó"}n
               </Text>
               <Text style={{ fontSize: 10, color: "#D97706", opacity: 0.7 }}>
-                El POR QU{"\u00C9"} del aprendizaje
+                El POR QU{"É"} del aprendizaje
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Implicaci\u00F3n"
+            label="Estrategias de Implicación"
             value={duaImplicacion}
             onChangeText={setDuaImplicacion}
-            placeholder="C\u00F3mo motivar e involucrar a todos los estudiantes..."
+            placeholder="Cómo motivar e involucrar a todos los estudiantes..."
             multiline
             colors={colors}
           />
@@ -574,10 +574,10 @@ export default function PlanificarScreen() {
               ]}
             >
               <Text style={{ fontSize: 20 }}>{"\uD83D\uDCBE"}</Text>
-              <Text style={styles.saveBtnText}>Guardar Planificaci{"\u00F3"}n</Text>
+              <Text style={styles.saveBtnText}>Guardar Planificaci{"ó"}n</Text>
             </Pressable>
             <Text className="text-xs text-muted text-center mt-3">
-              Al guardar podr{"\u00E1"}s exportar la planificaci{"\u00F3"}n como PDF con formato oficial del Ministerio de Educaci{"\u00F3"}n
+              Al guardar podr{"á"}s exportar la planificaci{"ó"}n como PDF con formato oficial del Ministerio de Educaci{"ó"}n
             </Text>
           </View>
         </ScrollView>
@@ -654,14 +654,14 @@ function TemaCard({
               <View style={styles.previewSectionHeader}>
                 <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
                 <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
-                  Duraci{"\u00F3"}n total: 45 minutos
+                  Duraci{"ó"}n total: 45 minutos
                 </Text>
               </View>
             </View>
 
             {/* 3 Fases */}
             <FasePreview
-              label="Anticipaci\u00F3n"
+              label="Anticipación"
               fase={tema.estructura.anticipacion}
               color="#F59E0B"
               colors={colors}
@@ -762,7 +762,7 @@ function EstructuraClaseView({
   areaColor: string;
 }) {
   const fases = [
-    { key: "anticipacion" as const, label: "Anticipaci\u00F3n", color: "#F59E0B", emoji: "\uD83D\uDCA1" },
+    { key: "anticipacion" as const, label: "Anticipación", color: "#F59E0B", emoji: "\uD83D\uDCA1" },
     { key: "desarrollo" as const, label: "Desarrollo", color: "#2563EB", emoji: "\uD83D\uDD27" },
     { key: "cierre" as const, label: "Cierre", color: "#16A34A", emoji: "\u2705" },
   ];
@@ -773,7 +773,7 @@ function EstructuraClaseView({
       <View style={[styles.totalDurationBadge, { backgroundColor: areaColor + "10", borderColor: areaColor + "30" }]}>
         <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
         <Text style={{ color: areaColor, fontSize: 13, fontWeight: "700", marginLeft: 6 }}>
-          Duraci{"\u00F3"}n total: 45 minutos
+          Duraci{"ó"}n total: 45 minutos
         </Text>
       </View>
 

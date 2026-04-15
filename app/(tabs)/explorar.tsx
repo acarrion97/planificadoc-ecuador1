@@ -61,7 +61,7 @@ export default function ExplorarScreen() {
         <View className="px-5 pt-4 pb-2">
           <Text className="text-3xl font-bold text-foreground">Explorar</Text>
           <Text className="text-base text-muted mt-1">
-            Navega por {"\u00E1"}reas y subniveles
+            Navega por {"á"}reas y subniveles
           </Text>
         </View>
         <FlatList
@@ -121,7 +121,7 @@ export default function ExplorarScreen() {
           >
             <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              {"\u00C1"}reas
+              {"Á"}reas
             </Text>
           </Pressable>
           <Text
