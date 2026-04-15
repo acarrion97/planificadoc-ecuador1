@@ -88,10 +88,8 @@ export function registerPayPhoneRoutes(app: Express) {
         status: "pending",
       });
 
-      // Build the response URL - where PayPhone redirects after payment
-      const protocol = req.headers["x-forwarded-proto"] || req.protocol || "https";
-      const host = req.headers["x-forwarded-host"] || req.headers.host || "localhost:3000";
-      const responseUrl = `${protocol}://${host}/api/payment/confirm`;
+      // Always use planificadoc.app for response URL so PayPhone domain validation passes
+      const responseUrl = "https://planificadoc.app/api/payment/confirm";
 
       // Calculate tax breakdown (Ecuador: 15% IVA)
       // For simplicity, treat the full amount as tax-free (service fee)
@@ -110,6 +108,7 @@ export function registerPayPhoneRoutes(app: Express) {
       });
 
       res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("Referrer-Policy", "origin");
       res.send(html);
     } catch (error) {
       console.error("[PayPhone] Error generating payment page:", error);
@@ -119,7 +118,10 @@ export function registerPayPhoneRoutes(app: Express) {
 
   /**
    * GET /api/payment/confirm?id=xxx&clientTransactionId=xxx
-   * PayPhone redirects here after payment. Confirms with PayPhone API.
+   * PayPhone redirects here after payment.
+   * Serves an HTML page that confirms the payment FROM THE USER'S BROWSER
+   * (because PayPhone's Azure WAF blocks server-to-server calls from cloud IPs).
+   * The browser then sends the confirm result to our /api/payment/activate endpoint.
    */
   app.get("/api/payment/confirm", async (req: Request, res: Response) => {
     const payphoneTxId = req.query.id as string;
@@ -131,28 +133,55 @@ export function registerPayPhoneRoutes(app: Express) {
     }
 
     try {
-      // Get the pending transaction
+      // Verify the transaction exists in our DB
       const tx = await getPaymentTransaction(clientTxId);
       if (!tx) {
         res.send(buildResultPageHTML(false, "Transaccion no encontrada."));
         return;
       }
 
-      // Confirm with PayPhone API
-      const confirmResponse = await fetch(PAYPHONE_CONFIRM_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${payphoneToken}`,
-        },
-        body: JSON.stringify({
-          id: parseInt(payphoneTxId),
-          clientTxId: clientTxId,
-        }),
-      });
+      // Serve an HTML page that does the PayPhone Confirm call from the user's browser
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("Referrer-Policy", "origin");
+      res.send(buildConfirmBridgeHTML({
+        payphoneTxId,
+        clientTxId,
+        token: payphoneToken,
+        email: tx.email,
+      }));
+    } catch (error) {
+      console.error("[PayPhone] Confirm page error:", error);
+      res.send(buildResultPageHTML(false, "Error al procesar. Intenta de nuevo."));
+    }
+  });
 
-      const confirmData = await confirmResponse.json();
-      console.log("[PayPhone] Confirm response:", JSON.stringify(confirmData));
+  /**
+   * POST /api/payment/activate
+   * Called by the confirm bridge page after successfully confirming with PayPhone.
+   * Receives the PayPhone confirm response and activates the subscription.
+   */
+  app.post("/api/payment/activate", async (req: Request, res: Response) => {
+    const { clientTxId, confirmData } = req.body;
+
+    if (!clientTxId || !confirmData) {
+      res.status(400).json({ error: "Datos faltantes" });
+      return;
+    }
+
+    try {
+      const tx = await getPaymentTransaction(clientTxId);
+      if (!tx) {
+        res.status(404).json({ error: "Transaccion no encontrada" });
+        return;
+      }
+
+      // Check if already processed
+      if (tx.status === "approved") {
+        res.json({ success: true, message: "Suscripcion ya activada" });
+        return;
+      }
+
+      console.log("[PayPhone] Activate - confirm data:", JSON.stringify(confirmData));
 
       if (confirmData.statusCode === 3 && confirmData.transactionStatus === "Approved") {
         // Payment approved!
@@ -184,13 +213,7 @@ export function registerPayPhoneRoutes(app: Express) {
           isPromo: tx.amount === PROMO_PRICE_CENTS,
         });
 
-        res.send(
-          buildResultPageHTML(
-            true,
-            "Pago exitoso. Tu suscripcion ha sido activada.",
-            tx.email
-          )
-        );
+        res.json({ success: true, email: tx.email });
       } else {
         // Payment cancelled or failed
         await updatePaymentTransaction(clientTxId, {
@@ -200,18 +223,16 @@ export function registerPayPhoneRoutes(app: Express) {
           payphoneResponse: JSON.stringify(confirmData),
         });
 
-        res.send(
-          buildResultPageHTML(
-            false,
-            confirmData.statusCode === 2
-              ? "Pago cancelado. Puedes intentar de nuevo."
-              : `Error en el pago: ${confirmData.message || "Error desconocido"}`
-          )
-        );
+        res.json({
+          success: false,
+          message: confirmData.statusCode === 2
+            ? "Pago cancelado"
+            : confirmData.message || "Error desconocido",
+        });
       }
     } catch (error) {
-      console.error("[PayPhone] Confirm error:", error);
-      res.send(buildResultPageHTML(false, "Error al confirmar el pago. Intenta de nuevo."));
+      console.error("[PayPhone] Activate error:", error);
+      res.status(500).json({ error: "Error al activar suscripcion" });
     }
   });
 
@@ -303,9 +324,10 @@ function buildPaymentPageHTML(config: {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago Seguro</title>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
-  <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
+  <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -453,6 +475,178 @@ function buildPaymentPageHTML(config: {
         document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;">Error al cargar el formulario de pago. Recarga la pagina.</p>';
       }
     });
+  </script>
+</body>
+</html>`;
+}
+
+function buildConfirmBridgeHTML(config: {
+  payphoneTxId: string;
+  clientTxId: string;
+  token: string;
+  email: string;
+}): string {
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="origin">
+  <title>PlanificaDoc - Procesando pago...</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 24px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid #e5e7eb;
+      border-top: 4px solid #1e3a5f;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h1 { font-size: 20px; color: #1e3a5f; margin-bottom: 8px; }
+    .status { font-size: 14px; color: #687076; line-height: 1.5; }
+    .success-icon { font-size: 64px; margin-bottom: 16px; }
+    .error-icon { font-size: 64px; margin-bottom: 16px; }
+    .success-badge {
+      display: inline-block;
+      background: #059669;
+      color: white;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    .error-badge {
+      display: inline-block;
+      background: #DC2626;
+      color: white;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    .email-info {
+      background: #f0f9ff;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 14px;
+      color: #1e3a5f;
+      margin: 16px 0;
+    }
+    .note { font-size: 12px; color: #999; margin-top: 16px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="loading">
+      <div class="spinner"></div>
+      <h1>Procesando tu pago...</h1>
+      <p class="status">Confirmando la transaccion con PayPhone. No cierres esta ventana.</p>
+    </div>
+    <div id="result" class="hidden"></div>
+  </div>
+
+  <script>
+    (async function() {
+      const loadingEl = document.getElementById('loading');
+      const resultEl = document.getElementById('result');
+
+      function showResult(html) {
+        loadingEl.classList.add('hidden');
+        resultEl.classList.remove('hidden');
+        resultEl.innerHTML = html;
+      }
+
+      try {
+        // Step 1: Confirm with PayPhone API (from user's browser)
+        const confirmRes = await fetch('https://pay.payphonetodoesposible.com/api/button/V2/Confirm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${config.token}'
+          },
+          body: JSON.stringify({
+            id: ${config.payphoneTxId},
+            clientTxId: '${config.clientTxId}'
+          })
+        });
+
+        const confirmData = await confirmRes.json();
+        console.log('PayPhone confirm:', confirmData);
+
+        // Step 2: Send confirm result to our server to activate subscription
+        const activateRes = await fetch('/api/payment/activate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            clientTxId: '${config.clientTxId}',
+            confirmData: confirmData
+          })
+        });
+
+        const activateResult = await activateRes.json();
+        console.log('Activate result:', activateResult);
+
+        if (activateResult.success) {
+          showResult(
+            '<div class="success-icon">\u2705</div>' +
+            '<div class="success-badge">PAGO EXITOSO</div>' +
+            '<h1>Pago Exitoso</h1>' +
+            '<p class="status">Tu suscripcion ha sido activada correctamente.</p>' +
+            '<div class="email-info"><strong>Tu cuenta:</strong> ${config.email}<br><small>Usa este email para iniciar sesion en la app.</small></div>' +
+            '<p class="note">Puedes cerrar esta ventana y volver a la app. Tu acceso ya esta activo.</p>'
+          );
+        } else if (confirmData.statusCode === 2) {
+          showResult(
+            '<div class="error-icon">\u274C</div>' +
+            '<div class="error-badge">PAGO CANCELADO</div>' +
+            '<h1>Pago Cancelado</h1>' +
+            '<p class="status">' + (activateResult.message || 'El pago fue cancelado.') + '</p>' +
+            '<p class="note">Si el problema persiste, contactanos por WhatsApp.</p>'
+          );
+        } else {
+          showResult(
+            '<div class="error-icon">\u274C</div>' +
+            '<div class="error-badge">ERROR</div>' +
+            '<h1>Error en el Pago</h1>' +
+            '<p class="status">' + (activateResult.message || confirmData.message || 'Error desconocido') + '</p>' +
+            '<p class="note">Si el problema persiste, contactanos por WhatsApp.</p>'
+          );
+        }
+      } catch (error) {
+        console.error('Confirm error:', error);
+        showResult(
+          '<div class="error-icon">\u274C</div>' +
+          '<div class="error-badge">ERROR</div>' +
+          '<h1>Error de Conexion</h1>' +
+          '<p class="status">No se pudo confirmar el pago. Tu pago fue procesado pero necesita confirmacion manual. Contactanos por WhatsApp con tu email: ${config.email}</p>' +
+          '<p class="note">Si el problema persiste, contactanos por WhatsApp.</p>'
+        );
+      }
+    })();
   </script>
 </body>
 </html>`;

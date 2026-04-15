@@ -92,9 +92,9 @@ export default function PaywallScreen() {
     }
     setEmailError("");
 
-    // Open PayPhone payment page in browser
-    const baseUrl = getApiBaseUrl();
-    const paymentUrl = `${baseUrl}/api/payment/page?email=${encodeURIComponent(trimmedEmail)}`;
+    // Always use planificadoc.app for payment page so PayPhone domain validation passes
+    const PAYMENT_BASE_URL = "https://planificadoc.app";
+    const paymentUrl = `${PAYMENT_BASE_URL}/api/payment/page?email=${encodeURIComponent(trimmedEmail)}`;
 
     try {
       if (Platform.OS === "web") {

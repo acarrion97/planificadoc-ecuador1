@@ -74,3 +74,7 @@
 - [x] Desplegar versión actualizada en Vercel (planificadoc.app actualizado con PayPhone + emojis)
 - [x] Corregir error de autorización de PayPhone Payment Box - dominio registrado + rewrites Vercel configurados
 - [x] Corregir definitivamente error de PayPhone - StoreID correcto (UUID sucursal) + script sin type=module para evitar CORS
+- [x] Corregir error "Su dominio no está autorizado" - hacer que la app siempre use planificadoc.app como URL base de pago
+- [x] Fix: PayPhone no redirige a responseUrl después del pago exitoso
+- [x] Fix: Error "Ya existe transacción con ClientTransactionId" al recargar página de pago
+- [x] Fix: Verificar que /api/payment/confirm activa correctamente la suscripción
