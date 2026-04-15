@@ -72,3 +72,4 @@
 - [x] Forzar actualización de la página web desplegada - servidor Express ahora sirve dist/ estático
 - [x] Push actualización a GitHub (via Manus checkpoint)
 - [x] Desplegar versión actualizada en Vercel (planificadoc.app actualizado con PayPhone + emojis)
+- [x] Corregir error de autorización de PayPhone Payment Box - dominio registrado + rewrites Vercel configurados
