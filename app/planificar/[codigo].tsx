@@ -350,7 +350,7 @@ export default function PlanificarScreen() {
             ))}
           </View>
 
-          {/* Bot\u00f3n Generar temas con IA - solo para usuarios con acceso */}
+          {/* Botón Generar temas con IA - solo para usuarios con acceso */}
           {hasAccess && (
             <View className="px-5 mt-3">
               <Pressable
@@ -376,7 +376,7 @@ export default function PlanificarScreen() {
                   <>
                     <Text style={{ fontSize: 18 }}>{"\u2728"}</Text>
                     <Text style={{ color: "#fff", fontSize: 15, fontWeight: "700", marginLeft: 8 }}>
-                      Generar m{"\u00E1"}s temas con IA
+                      Generar más temas con IA
                     </Text>
                   </>
                 )}
@@ -389,7 +389,7 @@ export default function PlanificarScreen() {
             </View>
           )}
 
-          {/* Bot\u00f3n para usuarios sin acceso - mostrar que es premium */}
+          {/* Botón para usuarios sin acceso - mostrar que es premium */}
           {!hasAccess && (
             <View className="px-5 mt-3">
               <View
