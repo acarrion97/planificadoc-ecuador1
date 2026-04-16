@@ -84,3 +84,8 @@
 - [x] Implementar/verificar generación de nuevos temas con IA (ChatGPT/LLM) para usuarios de pago
 - [x] Fix: Restaurar index.tsx vacío (pantalla Home) que causaba 'not found'
 - [x] Redesplegar a Vercel con todas las correcciones de encoding y temas
+- [x] Fix: Corregir verbos en actividades de planificación - deben estar en infinitivo (Introducir, Trabajar, Usar) no en sustantivo (Introducción, Trabajo, Uso)
+- [x] Fix: Corregir tildes faltantes en sugerencias genéricas (Anticipación, propósito, práctica, etc.)
+- [x] Fix: Agregar instrucción de verbos en infinitivo al prompt de IA (topics.generateAi)
+- [x] Fix: Cambiar botón "Verificar mi pago" por "Acceder" en paywall
+- [ ] Redesplegar a Vercel con correcciones de tildes, infinitivos y botón Acceder

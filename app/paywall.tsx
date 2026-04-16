@@ -386,7 +386,7 @@ export default function PaywallScreen() {
                 <>
                   <Text style={{ fontSize: 18 }}>{"\uD83D\uDD13"}</Text>
                   <Text style={[styles.verifyButtonText, { color: colors.primary }]}>
-                    Verificar mi pago
+                    Acceder
                   </Text>
                 </>
               )}

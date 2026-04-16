@@ -61,6 +61,7 @@ IMPORTANTE:
 - Los temas deben ser CONTEXTUALIZADOS a la realidad ecuatoriana
 - Las actividades deben ser PRÁCTICAS y APLICABLES en el aula
 - Cada tema debe tener un enfoque diferente (teórico, práctico, lúdico)
+- TODAS las actividades DEBEN comenzar con un VERBO EN INFINITIVO (Presentar, Realizar, Explicar, Solicitar, Guiar, Organizar, etc.). NUNCA uses sustantivos (Presentación, Realización, Introducción, Uso, Trabajo). Ejemplo correcto: "Presentar el tema mediante un video" NO "Presentación del tema mediante un video"
 - Usa español correcto con tildes y ñ
 - NO uses emojis
 
