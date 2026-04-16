@@ -82,3 +82,5 @@
 - [x] Fix CRÍTICO: Los temas se repiten en todas las destrezas del mismo subnivel - deben ser específicos por destreza
 - [x] Verificar que la versión de pago tiene 3 opciones de temas por destreza
 - [x] Implementar/verificar generación de nuevos temas con IA (ChatGPT/LLM) para usuarios de pago
+- [x] Fix: Restaurar index.tsx vacío (pantalla Home) que causaba 'not found'
+- [x] Redesplegar a Vercel con todas las correcciones de encoding y temas
