@@ -89,3 +89,4 @@
 - [x] Fix: Agregar instrucción de verbos en infinitivo al prompt de IA (topics.generateAi)
 - [x] Fix: Cambiar botón "Verificar mi pago" por "Acceder" en paywall
 - [x] Redesplegar a Vercel con correcciones de tildes, infinitivos y botón Acceder
+- [x] Fix: Actualizar rewrites de Vercel para apuntar al backend publicado (En vivo) en vez del sandbox temporal
