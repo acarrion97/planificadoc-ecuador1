@@ -88,4 +88,4 @@
 - [x] Fix: Corregir tildes faltantes en sugerencias genéricas (Anticipación, propósito, práctica, etc.)
 - [x] Fix: Agregar instrucción de verbos en infinitivo al prompt de IA (topics.generateAi)
 - [x] Fix: Cambiar botón "Verificar mi pago" por "Acceder" en paywall
-- [ ] Redesplegar a Vercel con correcciones de tildes, infinitivos y botón Acceder
+- [x] Redesplegar a Vercel con correcciones de tildes, infinitivos y botón Acceder
