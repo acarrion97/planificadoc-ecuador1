@@ -2,10 +2,11 @@ import { Destreza, TemaSugerido, Area, AREAS_INFO } from "./types";
 
 /**
  * Genera temas sugeridos ESPECÍFICOS para cada destreza.
- * Cada tema incluye una estructura de clase de 45 minutos en 3 fases:
- * - Anticipación (10 min): Activación de conocimientos previos
- * - Desarrollo (25 min): Construcción del conocimiento
- * - Cierre (10 min): Consolidación + preguntas de retroalimentación
+ * Cada tema incluye una estructura de clase de 45 minutos en 4 fases ERCA:
+ * - Experiencia (10 min): Activación de conocimientos previos y vivencias
+ * - Reflexión (10 min): Análisis y cuestionamiento de la experiencia
+ * - Conceptualización (15 min): Construcción formal del conocimiento
+ * - Aplicación (10 min): Transferencia y práctica del aprendizaje
  *
  * Los temas se generan dinámicamente a partir de la descripción de la destreza,
  * garantizando que cada destreza tenga temas únicos y relevantes.
@@ -28,7 +29,7 @@ function hashString(str: string): number {
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32bit integer
+    hash = hash & hash;
   }
   return Math.abs(hash);
 }
@@ -65,7 +66,6 @@ function generarTituloTema(destreza: Destreza, variante: number): string {
   const areaInfo = AREAS_INFO[destreza.area];
   const bloque = areaInfo.bloques[destreza.bloque] || "";
 
-  // Prefijos creativos por variante
   const prefijos: Record<number, string[]> = {
     0: [
       "Descubriendo", "Explorando", "Aprendiendo sobre", "Conociendo",
@@ -85,7 +85,6 @@ function generarTituloTema(destreza: Destreza, variante: number): string {
   const prefijoList = prefijos[variante] || prefijos[0];
   const prefijo = prefijoList[hash % prefijoList.length];
 
-  // Construir tema basado en las palabras clave de la destreza
   const temaBase = palabras.slice(0, 4).join(" ");
   if (temaBase.length > 10) {
     return `${prefijo} ${temaBase}`;
@@ -94,18 +93,19 @@ function generarTituloTema(destreza: Destreza, variante: number): string {
 }
 
 // ============================================================
-// PLANTILLAS DE ACTIVIDADES POR ÁREA
+// PLANTILLAS DE ACTIVIDADES POR ÁREA (MODELO ERCA)
 // ============================================================
 
 interface PlantillaActividades {
-  anticipacion: (destreza: Destreza, variante: number) => string[];
-  desarrollo: (destreza: Destreza, variante: number) => string[];
-  cierre: (destreza: Destreza, variante: number) => string[];
+  experiencia: (destreza: Destreza, variante: number) => string[];
+  reflexion: (destreza: Destreza, variante: number) => string[];
+  conceptualizacion: (destreza: Destreza, variante: number) => string[];
+  aplicacion: (destreza: Destreza, variante: number) => string[];
   recursos: (destreza: Destreza, variante: number) => string[];
 }
 
 const PLANTILLAS_MATEMATICA: PlantillaActividades = {
-  anticipacion: (d, v) => {
+  experiencia: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
@@ -129,7 +129,31 @@ const PLANTILLAS_MATEMATICA: PlantillaActividades = {
     ];
     return opciones[v % opciones.length];
   },
-  desarrollo: (d, v) => {
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis: ¿Qué estrategias usaron? ¿Cuál fue más efectiva?",
+        "Solicitar que comparen sus respuestas con las de otros compañeros.",
+        `Guiar la discusión sobre las dificultades encontradas al resolver: ${desc.substring(0, 60).toLowerCase()}...`,
+        "Registrar en la pizarra las conclusiones del grupo.",
+      ],
+      [
+        "Organizar una puesta en común de las soluciones encontradas.",
+        "Indagar sobre las razones del éxito de cada estrategia utilizada.",
+        "Identificar errores comunes y analizarlos colectivamente.",
+        "Relacionar las respuestas con conceptos matemáticos formales.",
+      ],
+      [
+        "Solicitar que expliquen con sus propias palabras cómo resolvieron el problema.",
+        "Comparar diferentes caminos de solución presentados por los estudiantes.",
+        "Formular preguntas: ¿Qué tienen en común estas soluciones?",
+        "Guiar hacia la identificación de patrones o reglas.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
@@ -137,9 +161,7 @@ const PLANTILLAS_MATEMATICA: PlantillaActividades = {
         "Utilizar material concreto (regletas, bloques, ábacos) para representar el concepto.",
         "Realizar práctica guiada: resolver 2-3 ejercicios paso a paso en la pizarra.",
         "Trabajar en el texto del estudiante: analizar ejemplos resueltos.",
-        "Asignar trabajo individual: 4-5 ejercicios de aplicación directa.",
-        "Recorrer el aula para orientar y resolver dudas individuales.",
-        "Proponer un ejercicio de mayor complejidad para quienes terminan primero.",
+        "Formalizar las reglas y procedimientos en el cuaderno.",
       ],
       [
         `Introducir el tema mediante una demostración práctica: ${desc}`,
@@ -147,44 +169,39 @@ const PLANTILLAS_MATEMATICA: PlantillaActividades = {
         "Guiar la exploración: solicitar que descubran patrones o relaciones.",
         "Formalizar el concepto a partir de los descubrimientos de los estudiantes.",
         "Resolver ejercicios de complejidad creciente en la pizarra.",
-        "Asignar trabajo en parejas: resolver problemas contextualizados.",
-        "Organizar la socialización de resultados entre parejas.",
       ],
       [
         `Presentar el contenido de forma estructurada: ${desc}`,
         "Utilizar representaciones gráficas (diagramas, tablas, recta numérica) para visualizar.",
         "Modelar la resolución de un problema paso a paso.",
         "Solicitar que los estudiantes resuelvan un problema similar de forma guiada.",
-        "Asignar trabajo en equipos: resolver un reto matemático contextualizado.",
-        "Invitar a cada equipo a explicar su estrategia de resolución.",
-        "Proponer ejercicios individuales de consolidación.",
+        "Sintetizar el concepto con un organizador gráfico en el cuaderno.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  cierre: (d, v) => {
-    const desc = d.descripcion;
+  aplicacion: (d, v) => {
     const opciones: string[][] = [
       [
+        "Asignar ejercicios individuales de aplicación directa.",
+        "Recorrer el aula para orientar y resolver dudas individuales.",
+        "Proponer un ejercicio de mayor complejidad para quienes terminan primero.",
         "Socializar resultados y corregir colectivamente los ejercicios.",
-        `Formular preguntas de retroalimentación: ¿Qué aprendimos hoy sobre ${desc.substring(0, 50).toLowerCase()}...?`,
-        "Aclarar dudas y reforzar conceptos clave.",
-        "Asignar tarea de refuerzo para la casa.",
         "Promover la metacognición: ¿Qué fue fácil? ¿Qué necesito repasar?",
       ],
       [
-        "Invitar a 2-3 estudiantes a explicar cómo resolvieron un ejercicio.",
+        "Asignar trabajo en parejas: resolver problemas contextualizados.",
+        "Organizar la socialización de resultados entre parejas.",
         "Corregir errores comunes identificados durante la clase.",
-        "Sintetizar los aprendizajes clave en un organizador gráfico.",
         "Asignar tarea de extensión con problemas del contexto real.",
         "Realizar autoevaluación: ¿Puedo explicar lo aprendido a un compañero?",
       ],
       [
+        "Asignar trabajo en equipos: resolver un reto matemático contextualizado.",
+        "Invitar a cada equipo a explicar su estrategia de resolución.",
         "Organizar un juego rápido de repaso (preguntas y respuestas).",
-        "Reforzar los procedimientos y conceptos trabajados.",
-        "Formular preguntas de cierre: ¿Para qué nos sirve lo aprendido?",
         "Asignar tarea diferenciada según el nivel de avance.",
-        "Motivar: destacar el progreso logrado en la clase.",
+        "Destacar el progreso logrado en la clase para motivar al estudiante.",
       ],
     ];
     return opciones[v % opciones.length];
@@ -201,7 +218,7 @@ const PLANTILLAS_MATEMATICA: PlantillaActividades = {
 };
 
 const PLANTILLAS_LENGUA: PlantillaActividades = {
-  anticipacion: (d, v) => {
+  experiencia: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
@@ -225,7 +242,31 @@ const PLANTILLAS_LENGUA: PlantillaActividades = {
     ];
     return opciones[v % opciones.length];
   },
-  desarrollo: (d, v) => {
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis: ¿Qué les llamó la atención del texto?",
+        "Solicitar que identifiquen las ideas principales.",
+        `Guiar la discusión sobre la intención comunicativa: ${desc.substring(0, 50).toLowerCase()}...`,
+        "Registrar las opiniones del grupo en la pizarra.",
+      ],
+      [
+        "Organizar una discusión grupal sobre lo leído u observado.",
+        "Indagar sobre las razones del autor para elegir esas palabras o estructura.",
+        "Comparar diferentes interpretaciones de los estudiantes.",
+        "Relacionar el texto con experiencias personales.",
+      ],
+      [
+        "Solicitar que expresen con sus propias palabras lo comprendido.",
+        "Analizar colectivamente la estructura del texto presentado.",
+        "Formular preguntas: ¿Qué recursos lingüísticos identifican?",
+        "Guiar hacia la comprensión profunda del contenido.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
@@ -233,271 +274,295 @@ const PLANTILLAS_LENGUA: PlantillaActividades = {
         "Realizar lectura compartida del texto seleccionado.",
         "Guiar el análisis del contenido, estructura y recursos del texto.",
         "Modelar la producción textual o actividad comunicativa.",
-        "Asignar producción individual o en parejas.",
-        "Organizar revisión entre pares y corrección colaborativa.",
-        "Socializar las producciones más destacadas.",
+        "Formalizar las reglas o conceptos lingüísticos en el cuaderno.",
       ],
       [
         `Introducir el tema mediante ejemplos contextualizados: ${desc}`,
         "Analizar colectivamente un texto modelo identificando sus características.",
         "Trabajar en el texto del estudiante: ejercicios de comprensión.",
-        "Asignar trabajo en grupos: producción textual colaborativa.",
-        "Guiar la revisión y edición de los textos producidos.",
-        "Invitar a cada grupo a compartir su producción.",
-        "Proponer ejercicios individuales de consolidación.",
+        "Explicar las reglas gramaticales o literarias aplicables.",
+        "Elaborar un organizador gráfico con los conceptos clave.",
       ],
       [
-        `Explorar el tema a través de la lectura guiada: ${desc}`,
-        "Identificar colectivamente elementos clave del texto.",
-        "Realizar ejercicios de vocabulario y comprensión.",
-        "Asignar trabajo creativo: producción textual individual.",
-        "Acompañar el proceso de escritura individualmente.",
-        "Organizar la lectura en voz alta de las producciones.",
-        "Proporcionar retroalimentación constructiva.",
+        `Explicar la estructura y características del tipo textual: ${desc}`,
+        "Presentar ejemplos variados del tipo textual estudiado.",
+        "Identificar colectivamente los elementos constitutivos.",
+        "Guiar la construcción de un texto modelo en la pizarra.",
+        "Sintetizar las características en un cuadro comparativo.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  cierre: (d, v) => {
+  aplicacion: (d, v) => {
     const opciones: string[][] = [
       [
-        "Compartir las producciones escritas con el grupo.",
-        "Formular preguntas de retroalimentación sobre el aprendizaje.",
-        "Reforzar conceptos y estrategias comunicativas trabajadas.",
-        "Asignar tarea de extensión (lectura o producción escrita).",
-        "Promover la metacognición: ¿Qué estrategia me ayudó más?",
+        "Asignar producción individual o en parejas del tipo textual estudiado.",
+        "Organizar revisión entre pares y corrección colaborativa.",
+        "Socializar las producciones más destacadas.",
+        "Formular preguntas de retroalimentación: ¿Qué aprendimos hoy?",
+        "Asignar tarea de escritura creativa para la casa.",
       ],
       [
-        "Organizar una galería de textos para lectura entre compañeros.",
-        "Sintetizar los aprendizajes clave de la clase.",
-        "Aclarar dudas sobre el contenido trabajado.",
-        "Asignar tarea para reforzar la competencia comunicativa.",
-        "Reflexionar: ¿Cómo puedo mejorar mi comunicación?",
-      ],
-      [
-        "Socializar resultados y destacar logros.",
-        "Realizar coevaluación de las producciones.",
-        "Formular preguntas de cierre sobre lo aprendido.",
+        "Solicitar la producción de un texto siguiendo el modelo estudiado.",
+        "Guiar la revisión y edición del texto producido.",
+        "Organizar la lectura en voz alta de las producciones.",
+        "Promover la coevaluación respetuosa entre compañeros.",
         "Asignar lectura complementaria para la casa.",
-        "Motivar la práctica de la lectura y escritura diaria.",
+      ],
+      [
+        "Proponer un ejercicio de producción textual contextualizado.",
+        "Acompañar el proceso de escritura individualmente.",
+        "Organizar una exposición oral de las producciones.",
+        "Realizar autoevaluación del proceso de escritura.",
+        "Asignar tarea de extensión relacionada con el tema.",
       ],
     ];
     return opciones[v % opciones.length];
   },
   recursos: (d, v) => {
-    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Diccionario"];
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
     const extras: string[][] = [
-      ["Biblioteca del aula", "Papelotes y marcadores"],
-      ["Textos impresos seleccionados", "Fichas de comprensión lectora"],
-      ["Material audiovisual", "Hojas de producción textual"],
+      ["Láminas didácticas", "Diccionario escolar"],
+      ["Textos literarios seleccionados", "Papelotes y marcadores de colores"],
+      ["Material audiovisual", "Fichas de lectura y escritura"],
     ];
     return [...base, ...extras[v % extras.length]];
   },
 };
 
 const PLANTILLAS_CN: PlantillaActividades = {
-  anticipacion: (d, v) => {
+  experiencia: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        `Presentar una pregunta de investigación relacionada con: ${desc}`,
-        "Solicitar que los estudiantes formulen hipótesis.",
-        "Realizar observación directa o indirecta del fenómeno.",
-        "Presentar el objetivo de la clase y la metodología.",
+        `Presentar un fenómeno natural o situación relacionada con: ${desc}`,
+        "Explorar conocimientos previos: ¿Qué saben sobre este tema?",
+        "Realizar una observación directa o experimento introductorio.",
+        "Presentar el objetivo de investigación de la clase.",
       ],
       [
-        `Mostrar un fenómeno natural o experimento sencillo vinculado con: ${desc}`,
-        "Formular preguntas: ¿Por qué sucede esto? ¿Qué creen que pasará?",
-        "Explorar conocimientos previos sobre el tema.",
-        "Compartir el propósito de aprendizaje.",
+        `Plantear una pregunta de investigación: ¿Por qué ocurre...? vinculada con: ${desc}`,
+        "Solicitar hipótesis iniciales de los estudiantes.",
+        "Registrar las predicciones en la pizarra.",
+        "Compartir el objetivo de aprendizaje.",
       ],
       [
-        `Presentar imágenes o un video corto sobre: ${desc}`,
-        "Solicitar observaciones y preguntas de los estudiantes.",
-        "Registrar las ideas previas en la pizarra.",
-        "Anunciar el tema y el objetivo de investigación.",
+        `Mostrar un video o imágenes de un fenómeno relacionado con: ${desc}`,
+        "Formular preguntas de observación: ¿Qué observan? ¿Qué creen que pasará?",
+        "Conectar con experiencias cotidianas de los estudiantes.",
+        "Anunciar el tema y la metodología de la clase.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  desarrollo: (d, v) => {
+  reflexion: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        `Explicar los conceptos científicos centrales: ${desc}`,
-        "Realizar un experimento o actividad práctica con materiales del entorno.",
-        "Guiar el registro de observaciones y datos en el cuaderno de campo.",
-        "Analizar colectivamente los resultados obtenidos.",
-        "Trabajar en el texto del estudiante: leer y comparar con lo observado.",
-        "Asignar trabajo en grupos: elaborar conclusiones.",
-        "Socializar los hallazgos de cada grupo.",
+        "Formular preguntas de análisis: ¿Qué observaron? ¿Coincide con sus predicciones?",
+        "Solicitar que comparen sus hipótesis con los resultados observados.",
+        `Guiar la discusión sobre las causas del fenómeno: ${desc.substring(0, 50).toLowerCase()}...`,
+        "Registrar las conclusiones preliminares del grupo.",
       ],
       [
-        `Introducir el tema mediante la indagación: ${desc}`,
-        "Organizar estaciones de aprendizaje con diferentes actividades prácticas.",
-        "Guiar la rotación por estaciones (5 minutos cada una).",
-        "Solicitar el registro de observaciones en cada estación.",
-        "Formalizar los conceptos a partir de la experiencia.",
-        "Asignar ejercicios de aplicación del texto del estudiante.",
-        "Proponer un reto de investigación para profundizar.",
+        "Organizar una discusión grupal sobre los resultados del experimento.",
+        "Indagar sobre las posibles causas del fenómeno observado.",
+        "Comparar diferentes explicaciones propuestas por los estudiantes.",
+        "Identificar las variables que influyeron en el resultado.",
       ],
       [
-        `Presentar el contenido con apoyo visual y concreto: ${desc}`,
-        "Realizar una demostración práctica paso a paso.",
-        "Solicitar que los estudiantes repliquen la actividad en grupos.",
-        "Guiar la elaboración de organizadores gráficos con los conceptos clave.",
-        "Asignar trabajo individual: ejercicios de comprensión.",
-        "Recorrer el aula para orientar y resolver dudas.",
-        "Organizar la presentación de resultados.",
+        "Solicitar que describan con sus propias palabras lo observado.",
+        "Analizar colectivamente los datos recopilados.",
+        "Formular preguntas: ¿Qué relación existe entre las variables?",
+        "Guiar hacia la formulación de explicaciones científicas.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  cierre: (d, v) => {
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        "Socializar conclusiones y comparar con las hipótesis iniciales.",
-        "Formular preguntas de retroalimentación: ¿Qué descubrimos? ¿Se confirmó nuestra hipótesis?",
-        "Reforzar conceptos clave y vocabulario científico.",
-        "Asignar tarea de investigación o experimentación en casa.",
-        "Promover la curiosidad: ¿Qué más les gustaría investigar?",
+        `Explicar el concepto científico central: ${desc}`,
+        "Utilizar modelos, diagramas o esquemas para representar el concepto.",
+        "Realizar una demostración o experimento guiado.",
+        "Trabajar en el texto del estudiante: analizar información científica.",
+        "Formalizar los conceptos en el cuaderno con organizadores gráficos.",
       ],
       [
-        "Presentar los hallazgos de cada grupo al resto de la clase.",
-        "Elaborar colectivamente un mapa conceptual de lo aprendido.",
-        "Aclarar dudas y corregir concepciones erróneas.",
-        "Asignar tarea de observación del entorno natural.",
-        "Reflexionar: ¿Cómo se relaciona lo aprendido con nuestra vida?",
+        `Presentar la teoría científica relacionada: ${desc}`,
+        "Guiar la lectura comprensiva del texto científico.",
+        "Explicar los procesos y relaciones causa-efecto.",
+        "Solicitar que elaboren un resumen o mapa conceptual.",
+        "Resolver ejercicios de aplicación del concepto.",
       ],
       [
-        "Sintetizar los aprendizajes mediante preguntas dirigidas.",
-        "Completar un organizador gráfico de cierre.",
-        "Formular preguntas de extensión para motivar la investigación.",
-        "Asignar lectura complementaria del texto del estudiante.",
-        "Destacar la importancia de la ciencia en la vida cotidiana.",
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar recursos audiovisuales para complementar la explicación.",
+        "Modelar el procedimiento científico paso a paso.",
+        "Guiar la elaboración de un informe de observación.",
+        "Sintetizar los aprendizajes en un cuadro sinóptico.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar un experimento práctico o actividad de laboratorio.",
+        "Solicitar la elaboración de un informe de resultados.",
+        "Socializar los hallazgos y conclusiones.",
+        "Formular preguntas de retroalimentación: ¿Cómo se aplica esto en la vida diaria?",
+        "Asignar investigación complementaria para la casa.",
+      ],
+      [
+        "Proponer un problema ambiental o científico para resolver en equipos.",
+        "Guiar la aplicación del método científico al problema planteado.",
+        "Organizar la presentación de soluciones por equipos.",
+        "Promover la reflexión sobre el impacto en el entorno.",
+        "Asignar proyecto de investigación para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de aplicación del concepto estudiado.",
+        "Organizar una actividad práctica de campo o laboratorio.",
+        "Solicitar que relacionen lo aprendido con su entorno.",
+        "Realizar autoevaluación del aprendizaje.",
+        "Asignar tarea de extensión con enfoque investigativo.",
       ],
     ];
     return opciones[v % opciones.length];
   },
   recursos: (d, v) => {
-    const base = ["Texto del estudiante", "Cuaderno de campo"];
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
     const extras: string[][] = [
-      ["Materiales del entorno para experimentación", "Láminas didácticas", "Lupa o instrumentos de observación"],
-      ["Kit de laboratorio escolar", "Material reciclado", "Fichas de registro"],
-      ["Material audiovisual", "Materiales naturales del entorno", "Papelotes y marcadores"],
+      ["Material de laboratorio", "Láminas didácticas", "Muestras naturales"],
+      ["Microscopio (si está disponible)", "Material audiovisual", "Fichas de observación"],
+      ["Material del entorno natural", "Guías de experimentación", "Recursos tecnológicos"],
     ];
     return [...base, ...extras[v % extras.length]];
   },
 };
 
 const PLANTILLAS_CS: PlantillaActividades = {
-  anticipacion: (d, v) => {
+  experiencia: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        `Contextualizar históricamente mediante un relato o imagen: ${desc}`,
-        "Explorar conocimientos previos sobre el tema.",
-        "Formular preguntas generadoras que conecten pasado y presente.",
-        "Presentar el objetivo de aprendizaje.",
+        `Presentar una situación histórica o social relacionada con: ${desc}`,
+        "Explorar conocimientos previos: ¿Qué saben sobre este tema?",
+        "Realizar una lluvia de ideas y registrar en la pizarra.",
+        "Presentar el objetivo de aprendizaje de la clase.",
       ],
       [
-        `Presentar un mapa, línea de tiempo o documento histórico relacionado con: ${desc}`,
-        "Solicitar observaciones y preguntas de los estudiantes.",
-        "Activar conocimientos previos mediante preguntas dirigidas.",
-        "Compartir el propósito de la clase.",
+        `Narrar un relato histórico o presentar un caso vinculado con: ${desc}`,
+        "Solicitar opiniones iniciales de los estudiantes.",
+        "Ubicar el tema en el tiempo y el espacio (línea de tiempo, mapa).",
+        "Compartir el objetivo de la clase.",
       ],
       [
-        `Narrar una anécdota o caso real vinculado con: ${desc}`,
-        "Formular preguntas: ¿Qué opinan? ¿Por qué es importante?",
-        "Realizar una lluvia de ideas sobre el tema.",
-        "Anunciar el tema y objetivo de la sesión.",
+        `Mostrar imágenes históricas o un video documental sobre: ${desc}`,
+        "Formular preguntas generadoras sobre lo observado.",
+        "Conectar con la realidad ecuatoriana actual.",
+        "Anunciar el tema y la metodología de trabajo.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  desarrollo: (d, v) => {
+  reflexion: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        `Presentar el contenido de forma estructurada: ${desc}`,
-        "Guiar la lectura comprensiva de fuentes primarias o secundarias.",
-        "Analizar colectivamente el contenido identificando causas y consecuencias.",
-        "Trabajar en el texto del estudiante: ejercicios de comprensión.",
-        "Asignar trabajo en grupos: elaborar organizadores gráficos.",
-        "Organizar un debate dirigido sobre el tema.",
-        "Solicitar conclusiones escritas de cada grupo.",
+        "Formular preguntas de análisis: ¿Por qué ocurrieron estos hechos?",
+        "Solicitar que identifiquen causas y consecuencias.",
+        `Guiar la discusión sobre la relevancia actual de: ${desc.substring(0, 50).toLowerCase()}...`,
+        "Registrar las reflexiones del grupo en la pizarra.",
       ],
       [
-        `Introducir el tema mediante análisis de fuentes: ${desc}`,
-        "Distribuir documentos o textos para análisis en grupos.",
-        "Guiar la identificación de ideas principales y secundarias.",
-        "Formalizar los conceptos y hechos históricos clave.",
-        "Asignar la elaboración de una línea de tiempo o mapa conceptual.",
-        "Socializar los productos de cada grupo.",
-        "Proponer ejercicios de reflexión crítica.",
+        "Organizar un debate guiado sobre el tema presentado.",
+        "Plantear escenarios hipotéticos para desarrollar el pensamiento contrafactual.",
+        "Comparar diferentes perspectivas sobre el hecho histórico o social.",
+        "Relacionar con valores ciudadanos y derechos humanos.",
       ],
       [
-        `Explorar el tema a través de material audiovisual: ${desc}`,
-        "Guiar la observación con preguntas de análisis.",
-        "Organizar trabajo colaborativo: investigación en el texto.",
-        "Solicitar la elaboración de un resumen o infografía.",
-        "Presentar los hallazgos al grupo.",
-        "Debatir sobre la relevancia actual del tema.",
-        "Asignar ejercicios de consolidación.",
+        "Solicitar que expresen su opinión fundamentada sobre el tema.",
+        "Analizar colectivamente las fuentes históricas presentadas.",
+        "Formular preguntas: ¿Cómo afecta esto a nuestra comunidad?",
+        "Guiar hacia la comprensión de las relaciones causa-efecto.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  cierre: (d, v) => {
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        "Presentar conclusiones de cada grupo al resto de la clase.",
-        "Formular preguntas de retroalimentación: ¿Qué aprendimos? ¿Por qué es importante?",
-        "Reflexionar sobre la importancia del tema en la actualidad.",
-        "Asignar tarea de investigación complementaria.",
-        "Promover el pensamiento crítico: ¿Qué hubiera pasado si...?",
+        `Explicar el contenido de forma estructurada: ${desc}`,
+        "Utilizar líneas de tiempo, mapas o esquemas para contextualizar.",
+        "Guiar la lectura comprensiva del texto del estudiante.",
+        "Analizar fuentes históricas primarias y secundarias.",
+        "Formalizar los conceptos clave en el cuaderno.",
       ],
       [
-        "Sintetizar los aprendizajes en un organizador gráfico colectivo.",
-        "Aclarar dudas y reforzar conceptos clave.",
-        "Conectar lo aprendido con la realidad ecuatoriana actual.",
-        "Asignar lectura complementaria.",
-        "Reflexionar: ¿Cómo nos afecta esto como ciudadanos?",
+        `Presentar el tema histórico o social: ${desc}`,
+        "Organizar trabajo en equipos: analizar diferentes aspectos del tema.",
+        "Guiar la elaboración de un organizador gráfico colectivo.",
+        "Explicar las relaciones entre los hechos estudiados.",
+        "Sintetizar los aprendizajes en un cuadro comparativo.",
       ],
       [
-        "Organizar un juego de repaso (preguntas y respuestas).",
-        "Reforzar los hechos y conceptos más importantes.",
-        "Formular preguntas de extensión para motivar la investigación.",
-        "Asignar tarea de análisis crítico.",
-        "Destacar valores cívicos relacionados con el tema.",
+        `Introducir el contenido mediante análisis de documentos: ${desc}`,
+        "Explicar el contexto histórico, geográfico y social.",
+        "Solicitar la identificación de personajes y hechos clave.",
+        "Guiar la construcción de una línea de tiempo o mapa conceptual.",
+        "Formalizar las conclusiones en el cuaderno de trabajo.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar trabajo en equipos: elaborar un producto (afiche, exposición, dramatización).",
+        "Organizar la presentación de los productos por equipos.",
+        "Formular preguntas de retroalimentación: ¿Qué aprendimos? ¿Para qué nos sirve?",
+        "Promover la reflexión ciudadana y la identidad nacional.",
+        "Asignar investigación complementaria para la casa.",
+      ],
+      [
+        "Proponer un estudio de caso o problema social para analizar.",
+        "Solicitar la elaboración de propuestas o soluciones.",
+        "Organizar un debate o mesa redonda sobre el tema.",
+        "Promover la participación ciudadana y el pensamiento crítico.",
+        "Asignar tarea de extensión con enfoque investigativo.",
+      ],
+      [
+        "Asignar ejercicios de aplicación del contenido estudiado.",
+        "Organizar una actividad de simulación o juego de roles.",
+        "Solicitar que relacionen lo aprendido con su comunidad.",
+        "Realizar autoevaluación del aprendizaje.",
+        "Asignar proyecto de investigación local.",
       ],
     ];
     return opciones[v % opciones.length];
   },
   recursos: (d, v) => {
-    const base = ["Texto del estudiante", "Cuaderno de trabajo"];
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
     const extras: string[][] = [
-      ["Mapas y atlas", "Material audiovisual", "Fuentes históricas impresas"],
-      ["Líneas de tiempo impresas", "Papelotes y marcadores", "Documentos históricos"],
-      ["Láminas didácticas", "Material cartográfico", "Recursos tecnológicos"],
+      ["Fuentes históricas (documentos, imágenes)", "Mapas y atlas", "Líneas de tiempo"],
+      ["Material audiovisual (documentales)", "Papelotes y marcadores", "Fichas de trabajo"],
+      ["Recursos tecnológicos", "Material cartográfico", "Periódicos y revistas"],
     ];
     return [...base, ...extras[v % extras.length]];
   },
 };
 
 const PLANTILLAS_EF: PlantillaActividades = {
-  anticipacion: (d, v) => {
+  experiencia: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        "Dirigir calentamiento general: trote suave, movilidad articular.",
-        `Explicar el objetivo de la clase relacionado con: ${desc}`,
-        "Realizar juego de activación relacionado con el tema.",
-        "Organizar los grupos de trabajo.",
-      ],
-      [
-        "Dirigir calentamiento con juego dinámico grupal.",
-        `Presentar la actividad principal: ${desc}`,
+        "Realizar calentamiento general con ejercicios de movilidad articular.",
+        `Presentar la actividad del día: ${desc}`,
         "Demostrar brevemente los movimientos o técnicas a trabajar.",
         "Verificar el espacio y materiales necesarios.",
       ],
@@ -507,10 +572,39 @@ const PLANTILLAS_EF: PlantillaActividades = {
         `Presentar el reto de la clase: ${desc}`,
         "Establecer las reglas y normas de seguridad.",
       ],
+      [
+        "Dirigir calentamiento lúdico con juego de activación.",
+        `Introducir la actividad mediante una demostración: ${desc}`,
+        "Solicitar que los estudiantes imiten los movimientos básicos.",
+        "Presentar el objetivo de la sesión.",
+      ],
     ];
     return opciones[v % opciones.length];
   },
-  desarrollo: (d, v) => {
+  reflexion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Formular preguntas: ¿Qué dificultades encontraron en los movimientos?",
+        "Solicitar que identifiquen qué músculos o habilidades están trabajando.",
+        "Comparar diferentes formas de ejecutar el movimiento.",
+        "Guiar la discusión sobre la importancia de la técnica correcta.",
+      ],
+      [
+        "Indagar sobre las sensaciones experimentadas durante el calentamiento.",
+        "Solicitar que describan los movimientos realizados.",
+        "Analizar colectivamente las dificultades encontradas.",
+        "Relacionar la actividad con la salud y el bienestar.",
+      ],
+      [
+        "Organizar una breve discusión: ¿Qué estrategias usaron?",
+        "Solicitar que evalúen su propio desempeño inicial.",
+        "Identificar aspectos a mejorar en la ejecución.",
+        "Conectar la actividad con hábitos de vida saludable.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
@@ -519,8 +613,6 @@ const PLANTILLAS_EF: PlantillaActividades = {
         "Supervisar la ejecución y corregir posturas/técnicas.",
         "Aumentar progresivamente la complejidad.",
         "Proponer variantes del ejercicio para diferentes niveles.",
-        "Organizar juego o actividad competitiva aplicando lo aprendido.",
-        "Permitir práctica libre supervisada.",
       ],
       [
         `Introducir la actividad mediante juego pre-deportivo: ${desc}`,
@@ -528,8 +620,6 @@ const PLANTILLAS_EF: PlantillaActividades = {
         "Organizar práctica por estaciones.",
         "Rotar los grupos cada 5 minutos.",
         "Supervisar y corregir individualmente.",
-        "Proponer un desafío grupal integrador.",
-        "Realizar actividad lúdica de cierre activo.",
       ],
       [
         `Presentar la secuencia de movimientos: ${desc}`,
@@ -537,33 +627,31 @@ const PLANTILLAS_EF: PlantillaActividades = {
         "Organizar circuito de ejercicios relacionados.",
         "Guiar la ejecución con correcciones grupales.",
         "Proponer variantes creativas de la actividad.",
-        "Organizar mini-competencia amistosa.",
-        "Permitir exploración libre del movimiento.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  cierre: (d, v) => {
+  aplicacion: (d, v) => {
     const opciones: string[][] = [
       [
+        "Organizar juego o actividad competitiva aplicando lo aprendido.",
+        "Permitir práctica libre supervisada.",
         "Dirigir vuelta a la calma con estiramientos.",
         "Formular preguntas de retroalimentación: ¿Qué aprendimos? ¿Qué fue más difícil?",
-        "Reforzar la importancia de la actividad física.",
-        "Recordar la hidratación y el cuidado del cuerpo.",
         "Asignar práctica para realizar en casa.",
       ],
       [
+        "Proponer un desafío grupal integrador.",
+        "Realizar actividad lúdica de cierre activo.",
         "Realizar ejercicios de relajación y respiración.",
         "Socializar experiencias: ¿Cómo se sintieron?",
-        "Reforzar las técnicas trabajadas.",
-        "Motivar la práctica deportiva regular.",
         "Recordar normas de higiene post-ejercicio.",
       ],
       [
+        "Organizar mini-competencia amistosa.",
+        "Permitir exploración libre del movimiento.",
         "Dirigir estiramientos específicos de los músculos trabajados.",
         "Realizar autoevaluación: ¿Mejoré respecto a la clase anterior?",
-        "Destacar los logros individuales y grupales.",
-        "Asignar reto físico para la semana.",
         "Promover hábitos de vida saludable.",
       ],
     ];
@@ -581,7 +669,7 @@ const PLANTILLAS_EF: PlantillaActividades = {
 };
 
 const PLANTILLAS_ECA: PlantillaActividades = {
-  anticipacion: (d, v) => {
+  experiencia: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
@@ -605,7 +693,30 @@ const PLANTILLAS_ECA: PlantillaActividades = {
     ];
     return opciones[v % opciones.length];
   },
-  desarrollo: (d, v) => {
+  reflexion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Formular preguntas: ¿Qué les transmitieron las obras observadas?",
+        "Solicitar que identifiquen elementos artísticos (color, forma, ritmo).",
+        "Comparar diferentes interpretaciones de los estudiantes.",
+        "Guiar la discusión sobre el mensaje artístico.",
+      ],
+      [
+        "Organizar una discusión sobre las emociones generadas.",
+        "Indagar sobre las técnicas que los estudiantes creen que usó el artista.",
+        "Relacionar las obras con la cultura ecuatoriana.",
+        "Identificar los elementos expresivos más destacados.",
+      ],
+      [
+        "Solicitar que expresen con sus propias palabras lo que percibieron.",
+        "Analizar colectivamente los elementos artísticos presentes.",
+        "Formular preguntas: ¿Cómo se relaciona con nuestra identidad cultural?",
+        "Guiar hacia la apreciación estética fundamentada.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
@@ -614,8 +725,6 @@ const PLANTILLAS_ECA: PlantillaActividades = {
         "Permitir la exploración libre de materiales.",
         "Guiar la creación artística individual o colectiva.",
         "Acompañar el proceso creativo individualmente.",
-        "Proponer variantes y desafíos creativos.",
-        "Solicitar que documenten su proceso.",
       ],
       [
         `Introducir el tema artístico mediante experimentación: ${desc}`,
@@ -623,8 +732,6 @@ const PLANTILLAS_ECA: PlantillaActividades = {
         "Guiar la exploración de diferentes técnicas.",
         "Solicitar la creación de una obra personal.",
         "Fomentar la expresión libre y la originalidad.",
-        "Organizar intercambio de ideas entre compañeros.",
-        "Proponer mejoras y refinamiento de las obras.",
       ],
       [
         `Presentar el proyecto artístico: ${desc}`,
@@ -632,13 +739,11 @@ const PLANTILLAS_ECA: PlantillaActividades = {
         "Modelar la técnica principal.",
         "Asignar trabajo creativo individual.",
         "Recorrer el aula para orientar y motivar.",
-        "Fomentar la colaboración y el intercambio de ideas.",
-        "Solicitar la preparación de las obras para exposición.",
       ],
     ];
     return opciones[v % opciones.length];
   },
-  cierre: (d, v) => {
+  aplicacion: (d, v) => {
     const opciones: string[][] = [
       [
         "Organizar la presentación y exposición de trabajos.",
@@ -725,11 +830,9 @@ export function obtenerTemasSugeridos(destreza: Destreza): TemaSugerido[] {
   const bloque = areaInfo.bloques[destreza.bloque] || `Bloque ${destreza.bloque}`;
   const hash = hashString(destreza.codigo);
 
-  // Generar 3 temas únicos para esta destreza
   const temas: TemaSugerido[] = [];
 
   for (let variante = 0; variante < 3; variante++) {
-    // Usar hash + variante para seleccionar combinaciones diferentes
     const v = (hash + variante) % 3;
 
     const titulo = generarTituloTema(destreza, variante);
@@ -741,20 +844,25 @@ export function obtenerTemasSugeridos(destreza: Destreza): TemaSugerido[] {
       descripcionBreve,
       objetivoClase: destreza.objetivos[0] || destreza.descripcion,
       estructura: {
-        anticipacion: {
-          titulo: "Anticipación",
+        experiencia: {
+          titulo: "Experiencia",
           duracion: "10 minutos",
-          actividades: plantilla.anticipacion(destreza, v),
+          actividades: plantilla.experiencia(destreza, v),
         },
-        desarrollo: {
-          titulo: "Desarrollo",
-          duracion: "25 minutos",
-          actividades: plantilla.desarrollo(destreza, v),
-        },
-        cierre: {
-          titulo: "Cierre",
+        reflexion: {
+          titulo: "Reflexión",
           duracion: "10 minutos",
-          actividades: plantilla.cierre(destreza, v),
+          actividades: plantilla.reflexion(destreza, v),
+        },
+        conceptualizacion: {
+          titulo: "Conceptualización",
+          duracion: "15 minutos",
+          actividades: plantilla.conceptualizacion(destreza, v),
+        },
+        aplicacion: {
+          titulo: "Aplicación",
+          duracion: "10 minutos",
+          actividades: plantilla.aplicacion(destreza, v),
         },
       },
       recursos: plantilla.recursos(destreza, v),

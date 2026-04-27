@@ -20,25 +20,33 @@ const mockTema: TemaSugerido = {
   descripcionBreve: "Aprender fracciones usando recetas de comida típica.",
   objetivoClase: "Representar y comparar fracciones.",
   estructura: {
-    anticipacion: {
-      titulo: "Anticipación",
+    experiencia: {
+      titulo: "Experiencia",
       duracion: "10 minutos",
       actividades: [
         "Mostrar imágenes de platos típicos ecuatorianos.",
         "Preguntar: ¿Cómo repartirían este plato entre 4 personas?",
       ],
     },
-    desarrollo: {
-      titulo: "Desarrollo",
-      duracion: "25 minutos",
+    reflexion: {
+      titulo: "Reflexión",
+      duracion: "10 minutos",
+      actividades: [
+        "Formular preguntas de análisis sobre la experiencia.",
+        "Solicitar que comparen sus respuestas.",
+      ],
+    },
+    conceptualizacion: {
+      titulo: "Conceptualización",
+      duracion: "15 minutos",
       actividades: [
         "Definir FRACCIÓN como una parte de un todo.",
         "Demostrar con material concreto.",
         "Resolver ejercicios guiados.",
       ],
     },
-    cierre: {
-      titulo: "Cierre",
+    aplicacion: {
+      titulo: "Aplicación",
       duracion: "10 minutos",
       actividades: [
         "Socializar resultados.",
@@ -104,13 +112,14 @@ describe("generarHTMLPlanificacion", () => {
     expect(html).toContain("Generar sucesiones con sumas y restas.");
   });
 
-  it("debe incluir las 3 fases de la estructura de clase cuando hay tema", () => {
+  it("debe incluir las 4 fases ERCA de la estructura de clase cuando hay tema", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("ANTICIPACIÓN");
-    expect(html).toContain("DESARROLLO");
-    expect(html).toContain("CIERRE");
+    expect(html).toContain("EXPERIENCIA");
+    expect(html).toContain("REFLEXIÓN");
+    expect(html).toContain("CONCEPTUALIZACIÓN");
+    expect(html).toContain("APLICACIÓN");
     expect(html).toContain("10 minutos");
-    expect(html).toContain("25 minutos");
+    expect(html).toContain("15 minutos");
   });
 
   it("debe incluir las actividades del tema seleccionado", () => {
@@ -163,7 +172,7 @@ describe("generarHTMLPlanificacion", () => {
     const html = generarHTMLPlanificacion(planSinTema);
     expect(html).toContain("<!DOCTYPE html>");
     expect(html).toContain("M.3.1.1");
-    expect(html).not.toContain("ANTICIPACIÓN");
+    expect(html).not.toContain("EXPERIENCIA");
   });
 
   it("debe incluir observaciones cuando existen", () => {

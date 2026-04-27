@@ -90,3 +90,10 @@
 - [x] Fix: Cambiar botón "Verificar mi pago" por "Acceder" en paywall
 - [x] Redesplegar a Vercel con correcciones de tildes, infinitivos y botón Acceder
 - [x] Fix: Actualizar rewrites de Vercel para apuntar al backend publicado (En vivo) en vez del sandbox temporal
+- [ ] Implementar caché local (AsyncStorage) para destrezas del currículo para reducir llamadas al backend
+- [ ] Bug: PayPhone no tiene pago recurrente - el cobro no se renueva automáticamente cada mes
+- [x] Bug: Las planificaciones ahora siguen el modelo ERCA (Experiencia-Reflexión-Conceptualización-Aplicación) en vez de Anticipación-Desarrollo-Cierre
+- [ ] Crear skill reutilizable con skill-creator basada en el proceso de PlanificaDoc
+- [x] Cambiar precios: mensual $8.99, anual $75.51 (30% descuento). Eliminar precio promo $4.99 y regular $6.99
+- [x] Agregar opción de plan anual en paywall y página de pago PayPhone
+- [x] Mantener acceso a usuarios existentes hasta que venza su mes actual

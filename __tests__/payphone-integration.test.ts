@@ -1,53 +1,54 @@
 import { describe, it, expect } from "vitest";
-import { getPriceForEmail } from "../server/payphone";
+import { getPriceForPlan } from "../server/payphone";
 
 describe("PayPhone Integration", () => {
   describe("Pricing Logic", () => {
-    it("should return promo price for first-time subscribers", () => {
-      const pricing = getPriceForEmail(0);
-      expect(pricing.amount).toBe(499);
-      expect(pricing.isPromo).toBe(true);
-      expect(pricing.label).toContain("4.99");
+    it("should return monthly price of $8.99 (899 cents)", () => {
+      const pricing = getPriceForPlan("monthly");
+      expect(pricing.amount).toBe(899);
+      expect(pricing.plan).toBe("monthly");
+      expect(pricing.label).toContain("8.99");
+      expect(pricing.durationMonths).toBe(1);
+      expect(pricing.monthlyEquivalent).toBe(899);
     });
 
-    it("should return promo price for second month", () => {
-      const pricing = getPriceForEmail(1);
-      expect(pricing.amount).toBe(499);
-      expect(pricing.isPromo).toBe(true);
+    it("should return annual price of $75.51 (7551 cents)", () => {
+      const pricing = getPriceForPlan("annual");
+      expect(pricing.amount).toBe(7551);
+      expect(pricing.plan).toBe("annual");
+      expect(pricing.label).toContain("75.51");
+      expect(pricing.durationMonths).toBe(12);
+      expect(pricing.monthlyEquivalent).toBe(629);
     });
 
-    it("should return promo price for third month", () => {
-      const pricing = getPriceForEmail(2);
-      expect(pricing.amount).toBe(499);
-      expect(pricing.isPromo).toBe(true);
+    it("annual plan should be cheaper per month than monthly", () => {
+      const monthly = getPriceForPlan("monthly");
+      const annual = getPriceForPlan("annual");
+      expect(annual.monthlyEquivalent).toBeLessThan(monthly.monthlyEquivalent);
     });
 
-    it("should return regular price after 3 months", () => {
-      const pricing = getPriceForEmail(3);
-      expect(pricing.amount).toBe(699);
-      expect(pricing.isPromo).toBe(false);
-      expect(pricing.label).toContain("6.99");
-    });
-
-    it("should return regular price for long-term subscribers", () => {
-      const pricing = getPriceForEmail(12);
-      expect(pricing.amount).toBe(699);
-      expect(pricing.isPromo).toBe(false);
+    it("annual plan should save approximately 30%", () => {
+      const monthly = getPriceForPlan("monthly");
+      const annual = getPriceForPlan("annual");
+      const monthlyCostForYear = monthly.amount * 12; // 10788
+      const savings = ((monthlyCostForYear - annual.amount) / monthlyCostForYear) * 100;
+      expect(savings).toBeGreaterThan(28);
+      expect(savings).toBeLessThan(32);
     });
   });
 
   describe("Payment API Endpoints", () => {
     const BASE_URL = "http://127.0.0.1:3000";
 
-    it("should return pricing info for new email", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/pricing?email=nuevo@test.com`);
+    it("should return pricing info with monthly and annual options", async () => {
+      const res = await fetch(`${BASE_URL}/api/payment/pricing`);
       expect(res.status).toBe(200);
       const data = await res.json();
-      expect(data.amount).toBe(499);
-      expect(data.isPromo).toBe(true);
-      expect(data.promoMonthsRemaining).toBe(3);
-      expect(data.regularPrice).toBe(699);
-      expect(data.promoPrice).toBe(499);
+      expect(data.monthly).toBeDefined();
+      expect(data.monthly.amount).toBe(899);
+      expect(data.annual).toBeDefined();
+      expect(data.annual.amount).toBe(7551);
+      expect(data.annual.savings).toBe("30%");
     });
 
     it("should return inactive status for non-subscriber", async () => {
@@ -56,6 +57,8 @@ describe("PayPhone Integration", () => {
       const data = await res.json();
       expect(data.active).toBe(false);
       expect(data.pricing).toBeDefined();
+      expect(data.pricing.monthly.amount).toBe(899);
+      expect(data.pricing.annual.amount).toBe(7551);
     });
 
     it("should return error for missing email on status", async () => {
@@ -65,14 +68,31 @@ describe("PayPhone Integration", () => {
       expect(data.active).toBe(false);
     });
 
-    it("should return payment page HTML for valid email", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com`);
+    it("should return monthly payment page HTML for valid email", async () => {
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=monthly`);
       expect(res.status).toBe(200);
       const html = await res.text();
       expect(html).toContain("PlanificaDoc");
       expect(html).toContain("PayPhone");
       expect(html).toContain("payphone-payment-box");
       expect(html).toContain("docente@test.com");
+      expect(html).toContain("8.99");
+    });
+
+    it("should return annual payment page HTML when plan=annual", async () => {
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=annual`);
+      expect(res.status).toBe(200);
+      const html = await res.text();
+      expect(html).toContain("PlanificaDoc");
+      expect(html).toContain("75.51");
+      expect(html).toContain("Ahorras 30%");
+    });
+
+    it("should default to monthly plan when no plan specified", async () => {
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com`);
+      expect(res.status).toBe(200);
+      const html = await res.text();
+      expect(html).toContain("8.99");
     });
 
     it("should reject payment page without email", async () => {

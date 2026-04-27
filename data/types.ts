@@ -39,15 +39,17 @@ export interface FaseClase {
 }
 
 /**
- * Estructura de una clase de 45 minutos distribuida en 3 fases:
- * - Anticipación (10 min): Activación de conocimientos previos
- * - Desarrollo (25 min): Construcción del conocimiento
- * - Cierre (10 min): Consolidación + preguntas de retroalimentación
+ * Estructura de una clase de 45 minutos distribuida en 4 fases ERCA:
+ * - Experiencia (10 min): Activación de conocimientos previos y vivencias
+ * - Reflexión (10 min): Análisis y cuestionamiento de la experiencia
+ * - Conceptualización (15 min): Construcción formal del conocimiento
+ * - Aplicación (10 min): Transferencia y práctica del aprendizaje
  */
 export interface EstructuraClase {
-  anticipacion: FaseClase;
-  desarrollo: FaseClase;
-  cierre: FaseClase;
+  experiencia: FaseClase;
+  reflexion: FaseClase;
+  conceptualizacion: FaseClase;
+  aplicacion: FaseClase;
 }
 
 /**

@@ -50,10 +50,11 @@ Para CADA tema genera:
 1. Un título creativo y atractivo (máximo 60 caracteres)
 2. Una descripción breve de la clase (máximo 100 caracteres)
 3. El objetivo de aprendizaje específico
-4. Estructura de clase de 45 minutos con 3 fases:
-   - ANTICIPACIÓN (10 minutos): 4 actividades de activación de conocimientos previos
-   - DESARROLLO (25 minutos): 7 actividades de construcción del conocimiento
-   - CIERRE (10 minutos): 5 actividades de consolidación y retroalimentación
+4. Estructura de clase de 45 minutos con 4 fases ERCA:
+   - EXPERIENCIA (10 minutos): 4 actividades de activación de conocimientos previos y vivencias
+   - REFLEXIÓN (10 minutos): 4 actividades de análisis y cuestionamiento de la experiencia
+   - CONCEPTUALIZACIÓN (15 minutos): 5 actividades de construcción formal del conocimiento
+   - APLICACIÓN (10 minutos): 5 actividades de transferencia y práctica del aprendizaje
 5. Lista de 5 recursos necesarios
 6. Evaluación formativa (técnica e instrumento)
 
@@ -73,18 +74,23 @@ Responde ÚNICAMENTE con un JSON válido con esta estructura exacta:
       "descripcionBreve": "string",
       "objetivoClase": "string",
       "estructura": {
-        "anticipacion": {
-          "titulo": "Anticipación",
+        "experiencia": {
+          "titulo": "Experiencia",
           "duracion": "10 minutos",
           "actividades": ["string", "string", "string", "string"]
         },
-        "desarrollo": {
-          "titulo": "Desarrollo",
-          "duracion": "25 minutos",
-          "actividades": ["string", "string", "string", "string", "string", "string", "string"]
+        "reflexion": {
+          "titulo": "Reflexión",
+          "duracion": "10 minutos",
+          "actividades": ["string", "string", "string", "string"]
         },
-        "cierre": {
-          "titulo": "Cierre",
+        "conceptualizacion": {
+          "titulo": "Conceptualización",
+          "duracion": "15 minutos",
+          "actividades": ["string", "string", "string", "string", "string"]
+        },
+        "aplicacion": {
+          "titulo": "Aplicación",
           "duracion": "10 minutos",
           "actividades": ["string", "string", "string", "string", "string"]
         }
@@ -129,26 +135,33 @@ Responde ÚNICAMENTE con un JSON válido con esta estructura exacta:
           descripcionBreve: tema.descripcionBreve || "",
           objetivoClase: tema.objetivoClase || "",
           estructura: {
-            anticipacion: {
-              titulo: tema.estructura?.anticipacion?.titulo || "Anticipación",
-              duracion: tema.estructura?.anticipacion?.duracion || "10 minutos",
-              actividades: Array.isArray(tema.estructura?.anticipacion?.actividades)
-                ? tema.estructura.anticipacion.actividades
-                : ["Activar conocimientos previos."],
+            experiencia: {
+              titulo: tema.estructura?.experiencia?.titulo || "Experiencia",
+              duracion: tema.estructura?.experiencia?.duracion || "10 minutos",
+              actividades: Array.isArray(tema.estructura?.experiencia?.actividades)
+                ? tema.estructura.experiencia.actividades
+                : ["Activar conocimientos previos mediante vivencias."],
             },
-            desarrollo: {
-              titulo: tema.estructura?.desarrollo?.titulo || "Desarrollo",
-              duracion: tema.estructura?.desarrollo?.duracion || "25 minutos",
-              actividades: Array.isArray(tema.estructura?.desarrollo?.actividades)
-                ? tema.estructura.desarrollo.actividades
-                : ["Presentar el contenido."],
+            reflexion: {
+              titulo: tema.estructura?.reflexion?.titulo || "Reflexión",
+              duracion: tema.estructura?.reflexion?.duracion || "10 minutos",
+              actividades: Array.isArray(tema.estructura?.reflexion?.actividades)
+                ? tema.estructura.reflexion.actividades
+                : ["Formular preguntas de análisis sobre la experiencia."],
             },
-            cierre: {
-              titulo: tema.estructura?.cierre?.titulo || "Cierre",
-              duracion: tema.estructura?.cierre?.duracion || "10 minutos",
-              actividades: Array.isArray(tema.estructura?.cierre?.actividades)
-                ? tema.estructura.cierre.actividades
-                : ["Formular preguntas de retroalimentación."],
+            conceptualizacion: {
+              titulo: tema.estructura?.conceptualizacion?.titulo || "Conceptualización",
+              duracion: tema.estructura?.conceptualizacion?.duracion || "15 minutos",
+              actividades: Array.isArray(tema.estructura?.conceptualizacion?.actividades)
+                ? tema.estructura.conceptualizacion.actividades
+                : ["Presentar el contenido formal."],
+            },
+            aplicacion: {
+              titulo: tema.estructura?.aplicacion?.titulo || "Aplicación",
+              duracion: tema.estructura?.aplicacion?.duracion || "10 minutos",
+              actividades: Array.isArray(tema.estructura?.aplicacion?.actividades)
+                ? tema.estructura.aplicacion.actividades
+                : ["Transferir lo aprendido a ejercicios prácticos."],
             },
           },
           recursos: Array.isArray(tema.recursos) ? tema.recursos : ["Texto del estudiante"],

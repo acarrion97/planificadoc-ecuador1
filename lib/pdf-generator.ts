@@ -20,16 +20,20 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     const est = plan.temaSeleccionado.estructura;
     actividadesHTML = `
       <div class="fase">
-        <div class="fase-header anticipacion">ANTICIPACIÓN (${est.anticipacion.duracion})</div>
-        <ul>${est.anticipacion.actividades.map((a) => `<li>${a}</li>`).join("")}</ul>
+        <div class="fase-header experiencia">EXPERIENCIA (${est.experiencia.duracion})</div>
+        <ul>${est.experiencia.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       </div>
       <div class="fase">
-        <div class="fase-header desarrollo">DESARROLLO (${est.desarrollo.duracion})</div>
-        <ul>${est.desarrollo.actividades.map((a) => `<li>${a}</li>`).join("")}</ul>
+        <div class="fase-header reflexion">REFLEXIÓN (${est.reflexion.duracion})</div>
+        <ul>${est.reflexion.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       </div>
       <div class="fase">
-        <div class="fase-header cierre">CIERRE (${est.cierre.duracion})</div>
-        <ul>${est.cierre.actividades.map((a) => `<li>${a}</li>`).join("")}</ul>
+        <div class="fase-header conceptualizacion">CONCEPTUALIZACIÓN (${est.conceptualizacion.duracion})</div>
+        <ul>${est.conceptualizacion.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
+      </div>
+      <div class="fase">
+        <div class="fase-header aplicacion">APLICACIÓN (${est.aplicacion.duracion})</div>
+        <ul>${est.aplicacion.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       </div>
     `;
   } else {
@@ -231,15 +235,19 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       color: white;
     }
 
-    .fase-header.anticipacion {
+    .fase-header.experiencia {
       background: #2980b9;
     }
 
-    .fase-header.desarrollo {
+    .fase-header.reflexion {
+      background: #8e44ad;
+    }
+
+    .fase-header.conceptualizacion {
       background: #27ae60;
     }
 
-    .fase-header.cierre {
+    .fase-header.aplicacion {
       background: #e67e22;
     }
 

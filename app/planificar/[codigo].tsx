@@ -165,14 +165,17 @@ export default function PlanificarScreen() {
 
     const { estructura } = tema;
     const actividadesTexto = [
-      `ANTICIPACION (${estructura.anticipacion.duracion})`,
-      ...estructura.anticipacion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
+      `EXPERIENCIA (${estructura.experiencia.duracion})`,
+      ...estructura.experiencia.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
       "",
-      `DESARROLLO (${estructura.desarrollo.duracion})`,
-      ...estructura.desarrollo.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
+      `REFLEXION (${estructura.reflexion.duracion})`,
+      ...estructura.reflexion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
       "",
-      `CIERRE (${estructura.cierre.duracion})`,
-      ...estructura.cierre.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
+      `CONCEPTUALIZACION (${estructura.conceptualizacion.duracion})`,
+      ...estructura.conceptualizacion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
+      "",
+      `APLICACION (${estructura.aplicacion.duracion})`,
+      ...estructura.aplicacion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
     ].join("\n");
 
     setActividades(actividadesTexto);
@@ -184,12 +187,12 @@ export default function PlanificarScreen() {
   const handleSinTema = () => {
     setTemaSeleccionado(null);
     const sugerenciasGenericas: Record<string, string> = {
-      M: "ANTICIPACIÓN (10 minutos)\n1. Activar conocimientos previos mediante preguntas generadoras.\n2. Presentar una situación problema del contexto cotidiano.\n\nDESARROLLO (25 minutos)\n1. Presentar el tema con material concreto y manipulativo.\n2. Realizar práctica guiada con ejercicios paso a paso.\n3. Asignar trabajo en parejas para resolver ejercicios.\n4. Proponer práctica individual con ejercicios de aplicación.\n\nCIERRE (10 minutos)\n1. Socializar resultados y corregir colectivamente.\n2. Formular preguntas de retroalimentación sobre lo aprendido.\n3. Asignar tarea de refuerzo.",
-      LL: "ANTICIPACIÓN (10 minutos)\n1. Explorar conocimientos previos a través de lluvia de ideas.\n2. Presentar el propósito de la clase.\n\nDESARROLLO (25 minutos)\n1. Realizar lectura compartida del texto seleccionado.\n2. Guiar el análisis del contenido y estructura textual.\n3. Asignar producción escrita individual o en parejas.\n4. Organizar revisión entre pares y corrección colaborativa.\n\nCIERRE (10 minutos)\n1. Compartir las producciones escritas.\n2. Formular preguntas de retroalimentación sobre el aprendizaje.\n3. Asignar tarea de extensión.",
-      CN: "ANTICIPACIÓN (10 minutos)\n1. Realizar observación directa o indirecta del fenómeno natural.\n2. Solicitar la formulación de hipótesis.\n\nDESARROLLO (25 minutos)\n1. Guiar la experimentación con materiales del entorno.\n2. Explicar los conceptos científicos con ejemplos.\n3. Solicitar el registro de observaciones y datos en cuaderno de campo.\n4. Asignar trabajo en grupos para analizar resultados.\n\nCIERRE (10 minutos)\n1. Socializar conclusiones de cada grupo.\n2. Formular preguntas de retroalimentación.\n3. Asignar tarea de investigación.",
-      CS: "ANTICIPACIÓN (10 minutos)\n1. Contextualizar históricamente mediante relatos o imágenes.\n2. Explorar conocimientos previos sobre el tema.\n\nDESARROLLO (25 minutos)\n1. Guiar la lectura comprensiva de fuentes primarias y secundarias.\n2. Organizar debate dirigido sobre el tema estudiado.\n3. Solicitar la elaboración de organizadores gráficos.\n4. Asignar trabajo en grupos para profundizar el análisis.\n\nCIERRE (10 minutos)\n1. Presentar conclusiones de cada grupo.\n2. Formular preguntas de retroalimentación.\n3. Reflexionar sobre la importancia del tema en la actualidad.",
-      EF: "ANTICIPACIÓN (10 minutos)\n1. Dirigir calentamiento general y específico.\n2. Explicar el objetivo de la clase.\n\nDESARROLLO (25 minutos)\n1. Demostrar la actividad paso a paso.\n2. Organizar práctica guiada en grupos pequeños.\n3. Supervisar la ejecución autónoma de la actividad.\n4. Corregir posturas y técnicas.\n\nCIERRE (10 minutos)\n1. Dirigir vuelta a la calma con estiramientos.\n2. Formular preguntas de retroalimentación sobre lo aprendido.\n3. Recordar la importancia de la hidratación.",
-      ECA: "ANTICIPACIÓN (10 minutos)\n1. Presentar obras artísticas relacionadas con el tema.\n2. Explorar conocimientos previos y sensibilizar.\n\nDESARROLLO (25 minutos)\n1. Explicar la técnica artística a trabajar.\n2. Permitir la exploración libre de materiales.\n3. Guiar la creación artística individual o colectiva.\n4. Acompañar el proceso creativo individualmente.\n\nCIERRE (10 minutos)\n1. Organizar la presentación y exposición de trabajos.\n2. Formular preguntas de retroalimentación.\n3. Promover la autoevaluación del proceso creativo.",
+      M: "EXPERIENCIA (10 minutos)\n1. Activar conocimientos previos mediante preguntas generadoras.\n2. Presentar una situación problema del contexto cotidiano.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas de análisis sobre la experiencia.\n2. Solicitar que comparen sus respuestas con las de otros compañeros.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Presentar el tema con material concreto y manipulativo.\n2. Realizar práctica guiada con ejercicios paso a paso.\n3. Formalizar los conceptos en el cuaderno.\n\nAPLICACIÓN (10 minutos)\n1. Asignar trabajo en parejas para resolver ejercicios.\n2. Socializar resultados y corregir colectivamente.\n3. Asignar tarea de refuerzo.",
+      LL: "EXPERIENCIA (10 minutos)\n1. Explorar conocimientos previos a través de lluvia de ideas.\n2. Presentar el propósito comunicativo de la clase.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas de análisis sobre el texto presentado.\n2. Solicitar que identifiquen las ideas principales.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Realizar lectura compartida del texto seleccionado.\n2. Guiar el análisis del contenido y estructura textual.\n3. Formalizar las reglas o conceptos lingüísticos.\n\nAPLICACIÓN (10 minutos)\n1. Asignar producción escrita individual o en parejas.\n2. Organizar revisión entre pares y corrección colaborativa.\n3. Asignar tarea de extensión.",
+      CN: "EXPERIENCIA (10 minutos)\n1. Realizar observación directa o indirecta del fenómeno natural.\n2. Solicitar la formulación de hipótesis.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas de análisis sobre lo observado.\n2. Solicitar que comparen sus hipótesis con los resultados.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Guiar la experimentación con materiales del entorno.\n2. Explicar los conceptos científicos con ejemplos.\n3. Solicitar el registro de observaciones en cuaderno de campo.\n\nAPLICACIÓN (10 minutos)\n1. Asignar trabajo en grupos para analizar resultados.\n2. Socializar conclusiones de cada grupo.\n3. Asignar tarea de investigación.",
+      CS: "EXPERIENCIA (10 minutos)\n1. Contextualizar históricamente mediante relatos o imágenes.\n2. Explorar conocimientos previos sobre el tema.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas de análisis: ¿Por qué ocurrieron estos hechos?\n2. Solicitar que identifiquen causas y consecuencias.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Guiar la lectura comprensiva de fuentes primarias y secundarias.\n2. Organizar debate dirigido sobre el tema estudiado.\n3. Solicitar la elaboración de organizadores gráficos.\n\nAPLICACIÓN (10 minutos)\n1. Asignar trabajo en grupos para profundizar el análisis.\n2. Presentar conclusiones de cada grupo.\n3. Reflexionar sobre la importancia del tema en la actualidad.",
+      EF: "EXPERIENCIA (10 minutos)\n1. Dirigir calentamiento general y específico.\n2. Explicar el objetivo de la clase.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas sobre las dificultades encontradas.\n2. Solicitar que identifiquen qué músculos están trabajando.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Demostrar la actividad paso a paso.\n2. Organizar práctica guiada en grupos pequeños.\n3. Supervisar la ejecución y corregir posturas.\n\nAPLICACIÓN (10 minutos)\n1. Organizar juego o actividad competitiva aplicando lo aprendido.\n2. Dirigir vuelta a la calma con estiramientos.\n3. Recordar la importancia de la hidratación.",
+      ECA: "EXPERIENCIA (10 minutos)\n1. Presentar obras artísticas relacionadas con el tema.\n2. Explorar conocimientos previos y sensibilizar.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas sobre las emociones generadas.\n2. Solicitar que identifiquen elementos artísticos.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Explicar la técnica artística a trabajar.\n2. Permitir la exploración libre de materiales.\n3. Guiar la creación artística individual o colectiva.\n\nAPLICACIÓN (10 minutos)\n1. Organizar la presentación y exposición de trabajos.\n2. Formular preguntas de retroalimentación.\n3. Promover la autoevaluación del proceso creativo.",
     };
     const recursosGenericos: Record<string, string> = {
       M: "Texto del estudiante, cuaderno de trabajo, material concreto, pizarra, marcadores, calculadora.",
@@ -778,23 +781,29 @@ function TemaCard({
               </View>
             </View>
 
-            {/* 3 Fases */}
+            {/* 4 Fases ERCA */}
             <FasePreview
-              label="Anticipación"
-              fase={tema.estructura.anticipacion}
-              color="#F59E0B"
+              label="Experiencia"
+              fase={tema.estructura.experiencia}
+              color="#2980B9"
               colors={colors}
             />
             <FasePreview
-              label="Desarrollo"
-              fase={tema.estructura.desarrollo}
-              color="#2563EB"
+              label="Reflexión"
+              fase={tema.estructura.reflexion}
+              color="#8E44AD"
               colors={colors}
             />
             <FasePreview
-              label="Cierre"
-              fase={tema.estructura.cierre}
-              color="#16A34A"
+              label="Conceptualización"
+              fase={tema.estructura.conceptualizacion}
+              color="#27AE60"
+              colors={colors}
+            />
+            <FasePreview
+              label="Aplicación"
+              fase={tema.estructura.aplicacion}
+              color="#E67E22"
               colors={colors}
             />
 
@@ -881,9 +890,10 @@ function EstructuraClaseView({
   areaColor: string;
 }) {
   const fases = [
-    { key: "anticipacion" as const, label: "Anticipación", color: "#F59E0B", emoji: "\uD83D\uDCA1" },
-    { key: "desarrollo" as const, label: "Desarrollo", color: "#2563EB", emoji: "\uD83D\uDD27" },
-    { key: "cierre" as const, label: "Cierre", color: "#16A34A", emoji: "\u2705" },
+    { key: "experiencia" as const, label: "Experiencia", color: "#2980B9", emoji: "\uD83D\uDCA1" },
+    { key: "reflexion" as const, label: "Reflexión", color: "#8E44AD", emoji: "\uD83E\uDD14" },
+    { key: "conceptualizacion" as const, label: "Conceptualización", color: "#27AE60", emoji: "\uD83D\uDCDA" },
+    { key: "aplicacion" as const, label: "Aplicación", color: "#E67E22", emoji: "\u2705" },
   ];
 
   return (

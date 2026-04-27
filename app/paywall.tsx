@@ -19,6 +19,8 @@ import { getApiBaseUrl } from "@/constants/oauth";
 
 const WHATSAPP_NUMBER = "593978833533";
 
+type PlanType = "monthly" | "annual";
+
 export default function PaywallScreen() {
   const colors = useColors();
   const {
@@ -30,16 +32,12 @@ export default function PaywallScreen() {
   // Tab state: "subscribe" or "code"
   const [activeTab, setActiveTab] = useState<"subscribe" | "code">("subscribe");
 
+  // Plan selection
+  const [selectedPlan, setSelectedPlan] = useState<PlanType>("annual");
+
   // Subscription state
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [pricing, setPricing] = useState<{
-    amount: number;
-    label: string;
-    isPromo: boolean;
-    promoMonthsRemaining?: number;
-  } | null>(null);
-  const [loadingPricing, setLoadingPricing] = useState(false);
   const [checkingPayment, setCheckingPayment] = useState(false);
 
   // Code state (legacy)
@@ -50,31 +48,6 @@ export default function PaywallScreen() {
   // Success state
   const [success, setSuccess] = useState(false);
 
-  // Load default pricing on mount
-  useEffect(() => {
-    fetchPricing("");
-  }, []);
-
-  const fetchPricing = async (emailVal: string) => {
-    try {
-      setLoadingPricing(true);
-      const baseUrl = getApiBaseUrl();
-      const url = `${baseUrl}/api/payment/pricing?email=${encodeURIComponent(emailVal)}`;
-      const response = await fetch(url, { credentials: "include" });
-      const data = await response.json();
-      setPricing(data);
-    } catch {
-      setPricing({
-        amount: 499,
-        label: "$4.99/mes (precio introductorio)",
-        isPromo: true,
-        promoMonthsRemaining: 3,
-      });
-    } finally {
-      setLoadingPricing(false);
-    }
-  };
-
   const validateEmail = (e: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(e.trim());
@@ -83,18 +56,18 @@ export default function PaywallScreen() {
   const handlePayWithPayPhone = useCallback(async () => {
     const trimmedEmail = email.trim().toLowerCase();
     if (!trimmedEmail) {
-      setEmailError("Ingresa tu correo electronico");
+      setEmailError("Ingresa tu correo electr\u00f3nico");
       return;
     }
     if (!validateEmail(trimmedEmail)) {
-      setEmailError("Ingresa un correo valido");
+      setEmailError("Ingresa un correo v\u00e1lido");
       return;
     }
     setEmailError("");
 
     // Always use planificadoc.app for payment page so PayPhone domain validation passes
     const PAYMENT_BASE_URL = "https://planificadoc.app";
-    const paymentUrl = `${PAYMENT_BASE_URL}/api/payment/page?email=${encodeURIComponent(trimmedEmail)}`;
+    const paymentUrl = `${PAYMENT_BASE_URL}/api/payment/page?email=${encodeURIComponent(trimmedEmail)}&plan=${selectedPlan}`;
 
     try {
       if (Platform.OS === "web") {
@@ -107,7 +80,7 @@ export default function PaywallScreen() {
         Alert.alert("Error", "No se pudo abrir el navegador para el pago.");
       }
     }
-  }, [email]);
+  }, [email, selectedPlan]);
 
   const handleCheckPayment = useCallback(async () => {
     const trimmedEmail = email.trim().toLowerCase();
@@ -123,7 +96,7 @@ export default function PaywallScreen() {
       if (result) {
         setSuccess(true);
       } else {
-        setEmailError("No se encontro una suscripcion activa para este correo. Si acabas de pagar, espera unos segundos e intenta de nuevo.");
+        setEmailError("No se encontr\u00f3 una suscripci\u00f3n activa para este correo. Si acabas de pagar, espera unos segundos e intenta de nuevo.");
       }
     } catch {
       setEmailError("Error al verificar. Intenta de nuevo.");
@@ -134,7 +107,7 @@ export default function PaywallScreen() {
 
   const handleWhatsApp = () => {
     const msg = encodeURIComponent(
-      "Hola, necesito ayuda con mi suscripcion de PlanificaDoc."
+      "Hola, necesito ayuda con mi suscripci\u00f3n de PlanificaDoc."
     );
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     Linking.openURL(url).catch(() => {
@@ -146,7 +119,7 @@ export default function PaywallScreen() {
 
   const handleUnlockCode = async () => {
     if (code.trim().length === 0) {
-      setCodeError("Ingresa tu codigo de acceso");
+      setCodeError("Ingresa tu c\u00f3digo de acceso");
       return;
     }
     setCodeError("");
@@ -156,10 +129,10 @@ export default function PaywallScreen() {
       if (result) {
         setSuccess(true);
       } else {
-        setCodeError("Codigo invalido. Verifica e intenta de nuevo.");
+        setCodeError("C\u00f3digo inv\u00e1lido. Verifica e intenta de nuevo.");
       }
     } catch {
-      setCodeError("Error al verificar el codigo.");
+      setCodeError("Error al verificar el c\u00f3digo.");
     } finally {
       setCodeLoading(false);
     }
@@ -176,11 +149,11 @@ export default function PaywallScreen() {
             Acceso Activado
           </Text>
           <Text style={[styles.successSubtitle, { color: colors.muted }]}>
-            Tu suscripcion ha sido verificada.{"\n"}Bienvenido/a a PlanificaDoc.
+            Tu suscripci\u00f3n ha sido verificada.{"\n"}Bienvenido/a a PlanificaDoc.
           </Text>
           <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: 20 }} />
           <Text style={[styles.redirectText, { color: colors.muted }]}>
-            Cargando la aplicacion...
+            Cargando la aplicaci\u00f3n...
           </Text>
         </View>
       </ScreenContainer>
@@ -204,7 +177,7 @@ export default function PaywallScreen() {
             PlanificaDoc
           </Text>
           <Text style={[styles.appSubtitle, { color: colors.muted }]}>
-            Planificacion curricular para docentes de Ecuador
+            Planificaci\u00f3n curricular para docentes de Ecuador
           </Text>
         </View>
 
@@ -219,42 +192,115 @@ export default function PaywallScreen() {
             Planifica tu semana en 5 minutos
           </Text>
           <View style={styles.featureList}>
-            <FeatureRow emoji={"\uD83D\uDD0D"} text="1,253+ destrezas del curriculo ecuatoriano" color={colors.foreground} />
+            <FeatureRow emoji={"\uD83D\uDD0D"} text="1,253+ destrezas del curr\u00edculo ecuatoriano" color={colors.foreground} />
             <FeatureRow emoji={"\u2728"} text="Temas sugeridos con estructura de clase ERCA" color={colors.foreground} />
             <FeatureRow emoji={"\uD83D\uDCC4"} text="Exporta a PDF con formato oficial del MinEduc" color={colors.foreground} />
             <FeatureRow emoji={"\uD83D\uDCBE"} text="Guarda y gestiona tus planificaciones" color={colors.foreground} />
-            <FeatureRow emoji={"\u267F"} text="Diseno Universal para el Aprendizaje (DUA)" color={colors.foreground} />
+            <FeatureRow emoji={"\u267F"} text="Dise\u00f1o Universal para el Aprendizaje (DUA)" color={colors.foreground} />
             <FeatureRow emoji={"\uD83D\uDD04"} text="Actualizaciones y nuevas destrezas incluidas" color={colors.foreground} />
           </View>
         </View>
 
-        {/* Pricing */}
-        <View style={styles.priceSection}>
-          {pricing?.isPromo ? (
-            <>
-              <View style={[styles.promoBadge, { backgroundColor: colors.success + "15" }]}>
-                <Text style={[styles.promoBadgeText, { color: colors.success }]}>
-                  {"\u2B50"} Precio introductorio
+        {/* Plan Selector */}
+        <View style={styles.planSelectorSection}>
+          <Text style={[styles.planSelectorTitle, { color: colors.foreground }]}>
+            Elige tu plan
+          </Text>
+
+          {/* Annual Plan Card */}
+          <Pressable
+            onPress={() => setSelectedPlan("annual")}
+            style={({ pressed }) => [
+              styles.planCard,
+              {
+                borderColor: selectedPlan === "annual" ? "#059669" : colors.border,
+                borderWidth: selectedPlan === "annual" ? 2.5 : 1.5,
+                backgroundColor: selectedPlan === "annual" ? "#05966908" : colors.surface,
+                opacity: pressed ? 0.9 : 1,
+              },
+            ]}
+          >
+            {/* Best value badge */}
+            <View style={styles.bestValueBadge}>
+              <Text style={styles.bestValueText}>Mejor precio</Text>
+            </View>
+            <View style={styles.planCardContent}>
+              <View style={styles.planCardLeft}>
+                <View style={styles.planRadio}>
+                  {selectedPlan === "annual" ? (
+                    <View style={[styles.planRadioInner, { backgroundColor: "#059669" }]} />
+                  ) : null}
+                </View>
+                <View>
+                  <Text style={[styles.planName, { color: colors.foreground }]}>
+                    Anual
+                  </Text>
+                  <Text style={[styles.planDuration, { color: colors.muted }]}>
+                    12 meses de acceso
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.planCardRight}>
+                <Text style={[styles.planPrice, { color: "#059669" }]}>
+                  $6.29
+                </Text>
+                <Text style={[styles.planPeriod, { color: colors.muted }]}>
+                  /mes
+                </Text>
+                <Text style={[styles.planTotal, { color: colors.muted }]}>
+                  $75.51 total
                 </Text>
               </View>
-              <Text style={[styles.priceAmount, { color: colors.foreground }]}>
-                $4<Text style={[styles.priceCents, { color: colors.muted }]}>.99</Text>
-                <Text style={[styles.pricePeriod, { color: colors.muted }]}>/mes</Text>
+            </View>
+            <View style={[styles.savingsBanner, { backgroundColor: "#05966915" }]}>
+              <Text style={[styles.savingsText, { color: "#059669" }]}>
+                {"\u2B50"} Ahorras 30% vs. plan mensual
               </Text>
-              <Text style={[styles.priceNote, { color: colors.muted }]}>
-                Primeros {pricing.promoMonthsRemaining || 3} meses. Luego $6.99/mes
-              </Text>
-            </>
-          ) : (
-            <>
-              <Text style={[styles.priceAmount, { color: colors.foreground }]}>
-                $6<Text style={[styles.priceCents, { color: colors.muted }]}>.99</Text>
-                <Text style={[styles.pricePeriod, { color: colors.muted }]}>/mes</Text>
-              </Text>
-            </>
-          )}
-          <Text style={[styles.priceCompare, { color: colors.success }]}>
-            Menos que un almuerzo. Ahorra horas cada semana.
+            </View>
+          </Pressable>
+
+          {/* Monthly Plan Card */}
+          <Pressable
+            onPress={() => setSelectedPlan("monthly")}
+            style={({ pressed }) => [
+              styles.planCard,
+              {
+                borderColor: selectedPlan === "monthly" ? "#1e3a5f" : colors.border,
+                borderWidth: selectedPlan === "monthly" ? 2.5 : 1.5,
+                backgroundColor: selectedPlan === "monthly" ? "#1e3a5f08" : colors.surface,
+                opacity: pressed ? 0.9 : 1,
+              },
+            ]}
+          >
+            <View style={styles.planCardContent}>
+              <View style={styles.planCardLeft}>
+                <View style={styles.planRadio}>
+                  {selectedPlan === "monthly" ? (
+                    <View style={[styles.planRadioInner, { backgroundColor: "#1e3a5f" }]} />
+                  ) : null}
+                </View>
+                <View>
+                  <Text style={[styles.planName, { color: colors.foreground }]}>
+                    Mensual
+                  </Text>
+                  <Text style={[styles.planDuration, { color: colors.muted }]}>
+                    1 mes de acceso
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.planCardRight}>
+                <Text style={[styles.planPrice, { color: "#1e3a5f" }]}>
+                  $8.99
+                </Text>
+                <Text style={[styles.planPeriod, { color: colors.muted }]}>
+                  /mes
+                </Text>
+              </View>
+            </View>
+          </Pressable>
+
+          <Text style={[styles.noAutoRenewal, { color: colors.muted }]}>
+            {"\u2139\uFE0F"} Sin renovaci\u00f3n autom\u00e1tica. Al vencer, puedes renovar manualmente.
           </Text>
         </View>
 
@@ -291,7 +337,7 @@ export default function PaywallScreen() {
                 { color: activeTab === "code" ? "#FFFFFF" : colors.muted },
               ]}
             >
-              {"\uD83D\uDD11"} Tengo codigo
+              {"\uD83D\uDD11"} Tengo c\u00f3digo
             </Text>
           </Pressable>
         </View>
@@ -301,7 +347,7 @@ export default function PaywallScreen() {
           <View style={styles.formSection}>
             {/* Email Input */}
             <Text style={[styles.inputLabel, { color: colors.foreground }]}>
-              Tu correo electronico
+              Tu correo electr\u00f3nico
             </Text>
             <View
               style={[
@@ -321,10 +367,6 @@ export default function PaywallScreen() {
                 onChangeText={(text) => {
                   setEmail(text);
                   setEmailError("");
-                  // Fetch pricing when email changes
-                  if (validateEmail(text)) {
-                    fetchPricing(text.trim());
-                  }
                 }}
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -345,12 +387,15 @@ export default function PaywallScreen() {
               onPress={handlePayWithPayPhone}
               style={({ pressed }) => [
                 styles.payButton,
-                { backgroundColor: "#1e3a5f", opacity: pressed ? 0.9 : 1 },
+                {
+                  backgroundColor: selectedPlan === "annual" ? "#059669" : "#1e3a5f",
+                  opacity: pressed ? 0.9 : 1,
+                },
               ]}
             >
               <Text style={{ fontSize: 20 }}>{"\uD83D\uDCB3"}</Text>
               <Text style={styles.payButtonText}>
-                Pagar con Tarjeta
+                Pagar {selectedPlan === "annual" ? "$75.51 (Anual)" : "$8.99 (Mensual)"}
               </Text>
             </Pressable>
 
@@ -362,7 +407,7 @@ export default function PaywallScreen() {
             <View style={styles.dividerRow}>
               <View style={[styles.dividerLine, { backgroundColor: colors.border }]} />
               <Text style={[styles.dividerText, { color: colors.muted }]}>
-                Ya pagaste?
+                \u00bfYa pagaste?
               </Text>
               <View style={[styles.dividerLine, { backgroundColor: colors.border }]} />
             </View>
@@ -398,7 +443,7 @@ export default function PaywallScreen() {
         {activeTab === "code" && (
           <View style={styles.formSection}>
             <Text style={[styles.inputLabel, { color: colors.foreground }]}>
-              Codigo de acceso
+              C\u00f3digo de acceso
             </Text>
             <View
               style={[
@@ -412,7 +457,7 @@ export default function PaywallScreen() {
               <Text style={{ fontSize: 18 }}>{"\uD83D\uDD11"}</Text>
               <TextInput
                 style={[styles.textInput, { color: colors.foreground }]}
-                placeholder="Ingresa tu codigo"
+                placeholder="Ingresa tu c\u00f3digo"
                 placeholderTextColor={colors.muted}
                 value={code}
                 onChangeText={(text) => {
@@ -466,7 +511,7 @@ export default function PaywallScreen() {
           >
             <Text style={{ fontSize: 16 }}>{"\uD83D\uDCAC"}</Text>
             <Text style={[styles.whatsappLinkText, { color: colors.primary }]}>
-              Necesitas ayuda? Escribenos por WhatsApp
+              \u00bfNecesitas ayuda? Escr\u00edbenos por WhatsApp
             </Text>
           </Pressable>
         </View>
@@ -553,42 +598,105 @@ const styles = StyleSheet.create({
     flex: 1,
     lineHeight: 18,
   },
-  priceSection: {
-    alignItems: "center",
+
+  // Plan Selector
+  planSelectorSection: {
     marginBottom: 20,
   },
-  promoBadge: {
-    paddingHorizontal: 14,
-    paddingVertical: 4,
-    borderRadius: 20,
-    marginBottom: 8,
+  planSelectorTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: 14,
   },
-  promoBadgeText: {
-    fontSize: 13,
+  planCard: {
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 10,
+    position: "relative",
+    overflow: "hidden",
+  },
+  bestValueBadge: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    backgroundColor: "#059669",
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderBottomLeftRadius: 10,
+  },
+  bestValueText: {
+    color: "#FFFFFF",
+    fontSize: 11,
     fontWeight: "700",
   },
-  priceAmount: {
-    fontSize: 44,
-    fontWeight: "800",
-    letterSpacing: -2,
+  planCardContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  priceCents: {
-    fontSize: 22,
-    fontWeight: "600",
+  planCardLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
   },
-  pricePeriod: {
+  planRadio: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2,
+    borderColor: "#CBD5E1",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  planRadioInner: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+  },
+  planCardRight: {
+    alignItems: "flex-end",
+  },
+  planName: {
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: "700",
   },
-  priceNote: {
-    fontSize: 13,
+  planDuration: {
+    fontSize: 12,
     marginTop: 2,
   },
-  priceCompare: {
-    fontSize: 13,
-    fontWeight: "600",
-    marginTop: 6,
+  planPrice: {
+    fontSize: 24,
+    fontWeight: "800",
+    letterSpacing: -1,
   },
+  planPeriod: {
+    fontSize: 12,
+    marginTop: -2,
+  },
+  planTotal: {
+    fontSize: 11,
+    marginTop: 2,
+  },
+  savingsBanner: {
+    marginTop: 10,
+    borderRadius: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    alignItems: "center",
+  },
+  savingsText: {
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  noAutoRenewal: {
+    fontSize: 12,
+    textAlign: "center",
+    marginTop: 6,
+    marginBottom: 4,
+  },
+
+  // Tabs
   tabContainer: {
     flexDirection: "row",
     borderRadius: 12,
@@ -606,6 +714,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
   },
+
+  // Form
   formSection: {
     marginBottom: 20,
   },

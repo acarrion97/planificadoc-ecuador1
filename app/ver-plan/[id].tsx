@@ -158,7 +158,7 @@ export default function VerPlanScreen() {
           </Text>
         </SectionCard>
 
-        {/* Estructura de la Clase - 3 fases */}
+        {/* Estructura de la Clase - 4 fases ERCA */}
         {tema && (
           <View className="px-5 mt-4">
             <View style={styles.sectionHeader}>
@@ -167,28 +167,35 @@ export default function VerPlanScreen() {
                 className="text-base font-semibold text-foreground"
                 style={{ marginLeft: 8 }}
               >
-                Estructura de la Clase (45 min)
+                Estructura de la Clase - ERCA (45 min)
               </Text>
             </View>
 
             <FaseCardView
-              label="Anticipación"
-              fase={tema.estructura.anticipacion}
-              color="#F59E0B"
+              label="Experiencia"
+              fase={tema.estructura.experiencia}
+              color="#2980B9"
               emoji={"\uD83D\uDCA1"}
               colors={colors}
             />
             <FaseCardView
-              label="Desarrollo"
-              fase={tema.estructura.desarrollo}
-              color="#2563EB"
-              emoji={"\uD83D\uDD27"}
+              label="Reflexi\u00f3n"
+              fase={tema.estructura.reflexion}
+              color="#8E44AD"
+              emoji={"\uD83E\uDD14"}
               colors={colors}
             />
             <FaseCardView
-              label="Cierre"
-              fase={tema.estructura.cierre}
-              color="#16A34A"
+              label="Conceptualizaci\u00f3n"
+              fase={tema.estructura.conceptualizacion}
+              color="#27AE60"
+              emoji={"\uD83D\uDCDA"}
+              colors={colors}
+            />
+            <FaseCardView
+              label="Aplicaci\u00f3n"
+              fase={tema.estructura.aplicacion}
+              color="#E67E22"
               emoji={"\u2705"}
               colors={colors}
             />

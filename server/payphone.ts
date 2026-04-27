@@ -12,30 +12,37 @@ import {
 const PAYPHONE_CONFIRM_URL = "https://pay.payphonetodoesposible.com/api/button/V2/Confirm";
 
 // Pricing in cents (PayPhone uses integer cents)
-const PROMO_PRICE_CENTS = 499; // $4.99 first 3 months
-const REGULAR_PRICE_CENTS = 699; // $6.99 after
-const PROMO_MONTHS = 3; // Number of months at promo price
+const MONTHLY_PRICE_CENTS = 899; // $8.99/mes
+const ANNUAL_PRICE_CENTS = 7551; // $75.51/año ($6.29/mes x 12)
+const ANNUAL_MONTHLY_EQUIVALENT = 629; // $6.29/mes equivalent
+
+type PlanType = "monthly" | "annual";
 
 /**
- * Get the price for a user based on their subscription history.
- * First 3 months: $4.99, after that: $6.99
+ * Get the price for a given plan type.
  */
-export function getPriceForEmail(previousSubCount: number): {
+export function getPriceForPlan(plan: PlanType): {
   amount: number;
-  isPromo: boolean;
+  plan: PlanType;
   label: string;
+  monthlyEquivalent: number;
+  durationMonths: number;
 } {
-  if (previousSubCount < PROMO_MONTHS) {
+  if (plan === "annual") {
     return {
-      amount: PROMO_PRICE_CENTS,
-      isPromo: true,
-      label: "$4.99/mes (precio introductorio)",
+      amount: ANNUAL_PRICE_CENTS,
+      plan: "annual",
+      label: "$75.51/año ($6.29/mes)",
+      monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
+      durationMonths: 12,
     };
   }
   return {
-    amount: REGULAR_PRICE_CENTS,
-    isPromo: false,
-    label: "$6.99/mes",
+    amount: MONTHLY_PRICE_CENTS,
+    plan: "monthly",
+    label: "$8.99/mes",
+    monthlyEquivalent: MONTHLY_PRICE_CENTS,
+    durationMonths: 1,
   };
 }
 
@@ -56,11 +63,13 @@ export function registerPayPhoneRoutes(app: Express) {
   const payphoneStoreId = process.env.PAYPHONE_STORE_ID || "";
 
   /**
-   * GET /api/payment/page?email=xxx
+   * GET /api/payment/page?email=xxx&plan=monthly|annual
    * Serves the PayPhone Payment Box HTML page.
    */
   app.get("/api/payment/page", async (req: Request, res: Response) => {
     const email = (req.query.email as string || "").trim().toLowerCase();
+    const planParam = (req.query.plan as string || "monthly").toLowerCase();
+    const plan: PlanType = planParam === "annual" ? "annual" : "monthly";
 
     if (!email || !email.includes("@")) {
       res.status(400).send("Email requerido");
@@ -73,9 +82,7 @@ export function registerPayPhoneRoutes(app: Express) {
     }
 
     try {
-      // Determine pricing
-      const prevCount = await countPreviousSubscriptions(email);
-      const pricing = getPriceForEmail(prevCount);
+      const pricing = getPriceForPlan(plan);
 
       // Generate unique transaction ID
       const clientTxId = generateClientTxId(email);
@@ -91,9 +98,9 @@ export function registerPayPhoneRoutes(app: Express) {
       // Always use planificadoc.app for response URL so PayPhone domain validation passes
       const responseUrl = "https://planificadoc.app/api/payment/confirm";
 
-      // Calculate tax breakdown (Ecuador: 15% IVA)
-      // For simplicity, treat the full amount as tax-free (service fee)
       const totalAmount = pricing.amount;
+      const planLabel = plan === "annual" ? "Anual" : "Mensual";
+      const reference = `PlanificaDoc - Suscripcion ${planLabel} - ${email}`;
 
       const html = buildPaymentPageHTML({
         token: payphoneToken,
@@ -101,10 +108,11 @@ export function registerPayPhoneRoutes(app: Express) {
         clientTxId,
         amount: totalAmount,
         email,
-        reference: `PlanificaDoc - Suscripcion Mensual - ${email}`,
+        reference,
         responseUrl,
         priceLabel: pricing.label,
-        isPromo: pricing.isPromo,
+        plan,
+        durationMonths: pricing.durationMonths,
       });
 
       res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -119,9 +127,6 @@ export function registerPayPhoneRoutes(app: Express) {
   /**
    * GET /api/payment/confirm?id=xxx&clientTransactionId=xxx
    * PayPhone redirects here after payment.
-   * Serves an HTML page that confirms the payment FROM THE USER'S BROWSER
-   * (because PayPhone's Azure WAF blocks server-to-server calls from cloud IPs).
-   * The browser then sends the confirm result to our /api/payment/activate endpoint.
    */
   app.get("/api/payment/confirm", async (req: Request, res: Response) => {
     const payphoneTxId = req.query.id as string;
@@ -133,14 +138,12 @@ export function registerPayPhoneRoutes(app: Express) {
     }
 
     try {
-      // Verify the transaction exists in our DB
       const tx = await getPaymentTransaction(clientTxId);
       if (!tx) {
         res.send(buildResultPageHTML(false, "Transaccion no encontrada."));
         return;
       }
 
-      // Serve an HTML page that does the PayPhone Confirm call from the user's browser
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       res.setHeader("Referrer-Policy", "origin");
       res.send(buildConfirmBridgeHTML({
@@ -158,7 +161,6 @@ export function registerPayPhoneRoutes(app: Express) {
   /**
    * POST /api/payment/activate
    * Called by the confirm bridge page after successfully confirming with PayPhone.
-   * Receives the PayPhone confirm response and activates the subscription.
    */
   app.post("/api/payment/activate", async (req: Request, res: Response) => {
     const { clientTxId, confirmData } = req.body;
@@ -196,21 +198,25 @@ export function registerPayPhoneRoutes(app: Express) {
           payphoneResponse: JSON.stringify(confirmData),
         });
 
-        // Create subscription (1 month from now)
+        // Determine plan duration based on amount paid
+        const isAnnual = tx.amount === ANNUAL_PRICE_CENTS;
+        const durationMonths = isAnnual ? 12 : 1;
+        const planType = isAnnual ? "annual" : "monthly";
+
         const startDate = new Date();
         const endDate = new Date();
-        endDate.setMonth(endDate.getMonth() + 1);
+        endDate.setMonth(endDate.getMonth() + durationMonths);
 
         await createSubscription({
           email: tx.email,
-          plan: "monthly",
+          plan: planType,
           status: "active",
           amountPaid: tx.amount,
           transactionId: String(confirmData.transactionId),
           authorizationCode: confirmData.authorizationCode,
           startDate,
           endDate,
-          isPromo: tx.amount === PROMO_PRICE_CENTS,
+          isPromo: false,
         });
 
         res.json({ success: true, email: tx.email });
@@ -259,15 +265,18 @@ export function registerPayPhoneRoutes(app: Express) {
           isPromo: sub.isPromo,
         });
       } else {
-        // Also check pricing for this email
-        const prevCount = await countPreviousSubscriptions(email);
-        const pricing = getPriceForEmail(prevCount);
         res.json({
           active: false,
           pricing: {
-            amount: pricing.amount,
-            label: pricing.label,
-            isPromo: pricing.isPromo,
+            monthly: {
+              amount: MONTHLY_PRICE_CENTS,
+              label: "$8.99/mes",
+            },
+            annual: {
+              amount: ANNUAL_PRICE_CENTS,
+              label: "$75.51/año ($6.29/mes)",
+              savings: "30%",
+            },
           },
         });
       }
@@ -279,28 +288,40 @@ export function registerPayPhoneRoutes(app: Express) {
 
   /**
    * GET /api/payment/pricing?email=xxx
-   * Get pricing info for an email (how many months at promo, etc.)
+   * Get pricing info.
    */
   app.get("/api/payment/pricing", async (req: Request, res: Response) => {
-    const email = (req.query.email as string || "").trim().toLowerCase();
-
     try {
-      const prevCount = email ? await countPreviousSubscriptions(email) : 0;
-      const pricing = getPriceForEmail(prevCount);
       res.json({
-        ...pricing,
-        promoMonthsRemaining: Math.max(0, PROMO_MONTHS - prevCount),
-        regularPrice: REGULAR_PRICE_CENTS,
-        promoPrice: PROMO_PRICE_CENTS,
+        monthly: {
+          amount: MONTHLY_PRICE_CENTS,
+          label: "$8.99/mes",
+          monthlyEquivalent: MONTHLY_PRICE_CENTS,
+          durationMonths: 1,
+        },
+        annual: {
+          amount: ANNUAL_PRICE_CENTS,
+          label: "$75.51/año ($6.29/mes)",
+          monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
+          durationMonths: 12,
+          savings: "30%",
+        },
       });
     } catch (error) {
       res.json({
-        amount: PROMO_PRICE_CENTS,
-        isPromo: true,
-        label: "$4.99/mes (precio introductorio)",
-        promoMonthsRemaining: PROMO_MONTHS,
-        regularPrice: REGULAR_PRICE_CENTS,
-        promoPrice: PROMO_PRICE_CENTS,
+        monthly: {
+          amount: MONTHLY_PRICE_CENTS,
+          label: "$8.99/mes",
+          monthlyEquivalent: MONTHLY_PRICE_CENTS,
+          durationMonths: 1,
+        },
+        annual: {
+          amount: ANNUAL_PRICE_CENTS,
+          label: "$75.51/año ($6.29/mes)",
+          monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
+          durationMonths: 12,
+          savings: "30%",
+        },
       });
     }
   });
@@ -317,8 +338,15 @@ function buildPaymentPageHTML(config: {
   reference: string;
   responseUrl: string;
   priceLabel: string;
-  isPromo: boolean;
+  plan: PlanType;
+  durationMonths: number;
 }): string {
+  const planLabel = config.plan === "annual" ? "Anual (12 meses)" : "Mensual";
+  const periodLabel = config.plan === "annual" ? "por año" : "por mes";
+  const savingsBadge = config.plan === "annual"
+    ? '<div class="savings-badge">Ahorras 30%</div>'
+    : "";
+
   return `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -360,12 +388,13 @@ function buildPaymentPageHTML(config: {
       font-size: 48px;
     }
     .price-card {
-      background: ${config.isPromo ? "linear-gradient(135deg, #059669, #10b981)" : "linear-gradient(135deg, #1e3a5f, #2563eb)"};
+      background: ${config.plan === "annual" ? "linear-gradient(135deg, #059669, #10b981)" : "linear-gradient(135deg, #1e3a5f, #2563eb)"};
       color: white;
       border-radius: 14px;
       padding: 20px;
       text-align: center;
       margin-bottom: 24px;
+      position: relative;
     }
     .price-card .amount {
       font-size: 36px;
@@ -375,12 +404,13 @@ function buildPaymentPageHTML(config: {
       font-size: 14px;
       opacity: 0.9;
     }
-    .price-card .promo-badge {
+    .savings-badge {
       display: inline-block;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.25);
       border-radius: 20px;
-      padding: 4px 12px;
+      padding: 4px 14px;
       font-size: 12px;
+      font-weight: 700;
       margin-top: 8px;
     }
     .info-row {
@@ -410,6 +440,15 @@ function buildPaymentPageHTML(config: {
       margin-top: 16px;
     }
     .security-note span { font-size: 14px; }
+    .renewal-note {
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      margin-top: 12px;
+      padding: 8px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -421,13 +460,13 @@ function buildPaymentPageHTML(config: {
 
     <div class="price-card">
       <div class="amount">$${(config.amount / 100).toFixed(2)}</div>
-      <div class="period">por mes</div>
-      ${config.isPromo ? '<div class="promo-badge">\u2B50 Precio introductorio</div>' : ""}
+      <div class="period">${periodLabel}</div>
+      ${savingsBadge}
     </div>
 
     <div class="info-row">
       <span class="label">Plan</span>
-      <span class="value">Mensual</span>
+      <span class="value">${planLabel}</span>
     </div>
     <div class="info-row">
       <span class="label">Email</span>
@@ -436,6 +475,14 @@ function buildPaymentPageHTML(config: {
     <div class="info-row">
       <span class="label">Incluye</span>
       <span class="value">1,253+ destrezas + IA</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Duracion</span>
+      <span class="value">${config.durationMonths} ${config.durationMonths === 1 ? "mes" : "meses"}</span>
+    </div>
+
+    <div class="renewal-note">
+      \u2139\uFE0F Sin renovacion automatica. Al vencer, puedes renovar manualmente.
     </div>
 
     <div class="payment-section">
