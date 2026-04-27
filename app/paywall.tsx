@@ -56,11 +56,11 @@ export default function PaywallScreen() {
   const handlePayWithPayPhone = useCallback(async () => {
     const trimmedEmail = email.trim().toLowerCase();
     if (!trimmedEmail) {
-      setEmailError("Ingresa tu correo electr\u00f3nico");
+      setEmailError("Ingresa tu correo electrónico");
       return;
     }
     if (!validateEmail(trimmedEmail)) {
-      setEmailError("Ingresa un correo v\u00e1lido");
+      setEmailError("Ingresa un correo válido");
       return;
     }
     setEmailError("");
@@ -96,7 +96,7 @@ export default function PaywallScreen() {
       if (result) {
         setSuccess(true);
       } else {
-        setEmailError("No se encontr\u00f3 una suscripci\u00f3n activa para este correo. Si acabas de pagar, espera unos segundos e intenta de nuevo.");
+        setEmailError("No se encontró una suscripción activa para este correo. Si acabas de pagar, espera unos segundos e intenta de nuevo.");
       }
     } catch {
       setEmailError("Error al verificar. Intenta de nuevo.");
@@ -107,7 +107,7 @@ export default function PaywallScreen() {
 
   const handleWhatsApp = () => {
     const msg = encodeURIComponent(
-      "Hola, necesito ayuda con mi suscripci\u00f3n de PlanificaDoc."
+      "Hola, necesito ayuda con mi suscripción de PlanificaDoc."
     );
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     Linking.openURL(url).catch(() => {
@@ -119,7 +119,7 @@ export default function PaywallScreen() {
 
   const handleUnlockCode = async () => {
     if (code.trim().length === 0) {
-      setCodeError("Ingresa tu c\u00f3digo de acceso");
+      setCodeError("Ingresa tu código de acceso");
       return;
     }
     setCodeError("");
@@ -129,10 +129,10 @@ export default function PaywallScreen() {
       if (result) {
         setSuccess(true);
       } else {
-        setCodeError("C\u00f3digo inv\u00e1lido. Verifica e intenta de nuevo.");
+        setCodeError("Código inválido. Verifica e intenta de nuevo.");
       }
     } catch {
-      setCodeError("Error al verificar el c\u00f3digo.");
+      setCodeError("Error al verificar el código.");
     } finally {
       setCodeLoading(false);
     }
@@ -149,11 +149,11 @@ export default function PaywallScreen() {
             Acceso Activado
           </Text>
           <Text style={[styles.successSubtitle, { color: colors.muted }]}>
-            Tu suscripci\u00f3n ha sido verificada.{"\n"}Bienvenido/a a PlanificaDoc.
+            Tu suscripción ha sido verificada.{"\n"}Bienvenido/a a PlanificaDoc.
           </Text>
           <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: 20 }} />
           <Text style={[styles.redirectText, { color: colors.muted }]}>
-            Cargando la aplicaci\u00f3n...
+            Cargando la aplicación...
           </Text>
         </View>
       </ScreenContainer>
@@ -177,7 +177,7 @@ export default function PaywallScreen() {
             PlanificaDoc
           </Text>
           <Text style={[styles.appSubtitle, { color: colors.muted }]}>
-            Planificaci\u00f3n curricular para docentes de Ecuador
+            Planificación curricular para docentes de Ecuador
           </Text>
         </View>
 
@@ -192,11 +192,11 @@ export default function PaywallScreen() {
             Planifica tu semana en 5 minutos
           </Text>
           <View style={styles.featureList}>
-            <FeatureRow emoji={"\uD83D\uDD0D"} text="1,253+ destrezas del curr\u00edculo ecuatoriano" color={colors.foreground} />
+            <FeatureRow emoji={"\uD83D\uDD0D"} text="1,253+ destrezas del currículo ecuatoriano" color={colors.foreground} />
             <FeatureRow emoji={"\u2728"} text="Temas sugeridos con estructura de clase ERCA" color={colors.foreground} />
             <FeatureRow emoji={"\uD83D\uDCC4"} text="Exporta a PDF con formato oficial del MinEduc" color={colors.foreground} />
             <FeatureRow emoji={"\uD83D\uDCBE"} text="Guarda y gestiona tus planificaciones" color={colors.foreground} />
-            <FeatureRow emoji={"\u267F"} text="Dise\u00f1o Universal para el Aprendizaje (DUA)" color={colors.foreground} />
+            <FeatureRow emoji={"\u267F"} text="Diseño Universal para el Aprendizaje (DUA)" color={colors.foreground} />
             <FeatureRow emoji={"\uD83D\uDD04"} text="Actualizaciones y nuevas destrezas incluidas" color={colors.foreground} />
           </View>
         </View>
@@ -300,7 +300,7 @@ export default function PaywallScreen() {
           </Pressable>
 
           <Text style={[styles.noAutoRenewal, { color: colors.muted }]}>
-            {"\u2139\uFE0F"} Sin renovaci\u00f3n autom\u00e1tica. Al vencer, puedes renovar manualmente.
+            {"\u2139\uFE0F"} Sin renovación automática. Al vencer, puedes renovar manualmente.
           </Text>
         </View>
 
@@ -337,7 +337,7 @@ export default function PaywallScreen() {
                 { color: activeTab === "code" ? "#FFFFFF" : colors.muted },
               ]}
             >
-              {"\uD83D\uDD11"} Tengo c\u00f3digo
+              {"\uD83D\uDD11"} Tengo código
             </Text>
           </Pressable>
         </View>
@@ -347,7 +347,7 @@ export default function PaywallScreen() {
           <View style={styles.formSection}>
             {/* Email Input */}
             <Text style={[styles.inputLabel, { color: colors.foreground }]}>
-              Tu correo electr\u00f3nico
+              Tu correo electrónico
             </Text>
             <View
               style={[
@@ -407,7 +407,7 @@ export default function PaywallScreen() {
             <View style={styles.dividerRow}>
               <View style={[styles.dividerLine, { backgroundColor: colors.border }]} />
               <Text style={[styles.dividerText, { color: colors.muted }]}>
-                \u00bfYa pagaste?
+                ¿Ya pagaste?
               </Text>
               <View style={[styles.dividerLine, { backgroundColor: colors.border }]} />
             </View>
@@ -443,7 +443,7 @@ export default function PaywallScreen() {
         {activeTab === "code" && (
           <View style={styles.formSection}>
             <Text style={[styles.inputLabel, { color: colors.foreground }]}>
-              C\u00f3digo de acceso
+              Código de acceso
             </Text>
             <View
               style={[
@@ -457,7 +457,7 @@ export default function PaywallScreen() {
               <Text style={{ fontSize: 18 }}>{"\uD83D\uDD11"}</Text>
               <TextInput
                 style={[styles.textInput, { color: colors.foreground }]}
-                placeholder="Ingresa tu c\u00f3digo"
+                placeholder="Ingresa tu código"
                 placeholderTextColor={colors.muted}
                 value={code}
                 onChangeText={(text) => {
@@ -511,7 +511,7 @@ export default function PaywallScreen() {
           >
             <Text style={{ fontSize: 16 }}>{"\uD83D\uDCAC"}</Text>
             <Text style={[styles.whatsappLinkText, { color: colors.primary }]}>
-              \u00bfNecesitas ayuda? Escr\u00edbenos por WhatsApp
+              ¿Necesitas ayuda? Escríbenos por WhatsApp
             </Text>
           </Pressable>
         </View>
