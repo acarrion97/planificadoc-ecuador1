@@ -190,6 +190,146 @@ const ESTRATEGIAS_POR_AREA: Record<Area, DUAPlanificacion> = {
       "Crear un ambiente de respeto donde toda expresión artística sea valorada sin juicio.",
     ],
   },
+  "CN.B": {
+    representacion: [
+      "Utilizar modelos tridimensionales de células, ADN, sistemas del cuerpo humano y ecosistemas.",
+      "Presentar videos de microscopía, documentales de biodiversidad ecuatoriana y animaciones de procesos biológicos.",
+      "Usar organizadores gráficos para clasificar seres vivos, comparar estructuras celulares y representar cadenas tróficas.",
+      "Realizar prácticas de laboratorio con materiales accesibles para observar células, tejidos y microorganismos.",
+    ],
+    accionExpresion: [
+      "Permitir que los estudiantes elaboren maquetas, infografías o presentaciones digitales sobre procesos biológicos.",
+      "Ofrecer guías de laboratorio con pasos ilustrados y espacios para registrar observaciones.",
+      "Aceptar diferentes formatos de informes: escrito, oral, póster científico, video explicativo.",
+      "Proporcionar rúbricas claras para proyectos de investigación y prácticas de laboratorio.",
+    ],
+    implicacion: [
+      "Conectar los contenidos con la megadiversidad del Ecuador: Galápagos, Amazonía, páramos andinos.",
+      "Promover proyectos de investigación sobre problemas ambientales y de salud locales.",
+      "Fomentar el debate ético sobre biotecnología, ingeniería genética y conservación.",
+      "Organizar salidas de campo o visitas virtuales a reservas naturales ecuatorianas.",
+    ],
+  },
+  "CN.Q": {
+    representacion: [
+      "Utilizar modelos moleculares físicos o virtuales para representar estructuras atómicas y enlaces.",
+      "Presentar videos de reacciones químicas, animaciones de procesos a nivel molecular.",
+      "Usar la tabla periódica interactiva y codificada por colores para facilitar la comprensión.",
+      "Realizar experimentos demostrativos con materiales cotidianos para ilustrar conceptos químicos.",
+    ],
+    accionExpresion: [
+      "Permitir el uso de calculadora y tabla periódica durante la resolución de problemas estequiométricos.",
+      "Ofrecer plantillas para balancear ecuaciones y resolver problemas paso a paso.",
+      "Aceptar diferentes formas de demostrar comprensión: ejercicios, experimentos, modelos, exposiciones.",
+      "Proporcionar guías de laboratorio con procedimientos claros y medidas de seguridad ilustradas.",
+    ],
+    implicacion: [
+      "Relacionar la química con la vida cotidiana: alimentos, medicinas, productos de limpieza, contaminación.",
+      "Promover proyectos sobre química verde y desarrollo sostenible en el contexto ecuatoriano.",
+      "Fomentar la investigación sobre recursos minerales y petroquímicos del Ecuador.",
+      "Organizar ferias de ciencias con experimentos químicos seguros y llamativos.",
+    ],
+  },
+  "CN.F": {
+    representacion: [
+      "Utilizar simulaciones virtuales y applets para visualizar movimiento, fuerzas y campos electromagnéticos.",
+      "Presentar videos de experimentos de física y fenómenos naturales explicados con principios físicos.",
+      "Usar diagramas de cuerpo libre, gráficas de movimiento y esquemas de circuitos como apoyo visual.",
+      "Realizar demostraciones prácticas con materiales sencillos: rampas, poleas, imanes, lentes.",
+    ],
+    accionExpresion: [
+      "Permitir el uso de calculadora y formulario durante la resolución de problemas.",
+      "Ofrecer plantillas con pasos guiados para la resolución de problemas de física.",
+      "Aceptar diferentes formas de presentar resultados: resolución algebraica, gráfica, experimental.",
+      "Proporcionar ejercicios con diferentes niveles de complejidad para avance progresivo.",
+    ],
+    implicacion: [
+      "Relacionar la física con situaciones cotidianas: transporte, deportes, tecnología, fenómenos naturales.",
+      "Promover proyectos de ingeniería sencillos: puentes, catapultas, circuitos básicos.",
+      "Fomentar la investigación sobre energías renovables y su aplicación en Ecuador.",
+      "Organizar competencias de resolución de problemas y desafíos de ingeniería por equipos.",
+    ],
+  },
+  "CS.H": {
+    representacion: [
+      "Utilizar líneas de tiempo interactivas, mapas históricos y atlas para contextualizar épocas y eventos.",
+      "Presentar fuentes primarias adaptadas: documentos, cartas, fotografías, testimonios orales.",
+      "Usar documentales, películas históricas y recreaciones para visualizar contextos pasados.",
+      "Ofrecer organizadores gráficos para comparar civilizaciones, períodos y procesos históricos.",
+    ],
+    accionExpresion: [
+      "Permitir la dramatización y el juego de roles para representar hechos históricos.",
+      "Aceptar diferentes productos: ensayos, líneas de tiempo, mapas conceptuales, presentaciones multimedia.",
+      "Ofrecer guías de análisis de fuentes históricas con preguntas orientadoras.",
+      "Fomentar el debate estructurado con argumentos basados en evidencia histórica.",
+    ],
+    implicacion: [
+      "Conectar la historia universal con la historia del Ecuador y América Latina.",
+      "Promover la investigación sobre historia local, memoria comunitaria y patrimonio cultural.",
+      "Fomentar el análisis crítico de la historia desde múltiples perspectivas y voces.",
+      "Valorar la diversidad cultural y los aportes de pueblos y nacionalidades del Ecuador.",
+    ],
+  },
+  "CS.F": {
+    representacion: [
+      "Presentar textos filosóficos adaptados con vocabulario accesible y ejemplos contextualizados.",
+      "Utilizar dilemas morales, casos prácticos y situaciones cotidianas para introducir conceptos filosóficos.",
+      "Ofrecer mapas conceptuales y esquemas que relacionen corrientes filosóficas y sus representantes.",
+      "Usar videos, podcasts y recursos multimedia sobre temas filosóficos contemporáneos.",
+    ],
+    accionExpresion: [
+      "Fomentar el diálogo socrático y la comunidad de indagación filosófica en el aula.",
+      "Aceptar diferentes formas de expresión: ensayo filosófico, debate, diario reflexivo, arte.",
+      "Ofrecer guías de lectura filosófica con preguntas de comprensión y reflexión.",
+      "Permitir la construcción colaborativa de argumentos y contraargumentos.",
+    ],
+    implicacion: [
+      "Relacionar la filosofía con problemas éticos y sociales actuales del Ecuador y el mundo.",
+      "Promover la reflexión sobre identidad, diversidad cultural y derechos humanos.",
+      "Fomentar el pensamiento crítico aplicado a medios de comunicación y redes sociales.",
+      "Valorar el pensamiento filosófico latinoamericano y las cosmovisiones andinas.",
+    ],
+  },
+  EFL: {
+    representacion: [
+      "Utilizar imágenes, gestos, realia y material audiovisual para contextualizar el vocabulario y las estructuras.",
+      "Presentar textos con apoyo visual: ilustraciones, subtítulos, glosarios y organizadores gráficos.",
+      "Ofrecer input comprensible mediante habla pausada, repetición y reformulación.",
+      "Usar canciones, videos y podcasts auténticos con subtítulos en inglés para desarrollar la comprensión auditiva.",
+    ],
+    accionExpresion: [
+      "Permitir respuestas en diferentes modalidades: oral, escrita, gestual, artística.",
+      "Ofrecer plantillas y modelos de texto para la producción escrita (párrafos, correos, ensayos).",
+      "Aceptar diferentes niveles de producción según el nivel de dominio del idioma.",
+      "Proporcionar listas de vocabulario, bancos de frases y conectores como apoyo para la producción.",
+    ],
+    implicacion: [
+      "Relacionar el aprendizaje del inglés con la cultura ecuatoriana: describir tradiciones, lugares, comidas.",
+      "Fomentar la comunicación auténtica mediante proyectos colaborativos y simulaciones.",
+      "Promover la tolerancia y el respeto por la diversidad cultural a través del idioma.",
+      "Crear un ambiente de confianza donde el error sea parte natural del proceso de adquisición.",
+    ],
+  },
+  EG: {
+    representacion: [
+      "Utilizar casos de emprendimientos ecuatorianos exitosos como ejemplos y modelos de referencia.",
+      "Presentar conceptos contables y financieros con gráficos, tablas y simulaciones prácticas.",
+      "Ofrecer plantillas de planes de negocio, estados financieros y registros contables.",
+      "Usar videos y testimonios de emprendedores locales para contextualizar los contenidos.",
+    ],
+    accionExpresion: [
+      "Permitir la elaboración de proyectos de emprendimiento reales o simulados como producto final.",
+      "Ofrecer guías paso a paso para la elaboración de planes de negocio y estudios de mercado.",
+      "Aceptar diferentes formatos de presentación: pitch, infografía, video, documento escrito.",
+      "Proporcionar herramientas digitales y plantillas para cálculos financieros y contables.",
+    ],
+    implicacion: [
+      "Fomentar el emprendimiento social orientado a resolver problemas de la comunidad ecuatoriana.",
+      "Promover la investigación sobre el ecosistema emprendedor del Ecuador y sus oportunidades.",
+      "Organizar ferias de emprendimiento donde los estudiantes presenten sus proyectos.",
+      "Valorar la creatividad, la innovación y la responsabilidad social en los proyectos.",
+    ],
+  },
 };
 
 /**

@@ -15,10 +15,12 @@ import {
   AREAS_INFO,
   TODAS_LAS_DESTREZAS,
   buscarDestrezas,
+  filtrarPorArea,
   Area,
 } from "@/data";
 
-const AREAS_LIST = Object.values(AREAS_INFO);
+const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
+const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "EFL", "EG"];
 
 export default function HomeScreen() {
   const colors = useColors();
@@ -32,6 +34,38 @@ export default function HomeScreen() {
   }, [query]);
 
   const recientes = planificaciones.slice(0, 5);
+
+  const renderAreaCard = (areaCode: Area) => {
+    const area = AREAS_INFO[areaCode];
+    const count = filtrarPorArea(areaCode).length;
+    return (
+      <Pressable
+        key={area.code}
+        onPress={() =>
+          router.push(`/(tabs)/explorar?area=${area.code}` as any)
+        }
+        style={({ pressed }) => [
+          styles.areaCard,
+          {
+            backgroundColor: area.color + "15",
+            borderColor: area.color + "30",
+            opacity: pressed ? 0.7 : 1,
+          },
+        ]}
+      >
+        <Text style={{ fontSize: 28 }}>{area.emoji}</Text>
+        <Text
+          style={[styles.areaCardText, { color: area.color }]}
+          numberOfLines={2}
+        >
+          {area.name}
+        </Text>
+        <Text style={[styles.areaCountText, { color: area.color + "90" }]}>
+          {count} destrezas
+        </Text>
+      </Pressable>
+    );
+  };
 
   return (
     <ScreenContainer className="flex-1">
@@ -48,7 +82,7 @@ export default function HomeScreen() {
                 PlanificaDoc
               </Text>
               <Text className="text-base text-muted mt-1">
-                Planificación curricular para docentes de Ecuador
+                Planificaci{"ó"}n curricular para docentes de Ecuador
               </Text>
             </View>
 
@@ -58,7 +92,7 @@ export default function HomeScreen() {
                 className="flex-row items-center bg-surface rounded-xl px-4 border border-border"
                 style={styles.searchContainer}
               >
-                <Text style={{ fontSize: 18 }}>🔍</Text>
+                <Text style={{ fontSize: 18 }}>{"🔍"}</Text>
                 <TextInput
                   className="flex-1 ml-3 text-base text-foreground"
                   placeholder="Código de destreza (ej: M.3.1.1)"
@@ -71,7 +105,7 @@ export default function HomeScreen() {
                 />
                 {query.length > 0 && (
                   <Pressable onPress={() => setQuery("")} style={{ padding: 4 }}>
-                    <Text style={{ fontSize: 16 }}>✕</Text>
+                    <Text style={{ fontSize: 16 }}>{"✕"}</Text>
                   </Pressable>
                 )}
               </View>
@@ -80,46 +114,40 @@ export default function HomeScreen() {
             {/* Stats */}
             <View className="px-5 mt-3">
               <Text className="text-sm text-muted">
-                {TODAS_LAS_DESTREZAS.length} destrezas disponibles
+                {TODAS_LAS_DESTREZAS.length} destrezas disponibles {"·"} 13 asignaturas
               </Text>
             </View>
 
             {/* Areas grid - only show when not searching */}
             {resultados.length === 0 && (
               <>
+                {/* EGB Section */}
                 <View className="px-5 mt-6 mb-3">
                   <Text className="text-lg font-semibold text-foreground">
-                    Áreas Curriculares
+                    Educaci{"ó"}n General B{"á"}sica
+                  </Text>
+                  <Text className="text-xs text-muted mt-1">
+                    Preparatoria {"·"} Elemental {"·"} Media {"·"} Superior
                   </Text>
                 </View>
                 <View className="px-5">
                   <View style={styles.areasGrid}>
-                    {AREAS_LIST.map((area) => (
-                      <Pressable
-                        key={area.code}
-                        onPress={() =>
-                          router.push(
-                            `/(tabs)/explorar?area=${area.code}` as any
-                          )
-                        }
-                        style={({ pressed }) => [
-                          styles.areaCard,
-                          {
-                            backgroundColor: area.color + "15",
-                            borderColor: area.color + "30",
-                            opacity: pressed ? 0.7 : 1,
-                          },
-                        ]}
-                      >
-                        <Text style={{ fontSize: 28 }}>{area.emoji}</Text>
-                        <Text
-                          style={[styles.areaCardText, { color: area.color }]}
-                          numberOfLines={2}
-                        >
-                          {area.name}
-                        </Text>
-                      </Pressable>
-                    ))}
+                    {EGB_AREAS.map(renderAreaCard)}
+                  </View>
+                </View>
+
+                {/* BGU Section */}
+                <View className="px-5 mt-6 mb-3">
+                  <Text className="text-lg font-semibold text-foreground">
+                    Bachillerato General Unificado
+                  </Text>
+                  <Text className="text-xs text-muted mt-1">
+                    1ro {"·"} 2do {"·"} 3ro BGU
+                  </Text>
+                </View>
+                <View className="px-5">
+                  <View style={styles.areasGrid}>
+                    {BGU_AREAS.map(renderAreaCard)}
                   </View>
                 </View>
 
@@ -171,7 +199,7 @@ export default function HomeScreen() {
                               className="text-sm font-medium text-foreground"
                               numberOfLines={1}
                             >
-                              {plan.asignatura} — {plan.grado}
+                              {plan.asignatura} {"—"} {plan.grado}
                             </Text>
                             <Text
                               className="text-xs text-muted mt-1"
@@ -180,7 +208,7 @@ export default function HomeScreen() {
                               {plan.fecha}
                             </Text>
                           </View>
-                          <Text style={{ fontSize: 16, color: colors.muted }}>›</Text>
+                          <Text style={{ fontSize: 16, color: colors.muted }}>{"›"}</Text>
                         </View>
                       </Pressable>
                     ))}
@@ -249,12 +277,12 @@ export default function HomeScreen() {
         ListEmptyComponent={
           query.trim().length >= 2 ? (
             <View className="items-center py-10 px-5">
-              <Text style={{ fontSize: 48 }}>🔎</Text>
+              <Text style={{ fontSize: 48 }}>{"🔎"}</Text>
               <Text className="text-base text-muted mt-3 text-center">
                 No se encontraron destrezas para "{query}"
               </Text>
               <Text className="text-sm text-muted mt-1 text-center">
-                Intenta con otro código o término
+                Intenta con otro c{"ó"}digo o t{"é"}rmino
               </Text>
             </View>
           ) : null
@@ -287,11 +315,15 @@ const styles = StyleSheet.create({
     padding: 16,
     borderWidth: 1,
     alignItems: "flex-start",
-    gap: 8,
+    gap: 6,
   },
   areaCardText: {
     fontSize: 14,
     fontWeight: "600",
+  },
+  areaCountText: {
+    fontSize: 11,
+    fontWeight: "500",
   },
   resultCard: {
     marginHorizontal: 20,

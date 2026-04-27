@@ -93,7 +93,19 @@
 - [ ] Implementar caché local (AsyncStorage) para destrezas del currículo para reducir llamadas al backend
 - [ ] Bug: PayPhone no tiene pago recurrente - el cobro no se renueva automáticamente cada mes
 - [x] Bug: Las planificaciones ahora siguen el modelo ERCA (Experiencia-Reflexión-Conceptualización-Aplicación) en vez de Anticipación-Desarrollo-Cierre
-- [ ] Crear skill reutilizable con skill-creator basada en el proceso de PlanificaDoc
+- [x] Crear skill reutilizable con skill-creator basada en el proceso de PlanificaDoc
 - [x] Cambiar precios: mensual $8.99, anual $75.51 (30% descuento). Eliminar precio promo $4.99 y regular $6.99
 - [x] Agregar opción de plan anual en paywall y página de pago PayPhone
 - [x] Mantener acceso a usuarios existentes hasta que venza su mes actual
+- [x] Integrar destrezas de Física (CN.F) - Bachillerato (77 destrezas)
+- [x] Integrar destrezas de Química (CN.Q) - Bachillerato (58 destrezas)
+- [x] Integrar destrezas de Biología (CN.B) - Bachillerato (60 destrezas)
+- [x] Integrar destrezas de Historia (CS.H) - Bachillerato (174 destrezas)
+- [x] Integrar destrezas de Filosofía (CS.F) - Bachillerato (37 destrezas)
+- [x] Integrar destrezas de Emprendimiento y Gestión (EG) - Bachillerato (38 destrezas)
+- [x] Integrar destrezas de Inglés (EFL) - Lengua Extranjera (47 destrezas)
+- [ ] Integrar destrezas de Bachillerato Técnico del currículo oficial MinEduc (pendiente - requiere currículo específico por especialidad)
+- [x] Crear temas sugeridos ERCA para todas las nuevas asignaturas
+- [x] Actualizar UI: pantallas Home y Explorar con secciones EGB y Bachillerato separadas
+- [x] Actualizar paywall con el nuevo conteo total de destrezas (1564)
+- [x] Ejecutar tests y verificar que todo funciona correctamente (94 tests pasando)

@@ -4,6 +4,13 @@ import { destrezasCienciasNaturales } from "./destrezas-cn";
 import { destrezasEstudiosSociales } from "./destrezas-cs";
 import { destrezasEducacionFisica } from "./destrezas-ef";
 import { destrezasECA } from "./destrezas-eca";
+import { destrezasBiologia } from "./destrezas-biologia";
+import { destrezasQuimica } from "./destrezas-quimica";
+import { destrezasFisica } from "./destrezas-fisica";
+import { destrezasHistoria } from "./destrezas-historia";
+import { destrezasFilosofia } from "./destrezas-filosofia";
+import { destrezasIngles } from "./destrezas-ingles";
+import { destrezasEmprendimiento } from "./destrezas-emprendimiento";
 import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
 
 export * from "./types";
@@ -18,6 +25,13 @@ export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasEstudiosSociales,
   ...destrezasEducacionFisica,
   ...destrezasECA,
+  ...destrezasBiologia,
+  ...destrezasQuimica,
+  ...destrezasFisica,
+  ...destrezasHistoria,
+  ...destrezasFilosofia,
+  ...destrezasIngles,
+  ...destrezasEmprendimiento,
 ];
 
 export function buscarPorCodigo(codigo: string): Destreza | undefined {

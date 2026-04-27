@@ -780,6 +780,825 @@ const PLANTILLAS_ECA: PlantillaActividades = {
   },
 };
 
+// ============================================================
+// PLANTILLAS BACHILLERATO: BIOLOGÍA
+// ============================================================
+
+const PLANTILLAS_BIOLOGIA: PlantillaActividades = {
+  experiencia: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Presentar un caso de estudio o fenómeno biológico relacionado con: ${desc}`,
+        "Explorar conocimientos previos mediante preguntas generadoras.",
+        "Observar muestras, imágenes o videos introductorios del tema.",
+        "Presentar el objetivo de aprendizaje y la metodología de la clase.",
+      ],
+      [
+        `Plantear un problema científico vinculado con: ${desc}`,
+        "Solicitar hipótesis iniciales a los estudiantes y registrarlas.",
+        "Relacionar el tema con la biodiversidad ecuatoriana (Galápagos, Amazonía, páramos).",
+        "Compartir el objetivo de investigación de la clase.",
+      ],
+      [
+        `Mostrar un documental corto o animación sobre: ${desc}`,
+        "Formular preguntas de observación: \u00bfQué procesos biológicos identifican?",
+        "Conectar con experiencias previas de los estudiantes sobre el tema.",
+        "Anunciar el tema y la práctica de laboratorio planificada.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis: \u00bfQué relación existe entre estructura y función?",
+        "Solicitar que comparen sus hipótesis con la evidencia observada.",
+        `Guiar la discusión sobre las implicaciones de: ${desc.substring(0, 60).toLowerCase()}...`,
+        "Registrar las conclusiones preliminares en la pizarra.",
+      ],
+      [
+        "Organizar una discusión grupal sobre los resultados de la observación.",
+        "Analizar las relaciones causa-efecto en los procesos biológicos estudiados.",
+        "Comparar diferentes explicaciones propuestas por los estudiantes.",
+        "Identificar las variables que influyen en el fenómeno biológico.",
+      ],
+      [
+        "Solicitar que describan con sus propias palabras los procesos observados.",
+        "Analizar colectivamente los datos recopilados en la observación.",
+        "Formular preguntas: \u00bfCómo se relaciona esto con la evolución y la adaptación?",
+        "Guiar hacia la formulación de explicaciones científicas fundamentadas.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Explicar el concepto biológico central: ${desc}`,
+        "Utilizar modelos celulares, diagramas de ADN o esquemas de ecosistemas.",
+        "Realizar una práctica de laboratorio guiada (observación microscópica, disecciones, etc.).",
+        "Trabajar en el texto del estudiante: analizar información científica.",
+        "Formalizar los conceptos con organizadores gráficos en el cuaderno.",
+      ],
+      [
+        `Presentar la teoría biológica relacionada: ${desc}`,
+        "Guiar la lectura comprensiva de artículos científicos adaptados.",
+        "Explicar los procesos moleculares, celulares o ecológicos involucrados.",
+        "Solicitar que elaboren un mapa conceptual del tema.",
+        "Resolver ejercicios de aplicación del concepto biológico.",
+      ],
+      [
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar animaciones y simulaciones para visualizar procesos biológicos.",
+        "Modelar el análisis de datos experimentales paso a paso.",
+        "Guiar la elaboración de un informe de laboratorio.",
+        "Sintetizar los aprendizajes en un cuadro comparativo.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar una práctica de laboratorio o actividad experimental.",
+        "Solicitar la elaboración de un informe científico con resultados.",
+        "Socializar los hallazgos y conclusiones por equipos.",
+        "Formular preguntas: \u00bfCómo se aplica esto en medicina, agricultura o conservación?",
+        "Asignar investigación sobre biodiversidad ecuatoriana para la próxima clase.",
+      ],
+      [
+        "Proponer un problema ambiental o de salud para resolver en equipos.",
+        "Guiar la aplicación del método científico al problema planteado.",
+        "Organizar la presentación de soluciones con fundamento biológico.",
+        "Promover la reflexión sobre bioética y conservación.",
+        "Asignar proyecto de investigación para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de aplicación del concepto biológico estudiado.",
+        "Organizar una actividad práctica de campo o laboratorio.",
+        "Solicitar que relacionen lo aprendido con ecosistemas ecuatorianos.",
+        "Realizar autoevaluación del aprendizaje con rúbrica.",
+        "Asignar tarea de extensión con enfoque investigativo.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  recursos: (d, v) => {
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const extras: string[][] = [
+      ["Microscopio y portaobjetos", "Muestras biológicas", "Láminas didácticas"],
+      ["Modelos celulares y anatómicos", "Material audiovisual", "Guías de laboratorio"],
+      ["Material del entorno natural", "Simulaciones digitales", "Artículos científicos"],
+    ];
+    return [...base, ...extras[v % extras.length]];
+  },
+};
+
+// ============================================================
+// PLANTILLAS BACHILLERATO: QUÍMICA
+// ============================================================
+
+const PLANTILLAS_QUIMICA: PlantillaActividades = {
+  experiencia: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Presentar un fenómeno químico cotidiano relacionado con: ${desc}`,
+        "Explorar conocimientos previos sobre la materia y sus transformaciones.",
+        "Realizar una demostración química introductoria segura.",
+        "Presentar el objetivo de aprendizaje y las normas de seguridad.",
+      ],
+      [
+        `Plantear un problema químico vinculado con: ${desc}`,
+        "Solicitar predicciones sobre lo que sucederá en el experimento.",
+        "Relacionar el tema con aplicaciones industriales o ambientales del Ecuador.",
+        "Compartir el objetivo de la práctica de laboratorio.",
+      ],
+      [
+        `Mostrar un video de reacciones químicas o procesos industriales sobre: ${desc}`,
+        "Formular preguntas: \u00bfQué cambios observan? \u00bfEs un cambio físico o químico?",
+        "Conectar con productos químicos de uso cotidiano.",
+        "Anunciar el tema y la metodología experimental.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis: \u00bfQué evidencias de reacción química observaron?",
+        "Solicitar que comparen sus predicciones con los resultados experimentales.",
+        `Guiar la discusión sobre los principios químicos de: ${desc.substring(0, 60).toLowerCase()}...`,
+        "Registrar las observaciones y conclusiones en la pizarra.",
+      ],
+      [
+        "Organizar una discusión sobre los resultados del experimento.",
+        "Analizar las relaciones entre reactivos, productos y condiciones.",
+        "Comparar diferentes interpretaciones de los datos experimentales.",
+        "Identificar las variables que afectaron el resultado.",
+      ],
+      [
+        "Solicitar que expliquen a nivel molecular lo observado.",
+        "Analizar colectivamente los datos cuantitativos obtenidos.",
+        "Formular preguntas: \u00bfCómo se conserva la materia en esta reacción?",
+        "Guiar hacia la formulación de ecuaciones químicas.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Explicar el concepto químico central: ${desc}`,
+        "Utilizar modelos moleculares y la tabla periódica para representar el concepto.",
+        "Realizar cálculos estequiométricos guiados paso a paso.",
+        "Trabajar en el texto del estudiante: analizar ecuaciones y reacciones.",
+        "Formalizar los conceptos con esquemas y fórmulas en el cuaderno.",
+      ],
+      [
+        `Presentar la teoría química relacionada: ${desc}`,
+        "Guiar el uso de la tabla periódica para predecir propiedades.",
+        "Explicar los tipos de enlaces y reacciones involucradas.",
+        "Solicitar que balanceen ecuaciones químicas.",
+        "Resolver problemas de estequiometría de complejidad creciente.",
+      ],
+      [
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar simulaciones moleculares para visualizar estructuras.",
+        "Modelar la resolución de problemas químicos paso a paso.",
+        "Guiar la elaboración de un informe de laboratorio.",
+        "Sintetizar los aprendizajes en un cuadro comparativo.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar una práctica de laboratorio con medidas de seguridad.",
+        "Solicitar la elaboración de un informe con cálculos y conclusiones.",
+        "Socializar los resultados experimentales por equipos.",
+        "Formular preguntas: \u00bfDónde se aplica esta química en la industria ecuatoriana?",
+        "Asignar investigación sobre aplicaciones químicas para la próxima clase.",
+      ],
+      [
+        "Proponer un problema ambiental (contaminación, tratamiento de aguas) para resolver.",
+        "Guiar la aplicación de principios químicos al problema planteado.",
+        "Organizar la presentación de soluciones con fundamento químico.",
+        "Promover la reflexión sobre química verde y sostenibilidad.",
+        "Asignar proyecto de investigación química para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de cálculo y balanceo de ecuaciones.",
+        "Organizar un experimento práctico con materiales cotidianos.",
+        "Solicitar que relacionen lo aprendido con la petroquímica ecuatoriana.",
+        "Realizar autoevaluación del aprendizaje.",
+        "Asignar tarea de extensión con enfoque experimental.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  recursos: (d, v) => {
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const extras: string[][] = [
+      ["Material de laboratorio", "Tabla periódica", "Reactivos seguros"],
+      ["Modelos moleculares", "Material audiovisual", "Guías de laboratorio"],
+      ["Simulaciones químicas digitales", "Materiales cotidianos", "Equipo de protección"],
+    ];
+    return [...base, ...extras[v % extras.length]];
+  },
+};
+
+// ============================================================
+// PLANTILLAS BACHILLERATO: FÍSICA
+// ============================================================
+
+const PLANTILLAS_FISICA: PlantillaActividades = {
+  experiencia: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Presentar un fenómeno físico observable relacionado con: ${desc}`,
+        "Explorar conocimientos previos sobre las leyes físicas involucradas.",
+        "Realizar una demostración práctica con materiales sencillos.",
+        "Presentar el objetivo de aprendizaje y las magnitudes a medir.",
+      ],
+      [
+        `Plantear un desafío de ingeniería vinculado con: ${desc}`,
+        "Solicitar predicciones basadas en la intuición física de los estudiantes.",
+        "Relacionar el tema con tecnología y fenómenos naturales del Ecuador.",
+        "Compartir el objetivo experimental de la clase.",
+      ],
+      [
+        `Mostrar un video de experimentos físicos sobre: ${desc}`,
+        "Formular preguntas: \u00bfQué fuerzas actúan? \u00bfQué magnitudes cambian?",
+        "Conectar con situaciones cotidianas: transporte, deportes, construcción.",
+        "Anunciar el tema y la práctica experimental planificada.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis: \u00bfQué variables influyeron en el resultado?",
+        "Solicitar que comparen sus predicciones con las mediciones obtenidas.",
+        `Guiar la discusión sobre los principios físicos de: ${desc.substring(0, 60).toLowerCase()}...`,
+        "Registrar los datos experimentales y conclusiones en la pizarra.",
+      ],
+      [
+        "Organizar una discusión sobre los datos experimentales obtenidos.",
+        "Analizar las gráficas de movimiento, fuerza o energía generadas.",
+        "Comparar diferentes métodos de medición utilizados por los equipos.",
+        "Identificar fuentes de error experimental.",
+      ],
+      [
+        "Solicitar que expresen matemáticamente las relaciones observadas.",
+        "Analizar colectivamente los datos cuantitativos.",
+        "Formular preguntas: \u00bfQué ley física explica este comportamiento?",
+        "Guiar hacia la formulación de ecuaciones y modelos.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Explicar el principio físico central: ${desc}`,
+        "Utilizar diagramas de cuerpo libre, gráficas y esquemas de circuitos.",
+        "Resolver problemas de física paso a paso en la pizarra.",
+        "Trabajar en el texto del estudiante: analizar fórmulas y leyes.",
+        "Formalizar las ecuaciones y unidades en el cuaderno.",
+      ],
+      [
+        `Presentar la ley o principio físico: ${desc}`,
+        "Guiar la deducción matemática de las ecuaciones involucradas.",
+        "Explicar las unidades del SI y las conversiones necesarias.",
+        "Solicitar que resuelvan ejercicios de complejidad creciente.",
+        "Resolver problemas de aplicación con datos reales.",
+      ],
+      [
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar simulaciones (PhET, GeoGebra) para visualizar fenómenos.",
+        "Modelar la resolución de problemas con análisis dimensional.",
+        "Guiar la elaboración de un informe de laboratorio.",
+        "Sintetizar las leyes y fórmulas en un cuadro resumen.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar problemas de física con aplicación al contexto real.",
+        "Solicitar la elaboración de un informe experimental con gráficas.",
+        "Socializar las soluciones y métodos utilizados.",
+        "Formular preguntas: \u00bfDónde se aplica este principio en la ingeniería?",
+        "Asignar investigación sobre energías renovables en Ecuador.",
+      ],
+      [
+        "Proponer un desafío de ingeniería (puente, catapulta, circuito) para resolver.",
+        "Guiar la aplicación de principios físicos al diseño.",
+        "Organizar la presentación de prototipos por equipos.",
+        "Promover la reflexión sobre tecnología y sostenibilidad.",
+        "Asignar proyecto de física aplicada para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de cálculo con diferentes niveles de complejidad.",
+        "Organizar un experimento práctico con materiales sencillos.",
+        "Solicitar que relacionen lo aprendido con fenómenos naturales.",
+        "Realizar autoevaluación del aprendizaje.",
+        "Asignar tarea de extensión con enfoque experimental.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  recursos: (d, v) => {
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const extras: string[][] = [
+      ["Material de laboratorio (cronómetro, regla, dinamométro)", "Calculadora científica", "Formulario de física"],
+      ["Simulaciones PhET", "Material audiovisual", "Guías de laboratorio"],
+      ["Materiales para prototipos", "Sensores y medidores", "Recursos tecnológicos"],
+    ];
+    return [...base, ...extras[v % extras.length]];
+  },
+};
+
+// ============================================================
+// PLANTILLAS BACHILLERATO: HISTORIA
+// ============================================================
+
+const PLANTILLAS_HISTORIA: PlantillaActividades = {
+  experiencia: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Presentar una fuente histórica (documento, imagen, mapa) relacionada con: ${desc}`,
+        "Explorar conocimientos previos: \u00bfQué saben sobre esta época o evento?",
+        "Ubicar el tema en una línea de tiempo y mapa histórico.",
+        "Presentar el objetivo de aprendizaje y las fuentes a analizar.",
+      ],
+      [
+        `Narrar un relato histórico o presentar un testimonio sobre: ${desc}`,
+        "Solicitar opiniones iniciales y contextualización temporal.",
+        "Relacionar el tema con la historia del Ecuador y América Latina.",
+        "Compartir el objetivo de análisis histórico de la clase.",
+      ],
+      [
+        `Mostrar un documental o recreación histórica sobre: ${desc}`,
+        "Formular preguntas generadoras: \u00bfPor qué es importante estudiar esto?",
+        "Conectar con la realidad socioeconómica actual del Ecuador.",
+        "Anunciar el tema y la metodología de análisis histórico.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis: \u00bfCuáles fueron las causas y consecuencias?",
+        "Solicitar que identifiquen múltiples perspectivas sobre el hecho histórico.",
+        `Guiar la discusión sobre la relevancia actual de: ${desc.substring(0, 60).toLowerCase()}...`,
+        "Registrar las reflexiones críticas del grupo.",
+      ],
+      [
+        "Organizar un debate histórico con posiciones fundamentadas.",
+        "Plantear escenarios contrafactuales para desarrollar el pensamiento crítico.",
+        "Comparar fuentes primarias y secundarias sobre el mismo evento.",
+        "Relacionar con valores democráticos y derechos humanos.",
+      ],
+      [
+        "Solicitar que expresen su opinión fundamentada con evidencia histórica.",
+        "Analizar críticamente las fuentes presentadas: \u00bfQuién las escribió? \u00bfCon qué intención?",
+        "Formular preguntas: \u00bfCómo afectó esto a la sociedad ecuatoriana?",
+        "Guiar hacia la comprensión de procesos históricos de larga duración.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Explicar el proceso histórico central: ${desc}`,
+        "Utilizar líneas de tiempo, mapas y esquemas para contextualizar.",
+        "Analizar fuentes primarias y secundarias de forma guiada.",
+        "Trabajar en el texto del estudiante: lectura crítica de fuentes.",
+        "Formalizar los conceptos con un organizador gráfico en el cuaderno.",
+      ],
+      [
+        `Presentar el contexto histórico: ${desc}`,
+        "Guiar el análisis comparativo de civilizaciones, épocas o procesos.",
+        "Explicar las relaciones de causalidad y multicausalidad.",
+        "Solicitar que elaboren una línea de tiempo comentada.",
+        "Resolver ejercicios de análisis de fuentes históricas.",
+      ],
+      [
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar recursos audiovisuales y cartografía histórica.",
+        "Modelar el análisis crítico de un documento histórico.",
+        "Guiar la elaboración de un ensayo histórico breve.",
+        "Sintetizar los aprendizajes en un cuadro cronológico.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar un análisis de fuentes históricas con guía de preguntas.",
+        "Solicitar la elaboración de un ensayo histórico argumentativo.",
+        "Socializar las conclusiones y perspectivas por equipos.",
+        "Formular preguntas: \u00bfQué lecciones nos deja este proceso histórico?",
+        "Asignar investigación sobre historia local para la próxima clase.",
+      ],
+      [
+        "Proponer una dramatización o juego de roles histórico.",
+        "Guiar la elaboración de una línea de tiempo ilustrada.",
+        "Organizar la presentación de investigaciones por equipos.",
+        "Promover la reflexión sobre identidad y memoria histórica.",
+        "Asignar proyecto de historia oral para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de análisis comparativo de épocas.",
+        "Organizar un debate sobre temas históricos controversiales.",
+        "Solicitar que relacionen lo aprendido con la actualidad ecuatoriana.",
+        "Realizar autoevaluación del aprendizaje.",
+        "Asignar tarea de extensión con enfoque investigativo.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  recursos: (d, v) => {
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const extras: string[][] = [
+      ["Fuentes históricas primarias", "Mapas históricos", "Líneas de tiempo"],
+      ["Documentales históricos", "Atlas geográfico", "Fichas de análisis"],
+      ["Material audiovisual", "Fotografías históricas", "Recursos digitales"],
+    ];
+    return [...base, ...extras[v % extras.length]];
+  },
+};
+
+// ============================================================
+// PLANTILLAS BACHILLERATO: FILOSOFÍA
+// ============================================================
+
+const PLANTILLAS_FILOSOFIA: PlantillaActividades = {
+  experiencia: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Presentar un dilema ético o situación filosófica relacionada con: ${desc}`,
+        "Explorar opiniones previas: \u00bfQué piensan sobre esta cuestión?",
+        "Realizar una lluvia de ideas filosóficas y registrarlas.",
+        "Presentar el objetivo de reflexión filosófica de la clase.",
+      ],
+      [
+        `Plantear una pregunta filosófica vinculada con: ${desc}`,
+        "Solicitar respuestas espontáneas y argumentos iniciales.",
+        "Relacionar el tema con situaciones cotidianas y sociales del Ecuador.",
+        "Compartir el objetivo de la comunidad de indagación.",
+      ],
+      [
+        `Mostrar un fragmento de texto filosófico o video sobre: ${desc}`,
+        "Formular preguntas generadoras: \u00bfQué significa esto para ustedes?",
+        "Conectar con experiencias personales y dilemas morales.",
+        "Anunciar el tema y la metodología de diálogo filosófico.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas socráticas: \u00bfQué entendemos por...? \u00bfPor qué lo creemos?",
+        "Solicitar que identifiquen supuestos y contradicciones en sus argumentos.",
+        `Guiar la discusión filosófica sobre: ${desc.substring(0, 60).toLowerCase()}...`,
+        "Registrar los argumentos y contraargumentos en la pizarra.",
+      ],
+      [
+        "Organizar un diálogo socrático estructurado.",
+        "Plantear objeciones y contraejemplos para profundizar el análisis.",
+        "Comparar diferentes posiciones filosóficas sobre el tema.",
+        "Relacionar con el pensamiento filosófico latinoamericano y el Sumak Kawsay.",
+      ],
+      [
+        "Solicitar que formulen sus propias preguntas filosóficas.",
+        "Analizar colectivamente la lógica de los argumentos presentados.",
+        "Formular preguntas: \u00bfEs válido este razonamiento? \u00bfPor qué?",
+        "Guiar hacia la construcción de argumentos sólidos.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Explicar la corriente o concepto filosófico: ${desc}`,
+        "Presentar los filósofos principales y sus ideas centrales.",
+        "Analizar fragmentos de textos filosóficos de forma guiada.",
+        "Trabajar en el texto del estudiante: lectura crítica.",
+        "Formalizar los conceptos con un mapa conceptual.",
+      ],
+      [
+        `Presentar el contexto histórico-filosófico: ${desc}`,
+        "Guiar la lectura comprensiva de textos filosóficos adaptados.",
+        "Explicar las relaciones entre corrientes filosóficas.",
+        "Solicitar que elaboren un cuadro comparativo de ideas.",
+        "Practicar la construcción de argumentos lógicos.",
+      ],
+      [
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar esquemas de argumentación lógica (premisas, conclusión).",
+        "Modelar el análisis crítico de un texto filosófico.",
+        "Guiar la elaboración de un ensayo filosófico breve.",
+        "Sintetizar las ideas principales en un organizador gráfico.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar un ensayo filosófico argumentativo sobre el tema.",
+        "Solicitar la elaboración de un diálogo filosófico escrito.",
+        "Socializar las reflexiones y argumentos por equipos.",
+        "Formular preguntas: \u00bfCómo se aplica esta filosofía a nuestra realidad?",
+        "Asignar lectura filosófica para la próxima clase.",
+      ],
+      [
+        "Proponer un debate filosófico con posiciones asignadas.",
+        "Guiar la aplicación del método socrático a un problema actual.",
+        "Organizar la presentación de ensayos filosóficos.",
+        "Promover la reflexión sobre ética y ciudadanía.",
+        "Asignar proyecto de filosofía aplicada para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de análisis lógico y argumentación.",
+        "Organizar una comunidad de indagación filosófica.",
+        "Solicitar que relacionen lo aprendido con dilemas éticos actuales.",
+        "Realizar autoevaluación de la capacidad argumentativa.",
+        "Asignar diario filosófico reflexivo.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  recursos: (d, v) => {
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const extras: string[][] = [
+      ["Fragmentos de textos filosóficos", "Dilemas éticos impresos", "Esquemas de argumentación"],
+      ["Videos de filosofía", "Artículos de opinión", "Fichas de análisis"],
+      ["Material audiovisual", "Textos de filosofía latinoamericana", "Recursos digitales"],
+    ];
+    return [...base, ...extras[v % extras.length]];
+  },
+};
+
+// ============================================================
+// PLANTILLAS BACHILLERATO: INGLÉS (EFL)
+// ============================================================
+
+const PLANTILLAS_INGLES: PlantillaActividades = {
+  experiencia: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Presentar una situación comunicativa en inglés relacionada con: ${desc}`,
+        "Activar conocimientos previos con preguntas en inglés sencillo.",
+        "Escuchar un audio o ver un video corto en inglés sobre el tema.",
+        "Presentar el objetivo de aprendizaje y el vocabulario clave.",
+      ],
+      [
+        `Plantear un juego de roles o simulación vinculada con: ${desc}`,
+        "Solicitar que compartan experiencias usando el vocabulario conocido.",
+        "Relacionar el tema con la cultura ecuatoriana (describir en inglés).",
+        "Compartir el objetivo comunicativo de la clase.",
+      ],
+      [
+        `Mostrar imágenes, realia o un video sobre: ${desc}`,
+        "Formular preguntas en inglés: What do you see? What do you think about...?",
+        "Conectar con experiencias personales de los estudiantes.",
+        "Anunciar el tema y la actividad comunicativa principal.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis en inglés: What patterns do you notice?",
+        "Solicitar que comparen sus respuestas con las de otros compañeros.",
+        `Guiar la discusión sobre las estructuras lingüísticas usadas en: ${desc.substring(0, 50).toLowerCase()}...`,
+        "Registrar las estructuras y vocabulario clave en la pizarra.",
+      ],
+      [
+        "Organizar una discusión en parejas sobre el tema en inglés.",
+        "Analizar los errores comunes y estrategias de autocorrección.",
+        "Comparar diferentes formas de expresar la misma idea.",
+        "Identificar las estructuras gramaticales utilizadas.",
+      ],
+      [
+        "Solicitar que expliquen con sus propias palabras en inglés lo aprendido.",
+        "Analizar colectivamente un texto modelo.",
+        "Formular preguntas: How can we say this differently?",
+        "Guiar hacia la identificación de patrones lingüísticos.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Explicar la estructura lingüística o habilidad comunicativa: ${desc}`,
+        "Presentar ejemplos contextualizados de la estructura gramatical.",
+        "Realizar práctica controlada: completar oraciones, transformar frases.",
+        "Trabajar en el texto del estudiante: analizar textos modelo.",
+        "Formalizar las reglas gramaticales y vocabulario en el cuaderno.",
+      ],
+      [
+        `Presentar el contenido lingüístico: ${desc}`,
+        "Guiar la lectura comprensiva de un texto auténtico en inglés.",
+        "Explicar las funciones comunicativas y estructuras involucradas.",
+        "Solicitar que practiquen en parejas con diálogos guiados.",
+        "Resolver ejercicios de grammar y vocabulary.",
+      ],
+      [
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar recursos audiovisuales auténticos en inglés.",
+        "Modelar la producción oral o escrita paso a paso.",
+        "Guiar la elaboración de un texto escrito en inglés.",
+        "Sintetizar las estructuras y vocabulario en un organizador gráfico.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar una actividad comunicativa en parejas o grupos.",
+        "Solicitar la producción de un texto escrito en inglés.",
+        "Socializar las producciones orales o escritas.",
+        "Formular preguntas de retroalimentación: How can we improve?",
+        "Asignar práctica de listening o reading para la próxima clase.",
+      ],
+      [
+        "Proponer un proyecto comunicativo: presentación, póster, video en inglés.",
+        "Guiar la producción libre con apoyo de vocabulario y estructuras.",
+        "Organizar la presentación de trabajos en inglés.",
+        "Promover la reflexión intercultural.",
+        "Asignar proyecto de inglés para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de práctica comunicativa.",
+        "Organizar un juego de roles o simulación en inglés.",
+        "Solicitar que usen el inglés para describir su entorno ecuatoriano.",
+        "Realizar autoevaluación de la producción en inglés.",
+        "Asignar tarea de extensión con enfoque comunicativo.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  recursos: (d, v) => {
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const extras: string[][] = [
+      ["Audio y video en inglés", "Flashcards de vocabulario", "Diccionario inglés-español"],
+      ["Textos auténticos en inglés", "Material audiovisual", "Fichas de grammar"],
+      ["Canciones y podcasts en inglés", "Juegos de vocabulario", "Recursos digitales"],
+    ];
+    return [...base, ...extras[v % extras.length]];
+  },
+};
+
+// ============================================================
+// PLANTILLAS BACHILLERATO: EMPRENDIMIENTO Y GESTIÓN
+// ============================================================
+
+const PLANTILLAS_EMPRENDIMIENTO: PlantillaActividades = {
+  experiencia: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Presentar un caso de emprendimiento ecuatoriano relacionado con: ${desc}`,
+        "Explorar conocimientos previos sobre negocios y economía.",
+        "Realizar una actividad de brainstorming sobre ideas de negocio.",
+        "Presentar el objetivo de aprendizaje y su aplicación práctica.",
+      ],
+      [
+        `Plantear un desafío empresarial vinculado con: ${desc}`,
+        "Solicitar que compartan experiencias con emprendimientos familiares.",
+        "Relacionar el tema con la economía local y oportunidades del Ecuador.",
+        "Compartir el objetivo del proyecto de emprendimiento.",
+      ],
+      [
+        `Mostrar un video de un emprendedor exitoso hablando sobre: ${desc}`,
+        "Formular preguntas: \u00bfQué habilidades necesita un emprendedor?",
+        "Conectar con la realidad económica de la comunidad.",
+        "Anunciar el tema y la actividad práctica planificada.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  reflexion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        "Formular preguntas de análisis: \u00bfQué factores determinan el éxito de un emprendimiento?",
+        "Solicitar que identifiquen fortalezas y debilidades del caso presentado.",
+        `Guiar la discusión sobre los aspectos financieros de: ${desc.substring(0, 60).toLowerCase()}...`,
+        "Registrar las ideas clave y lecciones aprendidas.",
+      ],
+      [
+        "Organizar una discusión sobre los riesgos y oportunidades del emprendimiento.",
+        "Analizar los factores económicos que afectan al caso presentado.",
+        "Comparar diferentes estrategias de negocio propuestas.",
+        "Identificar las obligaciones legales y tributarias involucradas.",
+      ],
+      [
+        "Solicitar que evalúen críticamente el modelo de negocio presentado.",
+        "Analizar colectivamente los datos financieros del caso.",
+        "Formular preguntas: \u00bfEs viable este emprendimiento en nuestra comunidad?",
+        "Guiar hacia la identificación de oportunidades de mejora.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  conceptualizacion: (d, v) => {
+    const desc = d.descripcion;
+    const opciones: string[][] = [
+      [
+        `Explicar el concepto empresarial central: ${desc}`,
+        "Utilizar plantillas de plan de negocios y estados financieros.",
+        "Realizar cálculos contables o financieros guiados paso a paso.",
+        "Trabajar en el texto del estudiante: analizar casos de estudio.",
+        "Formalizar los conceptos con esquemas y plantillas en el cuaderno.",
+      ],
+      [
+        `Presentar la teoría administrativa o financiera: ${desc}`,
+        "Guiar el análisis de estados financieros básicos.",
+        "Explicar la normativa tributaria y laboral ecuatoriana aplicable.",
+        "Solicitar que elaboren un presupuesto o plan básico.",
+        "Resolver ejercicios de contabilidad o análisis de mercado.",
+      ],
+      [
+        `Introducir el contenido de forma estructurada: ${desc}`,
+        "Utilizar herramientas digitales para simulaciones financieras.",
+        "Modelar la elaboración de un plan de negocios paso a paso.",
+        "Guiar la creación de un estudio de mercado básico.",
+        "Sintetizar los conceptos en un cuadro resumen.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  aplicacion: (d, v) => {
+    const opciones: string[][] = [
+      [
+        "Asignar la elaboración de un componente del plan de negocios.",
+        "Solicitar la presentación de un elevator pitch del emprendimiento.",
+        "Socializar los proyectos de emprendimiento por equipos.",
+        "Formular preguntas: \u00bfCómo mejorarían la propuesta de valor?",
+        "Asignar investigación de mercado para la próxima clase.",
+      ],
+      [
+        "Proponer una simulación de negocio o feria de emprendimiento.",
+        "Guiar la aplicación de conceptos contables a un caso real.",
+        "Organizar la presentación de planes de negocio.",
+        "Promover la reflexión sobre responsabilidad social empresarial.",
+        "Asignar proyecto de emprendimiento para la próxima clase.",
+      ],
+      [
+        "Asignar ejercicios de cálculo financiero y contable.",
+        "Organizar una actividad de análisis FODA de emprendimientos locales.",
+        "Solicitar que relacionen lo aprendido con la economía ecuatoriana.",
+        "Realizar autoevaluación del proyecto de emprendimiento.",
+        "Asignar tarea de extensión con enfoque práctico.",
+      ],
+    ];
+    return opciones[v % opciones.length];
+  },
+  recursos: (d, v) => {
+    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const extras: string[][] = [
+      ["Plantillas de plan de negocios", "Calculadora", "Formularios del SRI"],
+      ["Casos de emprendimientos ecuatorianos", "Material audiovisual", "Hojas de cálculo"],
+      ["Herramientas digitales de gestión", "Material de papelería", "Recursos tecnológicos"],
+    ];
+    return [...base, ...extras[v % extras.length]];
+  },
+};
+
 const PLANTILLAS_POR_AREA: Record<Area, PlantillaActividades> = {
   M: PLANTILLAS_MATEMATICA,
   LL: PLANTILLAS_LENGUA,
@@ -787,6 +1606,13 @@ const PLANTILLAS_POR_AREA: Record<Area, PlantillaActividades> = {
   CS: PLANTILLAS_CS,
   EF: PLANTILLAS_EF,
   ECA: PLANTILLAS_ECA,
+  "CN.B": PLANTILLAS_BIOLOGIA,
+  "CN.Q": PLANTILLAS_QUIMICA,
+  "CN.F": PLANTILLAS_FISICA,
+  "CS.H": PLANTILLAS_HISTORIA,
+  "CS.F": PLANTILLAS_FILOSOFIA,
+  EFL: PLANTILLAS_INGLES,
+  EG: PLANTILLAS_EMPRENDIMIENTO,
 };
 
 // ============================================================

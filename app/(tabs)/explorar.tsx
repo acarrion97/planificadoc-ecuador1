@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import { Text, View, FlatList, SectionList, StyleSheet } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -7,6 +7,7 @@ import { useColors } from "@/hooks/use-colors";
 import {
   AREAS_INFO,
   Area,
+  AreaInfo,
   Subnivel,
   SUBNIVEL_NAMES,
   filtrarPorArea,
@@ -16,7 +17,21 @@ import {
   obtenerNombreBloque,
 } from "@/data";
 
-const AREAS_LIST = Object.values(AREAS_INFO);
+const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
+const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "EFL", "EG"];
+
+const SECTIONS = [
+  {
+    title: "Educaci\u00f3n General B\u00e1sica",
+    subtitle: "Preparatoria \u00b7 Elemental \u00b7 Media \u00b7 Superior",
+    data: EGB_AREAS.map((code) => AREAS_INFO[code]),
+  },
+  {
+    title: "Bachillerato General Unificado",
+    subtitle: "1ro \u00b7 2do \u00b7 3ro BGU",
+    data: BGU_AREAS.map((code) => AREAS_INFO[code]),
+  },
+];
 
 export default function ExplorarScreen() {
   const colors = useColors();
@@ -54,20 +69,31 @@ export default function ExplorarScreen() {
     }
   };
 
-  // Area selection view
+  // Area selection view with sections
   if (!selectedArea) {
     return (
       <ScreenContainer className="flex-1">
         <View className="px-5 pt-4 pb-2">
           <Text className="text-3xl font-bold text-foreground">Explorar</Text>
           <Text className="text-base text-muted mt-1">
-            Navega por {"á"}reas y subniveles
+            Navega por {"\u00e1"}reas y subniveles
           </Text>
         </View>
-        <FlatList
-          data={AREAS_LIST}
+        <SectionList
+          sections={SECTIONS}
           keyExtractor={(item) => item.code}
           contentContainerStyle={styles.listContent}
+          stickySectionHeadersEnabled={false}
+          renderSectionHeader={({ section }) => (
+            <View style={styles.sectionHeader}>
+              <Text className="text-lg font-semibold text-foreground">
+                {section.title}
+              </Text>
+              <Text className="text-xs text-muted mt-1">
+                {section.subtitle}
+              </Text>
+            </View>
+          )}
           renderItem={({ item }) => {
             const count = filtrarPorArea(item.code).length;
             return (
@@ -121,7 +147,7 @@ export default function ExplorarScreen() {
           >
             <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              {"Á"}reas
+              {"\u00c1"}reas
             </Text>
           </Pressable>
           <Text
@@ -260,6 +286,11 @@ const styles = StyleSheet.create({
   listContent: {
     paddingBottom: 100,
     paddingTop: 8,
+  },
+  sectionHeader: {
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 10,
   },
   areaRow: {
     marginHorizontal: 20,

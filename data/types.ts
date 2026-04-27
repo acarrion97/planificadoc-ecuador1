@@ -4,7 +4,14 @@ export type Area =
   | "CN"
   | "CS"
   | "EF"
-  | "ECA";
+  | "ECA"
+  | "CN.B"
+  | "CN.Q"
+  | "CN.F"
+  | "CS.H"
+  | "CS.F"
+  | "EFL"
+  | "EG";
 
 export type Subnivel = 1 | 2 | 3 | 4 | 5;
 
@@ -112,7 +119,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Matemática",
     color: "#2563EB",
     icon: "calculate",
-    emoji: "\uD83D\uDD22", // 🔢
+    emoji: "\uD83D\uDD22",
     bloques: {
       1: "Álgebra y funciones",
       2: "Geometría y medida",
@@ -124,7 +131,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Lengua y Literatura",
     color: "#DC2626",
     icon: "menu-book",
-    emoji: "\uD83D\uDCD6", // 📖
+    emoji: "\uD83D\uDCD6",
     bloques: {
       1: "Lengua y cultura",
       2: "Comunicación oral",
@@ -138,7 +145,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Ciencias Naturales",
     color: "#16A34A",
     icon: "science",
-    emoji: "\uD83E\uDDEA", // 🧪
+    emoji: "\uD83E\uDDEA",
     bloques: {
       1: "Los seres vivos y su ambiente",
       2: "Cuerpo humano y salud",
@@ -152,7 +159,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Estudios Sociales",
     color: "#D97706",
     icon: "public",
-    emoji: "\uD83C\uDF0D", // 🌍
+    emoji: "\uD83C\uDF0D",
     bloques: {
       1: "Historia e identidad",
       2: "Los seres humanos en el espacio",
@@ -164,7 +171,7 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Educación Física",
     color: "#7C3AED",
     icon: "sports-soccer",
-    emoji: "\u26BD", // ⚽
+    emoji: "\u26BD",
     bloques: {
       1: "Prácticas lúdicas: los juegos y el jugar",
       2: "Prácticas gimnásticas",
@@ -179,11 +186,108 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
     name: "Educación Cultural y Artística",
     color: "#EC4899",
     icon: "palette",
-    emoji: "\uD83C\uDFA8", // 🎨
+    emoji: "\uD83C\uDFA8",
     bloques: {
       1: "El yo: la identidad",
       2: "El encuentro con otros: la alteridad",
       3: "El entorno: espacio, tiempo y objetos",
+    },
+  },
+  "CN.B": {
+    code: "CN.B",
+    name: "Biología",
+    color: "#059669",
+    icon: "biotech",
+    emoji: "\uD83E\uDDA0",
+    bloques: {
+      1: "Origen y evolución de la vida",
+      2: "Biología celular",
+      3: "Biología animal y vegetal",
+      4: "Cuerpo humano y salud",
+      5: "Biología en acción",
+    },
+  },
+  "CN.Q": {
+    code: "CN.Q",
+    name: "Química",
+    color: "#7C3AED",
+    icon: "science",
+    emoji: "\u2697\uFE0F",
+    bloques: {
+      1: "Materia y sus transformaciones",
+      2: "Estructura atómica y tabla periódica",
+      3: "Reacciones químicas y estequiometría",
+      4: "Química orgánica",
+      5: "Química en acción",
+    },
+  },
+  "CN.F": {
+    code: "CN.F",
+    name: "Física",
+    color: "#0284C7",
+    icon: "bolt",
+    emoji: "\u269B\uFE0F",
+    bloques: {
+      1: "Movimiento y fuerza",
+      2: "Energía, trabajo y potencia",
+      3: "Ondas y sonido",
+      4: "Óptica y luz",
+      5: "Electricidad y magnetismo",
+      6: "Física moderna y nuclear",
+    },
+  },
+  "CS.H": {
+    code: "CS.H",
+    name: "Historia",
+    color: "#B45309",
+    icon: "history-edu",
+    emoji: "\uD83C\uDFDB\uFE0F",
+    bloques: {
+      1: "Cultura y orígenes de la humanidad",
+      2: "Civilizaciones antiguas y medievales",
+      3: "América Latina y el mundo moderno",
+      4: "Economía, sociedad y política contemporánea",
+    },
+  },
+  "CS.F": {
+    code: "CS.F",
+    name: "Filosofía",
+    color: "#6D28D9",
+    icon: "psychology",
+    emoji: "\uD83E\uDDD0",
+    bloques: {
+      1: "El origen del pensamiento filosófico y su método",
+      2: "La argumentación y la construcción del discurso lógico",
+      3: "Filosofía occidental y latinoamericana",
+      4: "El individuo y la comunidad: lo ético, lo estético y lo hedónico",
+    },
+  },
+  EFL: {
+    code: "EFL",
+    name: "Inglés",
+    color: "#0369A1",
+    icon: "translate",
+    emoji: "\uD83C\uDF10",
+    bloques: {
+      1: "Communication and cultural awareness",
+      2: "Oral communication",
+      3: "Reading",
+      4: "Writing",
+      5: "Language through the arts",
+    },
+  },
+  EG: {
+    code: "EG",
+    name: "Emprendimiento y Gestión",
+    color: "#CA8A04",
+    icon: "business-center",
+    emoji: "\uD83D\uDCBC",
+    bloques: {
+      1: "Contabilidad y administración",
+      2: "Legislación laboral y tributaria",
+      3: "Economía y finanzas",
+      4: "Emprendimiento e innovación",
+      5: "Plan de negocios",
     },
   },
 };

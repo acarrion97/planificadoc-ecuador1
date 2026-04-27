@@ -122,4 +122,35 @@ describe("obtenerTemasSugeridos", () => {
 
     expect(temas1.map((t) => t.titulo)).toEqual(temas2.map((t) => t.titulo));
   });
+
+  it("debe generar temas ERCA para todas las áreas de Bachillerato", () => {
+    const bguAreas = [
+      { area: "CN.B", codigo: "CN.B.5.1.1", desc: "Analizar el origen de la vida" },
+      { area: "CN.Q", codigo: "CN.Q.5.1.1", desc: "Analizar la estructura del átomo" },
+      { area: "CN.F", codigo: "CN.F.5.1.1", desc: "Analizar el movimiento rectilíneo" },
+      { area: "CS.H", codigo: "CS.H.5.1.1", desc: "Analizar el origen de la humanidad" },
+      { area: "CS.F", codigo: "CS.F.5.1.1", desc: "Analizar el origen del pensamiento filosófico" },
+      { area: "EFL", codigo: "EFL.5.1.1", desc: "Identify main ideas in oral texts" },
+      { area: "EG", codigo: "EG.5.1.1", desc: "Describir conceptos financieros básicos" },
+    ];
+
+    for (const { area, codigo, desc } of bguAreas) {
+      const destreza = mockDestreza({
+        codigo,
+        area: area as any,
+        subnivel: 5,
+        bloque: 1,
+        descripcion: desc,
+      });
+      const temas = obtenerTemasSugeridos(destreza);
+      expect(temas).toHaveLength(3);
+      for (const tema of temas) {
+        expect(tema.estructura.experiencia.actividades.length).toBeGreaterThanOrEqual(2);
+        expect(tema.estructura.reflexion.actividades.length).toBeGreaterThanOrEqual(2);
+        expect(tema.estructura.conceptualizacion.actividades.length).toBeGreaterThanOrEqual(2);
+        expect(tema.estructura.aplicacion.actividades.length).toBeGreaterThanOrEqual(2);
+        expect(tema.recursos.length).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
 });
