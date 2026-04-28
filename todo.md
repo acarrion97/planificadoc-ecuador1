@@ -112,4 +112,7 @@
 - [x] Completar destrezas de Inglés (EFL) para EGB: Elemental (30), Media (32), Superior (34) + BGU (39) = 135 total
 - [x] Bug: En computadora (web) las destrezas no se abren - RESUELTO: era problema de caché del navegador
 - [x] Corregir precio mensual de $8.99 a $6.99 en paywall y PayPhone, mantener anual $75.51
-- [ ] Actualizar GitHub y Vercel con todos los cambios
+- [x] Actualizar GitHub y Vercel con todos los cambios
+- [x] Cambiar precio anual de $75.51 a $58.71 (30% descuento vs mensual, $4.89/mes)
+- [x] Actualizar PayPhone con 2 links de pago correctos ($6.99 y $58.71)
+- [ ] Publicar en Vercel/GitHub y verificar flujo de pago completo

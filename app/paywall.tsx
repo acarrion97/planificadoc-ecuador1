@@ -242,19 +242,19 @@ export default function PaywallScreen() {
               </View>
               <View style={styles.planCardRight}>
                 <Text style={[styles.planPrice, { color: "#059669" }]}>
-                  $6.29
+                  $4.89
                 </Text>
                 <Text style={[styles.planPeriod, { color: colors.muted }]}>
                   /mes
                 </Text>
                 <Text style={[styles.planTotal, { color: colors.muted }]}>
-                  $75.51 total
+                  $58.71 total
                 </Text>
               </View>
             </View>
             <View style={[styles.savingsBanner, { backgroundColor: "#05966915" }]}>
               <Text style={[styles.savingsText, { color: "#059669" }]}>
-                {"\u2B50"} Ahorras 10% vs. plan mensual
+                {"\u2B50"} Ahorras 30% vs. plan mensual
               </Text>
             </View>
           </Pressable>
@@ -395,7 +395,7 @@ export default function PaywallScreen() {
             >
               <Text style={{ fontSize: 20 }}>{"\uD83D\uDCB3"}</Text>
               <Text style={styles.payButtonText}>
-                Pagar {selectedPlan === "annual" ? "$75.51 (Anual)" : "$6.99 (Mensual)"}
+                Pagar {selectedPlan === "annual" ? "$58.71 (Anual)" : "$6.99 (Mensual)"}
               </Text>
             </Pressable>
 

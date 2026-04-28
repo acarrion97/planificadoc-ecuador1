@@ -13,8 +13,8 @@ const PAYPHONE_CONFIRM_URL = "https://pay.payphonetodoesposible.com/api/button/V
 
 // Pricing in cents (PayPhone uses integer cents)
 const MONTHLY_PRICE_CENTS = 699; // $6.99/mes
-const ANNUAL_PRICE_CENTS = 7551; // $75.51/año ($6.29/mes x 12) - ahorro ~10% vs mensual
-const ANNUAL_MONTHLY_EQUIVALENT = 629; // $6.29/mes equivalent
+const ANNUAL_PRICE_CENTS = 5871; // $58.71/año ($4.89/mes x 12) - ahorro 30% vs mensual
+const ANNUAL_MONTHLY_EQUIVALENT = 489; // $4.89/mes equivalent
 
 type PlanType = "monthly" | "annual";
 
@@ -32,7 +32,7 @@ export function getPriceForPlan(plan: PlanType): {
     return {
       amount: ANNUAL_PRICE_CENTS,
       plan: "annual",
-      label: "$75.51/año ($6.29/mes)",
+      label: "$58.71/año ($4.89/mes)",
       monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
       durationMonths: 12,
     };
@@ -274,8 +274,8 @@ export function registerPayPhoneRoutes(app: Express) {
           },
           annual: {
             amount: ANNUAL_PRICE_CENTS,
-            label: "$75.51/año ($6.29/mes)",
-            savings: "10%",
+            label: "$58.71/año ($4.89/mes)",
+            savings: "30%",
             },
           },
         });
@@ -301,10 +301,10 @@ export function registerPayPhoneRoutes(app: Express) {
         },
         annual: {
           amount: ANNUAL_PRICE_CENTS,
-          label: "$75.51/año ($6.29/mes)",
+          label: "$58.71/año ($4.89/mes)",
           monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
           durationMonths: 12,
-          savings: "10%",
+          savings: "30%",
         },
       });
     } catch (error) {
@@ -317,10 +317,10 @@ export function registerPayPhoneRoutes(app: Express) {
         },
         annual: {
           amount: ANNUAL_PRICE_CENTS,
-          label: "$75.51/año ($6.29/mes)",
+          label: "$58.71/año ($4.89/mes)",
           monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
           durationMonths: 12,
-          savings: "10%",
+          savings: "30%",
         },
       });
     }
@@ -344,7 +344,7 @@ function buildPaymentPageHTML(config: {
   const planLabel = config.plan === "annual" ? "Anual (12 meses)" : "Mensual";
   const periodLabel = config.plan === "annual" ? "por año" : "por mes";
   const savingsBadge = config.plan === "annual"
-    ? '<div class="savings-badge">Ahorras 10%</div>'
+    ? '<div class="savings-badge">Ahorras 30%</div>'
     : "";
 
   return `<!DOCTYPE html>
