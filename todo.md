@@ -103,9 +103,10 @@
 - [x] Integrar destrezas de Historia (CS.H) - Bachillerato (174 destrezas)
 - [x] Integrar destrezas de Filosofía (CS.F) - Bachillerato (37 destrezas)
 - [x] Integrar destrezas de Emprendimiento y Gestión (EG) - Bachillerato (38 destrezas)
-- [x] Integrar destrezas de Inglés (EFL) - Lengua Extranjera (47 destrezas)
+- [x] Integrar destrezas de Inglés (EFL) - Lengua Extranjera (135 destrezas: Elemental 30, Media 32, Superior 34, BGU 39)
 - [ ] Integrar destrezas de Bachillerato Técnico del currículo oficial MinEduc (pendiente - requiere currículo específico por especialidad)
 - [x] Crear temas sugeridos ERCA para todas las nuevas asignaturas
 - [x] Actualizar UI: pantallas Home y Explorar con secciones EGB y Bachillerato separadas
-- [x] Actualizar paywall con el nuevo conteo total de destrezas (1564)
+- [x] Actualizar paywall con el nuevo conteo total de destrezas (1652)
 - [x] Ejecutar tests y verificar que todo funciona correctamente (94 tests pasando)
+- [x] Completar destrezas de Inglés (EFL) para EGB: Elemental (30), Media (32), Superior (34) + BGU (39) = 135 total
