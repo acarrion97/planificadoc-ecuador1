@@ -12,8 +12,8 @@ import {
 const PAYPHONE_CONFIRM_URL = "https://pay.payphonetodoesposible.com/api/button/V2/Confirm";
 
 // Pricing in cents (PayPhone uses integer cents)
-const MONTHLY_PRICE_CENTS = 899; // $8.99/mes
-const ANNUAL_PRICE_CENTS = 7551; // $75.51/año ($6.29/mes x 12)
+const MONTHLY_PRICE_CENTS = 699; // $6.99/mes
+const ANNUAL_PRICE_CENTS = 7551; // $75.51/año ($6.29/mes x 12) - ahorro ~10% vs mensual
 const ANNUAL_MONTHLY_EQUIVALENT = 629; // $6.29/mes equivalent
 
 type PlanType = "monthly" | "annual";
@@ -40,7 +40,7 @@ export function getPriceForPlan(plan: PlanType): {
   return {
     amount: MONTHLY_PRICE_CENTS,
     plan: "monthly",
-    label: "$8.99/mes",
+    label: "$6.99/mes",
     monthlyEquivalent: MONTHLY_PRICE_CENTS,
     durationMonths: 1,
   };
@@ -270,12 +270,12 @@ export function registerPayPhoneRoutes(app: Express) {
           pricing: {
             monthly: {
               amount: MONTHLY_PRICE_CENTS,
-              label: "$8.99/mes",
-            },
-            annual: {
-              amount: ANNUAL_PRICE_CENTS,
-              label: "$75.51/año ($6.29/mes)",
-              savings: "30%",
+            label: "$6.99/mes",
+          },
+          annual: {
+            amount: ANNUAL_PRICE_CENTS,
+            label: "$75.51/año ($6.29/mes)",
+            savings: "10%",
             },
           },
         });
@@ -295,7 +295,7 @@ export function registerPayPhoneRoutes(app: Express) {
       res.json({
         monthly: {
           amount: MONTHLY_PRICE_CENTS,
-          label: "$8.99/mes",
+          label: "$6.99/mes",
           monthlyEquivalent: MONTHLY_PRICE_CENTS,
           durationMonths: 1,
         },
@@ -304,14 +304,14 @@ export function registerPayPhoneRoutes(app: Express) {
           label: "$75.51/año ($6.29/mes)",
           monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
           durationMonths: 12,
-          savings: "30%",
+          savings: "10%",
         },
       });
     } catch (error) {
       res.json({
         monthly: {
           amount: MONTHLY_PRICE_CENTS,
-          label: "$8.99/mes",
+          label: "$6.99/mes",
           monthlyEquivalent: MONTHLY_PRICE_CENTS,
           durationMonths: 1,
         },
@@ -320,7 +320,7 @@ export function registerPayPhoneRoutes(app: Express) {
           label: "$75.51/año ($6.29/mes)",
           monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
           durationMonths: 12,
-          savings: "30%",
+          savings: "10%",
         },
       });
     }
@@ -344,7 +344,7 @@ function buildPaymentPageHTML(config: {
   const planLabel = config.plan === "annual" ? "Anual (12 meses)" : "Mensual";
   const periodLabel = config.plan === "annual" ? "por año" : "por mes";
   const savingsBadge = config.plan === "annual"
-    ? '<div class="savings-badge">Ahorras 30%</div>'
+    ? '<div class="savings-badge">Ahorras 10%</div>'
     : "";
 
   return `<!DOCTYPE html>
@@ -474,7 +474,7 @@ function buildPaymentPageHTML(config: {
     </div>
     <div class="info-row">
       <span class="label">Incluye</span>
-      <span class="value">1,253+ destrezas + IA</span>
+      <span class="value">1,652+ destrezas + IA</span>
     </div>
     <div class="info-row">
       <span class="label">Duracion</span>

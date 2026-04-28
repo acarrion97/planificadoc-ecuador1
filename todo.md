@@ -110,3 +110,6 @@
 - [x] Actualizar paywall con el nuevo conteo total de destrezas (1652)
 - [x] Ejecutar tests y verificar que todo funciona correctamente (94 tests pasando)
 - [x] Completar destrezas de Inglés (EFL) para EGB: Elemental (30), Media (32), Superior (34) + BGU (39) = 135 total
+- [x] Bug: En computadora (web) las destrezas no se abren - RESUELTO: era problema de caché del navegador
+- [x] Corregir precio mensual de $8.99 a $6.99 en paywall y PayPhone, mantener anual $75.51
+- [ ] Actualizar GitHub y Vercel con todos los cambios

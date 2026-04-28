@@ -3,13 +3,13 @@ import { getPriceForPlan } from "../server/payphone";
 
 describe("PayPhone Integration", () => {
   describe("Pricing Logic", () => {
-    it("should return monthly price of $8.99 (899 cents)", () => {
+    it("should return monthly price of $6.99 (699 cents)", () => {
       const pricing = getPriceForPlan("monthly");
-      expect(pricing.amount).toBe(899);
+      expect(pricing.amount).toBe(699);
       expect(pricing.plan).toBe("monthly");
-      expect(pricing.label).toContain("8.99");
+      expect(pricing.label).toContain("6.99");
       expect(pricing.durationMonths).toBe(1);
-      expect(pricing.monthlyEquivalent).toBe(899);
+      expect(pricing.monthlyEquivalent).toBe(699);
     });
 
     it("should return annual price of $75.51 (7551 cents)", () => {
@@ -27,13 +27,13 @@ describe("PayPhone Integration", () => {
       expect(annual.monthlyEquivalent).toBeLessThan(monthly.monthlyEquivalent);
     });
 
-    it("annual plan should save approximately 30%", () => {
+    it("annual plan should save approximately 10%", () => {
       const monthly = getPriceForPlan("monthly");
       const annual = getPriceForPlan("annual");
-      const monthlyCostForYear = monthly.amount * 12; // 10788
+      const monthlyCostForYear = monthly.amount * 12; // 8388
       const savings = ((monthlyCostForYear - annual.amount) / monthlyCostForYear) * 100;
-      expect(savings).toBeGreaterThan(28);
-      expect(savings).toBeLessThan(32);
+      expect(savings).toBeGreaterThan(8);
+      expect(savings).toBeLessThan(12);
     });
   });
 
@@ -45,10 +45,10 @@ describe("PayPhone Integration", () => {
       expect(res.status).toBe(200);
       const data = await res.json();
       expect(data.monthly).toBeDefined();
-      expect(data.monthly.amount).toBe(899);
+      expect(data.monthly.amount).toBe(699);
       expect(data.annual).toBeDefined();
       expect(data.annual.amount).toBe(7551);
-      expect(data.annual.savings).toBe("30%");
+      expect(data.annual.savings).toBe("10%");
     });
 
     it("should return inactive status for non-subscriber", async () => {
@@ -57,7 +57,7 @@ describe("PayPhone Integration", () => {
       const data = await res.json();
       expect(data.active).toBe(false);
       expect(data.pricing).toBeDefined();
-      expect(data.pricing.monthly.amount).toBe(899);
+      expect(data.pricing.monthly.amount).toBe(699);
       expect(data.pricing.annual.amount).toBe(7551);
     });
 
@@ -76,7 +76,7 @@ describe("PayPhone Integration", () => {
       expect(html).toContain("PayPhone");
       expect(html).toContain("payphone-payment-box");
       expect(html).toContain("docente@test.com");
-      expect(html).toContain("8.99");
+      expect(html).toContain("6.99");
     });
 
     it("should return annual payment page HTML when plan=annual", async () => {
@@ -85,14 +85,14 @@ describe("PayPhone Integration", () => {
       const html = await res.text();
       expect(html).toContain("PlanificaDoc");
       expect(html).toContain("75.51");
-      expect(html).toContain("Ahorras 30%");
+      expect(html).toContain("Ahorras 10%");
     });
 
     it("should default to monthly plan when no plan specified", async () => {
       const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com`);
       expect(res.status).toBe(200);
       const html = await res.text();
-      expect(html).toContain("8.99");
+      expect(html).toContain("6.99");
     });
 
     it("should reject payment page without email", async () => {
