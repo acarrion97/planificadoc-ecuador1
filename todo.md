@@ -115,4 +115,6 @@
 - [x] Actualizar GitHub y Vercel con todos los cambios
 - [x] Cambiar precio anual de $75.51 a $58.71 (30% descuento vs mensual, $4.89/mes)
 - [x] Actualizar PayPhone con 2 links de pago correctos ($6.99 y $58.71)
-- [ ] Publicar en Vercel/GitHub y verificar flujo de pago completo
+- [x] Publicar en Vercel/GitHub y verificar flujo de pago completo - Backend actualizado, PayPhone links correctos
+- [ ] Bug: planificadoc.app muestra versión anterior sin materias de Bachillerato al despertar el sandbox
+- [ ] Asegurar que el despliegue en Vercel sea permanente e independiente del sandbox de Manus
