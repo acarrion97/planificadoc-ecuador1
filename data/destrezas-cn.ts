@@ -995,7 +995,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.1.17",
     area: "CN", subnivel: 4, bloque: 1, secuencial: 17,
-    descripcion: "Indagar sobre las áreas protegidas del país, Identifica, desde la observación de diversas ubicarlas e interpretarlas como espacios de conserva- fuentes, los ecosistemas de Ecuador, en función de la vida silvestre, de investigación y educación. ción de la importancia, ubicación geográfica, clima y biodiversidad que presentan. (J.3.,",
+    descripcion: "Indagar sobre las áreas protegidas del país, ubicarlas e interpretarlas como espacios de conservación de la vida silvestre, de investigación y educación.",
     objetivos: ["O.CN.4.1. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.1. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.1.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1004,7 +1004,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.4.13",
     area: "CN", subnivel: 4, bloque: 4, secuencial: 13,
-    descripcion: "Elaborar y ejecutar un plan de investigación J.1.) (Ref.I.CN.4.4.1.) documental sobre los ecosistemas de Ecuador, diferenciarlos por su ubicación geográfica, clima y biodi- I.CN.4.4.2. Argumenta, desde la investigaversidad, destacar su importancia y comunicar sus ha- ción de diferentes fuentes, la importancia de las áreas protegidas como mecanismo de llazgos por diferentes medios. conservación de la vida silvestre, de investiCN.4.5.5. Indagar, con uso de las TIC y otros recursos, gación y educación, deduciendo el impacto y analizar las causas de los impactos de las actividades de la actividad humana en los hábitats y ecohumanas en los hábitats, inferir sus consecuencias y sistemas. Propone medidas para su protecdiscutir los resultados. ción y conservación. (J.1., J.3., I.1.)",
+    descripcion: "Elaborar y ejecutar un plan de investigación documental sobre los ecosistemas de Ecuador, diferenciarlos por su ubicación geográfica, clima y biodiversidad, destacar su importancia y comunicar sus hallazgos por diferentes medios.",
     objetivos: ["O.CN.4.4. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.4. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.4.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1013,7 +1013,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.1.12",
     area: "CN", subnivel: 4, bloque: 1, secuencial: 12,
-    descripcion: "Relacionar los elementos carbono, oxígeno y (J.3., J.1.) nitrógeno con el flujo de energía en las cadenas tróficas de los diferentes ecosistemas",
+    descripcion: "Relacionar los elementos carbono, oxígeno y nitrógeno con el flujo de energía en las cadenas tróficas de los diferentes ecosistemas.",
     objetivos: ["O.CN.4.1. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.1. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.1.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1085,7 +1085,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.5.6",
     area: "CN", subnivel: 4, bloque: 5, secuencial: 6,
-    descripcion: "Plantear problemas de salud sexual y repro- (J.3., J.4., S.1.) (Ref. I.CN.4.6.2.) ductiva, relacionarlos con las infecciones de transmisión sexual, investigar las estadísticas actuales del aís, identificar variables, comunicar los resultados y analizar los programas de salud sexual y reproductiva",
+    descripcion: "Plantear problemas de salud sexual y reproductiva, relacionarlos con las infecciones de transmisión sexual, investigar las estadísticas actuales del país, identificar variables, comunicar los resultados y analizar los programas de salud sexual y reproductiva.",
     objetivos: ["O.CN.4.5. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.5. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.5.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1094,7 +1094,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.2.3",
     area: "CN", subnivel: 4, bloque: 2, secuencial: 3,
-    descripcion: "Explicar, con apoyo de modelos, el sistema barreras inmunológicas (primarias, secundainmunitario, identificar las clases de barreras inmunoló- rias y terciarias) y los tipos de inmunidad (nagicas, interpretar los tipos de inmunidad que presenta tural, artificial, activa y pasiva). (J.3., I.1.) el ser humano e infiere sobre la importancia de la vaPropone medidas de prevención (uso de cunación. vacunas), a partir de la comprensión de las",
+    descripcion: "Explicar, con apoyo de modelos, el sistema inmunitario, identificar las clases de barreras inmunológicas, interpretar los tipos de inmunidad que presenta el ser humano e inferir sobre la importancia de la vacunación.",
     objetivos: ["O.CN.4.2. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.2. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.2.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1103,7 +1103,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.2.7",
     area: "CN", subnivel: 4, bloque: 2, secuencial: 7,
-    descripcion: "Describir las características de los virus, inda- formas de contagio y propagación de los vigar las formas de transmisión y comunicar las medidas rus, sus características, estructura, formas de preventivas, por diferentes medios. transmisión. (J.3., I.1.) (Ref. I.CN.4.7.2.)",
+    descripcion: "Describir las características de los virus, indagar las formas de transmisión y comunicar las medidas preventivas, por diferentes medios.",
     objetivos: ["O.CN.4.2. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.2. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.2.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1130,7 +1130,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.3.3",
     area: "CN", subnivel: 4, bloque: 3, secuencial: 3,
-    descripcion: "Analizar y describir la velocidad de un objeto con referencia a su dirección y rapidez, e inferir las ca- I.CN.4.8.2. Determina la velocidad que alcanza un objeto a partir de la relación entre el racterísticas de la velocidad. espacio recorrido y el tiempo transcurrido",
+    descripcion: "Analizar y describir la velocidad de un objeto con referencia a su dirección y rapidez, e inferir las características de la velocidad.",
     objetivos: ["O.CN.4.3. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.3. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.3.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1139,7 +1139,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.3.5",
     area: "CN", subnivel: 4, bloque: 3, secuencial: 5,
-    descripcion: "Experimentar la aplicación de fuerzas equi- (J.3.) libradas sobre un objeto en una superficie horizontal con mínima fricción y concluir que la velocidad de movimiento del objeto no cambia",
+    descripcion: "Experimentar la aplicación de fuerzas equilibradas sobre un objeto en una superficie horizontal con mínima fricción y concluir que la velocidad de movimiento del objeto no cambia.",
     objetivos: ["O.CN.4.3. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.3. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.3.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1157,7 +1157,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.3.9",
     area: "CN", subnivel: 4, bloque: 3, secuencial: 9,
-    descripcion: "Experimentar con la densidad de objetos Determina la relación entre densidad de sólidos, líquidos y gaseosos, al pesar, medir y regis- objetos (sólidos, líquidos y gaseosos) (J.3.) trar los datos de masa y volumen, y comunicar los (Ref. I.CN.4.9.1.) resultados",
+    descripcion: "Experimentar con la densidad de objetos sólidos, líquidos y gaseosos, al pesar, medir y registrar los datos de masa y volumen, y comunicar los resultados.",
     objetivos: ["O.CN.4.3. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.3. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.3.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1166,7 +1166,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.3.12",
     area: "CN", subnivel: 4, bloque: 3, secuencial: 12,
-    descripcion: "Explicar, con apoyo de modelos, la presión efecto de la presión atmosférica sobre vaabsoluta con relación a la presión atmosférica e identi- rios objetos (sólidos, líquidos y gases), sus ficar la presión manométrica. aplicaciones y la relación con la presión manométrica. (J.3., I.3.) (Ref. I.CN.4.9.2.)",
+    descripcion: "Explicar, con apoyo de modelos, la presión absoluta con relación a la presión atmosférica e identificar la presión manométrica.",
     objetivos: ["O.CN.4.3. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.3. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.3.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],
@@ -1256,7 +1256,7 @@ export const destrezasCienciasNaturales: Destreza[] = [
   {
     codigo: "CN.4.4.11",
     area: "CN", subnivel: 4, bloque: 4, secuencial: 11,
-    descripcion: "Indagar, con uso de las TIC y otros recur- de diversas fuentes. (J.3., I.4.) sos, y explicar los factores que afectan a las corrientes marinas, como la de Humboldt y El Niño, y evaluar los impactos en el clima, la vida marina y la industria pesquera",
+    descripcion: "Indagar, con uso de las TIC y otros recursos, y explicar los factores que afectan a las corrientes marinas, como la de Humboldt y El Niño, y evaluar los impactos en el clima, la vida marina y la industria pesquera.",
     objetivos: ["O.CN.4.4. Describir los tipos y características de las células, el ciclo celular y los mecanismos de reproducción."],
     criteriosEvaluacion: ["CE.CN.4.4. Explica a partir de la indagación y exploración el nivel de complejidad de los seres vivos y procesos naturales."],
     indicadoresEvaluacion: ["I.CN.4.4.1. Analiza el nivel de complejidad de los seres vivos y procesos naturales."],

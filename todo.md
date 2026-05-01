@@ -119,3 +119,5 @@
 - [x] Bug: planificadoc.app muestra versión anterior sin materias de Bachillerato al despertar el sandbox - RESUELTO: fix buildCommand en vercel.json para crear caché NativeWind
 - [x] Asegurar que el despliegue en Vercel sea permanente e independiente del sandbox de Manus - RESUELTO: Vercel despliega desde GitHub automáticamente
 - [x] Bug: Al abrir Estudios Sociales no aparecen las destrezas en Google Chrome (reportado por usuario) - CORREGIDO: 36 descripciones corruptas de CS subnivel 4 limpiadas + ErrorBoundary agregado
+- [ ] Revisar y limpiar descripciones corruptas en TODAS las materias (M, LL, CN, EF, ECA, CN.B, CN.Q, CN.F, CS.H, CS.F, EFL, EG)
+- [ ] Actualizar GitHub y Vercel con las correcciones de datos

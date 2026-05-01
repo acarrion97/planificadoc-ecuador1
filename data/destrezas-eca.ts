@@ -109,7 +109,7 @@ export const destrezasECA: Destreza[] = [
   {
     codigo: "ECA.2.3.13",
     area: "ECA", subnivel: 2, bloque: 3, secuencial: 13,
-    descripcion: "Crea con el aporte de sus pares, proyectos artísticos. (S.3., J.2.)",
+    descripcion: "Crear, con el aporte de sus pares, proyectos artísticos individuales y colectivos a partir de la combinación de técnicas y materiales diversos.",
     objetivos: ["O.ECA.2.3. Realizar producciones artísticas individuales y colectivas a partir de la combinación de técnicas y materiales."],
     criteriosEvaluacion: ["CE.ECA.2.3. Reconoce y define los rasgos característicos del propio cuerpo y de los cuerpos de otras personas."],
     indicadoresEvaluacion: ["I.ECA.2.3.1. Explora las posibilidades expresivas del cuerpo, el movimiento y los sentidos."],
