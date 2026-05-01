@@ -118,3 +118,4 @@
 - [x] Publicar en Vercel/GitHub y verificar flujo de pago completo - Backend actualizado, PayPhone links correctos
 - [ ] Bug: planificadoc.app muestra versión anterior sin materias de Bachillerato al despertar el sandbox
 - [ ] Asegurar que el despliegue en Vercel sea permanente e independiente del sandbox de Manus
+- [ ] Bug: Al abrir Estudios Sociales no aparecen las destrezas en Google Chrome (reportado por usuario)

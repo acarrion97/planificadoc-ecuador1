@@ -942,7 +942,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.3.2.28",
     area: "CS", subnivel: 3, bloque: 2, secuencial: 28,
-    descripcion: "Comprender que los países tienen diferentes cantidades y tipos de recursos económicos, y cómo estas diferencias afectan su desarrollo y bienestar. satelitales en función de reconocer posibles desastres. (J.1., J.3., I.1., I.2.)",
+    descripcion: "Comprender que los países tienen diferentes cantidades y tipos de recursos económicos, y cómo estas diferencias afectan su desarrollo y bienestar. satelitales en función de reconocer posibles desastres",
     objetivos: ["O.CS.3.2. Comprender la dinámica individual y social a partir del análisis de las relaciones entre personas y procesos históricos."],
     criteriosEvaluacion: ["CE.CS.3.2. Analiza la evolución de la organización económica, política y social del Ecuador."],
     indicadoresEvaluacion: ["I.CS.3.2.1. Explica la evolución histórica, social y geográfica del Ecuador."],
@@ -1335,7 +1335,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.5",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 5,
-    descripcion: "Identificar los grandes Imperios esclavistas de I.CS.4.2.1. Compara los Imperios esclavistas la Antigüedad en el Oriente Medio, destacando el rol de la Antigüedad en el Oriente Medio con el",
+    descripcion: "Identificar los grandes Imperios esclavistas de la Antigüedad en el Oriente Medio, destacando el rol de la esclavitud en la organización social y económica",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1343,7 +1343,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.6",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 6,
-    descripcion: "Analizar y apreciar el surgimiento y desarro- de desigualdad son semejantes en diversos llo de los grandes imperios asiáticos, especialmente de momentos históricos y el impacto del surgiChina e India. miento del Islam en Arabia y su difusión al norte de África. (I.2.)",
+    descripcion: "Analizar y apreciar el surgimiento y desarrollo de los grandes imperios asiáticos, especialmente de China e India",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1351,7 +1351,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.8",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 8,
-    descripcion: "Caracterizar el Imperio romano, su expansión en el Mediterráneo, sus rasgos esclavistas e institucio- I.CS.4.2.2. Examina las motivaciones de los nales e influencia ulterior. europeos para buscar nuevas rutas maríti- mas, su llegada a la India y el “descubrimienCS.4.1.11. Caracterizar el surgimiento del Islam en Arato” de América, los mecanismos de gobierno bia y su difusión al norte de África y otros lugares del y extracción de riquezas del Imperio coloviejo continente. nial español en América, y su relación con",
+    descripcion: "Caracterizar el Imperio romano, su expansión en el Mediterráneo, sus rasgos esclavistas e institucionales e influencia posterior",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1359,7 +1359,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.24",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 24,
-    descripcion: "Examinar las motivaciones de los europeos las transformaciones en los siglos XVI y XVII para buscar nuevas rutas marítimas al Lejano Orien- de la América española, las innovaciones y te y analizar cómo llegaron a la India y “descubrieron” progresos científicos y tecnológicos de los siglos posteriores, estableciendo semejanAmérica. zas y diferencias de esta colonización con el",
+    descripcion: "Examinar las motivaciones de los europeos para buscar nuevas rutas marítimas, los procesos de conquista y colonización, y sus consecuencias en América y África",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1367,7 +1367,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.25",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 25,
-    descripcion: "Explicar el proceso de conquista española portugués y anglosajón. (I.2.) del Imperio inca en crisis y la resistencia de los pueblos indígenas",
+    descripcion: "Explicar el proceso de conquista española del Imperio inca en crisis y la resistencia de los pueblos indígenas",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1399,7 +1399,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.7",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 7,
-    descripcion: "Explicar la naturaleza de las culturas mediterrá- I.CS.4.3.1. Examina los orígenes de la conneas, especialmente la griega, con énfasis en su influen- ciencia humanista y el cristianismo, y la influencia de las culturas mediterráneas en el cia en el pensamiento filosófico y democrático. pensamiento filosófico y democrático, como",
+    descripcion: "Explicar la naturaleza de las culturas mediterráneas, especialmente la griega, con énfasis en su influencia en el pensamiento filosófico y democrático",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1407,7 +1407,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.9",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 9,
-    descripcion: "Analizar el surgimiento y difusión conflictiva antecedente para la tolerancia y la diversidel cristianismo en el espacio mediterráneo romano y dad religiosa. (I.2.) luego en Europa",
+    descripcion: "Analizar el surgimiento y difusión conflictiva del Islam en Arabia y su difusión al norte de África",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1415,7 +1415,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.12",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 12,
-    descripcion: "Identificar la estructura de la sociedad feudal en las cruzadas y el fin del medioevo con la europea, sus condiciones de explotación interna y los transición a una sociedad feudal europea en grupos sociales enfrentados. función de potenciar el entendimiento de la diversidad religiosa. (J.3., I.2.)",
+    descripcion: "Identificar la estructura de la sociedad feudal europea, sus condiciones de explotación interna y los conflictos con el mundo islámico derivados de las cruzadas y el fin del medioevo",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1431,7 +1431,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.30",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 30,
-    descripcion: "Explicar el avance del capitalismo, el creci- herencia de las sociedades coloniales en la miento de la producción manufacturera, la expansión América del presente. (I.2.) de las ciudades y del intercambio internacional",
+    descripcion: "Explicar el avance del capitalismo, el crecimiento de la producción manufacturera, la expansión de las ciudades y del intercambio internacional",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1455,7 +1455,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.46",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 46,
-    descripcion: "Resumir la influencia y el impacto de la Revo- I.CS.4.4.1. Examina el impacto de la Revolución bolchevique y de la Primera Guerra Mundial en lución bolchevique, la Primera y Segunda",
+    descripcion: "Resumir la influencia y el impacto de la Revolución bolchevique y de la Primera y Segunda Guerra Mundial en la economía y la sociedad latinoamericana",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1463,7 +1463,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.47",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 47,
-    descripcion: "Examinar el impacto de la Gran Depresión y sociedad latinoamericana, destacando el de los regímenes fascistas en la política y la sociedad papel de América Latina en la fundación de latinoamericana. la Organización de las Naciones Unidas y la lucha por el respeto a los derechos humaCS.4.1.48. Analizar el nivel de involucramiento de Aménos. (J.3., I.2.) rica Latina en la Segunda Guerra Mundial y su participación en la fundación y acciones de la Organización I.CS.4.4.2. Compara el contenido de las lude las Naciones Unidas. chas anticoloniales con la lucha por los derechos civiles, destacando la importancia de",
+    descripcion: "Examinar el impacto de la Gran Depresión y de los regímenes fascistas en la política y la sociedad latinoamericana",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1471,7 +1471,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.50",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 50,
-    descripcion: "Identificar cambios en la realidad latinoameuna cultura de paz y respeto a los derechos ricana a partir de la fundación de la República Popular humanos. (J.3., I.2.)",
+    descripcion: "Identificar cambios en la realidad latinoamericana a partir de la fundación de la República Popular China, la guerra de Corea y la Revolución cubana",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1479,7 +1479,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.51",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 51,
-    descripcion: "Comparar el contenido de las luchas anticoloLatina de los años setenta, las características niales de los países en vías de desarrollo y la fundación de las revoluciones y dictaduras latinoameride nuevos países. canas, evaluando la importancia de una culCS.4.1.53. Reconocer los movimientos de lucha por los tura de paz y respeto a los derechos humaderechos civiles en el marco de los procesos de inte- nos. (J.3.) gración y cooperación internacional",
+    descripcion: "Comparar el contenido de las luchas anticoloniales de los pueblos de África, Asia y América Latina y los conflictos mundiales de las últimas décadas",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1503,7 +1503,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.33",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 33,
-    descripcion: "Exponer la naturaleza de la Ilustración en Eu- I.CS.4.5.1. Analiza la Ilustración europea y ropa y América y las condiciones para la caída del An- latinoamericana como antecedente de los tiguo Régimen en ambos continentes. procesos de independencia, destacando sus causas, limitaciones, el papel de los afrodesCS.4.1.35. Analizar críticamente la naturaleza de las re- cendientes, y las características y limitaciovoluciones independentistas de América Latina, sus nes de los Estados nacionales latinoamericacausas y limitaciones. nos. (J.1., J.2., J.3.)",
+    descripcion: "Exponer la naturaleza de la Ilustración en Europa y América y las condiciones para la caída del Antiguo Régimen",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1511,7 +1511,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.36",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 36,
-    descripcion: "Explicar el proceso de independencia en Suda- I.CS.4.5.2. Examina el proyecto integraciomérica desde el norte hasta el sur, reconociendo los acto- nista bolivariano, en el contexto del desarrollo del capitalismo, destacando el vares sociales que participaron en él. lor de la independencia y la libertad para",
+    descripcion: "Explicar el proceso de independencia en Sudamérica desde el norte hasta el sur, reconociendo los actores sociales que participaron en él",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1527,7 +1527,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.42",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 42,
-    descripcion: "Exponer las características de los Estados nacio- constitucionales, conflictos por la defininales latinoamericanos luego de la Independencia y su in- ción de fronteras, cambios socioeconómifluencia en la construcción de la identidad de los países en cos e inicios del desarrollismo, implantación e influencia en la situación económica el presente. y social bajo el neoliberalismo y desafíos",
+    descripcion: "Exponer las características de los Estados nacionales latinoamericanos luego de la Independencia y los conflictos internos e internacionales que enfrentaron",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1535,7 +1535,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.1.43",
     area: "CS", subnivel: 4, bloque: 1, secuencial: 43,
-    descripcion: "Examinar las condiciones en las que las econo- en cuanto al manejo de información y memías latinoamericanas se incorporaron al mercado mundial dios de comunicación. (I.2.) en el siglo XIX",
+    descripcion: "Examinar las condiciones en las que las economías latinoamericanas se incorporaron al mercado mundial en el siglo XIX",
     objetivos: ["O.CS.4.1. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.1. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.1.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1583,7 +1583,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.1",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 1,
-    descripcion: "Examinar el proceso de formación de la Tie- I.CS.4.6.1. Explica el proceso formativo de la rra, la gestación de los continentes y las sucesivas eras Tierra, la gestación de los continentes y sus características generales, las eras geológicas, geológicas. océanos, mares, movimientos y climas, y su",
+    descripcion: "Examinar el proceso de formación de la Tierra, la gestación de los continentes y las sucesivas eras geológicas",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1591,7 +1591,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.2",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 2,
-    descripcion: "Localizar y describir los océanos y mares del impacto en posibles desastres naturales y plamundo, sus movimientos y efectos en la vida del pla- nes de contingencia en los ámbitos geográfineta. co, demográfico y económico. (I.1., I.2.)",
+    descripcion: "Localizar y describir los océanos y mares del mundo, sus movimientos y efectos en la vida del planeta",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1607,7 +1607,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.5",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 5,
-    descripcion: "Describir las características fundamentales de vida). (I.1., I.2.)",
+    descripcion: "Describir las características fundamentales de las grandes masas terrestres y sus principales rasgos geográficos",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1623,7 +1623,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.9",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 9,
-    descripcion: "Localizar y apreciar los recursos naturales del I.CS.4.7.1. Examina la interrelación entre luEcuador y establecer su importancia económica y social. gares, personas y productos involucrados en el sector primario, secundario y de serCS.4.2.10. Relacionar y discutir las actividades produc- vicios destacando sus fortalezas, oportunitivas del sector primario (agricultura, ganadería, pesca, dades, debilidades y amenazas y el impacto minería) con los ingresos y calidad de vida de las per- económico y social en los recursos naturasonas que se dedican a ellas. les. (J.4., I.1.)",
+    descripcion: "Localizar y apreciar los recursos naturales del Ecuador y establecer su importancia económica y social",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1631,7 +1631,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.11",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 11,
-    descripcion: "Analizar las actividades productivas del sec- I.CS.4.7.2. Explica el papel que tiene el sector tor secundario nacional (industrias y artesanías) y las financiero, el sector servicios y el Estado en personas que se ocupan en ellas. la economía del país, identificando sus efectos en la vida de las personas y principales",
+    descripcion: "Analizar las actividades productivas del sector secundario nacional (industrias y artesanías) y las personas que se ocupan en ellas",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1639,7 +1639,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.12",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 12,
-    descripcion: "Examinar la interrelación entre los lugares, problemas económicos. (J.1., S.1.) las personas y los productos que están involucrados en el comercio y sus mutuas incidencias",
+    descripcion: "Examinar la interrelación entre los lugares, las personas y los productos que están involucrados en el comercio y sus mutuas incidencias",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1671,7 +1671,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.18",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 18,
-    descripcion: "Examinar la situación en que se encuentra el I.CS.4.8.1. Discute el concepto de “desarrosistema educativo, sus niveles, crecimiento y calidad, llo”, destacando sus implicaciones sobre el respeto a los derechos fundamentales (edufrente a las necesidades nacionales. cación y salud) y demandas sociales (vivienCS.4.2.19. Analizar el estado en que se encuentran los da, transporte, empleo y seguridad social) sistemas de salud en el país frente a las necesidades de que existen en el país. la sociedad ecuatoriana",
+    descripcion: "Examinar la situación en que se encuentra el sistema educativo, sus niveles, crecimiento y calidad, frente a las necesidades nacionales",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1711,7 +1711,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.26",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 26,
-    descripcion: "Describir y apreciar la diversidad cultural de I.CS.4.9.1. Analiza las causas, consecuencias y la población mundial y el respeto que se merece frente el papel que ha tenido la migración en América Latina, reconociendo la diversidad cula cualquier forma de discriminación. tural y humana como resultado de este proCS.4.2.27. Definir los rasgos, antecedentes y valores ceso, destacando el rol de los jóvenes en la esenciales de la diversidad humana que posibilitan la integración Andina y sudamericana, y el imconvivencia armónica y solidaria. pacto que esta y la globalización tienen en la sociedad ecuatoriana. (I.2., S.1.)",
+    descripcion: "Describir y apreciar la diversidad cultural de la población mundial y el respeto que se merece frente a cualquier forma de discriminación",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1719,7 +1719,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.28",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 28,
-    descripcion: "Establecer el número de habitantes y su distribución en los continentes, con el detalle de sus caracte- I.CS.4.9.2. Diferencia la población mundial en rísticas económicas, sociales y laborales esenciales. función de su sexo, edad y distribución en los continentes, reconociendo los procesos",
+    descripcion: "Establecer el número de habitantes y su distribución en los continentes, con el detalle de sus características económicas, sociales y laborales esenciales",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1727,7 +1727,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.29",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 29,
-    descripcion: "Identificar los componentes etarios de la pode integración internacional que se dan en el blación mundial: niños, niñas, jóvenes y adultos, cotemundo. (I.1., I.2.) jándolos con datos sobre salud y educación",
+    descripcion: "Identificar los componentes etarios de la población mundial: niños, niñas, jóvenes y adultos, cotejándolos con datos sobre salud y educación",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1735,7 +1735,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.31",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 31,
-    descripcion: "Relacionar la población de hombres y mujeres doble ciudadanía y el tráfico de personas y en el mundo, considerando su distribución en los conti- de drogas como problemas que afectan a la población mundial. (J.1.I.2.) nentes y su promedio y niveles de calidad de vida",
+    descripcion: "Relacionar la población de hombres y mujeres en el mundo, considerando su distribución en los continentes y su promedio y niveles de calidad de vida",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1751,7 +1751,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.33",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 33,
-    descripcion: "Explicar los principales flujos migratorios en",
+    descripcion: "Explicar los principales flujos migratorios en América Latina, sus causas y consecuencias",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1783,7 +1783,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.2.38",
     area: "CS", subnivel: 4, bloque: 2, secuencial: 38,
-    descripcion: "Reconocer la influencia que han tenido en el",
+    descripcion: "Reconocer la influencia que han tenido en el Ecuador los conflictos mundiales recientes y el papel que ha tenido en ellos nuestro país",
     objetivos: ["O.CS.4.2. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.2. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.2.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1799,7 +1799,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.1",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 1,
-    descripcion: "Apreciar las culturas del Ecuador a partir del es- I.CS.4.10.1. Explica la interculturalidad desde tudio de su origen, localización y rasgos más destacados. el análisis de las diferentes manifestaciones culturales del Ecuador (nacional y popular),",
+    descripcion: "Apreciar las culturas del Ecuador a partir del estudio de su origen, localización y rasgos más destacados",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1807,7 +1807,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.2",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 2,
-    descripcion: "Discutir las características, complejidades y sus raíces históricas u origen, localización, posibilidades de la “cultura nacional” ecuatoriana. rasgos más destacados, y las acciones concretas para practicarla en espacios cercanos,",
+    descripcion: "Discutir las características, complejidades y posibilidades de la cultura nacional ecuatoriana",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1815,7 +1815,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.3",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 3,
-    descripcion: "Identificar el origen, las expresiones y may reconoce sus diferencias con la “cultura de nifestaciones de la cultura popular ecuatoriana como masas”. (J.1., S.2.) componente esencial de la cultura nacional",
+    descripcion: "Identificar el origen, las expresiones y manifestaciones de la cultura popular ecuatoriana como componente esencial de la cultura nacional",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1823,7 +1823,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.6",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 6,
-    descripcion: "Determinar el papel político y social de los pueblo, reconociendo el papel de la Constimedios de comunicación en el Ecuador, y la forma en tución como garante de los derechos ciudadanos y la lucha por los derechos humanos. que cumplen su misión",
+    descripcion: "Determinar el papel político y social de los medios de comunicación en el Ecuador, y la forma en que cumplen su misión",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1863,7 +1863,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.10",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 10,
-    descripcion: "Reconocer la vinculación de los ciudadanos con I.CS.4.11.1. Relaciona el ejercicio de la ciudael país a través del Estado y el ejercicio de la ciudadanía. danía ecuatoriana con el Estado, la Constitución, la participación ciudadana (canales y",
+    descripcion: "Reconocer la vinculación de los ciudadanos con el país a través del Estado y el ejercicio de la ciudadanía",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1871,7 +1871,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.12",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 12,
-    descripcion: "Identificar los derechos fundamentales estipula- formas) y los procesos de integración (regiodos en el Código de la Niñez y la Adolescencia y reflexio- nal e internacional), en un contexto de internar sobre ellos. culturalidad, unidad nacional y globalización",
+    descripcion: "Identificar los derechos fundamentales estipulados en el Código de la Niñez y la Adolescencia y reflexionar sobre ellos",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1879,7 +1879,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.13",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 13,
-    descripcion: "Reconocer que la existencia de derechos implica deberes y responsabilidades que tenemos todos como I.CS.4.11.2. Analiza los mecanismos que tiene parte de la sociedad. el Estado, la fuerza pública y los ciudadanos para el cumplimiento de su papel como gaCS.4.3.17. Discutir el significado de participación ciudadarantes y veedores de los derechos humanos, na y los canales y formas en que se la ejerce en una socieen un contexto de interculturalidad, unidad dad democrática. nacional y globalización. (J.1., S.1.)",
+    descripcion: "Reconocer que la existencia de derechos implica deberes y responsabilidades que tenemos todos como parte de la sociedad",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],
@@ -1887,7 +1887,7 @@ export const destrezasEstudiosSociales: Destreza[] = [
   {
     codigo: "CS.4.3.18",
     area: "CS", subnivel: 4, bloque: 3, secuencial: 18,
-    descripcion: "Reconocer el papel de la Constitución de la ReI.CS.4.11.3. Distingue las semejanzas y difepública como norma fundamental del Estado y base legal rencias entre los derechos fundamentales de la democracia. estipulados en el Código de la Niñez y AdoCS.4.3.20. Relacionar el ejercicio de la ciudadanía ecuato- lescencia y los derechos humanos, reconoriana con la participación en los procesos de integración ciendo que los derechos implican deberes y responsabilidades. (J.1., J.3.) regional e internacional",
+    descripcion: "Reconocer el papel de la Constitución de la República como norma fundamental del Estado y base legal de la democracia",
     objetivos: ["O.CS.4.3. Identificar y explicar las diferentes expresiones culturales a través de la observación e interpretación."],
     criteriosEvaluacion: ["CE.CS.4.3. Analiza y utiliza los conceptos de historia, identidad y diversidad cultural."],
     indicadoresEvaluacion: ["I.CS.4.3.1. Analiza los procesos históricos y sociales utilizando diversas fuentes."],

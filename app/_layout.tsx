@@ -19,6 +19,7 @@ import type { EdgeInsets, Metrics, Rect } from "react-native-safe-area-context";
 import { trpc, createTRPCClient } from "@/lib/trpc";
 import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-runtime";
 import { PlanificacionesProvider } from "@/lib/planificaciones-context";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { AccessProvider, useAccess } from "@/lib/access-control";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
@@ -121,14 +122,16 @@ export default function RootLayout() {
 
   const content = (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <AccessProvider>
-            <AppContent />
-          </AccessProvider>
-          <StatusBar style="auto" />
-        </QueryClientProvider>
-      </trpc.Provider>
+      <ErrorBoundary>
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            <AccessProvider>
+              <AppContent />
+            </AccessProvider>
+            <StatusBar style="auto" />
+          </QueryClientProvider>
+        </trpc.Provider>
+      </ErrorBoundary>
     </GestureHandlerRootView>
   );
 
