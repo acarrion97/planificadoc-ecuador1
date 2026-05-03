@@ -42,6 +42,27 @@ export const DUA_PRINCIPIOS = {
   },
 };
 
+export const DUA_PRINCIPIOS_EN = {
+  representacion: {
+    nombre: "Multiple Means of Representation",
+    subtitulo: "The WHAT of learning",
+    descripcion: "Provide multiple ways to present information and content.",
+    icono: "visibility",
+  },
+  accionExpresion: {
+    nombre: "Multiple Means of Action and Expression",
+    subtitulo: "The HOW of learning",
+    descripcion: "Provide multiple ways for students to demonstrate what they know.",
+    icono: "edit",
+  },
+  implicacion: {
+    nombre: "Multiple Means of Engagement",
+    subtitulo: "The WHY of learning",
+    descripcion: "Provide multiple ways to motivate and engage students.",
+    icono: "favorite",
+  },
+};
+
 /**
  * Estrategias DUA generales aplicables a todas las áreas
  */
@@ -292,22 +313,22 @@ const ESTRATEGIAS_POR_AREA: Record<Area, DUAPlanificacion> = {
   },
   EFL: {
     representacion: [
-      "Utilizar imágenes, gestos, realia y material audiovisual para contextualizar el vocabulario y las estructuras.",
-      "Presentar textos con apoyo visual: ilustraciones, subtítulos, glosarios y organizadores gráficos.",
-      "Ofrecer input comprensible mediante habla pausada, repetición y reformulación.",
-      "Usar canciones, videos y podcasts auténticos con subtítulos en inglés para desarrollar la comprensión auditiva.",
+      "Use images, gestures, realia, and audiovisual material to contextualize vocabulary and structures.",
+      "Present texts with visual support: illustrations, subtitles, glossaries, and graphic organizers.",
+      "Provide comprehensible input through slow speech, repetition, and reformulation.",
+      "Use authentic songs, videos, and podcasts with English subtitles to develop listening comprehension.",
     ],
     accionExpresion: [
-      "Permitir respuestas en diferentes modalidades: oral, escrita, gestual, artística.",
-      "Ofrecer plantillas y modelos de texto para la producción escrita (párrafos, correos, ensayos).",
-      "Aceptar diferentes niveles de producción según el nivel de dominio del idioma.",
-      "Proporcionar listas de vocabulario, bancos de frases y conectores como apoyo para la producción.",
+      "Allow responses in different modalities: oral, written, gestural, artistic.",
+      "Provide text templates and models for written production (paragraphs, emails, essays).",
+      "Accept different levels of production according to the student's language proficiency.",
+      "Provide vocabulary lists, phrase banks, and connectors as support for production.",
     ],
     implicacion: [
-      "Relacionar el aprendizaje del inglés con la cultura ecuatoriana: describir tradiciones, lugares, comidas.",
-      "Fomentar la comunicación auténtica mediante proyectos colaborativos y simulaciones.",
-      "Promover la tolerancia y el respeto por la diversidad cultural a través del idioma.",
-      "Crear un ambiente de confianza donde el error sea parte natural del proceso de adquisición.",
+      "Connect English learning with Ecuadorian culture: describe traditions, places, food.",
+      "Encourage authentic communication through collaborative projects and simulations.",
+      "Promote tolerance and respect for cultural diversity through language.",
+      "Create a supportive environment where errors are a natural part of the acquisition process.",
     ],
   },
   EG: {
@@ -362,23 +383,24 @@ export function obtenerEstrategiasGeneralesDUA(): DUAPlanificacion {
 export function generarTextoDUA(area: Area): string {
   const estrategias = obtenerEstrategiasDUA(area);
   const lineas: string[] = [];
+  const isEFL = area === "EFL";
 
-  lineas.push("PRINCIPIO 1: MÚLTIPLES FORMAS DE REPRESENTACIÓN");
-  lineas.push("(El QUÉ del aprendizaje)");
+  lineas.push(isEFL ? "PRINCIPLE 1: MULTIPLE MEANS OF REPRESENTATION" : "PRINCIPIO 1: MÚLTIPLES FORMAS DE REPRESENTACIÓN");
+  lineas.push(isEFL ? "(The WHAT of learning)" : "(El QUÉ del aprendizaje)");
   estrategias.representacion.forEach((e, i) => {
     lineas.push(`${i + 1}. ${e}`);
   });
 
   lineas.push("");
-  lineas.push("PRINCIPIO 2: MÚLTIPLES FORMAS DE ACCIÓN Y EXPRESIÓN");
-  lineas.push("(El CÓMO del aprendizaje)");
+  lineas.push(isEFL ? "PRINCIPLE 2: MULTIPLE MEANS OF ACTION AND EXPRESSION" : "PRINCIPIO 2: MÚLTIPLES FORMAS DE ACCIÓN Y EXPRESIÓN");
+  lineas.push(isEFL ? "(The HOW of learning)" : "(El CÓMO del aprendizaje)");
   estrategias.accionExpresion.forEach((e, i) => {
     lineas.push(`${i + 1}. ${e}`);
   });
 
   lineas.push("");
-  lineas.push("PRINCIPIO 3: MÚLTIPLES FORMAS DE IMPLICACIÓN");
-  lineas.push("(El POR QUÉ del aprendizaje)");
+  lineas.push(isEFL ? "PRINCIPLE 3: MULTIPLE MEANS OF ENGAGEMENT" : "PRINCIPIO 3: MÚLTIPLES FORMAS DE IMPLICACIÓN");
+  lineas.push(isEFL ? "(The WHY of learning)" : "(El POR QUÉ del aprendizaje)");
   estrategias.implicacion.forEach((e, i) => {
     lineas.push(`${i + 1}. ${e}`);
   });

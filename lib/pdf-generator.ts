@@ -7,8 +7,9 @@ import { Planificacion, AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 export function generarHTMLPlanificacion(plan: Planificacion): string {
   const areaInfo = AREAS_INFO[plan.destreza.area];
   const subnivelName = SUBNIVEL_NAMES[plan.destreza.subnivel];
-  const bloqueName = areaInfo.bloques[plan.destreza.bloque] || `Bloque ${plan.destreza.bloque}`;
-  const fechaFormateada = new Date(plan.createdAt).toLocaleDateString("es-EC", {
+  const isEFL = plan.destreza.area === "EFL";
+  const bloqueName = areaInfo.bloques[plan.destreza.bloque] || (isEFL ? `Block ${plan.destreza.bloque}` : `Bloque ${plan.destreza.bloque}`);
+  const fechaFormateada = new Date(plan.createdAt).toLocaleDateString(isEFL ? "en-US" : "es-EC", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -20,35 +21,35 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     const est = plan.temaSeleccionado.estructura;
     actividadesHTML = `
       <div class="fase">
-        <div class="fase-header experiencia">EXPERIENCIA (${est.experiencia.duracion})</div>
+        <div class="fase-header experiencia">${isEFL ? "EXPERIENCE" : "EXPERIENCIA"} (${est.experiencia.duracion})</div>
         <ul>${est.experiencia.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       </div>
       <div class="fase">
-        <div class="fase-header reflexion">REFLEXIÓN (${est.reflexion.duracion})</div>
+        <div class="fase-header reflexion">${isEFL ? "REFLECTION" : "REFLEXIÓN"} (${est.reflexion.duracion})</div>
         <ul>${est.reflexion.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       </div>
       <div class="fase">
-        <div class="fase-header conceptualizacion">CONCEPTUALIZACIÓN (${est.conceptualizacion.duracion})</div>
+        <div class="fase-header conceptualizacion">${isEFL ? "CONCEPTUALIZATION" : "CONCEPTUALIZACIÓN"} (${est.conceptualizacion.duracion})</div>
         <ul>${est.conceptualizacion.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       </div>
       <div class="fase">
-        <div class="fase-header aplicacion">APLICACIÓN (${est.aplicacion.duracion})</div>
+        <div class="fase-header aplicacion">${isEFL ? "APPLICATION" : "APLICACIÓN"} (${est.aplicacion.duracion})</div>
         <ul>${est.aplicacion.actividades.map((a: string) => `<li>${a}</li>`).join("")}</ul>
       </div>
     `;
   } else {
-    actividadesHTML = `<p>${plan.actividades || "No especificadas"}</p>`;
+    actividadesHTML = `<p>${plan.actividades || (isEFL ? "Not specified" : "No especificadas")}</p>`;
   }
 
   // Recursos
   const recursosTexto = plan.temaSeleccionado?.recursos
     ? plan.temaSeleccionado.recursos.join(", ")
-    : plan.recursos || "No especificados";
+    : plan.recursos || (isEFL ? "Not specified" : "No especificados");
 
   // Evaluación
   const evaluacionTexto = plan.temaSeleccionado?.evaluacionFormativa
     ? plan.temaSeleccionado.evaluacionFormativa
-    : plan.evaluacion || "No especificada";
+    : plan.evaluacion || (isEFL ? "Not specified" : "No especificada");
 
   // Indicadores de evaluación
   const indicadoresHTML = plan.destreza.indicadoresEvaluacion
@@ -70,7 +71,7 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Planificación Microcurricular - ${plan.destreza.codigo}</title>
+  <title>${isEFL ? "Microcurricular Lesson Plan" : "Planificación Microcurricular"} - ${plan.destreza.codigo}</title>
   <style>
     @page {
       size: A4;
@@ -438,67 +439,67 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
 
   <!-- TÍTULO PRINCIPAL -->
   <div class="titulo-principal">
-    Planificación Microcurricular de Clase
+    ${isEFL ? "Microcurricular Lesson Plan" : "Planificación Microcurricular de Clase"}
   </div>
 
   <!-- SECCIÓN 1: DATOS INFORMATIVOS -->
-  <div class="seccion-titulo">1. Datos Informativos</div>
+  <div class="seccion-titulo">${isEFL ? "1. General Information" : "1. Datos Informativos"}</div>
   <table>
     <tr>
-      <td class="label">Institución:</td>
+      <td class="label">${isEFL ? "Institution:" : "Institución:"}</td>
       <td class="value">${plan.institucion || "___________________________"}</td>
-      <td class="label">Nombre Docente:</td>
+      <td class="label">${isEFL ? "Teacher:" : "Nombre Docente:"}</td>
       <td class="value">${plan.docente || "___________________________"}</td>
     </tr>
     <tr>
-      <td class="label">Área:</td>
+      <td class="label">${isEFL ? "Area:" : "Área:"}</td>
       <td class="value">${areaInfo.name}</td>
-      <td class="label">Asignatura:</td>
+      <td class="label">${isEFL ? "Subject:" : "Asignatura:"}</td>
       <td class="value">${plan.asignatura || areaInfo.name}</td>
     </tr>
     <tr>
-      <td class="label">Grado/Curso:</td>
+      <td class="label">${isEFL ? "Grade/Level:" : "Grado/Curso:"}</td>
       <td class="value">${plan.grado || "___________________________"}</td>
-      <td class="label">Subnivel:</td>
+      <td class="label">${isEFL ? "Sublevel:" : "Subnivel:"}</td>
       <td class="value">${subnivelName}</td>
     </tr>
     <tr>
-      <td class="label">Fecha:</td>
+      <td class="label">${isEFL ? "Date:" : "Fecha:"}</td>
       <td class="value">${fechaFormateada}</td>
-      <td class="label">Períodos:</td>
-      <td class="value">${plan.periodos || "1"} (45 minutos)</td>
+      <td class="label">${isEFL ? "Periods:" : "Períodos:"}</td>
+      <td class="value">${plan.periodos || "1"} (45 ${isEFL ? "minutes" : "minutos"})</td>
     </tr>
     <tr>
-      <td class="label">Bloque Curricular:</td>
+      <td class="label">${isEFL ? "Curricular Block:" : "Bloque Curricular:"}</td>
       <td class="value" colspan="3">${bloqueName}</td>
     </tr>
   </table>
 
   <!-- SECCIÓN 2: OBJETIVOS DE APRENDIZAJE -->
-  <div class="seccion-titulo">2. Objetivos de Aprendizaje</div>
+  <div class="seccion-titulo">${isEFL ? "2. Learning Objectives" : "2. Objetivos de Aprendizaje"}</div>
   <table>
     <tr>
       <td class="value">
-        ${plan.objetivoAprendizaje || (plan.destreza.objetivos.length > 0 ? plan.destreza.objetivos[0] : "No especificado")}
+        ${plan.objetivoAprendizaje || (plan.destreza.objetivos.length > 0 ? plan.destreza.objetivos[0] : (isEFL ? "Not specified" : "No especificado"))}
       </td>
     </tr>
   </table>
 
   <!-- SECCIÓN 3: PLANIFICACIÓN -->
-  <div class="seccion-titulo">3. Planificación de la Clase</div>
+  <div class="seccion-titulo">${isEFL ? "3. Lesson Planning" : "3. Planificación de la Clase"}</div>
 
   ${plan.temaSeleccionado ? `
-    <div class="tema-titulo">Tema: ${plan.temaSeleccionado.titulo}</div>
-    <div class="objetivo-clase">Objetivo de la clase: ${plan.temaSeleccionado.objetivoClase}</div>
+    <div class="tema-titulo">${isEFL ? "Topic" : "Tema"}: ${plan.temaSeleccionado.titulo}</div>
+    <div class="objetivo-clase">${isEFL ? "Class objective" : "Objetivo de la clase"}: ${plan.temaSeleccionado.objetivoClase}</div>
   ` : ""}
 
   <table class="tabla-principal">
     <thead>
       <tr>
-        <th class="col-destreza">Destrezas con Criterios de Desempeño</th>
-        <th class="col-indicadores">Indicadores de Evaluación</th>
-        <th class="col-estrategias">Estrategias Metodológicas Activas para la Enseñanza y Aprendizaje</th>
-        <th class="col-evaluacion">Actividades Evaluativas</th>
+        <th class="col-destreza">${isEFL ? "Performance Criteria Skills" : "Destrezas con Criterios de Desempeño"}</th>
+        <th class="col-indicadores">${isEFL ? "Assessment Indicators" : "Indicadores de Evaluación"}</th>
+        <th class="col-estrategias">${isEFL ? "Active Methodological Strategies for Teaching and Learning" : "Estrategias Metodológicas Activas para la Enseñanza y Aprendizaje"}</th>
+        <th class="col-evaluacion">${isEFL ? "Assessment Activities" : "Actividades Evaluativas"}</th>
       </tr>
     </thead>
     <tbody>
@@ -506,74 +507,73 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
         <td>
           <strong>${plan.destreza.codigo}</strong><br/>
           ${plan.destreza.descripcion}
-          ${criteriosHTML ? `<br/><br/><strong style="font-size:8px;">Criterios de evaluación:</strong><ul>${criteriosHTML}</ul>` : ""}
+          ${criteriosHTML ? `<br/><br/><strong style="font-size:8px;">${isEFL ? "Assessment criteria:" : "Criterios de evaluación:"}</strong><ul>${criteriosHTML}</ul>` : ""}
         </td>
         <td>
-          ${indicadoresHTML ? `<ul>${indicadoresHTML}</ul>` : "No especificados"}
+          ${indicadoresHTML ? `<ul>${indicadoresHTML}</ul>` : (isEFL ? "Not specified" : "No especificados")}
         </td>
         <td>
           ${actividadesHTML}
         </td>
         <td>
-          <strong style="font-size:8px;">Evaluación formativa:</strong><br/>
+          <strong style="font-size:8px;">${isEFL ? "Formative assessment:" : "Evaluación formativa:"}</strong><br/>
           ${evaluacionTexto}
           <br/><br/>
-          <strong style="font-size:8px;">Técnicas e instrumentos:</strong><br/>
-          ${plan.tecnicasInstrumentos || "Observación directa, lista de cotejo, rúbrica"}
+          <strong style="font-size:8px;">${isEFL ? "Techniques and instruments:" : "Técnicas e instrumentos:"}</strong><br/>
+          ${plan.tecnicasInstrumentos || (isEFL ? "Direct observation, checklist, rubric" : "Observación directa, lista de cotejo, rúbrica")}
         </td>
       </tr>
     </tbody>
   </table>
 
   <!-- SECCIÓN 4: RECURSOS -->
-  <div class="seccion-titulo">4. Recursos</div>
+  <div class="seccion-titulo">${isEFL ? "4. Resources" : "4. Recursos"}</div>
   <div class="recursos-box">
     ${recursosTexto}
   </div>
 
   <!-- SECCIÓN 5: DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA) -->
-  <div class="seccion-titulo">5. Diseño Universal para el Aprendizaje (DUA)</div>
+  <div class="seccion-titulo">${isEFL ? "5. Universal Design for Learning (UDL)" : "5. Diseño Universal para el Aprendizaje (DUA)"}</div>
   <div class="dua-container">
     <div class="dua-principio">
-      <span class="dua-principio-titulo dua-p1">Principio 1: Múltiples formas de Representación</span>
-      <div class="dua-subtitulo">El QUÉ del aprendizaje</div>
-      <div class="dua-texto">${plan.dua?.representacion || "Presentar la información mediante recursos visuales, auditivos y manipulativos para atender diversos estilos de aprendizaje."}</div>
+      <span class="dua-principio-titulo dua-p1">${isEFL ? "Principle 1: Multiple Means of Representation" : "Principio 1: Múltiples formas de Representación"}</span>
+      <div class="dua-subtitulo">${isEFL ? "The WHAT of learning" : "El QUÉ del aprendizaje"}</div>
+      <div class="dua-texto">${plan.dua?.representacion || (isEFL ? "Present information through visual, auditory, and hands-on resources to address diverse learning styles." : "Presentar la información mediante recursos visuales, auditivos y manipulativos para atender diversos estilos de aprendizaje.")}</div>
     </div>
     <div class="dua-principio">
-      <span class="dua-principio-titulo dua-p2">Principio 2: Múltiples formas de Acción y Expresión</span>
-      <div class="dua-subtitulo">El CÓMO del aprendizaje</div>
-      <div class="dua-texto">${plan.dua?.accionExpresion || "Permitir que los estudiantes demuestren lo aprendido de forma oral, escrita, gráfica o práctica según sus fortalezas."}</div>
+      <span class="dua-principio-titulo dua-p2">${isEFL ? "Principle 2: Multiple Means of Action and Expression" : "Principio 2: Múltiples formas de Acción y Expresión"}</span>
+      <div class="dua-subtitulo">${isEFL ? "The HOW of learning" : "El CÓMO del aprendizaje"}</div>
+      <div class="dua-texto">${plan.dua?.accionExpresion || (isEFL ? "Allow students to demonstrate learning through oral, written, graphic, or practical means according to their strengths." : "Permitir que los estudiantes demuestren lo aprendido de forma oral, escrita, gráfica o práctica según sus fortalezas.")}</div>
     </div>
     <div class="dua-principio">
-      <span class="dua-principio-titulo dua-p3">Principio 3: Múltiples formas de Implicación</span>
-      <div class="dua-subtitulo">El POR QUÉ del aprendizaje</div>
-      <div class="dua-texto">${plan.dua?.implicacion || "Motivar a los estudiantes mediante actividades significativas, trabajo colaborativo y conexión con su contexto."}</div>
+      <span class="dua-principio-titulo dua-p3">${isEFL ? "Principle 3: Multiple Means of Engagement" : "Principio 3: Múltiples formas de Implicación"}</span>
+      <div class="dua-subtitulo">${isEFL ? "The WHY of learning" : "El POR QUÉ del aprendizaje"}</div>
+      <div class="dua-texto">${plan.dua?.implicacion || (isEFL ? "Motivate students through meaningful activities, collaborative work, and connection to their context." : "Motivar a los estudiantes mediante actividades significativas, trabajo colaborativo y conexión con su contexto.")}</div>
     </div>
   </div>
 
   <!-- SECCIÓN 6: OBSERVACIONES -->
-  <div class="seccion-titulo">6. Observaciones</div>
+  <div class="seccion-titulo">${isEFL ? "6. Observations" : "6. Observaciones"}</div>
   <div class="observaciones">
-    ${plan.observaciones || "Sin observaciones adicionales."}
+    ${plan.observaciones || (isEFL ? "No additional observations." : "Sin observaciones adicionales.")}
   </div>
 
   <!-- FIRMAS -->
   <div class="firmas">
     <div class="firma-box">
       <div class="firma-linea">${plan.docente || "________________________"}</div>
-      <div class="firma-cargo">Docente</div>
+      <div class="firma-cargo">${isEFL ? "Teacher" : "Docente"}</div>
     </div>
     <div class="firma-box">
       <div class="firma-linea">________________________</div>
-      <div class="firma-cargo">Director/a de Área</div>
+      <div class="firma-cargo">${isEFL ? "Area Director" : "Director/a de Área"}</div>
     </div>
   </div>
 
   <!-- PIE DE PÁGINA -->
   <div class="footer">
     <div class="footer-text">
-      Formato basado en los lineamientos del Ministerio de Educación del Ecuador.<br/>
-      Currículo Nacional 2016 - Educación General Básica y Bachillerato General Unificado.
+      ${isEFL ? "Format based on the guidelines of the Ministry of Education of Ecuador.<br/>National Curriculum 2016 - General Basic Education and Unified General Baccalaureate." : "Formato basado en los lineamientos del Ministerio de Educación del Ecuador.<br/>Currículo Nacional 2016 - Educación General Básica y Bachillerato General Unificado."}
     </div>
     <div class="footer-logo">
       PlanificaDoc Ecuador

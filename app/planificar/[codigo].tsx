@@ -26,6 +26,7 @@ import {
   Planificacion,
   generarTextoDUA,
   DUA_PRINCIPIOS,
+  DUA_PRINCIPIOS_EN,
 } from "@/data";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 import { useAccess } from "@/lib/access-control";
@@ -43,7 +44,10 @@ function getTodayDate() {
   return `${dd}/${mm}/${yyyy}`;
 }
 
-function getSugerenciaTecnicas(): string {
+function getSugerenciaTecnicas(isEFL = false): string {
+  if (isEFL) {
+    return "Technique: Direct observation\nInstrument: Checklist / Assessment rubric\n\nTechnique: Written test\nInstrument: Questionnaire with open and closed questions\n\nTechnique: Portfolio\nInstrument: Learning evidence record";
+  }
   return "Tecnica: Observacion directa\nInstrumento: Lista de cotejo / Rubrica de evaluacion\n\nTecnica: Prueba escrita\nInstrumento: Cuestionario de preguntas abiertas y cerradas\n\nTecnica: Portafolio\nInstrumento: Registro de evidencias de aprendizaje";
 }
 
@@ -118,7 +122,7 @@ export default function PlanificarScreen() {
   const [evaluacion, setEvaluacion] = useState(
     destreza?.indicadoresEvaluacion[0] || ""
   );
-  const [tecnicas, setTecnicas] = useState(getSugerenciaTecnicas());
+  const [tecnicas, setTecnicas] = useState(getSugerenciaTecnicas(destreza?.area === "EFL"));
   const [observaciones, setObservaciones] = useState("");
   const [duaRepresentacion, setDuaRepresentacion] = useState("");
   const [duaAccionExpresion, setDuaAccionExpresion] = useState("");
@@ -149,6 +153,7 @@ export default function PlanificarScreen() {
   }
 
   const areaInfo = AREAS_INFO[destreza.area];
+  const isEFL = destreza.area === "EFL";
 
   const handleSeleccionarTema = (tema: TemaSugerido) => {
     setTemaSeleccionado(tema);
@@ -165,16 +170,16 @@ export default function PlanificarScreen() {
 
     const { estructura } = tema;
     const actividadesTexto = [
-      `EXPERIENCIA (${estructura.experiencia.duracion})`,
+      `${isEFL ? "EXPERIENCE" : "EXPERIENCIA"} (${estructura.experiencia.duracion})`,
       ...estructura.experiencia.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
       "",
-      `REFLEXION (${estructura.reflexion.duracion})`,
+      `${isEFL ? "REFLECTION" : "REFLEXION"} (${estructura.reflexion.duracion})`,
       ...estructura.reflexion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
       "",
-      `CONCEPTUALIZACION (${estructura.conceptualizacion.duracion})`,
+      `${isEFL ? "CONCEPTUALIZATION" : "CONCEPTUALIZACION"} (${estructura.conceptualizacion.duracion})`,
       ...estructura.conceptualizacion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
       "",
-      `APLICACION (${estructura.aplicacion.duracion})`,
+      `${isEFL ? "APPLICATION" : "APLICACION"} (${estructura.aplicacion.duracion})`,
       ...estructura.aplicacion.actividades.map((a: string, i: number) => `${i + 1}. ${a}`),
     ].join("\n");
 
@@ -193,6 +198,7 @@ export default function PlanificarScreen() {
       CS: "EXPERIENCIA (10 minutos)\n1. Contextualizar históricamente mediante relatos o imágenes.\n2. Explorar conocimientos previos sobre el tema.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas de análisis: ¿Por qué ocurrieron estos hechos?\n2. Solicitar que identifiquen causas y consecuencias.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Guiar la lectura comprensiva de fuentes primarias y secundarias.\n2. Organizar debate dirigido sobre el tema estudiado.\n3. Solicitar la elaboración de organizadores gráficos.\n\nAPLICACIÓN (10 minutos)\n1. Asignar trabajo en grupos para profundizar el análisis.\n2. Presentar conclusiones de cada grupo.\n3. Reflexionar sobre la importancia del tema en la actualidad.",
       EF: "EXPERIENCIA (10 minutos)\n1. Dirigir calentamiento general y específico.\n2. Explicar el objetivo de la clase.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas sobre las dificultades encontradas.\n2. Solicitar que identifiquen qué músculos están trabajando.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Demostrar la actividad paso a paso.\n2. Organizar práctica guiada en grupos pequeños.\n3. Supervisar la ejecución y corregir posturas.\n\nAPLICACIÓN (10 minutos)\n1. Organizar juego o actividad competitiva aplicando lo aprendido.\n2. Dirigir vuelta a la calma con estiramientos.\n3. Recordar la importancia de la hidratación.",
       ECA: "EXPERIENCIA (10 minutos)\n1. Presentar obras artísticas relacionadas con el tema.\n2. Explorar conocimientos previos y sensibilizar.\n\nREFLEXIÓN (10 minutos)\n1. Formular preguntas sobre las emociones generadas.\n2. Solicitar que identifiquen elementos artísticos.\n\nCONCEPTUALIZACIÓN (15 minutos)\n1. Explicar la técnica artística a trabajar.\n2. Permitir la exploración libre de materiales.\n3. Guiar la creación artística individual o colectiva.\n\nAPLICACIÓN (10 minutos)\n1. Organizar la presentación y exposición de trabajos.\n2. Formular preguntas de retroalimentación.\n3. Promover la autoevaluación del proceso creativo.",
+      EFL: "EXPERIENCE (10 minutes)\n1. Activate prior knowledge through warm-up questions.\n2. Present a communicative situation related to the topic.\n\nREFLECTION (10 minutes)\n1. Ask analysis questions about the experience.\n2. Have students compare their answers with classmates.\n\nCONCEPTUALIZATION (15 minutes)\n1. Present vocabulary and structures with visual support.\n2. Model the target language through examples.\n3. Practice guided exercises with the class.\n\nAPPLICATION (10 minutes)\n1. Assign pair or group communicative activities.\n2. Share results and provide feedback.\n3. Assign reinforcement homework.",
     };
     const recursosGenericos: Record<string, string> = {
       M: "Texto del estudiante, cuaderno de trabajo, material concreto, pizarra, marcadores, calculadora.",
@@ -201,6 +207,7 @@ export default function PlanificarScreen() {
       CS: "Texto del estudiante, cuaderno de trabajo, mapas, atlas, material audiovisual, fuentes históricas.",
       EF: "Espacio abierto o cancha, balones, conos, aros, cuerdas, silbato, cronómetro.",
       ECA: "Materiales artísticos, papel, cartulina, materiales reciclados, instrumentos musicales.",
+      EFL: "Student's textbook, workbook, flashcards, audio player, whiteboard, markers, visual aids, digital resources.",
     };
     setActividades(sugerenciasGenericas[destreza.area] || sugerenciasGenericas.M);
     setRecursos(recursosGenericos[destreza.area] || recursosGenericos.M);
@@ -304,11 +311,11 @@ export default function PlanificarScreen() {
                 <Text style={styles.stepBadgeText}>1</Text>
               </View>
               <Text className="text-xl font-bold text-foreground ml-3">
-                Elige un tema para tu clase
+                {isEFL ? "Choose a topic for your class" : "Elige un tema para tu clase"}
               </Text>
             </View>
             <Text className="text-sm text-muted mt-2 leading-5">
-              Selecciona uno de los temas sugeridos para generar automaticamente la estructura completa de tu clase de 45 minutos, o continua sin tema para personalizar manualmente.
+              {isEFL ? "Select one of the suggested topics to automatically generate the complete structure of your 45-minute class, or continue without a topic to customize manually." : "Selecciona uno de los temas sugeridos para generar automaticamente la estructura completa de tu clase de 45 minutos, o continua sin tema para personalizar manualmente."}
             </Text>
           </View>
 
@@ -324,6 +331,7 @@ export default function PlanificarScreen() {
                   setTemaExpandido(temaExpandido === tema.id ? null : tema.id)
                 }
                 onSelect={() => handleSeleccionarTema(tema)}
+                isEFL={isEFL}
               />
             ))}
 
@@ -333,7 +341,7 @@ export default function PlanificarScreen() {
                 <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 8 }}>
                   <Text style={{ fontSize: 16 }}>{"\u2728"}</Text>
                   <Text className="text-base font-bold text-foreground" style={{ marginLeft: 6 }}>
-                    Temas generados con IA
+                    {isEFL ? "AI-generated topics" : "Temas generados con IA"}
                   </Text>
                 </View>
               </View>
@@ -349,6 +357,7 @@ export default function PlanificarScreen() {
                   setTemaExpandido(temaExpandido === tema.id ? null : tema.id)
                 }
                 onSelect={() => handleSeleccionarTema(tema)}
+                isEFL={isEFL}
               />
             ))}
           </View>
@@ -372,14 +381,14 @@ export default function PlanificarScreen() {
                   <>
                     <ActivityIndicator size="small" color="#7C3AED" />
                     <Text style={{ color: colors.muted, fontSize: 15, fontWeight: "600", marginLeft: 10 }}>
-                      Generando temas con IA...
+                      {isEFL ? "Generating topics with AI..." : "Generando temas con IA..."}
                     </Text>
                   </>
                 ) : (
                   <>
                     <Text style={{ fontSize: 18 }}>{"\u2728"}</Text>
                     <Text style={{ color: "#fff", fontSize: 15, fontWeight: "700", marginLeft: 8 }}>
-                      Generar más temas con IA
+                      {isEFL ? "Generate more topics with AI" : "Generar más temas con IA"}
                     </Text>
                   </>
                 )}
@@ -403,7 +412,7 @@ export default function PlanificarScreen() {
               >
                 <Text style={{ fontSize: 16 }}>{"\uD83D\uDD12"}</Text>
                 <Text style={{ color: colors.muted, fontSize: 14, fontWeight: "600", marginLeft: 8 }}>
-                  Genera temas con IA (Plan Premium)
+                  {isEFL ? "Generate topics with AI (Premium Plan)" : "Genera temas con IA (Plan Premium)"}
                 </Text>
               </View>
             </View>
@@ -422,7 +431,7 @@ export default function PlanificarScreen() {
             >
               <Text style={{ fontSize: 18 }}>{"\u270F\uFE0F"}</Text>
               <Text style={{ color: colors.muted, fontSize: 15, fontWeight: "600", marginLeft: 8 }}>
-                Continuar sin tema (personalizar manualmente)
+                {isEFL ? "Continue without topic (customize manually)" : "Continuar sin tema (personalizar manualmente)"}
               </Text>
             </Pressable>
           </View>
@@ -451,7 +460,7 @@ export default function PlanificarScreen() {
             >
               <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
               <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-                Cambiar tema
+                {isEFL ? "Change topic" : "Cambiar tema"}
               </Text>
             </Pressable>
 
@@ -460,7 +469,7 @@ export default function PlanificarScreen() {
                 <Text style={styles.stepBadgeText}>2</Text>
               </View>
               <Text className="text-xl font-bold text-foreground ml-3">
-                Planificaci{"ó"}n Microcurricular
+                {isEFL ? "Microcurricular Lesson Plan" : `Planificaci${"\u00f3"}n Microcurricular`}
               </Text>
             </View>
           </View>
@@ -476,7 +485,7 @@ export default function PlanificarScreen() {
                 <Text style={{ fontSize: 18 }}>{"\u2728"}</Text>
                 <View style={{ flex: 1, marginLeft: 10 }}>
                   <Text style={{ color: areaInfo.color, fontSize: 13, fontWeight: "600" }}>
-                    Tema seleccionado
+                    {isEFL ? "Selected topic" : "Tema seleccionado"}
                   </Text>
                   <Text className="text-sm font-bold text-foreground mt-1">
                     {temaSeleccionado.titulo}
@@ -502,35 +511,35 @@ export default function PlanificarScreen() {
             </View>
           </View>
 
-          <SectionTitle title="Datos Informativos" emoji={"\u2139\uFE0F"} colors={colors} />
+          <SectionTitle title={isEFL ? "General Information" : "Datos Informativos"} emoji={"\u2139\uFE0F"} colors={colors} />
 
           <FormField
-            label="Institución Educativa"
+            label={isEFL ? "Educational Institution" : "Institución Educativa"}
             value={institucion}
             onChangeText={setInstitucion}
-            placeholder="Nombre de la institución"
+            placeholder={isEFL ? "Institution name" : "Nombre de la institución"}
             colors={colors}
           />
           <FormField
-            label="Docente *"
+            label={isEFL ? "Teacher *" : "Docente *"}
             value={docente}
             onChangeText={setDocente}
-            placeholder="Nombre del docente"
+            placeholder={isEFL ? "Teacher's name" : "Nombre del docente"}
             colors={colors}
           />
           <View style={styles.row}>
             <View style={{ flex: 1 }}>
               <FormField
-                label="Grado / Curso"
+                label={isEFL ? "Grade / Level" : "Grado / Curso"}
                 value={grado}
                 onChangeText={setGrado}
-                placeholder="Ej: 5to EGB"
+                placeholder={isEFL ? "e.g.: 5th EGB" : "Ej: 5to EGB"}
                 colors={colors}
               />
             </View>
             <View style={{ flex: 1 }}>
               <FormField
-                label="Fecha"
+                label={isEFL ? "Date" : "Fecha"}
                 value={fecha}
                 onChangeText={setFecha}
                 placeholder="DD/MM/AAAA"
@@ -539,7 +548,7 @@ export default function PlanificarScreen() {
             </View>
           </View>
           <FormField
-            label="Número de Períodos"
+            label={isEFL ? "Number of Periods" : "Número de Períodos"}
             value={periodos}
             onChangeText={setPeriodos}
             placeholder="1"
@@ -547,71 +556,72 @@ export default function PlanificarScreen() {
             colors={colors}
           />
 
-          <SectionTitle title="Objetivo de Aprendizaje" emoji={"\uD83C\uDFAF"} colors={colors} />
+          <SectionTitle title={isEFL ? "Learning Objective" : "Objetivo de Aprendizaje"} emoji={"\uD83C\uDFAF"} colors={colors} />
           <FormField
-            label="Objetivo"
+            label={isEFL ? "Objective" : "Objetivo"}
             value={objetivoAprendizaje}
             onChangeText={setObjetivoAprendizaje}
-            placeholder="Objetivo de aprendizaje"
+            placeholder={isEFL ? "Learning objective" : "Objetivo de aprendizaje"}
             multiline
             colors={colors}
           />
 
           {temaSeleccionado && (
             <>
-              <SectionTitle title="Estructura de la Clase (45 min)" emoji={"\uD83C\uDFEB"} colors={colors} />
+              <SectionTitle title={isEFL ? "Class Structure (45 min)" : "Estructura de la Clase (45 min)"} emoji={"\uD83C\uDFEB"} colors={colors} />
               <EstructuraClaseView
                 tema={temaSeleccionado}
                 colors={colors}
                 areaColor={areaInfo.color}
+                isEFL={isEFL}
               />
             </>
           )}
 
-          <SectionTitle title="Actividades de Aprendizaje" emoji={"\uD83D\uDCCB"} colors={colors} />
+          <SectionTitle title={isEFL ? "Learning Activities" : "Actividades de Aprendizaje"} emoji={"\uD83D\uDCCB"} colors={colors} />
           <FormField
-            label="Actividades (editable)"
+            label={isEFL ? "Activities (editable)" : "Actividades (editable)"}
             value={actividades}
             onChangeText={setActividades}
-            placeholder="Describe las actividades..."
+            placeholder={isEFL ? "Describe the activities..." : "Describe las actividades..."}
             multiline
             colors={colors}
           />
 
-          <SectionTitle title="Recursos Didácticos" emoji={"\uD83D\uDCE6"} colors={colors} />
+          <SectionTitle title={isEFL ? "Teaching Resources" : "Recursos Didácticos"} emoji={"\uD83D\uDCE6"} colors={colors} />
           <FormField
-            label="Recursos"
+            label={isEFL ? "Resources" : "Recursos"}
             value={recursos}
             onChangeText={setRecursos}
-            placeholder="Lista de recursos..."
+            placeholder={isEFL ? "List of resources..." : "Lista de recursos..."}
             multiline
             colors={colors}
           />
 
-          <SectionTitle title="Evaluación" emoji={"\uD83D\uDCCA"} colors={colors} />
+          <SectionTitle title={isEFL ? "Assessment" : "Evaluación"} emoji={"\uD83D\uDCCA"} colors={colors} />
           <FormField
-            label="Indicadores de Evaluación"
+            label={isEFL ? "Assessment Indicators" : "Indicadores de Evaluación"}
             value={evaluacion}
             onChangeText={setEvaluacion}
-            placeholder="Indicadores..."
+            placeholder={isEFL ? "Indicators..." : "Indicadores..."}
             multiline
             colors={colors}
           />
           <FormField
-            label="Técnicas e Instrumentos"
+            label={isEFL ? "Techniques and Instruments" : "Técnicas e Instrumentos"}
             value={tecnicas}
             onChangeText={setTecnicas}
-            placeholder="Técnicas e instrumentos de evaluación..."
+            placeholder={isEFL ? "Assessment techniques and instruments..." : "Técnicas e instrumentos de evaluación..."}
             multiline
             colors={colors}
           />
 
           {/* ===== SECCIÓN DUA ===== */}
-          <SectionTitle title="Diseño Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors} />
+          <SectionTitle title={isEFL ? "Universal Design for Learning (UDL)" : "Diseño Universal para el Aprendizaje (DUA)"} emoji={"\u267F"} colors={colors} />
           <View className="px-5 mt-1 mb-1">
             <View style={[styles.duaBanner, { backgroundColor: "#7C3AED" + "10", borderColor: "#7C3AED" + "30" }]}>
               <Text style={{ color: "#7C3AED", fontSize: 12, fontWeight: "600", textAlign: "center" }}>
-                Adaptaciones curriculares basadas en los 3 principios del DUA
+                {isEFL ? "Curricular adaptations based on the 3 UDL principles" : "Adaptaciones curriculares basadas en los 3 principios del DUA"}
               </Text>
             </View>
           </View>
@@ -619,18 +629,18 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#2563EB" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#2563EB" }}>
-                Principio 1: M{"ú"}ltiples formas de Representaci{"ó"}n
+                {isEFL ? "Principle 1: Multiple Means of Representation" : `Principio 1: M${"\u00fa"}ltiples formas de Representaci${"\u00f3"}n`}
               </Text>
               <Text style={{ fontSize: 10, color: "#2563EB", opacity: 0.7 }}>
-                El QU{"É"} del aprendizaje
+                {isEFL ? "The WHAT of learning" : `El QU${"\u00c9"} del aprendizaje`}
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Representación"
+            label={isEFL ? "Representation Strategies" : "Estrategias de Representación"}
             value={duaRepresentacion}
             onChangeText={setDuaRepresentacion}
-            placeholder="Cómo presentará la información de múltiples formas..."
+            placeholder={isEFL ? "How will you present information in multiple ways..." : "Cómo presentará la información de múltiples formas..."}
             multiline
             colors={colors}
           />
@@ -638,18 +648,18 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#16A34A" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#16A34A" }}>
-                Principio 2: M{"ú"}ltiples formas de Acci{"ó"}n y Expresi{"ó"}n
+                {isEFL ? "Principle 2: Multiple Means of Action and Expression" : `Principio 2: M${"\u00fa"}ltiples formas de Acci${"\u00f3"}n y Expresi${"\u00f3"}n`}
               </Text>
               <Text style={{ fontSize: 10, color: "#16A34A", opacity: 0.7 }}>
-                El C{"Ó"}MO del aprendizaje
+                {isEFL ? "The HOW of learning" : `El C${"\u00d3"}MO del aprendizaje`}
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Acción y Expresión"
+            label={isEFL ? "Action and Expression Strategies" : "Estrategias de Acción y Expresión"}
             value={duaAccionExpresion}
             onChangeText={setDuaAccionExpresion}
-            placeholder="Cómo los estudiantes demostrarán lo aprendido..."
+            placeholder={isEFL ? "How will students demonstrate what they learned..." : "Cómo los estudiantes demostrarán lo aprendido..."}
             multiline
             colors={colors}
           />
@@ -657,28 +667,28 @@ export default function PlanificarScreen() {
           <View className="px-5 mt-2">
             <View style={[styles.duaPrincipioHeader, { backgroundColor: "#D97706" + "12" }]}>
               <Text style={{ fontSize: 11, fontWeight: "700", color: "#D97706" }}>
-                Principio 3: M{"ú"}ltiples formas de Implicaci{"ó"}n
+                {isEFL ? "Principle 3: Multiple Means of Engagement" : `Principio 3: M${"\u00fa"}ltiples formas de Implicaci${"\u00f3"}n`}
               </Text>
               <Text style={{ fontSize: 10, color: "#D97706", opacity: 0.7 }}>
-                El POR QU{"É"} del aprendizaje
+                {isEFL ? "The WHY of learning" : `El POR QU${"\u00c9"} del aprendizaje`}
               </Text>
             </View>
           </View>
           <FormField
-            label="Estrategias de Implicación"
+            label={isEFL ? "Engagement Strategies" : "Estrategias de Implicación"}
             value={duaImplicacion}
             onChangeText={setDuaImplicacion}
-            placeholder="Cómo motivar e involucrar a todos los estudiantes..."
+            placeholder={isEFL ? "How to motivate and engage all students..." : "Cómo motivar e involucrar a todos los estudiantes..."}
             multiline
             colors={colors}
           />
 
-          <SectionTitle title="Observaciones" emoji={"\uD83D\uDCCC"} colors={colors} />
+          <SectionTitle title={isEFL ? "Observations" : "Observaciones"} emoji={"\uD83D\uDCCC"} colors={colors} />
           <FormField
-            label="Observaciones"
+            label={isEFL ? "Observations" : "Observaciones"}
             value={observaciones}
             onChangeText={setObservaciones}
-            placeholder="Observaciones adicionales (opcional)"
+            placeholder={isEFL ? "Additional observations (optional)" : "Observaciones adicionales (opcional)"}
             multiline
             colors={colors}
           />
@@ -696,10 +706,10 @@ export default function PlanificarScreen() {
               ]}
             >
               <Text style={{ fontSize: 20 }}>{"\uD83D\uDCBE"}</Text>
-              <Text style={styles.saveBtnText}>Guardar Planificaci{"ó"}n</Text>
+              <Text style={styles.saveBtnText}>{isEFL ? "Save Lesson Plan" : `Guardar Planificaci${"\u00f3"}n`}</Text>
             </Pressable>
             <Text className="text-xs text-muted text-center mt-3">
-              Al guardar podr{"á"}s exportar la planificaci{"ó"}n como PDF con formato oficial del Ministerio de Educaci{"ó"}n
+              {isEFL ? "Once saved, you can export the lesson plan as a PDF with the official Ministry of Education format" : `Al guardar podr${"\u00e1"}s exportar la planificaci${"\u00f3"}n como PDF con formato oficial del Ministerio de Educaci${"\u00f3"}n`}
             </Text>
           </View>
         </ScrollView>
@@ -718,6 +728,7 @@ function TemaCard({
   isExpanded,
   onToggleExpand,
   onSelect,
+  isEFL = false,
 }: {
   tema: TemaSugerido;
   colors: any;
@@ -725,6 +736,7 @@ function TemaCard({
   isExpanded: boolean;
   onToggleExpand: () => void;
   onSelect: () => void;
+  isEFL?: boolean;
 }) {
   return (
     <View className="px-5 mt-3">
@@ -763,7 +775,7 @@ function TemaCard({
               <View style={styles.previewSectionHeader}>
                 <Text style={{ fontSize: 14 }}>{"\uD83C\uDFAF"}</Text>
                 <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
-                  Objetivo de la clase
+                  {isEFL ? "Class Objective" : "Objetivo de la clase"}
                 </Text>
               </View>
               <Text className="text-sm text-foreground leading-5 mt-1">
@@ -776,32 +788,32 @@ function TemaCard({
               <View style={styles.previewSectionHeader}>
                 <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
                 <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
-                  Duraci{"ó"}n total: 45 minutos
+                  {isEFL ? "Total duration: 45 minutes" : `Duraci${"\u00f3"}n total: 45 minutos`}
                 </Text>
               </View>
             </View>
 
             {/* 4 Fases ERCA */}
             <FasePreview
-              label="Experiencia"
+              label={isEFL ? "Experience" : "Experiencia"}
               fase={tema.estructura.experiencia}
               color="#2980B9"
               colors={colors}
             />
             <FasePreview
-              label="Reflexión"
+              label={isEFL ? "Reflection" : "Reflexi\u00f3n"}
               fase={tema.estructura.reflexion}
               color="#8E44AD"
               colors={colors}
             />
             <FasePreview
-              label="Conceptualización"
+              label={isEFL ? "Conceptualization" : "Conceptualizaci\u00f3n"}
               fase={tema.estructura.conceptualizacion}
               color="#27AE60"
               colors={colors}
             />
             <FasePreview
-              label="Aplicación"
+              label={isEFL ? "Application" : "Aplicaci\u00f3n"}
               fase={tema.estructura.aplicacion}
               color="#E67E22"
               colors={colors}
@@ -811,7 +823,7 @@ function TemaCard({
               <View style={styles.previewSectionHeader}>
                 <Text style={{ fontSize: 14 }}>{"\uD83D\uDCE6"}</Text>
                 <Text style={[styles.previewSectionTitle, { color: areaColor }]}>
-                  Recursos
+                  {isEFL ? "Resources" : "Recursos"}
                 </Text>
               </View>
               <Text className="text-sm text-muted mt-1">
@@ -831,7 +843,7 @@ function TemaCard({
               ]}
             >
               <Text style={{ fontSize: 18 }}>{"\u2714\uFE0F"}</Text>
-              <Text style={styles.selectBtnText}>Usar este tema</Text>
+              <Text style={styles.selectBtnText}>{isEFL ? "Use this topic" : "Usar este tema"}</Text>
             </Pressable>
           </View>
         )}
@@ -884,16 +896,18 @@ function EstructuraClaseView({
   tema,
   colors,
   areaColor,
+  isEFL = false,
 }: {
   tema: TemaSugerido;
   colors: any;
   areaColor: string;
+  isEFL?: boolean;
 }) {
   const fases = [
-    { key: "experiencia" as const, label: "Experiencia", color: "#2980B9", emoji: "\uD83D\uDCA1" },
-    { key: "reflexion" as const, label: "Reflexión", color: "#8E44AD", emoji: "\uD83E\uDD14" },
-    { key: "conceptualizacion" as const, label: "Conceptualización", color: "#27AE60", emoji: "\uD83D\uDCDA" },
-    { key: "aplicacion" as const, label: "Aplicación", color: "#E67E22", emoji: "\u2705" },
+    { key: "experiencia" as const, label: isEFL ? "Experience" : "Experiencia", color: "#2980B9", emoji: "\uD83D\uDCA1" },
+    { key: "reflexion" as const, label: isEFL ? "Reflection" : "Reflexi\u00f3n", color: "#8E44AD", emoji: "\uD83E\uDD14" },
+    { key: "conceptualizacion" as const, label: isEFL ? "Conceptualization" : "Conceptualizaci\u00f3n", color: "#27AE60", emoji: "\uD83D\uDCDA" },
+    { key: "aplicacion" as const, label: isEFL ? "Application" : "Aplicaci\u00f3n", color: "#E67E22", emoji: "\u2705" },
   ];
 
   return (
@@ -902,7 +916,7 @@ function EstructuraClaseView({
       <View style={[styles.totalDurationBadge, { backgroundColor: areaColor + "10", borderColor: areaColor + "30" }]}>
         <Text style={{ fontSize: 14 }}>{"\u23F0"}</Text>
         <Text style={{ color: areaColor, fontSize: 13, fontWeight: "700", marginLeft: 6 }}>
-          Duraci{"ó"}n total: 45 minutos
+          {isEFL ? "Total duration: 45 minutes" : `Duraci${"\u00f3"}n total: 45 minutos`}
         </Text>
       </View>
 

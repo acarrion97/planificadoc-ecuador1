@@ -42,6 +42,7 @@ export default function VerPlanScreen() {
 
   const areaInfo = AREAS_INFO[plan.destreza.area];
   const tema = plan.temaSeleccionado;
+  const isEFL = plan.destreza.area === "EFL";
 
   return (
     <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
@@ -57,11 +58,11 @@ export default function VerPlanScreen() {
           >
             <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              Atr{"á"}s
+              {isEFL ? "Back" : `Atr${"á"}s`}
             </Text>
           </Pressable>
           <Text className="text-2xl font-bold text-foreground mt-3">
-            Planificaci{"ó"}n Microcurricular
+            {isEFL ? "Microcurricular Lesson Plan" : `Planificaci${"ó"}n Microcurricular`}
           </Text>
         </View>
 
@@ -81,7 +82,7 @@ export default function VerPlanScreen() {
               <Text style={{ fontSize: 18 }}>{"\uD83D\uDCC4"}</Text>
             )}
             <Text style={styles.exportButtonText}>
-              {isExporting ? "Generando PDF..." : "Exportar PDF"}
+              {isExporting ? (isEFL ? "Generating PDF..." : "Generando PDF...") : (isEFL ? "Export PDF" : "Exportar PDF")}
             </Text>
           </Pressable>
         </View>
@@ -115,7 +116,7 @@ export default function VerPlanScreen() {
               <Text style={{ fontSize: 18 }}>{"\u2728"}</Text>
               <View style={{ flex: 1, marginLeft: 10 }}>
                 <Text style={{ color: areaInfo?.color, fontSize: 12, fontWeight: "600" }}>
-                  Tema de la clase
+                  {isEFL ? "Class Topic" : "Tema de la clase"}
                 </Text>
                 <Text className="text-base font-bold text-foreground mt-1">
                   {tema.titulo}
@@ -129,30 +130,30 @@ export default function VerPlanScreen() {
         )}
 
         {/* Datos informativos */}
-        <SectionCard title="Datos Informativos" emoji={"\u2139\uFE0F"} colors={colors}>
-          <DataRow label="Institución" value={plan.institucion || "\u2014"} colors={colors} />
-          <DataRow label="Docente" value={plan.docente} colors={colors} />
-          <DataRow label="Grado / Curso" value={plan.grado} colors={colors} />
-          <DataRow label="Asignatura" value={plan.asignatura} colors={colors} />
-          <DataRow label="Fecha" value={plan.fecha} colors={colors} />
-          <DataRow label="Períodos" value={plan.periodos} colors={colors} />
+        <SectionCard title={isEFL ? "General Information" : "Datos Informativos"} emoji={"\u2139\uFE0F"} colors={colors}>
+          <DataRow label={isEFL ? "Institution" : "Institución"} value={plan.institucion || "\u2014"} colors={colors} />
+          <DataRow label={isEFL ? "Teacher" : "Docente"} value={plan.docente} colors={colors} />
+          <DataRow label={isEFL ? "Grade / Level" : "Grado / Curso"} value={plan.grado} colors={colors} />
+          <DataRow label={isEFL ? "Subject" : "Asignatura"} value={plan.asignatura} colors={colors} />
+          <DataRow label={isEFL ? "Date" : "Fecha"} value={plan.fecha} colors={colors} />
+          <DataRow label={isEFL ? "Periods" : "Períodos"} value={plan.periodos} colors={colors} />
         </SectionCard>
 
         {/* Destreza */}
-        <SectionCard title="Destreza con Criterio de Desempeño" emoji={"\u2B50"} colors={colors}>
+        <SectionCard title={isEFL ? "Performance Criteria Skill" : "Destreza con Criterio de Desempeño"} emoji={"\u2B50"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
             {plan.destreza.descripcion}
           </Text>
           <View style={[styles.metaRow, { marginTop: 10 }]}>
             <Text className="text-xs text-muted">
-              Subnivel: {SUBNIVEL_NAMES[plan.destreza.subnivel]} | Bloque: {obtenerNombreBloque(plan.destreza.area, plan.destreza.bloque)}
+              {isEFL ? "Sublevel" : "Subnivel"}: {SUBNIVEL_NAMES[plan.destreza.subnivel]} | {isEFL ? "Block" : "Bloque"}: {obtenerNombreBloque(plan.destreza.area, plan.destreza.bloque)}
             </Text>
           </View>
         </SectionCard>
 
         {/* Objetivo */}
-        <SectionCard title="Objetivo de Aprendizaje" emoji={"\uD83C\uDFAF"} colors={colors}>
+        <SectionCard title={isEFL ? "Learning Objective" : "Objetivo de Aprendizaje"} emoji={"\uD83C\uDFAF"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.objetivoAprendizaje}
           </Text>
@@ -167,33 +168,33 @@ export default function VerPlanScreen() {
                 className="text-base font-semibold text-foreground"
                 style={{ marginLeft: 8 }}
               >
-                Estructura de la Clase - ERCA (45 min)
+                {isEFL ? "Class Structure - ERCA (45 min)" : "Estructura de la Clase - ERCA (45 min)"}
               </Text>
             </View>
 
             <FaseCardView
-              label="Experiencia"
+              label={isEFL ? "Experience" : "Experiencia"}
               fase={tema.estructura.experiencia}
               color="#2980B9"
               emoji={"\uD83D\uDCA1"}
               colors={colors}
             />
             <FaseCardView
-              label="Reflexi\u00f3n"
+              label={isEFL ? "Reflection" : "Reflexi\u00f3n"}
               fase={tema.estructura.reflexion}
               color="#8E44AD"
               emoji={"\uD83E\uDD14"}
               colors={colors}
             />
             <FaseCardView
-              label="Conceptualizaci\u00f3n"
+              label={isEFL ? "Conceptualization" : "Conceptualizaci\u00f3n"}
               fase={tema.estructura.conceptualizacion}
               color="#27AE60"
               emoji={"\uD83D\uDCDA"}
               colors={colors}
             />
             <FaseCardView
-              label="Aplicaci\u00f3n"
+              label={isEFL ? "Application" : "Aplicaci\u00f3n"}
               fase={tema.estructura.aplicacion}
               color="#E67E22"
               emoji={"\u2705"}
@@ -203,28 +204,28 @@ export default function VerPlanScreen() {
         )}
 
         {/* Actividades */}
-        <SectionCard title="Actividades de Aprendizaje" emoji={"\uD83D\uDCCB"} colors={colors}>
+        <SectionCard title={isEFL ? "Learning Activities" : "Actividades de Aprendizaje"} emoji={"\uD83D\uDCCB"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.actividades}
           </Text>
         </SectionCard>
 
         {/* Recursos */}
-        <SectionCard title="Recursos Didácticos" emoji={"\uD83D\uDCE6"} colors={colors}>
+        <SectionCard title={isEFL ? "Teaching Resources" : "Recursos Didácticos"} emoji={"\uD83D\uDCE6"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.recursos}
           </Text>
         </SectionCard>
 
         {/* Evaluacion */}
-        <SectionCard title="Indicadores de Evaluación" emoji={"\uD83D\uDCCA"} colors={colors}>
+        <SectionCard title={isEFL ? "Assessment Indicators" : "Indicadores de Evaluación"} emoji={"\uD83D\uDCCA"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.evaluacion}
           </Text>
         </SectionCard>
 
         {/* Tecnicas */}
-        <SectionCard title="Técnicas e Instrumentos" emoji={"\u2611\uFE0F"} colors={colors}>
+        <SectionCard title={isEFL ? "Techniques and Instruments" : "Técnicas e Instrumentos"} emoji={"\u2611\uFE0F"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {plan.tecnicasInstrumentos}
           </Text>
@@ -232,11 +233,11 @@ export default function VerPlanScreen() {
 
         {/* DUA */}
         {plan.dua && (plan.dua.representacion || plan.dua.accionExpresion || plan.dua.implicacion) ? (
-          <SectionCard title="Diseño Universal para el Aprendizaje (DUA)" emoji={"\u267F"} colors={colors}>
+          <SectionCard title={isEFL ? "Universal Design for Learning (UDL)" : "Diseño Universal para el Aprendizaje (DUA)"} emoji={"\u267F"} colors={colors}>
             {plan.dua.representacion ? (
               <View style={{ marginBottom: 12 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#2563EB", marginBottom: 4 }}>
-                  Principio 1: M{"ú"}ltiples formas de Representaci{"ó"}n
+                  {isEFL ? "Principle 1: Multiple Means of Representation" : `Principio 1: M${"ú"}ltiples formas de Representaci${"ó"}n`}
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.representacion}</Text>
               </View>
@@ -244,7 +245,7 @@ export default function VerPlanScreen() {
             {plan.dua.accionExpresion ? (
               <View style={{ marginBottom: 12 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#16A34A", marginBottom: 4 }}>
-                  Principio 2: M{"ú"}ltiples formas de Acci{"ó"}n y Expresi{"ó"}n
+                  {isEFL ? "Principle 2: Multiple Means of Action and Expression" : `Principio 2: M${"ú"}ltiples formas de Acci${"ó"}n y Expresi${"ó"}n`}
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.accionExpresion}</Text>
               </View>
@@ -252,7 +253,7 @@ export default function VerPlanScreen() {
             {plan.dua.implicacion ? (
               <View style={{ marginBottom: 0 }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: "#D97706", marginBottom: 4 }}>
-                  Principio 3: M{"ú"}ltiples formas de Implicaci{"ó"}n
+                  {isEFL ? "Principle 3: Multiple Means of Engagement" : `Principio 3: M${"ú"}ltiples formas de Implicaci${"ó"}n`}
                 </Text>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.implicacion}</Text>
               </View>
@@ -262,7 +263,7 @@ export default function VerPlanScreen() {
 
         {/* Observaciones */}
         {plan.observaciones ? (
-          <SectionCard title="Observaciones" emoji={"\uD83D\uDCCC"} colors={colors}>
+          <SectionCard title={isEFL ? "Observations" : "Observaciones"} emoji={"\uD83D\uDCCC"} colors={colors}>
             <Text className="text-sm text-foreground leading-5">
               {plan.observaciones}
             </Text>

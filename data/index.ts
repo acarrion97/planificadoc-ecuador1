@@ -15,7 +15,7 @@ import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
 
 export * from "./types";
 export { obtenerTemasSugeridos } from "./temas-sugeridos";
-export { obtenerEstrategiasDUA, obtenerEstrategiasGeneralesDUA, generarTextoDUA, DUA_PRINCIPIOS } from "./dua-estrategias";
+export { obtenerEstrategiasDUA, obtenerEstrategiasGeneralesDUA, generarTextoDUA, DUA_PRINCIPIOS, DUA_PRINCIPIOS_EN } from "./dua-estrategias";
 export type { DUAPlanificacion } from "./dua-estrategias";
 
 export const TODAS_LAS_DESTREZAS: Destreza[] = [

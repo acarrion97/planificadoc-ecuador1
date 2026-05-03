@@ -1374,22 +1374,22 @@ const PLANTILLAS_INGLES: PlantillaActividades = {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        `Presentar una situación comunicativa en inglés relacionada con: ${desc}`,
-        "Activar conocimientos previos con preguntas en inglés sencillo.",
-        "Escuchar un audio o ver un video corto en inglés sobre el tema.",
-        "Presentar el objetivo de aprendizaje y el vocabulario clave.",
+        `Present a communicative situation in English related to: ${desc}`,
+        "Activate prior knowledge with simple English questions.",
+        "Listen to an audio clip or watch a short video in English about the topic.",
+        "Present the learning objective and key vocabulary.",
       ],
       [
-        `Plantear un juego de roles o simulación vinculada con: ${desc}`,
-        "Solicitar que compartan experiencias usando el vocabulario conocido.",
-        "Relacionar el tema con la cultura ecuatoriana (describir en inglés).",
-        "Compartir el objetivo comunicativo de la clase.",
+        `Set up a role-play or simulation linked to: ${desc}`,
+        "Ask students to share experiences using known vocabulary.",
+        "Connect the topic with Ecuadorian culture (describe in English).",
+        "Share the communicative objective of the lesson.",
       ],
       [
-        `Mostrar imágenes, realia o un video sobre: ${desc}`,
-        "Formular preguntas en inglés: What do you see? What do you think about...?",
-        "Conectar con experiencias personales de los estudiantes.",
-        "Anunciar el tema y la actividad comunicativa principal.",
+        `Show images, realia, or a video about: ${desc}`,
+        "Ask questions in English: What do you see? What do you think about...?",
+        "Connect with students' personal experiences.",
+        "Announce the topic and the main communicative activity.",
       ],
     ];
     return opciones[v % opciones.length];
@@ -1398,22 +1398,22 @@ const PLANTILLAS_INGLES: PlantillaActividades = {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        "Formular preguntas de análisis en inglés: What patterns do you notice?",
-        "Solicitar que comparen sus respuestas con las de otros compañeros.",
-        `Guiar la discusión sobre las estructuras lingüísticas usadas en: ${desc.substring(0, 50).toLowerCase()}...`,
-        "Registrar las estructuras y vocabulario clave en la pizarra.",
+        "Ask analytical questions in English: What patterns do you notice?",
+        "Have students compare their answers with their classmates.",
+        `Guide the discussion about the linguistic structures used in: ${desc.substring(0, 50).toLowerCase()}...`,
+        "Record key structures and vocabulary on the board.",
       ],
       [
-        "Organizar una discusión en parejas sobre el tema en inglés.",
-        "Analizar los errores comunes y estrategias de autocorrección.",
-        "Comparar diferentes formas de expresar la misma idea.",
-        "Identificar las estructuras gramaticales utilizadas.",
+        "Organize a pair discussion about the topic in English.",
+        "Analyze common errors and self-correction strategies.",
+        "Compare different ways to express the same idea.",
+        "Identify the grammatical structures used.",
       ],
       [
-        "Solicitar que expliquen con sus propias palabras en inglés lo aprendido.",
-        "Analizar colectivamente un texto modelo.",
-        "Formular preguntas: How can we say this differently?",
-        "Guiar hacia la identificación de patrones lingüísticos.",
+        "Ask students to explain in their own English words what they learned.",
+        "Analyze a model text collectively.",
+        "Ask questions: How can we say this differently?",
+        "Guide students toward identifying linguistic patterns.",
       ],
     ];
     return opciones[v % opciones.length];
@@ -1422,25 +1422,25 @@ const PLANTILLAS_INGLES: PlantillaActividades = {
     const desc = d.descripcion;
     const opciones: string[][] = [
       [
-        `Explicar la estructura lingüística o habilidad comunicativa: ${desc}`,
-        "Presentar ejemplos contextualizados de la estructura gramatical.",
-        "Realizar práctica controlada: completar oraciones, transformar frases.",
-        "Trabajar en el texto del estudiante: analizar textos modelo.",
-        "Formalizar las reglas gramaticales y vocabulario en el cuaderno.",
+        `Explain the linguistic structure or communicative skill: ${desc}`,
+        "Present contextualized examples of the grammatical structure.",
+        "Carry out controlled practice: complete sentences, transform phrases.",
+        "Work with the student textbook: analyze model texts.",
+        "Formalize grammar rules and vocabulary in the notebook.",
       ],
       [
-        `Presentar el contenido lingüístico: ${desc}`,
-        "Guiar la lectura comprensiva de un texto auténtico en inglés.",
-        "Explicar las funciones comunicativas y estructuras involucradas.",
-        "Solicitar que practiquen en parejas con diálogos guiados.",
-        "Resolver ejercicios de grammar y vocabulary.",
+        `Present the linguistic content: ${desc}`,
+        "Guide the reading comprehension of an authentic English text.",
+        "Explain the communicative functions and structures involved.",
+        "Have students practice in pairs with guided dialogues.",
+        "Solve grammar and vocabulary exercises.",
       ],
       [
-        `Introducir el contenido de forma estructurada: ${desc}`,
-        "Utilizar recursos audiovisuales auténticos en inglés.",
-        "Modelar la producción oral o escrita paso a paso.",
-        "Guiar la elaboración de un texto escrito en inglés.",
-        "Sintetizar las estructuras y vocabulario en un organizador gráfico.",
+        `Introduce the content in a structured way: ${desc}`,
+        "Use authentic audiovisual resources in English.",
+        "Model oral or written production step by step.",
+        "Guide the writing of a text in English.",
+        "Synthesize structures and vocabulary in a graphic organizer.",
       ],
     ];
     return opciones[v % opciones.length];
@@ -1448,35 +1448,35 @@ const PLANTILLAS_INGLES: PlantillaActividades = {
   aplicacion: (d, v) => {
     const opciones: string[][] = [
       [
-        "Asignar una actividad comunicativa en parejas o grupos.",
-        "Solicitar la producción de un texto escrito en inglés.",
-        "Socializar las producciones orales o escritas.",
-        "Formular preguntas de retroalimentación: How can we improve?",
-        "Asignar práctica de listening o reading para la próxima clase.",
+        "Assign a communicative activity in pairs or groups.",
+        "Request the production of a written text in English.",
+        "Share oral or written productions with the class.",
+        "Ask feedback questions: How can we improve?",
+        "Assign listening or reading practice for the next class.",
       ],
       [
-        "Proponer un proyecto comunicativo: presentación, póster, video en inglés.",
-        "Guiar la producción libre con apoyo de vocabulario y estructuras.",
-        "Organizar la presentación de trabajos en inglés.",
-        "Promover la reflexión intercultural.",
-        "Asignar proyecto de inglés para la próxima clase.",
+        "Propose a communicative project: presentation, poster, video in English.",
+        "Guide free production with vocabulary and structure support.",
+        "Organize the presentation of work in English.",
+        "Promote intercultural reflection.",
+        "Assign an English project for the next class.",
       ],
       [
-        "Asignar ejercicios de práctica comunicativa.",
-        "Organizar un juego de roles o simulación en inglés.",
-        "Solicitar que usen el inglés para describir su entorno ecuatoriano.",
-        "Realizar autoevaluación de la producción en inglés.",
-        "Asignar tarea de extensión con enfoque comunicativo.",
+        "Assign communicative practice exercises.",
+        "Organize a role-play or simulation in English.",
+        "Ask students to use English to describe their Ecuadorian environment.",
+        "Carry out self-assessment of English production.",
+        "Assign an extension task with a communicative focus.",
       ],
     ];
     return opciones[v % opciones.length];
   },
   recursos: (d, v) => {
-    const base = ["Texto del estudiante", "Cuaderno de trabajo", "Pizarra y marcadores"];
+    const base = ["Student textbook", "Workbook", "Whiteboard and markers"];
     const extras: string[][] = [
-      ["Audio y video en inglés", "Flashcards de vocabulario", "Diccionario inglés-español"],
-      ["Textos auténticos en inglés", "Material audiovisual", "Fichas de grammar"],
-      ["Canciones y podcasts en inglés", "Juegos de vocabulario", "Recursos digitales"],
+      ["English audio and video", "Vocabulary flashcards", "English-Spanish dictionary"],
+      ["Authentic English texts", "Audiovisual material", "Grammar worksheets"],
+      ["English songs and podcasts", "Vocabulary games", "Digital resources"],
     ];
     return [...base, ...extras[v % extras.length]];
   },
@@ -1646,6 +1646,33 @@ function generarEvaluacion(destreza: Destreza, variante: number): string {
   return instrumentos[variante % instrumentos.length].join("\n");
 }
 
+function generarEvaluacionEFL(destreza: Destreza, variante: number): string {
+  const indicador = destreza.indicadoresEvaluacion[0] || "Demonstrates understanding of the content covered.";
+  const criterio = destreza.criteriosEvaluacion[0] || "";
+
+  const instrumentos: string[][] = [
+    [
+      `Checklist with the following indicators:`,
+      `- ${indicador}`,
+      `- Actively participates in the proposed activities.`,
+      `- Applies what was learned in practical exercises.`,
+    ],
+    [
+      `Assessment rubric. Main criterion: ${criterio || indicador}`,
+      `Levels: Mastery (9-10) / Achievement (7-8) / Developing (5-6) / Beginning (< 5).`,
+      `Assessed: comprehension, application, and participation.`,
+    ],
+    [
+      `Direct observation and product review.`,
+      `Criterion: ${indicador}`,
+      `Technique: Oral feedback questions during and after the lesson.`,
+      `Instrument: Anecdotal record.`,
+    ],
+  ];
+
+  return instrumentos[variante % instrumentos.length].join("\n");
+}
+
 // ============================================================
 // FUNCIÓN PRINCIPAL
 // ============================================================
@@ -1663,6 +1690,7 @@ export function obtenerTemasSugeridos(destreza: Destreza): TemaSugerido[] {
 
     const titulo = generarTituloTema(destreza, variante);
     const descripcionBreve = generarDescripcionBreve(destreza, variante, bloque);
+    const isEFL = destreza.area === "EFL";
 
     temas.push({
       id: generarId(),
@@ -1671,28 +1699,28 @@ export function obtenerTemasSugeridos(destreza: Destreza): TemaSugerido[] {
       objetivoClase: destreza.objetivos[0] || destreza.descripcion,
       estructura: {
         experiencia: {
-          titulo: "Experiencia",
-          duracion: "10 minutos",
+          titulo: isEFL ? "Experience" : "Experiencia",
+          duracion: isEFL ? "10 minutes" : "10 minutos",
           actividades: plantilla.experiencia(destreza, v),
         },
         reflexion: {
-          titulo: "Reflexión",
-          duracion: "10 minutos",
+          titulo: isEFL ? "Reflection" : "Reflexión",
+          duracion: isEFL ? "10 minutes" : "10 minutos",
           actividades: plantilla.reflexion(destreza, v),
         },
         conceptualizacion: {
-          titulo: "Conceptualización",
-          duracion: "15 minutos",
+          titulo: isEFL ? "Conceptualization" : "Conceptualización",
+          duracion: isEFL ? "15 minutes" : "15 minutos",
           actividades: plantilla.conceptualizacion(destreza, v),
         },
         aplicacion: {
-          titulo: "Aplicación",
-          duracion: "10 minutos",
+          titulo: isEFL ? "Application" : "Aplicación",
+          duracion: isEFL ? "10 minutes" : "10 minutos",
           actividades: plantilla.aplicacion(destreza, v),
         },
       },
       recursos: plantilla.recursos(destreza, v),
-      evaluacionFormativa: generarEvaluacion(destreza, v),
+      evaluacionFormativa: isEFL ? generarEvaluacionEFL(destreza, v) : generarEvaluacion(destreza, v),
     });
   }
 
