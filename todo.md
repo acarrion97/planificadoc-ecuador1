@@ -121,4 +121,4 @@
 - [x] Bug: Al abrir Estudios Sociales no aparecen las destrezas en Google Chrome (reportado por usuario) - CORREGIDO: 36 descripciones corruptas de CS subnivel 4 limpiadas + ErrorBoundary agregado
 - [x] Revisar y limpiar descripciones corruptas en TODAS las materias - CORREGIDO: 44 descripciones (LL:24, M:18, ECA:1, CN:11 ya corregidas antes)
 - [x] Actualizar GitHub y Vercel con las correcciones de datos - Deploy exitoso ekviL9g6L
-- [ ] Modificar planificación de Inglés: todo el formato en inglés (tiempos de clase, recursos, DUA, estructura ERCA, etiquetas)
+- [x] Modificar planificación de Inglés: todo el formato en inglés (tiempos de clase, recursos, DUA, estructura ERCA, etiquetas) - 9 tests pasando
