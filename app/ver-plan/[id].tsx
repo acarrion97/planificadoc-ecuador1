@@ -4,7 +4,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
-import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido } from "@/data";
+import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido, INSERCIONES_CURRICULARES } from "@/data";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 
 export default function VerPlanScreen() {
@@ -230,6 +230,27 @@ export default function VerPlanScreen() {
             {plan.tecnicasInstrumentos}
           </Text>
         </SectionCard>
+
+        {/* Inserción Curricular */}
+        {plan.insercionCurricular ? (() => {
+          const ins = INSERCIONES_CURRICULARES.find(i => i.id === plan.insercionCurricular);
+          if (!ins) return null;
+          return (
+            <SectionCard title={isEFL ? "Curricular Insertion" : "Inserción Curricular"} emoji={"\uD83C\uDF10"} colors={colors}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <Text style={{ fontSize: 20 }}>{ins.emoji}</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 14, fontWeight: '700', color: colors.foreground }}>
+                    {isEFL ? ins.nameEN : ins.nombre}
+                  </Text>
+                  <Text style={{ fontSize: 12, color: colors.muted, marginTop: 2, lineHeight: 16 }}>
+                    {isEFL ? ins.descriptionEN : ins.descripcion}
+                  </Text>
+                </View>
+              </View>
+            </SectionCard>
+          );
+        })() : null}
 
         {/* DUA */}
         {plan.dua && (plan.dua.representacion || plan.dua.accionExpresion || plan.dua.implicacion) ? (

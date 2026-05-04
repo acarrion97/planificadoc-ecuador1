@@ -1,4 +1,5 @@
 import { Planificacion, AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
+import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 
 /**
  * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador
@@ -532,8 +533,15 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     ${recursosTexto}
   </div>
 
-  <!-- SECCIÓN 5: DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA) -->
-  <div class="seccion-titulo">${isEFL ? "5. Universal Design for Learning (UDL)" : "5. Diseño Universal para el Aprendizaje (DUA)"}</div>
+  <!-- SECCIÓN 5: INSERCIÓN CURRICULAR -->
+  ${(() => {
+    const ins = plan.insercionCurricular ? INSERCIONES_CURRICULARES.find(i => i.id === plan.insercionCurricular) : null;
+    if (!ins) return `<div class="seccion-titulo">${isEFL ? "5. Curricular Insertion (Cross-cutting Theme)" : "5. Inserci\u00f3n Curricular (Eje Transversal)"}</div><div class="recursos-box">${isEFL ? "Not specified" : "No especificada"}</div>`;
+    return `<div class="seccion-titulo">${isEFL ? "5. Curricular Insertion (Cross-cutting Theme)" : "5. Inserci\u00f3n Curricular (Eje Transversal)"}</div><div class="recursos-box"><strong>${ins.emoji} ${isEFL ? ins.nameEN : ins.nombre}</strong><br/><span style="font-size:11px;color:#555">${isEFL ? ins.descriptionEN : ins.descripcion}</span></div>`;
+  })()}
+
+  <!-- SECCIÓN 6: DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA) -->
+  <div class="seccion-titulo">${isEFL ? "6. Universal Design for Learning (UDL)" : "6. Diseño Universal para el Aprendizaje (DUA)"}</div>
   <div class="dua-container">
     <div class="dua-principio">
       <span class="dua-principio-titulo dua-p1">${isEFL ? "Principle 1: Multiple Means of Representation" : "Principio 1: Múltiples formas de Representación"}</span>
@@ -552,8 +560,8 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     </div>
   </div>
 
-  <!-- SECCIÓN 6: OBSERVACIONES -->
-  <div class="seccion-titulo">${isEFL ? "6. Observations" : "6. Observaciones"}</div>
+  <!-- SECCIÓN 7: OBSERVACIONES -->
+  <div class="seccion-titulo">${isEFL ? "7. Observations" : "7. Observaciones"}</div>
   <div class="observaciones">
     ${plan.observaciones || (isEFL ? "No additional observations." : "Sin observaciones adicionales.")}
   </div>

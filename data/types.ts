@@ -88,6 +88,7 @@ export interface Planificacion {
   evaluacion: string;
   tecnicasInstrumentos: string;
   observaciones: string;
+  insercionCurricular?: string;
   dua?: {
     representacion: string;
     accionExpresion: string;

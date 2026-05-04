@@ -17,6 +17,8 @@ export * from "./types";
 export { obtenerTemasSugeridos } from "./temas-sugeridos";
 export { obtenerEstrategiasDUA, obtenerEstrategiasGeneralesDUA, generarTextoDUA, DUA_PRINCIPIOS, DUA_PRINCIPIOS_EN } from "./dua-estrategias";
 export type { DUAPlanificacion } from "./dua-estrategias";
+export { INSERCIONES_CURRICULARES, obtenerInsercion, obtenerNombreInsercion } from "./inserciones-curriculares";
+export type { InsercionCurricular } from "./inserciones-curriculares";
 
 export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasMatematica,

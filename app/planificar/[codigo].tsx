@@ -27,6 +27,8 @@ import {
   generarTextoDUA,
   DUA_PRINCIPIOS,
   DUA_PRINCIPIOS_EN,
+  INSERCIONES_CURRICULARES,
+  obtenerNombreInsercion,
 } from "@/data";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 import { useAccess } from "@/lib/access-control";
@@ -124,6 +126,7 @@ export default function PlanificarScreen() {
   );
   const [tecnicas, setTecnicas] = useState(getSugerenciaTecnicas(destreza?.area === "EFL"));
   const [observaciones, setObservaciones] = useState("");
+  const [insercionCurricular, setInsercionCurricular] = useState<string | null>(null);
   const [duaRepresentacion, setDuaRepresentacion] = useState("");
   const [duaAccionExpresion, setDuaAccionExpresion] = useState("");
   const [duaImplicacion, setDuaImplicacion] = useState("");
@@ -249,6 +252,7 @@ export default function PlanificarScreen() {
       evaluacion: evaluacion.trim(),
       tecnicasInstrumentos: tecnicas.trim(),
       observaciones: observaciones.trim(),
+      insercionCurricular: insercionCurricular || undefined,
       dua: {
         representacion: duaRepresentacion.trim(),
         accionExpresion: duaAccionExpresion.trim(),
@@ -615,6 +619,52 @@ export default function PlanificarScreen() {
             multiline
             colors={colors}
           />
+
+          {/* ===== INSERCIONES CURRICULARES ===== */}
+          <SectionTitle title={isEFL ? "Curricular Insertion (Cross-cutting Theme)" : "Inserción Curricular (Eje Transversal)"} emoji={"\uD83C\uDF10"} colors={colors} />
+          <View className="px-5 mt-1 mb-2">
+            <Text className="text-xs text-muted mb-3">
+              {isEFL ? "Select the cross-cutting theme addressed in this lesson:" : "Selecciona el eje transversal que se aborda en esta clase:"}
+            </Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {INSERCIONES_CURRICULARES.map((ins) => {
+                const isSelected = insercionCurricular === ins.id;
+                return (
+                  <Pressable
+                    key={ins.id}
+                    onPress={() => setInsercionCurricular(isSelected ? null : ins.id)}
+                    style={({ pressed }) => [{
+                      paddingHorizontal: 12,
+                      paddingVertical: 8,
+                      borderRadius: 20,
+                      borderWidth: 1.5,
+                      borderColor: isSelected ? colors.primary : colors.border,
+                      backgroundColor: isSelected ? colors.primary + '15' : colors.surface,
+                      opacity: pressed ? 0.7 : 1,
+                    }]}
+                  >
+                    <Text style={{
+                      fontSize: 12,
+                      fontWeight: isSelected ? '700' : '500',
+                      color: isSelected ? colors.primary : colors.foreground,
+                    }}>
+                      {ins.emoji} {isEFL ? ins.nameEN : ins.nombreCorto}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+            {insercionCurricular && (
+              <View style={{ marginTop: 10, padding: 10, borderRadius: 8, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border }}>
+                <Text style={{ fontSize: 11, color: colors.muted, lineHeight: 16 }}>
+                  {isEFL
+                    ? INSERCIONES_CURRICULARES.find(i => i.id === insercionCurricular)?.descriptionEN
+                    : INSERCIONES_CURRICULARES.find(i => i.id === insercionCurricular)?.descripcion
+                  }
+                </Text>
+              </View>
+            )}
+          </View>
 
           {/* ===== SECCIÓN DUA ===== */}
           <SectionTitle title={isEFL ? "Universal Design for Learning (UDL)" : "Diseño Universal para el Aprendizaje (DUA)"} emoji={"\u267F"} colors={colors} />
