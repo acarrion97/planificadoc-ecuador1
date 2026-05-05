@@ -540,10 +540,10 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     ${(() => {
       const ids = plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : []);
       if (ids.length === 0) return isEFL ? "Not specified" : "No especificadas";
-      return ids.map((id: string) => {
+      return '<ul style="margin:0;padding-left:16px;">' + ids.map((id: string) => {
         const ins = INSERCIONES_CURRICULARES.find(i => i.id === id);
-        return ins ? `<span style="display:inline-block;background:#0a7ea4;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${ins.emoji} ${isEFL ? ins.nameEN : ins.nombreCorto}</span>` : '';
-      }).join('');
+        return ins ? `<li style="font-size:10px;margin-bottom:2px;">${isEFL ? ins.nameEN : ins.nombreCorto}</li>` : '';
+      }).join('') + '</ul>';
     })()}
   </div>
 
@@ -551,40 +551,48 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
   ${plan.competencias && plan.competencias.length > 0 ? `
   <div class="seccion-titulo">${isEFL ? "Competencies" : "Competencias"}</div>
   <div class="recursos-box">
+    <ul style="margin:0;padding-left:16px;">
     ${plan.competencias.map((id: string) => {
       const comp = COMPETENCIAS.find(c => c.id === id);
-      return comp ? `<span style="display:inline-block;background:#0a7ea4;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${comp.emoji} ${isEFL ? comp.nameEN : comp.nombreCorto}</span>` : '';
+      return comp ? `<li style="font-size:10px;margin-bottom:2px;">${isEFL ? comp.nameEN : comp.nombreCorto}</li>` : '';
     }).join('')}
+    </ul>
   </div>` : ''}
 
   <!-- SECCIÓN 5c: METODOLOGÍAS ACTIVAS -->
   ${plan.metodologiasActivas && plan.metodologiasActivas.length > 0 ? `
   <div class="seccion-titulo">${isEFL ? "Active Methodologies" : "Metodolog\u00edas Activas"}</div>
   <div class="recursos-box">
+    <ul style="margin:0;padding-left:16px;">
     ${plan.metodologiasActivas.map((id: string) => {
       const met = METODOLOGIAS_ACTIVAS.find(m => m.id === id);
-      return met ? `<span style="display:inline-block;background:#7C3AED;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${isEFL ? met.nameEN : met.nombre}</span>` : '';
+      return met ? `<li style="font-size:10px;margin-bottom:2px;">${isEFL ? met.nameEN : met.nombre}</li>` : '';
     }).join('')}
+    </ul>
   </div>` : ''}
 
   <!-- SECCIÓN 5d: TÉCNICAS DE EVALUACIÓN -->
   ${plan.tecnicasEvaluacionSeleccionadas && plan.tecnicasEvaluacionSeleccionadas.length > 0 ? `
   <div class="seccion-titulo">${isEFL ? "Assessment Techniques" : "T\u00e9cnicas e Instrumentos de Evaluaci\u00f3n"}</div>
   <div class="recursos-box">
+    <ul style="margin:0;padding-left:16px;">
     ${plan.tecnicasEvaluacionSeleccionadas.map((id: string) => {
       const tec = TECNICAS_EVALUACION.find(t => t.id === id);
-      return tec ? `<span style="display:inline-block;background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${isEFL ? tec.nameEN : tec.nombre}</span>` : '';
+      return tec ? `<li style="font-size:10px;margin-bottom:2px;">${isEFL ? tec.nameEN : tec.nombre}</li>` : '';
     }).join('')}
+    </ul>
   </div>` : ''}
 
   <!-- SECCIÓN 5e: ESTILOS DE APRENDIZAJE -->
   ${plan.estilosAprendizaje && plan.estilosAprendizaje.length > 0 ? `
   <div class="seccion-titulo">${isEFL ? "Learning Styles" : "Estilos de Aprendizaje"}</div>
   <div class="recursos-box">
+    <ul style="margin:0;padding-left:16px;">
     ${plan.estilosAprendizaje.map((id: string) => {
       const est = ESTILOS_APRENDIZAJE.find(e => e.id === id);
-      return est ? `<span style="display:inline-block;background:#D97706;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${est.emoji} ${isEFL ? est.nameEN : est.nombre}</span>` : '';
+      return est ? `<li style="font-size:10px;margin-bottom:2px;">${isEFL ? est.nameEN : est.nombre}</li>` : '';
     }).join('')}
+    </ul>
   </div>` : ''}
 
   <!-- SECCIÓN 6: DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA) -->

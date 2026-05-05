@@ -234,60 +234,75 @@ export default function VerPlanScreen() {
         {/* Inserciones Curriculares */}
         {(plan.insercionesCurriculares && plan.insercionesCurriculares.length > 0) || plan.insercionCurricular ? (
           <SectionCard title={isEFL ? "Curricular Insertions" : "Inserciones Curriculares"} emoji={"\uD83C\uDF10"} colors={colors}>
-            <Text className="text-sm text-foreground leading-5">
-              {(plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : [])).map((insId: string) => {
-                const ins = INSERCIONES_CURRICULARES.find(i => i.id === insId);
-                return ins ? (isEFL ? ins.nameEN : ins.nombreCorto) : '';
-              }).filter(Boolean).join(', ')}
-            </Text>
+            {(plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : [])).map((insId: string) => {
+              const ins = INSERCIONES_CURRICULARES.find(i => i.id === insId);
+              if (!ins) return null;
+              return (
+                <Text key={ins.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
+                  {"\u2022"} {isEFL ? ins.nameEN : ins.nombreCorto}
+                </Text>
+              );
+            })}
           </SectionCard>
         ) : null}
 
         {/* Competencias */}
         {plan.competencias && plan.competencias.length > 0 ? (
           <SectionCard title={isEFL ? "Competencies" : "Competencias"} emoji={"\uD83C\uDFAF"} colors={colors}>
-            <Text className="text-sm text-foreground leading-5">
-              {plan.competencias.map((compId: string) => {
-                const comp = COMPETENCIAS.find(c => c.id === compId);
-                return comp ? (isEFL ? comp.nameEN : comp.nombreCorto) : '';
-              }).filter(Boolean).join(', ')}
-            </Text>
+            {plan.competencias.map((compId: string) => {
+              const comp = COMPETENCIAS.find(c => c.id === compId);
+              if (!comp) return null;
+              return (
+                <Text key={comp.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
+                  {"\u2022"} {isEFL ? comp.nameEN : comp.nombreCorto}
+                </Text>
+              );
+            })}
           </SectionCard>
         ) : null}
 
         {/* Metodolog\u00edas Activas */}
         {plan.metodologiasActivas && plan.metodologiasActivas.length > 0 ? (
           <SectionCard title={isEFL ? "Active Methodologies" : "Metodolog\u00edas Activas"} emoji={"\uD83D\uDCA1"} colors={colors}>
-            <Text className="text-sm text-foreground leading-5">
-              {plan.metodologiasActivas.map((metId: string) => {
-                const met = METODOLOGIAS_ACTIVAS.find(m => m.id === metId);
-                return met ? (isEFL ? met.nameEN : met.nombre) : '';
-              }).filter(Boolean).join(', ')}
-            </Text>
+            {plan.metodologiasActivas.map((metId: string) => {
+              const met = METODOLOGIAS_ACTIVAS.find(m => m.id === metId);
+              if (!met) return null;
+              return (
+                <Text key={met.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
+                  {"\u2022"} {isEFL ? met.nameEN : met.nombre}
+                </Text>
+              );
+            })}
           </SectionCard>
         ) : null}
 
         {/* T\u00e9cnicas de Evaluaci\u00f3n Seleccionadas */}
         {plan.tecnicasEvaluacionSeleccionadas && plan.tecnicasEvaluacionSeleccionadas.length > 0 ? (
           <SectionCard title={isEFL ? "Assessment Techniques" : "T\u00e9cnicas de Evaluaci\u00f3n"} emoji={"\uD83D\uDCCB"} colors={colors}>
-            <Text className="text-sm text-foreground leading-5">
-              {plan.tecnicasEvaluacionSeleccionadas.map((tecId: string) => {
-                const tec = TECNICAS_EVALUACION.find(t => t.id === tecId);
-                return tec ? (isEFL ? tec.nameEN : tec.nombre) : '';
-              }).filter(Boolean).join(', ')}
-            </Text>
+            {plan.tecnicasEvaluacionSeleccionadas.map((tecId: string) => {
+              const tec = TECNICAS_EVALUACION.find(t => t.id === tecId);
+              if (!tec) return null;
+              return (
+                <Text key={tec.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
+                  {"\u2022"} {isEFL ? tec.nameEN : tec.nombre}
+                </Text>
+              );
+            })}
           </SectionCard>
         ) : null}
 
         {/* Estilos de Aprendizaje */}
         {plan.estilosAprendizaje && plan.estilosAprendizaje.length > 0 ? (
           <SectionCard title={isEFL ? "Learning Styles" : "Estilos de Aprendizaje"} emoji={"\uD83E\uDDE0"} colors={colors}>
-            <Text className="text-sm text-foreground leading-5">
-              {plan.estilosAprendizaje.map((estId: string) => {
-                const est = ESTILOS_APRENDIZAJE.find(e => e.id === estId);
-                return est ? (isEFL ? est.nameEN : est.nombre) : '';
-              }).filter(Boolean).join(', ')}
-            </Text>
+            {plan.estilosAprendizaje.map((estId: string) => {
+              const est = ESTILOS_APRENDIZAJE.find(e => e.id === estId);
+              if (!est) return null;
+              return (
+                <Text key={est.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
+                  {"\u2022"} {isEFL ? est.nameEN : est.nombre}
+                </Text>
+              );
+            })}
           </SectionCard>
         ) : null}
 
