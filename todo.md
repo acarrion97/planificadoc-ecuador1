@@ -140,3 +140,11 @@
 - [x] Ejecutar tests y corregir errores (112 tests pasando)
 - [ ] Commit, push a GitHub y verificar deploy en Vercel
 - [x] Agregar banner en página principal: "Ingresar a grupo exclusivo de WhatsApp" con enlace https://chat.whatsapp.com/Kx4DtAkSVW4A1SM5xQUIyj?mode=gi_t
+- [x] Bug: Objetivos, destrezas e indicadores solo muestran iniciales/códigos en vez de descripción completa
+- [x] Completar objetivos reales del currículo priorizado para todas las destrezas
+- [x] Completar criterios de evaluación reales para todas las destrezas
+- [x] Completar indicadores de evaluación reales para todas las destrezas
+- [x] Cambiar estilo de secciones con chips a texto simple en vista de plan (consistente con el resto de la app)
+- [x] Descargar PDFs del currículo priorizado para Elemental, Superior y Bachillerato
+- [x] Extraer objetivos, criterios e indicadores reales de TODOS los subniveles del currículo priorizado
+- [x] Actualizar archivos de destrezas con datos reales del currículo priorizado (1652 destrezas: 559 objetivos, 1020 criterios, 985 indicadores actualizados)

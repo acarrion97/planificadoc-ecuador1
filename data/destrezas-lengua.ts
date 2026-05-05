@@ -11,8 +11,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Distinguir la intención comunicativa (persuadir, expresar emociones, informar, requerir, etc.) que tienen diversos textos de uso cotidiano desde el análisis del propósito de su contenido.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.1. Diferencia la intención comunicativa de diversos textos de uso cotidiano (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) y expresa con honestidad, opiniones valorativas sobre la utilidad de su información."],
+    indicadoresEvaluacion: ["I.LL.2.1.1. Reconoce el uso de textos escritos (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) en la vida cotidiana, identifica su intención comunicativa y emite opiniones valorativas sobre la utilidad de su información. (J.2., I.3.)"],
   },
   {
     codigo: "LL.2.1.2",
@@ -22,8 +22,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Emitir, con honestidad, opiniones valorativas sobre la utilidad de la información contenida en textos de uso cotidiano en diferentes situaciones comunicativas.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.1. Diferencia la intención comunicativa de diversos textos de uso cotidiano (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) y expresa con honestidad, opiniones valorativas sobre la utilidad de su información."],
+    indicadoresEvaluacion: ["I.LL.2.1.1. Reconoce el uso de textos escritos (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) en la vida cotidiana, identifica su intención comunicativa y emite opiniones valorativas sobre la utilidad de su información. (J.2., I.3.)"],
   },
   {
     codigo: "LL.2.1.3",
@@ -33,8 +33,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Reconocer palabras y expresiones propias de las lenguas originarias y/o variedades lingüísticas del Ecuador, en diferentes tipos de textos de uso cotidiano, e indagar sobre sus significados en el contexto de la interculturalidad y pluriculturalidad.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.1. Diferencia la intención comunicativa de diversos textos de uso cotidiano (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) y expresa con honestidad, opiniones valorativas sobre la utilidad de su información."],
+    indicadoresEvaluacion: ["I.LL.2.1.1. Reconoce el uso de textos escritos (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) en la vida cotidiana, identifica su intención comunicativa y emite opiniones valorativas sobre la utilidad de su información. (J.2., I.3.)"],
   },
   {
     codigo: "LL.2.1.4",
@@ -44,8 +44,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Indagar sobre los dialectos del castellano en el país.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.1. Diferencia la intención comunicativa de diversos textos de uso cotidiano (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) y expresa con honestidad, opiniones valorativas sobre la utilidad de su información."],
+    indicadoresEvaluacion: ["I.LL.2.1.1. Reconoce el uso de textos escritos (periódicos, revistas, correspondencia, publicidad, campañas sociales, etc.) en la vida cotidiana, identifica su intención comunicativa y emite opiniones valorativas sobre la utilidad de su información. (J.2., I.3.)"],
   },
   // Bloque 2: Comunicación oral
   {
@@ -56,8 +56,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Identifica el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador e indaga sobre los dialectos del castellano en el país. (I.2., I.3.).",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.2. Distingue y busca conocer el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país."],
+    indicadoresEvaluacion: ["I.LL.2.2.1. Identifica el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país. (I.2., I.3.)"],
   },
   {
     codigo: "LL.2.2.2",
@@ -67,8 +67,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Dialogar con capacidad para escuchar, mantener el tema e intercambiar ideas en situaciones informales de la vida cotidiana.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.2. Distingue y busca conocer el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país."],
+    indicadoresEvaluacion: ["I.LL.2.2.1. Identifica el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país. (I.2., I.3.)"],
   },
   {
     codigo: "LL.2.2.3",
@@ -78,8 +78,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Usar las pautas básicas de la comunicación oral (turnos en la conversación, ceder la palabra, contacto visual, escucha activa) y emplear el vocabulario acorde con la situación comunicativa.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.2. Distingue y busca conocer el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país."],
+    indicadoresEvaluacion: ["I.LL.2.2.1. Identifica el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país. (I.2., I.3.)"],
   },
   {
     codigo: "LL.2.2.4",
@@ -89,8 +89,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Reflexionar sobre la expresión oral con uso de la conciencia lingüística (léxica, semántica y sintáctica) en contextos cotidianos.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.2. Distingue y busca conocer el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país."],
+    indicadoresEvaluacion: ["I.LL.2.2.1. Identifica el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país. (I.2., I.3.)"],
   },
   {
     codigo: "LL.2.2.5",
@@ -100,8 +100,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Realizar exposiciones orales sobre temas de interés personal y grupal en el contexto escolar. Realiza exposiciones orales, adecuadas al contexto escolar, sobre temas de interés personal y grupal. (Ref.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.2. Distingue y busca conocer el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país."],
+    indicadoresEvaluacion: ["I.LL.2.2.1. Identifica el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país. (I.2., I.3.)"],
   },
   {
     codigo: "LL.2.2.7",
@@ -111,8 +111,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Indagar diferentes medios de transporte sostenibles (bicicleta, scooters, patinetes, transporte público, tranvías y metros, vehículos eléctricos e híbridos y caminar) y exponer oralmente sus beneficios para el medio ambiente.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.2. Distingue y busca conocer el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país."],
+    indicadoresEvaluacion: ["I.LL.2.2.1. Identifica el significado de palabras y expresiones de las lenguas originarias y/o variedades lingüísticas del Ecuador, e indaga sobre los dialectos del castellano en el país. (I.2., I.3.)"],
   },
   // Bloque 3: Lectura
   {
@@ -123,8 +123,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Construir los significados de un texto a partir del establecimiento de relaciones de semejanza, diferencia, objeto-atributo, antecedente-consecuente, secuencia temporal, problema-solución, concepto-ejemplo.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.2",
@@ -134,8 +134,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Comprender los contenidos implícitos de un texto basándose en inferencias espacio-temporales, referenciales y de causa-efecto.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.3",
@@ -145,8 +145,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Ampliar la comprensión de un texto mediante la identificación de los significados de las palabras, utilizando las estrategias de derivación (familia de palabras), sinonimia-antonimia, contextualización, prefijos y sufijos y etimología.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.5",
@@ -156,8 +156,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Desarrollar estrategias cognitivas como lectura de paratextos, establecimiento del propósito de lectura, relectura, relectura selectiva y parafraseo para autorregular la comprensión de textos. 18.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.6",
@@ -167,8 +167,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Construir criterios, opiniones y emitir juicios sobre el contenido de un texto al distinguir realidad y ficción, hechos, datos y opiniones.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.7",
@@ -178,8 +178,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Enriquecer las ideas e indagar sobre temas de interés mediante la consulta de diccionarios, textos escolares, enciclopedias y otros recursos de la biblioteca y la web.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.8",
@@ -189,8 +189,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 8,
     descripcion: "Aplicar los conocimientos lingüísticos (semánticos, sintácticos, léxicos y fonológicos) en la decodificación y comprensión de textos.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.10",
@@ -200,8 +200,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 10,
     descripcion: "Leer de manera silenciosa y personal en situaciones de recreación, información y estudio.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.3.11",
@@ -211,8 +211,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 11,
     descripcion: "Elegir, de una selección previa realizada por el docente, textos de la biblioteca de aula, de la escuela y de la web que satisfagan sus necesidades personales, de recreación, información y aprendizaje.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.3. Dialoga, demostrando capacidad de escucha, manteniendo el tema de conversación, expresando ideas, experiencias y necesidades con un vocabulario pertinente y siguiendo las pautas básicas de la comunicación oral, a partir de una reflexión sobre la expresión oral con uso de la conciencia lingüística."],
+    indicadoresEvaluacion: ["I.LL.2.3.1. Muestra capacidad de escucha al mantener el tema de conversación e intercambiar ideas, y sigue las pautas básicas de la comunicación oral. (I.3., I.4.)"],
   },
   // Bloque 4: Escritura
   {
@@ -223,8 +223,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Desarrollar progresivamente autonomía y calidad en el proceso de escritura de relatos de experiencias personales, hechos cotidianos u otros sucesos y acontecimientos de interés, y de descripciones de objetos, animales, lugares y personas.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.4. Compone y recrea textos literarios, desde la experiencia personal, de otros y de la valoración de textos literarios."],
+    indicadoresEvaluacion: ["I.LL.2.4.1. Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (J.4., I.3.)"],
   },
   {
     codigo: "LL.2.4.2",
@@ -234,8 +234,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Aplicar estrategias de pensamiento (ampliación de ideas, secuencia lógica, selección, ordenación y jerarquización de ideas, uso de organizadores gráficos, entre otras) en la escritura de relatos de experiencias personales, hechos cotidianos u otros sucesos y acontecimientos de interés, y en las desc.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.4. Compone y recrea textos literarios, desde la experiencia personal, de otros y de la valoración de textos literarios."],
+    indicadoresEvaluacion: ["I.LL.2.4.1. Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (J.4., I.3.)"],
   },
   {
     codigo: "LL.2.4.3",
@@ -245,8 +245,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Redactar, en situaciones comunicativas que lo requieran, narraciones de experiencias personales, hechos cotidianos u otros sucesos o acontecimientos de interés, ordenándolos cronológicamente y enlazándolos por medio de conectores temporales y aditivos.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.4. Compone y recrea textos literarios, desde la experiencia personal, de otros y de la valoración de textos literarios."],
+    indicadoresEvaluacion: ["I.LL.2.4.1. Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (J.4., I.3.)"],
   },
   {
     codigo: "LL.2.4.4",
@@ -256,8 +256,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Escribir descripciones de objetos, animales, lugares y personas ordenando las ideas según una secuencia lógica, por temas y subtemas, por medio de conectores consecutivos, atributos, adjetivos calificativos y posesivos, en situaciones comunicativas que lo requieran.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.4. Compone y recrea textos literarios, desde la experiencia personal, de otros y de la valoración de textos literarios."],
+    indicadoresEvaluacion: ["I.LL.2.4.1. Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (J.4., I.3.)"],
   },
   {
     codigo: "LL.2.4.7",
@@ -267,8 +267,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Aplicar progresivamente las reglas de escritura mediante la reflexión fonológica en la escritura ortográfica de fonemas que tienen una, dos y tres representaciones gráficas, la letra que representa los sonidos /ks/: “x”, la letra que no tiene sonido: “h” y la letra “w” que tiene escaso uso en castel.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.4. Compone y recrea textos literarios, desde la experiencia personal, de otros y de la valoración de textos literarios."],
+    indicadoresEvaluacion: ["I.LL.2.4.1. Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (J.4., I.3.)"],
   },
   // Bloque 5: Literatura
   {
@@ -279,8 +279,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Escuchar y leer diversos géneros literarios (privilegiando textos ecuatorianos, populares y de autor), para potenciar la imaginación, la curiosidad y la memoria.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.5. Comprende contenidos implícitos y explícitos, emite criterios, opiniones y juicios de valor sobre textos literarios y no literarios, mediante el uso de diferentes estrategias para construir significados."],
+    indicadoresEvaluacion: ["I.LL.2.5.1. Construye los significados de un texto a partir del establecimiento de relaciones de semejanza-diferencia, objeto-atributo, antecedente-consecuente, secuencia temporal, problema-solución, concepto-ejemplo, al comprender los contenidos explícitos e implícitos de un texto. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.5.2",
@@ -290,8 +290,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Escuchar y leer diversos géneros literarios (privilegiando textos ecuatorianos, populares y de autor), para desarrollar preferencias en el gusto literario y generar autonomía en la lectura.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.5. Comprende contenidos implícitos y explícitos, emite criterios, opiniones y juicios de valor sobre textos literarios y no literarios, mediante el uso de diferentes estrategias para construir significados."],
+    indicadoresEvaluacion: ["I.LL.2.5.1. Construye los significados de un texto a partir del establecimiento de relaciones de semejanza-diferencia, objeto-atributo, antecedente-consecuente, secuencia temporal, problema-solución, concepto-ejemplo, al comprender los contenidos explícitos e implícitos de un texto. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.5.3",
@@ -301,8 +301,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Recrear textos literarios con nuevas versiones de escenas, personajes u otros elementos.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.5. Comprende contenidos implícitos y explícitos, emite criterios, opiniones y juicios de valor sobre textos literarios y no literarios, mediante el uso de diferentes estrategias para construir significados."],
+    indicadoresEvaluacion: ["I.LL.2.5.1. Construye los significados de un texto a partir del establecimiento de relaciones de semejanza-diferencia, objeto-atributo, antecedente-consecuente, secuencia temporal, problema-solución, concepto-ejemplo, al comprender los contenidos explícitos e implícitos de un texto. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.5.4",
@@ -312,8 +312,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Explorar y motivar la escritura creativa al interactuar de manera lúdica con textos literarios leídos o escuchados.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.5. Comprende contenidos implícitos y explícitos, emite criterios, opiniones y juicios de valor sobre textos literarios y no literarios, mediante el uso de diferentes estrategias para construir significados."],
+    indicadoresEvaluacion: ["I.LL.2.5.1. Construye los significados de un texto a partir del establecimiento de relaciones de semejanza-diferencia, objeto-atributo, antecedente-consecuente, secuencia temporal, problema-solución, concepto-ejemplo, al comprender los contenidos explícitos e implícitos de un texto. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.5.5",
@@ -323,8 +323,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Recrear textos literarios leídos o escuchados (privilegiando textos ecuatorianos, populares y de autor) con diversos medios y recursos (incluidas las TIC).",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.5. Comprende contenidos implícitos y explícitos, emite criterios, opiniones y juicios de valor sobre textos literarios y no literarios, mediante el uso de diferentes estrategias para construir significados."],
+    indicadoresEvaluacion: ["I.LL.2.5.1. Construye los significados de un texto a partir del establecimiento de relaciones de semejanza-diferencia, objeto-atributo, antecedente-consecuente, secuencia temporal, problema-solución, concepto-ejemplo, al comprender los contenidos explícitos e implícitos de un texto. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.5.6",
@@ -334,8 +334,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Crear cuentos o historias sobre animales de la Amazonía en peligro de extinción, expresando sus preocupaciones y desarrollando empatía hacia la fauna de la Amazonía. 21 8.2. Ciencias Naturales Área del conocimiento/asignatura: Ciencias Naturales Objetivos del área por subnivel O.CN.2.1.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.5. Comprende contenidos implícitos y explícitos, emite criterios, opiniones y juicios de valor sobre textos literarios y no literarios, mediante el uso de diferentes estrategias para construir significados."],
+    indicadoresEvaluacion: ["I.LL.2.5.1. Construye los significados de un texto a partir del establecimiento de relaciones de semejanza-diferencia, objeto-atributo, antecedente-consecuente, secuencia temporal, problema-solución, concepto-ejemplo, al comprender los contenidos explícitos e implícitos de un texto. (I.3., I.4.)"],
   },
   // Bloque 6: Bloque 6
   {
@@ -346,8 +346,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Aplicar los conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo oralmente con fluidez y entonación en contextos significativos de aprendizaje.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.6. Aplica conocimientos lingüísticos en la decodificación y comprensión de textos, leyendo oralmente con fluidez y entonación en contextos significativos de aprendizaje y de manera silenciosa y personal en situaciones de recreación, información y estudio."],
+    indicadoresEvaluacion: ["I.LL.2.6.1. Aplica los conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos. (I.3., I.4.)"],
   },
   // Bloque 7: Bloque 7
   {
@@ -358,8 +358,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Escoge, de una selección previa realizada por el docente, textos de la biblioteca del aula, de la escuela y de la web que satisfagan sus necesidades personales, de recreación, información y aprendizaje.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.7. Escoge, de una selección previa realizada por el docente, textos de la biblioteca del aula, de la escuela y de la web y los consulta para satisfacer sus necesidades personales, de recreación, información y aprendizaje, enriqueciendo sus ideas e indagando sobre temas de interés."],
+    indicadoresEvaluacion: ["I.LL.2.7.1. Escoge, de una selección previa realizada por el docente, textos de la biblioteca del aula, de la escuela y de la web que satisfacen sus necesidades personales, de recreación, información y aprendizaje. (J.4., I.2.)"],
   },
   // Bloque 8: Bloque 8
   {
@@ -370,8 +370,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Aplicar los conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.8. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.8.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.8. Aplica el proceso de escritura en la producción de textos narrativos y descriptivos, usando estrategias y procesos de pensamiento; los apoya y enriquece con paratextos y recursos de las TIC, y cita fuentes cuando sea el caso."],
+    indicadoresEvaluacion: ["I.LL.2.8.1. Aplica el proceso de escritura en la producción de textos narrativos (relatos escritos de experiencias personales, hechos cotidianos u otros sucesos y acontecimientos de interés), usando estrategias y procesos de pensamiento. (I.1., I.3.)"],
   },
   {
     codigo: "LL.2.8.2",
@@ -381,8 +381,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Aplicar los conocimientos lingüísticos en la producción de textos orales y escritos.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.8. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.8.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.8. Aplica el proceso de escritura en la producción de textos narrativos y descriptivos, usando estrategias y procesos de pensamiento; los apoya y enriquece con paratextos y recursos de las TIC, y cita fuentes cuando sea el caso."],
+    indicadoresEvaluacion: ["I.LL.2.8.1. Aplica el proceso de escritura en la producción de textos narrativos (relatos escritos de experiencias personales, hechos cotidianos u otros sucesos y acontecimientos de interés), usando estrategias y procesos de pensamiento. (I.1., I.3.)"],
   },
   // Bloque 9: Bloque 9
   {
@@ -393,8 +393,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Comprender los contenidos explícitos e implícitos de un texto al registrar la información en tablas, gráficos, cuadros y otros organizadores gráficos sencillos.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.9. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.9.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.9. Utiliza elementos de la lengua apropiados para diferentes tipos de textos narrativos y descriptivos; emplea una diversidad de formatos, recursos y materiales para comunicar ideas con eficiencia."],
+    indicadoresEvaluacion: ["I.LL.2.9.1. Escribe diferentes tipos de textos narrativos (relatos escritos de experiencias personales, hechos cotidianos u otros sucesos y acontecimientos de interés) y descriptivos (de objetos, animales, lugares y personas); ordena las ideas cronológicamente mediante conectores temporales y aditivos. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.9.2",
@@ -404,8 +404,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Aplica progresivamente las reglas de escritura mediante la reflexión fonológica en la escritura ortográfica de fonemas que tienen dos y tres representaciones gráficas; la letra formada por dos sonidos /ks/: “x”, la letra que no tiene sonido: “h” y la letra “w” que tiene escaso uso en castellano. (I.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.9. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.9.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.9. Utiliza elementos de la lengua apropiados para diferentes tipos de textos narrativos y descriptivos; emplea una diversidad de formatos, recursos y materiales para comunicar ideas con eficiencia."],
+    indicadoresEvaluacion: ["I.LL.2.9.1. Escribe diferentes tipos de textos narrativos (relatos escritos de experiencias personales, hechos cotidianos u otros sucesos y acontecimientos de interés) y descriptivos (de objetos, animales, lugares y personas); ordena las ideas cronológicamente mediante conectores temporales y aditivos. (I.3., I.4.)"],
   },
   {
     codigo: "LL.2.9.3",
@@ -415,8 +415,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Enriquecer las ideas e indagar sobre temas de interés mediante actividades de lectura libre.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.9. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.9.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.9. Utiliza elementos de la lengua apropiados para diferentes tipos de textos narrativos y descriptivos; emplea una diversidad de formatos, recursos y materiales para comunicar ideas con eficiencia."],
+    indicadoresEvaluacion: ["I.LL.2.9.1. Escribe diferentes tipos de textos narrativos (relatos escritos de experiencias personales, hechos cotidianos u otros sucesos y acontecimientos de interés) y descriptivos (de objetos, animales, lugares y personas); ordena las ideas cronológicamente mediante conectores temporales y aditivos. (I.3., I.4.)"],
   },
   // Bloque 10: Bloque 10
   {
@@ -427,8 +427,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Escucha y lee diversos géneros literarios (textos populares y de autores ecuatorianos) como medio para potenciar la imaginación, la curiosidad, la memoria, de manera que desarrolla preferencias en el gusto literario y adquiere autonomía en la lectura. (I.1., I.3.",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.10. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.10.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.10. Construye criterios, opiniones y emite juicios acerca del contenido de un texto, al distinguir realidad y ficción, hechos, datos y opiniones, y desarrolla estrategias cognitivas como lectura de paratextos, establecimiento del propósito de lectura, relectura, relectura selectiva, parafraseo y uso de organizadores gráficos, para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.2.10.1. Construye criterios, opiniones y emite juicios acerca del contenido de un texto, al distinguir realidad y ficción, hechos, datos y opiniones, y desarrolla estrategias cognitivas como lectura de paratextos, establecimiento del propósito de lectura, relectura, relectura selectiva, parafraseo y uso de organizadores gráficos. (J.4., I.3.)"],
   },
   // Bloque 11: Bloque 11
   {
@@ -439,8 +439,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Recrea textos literarios (adivinanzas, trabalenguas, retahílas, nanas, rondas, villancicos, chistes, refranes, coplas, loas) con diversos medios y recursos (incluidas las TIC). (I.3., I.4.).",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.11. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.11.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.11. Produce y recrea textos literarios, de acuerdo con las características de los géneros y subgéneros literarios."],
+    indicadoresEvaluacion: ["I.LL.2.11.1. Recrea textos literarios (adivinanzas, trabalenguas, retahílas, nanas, rondas, villancicos, chistes, refranes, coplas, loas) con diversos medios y recursos (incluidas las TIC). (I.3., S.3.)"],
   },
   {
     codigo: "LL.2.11.2",
@@ -450,8 +450,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Escribe textos propios a partir de otros (cuentos, fábulas, poemas, leyendas, canciones) con nuevas versiones de escenas, personajes u otros elementos, con diversos medios y recursos (incluidas las TIC). (I.3., S.3.).",
     objetivos: ["O.LL.2. Valorar la diversidad lingüística y cultural del país mediante el conocimiento y uso de algunas palabras y frases de las lenguas originarias."],
-    criteriosEvaluacion: ["CE.LL.2.11. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.2.11.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.2.11. Produce y recrea textos literarios, de acuerdo con las características de los géneros y subgéneros literarios."],
+    indicadoresEvaluacion: ["I.LL.2.11.1. Recrea textos literarios (adivinanzas, trabalenguas, retahílas, nanas, rondas, villancicos, chistes, refranes, coplas, loas) con diversos medios y recursos (incluidas las TIC). (I.3., S.3.)"],
   },
   // === SUBNIVEL 3: BÁSICA MEDIA ===
   // Bloque 1: Lengua y cultura
@@ -463,8 +463,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Participar en contextos y situaciones que evidencien la funcionalidad de la lengua escrita como herramienta cultural.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.1. Distingue la función de transmisión cultural de la lengua, reconoce las influencias lingüísticas y culturales que explican los dialectos del castellano en el Ecuador e indaga sobre las características de los pueblos y nacionalidades del país que tienen otras lenguas."],
+    indicadoresEvaluacion: ["I.LL.3.1.1. Reconoce la funcionalidad de la lengua escrita como manifestación cultural y de identidad en diferentes contextos y situaciones, atendiendo a la diversidad lingüística del Ecuador. (I.3., S.2.)."],
   },
   {
     codigo: "LL.3.1.2",
@@ -474,8 +474,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Indagar sobre las influencias lingüísticas y culturales que explican los dialectos del castellano en el Ecuador.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.1. Distingue la función de transmisión cultural de la lengua, reconoce las influencias lingüísticas y culturales que explican los dialectos del castellano en el Ecuador e indaga sobre las características de los pueblos y nacionalidades del país que tienen otras lenguas."],
+    indicadoresEvaluacion: ["I.LL.3.1.1. Reconoce la funcionalidad de la lengua escrita como manifestación cultural y de identidad en diferentes contextos y situaciones, atendiendo a la diversidad lingüística del Ecuador. (I.3., S.2.)."],
   },
   {
     codigo: "LL.3.1.3",
@@ -485,8 +485,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Indagar sobre las características de los pueblos y nacionalidades del Ecuador que tienen otras lenguas.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.1. Distingue la función de transmisión cultural de la lengua, reconoce las influencias lingüísticas y culturales que explican los dialectos del castellano en el Ecuador e indaga sobre las características de los pueblos y nacionalidades del país que tienen otras lenguas."],
+    indicadoresEvaluacion: ["I.LL.3.1.1. Reconoce la funcionalidad de la lengua escrita como manifestación cultural y de identidad en diferentes contextos y situaciones, atendiendo a la diversidad lingüística del Ecuador. (I.3., S.2.)."],
   },
   // Bloque 2: Comunicación oral
   {
@@ -497,8 +497,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Escuchar discursos orales y formular juicios de valor con respecto a su contenido y forma, y participar de manera respetuosa frente a las intervenciones de los demás.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.2. Participa en situaciones comunicativas orales, escuchando de manera activa y mostrando respeto frente a las intervenciones de los demás en la búsqueda de acuerdos, organiza su discurso de acuerdo con las estructuras básicas de la lengua oral, reflexiona sobre los efectos del uso de estereotipos y prejuicios, adapta el vocabulario y se apoya en recursos y producciones audiovisuales, según las diversas situaciones comunicativas a las que se enfrente."],
+    indicadoresEvaluacion: ["I.LL.3.2.1. Escucha discursos orales (conversaciones, diálogos, narraciones, discusiones, entrevistas, exposiciones, presentaciones), parafrasea su contenido y participa de manera respetuosa frente a las intervenciones de los demás, buscando acuerdos en el debate de temas conflictivos. (J.3., S.1.)"],
   },
   {
     codigo: "LL.3.2.2",
@@ -508,8 +508,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Proponer intervenciones orales con una intención comunicativa, organizar el discurso según las estructuras básicas de la lengua oral y utilizar un vocabulario adecuado a diversas situaciones comunicativas.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.2. Participa en situaciones comunicativas orales, escuchando de manera activa y mostrando respeto frente a las intervenciones de los demás en la búsqueda de acuerdos, organiza su discurso de acuerdo con las estructuras básicas de la lengua oral, reflexiona sobre los efectos del uso de estereotipos y prejuicios, adapta el vocabulario y se apoya en recursos y producciones audiovisuales, según las diversas situaciones comunicativas a las que se enfrente."],
+    indicadoresEvaluacion: ["I.LL.3.2.1. Escucha discursos orales (conversaciones, diálogos, narraciones, discusiones, entrevistas, exposiciones, presentaciones), parafrasea su contenido y participa de manera respetuosa frente a las intervenciones de los demás, buscando acuerdos en el debate de temas conflictivos. (J.3., S.1.)"],
   },
   {
     codigo: "LL.3.2.3",
@@ -519,8 +519,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Apoyar el discurso con recursos y producciones audiovisuales.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.2. Participa en situaciones comunicativas orales, escuchando de manera activa y mostrando respeto frente a las intervenciones de los demás en la búsqueda de acuerdos, organiza su discurso de acuerdo con las estructuras básicas de la lengua oral, reflexiona sobre los efectos del uso de estereotipos y prejuicios, adapta el vocabulario y se apoya en recursos y producciones audiovisuales, según las diversas situaciones comunicativas a las que se enfrente."],
+    indicadoresEvaluacion: ["I.LL.3.2.1. Escucha discursos orales (conversaciones, diálogos, narraciones, discusiones, entrevistas, exposiciones, presentaciones), parafrasea su contenido y participa de manera respetuosa frente a las intervenciones de los demás, buscando acuerdos en el debate de temas conflictivos. (J.3., S.1.)"],
   },
   {
     codigo: "LL.3.2.4",
@@ -530,8 +530,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Reflexionar sobre los efectos del uso de estereotipos y prejuicios en la comunicación.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.2. Participa en situaciones comunicativas orales, escuchando de manera activa y mostrando respeto frente a las intervenciones de los demás en la búsqueda de acuerdos, organiza su discurso de acuerdo con las estructuras básicas de la lengua oral, reflexiona sobre los efectos del uso de estereotipos y prejuicios, adapta el vocabulario y se apoya en recursos y producciones audiovisuales, según las diversas situaciones comunicativas a las que se enfrente."],
+    indicadoresEvaluacion: ["I.LL.3.2.1. Escucha discursos orales (conversaciones, diálogos, narraciones, discusiones, entrevistas, exposiciones, presentaciones), parafrasea su contenido y participa de manera respetuosa frente a las intervenciones de los demás, buscando acuerdos en el debate de temas conflictivos. (J.3., S.1.)"],
   },
   {
     codigo: "LL.3.2.5",
@@ -541,8 +541,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Construir acuerdos en los intercambios orales que se establecen en torno a temas conflictivos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.2. Participa en situaciones comunicativas orales, escuchando de manera activa y mostrando respeto frente a las intervenciones de los demás en la búsqueda de acuerdos, organiza su discurso de acuerdo con las estructuras básicas de la lengua oral, reflexiona sobre los efectos del uso de estereotipos y prejuicios, adapta el vocabulario y se apoya en recursos y producciones audiovisuales, según las diversas situaciones comunicativas a las que se enfrente."],
+    indicadoresEvaluacion: ["I.LL.3.2.1. Escucha discursos orales (conversaciones, diálogos, narraciones, discusiones, entrevistas, exposiciones, presentaciones), parafrasea su contenido y participa de manera respetuosa frente a las intervenciones de los demás, buscando acuerdos en el debate de temas conflictivos. (J.3., S.1.)"],
   },
   {
     codigo: "LL.3.2.6",
@@ -552,8 +552,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Analizar el impacto de la contaminación por fuentes móviles, la contaminación visual, y la promoción del uso de vehículos de cero emisiones y movilidad activa a partir de diversas fuentes de información. 17 Área del conocimiento/asignatura: Criterios de evaluación.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.2. Participa en situaciones comunicativas orales, escuchando de manera activa y mostrando respeto frente a las intervenciones de los demás en la búsqueda de acuerdos, organiza su discurso de acuerdo con las estructuras básicas de la lengua oral, reflexiona sobre los efectos del uso de estereotipos y prejuicios, adapta el vocabulario y se apoya en recursos y producciones audiovisuales, según las diversas situaciones comunicativas a las que se enfrente."],
+    indicadoresEvaluacion: ["I.LL.3.2.1. Escucha discursos orales (conversaciones, diálogos, narraciones, discusiones, entrevistas, exposiciones, presentaciones), parafrasea su contenido y participa de manera respetuosa frente a las intervenciones de los demás, buscando acuerdos en el debate de temas conflictivos. (J.3., S.1.)"],
   },
   // Bloque 3: Lectura
   {
@@ -564,8 +564,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: ") (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.2",
@@ -575,8 +575,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Comprender los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y proyectivo-valorativas a partir del contenido de un texto.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.3",
@@ -586,8 +586,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Inferir y sintetizar el contenido esencial de un texto al diferenciar el tema de las ideas principales.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.4",
@@ -597,8 +597,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Autorregular la comprensión de textos mediante el uso de estrategias cognitivas de comprensión: parafrasear, releer, formular preguntas, leer selectivamente, consultar fuentes adicionales.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.5",
@@ -608,8 +608,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Valorar los aspectos de forma y el contenido de un texto, a partir de criterios preestablecidos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.6",
@@ -619,8 +619,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Acceder a bibliotecas y recursos digitales en la web, identificando las fuentes consultadas.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.7",
@@ -630,8 +630,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Registrar la información consultada con el uso de esquemas de diverso tipo.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.8",
@@ -641,8 +641,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 8,
     descripcion: "Leer con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.).",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.9",
@@ -652,8 +652,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 9,
     descripcion: "Generar criterios para el análisis de la confiabilidad de las fuentes consultadas.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.11",
@@ -663,8 +663,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 11,
     descripcion: "Aplicar los conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.12",
@@ -674,8 +674,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 12,
     descripcion: "Identificar las entidades financieras en su comunidad, saber cuáles son los productos y servicios financieros que proporcionan.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   {
     codigo: "LL.3.3.13",
@@ -685,8 +685,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 13,
     descripcion: "Analizar el impacto de la contaminación por fuentes móviles, la contaminación visual, y la promoción del uso de vehículos de cero emisiones y movilidad activa a partir de diversas fuentes de información.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.3. Establece relaciones explícitas entre los contenidos de dos o más textos, los compara, contrasta sus fuentes, realiza inferencias fundamentales y proyectivo-valorativas, valora sus contenidos y aspectos de forma a partir de criterios establecidos, reconoce el punto de vista, las motivaciones y los argumentos del autor al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas de comprensión."],
+    indicadoresEvaluacion: ["I.LL.3.3.1. ) (I.3., I.4.) Realiza inferencias fundamentales y proyectivo-valorativas, valora los contenidos y aspectos de forma a partir de criterios preestablecidos al monitorear y autorregular su comprensión mediante el uso de estrategias cognitivas. (Ref. I.LL.3.3.2.) (J.2., J.4.)"],
   },
   // Bloque 4: Escritura
   {
@@ -697,8 +697,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.2",
@@ -708,8 +708,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Escribir descripciones organizadas y con vocabulario específico relativo al ser, objeto, lugar o hecho que se describe e integrarlas en las producciones escritas.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.4",
@@ -719,8 +719,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Escribir instrucciones con secuencia lógica, uso de conectores temporales y de orden, y coherencia en el manejo del verbo y la persona, en situaciones comunicativas que lo requieran.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.5",
@@ -730,8 +730,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Integrar relatos, descripciones, exposiciones e instrucciones en diferentes tipos de texto producidos con una intención comunicativa y en un contexto determinado.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.7",
@@ -741,8 +741,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Usar estrategias y procesos de pensamiento que apoyen la escritura.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.8",
@@ -752,8 +752,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 8,
     descripcion: "Lograr precisión y claridad en sus producciones escritas, mediante el uso de vocabulario según un determinado campo semántico.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.9",
@@ -763,8 +763,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 9,
     descripcion: "Organizar las ideas con unidad de sentido a partir de la construcción de párrafos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.10",
@@ -774,8 +774,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 10,
     descripcion: "Expresar sus ideas con precisión e integrar en las producciones escritas los diferentes tipos de sustantivo, pronombre, adjetivo, verbo, adverbio y sus modificadores.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.11",
@@ -785,8 +785,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 11,
     descripcion: "Mejorar la cohesión interna del párrafo y la organización del texto mediante el uso de conectores lógicos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.12",
@@ -796,8 +796,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 12,
     descripcion: "Comunicar ideas con eficiencia a partir de la aplicación de las reglas de uso de las letras y de la tilde.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.13",
@@ -807,8 +807,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 13,
     descripcion: "Producir escritos de acuerdo con la situación comunicativa, mediante el empleo de diversos formatos, recursos y materiales.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.14",
@@ -818,8 +818,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 14,
     descripcion: "Apoyar el proceso de escritura colaborativa e individual mediante el uso de diversos recursos de las TIC.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   {
     codigo: "LL.3.4.15",
@@ -829,8 +829,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 15,
     descripcion: "Producir textos personales aplicando párrafos narrativos, descriptivos, instructivos para expresar sus pensamientos, sentimientos, experiencias y reflexiones de manera clara y coherente. 20 Indicadores de evaluación.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.4. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos, leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.)."],
+    indicadoresEvaluacion: ["I.LL.3.4.1. Aplica sus conocimientos lingüísticos (léxicos, semánticos, sintácticos y fonológicos) en la decodificación y comprensión de textos leyendo con fluidez y entonación en diversos contextos (familiares, escolares y sociales) y con diferentes propósitos (exponer, informar, narrar, compartir, etc.). (I.3., I.4.)"],
   },
   // Bloque 5: Literatura
   {
@@ -841,8 +841,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Identificar, comparar y contrastar fuentes consultadas en bibliotecas y en la web, registrar la información consultada en esquemas de diverso tipo.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.5. Consulta bibliotecas y recursos digitales en la web, genera criterios para identificar, comparar y contrastar fuentes, y registra la información consultada en esquemas de diverso tipo."],
+    indicadoresEvaluacion: ["I.LL.3.5.1. Identifica, compara y contrasta fuentes consultadas en bibliotecas y en la web, registra la información consultada en esquemas de diverso tipo y genera criterios para el análisis de su confiabilidad. (J.2., I.4.)"],
   },
   {
     codigo: "LL.3.5.2",
@@ -852,8 +852,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Participar en discusiones sobre textos literarios con el aporte de información, experiencias y opiniones para desarrollar progresivamente la lectura crítica.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.5. Consulta bibliotecas y recursos digitales en la web, genera criterios para identificar, comparar y contrastar fuentes, y registra la información consultada en esquemas de diverso tipo."],
+    indicadoresEvaluacion: ["I.LL.3.5.1. Identifica, compara y contrasta fuentes consultadas en bibliotecas y en la web, registra la información consultada en esquemas de diverso tipo y genera criterios para el análisis de su confiabilidad. (J.2., I.4.)"],
   },
   {
     codigo: "LL.3.5.3",
@@ -863,8 +863,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Elegir lecturas basándose en preferencias personales de autor, género o temas y el manejo de diversos soportes para formarse como lector autónomo.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.5. Consulta bibliotecas y recursos digitales en la web, genera criterios para identificar, comparar y contrastar fuentes, y registra la información consultada en esquemas de diverso tipo."],
+    indicadoresEvaluacion: ["I.LL.3.5.1. Identifica, compara y contrasta fuentes consultadas en bibliotecas y en la web, registra la información consultada en esquemas de diverso tipo y genera criterios para el análisis de su confiabilidad. (J.2., I.4.)"],
   },
   {
     codigo: "LL.3.5.4",
@@ -874,8 +874,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Incorporar los recursos del lenguaje figurado en sus ejercicios de creación literaria.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.5. Consulta bibliotecas y recursos digitales en la web, genera criterios para identificar, comparar y contrastar fuentes, y registra la información consultada en esquemas de diverso tipo."],
+    indicadoresEvaluacion: ["I.LL.3.5.1. Identifica, compara y contrasta fuentes consultadas en bibliotecas y en la web, registra la información consultada en esquemas de diverso tipo y genera criterios para el análisis de su confiabilidad. (J.2., I.4.)"],
   },
   {
     codigo: "LL.3.5.5",
@@ -885,8 +885,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Reinventar los textos literarios y relacionarlos con el contexto cultural propio y de otros entornos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.5. Consulta bibliotecas y recursos digitales en la web, genera criterios para identificar, comparar y contrastar fuentes, y registra la información consultada en esquemas de diverso tipo."],
+    indicadoresEvaluacion: ["I.LL.3.5.1. Identifica, compara y contrasta fuentes consultadas en bibliotecas y en la web, registra la información consultada en esquemas de diverso tipo y genera criterios para el análisis de su confiabilidad. (J.2., I.4.)"],
   },
   {
     codigo: "LL.3.5.6",
@@ -896,8 +896,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Recrear textos literarios leídos o escuchados mediante el uso de diversos medios y recursos (incluidas las TIC). 21 8.2. Ciencias Naturales Área del conocimiento/asignatura: Ciencias Naturales Objetivos del área por subnivel O.CN.3.1.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.5. Consulta bibliotecas y recursos digitales en la web, genera criterios para identificar, comparar y contrastar fuentes, y registra la información consultada en esquemas de diverso tipo."],
+    indicadoresEvaluacion: ["I.LL.3.5.1. Identifica, compara y contrasta fuentes consultadas en bibliotecas y en la web, registra la información consultada en esquemas de diverso tipo y genera criterios para el análisis de su confiabilidad. (J.2., I.4.)"],
   },
   // Bloque 6: Bloque 6
   {
@@ -908,8 +908,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Produce textos narrativos, descriptivos, expositivos e instructivos; autorregula la escritura mediante la aplicación del proceso de escritura y el uso de estrategias y procesos de pensamiento; organiza ideas en párrafos con unidad de sentido, con precisión y claridad; utiliza un vocabulario, según u.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.6. Produce textos con tramas narrativas, descriptivas, expositivas e instructivas, y las integra cuando es pertinente; utiliza los elementos de la lengua más apropiados para cada uno, logrando coherencia y cohesión; autorregula la escritura mediante la aplicación del proceso de producción, estrategias de pensamiento, y se apoya en diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran."],
+    indicadoresEvaluacion: ["I.LL.3.6.1. Produce textos narrativos, descriptivos, expositivos e instructivos; autorregula la escritura mediante la aplicación del proceso de escritura y el uso de estrategias y procesos de pensamiento; organiza ideas en párrafos con unidad de sentido, con precisión y claridad; utiliza un vocabulario, según un determinado campo semántico y elementos gramaticales apropiados, y se apoya en el empleo de diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran. (I.2.,I.4.)"],
   },
   {
     codigo: "LL.3.6.2",
@@ -919,8 +919,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Escribe cartas, noticias, diario personal, entre otros textos narrativos, (organizando los hechos y acciones con criterios de secuencia lógica y temporal, manejo de persona y tiempo verbal, conectores temporales aditivos, proposiciones y conjunciones) y los integra en diversos tipos de textos produc.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.6. Produce textos con tramas narrativas, descriptivas, expositivas e instructivas, y las integra cuando es pertinente; utiliza los elementos de la lengua más apropiados para cada uno, logrando coherencia y cohesión; autorregula la escritura mediante la aplicación del proceso de producción, estrategias de pensamiento, y se apoya en diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran."],
+    indicadoresEvaluacion: ["I.LL.3.6.1. Produce textos narrativos, descriptivos, expositivos e instructivos; autorregula la escritura mediante la aplicación del proceso de escritura y el uso de estrategias y procesos de pensamiento; organiza ideas en párrafos con unidad de sentido, con precisión y claridad; utiliza un vocabulario, según un determinado campo semántico y elementos gramaticales apropiados, y se apoya en el empleo de diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran. (I.2.,I.4.)"],
   },
   {
     codigo: "LL.3.6.3",
@@ -930,8 +930,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Escribe textos descriptivos organizados, usando recursos estilísticos para la descripción de objetos, personajes y lugares (topografía, prosopografía, etopeya, descripción de objetos), estructuras descriptivas en diferentes tipos de texto (guía turística, biografía o autobiografía, reseña, entre otr.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.6. Produce textos con tramas narrativas, descriptivas, expositivas e instructivas, y las integra cuando es pertinente; utiliza los elementos de la lengua más apropiados para cada uno, logrando coherencia y cohesión; autorregula la escritura mediante la aplicación del proceso de producción, estrategias de pensamiento, y se apoya en diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran."],
+    indicadoresEvaluacion: ["I.LL.3.6.1. Produce textos narrativos, descriptivos, expositivos e instructivos; autorregula la escritura mediante la aplicación del proceso de escritura y el uso de estrategias y procesos de pensamiento; organiza ideas en párrafos con unidad de sentido, con precisión y claridad; utiliza un vocabulario, según un determinado campo semántico y elementos gramaticales apropiados, y se apoya en el empleo de diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran. (I.2.,I.4.)"],
   },
   {
     codigo: "LL.3.6.4",
@@ -941,8 +941,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Escribe diferentes tipos de texto con estructuras expositivas (informe, noticia, entre otros), según su estructura, con secuencia lógica, manejo coherente de la persona y del tiempo verbal; organiza las ideas en párrafos según esquemas expositivos de comparación-contraste, problema-solución, anteced.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.6. Produce textos con tramas narrativas, descriptivas, expositivas e instructivas, y las integra cuando es pertinente; utiliza los elementos de la lengua más apropiados para cada uno, logrando coherencia y cohesión; autorregula la escritura mediante la aplicación del proceso de producción, estrategias de pensamiento, y se apoya en diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran."],
+    indicadoresEvaluacion: ["I.LL.3.6.1. Produce textos narrativos, descriptivos, expositivos e instructivos; autorregula la escritura mediante la aplicación del proceso de escritura y el uso de estrategias y procesos de pensamiento; organiza ideas en párrafos con unidad de sentido, con precisión y claridad; utiliza un vocabulario, según un determinado campo semántico y elementos gramaticales apropiados, y se apoya en el empleo de diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran. (I.2.,I.4.)"],
   },
   {
     codigo: "LL.3.6.5",
@@ -952,8 +952,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Escribe diferentes tipos de texto con estructuras instructivas (receta, manual, entre otros) según una secuencia lógica, con concordancia de género, número, persona y tiempo verbal, uso de conectores temporales y de orden; organiza las ideas en párrafos diferentes con el uso de conectores lógicos, p.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.6. Produce textos con tramas narrativas, descriptivas, expositivas e instructivas, y las integra cuando es pertinente; utiliza los elementos de la lengua más apropiados para cada uno, logrando coherencia y cohesión; autorregula la escritura mediante la aplicación del proceso de producción, estrategias de pensamiento, y se apoya en diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran."],
+    indicadoresEvaluacion: ["I.LL.3.6.1. Produce textos narrativos, descriptivos, expositivos e instructivos; autorregula la escritura mediante la aplicación del proceso de escritura y el uso de estrategias y procesos de pensamiento; organiza ideas en párrafos con unidad de sentido, con precisión y claridad; utiliza un vocabulario, según un determinado campo semántico y elementos gramaticales apropiados, y se apoya en el empleo de diferentes formatos, recursos y materiales, incluidas las TIC, en las situaciones comunicativas que lo requieran. (I.2.,I.4.)"],
   },
   // Bloque 7: Bloque 7
   {
@@ -964,8 +964,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Reconocer en un texto literario los elementos característicos que le dan sentido y que permiten el uso de recursos estéticos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.7. Elige lecturas basándose en preferencias personales, reconoce los elementos característicos que le dan sentido y participa en discusiones literarias, desarrollando la lectura crítica."],
+    indicadoresEvaluacion: ["I.LL.3.7.1. Reconoce en textos de literatura oral o escrita, los elementos característicos que les dan sentido; y participa en discusiones sobre textos literarios en las que aporta información, experiencias y opiniones."],
   },
   {
     codigo: "LL.3.7.2",
@@ -975,8 +975,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Elegir lecturas basándose en preferencias personales de autores, géneros o temas, manejar diversos soportes para formarse como lector autónomo.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.7. Elige lecturas basándose en preferencias personales, reconoce los elementos característicos que le dan sentido y participa en discusiones literarias, desarrollando la lectura crítica."],
+    indicadoresEvaluacion: ["I.LL.3.7.1. Reconoce en textos de literatura oral o escrita, los elementos característicos que les dan sentido; y participa en discusiones sobre textos literarios en las que aporta información, experiencias y opiniones."],
   },
   // Bloque 8: Bloque 8
   {
@@ -987,8 +987,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Reinventar textos literarios, reconociendo la fuente original, los relaciona con el contexto cultural propio y de otros entornos.",
     objetivos: ["O.LL.3. Comprender discursos orales en diversos contextos de la actividad social y cultural y analizarlos con sentido crítico."],
-    criteriosEvaluacion: ["CE.LL.3.8. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.3.8.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.3.8. Reinventa textos literarios, reconociendo la fuente original, los relaciona con el contexto cultural propio y de otros entornos, incorpora los recursos del lenguaje figurado y diversos medios y recursos (incluidas las TIC)."],
+    indicadoresEvaluacion: ["I.LL.3.8.1. Reinventa textos literarios, reconociendo la fuente original, los relaciona con el contexto cultural propio y de otros entornos, incorpora recursos del lenguaje figurado y usa diversos medios y recursos (incluidas las TIC) para recrearlos. (J.2., I.2.)"],
   },
   // === SUBNIVEL 4: BÁSICA SUPERIOR ===
   // Bloque 1: Lengua y cultura
@@ -1000,8 +1000,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Indagar y explicar los aportes de la cultura escrita al desarrollo histórico, social y cultural de la humanidad. Explica el origen, el desarrollo y la influencia de la escritura en distintos momentos históricos, regiones y culturas del mundo. (Ref.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.1. Explica los aportes de la cultura escrita al desarrollo histórico, social y cultural de la humanidad y para el desarrollo del pensamiento crítico."],
+    indicadoresEvaluacion: ["I.LL.4.1.1. Explica los aportes de la cultura escrita al desarrollo histórico, social y cultural de la humanidad. (S.2., I.3.)"],
   },
   {
     codigo: "LL.4.1.3",
@@ -1011,8 +1011,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Indagar sobre las variaciones lingüísticas socioculturales del Ecuador y explicar su influencia en las relaciones sociales. Explica la influencia de las variaciones lingüísticas sociales y situacionales del Ecuador en las relaciones sociales. (Ref.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.1. Explica los aportes de la cultura escrita al desarrollo histórico, social y cultural de la humanidad y para el desarrollo del pensamiento crítico."],
+    indicadoresEvaluacion: ["I.LL.4.1.1. Explica los aportes de la cultura escrita al desarrollo histórico, social y cultural de la humanidad. (S.2., I.3.)"],
   },
   // Bloque 2: Comunicación oral
   {
@@ -1023,8 +1023,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Utilizar recursos de la comunicación oral en contextos de intercambio social, construcción de acuerdos y resolución de problemas.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.2. Explica la influencia de las variaciones lingüísticas sociales y situacionales del Ecuador en las relaciones sociales, y la correspondencia entre la estructura de la lengua y las formas de pensar y actuar de las personas."],
+    indicadoresEvaluacion: ["I.LL.4.2.1. Explica la influencia de las variaciones lingüísticas socioculturales y situacionales del Ecuador en las relaciones sociales. (I.3., S.3.)"],
   },
   {
     codigo: "LL.4.2.2",
@@ -1034,8 +1034,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Organizar el discurso mediante el uso de las estructuras básicas de la lengua oral, la selección y empleo de vocabulario específico, acorde con la intencionalidad, en diversos contextos comunicativos formales e informales.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.2. Explica la influencia de las variaciones lingüísticas sociales y situacionales del Ecuador en las relaciones sociales, y la correspondencia entre la estructura de la lengua y las formas de pensar y actuar de las personas."],
+    indicadoresEvaluacion: ["I.LL.4.2.1. Explica la influencia de las variaciones lingüísticas socioculturales y situacionales del Ecuador en las relaciones sociales. (I.3., S.3.)"],
   },
   {
     codigo: "LL.4.2.3",
@@ -1045,8 +1045,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Producir discursos que integren una variedad de recursos, formatos y soportes.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.2. Explica la influencia de las variaciones lingüísticas sociales y situacionales del Ecuador en las relaciones sociales, y la correspondencia entre la estructura de la lengua y las formas de pensar y actuar de las personas."],
+    indicadoresEvaluacion: ["I.LL.4.2.1. Explica la influencia de las variaciones lingüísticas socioculturales y situacionales del Ecuador en las relaciones sociales. (I.3., S.3.)"],
   },
   {
     codigo: "LL.4.2.4",
@@ -1056,8 +1056,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Reflexionar sobre los efectos del uso de estereotipos y prejuicios en la comunicación.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.2. Explica la influencia de las variaciones lingüísticas sociales y situacionales del Ecuador en las relaciones sociales, y la correspondencia entre la estructura de la lengua y las formas de pensar y actuar de las personas."],
+    indicadoresEvaluacion: ["I.LL.4.2.1. Explica la influencia de las variaciones lingüísticas socioculturales y situacionales del Ecuador en las relaciones sociales. (I.3., S.3.)"],
   },
   // Bloque 3: Lectura
   {
@@ -1068,8 +1068,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Organizar los discursos según las estructuras básicas de la lengua oral, utilizar un vocabulario acorde a la intención y al contexto.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.3. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso; y reflexiona sobre los efectos del uso de estereotipos y prejuicios en la comunicación."],
+    indicadoresEvaluacion: ["I.LL.4.3.1. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso. (J.3., I.4.)"],
   },
   {
     codigo: "LL.4.3.2",
@@ -1079,8 +1079,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Construir significados implícitos al inferir el tema, el punto de vista del autor, las motivaciones y argumentos de un texto. CC.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.3. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso; y reflexiona sobre los efectos del uso de estereotipos y prejuicios en la comunicación."],
+    indicadoresEvaluacion: ["I.LL.4.3.1. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso. (J.3., I.4.)"],
   },
   {
     codigo: "LL.4.3.3",
@@ -1090,8 +1090,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Elaborar criterios crítico-valorativos al distinguir las diferentes perspectivas en conflicto sobre un mismo tema, en diferentes textos. CC.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.3. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso; y reflexiona sobre los efectos del uso de estereotipos y prejuicios en la comunicación."],
+    indicadoresEvaluacion: ["I.LL.4.3.1. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso. (J.3., I.4.)"],
   },
   {
     codigo: "LL.4.3.4",
@@ -1101,8 +1101,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Autorregular la comprensión de un texto mediante la aplicación de estrategias cognitivas de comprensión autoseleccionadas, de acuerdo con el propósito de lectura y las dificultades identificadas.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.3. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso; y reflexiona sobre los efectos del uso de estereotipos y prejuicios en la comunicación."],
+    indicadoresEvaluacion: ["I.LL.4.3.1. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso. (J.3., I.4.)"],
   },
   {
     codigo: "LL.4.3.5",
@@ -1112,8 +1112,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Valorar y comparar textos de consulta en función del propósito de lectura y la calidad de la información (claridad, organización, actualización, amplitud, profundidad y otros).",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.3. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso; y reflexiona sobre los efectos del uso de estereotipos y prejuicios en la comunicación."],
+    indicadoresEvaluacion: ["I.LL.4.3.1. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso. (J.3., I.4.)"],
   },
   {
     codigo: "LL.4.3.6",
@@ -1123,8 +1123,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Consultar bibliotecas y recursos digitales en comparando y organizando la información la web, con capacidad para analizar la confiabilidad de consultada en esquemas de diversos tipos. la fuente. (Ref.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.3. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso; y reflexiona sobre los efectos del uso de estereotipos y prejuicios en la comunicación."],
+    indicadoresEvaluacion: ["I.LL.4.3.1. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso. (J.3., I.4.)"],
   },
   {
     codigo: "LL.4.3.7",
@@ -1134,8 +1134,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Recoger, comparar y organizar información consultada en esquemas de diverso tipo.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.3. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso; y reflexiona sobre los efectos del uso de estereotipos y prejuicios en la comunicación."],
+    indicadoresEvaluacion: ["I.LL.4.3.1. Valora el contenido explícito de dos o más textos orales, identificando contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso. (J.3., I.4.)"],
   },
   // Bloque 4: Escritura
   {
@@ -1146,8 +1146,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, s.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.3",
@@ -1157,8 +1157,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Usar estrategias y procesos de pensamiento que apoyen la escritura de diferentes tipos de textos periodísticos y académicos.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.4",
@@ -1168,8 +1168,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Autorregular la escritura de textos periodísticos y académicos con la selección y aplicación de variadas técnicas y recursos.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.5",
@@ -1179,8 +1179,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Usar el procedimiento de planificación, redacción, revisión y publicación en la escritura de diferentes tipos de textos periodísticos y académicos.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.6",
@@ -1190,8 +1190,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Mejorar la claridad y precisión de diferentes tipos de textos periodísticos y académicos mediante la escritura de oraciones compuestas y la utilización de nexos, modificadores, objetos, complementos y signos de puntuación.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.7",
@@ -1201,8 +1201,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Matizar y precisar las ideas y los significados de oraciones y párrafos mediante el uso selectivo de modos verbales, tiempos verbales complejos, verboides, voz activa y pasiva, conjunciones y frases nominales, adjetivas, adverbiales, preposicionales y verbales.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.8",
@@ -1212,8 +1212,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 8,
     descripcion: "Comunicar ideas con eficiencia aplicando, de manera autónoma, las reglas de uso de las letras, de la puntuación y de la tilde.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.9",
@@ -1223,8 +1223,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 9,
     descripcion: "Escribir diálogos directos e indirectos e integrarlos en diferentes tipos de texto, según la intención comunicativa.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   {
     codigo: "LL.4.4.10",
@@ -1234,8 +1234,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 10,
     descripcion: "Manejar las normas de citación e identificación de fuentes más utilizadas.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.4. Produce discursos (conversación, diálogo, narración, debate, conversatorio, presentación, entrevista, encuesta, exposición) organizados a partir del uso de las estructuras básicas de la lengua oral, utiliza un vocabulario acorde a la intención y el contexto, los apoya con una variedad de formatos, soportes y recursos."],
+    indicadoresEvaluacion: ["I.LL.4.4.1. Construye acuerdos y soluciona problemas, utilizando los recursos del discurso oral (entonación, volumen, gestos, movimientos corporales y postura), de manera selectiva y crítica, y evalúa su impacto en la audiencia. (J.3., I.3.)"],
   },
   // Bloque 5: Literatura
   {
@@ -1246,8 +1246,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: ") Construye significados implícitos al inferir el tema, el punto de vista del autor, las motivaciones y argumentos de un texto y elabora criterios crítico-valorativos acerca de las diferentes perspectivas sobre un mismo tema en dos o más textos. (Ref.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.5. Comprende los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y proyectivo-valorativas a partir del contenido de un texto."],
+    indicadoresEvaluacion: ["I.LL.4.5.1. Compara, bajo criterios preestablecidos, las relaciones explícitas entre los contenidos de dos o más textos y contrasta sus fuentes; autorregula la comprensión mediante el uso de estrategias cognitivas. (J.4., I.4.)"],
   },
   {
     codigo: "LL.4.5.2",
@@ -1257,8 +1257,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: ") Consulta bibliotecas con capacidad para comparar y valorar textos en función del propósito de lectura, la calidad de la información (claridad, organización, actualización, amplitud, profundidad) recogiendo,.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.5. Comprende los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y proyectivo-valorativas a partir del contenido de un texto."],
+    indicadoresEvaluacion: ["I.LL.4.5.1. Compara, bajo criterios preestablecidos, las relaciones explícitas entre los contenidos de dos o más textos y contrasta sus fuentes; autorregula la comprensión mediante el uso de estrategias cognitivas. (J.4., I.4.)"],
   },
   {
     codigo: "LL.4.5.3",
@@ -1268,8 +1268,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Elegir lecturas basándose en preferencias personales de autor, género, estilo, temas y contextos so- Elige lecturas en función de sus preferencias cioculturales, con el manejo de diversos soportes. personales de autor, género, estilo, temas y contextos socioculturales; maneja diversos soportes.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.5. Comprende los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y proyectivo-valorativas a partir del contenido de un texto."],
+    indicadoresEvaluacion: ["I.LL.4.5.1. Compara, bajo criterios preestablecidos, las relaciones explícitas entre los contenidos de dos o más textos y contrasta sus fuentes; autorregula la comprensión mediante el uso de estrategias cognitivas. (J.4., I.4.)"],
   },
   {
     codigo: "LL.4.5.4",
@@ -1279,8 +1279,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Componer textos creativos que adapten o com- I.LL.4.91. Compone y recrea textos literarios que adaptan o combinan diversas estructubinen diversas estructuras y recursos literarios. ras y recursos, expresando intenciones de.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.5. Comprende los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y proyectivo-valorativas a partir del contenido de un texto."],
+    indicadoresEvaluacion: ["I.LL.4.5.1. Compara, bajo criterios preestablecidos, las relaciones explícitas entre los contenidos de dos o más textos y contrasta sus fuentes; autorregula la comprensión mediante el uso de estrategias cognitivas. (J.4., I.4.)"],
   },
   {
     codigo: "LL.4.5.5",
@@ -1290,8 +1290,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Expresar intenciones determinadas (ironía, terminadas (ironía, sarcasmo, humor, etc.) sarcasmo, humor, etc.) con el uso creativo del signifi- mediante el uso creativo del significado de cado de las palabras. las palabras y el uso colaborativo de diversos medios y recursos de las TIC.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.5. Comprende los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y proyectivo-valorativas a partir del contenido de un texto."],
+    indicadoresEvaluacion: ["I.LL.4.5.1. Compara, bajo criterios preestablecidos, las relaciones explícitas entre los contenidos de dos o más textos y contrasta sus fuentes; autorregula la comprensión mediante el uso de estrategias cognitivas. (J.4., I.4.)"],
   },
   {
     codigo: "LL.4.5.6",
@@ -1301,8 +1301,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Recrear textos literarios leídos o escuchados con el uso colaborativo de diversos medios y recursos de las TIC. 20 ÁREA DE CONOCIMIENTO: CIENCIAS NATURALES OBJETIVOS DE LA ASIGNATURA POR SUBNIVEL O.CN.4.1.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.5. Comprende los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y proyectivo-valorativas a partir del contenido de un texto."],
+    indicadoresEvaluacion: ["I.LL.4.5.1. Compara, bajo criterios preestablecidos, las relaciones explícitas entre los contenidos de dos o más textos y contrasta sus fuentes; autorregula la comprensión mediante el uso de estrategias cognitivas. (J.4., I.4.)"],
   },
   // Bloque 6: Bloque 6
   {
@@ -1313,8 +1313,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Consultar bibliotecas y recursos digitales en la web, comparándolos y valorándolos en función de la confiabilidad de la fuente, el propósito de la lectura y la calidad de la información.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.6. Consulta bibliotecas y recursos digitales en la web, comparando el tratamiento de un mismo tema en diversas fuentes, y valorando y adoptando una actitud crítica y reflexiva frente a la lectura."],
+    indicadoresEvaluacion: ["I.LL.4.6.1. Consulta bibliotecas y recursos digitales en la web, con capacidad para comparar y valorar textos en función de sus necesidades, intereses y puntos de vista, reconociendo la confiabilidad de las fuentes. (J.2., I.4.)"],
   },
   // Bloque 7: Bloque 7
   {
@@ -1325,8 +1325,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Usa el procedimiento de producción de textos en la escritura de textos periodísticos y académicos y aplica estrategias que apoyen cada uno de sus pasos (planificación: lectura previa, lluvia de ideas, organizadores gráficos, consultas, selección de la tesis, el título que denote el tema, lluvia de i.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.7. Produce diferentes tipos de textos periodísticos y académicos (noticia, crónica, reportaje, entrevista, artículo de opinión, ensayo, entre otros), con coherencia y cohesión."],
+    indicadoresEvaluacion: ["I.LL.4.7.1. Estructura diferentes tipos de textos periodísticos y académicos, combinando diferentes tramas, tipos de párrafo y diálogos directos e indirectos, según sean pertinentes. (I.3., I.4.)"],
   },
   {
     codigo: "LL.4.7.3",
@@ -1336,8 +1336,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Utiliza elementos gramaticales en la producción de textos periodísticos y académicos (oraciones compuestas coordinadas, subordinadas, yuxtapuestas; conectores lógicos: de énfasis, ilustración, cambio de perspectiva, condición y conclusión; puntuación en oraciones compuestas –dos puntos, coma, punto .",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.7. Produce diferentes tipos de textos periodísticos y académicos (noticia, crónica, reportaje, entrevista, artículo de opinión, ensayo, entre otros), con coherencia y cohesión."],
+    indicadoresEvaluacion: ["I.LL.4.7.1. Estructura diferentes tipos de textos periodísticos y académicos, combinando diferentes tramas, tipos de párrafo y diálogos directos e indirectos, según sean pertinentes. (I.3., I.4.)"],
   },
   // Bloque 8: Bloque 8
   {
@@ -1348,8 +1348,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Componer y recrear textos literarios que adaptan o combinan diversas estructuras y recursos literarios.",
     objetivos: ["O.LL.4. Participar de manera fluida y eficiente en diversas situaciones de comunicación oral, formales y no formales."],
-    criteriosEvaluacion: ["CE.LL.4.8. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.4.8.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.4.8. Lee textos literarios en función de sus preferencias personales, los interpreta y sustenta su interpretación al debatir críticamente sobre ella, basándose en indagaciones sobre el tema, género y contexto."],
+    indicadoresEvaluacion: ["I.LL.4.8.1. Interpreta textos literarios a partir de las características del género al que pertenecen, y debate críticamente su interpretación basándose en indagaciones sobre el tema, género y contexto. (J.4., S.4.)"],
   },
   // === SUBNIVEL 5: BACHILLERATO ===
   // Bloque 1: Lengua y cultura
@@ -1361,8 +1361,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Indagar sobre las transformaciones y las tendencias actuales y futuras de la evolución de la cultura escrita en la era digital. Indicadores de evaluación.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.1. Indaga sobre la evolución de la cultura escrita en la era digital (transformaciones y desafíos) e identifica las implicaciones socioculturales de su producción y consumo."],
+    indicadoresEvaluacion: ["I.LL.5.1.1. Reconoce las transformaciones de la cultura escrita en la era digital, sus implicaciones socioculturales y la importancia de la producción y consumo responsable de información. (J.3., I.2.)"],
   },
   {
     codigo: "LL.5.1.2",
@@ -1372,8 +1372,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Identificar las implicaciones socioculturales de la producción y el consumo de cultura digital.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.1. Indaga sobre la evolución de la cultura escrita en la era digital (transformaciones y desafíos) e identifica las implicaciones socioculturales de su producción y consumo."],
+    indicadoresEvaluacion: ["I.LL.5.1.1. Reconoce las transformaciones de la cultura escrita en la era digital, sus implicaciones socioculturales y la importancia de la producción y consumo responsable de información. (J.3., I.2.)"],
   },
   {
     codigo: "LL.5.1.3",
@@ -1383,8 +1383,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Analizar las causas de la diglosia en relación con las lenguas originarias y sus consecuencias en el ámbito educativo, la identidad, los derechos colectivos y la vida cotidiana. Analiza críticamente desde diversas perspectivas (social, étnica, de género, cultural), los usos de la lengua. (Ref.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.1. Indaga sobre la evolución de la cultura escrita en la era digital (transformaciones y desafíos) e identifica las implicaciones socioculturales de su producción y consumo."],
+    indicadoresEvaluacion: ["I.LL.5.1.1. Reconoce las transformaciones de la cultura escrita en la era digital, sus implicaciones socioculturales y la importancia de la producción y consumo responsable de información. (J.3., I.2.)"],
   },
   {
     codigo: "LL.5.1.4",
@@ -1394,8 +1394,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Analizar críticamente las variaciones lingüísticas socioculturales del Ecuador desde diversas perspectivas. E.LL.5.3.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.1. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.1.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.1. Indaga sobre la evolución de la cultura escrita en la era digital (transformaciones y desafíos) e identifica las implicaciones socioculturales de su producción y consumo."],
+    indicadoresEvaluacion: ["I.LL.5.1.1. Reconoce las transformaciones de la cultura escrita en la era digital, sus implicaciones socioculturales y la importancia de la producción y consumo responsable de información. (J.3., I.2.)"],
   },
   // Bloque 2: Comunicación oral
   {
@@ -1406,8 +1406,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Valorar el contenido explícito de dos o más textos orales e identificar contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.2. Analiza las causas de la diglosia en relación con las lenguas originarias y sus consecuencias en diversos ámbitos, y las variaciones lingüísticas socioculturales del Ecuador desde diversas perspectivas."],
+    indicadoresEvaluacion: ["I.LL.5.2.1. Analiza críticamente las variaciones lingüísticas socioculturales del Ecuador y las causas de la diglosia en relación con las lenguas originarias. (I.3., S.3.)"],
   },
   {
     codigo: "LL.5.2.3",
@@ -1417,8 +1417,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Utilizar los diferentes formatos y registros de la comunicación oral para persuadir mediante la argumentación y contraargumentación, con dominio de las estructuras lingüísticas.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.2. Analiza las causas de la diglosia en relación con las lenguas originarias y sus consecuencias en diversos ámbitos, y las variaciones lingüísticas socioculturales del Ecuador desde diversas perspectivas."],
+    indicadoresEvaluacion: ["I.LL.5.2.1. Analiza críticamente las variaciones lingüísticas socioculturales del Ecuador y las causas de la diglosia en relación con las lenguas originarias. (I.3., S.3.)"],
   },
   {
     codigo: "LL.5.2.4",
@@ -1428,8 +1428,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Utilizar de manera selectiva y crítica los recursos del discurso oral y evaluar su impacto en la audiencia.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.2. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.2.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.2. Analiza las causas de la diglosia en relación con las lenguas originarias y sus consecuencias en diversos ámbitos, y las variaciones lingüísticas socioculturales del Ecuador desde diversas perspectivas."],
+    indicadoresEvaluacion: ["I.LL.5.2.1. Analiza críticamente las variaciones lingüísticas socioculturales del Ecuador y las causas de la diglosia en relación con las lenguas originarias. (I.3., S.3.)"],
   },
   // Bloque 3: Lectura
   {
@@ -1440,8 +1440,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Identifica contradicciones, ambigüedades, falacias, distorsiones y desviaciones en el discurso, seleccionando críticamente los recursos del discurso oral y evaluando su impacto en la audiencia para valorar el contenido explícito de un texto oral. (I.4., S.4.).",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.3.2",
@@ -1451,8 +1451,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Analiza los significados connotativos del discurso, seleccionando críticamente los recursos del discurso oral y evaluando su impacto en la audiencia para valorar el contenido implícito de un texto oral. (I.4., S.4.).",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.3.3",
@@ -1462,8 +1462,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Persuade mediante la argumentación y contraargumentación con dominio de las estructuras lingüísticas, seleccionando críticamente los recursos del discurso oral y evaluando su impacto en la audiencia, en diferentes formatos y registros. (I.3., S.4.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.3.4",
@@ -1473,8 +1473,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Valorar los aspectos formales y el contenido del texto en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.3.5",
@@ -1484,8 +1484,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Consultar bases de datos digi- tales y otros recursos de la web con capacidad para seleccionar fuentes según el propósito de lectura y valorar la confiabilidad e interés o punto de vista de las fuentes escogidas.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.3.6",
@@ -1495,8 +1495,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Recoger, comparar y organizar información consultada utilizando esquemas y estrategias personales.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.3.7",
@@ -1506,8 +1506,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Consultar bases de datos digi- tales y otros recursos de la web para comprender los factores que afectan el poder adquisitivo del dinero.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.3.8",
@@ -1517,8 +1517,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 8,
     descripcion: "Consultar en bases de datos y fuentes de confiabilidad las consecuencias legales de infringir las normas de tránsito. 18.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.3. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.3.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.3. Escucha y valora el contenido explícito e implícito del discurso y con sus respuestas persuade mediante la argumentación y la contraargumentación, utilizando diferentes formatos (debates, mesas redondas, etc.)."],
+    indicadoresEvaluacion: ["I.LL.5.3.1. Valora el contenido explícito e implícito del discurso oral, persuade mediante la argumentación y la contraargumentación en diferentes formatos. (J.3., I.4.)"],
   },
   // Bloque 4: Escritura
   {
@@ -1529,8 +1529,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Identifica contradicciones, tos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión, identifica contradicciones, ambig.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.4. Valora los contenidos explícitos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.5.4.1. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes de acuerdo al propósito de lectura; valora su confiabilidad y punto de vista. (J.2., I.4.)"],
   },
   {
     codigo: "LL.5.4.2",
@@ -1540,8 +1540,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Interpretar los aspectos formales y el contenido de un texto, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.4. Valora los contenidos explícitos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.5.4.1. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes de acuerdo al propósito de lectura; valora su confiabilidad y punto de vista. (J.2., I.4.)"],
   },
   {
     codigo: "LL.5.4.3",
@@ -1551,8 +1551,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Aplicar las normas de citación e identificación de fuentes con rigor y honestidad académica.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.4. Valora los contenidos explícitos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.5.4.1. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes de acuerdo al propósito de lectura; valora su confiabilidad y punto de vista. (J.2., I.4.)"],
   },
   {
     codigo: "LL.5.4.4",
@@ -1562,8 +1562,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Usar de forma habitual el pro- cedimiento de planificación, redacción y revisión para autorregular la producción escrita, y seleccionar y aplicar variadas técnicas y recursos.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.4. Valora los contenidos explícitos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.5.4.1. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes de acuerdo al propósito de lectura; valora su confiabilidad y punto de vista. (J.2., I.4.)"],
   },
   {
     codigo: "LL.5.4.6",
@@ -1573,8 +1573,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 6,
     descripcion: "Expresar su postura u opinión sobre diferentes temas de la cotidianidad y académicos, mediante el uso crítico del significado de las palabras.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.4. Valora los contenidos explícitos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.5.4.1. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes de acuerdo al propósito de lectura; valora su confiabilidad y punto de vista. (J.2., I.4.)"],
   },
   {
     codigo: "LL.5.4.7",
@@ -1584,8 +1584,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 7,
     descripcion: "Desarrollar un tema con coherencia, cohesión y precisión, y en diferentes tipos de párrafos.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.4. Valora los contenidos explícitos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.5.4.1. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes de acuerdo al propósito de lectura; valora su confiabilidad y punto de vista. (J.2., I.4.)"],
   },
   {
     codigo: "LL.5.4.8",
@@ -1595,8 +1595,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 8,
     descripcion: "Expresar matices y producir efectos determinados en los lectores, mediante la selección de un vocabulario preciso. 19 Área del conocimiento/asignatura: Criterios de evaluación.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.4. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.4.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.4. Valora los contenidos explícitos e implícitos y los aspectos formales de dos o más textos, en función del propósito comunicativo, el contexto sociocultural y el punto de vista del autor; aplica estrategias cognitivas y metacognitivas para autorregular la comprensión."],
+    indicadoresEvaluacion: ["I.LL.5.4.1. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes de acuerdo al propósito de lectura; valora su confiabilidad y punto de vista. (J.2., I.4.)"],
   },
   // Bloque 5: Literatura
   {
@@ -1607,8 +1607,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Consultar bases de datos digitales y otros recursos de la web con capacidad para seleccionar y valorar fuentes según el propósito de lectura, su confiabilidad y punto de vista.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.5. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes según el propósito de lectura y valorar la confiabilidad e interés de la información encontrada."],
+    indicadoresEvaluacion: ["I.LL.5.5.1. Autorregula la comprensión de un texto mediante la aplicación de estrategias cognitivas y metacognitivas de comprensión. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.5.2",
@@ -1618,8 +1618,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Ubicar cronológicamente los textos más representativos de la literatura latinoamericana: siglos XIX a XXI, y establecer sus aportes en los procesos de reconocimiento y visibilización de la heterogeneidad cultural.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.5. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes según el propósito de lectura y valorar la confiabilidad e interés de la información encontrada."],
+    indicadoresEvaluacion: ["I.LL.5.5.1. Autorregula la comprensión de un texto mediante la aplicación de estrategias cognitivas y metacognitivas de comprensión. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.5.3",
@@ -1629,8 +1629,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Ubicar cronológicamente los textos más representativos de la literatura ecuatoriana: siglos XIX a XXI, y establecer sus aportes en la construcción de una cultura diversa y plural.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.5. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes según el propósito de lectura y valorar la confiabilidad e interés de la información encontrada."],
+    indicadoresEvaluacion: ["I.LL.5.5.1. Autorregula la comprensión de un texto mediante la aplicación de estrategias cognitivas y metacognitivas de comprensión. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.5.4",
@@ -1640,8 +1640,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 4,
     descripcion: "Recrear los textos literarios leídos desde la experiencia personal, mediante la adaptación de diversos recursos literarios.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.5. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes según el propósito de lectura y valorar la confiabilidad e interés de la información encontrada."],
+    indicadoresEvaluacion: ["I.LL.5.5.1. Autorregula la comprensión de un texto mediante la aplicación de estrategias cognitivas y metacognitivas de comprensión. (J.3., I.4.)"],
   },
   {
     codigo: "LL.5.5.5",
@@ -1651,8 +1651,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 5,
     descripcion: "Experimentar la escritura creativa con diferentes estructuras literarias, lingüísticas, visuales y sonoras en la recreación de textos literarios. 20.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.5. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.5.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.5. Consulta bases de datos digitales y otros recursos de la web con capacidad para seleccionar fuentes según el propósito de lectura y valorar la confiabilidad e interés de la información encontrada."],
+    indicadoresEvaluacion: ["I.LL.5.5.1. Autorregula la comprensión de un texto mediante la aplicación de estrategias cognitivas y metacognitivas de comprensión. (J.3., I.4.)"],
   },
   // Bloque 6: Bloque 6
   {
@@ -1663,8 +1663,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Aplica el proceso de produc- tura en la construcción de textos académicos argumentativos, selecciona el tema, formula la tesis y diferentes tipos de argumentos expresados en párrafos apropiados, selecciona con precisión las palabras por su significado para expresar matices y producir efectos en los .",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.6. Aplica el proceso de escritura en la construcción de textos académicos argumentativos, selecciona el tema, formula la tesis y diferentes tipos de argumentos expresados en párrafos apropiados, integrando diferentes recursos y citando fuentes con honestidad."],
+    indicadoresEvaluacion: ["I.LL.5.6.1. Aplica el proceso de producción de textos académicos y argumentativos, utilizando diferentes tipos de argumentos, seleccionando críticamente las fuentes, y citándolas con honestidad. (J.2., I.4.)"],
   },
   {
     codigo: "LL.5.6.2",
@@ -1674,8 +1674,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Escribir textos con manejo de su estructura, sustentando las ideas con razones y evidencias que se presentan de forma clara y organizada.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.6. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.6.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.6. Aplica el proceso de escritura en la construcción de textos académicos argumentativos, selecciona el tema, formula la tesis y diferentes tipos de argumentos expresados en párrafos apropiados, integrando diferentes recursos y citando fuentes con honestidad."],
+    indicadoresEvaluacion: ["I.LL.5.6.1. Aplica el proceso de producción de textos académicos y argumentativos, utilizando diferentes tipos de argumentos, seleccionando críticamente las fuentes, y citándolas con honestidad. (J.2., I.4.)"],
   },
   // Bloque 7: Bloque 7
   {
@@ -1686,8 +1686,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Ubica cronológicamente los textos más representativos de la literatura de Grecia y Roma, y examina críticamente las bases de la cultura occidental. (I.4.).",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.7. Ubica cronológicamente los textos más representativos de la literatura de Ecuador y América Latina, identifica sus aportes en los procesos de reconocimiento y visibilización de la heterogeneidad sociocultural."],
+    indicadoresEvaluacion: ["I.LL.5.7.1. Ubica cronológicamente los textos más representativos de la literatura ecuatoriana y latinoamericana; identifica sus aportes en la visibilización de la heterogeneidad sociocultural. (I.4., S.1.)"],
   },
   {
     codigo: "LL.5.7.2",
@@ -1697,8 +1697,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 2,
     descripcion: "Ubica cronológicamente los textos más representativos de la literatura latinoamericana: siglos XIX a XXI, y establece sus aportes en los procesos de reconocimiento y visibilización de la heterogeneidad cultural. (I.4., S.1.).",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.7. Ubica cronológicamente los textos más representativos de la literatura de Ecuador y América Latina, identifica sus aportes en los procesos de reconocimiento y visibilización de la heterogeneidad sociocultural."],
+    indicadoresEvaluacion: ["I.LL.5.7.1. Ubica cronológicamente los textos más representativos de la literatura ecuatoriana y latinoamericana; identifica sus aportes en la visibilización de la heterogeneidad sociocultural. (I.4., S.1.)"],
   },
   {
     codigo: "LL.5.7.3",
@@ -1708,8 +1708,8 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 3,
     descripcion: "Ubica cronológicamente los textos más representativos de la literatura ecuatoriana: siglos XIX a XXI, y establece sus aportes en la construcción de una cultura diversa y plural. (I.4., S.1.).",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.7. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.7.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.7. Ubica cronológicamente los textos más representativos de la literatura de Ecuador y América Latina, identifica sus aportes en los procesos de reconocimiento y visibilización de la heterogeneidad sociocultural."],
+    indicadoresEvaluacion: ["I.LL.5.7.1. Ubica cronológicamente los textos más representativos de la literatura ecuatoriana y latinoamericana; identifica sus aportes en la visibilización de la heterogeneidad sociocultural. (I.4., S.1.)"],
   },
   // Bloque 8: Bloque 8
   {
@@ -1720,7 +1720,7 @@ export const destrezasLengua: Destreza[] = [
     secuencial: 1,
     descripcion: "Recrea textos literarios leídos desde la experiencia personal, adaptando diversos recursos literarios; experimenta con diversas estructuras literarias, lingüísticas, visuales y sonoras en la composición de textos. (I.1., I.3.) 8.2. Ciencias Naturales 8.2.",
     objetivos: ["O.LL.5. Leer de manera autónoma y aplicar estrategias cognitivas y metacognitivas de comprensión, según el propósito de lectura."],
-    criteriosEvaluacion: ["CE.LL.5.8. Criterio de evaluación del currículo priorizado."],
-    indicadoresEvaluacion: ["I.LL.5.8.1. Indicador de evaluación del currículo priorizado."],
+    criteriosEvaluacion: ["CE.LL.5.8. Recrea los textos literarios leídos desde la experiencia personal, adaptando diversos recursos literarios, y experimenta la escritura creativa con diferentes estructuras literarias."],
+    indicadoresEvaluacion: ["I.LL.5.8.1. Recrea textos literarios leídos desde la experiencia personal, adaptando diversos recursos literarios, y experimenta la escritura creativa con diferentes estructuras literarias. (I.1., I.3.)"],
   },
 ];

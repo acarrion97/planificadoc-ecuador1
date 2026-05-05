@@ -234,98 +234,60 @@ export default function VerPlanScreen() {
         {/* Inserciones Curriculares */}
         {(plan.insercionesCurriculares && plan.insercionesCurriculares.length > 0) || plan.insercionCurricular ? (
           <SectionCard title={isEFL ? "Curricular Insertions" : "Inserciones Curriculares"} emoji={"\uD83C\uDF10"} colors={colors}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            <Text className="text-sm text-foreground leading-5">
               {(plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : [])).map((insId: string) => {
                 const ins = INSERCIONES_CURRICULARES.find(i => i.id === insId);
-                if (!ins) return null;
-                return (
-                  <View key={ins.id} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: colors.primary + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, gap: 4 }}>
-                    <Text style={{ fontSize: 14 }}>{ins.emoji}</Text>
-                    <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
-                      {isEFL ? ins.nameEN : ins.nombreCorto}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
+                return ins ? (isEFL ? ins.nameEN : ins.nombreCorto) : '';
+              }).filter(Boolean).join(', ')}
+            </Text>
           </SectionCard>
         ) : null}
 
         {/* Competencias */}
         {plan.competencias && plan.competencias.length > 0 ? (
           <SectionCard title={isEFL ? "Competencies" : "Competencias"} emoji={"\uD83C\uDFAF"} colors={colors}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            <Text className="text-sm text-foreground leading-5">
               {plan.competencias.map((compId: string) => {
                 const comp = COMPETENCIAS.find(c => c.id === compId);
-                if (!comp) return null;
-                return (
-                  <View key={comp.id} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: colors.primary + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, gap: 4 }}>
-                    <Text style={{ fontSize: 14 }}>{comp.emoji}</Text>
-                    <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
-                      {isEFL ? comp.nameEN : comp.nombreCorto}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
+                return comp ? (isEFL ? comp.nameEN : comp.nombreCorto) : '';
+              }).filter(Boolean).join(', ')}
+            </Text>
           </SectionCard>
         ) : null}
 
         {/* Metodolog\u00edas Activas */}
         {plan.metodologiasActivas && plan.metodologiasActivas.length > 0 ? (
           <SectionCard title={isEFL ? "Active Methodologies" : "Metodolog\u00edas Activas"} emoji={"\uD83D\uDCA1"} colors={colors}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            <Text className="text-sm text-foreground leading-5">
               {plan.metodologiasActivas.map((metId: string) => {
                 const met = METODOLOGIAS_ACTIVAS.find(m => m.id === metId);
-                if (!met) return null;
-                return (
-                  <View key={met.id} style={{ backgroundColor: '#7C3AED' + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16 }}>
-                    <Text style={{ fontSize: 12, fontWeight: '600', color: '#7C3AED' }}>
-                      {isEFL ? met.nameEN : met.nombre}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
+                return met ? (isEFL ? met.nameEN : met.nombre) : '';
+              }).filter(Boolean).join(', ')}
+            </Text>
           </SectionCard>
         ) : null}
 
         {/* T\u00e9cnicas de Evaluaci\u00f3n Seleccionadas */}
         {plan.tecnicasEvaluacionSeleccionadas && plan.tecnicasEvaluacionSeleccionadas.length > 0 ? (
           <SectionCard title={isEFL ? "Assessment Techniques" : "T\u00e9cnicas de Evaluaci\u00f3n"} emoji={"\uD83D\uDCCB"} colors={colors}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            <Text className="text-sm text-foreground leading-5">
               {plan.tecnicasEvaluacionSeleccionadas.map((tecId: string) => {
                 const tec = TECNICAS_EVALUACION.find(t => t.id === tecId);
-                if (!tec) return null;
-                return (
-                  <View key={tec.id} style={{ backgroundColor: '#16A34A' + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16 }}>
-                    <Text style={{ fontSize: 12, fontWeight: '600', color: '#16A34A' }}>
-                      {isEFL ? tec.nameEN : tec.nombre}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
+                return tec ? (isEFL ? tec.nameEN : tec.nombre) : '';
+              }).filter(Boolean).join(', ')}
+            </Text>
           </SectionCard>
         ) : null}
 
         {/* Estilos de Aprendizaje */}
         {plan.estilosAprendizaje && plan.estilosAprendizaje.length > 0 ? (
           <SectionCard title={isEFL ? "Learning Styles" : "Estilos de Aprendizaje"} emoji={"\uD83E\uDDE0"} colors={colors}>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            <Text className="text-sm text-foreground leading-5">
               {plan.estilosAprendizaje.map((estId: string) => {
                 const est = ESTILOS_APRENDIZAJE.find(e => e.id === estId);
-                if (!est) return null;
-                return (
-                  <View key={est.id} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#D97706' + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, gap: 4 }}>
-                    <Text style={{ fontSize: 14 }}>{est.emoji}</Text>
-                    <Text style={{ fontSize: 12, fontWeight: '600', color: '#D97706' }}>
-                      {isEFL ? est.nameEN : est.nombre}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
+                return est ? (isEFL ? est.nameEN : est.nombre) : '';
+              }).filter(Boolean).join(', ')}
+            </Text>
           </SectionCard>
         ) : null}
 
