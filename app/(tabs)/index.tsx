@@ -5,6 +5,7 @@ import {
   TextInput,
   FlatList,
   StyleSheet,
+  Linking,
 } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
@@ -114,8 +115,32 @@ export default function HomeScreen() {
             {/* Stats */}
             <View className="px-5 mt-3">
               <Text className="text-sm text-muted">
-                {TODAS_LAS_DESTREZAS.length} destrezas disponibles {"·"} 13 asignaturas
+                {TODAS_LAS_DESTREZAS.length} destrezas disponibles {"\u00b7"} 13 asignaturas
               </Text>
+            </View>
+
+            {/* WhatsApp Group Banner */}
+            <View className="px-5 mt-4">
+              <Pressable
+                onPress={() => Linking.openURL("https://chat.whatsapp.com/Kx4DtAkSVW4A1SM5xQUIyj?mode=gi_t")}
+                style={({ pressed }) => [
+                  styles.whatsappBanner,
+                  { opacity: pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] },
+                ]}
+              >
+                <View style={styles.whatsappBannerContent}>
+                  <Text style={{ fontSize: 28 }}>{"\uD83D\uDCAC"}</Text>
+                  <View style={{ flex: 1, marginLeft: 12 }}>
+                    <Text style={styles.whatsappBannerTitle}>
+                      Ingresar a grupo exclusivo de WhatsApp
+                    </Text>
+                    <Text style={styles.whatsappBannerSubtitle}>
+                      Donde muchos m{"\u00e1"}s docentes est{"\u00e1"}n planificando inteligentemente
+                    </Text>
+                  </View>
+                  <Text style={{ fontSize: 20, color: "#fff" }}>{"\u203A"}</Text>
+                </View>
+              </Pressable>
             </View>
 
             {/* Areas grid - only show when not searching */}
@@ -357,5 +382,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
+  },
+  whatsappBanner: {
+    backgroundColor: "#25D366",
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: "#25D366",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  whatsappBannerContent: {
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+  },
+  whatsappBannerTitle: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "700" as const,
+    lineHeight: 18,
+  },
+  whatsappBannerSubtitle: {
+    color: "#ffffffcc",
+    fontSize: 12,
+    marginTop: 3,
+    lineHeight: 16,
   },
 });

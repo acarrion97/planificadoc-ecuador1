@@ -1,5 +1,6 @@
 import { Planificacion, AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
+import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 
 /**
  * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador
@@ -533,12 +534,58 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     ${recursosTexto}
   </div>
 
-  <!-- SECCIÓN 5: INSERCIÓN CURRICULAR -->
-  ${(() => {
-    const ins = plan.insercionCurricular ? INSERCIONES_CURRICULARES.find(i => i.id === plan.insercionCurricular) : null;
-    if (!ins) return `<div class="seccion-titulo">${isEFL ? "5. Curricular Insertion (Cross-cutting Theme)" : "5. Inserci\u00f3n Curricular (Eje Transversal)"}</div><div class="recursos-box">${isEFL ? "Not specified" : "No especificada"}</div>`;
-    return `<div class="seccion-titulo">${isEFL ? "5. Curricular Insertion (Cross-cutting Theme)" : "5. Inserci\u00f3n Curricular (Eje Transversal)"}</div><div class="recursos-box"><strong>${ins.emoji} ${isEFL ? ins.nameEN : ins.nombre}</strong><br/><span style="font-size:11px;color:#555">${isEFL ? ins.descriptionEN : ins.descripcion}</span></div>`;
-  })()}
+  <!-- SECCIÓN 5: INSERCIONES CURRICULARES -->
+  <div class="seccion-titulo">${isEFL ? "5. Curricular Insertions" : "5. Inserciones Curriculares"}</div>
+  <div class="recursos-box">
+    ${(() => {
+      const ids = plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : []);
+      if (ids.length === 0) return isEFL ? "Not specified" : "No especificadas";
+      return ids.map((id: string) => {
+        const ins = INSERCIONES_CURRICULARES.find(i => i.id === id);
+        return ins ? `<span style="display:inline-block;background:#0a7ea4;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${ins.emoji} ${isEFL ? ins.nameEN : ins.nombreCorto}</span>` : '';
+      }).join('');
+    })()}
+  </div>
+
+  <!-- SECCIÓN 5b: COMPETENCIAS -->
+  ${plan.competencias && plan.competencias.length > 0 ? `
+  <div class="seccion-titulo">${isEFL ? "Competencies" : "Competencias"}</div>
+  <div class="recursos-box">
+    ${plan.competencias.map((id: string) => {
+      const comp = COMPETENCIAS.find(c => c.id === id);
+      return comp ? `<span style="display:inline-block;background:#0a7ea4;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${comp.emoji} ${isEFL ? comp.nameEN : comp.nombreCorto}</span>` : '';
+    }).join('')}
+  </div>` : ''}
+
+  <!-- SECCIÓN 5c: METODOLOGÍAS ACTIVAS -->
+  ${plan.metodologiasActivas && plan.metodologiasActivas.length > 0 ? `
+  <div class="seccion-titulo">${isEFL ? "Active Methodologies" : "Metodolog\u00edas Activas"}</div>
+  <div class="recursos-box">
+    ${plan.metodologiasActivas.map((id: string) => {
+      const met = METODOLOGIAS_ACTIVAS.find(m => m.id === id);
+      return met ? `<span style="display:inline-block;background:#7C3AED;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${isEFL ? met.nameEN : met.nombre}</span>` : '';
+    }).join('')}
+  </div>` : ''}
+
+  <!-- SECCIÓN 5d: TÉCNICAS DE EVALUACIÓN -->
+  ${plan.tecnicasEvaluacionSeleccionadas && plan.tecnicasEvaluacionSeleccionadas.length > 0 ? `
+  <div class="seccion-titulo">${isEFL ? "Assessment Techniques" : "T\u00e9cnicas e Instrumentos de Evaluaci\u00f3n"}</div>
+  <div class="recursos-box">
+    ${plan.tecnicasEvaluacionSeleccionadas.map((id: string) => {
+      const tec = TECNICAS_EVALUACION.find(t => t.id === id);
+      return tec ? `<span style="display:inline-block;background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${isEFL ? tec.nameEN : tec.nombre}</span>` : '';
+    }).join('')}
+  </div>` : ''}
+
+  <!-- SECCIÓN 5e: ESTILOS DE APRENDIZAJE -->
+  ${plan.estilosAprendizaje && plan.estilosAprendizaje.length > 0 ? `
+  <div class="seccion-titulo">${isEFL ? "Learning Styles" : "Estilos de Aprendizaje"}</div>
+  <div class="recursos-box">
+    ${plan.estilosAprendizaje.map((id: string) => {
+      const est = ESTILOS_APRENDIZAJE.find(e => e.id === id);
+      return est ? `<span style="display:inline-block;background:#D97706;color:#fff;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:10px;">${est.emoji} ${isEFL ? est.nameEN : est.nombre}</span>` : '';
+    }).join('')}
+  </div>` : ''}
 
   <!-- SECCIÓN 6: DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA) -->
   <div class="seccion-titulo">${isEFL ? "6. Universal Design for Learning (UDL)" : "6. Diseño Universal para el Aprendizaje (DUA)"}</div>

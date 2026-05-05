@@ -80,6 +80,8 @@ export interface Planificacion {
   grado: string;
   asignatura: string;
   periodos: string;
+  semana?: string;
+  unidadDidactica?: string;
   destreza: Destreza;
   objetivoAprendizaje: string;
   temaSeleccionado?: TemaSugerido;
@@ -88,7 +90,18 @@ export interface Planificacion {
   evaluacion: string;
   tecnicasInstrumentos: string;
   observaciones: string;
+  /** IDs de inserciones curriculares seleccionadas */
+  insercionesCurriculares?: string[];
+  /** Legacy: single insercion field (backward compat) */
   insercionCurricular?: string;
+  /** IDs de competencias seleccionadas */
+  competencias?: string[];
+  /** IDs de metodologías activas seleccionadas */
+  metodologiasActivas?: string[];
+  /** IDs de técnicas e instrumentos de evaluación seleccionadas */
+  tecnicasEvaluacionSeleccionadas?: string[];
+  /** IDs de estilos de aprendizaje seleccionados */
+  estilosAprendizaje?: string[];
   dua?: {
     representacion: string;
     accionExpresion: string;

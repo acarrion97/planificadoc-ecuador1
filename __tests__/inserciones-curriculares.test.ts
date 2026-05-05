@@ -8,8 +8,8 @@ import { generarHTMLPlanificacion } from "../lib/pdf-generator";
 import { Planificacion } from "../data/types";
 
 describe("Inserciones Curriculares - Data Module", () => {
-  it("should have 7 inserciones curriculares", () => {
-    expect(INSERCIONES_CURRICULARES).toHaveLength(7);
+  it("should have 5 inserciones curriculares", () => {
+    expect(INSERCIONES_CURRICULARES).toHaveLength(5);
   });
 
   it("each insercion should have all required fields", () => {
@@ -82,17 +82,16 @@ describe("Inserciones Curriculares - PDF Integration", () => {
     updatedAt: new Date().toISOString(),
   };
 
-  it("PDF should include inserción curricular section with selected insertion", () => {
+  it("PDF should include inserciones curriculares section with selected insertion", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("Inserción Curricular");
-    expect(html).toContain("Educación para el Desarrollo Sostenible");
-    expect(html).toContain("Protección del medio ambiente");
+    expect(html).toContain("Inserciones Curriculares");
+    expect(html).toContain("Desarrollo Sostenible");
   });
 
-  it("PDF should show 'No especificada' when no insertion is selected", () => {
-    const planSinInsercion = { ...mockPlan, insercionCurricular: undefined };
+  it("PDF should show 'No especificadas' when no insertion is selected", () => {
+    const planSinInsercion = { ...mockPlan, insercionCurricular: undefined, insercionesCurriculares: undefined };
     const html = generarHTMLPlanificacion(planSinInsercion);
-    expect(html).toContain("No especificada");
+    expect(html).toContain("No especificadas");
   });
 
   it("PDF for EFL should show English insertion name", () => {

@@ -126,3 +126,17 @@
 - [x] Crear módulo de datos con las 7 inserciones oficiales del MinEduc 2025-2026
 - [x] Integrar selector de inserciones (chips) en formulario de planificación
 - [x] Mostrar inserciones en vista de plan guardado y PDF exportado (Sección 5)
+- [x] Corregir inserciones curriculares: quitar "Igualdad de Género" e "Interculturalidad" (solo 5 oficiales per Acuerdo MINEDUC-2024-00060-A)
+- [x] Agregar filtrado de inserciones por asignatura+subnivel (según mapeo oficial)
+- [x] Crear datos de Competencias como chips seleccionables (Matemáticas, Comunicacionales, Digitales, Socioemocionales)
+- [x] Crear datos de Metodologías Activas como chips seleccionables (10 opciones)
+- [x] Crear datos de Técnicas e Instrumentos de Evaluación como chips seleccionables (15 opciones)
+-- [x] Crear datos de Estilos de Aprendizaje como chips seleccionables (Visual, Auditivo, Lector-Escritor, Kinésico)o)
+- [x] Actualizar tipos TypeScript (Planificacion interface) para incluir nuevos campos: competencias, metodologías, técnicas, estilos
+- [x] Rediseñar formulario de planificación (planificar/[codigo].tsx) con las nuevas secciones de chips
+- [x] Mejorar diferenciación de los 3 temas sugeridos (que sean realmente distintos entre sí)
+- [x] Actualizar vista de plan (ver-plan/[id].tsx) para mostrar nuevas secciones
+- [x] Actualizar generador de PDF con nuevo formato (incluir todas las secciones)
+- [x] Ejecutar tests y corregir errores (112 tests pasando)
+- [ ] Commit, push a GitHub y verificar deploy en Vercel
+- [x] Agregar banner en página principal: "Ingresar a grupo exclusivo de WhatsApp" con enlace https://chat.whatsapp.com/Kx4DtAkSVW4A1SM5xQUIyj?mode=gi_t

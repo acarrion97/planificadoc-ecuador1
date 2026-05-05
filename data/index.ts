@@ -17,8 +17,10 @@ export * from "./types";
 export { obtenerTemasSugeridos } from "./temas-sugeridos";
 export { obtenerEstrategiasDUA, obtenerEstrategiasGeneralesDUA, generarTextoDUA, DUA_PRINCIPIOS, DUA_PRINCIPIOS_EN } from "./dua-estrategias";
 export type { DUAPlanificacion } from "./dua-estrategias";
-export { INSERCIONES_CURRICULARES, obtenerInsercion, obtenerNombreInsercion } from "./inserciones-curriculares";
+export { INSERCIONES_CURRICULARES, obtenerInsercion, obtenerNombreInsercion, obtenerInsercionesPorAsignatura } from "./inserciones-curriculares";
 export type { InsercionCurricular } from "./inserciones-curriculares";
+export { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "./secciones-planificacion";
+export type { Competencia, MetodologiaActiva, TecnicaEvaluacion, EstiloAprendizaje } from "./secciones-planificacion";
 
 export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasMatematica,

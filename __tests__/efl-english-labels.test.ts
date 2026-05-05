@@ -170,8 +170,9 @@ describe("EFL English Labels", () => {
       expect(html).toContain("2. Learning Objectives");
       expect(html).toContain("3. Lesson Planning");
       expect(html).toContain("4. Resources");
-      expect(html).toContain("5. Universal Design for Learning (UDL)");
-      expect(html).toContain("6. Observations");
+      expect(html).toContain("5. Curricular Insertions");
+      expect(html).toContain("6. Universal Design for Learning (UDL)");
+      expect(html).toContain("7. Observations");
 
       // Field labels
       expect(html).toContain("Institution:");

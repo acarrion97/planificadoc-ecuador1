@@ -60,33 +60,55 @@ function extraerPalabrasClave(descripcion: string): string[] {
 
 /**
  * Genera un título de tema creativo basado en la destreza.
+ * Cada variante (0, 1, 2) usa un ENFOQUE PEDAGÓGICO DIFERENTE:
+ * - Variante 0: Enfoque exploratorio/teórico (descubrir, comprender)
+ * - Variante 1: Enfoque práctico/manipulativo (taller, laboratorio, juego)
+ * - Variante 2: Enfoque de proyecto/reto (aplicar, crear, resolver)
  */
 function generarTituloTema(destreza: Destreza, variante: number): string {
   const palabras = extraerPalabrasClave(destreza.descripcion);
   const areaInfo = AREAS_INFO[destreza.area];
   const bloque = areaInfo.bloques[destreza.bloque] || "";
-
-  const prefijos: Record<number, string[]> = {
-    0: [
-      "Descubriendo", "Explorando", "Aprendiendo sobre", "Conociendo",
-      "Investigando", "Comprendiendo",
-    ],
-    1: [
-      "Taller práctico:", "Manos a la obra:", "Aprendemos jugando:",
-      "Laboratorio de", "Creando con", "Construyendo",
-    ],
-    2: [
-      "Reto creativo:", "Proyecto:", "Misión:", "Desafío:",
-      "Aventura de aprendizaje:", "Expedición:",
-    ],
-  };
-
   const hash = hashString(destreza.codigo);
-  const prefijoList = prefijos[variante] || prefijos[0];
-  const prefijo = prefijoList[hash % prefijoList.length];
 
-  const temaBase = palabras.slice(0, 4).join(" ");
-  if (temaBase.length > 10) {
+  // Cada variante usa palabras clave DIFERENTES de la descripción
+  // para generar títulos verdaderamente distintos
+  const totalPalabras = palabras.length;
+
+  // Variante 0: usa las primeras 3 palabras clave
+  // Variante 1: usa palabras del medio
+  // Variante 2: usa las últimas palabras o el bloque
+  let temaBase: string;
+  if (variante === 0) {
+    temaBase = palabras.slice(0, Math.min(3, totalPalabras)).join(" ");
+  } else if (variante === 1) {
+    const inicio = Math.max(1, Math.floor(totalPalabras / 3));
+    temaBase = palabras.slice(inicio, inicio + 3).join(" ");
+  } else {
+    const inicio = Math.max(2, Math.floor((totalPalabras * 2) / 3));
+    temaBase = palabras.slice(inicio, inicio + 3).join(" ");
+    if (temaBase.length < 8) temaBase = bloque.toLowerCase();
+  }
+
+  // Prefijos completamente diferentes por variante
+  const prefijosExploratorio = [
+    "¿Qué sabemos sobre", "Descubriendo el mundo de", "Comprendiendo",
+    "Explorando los secretos de", "Viaje al conocimiento:", "Aprendiendo sobre",
+  ];
+  const prefijosPractico = [
+    "Taller práctico:", "Manos a la obra con", "Laboratorio:",
+    "Experimentando con", "Construyendo juntos:", "Aprendemos haciendo:",
+  ];
+  const prefijosProyecto = [
+    "Reto:", "Misión creativa:", "Proyecto colaborativo:",
+    "Desafío en equipo:", "Creando soluciones para", "Resolvemos:",
+  ];
+
+  const listas = [prefijosExploratorio, prefijosPractico, prefijosProyecto];
+  const lista = listas[variante % 3];
+  const prefijo = lista[(hash + variante) % lista.length];
+
+  if (temaBase.length > 8) {
     return `${prefijo} ${temaBase}`;
   }
   return `${prefijo} ${bloque.toLowerCase()}`;
@@ -1729,12 +1751,12 @@ export function obtenerTemasSugeridos(destreza: Destreza): TemaSugerido[] {
 
 function generarDescripcionBreve(destreza: Destreza, variante: number, bloque: string): string {
   const desc = destreza.descripcion;
-  const corta = desc.length > 80 ? desc.substring(0, 77) + "..." : desc;
+  const corta = desc.length > 60 ? desc.substring(0, 57) + "..." : desc;
 
   const plantillas = [
-    `Clase enfocada en: ${corta}`,
-    `Taller práctico y colaborativo sobre: ${corta}`,
-    `Proyecto creativo aplicado a: ${corta}`,
+    `Clase exploratoria para comprender: ${corta}`,
+    `Taller pr\u00e1ctico con material concreto sobre: ${corta}`,
+    `Reto colaborativo para aplicar: ${corta}`,
   ];
 
   return plantillas[variante % plantillas.length];

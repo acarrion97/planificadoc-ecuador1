@@ -27,8 +27,12 @@ import {
   generarTextoDUA,
   DUA_PRINCIPIOS,
   DUA_PRINCIPIOS_EN,
-  INSERCIONES_CURRICULARES,
+  obtenerInsercionesPorAsignatura,
   obtenerNombreInsercion,
+  COMPETENCIAS,
+  METODOLOGIAS_ACTIVAS,
+  TECNICAS_EVALUACION,
+  ESTILOS_APRENDIZAJE,
 } from "@/data";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 import { useAccess } from "@/lib/access-control";
@@ -126,10 +130,20 @@ export default function PlanificarScreen() {
   );
   const [tecnicas, setTecnicas] = useState(getSugerenciaTecnicas(destreza?.area === "EFL"));
   const [observaciones, setObservaciones] = useState("");
-  const [insercionCurricular, setInsercionCurricular] = useState<string | null>(null);
+  const [insercionesCurriculares, setInsercionesCurriculares] = useState<string[]>([]);
+  const [competenciasSeleccionadas, setCompetenciasSeleccionadas] = useState<string[]>([]);
+  const [metodologiasSeleccionadas, setMetodologiasSeleccionadas] = useState<string[]>([]);
+  const [tecnicasSeleccionadas, setTecnicasSeleccionadas] = useState<string[]>([]);
+  const [estilosSeleccionados, setEstilosSeleccionados] = useState<string[]>([]);
   const [duaRepresentacion, setDuaRepresentacion] = useState("");
   const [duaAccionExpresion, setDuaAccionExpresion] = useState("");
   const [duaImplicacion, setDuaImplicacion] = useState("");
+
+  // Inserciones filtradas por asignatura y subnivel
+  const insercionesDisponibles = useMemo(
+    () => (destreza ? obtenerInsercionesPorAsignatura(destreza.area, destreza.subnivel) : []),
+    [destreza]
+  );
 
   if (!destreza) {
     return (
@@ -252,7 +266,11 @@ export default function PlanificarScreen() {
       evaluacion: evaluacion.trim(),
       tecnicasInstrumentos: tecnicas.trim(),
       observaciones: observaciones.trim(),
-      insercionCurricular: insercionCurricular || undefined,
+      insercionesCurriculares: insercionesCurriculares.length > 0 ? insercionesCurriculares : undefined,
+      competencias: competenciasSeleccionadas.length > 0 ? competenciasSeleccionadas : undefined,
+      metodologiasActivas: metodologiasSeleccionadas.length > 0 ? metodologiasSeleccionadas : undefined,
+      tecnicasEvaluacionSeleccionadas: tecnicasSeleccionadas.length > 0 ? tecnicasSeleccionadas : undefined,
+      estilosAprendizaje: estilosSeleccionados.length > 0 ? estilosSeleccionados : undefined,
       dua: {
         representacion: duaRepresentacion.trim(),
         accionExpresion: duaAccionExpresion.trim(),
@@ -621,18 +639,72 @@ export default function PlanificarScreen() {
           />
 
           {/* ===== INSERCIONES CURRICULARES ===== */}
-          <SectionTitle title={isEFL ? "Curricular Insertion (Cross-cutting Theme)" : "Inserción Curricular (Eje Transversal)"} emoji={"\uD83C\uDF10"} colors={colors} />
+          <SectionTitle title={isEFL ? "Curricular Insertions (Cross-cutting Themes)" : "Inserciones Curriculares (Ejes Transversales)"} emoji={"\uD83C\uDF10"} colors={colors} />
           <View className="px-5 mt-1 mb-2">
             <Text className="text-xs text-muted mb-3">
-              {isEFL ? "Select the cross-cutting theme addressed in this lesson:" : "Selecciona el eje transversal que se aborda en esta clase:"}
+              {isEFL ? "Select the cross-cutting themes addressed in this lesson:" : "Selecciona los ejes transversales que se abordan en esta clase:"}
+            </Text>
+            {insercionesDisponibles.length > 0 ? (
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                {insercionesDisponibles.map((ins) => {
+                  const isSelected = insercionesCurriculares.includes(ins.id);
+                  return (
+                    <Pressable
+                      key={ins.id}
+                      onPress={() => {
+                        if (isSelected) {
+                          setInsercionesCurriculares(insercionesCurriculares.filter(id => id !== ins.id));
+                        } else {
+                          setInsercionesCurriculares([...insercionesCurriculares, ins.id]);
+                        }
+                      }}
+                      style={({ pressed }) => [{
+                        paddingHorizontal: 12,
+                        paddingVertical: 8,
+                        borderRadius: 20,
+                        borderWidth: 1.5,
+                        borderColor: isSelected ? colors.primary : colors.border,
+                        backgroundColor: isSelected ? colors.primary + '15' : colors.surface,
+                        opacity: pressed ? 0.7 : 1,
+                      }]}
+                    >
+                      <Text style={{
+                        fontSize: 12,
+                        fontWeight: isSelected ? '700' : '500',
+                        color: isSelected ? colors.primary : colors.foreground,
+                      }}>
+                        {ins.emoji} {isEFL ? ins.nameEN : ins.nombreCorto}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            ) : (
+              <Text className="text-xs text-muted">
+                {isEFL ? "No specific insertions for this subject/level" : "No hay inserciones espec\u00edficas para esta asignatura/subnivel"}
+              </Text>
+            )}
+          </View>
+
+          {/* ===== COMPETENCIAS ===== */}
+          <SectionTitle title={isEFL ? "Competencies" : "Competencias"} emoji={"\uD83C\uDFAF"} colors={colors} />
+          <View className="px-5 mt-1 mb-2">
+            <Text className="text-xs text-muted mb-3">
+              {isEFL ? "Select the competencies developed in this lesson:" : "Selecciona las competencias que se desarrollan en esta clase:"}
             </Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-              {INSERCIONES_CURRICULARES.map((ins) => {
-                const isSelected = insercionCurricular === ins.id;
+              {COMPETENCIAS.map((comp) => {
+                const isSelected = competenciasSeleccionadas.includes(comp.id);
                 return (
                   <Pressable
-                    key={ins.id}
-                    onPress={() => setInsercionCurricular(isSelected ? null : ins.id)}
+                    key={comp.id}
+                    onPress={() => {
+                      if (isSelected) {
+                        setCompetenciasSeleccionadas(competenciasSeleccionadas.filter(id => id !== comp.id));
+                      } else {
+                        setCompetenciasSeleccionadas([...competenciasSeleccionadas, comp.id]);
+                      }
+                    }}
                     style={({ pressed }) => [{
                       paddingHorizontal: 12,
                       paddingVertical: 8,
@@ -648,22 +720,138 @@ export default function PlanificarScreen() {
                       fontWeight: isSelected ? '700' : '500',
                       color: isSelected ? colors.primary : colors.foreground,
                     }}>
-                      {ins.emoji} {isEFL ? ins.nameEN : ins.nombreCorto}
+                      {comp.emoji} {isEFL ? comp.nameEN : comp.nombreCorto + " - " + comp.nombre}
                     </Text>
                   </Pressable>
                 );
               })}
             </View>
-            {insercionCurricular && (
-              <View style={{ marginTop: 10, padding: 10, borderRadius: 8, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border }}>
-                <Text style={{ fontSize: 11, color: colors.muted, lineHeight: 16 }}>
-                  {isEFL
-                    ? INSERCIONES_CURRICULARES.find(i => i.id === insercionCurricular)?.descriptionEN
-                    : INSERCIONES_CURRICULARES.find(i => i.id === insercionCurricular)?.descripcion
-                  }
-                </Text>
-              </View>
-            )}
+          </View>
+
+          {/* ===== METODOLOGÍAS ACTIVAS ===== */}
+          <SectionTitle title={isEFL ? "Active Methodologies" : "Metodolog\u00edas Activas"} emoji={"\uD83D\uDCA1"} colors={colors} />
+          <View className="px-5 mt-1 mb-2">
+            <Text className="text-xs text-muted mb-3">
+              {isEFL ? "Select the active methodologies used:" : "Selecciona las metodolog\u00edas activas que utilizar\u00e1s:"}
+            </Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {METODOLOGIAS_ACTIVAS.map((met) => {
+                const isSelected = metodologiasSeleccionadas.includes(met.id);
+                return (
+                  <Pressable
+                    key={met.id}
+                    onPress={() => {
+                      if (isSelected) {
+                        setMetodologiasSeleccionadas(metodologiasSeleccionadas.filter(id => id !== met.id));
+                      } else {
+                        setMetodologiasSeleccionadas([...metodologiasSeleccionadas, met.id]);
+                      }
+                    }}
+                    style={({ pressed }) => [{
+                      paddingHorizontal: 12,
+                      paddingVertical: 8,
+                      borderRadius: 20,
+                      borderWidth: 1.5,
+                      borderColor: isSelected ? "#7C3AED" : colors.border,
+                      backgroundColor: isSelected ? "#7C3AED" + '15' : colors.surface,
+                      opacity: pressed ? 0.7 : 1,
+                    }]}
+                  >
+                    <Text style={{
+                      fontSize: 12,
+                      fontWeight: isSelected ? '700' : '500',
+                      color: isSelected ? "#7C3AED" : colors.foreground,
+                    }}>
+                      {isEFL ? met.nameEN : met.nombre}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+
+          {/* ===== TÉCNICAS E INSTRUMENTOS DE EVALUACIÓN ===== */}
+          <SectionTitle title={isEFL ? "Assessment Techniques & Instruments" : "T\u00e9cnicas e Instrumentos de Evaluaci\u00f3n"} emoji={"\uD83D\uDCCB"} colors={colors} />
+          <View className="px-5 mt-1 mb-2">
+            <Text className="text-xs text-muted mb-3">
+              {isEFL ? "Select the assessment techniques you will use:" : "Selecciona las t\u00e9cnicas e instrumentos que utilizar\u00e1s:"}
+            </Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {TECNICAS_EVALUACION.map((tec) => {
+                const isSelected = tecnicasSeleccionadas.includes(tec.id);
+                return (
+                  <Pressable
+                    key={tec.id}
+                    onPress={() => {
+                      if (isSelected) {
+                        setTecnicasSeleccionadas(tecnicasSeleccionadas.filter(id => id !== tec.id));
+                      } else {
+                        setTecnicasSeleccionadas([...tecnicasSeleccionadas, tec.id]);
+                      }
+                    }}
+                    style={({ pressed }) => [{
+                      paddingHorizontal: 12,
+                      paddingVertical: 8,
+                      borderRadius: 20,
+                      borderWidth: 1.5,
+                      borderColor: isSelected ? "#16A34A" : colors.border,
+                      backgroundColor: isSelected ? "#16A34A" + '15' : colors.surface,
+                      opacity: pressed ? 0.7 : 1,
+                    }]}
+                  >
+                    <Text style={{
+                      fontSize: 12,
+                      fontWeight: isSelected ? '700' : '500',
+                      color: isSelected ? "#16A34A" : colors.foreground,
+                    }}>
+                      {isEFL ? tec.nameEN : tec.nombre}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+
+          {/* ===== ESTILOS DE APRENDIZAJE ===== */}
+          <SectionTitle title={isEFL ? "Learning Styles" : "Estilos de Aprendizaje"} emoji={"\uD83E\uDDE0"} colors={colors} />
+          <View className="px-5 mt-1 mb-2">
+            <Text className="text-xs text-muted mb-3">
+              {isEFL ? "Select the learning styles addressed:" : "Selecciona los estilos de aprendizaje que se abordan:"}
+            </Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {ESTILOS_APRENDIZAJE.map((est) => {
+                const isSelected = estilosSeleccionados.includes(est.id);
+                return (
+                  <Pressable
+                    key={est.id}
+                    onPress={() => {
+                      if (isSelected) {
+                        setEstilosSeleccionados(estilosSeleccionados.filter(id => id !== est.id));
+                      } else {
+                        setEstilosSeleccionados([...estilosSeleccionados, est.id]);
+                      }
+                    }}
+                    style={({ pressed }) => [{
+                      paddingHorizontal: 12,
+                      paddingVertical: 8,
+                      borderRadius: 20,
+                      borderWidth: 1.5,
+                      borderColor: isSelected ? "#D97706" : colors.border,
+                      backgroundColor: isSelected ? "#D97706" + '15' : colors.surface,
+                      opacity: pressed ? 0.7 : 1,
+                    }]}
+                  >
+                    <Text style={{
+                      fontSize: 12,
+                      fontWeight: isSelected ? '700' : '500',
+                      color: isSelected ? "#D97706" : colors.foreground,
+                    }}>
+                      {est.emoji} {isEFL ? est.nameEN : est.nombre}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
           </View>
 
           {/* ===== SECCIÓN DUA ===== */}

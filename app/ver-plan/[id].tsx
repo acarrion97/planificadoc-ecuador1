@@ -4,7 +4,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
-import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido, INSERCIONES_CURRICULARES } from "@/data";
+import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido, INSERCIONES_CURRICULARES, COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "@/data";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 
 export default function VerPlanScreen() {
@@ -231,26 +231,103 @@ export default function VerPlanScreen() {
           </Text>
         </SectionCard>
 
-        {/* Inserción Curricular */}
-        {plan.insercionCurricular ? (() => {
-          const ins = INSERCIONES_CURRICULARES.find(i => i.id === plan.insercionCurricular);
-          if (!ins) return null;
-          return (
-            <SectionCard title={isEFL ? "Curricular Insertion" : "Inserción Curricular"} emoji={"\uD83C\uDF10"} colors={colors}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                <Text style={{ fontSize: 20 }}>{ins.emoji}</Text>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 14, fontWeight: '700', color: colors.foreground }}>
-                    {isEFL ? ins.nameEN : ins.nombre}
-                  </Text>
-                  <Text style={{ fontSize: 12, color: colors.muted, marginTop: 2, lineHeight: 16 }}>
-                    {isEFL ? ins.descriptionEN : ins.descripcion}
-                  </Text>
-                </View>
-              </View>
-            </SectionCard>
-          );
-        })() : null}
+        {/* Inserciones Curriculares */}
+        {(plan.insercionesCurriculares && plan.insercionesCurriculares.length > 0) || plan.insercionCurricular ? (
+          <SectionCard title={isEFL ? "Curricular Insertions" : "Inserciones Curriculares"} emoji={"\uD83C\uDF10"} colors={colors}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {(plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : [])).map((insId: string) => {
+                const ins = INSERCIONES_CURRICULARES.find(i => i.id === insId);
+                if (!ins) return null;
+                return (
+                  <View key={ins.id} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: colors.primary + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, gap: 4 }}>
+                    <Text style={{ fontSize: 14 }}>{ins.emoji}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
+                      {isEFL ? ins.nameEN : ins.nombreCorto}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </SectionCard>
+        ) : null}
+
+        {/* Competencias */}
+        {plan.competencias && plan.competencias.length > 0 ? (
+          <SectionCard title={isEFL ? "Competencies" : "Competencias"} emoji={"\uD83C\uDFAF"} colors={colors}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {plan.competencias.map((compId: string) => {
+                const comp = COMPETENCIAS.find(c => c.id === compId);
+                if (!comp) return null;
+                return (
+                  <View key={comp.id} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: colors.primary + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, gap: 4 }}>
+                    <Text style={{ fontSize: 14 }}>{comp.emoji}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
+                      {isEFL ? comp.nameEN : comp.nombreCorto}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </SectionCard>
+        ) : null}
+
+        {/* Metodolog\u00edas Activas */}
+        {plan.metodologiasActivas && plan.metodologiasActivas.length > 0 ? (
+          <SectionCard title={isEFL ? "Active Methodologies" : "Metodolog\u00edas Activas"} emoji={"\uD83D\uDCA1"} colors={colors}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {plan.metodologiasActivas.map((metId: string) => {
+                const met = METODOLOGIAS_ACTIVAS.find(m => m.id === metId);
+                if (!met) return null;
+                return (
+                  <View key={met.id} style={{ backgroundColor: '#7C3AED' + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16 }}>
+                    <Text style={{ fontSize: 12, fontWeight: '600', color: '#7C3AED' }}>
+                      {isEFL ? met.nameEN : met.nombre}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </SectionCard>
+        ) : null}
+
+        {/* T\u00e9cnicas de Evaluaci\u00f3n Seleccionadas */}
+        {plan.tecnicasEvaluacionSeleccionadas && plan.tecnicasEvaluacionSeleccionadas.length > 0 ? (
+          <SectionCard title={isEFL ? "Assessment Techniques" : "T\u00e9cnicas de Evaluaci\u00f3n"} emoji={"\uD83D\uDCCB"} colors={colors}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {plan.tecnicasEvaluacionSeleccionadas.map((tecId: string) => {
+                const tec = TECNICAS_EVALUACION.find(t => t.id === tecId);
+                if (!tec) return null;
+                return (
+                  <View key={tec.id} style={{ backgroundColor: '#16A34A' + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16 }}>
+                    <Text style={{ fontSize: 12, fontWeight: '600', color: '#16A34A' }}>
+                      {isEFL ? tec.nameEN : tec.nombre}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </SectionCard>
+        ) : null}
+
+        {/* Estilos de Aprendizaje */}
+        {plan.estilosAprendizaje && plan.estilosAprendizaje.length > 0 ? (
+          <SectionCard title={isEFL ? "Learning Styles" : "Estilos de Aprendizaje"} emoji={"\uD83E\uDDE0"} colors={colors}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {plan.estilosAprendizaje.map((estId: string) => {
+                const est = ESTILOS_APRENDIZAJE.find(e => e.id === estId);
+                if (!est) return null;
+                return (
+                  <View key={est.id} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#D97706' + '12', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, gap: 4 }}>
+                    <Text style={{ fontSize: 14 }}>{est.emoji}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '600', color: '#D97706' }}>
+                      {isEFL ? est.nameEN : est.nombre}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </SectionCard>
+        ) : null}
 
         {/* DUA */}
         {plan.dua && (plan.dua.representacion || plan.dua.accionExpresion || plan.dua.implicacion) ? (
