@@ -21,6 +21,17 @@ export { INSERCIONES_CURRICULARES, obtenerInsercion, obtenerNombreInsercion, obt
 export type { InsercionCurricular } from "./inserciones-curriculares";
 export { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "./secciones-planificacion";
 export type { Competencia, MetodologiaActiva, TecnicaEvaluacion, EstiloAprendizaje } from "./secciones-planificacion";
+export {
+  AREAS_BT,
+  FAMILIAS_PROFESIONALES,
+  FIGURAS_PROFESIONALES,
+  obtenerFamiliasPorArea,
+  obtenerFigurasPorFamilia,
+  obtenerFiguraPorId,
+  obtenerModulosPorAnio,
+  obtenerTodosLosModulos,
+} from './bachillerato-tecnico';
+export type { ModuloFormativo, FiguraProfesional, FamiliaProfesional } from './bachillerato-tecnico';
 
 export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasMatematica,

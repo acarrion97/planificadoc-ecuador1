@@ -138,9 +138,11 @@
 - [x] Actualizar vista de plan (ver-plan/[id].tsx) para mostrar nuevas secciones
 - [x] Actualizar generador de PDF con nuevo formato (incluir todas las secciones)
 - [x] Ejecutar tests y corregir errores (112 tests pasando)
-- [ ] Commit, push a GitHub y verificar deploy en Vercel
+- [x] Commit, push a GitHub y verificar deploy en Vercel
 - [x] Agregar banner en página principal: "Ingresar a grupo exclusivo de WhatsApp" con enlace https://chat.whatsapp.com/Kx4DtAkSVW4A1SM5xQUIyj?mode=gi_t
-- [ ] Bug: Objetivos, destrezas e indicadores solo muestran iniciales/códigos en vez de descripción completa
-- [ ] Completar objetivos reales del currículo priorizado para todas las destrezas
-- [ ] Completar criterios de evaluación reales para todas las destrezas
-- [ ] Completar indicadores de evaluación reales para todas las destrezas
+- [x] Bug: Objetivos, destrezas e indicadores solo muestran iniciales/códigos en vez de descripción completa
+- [x] Completar objetivos reales del currículo priorizado para todas las destrezas
+- [x] Completar criterios de evaluación reales para todas las destrezas
+- [x] Completar indicadores de evaluación reales para todas las destrezas
+- [x] Bug: Objetivo solo muestra código (ej. O.CN.B.5.1) sin descripción completa - CORREGIDO: 406 objetivos de BGU actualizados (Biología, Física, Química, Historia, Filosofía)
+- [x] Implementar Bachillerato Técnico (34 figuras profesionales, 3 áreas, 11 familias, pantalla de exploración + planificación)
