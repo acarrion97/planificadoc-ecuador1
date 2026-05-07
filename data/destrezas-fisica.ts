@@ -9,8 +9,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Determinar la posición y el desplazamiento de un objeto (considerado puntual) que se mueve, a lo largo de una trayectoria rectilínea, en un sistema de referencia establecida y sistematizar información relacionada al cambio de posición en función del tiempo, como resultado de la observación de movimiento de un objeto y el empleo de tablas y gráficas",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
-    indicadoresEvaluacion: ["I.CN.F.5.1.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
+    indicadoresEvaluacion: ["I.CN.F.5.1.1. Determina la posición, velocidad y aceleración de un objeto que se mueve en línea recta (MRU y MRUV) mediante ecuaciones cinemáticas."],
   },
 
   {
@@ -21,8 +21,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 2,
     descripcion: "Obtiene a base de tablas y gráficos las magnitudes cinemáticas del MRUV como: posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
-    indicadoresEvaluacion: ["I.CN.F.5.1.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
+    indicadoresEvaluacion: ["I.CN.F.5.1.2. Elabora e interpreta gráficas de posición, velocidad y aceleración en función del tiempo para movimientos rectilíneos."],
   },
 
   {
@@ -33,7 +33,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 3,
     descripcion: "Obtener la velocidad instantánea empleando el gráfico posición en función del tiempo, y conceptualizar la aceleración media e instantánea, mediante el análisis de las gráficas velocidad en función del tiempo",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.3"],
   },
 
@@ -45,7 +45,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 4,
     descripcion: "Elaborar gráficos de velocidad versus tiempo, a partir de los gráficos posición versus tiempo; y determinar el desplazamiento a partir del gráfico velocidad vs tiempo",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.4"],
   },
 
@@ -57,7 +57,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 7,
     descripcion: "Establecer las diferencias entre vector posición y vector desplazamiento, y analizar gráficas que representen la trayectoria en dos dimensiones de un objeto, observando la ubicación del vector posición y vector desplazamiento para diferentes instantes. Obtiene magnitudes cinemáticas del MRUV con un enfoque vectorial, como: posición, velocidad, velocidad media e instantánea, y desplazamiento a base de representaciones gráficas de un objeto que se mueve en dos dimensiones",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.7"],
   },
 
@@ -69,7 +69,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 9,
     descripcion: "Construir, a partir del gráfico posición versus tiempo, el vector velocidad instantánea evaluado en el instante inicial, considerando los vectores, posiciones y desplazamiento para dos instantes diferentes, inicial y final, haciendo que el instante final se aproxime al inicial tanto como se desee (pero que nunca son iguales), y reconocer que la dirección del vector velocidad instantánea se encuentra en la dirección de la línea tangente a la trayectoria en el instante inicial.",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.9"],
   },
 
@@ -81,7 +81,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 12,
     descripcion: "Analizar gráficamente que, en el caso particular de que la trayectoria sea un círculo, la aceleración normal se llama aceleración central (centrípeta) y determinar que en el movimiento circular solo se necesita el ángulo (medido en radianes) entre la posición del objeto y una dirección de referencia, mediante el análisis gráfico de un punto situado en un objeto que gira alrededor de un eje",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.12"],
   },
 
@@ -93,7 +93,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 13,
     descripcion: "Diferenciar, mediante el análisis de gráficos el movimiento circular uniforme (MCU) del movimiento circular uniformemente variado (MCUV), en función de la comprensión de las características y relaciones de las cuatro magnitudes de la cinemática del movimiento circular (posición angular, velocidad angular, aceleración angular y el tiempo)",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.13"],
   },
 
@@ -105,7 +105,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 15,
     descripcion: "Resolver problemas de aplicación donde se relacionen las magnitudes angulares y las lineales",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.15"],
   },
 
@@ -117,7 +117,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 16,
     descripcion: "Indagar los estudios de Aristóteles, Galileo y Newton, para comparar sus experiencias frente a las razones por las que se mueven los objetos, y despejar ideas preconcebidas sobre este fenómeno, con la finalidad de conceptualizar la primera ley de Newton (ley de la inercia) y determinar por medio de la experimentación que no se produce aceleración cuando las fuerzas están en equilibrio, por lo que un objeto continúa moviéndose con rapidez constante o permanece en reposo (primera ley de Newton o principio de inercia de Galileo). I",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.16"],
   },
 
@@ -129,7 +129,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 17,
     descripcion: "Explicar la segunda ley de Newton, mediante la relación entre las magnitudes: aceleración y fuerza que actúan sobre un objeto y su masa, mediante experimentaciones formales o no formales",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.17"],
   },
 
@@ -141,7 +141,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 18,
     descripcion: "Explicar la tercera ley de Newton en aplicaciones reales",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.18"],
   },
 
@@ -153,7 +153,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 19,
     descripcion: "Reconocer sistemas inerciales y no inerciales a través de la observación de videos y análisis de situaciones cotidianas y elaborar diagramas de cuerpo libre para conceptualizar las leyes de Newton, resolver problemas de aplicación",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.19"],
   },
 
@@ -165,7 +165,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 20,
     descripcion: "Reconocer que la fuerza es una magnitud de naturaleza vectorial, mediante la explicación gráfica de situaciones reales para resolver problemas donde se observen objetos en equilibrio u objetos acelerados",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.20"],
   },
 
@@ -177,7 +177,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 22,
     descripcion: "Reconocer que la velocidad es una información insuficiente y que lo fundamental es la vinculación de la masa del objeto con su velocidad a través de la cantidad de movimiento lineal, para comprender la ley de conservación de la cantidad de movimiento y demostrar analíticamente que el impulso de la fuerza que actúa sobre un objeto es igual a la variación de la cantidad de movimiento de ese objeto",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.22"],
   },
 
@@ -189,7 +189,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 23,
     descripcion: "Explicar que la fuerza es la variación de momento lineal en el transcurso del tiempo, mediante ejemplos reales, y determinar mediante la aplicación del teorema del impulso, la cantidad de movimiento y, por medio de la tercera ley de Newton ver que, para un sistema aislado de dos cuerpos, no existe cambio en el tiempo de la cantidad de movimiento total del sistema.",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.23"],
   },
 
@@ -201,7 +201,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 25,
     descripcion: "Explicar que la intensidad del campo gravitatorio de un planeta determina la fuerza del peso de un objeto de masa (m), para establecer que el peso puede variar, pero la masa es la misma. I",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.25"],
   },
 
@@ -213,7 +213,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 26,
     descripcion: "Determinar que el lanzamiento vertical y la caída libre son casos concretos del movimiento unidimensional con aceleración constante (g), mediante ejemplificaciones y utilizar las ecuaciones del movimiento vertical en la solución de problemas",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.26"],
   },
 
@@ -225,7 +225,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 27,
     descripcion: "Explicar el fenómeno de la aceleración cuando un cuerpo que cae libremente alcanza su rapidez terminal, mediante el análisis del rozamiento con el aire.",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.27"],
   },
 
@@ -237,7 +237,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 29,
     descripcion: "Describir el movimiento de proyectiles en la superficie de la Tierra, mediante la determinación de las coordenadas horizontal y vertical del objeto para cada instante del vuelo y de las relaciones entre sus magnitudes (velocidad, aceleración, tiempo); determinar el alcance horizontal y la altura máxima alcanzada por un proyectil y su relación con el ángulo de lanzamiento, a través del análisis del tiempo que se demora un objeto en seguir la trayectoria, que es el mismo que emplean sus proyecciones en los ejes. I",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.29"],
   },
 
@@ -249,7 +249,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 30,
     descripcion: "Observar en objetos y fenómenos las fuerzas de compresión o de tracción que causan la deformación de los objetos e inferir su importancia en su vida cotidiana. I",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.30"],
   },
 
@@ -261,7 +261,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 31,
     descripcion: "Determinar que la fuerza que ejerce un resorte es proporcional a la deformación que experimenta y está dirigida hacia la posición de equilibrio (ley de Hooke), mediante prácticas experimentales y el análisis de su modelo matemático y de la característica de cada resorte",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.31"],
   },
 
@@ -273,7 +273,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 32,
     descripcion: "Explicar que el movimiento circular uniforme requiere la aplicación de una fuerza constante dirigida hacia el centro del círculo, mediante la demostración analítica y/o experimental",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.32"],
   },
 
@@ -285,7 +285,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 34,
     descripcion: "Deducir las expresiones cinemáticas a través del análisis geométrico del movimiento armónico simple (MAS) y del uso de las funciones seno o coseno (en dependencia del eje escogido), y que se puede equiparar la amplitud A y la frecuencia angular w del MAS con el radio y la velocidad angular del MCU. Argumenta, experimentalmente, las magnitudes que intervienen en el MAS cuando un resorte se comprime o estira (sin considerar las fuerzas de fricción), a partir de las fuerzas involucradas en MCU (la fuerza centrífuga es una fuerza ficticia)",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.34"],
   },
 
@@ -297,7 +297,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 35,
     descripcion: "Determinar experimentalmente que un objeto sujeto a un resorte realiza un movimiento periódico (llamado movimiento armónico simple) cuando se estira o se comprime, generando una fuerza elástica dirigida hacia la posición de equilibrio y proporcional a la deformación",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.35"],
   },
 
@@ -309,7 +309,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 38,
     descripcion: "Explicar que se detecta el origen de la carga eléctrica, partiendo de la comprensión de que esta reside en los constituyentes del átomo (electrones o protones) y que solo se detecta su presencia por los efectos entre ellas, comprobar la existencia de solo dos tipos de carga eléctrica a partir de mecanismos que permiten la identificación de fuerzas de atracción y repulsión entre objetos electrificados, en situaciones cotidianas y experimentar el proceso de carga por polarización electrostática, con materiales de uso cotidiano",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.38"],
   },
 
@@ -321,7 +321,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 41,
     descripcion: "Analizar y explicar los aparatos o dispositivos que tienen la característica de separar cargas eléctricas, mediante la descripción de objetos de uso cotidiano",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.41"],
   },
 
@@ -333,7 +333,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 42,
     descripcion: "Explicar las propiedades de conductividad eléctrica de un metal en función del modelo del gas de electrones",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.42"],
   },
 
@@ -345,7 +345,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 43,
     descripcion: "Conceptualizar la ley de Coulomb en función de cuantificar con qué fuerza se atraen o se repelen las cargas eléctricas y determinar que esta fuerza electrostática también es de naturaleza vectorial",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.43"],
   },
 
@@ -357,7 +357,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 45,
     descripcion: "Explicar que la presencia de un campo eléctrico alrededor de una carga puntual permite comprender la acción de la fuerza a distancia, la acción a distancia entre cargas a través de la conceptualización de campo eléctrico y la visualización de los efectos de las líneas de campo en demostraciones con material concreto, y determinar la fuerza que experimenta una carga dentro de un campo eléctrico, mediante la resolución de ejercicios y problemas de aplicación",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.45"],
   },
 
@@ -369,7 +369,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 46,
     descripcion: "Establecer que el trabajo efectuado por un agente externo al mover una carga de un punto a otro dentro del campo eléctrico se almacena como energía potencial eléctrica e identificar el agente externo que genera diferencia de potencial eléctrico, el mismo que es capaz de generar trabajo al mover una carga positiva unitaria de un punto a otro dentro de un campo eléctrico. 44 I",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.46"],
   },
 
@@ -381,7 +381,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 49,
     descripcion: "Describir la relación entre diferencia de potencial (voltaje), corriente y resistencia eléctrica, la ley de Ohm, mediante la comprobación de que la corriente en un conductor es proporcional al voltaje aplicado (donde R es la constante de proporcionalidad). Demuestra mediante la experimentación el voltaje, la intensidad de corriente eléctrica, la resistencia y la potencia (comprendiendo el calentamiento de Joule), en circuitos sencillos alimentados por baterías o fuentes de corriente continua",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.49"],
   },
 
@@ -393,7 +393,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 51,
     descripcion: "Comprobar la ley de Ohm en circuitos sencillos a partir de la experimentación, analizar el funcionamiento de un circuito eléctrico sencillo y su simbología mediante la identificación de sus elementos constitutivos y la aplicación de dos de las grandes leyes de conservación (de la carga y de la energía) y explicar el calentamiento de Joule y su significado mediante la determinación de la potencia disipada en un circuito básico",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.51"],
   },
 
@@ -405,7 +405,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 54,
     descripcion: "Reconocer la naturaleza vectorial de un campo magnético, a través del análisis de sus características, determinar la intensidad del campo magnético en la solución de problemas de aplicación práctica, establecer la fuerza que ejerce el campo magnético uniforme sobre una partícula cargada que se mueve en su interior a partir de su expresión matemática",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.54"],
   },
 
@@ -417,7 +417,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 55,
     descripcion: "Explicar el funcionamiento del motor eléctrico por medio de la acción de fuerzas magnéticas sobre un objeto que lleva corriente ubicada en el interior de un campo magnético uniforme. Reconoce que las únicas fuentes de campos magnéticos son los materiales magnéticos y las corrientes eléctricas",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.55"],
   },
 
@@ -429,7 +429,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 57,
     descripcion: "Conceptualizar la ley de Ampère, mediante la identificación de que la circulación de un campo magnético en un camino cerrado es directamente proporcional a la corriente eléctrica encerrada por el camino.",
     objetivos: ["O.CN.F.5.1. Comprender que la Física es un conjunto de teorías cuya validez ha tenido que comprobarse en cada caso, por medio de la experimentación."],
-    criteriosEvaluacion: ["CE.CN.F.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.1. Obtener las magnitudes cinemáticas (posición, velocidad, velocidad media e instantánea, aceleración, aceleración media e instantánea y desplazamiento) de un objeto que se mueve a lo largo de una trayectoria rectilínea del Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado."],
     indicadoresEvaluacion: ["I.CN.F.5.1.57"],
   },
 
@@ -441,8 +441,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Definir el trabajo mecánico a partir del análisis de la acción de una fuerza constante aplicada a un objeto que se desplaza en forma rectilínea, considerando solo el componente de la fuerza en la dirección del desplazamiento",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
-    indicadoresEvaluacion: ["I.CN.F.5.2.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
+    indicadoresEvaluacion: ["I.CN.F.5.2.1. Determina las componentes rectangulares de la velocidad y aceleración de un objeto que se mueve en dos dimensiones."],
   },
 
   {
@@ -453,8 +453,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 2,
     descripcion: "Demostrar analíticamente que la variación de la energía mecánica representa el trabajo realizado por un objeto, utilizando la segunda ley de Newton y las leyes de la cinemática y la conservación de la energía, a través de la resolución de problemas que involucren el análisis de sistemas conservativos donde solo fuerzas conservativas efectúan trabajo",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
-    indicadoresEvaluacion: ["I.CN.F.5.2.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
+    indicadoresEvaluacion: ["I.CN.F.5.2.2. Resuelve problemas de movimiento en dos dimensiones utilizando vectores posición, desplazamiento y velocidad."],
   },
 
   {
@@ -465,7 +465,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 4,
     descripcion: "Determinar el concepto de potencia mediante de la comprensión del ritmo temporal con que ingresa o se retira energía de un sistema",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
     indicadoresEvaluacion: ["I.CN.F.5.2.4"],
   },
 
@@ -477,7 +477,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 7,
     descripcion: "Analizar que la variación de la temperatura de una sustancia que no cambia de estado es proporcional a la cantidad de energía añadida o retirada de la sustancia y que la constante de proporcionalidad representa el recíproco de la capacidad calorífica de la sustancia",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
     indicadoresEvaluacion: ["I.CN.F.5.2.7"],
   },
 
@@ -489,7 +489,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 8,
     descripcion: "Explicar mediante la experimentación el equilibrio térmico usando los conceptos de calor específico, cambio de estado, calor latente, temperatura de equilibrio, en situaciones cotidianas",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
     indicadoresEvaluacion: ["I.CN.F.5.2.8"],
   },
 
@@ -501,7 +501,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 9,
     descripcion: "Reconocer que un sistema con energía térmica tiene la capacidad de realizar trabajo mecánico deduciendo que, cuando el trabajo termina, cambia la energía interna del sistema, a partir de la experimentación (máquinas térmicas). 46 I",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
     indicadoresEvaluacion: ["I.CN.F.5.2.9"],
   },
 
@@ -513,7 +513,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 10,
     descripcion: "Reconocer mediante la experimentación de motores de combustión interna y eléctricos que, en sistemas mecánicos, las transferencias y transformaciones de la energía siempre causan pérdida de calor hacia el ambiente, reduciendo la energía utilizable, considerando que un sistema mecánico no puede ser ciento por ciento eficiente",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
     indicadoresEvaluacion: ["I.CN.F.5.2.10"],
   },
 
@@ -525,7 +525,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 11,
     descripcion: "Experimentar y determinar que la mayoría de los procesos tienden a disminuir el orden de un sistema conforme transcurre el tiempo",
     objetivos: ["O.CN.F.5.2. Comprender la importancia de la Física en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.F.5.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.2. Determinar mediante representaciones gráficas de un objeto que se mueve en dos dimensiones: la posición, la trayectoria, el vector posición, el vector desplazamiento, la velocidad, la aceleración y sus respectivas componentes rectangulares."],
     indicadoresEvaluacion: ["I.CN.F.5.2.11"],
   },
 
@@ -537,8 +537,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Determina las magnitudes cinemáticas del movimiento circular uniforme y explica las características del mismo considerando las aceleraciones normal y centrípeta, a base de un objeto que gira en torno a un eje",
     objetivos: ["O.CN.F.5.3. Desarrollar habilidades de pensamiento científico con el propósito de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico."],
-    criteriosEvaluacion: ["CE.CN.F.5.3"],
-    indicadoresEvaluacion: ["I.CN.F.5.3.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.3. Determinar las magnitudes cinemáticas del movimiento compuesto (movimiento de proyectiles) mediante la independencia de movimientos en dos dimensiones y la composición de los movimientos simultáneos e independientes."],
+    indicadoresEvaluacion: ["I.CN.F.5.3.1. Resuelve problemas de movimiento de proyectiles aplicando la independencia de movimientos en dos dimensiones."],
   },
 
   {
@@ -549,8 +549,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 2,
     descripcion: "Reconocer que las ondas se propagan con una velocidad que depende de las propiedades físicas del medio de propagación, en función de determinar que esta velocidad, en forma cinemática, se expresa como el producto de frecuencia por longitud de onda",
     objetivos: ["O.CN.F.5.3. Desarrollar habilidades de pensamiento científico con el propósito de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico."],
-    criteriosEvaluacion: ["CE.CN.F.5.3"],
-    indicadoresEvaluacion: ["I.CN.F.5.3.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.3. Determinar las magnitudes cinemáticas del movimiento compuesto (movimiento de proyectiles) mediante la independencia de movimientos en dos dimensiones y la composición de los movimientos simultáneos e independientes."],
+    indicadoresEvaluacion: ["I.CN.F.5.3.2. Determina el alcance, la altura máxima y el tiempo de vuelo de un proyectil."],
   },
 
   {
@@ -561,7 +561,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 3,
     descripcion: "Clasificar los tipos de onda (mecánica o no mecánica) que requieren o no de un medio elástico para su propagación, mediante el análisis de las características y el reconocimiento de que la única onda no mecánica conocida es la onda electromagnética, diferenciando entre ondas longitudinales y transversales con relación a la dirección de oscilación y la dirección de propagación. Describe con base en un “modelo de ondas mecánicas” los elementos de una onda, su clasificación en función del modelo elástico y dirección de propagación y a base de un “modelo de rayos “los fenómenos de reflexión, refracción y la formación de imágenes en lentes y espejos, que cuando un rayo de luz atraviesa un prisma, esta se descompone en colores que van desde el infrarrojo hasta el ultravioleta y el efecto Doppler",
     objetivos: ["O.CN.F.5.3. Desarrollar habilidades de pensamiento científico con el propósito de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico."],
-    criteriosEvaluacion: ["CE.CN.F.5.3"],
+    criteriosEvaluacion: ["CE.CN.F.5.3. Determinar las magnitudes cinemáticas del movimiento compuesto (movimiento de proyectiles) mediante la independencia de movimientos en dos dimensiones y la composición de los movimientos simultáneos e independientes."],
     indicadoresEvaluacion: ["I.CN.F.5.3.3"],
   },
 
@@ -573,7 +573,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 4,
     descripcion: "Explicar fenómenos relacionados con la reflexión y refracción, utilizando el modelo de onda mecánica (en resortes o cuerdas) y formación de imágenes en lentes y espejos, utilizando el modelo de rayos.",
     objetivos: ["O.CN.F.5.3. Desarrollar habilidades de pensamiento científico con el propósito de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico."],
-    criteriosEvaluacion: ["CE.CN.F.5.3"],
+    criteriosEvaluacion: ["CE.CN.F.5.3. Determinar las magnitudes cinemáticas del movimiento compuesto (movimiento de proyectiles) mediante la independencia de movimientos en dos dimensiones y la composición de los movimientos simultáneos e independientes."],
     indicadoresEvaluacion: ["I.CN.F.5.3.4"],
   },
 
@@ -585,7 +585,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 6,
     descripcion: "Explicar que la luz exhibe propiedades de onda pero también de partícula, en función de determinar que no se puede modelar como una onda mecánica porque puede viajar a través del espacio vacío, a una velocidad de aproximadamente 3x108m/s y explicar las diferentes bandas de longitud de onda en el espectro de onda electromagnético, estableciendo relaciones con las aplicaciones en dispositivos de uso cotidiano",
     objetivos: ["O.CN.F.5.3. Desarrollar habilidades de pensamiento científico con el propósito de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico."],
-    criteriosEvaluacion: ["CE.CN.F.5.3"],
+    criteriosEvaluacion: ["CE.CN.F.5.3. Determinar las magnitudes cinemáticas del movimiento compuesto (movimiento de proyectiles) mediante la independencia de movimientos en dos dimensiones y la composición de los movimientos simultáneos e independientes."],
     indicadoresEvaluacion: ["I.CN.F.5.3.6"],
   },
 
@@ -597,7 +597,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 7,
     descripcion: "Identificar que se generan campos magnéticos en las proximidades de un flujo eléctrico variable y campos eléctricos en las proximidades de flujos magnéticos variables, mediante la descripción de la inducción de Faraday según corresponda",
     objetivos: ["O.CN.F.5.3. Desarrollar habilidades de pensamiento científico con el propósito de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico."],
-    criteriosEvaluacion: ["CE.CN.F.5.3"],
+    criteriosEvaluacion: ["CE.CN.F.5.3. Determinar las magnitudes cinemáticas del movimiento compuesto (movimiento de proyectiles) mediante la independencia de movimientos en dos dimensiones y la composición de los movimientos simultáneos e independientes."],
     indicadoresEvaluacion: ["I.CN.F.5.3.7"],
   },
 
@@ -609,7 +609,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 8,
     descripcion: "Analizar el mecanismo de radiación electromagnética, mediante la observación de videos relacionados y la ejemplificación con aparatos de uso cotidiano. I",
     objetivos: ["O.CN.F.5.3. Desarrollar habilidades de pensamiento científico con el propósito de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico."],
-    criteriosEvaluacion: ["CE.CN.F.5.3"],
+    criteriosEvaluacion: ["CE.CN.F.5.3. Determinar las magnitudes cinemáticas del movimiento compuesto (movimiento de proyectiles) mediante la independencia de movimientos en dos dimensiones y la composición de los movimientos simultáneos e independientes."],
     indicadoresEvaluacion: ["I.CN.F.5.3.8"],
   },
 
@@ -621,8 +621,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Elabora diagramas de cuerpo libre, resuelve problemas y reconoce sistemas inerciales y no inerciales, aplicando las leyes de Newton, cuando el objeto es mucho mayor que una partícula elemental y se mueve a velocidades inferiores a la de la luz",
     objetivos: ["O.CN.F.5.4. Comunicar resultados de experimentaciones realizadas, relacionados con fenómenos físicos, mediante informes estructurados, respetando las normas de citación."],
-    criteriosEvaluacion: ["CE.CN.F.5.4"],
-    indicadoresEvaluacion: ["I.CN.F.5.4.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.4. Elaborar las gráficas de las magnitudes cinemáticas del Movimiento Circular Uniforme (MCU) y establecer las condiciones de equilibrio de un objeto bajo la acción de fuerzas concurrentes y coplanares."],
+    indicadoresEvaluacion: ["I.CN.F.5.4.1. Determina las magnitudes cinemáticas del MCU (velocidad angular, velocidad lineal, período, frecuencia) y resuelve problemas de aplicación."],
   },
 
   {
@@ -633,8 +633,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 2,
     descripcion: "Establecer la ley de gravitación universal de Newton y su explicación del sistema Copernicano y de las leyes de Kepler, para comprender el aporte de la misión geodésica francesa en el Ecuador, con el apoyo profesional de Don Pedro Vicente Maldonado en la confirmación de la ley de gravitación, identificando el problema de acción a distancia que plantea la ley de gravitación newtoniana y su explicación a través del concepto de campo gravitacional. Argumenta las tres leyes de Kepler y la ley de gravitación universal de Newton",
     objetivos: ["O.CN.F.5.4. Comunicar resultados de experimentaciones realizadas, relacionados con fenómenos físicos, mediante informes estructurados, respetando las normas de citación."],
-    criteriosEvaluacion: ["CE.CN.F.5.4"],
-    indicadoresEvaluacion: ["I.CN.F.5.4.2"],
+    criteriosEvaluacion: ["CE.CN.F.5.4. Elaborar las gráficas de las magnitudes cinemáticas del Movimiento Circular Uniforme (MCU) y establecer las condiciones de equilibrio de un objeto bajo la acción de fuerzas concurrentes y coplanares."],
+    indicadoresEvaluacion: ["I.CN.F.5.4.2. Establece las condiciones de equilibrio de un objeto bajo la acción de fuerzas concurrentes y coplanares."],
   },
 
   {
@@ -645,7 +645,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 3,
     descripcion: "Indagar sobre el cinturón de Kuiper y la nube de Oort, en función de reconocer que en el Sistema Solar y en sus límites existen otros elementos como asteroides, cometas y meteoritos. I",
     objetivos: ["O.CN.F.5.4. Comunicar resultados de experimentaciones realizadas, relacionados con fenómenos físicos, mediante informes estructurados, respetando las normas de citación."],
-    criteriosEvaluacion: ["CE.CN.F.5.4"],
+    criteriosEvaluacion: ["CE.CN.F.5.4. Elaborar las gráficas de las magnitudes cinemáticas del Movimiento Circular Uniforme (MCU) y establecer las condiciones de equilibrio de un objeto bajo la acción de fuerzas concurrentes y coplanares."],
     indicadoresEvaluacion: ["I.CN.F.5.4.3"],
   },
 
@@ -657,8 +657,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Explicar los fenómenos: radiación de cuerpo negro y efecto fotoeléctrico mediante el modelo de la luz como partícula (el fotón) y que a escala atómica la radiación electromagnética se emite o absorbe en unidades discretas e indivisibles llamadas fotones, cuya energía es proporcional a su frecuencia (constante de Planck). Explica los fenómenos de radiación del cuerpo negro, efecto fotoeléctrico, la radiación electromagnética (considerando la luz como partículas), el principio de incertidumbre de Heisenberg",
     objetivos: ["O.CN.F.5.5. Describir los fenómenos que aparecen en la naturaleza, analizando las características más relevantes y las variables que intervienen."],
-    criteriosEvaluacion: ["CE.CN.F.5.5"],
-    indicadoresEvaluacion: ["I.CN.F.5.5.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.5. Determinar el peso y analizar el lanzamiento vertical y caída libre (considerando y sin considerar la resistencia del aire) de un objeto en función de la intensidad del campo gravitatorio."],
+    indicadoresEvaluacion: ["I.CN.F.5.5.1. Determina el peso de un objeto y analiza el movimiento de caída libre y lanzamiento vertical."],
   },
 
   {
@@ -669,7 +669,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 4,
     descripcion: "Indagar sobre el principio de incertidumbre de Heisenberg, en función de reconocer que para las llamadas partículas cuánticas existe una incertidumbre al tratar de determinar su posición y velocidad (momento lineal) simultáneamente. Argumenta la incidencia del electromagnetismo, la mecánica cuántica y la nanotecnología en las necesidades de la sociedad contemporánea",
     objetivos: ["O.CN.F.5.5. Describir los fenómenos que aparecen en la naturaleza, analizando las características más relevantes y las variables que intervienen."],
-    criteriosEvaluacion: ["CE.CN.F.5.5"],
+    criteriosEvaluacion: ["CE.CN.F.5.5. Determinar el peso y analizar el lanzamiento vertical y caída libre (considerando y sin considerar la resistencia del aire) de un objeto en función de la intensidad del campo gravitatorio."],
     indicadoresEvaluacion: ["I.CN.F.5.5.4"],
   },
 
@@ -681,7 +681,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 7,
     descripcion: "Distinguir que la radiactividad es el fenómeno por el cual el átomo radiactivo emite ciertas —radiaciones— y este se transforma en otro elemento químico (el objetivo de los alquimistas), y establecer que hay tres formas comunes de desintegración radiactiva (alfa, beta y gamma) debido a la acción de la fuerza nuclear débil, para analizar los efectos de la emisión de cada una. I",
     objetivos: ["O.CN.F.5.5. Describir los fenómenos que aparecen en la naturaleza, analizando las características más relevantes y las variables que intervienen."],
-    criteriosEvaluacion: ["CE.CN.F.5.5"],
+    criteriosEvaluacion: ["CE.CN.F.5.5. Determinar el peso y analizar el lanzamiento vertical y caída libre (considerando y sin considerar la resistencia del aire) de un objeto en función de la intensidad del campo gravitatorio."],
     indicadoresEvaluacion: ["I.CN.F.5.5.7"],
   },
 
@@ -693,7 +693,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 8,
     descripcion: "Explicar mediante la indagación científica la importancia de las fuerzas fundamentales de la naturaleza (nuclear fuerte, nuclear débil, electromagnética y gravitacional), en los fenómenos naturales la vida cotidiana.",
     objetivos: ["O.CN.F.5.5. Describir los fenómenos que aparecen en la naturaleza, analizando las características más relevantes y las variables que intervienen."],
-    criteriosEvaluacion: ["CE.CN.F.5.5"],
+    criteriosEvaluacion: ["CE.CN.F.5.5. Determinar el peso y analizar el lanzamiento vertical y caída libre (considerando y sin considerar la resistencia del aire) de un objeto en función de la intensidad del campo gravitatorio."],
     indicadoresEvaluacion: ["I.CN.F.5.5.8"],
   },
 
@@ -705,7 +705,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 9,
     descripcion: "Determinar que los quarks son partículas elementales del átomo que constituyen a los protones, neutrones y cientos de otras partículas subnucleares (llamadas colectivamente hadrones), en función de sus características",
     objetivos: ["O.CN.F.5.5. Describir los fenómenos que aparecen en la naturaleza, analizando las características más relevantes y las variables que intervienen."],
-    criteriosEvaluacion: ["CE.CN.F.5.5"],
+    criteriosEvaluacion: ["CE.CN.F.5.5. Determinar el peso y analizar el lanzamiento vertical y caída libre (considerando y sin considerar la resistencia del aire) de un objeto en función de la intensidad del campo gravitatorio."],
     indicadoresEvaluacion: ["I.CN.F.5.5.9"],
   },
 
@@ -717,7 +717,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 13,
     descripcion: "Explicar que en el modelo estándar todas las partículas y fuerzas se describen por medio de campos (de la partícula o fuerza) cuantizados y que sus —cuantos— no tienen masa, y relacionar la obtención de la masa con el campo de Higgs. I",
     objetivos: ["O.CN.F.5.5. Describir los fenómenos que aparecen en la naturaleza, analizando las características más relevantes y las variables que intervienen."],
-    criteriosEvaluacion: ["CE.CN.F.5.5"],
+    criteriosEvaluacion: ["CE.CN.F.5.5. Determinar el peso y analizar el lanzamiento vertical y caída libre (considerando y sin considerar la resistencia del aire) de un objeto en función de la intensidad del campo gravitatorio."],
     indicadoresEvaluacion: ["I.CN.F.5.5.13"],
   },
 
@@ -729,7 +729,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 14,
     descripcion: "Discutir sobre el modelo estándar y reconocer que explica todo lo que se observa hasta ahora en el universo, excluyendo a la gravedad, la materia oscura y la energía oscura",
     objetivos: ["O.CN.F.5.5. Describir los fenómenos que aparecen en la naturaleza, analizando las características más relevantes y las variables que intervienen."],
-    criteriosEvaluacion: ["CE.CN.F.5.5"],
+    criteriosEvaluacion: ["CE.CN.F.5.5. Determinar el peso y analizar el lanzamiento vertical y caída libre (considerando y sin considerar la resistencia del aire) de un objeto en función de la intensidad del campo gravitatorio."],
     indicadoresEvaluacion: ["I.CN.F.5.5.14"],
   },
 
@@ -741,8 +741,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Analiza la velocidad, ángulo de lanzamiento, aceleración, alcance, altura máxima, tiempo de vuelo, aceleración normal y centrípeta en el movimiento de proyectiles, en función de la naturaleza vectorial de la segunda ley de Newton",
     objetivos: ["O.CN.F.5.6. Resolver problemas relacionados con eventos físicos, utilizando la metodología del trabajo científico, la generalización de resultados y la comunicación de conclusiones."],
-    criteriosEvaluacion: ["CE.CN.F.5.6"],
-    indicadoresEvaluacion: ["I.CN.F.5.6.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.6. Analizar la fuerza que actúa sobre un objeto que se mueve en Movimiento Circular Uniforme, a partir de Newton y determinar la velocidad que adquiere un objeto que se mueve en una montaña rusa."],
+    indicadoresEvaluacion: ["I.CN.F.5.6.1. Analiza la fuerza centrípeta y resuelve problemas de MCU aplicando las leyes de Newton."],
   },
 
   {
@@ -753,7 +753,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 2,
     descripcion: "Ejemplificar dentro de las actividades humanas, los avances de la mecatrónica al servicio de la sociedad, que han facilitado las labores humanas con la finalidad de proponer alguna creación propia",
     objetivos: ["O.CN.F.5.6. Resolver problemas relacionados con eventos físicos, utilizando la metodología del trabajo científico, la generalización de resultados y la comunicación de conclusiones."],
-    criteriosEvaluacion: ["CE.CN.F.5.6"],
+    criteriosEvaluacion: ["CE.CN.F.5.6. Analizar la fuerza que actúa sobre un objeto que se mueve en Movimiento Circular Uniforme, a partir de Newton y determinar la velocidad que adquiere un objeto que se mueve en una montaña rusa."],
     indicadoresEvaluacion: ["I.CN.F.5.6.2"],
   },
 
@@ -765,7 +765,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 4,
     descripcion: "Analizar la incidencia del electromagnetismo, la mecánica cuántica y la nanotecnología en las necesidades de la sociedad contemporánea",
     objetivos: ["O.CN.F.5.6. Resolver problemas relacionados con eventos físicos, utilizando la metodología del trabajo científico, la generalización de resultados y la comunicación de conclusiones."],
-    criteriosEvaluacion: ["CE.CN.F.5.6"],
+    criteriosEvaluacion: ["CE.CN.F.5.6. Analizar la fuerza que actúa sobre un objeto que se mueve en Movimiento Circular Uniforme, a partir de Newton y determinar la velocidad que adquiere un objeto que se mueve en una montaña rusa."],
     indicadoresEvaluacion: ["I.CN.F.5.6.4"],
   },
 
@@ -777,7 +777,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 5,
     descripcion: "Analizar los efectos que tiene la tecnología en la revolución de las industrias, con el fin de concienciar que el uso indebido del conocimiento y en especial que la aplicación de leyes físicas genera perjuicios a la sociedad",
     objetivos: ["O.CN.F.5.6. Resolver problemas relacionados con eventos físicos, utilizando la metodología del trabajo científico, la generalización de resultados y la comunicación de conclusiones."],
-    criteriosEvaluacion: ["CE.CN.F.5.6"],
+    criteriosEvaluacion: ["CE.CN.F.5.6. Analizar la fuerza que actúa sobre un objeto que se mueve en Movimiento Circular Uniforme, a partir de Newton y determinar la velocidad que adquiere un objeto que se mueve en una montaña rusa."],
     indicadoresEvaluacion: ["I.CN.F.5.6.5"],
   },
 
@@ -789,7 +789,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 6,
     descripcion: "Analizar y relacionar las cuatro fuerzas fundamentales de la naturaleza (fuerza electromagnética, fuerza nuclear fuerte, fuerza nuclear débil y fuerza gravitacional) con los desafíos tecnológicos y científicos durante la Revolución Industrial, demostrando resiliencia al identificar cómo el conocimiento y la aplicación de estas fuerzas permitieron superar obstáculos y transformar la sociedad.",
     objetivos: ["O.CN.F.5.6. Resolver problemas relacionados con eventos físicos, utilizando la metodología del trabajo científico, la generalización de resultados y la comunicación de conclusiones."],
-    criteriosEvaluacion: ["CE.CN.F.5.6"],
+    criteriosEvaluacion: ["CE.CN.F.5.6. Analizar la fuerza que actúa sobre un objeto que se mueve en Movimiento Circular Uniforme, a partir de Newton y determinar la velocidad que adquiere un objeto que se mueve en una montaña rusa."],
     indicadoresEvaluacion: ["I.CN.F.5.6.6"],
   },
 
@@ -801,8 +801,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Argumenta desde la experimentación y la observación de fenómenos la ley de Hooke (fuerza que ejerce un resorte es proporcional a la deformación que experimenta), estableciendo su modelo matemático y su importancia para la vida cotidiana",
     objetivos: ["O.CN.F.5.7. Comprender la importancia de aplicar los conocimientos de las leyes físicas para satisfacer los requerimientos del ser humano a nivel local y mundial."],
-    criteriosEvaluacion: ["CE.CN.F.5.7"],
-    indicadoresEvaluacion: ["I.CN.F.5.7.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.7. Establecer las relaciones entre trabajo, energía cinética y energía potencial; y la ley de conservación de la energía para determinar la velocidad terminal de un objeto que cae en un medio viscoso."],
+    indicadoresEvaluacion: ["I.CN.F.5.7.1. Establece relaciones entre trabajo, energía cinética y potencial, y aplica la conservación de la energía."],
   },
 
   {
@@ -813,8 +813,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Argumenta, mediante la experimentación y análisis del modelo de gas de electrones, el origen atómico de la carga eléctrica, el tipo de materiales según su capacidad de conducción de carga, la relación de masa entre protón y electrón e identifica aparatos de uso cotidiano que separan cargas eléctricas",
     objetivos: ["O.CN.F.5.9. Diseñar y construir dispositivos y aparatos que permitan comprobar y demostrar leyes físicas, aplicando los conocimientos adquiridos."],
-    criteriosEvaluacion: ["CE.CN.F.5.9"],
-    indicadoresEvaluacion: ["I.CN.F.5.9.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.9. Determinar la velocidad terminal de un objeto que cae en un medio viscoso, a partir del análisis de las fuerzas que intervienen."],
+    indicadoresEvaluacion: ["I.CN.F.5.9.1. Determina la velocidad terminal de un objeto en un medio viscoso analizando las fuerzas que intervienen."],
   },
 
   {
@@ -825,8 +825,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Resuelve problemas de aplicación de la ley de Coulomb, usando el principio de superposición y presencia de un campo eléctrico alrededor de una carga puntual",
     objetivos: ["O.CN.F.5.10. Introducir al estudiante en el campo de la Física moderna para que comprenda la estructura de la materia y la energía."],
-    criteriosEvaluacion: ["CE.CN.F.5.10"],
-    indicadoresEvaluacion: ["I.CN.F.5.10.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.10. Resolver problemas de aplicación de las leyes de Newton, trabajo, potencia y energía, y del principio de conservación de la energía."],
+    indicadoresEvaluacion: ["I.CN.F.5.10.1. Resuelve problemas de aplicación de las leyes de Newton, trabajo, potencia y energía."],
   },
 
   {
@@ -837,7 +837,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 2,
     descripcion: "Argumenta los efectos de las líneas de campo en demostraciones con material concreto, la diferencia de potencial eléctrico (considerando el trabajo realizado al mover cargas dentro de un campo eléctrico) y la corriente eléctrica (en cargas que se mueven a través de superficies), estableciendo las transformaciones de energía que pueden darse en un circuito alimentado por una batería eléctrica",
     objetivos: ["O.CN.F.5.10. Introducir al estudiante en el campo de la Física moderna para que comprenda la estructura de la materia y la energía."],
-    criteriosEvaluacion: ["CE.CN.F.5.10"],
+    criteriosEvaluacion: ["CE.CN.F.5.10. Resolver problemas de aplicación de las leyes de Newton, trabajo, potencia y energía, y del principio de conservación de la energía."],
     indicadoresEvaluacion: ["I.CN.F.5.10.2"],
   },
 
@@ -849,8 +849,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Determina, mediante ejercicios de aplicación, el trabajo mecánico con fuerzas constantes, energía mecánica, conservación de energía, potencia y trabajo negativo producido por las fuerzas de fricción al mover un objeto a lo largo de cualquier trayectoria cerrada",
     objetivos: ["O.CN.F.5.13. Reconocer y aplicar las leyes de la mecánica en situaciones de la vida cotidiana."],
-    criteriosEvaluacion: ["CE.CN.F.5.13"],
-    indicadoresEvaluacion: ["I.CN.F.5.13.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.13. Determinar mediante el análisis de diagramas de cuerpo libre las fuerzas que actúan sobre un objeto en reposo o en movimiento."],
+    indicadoresEvaluacion: ["I.CN.F.5.13.1. Construye diagramas de cuerpo libre e identifica las fuerzas que actúan sobre un objeto."],
   },
 
   {
@@ -861,8 +861,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Analiza la temperatura como energía cinética promedio de sus partículas y experimenta la ley cero de la termodinámica (usando conceptos de calor especifico, cambio de estado, calor latente y temperatura de equilibrio), la transferencia de calor (por conducción, convección y radiación), el trabajo mecánico producido por la energía térmica de un sistema y las pérdidas de energía en forma de calor hacia el ambiente y disminución del orden , que tienen lugar durante los procesos de transformación de energía",
     objetivos: ["O.CN.F.5.14. Analizar las leyes de la termodinámica y su aplicación en máquinas térmicas."],
-    criteriosEvaluacion: ["CE.CN.F.5.14"],
-    indicadoresEvaluacion: ["I.CN.F.5.14.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.14. Analizar la relación entre fuerza, masa y aceleración según la segunda ley de Newton y resolver problemas donde intervienen fuerzas concurrentes."],
+    indicadoresEvaluacion: ["I.CN.F.5.14.1. Aplica la segunda ley de Newton en la resolución de problemas con fuerzas concurrentes."],
   },
 
   {
@@ -873,7 +873,7 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 2,
     descripcion: "Establece la dualidad onda partícula de la luz y las aplicaciones de las ondas en la transmisión de energía e información en ondas en los equipos de uso diario",
     objetivos: ["O.CN.F.5.15. Comprender los fenómenos ondulatorios y sus aplicaciones en la tecnología."],
-    criteriosEvaluacion: ["CE.CN.F.5.15"],
+    criteriosEvaluacion: ["CE.CN.F.5.15. Explicar la tercera ley de Newton en situaciones cotidianas y resolver problemas de aplicación."],
     indicadoresEvaluacion: ["I.CN.F.5.15.2"],
   },
 
@@ -885,8 +885,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica los campos eléctricos generados en las proximidades de flujos magnéticos variables, los campos eléctricos generados en las proximidades de flujos eléctricos variables, el mecanismo de la radiación electromagnética por medio de la observación de videos (mostrando el funcionamiento de aparatos de uso cotidiano), ejemplificando los avances de la mecatrónica al servicio de la sociedad",
     objetivos: ["O.CN.F.5.16. Analizar los fenómenos eléctricos y magnéticos y su relación con la tecnología."],
-    criteriosEvaluacion: ["CE.CN.F.5.16"],
-    indicadoresEvaluacion: ["I.CN.F.5.16.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.16. Explicar los fenómenos eléctricos y magnéticos mediante la descripción de las características de las cargas eléctricas, la ley de Coulomb, el campo eléctrico y las líneas de campo."],
+    indicadoresEvaluacion: ["I.CN.F.5.16.1. Describe las propiedades de las cargas eléctricas, aplica la ley de Coulomb y representa campos eléctricos."],
   },
 
   {
@@ -897,8 +897,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica los límites del Sistema Solar (el cinturón de Kuiper y la nube de Oort), reconociendo que esta zona contiene asteroides, cometas y meteoritos y su ubicación dentro de la Vía Láctea",
     objetivos: ["O.CN.F.5.18. Comprender los principios de la óptica geométrica y sus aplicaciones."],
-    criteriosEvaluacion: ["CE.CN.F.5.18"],
-    indicadoresEvaluacion: ["I.CN.F.5.18.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.18. Explicar los fenómenos de electricidad mediante la ley de Ohm, la ley de Kirchhoff y la resolución de circuitos eléctricos simples."],
+    indicadoresEvaluacion: ["I.CN.F.5.18.1. Aplica la ley de Ohm y las leyes de Kirchhoff en la resolución de circuitos eléctricos simples."],
   },
 
   {
@@ -909,8 +909,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Fundamenta las cuatro fuerzas de la naturaleza: electromagnética, nuclear fuerte, nuclear débil, (estableciendo que hay tres formas comunes de desintegración radiactiva: alfa, beta y gamma) y gravitacional, valorando los efectos que tiene la tecnología en la revolución industrial",
     objetivos: ["O.CN.F.5.20. Analizar el movimiento de los cuerpos aplicando las leyes de Newton."],
-    criteriosEvaluacion: ["CE.CN.F.5.20"],
-    indicadoresEvaluacion: ["I.CN.F.5.20.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.20. Explicar los fenómenos ondulatorios mediante la descripción de las características de las ondas mecánicas y electromagnéticas."],
+    indicadoresEvaluacion: ["I.CN.F.5.20.1. Describe las características de las ondas mecánicas y electromagnéticas y resuelve problemas de aplicación."],
   },
 
   {
@@ -921,8 +921,8 @@ export const destrezasFisica: Destreza[] = [
     secuencial: 1,
     descripcion: "Argumenta mediante el modelo estándar, que los protones y neutrones no son partículas elementales, analizando las características ( masa, carga, espín) de las partículas elementales del átomo, distinguiendo partículas reales: leptones (electrón, neutrino del electrón, muon, neutrino del muon, tau y neutrino del tau), quarks (up, down, charm, strange, bottom y top), hadrones (bariones formados por tres quarks, mesones formados por pares quark-antiquark) y el efecto de las cuatro fuerzas fundamentales (electromagnética, nuclear fuerte y débil), mediante partículas virtuales o “cuantos del campo de fuerza” (gravitones, fotones, gluones y bosones) distinguiendo en estos últimos al bosón de Higgs",
     objetivos: ["O.CN.F.5.21. Comprender los principios de conservación de energía y cantidad de movimiento."],
-    criteriosEvaluacion: ["CE.CN.F.5.21"],
-    indicadoresEvaluacion: ["I.CN.F.5.21.1"],
+    criteriosEvaluacion: ["CE.CN.F.5.21. Explicar los fenómenos térmicos mediante la descripción de la temperatura, el calor, la dilatación térmica y las leyes de la termodinámica."],
+    indicadoresEvaluacion: ["I.CN.F.5.21.1. Explica los fenómenos térmicos, aplica las leyes de la termodinámica y resuelve problemas de transferencia de calor."],
   },
 
 ];

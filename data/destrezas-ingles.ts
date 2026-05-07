@@ -14,8 +14,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Ask simple basic questions in class about the world beyond their own immediate environment in order to increase their understanding of different cultures",
     objetivos: ["O.EFL.2.1"],
-    criteriosEvaluacion: ["CE.EFL.2.1"],
-    indicadoresEvaluacion: ["I.EFL.2.1.1"],
+    criteriosEvaluacion: ["CE.EFL.2.1. Display an understanding of a limited range of spoken texts (conversations, basic instructions) presented slowly and clearly, and respond to simple questions about personal information."],
+    indicadoresEvaluacion: ["I.EFL.2.1.1. Understands simple spoken texts about personal information and daily routines when delivered slowly and clearly."],
   },
   {
     codigo: "EFL.2.1.2",
@@ -25,7 +25,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Recognize ways to relate responsibly to one's surroundings at home and at school by exhibiting responsible behaviors towards the environment (Example: chores at home, recycling, etc.)",
     objetivos: ["O.EFL.2.1"],
-    criteriosEvaluacion: ["CE.EFL.2.1"],
+    criteriosEvaluacion: ["CE.EFL.2.1. Display an understanding of a limited range of spoken texts (conversations, basic instructions) presented slowly and clearly, and respond to simple questions about personal information."],
     indicadoresEvaluacion: ["I.EFL.2.1.2"],
   },
   {
@@ -36,7 +36,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Exchange basic personal preferences with peers in order to express likes and dislikes",
     objetivos: ["O.EFL.2.1"],
-    criteriosEvaluacion: ["CE.EFL.2.1"],
+    criteriosEvaluacion: ["CE.EFL.2.1. Display an understanding of a limited range of spoken texts (conversations, basic instructions) presented slowly and clearly, and respond to simple questions about personal information."],
     indicadoresEvaluacion: ["I.EFL.2.1.3"],
   },
   {
@@ -47,7 +47,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Describe, read about, participate in or recommend a favorite activity, book, song or other interest to various audiences (Example: peers, other classes, teachers, other adults, etc.)",
     objetivos: ["O.EFL.2.1"],
-    criteriosEvaluacion: ["CE.EFL.2.1"],
+    criteriosEvaluacion: ["CE.EFL.2.1. Display an understanding of a limited range of spoken texts (conversations, basic instructions) presented slowly and clearly, and respond to simple questions about personal information."],
     indicadoresEvaluacion: ["I.EFL.2.1.4"],
   },
   {
@@ -58,7 +58,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Develop the skills to work collaboratively using a range of verbal and nonverbal communication features and apply self-correcting and self-monitoring strategies in social and classroom interactions",
     objetivos: ["O.EFL.2.1"],
-    criteriosEvaluacion: ["CE.EFL.2.1"],
+    criteriosEvaluacion: ["CE.EFL.2.1. Display an understanding of a limited range of spoken texts (conversations, basic instructions) presented slowly and clearly, and respond to simple questions about personal information."],
     indicadoresEvaluacion: ["I.EFL.2.1.5"],
   },
   {
@@ -69,7 +69,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Interpret and demonstrate knowledge of nonverbal and oral communication features in classroom activities, and understand the contexts in which they are used appropriately (Example: gestures, body language, volume, etc.)",
     objetivos: ["O.EFL.2.1"],
-    criteriosEvaluacion: ["CE.EFL.2.1"],
+    criteriosEvaluacion: ["CE.EFL.2.1. Display an understanding of a limited range of spoken texts (conversations, basic instructions) presented slowly and clearly, and respond to simple questions about personal information."],
     indicadoresEvaluacion: ["I.EFL.2.1.6"],
   },
   {
@@ -80,7 +80,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Demonstrate appropriate classroom behaviors by participating in small group or whole class discussions (Example: being courteous, respecting the person and property of others, etc.)",
     objetivos: ["O.EFL.2.1"],
-    criteriosEvaluacion: ["CE.EFL.2.1"],
+    criteriosEvaluacion: ["CE.EFL.2.1. Display an understanding of a limited range of spoken texts (conversations, basic instructions) presented slowly and clearly, and respond to simple questions about personal information."],
     indicadoresEvaluacion: ["I.EFL.2.1.7"],
   },
 
@@ -93,8 +93,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Infer who is speaking and what the situation is when listening to short simple texts, especially when accompanied by pictures or other visual aids, or sound effects",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
-    indicadoresEvaluacion: ["I.EFL.2.2.1"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
+    indicadoresEvaluacion: ["I.EFL.2.2.1. Produces simple spoken texts using basic vocabulary to communicate personal information."],
   },
   {
     codigo: "EFL.2.2.2",
@@ -104,7 +104,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Be comfortable taking meaning from spoken texts containing words or sections which are not understood. Be aware that understanding spoken texts does not require decoding every single word",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.2"],
   },
   {
@@ -115,7 +115,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Record key items of specific information from a heard message or description, either in written form or by drawing a picture (Example: letters of the alphabet, numbers, quantities, prices and times, days, dates and months, etc.)",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.3"],
   },
   {
@@ -126,7 +126,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Identify the main idea of short, clear, simple messages and announcements and understand sentences and frequently used expressions related to areas of immediate relevance",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.4"],
   },
   {
@@ -137,7 +137,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Spell out key vocabulary items using the English alphabet (Example: names, colors, animals, possessions, etc.)",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.5"],
   },
   {
@@ -148,7 +148,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Ask for someone to repeat themselves or say something in a different way and ask for common classroom needs (Example: getting attention or obtaining an object, etc.)",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.6"],
   },
   {
@@ -159,7 +159,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Respond to simple questions in quite a short time and initiate basic interaction spontaneously when there are opportunities to speak",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.7"],
   },
   {
@@ -170,7 +170,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 8,
     descripcion: "Make and respond to invitations, suggestions, apologies and requests",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.8"],
   },
   {
@@ -181,7 +181,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 9,
     descripcion: "Provide a simple description and/or opinion of a common object or a simple account of something experienced (Example: an Ecuadorian celebration, a class trip, a party, a game played, etc.)",
     objetivos: ["O.EFL.2.2"],
-    criteriosEvaluacion: ["CE.EFL.2.2"],
+    criteriosEvaluacion: ["CE.EFL.2.2. Produce simple spoken texts (short dialogues, descriptions) using basic vocabulary and grammatical structures to communicate personal information and daily routines."],
     indicadoresEvaluacion: ["I.EFL.2.2.9"],
   },
 
@@ -194,8 +194,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Understand most of the details of the content of a short simple text (Example: labels, lists, menus, advertisements, post cards, etc.)",
     objetivos: ["O.EFL.2.3"],
-    criteriosEvaluacion: ["CE.EFL.2.3"],
-    indicadoresEvaluacion: ["I.EFL.2.3.1"],
+    criteriosEvaluacion: ["CE.EFL.2.3. Demonstrate an understanding of short simple written texts (labels, lists, postcards, messages) by identifying key words and extracting specific information."],
+    indicadoresEvaluacion: ["I.EFL.2.3.1. Identifies key words and extracts specific information from short simple written texts."],
   },
   {
     codigo: "EFL.2.3.2",
@@ -205,7 +205,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Read a short simple text (Example: a postcard, an email or a short article) and identify the main idea and some basic details",
     objetivos: ["O.EFL.2.3"],
-    criteriosEvaluacion: ["CE.EFL.2.3"],
+    criteriosEvaluacion: ["CE.EFL.2.3. Demonstrate an understanding of short simple written texts (labels, lists, postcards, messages) by identifying key words and extracting specific information."],
     indicadoresEvaluacion: ["I.EFL.2.3.2"],
   },
   {
@@ -216,7 +216,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Show understanding of some basic details in short simple cross-curricular texts by matching, labeling and answering simple questions",
     objetivos: ["O.EFL.2.3"],
-    criteriosEvaluacion: ["CE.EFL.2.3"],
+    criteriosEvaluacion: ["CE.EFL.2.3. Demonstrate an understanding of short simple written texts (labels, lists, postcards, messages) by identifying key words and extracting specific information."],
     indicadoresEvaluacion: ["I.EFL.2.3.3"],
   },
   {
@@ -227,7 +227,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Read and understand the main idea in short simple texts (Example: informational, transactional and expository texts)",
     objetivos: ["O.EFL.2.3"],
-    criteriosEvaluacion: ["CE.EFL.2.3"],
+    criteriosEvaluacion: ["CE.EFL.2.3. Demonstrate an understanding of short simple written texts (labels, lists, postcards, messages) by identifying key words and extracting specific information."],
     indicadoresEvaluacion: ["I.EFL.2.3.4"],
   },
   {
@@ -238,7 +238,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Show the ability to use a simple learning resource (Example: a beginner's dictionary, a word list, etc.)",
     objetivos: ["O.EFL.2.3"],
-    criteriosEvaluacion: ["CE.EFL.2.3"],
+    criteriosEvaluacion: ["CE.EFL.2.3. Demonstrate an understanding of short simple written texts (labels, lists, postcards, messages) by identifying key words and extracting specific information."],
     indicadoresEvaluacion: ["I.EFL.2.3.5"],
   },
   {
@@ -249,7 +249,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Display an understanding of some basic details in short simple cross-curricular texts from various sources by using key words and contextual clues",
     objetivos: ["O.EFL.2.3"],
-    criteriosEvaluacion: ["CE.EFL.2.3"],
+    criteriosEvaluacion: ["CE.EFL.2.3. Demonstrate an understanding of short simple written texts (labels, lists, postcards, messages) by identifying key words and extracting specific information."],
     indicadoresEvaluacion: ["I.EFL.2.3.6"],
   },
 
@@ -262,8 +262,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Write simple words, phrases and sentences with correct use of standard writing mechanics (Example: spelling, punctuation, capitalization and legible handwriting)",
     objetivos: ["O.EFL.2.4"],
-    criteriosEvaluacion: ["CE.EFL.2.4"],
-    indicadoresEvaluacion: ["I.EFL.2.4.1"],
+    criteriosEvaluacion: ["CE.EFL.2.4. Write short simple texts (lists, postcards, messages, forms) using basic vocabulary and structures to convey personal information."],
+    indicadoresEvaluacion: ["I.EFL.2.4.1. Writes short simple texts using basic vocabulary and structures to convey personal information."],
   },
   {
     codigo: "EFL.2.4.2",
@@ -273,7 +273,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Write a short simple message (Example: a postcard, an email, a note, etc.) with basic personal information (Example: name, age, nationality, etc.)",
     objetivos: ["O.EFL.2.4"],
-    criteriosEvaluacion: ["CE.EFL.2.4"],
+    criteriosEvaluacion: ["CE.EFL.2.4. Write short simple texts (lists, postcards, messages, forms) using basic vocabulary and structures to convey personal information."],
     indicadoresEvaluacion: ["I.EFL.2.4.2"],
   },
   {
@@ -284,7 +284,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Write a simple description of themselves and their immediate surroundings using basic vocabulary and simple sentences",
     objetivos: ["O.EFL.2.4"],
-    criteriosEvaluacion: ["CE.EFL.2.4"],
+    criteriosEvaluacion: ["CE.EFL.2.4. Write short simple texts (lists, postcards, messages, forms) using basic vocabulary and structures to convey personal information."],
     indicadoresEvaluacion: ["I.EFL.2.4.3"],
   },
   {
@@ -295,7 +295,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Complete a simple survey or form using basic personal information (Example: name, age, nationality, address, likes and dislikes, etc.)",
     objetivos: ["O.EFL.2.4"],
-    criteriosEvaluacion: ["CE.EFL.2.4"],
+    criteriosEvaluacion: ["CE.EFL.2.4. Write short simple texts (lists, postcards, messages, forms) using basic vocabulary and structures to convey personal information."],
     indicadoresEvaluacion: ["I.EFL.2.4.4"],
   },
 
@@ -308,8 +308,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Enjoy extensive listening to stories and other age-appropriate oral texts in order to develop an appreciation of the language through the arts",
     objetivos: ["O.EFL.2.5"],
-    criteriosEvaluacion: ["CE.EFL.2.5"],
-    indicadoresEvaluacion: ["I.EFL.2.5.1"],
+    criteriosEvaluacion: ["CE.EFL.2.5. Use basic language learning strategies (visual cues, repetition, gestures) to understand and produce simple spoken and written texts."],
+    indicadoresEvaluacion: ["I.EFL.2.5.1. Uses basic language learning strategies to understand and produce simple texts."],
   },
   {
     codigo: "EFL.2.5.2",
@@ -319,7 +319,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Participate in songs, chants, rhymes and games using both verbal and nonverbal communication",
     objetivos: ["O.EFL.2.5"],
-    criteriosEvaluacion: ["CE.EFL.2.5"],
+    criteriosEvaluacion: ["CE.EFL.2.5. Use basic language learning strategies (visual cues, repetition, gestures) to understand and produce simple spoken and written texts."],
     indicadoresEvaluacion: ["I.EFL.2.5.2"],
   },
   {
@@ -330,7 +330,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Respond to simple creative texts (oral and written) by acting out, drawing, singing, playing games, etc.",
     objetivos: ["O.EFL.2.5"],
-    criteriosEvaluacion: ["CE.EFL.2.5"],
+    criteriosEvaluacion: ["CE.EFL.2.5. Use basic language learning strategies (visual cues, repetition, gestures) to understand and produce simple spoken and written texts."],
     indicadoresEvaluacion: ["I.EFL.2.5.3"],
   },
   {
@@ -341,7 +341,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Create short simple texts (Example: stories, poems, songs, etc.) using age-appropriate language and familiar topics",
     objetivos: ["O.EFL.2.5"],
-    criteriosEvaluacion: ["CE.EFL.2.5"],
+    criteriosEvaluacion: ["CE.EFL.2.5. Use basic language learning strategies (visual cues, repetition, gestures) to understand and produce simple spoken and written texts."],
     indicadoresEvaluacion: ["I.EFL.2.5.4"],
   },
 
@@ -358,8 +358,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Ask simple basic questions in class about the world beyond their own immediate environment in order to increase their understanding of different cultures",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
-    indicadoresEvaluacion: ["I.EFL.3.1.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
+    indicadoresEvaluacion: ["I.EFL.3.1.1. Understands main ideas of short spoken texts on familiar topics delivered slowly and clearly."],
   },
   {
     codigo: "EFL.3.1.2",
@@ -369,7 +369,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Recognize ways to relate responsibly to one's surroundings at home and at school by exhibiting responsible behaviors towards the environment (Example: chores at home, recycling, etc.)",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
     indicadoresEvaluacion: ["I.EFL.3.1.2"],
   },
   {
@@ -380,7 +380,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Exchange basic personal preferences with peers in order to express likes and dislikes",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
     indicadoresEvaluacion: ["I.EFL.3.1.3"],
   },
   {
@@ -391,7 +391,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Describe, read about, participate in or recommend a favorite activity, book, song or other interest to various audiences (Example: peers, other classes, teachers, other adults, etc.)",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
     indicadoresEvaluacion: ["I.EFL.3.1.4"],
   },
   {
@@ -402,7 +402,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Develop the skills to work collaboratively using a range of verbal and nonverbal communication features and apply self-correcting and self-monitoring strategies in social and classroom interactions",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
     indicadoresEvaluacion: ["I.EFL.3.1.5"],
   },
   {
@@ -413,7 +413,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Interpret and demonstrate knowledge of nonverbal and oral communication features in classroom activities, and understand the contexts in which they are used appropriately (Example: gestures, body language, volume, etc.)",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
     indicadoresEvaluacion: ["I.EFL.3.1.6"],
   },
   {
@@ -424,7 +424,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Demonstrate appropriate classroom behaviors by participating in small group or whole class discussions (Example: being courteous, respecting the person and property of others, etc.)",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
     indicadoresEvaluacion: ["I.EFL.3.1.7"],
   },
   {
@@ -435,7 +435,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 8,
     descripcion: "Use a variety of oral, print and electronic forms for social communication and for writing to oneself (Example: friendly notes, invitations, diary entries, electronic messages, etc.)",
     objetivos: ["O.EFL.3.1"],
-    criteriosEvaluacion: ["CE.EFL.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.1. Understand the main ideas and some details of short simple spoken texts on familiar topics (school, hobbies, family) delivered slowly and clearly."],
     indicadoresEvaluacion: ["I.EFL.3.1.8"],
   },
 
@@ -448,8 +448,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Infer who is speaking and what the situation is when listening to short simple texts, especially when accompanied by pictures or other visual aids, or sound effects (Example: shopkeeper speaking to a customer who is buying some fruit)",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
-    indicadoresEvaluacion: ["I.EFL.3.2.1"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
+    indicadoresEvaluacion: ["I.EFL.3.2.1. Produces short spoken texts using familiar vocabulary on everyday topics."],
   },
   {
     codigo: "EFL.3.2.2",
@@ -459,7 +459,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Be comfortable taking meaning from spoken texts containing words or sections which are not understood. Be aware that understanding spoken texts does not require decoding every single word",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.2"],
   },
   {
@@ -470,7 +470,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Record key items of specific information from a heard message or description, either in written form or by drawing a picture (Example: letters of the alphabet, numbers, quantities, prices and times, days, dates and months, etc.)",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.3"],
   },
   {
@@ -481,7 +481,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Identify the main idea of short, clear, simple messages and announcements and understand sentences and frequently used expressions related to areas of immediate relevance (Example: follow verbal instructions for a game, ask for prices at a store, follow simple classroom instructions, describe places nearby, etc.)",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.4"],
   },
   {
@@ -492,7 +492,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Spell out key vocabulary items using the English alphabet (Example: names, colors, animals, possessions, etc.)",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.5"],
   },
   {
@@ -503,7 +503,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Ask for someone to repeat themselves or say something in a different way and ask for common classroom needs (Example: getting attention or obtaining an object, etc.)",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.6"],
   },
   {
@@ -514,7 +514,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Respond to simple questions in quite a short time and initiate basic interaction spontaneously when there are opportunities to speak. Speech is produced a little less slowly and hesitantly",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.7"],
   },
   {
@@ -525,7 +525,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 8,
     descripcion: "Make and respond to invitations, suggestions, apologies and requests",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.8"],
   },
   {
@@ -536,7 +536,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 9,
     descripcion: "Provide a simple description and/or opinion of a common object or a simple account of something experienced (Example: an Ecuadorian celebration, a class trip, a party, a game played, etc.)",
     objetivos: ["O.EFL.3.2"],
-    criteriosEvaluacion: ["CE.EFL.3.2"],
+    criteriosEvaluacion: ["CE.EFL.3.2. Produce short spoken texts (descriptions, narratives, conversations) using familiar vocabulary and simple grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.2.9"],
   },
 
@@ -549,8 +549,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Understand most of the details of the content of a short simple text (Example: labels, lists, menus, advertisements, postcards, etc.)",
     objetivos: ["O.EFL.3.3"],
-    criteriosEvaluacion: ["CE.EFL.3.3"],
-    indicadoresEvaluacion: ["I.EFL.3.3.1"],
+    criteriosEvaluacion: ["CE.EFL.3.3. Demonstrate understanding of short simple written texts (emails, descriptions, short stories) by identifying main ideas and specific details."],
+    indicadoresEvaluacion: ["I.EFL.3.3.1. Identifies main ideas and specific details in short simple written texts."],
   },
   {
     codigo: "EFL.3.3.2",
@@ -560,7 +560,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Read a short simple text (Example: a postcard, an email or a short article) and identify the main idea and some basic details",
     objetivos: ["O.EFL.3.3"],
-    criteriosEvaluacion: ["CE.EFL.3.3"],
+    criteriosEvaluacion: ["CE.EFL.3.3. Demonstrate understanding of short simple written texts (emails, descriptions, short stories) by identifying main ideas and specific details."],
     indicadoresEvaluacion: ["I.EFL.3.3.2"],
   },
   {
@@ -571,7 +571,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Show understanding of some basic details in short simple cross-curricular texts by matching, labeling and answering simple questions",
     objetivos: ["O.EFL.3.3"],
-    criteriosEvaluacion: ["CE.EFL.3.3"],
+    criteriosEvaluacion: ["CE.EFL.3.3. Demonstrate understanding of short simple written texts (emails, descriptions, short stories) by identifying main ideas and specific details."],
     indicadoresEvaluacion: ["I.EFL.3.3.3"],
   },
   {
@@ -582,7 +582,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Read and understand the main idea in short simple texts (Example: informational, transactional and expository texts)",
     objetivos: ["O.EFL.3.3"],
-    criteriosEvaluacion: ["CE.EFL.3.3"],
+    criteriosEvaluacion: ["CE.EFL.3.3. Demonstrate understanding of short simple written texts (emails, descriptions, short stories) by identifying main ideas and specific details."],
     indicadoresEvaluacion: ["I.EFL.3.3.4"],
   },
   {
@@ -593,7 +593,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Show the ability to use a simple learning resource (Example: a beginner's dictionary, a word list, etc.)",
     objetivos: ["O.EFL.3.3"],
-    criteriosEvaluacion: ["CE.EFL.3.3"],
+    criteriosEvaluacion: ["CE.EFL.3.3. Demonstrate understanding of short simple written texts (emails, descriptions, short stories) by identifying main ideas and specific details."],
     indicadoresEvaluacion: ["I.EFL.3.3.5"],
   },
   {
@@ -604,7 +604,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Display an understanding of some basic details in short simple cross-curricular texts from various sources by using key words and contextual clues",
     objetivos: ["O.EFL.3.3"],
-    criteriosEvaluacion: ["CE.EFL.3.3"],
+    criteriosEvaluacion: ["CE.EFL.3.3. Demonstrate understanding of short simple written texts (emails, descriptions, short stories) by identifying main ideas and specific details."],
     indicadoresEvaluacion: ["I.EFL.3.3.6"],
   },
 
@@ -617,8 +617,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Write simple words, phrases and sentences with correct use of standard writing mechanics (Example: spelling, punctuation, capitalization and legible handwriting)",
     objetivos: ["O.EFL.3.4"],
-    criteriosEvaluacion: ["CE.EFL.3.4"],
-    indicadoresEvaluacion: ["I.EFL.3.4.1"],
+    criteriosEvaluacion: ["CE.EFL.3.4. Write short simple texts (emails, descriptions, short narratives) using familiar vocabulary and basic grammatical structures on everyday topics."],
+    indicadoresEvaluacion: ["I.EFL.3.4.1. Writes short texts using familiar vocabulary and basic structures on everyday topics."],
   },
   {
     codigo: "EFL.3.4.2",
@@ -628,7 +628,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Write a short simple message (Example: a postcard, an email, a note, etc.) with basic personal information (Example: name, age, nationality, etc.) and simple phrases and sentences",
     objetivos: ["O.EFL.3.4"],
-    criteriosEvaluacion: ["CE.EFL.3.4"],
+    criteriosEvaluacion: ["CE.EFL.3.4. Write short simple texts (emails, descriptions, short narratives) using familiar vocabulary and basic grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.4.2"],
   },
   {
@@ -639,7 +639,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Write a short paragraph to describe themselves, their family, friends and immediate surroundings using simple sentences and basic vocabulary",
     objetivos: ["O.EFL.3.4"],
-    criteriosEvaluacion: ["CE.EFL.3.4"],
+    criteriosEvaluacion: ["CE.EFL.3.4. Write short simple texts (emails, descriptions, short narratives) using familiar vocabulary and basic grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.4.3"],
   },
   {
@@ -650,7 +650,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Complete a simple survey or form using basic personal information and respond to simple written requests for information",
     objetivos: ["O.EFL.3.4"],
-    criteriosEvaluacion: ["CE.EFL.3.4"],
+    criteriosEvaluacion: ["CE.EFL.3.4. Write short simple texts (emails, descriptions, short narratives) using familiar vocabulary and basic grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.4.4"],
   },
   {
@@ -661,7 +661,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Write a short simple narrative based on a model text or guided prompts about familiar topics and everyday activities",
     objetivos: ["O.EFL.3.4"],
-    criteriosEvaluacion: ["CE.EFL.3.4"],
+    criteriosEvaluacion: ["CE.EFL.3.4. Write short simple texts (emails, descriptions, short narratives) using familiar vocabulary and basic grammatical structures on everyday topics."],
     indicadoresEvaluacion: ["I.EFL.3.4.5"],
   },
 
@@ -674,8 +674,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Enjoy extensive listening to stories and other age-appropriate oral texts in order to develop an appreciation of the language through the arts",
     objetivos: ["O.EFL.3.5"],
-    criteriosEvaluacion: ["CE.EFL.3.5"],
-    indicadoresEvaluacion: ["I.EFL.3.5.1"],
+    criteriosEvaluacion: ["CE.EFL.3.5. Apply language learning strategies (context clues, cognates, prior knowledge) to understand and produce spoken and written texts on familiar topics."],
+    indicadoresEvaluacion: ["I.EFL.3.5.1. Applies language learning strategies to understand and produce texts on familiar topics."],
   },
   {
     codigo: "EFL.3.5.2",
@@ -685,7 +685,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Participate in songs, chants, rhymes, tongue twisters and games using both verbal and nonverbal communication",
     objetivos: ["O.EFL.3.5"],
-    criteriosEvaluacion: ["CE.EFL.3.5"],
+    criteriosEvaluacion: ["CE.EFL.3.5. Apply language learning strategies (context clues, cognates, prior knowledge) to understand and produce spoken and written texts on familiar topics."],
     indicadoresEvaluacion: ["I.EFL.3.5.2"],
   },
   {
@@ -696,7 +696,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Respond to creative texts (oral and written) by acting out, illustrating, singing, playing games, retelling stories, etc.",
     objetivos: ["O.EFL.3.5"],
-    criteriosEvaluacion: ["CE.EFL.3.5"],
+    criteriosEvaluacion: ["CE.EFL.3.5. Apply language learning strategies (context clues, cognates, prior knowledge) to understand and produce spoken and written texts on familiar topics."],
     indicadoresEvaluacion: ["I.EFL.3.5.3"],
   },
   {
@@ -707,7 +707,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Create short simple texts (Example: stories, poems, songs, etc.) using age-appropriate language and familiar topics, and present them to the class",
     objetivos: ["O.EFL.3.5"],
-    criteriosEvaluacion: ["CE.EFL.3.5"],
+    criteriosEvaluacion: ["CE.EFL.3.5. Apply language learning strategies (context clues, cognates, prior knowledge) to understand and produce spoken and written texts on familiar topics."],
     indicadoresEvaluacion: ["I.EFL.3.5.4"],
   },
 
@@ -724,8 +724,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Cultivate an awareness of different cultures and identify similarities and differences between them through oral and written literary texts",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
-    indicadoresEvaluacion: ["I.EFL.4.1.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
+    indicadoresEvaluacion: ["I.EFL.4.1.1. Understands main ideas and relevant details of spoken texts on familiar and unfamiliar topics."],
   },
   {
     codigo: "EFL.4.1.2",
@@ -735,7 +735,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Recognize and exhibit responsible behaviors at home, at school and towards the environment",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
     indicadoresEvaluacion: ["I.EFL.4.1.2"],
   },
   {
@@ -746,7 +746,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Interact with others using a variety of both verbal and nonverbal communication features and express likes and dislikes while giving recommendations in basic yet effective terms",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
     indicadoresEvaluacion: ["I.EFL.4.1.3"],
   },
   {
@@ -757,7 +757,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Develop the skills to work collaboratively using a range of verbal and nonverbal communication features and apply self-correcting and self-monitoring strategies in social and classroom interactions",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
     indicadoresEvaluacion: ["I.EFL.4.1.4"],
   },
   {
@@ -768,7 +768,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Interpret and demonstrate knowledge of nonverbal and oral communication features in classroom activities, and understand the contexts in which they are used appropriately (Example: gestures, body language, volume, etc.)",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
     indicadoresEvaluacion: ["I.EFL.4.1.5"],
   },
   {
@@ -779,7 +779,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Demonstrate appropriate classroom behaviors by participating in small group or whole class discussions (Example: being courteous, respecting the person and property of others, etc.)",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
     indicadoresEvaluacion: ["I.EFL.4.1.6"],
   },
   {
@@ -790,7 +790,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Use a variety of oral, print and electronic forms for social communication and for writing to oneself (Example: friendly notes, invitations, diary entries, electronic messages, etc.)",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
     indicadoresEvaluacion: ["I.EFL.4.1.7"],
   },
   {
@@ -801,7 +801,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 8,
     descripcion: "Demonstrate an ability to use English to interact socially and work cooperatively in pairs and groups",
     objetivos: ["O.EFL.4.1"],
-    criteriosEvaluacion: ["CE.EFL.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.1. Understand the main ideas and relevant details of spoken texts (conversations, presentations, interviews) on familiar and some unfamiliar topics."],
     indicadoresEvaluacion: ["I.EFL.4.1.8"],
   },
 
@@ -814,8 +814,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Grasp the main idea of spoken texts set in familiar everyday contexts. Infer who is speaking and what the situation is when listening to short simple texts",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
-    indicadoresEvaluacion: ["I.EFL.4.2.1"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
+    indicadoresEvaluacion: ["I.EFL.4.2.1. Produces spoken texts with reasonable fluency using appropriate vocabulary and structures."],
   },
   {
     codigo: "EFL.4.2.2",
@@ -825,7 +825,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Follow and identify key information in short straightforward audio texts related to areas of immediate need or interest, provided vocabulary is familiar and visual support is present, and use these spoken contributions as models for their own",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.2"],
   },
   {
@@ -836,7 +836,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Record key items of specific information from a heard message or description, either in written form or by drawing a picture",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.3"],
   },
   {
@@ -847,7 +847,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Identify the main idea of short, clear, simple messages and announcements and understand sentences and frequently used expressions related to areas of immediate relevance",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.4"],
   },
   {
@@ -858,7 +858,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Spell out key vocabulary items using the English alphabet",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.5"],
   },
   {
@@ -869,7 +869,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Ask for someone to repeat themselves or say something in a different way and ask for common classroom needs. Communicate needs clearly in class by asking questions or requesting clarification",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.6"],
   },
   {
@@ -880,7 +880,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Respond to simple questions in quite a short time and initiate basic interaction spontaneously when there are opportunities to speak. Spontaneously initiate interactions in order to express opinions or give accounts of personal experiences",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.7"],
   },
   {
@@ -891,7 +891,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 8,
     descripcion: "Make and respond to invitations, suggestions, apologies and requests",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.8"],
   },
   {
@@ -902,7 +902,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 9,
     descripcion: "Provide a simple description and/or opinion of a common object or a simple account of something experienced. Describe simple, familiar situations and talk about past experiences",
     objetivos: ["O.EFL.4.2"],
-    criteriosEvaluacion: ["CE.EFL.4.2"],
+    criteriosEvaluacion: ["CE.EFL.4.2. Produce spoken texts (presentations, discussions, narratives) with reasonable fluency on familiar topics, using appropriate vocabulary and grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.4.2.9"],
   },
 
@@ -915,8 +915,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Understand most of the details of the content of a short simple text (Example: labels, lists, menus, advertisements, postcards, etc.)",
     objetivos: ["O.EFL.4.3"],
-    criteriosEvaluacion: ["CE.EFL.4.3"],
-    indicadoresEvaluacion: ["I.EFL.4.3.1"],
+    criteriosEvaluacion: ["CE.EFL.4.3. Demonstrate understanding of written texts (articles, stories, reports) by identifying main ideas, supporting details, and making inferences."],
+    indicadoresEvaluacion: ["I.EFL.4.3.1. Identifies main ideas, supporting details, and makes inferences from written texts."],
   },
   {
     codigo: "EFL.4.3.2",
@@ -926,7 +926,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Read a short simple text and identify the main idea and some basic details. Use reading strategies to make texts comprehensible and meaningful (Example: skimming, scanning, using context clues, etc.)",
     objetivos: ["O.EFL.4.3"],
-    criteriosEvaluacion: ["CE.EFL.4.3"],
+    criteriosEvaluacion: ["CE.EFL.4.3. Demonstrate understanding of written texts (articles, stories, reports) by identifying main ideas, supporting details, and making inferences."],
     indicadoresEvaluacion: ["I.EFL.4.3.2"],
   },
   {
@@ -937,7 +937,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Show understanding of some basic details in short simple cross-curricular texts by matching, labeling and answering simple questions",
     objetivos: ["O.EFL.4.3"],
-    criteriosEvaluacion: ["CE.EFL.4.3"],
+    criteriosEvaluacion: ["CE.EFL.4.3. Demonstrate understanding of written texts (articles, stories, reports) by identifying main ideas, supporting details, and making inferences."],
     indicadoresEvaluacion: ["I.EFL.4.3.3"],
   },
   {
@@ -948,7 +948,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Read and understand the main idea in short simple texts (Example: informational, transactional and expository texts). Identify the purpose and audience of a text",
     objetivos: ["O.EFL.4.3"],
-    criteriosEvaluacion: ["CE.EFL.4.3"],
+    criteriosEvaluacion: ["CE.EFL.4.3. Demonstrate understanding of written texts (articles, stories, reports) by identifying main ideas, supporting details, and making inferences."],
     indicadoresEvaluacion: ["I.EFL.4.3.4"],
   },
   {
@@ -959,7 +959,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Show the ability to use a simple learning resource (Example: a beginner's dictionary, a word list, etc.) and apply basic reading strategies to find specific information",
     objetivos: ["O.EFL.4.3"],
-    criteriosEvaluacion: ["CE.EFL.4.3"],
+    criteriosEvaluacion: ["CE.EFL.4.3. Demonstrate understanding of written texts (articles, stories, reports) by identifying main ideas, supporting details, and making inferences."],
     indicadoresEvaluacion: ["I.EFL.4.3.5"],
   },
   {
@@ -970,7 +970,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Display an understanding of some basic details in short simple cross-curricular texts from various sources by using key words, contextual clues and making inferences",
     objetivos: ["O.EFL.4.3"],
-    criteriosEvaluacion: ["CE.EFL.4.3"],
+    criteriosEvaluacion: ["CE.EFL.4.3. Demonstrate understanding of written texts (articles, stories, reports) by identifying main ideas, supporting details, and making inferences."],
     indicadoresEvaluacion: ["I.EFL.4.3.6"],
   },
 
@@ -983,8 +983,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Write simple words, phrases and sentences with correct use of standard writing mechanics (Example: spelling, punctuation, capitalization and legible handwriting)",
     objetivos: ["O.EFL.4.4"],
-    criteriosEvaluacion: ["CE.EFL.4.4"],
-    indicadoresEvaluacion: ["I.EFL.4.4.1"],
+    criteriosEvaluacion: ["CE.EFL.4.4. Write coherent texts (essays, reports, formal letters) using appropriate vocabulary, grammatical structures, and organizational patterns."],
+    indicadoresEvaluacion: ["I.EFL.4.4.1. Writes coherent texts using appropriate vocabulary, structures, and organizational patterns."],
   },
   {
     codigo: "EFL.4.4.2",
@@ -994,7 +994,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Write a short simple message (Example: a postcard, an email, a note, etc.) with basic personal information and simple phrases and sentences about familiar topics",
     objetivos: ["O.EFL.4.4"],
-    criteriosEvaluacion: ["CE.EFL.4.4"],
+    criteriosEvaluacion: ["CE.EFL.4.4. Write coherent texts (essays, reports, formal letters) using appropriate vocabulary, grammatical structures, and organizational patterns."],
     indicadoresEvaluacion: ["I.EFL.4.4.2"],
   },
   {
@@ -1005,7 +1005,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Write short paragraphs to describe themselves, their family, friends, daily routines and immediate surroundings using connected sentences",
     objetivos: ["O.EFL.4.4"],
-    criteriosEvaluacion: ["CE.EFL.4.4"],
+    criteriosEvaluacion: ["CE.EFL.4.4. Write coherent texts (essays, reports, formal letters) using appropriate vocabulary, grammatical structures, and organizational patterns."],
     indicadoresEvaluacion: ["I.EFL.4.4.3"],
   },
   {
@@ -1016,7 +1016,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Complete a simple survey or form using basic personal information and respond to simple written requests for information",
     objetivos: ["O.EFL.4.4"],
-    criteriosEvaluacion: ["CE.EFL.4.4"],
+    criteriosEvaluacion: ["CE.EFL.4.4. Write coherent texts (essays, reports, formal letters) using appropriate vocabulary, grammatical structures, and organizational patterns."],
     indicadoresEvaluacion: ["I.EFL.4.4.4"],
   },
   {
@@ -1027,7 +1027,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Write a short simple narrative about familiar topics and everyday activities, using connected sentences and basic linking words (Example: and, but, because, etc.)",
     objetivos: ["O.EFL.4.4"],
-    criteriosEvaluacion: ["CE.EFL.4.4"],
+    criteriosEvaluacion: ["CE.EFL.4.4. Write coherent texts (essays, reports, formal letters) using appropriate vocabulary, grammatical structures, and organizational patterns."],
     indicadoresEvaluacion: ["I.EFL.4.4.5"],
   },
   {
@@ -1038,7 +1038,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Use a variety of oral, print and electronic forms for social communication and for writing to oneself (Example: friendly notes, invitations, diary entries, electronic messages, etc.)",
     objetivos: ["O.EFL.4.4"],
-    criteriosEvaluacion: ["CE.EFL.4.4"],
+    criteriosEvaluacion: ["CE.EFL.4.4. Write coherent texts (essays, reports, formal letters) using appropriate vocabulary, grammatical structures, and organizational patterns."],
     indicadoresEvaluacion: ["I.EFL.4.4.6"],
   },
 
@@ -1051,8 +1051,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Enjoy extensive listening to and reading of stories and other age-appropriate literary texts in order to develop an appreciation of the language through the arts",
     objetivos: ["O.EFL.4.5"],
-    criteriosEvaluacion: ["CE.EFL.4.5"],
-    indicadoresEvaluacion: ["I.EFL.4.5.1"],
+    criteriosEvaluacion: ["CE.EFL.4.5. Apply a range of language learning strategies (skimming, scanning, note-taking, self-correction) to improve comprehension and production of spoken and written texts."],
+    indicadoresEvaluacion: ["I.EFL.4.5.1. Applies a range of language learning strategies to improve comprehension and production."],
   },
   {
     codigo: "EFL.4.5.2",
@@ -1062,7 +1062,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Participate in songs, chants, rhymes, tongue twisters, role plays and games using both verbal and nonverbal communication",
     objetivos: ["O.EFL.4.5"],
-    criteriosEvaluacion: ["CE.EFL.4.5"],
+    criteriosEvaluacion: ["CE.EFL.4.5. Apply a range of language learning strategies (skimming, scanning, note-taking, self-correction) to improve comprehension and production of spoken and written texts."],
     indicadoresEvaluacion: ["I.EFL.4.5.2"],
   },
   {
@@ -1073,7 +1073,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Respond to creative texts (oral and written) by acting out, illustrating, singing, playing games, retelling stories, creating alternative endings, etc.",
     objetivos: ["O.EFL.4.5"],
-    criteriosEvaluacion: ["CE.EFL.4.5"],
+    criteriosEvaluacion: ["CE.EFL.4.5. Apply a range of language learning strategies (skimming, scanning, note-taking, self-correction) to improve comprehension and production of spoken and written texts."],
     indicadoresEvaluacion: ["I.EFL.4.5.3"],
   },
   {
@@ -1084,7 +1084,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Create short simple texts (Example: stories, poems, songs, skits, etc.) using age-appropriate language and familiar topics, and present them to the class or school community",
     objetivos: ["O.EFL.4.5"],
-    criteriosEvaluacion: ["CE.EFL.4.5"],
+    criteriosEvaluacion: ["CE.EFL.4.5. Apply a range of language learning strategies (skimming, scanning, note-taking, self-correction) to improve comprehension and production of spoken and written texts."],
     indicadoresEvaluacion: ["I.EFL.4.5.4"],
   },
   {
@@ -1095,7 +1095,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Appreciate the use of English language through spoken and written literary texts such as poems, rhymes, chants, songs, games and graphic short stories in order to foster imagination, curiosity and memory",
     objetivos: ["O.EFL.4.5"],
-    criteriosEvaluacion: ["CE.EFL.4.5"],
+    criteriosEvaluacion: ["CE.EFL.4.5. Apply a range of language learning strategies (skimming, scanning, note-taking, self-correction) to improve comprehension and production of spoken and written texts."],
     indicadoresEvaluacion: ["I.EFL.4.5.5"],
   },
 
@@ -1112,8 +1112,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Learners can demonstrate an understanding of the integrity of different cultures by sharing experiences and by participating in class activities and discussions in a way that shows empathy and respect for others",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
-    indicadoresEvaluacion: ["I.EFL.5.1.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
+    indicadoresEvaluacion: ["I.EFL.5.1.1. Understands extended spoken texts on a wide range of topics, identifying main ideas and speaker attitudes."],
   },
   {
     codigo: "EFL.5.1.2",
@@ -1123,7 +1123,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Demonstrate mindfulness, empathy, tolerance and an overall respect for the integrity of cultures in daily classroom activities",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.2"],
   },
   {
@@ -1134,7 +1134,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Find parallels between Ecuadorian cultural and political referents and those of other countries by talking about holidays, symbols, customs and schooling",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.3"],
   },
   {
@@ -1145,7 +1145,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Identify and interpret how cultural and language patterns in English are used when exchanging ideas on familiar topics according to a B1.2 level (Example: slang, idioms, humor, levels of formality, etc.)",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.4"],
   },
   {
@@ -1156,7 +1156,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Identify, discuss and analyze cultural products from Ecuador and beyond and use them to explore the perspectives of the culture",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.5"],
   },
   {
@@ -1167,7 +1167,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Demonstrate an ability to make informed choices about and take action on issues of prejudice and discrimination",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.6"],
   },
   {
@@ -1178,7 +1178,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Interpret and demonstrate knowledge of nonverbal and oral communication features by applying them in appropriate contexts (Example: use of stress, intonation, pace, etc.)",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.7"],
   },
   {
@@ -1189,7 +1189,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 8,
     descripcion: "Discover and employ alternative ways of saying things in social and classroom interactions",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.8"],
   },
   {
@@ -1200,7 +1200,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 9,
     descripcion: "Communicate information and ideas effectively to diverse audiences using a variety of media and formats",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.9"],
   },
   {
@@ -1211,7 +1211,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 10,
     descripcion: "Take initiative in a discussion in a positive way by being sensitive to the nuances of peers' comments, reactions and responses (both verbal and nonverbal)",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.10"],
   },
   {
@@ -1222,7 +1222,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 11,
     descripcion: "Apply self-correcting and self-monitoring strategies in social and classroom interactions by adjusting presentation and language production to effectively express opinions and make evaluations (Example: asking questions, starting over, rephrasing, exploring alternative pronunciations, etc.)",
     objetivos: ["O.EFL.5.1"],
-    criteriosEvaluacion: ["CE.EFL.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.1. Understand extended spoken texts (lectures, debates, news reports) on a wide range of topics, identifying main ideas, supporting details, and speaker attitudes."],
     indicadoresEvaluacion: ["I.EFL.5.1.11"],
   },
 
@@ -1235,8 +1235,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Identify the main idea in a variety of audio recordings (e.g., interviews, radio ads, news reports, etc.) and deduce the meanings of unfamiliar phrases and words in familiar contexts where speech is clear and visuals help support meaning",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
-    indicadoresEvaluacion: ["I.EFL.5.2.1"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
+    indicadoresEvaluacion: ["I.EFL.5.2.1. Produces extended spoken texts with fluency and accuracy on academic and social topics."],
   },
   {
     codigo: "EFL.5.2.2",
@@ -1246,7 +1246,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Identify the main idea and some details of recorded news reports, documentaries and interviews reporting on seasonal festivities, environmental issues, food and international customs, climate, weather, etc., where the visuals support the commentary",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.2"],
   },
   {
@@ -1257,7 +1257,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Follow main ideas in topics covered in other curricular subjects with the help of visual support, using concepts and vocabulary that have been studied in advance",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.3"],
   },
   {
@@ -1268,7 +1268,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Follow oral directions in classroom activities and projects and provide directions to peers in selected interactions",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.4"],
   },
   {
@@ -1279,7 +1279,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Understand the main idea of radio and audio recordings on subjects of personal interest, provided speech is clear",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.5"],
   },
   {
@@ -1290,7 +1290,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Use new words and expressions which occur in conversations in the personal and educational domains and make use of such terms and expressions wherever appropriate and necessary",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.6"],
   },
   {
@@ -1301,7 +1301,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 7,
     descripcion: "Present information clearly and effectively in a variety of oral forms for a range of audiences and purposes (Example: summarizing, paraphrasing, personal narratives, research reports, essays, articles, posters, charts and other graphics, etc.)",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.7"],
   },
   {
@@ -1312,7 +1312,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 8,
     descripcion: "Influence an audience effectively through persuasion, argument or negotiation using conventions and features of English (Example: precise vocabulary, pronunciation, intonation, presentation strategies, etc.)",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.8"],
   },
   {
@@ -1323,7 +1323,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 9,
     descripcion: "Build on others' ideas when engaged in pair, group or whole-class discussions on personal, social, community and academic topics",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.9"],
   },
   {
@@ -1334,7 +1334,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 10,
     descripcion: "Develop an argument well enough to be followed by a peer audience without much difficulty in prepared presentations",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.10"],
   },
   {
@@ -1345,7 +1345,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 11,
     descripcion: "Express opinions on abstract topics, such as film and music, and concrete topics, such as personal experiences, while describing one's reactions to them and others' opinions",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.11"],
   },
   {
@@ -1356,7 +1356,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 12,
     descripcion: "Use appropriate vocabulary, expressions, language, routines and interaction styles in formal and informal social or academic situations by asking permission, thanking someone, apologizing to friends, giving advice, making a suggestion, etc.",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.12"],
   },
   {
@@ -1367,7 +1367,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 13,
     descripcion: "Deal with practical, everyday communication demands within familiar contexts, effectively and without undue effort (Example: meeting people, extending and accepting invitations, exchanging information, giving reasons, asking and answering questions about routines and preferences, etc.)",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.13"],
   },
   {
@@ -1378,7 +1378,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 14,
     descripcion: "Request and provide information in everyday transactional situations of personal relevance in a comprehensible way, even when hesitating and pausing",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.14"],
   },
   {
@@ -1389,7 +1389,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 15,
     descripcion: "Engage in an extended conversation on most general topics and keep it going by expressing and responding to suggestions, opinions, attitudes, advice, feelings, etc.",
     objetivos: ["O.EFL.5.2"],
-    criteriosEvaluacion: ["CE.EFL.5.2"],
+    criteriosEvaluacion: ["CE.EFL.5.2. Produce extended spoken texts (debates, presentations, discussions) with fluency and accuracy on academic and social topics, using complex grammatical structures."],
     indicadoresEvaluacion: ["I.EFL.5.2.15"],
   },
 
@@ -1402,8 +1402,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Find specific predictable information in short, simple texts in a range of age-and level-appropriate topics (Example: biographies, news articles, narratives, memoirs and personal accounts, formal letters and emails, etc.)",
     objetivos: ["O.EFL.5.3"],
-    criteriosEvaluacion: ["CE.EFL.5.3"],
-    indicadoresEvaluacion: ["I.EFL.5.3.1"],
+    criteriosEvaluacion: ["CE.EFL.5.3. Demonstrate critical understanding of complex written texts (academic articles, literary texts, editorials) by analyzing arguments, identifying bias, and evaluating evidence."],
+    indicadoresEvaluacion: ["I.EFL.5.3.1. Demonstrates critical understanding of complex written texts by analyzing arguments and evaluating evidence."],
   },
   {
     codigo: "EFL.5.3.2",
@@ -1413,7 +1413,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Identify and use reading strategies to make informative and narrative texts comprehensible and meaningful (Example: skimming, scanning, previewing, reading for main ideas and details, using structural and context clues, cognates, format, sequence, etc.)",
     objetivos: ["O.EFL.5.3"],
-    criteriosEvaluacion: ["CE.EFL.5.3"],
+    criteriosEvaluacion: ["CE.EFL.5.3. Demonstrate critical understanding of complex written texts (academic articles, literary texts, editorials) by analyzing arguments, identifying bias, and evaluating evidence."],
     indicadoresEvaluacion: ["I.EFL.5.3.2"],
   },
   {
@@ -1424,7 +1424,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Determine the main conclusion in texts which clearly argue a point of view in order to make informed decisions about one's own opinion and reaction to the text",
     objetivos: ["O.EFL.5.3"],
-    criteriosEvaluacion: ["CE.EFL.5.3"],
+    criteriosEvaluacion: ["CE.EFL.5.3. Demonstrate critical understanding of complex written texts (academic articles, literary texts, editorials) by analyzing arguments, identifying bias, and evaluating evidence."],
     indicadoresEvaluacion: ["I.EFL.5.3.3"],
   },
   {
@@ -1435,7 +1435,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Find the most important information in print or online sources in order to support an idea or argument (Example: Internet search engines, online advertising, online or print timetables, web pages, posters, adverts, catalogues, etc.)",
     objetivos: ["O.EFL.5.3"],
-    criteriosEvaluacion: ["CE.EFL.5.3"],
+    criteriosEvaluacion: ["CE.EFL.5.3. Demonstrate critical understanding of complex written texts (academic articles, literary texts, editorials) by analyzing arguments, identifying bias, and evaluating evidence."],
     indicadoresEvaluacion: ["I.EFL.5.3.4"],
   },
   {
@@ -1446,7 +1446,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 5,
     descripcion: "Assess, compare and evaluate the quality of written texts and visual presentations using different criteria and ICT tools related to the organization, subject area and purpose of a text",
     objetivos: ["O.EFL.5.3"],
-    criteriosEvaluacion: ["CE.EFL.5.3"],
+    criteriosEvaluacion: ["CE.EFL.5.3. Demonstrate critical understanding of complex written texts (academic articles, literary texts, editorials) by analyzing arguments, identifying bias, and evaluating evidence."],
     indicadoresEvaluacion: ["I.EFL.5.3.5"],
   },
   {
@@ -1457,7 +1457,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 6,
     descripcion: "Display an appreciation of the language by interacting and engaging with a variety of digital and print texts and resources and by selecting and evaluating these materials as a means to promote and strengthen literacy skills and language acquisition",
     objetivos: ["O.EFL.5.3"],
-    criteriosEvaluacion: ["CE.EFL.5.3"],
+    criteriosEvaluacion: ["CE.EFL.5.3. Demonstrate critical understanding of complex written texts (academic articles, literary texts, editorials) by analyzing arguments, identifying bias, and evaluating evidence."],
     indicadoresEvaluacion: ["I.EFL.5.3.6"],
   },
 
@@ -1470,8 +1470,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Communicate effectively using a variety of media and formats, including ICT, by saying things in alternative ways and applying self-correcting and self-monitoring strategies when needed",
     objetivos: ["O.EFL.5.4"],
-    criteriosEvaluacion: ["CE.EFL.5.4"],
-    indicadoresEvaluacion: ["I.EFL.5.4.1"],
+    criteriosEvaluacion: ["CE.EFL.5.4. Write well-structured texts (argumentative essays, research reports, critical reviews) using sophisticated vocabulary, complex grammatical structures, and appropriate academic conventions."],
+    indicadoresEvaluacion: ["I.EFL.5.4.1. Writes well-structured texts using sophisticated vocabulary and appropriate academic conventions."],
   },
   {
     codigo: "EFL.5.4.2",
@@ -1481,7 +1481,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Produce emails and blog posts describing personal experiences and feelings",
     objetivos: ["O.EFL.5.4"],
-    criteriosEvaluacion: ["CE.EFL.5.4"],
+    criteriosEvaluacion: ["CE.EFL.5.4. Write well-structured texts (argumentative essays, research reports, critical reviews) using sophisticated vocabulary, complex grammatical structures, and appropriate academic conventions."],
     indicadoresEvaluacion: ["I.EFL.5.4.2"],
   },
   {
@@ -1492,7 +1492,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Create an effective voice, using a variety of writing styles appropriate to different audiences, purposes and settings, and adjust these styles as necessary",
     objetivos: ["O.EFL.5.4"],
-    criteriosEvaluacion: ["CE.EFL.5.4"],
+    criteriosEvaluacion: ["CE.EFL.5.4. Write well-structured texts (argumentative essays, research reports, critical reviews) using sophisticated vocabulary, complex grammatical structures, and appropriate academic conventions."],
     indicadoresEvaluacion: ["I.EFL.5.4.3"],
   },
   {
@@ -1503,7 +1503,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 4,
     descripcion: "Use a variety of oral, print and electronic forms for writing to others or for writing for self, applying the conventions of social writing (Example: notes, invitations, emails, blog entries and comments, notes to self, etc.)",
     objetivos: ["O.EFL.5.4"],
-    criteriosEvaluacion: ["CE.EFL.5.4"],
+    criteriosEvaluacion: ["CE.EFL.5.4. Write well-structured texts (argumentative essays, research reports, critical reviews) using sophisticated vocabulary, complex grammatical structures, and appropriate academic conventions."],
     indicadoresEvaluacion: ["I.EFL.5.4.4"],
   },
 
@@ -1516,8 +1516,8 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 1,
     descripcion: "Appreciate the use of English language through spoken and written literary texts such as poems, rhymes, chants, songs, games and graphic short stories in order to foster imagination, curiosity and memory, while developing a taste for oral and written literary texts",
     objetivos: ["O.EFL.5.5"],
-    criteriosEvaluacion: ["CE.EFL.5.5"],
-    indicadoresEvaluacion: ["I.EFL.5.5.1"],
+    criteriosEvaluacion: ["CE.EFL.5.5. Apply advanced language learning strategies (critical thinking, research skills, metacognitive strategies) to enhance language proficiency across all skills."],
+    indicadoresEvaluacion: ["I.EFL.5.5.1. Applies advanced language learning strategies to enhance language proficiency across all skills."],
   },
   {
     codigo: "EFL.5.5.2",
@@ -1527,7 +1527,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 2,
     descripcion: "Demonstrate an ability to interact with written and spoken texts, in order to explore creative writing as an outlet to personal expression and intercultural competence",
     objetivos: ["O.EFL.5.5"],
-    criteriosEvaluacion: ["CE.EFL.5.5"],
+    criteriosEvaluacion: ["CE.EFL.5.5. Apply advanced language learning strategies (critical thinking, research skills, metacognitive strategies) to enhance language proficiency across all skills."],
     indicadoresEvaluacion: ["I.EFL.5.5.2"],
   },
   {
@@ -1538,7 +1538,7 @@ export const destrezasIngles: Destreza[] = [
     secuencial: 3,
     descripcion: "Implement awareness campaigns to promote sustainable urban and rural development in the community through the use of English language arts",
     objetivos: ["O.EFL.5.5"],
-    criteriosEvaluacion: ["CE.EFL.5.5"],
+    criteriosEvaluacion: ["CE.EFL.5.5. Apply advanced language learning strategies (critical thinking, research skills, metacognitive strategies) to enhance language proficiency across all skills."],
     indicadoresEvaluacion: ["I.EFL.5.5.3"],
   },
 ];

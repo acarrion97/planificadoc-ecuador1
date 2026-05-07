@@ -9,8 +9,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Contrasta los conceptos de historia e historiografía, mediante el uso técnico y ético de diversas fuentes, relativizando los diversos enfoques, con el fin de diferenciarla realidad de la construcción intelectual",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
-    indicadoresEvaluacion: ["I.CS.H.5.1.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
+    indicadoresEvaluacion: ["I.CS.H.5.1.1. Analiza el proceso de formación de la Tierra y la importancia del agua para el surgimiento de la vida."],
   },
 
   {
@@ -21,7 +21,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Examinar el término “cultura” como producción material y simbólica y ejemplificar con aspectos de la vida cotidiana",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.2"],
   },
 
@@ -33,7 +33,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Explicar y valorar la importancia del trabajo colectivo y solidario como condición de la existencia y supervivencia humana",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.3"],
   },
 
@@ -45,7 +45,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 6,
     descripcion: "Aplicar técnica y éticamente las diversas fuentes en una investigación",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.6"],
   },
 
@@ -57,7 +57,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 7,
     descripcion: "Explicar y valorar la función del trabajo humano en la construcción de la historia y la cultura",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.7"],
   },
 
@@ -69,7 +69,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 8,
     descripcion: "Describir y evaluar la influencia de la elaboración de herramientas en la transformación biológica y social del ser humano",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.8"],
   },
 
@@ -81,7 +81,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 9,
     descripcion: "Relacionar e interpretar las características esenciales del Paleolítico y la producción del arte rupestre",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.9"],
   },
 
@@ -93,7 +93,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 10,
     descripcion: "Identificar las materias primas y explicar su relación con el tipo de utensilios y herramientas que se confeccionaban",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.10"],
   },
 
@@ -105,7 +105,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 11,
     descripcion: "Determinar el impacto de la revolución neolítica (domesticación de plantas y animales y sedentarismo) en la transformación de la sociedad humana.",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.11"],
   },
 
@@ -117,7 +117,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 14,
     descripcion: "Analizar y evaluar el rol y prestigio de la mujer en la comunidad primitiva a partir de su función productiva, social y cultural",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.14"],
   },
 
@@ -129,7 +129,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 15,
     descripcion: "Determinar las causas de la crisis de la comunidad matriarcal y la irrupción del dominio patriarcal en el desarrollo de la humanidad (machismo)",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.15"],
   },
 
@@ -141,7 +141,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 16,
     descripcion: "Describir y valorar los grandes aportes de las culturas de Mesopotamia al desarrollo tecnológico, económico y científico desde la perspectiva de su condición de “cuna de la humanidad”. I",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.16"],
   },
 
@@ -153,7 +153,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 17,
     descripcion: "Describir y valorar los grandes aportes de la cultura china al desarrollo tecnológico, económico y científico de la humanidad",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.17"],
   },
 
@@ -165,7 +165,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 18,
     descripcion: "Describir y valorar los grandes aportes de la cultura de la India al desarrollo tecnológico, económico y científico",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.18"],
   },
 
@@ -177,7 +177,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 20,
     descripcion: "Describir y valorar los grandes aportes de la cultura egipcia al desarrollo tecnológico, económico y científico",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.20"],
   },
 
@@ -189,7 +189,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 22,
     descripcion: "Investigar y valorar el rol de la mujer en la sociedad del Medio Oriente en comparación con la situación contemporánea",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.22"],
   },
 
@@ -201,7 +201,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 23,
     descripcion: "Analizar y discutir el concepto de “yihad” en la cultura islámica a la luz del análisis de diversas fuentes. I",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.23"],
   },
 
@@ -213,7 +213,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 24,
     descripcion: "Reconocer la influencia de los griegos, sobre todo en el Imperio romano, en el Imperio bizantino y, casi dos mil años después, en la Europa del Renacimiento",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.24"],
   },
 
@@ -225,7 +225,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 25,
     descripcion: "Valorar la influencia del pensamiento griego en la cultura occidental, mediante el reconocimiento del carácterracional que lo distinguió",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.25"],
   },
 
@@ -237,7 +237,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 26,
     descripcion: "Distinguir y explicar las limitaciones de la democracia y de la ciudadanía en la civilización griega",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.26"],
   },
 
@@ -249,7 +249,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 27,
     descripcion: "Investigar y valorar los aportes de la mujer griega desde diversos ámbitos de participación: Safo de Lesbos, Aspasia de Mileto e Hipatia",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.27"],
   },
 
@@ -261,7 +261,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 29,
     descripcion: "Comprender las causas y los principales problemas de la expansión imperial romana.",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.29"],
   },
 
@@ -273,7 +273,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 31,
     descripcion: "Analizar y comparar los roles de la mujer de los diferentes estratos sociales en la Roma antigua",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.31"],
   },
 
@@ -285,7 +285,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 32,
     descripcion: "Determinar los elementos del judaísmo que influyeron en la conformación de la cultura occidental mediante un análisis del monoteísmo y la concepción lineal del tiempo. I",
     objetivos: ["O.CS.H.5.1. Valorar los aportes de los pueblos orientales y americanos al acervo cultural humano, por medio del conocimiento de sus principales contribuciones en el campo social, tecnológico y científico."],
-    criteriosEvaluacion: ["CE.CS.H.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.1. Analiza y contrasta el proceso de formación de la Tierra, la importancia del agua para la vida y las teorías sobre el origen del ser humano."],
     indicadoresEvaluacion: ["I.CS.H.5.1.32"],
   },
 
@@ -297,8 +297,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica la importancia y función del trabajo colectivo y solidario, y la elaboración de herramientas como condición en la transformación biológica y social del ser humano y posterior revolución neolítica",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
-    indicadoresEvaluacion: ["I.CS.H.5.2.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
+    indicadoresEvaluacion: ["I.CS.H.5.2.1. Explica la importancia del trabajo y la producción en el surgimiento de las primeras sociedades humanas."],
   },
 
   {
@@ -309,7 +309,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Compara las características esenciales del Paleolítico (modo de producción, relaciones sociales, materias primas y herramientas y la producción de arte rupestre) con la revolución neolítica",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.2"],
   },
 
@@ -321,7 +321,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Explica el impacto de la revolución neolítica en la transformación de la sociedad humana, destacando la domesticación de plantas y animales en la producción de excedentes, la división y especialización del trabajo",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.3"],
   },
 
@@ -333,7 +333,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 4,
     descripcion: "Examinar y relacionar los procesos de expansión del cristianismo y del islamismo y los conflictos motivados por ellos",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.4"],
   },
 
@@ -345,7 +345,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 6,
     descripcion: "Analizar y valorar el rol de la mujer desde la perspectiva del pensamiento judeocristiano",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.6"],
   },
 
@@ -357,7 +357,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 7,
     descripcion: "Reconocer las motivaciones económicas de las cruzadas en la Edad Media en el contexto de las luchas religiosas",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.7"],
   },
 
@@ -369,7 +369,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 8,
     descripcion: "Analizar el papel e influencia del Tribunal de la Inquisición en la persecución de la ciencia y la caza de “brujas”",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.8"],
   },
 
@@ -381,7 +381,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 9,
     descripcion: "Comprender el intento del Imperio carolingio de recuperar los ámbitos político, religioso y cultural de la época medieval considerando su legado a la conformación del Sacro Imperio Romano Germánico. I",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.9"],
   },
 
@@ -393,7 +393,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 10,
     descripcion: "Explicar el contexto en el que surgieron las primeras universidades europeas, y el papel que desempeñó la Iglesia en la trasmisión de la cultura",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.10"],
   },
 
@@ -405,7 +405,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 12,
     descripcion: "Distinguir e interpretar las principales características del arte arquitectónico románico y gótico en función de su simbología social",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.12"],
   },
 
@@ -417,7 +417,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 13,
     descripcion: "Determinar y comprender el origen y los principios fundamentales del Islam",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.13"],
   },
 
@@ -429,7 +429,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 14,
     descripcion: "Describir y evaluar la influencia cultural del Islam en la península Ibérica durante la Edad Media y su traslado a América con la conquista española",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.14"],
   },
 
@@ -441,7 +441,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 15,
     descripcion: "Sintetizar la expansión del Islam entre los siglos VII y VIII desde la península Ibérica en occidente hasta la India en oriente",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.15"],
   },
 
@@ -453,7 +453,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 16,
     descripcion: "Describir y analizar las principales contribuciones de la civilización árabe al arte y la cultura",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.16"],
   },
 
@@ -465,7 +465,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 17,
     descripcion: "Investigar y contrastar en fuentes diversas la situación y el rol de la mujer dentro de las sociedades islámicas.",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.17"],
   },
 
@@ -477,7 +477,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 18,
     descripcion: "Argumentar los esenciales principios comunes del judaísmo, el cristianismo y el islamismo y sus diferencias fundamentales",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.18"],
   },
 
@@ -489,7 +489,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 19,
     descripcion: "Identificar las condiciones de surgimiento del Renacimiento y de la nueva visión del ser humano, el Humanismo",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.19"],
   },
 
@@ -501,7 +501,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 20,
     descripcion: "Describir y explicar los principales aportes del Renacimiento a las humanidades y las ciencias",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.20"],
   },
 
@@ -513,7 +513,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 21,
     descripcion: "Distinguir las causas y consecuencias de la Reforma y sus principales respuestas al cisma religioso de Occidente",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.21"],
   },
 
@@ -525,7 +525,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 22,
     descripcion: "Analizar la Contrarreforma y las diferentes estrategias que utilizó la Iglesia católica para combatir la Reforma Protestante. 56 I",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.22"],
   },
 
@@ -537,7 +537,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 23,
     descripcion: "Reconocer la Ilustración como base intelectual de la modernidad, sus principales representantes y postulados",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.23"],
   },
 
@@ -549,7 +549,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 25,
     descripcion: "Argumentar sobre las principales causas y consecuencias de la Revolución francesa y la vigencia de sus postulados principales hasta el presente",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.25"],
   },
 
@@ -561,7 +561,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 26,
     descripcion: "Determinar los alcances y las limitaciones del proyecto napoleónico en función de la expansión de los principios de la Revolución francesa",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.26"],
   },
 
@@ -573,7 +573,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 27,
     descripcion: "Identificar y comprender el origen del movimiento obrero a partir de las revoluciones industriales y el surgimiento del pensamiento socialista",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.27"],
   },
 
@@ -585,7 +585,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 28,
     descripcion: "Identificar y contextualizar las reivindicaciones de los movimientos de mujeres e indígenas para comprender las razones de su invisibilización y exclusión milenaria",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.28"],
   },
 
@@ -597,7 +597,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 30,
     descripcion: "Identificar y contextualizar las reivindicaciones de los movimientos ecologista y ecofeminista a partir de la crítica a la visión mercantilista de la Madre Tierra (Pachamama). I",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.30"],
   },
 
@@ -609,7 +609,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 31,
     descripcion: "Examinar y valorar las propuestas de los movimientos ecologistas frente al modelo capitalista de producción",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.31"],
   },
 
@@ -621,7 +621,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 33,
     descripcion: "Analizar y comprender el papel y la importancia de los medios de comunicación impresos y audiovisuales en la producción y la reproducción de las relaciones de poder.",
     objetivos: ["O.CS.H.5.2. Identificar las manifestaciones culturales, a partir de la descripción del contexto histórico en que se originaron."],
-    criteriosEvaluacion: ["CE.CS.H.5.2"],
+    criteriosEvaluacion: ["CE.CS.H.5.2. Explica y valora la importancia del trabajo y la producción como base de la supervivencia humana y el surgimiento de las primeras sociedades."],
     indicadoresEvaluacion: ["I.CS.H.5.2.33"],
   },
 
@@ -633,8 +633,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica las circunstancias que marcaron la transición de la comunidad primitiva a la sociedad dividida en clases y la existencia de castas, evaluando el papel de la educación y la división de trabajo en ella",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
-    indicadoresEvaluacion: ["I.CS.H.5.3.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
+    indicadoresEvaluacion: ["I.CS.H.5.3.1. Describe la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
   },
 
   {
@@ -645,7 +645,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Analiza las causas y circunstancias que originaron la crisis de la comunidad matriarcal, la propiedad privada sobre los medios de producción y la transformación de la concepción del ser humano como cosa o mercancía",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.2"],
   },
 
@@ -657,7 +657,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Valorar la experticia en el diseño, organización y funciones de las edificaciones precolombinas en relación con su entorno geográfico y cultural",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.3"],
   },
 
@@ -669,7 +669,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 6,
     descripcion: "Sintetizar los principios de organización e intercambio social (reciprocidad y redistribución) de los pobladores nativos de los Andes, en función de la equidad y la justicia social",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.6"],
   },
 
@@ -681,7 +681,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 7,
     descripcion: "Comprender la diversidad productiva en el “archipiélago de pisos ecológicos” en relación con el respeto a los ciclos vitales de la naturaleza",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.7"],
   },
 
@@ -693,7 +693,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 8,
     descripcion: "Explicar las razones de la distribución poblacional dispersa en la geografía andina a partir de la relación con el modelo productivo",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.8"],
   },
 
@@ -705,7 +705,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 9,
     descripcion: "Describir y valorar las destrezas arquitectónicas incaicas en la construcción de edificaciones, caminos y canales de riego, muchos de los cuales permanecen hasta el presente.",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.9"],
   },
 
@@ -717,7 +717,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 10,
     descripcion: "Examinar el impacto de la Conquista a través del estudio de la implementación de relaciones de explotación y sometimiento de la población aborigen",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.10"],
   },
 
@@ -729,7 +729,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 11,
     descripcion: "Analizar el impacto ecológico y el cambio en los hábitos culturales y sociales de la población indígena a partir de la introducción de especies animales y vegetales foráneas",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.11"],
   },
 
@@ -741,7 +741,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 12,
     descripcion: "Analizar y comprender las causas y consecuencias del proceso de evangelización y “extirpación de idolatrías” en el mundo indígena",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.12"],
   },
 
@@ -753,7 +753,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 13,
     descripcion: "Establecer las razones de las diferentes formas de extracción de riqueza por parte de los conquistadores españoles",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.13"],
   },
 
@@ -765,7 +765,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 14,
     descripcion: "Explicar el nuevo papel que se le asignó a la mita andina como forma de distribución de la fuerza de trabajo en la economía colonial",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.14"],
   },
 
@@ -777,7 +777,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 15,
     descripcion: "Analizar y evaluar las razones por las cuales se decide traer personas esclavizadas a América Latina",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.15"],
   },
 
@@ -789,7 +789,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 16,
     descripcion: "Examinar y valorar los elementos culturales africanos que se integraron al mundo latinoamericano (música, danza, religión) sobre todo en República Dominicana, Brasil, Panamá, Perú, Venezuela, Ecuador, Colombia y Cuba",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.16"],
   },
 
@@ -801,7 +801,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 17,
     descripcion: "Explicar los antecedentes históricos de la comunidad afrodescendiente de Esmeraldas y de El Chota y sus formas de expresión cultural.",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.17"],
   },
 
@@ -813,7 +813,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 18,
     descripcion: "Identificar y evaluar el protagonismo de las potenciasinvolucradas en el tráfico de personas esclavizadas a América Latina",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.18"],
   },
 
@@ -825,7 +825,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 19,
     descripcion: "Sintetizar el proceso de colonización portugués en Brasil desde el “descubrimiento” hasta",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.19"],
   },
 
@@ -837,7 +837,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 20,
     descripcion: "Analizar y diferenciar cada uno de los ciclos económicos: de “descubrimiento”, de la caña de azúcar y del oro",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.20"],
   },
 
@@ -849,7 +849,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 21,
     descripcion: "Examinar la economía latifundista y su relación con la mano de obra esclava",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.21"],
   },
 
@@ -861,7 +861,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 24,
     descripcion: "Determinar y valorar las características del mestizaje y el sincretismo en el arte colonial hispanoamericano",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.24"],
   },
 
@@ -873,7 +873,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 25,
     descripcion: "Comprender la función evangelizadora que cumplía el arte colonial por medio de la pintura, la escultura y la arquitectura",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.25"],
   },
 
@@ -885,7 +885,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 27,
     descripcion: "Analizar y explicar la función de los conventos y las misiones dentro del proceso de consolidación y expansión religiosa de la Colonia",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.27"],
   },
 
@@ -897,7 +897,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 28,
     descripcion: "Analizar y comparar la situación y los roles de la mujer de los diversos estratos sociales en la Colonia",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.28"],
   },
 
@@ -909,7 +909,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 29,
     descripcion: "Determinar la vinculación de las instituciones educativas a las órdenes religiosas y los niveles de acceso de los distintos estamentos sociales. 60 I",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.29"],
   },
 
@@ -921,7 +921,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 30,
     descripcion: "Determinar y contextualizar el origen y función de la hacienda y la plantación en la economía colonial en relación con el mercado interno y externo",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.30"],
   },
 
@@ -933,7 +933,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 32,
     descripcion: "Conceptualizar los términos casta, clase y estamento con el fin de comprender los procesos de lucha y movilidad social",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.32"],
   },
 
@@ -945,7 +945,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 33,
     descripcion: "Identificar y diferenciar los distintos estamentos, castas y clases existentes en la Colonia",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.33"],
   },
 
@@ -957,7 +957,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 34,
     descripcion: "Analizar y valorar las motivaciones y repercusiones de las principales sublevaciones indígenas en el siglo XVIII",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.34"],
   },
 
@@ -969,7 +969,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 35,
     descripcion: "Investigar la biografía y protagonismo de Julián Apaza Nina (Túpac Katari), José Gabriel Condorcanqui Noguera (Túpac Amaru II) y Fernando Daquilema en las respectivas sublevaciones que lideraron",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.35"],
   },
 
@@ -981,7 +981,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 36,
     descripcion: "Analizar la contradicción entre los procesos de independencia política y la dependencia económica de Latinoamérica como proveedor de materias primas al mercado internacional. I",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.36"],
   },
 
@@ -993,7 +993,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 37,
     descripcion: "Comprender y evaluar el proyecto político republicano criollo sobre una base social excluyente de indígenas y afrodescendientes.",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.37"],
   },
 
@@ -1005,7 +1005,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 38,
     descripcion: "Identificar y comprender las diversas oleadas migratorias a América Latina, su procedencia y sus aportes al desarrollo económico y cultural de la región",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.38"],
   },
 
@@ -1017,7 +1017,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 40,
     descripcion: "Analizar la Revolución mexicana desde sus protagonistas individuales y colectivos, sus motivaciones y principales propuestas de cambio",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.40"],
   },
 
@@ -1029,7 +1029,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 43,
     descripcion: "Analizar las causas y repercusiones de la Gran Depresión en la economía latinoamericana y ecuatoriana",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.43"],
   },
 
@@ -1041,7 +1041,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 44,
     descripcion: "Identificar el contexto en el que surge la Comisión Económica para América Latina (CEPAL) y evaluar sus propuestas para la región",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.44"],
   },
 
@@ -1053,7 +1053,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 45,
     descripcion: "Analizar y discutir el proceso revolucionario y sus repercusiones en América Latina",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.45"],
   },
 
@@ -1065,7 +1065,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 46,
     descripcion: "Examinar los principales logros y limitaciones de la Revolución cubana dentro del contexto del embargo económico norteamericano",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.46"],
   },
 
@@ -1077,7 +1077,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 48,
     descripcion: "Determinar la relación entre el auge petrolero, el endeudamiento externo ecuatoriano y su posterior crisis",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.48"],
   },
 
@@ -1089,7 +1089,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 49,
     descripcion: "Explicar las consecuencias del feriado bancario y la dolarización en la economía del país, empleando diferentes fuentes",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.49"],
   },
 
@@ -1101,7 +1101,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 50,
     descripcion: "Describir y explicar el proceso de migración de los años noventa a partir de una experiencia personal cercana y su relación con la crisis económica del país",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.50"],
   },
 
@@ -1113,7 +1113,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 51,
     descripcion: "Analizar la crisis de los partidos políticos y la caída de los gobiernos, entre 1996 y",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.51"],
   },
 
@@ -1125,7 +1125,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 52,
     descripcion: "Discutir el impacto de los proyectos políticos de los últimos 20 años en el área social y económica",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.52"],
   },
 
@@ -1137,7 +1137,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 53,
     descripcion: "Contrastar las propuestas de educación, salud y vivienda de los distintos regímenes en los últimos 20 años.",
     objetivos: ["O.CS.H.5.3. Analizar y comprender los orígenes del pensamiento filosófico y su contribución al desarrollo del pensamiento humano, mediante la identificación de sus principales representantes y postulados."],
-    criteriosEvaluacion: ["CE.CS.H.5.3"],
+    criteriosEvaluacion: ["CE.CS.H.5.3. Analiza y evalúa la organización social y educativa de la comunidad primitiva y las primeras civilizaciones."],
     indicadoresEvaluacion: ["I.CS.H.5.3.53"],
   },
 
@@ -1149,8 +1149,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Analiza el rol y la influencia de la mujer en los diferentes tiempos y espacios, destacando su papel en la sociedad primitiva, sociedad del Medio Oriente, Roma y Grecia antigua y la Colonia, y su protagonismo en Atenas y Esparta",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
-    indicadoresEvaluacion: ["I.CS.H.5.4.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
+    indicadoresEvaluacion: ["I.CS.H.5.4.1. Identifica los aportes de las civilizaciones de Mesopotamia, Egipto, China e India a la humanidad."],
   },
 
   {
@@ -1161,7 +1161,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Examina la diversidad de pensamiento en la concepción y protagonismo de la mujer, destacando el pensamiento judeocristiano, la cacería de “brujas”, y el rol de la mujer en la sociedad islámica, valorando el protagonismo sociopolítico de Dolores Cacuango, Tránsito Amaguaña y Rigoberta Menchú en los procesos de liberación de Ecuador y América Latina",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.2"],
   },
 
@@ -1173,7 +1173,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Determinar las circunstancias que marcaron la transición de la comunidad primitiva a la sociedad dividida en clases (esclavismo)",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.3"],
   },
 
@@ -1185,7 +1185,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 4,
     descripcion: "Analizar las circunstancias económicas por las que el ser humano es convertido en cosa o mercancía, en propiedad de otra persona",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.4"],
   },
 
@@ -1197,7 +1197,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 5,
     descripcion: "Comparar sociedades esclavistas del Viejo Mundo con formas modernas de esclavitud, en función de determinar la existencia de condiciones que permiten todavía esta forma de explotación humana",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.5"],
   },
 
@@ -1209,7 +1209,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 6,
     descripcion: "Distinguir las razones que determinaron la transición del esclavismo al feudalismo después de la caída del Imperio romano",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.6"],
   },
 
@@ -1221,7 +1221,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 7,
     descripcion: "Sintetizar las características del feudalismo, el sistema económico, social y político de Europa de la Edad Media, enfocándose en la estructura de la sociedad",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.7"],
   },
 
@@ -1233,7 +1233,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 8,
     descripcion: "Discutir las características de producción agrícola, minera y manufacturera en la América precolombina, desde el análisis de sus condiciones propias de evolución histórica",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.8"],
   },
 
@@ -1245,7 +1245,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 9,
     descripcion: "Interpretar el proceso de configuración del mercantilismo en Europa, destacando las consecuencias que tuvo en la conquista y colonización de América y su relación con el origen del capitalismo",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.9"],
   },
 
@@ -1257,7 +1257,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 10,
     descripcion: "Examinar el proceso de acumulación originaria de capital en el contexto de la “economía triangular” (manufacturas, personas esclavizadas y materias primas / Europa – África y América)",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.10"],
   },
 
@@ -1269,7 +1269,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 13,
     descripcion: "Sintetizar el origen, desarrollo y características de las primeras etapas del sistema capitalista",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.13"],
   },
 
@@ -1281,7 +1281,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 14,
     descripcion: "Caracterizar las diferentes fases del capitalismo",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.14"],
   },
 
@@ -1293,7 +1293,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 16,
     descripcion: "Identificar y diferenciar la Primera y Segunda Revolución Industrial tomando en cuenta las fuentes de energía, la tecnificación, la mecanización de la fuerza de trabajo y el impacto en el medio ambiente",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.16"],
   },
 
@@ -1305,7 +1305,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 17,
     descripcion: "Examinar la “Tercera Revolución Industrial” fundamentada en las TIC, la cibernética y la robótica y su impacto en la sociedad y la naturaleza",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.17"],
   },
 
@@ -1317,7 +1317,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 18,
     descripcion: "Analizar los procesos revolucionarios liberales más importantes (Independencia de los EE.UU., Revolución francesa e independencias hispanoamericanas) tomando en cuenta sus proyectos económicos. I",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.18"],
   },
 
@@ -1329,7 +1329,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 19,
     descripcion: "Conceptualizar los términos proteccionismo y librecambismo desde la Economía Política y sus principales representantes",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.19"],
   },
 
@@ -1341,7 +1341,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 20,
     descripcion: "Contextualizar el momento histórico en que se posiciona el debate entre proteccionismo y librecambismo",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.20"],
   },
 
@@ -1353,7 +1353,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 21,
     descripcion: "Distinguir y exponer las principales características del socialismo y sus diferentes enfoques",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.21"],
   },
 
@@ -1365,7 +1365,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 22,
     descripcion: "Determinar el contexto histórico del surgimiento del socialismo y su influencia en los procesos sociales de los siglos XIX y XX",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.22"],
   },
 
@@ -1377,7 +1377,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 23,
     descripcion: "Identificar y establecer las características de las revoluciones socialistas del siglo XX",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.23"],
   },
 
@@ -1389,7 +1389,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 24,
     descripcion: "Argumentar el protagonismo de América Latina en el contexto de la Guerra Fría y su actitud frente a los EE.UU. y la URSS",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.24"],
   },
 
@@ -1401,7 +1401,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 27,
     descripcion: "Contextualizar el origen del neoliberalismo y su implementación en América Latina y el Ecuador",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.27"],
   },
 
@@ -1413,7 +1413,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 28,
     descripcion: "Determinar las principales políticas o medidas económicas implementadas en América Latina",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.28"],
   },
 
@@ -1425,7 +1425,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 29,
     descripcion: "Analizar las causas de la crisis de los años ochenta y las medidas económicas aplicadas para resolverlas en América Latina y el Ecuador",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.29"],
   },
 
@@ -1437,7 +1437,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 31,
     descripcion: "Determinar los principales retos que enfrenta la integración latinoamericana, con base en el análisis de los logros y limitaciones de los proyectos regionales implementados. 64 I",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.31"],
   },
 
@@ -1449,7 +1449,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 33,
     descripcion: "Analizar el origen y los principios de la escuela fisiocrática como reacción al mercantilismo",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.33"],
   },
 
@@ -1461,7 +1461,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 34,
     descripcion: "Analizar el origen y los principios de la escuela clásica como la primera escuela económica moderna",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.34"],
   },
 
@@ -1473,7 +1473,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 35,
     descripcion: "Analizar el origen y los principios de la escuela marxista como crítica a la escuela clásica",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.35"],
   },
 
@@ -1485,7 +1485,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 36,
     descripcion: "Analizar el origen y los principios de la escuela neoclásica como tentativa de integrar el análisis marginalista y algunas ideas de la escuela clásica",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.36"],
   },
 
@@ -1497,7 +1497,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 37,
     descripcion: "Analizar el origen y los principios de la escuela de Chicago como contradicción de las teorías de la síntesis clásico-keynesiana",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.37"],
   },
 
@@ -1509,7 +1509,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 38,
     descripcion: "Analizar el origen y los principios de la escuela keynesiana como respuesta a la Gran Depresión",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.38"],
   },
 
@@ -1521,7 +1521,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 39,
     descripcion: "Analizar el origen y los principios de la escuela estructuralista como respuesta a la dependencia económica de América Latina.",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.39"],
   },
 
@@ -1533,7 +1533,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 40,
     descripcion: "Analizar el origen y los principios de la escuela neoliberal como crítica al Estado de Bienestar",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.40"],
   },
 
@@ -1545,7 +1545,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 42,
     descripcion: "Analizar de manera crítica las dinámicas globales y locales que afectan las condiciones laborales y el empleo de calidad, identificando problemáticas como la precarización laboral e iniciativas como el activismo por los derechos laborales",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.42"],
   },
 
@@ -1557,7 +1557,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 43,
     descripcion: "Analizar nuevas visiones y modelos de una economía sostenible e inclusiva.",
     objetivos: ["O.CS.H.5.4. Estimar los principales aportes culturales de las diversas civilizaciones del mundo antiguo, mediante la identificación de sus principales contribuciones."],
-    criteriosEvaluacion: ["CE.CS.H.5.4"],
+    criteriosEvaluacion: ["CE.CS.H.5.4. Explica y valora el surgimiento de las grandes culturas en Mesopotamia, Egipto, China e India y sus principales aportes a la humanidad."],
     indicadoresEvaluacion: ["I.CS.H.5.4.43"],
   },
 
@@ -1569,8 +1569,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Describe los aportes tecnológicos, económicos y científicos de las culturas de Mesopotamia, Egipto, China y la India y su impacto en el mundo contemporáneo",
     objetivos: ["O.CS.H.5.5. Distinguir los grandes procesos económicos, sociales, culturales, políticos e ideológicos en América Latina y el Ecuador, desde el período aborigen hasta el siglo XVI."],
-    criteriosEvaluacion: ["CE.CS.H.5.5"],
-    indicadoresEvaluacion: ["I.CS.H.5.5.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.5. Analiza y evalúa la influencia de la civilización griega en la cultura occidental, especialmente en la democracia, la filosofía y las artes."],
+    indicadoresEvaluacion: ["I.CS.H.5.5.1. Evalúa la influencia de Grecia en la democracia, la filosofía, las artes y las ciencias."],
   },
 
   {
@@ -1581,8 +1581,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Distingue el alcance e influencia de la civilización griega en los imperios romano y bizantino, en la Europa del Renacimiento y en la cultura occidental; así como las limitaciones de la democracia y la ciudadanía y su relación con los postulados básicos del derecho romano y derecho anglosajón",
     objetivos: ["O.CS.H.5.6. Examinar los procesos de conquista y colonización española en América y Ecuador."],
-    criteriosEvaluacion: ["CE.CS.H.5.6"],
-    indicadoresEvaluacion: ["I.CS.H.5.6.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.6. Analiza y evalúa la influencia de la civilización romana en la cultura occidental, especialmente en el derecho, la ingeniería y la organización política."],
+    indicadoresEvaluacion: ["I.CS.H.5.6.1. Evalúa la influencia de Roma en el derecho, la ingeniería, la lengua y la organización política."],
   },
 
   {
@@ -1593,7 +1593,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Analiza los problemas de la expansión imperial romana, las causas de su decadencia y caída, sus diferencias en cuanto al arte y la cultura entre el Imperio romano de Occidente y de Oriente, reconociendo las contribuciones del derecho romano al sistema jurídico",
     objetivos: ["O.CS.H.5.6. Examinar los procesos de conquista y colonización española en América y Ecuador."],
-    criteriosEvaluacion: ["CE.CS.H.5.6"],
+    criteriosEvaluacion: ["CE.CS.H.5.6. Analiza y evalúa la influencia de la civilización romana en la cultura occidental, especialmente en el derecho, la ingeniería y la organización política."],
     indicadoresEvaluacion: ["I.CS.H.5.6.2"],
   },
 
@@ -1605,7 +1605,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Analiza las características principales del monoteísmo y la concepción lineal del tiempo; y el derecho romano y su relación con el sistema jurídico ecuatoriano",
     objetivos: ["O.CS.H.5.6. Examinar los procesos de conquista y colonización española en América y Ecuador."],
-    criteriosEvaluacion: ["CE.CS.H.5.6"],
+    criteriosEvaluacion: ["CE.CS.H.5.6. Analiza y evalúa la influencia de la civilización romana en la cultura occidental, especialmente en el derecho, la ingeniería y la organización política."],
     indicadoresEvaluacion: ["I.CS.H.5.6.3"],
   },
 
@@ -1617,8 +1617,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Describe los procesos de expansión y cambios que trajeron consigo el islamismo y el cristianismo, y las motivaciones económicas de las cruzadas en la Edad Media",
     objetivos: ["O.CS.H.5.7. Reconocer los procesos de independencia en América Latina y Ecuador, identificando sus actores y consecuencias."],
-    criteriosEvaluacion: ["CE.CS.H.5.7"],
-    indicadoresEvaluacion: ["I.CS.H.5.7.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.7. Examina y evalúa el desarrollo de las civilizaciones de América precolombina (Maya, Azteca, Inca) y sus aportes a la cultura universal."],
+    indicadoresEvaluacion: ["I.CS.H.5.7.1. Describe las civilizaciones precolombinas (Maya, Azteca, Inca) y sus aportes culturales."],
   },
 
   {
@@ -1629,7 +1629,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Analiza la influencia del Imperio bizantino en la cultura, la religión y la legislación, y los principales aportes culturales del medioevo",
     objetivos: ["O.CS.H.5.7. Reconocer los procesos de independencia en América Latina y Ecuador, identificando sus actores y consecuencias."],
-    criteriosEvaluacion: ["CE.CS.H.5.7"],
+    criteriosEvaluacion: ["CE.CS.H.5.7. Examina y evalúa el desarrollo de las civilizaciones de América precolombina (Maya, Azteca, Inca) y sus aportes a la cultura universal."],
     indicadoresEvaluacion: ["I.CS.H.5.7.2"],
   },
 
@@ -1641,7 +1641,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Examina el papel de la Iglesia en la formación de las universidades y la difusión de la cultura y el arte (romántico y gótico) en el contexto del Imperio carolingio, destacando los aportes artísticos y culturales del medioevo (arquitectura, pintura y escultura)",
     objetivos: ["O.CS.H.5.7. Reconocer los procesos de independencia en América Latina y Ecuador, identificando sus actores y consecuencias."],
-    criteriosEvaluacion: ["CE.CS.H.5.7"],
+    criteriosEvaluacion: ["CE.CS.H.5.7. Examina y evalúa el desarrollo de las civilizaciones de América precolombina (Maya, Azteca, Inca) y sus aportes a la cultura universal."],
     indicadoresEvaluacion: ["I.CS.H.5.7.3"],
   },
 
@@ -1653,8 +1653,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Discute el concepto de “yihad” en la cultura islámica, en función de comprender los antecedentes históricos del conflicto judío-palestino",
     objetivos: ["O.CS.H.5.8. Analizar los procesos de formación del Estado-nación en el Ecuador del siglo XIX."],
-    criteriosEvaluacion: ["CE.CS.H.5.8"],
-    indicadoresEvaluacion: ["I.CS.H.5.8.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.8. Analiza y evalúa los procesos de conquista y colonización de América, sus consecuencias sociales, económicas y culturales."],
+    indicadoresEvaluacion: ["I.CS.H.5.8.1. Analiza las consecuencias sociales, económicas y culturales de la conquista y colonización de América."],
   },
 
   {
@@ -1665,7 +1665,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Analiza el origen, la expansión y los principios fundamentales del Islam y su relación en el conflicto entre judíos y palestinos",
     objetivos: ["O.CS.H.5.8. Analizar los procesos de formación del Estado-nación en el Ecuador del siglo XIX."],
-    criteriosEvaluacion: ["CE.CS.H.5.8"],
+    criteriosEvaluacion: ["CE.CS.H.5.8. Analiza y evalúa los procesos de conquista y colonización de América, sus consecuencias sociales, económicas y culturales."],
     indicadoresEvaluacion: ["I.CS.H.5.8.2"],
   },
 
@@ -1677,7 +1677,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Discute los principios comunes que comparten el islamismo, el cristianismo y el judaísmo, su relación con los posibles antecedentes históricos del conflicto entre judíos y palestinos y reconoce la influencia de la civilización árabe en el arte y la cultura",
     objetivos: ["O.CS.H.5.8. Analizar los procesos de formación del Estado-nación en el Ecuador del siglo XIX."],
-    criteriosEvaluacion: ["CE.CS.H.5.8"],
+    criteriosEvaluacion: ["CE.CS.H.5.8. Analiza y evalúa los procesos de conquista y colonización de América, sus consecuencias sociales, económicas y culturales."],
     indicadoresEvaluacion: ["I.CS.H.5.8.3"],
   },
 
@@ -1689,8 +1689,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Analiza las condiciones de surgimiento del Renacimiento y su contribución al desarrollo del pensamiento humanista y científico del mundo, destacando la relación entre humanismo renacentista y el pensamiento ilustrado",
     objetivos: ["O.CS.H.5.9. Comprender los procesos de modernización y transformación social en el Ecuador del siglo XX."],
-    criteriosEvaluacion: ["CE.CS.H.5.9"],
-    indicadoresEvaluacion: ["I.CS.H.5.9.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.9. Examina y evalúa las características del feudalismo, el surgimiento del Islam y las Cruzadas como fenómenos históricos interrelacionados."],
+    indicadoresEvaluacion: ["I.CS.H.5.9.1. Describe las características del feudalismo, el surgimiento del Islam y las Cruzadas."],
   },
 
   {
@@ -1701,7 +1701,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Examina los principales representantes y postulados de la Ilustración y su relación con el humanismo renacentista",
     objetivos: ["O.CS.H.5.9. Comprender los procesos de modernización y transformación social en el Ecuador del siglo XX."],
-    criteriosEvaluacion: ["CE.CS.H.5.9"],
+    criteriosEvaluacion: ["CE.CS.H.5.9. Examina y evalúa las características del feudalismo, el surgimiento del Islam y las Cruzadas como fenómenos históricos interrelacionados."],
     indicadoresEvaluacion: ["I.CS.H.5.9.2"],
   },
 
@@ -1713,7 +1713,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Explica las motivaciones y conflictos entre la Reforma Protestante y la Contrarreforma católica y su impacto en el pensamiento renacentista y en la Ilustración",
     objetivos: ["O.CS.H.5.9. Comprender los procesos de modernización y transformación social en el Ecuador del siglo XX."],
-    criteriosEvaluacion: ["CE.CS.H.5.9"],
+    criteriosEvaluacion: ["CE.CS.H.5.9. Examina y evalúa las características del feudalismo, el surgimiento del Islam y las Cruzadas como fenómenos históricos interrelacionados."],
     indicadoresEvaluacion: ["I.CS.H.5.9.3"],
   },
 
@@ -1725,7 +1725,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 4,
     descripcion: "Analiza las causas y consecuencias de la Revolución francesa considerando el proyecto napoleónico y su vinculación con el humanismo renacentista y la Ilustración",
     objetivos: ["O.CS.H.5.9. Comprender los procesos de modernización y transformación social en el Ecuador del siglo XX."],
-    criteriosEvaluacion: ["CE.CS.H.5.9"],
+    criteriosEvaluacion: ["CE.CS.H.5.9. Examina y evalúa las características del feudalismo, el surgimiento del Islam y las Cruzadas como fenómenos históricos interrelacionados."],
     indicadoresEvaluacion: ["I.CS.H.5.9.4"],
   },
 
@@ -1737,8 +1737,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Examina el contexto de origen de los movimientos obreros, feministas, indígenas, ecologistas y ecofeministas a partir del estudio de sus reivindicaciones y propuestas frente al modelo capitalista de producción",
     objetivos: ["O.CS.H.5.10. Analizar las causas y consecuencias de las guerras mundiales y su impacto en América Latina."],
-    criteriosEvaluacion: ["CE.CS.H.5.10"],
-    indicadoresEvaluacion: ["I.CS.H.5.10.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.10. Analiza y evalúa el Renacimiento, la Reforma Protestante y el surgimiento del capitalismo mercantil como procesos interrelacionados."],
+    indicadoresEvaluacion: ["I.CS.H.5.10.1. Analiza el Renacimiento, la Reforma Protestante y el capitalismo mercantil como procesos interrelacionados."],
   },
 
   {
@@ -1749,7 +1749,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Examina el papel que cumplen los movimientos artísticos, las diversas expresiones de arte, los medios de comunicación impresos y audiovisuales en las relaciones de poder y conflictos sociales",
     objetivos: ["O.CS.H.5.10. Analizar las causas y consecuencias de las guerras mundiales y su impacto en América Latina."],
-    criteriosEvaluacion: ["CE.CS.H.5.10"],
+    criteriosEvaluacion: ["CE.CS.H.5.10. Analiza y evalúa el Renacimiento, la Reforma Protestante y el surgimiento del capitalismo mercantil como procesos interrelacionados."],
     indicadoresEvaluacion: ["I.CS.H.5.10.2"],
   },
 
@@ -1761,8 +1761,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Analiza las producciones intelectuales más significativas de las culturas aborígenes, sus formas de vida y organización social, sus edificaciones arquitectónicas y la vinculación existente entre la arquitectura y astronomía",
     objetivos: ["O.CS.H.5.11. Examinar los procesos de integración regional y globalización en el mundo contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.H.5.11"],
-    indicadoresEvaluacion: ["I.CS.H.5.11.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.11. Examina y evalúa las revoluciones liberales (inglesa, francesa, americana) y su impacto en la configuración del mundo contemporáneo."],
+    indicadoresEvaluacion: ["I.CS.H.5.11.1. Evalúa el impacto de las revoluciones liberales en la configuración del mundo contemporáneo."],
   },
 
   {
@@ -1773,7 +1773,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Explica los principios de organización e intercambio social de los pobladores nativos y sus destrezas arquitectónicas incaicas, distinguiendo los diseños y funciones arquitectónicas de mayas, aztecas e incas",
     objetivos: ["O.CS.H.5.11. Examinar los procesos de integración regional y globalización en el mundo contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.H.5.11"],
+    criteriosEvaluacion: ["CE.CS.H.5.11. Examina y evalúa las revoluciones liberales (inglesa, francesa, americana) y su impacto en la configuración del mundo contemporáneo."],
     indicadoresEvaluacion: ["I.CS.H.5.11.2"],
   },
 
@@ -1785,7 +1785,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Relaciona la organización y diversidad productiva de los pisos ecológicos con la distribución demográfica dispersa, destacando la creatividad de mayas, aztecas e incas",
     objetivos: ["O.CS.H.5.11. Examinar los procesos de integración regional y globalización en el mundo contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.H.5.11"],
+    criteriosEvaluacion: ["CE.CS.H.5.11. Examina y evalúa las revoluciones liberales (inglesa, francesa, americana) y su impacto en la configuración del mundo contemporáneo."],
     indicadoresEvaluacion: ["I.CS.H.5.11.3"],
   },
 
@@ -1797,8 +1797,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Evalúa el impacto de la conquista en los aspectos ecológicos, culturales y sociales como resultado de la inserción de la evangelización, las relaciones de explotación a personas a través de haciendas y plantaciones, distinguiendo las semejanzas y diferencias entre estas últimas",
     objetivos: ["O.CS.H.5.12. Valorar la diversidad cultural y la interculturalidad como elementos fundamentales de la identidad ecuatoriana."],
-    criteriosEvaluacion: ["CE.CS.H.5.12"],
-    indicadoresEvaluacion: ["I.CS.H.5.12.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.12. Analiza y evalúa la Revolución Industrial, el imperialismo y el colonialismo como procesos interrelacionados del siglo XIX."],
+    indicadoresEvaluacion: ["I.CS.H.5.12.1. Analiza la Revolución Industrial, el imperialismo y el colonialismo del siglo XIX."],
   },
 
   {
@@ -1809,7 +1809,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Examina las configuraciones económicas en el tiempo de la Colonia, mediante el análisis del papel asignado a la mita y a las formas de extracción de riqueza (hacienda y a la plantación), destacando sus semejanzas y diferencias",
     objetivos: ["O.CS.H.5.12. Valorar la diversidad cultural y la interculturalidad como elementos fundamentales de la identidad ecuatoriana."],
-    criteriosEvaluacion: ["CE.CS.H.5.12"],
+    criteriosEvaluacion: ["CE.CS.H.5.12. Analiza y evalúa la Revolución Industrial, el imperialismo y el colonialismo como procesos interrelacionados del siglo XIX."],
     indicadoresEvaluacion: ["I.CS.H.5.12.2"],
   },
 
@@ -1821,7 +1821,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Relaciona los antecedentes históricos de la comunidad afrodescendiente de Esmeraldas y El Chota con el tráfico de personas esclavizadas en el tiempo de la Colonia, y los elementos culturales integrados como resultado de sus traslados, considerando los factores de producción en la hacienda y en la plantación",
     objetivos: ["O.CS.H.5.12. Valorar la diversidad cultural y la interculturalidad como elementos fundamentales de la identidad ecuatoriana."],
-    criteriosEvaluacion: ["CE.CS.H.5.12"],
+    criteriosEvaluacion: ["CE.CS.H.5.12. Analiza y evalúa la Revolución Industrial, el imperialismo y el colonialismo como procesos interrelacionados del siglo XIX."],
     indicadoresEvaluacion: ["I.CS.H.5.12.3"],
   },
 
@@ -1833,8 +1833,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Describe el desarrollo histórico del proceso de conquista y colonización portuguesa, considerando el papel de los “bandeirantes” en los diferentes ciclos económicos relacionados con la esclavitud, la caña de azúcar y el oro",
     objetivos: ["O.CS.H.5.13. Analizar los movimientos sociales contemporáneos y su impacto en la transformación de las sociedades."],
-    criteriosEvaluacion: ["CE.CS.H.5.13"],
-    indicadoresEvaluacion: ["I.CS.H.5.13.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.13. Examina y evalúa las causas y consecuencias de la Primera Guerra Mundial y la Revolución Rusa."],
+    indicadoresEvaluacion: ["I.CS.H.5.13.1. Examina las causas y consecuencias de la Primera Guerra Mundial y la Revolución Rusa."],
   },
 
   {
@@ -1845,7 +1845,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Analiza la relación económica entre el sistema latifundista y los “bandeirantes” a partir de la comparación de los procesos de colonización hispánico, portugués y anglosajón y su relación con la mano de obra esclava",
     objetivos: ["O.CS.H.5.13. Analizar los movimientos sociales contemporáneos y su impacto en la transformación de las sociedades."],
-    criteriosEvaluacion: ["CE.CS.H.5.13"],
+    criteriosEvaluacion: ["CE.CS.H.5.13. Examina y evalúa las causas y consecuencias de la Primera Guerra Mundial y la Revolución Rusa."],
     indicadoresEvaluacion: ["I.CS.H.5.13.2"],
   },
 
@@ -1857,8 +1857,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Analiza las características del mestizaje y el sincretismo cultural en las obras de arte colonial hispanoamericano y lo compara con las características del arte barroco y mudéjar",
     objetivos: ["O.CS.H.5.14. Comprender los procesos económicos y políticos del Ecuador en el contexto latinoamericano y mundial."],
-    criteriosEvaluacion: ["CE.CS.H.5.14"],
-    indicadoresEvaluacion: ["I.CS.H.5.14.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.14. Analiza y evalúa las causas y consecuencias de la Segunda Guerra Mundial, el Holocausto y el surgimiento de los organismos internacionales."],
+    indicadoresEvaluacion: ["I.CS.H.5.14.1. Analiza las causas y consecuencias de la Segunda Guerra Mundial y el Holocausto."],
   },
 
   {
@@ -1869,7 +1869,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Examina el papel de los conventos, misiones, procesos de educación y uso del arte colonial en el proceso de consolidación y expansión religiosa de la Colonia, considerando la función social del arte barroco y mudéjar",
     objetivos: ["O.CS.H.5.14. Comprender los procesos económicos y políticos del Ecuador en el contexto latinoamericano y mundial."],
-    criteriosEvaluacion: ["CE.CS.H.5.14"],
+    criteriosEvaluacion: ["CE.CS.H.5.14. Analiza y evalúa las causas y consecuencias de la Segunda Guerra Mundial, el Holocausto y el surgimiento de los organismos internacionales."],
     indicadoresEvaluacion: ["I.CS.H.5.14.2"],
   },
 
@@ -1881,8 +1881,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Relaciona los procesos de lucha de castas, clases y estamentos de la Colonia con las motivaciones de las sublevaciones indígenas, destacando el papel de Julián Apaza Nina (Túpac Katari), José Gabriel Condorcanqui Noguera (Túpac Amaru II) y Fernando Daquilema, y las contrasta con las razones por las qué Francisco Villa y Emiliano Zapata carecieron de un proyecto político",
     objetivos: ["O.CS.H.5.15. Examinar el papel de los medios de comunicación y las tecnologías en la configuración de la sociedad contemporánea."],
-    criteriosEvaluacion: ["CE.CS.H.5.15"],
-    indicadoresEvaluacion: ["I.CS.H.5.15.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.15. Examina y evalúa la Guerra Fría, la descolonización de África y Asia, y los movimientos de liberación nacional."],
+    indicadoresEvaluacion: ["I.CS.H.5.15.1. Examina la Guerra Fría, la descolonización y los movimientos de liberación nacional."],
   },
 
   {
@@ -1893,7 +1893,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Analiza las motivaciones y propuestas de cambio de los actores individuales y colectivos que primaron en la Revolución mexicana, y su posterior influencia en movimientos sociales en América Latina",
     objetivos: ["O.CS.H.5.15. Examinar el papel de los medios de comunicación y las tecnologías en la configuración de la sociedad contemporánea."],
-    criteriosEvaluacion: ["CE.CS.H.5.15"],
+    criteriosEvaluacion: ["CE.CS.H.5.15. Examina y evalúa la Guerra Fría, la descolonización de África y Asia, y los movimientos de liberación nacional."],
     indicadoresEvaluacion: ["I.CS.H.5.15.2"],
   },
 
@@ -1905,7 +1905,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Analiza el impacto social y económico de la Revolución cubana, el embargo económico norteamericano, los lideres representativos cubanos y su posterior influencia",
     objetivos: ["O.CS.H.5.15. Examinar el papel de los medios de comunicación y las tecnologías en la configuración de la sociedad contemporánea."],
-    criteriosEvaluacion: ["CE.CS.H.5.15"],
+    criteriosEvaluacion: ["CE.CS.H.5.15. Examina y evalúa la Guerra Fría, la descolonización de África y Asia, y los movimientos de liberación nacional."],
     indicadoresEvaluacion: ["I.CS.H.5.15.3"],
   },
 
@@ -1917,8 +1917,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica los procesos de independencia política liberales criollos, marcados por su dependencia económica externa y sus proyectos nacionales con base social excluyente",
     objetivos: ["O.CS.H.5.16. Analizar los desafíos del mundo contemporáneo: pobreza, inequidad, guerras, problemas ambientales."],
-    criteriosEvaluacion: ["CE.CS.H.5.16"],
-    indicadoresEvaluacion: ["I.CS.H.5.16.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.16. Analiza y evalúa los procesos de independencia de América Latina, sus líderes y las consecuencias políticas y sociales."],
+    indicadoresEvaluacion: ["I.CS.H.5.16.1. Analiza los procesos de independencia de América Latina y sus consecuencias."],
   },
 
   {
@@ -1929,7 +1929,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Relaciona las diversas oleadas migratorias a América Latina con las revoluciones liberales y los alcances y limitaciones de sus proyectos nacionales, destacando sus aportes al desarrollo económico y cultural de la región",
     objetivos: ["O.CS.H.5.16. Analizar los desafíos del mundo contemporáneo: pobreza, inequidad, guerras, problemas ambientales."],
-    criteriosEvaluacion: ["CE.CS.H.5.16"],
+    criteriosEvaluacion: ["CE.CS.H.5.16. Analiza y evalúa los procesos de independencia de América Latina, sus líderes y las consecuencias políticas y sociales."],
     indicadoresEvaluacion: ["I.CS.H.5.16.2"],
   },
 
@@ -1941,7 +1941,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Explica los alcances y limitaciones de las revoluciones liberales, en relación con las causas de la Gran Depresión en la economía latinoamericana y ecuatoriana y las propuestas de la CEPAL en función de un desarrollo autónomo",
     objetivos: ["O.CS.H.5.16. Analizar los desafíos del mundo contemporáneo: pobreza, inequidad, guerras, problemas ambientales."],
-    criteriosEvaluacion: ["CE.CS.H.5.16"],
+    criteriosEvaluacion: ["CE.CS.H.5.16. Analiza y evalúa los procesos de independencia de América Latina, sus líderes y las consecuencias políticas y sociales."],
     indicadoresEvaluacion: ["I.CS.H.5.16.3"],
   },
 
@@ -1953,8 +1953,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Examina la dependencia petrolera y la crisis de la deuda externa, reconociendo su impacto en la educación, salud y vivienda",
     objetivos: ["O.CS.H.5.17. Comprender la evolución histórica de los derechos humanos y su importancia en la sociedad actual."],
-    criteriosEvaluacion: ["CE.CS.H.5.17"],
-    indicadoresEvaluacion: ["I.CS.H.5.17.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.17. Examina y evalúa la formación de los Estados nacionales latinoamericanos, el caudillismo y las luchas sociales del siglo XIX."],
+    indicadoresEvaluacion: ["I.CS.H.5.17.1. Examina la formación de los Estados nacionales latinoamericanos y las luchas sociales del siglo XIX."],
   },
 
   {
@@ -1965,7 +1965,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Analizar la crisis bancaria, el proceso de la dolarización, su relación con la masiva migración de los años 90 y sus consecuencias sociales y económicas",
     objetivos: ["O.CS.H.5.17. Comprender la evolución histórica de los derechos humanos y su importancia en la sociedad actual."],
-    criteriosEvaluacion: ["CE.CS.H.5.17"],
+    criteriosEvaluacion: ["CE.CS.H.5.17. Examina y evalúa la formación de los Estados nacionales latinoamericanos, el caudillismo y las luchas sociales del siglo XIX."],
     indicadoresEvaluacion: ["I.CS.H.5.17.2"],
   },
 
@@ -1977,7 +1977,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Discute los efectos de los proyectos políticos y económicos de los últimos gobiernos, en función de las propuestas de educación, salud y vivienda",
     objetivos: ["O.CS.H.5.17. Comprender la evolución histórica de los derechos humanos y su importancia en la sociedad actual."],
-    criteriosEvaluacion: ["CE.CS.H.5.17"],
+    criteriosEvaluacion: ["CE.CS.H.5.17. Examina y evalúa la formación de los Estados nacionales latinoamericanos, el caudillismo y las luchas sociales del siglo XIX."],
     indicadoresEvaluacion: ["I.CS.H.5.17.3"],
   },
 
@@ -1989,8 +1989,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica la transición entre el sistema esclavista y el feudal, sus características económicas, sociales y políticas en Europa, subrayando la estructura de la sociedad y las formas modernas de esclavitud",
     objetivos: ["O.CS.H.5.18. Valorar el patrimonio cultural tangible e intangible del Ecuador y del mundo."],
-    criteriosEvaluacion: ["CE.CS.H.5.18"],
-    indicadoresEvaluacion: ["I.CS.H.5.18.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.18. Analiza y evalúa los procesos de modernización, las dictaduras militares y las transiciones democráticas en América Latina durante el siglo XX."],
+    indicadoresEvaluacion: ["I.CS.H.5.18.1. Analiza las dictaduras militares y las transiciones democráticas en América Latina."],
   },
 
   {
@@ -2001,7 +2001,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Discute las características del sistema productivo de la América precolombina y del mercantilismo de Europa, considerando las diversas teorías y sistemas económicos adoptados en la América colonial, destacando diferencias y similitudes",
     objetivos: ["O.CS.H.5.18. Valorar el patrimonio cultural tangible e intangible del Ecuador y del mundo."],
-    criteriosEvaluacion: ["CE.CS.H.5.18"],
+    criteriosEvaluacion: ["CE.CS.H.5.18. Analiza y evalúa los procesos de modernización, las dictaduras militares y las transiciones democráticas en América Latina durante el siglo XX."],
     indicadoresEvaluacion: ["I.CS.H.5.18.2"],
   },
 
@@ -2013,7 +2013,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Examina el proceso de acumulación originaria de capital (manufactura, personas esclavizadas y materias primas en Europa, África y América) en relación con el sistema económico que introdujo España en la América colonial",
     objetivos: ["O.CS.H.5.18. Valorar el patrimonio cultural tangible e intangible del Ecuador y del mundo."],
-    criteriosEvaluacion: ["CE.CS.H.5.18"],
+    criteriosEvaluacion: ["CE.CS.H.5.18. Analiza y evalúa los procesos de modernización, las dictaduras militares y las transiciones democráticas en América Latina durante el siglo XX."],
     indicadoresEvaluacion: ["I.CS.H.5.18.3"],
   },
 
@@ -2025,8 +2025,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica la evolución e impacto económico y social que trajeron consigo las revoluciones industriales, relacionando estos acontecimientos con las principales características del liberalismo",
     objetivos: ["O.CS.H.5.19. Analizar críticamente las fuentes históricas para construir interpretaciones fundamentadas del pasado."],
-    criteriosEvaluacion: ["CE.CS.H.5.19"],
-    indicadoresEvaluacion: ["I.CS.H.5.19.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.19. Examina y evalúa la globalización, el neoliberalismo y los movimientos sociales contemporáneos en América Latina."],
+    indicadoresEvaluacion: ["I.CS.H.5.19.1. Examina la globalización, el neoliberalismo y los movimientos sociales contemporáneos."],
   },
 
   {
@@ -2037,7 +2037,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Explica las características y la relación entre capitalismo y liberalismo, en el contexto histórico",
     objetivos: ["O.CS.H.5.19. Analizar críticamente las fuentes históricas para construir interpretaciones fundamentadas del pasado."],
-    criteriosEvaluacion: ["CE.CS.H.5.19"],
+    criteriosEvaluacion: ["CE.CS.H.5.19. Examina y evalúa la globalización, el neoliberalismo y los movimientos sociales contemporáneos en América Latina."],
     indicadoresEvaluacion: ["I.CS.H.5.19.2"],
   },
 
@@ -2049,8 +2049,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica las características del socialismo, el contexto histórico del aparecimiento de sus ideas y de las revoluciones socialistas",
     objetivos: ["O.CS.H.5.20. Comprender los procesos de democratización en América Latina durante el siglo XX."],
-    criteriosEvaluacion: ["CE.CS.H.5.20"],
-    indicadoresEvaluacion: ["I.CS.H.5.20.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.20. Analiza y evalúa la historia del Ecuador desde la época aborigen hasta la independencia, identificando los principales procesos y actores."],
+    indicadoresEvaluacion: ["I.CS.H.5.20.1. Analiza la historia del Ecuador desde la época aborigen hasta la independencia."],
   },
 
   {
@@ -2061,7 +2061,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 2,
     descripcion: "Examina el protagonismo de América Latina en el contexto de la Guerra Fría, y su actitud frente a la caída del socialismo real y la emergencia del neoliberalismo, con sus medidas y políticas económicas en el contexto de la globalización y el conflicto entre homogeneización y defensa de la identidad local y regional",
     objetivos: ["O.CS.H.5.20. Comprender los procesos de democratización en América Latina durante el siglo XX."],
-    criteriosEvaluacion: ["CE.CS.H.5.20"],
+    criteriosEvaluacion: ["CE.CS.H.5.20. Analiza y evalúa la historia del Ecuador desde la época aborigen hasta la independencia, identificando los principales procesos y actores."],
     indicadoresEvaluacion: ["I.CS.H.5.20.2"],
   },
 
@@ -2073,7 +2073,7 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 3,
     descripcion: "Discute las causas de la crisis de los años ochenta en América Latina y sus principales retos, considerando su relación con los postulados del socialismo",
     objetivos: ["O.CS.H.5.20. Comprender los procesos de democratización en América Latina durante el siglo XX."],
-    criteriosEvaluacion: ["CE.CS.H.5.20"],
+    criteriosEvaluacion: ["CE.CS.H.5.20. Analiza y evalúa la historia del Ecuador desde la época aborigen hasta la independencia, identificando los principales procesos y actores."],
     indicadoresEvaluacion: ["I.CS.H.5.20.3"],
   },
 
@@ -2085,8 +2085,8 @@ export const destrezasHistoria: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica y compara los orígenes y características de las distintas escuelas económicas fisiocrática, clásica, marxista, neoclásica, de Chicago, keynesiana, estructuralista y neoliberal, en función de elaborar un modelo económico de satisfacción de las necesidades de la mayoría de la población de América Latina y el Ecuador",
     objetivos: ["O.CS.H.5.21. Examinar los procesos revolucionarios en América Latina y su impacto en la configuración política actual."],
-    criteriosEvaluacion: ["CE.CS.H.5.21"],
-    indicadoresEvaluacion: ["I.CS.H.5.21.1"],
+    criteriosEvaluacion: ["CE.CS.H.5.21. Examina y evalúa la historia del Ecuador republicano, desde la fundación hasta la actualidad, identificando los principales procesos políticos, económicos y sociales."],
+    indicadoresEvaluacion: ["I.CS.H.5.21.1. Examina la historia del Ecuador republicano desde la fundación hasta la actualidad."],
   },
 
 ];

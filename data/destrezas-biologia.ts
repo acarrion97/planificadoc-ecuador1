@@ -9,8 +9,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Indagar y analizar la teoría de la abiogénesis que explica el origen de la vida, e interpretar las distintas evidencias científicas",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
-    indicadoresEvaluacion: ["I.CN.B.5.1.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
+    indicadoresEvaluacion: ["I.CN.B.5.1.1. Explica el origen de la vida desde la teoría de la abiogénesis, identifica los elementos y compuestos de la materia viva y describe la estructura y función celular."],
   },
 
   {
@@ -21,8 +21,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 2,
     descripcion: "Explica la importancia de las biomoléculas a partir de la sustentación científica y/o la ejecución de experimentos sencillos sobre los procesos de abiogénesis, características básicas, estructura, diversidad y función en la materia viva",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
-    indicadoresEvaluacion: ["I.CN.B.5.1.2"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
+    indicadoresEvaluacion: ["I.CN.B.5.1.2. Describe la estructura y función de los organelos celulares, diferencia células procariotas de eucariotas y explica la importancia de los bioelementos."],
   },
 
   {
@@ -33,8 +33,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 4,
     descripcion: "Describir y comparar las características básicas de las biomoléculas a partir de sus procesos de síntesis y diversidad de polímeros",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
-    indicadoresEvaluacion: ["I.CN.B.5.1.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
+    indicadoresEvaluacion: ["I.CN.B.5.1.4. Describe los tipos de reproducción celular (mitosis y meiosis) y explica su importancia en el crecimiento y la reproducción de los organismos."],
   },
 
   {
@@ -45,8 +45,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 5,
     descripcion: "Usar modelos y describir la estructura, diversidad y función de las biomoléculas que constituyen la materia viva, y experimentar con procedimientos sencillos",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
-    indicadoresEvaluacion: ["I.CN.B.5.1.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
+    indicadoresEvaluacion: ["I.CN.B.5.1.5. Explica la estructura del ADN y ARN, los procesos de replicación, transcripción y traducción, y su importancia en la síntesis de proteínas."],
   },
 
   {
@@ -57,8 +57,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 6,
     descripcion: "Establecer las principales evidencias de las teorías científicas sobre la evolución biológica y analizar sobre el rol de la evolución con el proceso responsable del cambio y diversificación de la vida en la Tierra",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
-    indicadoresEvaluacion: ["I.CN.B.5.1.6"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
+    indicadoresEvaluacion: ["I.CN.B.5.1.6. Describe los ciclos biogeoquímicos y explica su importancia en el mantenimiento del equilibrio ecológico."],
   },
 
   {
@@ -69,7 +69,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 7,
     descripcion: "Analizar los procesos de variación, aislamiento y migración, relacionados con la selección natural, y explicar el proceso evolutivo",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.7"],
   },
 
@@ -81,7 +81,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 9,
     descripcion: "Analizar los tipos de diversidad biológica a nivel de genes, especies y ecosistemas, y plantear su importancia para el mantenimiento de la vida en el planeta",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.9"],
   },
 
@@ -93,7 +93,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 11,
     descripcion: "Usar modelos y describir la función del ADN como portador de la información genética que controla las características de los organismos y la transmisión de la herencia, y relacionar el ADN con los cromosomas y los genes. Explica desde la fundamentación científica y modelos la importancia del ADN como portador de la información genética, transmisor de la herencia, comprendiendo su estructura, función, las causas y consecuencias de la alteración genética y cromosómica",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.11"],
   },
 
@@ -105,7 +105,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 13,
     descripcion: "Experimentar con los procesos de mitosis, meiosis, y demostrar la trasmisión de la información genética a la descendencia por medio de la fertilización",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.13"],
   },
 
@@ -117,7 +117,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 14,
     descripcion: "Describir las leyes de Mendel, diseñar patrones de cruzamiento y deducir porcentajes genotípicos y fenotípicos en diferentes generaciones. Explica la trascendencia de la transmisión de la información genética, desde la sustentación científica y la ejecución de experimentos; la teoría cromosómica de la herencia desde la comprensión de las leyes de Mendel",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.14"],
   },
 
@@ -129,7 +129,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 16,
     descripcion: "Indagar la teoría cromosómica de la herencia, y relacionarla con las leyes de Mendel",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.16"],
   },
 
@@ -141,7 +141,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 17,
     descripcion: "Investigar las causas de los cambios del ADN que producen alteraciones génicas, cromosómicas y genómicas, e identificar semejanzas y diferencias entre estas",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.17"],
   },
 
@@ -153,7 +153,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 18,
     descripcion: "Indagar y describir los biomas del mundo e interpretarlos como sitios donde se evidencia la evolución de la biodiversidad en respuesta a los factores geográficos y climáticos. 22 I",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.18"],
   },
 
@@ -165,7 +165,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 19,
     descripcion: "Indagar en estudios científicos la biodiversidad del Ecuador, analizar los patrones de evolución de las especies nativas y endémicas representativas de los diferentes ecosistemas, y explicar su megadiversidad",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.19"],
   },
 
@@ -177,7 +177,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 20,
     descripcion: "Reflexionar acerca de la importancia social, económica y ambiental de la biodiversidad, e identificar la problemática y los retos del Ecuador frente al manejo sostenible de su patrimonio natural",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.20"],
   },
 
@@ -189,7 +189,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 21,
     descripcion: "Indagar y examinar las diferentes actividades humanas que afectan a los sistemas globales, e inferir la pérdida de biodiversidad a escala nacional, regional y global",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.21"],
   },
 
@@ -201,7 +201,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 22,
     descripcion: "Interpretar las estrategias y políticas nacionales e internacionales para la conservación de la biodiversidad insitu y ex situ, y la mitigación de problemas ambientales globales, y generar una actitud crítica, reflexiva y responsable en favor del ambiente",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.22"],
   },
 
@@ -213,7 +213,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 23,
     descripcion: "Evaluar el estado de los ecosistemas marinos y costeros de Ecuador, analizando la Convención de las Naciones Unidas sobre el Derecho del Mar (CONVEMAR) y las estrategias globales o regionales para la conservación y el uso sostenible de los recursos marítimos",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.23"],
   },
 
@@ -225,7 +225,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 24,
     descripcion: "Analizar críticamente los marcos legales internacionales y compararlos con los de Ecuador, analizando su efectividad en la protección de los ecosistemas identificando iniciativas globales o regionales con un impacto positivo en el reconocimiento, promoción y la defensa de los derechos de la naturaleza.",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.24"],
   },
 
@@ -237,7 +237,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 25,
     descripcion: "Debatir sobre los beneficios del uso del transporte público y compartido, considerando los impactos ambientales enfocados en el desarrollo sostenible",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.25"],
   },
 
@@ -249,7 +249,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 26,
     descripcion: "Proponer soluciones innovadoras a los desafíos socioambientales en la Amazonía ecuatoriana, integrando la conservación de la biodiversidad con el desarrollo social y económico de las comunidades locales promoviendo el respeto por la diversidad cultural y el compromiso con un desarrollo sostenible e inclusivo",
     objetivos: ["O.CN.B.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual; espíritu crítico; curiosidad sobre la vida y con respecto a los seres vivos y el ambiente; trabajo autónomo y en equipo, colaborativo y participativo."],
-    criteriosEvaluacion: ["CE.CN.B.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.1. Argumenta el origen de la vida, desde el análisis de las teorías de la abiogénesis, la identificación de los elementos y compuestos de la materia viva y la descripción de la estructura, función y diversidad celular."],
     indicadoresEvaluacion: ["I.CN.B.5.1.26"],
   },
 
@@ -261,8 +261,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica la importancia de la evolución biológica desde la sustentación científica de las teorías de la endosimbiosis, selección natural y sintética de la evolución, la relación con las diversas formas de vida con el proceso evolutivo y su repercusión para el mantenimiento de la vida en la Tierra",
     objetivos: ["O.CN.B.5.2. Desarrollar la curiosidad intelectual para comprender los principales conceptos, modelos, teorías y leyes de la Biología, y su aplicabilidad en la vida cotidiana."],
-    criteriosEvaluacion: ["CE.CN.B.5.2"],
-    indicadoresEvaluacion: ["I.CN.B.5.2.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.2. Cuestiona con fundamentos científicos la evolución de las especies a partir de las teorías de Lamarck y Darwin, la identificación de los mecanismos de herencia genética y la relación con patrones de biodiversidad."],
+    indicadoresEvaluacion: ["I.CN.B.5.2.1. Argumenta la teoría de la evolución por selección natural, identifica las evidencias evolutivas y explica los mecanismos de especiación."],
   },
 
   {
@@ -273,8 +273,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 2,
     descripcion: "Describir los tipos de organización en las células animales y vegetales, compara experimentalmente sus diferencias, y establecer semejanzas y diferencias entre organelos. Explica desde la experimentación los tipos de organización de las células eucariotas (animales y vegetales), la estructura y función de sus organelos",
     objetivos: ["O.CN.B.5.2. Desarrollar la curiosidad intelectual para comprender los principales conceptos, modelos, teorías y leyes de la Biología, y su aplicabilidad en la vida cotidiana."],
-    criteriosEvaluacion: ["CE.CN.B.5.2"],
-    indicadoresEvaluacion: ["I.CN.B.5.2.2"],
+    criteriosEvaluacion: ["CE.CN.B.5.2. Cuestiona con fundamentos científicos la evolución de las especies a partir de las teorías de Lamarck y Darwin, la identificación de los mecanismos de herencia genética y la relación con patrones de biodiversidad."],
+    indicadoresEvaluacion: ["I.CN.B.5.2.2. Identifica los principios de la genética mendeliana, resuelve problemas de herencia y explica las leyes de Mendel."],
   },
 
   {
@@ -285,7 +285,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 3,
     descripcion: "Usar modelos y describir la estructura y función de los organelos de las células eucariotas y diferenciar sus funciones en procesos anabólicos y catabólicos. Relaciona los procesos anabólicos y catabólicos con la acción enzimática, los factores que inciden en la velocidad de las reacciones",
     objetivos: ["O.CN.B.5.2. Desarrollar la curiosidad intelectual para comprender los principales conceptos, modelos, teorías y leyes de la Biología, y su aplicabilidad en la vida cotidiana."],
-    criteriosEvaluacion: ["CE.CN.B.5.2"],
+    criteriosEvaluacion: ["CE.CN.B.5.2. Cuestiona con fundamentos científicos la evolución de las especies a partir de las teorías de Lamarck y Darwin, la identificación de los mecanismos de herencia genética y la relación con patrones de biodiversidad."],
     indicadoresEvaluacion: ["I.CN.B.5.2.3"],
   },
 
@@ -297,7 +297,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 5,
     descripcion: "Analizar la acción enzimática en los procesos metabólicos a nivel celular y evidenciar experimentalmente la influencia de diversos factores en la velocidad de las reacciones",
     objetivos: ["O.CN.B.5.2. Desarrollar la curiosidad intelectual para comprender los principales conceptos, modelos, teorías y leyes de la Biología, y su aplicabilidad en la vida cotidiana."],
-    criteriosEvaluacion: ["CE.CN.B.5.2"],
+    criteriosEvaluacion: ["CE.CN.B.5.2. Cuestiona con fundamentos científicos la evolución de las especies a partir de las teorías de Lamarck y Darwin, la identificación de los mecanismos de herencia genética y la relación con patrones de biodiversidad."],
     indicadoresEvaluacion: ["I.CN.B.5.2.5"],
   },
 
@@ -309,8 +309,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Observar la forma y función de células y tejidos en organismos multicelulares animales y vegetales, e identificar su organización en órganos, aparatos y sistemas",
     objetivos: ["O.CN.B.5.3. Integrar los conceptos de las ciencias biológicas para comprender la interdependencia de los seres humanos con la biodiversidad, y evaluar de forma crítica y responsable la aplicación de la ciencia y la tecnología."],
-    criteriosEvaluacion: ["CE.CN.B.5.3"],
-    indicadoresEvaluacion: ["I.CN.B.5.3.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.3. Argumenta la importancia del ADN como portador de la información genética, transmisor de la herencia biológica, la trascendencia de la ingeniería genética y las implicaciones en la manipulación genética."],
+    indicadoresEvaluacion: ["I.CN.B.5.3.1. Explica la estructura del ADN, los procesos de ingeniería genética y evalúa las implicaciones éticas de la manipulación genética."],
   },
 
   {
@@ -321,7 +321,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 4,
     descripcion: "Describir los sistemas nervioso y endocrino en animales con diferente grado de complejidad, explicar su coordinación funcional para adaptarse y responder a estímulos del ambiente, y utilizar modelos científicos que demuestren la evolución de estos sistemas",
     objetivos: ["O.CN.B.5.3. Integrar los conceptos de las ciencias biológicas para comprender la interdependencia de los seres humanos con la biodiversidad, y evaluar de forma crítica y responsable la aplicación de la ciencia y la tecnología."],
-    criteriosEvaluacion: ["CE.CN.B.5.3"],
+    criteriosEvaluacion: ["CE.CN.B.5.3. Argumenta la importancia del ADN como portador de la información genética, transmisor de la herencia biológica, la trascendencia de la ingeniería genética y las implicaciones en la manipulación genética."],
     indicadoresEvaluacion: ["I.CN.B.5.3.4"],
   },
 
@@ -333,7 +333,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 6,
     descripcion: "Observar y analizar los procesos de reproducción de animales, elaborar modelos del desarrollo embrionario, e identificar el origen de las células y la diferenciación de las estructuras",
     objetivos: ["O.CN.B.5.3. Integrar los conceptos de las ciencias biológicas para comprender la interdependencia de los seres humanos con la biodiversidad, y evaluar de forma crítica y responsable la aplicación de la ciencia y la tecnología."],
-    criteriosEvaluacion: ["CE.CN.B.5.3"],
+    criteriosEvaluacion: ["CE.CN.B.5.3. Argumenta la importancia del ADN como portador de la información genética, transmisor de la herencia biológica, la trascendencia de la ingeniería genética y las implicaciones en la manipulación genética."],
     indicadoresEvaluacion: ["I.CN.B.5.3.6"],
   },
 
@@ -345,7 +345,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 7,
     descripcion: "Examinar la estructura y función de los sistemas de transporte en las plantas, y describir la provisión de nutrientes y la excreción de desechos",
     objetivos: ["O.CN.B.5.3. Integrar los conceptos de las ciencias biológicas para comprender la interdependencia de los seres humanos con la biodiversidad, y evaluar de forma crítica y responsable la aplicación de la ciencia y la tecnología."],
-    criteriosEvaluacion: ["CE.CN.B.5.3"],
+    criteriosEvaluacion: ["CE.CN.B.5.3. Argumenta la importancia del ADN como portador de la información genética, transmisor de la herencia biológica, la trascendencia de la ingeniería genética y las implicaciones en la manipulación genética."],
     indicadoresEvaluacion: ["I.CN.B.5.3.7"],
   },
 
@@ -357,7 +357,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 9,
     descripcion: "Observar y analizar los procesos de reproducción de las plantas, elaborar modelos del desarrollo embrionario, e identificar el origen de las células y la diferenciación de las estructuras",
     objetivos: ["O.CN.B.5.3. Integrar los conceptos de las ciencias biológicas para comprender la interdependencia de los seres humanos con la biodiversidad, y evaluar de forma crítica y responsable la aplicación de la ciencia y la tecnología."],
-    criteriosEvaluacion: ["CE.CN.B.5.3"],
+    criteriosEvaluacion: ["CE.CN.B.5.3. Argumenta la importancia del ADN como portador de la información genética, transmisor de la herencia biológica, la trascendencia de la ingeniería genética y las implicaciones en la manipulación genética."],
     indicadoresEvaluacion: ["I.CN.B.5.3.9"],
   },
 
@@ -369,8 +369,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Analizar el funcionamiento de los sistemas digestivo y excretor en el ser humano y explicar la relación funcional entre estos sistemas con flujogramas. 26 I",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
-    indicadoresEvaluacion: ["I.CN.B.5.4.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
+    indicadoresEvaluacion: ["I.CN.B.5.4.1. Resuelve problemas de genética aplicando las leyes de Mendel y los principios de herencia ligada al sexo."],
   },
 
   {
@@ -381,8 +381,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 2,
     descripcion: "Diseñar investigaciones experimentales y reconocer el valor nutricional de diferentes alimentos de uso cotidiano según la composición de sus biomoléculas, y establecer sus efectos en el metabolismo y la salud humana",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
-    indicadoresEvaluacion: ["I.CN.B.5.4.2"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
+    indicadoresEvaluacion: ["I.CN.B.5.4.2. Explica las mutaciones, sus tipos y consecuencias, y evalúa su importancia en la evolución."],
   },
 
   {
@@ -393,7 +393,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 3,
     descripcion: "Analizar y aplicar buenas prácticas que contribuyen a mantener un cuerpo saludable, y elaborar un plan de salud que considere una alimentación balanceada de acuerdo a su edad y actividad para asegurar su salud integral",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.3"],
   },
 
@@ -405,7 +405,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 4,
     descripcion: "Indagar acerca de las enfermedades nutricionales y desórdenes alimenticios más comunes que afectan a la población ecuatoriana, diseñar y ejecutar una investigación en relación a estas, su vínculo con la dimensión psicológica y comunicar por diferentes medios las medidas preventivas en cuanto a salud y nutrición. I",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.4"],
   },
 
@@ -417,7 +417,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 5,
     descripcion: "Usar modelos y describir los sistemas circulatorio y respiratorio en el ser humano, y establecer la relación funcional entre ellos, la cual mantiene el equilibrio homeostático",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.5"],
   },
 
@@ -429,7 +429,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 6,
     descripcion: "Indagar en diversas fuentes y sintetizar información sobre las enfermedades causadas por el consumo de tabaco, la falta de ejercicio, la exposición a contaminantes ambientales y a alimentos contaminados, y proponer medidas preventivas y la práctica de buenos hábitos",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.6"],
   },
 
@@ -441,7 +441,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 7,
     descripcion: "Usar modelos y describir el sistema osteoartromuscular del ser humano, en cuanto a su estructura y función, y proponer medidas para su cuidado",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.7"],
   },
 
@@ -453,7 +453,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 8,
     descripcion: "Establecer la relación entre la estructura y función el sistema nervioso y del sistema endocrino, en cuanto a su fisiología y la respuesta a la acción hormonal",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.8"],
   },
 
@@ -465,7 +465,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 9,
     descripcion: "Indagar en diversas fuentes sobre los efectos nocivos en el sistema nervioso ocasionados por el consumo de alcohol y otras drogas, y proponer medidas preventivas",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.9"],
   },
 
@@ -477,7 +477,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 10,
     descripcion: "Analizar las causas y consecuencias de las enfermedades que afectan al sistema neuroendocrino, y proponer medidas preventivas",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.10"],
   },
 
@@ -489,7 +489,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 11,
     descripcion: "Interpretar la respuesta del cuerpo humano frente a microorganismos patógenos, describir el proceso de respuesta inmunitaria e identificar las anomalías de este sistema",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.11"],
   },
 
@@ -501,7 +501,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 12,
     descripcion: "Analizar la fecundación humana, concepción, el desarrollo embrionario y fetal, parto y aborto, y explicar de forma integral la función de la reproducción humana",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.12"],
   },
 
@@ -513,7 +513,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 13,
     descripcion: "Indagar acerca del crecimiento y desarrollo del ser humano, reflexionar sobre la sexualidad, la promoción, prevención y protección de la salud sexual, reproductiva y afectiva. Explica los procesos que se realizan en las plantas (transporte, provisión de nutrientes, excreción de desechos, reproducción) desde la experimentación la identificación de sus estructuras, función y factores que determinan la actividad",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.13"],
   },
 
@@ -525,7 +525,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 14,
     descripcion: "Relacionar la salud sexual y reproductiva con las implicaciones en el proyecto de vida.",
     objetivos: ["O.CN.B.5.4. Valorar los aportes de la ciencia en función del razonamiento lógico, crítico y complejo para comprender de manera integral la estructura y dinámica de los ecosistemas."],
-    criteriosEvaluacion: ["CE.CN.B.5.4"],
+    criteriosEvaluacion: ["CE.CN.B.5.4. Argumenta la importancia de la transmisión de la información genética en función de la comprensión de su desarrollo histórico, el análisis de patrones de la herencia y la evaluación de investigaciones sobre genética."],
     indicadoresEvaluacion: ["I.CN.B.5.4.14"],
   },
 
@@ -537,8 +537,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica el valor de la biodiversidad, desde la fundamentación científica de los patrones de evolución de las especies nativas y endémicas. Reconoce la importancia social, económica y ambiental y la identificación de los efectos de las actividades humanas sobre la biodiversidad a nivel nacional, regional y global",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
-    indicadoresEvaluacion: ["I.CN.B.5.5.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
+    indicadoresEvaluacion: ["I.CN.B.5.5.1. Argumenta la importancia de la biodiversidad, identifica las causas de su pérdida y propone acciones para su conservación."],
   },
 
   {
@@ -549,8 +549,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 2,
     descripcion: "Argumenta y analiza con actitud crítica y reflexiva los modelos de desarrollo económico, los avances tecnológicos que cubren las necesidades del crecimiento de la población humana, las estrategias y políticas nacionales e internacionales enfocadas al desarrollo sostenible",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
-    indicadoresEvaluacion: ["I.CN.B.5.5.2"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
+    indicadoresEvaluacion: ["I.CN.B.5.5.2. Describe los niveles de organización ecológica y explica las relaciones entre los seres vivos y su ambiente."],
   },
 
   {
@@ -561,7 +561,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 4,
     descripcion: "Indagar sobre el desarrollo de la Biotecnología en el campo de la Medicina y la Agricultura, e interpretar su aplicación en el mejoramiento de la alimentación y la nutrición de las personas",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.4"],
   },
 
@@ -573,7 +573,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 6,
     descripcion: "Indagar sobre la genética de poblaciones, analizar e inferir los resultados de binomios genéticos.",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.6"],
   },
 
@@ -585,7 +585,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 7,
     descripcion: "Buscar, registrar y sistematizar información de diversas fuentes sobre el cáncer, y relacionarlo con el proceso de proliferación celular alterada",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.7"],
   },
 
@@ -597,7 +597,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 8,
     descripcion: "Indagar las aplicaciones de la ingeniería genética en la producción de alimentos y fármacos, sus implicaciones en la vida actual, y explicar el efecto de la terapia génica en el tratamiento de enfermedades humanas, considerando los cuestionamientos éticos y sociales",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.8"],
   },
 
@@ -609,7 +609,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 9,
     descripcion: "Indagar sobre los programas de salud pública sustentados en políticas estatales y en investigaciones socioeconómicas, y analizar sobre la importancia de la accesibilidad a la salud individual y colectiva, especialmente para poblaciones marginales, aisladas o de escasos recursos",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.9"],
   },
 
@@ -621,7 +621,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 10,
     descripcion: "Interpretar modelos poblacionales que relacionan el crecimiento poblacional con diferentes modelos de desarrollo económico, y tomar una postura frente al enfoque del uso sustentable de los recursos naturales",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.10"],
   },
 
@@ -633,7 +633,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 11,
     descripcion: "Planificar y ejecutar una investigación sobre los diferentes avances tecnológicos que cubren las necesidades de la creciente población humana, con un enfoque de desarrollo sostenible",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.11"],
   },
 
@@ -645,7 +645,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 12,
     descripcion: "Evaluar planes de salud integral justificando la importancia de la salud mental de niños, niñas, adolescentes, personas jóvenes, adultas y adultas mayores.",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.12"],
   },
 
@@ -657,7 +657,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 13,
     descripcion: "Evaluar las consecuencias sociales y ambientales de la aplicación de biotecnologías como la ingeniería genética y propone con otras personas de su edad soluciones a problemas locales",
     objetivos: ["O.CN.B.5.5. Planificar y llevar a cabo investigaciones de campo, de laboratorio, de gestión o de otro tipo, que incluyan la exigencia de un trabajo en equipo, la recolección y análisis de datos cuantitativos y cualitativos."],
-    criteriosEvaluacion: ["CE.CN.B.5.5"],
+    criteriosEvaluacion: ["CE.CN.B.5.5. Argumenta con fundamento científico el valor de la biodiversidad a partir del análisis de los patrones de evolución de las especies, su importancia social, económica y ambiental, los efectos de las actividades humanas, el reconocimiento de los modelos de desarrollo económico y los avances tecnológicos."],
     indicadoresEvaluacion: ["I.CN.B.5.5.13"],
   },
 
@@ -669,7 +669,7 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 3,
     descripcion: "Cuestiona desde la fundamentación científica, social y ética los efectos del proceso de proliferación celular alterada y la influencia de la ingeniería genética en el área de alimentación y salud de los seres humanos",
     objetivos: ["O.CN.B.5.6. Usar las tecnologías de la información y la comunicación (TIC) como herramientas para la búsqueda crítica de información, el análisis y la comunicación de sus experiencias y conclusiones sobre los fenómenos y hechos naturales y sociales."],
-    criteriosEvaluacion: ["CE.CN.B.5.6"],
+    criteriosEvaluacion: ["CE.CN.B.5.6. Argumenta desde la sustentación científica los tipos de organización y función de las estructuras de las células eucariotas (vegetal y animal), los procesos de anabolismo y catabolismo, y la importancia de la fotosíntesis."],
     indicadoresEvaluacion: ["I.CN.B.5.6.3"],
   },
 
@@ -681,8 +681,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Explica que en los organismos multicelulares la forma y función de las células y los tejidos determinan la organización de órganos, aparatos y sistemas (circulatorio, respiratorio, digestivo, excretor, nervioso, reproductivo, endócrino, inmunitario y estearato muscular), establece sus elementos constitutivos (células, tejidos, componentes), estructura, función en el ser humano y propone medidas para su cuidado",
     objetivos: ["O.CN.B.5.7. Utilizar el lenguaje oral y el escrito con propiedad, así como otros sistemas de notación y representación, cuando se requiera."],
-    criteriosEvaluacion: ["CE.CN.B.5.7"],
-    indicadoresEvaluacion: ["I.CN.B.5.7.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.7. Argumenta con fundamentos que las especies animales y vegetales están constituidas por órganos, aparatos y sistemas que tienen estructuras y funciones específicas, que se relacionan entre sí para una adecuada función del organismo."],
+    indicadoresEvaluacion: ["I.CN.B.5.7.1. Describe la estructura y función de los sistemas del cuerpo humano (digestivo, respiratorio, circulatorio, excretor)."],
   },
 
   {
@@ -693,8 +693,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Elabora un plan de salud integral, a partir de la comprensión de las enfermedades, desórdenes alimenticios y efectos del consumo de alcohol y las drogas que afectan al sistema nervioso y endocrino, así como de los problemas generados por la falta de ejercicio, la exposición a la contaminación ambiental y el consumo de alimentos contaminados, reconociendo el valor nutricional de los alimentos de uso cotidiano",
     objetivos: ["O.CN.B.5.8. Comunicar información científica, resultados y conclusiones de sus indagaciones a diferentes interlocutores, mediante diversas técnicas y recursos."],
-    criteriosEvaluacion: ["CE.CN.B.5.8"],
-    indicadoresEvaluacion: ["I.CN.B.5.8.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.8. Promueve planes de salud integral e investigaciones de campo bajo la comprensión crítica y reflexiva de los efectos que producen las enfermedades y desórdenes que alteran los sistemas nervioso y endocrino, como producto de inadecuadas prácticas de vida."],
+    indicadoresEvaluacion: ["I.CN.B.5.8.1. Promueve planes de salud integral basados en el conocimiento de los sistemas nervioso y endocrino, identificando enfermedades y desórdenes comunes."],
   },
 
   {
@@ -705,8 +705,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 2,
     descripcion: "Expone, desde la investigación de campo, la importancia de los programas de salud pública, la accesibilidad a la salud individual y colectiva, el desarrollo y aplicación de la Biotecnología al campo de la Medicina y la Agricultura",
     objetivos: ["O.CN.B.5.8. Comunicar información científica, resultados y conclusiones de sus indagaciones a diferentes interlocutores, mediante diversas técnicas y recursos."],
-    criteriosEvaluacion: ["CE.CN.B.5.8"],
-    indicadoresEvaluacion: ["I.CN.B.5.8.2"],
+    criteriosEvaluacion: ["CE.CN.B.5.8. Promueve planes de salud integral e investigaciones de campo bajo la comprensión crítica y reflexiva de los efectos que producen las enfermedades y desórdenes que alteran los sistemas nervioso y endocrino, como producto de inadecuadas prácticas de vida."],
+    indicadoresEvaluacion: ["I.CN.B.5.8.2. Evalúa los efectos de las drogas, el alcohol y el tabaco en el sistema nervioso y propone hábitos de vida saludable."],
   },
 
   {
@@ -717,8 +717,8 @@ export const destrezasBiologia: Destreza[] = [
     secuencial: 1,
     descripcion: "Argumenta los riesgos de una maternidad/paternidad prematura, según su proyecto de vida, partiendo del análisis crítico y reflexivo de la salud sexual y reproductiva (fecundación/concepción, desarrollo embrionario y fetal, parto, aborto, formas de promoción, prevención y protección) y sus implicaciones",
     objetivos: ["O.CN.B.5.10. Apreciar la importancia de la formación científica, la actitud crítica y argumentada, y la capacidad para investigar, resolver problemas y comunicar, como herramientas para la vida."],
-    criteriosEvaluacion: ["CE.CN.B.5.10"],
-    indicadoresEvaluacion: ["I.CN.B.5.10.1"],
+    criteriosEvaluacion: ["CE.CN.B.5.10. Argumenta los riesgos de una maternidad/paternidad prematura según su proyecto de vida, partiendo del análisis crítico y reflexivo de la salud sexual y reproductiva."],
+    indicadoresEvaluacion: ["I.CN.B.5.10.1. Argumenta los riesgos de una maternidad/paternidad prematura y promueve la salud sexual y reproductiva responsable."],
   },
 
 ];
