@@ -162,25 +162,22 @@ describe("EFL English Labels", () => {
     it("should generate PDF HTML with English labels for EFL", () => {
       const html = generarHTMLPlanificacion(mockEFLPlan);
 
-      // Title
-      expect(html).toContain("Microcurricular Lesson Plan");
+      // Title - new quarterly format
+      expect(html).toContain("MICROCURRICULAR PLANNING FOR");
+      expect(html).toContain("PER QUARTER");
 
-      // Section headers
+      // Section headers - new format
       expect(html).toContain("1. General Information");
-      expect(html).toContain("2. Learning Objectives");
-      expect(html).toContain("3. Lesson Planning");
-      expect(html).toContain("4. Resources");
-      expect(html).toContain("5. Curricular Insertions");
-      expect(html).toContain("6. Universal Design for Learning (UDL)");
-      expect(html).toContain("7. Observations");
+      expect(html).toContain("2. UDL PRINCIPLES");
+      expect(html).toContain("5. OBJECTIVES");
+      expect(html).toContain("UNIVERSAL DESIGN FOR LEARNING (UDL)");
+      expect(html).toContain("OBSERVATIONS");
 
       // Field labels
-      expect(html).toContain("Institution:");
       expect(html).toContain("Teacher:");
-      expect(html).toContain("Subject:");
       expect(html).toContain("Grade/Level:");
-      expect(html).toContain("Date:");
-      expect(html).toContain("Periods:");
+      expect(html).toContain("Quarter:");
+      expect(html).toContain("Sublevel:");
 
       // ERCA phases
       expect(html).toContain("EXPERIENCE");
@@ -205,10 +202,9 @@ describe("EFL English Labels", () => {
     it("should NOT contain Spanish section labels in EFL PDF", () => {
       const html = generarHTMLPlanificacion(mockEFLPlan);
 
-      expect(html).not.toContain("1. Datos Informativos");
-      expect(html).not.toContain("2. Objetivos de Aprendizaje");
-      expect(html).not.toContain("3. Planificación de la Clase");
-      expect(html).not.toContain("5. Diseño Universal para el Aprendizaje");
+      expect(html).not.toContain("1. DATOS INFORMATIVOS");
+      expect(html).not.toContain("5. OBJETIVOS");
+      expect(html).not.toContain("DISEÑO UNIVERSAL PARA EL APRENDIZAJE");
     });
   });
 });

@@ -146,3 +146,18 @@
 - [x] Completar indicadores de evaluación reales para todas las destrezas
 - [x] Bug: Objetivo solo muestra código (ej. O.CN.B.5.1) sin descripción completa - CORREGIDO: 406 objetivos de BGU actualizados (Biología, Física, Química, Historia, Filosofía)
 - [x] Implementar Bachillerato Técnico (34 figuras profesionales, 3 áreas, 11 familias, pantalla de exploración + planificación)
+- [x] Rediseñar flujo: docente escribe su tema + app sugiere 2 alternativos con IA
+- [x] Agregar toggle "¿Trabajar con ejes transversales?" (Sí/No) → si Sí, seleccionar cuáles
+- [x] Agregar toggle "¿Trabajar con competencias?" (Sí/No) → si Sí, seleccionar cuáles
+- [x] Generar planificación ERCA con especificaciones del docente (ejes + competencias seleccionadas)
+- [x] Actividades con verbos de Taxonomía de Marzano según etapa ERCA
+- [x] Agregar 3 cuadraditos DUA (verde=Implicación, rosa=Representación, azul=Acción y Expresión) por cada actividad
+- [x] Garantizar que los 3 principios DUA estén cubiertos en cada etapa ERCA
+- [x] Actualizar vista de plan con cuadraditos DUA
+- [x] Actualizar PDF con cuadraditos DUA
+- [x] Rediseñar formato según plantilla oficial 2026-2027: Datos Informativos expandidos (Período Pedagógico, Trimestre, Nivel, Fecha Inicio/Fin, Paralelo, Bloques Curriculares)
+- [x] Agregar sección "Principios DUA" con 3 cuadraditos de colores (rosa=Representación ¿qué?, azul=Acción y Expresión ¿Cómo?, verde=Implicación ¿Por qué?)
+- [x] Agregar sección "Estilos de Aprendizaje" con porcentajes (Visual, Auditivo, Lector-Escritor, Kinestésico)
+- [x] Agregar sección "Habilidades Socioemocionales Asociadas" (lista de habilidades)
+- [x] Actualizar PDF con formato de tabla oficial (plantilla 2026-2027)
+- [x] Actualizar formulario con los nuevos campos del formato oficial

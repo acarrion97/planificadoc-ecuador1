@@ -89,13 +89,14 @@ describe("generarHTMLPlanificacion", () => {
 
   it("debe incluir el encabezado del Ministerio de Educación", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("República del Ecuador");
-    expect(html).toContain("Ministerio de Educación");
+    expect(html).toContain("Unidad Educativa Fiscal Test");
+    expect(html).toContain("2026 - 2027");
   });
 
   it("debe incluir el título de planificación microcurricular", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("Planificación Microcurricular de Clase");
+    expect(html).toContain("PLANIFICACIÓN MICROCURRICULAR PARA");
+    expect(html).toContain("POR TRIMESTRE");
   });
 
   it("debe incluir los datos informativos del docente", () => {
@@ -198,9 +199,9 @@ describe("generarHTMLPlanificacion", () => {
 
   it("debe incluir la tabla principal con 4 columnas", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("Destrezas con Criterios de Desempeño");
-    expect(html).toContain("Indicadores de Evaluación");
-    expect(html).toContain("Estrategias Metodológicas");
-    expect(html).toContain("Actividades Evaluativas");
+    expect(html).toContain("DESTREZAS CON CRITERIOS DE DESEMPEÑO");
+    expect(html).toContain("INDICADORES DE EVALUACIÓN");
+    expect(html).toContain("ESTRATEGIAS METODOLÓGICAS");
+    expect(html).toContain("EVALUACIÓN");
   });
 });

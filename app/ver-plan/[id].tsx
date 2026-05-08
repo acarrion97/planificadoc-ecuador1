@@ -1,11 +1,13 @@
-import { Text, View, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
-import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, TemaSugerido, INSERCIONES_CURRICULARES, COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "@/data";
+import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, INSERCIONES_CURRICULARES, COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "@/data";
+import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
 import { useExportPdf } from "@/hooks/use-export-pdf";
+import type { FaseClase, DUAActividad } from "@/data/types";
 
 export default function VerPlanScreen() {
   const colors = useColors();
@@ -22,7 +24,7 @@ export default function VerPlanScreen() {
         <View className="flex-1 items-center justify-center px-5">
           <Text style={{ fontSize: 56 }}>{"\u26A0\uFE0F"}</Text>
           <Text className="text-lg font-semibold text-foreground mt-4">
-            Planificaci{"ó"}n no encontrada
+            Planificaci{"\u00f3"}n no encontrada
           </Text>
           <Pressable
             onPress={() => router.back()}
@@ -58,15 +60,18 @@ export default function VerPlanScreen() {
           >
             <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
-              {isEFL ? "Back" : `Atr${"á"}s`}
+              {isEFL ? "Back" : "Atr\u00e1s"}
             </Text>
           </Pressable>
-          <Text className="text-2xl font-bold text-foreground mt-3">
-            {isEFL ? "Microcurricular Lesson Plan" : `Planificaci${"ó"}n Microcurricular`}
+          <Text className="text-xl font-bold text-foreground mt-3">
+            {isEFL
+              ? "Microcurricular Planning per Quarter"
+              : "Planificaci\u00f3n Microcurricular por Trimestre"}
           </Text>
+          <Text className="text-xs text-muted mt-1">2026 - 2027</Text>
         </View>
 
-        {/* Botón Exportar PDF */}
+        {/* Bot\u00f3n Exportar PDF */}
         <View className="px-5 mt-3">
           <Pressable
             onPress={() => exportarPDF(plan)}
@@ -129,37 +134,132 @@ export default function VerPlanScreen() {
           </View>
         )}
 
-        {/* Datos informativos */}
-        <SectionCard title={isEFL ? "General Information" : "Datos Informativos"} emoji={"\u2139\uFE0F"} colors={colors}>
-          <DataRow label={isEFL ? "Institution" : "Institución"} value={plan.institucion || "\u2014"} colors={colors} />
+        {/* SECCI\u00d3N 1: Datos informativos */}
+        <SectionCard title={isEFL ? "1. General Information" : "1. Datos Informativos"} emoji={"\u2139\uFE0F"} colors={colors}>
+          <DataRow label={isEFL ? "Institution" : "Instituci\u00f3n"} value={plan.institucion || "\u2014"} colors={colors} />
           <DataRow label={isEFL ? "Teacher" : "Docente"} value={plan.docente} colors={colors} />
           <DataRow label={isEFL ? "Grade / Level" : "Grado / Curso"} value={plan.grado} colors={colors} />
-          <DataRow label={isEFL ? "Subject" : "Asignatura"} value={plan.asignatura} colors={colors} />
-          <DataRow label={isEFL ? "Date" : "Fecha"} value={plan.fecha} colors={colors} />
-          <DataRow label={isEFL ? "Periods" : "Períodos"} value={plan.periodos} colors={colors} />
+          <DataRow label={isEFL ? "Subject" : "Asignatura"} value={plan.asignatura || areaInfo?.name} colors={colors} />
+          <DataRow label={isEFL ? "Sublevel" : "Subnivel"} value={SUBNIVEL_NAMES[plan.destreza.subnivel]} colors={colors} />
+          {plan.periodoPedagogico && (
+            <DataRow label={isEFL ? "Pedagogical Period" : "Per\u00edodo Pedag\u00f3gico"} value={plan.periodoPedagogico} colors={colors} />
+          )}
+          {plan.trimestre && (
+            <DataRow label={isEFL ? "Quarter" : "Trimestre"} value={plan.trimestre} colors={colors} />
+          )}
+          {plan.paralelo && (
+            <DataRow label={isEFL ? "Section" : "Paralelo"} value={plan.paralelo} colors={colors} />
+          )}
+          {plan.fechaInicio && (
+            <DataRow label={isEFL ? "Start Date" : "Fecha Inicio"} value={plan.fechaInicio} colors={colors} />
+          )}
+          {plan.fechaFin && (
+            <DataRow label={isEFL ? "End Date" : "Fecha Fin"} value={plan.fechaFin} colors={colors} />
+          )}
+          <DataRow label={isEFL ? "Curricular Block" : "Bloque Curricular"} value={obtenerNombreBloque(plan.destreza.area, plan.destreza.bloque)} colors={colors} />
         </SectionCard>
 
-        {/* Destreza */}
-        <SectionCard title={isEFL ? "Performance Criteria Skill" : "Destreza con Criterio de Desempeño"} emoji={"\u2B50"} colors={colors}>
-          <Text className="text-sm text-foreground leading-5">
-            <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
-            {plan.destreza.descripcion}
-          </Text>
-          <View style={[styles.metaRow, { marginTop: 10 }]}>
-            <Text className="text-xs text-muted">
-              {isEFL ? "Sublevel" : "Subnivel"}: {SUBNIVEL_NAMES[plan.destreza.subnivel]} | {isEFL ? "Block" : "Bloque"}: {obtenerNombreBloque(plan.destreza.area, plan.destreza.bloque)}
+        {/* SECCI\u00d3N 2: Principios DUA */}
+        <SectionCard title={isEFL ? "2. UDL Principles" : "2. Principios DUA"} emoji={"\u267F"} colors={colors}>
+          <View style={styles.duaPrincipioRow}>
+            <View style={[styles.duaSquare, { backgroundColor: "#EC4899" }]} />
+            <Text className="text-xs text-foreground flex-1 ml-2">
+              {isEFL ? "I. Multiple means of representation: What?" : "I. M\u00faltiples formas de representaci\u00f3n: \u00bfqu\u00e9?"}
+            </Text>
+          </View>
+          <View style={styles.duaPrincipioRow}>
+            <View style={[styles.duaSquare, { backgroundColor: "#1E3A5F" }]} />
+            <Text className="text-xs text-foreground flex-1 ml-2">
+              {isEFL ? "II. Multiple means of action and expression: How?" : "II. M\u00faltiples formas de acci\u00f3n y expresi\u00f3n: \u00bfC\u00f3mo?"}
+            </Text>
+          </View>
+          <View style={styles.duaPrincipioRow}>
+            <View style={[styles.duaSquare, { backgroundColor: "#22C55E" }]} />
+            <Text className="text-xs text-foreground flex-1 ml-2">
+              {isEFL ? "III. Multiple means of engagement: Why?" : "III. M\u00faltiples formas de implicaci\u00f3n o participaci\u00f3n: \u00bfPor qu\u00e9?"}
             </Text>
           </View>
         </SectionCard>
 
-        {/* Objetivo */}
-        <SectionCard title={isEFL ? "Learning Objective" : "Objetivo de Aprendizaje"} emoji={"\uD83C\uDFAF"} colors={colors}>
+        {/* SECCI\u00d3N 3: Estilos de Aprendizaje con porcentajes */}
+        {plan.estilosAprendizajePorcentaje && (
+          <SectionCard title={isEFL ? "3. Learning Styles" : "3. Estilos de Aprendizaje"} emoji={"\uD83E\uDDE0"} colors={colors}>
+            <View style={styles.estiloRow}>
+              <Text style={styles.estiloLabel}>VISUAL</Text>
+              <View style={[styles.estiloBar, { flex: plan.estilosAprendizajePorcentaje.visual }]}>
+                <View style={[styles.estiloBarFill, { backgroundColor: "#3B82F6" }]} />
+              </View>
+              <Text style={styles.estiloPct}>{plan.estilosAprendizajePorcentaje.visual}%</Text>
+            </View>
+            <View style={styles.estiloRow}>
+              <Text style={styles.estiloLabel}>AUDITIVO</Text>
+              <View style={[styles.estiloBar, { flex: plan.estilosAprendizajePorcentaje.auditivo }]}>
+                <View style={[styles.estiloBarFill, { backgroundColor: "#8B5CF6" }]} />
+              </View>
+              <Text style={styles.estiloPct}>{plan.estilosAprendizajePorcentaje.auditivo}%</Text>
+            </View>
+            <View style={styles.estiloRow}>
+              <Text style={styles.estiloLabel}>LECTOR-ESCRITOR</Text>
+              <View style={[styles.estiloBar, { flex: plan.estilosAprendizajePorcentaje.lectorEscritor }]}>
+                <View style={[styles.estiloBarFill, { backgroundColor: "#F59E0B" }]} />
+              </View>
+              <Text style={styles.estiloPct}>{plan.estilosAprendizajePorcentaje.lectorEscritor}%</Text>
+            </View>
+            <View style={styles.estiloRow}>
+              <Text style={styles.estiloLabel}>KINEST\u00c9SICO</Text>
+              <View style={[styles.estiloBar, { flex: plan.estilosAprendizajePorcentaje.kinestesico }]}>
+                <View style={[styles.estiloBarFill, { backgroundColor: "#10B981" }]} />
+              </View>
+              <Text style={styles.estiloPct}>{plan.estilosAprendizajePorcentaje.kinestesico}%</Text>
+            </View>
+          </SectionCard>
+        )}
+
+        {/* SECCI\u00d3N 4: Habilidades Socioemocionales */}
+        {plan.habilidadesSocioemocionales && plan.habilidadesSocioemocionales.length > 0 && (
+          <SectionCard title={isEFL ? "4. Socioemotional Skills" : "4. Habilidades Socioemocionales"} emoji={"\u2764\uFE0F"} colors={colors}>
+            {plan.habilidadesSocioemocionales.map((habId: string) => {
+              const hab = HABILIDADES_SOCIOEMOCIONALES.find(h => h.id === habId);
+              if (!hab) return null;
+              return (
+                <View key={hab.id} style={styles.habRow}>
+                  <Text style={{ fontSize: 14 }}>{hab.emoji}</Text>
+                  <Text className="text-sm text-foreground ml-2 flex-1">
+                    {isEFL ? hab.nameEN : hab.nombre}
+                  </Text>
+                </View>
+              );
+            })}
+          </SectionCard>
+        )}
+
+        {/* SECCI\u00d3N 5: Objetivos */}
+        <SectionCard title={isEFL ? "5. Objectives" : "5. Objetivos"} emoji={"\uD83C\uDFAF"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
-            {plan.objetivoAprendizaje}
+            {plan.objetivoAprendizaje || (plan.destreza.objetivos.length > 0 ? plan.destreza.objetivos[0] : (isEFL ? "Not specified" : "No especificado"))}
           </Text>
         </SectionCard>
 
-        {/* Estructura de la Clase - 4 fases ERCA */}
+        {/* SECCI\u00d3N 6: Criterios de Evaluaci\u00f3n */}
+        {plan.destreza.criteriosEvaluacion.length > 0 && (
+          <SectionCard title={isEFL ? "6. Assessment Criteria" : "6. Criterios de Evaluaci\u00f3n"} emoji={"\uD83D\uDCCB"} colors={colors}>
+            {plan.destreza.criteriosEvaluacion.map((crit: string, idx: number) => (
+              <Text key={idx} className="text-xs text-foreground leading-4 mb-1">
+                {"\u2022"} {crit}
+              </Text>
+            ))}
+          </SectionCard>
+        )}
+
+        {/* Destreza con Criterio de Desempe\u00f1o */}
+        <SectionCard title={isEFL ? "Performance Criteria Skill" : "Destreza con Criterio de Desempe\u00f1o"} emoji={"\u2B50"} colors={colors}>
+          <Text className="text-sm text-foreground leading-5">
+            <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
+            {plan.destreza.descripcion}
+          </Text>
+        </SectionCard>
+
+        {/* Estructura de la Clase - 4 fases ERCA con DUA */}
         {tema && (
           <View className="px-5 mt-4">
             <View style={styles.sectionHeader}>
@@ -168,8 +268,24 @@ export default function VerPlanScreen() {
                 className="text-base font-semibold text-foreground"
                 style={{ marginLeft: 8 }}
               >
-                {isEFL ? "Class Structure - ERCA (45 min)" : "Estructura de la Clase - ERCA (45 min)"}
+                {isEFL ? "Methodological Strategies - ERCA" : "Estrategias Metodol\u00f3gicas - ERCA"}
               </Text>
+            </View>
+
+            {/* DUA Legend */}
+            <View style={[styles.duaLegend, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+              <View style={styles.duaLegendItem}>
+                <View style={[styles.duaLegendSq, { backgroundColor: "#EC4899" }]} />
+                <Text style={styles.duaLegendText}>{isEFL ? "Representation" : "Representaci\u00f3n"}</Text>
+              </View>
+              <View style={styles.duaLegendItem}>
+                <View style={[styles.duaLegendSq, { backgroundColor: "#1E3A5F" }]} />
+                <Text style={styles.duaLegendText}>{isEFL ? "Action & Expression" : "Acci\u00f3n y Expresi\u00f3n"}</Text>
+              </View>
+              <View style={styles.duaLegendItem}>
+                <View style={[styles.duaLegendSq, { backgroundColor: "#22C55E" }]} />
+                <Text style={styles.duaLegendText}>{isEFL ? "Engagement" : "Implicaci\u00f3n"}</Text>
+              </View>
             </View>
 
             <FaseCardView
@@ -203,37 +319,33 @@ export default function VerPlanScreen() {
           </View>
         )}
 
-        {/* Actividades */}
-        <SectionCard title={isEFL ? "Learning Activities" : "Actividades de Aprendizaje"} emoji={"\uD83D\uDCCB"} colors={colors}>
+        {/* Evaluaci\u00f3n */}
+        <SectionCard title={isEFL ? "Assessment" : "Evaluaci\u00f3n"} emoji={"\uD83D\uDCCA"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
-            {plan.actividades}
+            {tema?.evaluacionFormativa || plan.evaluacion || (isEFL ? "Not specified" : "No especificada")}
           </Text>
+          {plan.tecnicasInstrumentos && (
+            <View style={{ marginTop: 8 }}>
+              <Text style={{ fontSize: 12, fontWeight: "700", color: colors.foreground, marginBottom: 2 }}>
+                {isEFL ? "Techniques and Instruments:" : "T\u00e9cnicas e Instrumentos:"}
+              </Text>
+              <Text className="text-sm text-muted leading-5">
+                {plan.tecnicasInstrumentos}
+              </Text>
+            </View>
+          )}
         </SectionCard>
 
         {/* Recursos */}
-        <SectionCard title={isEFL ? "Teaching Resources" : "Recursos Didácticos"} emoji={"\uD83D\uDCE6"} colors={colors}>
+        <SectionCard title={isEFL ? "Resources" : "Recursos"} emoji={"\uD83D\uDCE6"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
-            {plan.recursos}
+            {tema?.recursos ? tema.recursos.join(", ") : plan.recursos || (isEFL ? "Not specified" : "No especificados")}
           </Text>
         </SectionCard>
 
-        {/* Evaluacion */}
-        <SectionCard title={isEFL ? "Assessment Indicators" : "Indicadores de Evaluación"} emoji={"\uD83D\uDCCA"} colors={colors}>
-          <Text className="text-sm text-foreground leading-5">
-            {plan.evaluacion}
-          </Text>
-        </SectionCard>
-
-        {/* Tecnicas */}
-        <SectionCard title={isEFL ? "Techniques and Instruments" : "Técnicas e Instrumentos"} emoji={"\u2611\uFE0F"} colors={colors}>
-          <Text className="text-sm text-foreground leading-5">
-            {plan.tecnicasInstrumentos}
-          </Text>
-        </SectionCard>
-
-        {/* Inserciones Curriculares */}
+        {/* Inserciones Curriculares / Ejes Transversales */}
         {(plan.insercionesCurriculares && plan.insercionesCurriculares.length > 0) || plan.insercionCurricular ? (
-          <SectionCard title={isEFL ? "Curricular Insertions" : "Inserciones Curriculares"} emoji={"\uD83C\uDF10"} colors={colors}>
+          <SectionCard title={isEFL ? "Curricular Insertions" : "Inserciones Curriculares (Ejes Transversales)"} emoji={"\uD83C\uDF10"} colors={colors}>
             {(plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : [])).map((insId: string) => {
               const ins = INSERCIONES_CURRICULARES.find(i => i.id === insId);
               if (!ins) return null;
@@ -247,7 +359,7 @@ export default function VerPlanScreen() {
         ) : null}
 
         {/* Competencias */}
-        {plan.competencias && plan.competencias.length > 0 ? (
+        {plan.usaCompetencias && plan.competencias && plan.competencias.length > 0 ? (
           <SectionCard title={isEFL ? "Competencies" : "Competencias"} emoji={"\uD83C\uDFAF"} colors={colors}>
             {plan.competencias.map((compId: string) => {
               const comp = COMPETENCIAS.find(c => c.id === compId);
@@ -276,60 +388,39 @@ export default function VerPlanScreen() {
           </SectionCard>
         ) : null}
 
-        {/* T\u00e9cnicas de Evaluaci\u00f3n Seleccionadas */}
-        {plan.tecnicasEvaluacionSeleccionadas && plan.tecnicasEvaluacionSeleccionadas.length > 0 ? (
-          <SectionCard title={isEFL ? "Assessment Techniques" : "T\u00e9cnicas de Evaluaci\u00f3n"} emoji={"\uD83D\uDCCB"} colors={colors}>
-            {plan.tecnicasEvaluacionSeleccionadas.map((tecId: string) => {
-              const tec = TECNICAS_EVALUACION.find(t => t.id === tecId);
-              if (!tec) return null;
-              return (
-                <Text key={tec.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
-                  {"\u2022"} {isEFL ? tec.nameEN : tec.nombre}
-                </Text>
-              );
-            })}
-          </SectionCard>
-        ) : null}
-
-        {/* Estilos de Aprendizaje */}
-        {plan.estilosAprendizaje && plan.estilosAprendizaje.length > 0 ? (
-          <SectionCard title={isEFL ? "Learning Styles" : "Estilos de Aprendizaje"} emoji={"\uD83E\uDDE0"} colors={colors}>
-            {plan.estilosAprendizaje.map((estId: string) => {
-              const est = ESTILOS_APRENDIZAJE.find(e => e.id === estId);
-              if (!est) return null;
-              return (
-                <Text key={est.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
-                  {"\u2022"} {isEFL ? est.nameEN : est.nombre}
-                </Text>
-              );
-            })}
-          </SectionCard>
-        ) : null}
-
-        {/* DUA */}
+        {/* DUA Detallado */}
         {plan.dua && (plan.dua.representacion || plan.dua.accionExpresion || plan.dua.implicacion) ? (
-          <SectionCard title={isEFL ? "Universal Design for Learning (UDL)" : "Diseño Universal para el Aprendizaje (DUA)"} emoji={"\u267F"} colors={colors}>
+          <SectionCard title={isEFL ? "Universal Design for Learning (UDL)" : "Dise\u00f1o Universal para el Aprendizaje (DUA)"} emoji={"\u267F"} colors={colors}>
             {plan.dua.representacion ? (
               <View style={{ marginBottom: 12 }}>
-                <Text style={{ fontSize: 12, fontWeight: "700", color: "#2563EB", marginBottom: 4 }}>
-                  {isEFL ? "Principle 1: Multiple Means of Representation" : `Principio 1: M${"ú"}ltiples formas de Representaci${"ó"}n`}
-                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 4 }}>
+                  <View style={[styles.duaSquare, { backgroundColor: "#EC4899" }]} />
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: "#EC4899", marginLeft: 6 }}>
+                    {isEFL ? "Principle 1: Representation" : "Principio 1: Representaci\u00f3n"}
+                  </Text>
+                </View>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.representacion}</Text>
               </View>
             ) : null}
             {plan.dua.accionExpresion ? (
               <View style={{ marginBottom: 12 }}>
-                <Text style={{ fontSize: 12, fontWeight: "700", color: "#16A34A", marginBottom: 4 }}>
-                  {isEFL ? "Principle 2: Multiple Means of Action and Expression" : `Principio 2: M${"ú"}ltiples formas de Acci${"ó"}n y Expresi${"ó"}n`}
-                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 4 }}>
+                  <View style={[styles.duaSquare, { backgroundColor: "#1E3A5F" }]} />
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: "#1E3A5F", marginLeft: 6 }}>
+                    {isEFL ? "Principle 2: Action & Expression" : "Principio 2: Acci\u00f3n y Expresi\u00f3n"}
+                  </Text>
+                </View>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.accionExpresion}</Text>
               </View>
             ) : null}
             {plan.dua.implicacion ? (
               <View style={{ marginBottom: 0 }}>
-                <Text style={{ fontSize: 12, fontWeight: "700", color: "#D97706", marginBottom: 4 }}>
-                  {isEFL ? "Principle 3: Multiple Means of Engagement" : `Principio 3: M${"ú"}ltiples formas de Implicaci${"ó"}n`}
-                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 4 }}>
+                  <View style={[styles.duaSquare, { backgroundColor: "#22C55E" }]} />
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: "#22C55E", marginLeft: 6 }}>
+                    {isEFL ? "Principle 3: Engagement" : "Principio 3: Implicaci\u00f3n"}
+                  </Text>
+                </View>
                 <Text className="text-sm text-foreground leading-5">{plan.dua.implicacion}</Text>
               </View>
             ) : null}
@@ -352,7 +443,7 @@ export default function VerPlanScreen() {
 }
 
 // ==========================================
-// COMPONENTE: Tarjeta de fase
+// COMPONENTE: Tarjeta de fase con DUA squares
 // ==========================================
 function FaseCardView({
   label,
@@ -362,11 +453,13 @@ function FaseCardView({
   colors,
 }: {
   label: string;
-  fase: { titulo: string; duracion: string; actividades: string[] };
+  fase: FaseClase;
   color: string;
   emoji: string;
   colors: any;
 }) {
+  const duaActividades = fase.duaActividades || [];
+
   return (
     <View
       style={[
@@ -386,18 +479,27 @@ function FaseCardView({
           </Text>
         </View>
       </View>
-      {fase.actividades.map((act: string, idx: number) => (
-        <View key={idx} style={styles.faseActRow}>
-          <View style={[styles.faseActNum, { backgroundColor: color + "15" }]}>
-            <Text style={{ color, fontSize: 11, fontWeight: "700" }}>
-              {idx + 1}
+      {fase.actividades.map((act: string, idx: number) => {
+        const dua: DUAActividad = duaActividades[idx] || { representacion: false, accionExpresion: false, implicacion: false };
+        return (
+          <View key={idx} style={styles.faseActRow}>
+            <View style={[styles.faseActNum, { backgroundColor: color + "15" }]}>
+              <Text style={{ color, fontSize: 11, fontWeight: "700" }}>
+                {idx + 1}
+              </Text>
+            </View>
+            <Text className="text-sm text-foreground flex-1 leading-5" style={{ marginLeft: 8 }}>
+              {act}
             </Text>
+            {/* DUA squares */}
+            <View style={styles.duaSquaresRow}>
+              <View style={[styles.duaMiniSq, { backgroundColor: dua.representacion ? "#EC4899" : "#EC489930" }]} />
+              <View style={[styles.duaMiniSq, { backgroundColor: dua.accionExpresion ? "#1E3A5F" : "#1E3A5F30" }]} />
+              <View style={[styles.duaMiniSq, { backgroundColor: dua.implicacion ? "#22C55E" : "#22C55E30" }]} />
+            </View>
           </View>
-          <Text className="text-sm text-foreground flex-1 leading-5" style={{ marginLeft: 8 }}>
-            {act}
-          </Text>
-        </View>
-      ))}
+        );
+      })}
     </View>
   );
 }
@@ -447,7 +549,7 @@ function DataRow({
 }) {
   return (
     <View style={styles.dataRow}>
-      <Text className="text-sm text-muted" style={{ width: 110 }}>
+      <Text className="text-sm text-muted" style={{ width: 130 }}>
         {label}:
       </Text>
       <Text className="text-sm font-medium text-foreground flex-1">
@@ -498,10 +600,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     paddingVertical: 4,
-  },
-  metaRow: {
-    flexDirection: "row",
-    alignItems: "center",
   },
   faseCard: {
     borderRadius: 12,
@@ -559,5 +657,88 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "700",
+  },
+  // DUA styles
+  duaPrincipioRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 6,
+  },
+  duaSquare: {
+    width: 14,
+    height: 14,
+    borderRadius: 2,
+  },
+  duaSquaresRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    marginLeft: 6,
+  },
+  duaMiniSq: {
+    width: 12,
+    height: 12,
+    borderRadius: 2,
+  },
+  duaLegend: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    gap: 12,
+    flexWrap: "wrap",
+  },
+  duaLegendItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  duaLegendSq: {
+    width: 12,
+    height: 12,
+    borderRadius: 2,
+  },
+  duaLegendText: {
+    fontSize: 11,
+    color: "#666",
+  },
+  // Estilos de aprendizaje
+  estiloRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  estiloLabel: {
+    fontSize: 10,
+    fontWeight: "700",
+    width: 100,
+    color: "#333",
+  },
+  estiloBar: {
+    height: 12,
+    borderRadius: 6,
+    overflow: "hidden",
+    marginHorizontal: 8,
+  },
+  estiloBarFill: {
+    flex: 1,
+    borderRadius: 6,
+  },
+  estiloPct: {
+    fontSize: 12,
+    fontWeight: "700",
+    width: 36,
+    textAlign: "right",
+    color: "#333",
+  },
+  habRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 4,
+  },
+  metaRow: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

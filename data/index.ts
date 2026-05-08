@@ -21,6 +21,10 @@ export { INSERCIONES_CURRICULARES, obtenerInsercion, obtenerNombreInsercion, obt
 export type { InsercionCurricular } from "./inserciones-curriculares";
 export { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "./secciones-planificacion";
 export type { Competencia, MetodologiaActiva, TecnicaEvaluacion, EstiloAprendizaje } from "./secciones-planificacion";
+export { NIVELES_MARZANO, MAPEO_ERCA_MARZANO, obtenerVerbosParaEtapa, generarTextoVerbosParaPrompt } from "./taxonomia-marzano";
+export type { NivelMarzano, MapeoERCAMarzano } from "./taxonomia-marzano";
+export { HABILIDADES_SOCIOEMOCIONALES } from "./habilidades-socioemocionales";
+export type { HabilidadSocioemocional } from "./habilidades-socioemocionales";
 export {
   AREAS_BT,
   FAMILIAS_PROFESIONALES,

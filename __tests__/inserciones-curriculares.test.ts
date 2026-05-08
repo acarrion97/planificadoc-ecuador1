@@ -84,7 +84,8 @@ describe("Inserciones Curriculares - PDF Integration", () => {
 
   it("PDF should include inserciones curriculares section with selected insertion", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("Inserciones Curriculares");
+    // In the new format, insertions appear in the Inserción Curricular field row
+    expect(html).toContain("Inserción Curricular");
     expect(html).toContain("Desarrollo Sostenible");
   });
 

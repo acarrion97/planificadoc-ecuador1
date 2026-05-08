@@ -37,12 +37,27 @@ export interface Destreza {
 }
 
 /**
+ * Indicadores DUA por actividad: 3 principios representados como cuadrados de colores.
+ * - implicacion (verde): Múltiples formas de Implicación
+ * - representacion (rosa/rojo): Múltiples formas de Representación
+ * - accionExpresion (azul): Múltiples formas de Acción y Expresión
+ */
+export interface DUAActividad {
+  implicacion: boolean;
+  representacion: boolean;
+  accionExpresion: boolean;
+}
+
+/**
  * Fase de una clase con título, duración y actividades.
+ * Cada actividad puede tener indicadores DUA asociados.
  */
 export interface FaseClase {
   titulo: string;
   duracion: string;
   actividades: string[];
+  /** Indicadores DUA por cada actividad (mismo índice que actividades[]) */
+  duaActividades?: DUAActividad[];
 }
 
 /**
@@ -72,6 +87,16 @@ export interface TemaSugerido {
   evaluacionFormativa: string;
 }
 
+/**
+ * Porcentajes de estilos de aprendizaje del grupo (suman 100%)
+ */
+export interface EstilosAprendizajePorcentaje {
+  visual: number;
+  auditivo: number;
+  lectorEscritor: number;
+  kinestesico: number;
+}
+
 export interface Planificacion {
   id: string;
   fecha: string;
@@ -82,6 +107,18 @@ export interface Planificacion {
   periodos: string;
   semana?: string;
   unidadDidactica?: string;
+  /** Formato oficial 2026-2027 */
+  periodoPedagogico?: string;
+  trimestre?: string;
+  nivel?: string;
+  fechaInicio?: string;
+  fechaFin?: string;
+  paralelo?: string;
+  bloquesCurriculares?: string[];
+  /** Habilidades socioemocionales asociadas */
+  habilidadesSocioemocionales?: string[];
+  /** Porcentajes de estilos de aprendizaje del grupo */
+  estilosAprendizajePorcentaje?: EstilosAprendizajePorcentaje;
   destreza: Destreza;
   objetivoAprendizaje: string;
   temaSeleccionado?: TemaSugerido;
@@ -90,10 +127,14 @@ export interface Planificacion {
   evaluacion: string;
   tecnicasInstrumentos: string;
   observaciones: string;
+  /** Si el docente eligió trabajar con ejes transversales */
+  usaEjesTransversales?: boolean;
   /** IDs de inserciones curriculares seleccionadas */
   insercionesCurriculares?: string[];
   /** Legacy: single insercion field (backward compat) */
   insercionCurricular?: string;
+  /** Si el docente eligió trabajar con competencias */
+  usaCompetencias?: boolean;
   /** IDs de competencias seleccionadas */
   competencias?: string[];
   /** IDs de metodologías activas seleccionadas */
