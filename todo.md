@@ -179,5 +179,8 @@
 - [x] Endpoints API para admin dashboard (protegidos con clave)
 - [x] Endpoint API para datos de suscripción del usuario actual
 - [x] Fix: Panel admin no se abre en planificadoc.app - RESUELTO: rewrite de Vercel actualizado al API server correcto + admin.html estático en public/
-- [ ] Admin panel: Mostrar usuarios que activaron con código promocional
-- [ ] Admin panel: Indicador de posible cesión de códigos (código usado por más de un email/dispositivo)
+- [x] Admin panel: Mostrar usuarios que activaron con código promocional
+- [x] Admin panel: Indicador de posible cesión de códigos (código usado por más de un email/dispositivo)
+- [ ] Eliminar toda referencia/dependencia de manus.space en vercel.json y la app
+- [ ] Migrar endpoints backend a Vercel Serverless Functions (pagos, suscripciones, admin, code-activate)
+- [ ] Asegurar que planificadoc.app funcione 24/7 sin depender del sandbox de Manus
