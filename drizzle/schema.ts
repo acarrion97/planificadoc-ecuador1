@@ -28,10 +28,10 @@ export const subscriptions = mysqlTable("subscriptions", {
   email: varchar("email", { length: 320 }).notNull(),
   /** Optional link to users table if user also has OAuth */
   userId: int("userId"),
-  /** Subscription plan: 'monthly' */
+  /** Subscription plan: 'monthly' or 'annual' */
   plan: varchar("plan", { length: 32 }).notNull().default("monthly"),
-  /** Status: active, expired, cancelled */
-  status: mysqlEnum("status", ["active", "expired", "cancelled"]).default("active").notNull(),
+  /** Status: active, expired, cancelled, past_due (grace period) */
+  status: mysqlEnum("status", ["active", "expired", "cancelled", "past_due"]).default("active").notNull(),
   /** Amount paid in cents */
   amountPaid: int("amountPaid").notNull(),
   /** PayPhone transaction ID */
@@ -44,11 +44,48 @@ export const subscriptions = mysqlTable("subscriptions", {
   endDate: timestamp("endDate").notNull(),
   /** Whether this is a promotional/introductory price */
   isPromo: boolean("isPromo").default(false).notNull(),
+  /** Whether this subscription uses recurring billing */
+  isRecurring: boolean("isRecurring").default(false).notNull(),
+  /** Card token ID reference for recurring billing */
+  cardTokenId: int("cardTokenId"),
+  /** Number of failed recurring charge attempts */
+  failedChargeAttempts: int("failedChargeAttempts").default(0).notNull(),
+  /** Last failed charge date */
+  lastChargeAttempt: timestamp("lastChargeAttempt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
 export type Subscription = typeof subscriptions.$inferSelect;
 export type InsertSubscription = typeof subscriptions.$inferInsert;
+
+/**
+ * Card tokens table - stores tokenized card data for recurring payments.
+ * Each user (by email) can have one active token at a time.
+ */
+export const cardTokens = mysqlTable("card_tokens", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email of the card holder */
+  email: varchar("email", { length: 320 }).notNull(),
+  /** PayPhone card token (cToken) */
+  cardToken: varchar("cardToken", { length: 255 }).notNull(),
+  /** Card holder name */
+  cardHolder: varchar("cardHolder", { length: 255 }).notNull(),
+  /** Document ID (cédula) of the card holder */
+  documentId: varchar("documentId", { length: 20 }).notNull(),
+  /** Phone number of the card holder (format: 593XXXXXXXXX) */
+  phoneNumber: varchar("phoneNumber", { length: 20 }).notNull(),
+  /** Card brand (Visa, Mastercard) */
+  cardBrand: varchar("cardBrand", { length: 64 }),
+  /** Last 4 digits */
+  lastDigits: varchar("lastDigits", { length: 8 }),
+  /** Whether this token is active */
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CardToken = typeof cardTokens.$inferSelect;
+export type InsertCardToken = typeof cardTokens.$inferInsert;
 
 /**
  * Payment transactions - log of all PayPhone payment attempts.
@@ -77,6 +114,10 @@ export const paymentTransactions = mysqlTable("payment_transactions", {
   lastDigits: varchar("lastDigits", { length: 8 }),
   /** Full PayPhone response JSON */
   payphoneResponse: text("payphoneResponse"),
+  /** Whether this transaction was a recurring charge (not user-initiated) */
+  isRecurringCharge: boolean("isRecurringCharge").default(false).notNull(),
+  /** Card token ID used for this recurring charge */
+  cardTokenId: int("cardTokenId"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

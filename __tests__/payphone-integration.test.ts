@@ -69,7 +69,7 @@ describe("PayPhone Integration", () => {
     });
 
     it("should return monthly payment page HTML for valid email", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=monthly`);
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=monthly&documentId=1234567890&phoneNumber=593978833533&cardHolder=Juan+Perez`);
       expect(res.status).toBe(200);
       const html = await res.text();
       expect(html).toContain("PlanificaDoc");
@@ -77,10 +77,11 @@ describe("PayPhone Integration", () => {
       expect(html).toContain("payphone-payment-box");
       expect(html).toContain("docente@test.com");
       expect(html).toContain("6.99");
+      expect(html).toContain("Suscripcion Recurrente");
     });
 
     it("should return annual payment page HTML when plan=annual", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=annual`);
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=annual&documentId=1234567890&phoneNumber=593978833533&cardHolder=Juan+Perez`);
       expect(res.status).toBe(200);
       const html = await res.text();
       expect(html).toContain("PlanificaDoc");
@@ -89,10 +90,17 @@ describe("PayPhone Integration", () => {
     });
 
     it("should default to monthly plan when no plan specified", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com`);
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&documentId=1234567890&phoneNumber=593978833533&cardHolder=Juan+Perez`);
       expect(res.status).toBe(200);
       const html = await res.text();
       expect(html).toContain("6.99");
+    });
+
+    it("should reject payment page without required fields (documentId, phoneNumber, cardHolder)", async () => {
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=monthly`);
+      expect(res.status).toBe(400);
+      const text = await res.text();
+      expect(text).toContain("requeridos");
     });
 
     it("should reject payment page without email", async () => {

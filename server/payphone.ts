@@ -6,10 +6,13 @@ import {
   createSubscription,
   getActiveSubscription,
   countPreviousSubscriptions,
+  saveCardToken,
+  getActiveCardToken,
 } from "./db";
 
 // PayPhone configuration
 const PAYPHONE_CONFIRM_URL = "https://pay.payphonetodoesposible.com/api/button/V2/Confirm";
+const PAYPHONE_TOKEN_CHARGE_URL = "https://pay.payphonetodoesposible.com/api/transaction/web";
 
 // Pricing in cents (PayPhone uses integer cents)
 const MONTHLY_PRICE_CENTS = 699; // $6.99/mes
@@ -56,6 +59,75 @@ function generateClientTxId(email: string): string {
 }
 
 /**
+ * Charge a card using a saved token (for recurring payments).
+ */
+export async function chargeWithToken(params: {
+  cardToken: string;
+  cardHolder: string;
+  documentId: string;
+  phoneNumber: string;
+  email: string;
+  amount: number;
+  storeId: string;
+  token: string;
+  reference?: string;
+}): Promise<{ success: boolean; transactionId?: number; authorizationCode?: string; message?: string; statusCode?: number }> {
+  const clientTxId = generateClientTxId(params.email);
+
+  try {
+    const response = await fetch(PAYPHONE_TOKEN_CHARGE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${params.token}`,
+      },
+      body: JSON.stringify({
+        cardHolder: params.cardHolder,
+        cardToken: params.cardToken,
+        documentId: params.documentId,
+        phoneNumber: params.phoneNumber,
+        email: params.email,
+        amount: params.amount,
+        amountWithoutTax: params.amount,
+        amountWithTax: 0,
+        tax: 0,
+        service: null,
+        tip: null,
+        clientTransactionId: clientTxId,
+        currency: "USD",
+        storeId: params.storeId,
+        optionalParameter: params.reference || "Suscripción recurrente PlanificaDoc",
+      }),
+    });
+
+    const data = await response.json();
+    console.log("[PayPhone] Token charge response:", JSON.stringify(data));
+
+    if (data.statusCode === 3 && data.transactionStatus === "Approved") {
+      return {
+        success: true,
+        transactionId: data.transactionId,
+        authorizationCode: data.authorizationCode,
+        statusCode: data.statusCode,
+      };
+    }
+
+    return {
+      success: false,
+      message: data.message || "Cobro rechazado",
+      statusCode: data.statusCode,
+      transactionId: data.transactionId,
+    };
+  } catch (error) {
+    console.error("[PayPhone] Token charge error:", error);
+    return {
+      success: false,
+      message: "Error de conexión con PayPhone",
+    };
+  }
+}
+
+/**
  * Register PayPhone-related Express routes.
  */
 export function registerPayPhoneRoutes(app: Express) {
@@ -63,16 +135,24 @@ export function registerPayPhoneRoutes(app: Express) {
   const payphoneStoreId = process.env.PAYPHONE_STORE_ID || "";
 
   /**
-   * GET /api/payment/page?email=xxx&plan=monthly|annual
-   * Serves the PayPhone Payment Box HTML page.
+   * GET /api/payment/page?email=xxx&plan=monthly|annual&documentId=xxx&phoneNumber=xxx&cardHolder=xxx
+   * Serves the PayPhone Payment Box HTML page with tokenization enabled.
    */
   app.get("/api/payment/page", async (req: Request, res: Response) => {
     const email = (req.query.email as string || "").trim().toLowerCase();
     const planParam = (req.query.plan as string || "monthly").toLowerCase();
     const plan: PlanType = planParam === "annual" ? "annual" : "monthly";
+    const documentId = (req.query.documentId as string || "").trim();
+    const phoneNumber = (req.query.phoneNumber as string || "").trim();
+    const cardHolder = (req.query.cardHolder as string || "").trim();
 
     if (!email || !email.includes("@")) {
       res.status(400).send("Email requerido");
+      return;
+    }
+
+    if (!documentId || !phoneNumber || !cardHolder) {
+      res.status(400).send("Cédula, teléfono y nombre del titular son requeridos para pago recurrente");
       return;
     }
 
@@ -96,11 +176,13 @@ export function registerPayPhoneRoutes(app: Express) {
       });
 
       // Always use planificadoc.app for response URL so PayPhone domain validation passes
-      const responseUrl = "https://planificadoc.app/api/payment/confirm";
+      // Include tokenData params so the confirm page can pass them to the activate endpoint
+      const tokenParams = `&documentId=${encodeURIComponent(documentId)}&phoneNumber=${encodeURIComponent(phoneNumber)}&cardHolder=${encodeURIComponent(cardHolder)}`;
+      const responseUrl = `https://planificadoc.app/api/payment/confirm?${tokenParams}`;
 
       const totalAmount = pricing.amount;
       const planLabel = plan === "annual" ? "Anual" : "Mensual";
-      const reference = `PlanificaDoc - Suscripcion ${planLabel} - ${email}`;
+      const reference = `PlanificaDoc - Suscripcion ${planLabel} Recurrente - ${email}`;
 
       const html = buildPaymentPageHTML({
         token: payphoneToken,
@@ -113,6 +195,9 @@ export function registerPayPhoneRoutes(app: Express) {
         priceLabel: pricing.label,
         plan,
         durationMonths: pricing.durationMonths,
+        documentId,
+        phoneNumber,
+        cardHolder,
       });
 
       res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -131,6 +216,10 @@ export function registerPayPhoneRoutes(app: Express) {
   app.get("/api/payment/confirm", async (req: Request, res: Response) => {
     const payphoneTxId = req.query.id as string;
     const clientTxId = req.query.clientTransactionId as string;
+    // Token data passed via URL params from the payment page redirect
+    const documentId = (req.query.documentId as string || "").trim();
+    const phoneNumber = (req.query.phoneNumber as string || "").trim();
+    const cardHolder = (req.query.cardHolder as string || "").trim();
 
     if (!payphoneTxId || !clientTxId) {
       res.send(buildResultPageHTML(false, "Parametros de transaccion faltantes."));
@@ -151,6 +240,9 @@ export function registerPayPhoneRoutes(app: Express) {
         clientTxId,
         token: payphoneToken,
         email: tx.email,
+        documentId,
+        phoneNumber,
+        cardHolder,
       }));
     } catch (error) {
       console.error("[PayPhone] Confirm page error:", error);
@@ -161,9 +253,10 @@ export function registerPayPhoneRoutes(app: Express) {
   /**
    * POST /api/payment/activate
    * Called by the confirm bridge page after successfully confirming with PayPhone.
+   * Now also saves the card token for recurring billing.
    */
   app.post("/api/payment/activate", async (req: Request, res: Response) => {
-    const { clientTxId, confirmData } = req.body;
+    const { clientTxId, confirmData, tokenData } = req.body;
 
     if (!clientTxId || !confirmData) {
       res.status(400).json({ error: "Datos faltantes" });
@@ -198,6 +291,26 @@ export function registerPayPhoneRoutes(app: Express) {
           payphoneResponse: JSON.stringify(confirmData),
         });
 
+        // Save card token for recurring billing if provided
+        let cardTokenId: number | undefined;
+        if (confirmData.cardToken && tokenData) {
+          try {
+            cardTokenId = await saveCardToken({
+              email: tx.email,
+              cardToken: confirmData.cardToken,
+              cardHolder: tokenData.cardHolder || "",
+              documentId: tokenData.documentId || "",
+              phoneNumber: tokenData.phoneNumber || "",
+              cardBrand: confirmData.cardBrand,
+              lastDigits: confirmData.lastDigits,
+            });
+            console.log("[PayPhone] Card token saved, id:", cardTokenId);
+          } catch (tokenError) {
+            console.error("[PayPhone] Error saving card token:", tokenError);
+            // Don't fail the payment if token save fails
+          }
+        }
+
         // Determine plan duration based on amount paid
         const isAnnual = tx.amount === ANNUAL_PRICE_CENTS;
         const durationMonths = isAnnual ? 12 : 1;
@@ -217,9 +330,12 @@ export function registerPayPhoneRoutes(app: Express) {
           startDate,
           endDate,
           isPromo: false,
+          isRecurring: !!cardTokenId,
+          cardTokenId: cardTokenId || null,
+          failedChargeAttempts: 0,
         });
 
-        res.json({ success: true, email: tx.email });
+        res.json({ success: true, email: tx.email, isRecurring: !!cardTokenId });
       } else {
         // Payment cancelled or failed
         await updatePaymentTransaction(clientTxId, {
@@ -257,12 +373,17 @@ export function registerPayPhoneRoutes(app: Express) {
     try {
       const sub = await getActiveSubscription(email);
       if (sub) {
+        const cardToken = await getActiveCardToken(email);
         res.json({
           active: true,
           email: sub.email,
           plan: sub.plan,
           endDate: sub.endDate,
           isPromo: sub.isPromo,
+          isRecurring: sub.isRecurring,
+          hasCardToken: !!cardToken,
+          lastDigits: cardToken?.lastDigits || null,
+          cardBrand: cardToken?.cardBrand || null,
         });
       } else {
         res.json({
@@ -325,6 +446,37 @@ export function registerPayPhoneRoutes(app: Express) {
       });
     }
   });
+
+  /**
+   * POST /api/payment/cancel-recurring
+   * Cancel recurring billing for a user.
+   */
+  app.post("/api/payment/cancel-recurring", async (req: Request, res: Response) => {
+    const { email } = req.body;
+    if (!email) {
+      res.status(400).json({ error: "Email requerido" });
+      return;
+    }
+
+    try {
+      const sub = await getActiveSubscription(email.toLowerCase());
+      if (!sub) {
+        res.json({ success: false, message: "No hay suscripción activa" });
+        return;
+      }
+
+      // Import updateSubscriptionChargeStatus
+      const { updateSubscriptionChargeStatus } = await import("./db");
+      await updateSubscriptionChargeStatus(sub.id, {
+        status: "cancelled",
+      });
+
+      res.json({ success: true, message: "Renovación automática cancelada. Tu acceso continúa hasta " + sub.endDate });
+    } catch (error) {
+      console.error("[PayPhone] Cancel recurring error:", error);
+      res.status(500).json({ error: "Error al cancelar renovación" });
+    }
+  });
 }
 
 // ============= HTML Templates =============
@@ -340,6 +492,9 @@ function buildPaymentPageHTML(config: {
   priceLabel: string;
   plan: PlanType;
   durationMonths: number;
+  documentId: string;
+  phoneNumber: string;
+  cardHolder: string;
 }): string {
   const planLabel = config.plan === "annual" ? "Anual (12 meses)" : "Mensual";
   const periodLabel = config.plan === "annual" ? "por año" : "por mes";
@@ -440,15 +595,17 @@ function buildPaymentPageHTML(config: {
       margin-top: 16px;
     }
     .security-note span { font-size: 14px; }
-    .renewal-note {
+    .recurring-note {
       text-align: center;
       font-size: 12px;
-      color: #666;
+      color: #1e3a5f;
       margin-top: 12px;
-      padding: 8px;
-      background: #f8f9fa;
+      padding: 10px;
+      background: #e0f2fe;
       border-radius: 8px;
+      border: 1px solid #bae6fd;
     }
+    .recurring-note strong { display: block; margin-bottom: 4px; }
   </style>
 </head>
 <body>
@@ -473,16 +630,22 @@ function buildPaymentPageHTML(config: {
       <span class="value">${config.email}</span>
     </div>
     <div class="info-row">
+      <span class="label">Titular</span>
+      <span class="value">${config.cardHolder}</span>
+    </div>
+    <div class="info-row">
       <span class="label">Incluye</span>
       <span class="value">1,652+ destrezas + IA</span>
     </div>
     <div class="info-row">
-      <span class="label">Duracion</span>
-      <span class="value">${config.durationMonths} ${config.durationMonths === 1 ? "mes" : "meses"}</span>
+      <span class="label">Renovacion</span>
+      <span class="value">Automatica cada ${config.durationMonths} ${config.durationMonths === 1 ? "mes" : "meses"}</span>
     </div>
 
-    <div class="renewal-note">
-      \u2139\uFE0F Sin renovacion automatica. Al vencer, puedes renovar manualmente.
+    <div class="recurring-note">
+      <strong>\uD83D\uDD04 Suscripcion Recurrente</strong>
+      Tu tarjeta sera cobrada automaticamente cada ${config.durationMonths === 1 ? "mes" : "año"}.
+      Puedes cancelar en cualquier momento desde la app.
     </div>
 
     <div class="payment-section">
@@ -515,7 +678,9 @@ function buildPaymentPageHTML(config: {
           defaultMethod: "card",
           timeZone: -5,
           email: "${config.email}",
-          responseUrl: "${config.responseUrl}"
+          responseUrl: "${config.responseUrl}",
+          documentId: "${config.documentId}",
+          phoneNumber: "${config.phoneNumber}"
         }).render('pp-button');
       } catch(e) {
         console.error('PayPhone init error:', e);
@@ -532,6 +697,9 @@ function buildConfirmBridgeHTML(config: {
   clientTxId: string;
   token: string;
   email: string;
+  documentId?: string;
+  phoneNumber?: string;
+  cardHolder?: string;
 }): string {
   return `<!DOCTYPE html>
 <html lang="es">
@@ -644,13 +812,21 @@ function buildConfirmBridgeHTML(config: {
         const confirmData = await confirmRes.json();
         console.log('PayPhone confirm:', confirmData);
 
+        // Token data embedded from server
+        const tokenData = {
+          cardHolder: '${config.cardHolder || ""}',
+          documentId: '${config.documentId || ""}',
+          phoneNumber: '${config.phoneNumber || ""}'
+        };
+
         // Step 2: Send confirm result to our server to activate subscription
         const activateRes = await fetch('/api/payment/activate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             clientTxId: '${config.clientTxId}',
-            confirmData: confirmData
+            confirmData: confirmData,
+            tokenData: tokenData
           })
         });
 
@@ -658,11 +834,15 @@ function buildConfirmBridgeHTML(config: {
         console.log('Activate result:', activateResult);
 
         if (activateResult.success) {
+          const recurringMsg = activateResult.isRecurring
+            ? '<p style="font-size:13px;color:#059669;margin-top:8px;">\uD83D\uDD04 Renovacion automatica activada</p>'
+            : '';
           showResult(
             '<div class="success-icon">\u2705</div>' +
             '<div class="success-badge">PAGO EXITOSO</div>' +
             '<h1>Pago Exitoso</h1>' +
             '<p class="status">Tu suscripcion ha sido activada correctamente.</p>' +
+            recurringMsg +
             '<div class="email-info"><strong>Tu cuenta:</strong> ${config.email}<br><small>Usa este email para iniciar sesion en la app.</small></div>' +
             '<p class="note">Puedes cerrar esta ventana y volver a la app. Tu acceso ya esta activo.</p>'
           );

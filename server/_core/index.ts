@@ -6,6 +6,7 @@ import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerPayPhoneRoutes } from "../payphone";
+import { startRecurringBillingScheduler } from "../recurring-billing";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 
@@ -93,6 +94,13 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`[api] server listening on port ${port}`);
+
+    // Start recurring billing scheduler in production
+    if (process.env.NODE_ENV === "production") {
+      startRecurringBillingScheduler();
+    } else {
+      console.log("[RecurringBilling] Skipped in development mode");
+    }
   });
 }
 

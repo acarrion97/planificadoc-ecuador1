@@ -166,4 +166,10 @@
 - [x] Cambiar encabezado "Evaluación" a "Actividades Evaluativas" en tabla principal
 - [x] Competencias como iconos/badges (CM, C, CD, CS) junto a la destreza en la tabla
 - [x] Eliminar agrupación por "Bloque Curricular 1, 2, 3" en la tabla principal
-- [ ] Corregir flujo: docente escribe su tema primero (input de texto), luego la app sugiere 2 alternativas con IA. No mostrar temas para elegir.
+- [x] Corregir flujo: docente escribe su tema primero (input de texto), luego la app sugiere 2 alternativas con IA. No mostrar temas para elegir.
+- [x] Implementar pago recurrente con tokenización PayPhone (webcardtoken)
+- [x] Actualizar esquema BD: campos token tarjeta, fecha próximo cobro, estado suscripción
+- [x] Flujo primer pago: tokenizar tarjeta + cobrar
+- [x] Cobro recurrente automático (cron job mensual/anual)
+- [x] Suspender acceso si falla cobro recurrente
+- [x] Actualizar UI de suscripción para reflejar estado recurrente

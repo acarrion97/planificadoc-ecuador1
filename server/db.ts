@@ -5,8 +5,10 @@ import {
   users,
   subscriptions,
   paymentTransactions,
+  cardTokens,
   InsertSubscription,
   InsertPaymentTransaction,
+  InsertCardToken,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
@@ -218,4 +220,128 @@ export async function countPreviousSubscriptions(email: string): Promise<number>
     .where(eq(subscriptions.email, email.toLowerCase()));
 
   return result.length;
+}
+
+// ============= Card Token Queries =============
+
+/**
+ * Save or update a card token for recurring billing.
+ * Deactivates any previous tokens for the same email.
+ */
+export async function saveCardToken(data: InsertCardToken): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Deactivate previous tokens for this email
+  await db
+    .update(cardTokens)
+    .set({ isActive: false })
+    .where(eq(cardTokens.email, data.email.toLowerCase()));
+
+  // Insert new token
+  const result = await db.insert(cardTokens).values({
+    ...data,
+    email: data.email.toLowerCase(),
+  });
+  return result[0].insertId;
+}
+
+/**
+ * Get the active card token for an email.
+ */
+export async function getActiveCardToken(email: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db
+    .select()
+    .from(cardTokens)
+    .where(
+      and(
+        eq(cardTokens.email, email.toLowerCase()),
+        eq(cardTokens.isActive, true)
+      )
+    )
+    .orderBy(desc(cardTokens.createdAt))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+/**
+ * Get all subscriptions that are due for renewal (expired or about to expire).
+ * Returns active recurring subscriptions whose endDate has passed.
+ */
+export async function getSubscriptionsDueForRenewal() {
+  const db = await getDb();
+  if (!db) return [];
+
+  const now = new Date();
+  const result = await db
+    .select()
+    .from(subscriptions)
+    .where(
+      and(
+        eq(subscriptions.isRecurring, true),
+        eq(subscriptions.status, "active")
+      )
+    );
+
+  // Filter those whose endDate has passed
+  return result.filter((sub) => new Date(sub.endDate) <= now);
+}
+
+/**
+ * Get subscriptions in past_due status (grace period).
+ */
+export async function getPastDueSubscriptions() {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(subscriptions)
+    .where(
+      and(
+        eq(subscriptions.isRecurring, true),
+        eq(subscriptions.status, "past_due")
+      )
+    );
+}
+
+/**
+ * Update subscription status and charge attempt info.
+ */
+export async function updateSubscriptionChargeStatus(
+  id: number,
+  data: {
+    status?: "active" | "expired" | "cancelled" | "past_due";
+    failedChargeAttempts?: number;
+    lastChargeAttempt?: Date;
+    endDate?: Date;
+    transactionId?: string;
+    authorizationCode?: string;
+    amountPaid?: number;
+  }
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(subscriptions)
+    .set(data)
+    .where(eq(subscriptions.id, id));
+}
+
+/**
+ * Deactivate a card token (e.g., after too many failures).
+ */
+export async function deactivateCardToken(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(cardTokens)
+    .set({ isActive: false })
+    .where(eq(cardTokens.id, id));
 }

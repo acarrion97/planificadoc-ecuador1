@@ -37,6 +37,9 @@ export default function PaywallScreen() {
 
   // Subscription state
   const [email, setEmail] = useState("");
+  const [cardHolder, setCardHolder] = useState("");
+  const [documentId, setDocumentId] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [emailError, setEmailError] = useState("");
   const [checkingPayment, setCheckingPayment] = useState(false);
 
@@ -55,6 +58,10 @@ export default function PaywallScreen() {
 
   const handlePayWithPayPhone = useCallback(async () => {
     const trimmedEmail = email.trim().toLowerCase();
+    const trimmedCardHolder = cardHolder.trim();
+    const trimmedDocumentId = documentId.trim();
+    const trimmedPhone = phoneNumber.trim();
+
     if (!trimmedEmail) {
       setEmailError("Ingresa tu correo electrónico");
       return;
@@ -63,11 +70,31 @@ export default function PaywallScreen() {
       setEmailError("Ingresa un correo válido");
       return;
     }
+    if (!trimmedCardHolder) {
+      setEmailError("Ingresa el nombre del titular de la tarjeta");
+      return;
+    }
+    if (!trimmedDocumentId || trimmedDocumentId.length < 8) {
+      setEmailError("Ingresa tu número de cédula (mínimo 8 dígitos)");
+      return;
+    }
+    if (!trimmedPhone || trimmedPhone.length < 9) {
+      setEmailError("Ingresa tu número de celular");
+      return;
+    }
     setEmailError("");
+
+    // Format phone to 593 prefix if needed
+    let formattedPhone = trimmedPhone.replace(/\D/g, "");
+    if (formattedPhone.startsWith("0")) {
+      formattedPhone = "593" + formattedPhone.substring(1);
+    } else if (!formattedPhone.startsWith("593")) {
+      formattedPhone = "593" + formattedPhone;
+    }
 
     // Always use planificadoc.app for payment page so PayPhone domain validation passes
     const PAYMENT_BASE_URL = "https://planificadoc.app";
-    const paymentUrl = `${PAYMENT_BASE_URL}/api/payment/page?email=${encodeURIComponent(trimmedEmail)}&plan=${selectedPlan}`;
+    const paymentUrl = `${PAYMENT_BASE_URL}/api/payment/page?email=${encodeURIComponent(trimmedEmail)}&plan=${selectedPlan}&documentId=${encodeURIComponent(trimmedDocumentId)}&phoneNumber=${encodeURIComponent(formattedPhone)}&cardHolder=${encodeURIComponent(trimmedCardHolder)}`;
 
     try {
       if (Platform.OS === "web") {
@@ -80,7 +107,7 @@ export default function PaywallScreen() {
         Alert.alert("Error", "No se pudo abrir el navegador para el pago.");
       }
     }
-  }, [email, selectedPlan]);
+  }, [email, selectedPlan, cardHolder, documentId, phoneNumber]);
 
   const handleCheckPayment = useCallback(async () => {
     const trimmedEmail = email.trim().toLowerCase();
@@ -300,7 +327,7 @@ export default function PaywallScreen() {
           </Pressable>
 
           <Text style={[styles.noAutoRenewal, { color: colors.muted }]}>
-            {"\u2139\uFE0F"} Sin renovación automática. Al vencer, puedes renovar manualmente.
+            {"\uD83D\uDD04"} Renovación automática. Puedes cancelar en cualquier momento.
           </Text>
         </View>
 
@@ -345,8 +372,94 @@ export default function PaywallScreen() {
         {/* Subscribe Tab */}
         {activeTab === "subscribe" && (
           <View style={styles.formSection}>
-            {/* Email Input */}
+            {/* Card Holder Name */}
             <Text style={[styles.inputLabel, { color: colors.foreground }]}>
+              Nombre del titular de la tarjeta
+            </Text>
+            <View
+              style={[
+                styles.inputContainer,
+                {
+                  backgroundColor: colors.surface,
+                  borderColor: colors.border,
+                },
+              ]}
+            >
+              <Text style={{ fontSize: 18 }}>{"\uD83D\uDC64"}</Text>
+              <TextInput
+                style={[styles.textInput, { color: colors.foreground }]}
+                placeholder="Nombre completo"
+                placeholderTextColor={colors.muted}
+                value={cardHolder}
+                onChangeText={(text) => {
+                  setCardHolder(text);
+                  setEmailError("");
+                }}
+                autoCapitalize="words"
+                returnKeyType="next"
+              />
+            </View>
+
+            {/* Document ID (Cédula) */}
+            <Text style={[styles.inputLabel, { color: colors.foreground, marginTop: 12 }]}>
+              Cédula de identidad
+            </Text>
+            <View
+              style={[
+                styles.inputContainer,
+                {
+                  backgroundColor: colors.surface,
+                  borderColor: colors.border,
+                },
+              ]}
+            >
+              <Text style={{ fontSize: 18 }}>{"\uD83C\uDDF2"}</Text>
+              <TextInput
+                style={[styles.textInput, { color: colors.foreground }]}
+                placeholder="0912345678"
+                placeholderTextColor={colors.muted}
+                value={documentId}
+                onChangeText={(text) => {
+                  setDocumentId(text.replace(/\D/g, ""));
+                  setEmailError("");
+                }}
+                keyboardType="number-pad"
+                maxLength={13}
+                returnKeyType="next"
+              />
+            </View>
+
+            {/* Phone Number */}
+            <Text style={[styles.inputLabel, { color: colors.foreground, marginTop: 12 }]}>
+              Número de celular
+            </Text>
+            <View
+              style={[
+                styles.inputContainer,
+                {
+                  backgroundColor: colors.surface,
+                  borderColor: colors.border,
+                },
+              ]}
+            >
+              <Text style={{ fontSize: 18 }}>{"\uD83D\uDCF1"}</Text>
+              <TextInput
+                style={[styles.textInput, { color: colors.foreground }]}
+                placeholder="0987654321"
+                placeholderTextColor={colors.muted}
+                value={phoneNumber}
+                onChangeText={(text) => {
+                  setPhoneNumber(text.replace(/\D/g, ""));
+                  setEmailError("");
+                }}
+                keyboardType="phone-pad"
+                maxLength={13}
+                returnKeyType="next"
+              />
+            </View>
+
+            {/* Email Input */}
+            <Text style={[styles.inputLabel, { color: colors.foreground, marginTop: 12 }]}>
               Tu correo electrónico
             </Text>
             <View
