@@ -323,7 +323,6 @@ export default function PlanificarScreen() {
       fechaInicio: fechaInicio.trim() || undefined,
       fechaFin: fechaFin.trim() || undefined,
       paralelo: paralelo.trim() || undefined,
-      bloquesCurriculares: bloquesCurriculares.map(b => b.nombre),
       habilidadesSocioemocionales: habilidadesSocioemocionales.length > 0 ? habilidadesSocioemocionales : undefined,
       estilosAprendizajePorcentaje: {
         visual: parseInt(pctVisual) || 25,
@@ -494,22 +493,6 @@ export default function PlanificarScreen() {
 
           <FormField label={isEFL ? "Number of Periods" : "N\u00famero de Per\u00edodos"} value={periodos} onChangeText={setPeriodos} placeholder="1" keyboardType="numeric" colors={colors} />
 
-          {/* Bloques Curriculares (solo lectura) */}
-          {bloquesCurriculares.length > 0 && (
-            <View className="px-5 mt-3">
-              <Text className="text-sm font-medium text-muted mb-2">{isEFL ? "Curricular Blocks" : "Bloques Curriculares"}</Text>
-              <View style={[styles.bloquesContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-                {bloquesCurriculares.map((b, idx) => (
-                  <View key={b.id} style={styles.bloqueRow}>
-                    <Text style={{ fontSize: 12, fontWeight: "700", color: areaInfo.color, width: 80 }}>
-                      Bloque {idx + 1}:
-                    </Text>
-                    <Text className="text-sm text-foreground flex-1">{b.nombre}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
 
           {/* ===== 2. PRINCIPIOS DUA ===== */}
           <SectionTitle title={isEFL ? "2. UDL Principles" : "2. Principios DUA"} emoji={"\u267F"} colors={colors} />

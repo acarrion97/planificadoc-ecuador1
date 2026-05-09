@@ -161,3 +161,8 @@
 - [x] Agregar sección "Habilidades Socioemocionales Asociadas" (lista de habilidades)
 - [x] Actualizar PDF con formato de tabla oficial (plantilla 2026-2027)
 - [x] Actualizar formulario con los nuevos campos del formato oficial
+- [x] Revertir título PDF/vista a "Planificación Microcurricular de Clase" (no "por Trimestre")
+- [x] Agregar columna "Recursos" entre Estrategias Metodológicas y Actividades Evaluativas en tabla principal
+- [x] Cambiar encabezado "Evaluación" a "Actividades Evaluativas" en tabla principal
+- [x] Competencias como iconos/badges (CM, C, CD, CS) junto a la destreza en la tabla
+- [x] Eliminar agrupación por "Bloque Curricular 1, 2, 3" en la tabla principal

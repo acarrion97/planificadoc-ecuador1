@@ -65,8 +65,8 @@ export default function VerPlanScreen() {
           </Pressable>
           <Text className="text-xl font-bold text-foreground mt-3">
             {isEFL
-              ? "Microcurricular Planning per Quarter"
-              : "Planificaci\u00f3n Microcurricular por Trimestre"}
+              ? "Microcurricular Lesson Plan"
+              : "Planificaci\u00f3n Microcurricular de Clase"}
           </Text>
           <Text className="text-xs text-muted mt-1">2026 - 2027</Text>
         </View>
@@ -156,7 +156,6 @@ export default function VerPlanScreen() {
           {plan.fechaFin && (
             <DataRow label={isEFL ? "End Date" : "Fecha Fin"} value={plan.fechaFin} colors={colors} />
           )}
-          <DataRow label={isEFL ? "Curricular Block" : "Bloque Curricular"} value={obtenerNombreBloque(plan.destreza.area, plan.destreza.bloque)} colors={colors} />
         </SectionCard>
 
         {/* SECCI\u00d3N 2: Principios DUA */}
@@ -251,12 +250,31 @@ export default function VerPlanScreen() {
           </SectionCard>
         )}
 
-        {/* Destreza con Criterio de Desempe\u00f1o */}
+        {/* Destreza con Criterio de Desempe\u00f1o + Competencias como badges */}
         <SectionCard title={isEFL ? "Performance Criteria Skill" : "Destreza con Criterio de Desempe\u00f1o"} emoji={"\u2B50"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
             {plan.destreza.descripcion}
           </Text>
+          {plan.usaCompetencias && plan.competencias && plan.competencias.length > 0 && (
+            <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 8, gap: 6 }}>
+              {plan.competencias.map((compId: string) => {
+                const badgeMap: Record<string, { label: string; color: string }> = {
+                  matematicas: { label: "CM", color: "#7C3AED" },
+                  comunicacionales: { label: "C", color: "#059669" },
+                  digitales: { label: "CD", color: "#2563EB" },
+                  socioemocionales: { label: "CS", color: "#DC2626" },
+                };
+                const badge = badgeMap[compId];
+                if (!badge) return null;
+                return (
+                  <View key={compId} style={{ backgroundColor: badge.color, paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 }}>
+                    <Text style={{ color: "#fff", fontSize: 10, fontWeight: "700" }}>{badge.label}</Text>
+                  </View>
+                );
+              })}
+            </View>
+          )}
         </SectionCard>
 
         {/* Estructura de la Clase - 4 fases ERCA con DUA */}
@@ -319,8 +337,8 @@ export default function VerPlanScreen() {
           </View>
         )}
 
-        {/* Evaluaci\u00f3n */}
-        <SectionCard title={isEFL ? "Assessment" : "Evaluaci\u00f3n"} emoji={"\uD83D\uDCCA"} colors={colors}>
+        {/* Actividades Evaluativas */}
+        <SectionCard title={isEFL ? "Assessment Activities" : "Actividades Evaluativas"} emoji={"\uD83D\uDCCA"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             {tema?.evaluacionFormativa || plan.evaluacion || (isEFL ? "Not specified" : "No especificada")}
           </Text>
@@ -358,20 +376,7 @@ export default function VerPlanScreen() {
           </SectionCard>
         ) : null}
 
-        {/* Competencias */}
-        {plan.usaCompetencias && plan.competencias && plan.competencias.length > 0 ? (
-          <SectionCard title={isEFL ? "Competencies" : "Competencias"} emoji={"\uD83C\uDFAF"} colors={colors}>
-            {plan.competencias.map((compId: string) => {
-              const comp = COMPETENCIAS.find(c => c.id === compId);
-              if (!comp) return null;
-              return (
-                <Text key={comp.id} style={{ fontSize: 13, color: colors.foreground, marginBottom: 4 }}>
-                  {"\u2022"} {isEFL ? comp.nameEN : comp.nombreCorto}
-                </Text>
-              );
-            })}
-          </SectionCard>
-        ) : null}
+
 
         {/* Metodolog\u00edas Activas */}
         {plan.metodologiasActivas && plan.metodologiasActivas.length > 0 ? (

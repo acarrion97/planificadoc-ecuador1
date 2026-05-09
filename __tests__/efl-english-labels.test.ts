@@ -162,9 +162,8 @@ describe("EFL English Labels", () => {
     it("should generate PDF HTML with English labels for EFL", () => {
       const html = generarHTMLPlanificacion(mockEFLPlan);
 
-      // Title - new quarterly format
-      expect(html).toContain("MICROCURRICULAR PLANNING FOR");
-      expect(html).toContain("PER QUARTER");
+      // Title - new class format
+      expect(html).toContain("MICROCURRICULAR LESSON PLAN");
 
       // Section headers - new format
       expect(html).toContain("1. General Information");

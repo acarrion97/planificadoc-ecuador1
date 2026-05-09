@@ -11,17 +11,27 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
   const areaInfo = AREAS_INFO[plan.destreza.area];
   const subnivelName = SUBNIVEL_NAMES[plan.destreza.subnivel];
   const isEFL = plan.destreza.area === "EFL";
-  const bloqueName = areaInfo.bloques[plan.destreza.bloque] || (isEFL ? `Block ${plan.destreza.bloque}` : `Bloque ${plan.destreza.bloque}`);
   const fechaFormateada = new Date(plan.createdAt).toLocaleDateString(isEFL ? "en-US" : "es-EC", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
-  // Bloques curriculares del área
-  const bloquesHTML = plan.bloquesCurriculares && plan.bloquesCurriculares.length > 0
-    ? plan.bloquesCurriculares.map((b, i) => `<tr><td class="label" style="width:22%;">Bloque Curricular ${i + 1}:</td><td class="value" colspan="3">${b}</td></tr>`).join("")
-    : Object.entries(areaInfo.bloques).map(([key, name], i) => `<tr><td class="label" style="width:22%;">Bloque Curricular ${i + 1}:</td><td class="value" colspan="3">${name}</td></tr>`).join("");
+  // Competencias como iconos/badges
+  const competenciasBadgesHTML = (() => {
+    if (!plan.competencias || plan.competencias.length === 0) return "";
+    const badgeMap: Record<string, { label: string; color: string }> = {
+      matematicas: { label: "CM", color: "#7C3AED" },
+      comunicacionales: { label: "C", color: "#059669" },
+      digitales: { label: "CD", color: "#2563EB" },
+      socioemocionales: { label: "CS", color: "#DC2626" },
+    };
+    return plan.competencias.map((id: string) => {
+      const badge = badgeMap[id];
+      if (!badge) return "";
+      return `<span style="display:inline-block;background:${badge.color};color:white;font-size:7px;font-weight:bold;padding:1px 4px;border-radius:3px;margin-right:3px;">${badge.label}</span>`;
+    }).join("");
+  })();
 
   // Habilidades socioemocionales
   const habHTML = (() => {
@@ -274,10 +284,11 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       padding: 5px;
     }
 
-    .col-destreza { width: 22%; }
-    .col-indicadores { width: 20%; }
-    .col-estrategias { width: 38%; }
-    .col-evaluacion { width: 20%; }
+    .col-destreza { width: 20%; }
+    .col-indicadores { width: 18%; }
+    .col-estrategias { width: 32%; }
+    .col-recursos { width: 12%; }
+    .col-evaluacion { width: 18%; }
 
     /* ===== FASES ERCA ===== */
     .fase {
@@ -551,8 +562,8 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
   <!-- TÍTULO PRINCIPAL -->
   <div class="titulo-principal">
     ${isEFL
-      ? `MICROCURRICULAR PLANNING FOR ${areaInfo.name.toUpperCase()} AND COMPREHENSIVE ACCOMPANIMENT IN THE CLASSROOM PER QUARTER`
-      : `PLANIFICACIÓN MICROCURRICULAR PARA ${areaInfo.name.toUpperCase()} Y ACOMPAÑAMIENTO INTEGRAL EN EL AULA POR TRIMESTRE`}
+      ? `MICROCURRICULAR LESSON PLAN - ${areaInfo.name.toUpperCase()}`
+      : `PLANIFICACIÓN MICROCURRICULAR DE CLASE - ${areaInfo.name.toUpperCase()}`}
   </div>
 
   <!-- SECCIÓN 1: DATOS INFORMATIVOS -->
@@ -594,7 +605,6 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       <td class="value">${plan.paralelo || '"A"'}</td>
       <td class="label" colspan="4"></td>
     </tr>
-    ${bloquesHTML}
   </table>
 
   <!-- SECCIÓN 2: PRINCIPIOS DUA -->
@@ -657,14 +667,16 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
         <th class="col-destreza">${isEFL ? "Performance Criteria Skills" : "DESTREZAS CON CRITERIOS DE DESEMPEÑO"}</th>
         <th class="col-indicadores">${isEFL ? "Assessment Indicators" : "INDICADORES DE EVALUACIÓN"}</th>
         <th class="col-estrategias">${isEFL ? "Active Methodological Strategies for Teaching and Learning and UDL-based Diversified Strategies" : "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE Y ESTRATEGIAS METODOLÓGICAS DIVERSIFICADAS CON BASE AL DUA"}</th>
-        <th class="col-evaluacion">${isEFL ? "Assessment" : "EVALUACIÓN"}</th>
+        <th class="col-recursos">${isEFL ? "Resources" : "RECURSOS"}</th>
+        <th class="col-evaluacion">${isEFL ? "Assessment Activities" : "ACTIVIDADES EVALUATIVAS"}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          <strong style="font-size:8px;">${isEFL ? "Curricular Block:" : "Bloque Curricular:"} ${bloqueName}</strong><br/><br/>
-          <strong>${plan.destreza.codigo}</strong><br/>
+          <strong>${plan.destreza.codigo}</strong>
+          ${competenciasBadgesHTML ? `<div style="margin-top:3px;">${competenciasBadgesHTML}</div>` : ""}
+          <br/>
           ${plan.destreza.descripcion}
         </td>
         <td>
@@ -692,6 +704,9 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
           ${actividadesHTML}
         </td>
         <td>
+          ${recursosTexto}
+        </td>
+        <td>
           <strong style="font-size:7.5px;">${isEFL ? "Assessment indicators:" : "Indicadores de evaluación:"}</strong><br/>
           ${evaluacionTexto}
           <br/><br/>
@@ -712,12 +727,6 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       </tr>
     </tbody>
   </table>
-
-  <!-- SECCIÓN: RECURSOS -->
-  <div class="seccion-titulo">${isEFL ? "RESOURCES" : "RECURSOS"}</div>
-  <div class="recursos-box">
-    ${recursosTexto}
-  </div>
 
   <!-- SECCIÓN: DUA DETALLADO -->
   <div class="seccion-titulo">${isEFL ? "UNIVERSAL DESIGN FOR LEARNING (UDL)" : "DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA)"}</div>

@@ -95,8 +95,7 @@ describe("generarHTMLPlanificacion", () => {
 
   it("debe incluir el título de planificación microcurricular", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("PLANIFICACIÓN MICROCURRICULAR PARA");
-    expect(html).toContain("POR TRIMESTRE");
+    expect(html).toContain("PLANIFICACIÓN MICROCURRICULAR DE CLASE");
   });
 
   it("debe incluir los datos informativos del docente", () => {
@@ -186,9 +185,9 @@ describe("generarHTMLPlanificacion", () => {
     expect(html).toContain("Básica Media");
   });
 
-  it("debe incluir el bloque curricular", () => {
+  it("debe incluir la destreza sin bloque curricular", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("Álgebra y funciones");
+    expect(html).toContain("M.3.1.1");
   });
 
   it("debe incluir estilos CSS para impresión A4", () => {
