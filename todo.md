@@ -173,3 +173,8 @@
 - [x] Cobro recurrente automático (cron job mensual/anual)
 - [x] Suspender acceso si falla cobro recurrente
 - [x] Actualizar UI de suscripción para reflejar estado recurrente
+- [x] Crear pantalla "Mi Suscripción": estado, fecha renovación, botón cancelar renovación automática
+- [x] Crear panel de administración (dashboard): métricas de usuarios, suscripciones activas, planificaciones generadas
+- [x] Tabla de usuarios en admin: email, nombre, cédula, teléfono, plan, estado, fecha registro, planificaciones generadas
+- [x] Endpoints API para admin dashboard (protegidos con clave)
+- [x] Endpoint API para datos de suscripción del usuario actual

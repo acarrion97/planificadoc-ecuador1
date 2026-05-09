@@ -54,6 +54,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="cuenta"
+        options={{
+          title: "Mi Cuenta",
+          tabBarIcon: ({ color }) => (
+            <Text style={{ fontSize: 22 }}>{"\uD83D\uDC64"}</Text>
+          ),
+        }}
+      />
     </Tabs>
   );
 }

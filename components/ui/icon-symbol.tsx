@@ -22,6 +22,7 @@ const MAPPING = {
   "xmark": "close",
   "checkmark.circle.fill": "check-circle",
   "square.and.pencil": "edit",
+  "person.circle.fill": "account-circle",
 } as IconMapping;
 
 export function IconSymbol({

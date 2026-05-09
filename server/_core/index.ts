@@ -6,6 +6,8 @@ import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerPayPhoneRoutes } from "../payphone";
+import { registerAdminRoutes } from "../admin-router";
+import { registerAdminPanel } from "../admin-panel";
 import { startRecurringBillingScheduler } from "../recurring-billing";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
@@ -59,6 +61,8 @@ async function startServer() {
 
   registerOAuthRoutes(app);
   registerPayPhoneRoutes(app);
+  registerAdminRoutes(app);
+  registerAdminPanel(app);
 
   app.get("/api/health", (_req, res) => {
     res.json({ ok: true, timestamp: Date.now() });
