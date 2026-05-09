@@ -166,3 +166,4 @@
 - [x] Cambiar encabezado "Evaluación" a "Actividades Evaluativas" en tabla principal
 - [x] Competencias como iconos/badges (CM, C, CD, CS) junto a la destreza en la tabla
 - [x] Eliminar agrupación por "Bloque Curricular 1, 2, 3" en la tabla principal
+- [ ] Corregir flujo: docente escribe su tema primero (input de texto), luego la app sugiere 2 alternativas con IA. No mostrar temas para elegir.
