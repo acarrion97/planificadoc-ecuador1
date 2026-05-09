@@ -81,6 +81,8 @@
     .metric-card.success { border-left: 4px solid #22c55e; }
     .metric-card.warning { border-left: 4px solid #f59e0b; }
     .metric-card.revenue { border-left: 4px solid #8b5cf6; }
+    .metric-card.danger { border-left: 4px solid #ef4444; }
+    .metric-card.info { border-left: 4px solid #06b6d4; }
     .section { margin-bottom: 32px; }
     .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1e293b; }
     .table-container {
@@ -120,6 +122,8 @@
     .badge-cancelled { background: #f1f5f9; color: #475569; }
     .badge-recurring { background: #ede9fe; color: #5b21b6; }
     .badge-one-time { background: #f0f9ff; color: #0369a1; }
+    .badge-alert { background: #fee2e2; color: #991b1b; font-weight: 700; }
+    .badge-ok { background: #dcfce7; color: #166534; }
     .loading { text-align: center; padding: 40px; color: #64748b; }
     .refresh-btn {
       background: #3b82f6;
@@ -132,7 +136,7 @@
       font-weight: 500;
     }
     .refresh-btn:hover { background: #2563eb; }
-    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
     .last-updated { font-size: 12px; color: #94a3b8; }
     .search-input {
       padding: 8px 12px;
@@ -141,7 +145,7 @@
       font-size: 13px;
       width: 250px;
     }
-    .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
     .tab {
       padding: 8px 16px;
       border-radius: 8px;
@@ -153,7 +157,41 @@
       color: #475569;
     }
     .tab.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+    .tab .tab-badge {
+      display: inline-block;
+      background: #ef4444;
+      color: white;
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 10px;
+      margin-left: 4px;
+    }
     #dashboard { display: none; }
+    .alert-row { background: #fef2f2 !important; }
+    .alert-row td { background: #fef2f2 !important; }
+    .code-detail-toggle {
+      cursor: pointer;
+      color: #3b82f6;
+      text-decoration: underline;
+      font-size: 12px;
+    }
+    .code-details {
+      display: none;
+      padding: 8px 16px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+    }
+    .code-details table { font-size: 12px; }
+    .code-details th { padding: 6px 10px; font-size: 11px; }
+    .code-details td { padding: 6px 10px; font-size: 12px; }
+    .empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: #94a3b8;
+    }
+    .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state .title { font-size: 16px; font-weight: 600; color: #64748b; margin-bottom: 4px; }
+    .empty-state .desc { font-size: 13px; }
   </style>
 </head>
 <body>
@@ -188,14 +226,15 @@
 
       <!-- Tabs -->
       <div class="tabs">
-        <div class="tab active" onclick="switchTab('users')" id="tab-users">Usuarios</div>
+        <div class="tab active" onclick="switchTab('users')" id="tab-users">Suscriptores</div>
+        <div class="tab" onclick="switchTab('codes')" id="tab-codes">Usuarios con Codigo</div>
         <div class="tab" onclick="switchTab('transactions')" id="tab-transactions">Transacciones</div>
       </div>
 
-      <!-- Users Section -->
+      <!-- Users Section (Suscriptores) -->
       <div class="section" id="section-users">
         <div class="toolbar">
-          <div class="section-title">Usuarios Suscritos</div>
+          <div class="section-title">Usuarios Suscritos (pago con tarjeta)</div>
           <input type="text" class="search-input" placeholder="Buscar por email, nombre, cedula..." oninput="filterUsers(this.value)" />
         </div>
         <div class="table-container">
@@ -217,6 +256,37 @@
             </thead>
             <tbody id="usersBody">
               <tr><td colspan="11" class="loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Codes Section (Usuarios con codigo) -->
+      <div class="section" id="section-codes" style="display:none;">
+        <div class="toolbar">
+          <div class="section-title">Activaciones con Codigo Promocional</div>
+          <input type="text" class="search-input" placeholder="Buscar por codigo, email, IP..." oninput="filterCodes(this.value)" />
+        </div>
+        <div id="codeAlertBanner" style="display:none; background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+          <strong style="color:#991b1b;">Posible cesion de codigos detectada</strong>
+          <p style="font-size:13px; color:#7f1d1d; margin-top:4px;" id="codeAlertText"></p>
+        </div>
+        <div class="table-container">
+          <table id="codesTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Codigo</th>
+                <th>Dispositivos</th>
+                <th>IPs Unicas</th>
+                <th>Activaciones</th>
+                <th>Estado</th>
+                <th>Ultima Activacion</th>
+                <th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody id="codesBody">
+              <tr><td colspan="8" class="loading">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -251,12 +321,12 @@
   <script>
     let API_KEY = '';
     let allUsers = [];
+    let allCodes = [];
 
     function authenticate() {
       const key = document.getElementById('keyInput').value.trim();
       if (!key) return;
 
-      // Test the key by calling the dashboard endpoint
       fetch('/api/admin/dashboard?key=' + encodeURIComponent(key))
         .then(r => {
           if (r.ok) {
@@ -292,21 +362,39 @@
       try {
         const data = await fetchJSON('/api/admin/dashboard');
         const m = data.metrics;
+
+        // Also load code stats for the metrics
+        let codeMetrics = { totalActivations: 0, totalCodes: 0, sharingAlerts: 0 };
+        try {
+          const codeData = await fetchJSON('/api/admin/code-users');
+          codeMetrics = { totalActivations: codeData.totalActivations, totalCodes: codeData.totalCodes, sharingAlerts: codeData.sharingAlerts };
+        } catch {}
+
         document.getElementById('metricsGrid').innerHTML = `
           <div class="metric-card highlight">
             <div class="label">Suscripciones Activas</div>
             <div class="value">${m.activeSubscriptions}</div>
             <div class="sub">de ${m.totalSubscriptions} totales</div>
           </div>
-          <div class="metric-card success">
-            <div class="label">Recurrentes</div>
-            <div class="value">${m.recurringActive}</div>
-            <div class="sub">${m.oneTimeActive} pago unico</div>
+          <div class="metric-card info">
+            <div class="label">Usuarios con Codigo</div>
+            <div class="value">${codeMetrics.totalCodes}</div>
+            <div class="sub">${codeMetrics.totalActivations} activaciones totales</div>
+          </div>
+          <div class="metric-card ${codeMetrics.sharingAlerts > 0 ? 'danger' : 'success'}">
+            <div class="label">Alertas de Cesion</div>
+            <div class="value">${codeMetrics.sharingAlerts}</div>
+            <div class="sub">${codeMetrics.sharingAlerts > 0 ? 'codigos compartidos' : 'sin alertas'}</div>
           </div>
           <div class="metric-card revenue">
             <div class="label">Ingresos del Mes</div>
             <div class="value">$${(m.monthlyRevenueCents / 100).toFixed(2)}</div>
             <div class="sub">Total: $${(m.totalRevenueCents / 100).toFixed(2)}</div>
+          </div>
+          <div class="metric-card success">
+            <div class="label">Recurrentes</div>
+            <div class="value">${m.recurringActive}</div>
+            <div class="sub">${m.oneTimeActive} pago unico</div>
           </div>
           <div class="metric-card warning">
             <div class="label">Pagos Pendientes</div>
@@ -383,6 +471,122 @@
       renderUsers(filtered);
     }
 
+    // ===== CODE USERS =====
+    async function loadCodeUsers() {
+      try {
+        const data = await fetchJSON('/api/admin/code-users');
+        allCodes = data.codes;
+
+        // Update tab badge
+        if (data.sharingAlerts > 0) {
+          document.getElementById('tab-codes').innerHTML = 'Usuarios con Codigo <span class="tab-badge">' + data.sharingAlerts + '</span>';
+        }
+
+        // Show alert banner
+        if (data.sharingAlerts > 0) {
+          document.getElementById('codeAlertBanner').style.display = 'block';
+          document.getElementById('codeAlertText').textContent = data.sharingAlerts + ' codigo(s) han sido usados desde multiples dispositivos. Esto puede indicar que alguien cedió su codigo a otra persona.';
+        } else {
+          document.getElementById('codeAlertBanner').style.display = 'none';
+        }
+
+        renderCodes(allCodes);
+      } catch (e) {
+        if (e.message.includes('404')) {
+          // Endpoint not available yet
+          document.getElementById('codesBody').innerHTML = `
+            <tr><td colspan="8">
+              <div class="empty-state">
+                <div class="icon">&#128274;</div>
+                <div class="title">Sin datos de activacion</div>
+                <div class="desc">Las activaciones con codigo se registraran a partir de ahora.<br>Los usuarios existentes que ya ingresaron con codigo apareceran cuando vuelvan a abrir la app.</div>
+              </div>
+            </td></tr>`;
+        } else {
+          document.getElementById('codesBody').innerHTML = '<tr><td colspan="8" class="loading">Error al cargar: ' + e.message + '</td></tr>';
+        }
+      }
+    }
+
+    function renderCodes(codes) {
+      if (codes.length === 0) {
+        document.getElementById('codesBody').innerHTML = `
+          <tr><td colspan="8">
+            <div class="empty-state">
+              <div class="icon">&#128274;</div>
+              <div class="title">Sin activaciones registradas</div>
+              <div class="desc">Las activaciones con codigo se registraran a partir de ahora.<br>Los usuarios existentes apareceran cuando vuelvan a abrir la app.</div>
+            </div>
+          </td></tr>`;
+        return;
+      }
+
+      let html = '';
+      codes.forEach((c, i) => {
+        const rowClass = c.possibleSharing ? 'alert-row' : '';
+        const lastActivation = c.activations.length > 0 ? c.activations[0].activatedAt : null;
+        html += `
+          <tr class="${rowClass}">
+            <td>${i + 1}</td>
+            <td><strong>${c.code}</strong></td>
+            <td>${c.uniqueDevices} ${c.possibleSharing ? '<span class="badge badge-alert">ALERTA</span>' : ''}</td>
+            <td>${c.uniqueIPs}</td>
+            <td>${c.totalActivations}</td>
+            <td><span class="badge ${c.possibleSharing ? 'badge-alert' : 'badge-ok'}">${c.possibleSharing ? 'Posible cesion' : 'OK'}</span></td>
+            <td>${formatDate(lastActivation)}</td>
+            <td><span class="code-detail-toggle" onclick="toggleCodeDetail(${i})">Ver detalle</span></td>
+          </tr>
+          <tr id="code-detail-${i}" style="display:none;">
+            <td colspan="8" style="padding:0;">
+              <div class="code-details" style="display:block;">
+                <table style="width:100%;">
+                  <thead>
+                    <tr>
+                      <th>Dispositivo</th>
+                      <th>Plataforma</th>
+                      <th>Email</th>
+                      <th>IP</th>
+                      <th>Fecha Activacion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${c.activations.map(a => `
+                      <tr>
+                        <td>${a.deviceId}</td>
+                        <td>${a.platform || '-'}</td>
+                        <td>${a.email || '-'}</td>
+                        <td>${a.ipAddress || '-'}</td>
+                        <td>${formatDateTime(a.activatedAt)}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+      document.getElementById('codesBody').innerHTML = html;
+    }
+
+    function toggleCodeDetail(index) {
+      const row = document.getElementById('code-detail-' + index);
+      row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+    }
+
+    function filterCodes(query) {
+      const q = query.toLowerCase();
+      const filtered = allCodes.filter(c =>
+        c.code.toLowerCase().includes(q) ||
+        c.activations.some(a =>
+          (a.email || '').toLowerCase().includes(q) ||
+          (a.ipAddress || '').includes(q) ||
+          (a.deviceId || '').toLowerCase().includes(q)
+        )
+      );
+      renderCodes(filtered);
+    }
+
     async function loadTransactions() {
       try {
         const data = await fetchJSON('/api/admin/transactions?limit=100');
@@ -412,6 +616,7 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + tab).classList.add('active');
       document.getElementById('section-users').style.display = tab === 'users' ? 'block' : 'none';
+      document.getElementById('section-codes').style.display = tab === 'codes' ? 'block' : 'none';
       document.getElementById('section-transactions').style.display = tab === 'transactions' ? 'block' : 'none';
     }
 
@@ -427,9 +632,17 @@
       } catch { return dateStr; }
     }
 
+    function formatDateTime(dateStr) {
+      if (!dateStr) return '-';
+      try {
+        return new Date(dateStr).toLocaleString('es-EC', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      } catch { return dateStr; }
+    }
+
     function loadAll() {
       loadMetrics();
       loadUsers();
+      loadCodeUsers();
       loadTransactions();
     }
   </script>

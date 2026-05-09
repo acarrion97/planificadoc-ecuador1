@@ -1,0 +1,25 @@
+{
+  "query": "SHOW TABLES;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3sXv1KbJbJwGeEk.root --database EvfwZtiEFS3QsRSJSXhBhm --execute SHOW TABLES;",
+  "rows": [
+    {
+      "Tables_in_EvfwZtiEFS3QsRSJSXhBhm": "__drizzle_migrations"
+    },
+    {
+      "Tables_in_EvfwZtiEFS3QsRSJSXhBhm": "card_tokens"
+    },
+    {
+      "Tables_in_EvfwZtiEFS3QsRSJSXhBhm": "payment_transactions"
+    },
+    {
+      "Tables_in_EvfwZtiEFS3QsRSJSXhBhm": "subscriptions"
+    },
+    {
+      "Tables_in_EvfwZtiEFS3QsRSJSXhBhm": "users"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_EvfwZtiEFS3QsRSJSXhBhm\n__drizzle_migrations\ncard_tokens\npayment_transactions\nsubscriptions\nusers\n",
+  "stderr": "",
+  "execution_time_ms": 1597
+}

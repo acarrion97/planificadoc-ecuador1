@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 import { getDb } from "./db";
-import { subscriptions, paymentTransactions, cardTokens } from "../drizzle/schema";
+import { subscriptions, paymentTransactions, cardTokens, codeActivations } from "../drizzle/schema";
 import { eq, desc, sql, and, count } from "drizzle-orm";
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET || "planificadoc-admin-2026";
@@ -190,6 +190,112 @@ export function registerAdminRoutes(app: Express) {
       });
     } catch (error) {
       console.error("[Admin] Transactions error:", error);
+      res.status(500).json({ error: "Error interno" });
+    }
+  });
+
+  /**
+   * POST /api/code/activate
+   * Registers a code activation from a device. Called by the app when user enters a valid code.
+   */
+  app.post("/api/code/activate", async (req: Request, res: Response) => {
+    try {
+      const { code, deviceId, platform, email } = req.body;
+      if (!code || !deviceId) {
+        res.status(400).json({ error: "code y deviceId son requeridos" });
+        return;
+      }
+
+      const db = await getDb();
+      if (!db) {
+        res.status(500).json({ error: "Base de datos no disponible" });
+        return;
+      }
+
+      // Get IP from request
+      const ipAddress = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+
+      await db.insert(codeActivations).values({
+        code: code.trim().toUpperCase(),
+        deviceId: deviceId,
+        platform: platform || "unknown",
+        email: email?.toLowerCase() || null,
+        ipAddress,
+      });
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[Code] Activation log error:", error);
+      // Don't block the user even if logging fails
+      res.json({ success: true });
+    }
+  });
+
+  /**
+   * GET /api/admin/code-users
+   * Returns all code activations with sharing detection.
+   */
+  app.get("/api/admin/code-users", requireAdmin, async (_req: Request, res: Response) => {
+    try {
+      const db = await getDb();
+      if (!db) {
+        res.status(500).json({ error: "Base de datos no disponible" });
+        return;
+      }
+
+      const allActivations = await db
+        .select()
+        .from(codeActivations)
+        .orderBy(desc(codeActivations.createdAt));
+
+      // Group by code to detect sharing
+      const codeMap = new Map<string, typeof allActivations>();
+      for (const act of allActivations) {
+        const existing = codeMap.get(act.code) || [];
+        existing.push(act);
+        codeMap.set(act.code, existing);
+      }
+
+      // Build response with sharing alerts
+      const codeStats = Array.from(codeMap.entries()).map(([code, activations]) => {
+        const uniqueDevices = new Set(activations.map(a => a.deviceId)).size;
+        const uniqueIPs = new Set(activations.map(a => a.ipAddress).filter(Boolean)).size;
+        const uniqueEmails = new Set(activations.map(a => a.email).filter(Boolean)).size;
+        const possibleSharing = uniqueDevices > 1;
+
+        return {
+          code,
+          totalActivations: activations.length,
+          uniqueDevices,
+          uniqueIPs,
+          uniqueEmails,
+          possibleSharing,
+          activations: activations.map(a => ({
+            id: a.id,
+            deviceId: a.deviceId.substring(0, 12) + "...",
+            platform: a.platform,
+            email: a.email,
+            ipAddress: a.ipAddress,
+            activatedAt: a.createdAt,
+          })),
+        };
+      });
+
+      // Sort: sharing alerts first, then by total activations
+      codeStats.sort((a, b) => {
+        if (a.possibleSharing && !b.possibleSharing) return -1;
+        if (!a.possibleSharing && b.possibleSharing) return 1;
+        return b.totalActivations - a.totalActivations;
+      });
+
+      res.json({
+        codes: codeStats,
+        totalActivations: allActivations.length,
+        totalCodes: codeStats.length,
+        sharingAlerts: codeStats.filter(c => c.possibleSharing).length,
+      });
+    } catch (error) {
+      console.error("[Admin] Code users error:", error);
       res.status(500).json({ error: "Error interno" });
     }
   });

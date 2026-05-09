@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
 import { getApiBaseUrl } from "@/constants/oauth";
+import * as Crypto from "expo-crypto";
 
 const ACCESS_STORAGE_KEY = "@planificadoc_access";
 
@@ -164,6 +166,28 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
       };
       setState(newState);
       await AsyncStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(newState));
+
+      // Register code activation on server for admin tracking
+      try {
+        let deviceId: string = (await AsyncStorage.getItem("@planificadoc_device_id")) || "";
+        if (!deviceId) {
+          deviceId = Crypto.randomUUID();
+          await AsyncStorage.setItem("@planificadoc_device_id", deviceId);
+        }
+        const baseUrl = getApiBaseUrl();
+        fetch(`${baseUrl}/api/code/activate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code: normalized,
+            deviceId,
+            platform: Platform.OS,
+          }),
+        }).catch(() => {}); // Fire and forget
+      } catch {
+        // Don't block user if tracking fails
+      }
+
       return true;
     }
     return false;

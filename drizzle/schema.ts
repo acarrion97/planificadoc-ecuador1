@@ -124,3 +124,25 @@ export const paymentTransactions = mysqlTable("payment_transactions", {
 
 export type PaymentTransaction = typeof paymentTransactions.$inferSelect;
 export type InsertPaymentTransaction = typeof paymentTransactions.$inferInsert;
+
+/**
+ * Code activations - tracks when users activate access with a promotional code.
+ * Used to detect potential code sharing (same code from multiple devices).
+ */
+export const codeActivations = mysqlTable("code_activations", {
+  id: int("id").autoincrement().primaryKey(),
+  /** The code that was activated */
+  code: varchar("code", { length: 64 }).notNull(),
+  /** Device fingerprint (unique per device installation) */
+  deviceId: varchar("deviceId", { length: 128 }).notNull(),
+  /** Platform: ios, android, web */
+  platform: varchar("platform", { length: 16 }),
+  /** Optional email if user provided one */
+  email: varchar("email", { length: 320 }),
+  /** IP address at time of activation */
+  ipAddress: varchar("ipAddress", { length: 64 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CodeActivation = typeof codeActivations.$inferSelect;
+export type InsertCodeActivation = typeof codeActivations.$inferInsert;
