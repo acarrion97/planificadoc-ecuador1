@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://plandoc-ec-evfwztie.manus.space/api/:path*"
+      "destination": "https://3000-i2g9lc4dozmhadbcpg79w-7deec740.us1.manus.computer/api/:path*"
     }
   ],
   "headers": [
