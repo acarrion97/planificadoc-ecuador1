@@ -143,7 +143,11 @@ export function registerPayPhoneRoutes(app: Express) {
     const planParam = (req.query.plan as string || "monthly").toLowerCase();
     const plan: PlanType = planParam === "annual" ? "annual" : "monthly";
     const documentId = (req.query.documentId as string || "").trim();
-    const phoneNumber = (req.query.phoneNumber as string || "").trim();
+    let phoneNumber = (req.query.phoneNumber as string || "").trim();
+    // Ensure phone has +593 format as required by PayPhone
+    if (phoneNumber && !phoneNumber.startsWith("+")) {
+      phoneNumber = "+" + phoneNumber;
+    }
     const cardHolder = (req.query.cardHolder as string || "").trim();
 
     if (!email || !email.includes("@")) {
@@ -218,7 +222,11 @@ export function registerPayPhoneRoutes(app: Express) {
     const clientTxId = req.query.clientTransactionId as string;
     // Token data passed via URL params from the payment page redirect
     const documentId = (req.query.documentId as string || "").trim();
-    const phoneNumber = (req.query.phoneNumber as string || "").trim();
+    let phoneNumber = (req.query.phoneNumber as string || "").trim();
+    // Ensure phone has +593 format as required by PayPhone
+    if (phoneNumber && !phoneNumber.startsWith("+")) {
+      phoneNumber = "+" + phoneNumber;
+    }
     const cardHolder = (req.query.cardHolder as string || "").trim();
 
     if (!payphoneTxId || !clientTxId) {

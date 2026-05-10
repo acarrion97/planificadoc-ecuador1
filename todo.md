@@ -185,5 +185,5 @@
 - [x] Migrar endpoints backend a Vercel Serverless Functions (pagos, suscripciones, admin, code-activate)
 - [x] Asegurar que planificadoc.app funcione 24/7 sin depender del sandbox de Manus
 - [x] Bug: La planificación muestra "true" y "false" como texto en vez de valores correctos - RESUELTO: limpieza de indicadores DUA del texto
-- [ ] Bug: Pasarela de pago muestra "Número de teléfono inválido" - corregir validación de teléfono
-- [ ] Verificar que los links de pagos recurrentes estén activos (no los de un solo pago)
+- [x] Bug: Pasarela de pago muestra "Número de teléfono inválido" - corregido formato +593 en paywall.tsx y payphone.ts
+- [x] Verificar que los links de pagos recurrentes estén activos - confirmado: ambos planes (mensual y anual) son recurrentes con tokenización

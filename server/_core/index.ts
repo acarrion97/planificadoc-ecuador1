@@ -99,12 +99,8 @@ async function startServer() {
   server.listen(port, () => {
     console.log(`[api] server listening on port ${port}`);
 
-    // Start recurring billing scheduler in production
-    if (process.env.NODE_ENV === "production") {
-      startRecurringBillingScheduler();
-    } else {
-      console.log("[RecurringBilling] Skipped in development mode");
-    }
+    // Start recurring billing scheduler (always active since this server serves production via proxy)
+    startRecurringBillingScheduler();
   });
 }
 
