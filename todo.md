@@ -181,6 +181,7 @@
 - [x] Fix: Panel admin no se abre en planificadoc.app - RESUELTO: rewrite de Vercel actualizado al API server correcto + admin.html estático en public/
 - [x] Admin panel: Mostrar usuarios que activaron con código promocional
 - [x] Admin panel: Indicador de posible cesión de códigos (código usado por más de un email/dispositivo)
-- [ ] Eliminar toda referencia/dependencia de manus.space en vercel.json y la app
-- [ ] Migrar endpoints backend a Vercel Serverless Functions (pagos, suscripciones, admin, code-activate)
-- [ ] Asegurar que planificadoc.app funcione 24/7 sin depender del sandbox de Manus
+- [x] Eliminar toda referencia/dependencia de manus.space en vercel.json y la app
+- [x] Migrar endpoints backend a Vercel Serverless Functions (pagos, suscripciones, admin, code-activate)
+- [x] Asegurar que planificadoc.app funcione 24/7 sin depender del sandbox de Manus
+- [ ] Bug: La planificación muestra "true" y "false" como texto en vez de valores correctos

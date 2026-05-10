@@ -272,13 +272,15 @@ Responde ÚNICAMENTE con un JSON válido:
 - "R" = Representation (pink) - presents information in multiple ways
 - "A" = Action & Expression (blue) - allows students to demonstrate learning in different ways
 GUARANTEE that in each ERCA stage, ALL 3 UDL principles are covered across the activities.
-In the "dua" array for each activity, put true/false for each principle.`
+In the "dua" array for each activity, put true/false for each principle.
+CRITICAL: Do NOT include DUA indicators (I:true, R:false, A:true) in the activity text strings. The DUA info goes ONLY in the separate "dua" array.`
         : `\nDUA (Diseño Universal para el Aprendizaje): Para CADA actividad, indica qué principios DUA cubre:
 - "I" = Implicación (verde) - motiva e involucra a los estudiantes
 - "R" = Representación (rosa) - presenta la información de múltiples formas
 - "A" = Acción y Expresión (azul) - permite demostrar el aprendizaje de diferentes maneras
 GARANTIZA que en cada etapa ERCA, los 3 principios DUA estén cubiertos entre las actividades.
-En el array "dua" de cada actividad, pon true/false para cada principio.`;
+En el array "dua" de cada actividad, pon true/false para cada principio.
+CRÍTICO: NO incluyas indicadores DUA (I:true, R:false, A:true) en el texto de las actividades. La info DUA va SOLO en el array "dua" separado.`;
 
       const prompt = isEFL
         ? `Generate a complete 45-minute ERCA lesson plan.
@@ -365,7 +367,18 @@ Responde ÚNICAMENTE con JSON válido:
 
         for (const fase of fases) {
           const faseData = parsed.estructura?.[fase];
-          const actividades = Array.isArray(faseData?.actividades) ? faseData.actividades : [];
+          // Limpiar texto de actividades: remover patrones DUA que la IA incluye en el texto
+          // Patrones: (I:true, R:false, A:true), (I:false, R:true, A:false), etc.
+          const rawActividades = Array.isArray(faseData?.actividades) ? faseData.actividades : [];
+          const actividades = rawActividades.map((act: any) => {
+            if (typeof act !== "string") return String(act);
+            return act
+              .replace(/\s*\(\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\)\s*/gi, "")
+              .replace(/\s*\[\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\]\s*/gi, "")
+              .replace(/\s*DUA\s*:\s*\{[^}]*\}\s*/gi, "")
+              .replace(/\s*\(DUA[^)]*\)\s*/gi, "")
+              .trim();
+          });
           const duaArr = Array.isArray(faseData?.dua) ? faseData.dua : [];
 
           // Normalizar DUA: asegurar que los 3 principios estén cubiertos en la fase

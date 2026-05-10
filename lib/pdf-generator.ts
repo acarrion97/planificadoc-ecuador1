@@ -76,12 +76,19 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
 
       const actItems = actividades.map((act: string, idx: number) => {
         const dua = duaActividades[idx] || { representacion: false, accionExpresion: false, implicacion: false };
+        // Limpiar texto: remover indicadores DUA del texto
+        const cleanAct = act
+          .replace(/\s*\(\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\)\s*/gi, "")
+          .replace(/\s*\[\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\]\s*/gi, "")
+          .replace(/\s*DUA\s*:\s*\{[^}]*\}\s*/gi, "")
+          .replace(/\s*\(DUA[^)]*\)\s*/gi, "")
+          .trim();
         const squares = `
           <span class="dua-sq" style="background:${dua.representacion ? '#EC4899' : '#EC489940'};"></span>
           <span class="dua-sq" style="background:${dua.accionExpresion ? '#1E3A5F' : '#1E3A5F40'};"></span>
           <span class="dua-sq" style="background:${dua.implicacion ? '#22C55E' : '#22C55E40'};"></span>
         `;
-        return `<li>${idx + 1}. ${act} ${squares}</li>`;
+        return `<li>${idx + 1}. ${cleanAct} ${squares}</li>`;
       }).join("");
 
       return `

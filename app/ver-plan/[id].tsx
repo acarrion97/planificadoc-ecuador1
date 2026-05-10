@@ -486,6 +486,13 @@ function FaseCardView({
       </View>
       {fase.actividades.map((act: string, idx: number) => {
         const dua: DUAActividad = duaActividades[idx] || { representacion: false, accionExpresion: false, implicacion: false };
+        // Limpiar texto: remover indicadores DUA que la IA pudo haber incluido en el texto
+        const cleanAct = act
+          .replace(/\s*\(\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\)\s*/gi, "")
+          .replace(/\s*\[\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\]\s*/gi, "")
+          .replace(/\s*DUA\s*:\s*\{[^}]*\}\s*/gi, "")
+          .replace(/\s*\(DUA[^)]*\)\s*/gi, "")
+          .trim();
         return (
           <View key={idx} style={styles.faseActRow}>
             <View style={[styles.faseActNum, { backgroundColor: color + "15" }]}>
@@ -494,7 +501,7 @@ function FaseCardView({
               </Text>
             </View>
             <Text className="text-sm text-foreground flex-1 leading-5" style={{ marginLeft: 8 }}>
-              {act}
+              {cleanAct}
             </Text>
             {/* DUA squares */}
             <View style={styles.duaSquaresRow}>

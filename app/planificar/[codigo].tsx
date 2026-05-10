@@ -1059,12 +1059,19 @@ function EstructuraERCAConDUA({
             </View>
             {actividades.map((act: string, idx: number) => {
               const dua = duaActividades[idx] || { implicacion: false, representacion: false, accionExpresion: false };
+              // Limpiar texto: remover indicadores DUA del texto
+              const cleanAct = act
+                .replace(/\s*\(\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\)\s*/gi, "")
+                .replace(/\s*\[\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\]\s*/gi, "")
+                .replace(/\s*DUA\s*:\s*\{[^}]*\}\s*/gi, "")
+                .replace(/\s*\(DUA[^)]*\)\s*/gi, "")
+                .trim();
               return (
                 <View key={idx} style={styles.faseActRow}>
                   <View style={[styles.faseActNum, { backgroundColor: fase.color + "15" }]}>
                     <Text style={{ color: fase.color, fontSize: 11, fontWeight: "700" }}>{idx + 1}</Text>
                   </View>
-                  <Text className="text-sm text-foreground flex-1 leading-5" style={{ marginLeft: 8 }}>{act}</Text>
+                  <Text className="text-sm text-foreground flex-1 leading-5" style={{ marginLeft: 8 }}>{cleanAct}</Text>
                   {/* DUA Squares */}
                   <View style={styles.duaSquaresRow}>
                     <View style={[styles.duaSquareSmall, { backgroundColor: dua.representacion ? "#EC4899" : "#EC489930" }]} />
