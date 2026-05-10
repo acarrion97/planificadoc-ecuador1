@@ -184,4 +184,6 @@
 - [x] Eliminar toda referencia/dependencia de manus.space en vercel.json y la app
 - [x] Migrar endpoints backend a Vercel Serverless Functions (pagos, suscripciones, admin, code-activate)
 - [x] Asegurar que planificadoc.app funcione 24/7 sin depender del sandbox de Manus
-- [ ] Bug: La planificación muestra "true" y "false" como texto en vez de valores correctos
+- [x] Bug: La planificación muestra "true" y "false" como texto en vez de valores correctos - RESUELTO: limpieza de indicadores DUA del texto
+- [ ] Bug: Pasarela de pago muestra "Número de teléfono inválido" - corregir validación de teléfono
+- [ ] Verificar que los links de pagos recurrentes estén activos (no los de un solo pago)

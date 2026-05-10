@@ -104,6 +104,12 @@ export async function saveCardToken(data: any): Promise<number> {
   const db = getDb();
   if (!db) throw new Error("Database not available");
 
+  // Normalize phone to +593 format for recurring charges
+  let phone = (data.phoneNumber || "").trim();
+  if (phone && !phone.startsWith("+")) {
+    phone = "+" + phone;
+  }
+
   await db
     .update(cardTokens)
     .set({ isActive: false })
@@ -112,6 +118,7 @@ export async function saveCardToken(data: any): Promise<number> {
   const result = await db.insert(cardTokens).values({
     ...data,
     email: data.email.toLowerCase(),
+    phoneNumber: phone,
   });
   return result[0].insertId;
 }

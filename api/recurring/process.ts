@@ -89,7 +89,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             cardHolder: token.cardHolder,
             cardToken: token.cardToken,
             documentId: token.documentId,
-            phoneNumber: token.phoneNumber,
+            phoneNumber: token.phoneNumber?.startsWith("+") ? token.phoneNumber : "+" + (token.phoneNumber || ""),
             email: sub.email,
             amount,
             amountWithoutTax: amount,

@@ -84,12 +84,16 @@ export default function PaywallScreen() {
     }
     setEmailError("");
 
-    // Format phone to 593 prefix if needed
-    let formattedPhone = trimmedPhone.replace(/\D/g, "");
+    // Format phone to +593 prefix as required by PayPhone
+    let formattedPhone = trimmedPhone.replace(/[^0-9+]/g, "");
+    // Remove leading + if present to normalize
+    formattedPhone = formattedPhone.replace(/^\+/, "");
     if (formattedPhone.startsWith("0")) {
-      formattedPhone = "593" + formattedPhone.substring(1);
-    } else if (!formattedPhone.startsWith("593")) {
-      formattedPhone = "593" + formattedPhone;
+      formattedPhone = "+593" + formattedPhone.substring(1);
+    } else if (formattedPhone.startsWith("593")) {
+      formattedPhone = "+" + formattedPhone;
+    } else {
+      formattedPhone = "+593" + formattedPhone;
     }
 
     // Always use planificadoc.app for payment page so PayPhone domain validation passes
