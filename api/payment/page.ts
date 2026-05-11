@@ -166,7 +166,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           email: "${email}",
           responseUrl: "${responseUrl}",
           documentId: "${documentId}",
-          phoneNumber: "${phoneNumber}"
+          phoneNumber: "${phoneNumber}",
+          generateToken: true
         }).render('pp-button');
       } catch(e) {
         console.error('PayPhone init error:', e);
