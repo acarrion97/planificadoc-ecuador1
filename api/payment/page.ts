@@ -35,10 +35,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).send("Email requerido");
   }
 
-  // documentId, phoneNumber, cardHolder are optional.
-  // If provided → enable generateToken for recurring billing.
-  // If missing → one-time payment (no auto-renewal).
-  const enableRecurring = !!(documentId && phoneNumber && cardHolder);
+  // These fields are REQUIRED for recurring billing (card tokenization).
+  // Without them PayPhone cannot store the card for future charges.
+  if (!documentId || !phoneNumber || !cardHolder) {
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    return res.status(400).send(`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PlanificaDoc - Datos incompletos</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0f172a,#1e3a5f);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{background:white;border-radius:20px;padding:36px 28px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}.icon{font-size:56px;margin-bottom:16px}h1{font-size:20px;color:#1e3a5f;margin-bottom:10px}p{font-size:14px;color:#555;line-height:1.6;margin-bottom:20px}.btn{display:inline-block;background:#1e3a5f;color:white;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px}.note{font-size:12px;color:#999;margin-top:16px}</style>
+</head><body><div class="card">
+<div class="icon">📱</div>
+<h1>Abre la app para pagar</h1>
+<p>Para activar la <strong>renovación automática</strong> necesitamos tu cédula, teléfono y nombre del titular. Estos datos solo se pueden ingresar desde la app.</p>
+<a class="btn" href="planificadoc://">Abrir PlanificaDoc</a>
+<p class="note">Si ya tienes la app instalada, ve a la sección de suscripción y completa el formulario de pago.</p>
+</div></body></html>`);
+  }
+
+  const enableRecurring = true; // always enable since fields are now required
 
   const payphoneToken = process.env.PAYPHONE_TOKEN || "";
   const payphoneStoreId = process.env.PAYPHONE_STORE_ID || "";
@@ -136,15 +150,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     <div class="info-row"><span class="label">Email</span><span class="value">${email}</span></div>
     <div class="info-row"><span class="label">Titular</span><span class="value">${cardHolder}</span></div>
     <div class="info-row"><span class="label">Incluye</span><span class="value">1,652+ destrezas + IA</span></div>
-    <div class="info-row"><span class="label">Renovacion</span><span class="value">${enableRecurring ? `Automatica cada ${pricing.durationMonths} ${pricing.durationMonths === 1 ? "mes" : "meses"}` : "Manual (pago unico)"}</span></div>
-    ${enableRecurring ? `<div class="recurring-note">
+    <div class="info-row"><span class="label">Renovacion</span><span class="value">Automatica cada ${pricing.durationMonths === 1 ? "mes" : "año"}</span></div>
+    <div class="recurring-note">
       <strong>🔄 Suscripcion Recurrente</strong>
       Tu tarjeta sera cobrada automaticamente cada ${pricing.durationMonths === 1 ? "mes" : "año"}.
       Puedes cancelar en cualquier momento desde la app.
-    </div>` : `<div class="recurring-note" style="background:#fff7ed;border-color:#fed7aa;color:#92400e;">
-      <strong>💳 Pago unico</strong>
-      Este pago es por ${pricing.durationMonths === 1 ? "1 mes" : "12 meses"}. La renovacion no sera automatica.
-    </div>`}
+    </div>
     <div class="payment-section">
       <h3>💳 Selecciona tu metodo de pago</h3>
       <div id="pp-button"></div>
@@ -157,7 +168,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       try {
-        const ppConfig = {
+        const ppb = new PPaymentButtonBox({
           token: '${payphoneToken}',
           clientTransactionId: '${clientTxId}',
           amount: ${pricing.amount},
@@ -174,13 +185,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           timeZone: -5,
           email: "${email}",
           responseUrl: "${responseUrl}",
-        };
-        ${enableRecurring ? `
-        ppConfig.documentId = "${documentId}";
-        ppConfig.phoneNumber = "${phoneNumber}";
-        ppConfig.generateToken = true;
-        ` : ""}
-        const ppb = new PPaymentButtonBox(ppConfig).render('pp-button');
+          documentId: "${documentId}",
+          phoneNumber: "${phoneNumber}",
+          generateToken: true,
+        }).render('pp-button');
       } catch(e) {
         console.error('PayPhone init error:', e);
         document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;">Error al cargar el formulario de pago. Recarga la pagina.</p>';
