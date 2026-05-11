@@ -157,8 +157,10 @@ export default function PaywallScreen() {
     setCodeLoading(true);
     try {
       const result = await unlockWithCode(code);
-      if (result) {
+      if (result.success) {
         setSuccess(true);
+      } else if (result.blocked) {
+        setCodeError(result.message || "Este código ya alcanzó el límite de dispositivos permitidos.");
       } else {
         setCodeError("Código inválido. Verifica e intenta de nuevo.");
       }

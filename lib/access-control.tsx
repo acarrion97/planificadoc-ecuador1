@@ -50,7 +50,7 @@ interface AccessContextValue {
   subscribedEmail: string | null;
   subscriptionEndDate: string | null;
   accessMethod: "code" | "subscription" | null;
-  unlockWithCode: (code: string) => Promise<boolean>;
+  unlockWithCode: (code: string) => Promise<{ success: boolean; blocked?: boolean; message?: string }>;
   unlockWithSubscription: (email: string) => Promise<boolean>;
   checkSubscriptionStatus: (email: string) => Promise<{
     active: boolean;
@@ -153,44 +153,52 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
     })();
   }, []);
 
-  const unlockWithCode = useCallback(async (code: string): Promise<boolean> => {
+  const unlockWithCode = useCallback(async (code: string): Promise<{ success: boolean; blocked?: boolean; message?: string }> => {
     const normalized = code.trim().toUpperCase();
-    if (isValidCode(normalized)) {
-      const newState: AccessState = {
-        hasAccess: true,
-        method: "code",
-        code: normalized,
-        email: null,
-        subscriptionEndDate: null,
-        activatedAt: new Date().toISOString(),
-      };
-      setState(newState);
-      await AsyncStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(newState));
+    if (!isValidCode(normalized)) {
+      return { success: false };
+    }
 
-      // Register code activation on server for admin tracking
-      try {
-        let deviceId: string = (await AsyncStorage.getItem("@planificadoc_device_id")) || "";
-        if (!deviceId) {
-          deviceId = Crypto.randomUUID();
-          await AsyncStorage.setItem("@planificadoc_device_id", deviceId);
-        }
-        const baseUrl = getApiBaseUrl();
-        fetch(`${baseUrl}/api/code/activate`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            code: normalized,
-            deviceId,
-            platform: Platform.OS,
-          }),
-        }).catch(() => {}); // Fire and forget
-      } catch {
-        // Don't block user if tracking fails
+    try {
+      let deviceId: string = (await AsyncStorage.getItem("@planificadoc_device_id")) || "";
+      if (!deviceId) {
+        deviceId = Crypto.randomUUID();
+        await AsyncStorage.setItem("@planificadoc_device_id", deviceId);
       }
 
-      return true;
+      const baseUrl = getApiBaseUrl();
+      const response = await fetch(`${baseUrl}/api/code/activate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: normalized,
+          deviceId,
+          platform: Platform.OS,
+        }),
+      });
+
+      const result = await response.json();
+
+      // Servidor bloqueó el código por exceso de dispositivos
+      if (result.blocked) {
+        return { success: false, blocked: true, message: result.message };
+      }
+    } catch {
+      // Error de red: permitir acceso para no perjudicar al docente legítimo
     }
-    return false;
+
+    // Dar acceso
+    const newState: AccessState = {
+      hasAccess: true,
+      method: "code",
+      code: normalized,
+      email: null,
+      subscriptionEndDate: null,
+      activatedAt: new Date().toISOString(),
+    };
+    setState(newState);
+    await AsyncStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(newState));
+    return { success: true };
   }, []);
 
   const unlockWithSubscription = useCallback(async (email: string): Promise<boolean> => {
