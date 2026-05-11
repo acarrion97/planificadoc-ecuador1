@@ -118,6 +118,14 @@ export const paymentTransactions = mysqlTable("payment_transactions", {
   isRecurringCharge: boolean("isRecurringCharge").default(false).notNull(),
   /** Card token ID used for this recurring charge */
   cardTokenId: int("cardTokenId"),
+  /** Card holder name (captured at payment form) */
+  cardHolder: varchar("cardHolder", { length: 255 }),
+  /** Document ID / cédula (captured at payment form) */
+  documentId: varchar("documentId", { length: 20 }),
+  /** Phone number (captured at payment form, for follow-up) */
+  phoneNumber: varchar("phoneNumber", { length: 20 }),
+  /** Plan: monthly or annual */
+  plan: varchar("plan", { length: 16 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

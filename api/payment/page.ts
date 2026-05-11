@@ -56,6 +56,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       email,
       amount: pricing.amount,
       status: "pending",
+      plan,
+      ...(cardHolder ? { cardHolder } : {}),
+      ...(documentId ? { documentId } : {}),
+      ...(phoneNumber ? { phoneNumber } : {}),
     });
 
     // Always include these params in the responseUrl (empty string if not provided).

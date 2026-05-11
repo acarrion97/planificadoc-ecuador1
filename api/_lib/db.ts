@@ -62,14 +62,29 @@ export async function createSubscription(data: any) {
 
 // ============= Payment Transaction Queries =============
 
-export async function createPaymentTransaction(data: any) {
+export async function createPaymentTransaction(data: {
+  clientTransactionId: string;
+  email: string;
+  amount: number;
+  status: "pending" | "approved" | "cancelled" | "error";
+  cardHolder?: string;
+  documentId?: string;
+  phoneNumber?: string;
+  plan?: string;
+}) {
   const db = getDb();
   if (!db) throw new Error("Database not available");
 
   await db.insert(paymentTransactions).values({
-    ...data,
+    clientTransactionId: data.clientTransactionId,
     email: data.email.toLowerCase(),
-  });
+    amount: data.amount,
+    status: data.status,
+    ...(data.cardHolder ? { cardHolder: data.cardHolder } : {}),
+    ...(data.documentId ? { documentId: data.documentId } : {}),
+    ...(data.phoneNumber ? { phoneNumber: data.phoneNumber } : {}),
+    ...(data.plan ? { plan: data.plan } : {}),
+  } as any);
 }
 
 export async function getPaymentTransaction(clientTransactionId: string) {

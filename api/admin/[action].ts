@@ -7,7 +7,7 @@ import {
   cardTokens,
   codeActivations,
 } from "../../drizzle/schema";
-import { eq, desc, and, lt, ne } from "drizzle-orm";
+import { eq, desc, and, lt, ne, sql as drizzleSql } from "drizzle-orm";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
@@ -102,6 +102,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         transactions: txns.map(t => ({
           id: t.id,
           email: t.email,
+          phoneNumber: (t as any).phoneNumber || "",
+          cardHolder: (t as any).cardHolder || "",
+          documentId: (t as any).documentId || "",
+          plan: (t as any).plan || (t.amount >= 5871 ? "annual" : "monthly"),
           amount: t.amount,
           status: t.status,
           cardBrand: t.cardBrand,
@@ -150,6 +154,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         totalCodes: codeStats.length,
         sharingAlerts: codeStats.filter(c => c.possibleSharing).length,
       });
+    }
+
+    // GET /api/admin/migrate-contact-fields
+    // Agrega columnas cardHolder, documentId, phoneNumber, plan a payment_transactions
+    if (action === "migrate-contact-fields") {
+      const alterStatements = [
+        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS cardHolder VARCHAR(255) NULL`,
+        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS documentId VARCHAR(20) NULL`,
+        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS phoneNumber VARCHAR(20) NULL`,
+        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS plan VARCHAR(16) NULL`,
+      ];
+      const results: string[] = [];
+      for (const stmt of alterStatements) {
+        try {
+          await db.execute(drizzleSql.raw(stmt));
+          results.push(`✅ ${stmt.substring(0, 70)}`);
+        } catch (e: any) {
+          results.push(`❌ ${e.message}`);
+        }
+      }
+      return res.json({ results, message: "Migración completada" });
     }
 
     // DELETE /api/admin/cleanup-pending
