@@ -192,6 +192,38 @@
     .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
     .empty-state .title { font-size: 16px; font-weight: 600; color: #64748b; margin-bottom: 4px; }
     .empty-state .desc { font-size: 13px; }
+    /* CRM form */
+    .crm-form {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+    }
+    .crm-form h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1e293b; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-size: 12px; font-weight: 600; color: #475569; }
+    .form-group input, .form-group textarea, .form-group select {
+      padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+      font-size: 13px; font-family: inherit;
+    }
+    .form-group textarea { resize: vertical; min-height: 60px; }
+    .form-actions { display: flex; gap: 8px; margin-top: 16px; align-items: center; }
+    .btn-primary { background: #1e40af; color: white; border: none; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-success { background: #059669; color: white; border: none; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-success:hover { background: #047857; }
+    .btn-danger { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-danger:hover { background: #dc2626; }
+    .btn-whatsapp { background: #25d366; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-edit { background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .pago-si { background: #dcfce7; color: #166534; }
+    .pago-no { background: #fef3c7; color: #92400e; }
+    .form-msg { font-size: 13px; margin-left: 8px; }
+    .form-msg.ok { color: #059669; }
+    .form-msg.err { color: #ef4444; }
   </style>
 </head>
 <body>
@@ -227,6 +259,7 @@
       <!-- Tabs -->
       <div class="tabs">
         <div class="tab active" onclick="switchTab('users')" id="tab-users">Suscriptores</div>
+        <div class="tab" onclick="switchTab('contacts')" id="tab-contacts">📋 Mis Docentes</div>
         <div class="tab" onclick="switchTab('codes')" id="tab-codes">Usuarios con Codigo</div>
         <div class="tab" onclick="switchTab('transactions')" id="tab-transactions">Transacciones</div>
       </div>
@@ -255,6 +288,83 @@
               </tr>
             </thead>
             <tbody id="usersBody">
+              <tr><td colspan="11" class="loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Contacts Section (Mis Docentes - CRM) -->
+      <div class="section" id="section-contacts" style="display:none;">
+        <div class="crm-form">
+          <h3 id="crmFormTitle">➕ Registrar docente con código</h3>
+          <div class="form-grid">
+            <input type="hidden" id="crmId" value="" />
+            <div class="form-group">
+              <label>Nombre completo *</label>
+              <input type="text" id="crmNombre" placeholder="María González" />
+            </div>
+            <div class="form-group">
+              <label>Código asignado *</label>
+              <input type="text" id="crmCode" placeholder="DOCENTE001" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()" />
+            </div>
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" id="crmEmail" placeholder="docente@ejemplo.com" />
+            </div>
+            <div class="form-group">
+              <label>Número de celular</label>
+              <input type="text" id="crmPhone" placeholder="0987654321" />
+            </div>
+            <div class="form-group">
+              <label>Institución / Ciudad</label>
+              <input type="text" id="crmInstitucion" placeholder="Ej: Colegio 24 de Mayo, Quito" />
+            </div>
+            <div class="form-group">
+              <label>¿Pagó por el código?</label>
+              <select id="crmPago">
+                <option value="false">No (código gratis)</option>
+                <option value="true">Sí, pagó</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Monto cobrado ($)</label>
+              <input type="number" id="crmMonto" placeholder="0.00" min="0" step="0.01" value="0" />
+            </div>
+            <div class="form-group">
+              <label>Notas</label>
+              <textarea id="crmNotas" placeholder="Cualquier observación..."></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-success" onclick="saveContact()">💾 Guardar</button>
+            <button class="btn-primary" onclick="clearContactForm()" style="background:#64748b">Cancelar</button>
+            <span class="form-msg" id="crmMsg"></span>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="section-title">Docentes registrados (<span id="contactsCount">0</span>)</div>
+          <input type="text" class="search-input" placeholder="Buscar por nombre, código, email..." oninput="filterContacts(this.value)" />
+        </div>
+        <div class="table-container">
+          <table id="contactsTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Institución</th>
+                <th>Pagó</th>
+                <th>Monto</th>
+                <th>Notas</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="contactsBody">
               <tr><td colspan="11" class="loading">Cargando...</td></tr>
             </tbody>
           </table>
@@ -616,8 +726,146 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + tab).classList.add('active');
       document.getElementById('section-users').style.display = tab === 'users' ? 'block' : 'none';
+      document.getElementById('section-contacts').style.display = tab === 'contacts' ? 'block' : 'none';
       document.getElementById('section-codes').style.display = tab === 'codes' ? 'block' : 'none';
       document.getElementById('section-transactions').style.display = tab === 'transactions' ? 'block' : 'none';
+    }
+
+    // ===== CRM: MIS DOCENTES =====
+    let allContacts = [];
+
+    async function loadContacts() {
+      try {
+        const data = await fetchJSON('/api/admin/docente-contacts');
+        allContacts = data.contacts;
+        document.getElementById('contactsCount').textContent = data.total;
+        renderContacts(allContacts);
+      } catch (e) {
+        document.getElementById('contactsBody').innerHTML = '<tr><td colspan="11" class="loading">Error: ' + e.message + '</td></tr>';
+      }
+    }
+
+    function renderContacts(contacts) {
+      if (contacts.length === 0) {
+        document.getElementById('contactsBody').innerHTML = `
+          <tr><td colspan="11">
+            <div class="empty-state">
+              <div class="icon">📋</div>
+              <div class="title">Aún no hay docentes registrados</div>
+              <div class="desc">Usa el formulario de arriba para agregar los docentes a los que les diste un código.</div>
+            </div>
+          </td></tr>`;
+        return;
+      }
+      document.getElementById('contactsBody').innerHTML = contacts.map((c, i) => {
+        const phone = (c.phoneNumber || '').replace(/\D/g,'');
+        const waPhone = phone.startsWith('593') ? phone : phone.startsWith('0') ? '593' + phone.substring(1) : '593' + phone;
+        const waMsg = encodeURIComponent('Hola ' + c.nombre + ', te escribo por tu acceso a PlanificaDoc Ecuador 📚');
+        const waLink = phone ? `<a class="btn-whatsapp" href="https://wa.me/${waPhone}?text=${waMsg}" target="_blank">💬 WhatsApp</a>` : '-';
+        return `
+        <tr>
+          <td>${i + 1}</td>
+          <td><strong>${c.nombre}</strong></td>
+          <td><span class="badge badge-ok">${c.code}</span></td>
+          <td>${c.email ? `<a href="mailto:${c.email}" style="color:#3b82f6">${c.email}</a>` : '-'}</td>
+          <td>${c.phoneNumber || '-'}</td>
+          <td>${c.institucion || '-'}</td>
+          <td><span class="badge ${c.pago ? 'pago-si' : 'pago-no'}">${c.pago ? '✅ Sí' : '🎁 Gratis'}</span></td>
+          <td>${c.montoCobrado > 0 ? '$' + (c.montoCobrado / 100).toFixed(2) : '-'}</td>
+          <td style="max-width:150px;font-size:12px;color:#64748b">${c.notas || '-'}</td>
+          <td style="white-space:nowrap">${formatDate(c.createdAt)}</td>
+          <td style="white-space:nowrap">
+            ${waLink}
+            <button class="btn-edit" onclick="editContact(${JSON.stringify(c).replace(/"/g,'&quot;')})" style="margin:2px">✏️</button>
+            <button class="btn-danger" onclick="deleteContact(${c.id}, '${c.nombre.replace(/'/g,"\\'")}')">🗑️</button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function filterContacts(query) {
+      const q = query.toLowerCase();
+      renderContacts(allContacts.filter(c =>
+        (c.nombre || '').toLowerCase().includes(q) ||
+        (c.code || '').toLowerCase().includes(q) ||
+        (c.email || '').toLowerCase().includes(q) ||
+        (c.phoneNumber || '').includes(q) ||
+        (c.institucion || '').toLowerCase().includes(q)
+      ));
+    }
+
+    async function saveContact() {
+      const id = document.getElementById('crmId').value;
+      const code = document.getElementById('crmCode').value.trim().toUpperCase();
+      const nombre = document.getElementById('crmNombre').value.trim();
+      const email = document.getElementById('crmEmail').value.trim();
+      const phoneNumber = document.getElementById('crmPhone').value.trim();
+      const institucion = document.getElementById('crmInstitucion').value.trim();
+      const pago = document.getElementById('crmPago').value === 'true';
+      const montoVal = parseFloat(document.getElementById('crmMonto').value || '0');
+      const montoCobrado = Math.round(montoVal * 100);
+      const notas = document.getElementById('crmNotas').value.trim();
+      const msg = document.getElementById('crmMsg');
+
+      if (!code || !nombre) { msg.className = 'form-msg err'; msg.textContent = 'Código y nombre son obligatorios'; return; }
+
+      msg.className = 'form-msg'; msg.textContent = 'Guardando...';
+
+      try {
+        const sep = '/api/admin/save-docente-contact?key=' + encodeURIComponent(API_KEY);
+        const res = await fetch(sep, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: id || undefined, code, nombre, email, phoneNumber, institucion, pago, montoCobrado, notas })
+        });
+        const data = await res.json();
+        if (data.success) {
+          msg.className = 'form-msg ok';
+          msg.textContent = id ? '✅ Actualizado' : '✅ Guardado';
+          clearContactForm();
+          await loadContacts();
+        } else {
+          msg.className = 'form-msg err'; msg.textContent = data.error || 'Error al guardar';
+        }
+      } catch (e) {
+        msg.className = 'form-msg err'; msg.textContent = 'Error de conexión';
+      }
+    }
+
+    function editContact(c) {
+      document.getElementById('crmId').value = c.id;
+      document.getElementById('crmNombre').value = c.nombre || '';
+      document.getElementById('crmCode').value = c.code || '';
+      document.getElementById('crmEmail').value = c.email || '';
+      document.getElementById('crmPhone').value = c.phoneNumber || '';
+      document.getElementById('crmInstitucion').value = c.institucion || '';
+      document.getElementById('crmPago').value = c.pago ? 'true' : 'false';
+      document.getElementById('crmMonto').value = c.montoCobrado ? (c.montoCobrado / 100).toFixed(2) : '0';
+      document.getElementById('crmNotas').value = c.notas || '';
+      document.getElementById('crmFormTitle').textContent = '✏️ Editando: ' + c.nombre;
+      document.getElementById('crmMsg').textContent = '';
+      document.querySelector('.crm-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function deleteContact(id, nombre) {
+      if (!confirm('¿Eliminar a ' + nombre + ' de la lista?')) return;
+      try {
+        const res = await fetch('/api/admin/delete-docente-contact?key=' + encodeURIComponent(API_KEY), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+        const data = await res.json();
+        if (data.success) await loadContacts();
+      } catch {}
+    }
+
+    function clearContactForm() {
+      ['crmId','crmNombre','crmCode','crmEmail','crmPhone','crmInstitucion','crmNotas'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('crmPago').value = 'false';
+      document.getElementById('crmMonto').value = '0';
+      document.getElementById('crmFormTitle').textContent = '➕ Registrar docente con código';
+      document.getElementById('crmMsg').textContent = '';
     }
 
     function getStatusLabel(status) {
@@ -642,6 +890,7 @@
     function loadAll() {
       loadMetrics();
       loadUsers();
+      loadContacts();
       loadCodeUsers();
       loadTransactions();
     }

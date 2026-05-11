@@ -173,3 +173,31 @@ export const docenteAccounts = mysqlTable("docente_accounts", {
 
 export type DocenteAccount = typeof docenteAccounts.$inferSelect;
 export type InsertDocenteAccount = typeof docenteAccounts.$inferInsert;
+
+/**
+ * Docente contacts - manually registered by admin when giving out codes.
+ * Tracks who received which code, their contact info, and payment status.
+ */
+export const docenteContacts = mysqlTable("docente_contacts", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Access code given to this teacher */
+  code: varchar("code", { length: 64 }).notNull(),
+  /** Teacher's full name */
+  nombre: varchar("nombre", { length: 255 }).notNull(),
+  /** Teacher's email */
+  email: varchar("email", { length: 320 }),
+  /** Teacher's phone number */
+  phoneNumber: varchar("phoneNumber", { length: 20 }),
+  /** City or institution */
+  institucion: varchar("institucion", { length: 255 }),
+  /** Whether they paid for the code */
+  pago: boolean("pago").default(false).notNull(),
+  /** Amount charged (0 = free) in cents */
+  montoCobrado: int("montoCobrado").default(0).notNull(),
+  /** Optional notes */
+  notas: text("notas"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type DocenteContact = typeof docenteContacts.$inferSelect;
+export type InsertDocenteContact = typeof docenteContacts.$inferInsert;

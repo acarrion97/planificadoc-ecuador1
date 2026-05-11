@@ -6,6 +6,7 @@ import {
   paymentTransactions,
   cardTokens,
   codeActivations,
+  docenteContacts,
 } from "../../drizzle/schema";
 import { eq, desc, and, lt, ne, sql as drizzleSql } from "drizzle-orm";
 
@@ -172,6 +173,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
           updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
         )`,
+        `CREATE TABLE IF NOT EXISTS docente_contacts (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          code VARCHAR(64) NOT NULL,
+          nombre VARCHAR(255) NOT NULL,
+          email VARCHAR(320) NULL,
+          phoneNumber VARCHAR(20) NULL,
+          institucion VARCHAR(255) NULL,
+          pago BOOLEAN NOT NULL DEFAULT FALSE,
+          montoCobrado INT NOT NULL DEFAULT 0,
+          notas TEXT NULL,
+          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+        )`,
       ];
       const results: string[] = [];
       for (const stmt of alterStatements) {
@@ -204,6 +217,59 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         deleted,
         message: `Se eliminaron ${deleted} transacciones pendientes antiguas (>${24}h).`,
       });
+    }
+
+    // GET /api/admin/docente-contacts → lista todos los contactos registrados manualmente
+    if (action === "docente-contacts") {
+      const contacts = await db
+        .select()
+        .from(docenteContacts)
+        .orderBy(desc(docenteContacts.createdAt));
+      return res.json({ contacts, total: contacts.length });
+    }
+
+    // POST /api/admin/docente-contacts → crea o actualiza un contacto
+    if (action === "save-docente-contact") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { id, code, nombre, email, phoneNumber, institucion, pago, montoCobrado, notas } = req.body || {};
+      if (!code || !nombre) return res.status(400).json({ error: "Código y nombre son requeridos" });
+
+      if (id) {
+        // Update
+        await db.update(docenteContacts).set({
+          code: (code as string).trim().toUpperCase(),
+          nombre: (nombre as string).trim(),
+          email: email ? (email as string).trim().toLowerCase() : null,
+          phoneNumber: phoneNumber ? (phoneNumber as string).trim() : null,
+          institucion: institucion ? (institucion as string).trim() : null,
+          pago: !!pago,
+          montoCobrado: parseInt(montoCobrado || "0") || 0,
+          notas: notas ? (notas as string).trim() : null,
+        }).where(eq(docenteContacts.id, parseInt(id)));
+        return res.json({ success: true, updated: true });
+      } else {
+        // Create
+        await db.insert(docenteContacts).values({
+          code: (code as string).trim().toUpperCase(),
+          nombre: (nombre as string).trim(),
+          email: email ? (email as string).trim().toLowerCase() : null,
+          phoneNumber: phoneNumber ? (phoneNumber as string).trim() : null,
+          institucion: institucion ? (institucion as string).trim() : null,
+          pago: !!pago,
+          montoCobrado: parseInt(montoCobrado || "0") || 0,
+          notas: notas ? (notas as string).trim() : null,
+        });
+        return res.json({ success: true, created: true });
+      }
+    }
+
+    // POST /api/admin/delete-docente-contact → elimina un contacto
+    if (action === "delete-docente-contact") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { id } = req.body || {};
+      if (!id) return res.status(400).json({ error: "ID requerido" });
+      await db.delete(docenteContacts).where(eq(docenteContacts.id, parseInt(id)));
+      return res.json({ success: true });
     }
 
     return res.status(404).json({ error: "Acción no encontrada" });
