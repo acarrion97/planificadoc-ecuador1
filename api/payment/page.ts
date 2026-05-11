@@ -42,13 +42,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).send(`<!DOCTYPE html>
 <html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PlanificaDoc - Datos incompletos</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0f172a,#1e3a5f);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{background:white;border-radius:20px;padding:36px 28px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}.icon{font-size:56px;margin-bottom:16px}h1{font-size:20px;color:#1e3a5f;margin-bottom:10px}p{font-size:14px;color:#555;line-height:1.6;margin-bottom:20px}.btn{display:inline-block;background:#1e3a5f;color:white;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px}.note{font-size:12px;color:#999;margin-top:16px}</style>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0f172a,#1e3a5f);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{background:white;border-radius:20px;padding:36px 28px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}.icon{font-size:56px;margin-bottom:16px}h1{font-size:20px;color:#1e3a5f;margin-bottom:10px}p{font-size:14px;color:#555;line-height:1.6;margin-bottom:20px}.btn{display:inline-block;background:#059669;color:white;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px}.note{font-size:12px;color:#999;margin-top:16px}</style>
 </head><body><div class="card">
-<div class="icon">📱</div>
-<h1>Abre la app para pagar</h1>
-<p>Para activar la <strong>renovación automática</strong> necesitamos tu cédula, teléfono y nombre del titular. Estos datos solo se pueden ingresar desde la app.</p>
-<a class="btn" href="planificadoc://">Abrir PlanificaDoc</a>
-<p class="note">Si ya tienes la app instalada, ve a la sección de suscripción y completa el formulario de pago.</p>
+<div class="icon">📋</div>
+<h1>Completa tu informacion primero</h1>
+<p>Para activar la <strong>renovacion automatica</strong> necesitamos tu cedula, telefono y nombre del titular. Ingresa desde la pagina principal y completa el formulario.</p>
+<a class="btn" href="https://planificadoc.app">Ir a PlanificaDoc</a>
+<p class="note">Una vez ahi, registrate o inicia sesion y luego selecciona tu plan de pago.</p>
 </div></body></html>`);
   }
 
