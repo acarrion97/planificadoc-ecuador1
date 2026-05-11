@@ -7,7 +7,7 @@ import {
   cardTokens,
   codeActivations,
 } from "../../drizzle/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and, lt, ne } from "drizzle-orm";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
@@ -149,6 +149,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         totalActivations: allActivations.length,
         totalCodes: codeStats.length,
         sharingAlerts: codeStats.filter(c => c.possibleSharing).length,
+      });
+    }
+
+    // DELETE /api/admin/cleanup-pending
+    // Borra transacciones pending con más de 24h de antigüedad (pagos abandonados/pruebas)
+    if (action === "cleanup-pending") {
+      const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000); // 24h atrás
+      const pending = await db
+        .select()
+        .from(paymentTransactions)
+        .where(eq(paymentTransactions.status, "pending"));
+
+      const toDelete = pending.filter(t => new Date(t.createdAt) < cutoff);
+      let deleted = 0;
+      for (const tx of toDelete) {
+        await db.delete(paymentTransactions).where(eq(paymentTransactions.id, tx.id));
+        deleted++;
+      }
+      return res.json({
+        deleted,
+        message: `Se eliminaron ${deleted} transacciones pendientes antiguas (>${24}h).`,
       });
     }
 
