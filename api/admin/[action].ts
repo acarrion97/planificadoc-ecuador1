@@ -157,13 +157,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // GET /api/admin/migrate-contact-fields
-    // Agrega columnas cardHolder, documentId, phoneNumber, plan a payment_transactions
+    // Agrega columnas de contacto a payment_transactions y crea tabla docente_accounts
     if (action === "migrate-contact-fields") {
       const alterStatements = [
         `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS cardHolder VARCHAR(255) NULL`,
         `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS documentId VARCHAR(20) NULL`,
         `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS phoneNumber VARCHAR(20) NULL`,
         `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS plan VARCHAR(16) NULL`,
+        `CREATE TABLE IF NOT EXISTS docente_accounts (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          email VARCHAR(320) NOT NULL UNIQUE,
+          nombre VARCHAR(255) NOT NULL,
+          passwordHash VARCHAR(512) NOT NULL,
+          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+          updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+        )`,
       ];
       const results: string[] = [];
       for (const stmt of alterStatements) {

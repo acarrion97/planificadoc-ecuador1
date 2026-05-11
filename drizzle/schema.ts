@@ -154,3 +154,22 @@ export const codeActivations = mysqlTable("code_activations", {
 
 export type CodeActivation = typeof codeActivations.$inferSelect;
 export type InsertCodeActivation = typeof codeActivations.$inferInsert;
+
+/**
+ * Docente accounts - email + password login for teachers.
+ * Separate from OAuth users. Subscription check is still by email.
+ */
+export const docenteAccounts = mysqlTable("docente_accounts", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email (unique identifier) */
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  /** Full name of the teacher */
+  nombre: varchar("nombre", { length: 255 }).notNull(),
+  /** scrypt-hashed password (salt:hash format) */
+  passwordHash: varchar("passwordHash", { length: 512 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type DocenteAccount = typeof docenteAccounts.$inferSelect;
+export type InsertDocenteAccount = typeof docenteAccounts.$inferInsert;
