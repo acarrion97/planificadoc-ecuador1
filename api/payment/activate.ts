@@ -33,7 +33,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, message: "Suscripcion ya activada" });
     }
 
-    console.log("[PayPhone] Activate - confirm data:", JSON.stringify(confirmData));
+    // Log FULL PayPhone response to Vercel logs for diagnostics
+    console.log("[PayPhone] Activate - FULL confirm data keys:", Object.keys(confirmData || {}));
+    console.log("[PayPhone] Activate - statusCode:", confirmData?.statusCode, "transactionStatus:", confirmData?.transactionStatus);
+    console.log("[PayPhone] Activate - cardToken present:", !!confirmData?.cardToken, "value:", confirmData?.cardToken || "NONE");
+    console.log("[PayPhone] Activate - generateToken field:", confirmData?.generateToken);
+    console.log("[PayPhone] Activate - FULL JSON:", JSON.stringify(confirmData));
 
     if (confirmData.statusCode === 3 && confirmData.transactionStatus === "Approved") {
       await updatePaymentTransaction(clientTxId, {

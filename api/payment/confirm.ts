@@ -124,7 +124,8 @@ function buildConfirmBridgeHTML(config: {
           },
           body: JSON.stringify({
             id: ${config.payphoneTxId},
-            clientTxId: '${config.clientTxId}'
+            clientTxId: '${config.clientTxId}',
+            generateToken: true
           })
         });
         const confirmData = await confirmRes.json();

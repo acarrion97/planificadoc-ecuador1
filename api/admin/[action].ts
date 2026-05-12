@@ -119,6 +119,44 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
+    // GET /api/admin/last-payphone-response → muestra el JSON completo de PayPhone del último pago aprobado
+    if (action === "last-payphone-response") {
+      const limit = parseInt(req.query.limit as string) || 5;
+      const txns = await db
+        .select()
+        .from(paymentTransactions)
+        .where(eq(paymentTransactions.status, "approved"))
+        .orderBy(desc(paymentTransactions.createdAt))
+        .limit(limit);
+      return res.json({
+        diagnostic: "Respuesta completa de PayPhone para los últimos pagos aprobados",
+        count: txns.length,
+        transactions: txns.map(t => {
+          let parsed: any = null;
+          let parseError: string | null = null;
+          try {
+            parsed = t.payphoneResponse ? JSON.parse(t.payphoneResponse) : null;
+          } catch (e: any) {
+            parseError = e.message;
+          }
+          return {
+            id: t.id,
+            email: t.email,
+            amountCents: t.amount,
+            createdAt: t.createdAt,
+            cardBrand: t.cardBrand,
+            lastDigits: t.lastDigits,
+            // Diagnóstico clave:
+            hasCardToken: parsed ? !!parsed.cardToken : false,
+            cardTokenValue: parsed ? (parsed.cardToken || "⚠️ CAMPO cardToken AUSENTE EN RESPUESTA") : "⚠️ SIN RESPUESTA GUARDADA",
+            parseError,
+            // Respuesta completa de PayPhone:
+            payphoneResponse: parsed,
+          };
+        }),
+      });
+    }
+
     // GET /api/admin/code-users
     if (action === "code-users") {
       const allActivations = await db.select().from(codeActivations).orderBy(desc(codeActivations.createdAt));
