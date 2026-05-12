@@ -10,12 +10,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const documentId = ((req.query.documentId as string) || "").trim();
   const phoneNumber = ((req.query.phoneNumber as string) || "").trim();
   const cardHolder = ((req.query.cardHolder as string) || "").trim();
-  // PayPhone may send cardToken directly in the responseUrl redirect when tokenization is enabled
-  const urlCardToken = ((req.query.cardToken as string) || "").trim();
+  // PayPhone sends the card token as "ctoken" (NOT "cardToken") in the responseUrl redirect
+  // e.g. ?id=xxx&clientTransactionId=yyy&ctoken=eyJhbGci...
+  const urlCardToken = ((req.query.ctoken as string) || (req.query.cardToken as string) || "").trim();
   if (urlCardToken) {
-    console.log("[PayPhone] cardToken received in responseUrl:", urlCardToken.substring(0, 20) + "...");
+    console.log("[PayPhone] ctoken received in responseUrl:", urlCardToken.substring(0, 30) + "...");
   } else {
-    console.log("[PayPhone] No cardToken in responseUrl params");
+    console.log("[PayPhone] No ctoken/cardToken in responseUrl params - keys:", Object.keys(req.query).join(","));
   }
 
   const payphoneToken = process.env.PAYPHONE_TOKEN || "";
@@ -149,12 +150,14 @@ function buildConfirmBridgeHTML(config: {
         });
         const confirmData = await confirmRes.json();
         console.log('PayPhone confirm keys:', Object.keys(confirmData || {}));
-        console.log('PayPhone cardToken in confirm response:', confirmData.cardToken || 'NONE');
-        // If PayPhone sent cardToken in the responseUrl (not in Confirm response), use it
-        const urlCardToken = '${config.urlCardToken || ""}';
-        if (!confirmData.cardToken && urlCardToken) {
-          confirmData.cardToken = urlCardToken;
-          console.log('Using urlCardToken from responseUrl redirect:', urlCardToken.substring(0, 20));
+        // PayPhone sends token as "ctoken" in the responseUrl redirect, not in the Confirm API response
+        const ctokenFromUrl = '${config.urlCardToken || ""}';
+        if (ctokenFromUrl) {
+          // Map PayPhone's "ctoken" field to "cardToken" so our activate.ts finds it
+          confirmData.cardToken = ctokenFromUrl;
+          console.log('Using ctoken from responseUrl as cardToken:', ctokenFromUrl.substring(0, 30));
+        } else {
+          console.log('No ctoken in responseUrl. confirmData.cardToken:', confirmData.cardToken || 'NONE');
         }
         const tokenData = {
           cardHolder: '${config.cardHolder || ""}',
