@@ -263,6 +263,73 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ results, message: "Migración completada" });
     }
 
+    // POST /api/admin/fix-recurring → repara suscripciones con ctoken en payphoneResponse pero isRecurring=false
+    if (action === "fix-recurring") {
+      const results: string[] = [];
+
+      // 1. Ampliar columna cardToken a TEXT (por si el JWT supera 255 chars)
+      try {
+        await db.execute(drizzleSql.raw(`ALTER TABLE card_tokens MODIFY COLUMN cardToken TEXT NOT NULL`));
+        results.push("✅ cardToken column expanded to TEXT");
+      } catch (e: any) {
+        results.push(`ℹ️ cardToken alter: ${e.message}`);
+      }
+
+      // 2. Buscar transacciones aprobadas con cardToken en payphoneResponse pero sin cardToken guardado
+      const approvedTxns = await db.select().from(paymentTransactions).where(eq(paymentTransactions.status, "approved"));
+      let fixed = 0;
+
+      for (const t of approvedTxns) {
+        if (!t.payphoneResponse) continue;
+        let parsed: any;
+        try { parsed = JSON.parse(t.payphoneResponse); } catch { continue; }
+        if (!parsed?.cardToken) continue;
+
+        // Check if subscription already has isRecurring=true
+        const existingSubs = await db.select().from(subscriptions)
+          .where(and(eq(subscriptions.email, t.email), eq(subscriptions.status, "active")))
+          .orderBy(desc(subscriptions.createdAt)).limit(1);
+        if (existingSubs.length > 0 && existingSubs[0].isRecurring) continue; // already fixed
+
+        // Save card token
+        try {
+          const existingToken = await db.select().from(cardTokens)
+            .where(and(eq(cardTokens.email, t.email), eq(cardTokens.isActive, true))).limit(1);
+          if (existingToken.length > 0) {
+            results.push(`ℹ️ ${t.email}: card token already exists, skipping`);
+            continue;
+          }
+
+          await db.update(cardTokens).set({ isActive: false }).where(eq(cardTokens.email, t.email));
+          const insertResult = await db.insert(cardTokens).values({
+            email: t.email,
+            cardToken: parsed.cardToken,
+            cardHolder: (t as any).cardHolder || parsed.optionalParameter4 || "",
+            documentId: (t as any).documentId || parsed.document || "",
+            phoneNumber: (t as any).phoneNumber || parsed.phoneNumber || "",
+            cardBrand: t.cardBrand || parsed.cardBrand || "",
+            lastDigits: t.lastDigits || parsed.lastDigits || "",
+            isActive: true,
+          } as any);
+          const newTokenId = insertResult[0].insertId;
+
+          // Update subscription to isRecurring=true
+          if (existingSubs.length > 0) {
+            await db.update(subscriptions).set({ isRecurring: true, cardTokenId: newTokenId })
+              .where(eq(subscriptions.id, existingSubs[0].id));
+            results.push(`✅ ${t.email}: card token saved + subscription set to isRecurring=true`);
+            fixed++;
+          } else {
+            results.push(`⚠️ ${t.email}: card token saved but no active subscription found`);
+          }
+        } catch (e: any) {
+          results.push(`❌ ${t.email}: ${e.message}`);
+        }
+      }
+
+      return res.json({ results, fixed, message: `Reparadas ${fixed} suscripciones` });
+    }
+
     // DELETE /api/admin/cleanup-pending
     // Borra transacciones pending con más de 24h de antigüedad (pagos abandonados/pruebas)
     if (action === "cleanup-pending") {

@@ -65,8 +65,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             lastDigits: confirmData.lastDigits,
           });
           console.log("[PayPhone] Card token saved, id:", cardTokenId);
-        } catch (tokenError) {
-          console.error("[PayPhone] Error saving card token:", tokenError);
+        } catch (tokenError: any) {
+          console.error("[PayPhone] Error saving card token:", tokenError?.message, "code:", tokenError?.code, "full:", JSON.stringify(tokenError));
         }
       }
 
