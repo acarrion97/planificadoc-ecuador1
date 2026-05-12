@@ -263,6 +263,39 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ results, message: "Migración completada" });
     }
 
+    // GET /api/admin/diag-tokens → muestra exactamente qué campos hay en payphoneResponse de cada transacción aprobada
+    if (action === "diag-tokens") {
+      const approvedTxns = await db.select().from(paymentTransactions)
+        .where(eq(paymentTransactions.status, "approved"))
+        .orderBy(desc(paymentTransactions.createdAt))
+        .limit(10);
+      return res.json({
+        diagnostic: "Campos en payphoneResponse de transacciones aprobadas",
+        count: approvedTxns.length,
+        transactions: approvedTxns.map(t => {
+          let parsed: any = null;
+          let keys: string[] = [];
+          let parseError: string | null = null;
+          try {
+            parsed = t.payphoneResponse ? JSON.parse(t.payphoneResponse) : null;
+            keys = parsed ? Object.keys(parsed) : [];
+          } catch (e: any) { parseError = e.message; }
+          return {
+            id: t.id,
+            email: t.email,
+            createdAt: t.createdAt,
+            hasCardToken: !!parsed?.cardToken,
+            hasCtoken: !!parsed?.ctoken,
+            cardTokenValue: parsed?.cardToken ? (parsed.cardToken as string).substring(0, 30) + "..." : "NONE",
+            ctokenValue: parsed?.ctoken ? (parsed.ctoken as string).substring(0, 30) + "..." : "NONE",
+            allKeys: keys,
+            parseError,
+            rawSnippet: t.payphoneResponse ? t.payphoneResponse.substring(0, 200) : "NULL",
+          };
+        }),
+      });
+    }
+
     // POST /api/admin/fix-recurring → repara suscripciones con ctoken en payphoneResponse pero isRecurring=false
     if (action === "fix-recurring") {
       const results: string[] = [];
@@ -275,37 +308,59 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         results.push(`ℹ️ cardToken alter: ${e.message}`);
       }
 
-      // 2. Buscar transacciones aprobadas con cardToken en payphoneResponse pero sin cardToken guardado
+      // 2. Buscar transacciones aprobadas con cardToken O ctoken en payphoneResponse
       const approvedTxns = await db.select().from(paymentTransactions).where(eq(paymentTransactions.status, "approved"));
       let fixed = 0;
 
+      // Diagnostic: show what we found
+      results.push(`📋 Total approved transactions: ${approvedTxns.length}`);
+
       for (const t of approvedTxns) {
-        if (!t.payphoneResponse) continue;
+        if (!t.payphoneResponse) { results.push(`⏭️ ${t.email}: no payphoneResponse`); continue; }
         let parsed: any;
-        try { parsed = JSON.parse(t.payphoneResponse); } catch { continue; }
-        if (!parsed?.cardToken) continue;
+        try { parsed = JSON.parse(t.payphoneResponse); } catch { results.push(`⏭️ ${t.email}: JSON parse error`); continue; }
+
+        // Accept both "cardToken" (injected by our bridge) and "ctoken" (raw PayPhone redirect param)
+        const tokenValue: string = parsed?.cardToken || parsed?.ctoken || "";
+        if (!tokenValue) {
+          results.push(`⏭️ ${t.email}: no token in response (keys: ${Object.keys(parsed || {}).join(",")})`);
+          continue;
+        }
+
+        results.push(`🔑 ${t.email}: token found (${tokenValue.substring(0, 20)}...)`);
 
         // Check if subscription already has isRecurring=true
         const existingSubs = await db.select().from(subscriptions)
           .where(and(eq(subscriptions.email, t.email), eq(subscriptions.status, "active")))
           .orderBy(desc(subscriptions.createdAt)).limit(1);
-        if (existingSubs.length > 0 && existingSubs[0].isRecurring) continue; // already fixed
+        if (existingSubs.length > 0 && existingSubs[0].isRecurring) {
+          results.push(`✓ ${t.email}: already isRecurring=true, skipping`);
+          continue;
+        }
 
         // Save card token
         try {
           const existingToken = await db.select().from(cardTokens)
             .where(and(eq(cardTokens.email, t.email), eq(cardTokens.isActive, true))).limit(1);
           if (existingToken.length > 0) {
-            results.push(`ℹ️ ${t.email}: card token already exists, skipping`);
+            // Token exists but subscription not marked recurring — just update subscription
+            if (existingSubs.length > 0) {
+              await db.update(subscriptions).set({ isRecurring: true, cardTokenId: existingToken[0].id })
+                .where(eq(subscriptions.id, existingSubs[0].id));
+              results.push(`✅ ${t.email}: existing token linked + subscription set to isRecurring=true`);
+              fixed++;
+            } else {
+              results.push(`ℹ️ ${t.email}: card token already exists but no active subscription found`);
+            }
             continue;
           }
 
           await db.update(cardTokens).set({ isActive: false }).where(eq(cardTokens.email, t.email));
           const insertResult = await db.insert(cardTokens).values({
             email: t.email,
-            cardToken: parsed.cardToken,
-            cardHolder: (t as any).cardHolder || parsed.optionalParameter4 || "",
-            documentId: (t as any).documentId || parsed.document || "",
+            cardToken: tokenValue,
+            cardHolder: (t as any).cardHolder || parsed.optionalParameter4 || parsed.cardHolder || "",
+            documentId: (t as any).documentId || parsed.document || parsed.documentId || "",
             phoneNumber: (t as any).phoneNumber || parsed.phoneNumber || "",
             cardBrand: t.cardBrand || parsed.cardBrand || "",
             lastDigits: t.lastDigits || parsed.lastDigits || "",
