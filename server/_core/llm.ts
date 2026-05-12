@@ -201,10 +201,17 @@ const normalizeToolChoice = (
   return toolChoice;
 };
 
-const resolveApiUrl = () =>
-  ENV.forgeApiUrl && ENV.forgeApiUrl.trim().length > 0
-    ? `${ENV.forgeApiUrl.replace(/\/$/, "")}/v1/chat/completions`
-    : "https://forge.manus.im/v1/chat/completions";
+const resolveApiUrl = () => {
+  if (!ENV.forgeApiUrl || ENV.forgeApiUrl.trim().length === 0) {
+    return "https://forge.manus.im/v1/chat/completions";
+  }
+  const base = ENV.forgeApiUrl.replace(/\/$/, "");
+  // If the URL already ends with /chat/completions, use it directly
+  // (e.g. Google Gemini: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions)
+  if (base.endsWith("/chat/completions")) return base;
+  // Otherwise append the OpenAI-compatible path
+  return `${base}/v1/chat/completions`;
+};
 
 const assertApiKey = () => {
   if (!ENV.forgeApiKey) {
@@ -280,10 +287,7 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     payload.tool_choice = normalizedToolChoice;
   }
 
-  payload.max_tokens = 32768;
-  payload.thinking = {
-    budget_tokens: 128,
-  };
+  payload.max_tokens = 8192;
 
   const normalizedResponseFormat = normalizeResponseFormat({
     responseFormat,
