@@ -2,11 +2,21 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { getPaymentTransaction } from "../_lib/db";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Log ALL params PayPhone sends to responseUrl — helps debug tokenization
+  console.log("[PayPhone] Confirm URL params:", JSON.stringify(req.query));
+
   const payphoneTxId = req.query.id as string;
   const clientTxId = req.query.clientTransactionId as string;
   const documentId = ((req.query.documentId as string) || "").trim();
   const phoneNumber = ((req.query.phoneNumber as string) || "").trim();
   const cardHolder = ((req.query.cardHolder as string) || "").trim();
+  // PayPhone may send cardToken directly in the responseUrl redirect when tokenization is enabled
+  const urlCardToken = ((req.query.cardToken as string) || "").trim();
+  if (urlCardToken) {
+    console.log("[PayPhone] cardToken received in responseUrl:", urlCardToken.substring(0, 20) + "...");
+  } else {
+    console.log("[PayPhone] No cardToken in responseUrl params");
+  }
 
   const payphoneToken = process.env.PAYPHONE_TOKEN || "";
 
@@ -32,6 +42,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       documentId,
       phoneNumber,
       cardHolder,
+      urlCardToken,
     }));
   } catch (error) {
     console.error("[PayPhone] Confirm page error:", error);
@@ -48,6 +59,7 @@ function buildConfirmBridgeHTML(config: {
   documentId?: string;
   phoneNumber?: string;
   cardHolder?: string;
+  urlCardToken?: string;
 }): string {
   return `<!DOCTYPE html>
 <html lang="es">
@@ -129,7 +141,14 @@ function buildConfirmBridgeHTML(config: {
           })
         });
         const confirmData = await confirmRes.json();
-        console.log('PayPhone confirm:', confirmData);
+        console.log('PayPhone confirm keys:', Object.keys(confirmData || {}));
+        console.log('PayPhone cardToken in confirm response:', confirmData.cardToken || 'NONE');
+        // If PayPhone sent cardToken in the responseUrl (not in Confirm response), use it
+        const urlCardToken = '${config.urlCardToken || ""}';
+        if (!confirmData.cardToken && urlCardToken) {
+          confirmData.cardToken = urlCardToken;
+          console.log('Using urlCardToken from responseUrl redirect:', urlCardToken.substring(0, 20));
+        }
         const tokenData = {
           cardHolder: '${config.cardHolder || ""}',
           documentId: '${config.documentId || ""}',
