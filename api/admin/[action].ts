@@ -119,6 +119,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
+    // GET /api/admin/redirect-params → muestra los parámetros que PayPhone envió al responseUrl (redirect params)
+    if (action === "redirect-params") {
+      const limit = parseInt(req.query.limit as string) || 10;
+      const txns = await db
+        .select()
+        .from(paymentTransactions)
+        .orderBy(desc(paymentTransactions.createdAt))
+        .limit(limit);
+      return res.json({
+        diagnostic: "Parámetros que PayPhone envió al responseUrl (redirect). Busca cardToken aquí.",
+        transactions: txns.map(t => {
+          let parsed: any = null;
+          try { parsed = t.payphoneResponse ? JSON.parse(t.payphoneResponse) : null; } catch {}
+          const isRedirectParams = parsed && ('id' in parsed || 'clientTransactionId' in parsed);
+          return {
+            id: t.id,
+            email: t.email,
+            status: t.status,
+            createdAt: t.createdAt,
+            hasCardTokenInRedirect: parsed ? !!parsed.cardToken : false,
+            cardTokenInRedirect: parsed?.cardToken || "AUSENTE",
+            allRedirectParams: isRedirectParams ? parsed : "no-es-redirect-o-ya-sobreescrito",
+          };
+        }),
+      });
+    }
+
     // GET /api/admin/last-payphone-response → muestra el JSON completo de PayPhone del último pago aprobado
     if (action === "last-payphone-response") {
       const limit = parseInt(req.query.limit as string) || 5;

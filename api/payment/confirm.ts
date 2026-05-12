@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getPaymentTransaction } from "../_lib/db";
+import { getPaymentTransaction, updatePaymentTransaction } from "../_lib/db";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Log ALL params PayPhone sends to responseUrl — helps debug tokenization
@@ -31,6 +31,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       return res.send(buildResultPageHTML(false, "Transaccion no encontrada."));
     }
+
+    // Store raw PayPhone redirect params in DB for diagnostics
+    // This lets us see EXACTLY what PayPhone sent without needing logs
+    const allQueryParams = JSON.stringify(req.query);
+    await updatePaymentTransaction(clientTxId, {
+      payphoneResponse: allQueryParams, // Temporarily store redirect params (activate will overwrite with full response)
+    }).catch(() => {}); // non-blocking, ignore errors
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.setHeader("Referrer-Policy", "origin");
