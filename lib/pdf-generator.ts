@@ -172,6 +172,8 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
 
     body {
@@ -344,6 +346,8 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       margin-left: 2px;
       vertical-align: middle;
       border-radius: 1px;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
 
     .dua-legend {
