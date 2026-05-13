@@ -34,14 +34,26 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
       if (this.props.fallback) {
         return this.props.fallback;
       }
+      const errorMsg = this.state.error?.message || "Sin mensaje";
+      const errorStack = this.state.error?.stack?.split("\n").slice(0, 3).join(" | ") || "";
       return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24 }}>
           <Text style={{ fontSize: 18, fontWeight: "600", marginBottom: 8, color: "#11181C" }}>
             Algo salió mal
           </Text>
-          <Text style={{ fontSize: 14, color: "#687076", textAlign: "center", marginBottom: 16 }}>
+          <Text style={{ fontSize: 14, color: "#687076", textAlign: "center", marginBottom: 8 }}>
             Ocurrió un error inesperado. Por favor intenta de nuevo.
           </Text>
+          <View style={{ backgroundColor: "#fee2e2", borderRadius: 8, padding: 12, marginBottom: 16, width: "100%" }}>
+            <Text style={{ fontSize: 11, color: "#991b1b", fontFamily: "monospace" }} selectable>
+              {errorMsg}
+            </Text>
+            {!!errorStack && (
+              <Text style={{ fontSize: 10, color: "#b91c1c", marginTop: 4, fontFamily: "monospace" }} selectable>
+                {errorStack}
+              </Text>
+            )}
+          </View>
           <TouchableOpacity
             onPress={this.handleRetry}
             style={{
