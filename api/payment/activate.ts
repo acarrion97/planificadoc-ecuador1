@@ -53,14 +53,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
 
       let cardTokenId: number | undefined;
-      if (confirmData.cardToken && tokenData) {
+      const cardToken = confirmData.cardToken || confirmData.ctoken || "";
+      console.log("[PayPhone] cardToken resolved:", cardToken || "NONE", "| cardToken field:", confirmData.cardToken || "NONE", "| ctoken field:", confirmData.ctoken || "NONE");
+      if (cardToken) {
         try {
           cardTokenId = await saveCardToken({
             email: tx.email,
-            cardToken: confirmData.cardToken,
-            cardHolder: tokenData.cardHolder || "",
-            documentId: tokenData.documentId || "",
-            phoneNumber: tokenData.phoneNumber || "",
+            cardToken: cardToken,
+            cardHolder: tokenData?.cardHolder || "",
+            documentId: tokenData?.documentId || "",
+            phoneNumber: tokenData?.phoneNumber || "",
             cardBrand: confirmData.cardBrand,
             lastDigits: confirmData.lastDigits,
           });
@@ -68,6 +70,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         } catch (tokenError: any) {
           console.error("[PayPhone] Error saving card token:", tokenError?.message, "code:", tokenError?.code, "full:", JSON.stringify(tokenError));
         }
+      } else {
+        console.warn("[PayPhone] No card token found in response - isRecurring will be false");
       }
 
       const isAnnual = tx.amount === ANNUAL_PRICE_CENTS;
