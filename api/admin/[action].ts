@@ -459,6 +459,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true });
     }
 
+    // POST /api/admin/reset-code → elimina todas las activaciones de un código (para cuando el alumno limpia cache)
+    if (action === "reset-code") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { code } = req.body || {};
+      if (!code) return res.status(400).json({ error: "Código requerido" });
+      const codeUpper = (code as string).trim().toUpperCase();
+      const existing = await db.select().from(codeActivations).where(eq(codeActivations.code, codeUpper));
+      if (existing.length === 0) {
+        return res.json({ success: true, deleted: 0, message: `No se encontraron activaciones para el código ${codeUpper}` });
+      }
+      await db.delete(codeActivations).where(eq(codeActivations.code, codeUpper));
+      return res.json({
+        success: true,
+        deleted: existing.length,
+        message: `Se eliminaron ${existing.length} activacion(es) del código ${codeUpper}. El alumno puede volver a ingresar.`,
+      });
+    }
+
     return res.status(404).json({ error: "Acción no encontrada" });
   } catch (error) {
     console.error(`[Admin] Error in action '${action}':`, error);
