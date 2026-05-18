@@ -7,6 +7,7 @@ import {
   cardTokens,
   codeActivations,
   docenteContacts,
+  planificacionStats,
 } from "../../drizzle/schema";
 import { eq, desc, and, lt, ne, sql as drizzleSql } from "drizzle-orm";
 
@@ -457,6 +458,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!id) return res.status(400).json({ error: "ID requerido" });
       await db.delete(docenteContacts).where(eq(docenteContacts.id, parseInt(id)));
       return res.json({ success: true });
+    }
+
+    // GET /api/admin/planificacion-stats → lista usuarios con cantidad de planificaciones creadas
+    if (action === "planificacion-stats") {
+      // Ensure table exists
+      try {
+        await db.execute(drizzleSql.raw(`
+          CREATE TABLE IF NOT EXISTS planificacion_stats (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            identifier VARCHAR(320) NOT NULL UNIQUE,
+            identifierType VARCHAR(16) NOT NULL DEFAULT 'email',
+            count INT NOT NULL DEFAULT 0,
+            platform VARCHAR(16) NULL,
+            updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+          )
+        `));
+      } catch (_) { /* ya existe */ }
+
+      const stats = await db
+        .select()
+        .from(planificacionStats)
+        .orderBy(desc(planificacionStats.count));
+
+      const total = stats.reduce((s, r) => s + r.count, 0);
+      const withAtLeastOne = stats.filter(r => r.count > 0).length;
+
+      return res.json({
+        stats,
+        summary: {
+          totalUsers: stats.length,
+          usersWithAtLeastOne: withAtLeastOne,
+          totalPlanificaciones: total,
+          avgPerUser: stats.length > 0 ? (total / stats.length).toFixed(1) : "0",
+        },
+      });
     }
 
     // POST /api/admin/reset-code → elimina todas las activaciones de un código (para cuando el alumno limpia cache)

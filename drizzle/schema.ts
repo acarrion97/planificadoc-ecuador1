@@ -201,3 +201,25 @@ export const docenteContacts = mysqlTable("docente_contacts", {
 
 export type DocenteContact = typeof docenteContacts.$inferSelect;
 export type InsertDocenteContact = typeof docenteContacts.$inferInsert;
+
+/**
+ * Planificacion stats - lightweight counter synced from device each time a
+ * planificacion is created or deleted. Identified by email (subscribers) or
+ * code (code-based users).
+ */
+export const planificacionStats = mysqlTable("planificacion_stats", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Primary identifier: email for subscribers, access code for code users */
+  identifier: varchar("identifier", { length: 320 }).notNull().unique(),
+  /** 'email' | 'code' */
+  identifierType: varchar("identifierType", { length: 16 }).notNull().default("email"),
+  /** Total planificaciones currently saved on the device */
+  count: int("count").notNull().default(0),
+  /** Platform of the last sync: ios | android | web */
+  platform: varchar("platform", { length: 16 }),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PlanificacionStats = typeof planificacionStats.$inferSelect;
+export type InsertPlanificacionStats = typeof planificacionStats.$inferInsert;
