@@ -259,6 +259,14 @@ const normalizeResponseFormat = ({
   };
 };
 
+const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
+const MAX_RETRIES = 3;
+const BASE_DELAY_MS = 1500;
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
   assertApiKey();
 
@@ -300,19 +308,40 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     payload.response_format = normalizedResponseFormat;
   }
 
-  const response = await fetch(resolveApiUrl(), {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${ENV.forgeApiKey}`,
-    },
-    body: JSON.stringify(payload),
-  });
+  const body = JSON.stringify(payload);
 
-  if (!response.ok) {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    if (attempt > 0) {
+      // Exponential backoff: 1.5s, 3s, 6s
+      await sleep(BASE_DELAY_MS * Math.pow(2, attempt - 1));
+    }
+
+    const response = await fetch(resolveApiUrl(), {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${ENV.forgeApiKey}`,
+      },
+      body,
+    });
+
+    if (response.ok) {
+      return (await response.json()) as InvokeResult;
+    }
+
     const errorText = await response.text();
-    throw new Error(`LLM invoke failed: ${response.status} ${response.statusText} – ${errorText}`);
+
+    if (RETRYABLE_STATUS.has(response.status) && attempt < MAX_RETRIES) {
+      console.warn(`[LLM] ${response.status} en intento ${attempt + 1}, reintentando...`);
+      lastError = new Error(`LLM ${response.status}: ${errorText}`);
+      continue;
+    }
+
+    // No retryable or ran out of retries
+    throw new Error(`El servicio de IA está ocupado. Por favor intenta de nuevo en unos segundos.`);
   }
 
-  return (await response.json()) as InvokeResult;
+  throw lastError ?? new Error("El servicio de IA no está disponible. Intenta más tarde.");
 }
