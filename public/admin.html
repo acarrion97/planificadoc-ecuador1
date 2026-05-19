@@ -224,6 +224,15 @@
     .form-msg { font-size: 13px; margin-left: 8px; }
     .form-msg.ok { color: #059669; }
     .form-msg.err { color: #ef4444; }
+    /* Planificaciones bar */
+    .plan-bar-wrap { width: 120px; background: #f1f5f9; border-radius: 999px; height: 8px; display: inline-block; vertical-align: middle; }
+    .plan-bar { height: 8px; border-radius: 999px; background: linear-gradient(90deg, #3b82f6, #6366f1); }
+    .plan-count { font-weight: 700; color: #1e293b; min-width: 24px; display: inline-block; margin-right: 8px; }
+    .badge-email { background: #eff6ff; color: #1d4ed8; }
+    .badge-code  { background: #f0fdf4; color: #166534; }
+    .badge-ios { background: #f5f3ff; color: #6d28d9; }
+    .badge-android { background: #ecfdf5; color: #065f46; }
+    .badge-web { background: #fff7ed; color: #92400e; }
   </style>
 </head>
 <body>
@@ -261,6 +270,7 @@
         <div class="tab active" onclick="switchTab('users')" id="tab-users">Suscriptores</div>
         <div class="tab" onclick="switchTab('contacts')" id="tab-contacts">📋 Mis Docentes</div>
         <div class="tab" onclick="switchTab('codes')" id="tab-codes">Usuarios con Codigo</div>
+        <div class="tab" onclick="switchTab('planificaciones')" id="tab-planificaciones">📊 Planificaciones</div>
         <div class="tab" onclick="switchTab('transactions')" id="tab-transactions">Transacciones</div>
       </div>
 
@@ -397,6 +407,38 @@
             </thead>
             <tbody id="codesBody">
               <tr><td colspan="8" class="loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Planificaciones Section -->
+      <div class="section" id="section-planificaciones" style="display:none;">
+        <div class="toolbar">
+          <div class="section-title">Planificaciones por Usuario</div>
+          <input type="text" class="search-input" placeholder="Buscar por email o código..." oninput="filterPlanificaciones(this.value)" />
+        </div>
+
+        <!-- Summary cards -->
+        <div id="planSummaryGrid" class="metrics-grid" style="margin-bottom:20px;">
+          <div class="metric-card"><div class="loading">Cargando...</div></div>
+        </div>
+
+        <div class="table-container">
+          <table id="planTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Tipo</th>
+                <th>Plataforma</th>
+                <th>Planificaciones</th>
+                <th>Progreso</th>
+                <th>Última actividad</th>
+              </tr>
+            </thead>
+            <tbody id="planBody">
+              <tr><td colspan="7" class="loading">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -728,6 +770,7 @@
       document.getElementById('section-users').style.display = tab === 'users' ? 'block' : 'none';
       document.getElementById('section-contacts').style.display = tab === 'contacts' ? 'block' : 'none';
       document.getElementById('section-codes').style.display = tab === 'codes' ? 'block' : 'none';
+      document.getElementById('section-planificaciones').style.display = tab === 'planificaciones' ? 'block' : 'none';
       document.getElementById('section-transactions').style.display = tab === 'transactions' ? 'block' : 'none';
     }
 
@@ -887,11 +930,99 @@
       } catch { return dateStr; }
     }
 
+    // ===== PLANIFICACIONES =====
+    let allPlanStats = [];
+
+    async function loadPlanificaciones() {
+      try {
+        const data = await fetchJSON('/api/admin/planificacion-stats');
+        allPlanStats = data.stats || [];
+        const s = data.summary || {};
+
+        document.getElementById('planSummaryGrid').innerHTML = `
+          <div class="metric-card highlight">
+            <div class="label">Total Planificaciones</div>
+            <div class="value">${s.totalPlanificaciones || 0}</div>
+            <div class="sub">entre todos los usuarios</div>
+          </div>
+          <div class="metric-card success">
+            <div class="label">Usuarios Activos</div>
+            <div class="value">${s.usersWithAtLeastOne || 0}</div>
+            <div class="sub">con al menos 1 planificación</div>
+          </div>
+          <div class="metric-card info">
+            <div class="label">Usuarios Registrados</div>
+            <div class="value">${s.totalUsers || 0}</div>
+            <div class="sub">han sincronizado datos</div>
+          </div>
+          <div class="metric-card revenue">
+            <div class="label">Promedio por Usuario</div>
+            <div class="value">${s.avgPerUser || '0'}</div>
+            <div class="sub">planificaciones</div>
+          </div>
+        `;
+
+        renderPlanificaciones(allPlanStats);
+      } catch (e) {
+        document.getElementById('planSummaryGrid').innerHTML = '<div class="metric-card"><div class="loading">Sin datos aún — los usuarios deben abrir la app primero.</div></div>';
+        document.getElementById('planBody').innerHTML = `
+          <tr><td colspan="7">
+            <div class="empty-state">
+              <div class="icon">📊</div>
+              <div class="title">Aún no hay datos</div>
+              <div class="desc">Los contadores se sincronizarán automáticamente la próxima vez<br>que cada usuario cree o elimine una planificación.</div>
+            </div>
+          </td></tr>`;
+      }
+    }
+
+    function renderPlanificaciones(stats) {
+      if (!stats || stats.length === 0) {
+        document.getElementById('planBody').innerHTML = `
+          <tr><td colspan="7">
+            <div class="empty-state">
+              <div class="icon">📊</div>
+              <div class="title">Aún no hay datos</div>
+              <div class="desc">Los contadores se sincronizarán automáticamente la próxima vez<br>que cada usuario cree o elimine una planificación.</div>
+            </div>
+          </td></tr>`;
+        return;
+      }
+
+      const maxCount = Math.max(...stats.map(s => s.count), 1);
+
+      document.getElementById('planBody').innerHTML = stats.map((s, i) => {
+        const pct = Math.round((s.count / maxCount) * 100);
+        const platBadge = s.platform ? `<span class="badge badge-${s.platform}">${s.platform}</span>` : '-';
+        const typeBadge = `<span class="badge badge-${s.identifierType}">${s.identifierType === 'email' ? '📧 Suscriptor' : '🔑 Código'}</span>`;
+        return `
+          <tr>
+            <td>${i + 1}</td>
+            <td style="font-size:13px;max-width:200px;overflow:hidden;text-overflow:ellipsis">${s.identifier}</td>
+            <td>${typeBadge}</td>
+            <td>${platBadge}</td>
+            <td><span class="plan-count">${s.count}</span></td>
+            <td>
+              <div class="plan-bar-wrap">
+                <div class="plan-bar" style="width:${pct}%"></div>
+              </div>
+            </td>
+            <td>${formatDate(s.updatedAt)}</td>
+          </tr>`;
+      }).join('');
+    }
+
+    function filterPlanificaciones(query) {
+      const q = query.toLowerCase();
+      renderPlanificaciones(allPlanStats.filter(s => s.identifier.toLowerCase().includes(q)));
+    }
+
     function loadAll() {
       loadMetrics();
       loadUsers();
       loadContacts();
       loadCodeUsers();
+      loadPlanificaciones();
       loadTransactions();
     }
   </script>
