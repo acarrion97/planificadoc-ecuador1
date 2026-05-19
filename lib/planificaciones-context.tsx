@@ -1,27 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform } from "react-native";
 import { Planificacion } from "@/data/types";
-
-const API_BASE = process.env.EXPO_PUBLIC_API_URL || "https://planificadoc.app";
-const ACCESS_STORAGE_KEY = "@planificadoc_access";
-
-/** Fire-and-forget: sync planificacion count to the server */
-async function syncCount(count: number) {
-  try {
-    const raw = await AsyncStorage.getItem(ACCESS_STORAGE_KEY);
-    if (!raw) return;
-    const data = JSON.parse(raw);
-    const identifier: string | null = data.email || data.code || null;
-    if (!identifier) return;
-    const identifierType = data.code ? "code" : "email";
-    fetch(`${API_BASE}/api/stats/planificacion`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ identifier, identifierType, count, platform: Platform.OS }),
-    }).catch(() => { /* silent fail */ });
-  } catch { /* silent fail */ }
-}
 
 const STORAGE_KEY = "@planificadoc_planificaciones";
 
@@ -96,21 +75,18 @@ export function PlanificacionesProvider({ children }: { children: React.ReactNod
     dispatch({ type: "ADD", payload: p });
     const updated = [p, ...state.planificaciones];
     await persist(updated);
-    syncCount(updated.length);
   }, [state.planificaciones, persist]);
 
   const updatePlanificacion = useCallback(async (p: Planificacion) => {
     dispatch({ type: "UPDATE", payload: p });
     const updated = state.planificaciones.map((x) => (x.id === p.id ? p : x));
     await persist(updated);
-    // no sync on update — count doesn't change
   }, [state.planificaciones, persist]);
 
   const deletePlanificacion = useCallback(async (id: string) => {
     dispatch({ type: "DELETE", payload: id });
     const updated = state.planificaciones.filter((x) => x.id !== id);
     await persist(updated);
-    syncCount(updated.length);
   }, [state.planificaciones, persist]);
 
   const getPlanificacion = useCallback(
