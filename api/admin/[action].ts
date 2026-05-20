@@ -10,12 +10,28 @@ import {
   planificacionStats,
 } from "../../drizzle/schema";
 import { eq, desc, and, lt, ne, sql as drizzleSql } from "drizzle-orm";
+import fs from "fs";
+import path from "path";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
-  if (!verifyAdmin(req)) return res.status(401).json({ error: "No autorizado" });
 
   const action = req.query.action as string;
+
+  // Serve admin HTML without auth check (auth is handled client-side in the HTML)
+  if (action === "html") {
+    try {
+      const htmlPath = path.join(process.cwd(), "public", "admin.html");
+      const html = fs.readFileSync(htmlPath, "utf8");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      return res.status(200).send(html);
+    } catch {
+      return res.status(500).send("Error loading admin page");
+    }
+  }
+
+  if (!verifyAdmin(req)) return res.status(401).json({ error: "No autorizado" });
 
   try {
     const db = getDb();

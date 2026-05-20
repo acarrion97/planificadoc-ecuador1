@@ -15,7 +15,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/admin.html", "destination": "/api/admin-page" }
+    { "source": "/admin.html", "destination": "/api/admin/html" }
   ],
   "headers": [
     {
