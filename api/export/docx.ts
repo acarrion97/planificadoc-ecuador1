@@ -58,7 +58,7 @@ function headerCell(text: string, colspan?: number) {
 }
 
 /** Builds the Word document from a Planificacion plain object */
-function buildDocx(plan: any): Buffer {
+async function buildDocx(plan: any): Promise<Buffer> {
   const isEFL = plan?.destreza?.area === "EFL";
   const est = plan?.temaSeleccionado?.estructura;
 
@@ -208,7 +208,7 @@ function buildDocx(plan: any): Buffer {
     }],
   });
 
-  return Buffer.from(Packer.toBuffer(doc) as any);
+  return Buffer.from(await Packer.toBuffer(doc));
 }
 
 /** Fills a user-uploaded .docx template using docxtemplater */
