@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure, router } from "./_core/trpc";
-import { invokeLLM } from "./_core/llm";
+import { invokeLLM, repairJson } from "./_core/llm";
 
 /**
  * Router tRPC para generación de temas y planificaciones con IA.
@@ -166,7 +166,16 @@ Responde ÚNICAMENTE con un JSON válido:
           throw new Error(isEFL ? "No response received from AI model" : "No se recibió respuesta del modelo de IA");
         }
 
-        const parsed = JSON.parse(content);
+        let parsed: any;
+        try {
+          parsed = JSON.parse(content);
+        } catch {
+          try {
+            parsed = JSON.parse(repairJson(content));
+          } catch {
+            throw new Error(isEFL ? "The AI returned an incomplete response. Please try again." : "La IA devolvió una respuesta incompleta. Por favor intenta de nuevo.");
+          }
+        }
         if (!parsed.temas || !Array.isArray(parsed.temas)) {
           throw new Error(isEFL ? "AI response does not have the expected format" : "La respuesta de IA no tiene el formato esperado");
         }
@@ -359,7 +368,16 @@ Responde ÚNICAMENTE con JSON válido:
           throw new Error(isEFL ? "No response from AI" : "Sin respuesta de IA");
         }
 
-        const parsed = JSON.parse(content);
+        let parsed: any;
+        try {
+          parsed = JSON.parse(content);
+        } catch {
+          try {
+            parsed = JSON.parse(repairJson(content));
+          } catch {
+            throw new Error(isEFL ? "The AI returned an incomplete response. Please try again." : "La IA devolvió una respuesta incompleta. Por favor intenta de nuevo.");
+          }
+        }
 
         // Normalizar la estructura y DUA
         const fases = ["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const;

@@ -259,6 +259,37 @@ const normalizeResponseFormat = ({
   };
 };
 
+/**
+ * Attempts to repair truncated JSON by closing open brackets/strings.
+ * Handles the case where the LLM response was cut off mid-generation.
+ */
+export function repairJson(raw: string): string {
+  let s = raw.trim();
+
+  // Remove trailing incomplete key-value or comma
+  s = s.replace(/,\s*$/, "");
+  s = s.replace(/,\s*"[^"]*$/, ""); // trailing incomplete key
+
+  // Close any open string (odd number of unescaped quotes)
+  const quoteCount = (s.match(/(?<!\\)"/g) || []).length;
+  if (quoteCount % 2 !== 0) s += '"';
+
+  // Close brackets/braces in reverse order
+  const stack: string[] = [];
+  let inString = false;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === '"' && (i === 0 || s[i - 1] !== "\\")) inString = !inString;
+    if (!inString) {
+      if (c === "{") stack.push("}");
+      else if (c === "[") stack.push("]");
+      else if (c === "}" || c === "]") stack.pop();
+    }
+  }
+  s += stack.reverse().join("");
+  return s;
+}
+
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
 const MAX_RETRIES = 3;
 const BASE_DELAY_MS = 1500;
