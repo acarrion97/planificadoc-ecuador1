@@ -1,7 +1,7 @@
 {
   "buildCommand": "mkdir -p node_modules/react-native-css-interop/.cache && touch node_modules/react-native-css-interop/.cache/web.css && npx expo export --platform web && cp public/admin.html dist/admin.html",
   "outputDirectory": "dist",
-  "installCommand": "pnpm install",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
   "functions": {
     "api/**/*.ts": {
