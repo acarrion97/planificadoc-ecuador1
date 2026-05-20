@@ -1,12 +1,13 @@
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import { Pressable } from "react-native";
+import { useState } from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, INSERCIONES_CURRICULARES, COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "@/data";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
-import { useExportPdf } from "@/hooks/use-export-pdf";
+import { ExportModal } from "@/components/ExportModal";
 import type { FaseClase, DUAActividad } from "@/data/types";
 
 export default function VerPlanScreen() {
@@ -14,7 +15,7 @@ export default function VerPlanScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { getPlanificacion } = usePlanificaciones();
-  const { exportarPDF, isExporting } = useExportPdf();
+  const [exportModalVisible, setExportModalVisible] = useState(false);
 
   const plan = getPlanificacion(id || "");
 
@@ -71,26 +72,29 @@ export default function VerPlanScreen() {
           <Text className="text-xs text-muted mt-1">2026 - 2027</Text>
         </View>
 
-        {/* Bot\u00f3n Exportar PDF */}
+        {/* Bot\u00f3n Exportar */}
         <View className="px-5 mt-3">
           <Pressable
-            onPress={() => exportarPDF(plan)}
-            disabled={isExporting}
+            onPress={() => setExportModalVisible(true)}
             style={({ pressed }) => [
               styles.exportButton,
-              { backgroundColor: "#003366", opacity: pressed ? 0.8 : isExporting ? 0.6 : 1 },
+              { backgroundColor: "#003366", opacity: pressed ? 0.8 : 1 },
             ]}
           >
-            {isExporting ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <Text style={{ fontSize: 18 }}>{"\uD83D\uDCC4"}</Text>
-            )}
+            <Text style={{ fontSize: 18 }}>{"\uD83D\uDCE4"}</Text>
             <Text style={styles.exportButtonText}>
-              {isExporting ? (isEFL ? "Generating PDF..." : "Generando PDF...") : (isEFL ? "Export PDF" : "Exportar PDF")}
+              {isEFL ? "Export" : "Exportar"}
             </Text>
           </Pressable>
         </View>
+
+        {/* Export Modal */}
+        <ExportModal
+          visible={exportModalVisible}
+          onClose={() => setExportModalVisible(false)}
+          plan={plan}
+          isEFL={isEFL}
+        />
 
         {/* Destreza badge */}
         <View className="px-5 mt-4">
