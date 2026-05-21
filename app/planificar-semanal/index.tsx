@@ -96,7 +96,6 @@ export default function PlanificarSemanalScreen() {
   const [grado, setGrado] = useState("");
   const [nivel, setNivel] = useState("");
   const [paralelo, setParalelo] = useState("");
-  const [periodoPedagogico, setPeriodoPedagogico] = useState("");
   const [trimestre, setTrimestre] = useState("Primero");
   const [semanaInicio, setSemanaInicio] = useState(getLunesDeEstaSemana());
   const [semanaFin, setSemanaFin] = useState(getViernesDeEstaSemana());
@@ -340,7 +339,7 @@ export default function PlanificarSemanalScreen() {
       grado,
       nivel,
       paralelo,
-      periodoPedagogico,
+      periodoPedagogico: "",
       trimestre,
       periodos: "1",
       numeroUnidad,
@@ -516,11 +515,6 @@ export default function PlanificarSemanalScreen() {
                 placeholderTextColor={colors.muted} />
             </View>
           </View>
-
-          <FieldLabel label="Período Pedagógico" colors={colors} />
-          <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
-            value={periodoPedagogico} onChangeText={setPeriodoPedagogico} placeholder="Ej: Cívica y ética"
-            placeholderTextColor={colors.muted} />
 
           <FieldLabel label="Trimestre" colors={colors} />
           <View style={{ flexDirection: "row", gap: 8 }}>

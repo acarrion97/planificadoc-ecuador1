@@ -965,7 +965,7 @@ export function generarHTMLSemanal(semana: import("../data/types").Planificacion
   </div>
 
   <!-- TÍTULO -->
-  <div class="titulo-doc">PLANIFICACI&Oacute;N MICROCURRICULAR SEMANAL &mdash; ${semana.periodoPedagogico || "PERÍODO PEDAGÓGICO"}</div>
+  <div class="titulo-doc">PLANIFICACI&Oacute;N MICROCURRICULAR SEMANAL</div>
 
   <!-- DATOS INFORMATIVOS -->
   <table class="datos">
