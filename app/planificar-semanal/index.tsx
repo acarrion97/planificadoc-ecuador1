@@ -100,6 +100,9 @@ export default function PlanificarSemanalScreen() {
   const [trimestre, setTrimestre] = useState("Primero");
   const [semanaInicio, setSemanaInicio] = useState(getLunesDeEstaSemana());
   const [semanaFin, setSemanaFin] = useState(getViernesDeEstaSemana());
+  const [numeroUnidad, setNumeroUnidad] = useState("");
+  const [tituloUnidad, setTituloUnidad] = useState("");
+  const [objetivosUnidad, setObjetivosUnidad] = useState("");
 
   // ── Configuración por día ──
   const [dias, setDias] = useState<DiasState>({
@@ -340,6 +343,9 @@ export default function PlanificarSemanalScreen() {
       periodoPedagogico,
       trimestre,
       periodos: "1",
+      numeroUnidad,
+      tituloUnidad,
+      objetivosUnidad,
       duaRepresentacion: "",
       duaAccionExpresion: "",
       duaImplicacion: "",
@@ -540,6 +546,28 @@ export default function PlanificarSemanalScreen() {
                 placeholderTextColor={colors.muted} />
             </View>
           </View>
+
+          {/* Unidad de planificación */}
+          <View style={{ flexDirection: "row", gap: 8, marginTop: 4 }}>
+            <View style={{ width: 80 }}>
+              <FieldLabel label="N.º Unidad" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={numeroUnidad} onChangeText={setNumeroUnidad} placeholder="1"
+                placeholderTextColor={colors.muted} keyboardType="number-pad" />
+            </View>
+            <View style={{ flex: 1 }}>
+              <FieldLabel label="Título de unidad de planificación" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={tituloUnidad} onChangeText={setTituloUnidad} placeholder="Nombre de la unidad"
+                placeholderTextColor={colors.muted} />
+            </View>
+          </View>
+
+          <FieldLabel label="Objetivos específicos de la unidad de planificación" colors={colors} />
+          <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
+            value={objetivosUnidad} onChangeText={setObjetivosUnidad}
+            placeholder="Escribe los objetivos de la unidad..."
+            placeholderTextColor={colors.muted} multiline numberOfLines={3} />
         </View>
 
         {/* ── SECCIÓN 2: Configuración por día ── */}

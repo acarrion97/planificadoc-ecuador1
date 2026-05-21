@@ -211,6 +211,9 @@ export interface PlanificacionSemanal {
   periodoPedagogico: string;
   trimestre: string;
   periodos: string;
+  numeroUnidad: string;
+  tituloUnidad: string;
+  objetivosUnidad: string;
   duaRepresentacion: string;
   duaAccionExpresion: string;
   duaImplicacion: string;

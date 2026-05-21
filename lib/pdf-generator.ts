@@ -987,6 +987,14 @@ export function generarHTMLSemanal(semana: import("../data/types").Planificacion
       <td class="lbl">Per&iacute;odos:</td>
       <td>${semana.periodos || "___"}</td>
     </tr>
+    <tr>
+      <td class="lbl">N.&ordm; de unidad de planificaci&oacute;n:</td>
+      <td style="width:8%;">${(semana as any).numeroUnidad || "___"}</td>
+      <td class="lbl" colspan="1">T&iacute;tulo de unidad de planificaci&oacute;n:</td>
+      <td colspan="2">${(semana as any).tituloUnidad || "___"}</td>
+      <td class="lbl">Objetivos espec&iacute;ficos de la unidad de planificaci&oacute;n:</td>
+      <td colspan="2">${(semana as any).objetivosUnidad || "___"}</td>
+    </tr>
   </table>
 
   <!-- TABLA PRINCIPAL -->
