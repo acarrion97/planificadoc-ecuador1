@@ -989,15 +989,6 @@ export function generarHTMLSemanal(semana: import("../data/types").Planificacion
     </tr>
   </table>
 
-  <!-- ESTILOS DE APRENDIZAJE -->
-  <div class="estilos-row">
-    <div style="font-weight:bold;font-size:7.5px;color:#003366;margin-right:6px;">ESTILOS DE APRENDIZAJE:</div>
-    <div class="estilo-item"><strong>Visual:</strong> ${semana.pctVisual || "0"}%</div>
-    <div class="estilo-item"><strong>Auditivo:</strong> ${semana.pctAuditivo || "0"}%</div>
-    <div class="estilo-item"><strong>Lector-Escritor:</strong> ${semana.pctLectorEscritor || "0"}%</div>
-    <div class="estilo-item"><strong>Kinest&eacute;sico:</strong> ${semana.pctKinestesico || "0"}%</div>
-  </div>
-
   <!-- TABLA PRINCIPAL -->
   <table class="principal">
     <thead>

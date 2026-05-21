@@ -101,12 +101,6 @@ export default function PlanificarSemanalScreen() {
   const [semanaInicio, setSemanaInicio] = useState(getLunesDeEstaSemana());
   const [semanaFin, setSemanaFin] = useState(getViernesDeEstaSemana());
 
-  // ── Estilos de aprendizaje global ──
-  const [pctVisual, setPctVisual] = useState("25");
-  const [pctAuditivo, setPctAuditivo] = useState("25");
-  const [pctLectorEscritor, setPctLectorEscritor] = useState("25");
-  const [pctKinestesico, setPctKinestesico] = useState("25");
-
   // ── Configuración por día ──
   const [dias, setDias] = useState<DiasState>({
     lunes: makeDia(true),
@@ -349,10 +343,10 @@ export default function PlanificarSemanalScreen() {
       duaRepresentacion: "",
       duaAccionExpresion: "",
       duaImplicacion: "",
-      pctVisual,
-      pctAuditivo,
-      pctLectorEscritor,
-      pctKinestesico,
+      pctVisual: "",
+      pctAuditivo: "",
+      pctLectorEscritor: "",
+      pctKinestesico: "",
       dias: {
         lunes: {
           ...dias.lunes,
@@ -548,32 +542,8 @@ export default function PlanificarSemanalScreen() {
           </View>
         </View>
 
-        {/* ── SECCIÓN 2: Estilos de aprendizaje ── */}
-        <SectionHeader title="2. Estilos de Aprendizaje (global)" emoji="🧠" colors={colors} />
-        <View style={[styles.sectionBody, { backgroundColor: colors.surface, borderColor: colors.border, marginHorizontal: 20 }]}>
-          {[
-            { label: "Visual", value: pctVisual, set: setPctVisual, color: "#3B82F6" },
-            { label: "Auditivo", value: pctAuditivo, set: setPctAuditivo, color: "#8B5CF6" },
-            { label: "Lector-Escritor", value: pctLectorEscritor, set: setPctLectorEscritor, color: "#F59E0B" },
-            { label: "Kinestésico", value: pctKinestesico, set: setPctKinestesico, color: "#10B981" },
-          ].map(({ label, value, set, color }) => (
-            <View key={label} style={styles.estiloRow}>
-              <Text style={[styles.estiloLabel, { color: colors.foreground }]}>{label}</Text>
-              <View style={{ flex: 1 }}>
-                <View style={[styles.estiloBarBg, { backgroundColor: colors.border }]}>
-                  <View style={[styles.estiloBarFill, { backgroundColor: color, width: `${Math.min(Number(value) || 0, 100)}%` as any }]} />
-                </View>
-              </View>
-              <TextInput
-                style={[styles.pctInput, { color: colors.foreground, borderColor: colors.border }]}
-                value={value} onChangeText={set} keyboardType="number-pad" maxLength={3} />
-              <Text style={{ color: colors.muted, marginLeft: 4 }}>%</Text>
-            </View>
-          ))}
-        </View>
-
-        {/* ── SECCIÓN 3: Configuración por día ── */}
-        <SectionHeader title="3. Configuración por Día" emoji="📅" colors={colors} />
+        {/* ── SECCIÓN 2: Configuración por día ── */}
+        <SectionHeader title="2. Configuración por Día" emoji="📅" colors={colors} />
         {DIAS_SEMANA.map((dia, diaIdx) => (
           <DiaConfigBlock
             key={dia}
