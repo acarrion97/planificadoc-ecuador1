@@ -180,13 +180,7 @@ export interface HoraSemanal {
   tema: string;
   temasAlternativos: TemaSugerido[];
   temaSeleccionado: TemaSugerido | null;
-}
-
-/** Configuración completa de un día de la semana */
-export interface ConfiguracionDia {
-  activo: boolean;
-  cantidadHoras: 1 | 2 | 3;
-  horas: HoraSemanal[];
+  // Configuración didáctica por hora (antes estaban en ConfiguracionDia)
   habilidadesSocioemocionales: string[];
   usaEjesTransversales: boolean;
   insercionesCurriculares: string[];
@@ -194,6 +188,13 @@ export interface ConfiguracionDia {
   competencias: string[];
   metodologiasActivas: string[];
   tecnicasEvaluacion: string[];
+}
+
+/** Configuración completa de un día de la semana */
+export interface ConfiguracionDia {
+  activo: boolean;
+  cantidadHoras: 1 | 2 | 3;
+  horas: HoraSemanal[];
 }
 
 /** Planificación semanal completa (5 días) */

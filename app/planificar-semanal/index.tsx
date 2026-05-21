@@ -56,15 +56,25 @@ function getViernesDeEstaSemana(): string {
 }
 
 function makeHora(): HoraSemanal {
-  return { id: generateId(), codigoDestreza: "", destreza: null, tema: "", temasAlternativos: [], temaSeleccionado: null };
+  return {
+    id: generateId(),
+    codigoDestreza: "",
+    destreza: null,
+    tema: "",
+    temasAlternativos: [],
+    temaSeleccionado: null,
+    habilidadesSocioemocionales: [],
+    usaEjesTransversales: false,
+    insercionesCurriculares: [],
+    usaCompetencias: false,
+    competencias: [],
+    metodologiasActivas: [],
+    tecnicasEvaluacion: [],
+  };
 }
 
 function makeDia(activo = true): ConfiguracionDia {
-  return {
-    activo, cantidadHoras: 1, horas: [makeHora()],
-    habilidadesSocioemocionales: [], usaEjesTransversales: false, insercionesCurriculares: [],
-    usaCompetencias: false, competencias: [], metodologiasActivas: [], tecnicasEvaluacion: [],
-  };
+  return { activo, cantidadHoras: 1, horas: [makeHora()] };
 }
 
 type Paso = "configuracion" | "generando" | "resultado";
@@ -90,11 +100,6 @@ export default function PlanificarSemanalScreen() {
   const [trimestre, setTrimestre] = useState("Primero");
   const [semanaInicio, setSemanaInicio] = useState(getLunesDeEstaSemana());
   const [semanaFin, setSemanaFin] = useState(getViernesDeEstaSemana());
-
-  // ── DUA global ──
-  const [duaRepresentacion, setDuaRepresentacion] = useState("");
-  const [duaAccionExpresion, setDuaAccionExpresion] = useState("");
-  const [duaImplicacion, setDuaImplicacion] = useState("");
 
   // ── Estilos de aprendizaje global ──
   const [pctVisual, setPctVisual] = useState("25");
@@ -155,21 +160,56 @@ export default function PlanificarSemanalScreen() {
       ...prev,
       [siguiente]: {
         ...origen,
-        horas: origen.horas.map(h => ({ ...makeHora(), codigoDestreza: h.codigoDestreza, destreza: h.destreza, tema: h.tema })),
+        horas: origen.horas.map(h => ({
+          ...makeHora(),
+          codigoDestreza: h.codigoDestreza,
+          destreza: h.destreza,
+          tema: h.tema,
+          habilidadesSocioemocionales: [...h.habilidadesSocioemocionales],
+          usaEjesTransversales: h.usaEjesTransversales,
+          insercionesCurriculares: [...h.insercionesCurriculares],
+          usaCompetencias: h.usaCompetencias,
+          competencias: [...h.competencias],
+          metodologiasActivas: [...h.metodologiasActivas],
+          tecnicasEvaluacion: [...h.tecnicasEvaluacion],
+        })),
       },
     }));
   }, [dias]);
 
-  const toggleChip = useCallback((
+  const toggleChipHora = useCallback((
     dia: DiaSemanaKey,
+    horaId: string,
     field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion",
     id: string
   ) => {
-    setDias(prev => {
-      const current = prev[dia][field] as string[];
-      const next = current.includes(id) ? current.filter(x => x !== id) : [...current, id];
-      return { ...prev, [dia]: { ...prev[dia], [field]: next } };
-    });
+    setDias(prev => ({
+      ...prev,
+      [dia]: {
+        ...prev[dia],
+        horas: prev[dia].horas.map(h => {
+          if (h.id !== horaId) return h;
+          const current = h[field] as string[];
+          return { ...h, [field]: current.includes(id) ? current.filter(x => x !== id) : [...current, id] };
+        }),
+      },
+    }));
+  }, []);
+
+  const toggleBoolHora = useCallback((
+    dia: DiaSemanaKey,
+    horaId: string,
+    field: "usaEjesTransversales" | "usaCompetencias"
+  ) => {
+    setDias(prev => ({
+      ...prev,
+      [dia]: {
+        ...prev[dia],
+        horas: prev[dia].horas.map(h =>
+          h.id === horaId ? { ...h, [field]: !h[field] } : h
+        ),
+      },
+    }));
   }, []);
 
   // ─── Sugerir temas para una hora ─────────────────────────
@@ -220,9 +260,9 @@ export default function PlanificarSemanalScreen() {
           bloque: obtenerNombreBloque(h.destreza!.area, h.destreza!.bloque),
           subnivel: h.destreza!.subnivel,
           tema: h.temaSeleccionado?.titulo || h.tema,
-          ejesTransversales: config.usaEjesTransversales ? config.insercionesCurriculares : [],
-          competencias: config.usaCompetencias ? config.competencias : [],
-          metodologias: config.metodologiasActivas,
+          ejesTransversales: h.usaEjesTransversales ? h.insercionesCurriculares : [],
+          competencias: h.usaCompetencias ? h.competencias : [],
+          metodologias: h.metodologiasActivas,
         })),
       });
     }
@@ -270,8 +310,9 @@ export default function PlanificarSemanalScreen() {
             bloque: obtenerNombreBloque(hora.destreza.area, hora.destreza.bloque),
             subnivel: hora.destreza.subnivel,
             tema: hora.temaSeleccionado?.titulo || hora.tema,
-            ejesTransversales: config.usaEjesTransversales ? config.insercionesCurriculares : [],
-            competencias: config.usaCompetencias ? config.competencias : [],
+            ejesTransversales: hora.usaEjesTransversales ? hora.insercionesCurriculares : [],
+            competencias: hora.usaCompetencias ? hora.competencias : [],
+            metodologias: hora.metodologiasActivas,
           }],
         }],
       });
@@ -305,9 +346,9 @@ export default function PlanificarSemanalScreen() {
       periodoPedagogico,
       trimestre,
       periodos: "1",
-      duaRepresentacion,
-      duaAccionExpresion,
-      duaImplicacion,
+      duaRepresentacion: "",
+      duaAccionExpresion: "",
+      duaImplicacion: "",
       pctVisual,
       pctAuditivo,
       pctLectorEscritor,
@@ -507,43 +548,8 @@ export default function PlanificarSemanalScreen() {
           </View>
         </View>
 
-        {/* ── SECCIÓN 2: Principios DUA ── */}
-        <SectionHeader title="2. Principios DUA (global)" emoji="♿" colors={colors} />
-        <View style={[styles.sectionBody, { backgroundColor: colors.surface, borderColor: colors.border, marginHorizontal: 20 }]}>
-          <View style={styles.duaRow}>
-            <View style={[styles.duaSquare, { backgroundColor: DUA_ROSADO }]} />
-            <View style={{ flex: 1, marginLeft: 10 }}>
-              <Text style={[styles.duaLabel, { color: DUA_ROSADO }]}>I. Representación ¿qué?</Text>
-              <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
-                value={duaRepresentacion} onChangeText={setDuaRepresentacion}
-                placeholder="Estrategias de representación usadas en la semana"
-                placeholderTextColor={colors.muted} multiline />
-            </View>
-          </View>
-          <View style={styles.duaRow}>
-            <View style={[styles.duaSquare, { backgroundColor: DUA_AZUL }]} />
-            <View style={{ flex: 1, marginLeft: 10 }}>
-              <Text style={[styles.duaLabel, { color: DUA_AZUL }]}>II. Acción y Expresión ¿cómo?</Text>
-              <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
-                value={duaAccionExpresion} onChangeText={setDuaAccionExpresion}
-                placeholder="Formas de expresión y acción"
-                placeholderTextColor={colors.muted} multiline />
-            </View>
-          </View>
-          <View style={styles.duaRow}>
-            <View style={[styles.duaSquare, { backgroundColor: DUA_VERDE }]} />
-            <View style={{ flex: 1, marginLeft: 10 }}>
-              <Text style={[styles.duaLabel, { color: DUA_VERDE }]}>III. Implicación ¿por qué?</Text>
-              <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
-                value={duaImplicacion} onChangeText={setDuaImplicacion}
-                placeholder="Estrategias de motivación e implicación"
-                placeholderTextColor={colors.muted} multiline />
-            </View>
-          </View>
-        </View>
-
-        {/* ── SECCIÓN 3: Estilos de aprendizaje ── */}
-        <SectionHeader title="3. Estilos de Aprendizaje (global)" emoji="🧠" colors={colors} />
+        {/* ── SECCIÓN 2: Estilos de aprendizaje ── */}
+        <SectionHeader title="2. Estilos de Aprendizaje (global)" emoji="🧠" colors={colors} />
         <View style={[styles.sectionBody, { backgroundColor: colors.surface, borderColor: colors.border, marginHorizontal: 20 }]}>
           {[
             { label: "Visual", value: pctVisual, set: setPctVisual, color: "#3B82F6" },
@@ -566,8 +572,8 @@ export default function PlanificarSemanalScreen() {
           ))}
         </View>
 
-        {/* ── SECCIÓN 4: Configuración por día ── */}
-        <SectionHeader title="4. Configuración por Día" emoji="📅" colors={colors} />
+        {/* ── SECCIÓN 3: Configuración por día ── */}
+        <SectionHeader title="3. Configuración por Día" emoji="📅" colors={colors} />
         {DIAS_SEMANA.map((dia, diaIdx) => (
           <DiaConfigBlock
             key={dia}
@@ -579,9 +585,8 @@ export default function PlanificarSemanalScreen() {
             onSetCantidadHoras={(n) => setCantidadHoras(dia, n)}
             onUpdateHora={(horaId, update) => updateHora(dia, horaId, update)}
             onSugerirTemas={(horaId) => sugerirTemas(dia, horaId)}
-            onToggleChip={(field, id) => toggleChip(dia, field, id)}
-            onToggleEjes={() => updateDia(dia, { usaEjesTransversales: !dias[dia].usaEjesTransversales })}
-            onToggleCompetencias={() => updateDia(dia, { usaCompetencias: !dias[dia].usaCompetencias })}
+            onToggleChipHora={(horaId, field, id) => toggleChipHora(dia, horaId, field, id)}
+            onToggleBoolHora={(horaId, field) => toggleBoolHora(dia, horaId, field)}
             onCopiarAlSiguiente={() => copiarAlSiguienteDia(dia)}
           />
         ))}
@@ -606,7 +611,7 @@ export default function PlanificarSemanalScreen() {
 function DiaConfigBlock({
   dia, config, colors, isLast,
   onToggleActivo, onSetCantidadHoras, onUpdateHora, onSugerirTemas,
-  onToggleChip, onToggleEjes, onToggleCompetencias, onCopiarAlSiguiente,
+  onToggleChipHora, onToggleBoolHora, onCopiarAlSiguiente,
 }: {
   dia: DiaSemanaKey;
   config: ConfiguracionDia;
@@ -616,9 +621,8 @@ function DiaConfigBlock({
   onSetCantidadHoras: (n: 1 | 2 | 3) => void;
   onUpdateHora: (horaId: string, update: Partial<HoraSemanal>) => void;
   onSugerirTemas: (horaId: string) => void;
-  onToggleChip: (field: any, id: string) => void;
-  onToggleEjes: () => void;
-  onToggleCompetencias: () => void;
+  onToggleChipHora: (horaId: string, field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
+  onToggleBoolHora: (horaId: string, field: "usaEjesTransversales" | "usaCompetencias") => void;
   onCopiarAlSiguiente: () => void;
 }) {
   const [expandido, setExpandido] = useState(true);
@@ -651,78 +655,10 @@ function DiaConfigBlock({
           {config.horas.map((hora, horaIdx) => (
             <HoraBlock key={hora.id} hora={hora} horaIdx={horaIdx} colors={colors}
               onUpdate={(update) => onUpdateHora(hora.id, update)}
-              onSugerirTemas={() => onSugerirTemas(hora.id)} />
+              onSugerirTemas={() => onSugerirTemas(hora.id)}
+              onToggleChip={(field, id) => onToggleChipHora(hora.id, field, id)}
+              onToggleBool={(field) => onToggleBoolHora(hora.id, field)} />
           ))}
-
-          {/* Habilidades Socioemocionales */}
-          <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Habilidades Socioemocionales</Text>
-          <View style={styles.chipsWrap}>
-            {HABILIDADES_SOCIOEMOCIONALES.map(h => (
-              <ChipBtn key={h.id} label={`${h.emoji} ${h.nombre}`}
-                selected={config.habilidadesSocioemocionales.includes(h.id)}
-                onPress={() => onToggleChip("habilidadesSocioemocionales", h.id)} colors={colors} />
-            ))}
-          </View>
-
-          {/* Ejes Transversales */}
-          <View style={styles.toggleRow}>
-            <Text style={[styles.subSectionTitle, { color: colors.foreground, flex: 1 }]}>Ejes Transversales</Text>
-            <Switch value={config.usaEjesTransversales} onValueChange={onToggleEjes}
-              trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
-          </View>
-          {config.usaEjesTransversales && (
-            <View style={styles.chipsWrap}>
-              {["financiera","socioemocional","seguridad_vial","interculturalidad","participacion","gestion_riesgos","educacion_sexual"].map(id => {
-                const labels: Record<string,string> = {
-                  financiera:"Educación Financiera", socioemocional:"Socioemocional",
-                  seguridad_vial:"Seguridad Vial", interculturalidad:"Interculturalidad",
-                  participacion:"Participación ciudadana", gestion_riesgos:"Gestión de riesgos",
-                  educacion_sexual:"Educación sexual",
-                };
-                return (
-                  <ChipBtn key={id} label={labels[id] || id}
-                    selected={config.insercionesCurriculares.includes(id)}
-                    onPress={() => onToggleChip("insercionesCurriculares", id)} colors={colors} />
-                );
-              })}
-            </View>
-          )}
-
-          {/* Competencias */}
-          <View style={styles.toggleRow}>
-            <Text style={[styles.subSectionTitle, { color: colors.foreground, flex: 1 }]}>Competencias</Text>
-            <Switch value={config.usaCompetencias} onValueChange={onToggleCompetencias}
-              trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
-          </View>
-          {config.usaCompetencias && (
-            <View style={styles.chipsWrap}>
-              {COMPETENCIAS.map(c => (
-                <ChipBtn key={c.id} label={c.nombre}
-                  selected={config.competencias.includes(c.id)}
-                  onPress={() => onToggleChip("competencias", c.id)} colors={colors} />
-              ))}
-            </View>
-          )}
-
-          {/* Metodologías Activas */}
-          <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Metodologías Activas</Text>
-          <View style={styles.chipsWrap}>
-            {METODOLOGIAS_ACTIVAS.map(m => (
-              <ChipBtn key={m.id} label={m.nombre}
-                selected={config.metodologiasActivas.includes(m.id)}
-                onPress={() => onToggleChip("metodologiasActivas", m.id)} colors={colors} />
-            ))}
-          </View>
-
-          {/* Técnicas de Evaluación */}
-          <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Técnicas de Evaluación</Text>
-          <View style={styles.chipsWrap}>
-            {TECNICAS_EVALUACION.map(t => (
-              <ChipBtn key={t.id} label={t.nombre}
-                selected={config.tecnicasEvaluacion.includes(t.id)}
-                onPress={() => onToggleChip("tecnicasEvaluacion", t.id)} colors={colors} />
-            ))}
-          </View>
 
           {/* Copiar al siguiente */}
           {!isLast && (
@@ -747,13 +683,15 @@ function DiaConfigBlock({
 // ─── Subcomponente: una hora dentro de un día ────────────────
 
 function HoraBlock({
-  hora, horaIdx, colors, onUpdate, onSugerirTemas,
+  hora, horaIdx, colors, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
 }: {
   hora: HoraSemanal;
   horaIdx: number;
   colors: any;
   onUpdate: (update: Partial<HoraSemanal>) => void;
   onSugerirTemas: () => void;
+  onToggleChip: (field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
+  onToggleBool: (field: "usaEjesTransversales" | "usaCompetencias") => void;
 }) {
   const [busqueda, setBusqueda] = useState(hora.codigoDestreza);
   const [resultados, setResultados] = useState<Destreza[]>([]);
@@ -849,6 +787,76 @@ function HoraBlock({
           ))}
         </View>
       )}
+
+      {/* Habilidades Socioemocionales */}
+      <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Habilidades Socioemocionales</Text>
+      <View style={styles.chipsWrap}>
+        {HABILIDADES_SOCIOEMOCIONALES.map(h => (
+          <ChipBtn key={h.id} label={`${h.emoji} ${h.nombre}`}
+            selected={hora.habilidadesSocioemocionales.includes(h.id)}
+            onPress={() => onToggleChip("habilidadesSocioemocionales", h.id)} colors={colors} />
+        ))}
+      </View>
+
+      {/* Ejes Transversales */}
+      <View style={styles.toggleRow}>
+        <Text style={[styles.subSectionTitle, { color: colors.foreground, flex: 1 }]}>Ejes Transversales</Text>
+        <Switch value={hora.usaEjesTransversales} onValueChange={() => onToggleBool("usaEjesTransversales")}
+          trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
+      </View>
+      {hora.usaEjesTransversales && (
+        <View style={styles.chipsWrap}>
+          {["financiera","socioemocional","seguridad_vial","interculturalidad","participacion","gestion_riesgos","educacion_sexual"].map(id => {
+            const labels: Record<string,string> = {
+              financiera:"Educación Financiera", socioemocional:"Socioemocional",
+              seguridad_vial:"Seguridad Vial", interculturalidad:"Interculturalidad",
+              participacion:"Participación ciudadana", gestion_riesgos:"Gestión de riesgos",
+              educacion_sexual:"Educación sexual",
+            };
+            return (
+              <ChipBtn key={id} label={labels[id] || id}
+                selected={hora.insercionesCurriculares.includes(id)}
+                onPress={() => onToggleChip("insercionesCurriculares", id)} colors={colors} />
+            );
+          })}
+        </View>
+      )}
+
+      {/* Competencias */}
+      <View style={styles.toggleRow}>
+        <Text style={[styles.subSectionTitle, { color: colors.foreground, flex: 1 }]}>Competencias</Text>
+        <Switch value={hora.usaCompetencias} onValueChange={() => onToggleBool("usaCompetencias")}
+          trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
+      </View>
+      {hora.usaCompetencias && (
+        <View style={styles.chipsWrap}>
+          {COMPETENCIAS.map(c => (
+            <ChipBtn key={c.id} label={c.nombre}
+              selected={hora.competencias.includes(c.id)}
+              onPress={() => onToggleChip("competencias", c.id)} colors={colors} />
+          ))}
+        </View>
+      )}
+
+      {/* Metodologías Activas */}
+      <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Metodologías Activas</Text>
+      <View style={styles.chipsWrap}>
+        {METODOLOGIAS_ACTIVAS.map(m => (
+          <ChipBtn key={m.id} label={m.nombre}
+            selected={hora.metodologiasActivas.includes(m.id)}
+            onPress={() => onToggleChip("metodologiasActivas", m.id)} colors={colors} />
+        ))}
+      </View>
+
+      {/* Técnicas de Evaluación */}
+      <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Técnicas de Evaluación</Text>
+      <View style={styles.chipsWrap}>
+        {TECNICAS_EVALUACION.map(t => (
+          <ChipBtn key={t.id} label={t.nombre}
+            selected={hora.tecnicasEvaluacion.includes(t.id)}
+            onPress={() => onToggleChip("tecnicasEvaluacion", t.id)} colors={colors} />
+        ))}
+      </View>
     </View>
   );
 }
@@ -1073,9 +1081,6 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, marginBottom: 4 },
   inputSm: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, marginTop: 4 },
   trimestreBtn: { flex: 1, paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center" },
-  duaRow: { flexDirection: "row", alignItems: "flex-start", marginBottom: 10 },
-  duaSquare: { width: 18, height: 18, borderRadius: 3, marginTop: 4 },
-  duaLabel: { fontSize: 12, fontWeight: "700" },
   estiloRow: { flexDirection: "row", alignItems: "center", marginBottom: 8, gap: 6 },
   estiloLabel: { fontSize: 12, fontWeight: "600", width: 100 },
   estiloBarBg: { flex: 1, height: 10, borderRadius: 5, overflow: "hidden" },
