@@ -44,7 +44,7 @@ export default function PlanesScreen() {
         {/* ── Botón planificación semanal ── */}
         <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
           <Pressable
-            onPress={() => router.push("/planificar-semanal/index" as any)}
+            onPress={() => router.push("/planificar-semanal" as any)}
             style={({ pressed }) => [styles.btnSemanal, { opacity: pressed ? 0.85 : 1 }]}
           >
             <Text style={{ fontSize: 22 }}>📅</Text>
