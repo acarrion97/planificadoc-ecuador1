@@ -202,14 +202,17 @@ const normalizeToolChoice = (
 };
 
 const resolveApiUrl = () => {
-  if (!ENV.forgeApiUrl || ENV.forgeApiUrl.trim().length === 0) {
-    return "https://forge.manus.im/v1/chat/completions";
+  const raw = ENV.forgeApiUrl?.trim() ?? "";
+  if (!raw) {
+    // No URL configured → default to OpenAI
+    return "https://api.openai.com/v1/chat/completions";
   }
-  const base = ENV.forgeApiUrl.replace(/\/$/, "");
-  // If the URL already ends with /chat/completions, use it directly
-  // (e.g. Google Gemini: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions)
+  const base = raw.replace(/\/$/, "");
+  // Already a full endpoint (e.g. Gemini-style URL)
   if (base.endsWith("/chat/completions")) return base;
-  // Otherwise append the OpenAI-compatible path
+  // Already includes /v1 — just append the method
+  if (base.endsWith("/v1")) return `${base}/chat/completions`;
+  // Bare base URL like https://api.openai.com
   return `${base}/v1/chat/completions`;
 };
 
@@ -363,6 +366,7 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     }
 
     const errorText = await response.text();
+    console.error(`[LLM] HTTP ${response.status} from ${resolveApiUrl()}: ${errorText.slice(0, 500)}`);
 
     if (RETRYABLE_STATUS.has(response.status) && attempt < MAX_RETRIES) {
       console.warn(`[LLM] ${response.status} en intento ${attempt + 1}, reintentando...`);
@@ -370,8 +374,8 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
       continue;
     }
 
-    // No retryable or ran out of retries
-    throw new Error(`El servicio de IA está ocupado. Por favor intenta de nuevo en unos segundos.`);
+    // Non-retryable: surface a clear error
+    throw new Error(`El servicio de IA respondió con error ${response.status}. Intenta de nuevo.`);
   }
 
   throw lastError ?? new Error("El servicio de IA no está disponible. Intenta más tarde.");
