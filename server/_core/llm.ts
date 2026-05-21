@@ -368,13 +368,31 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     const errorText = await response.text();
     console.error(`[LLM] HTTP ${response.status} from ${resolveApiUrl()}: ${errorText.slice(0, 500)}`);
 
+    // Parse OpenAI error body for a friendlier message
+    let parsedError: any = {};
+    try { parsedError = JSON.parse(errorText); } catch { /* ignore */ }
+    const openAiCode = parsedError?.error?.code ?? "";
+    const openAiMsg  = parsedError?.error?.message ?? "";
+
+    if (response.status === 429) {
+      if (openAiCode === "insufficient_quota" || openAiMsg.includes("quota") || openAiMsg.includes("billing")) {
+        throw new Error("Tu cuenta de OpenAI no tiene créditos disponibles. Recarga en platform.openai.com/account/billing");
+      }
+      // Rate-limit retryable
+      if (attempt < MAX_RETRIES) {
+        console.warn(`[LLM] 429 rate-limit en intento ${attempt + 1}, reintentando...`);
+        lastError = new Error("El servicio de IA está temporalmente saturado. Intenta de nuevo en unos segundos.");
+        continue;
+      }
+      throw lastError ?? new Error("El servicio de IA está saturado. Intenta de nuevo en unos segundos.");
+    }
+
     if (RETRYABLE_STATUS.has(response.status) && attempt < MAX_RETRIES) {
       console.warn(`[LLM] ${response.status} en intento ${attempt + 1}, reintentando...`);
       lastError = new Error(`LLM ${response.status}: ${errorText}`);
       continue;
     }
 
-    // Non-retryable: surface a clear error
     throw new Error(`El servicio de IA respondió con error ${response.status}. Intenta de nuevo.`);
   }
 
