@@ -64,6 +64,8 @@ function AppContent() {
         <Stack.Screen name="destreza/[codigo]" options={{ presentation: "card" }} />
         <Stack.Screen name="planificar/[codigo]" options={{ presentation: "card" }} />
         <Stack.Screen name="ver-plan/[id]" options={{ presentation: "card" }} />
+        <Stack.Screen name="planificar-semanal/index" options={{ presentation: "card" }} />
+        <Stack.Screen name="ver-semana/[id]" options={{ presentation: "card" }} />
         <Stack.Screen name="oauth/callback" />
       </Stack>
     </PlanificacionesProvider>

@@ -447,4 +447,178 @@ Responde ÚNICAMENTE con JSON válido:
         };
       }
     }),
+
+  generateWeekPlan: publicProcedure
+    .input(
+      z.object({
+        dias: z.array(
+          z.object({
+            dia: z.string(),
+            horas: z.array(
+              z.object({
+                horaIndex: z.number(),
+                codigoDestreza: z.string(),
+                descripcionDestreza: z.string(),
+                area: z.string(),
+                bloque: z.string().optional(),
+                subnivel: z.number().optional(),
+                tema: z.string(),
+                ejesTransversales: z.array(z.string()).optional(),
+                competencias: z.array(z.string()).optional(),
+                metodologias: z.array(z.string()).optional(),
+              })
+            ),
+          })
+        ),
+      })
+    )
+    .mutation(async ({ input }) => {
+      // Aplanar todos los pares dia+hora en una lista de tasks
+      type Task = {
+        dia: string;
+        horaIndex: number;
+        codigoDestreza: string;
+        descripcionDestreza: string;
+        area: string;
+        bloque?: string;
+        subnivel?: number;
+        tema: string;
+        ejesTransversales?: string[];
+        competencias?: string[];
+        metodologias?: string[];
+      };
+
+      const tasks: Task[] = [];
+      for (const diaConfig of input.dias) {
+        for (const hora of diaConfig.horas) {
+          tasks.push({ dia: diaConfig.dia, ...hora });
+        }
+      }
+
+      const areaNames: Record<string, string> = {
+        M: "Matemática", LL: "Lengua y Literatura", CN: "Ciencias Naturales",
+        CS: "Estudios Sociales", EF: "Educación Física", ECA: "Educación Cultural y Artística",
+        EFL: "English as a Foreign Language", "CN.B": "Biología", "CN.Q": "Química",
+        "CN.F": "Física", "CS.H": "Historia", "CS.F": "Filosofía",
+        EG: "Emprendimiento y Gestión",
+      };
+
+      // Función que genera el plan para una sola hora
+      async function generateOneHour(task: Task) {
+        const isEFL = task.area === "EFL";
+        const areaNombre = areaNames[task.area] || task.area;
+
+        const ejesTexto = task.ejesTransversales?.length
+          ? isEFL
+            ? `\nCROSS-CUTTING THEMES to integrate: ${task.ejesTransversales.join(", ")}`
+            : `\nEJES TRANSVERSALES a integrar: ${task.ejesTransversales.join(", ")}`
+          : "";
+
+        const competenciasTexto = task.competencias?.length
+          ? isEFL
+            ? `\nCOMPETENCIES to develop: ${task.competencias.join(", ")}`
+            : `\nCOMPETENCIAS a desarrollar: ${task.competencias.join(", ")}`
+          : "";
+
+        const duaInstruccion = isEFL
+          ? `\nUDL: For EACH activity indicate which UDL principles it covers in the "dua" array: I=Engagement, R=Representation, A=Action&Expression. CRITICAL: Do NOT include DUA in activity text strings.`
+          : `\nDUA: Para CADA actividad indica principios DUA en el array "dua": I=Implicación, R=Representación, A=Acción/Expresión. CRÍTICO: NO incluyas DUA en el texto de actividades.`;
+
+        const prompt = isEFL
+          ? `Generate a complete 45-minute ERCA lesson plan.\nSKILL: ${task.codigoDestreza}\nAREA: ${areaNombre}\n${task.bloque ? `BLOCK: ${task.bloque}` : ""}${task.subnivel ? `\nSUBLEVEL: ${task.subnivel}` : ""}\nDESCRIPTION: ${task.descripcionDestreza}\nTOPIC: ${task.tema}${ejesTexto}${competenciasTexto}\n\nMANDATORY - Marzano Taxonomy:\n- EXPERIENCE: Recognize, Recall, Identify, Describe, Explain\n- REFLECTION: Compare, Analyze, Evaluate, Reflect, Justify\n- CONCEPTUALIZATION: Integrate, Explain, Summarize, Classify, Generalize\n- APPLICATION: Investigate, Solve, Apply, Design, Construct${duaInstruccion}\n\nRespond ONLY with valid JSON:\n{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experience","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflection","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualization","duracion":"15 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Application","duracion":"10 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string"}`
+          : `Genera una planificación ERCA completa de 45 minutos.\nDESTREZA: ${task.codigoDestreza}\nÁREA: ${areaNombre}\n${task.bloque ? `BLOQUE: ${task.bloque}` : ""}${task.subnivel ? `\nSUBNIVEL: ${task.subnivel}` : ""}\nDESCRIPCIÓN: ${task.descripcionDestreza}\nTEMA: ${task.tema}${ejesTexto}${competenciasTexto}\n\nOBLIGATORIO - Taxonomía de Marzano:\n- EXPERIENCIA: Reconocer, Recordar, Identificar, Describir, Explicar\n- REFLEXIÓN: Comparar, Analizar, Evaluar, Reflexionar, Justificar\n- CONCEPTUALIZACIÓN: Integrar, Explicar, Resumir, Clasificar, Generalizar\n- APLICACIÓN: Investigar, Resolver, Aplicar, Diseñar, Construir${duaInstruccion}\n\nResponde ÚNICAMENTE con JSON válido:\n{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experiencia","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflexión","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualización","duracion":"15 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Aplicación","duracion":"10 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string"}`;
+
+        const result = await invokeLLM({
+          messages: [
+            {
+              role: "system",
+              content: isEFL
+                ? "You are a pedagogical assistant specialized in the Ecuadorian EFL curriculum. Respond ONLY with valid JSON. ALL content in English."
+                : "Eres un asistente pedagógico especializado en el currículo ecuatoriano. Respondes ÚNICAMENTE con JSON válido.",
+            },
+            { role: "user", content: prompt },
+          ],
+          response_format: { type: "json_object" },
+        });
+
+        const content = result.choices[0]?.message?.content;
+        if (!content || typeof content !== "string") throw new Error("Sin respuesta de IA");
+
+        let parsed: any;
+        try {
+          parsed = JSON.parse(content);
+        } catch {
+          parsed = JSON.parse(repairJson(content));
+        }
+
+        const fases = ["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const;
+        const estructura: any = {};
+        for (const fase of fases) {
+          const faseData = parsed.estructura?.[fase];
+          const rawActividades = Array.isArray(faseData?.actividades) ? faseData.actividades : [];
+          const actividades = rawActividades.map((act: any) => {
+            if (typeof act !== "string") return String(act);
+            return act
+              .replace(/\s*\(\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\)\s*/gi, "")
+              .replace(/\s*\[\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\]\s*/gi, "")
+              .replace(/\s*DUA\s*:\s*\{[^}]*\}\s*/gi, "")
+              .replace(/\s*\(DUA[^)]*\)\s*/gi, "")
+              .trim();
+          });
+          const duaArr = Array.isArray(faseData?.dua) ? faseData.dua : [];
+          const duaActividades = actividades.map((_: any, i: number) => {
+            const d = duaArr[i] || {};
+            return { implicacion: !!d.I, representacion: !!d.R, accionExpresion: !!d.A };
+          });
+          const tieneI = duaActividades.some((d: any) => d.implicacion);
+          const tieneR = duaActividades.some((d: any) => d.representacion);
+          const tieneA = duaActividades.some((d: any) => d.accionExpresion);
+          if (duaActividades.length > 0) {
+            const last = duaActividades[duaActividades.length - 1];
+            if (!tieneI) last.implicacion = true;
+            if (!tieneR) last.representacion = true;
+            if (!tieneA) last.accionExpresion = true;
+          }
+          estructura[fase] = {
+            titulo: faseData?.titulo || fase,
+            duracion: faseData?.duracion || "10 minutos",
+            actividades,
+            duaActividades,
+          };
+        }
+
+        return {
+          objetivoClase: parsed.objetivoClase || "",
+          estructura,
+          recursos: Array.isArray(parsed.recursos) ? parsed.recursos : [],
+          evaluacionFormativa: parsed.evaluacionFormativa || "",
+        };
+      }
+
+      try {
+        // Generar todos los planes en paralelo
+        const results = await Promise.all(
+          tasks.map(async (task) => {
+            try {
+              const plan = await generateOneHour(task);
+              return { dia: task.dia, horaIndex: task.horaIndex, success: true, plan };
+            } catch (err: any) {
+              return { dia: task.dia, horaIndex: task.horaIndex, success: false, plan: null, error: err.message };
+            }
+          })
+        );
+
+        // Reagrupar por día
+        const diasConPlanes: Record<string, { horaIndex: number; plan: any; error?: string }[]> = {};
+        for (const r of results) {
+          if (!diasConPlanes[r.dia]) diasConPlanes[r.dia] = [];
+          diasConPlanes[r.dia].push({ horaIndex: r.horaIndex, plan: r.plan, error: (r as any).error });
+        }
+
+        return { success: true, diasConPlanes };
+      } catch (error: any) {
+        console.error("[topics-router] Error generating week plan:", error);
+        return { success: false, diasConPlanes: {}, error: error.message };
+      }
+    }),
 });
