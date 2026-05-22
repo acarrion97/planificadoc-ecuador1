@@ -1,5 +1,5 @@
 {
-  "buildCommand": "mkdir -p node_modules/react-native-css-interop/.cache && touch node_modules/react-native-css-interop/.cache/web.css && npx expo export --platform web && cp public/admin.html dist/admin.html",
+  "buildCommand": "npx drizzle-kit push --force 2>&1 | head -20 || true && mkdir -p node_modules/react-native-css-interop/.cache && touch node_modules/react-native-css-interop/.cache/web.css && npx expo export --platform web && cp public/admin.html dist/admin.html",
   "outputDirectory": "dist",
   "installCommand": "pnpm install",
   "framework": null,
