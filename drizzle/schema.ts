@@ -203,6 +203,35 @@ export type DocenteContact = typeof docenteContacts.$inferSelect;
 export type InsertDocenteContact = typeof docenteContacts.$inferInsert;
 
 /**
+ * PCA Documents - Planificación Curricular Anual generada con IA.
+ * El docente llena el formulario, la IA genera el contenido, el pago lo desbloquea.
+ */
+export const pcaDocuments = mysqlTable("pca_documents", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente (o deviceId como fallback) */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  /** Estado: draft=en borrador, generated=IA generó, paid=desbloqueado */
+  status: mysqlEnum("status", ["draft", "generated", "paid"]).default("draft").notNull(),
+  /** JSON del formulario completo (PcaFormData) */
+  formData: text("formData").notNull(),
+  /** JSON del resultado de la IA (PcaAiResult), nulo hasta generar */
+  aiResult: text("aiResult"),
+  /** ClientTransactionId de PayPhone (se llena al iniciar pago) */
+  clientTransactionId: varchar("clientTransactionId", { length: 64 }),
+  /** ID de transacción PayPhone (se llena tras pago exitoso) */
+  payphoneTransactionId: int("payphoneTransactionId"),
+  /** Código de autorización PayPhone */
+  authorizationCode: varchar("authorizationCode", { length: 64 }),
+  /** Monto pagado en centavos (siempre 1499 = $14.99) */
+  amountPaid: int("amountPaid"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PcaDocumentRow = typeof pcaDocuments.$inferSelect;
+export type InsertPcaDocument = typeof pcaDocuments.$inferInsert;
+
+/**
  * Planificacion stats - lightweight counter synced from device each time a
  * planificacion is created or deleted. Identified by email (subscribers) or
  * code (code-based users).

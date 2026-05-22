@@ -40,6 +40,24 @@ export default function PlanesScreen() {
           {planificaciones.length} planificaci{"ó"}n(es) guardada(s)
         </Text>
       </View>
+      {/* PCA Entry Button */}
+      <View style={styles.pcaEntry}>
+        <Pressable
+          onPress={() => router.push("/planificacion-anual" as any)}
+          style={({ pressed }) => [
+            styles.pcaBtn,
+            { opacity: pressed ? 0.85 : 1 },
+          ]}
+        >
+          <Text style={styles.pcaBtnIcon}>📋</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.pcaBtnTitle}>Crear Planificación Anual (PCA)</Text>
+            <Text style={styles.pcaBtnSub}>Currículo Priorizado · IA + PDF + Word</Text>
+          </View>
+          <Text style={styles.pcaBtnArrow}>›</Text>
+        </Pressable>
+      </View>
+
       <FlatList
         data={planificaciones}
         keyExtractor={(item) => item.id}
@@ -128,6 +146,41 @@ export default function PlanesScreen() {
 }
 
 const styles = StyleSheet.create({
+  pcaEntry: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  pcaBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1E3A5F",
+    borderRadius: 14,
+    padding: 16,
+    gap: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  pcaBtnIcon: {
+    fontSize: 28,
+  },
+  pcaBtnTitle: {
+    color: "#ffffff",
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  pcaBtnSub: {
+    color: "#93C5FD",
+    fontSize: 12,
+    marginTop: 2,
+  },
+  pcaBtnArrow: {
+    color: "#93C5FD",
+    fontSize: 24,
+    fontWeight: "300",
+  },
   listContent: {
     paddingBottom: 100,
     paddingTop: 8,
