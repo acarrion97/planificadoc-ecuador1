@@ -351,6 +351,43 @@ export async function deactivateCardToken(id: number) {
 // ============= PCA Document Queries =============
 
 /**
+ * Crea la tabla pca_documents si no existe.
+ * Se llama antes de cualquier operación PCA para garantizar que la tabla está presente
+ * incluso si la migración no se ejecutó durante el build.
+ */
+async function ensurePcaTable(): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    // sql`` from drizzle-orm/mysql2 allows raw SQL execution
+    await (db as any).execute(`
+      CREATE TABLE IF NOT EXISTS \`pca_documents\` (
+        \`id\` int NOT NULL AUTO_INCREMENT,
+        \`sessionId\` varchar(320) NOT NULL,
+        \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
+        \`formData\` text NOT NULL,
+        \`aiResult\` text,
+        \`clientTransactionId\` varchar(64) DEFAULT NULL,
+        \`payphoneTransactionId\` int DEFAULT NULL,
+        \`authorizationCode\` varchar(64) DEFAULT NULL,
+        \`amountPaid\` int DEFAULT NULL,
+        \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (\`id\`),
+        KEY \`idx_pca_sessionId\` (\`sessionId\`),
+        KEY \`idx_pca_clientTxId\` (\`clientTransactionId\`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    `);
+  } catch (err: any) {
+    // Si ya existe o hay otro error no crítico, continuar
+    if (!err?.message?.includes("already exists")) {
+      console.warn("[DB] ensurePcaTable warning:", err?.message);
+    }
+  }
+}
+
+/**
  * Create a new PCA document (status=draft or generated).
  */
 export async function createPcaDocument(data: {
@@ -359,6 +396,8 @@ export async function createPcaDocument(data: {
   formData: string;
   aiResult?: string | null;
 }): Promise<number> {
+  await ensurePcaTable();
+
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
