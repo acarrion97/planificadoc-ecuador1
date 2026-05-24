@@ -23,6 +23,21 @@ const PCA_PRICE = "$14.99";
 const POLL_INTERVAL_MS = 3000;
 const POLL_MAX_TRIES = 100; // 5 minutos
 
+/** Llama al endpoint admin para marcar la PCA como pagada sin cobrar */
+async function adminUnlockPca(pcaId: number, adminKey: string): Promise<{ success: boolean; message?: string; error?: string }> {
+  try {
+    const baseUrl = Platform.OS === "web" ? "" : "https://planificadoc.app";
+    const res = await fetch(`${baseUrl}/api/admin/unlock-pca?key=${encodeURIComponent(adminKey)}&action=unlock-pca`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pcaId }),
+    });
+    return await res.json();
+  } catch (e: any) {
+    return { success: false, error: e.message };
+  }
+}
+
 async function getSessionId(): Promise<string> {
   let id = await AsyncStorage.getItem("@planificadoc_device_id");
   if (!id) {
@@ -289,6 +304,10 @@ export default function PcaPreviewScreen() {
   const [paid, setPaid] = useState(false);
   const [exportingPdf, setExportingPdf] = useState(false);
   const [exportingWord, setExportingWord] = useState(false);
+  const [showAdminUnlock, setShowAdminUnlock] = useState(false);
+  const [adminKey, setAdminKey] = useState("");
+  const [adminUnlocking, setAdminUnlocking] = useState(false);
+  const [adminMsg, setAdminMsg] = useState("");
   const regenerarMutation = trpc.pca.regenerarSeccion.useMutation();
 
   const { data, isLoading, error, refetch } = trpc.pca.getPca.useQuery(
@@ -310,6 +329,24 @@ export default function PcaPreviewScreen() {
     setPaid(true);
     refetch();
   }, [refetch]);
+
+  const handleAdminUnlock = useCallback(async () => {
+    if (!adminKey.trim()) return setAdminMsg("Ingresa la clave admin.");
+    setAdminUnlocking(true);
+    setAdminMsg("");
+    const result = await adminUnlockPca(pcaId, adminKey.trim());
+    setAdminUnlocking(false);
+    if (result.success) {
+      setAdminMsg("✅ Desbloqueado");
+      setTimeout(() => {
+        setPaid(true);
+        refetch();
+        setShowAdminUnlock(false);
+      }, 800);
+    } else {
+      setAdminMsg(`❌ ${result.error || "Clave incorrecta"}`);
+    }
+  }, [adminKey, pcaId, refetch]);
 
   // Regenerar sección
   const handleRegenerar = useCallback(async (seccion: string, unidadNumero?: number) => {
@@ -627,6 +664,45 @@ export default function PcaPreviewScreen() {
           </>
         )}
       </ScrollView>
+      {/* ── Botón admin (oculto salvo que se active) ── */}
+      {!paid && (
+        <View style={{ alignItems: "center", paddingBottom: 12, paddingTop: 4 }}>
+          {!showAdminUnlock ? (
+            <Pressable onPress={() => setShowAdminUnlock(true)} style={{ padding: 8 }}>
+              <Text style={{ color: colors.muted, fontSize: 10, opacity: 0.4 }}>🔑 admin</Text>
+            </Pressable>
+          ) : (
+            <View style={[s.adminPanel, { borderColor: colors.border, backgroundColor: colors.surface }]}>
+              <Text style={[s.adminTitle, { color: colors.foreground }]}>🔑 Admin: desbloquear PCA #{pcaId}</Text>
+              <TextInput
+                style={[s.payInput, { borderColor: colors.border, color: colors.foreground, marginTop: 8 }]}
+                value={adminKey}
+                onChangeText={setAdminKey}
+                placeholder="Clave admin"
+                placeholderTextColor={colors.muted}
+                secureTextEntry
+                autoCapitalize="none"
+              />
+              {adminMsg ? <Text style={{ color: adminMsg.startsWith("✅") ? "#059669" : "#DC2626", fontSize: 12, marginTop: 4 }}>{adminMsg}</Text> : null}
+              <View style={{ flexDirection: "row", gap: 8, marginTop: 8 }}>
+                <Pressable
+                  onPress={handleAdminUnlock}
+                  disabled={adminUnlocking}
+                  style={[s.dlBtn, { backgroundColor: "#003366", flex: 1, opacity: adminUnlocking ? 0.7 : 1 }]}
+                >
+                  {adminUnlocking
+                    ? <ActivityIndicator color="#fff" size="small" />
+                    : <Text style={s.dlBtnText}>Desbloquear gratis</Text>
+                  }
+                </Pressable>
+                <Pressable onPress={() => setShowAdminUnlock(false)} style={[s.dlBtn, { backgroundColor: colors.muted, paddingHorizontal: 16 }]}>
+                  <Text style={s.dlBtnText}>✕</Text>
+                </Pressable>
+              </View>
+            </View>
+          )}
+        </View>
+      )}
     </ScreenContainer>
   );
 }
@@ -776,6 +852,16 @@ const s = StyleSheet.create({
   // Firma
   firmaLine: { width: "80%", borderTopWidth: 1, marginBottom: 6 },
   firmaLabel: { fontSize: 11, textAlign: "center" },
+  // Admin unlock
+  adminPanel: {
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 14,
+    marginHorizontal: 16,
+    width: "90%",
+    maxWidth: 360,
+  },
+  adminTitle: { fontSize: 13, fontWeight: "700" },
   // Volver
   backBtnFull: {
     backgroundColor: "#003366",

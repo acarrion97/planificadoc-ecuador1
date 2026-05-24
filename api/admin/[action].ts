@@ -10,6 +10,7 @@ import {
   planificacionStats,
 } from "../../drizzle/schema";
 import { eq, desc, and, lt, ne, sql as drizzleSql } from "drizzle-orm";
+import { pcaDocuments } from "../../drizzle/schema";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
@@ -512,6 +513,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         deleted: existing.length,
         message: `Se eliminaron ${existing.length} activacion(es) del código ${codeUpper}. El alumno puede volver a ingresar.`,
       });
+    }
+
+    // POST /api/admin/unlock-pca → marca un documento PCA como pagado (bypass para admin/testing)
+    if (action === "unlock-pca") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { pcaId } = req.body || {};
+      if (!pcaId) return res.status(400).json({ error: "pcaId requerido" });
+
+      // Actualizar directamente el registro a status='paid' con datos simbólicos
+      await db
+        .update(pcaDocuments)
+        .set({
+          status: "paid",
+          payphoneTransactionId: 0,
+          authorizationCode: "ADMIN-BYPASS",
+          amountPaid: 0,
+        })
+        .where(eq(pcaDocuments.id, parseInt(String(pcaId))));
+
+      return res.json({ success: true, message: `PCA #${pcaId} desbloqueada para admin` });
     }
 
     return res.status(404).json({ error: "Acción no encontrada" });
