@@ -2,7 +2,7 @@ import { PcaFormData, PcaAiResult, AREAS_INFO, SUBNIVEL_NAMES } from "../data/ty
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 
-// Mapas ID → nombre legible (construidos una sola vez)
+// Mapas ID → nombre legible
 const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
   METODOLOGIAS_ACTIVAS.map(m => [m.id, m.nombre])
 );
@@ -14,301 +14,324 @@ const EJE_LABEL: Record<string, string> = Object.fromEntries(
 );
 
 /**
- * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador
- * Planificación Curricular Anual (PCA) — Currículo 2023-2024
+ * Genera el HTML en formato oficial MinEduc Ecuador — A4 HORIZONTAL (landscape)
+ * Planificación Curricular Anual (PCA) — Currículo Priorizado 2023-2024
  */
 export function generarHTMLPca(formData: PcaFormData, aiResult: PcaAiResult): string {
   const areaInfo = AREAS_INFO[formData.area];
   const subnivelName = SUBNIVEL_NAMES[formData.subnivel];
-  const areaColor = areaInfo?.color || "#1E3A5F";
-  const areaColorLight = areaColor + "15";
-
+  const areaColor = areaInfo?.color || "#003366";
+  const areaName = areaInfo?.name || formData.area;
   const semanasClase = formData.semanasTrabajoTotal - formData.semanasEvaluacion;
+  const totalHoras = semanasClase * formData.cargaHorariaSemanal;
 
-  // ===== Encabezado institucional =====
-  const encabezadoHTML = `
-    <table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-      <tr>
-        <td rowspan="3" style="width:100px;text-align:center;padding:10px;border:1px solid #333;vertical-align:middle;">
-          <div style="font-size:36px;">🏫</div>
-          <div style="font-size:8px;color:#666;margin-top:4px;">INSTITUCIÓN</div>
-        </td>
-        <td colspan="3" style="text-align:center;padding:12px 8px;border:1px solid #333;background:${areaColor};color:white;">
-          <div style="font-size:16px;font-weight:900;letter-spacing:1px;">PLANIFICACIÓN CURRICULAR ANUAL</div>
-          <div style="font-size:10px;margin-top:2px;opacity:0.9;">Año Lectivo ${formData.anioLectivo} — Sistema Educativo Ecuatoriano</div>
-        </td>
-        <td rowspan="3" style="width:100px;text-align:center;padding:10px;border:1px solid #333;vertical-align:middle;">
-          <div style="font-size:36px;">📅</div>
-          <div style="font-size:8px;color:#666;margin-top:4px;">PERÍODO LECTIVO</div>
-          <div style="font-size:9px;font-weight:700;color:${areaColor};">${formData.anioLectivo}</div>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:6px 10px;border:1px solid #333;font-size:10px;"><b>Institución:</b> ${formData.institucion || "—"}</td>
-        <td style="padding:6px 10px;border:1px solid #333;font-size:10px;"><b>Docente:</b> ${formData.docente || "—"}</td>
-        <td style="padding:6px 10px;border:1px solid #333;font-size:10px;"><b>Área:</b> <span style="color:${areaColor};font-weight:700;">${areaInfo?.name || formData.area}</span></td>
-      </tr>
-      <tr>
-        <td style="padding:6px 10px;border:1px solid #333;font-size:10px;"><b>Subnivel:</b> ${subnivelName}</td>
-        <td style="padding:6px 10px;border:1px solid #333;font-size:10px;"><b>Grado/Curso:</b> ${formData.grado}</td>
-        <td style="padding:6px 10px;border:1px solid #333;font-size:10px;"><b>Paralelo:</b> ${formData.paralelo || "—"}</td>
-      </tr>
-    </table>`;
+  const metodologiasTexto = formData.metodologiasActivas
+    .map(m => METODOLOGIA_LABEL[m] || m).join(" · ") || "—";
+  const tecnicasTexto = formData.tecnicasEvaluacion
+    .map(t => TECNICA_LABEL[t] || t).join(" · ") || "—";
+  const ejesTexto = formData.usaEjesTransversales && formData.ejesTransversales.length > 0
+    ? formData.ejesTransversales.map(e => EJE_LABEL[e] || e).join(" · ")
+    : "No aplica";
 
-  // ===== Datos de tiempo =====
-  const tiempoHTML = `
-    <table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-      <tr style="background:${areaColorLight};">
-        <td style="padding:7px 10px;border:1px solid #333;font-size:10px;text-align:center;"><b>Carga Horaria Semanal</b><br><span style="font-size:14px;color:${areaColor};font-weight:700;">${formData.cargaHorariaSemanal}h</span></td>
-        <td style="padding:7px 10px;border:1px solid #333;font-size:10px;text-align:center;"><b>Semanas Totales</b><br><span style="font-size:14px;color:${areaColor};font-weight:700;">${formData.semanasTrabajoTotal}</span></td>
-        <td style="padding:7px 10px;border:1px solid #333;font-size:10px;text-align:center;"><b>Semanas de Evaluación</b><br><span style="font-size:14px;color:${areaColor};font-weight:700;">${formData.semanasEvaluacion}</span></td>
-        <td style="padding:7px 10px;border:1px solid #333;font-size:10px;text-align:center;"><b>Semanas de Clase</b><br><span style="font-size:14px;color:${areaColor};font-weight:700;">${semanasClase}</span></td>
-        <td style="padding:7px 10px;border:1px solid #333;font-size:10px;text-align:center;"><b>Total Horas Anuales</b><br><span style="font-size:14px;color:${areaColor};font-weight:700;">${semanasClase * formData.cargaHorariaSemanal}h</span></td>
-      </tr>
-    </table>`;
-
-  // ===== Objetivos del área =====
-  const objetivosAreaHTML = `
-    <table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-      <tr style="background:${areaColor};">
-        <td style="padding:8px 12px;color:white;font-size:11px;font-weight:700;letter-spacing:0.5px;">
-          🎯 OBJETIVOS DEL ÁREA DE ${(areaInfo?.name || formData.area).toUpperCase()}
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:12px;border:1px solid #ddd;font-size:10px;line-height:1.7;white-space:pre-wrap;">${aiResult.objetivosArea || "—"}</td>
-      </tr>
-    </table>`;
-
-  // ===== Objetivos del grado =====
-  const objetivosGradoHTML = `
-    <table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-      <tr style="background:${areaColor};">
-        <td style="padding:8px 12px;color:white;font-size:11px;font-weight:700;letter-spacing:0.5px;">
-          🏆 OBJETIVOS DEL GRADO / CURSO — ${formData.grado}
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:12px;border:1px solid #ddd;font-size:10px;line-height:1.7;white-space:pre-wrap;">${aiResult.objetivosGrado || "—"}</td>
-      </tr>
-    </table>`;
-
-  // ===== Ejes transversales =====
-  const ejesHTML = formData.usaEjesTransversales && formData.ejesTransversales.length > 0
-    ? `<table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-        <tr style="background:#F3F4F6;">
-          <td style="padding:8px 12px;font-size:11px;font-weight:700;border:1px solid #ddd;color:#374151;">
-            🌐 EJES TRANSVERSALES INSTITUCIONALES
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:10px 12px;border:1px solid #ddd;font-size:10px;">
-            ${formData.ejesTransversales.map(e => `<span style="display:inline-block;background:#E0F2FE;color:#0369A1;border-radius:12px;padding:3px 10px;margin:2px;font-size:9px;font-weight:600;">${EJE_LABEL[e] || e}</span>`).join("")}
-          </td>
-        </tr>
-      </table>` : "";
-
-  // ===== Metodologías y técnicas =====
-  const metodologiasHTML = (formData.metodologiasActivas.length > 0 || formData.tecnicasEvaluacion.length > 0)
-    ? `<table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-        <tr style="background:#F3F4F6;">
-          <td style="padding:8px 12px;font-size:11px;font-weight:700;border:1px solid #ddd;color:#374151;">⚙️ METODOLOGÍAS ACTIVAS</td>
-          <td style="padding:8px 12px;font-size:11px;font-weight:700;border:1px solid #ddd;color:#374151;">📊 TÉCNICAS DE EVALUACIÓN</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 12px;border:1px solid #ddd;font-size:10px;">
-            ${formData.metodologiasActivas.length > 0
-              ? formData.metodologiasActivas.map(m => `<span style="display:inline-block;background:#EDE9FE;color:#6D28D9;border-radius:10px;padding:3px 9px;margin:2px;font-size:9px;font-weight:600;">${METODOLOGIA_LABEL[m] || m}</span>`).join("")
-              : "—"}
-          </td>
-          <td style="padding:10px 12px;border:1px solid #ddd;font-size:10px;">
-            ${formData.tecnicasEvaluacion.length > 0
-              ? formData.tecnicasEvaluacion.map(t => `<span style="display:inline-block;background:#D1FAE5;color:#065F46;border-radius:10px;padding:3px 9px;margin:2px;font-size:9px;font-weight:600;">${TECNICA_LABEL[t] || t}</span>`).join("")
-              : "—"}
-          </td>
-        </tr>
-      </table>` : "";
-
-  // ===== Tabla de unidades didácticas =====
+  // ── Tabla de unidades didácticas (landscape, columnas anchas) ──────────────
   const aiUnidades = aiResult.unidades || [];
 
-  const unidadesHTML = formData.unidades.map((unidad, idx) => {
-    const aiUnidad = aiUnidades.find(u => u.numero === unidad.numero) || aiUnidades[idx] || {};
-    const dcdRows = unidad.dcdsSeleccionadas.map(dcd =>
-      `<tr>
-        <td style="padding:4px 8px;border:1px solid #e2e8f0;font-size:9px;font-weight:700;color:${areaColor};white-space:nowrap;">${dcd.codigo}</td>
-        <td style="padding:4px 8px;border:1px solid #e2e8f0;font-size:9px;line-height:1.5;">${dcd.enunciado}</td>
-      </tr>`
-    ).join("");
+  const unidadesFilas = formData.unidades.map((unidad, idx) => {
+    const ai = aiUnidades.find(u => u.numero === unidad.numero) || aiUnidades[idx] || {};
+    const titulo = ai.titulo || `Unidad ${unidad.numero}`;
+
+    // DCDs: código + enunciado, una por fila
+    const dcdHTML = unidad.dcdsSeleccionadas.length > 0
+      ? unidad.dcdsSeleccionadas.map(d =>
+          `<div style="margin-bottom:4px;"><span style="font-weight:700;color:${areaColor};">${d.codigo}</span>&nbsp;${d.enunciado}</div>`
+        ).join("")
+      : "<span style='color:#999;font-style:italic;'>Sin DCD seleccionadas</span>";
 
     return `
-    <div style="margin-bottom:16px;page-break-inside:avoid;">
-      <table style="width:100%;border-collapse:collapse;" border="1" cellspacing="0">
-        <tr style="background:${areaColor};">
-          <td colspan="2" style="padding:9px 12px;color:white;font-size:12px;font-weight:700;">
-            📖 UNIDAD ${unidad.numero}: ${(aiUnidad.titulo || unidad.titulo || `Unidad ${unidad.numero}`).toUpperCase()}
-          </td>
-        </tr>
-        <tr style="background:${areaColorLight};">
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;font-weight:600;width:140px;">Duración</td>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;">${aiUnidad.duracionSemanas || unidad.duracionSemanas || "—"} semana(s)</td>
-        </tr>
-        <tr>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;font-weight:600;vertical-align:top;">Objetivos Específicos</td>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;line-height:1.6;white-space:pre-wrap;">${aiUnidad.objetivosEspecificos || unidad.objetivosEspecificos || "—"}</td>
-        </tr>
-        <tr>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;font-weight:600;vertical-align:top;">Destrezas con Criterio de Desempeño (DCD)</td>
-          <td style="padding:0;border:1px solid #ddd;">
-            ${unidad.dcdsSeleccionadas.length > 0
-              ? `<table style="width:100%;border-collapse:collapse;">${dcdRows}</table>`
-              : '<span style="padding:6px 10px;font-size:9px;color:#888;display:block;">No hay DCDs seleccionadas para esta unidad.</span>'}
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;font-weight:600;vertical-align:top;">Contenidos / Saberes</td>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;line-height:1.6;white-space:pre-wrap;">${aiUnidad.contenidos || unidad.contenidos || "—"}</td>
-        </tr>
-        <tr>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;font-weight:600;vertical-align:top;">Orientaciones Metodológicas</td>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;line-height:1.6;white-space:pre-wrap;">${aiUnidad.orientacionesMetodologicas || unidad.orientacionesMetodologicas || "—"}</td>
-        </tr>
-        <tr>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;font-weight:600;vertical-align:top;">Evaluación</td>
-          <td style="padding:5px 10px;border:1px solid #ddd;font-size:9px;line-height:1.6;white-space:pre-wrap;">${aiUnidad.evaluacion || unidad.evaluacion || "—"}</td>
-        </tr>
-      </table>
-    </div>`;
+    <tr>
+      <td style="${tdBase}text-align:center;font-weight:800;font-size:11px;color:${areaColor};background:#F8FAFC;width:70px;">
+        ${unidad.numero}
+        <div style="font-size:8px;color:#64748B;font-weight:400;margin-top:2px;">${ai.duracionSemanas || unidad.duracionSemanas || "—"} sem.</div>
+      </td>
+      <td style="${tdBase}font-weight:700;color:#1E293B;font-size:9px;background:#F8FAFC;">
+        ${titulo}
+      </td>
+      <td style="${tdBase}font-size:8.5px;line-height:1.55;color:#1E293B;">
+        ${ai.objetivosEspecificos || "—"}
+      </td>
+      <td style="${tdBase}font-size:8px;line-height:1.5;">
+        ${dcdHTML}
+      </td>
+      <td style="${tdBase}font-size:8.5px;line-height:1.55;color:#1E293B;">
+        ${ai.contenidos || "—"}
+      </td>
+      <td style="${tdBase}font-size:8.5px;line-height:1.55;color:#1E293B;">
+        ${ai.orientacionesMetodologicas || "—"}
+      </td>
+      <td style="${tdBase}font-size:8.5px;line-height:1.55;color:#1E293B;">
+        ${ai.evaluacion || "—"}
+      </td>
+    </tr>`;
   }).join("");
 
-  // ===== Bibliografía =====
-  const bibliografiaHTML = `
-    <table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-      <tr style="background:${areaColor};">
-        <td colspan="2" style="padding:8px 12px;color:white;font-size:11px;font-weight:700;letter-spacing:0.5px;">
-          📚 BIBLIOGRAFÍA Y RECURSOS
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:8px 12px;font-size:9px;font-weight:700;border:1px solid #ddd;width:140px;vertical-align:top;">Para el Docente</td>
-        <td style="padding:8px 12px;font-size:9px;line-height:1.7;border:1px solid #ddd;white-space:pre-wrap;">${formData.bibliografiaDocente || aiResult.bibliografiaSugerida || "—"}</td>
-      </tr>
-      ${aiResult.bibliografiaSugerida && formData.bibliografiaDocente ? `
-      <tr>
-        <td style="padding:8px 12px;font-size:9px;font-weight:700;border:1px solid #ddd;vertical-align:top;">Bibliografía Sugerida (IA)</td>
-        <td style="padding:8px 12px;font-size:9px;line-height:1.7;border:1px solid #ddd;white-space:pre-wrap;">${aiResult.bibliografiaSugerida}</td>
-      </tr>` : ""}
-    </table>`;
+  const tdBase = "padding:7px 8px;border:1px solid #CBD5E1;vertical-align:top;";
+  const thBase = `padding:8px 8px;border:1px solid #CBD5E1;text-align:center;font-size:9px;font-weight:700;color:#fff;background:${areaColor};`;
 
-  // ===== Observaciones =====
-  const observacionesHTML = aiResult.observaciones
-    ? `<table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-        <tr style="background:#F9FAFB;">
-          <td style="padding:8px 12px;font-size:11px;font-weight:700;border:1px solid #ddd;color:#374151;">
-            💡 OBSERVACIONES Y RECOMENDACIONES
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:10px 12px;font-size:9px;line-height:1.7;border:1px solid #ddd;white-space:pre-wrap;">${aiResult.observaciones}</td>
-        </tr>
-      </table>` : "";
-
-  // ===== DUA =====
-  const duaHTML = `
-    <table style="width:100%;border-collapse:collapse;margin-bottom:0;" border="1" cellspacing="0">
-      <tr style="background:#F3F4F6;">
-        <td colspan="3" style="padding:8px 12px;font-size:11px;font-weight:700;border:1px solid #ddd;color:#374151;text-align:center;">
-          ♿ DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA)
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;border:1px solid #ddd;text-align:center;width:33%;">
-          <div style="background:#EC4899;color:white;border-radius:8px;padding:6px;font-size:9px;font-weight:700;">REPRESENTACIÓN</div>
-          <div style="font-size:8px;color:#555;margin-top:6px;line-height:1.4;">Múltiples medios de presentación de la información. Usa imágenes, audio, video y texto.</div>
-        </td>
-        <td style="padding:8px 10px;border:1px solid #ddd;text-align:center;width:33%;">
-          <div style="background:#1E3A5F;color:white;border-radius:8px;padding:6px;font-size:9px;font-weight:700;">ACCIÓN Y EXPRESIÓN</div>
-          <div style="font-size:8px;color:#555;margin-top:6px;line-height:1.4;">Alternativas para demostrar el aprendizaje: oral, escrito, digital, kinestésico.</div>
-        </td>
-        <td style="padding:8px 10px;border:1px solid #ddd;text-align:center;width:33%;">
-          <div style="background:#22C55E;color:white;border-radius:8px;padding:6px;font-size:9px;font-weight:700;">IMPLICACIÓN / MOTIVACIÓN</div>
-          <div style="font-size:8px;color:#555;margin-top:6px;line-height:1.4;">Fomentar el interés, la persistencia y la autorregulación del aprendizaje.</div>
-        </td>
-      </tr>
-    </table>`;
-
-  // ===== Firmas =====
-  const firmasHTML = `
-    <table style="width:100%;border-collapse:collapse;margin-top:24px;" border="1" cellspacing="0">
-      <tr style="background:#F3F4F6;">
-        <td style="padding:8px 12px;font-size:10px;font-weight:700;border:1px solid #ddd;text-align:center;">ELABORADO POR</td>
-        <td style="padding:8px 12px;font-size:10px;font-weight:700;border:1px solid #ddd;text-align:center;">REVISADO POR</td>
-        <td style="padding:8px 12px;font-size:10px;font-weight:700;border:1px solid #ddd;text-align:center;">APROBADO POR</td>
-      </tr>
-      <tr>
-        <td style="padding:40px 12px 8px;border:1px solid #ddd;text-align:center;font-size:9px;">
-          <div style="border-top:1px solid #333;padding-top:6px;">${formData.firmaElaboradoPor || formData.docente || "—"}</div>
-          <div style="color:#888;margin-top:2px;">${formData.firmaElaboradoFecha || ""}</div>
-        </td>
-        <td style="padding:40px 12px 8px;border:1px solid #ddd;text-align:center;font-size:9px;">
-          <div style="border-top:1px solid #333;padding-top:6px;">${formData.firmaRevisadoPor || "—"}</div>
-          <div style="color:#888;margin-top:2px;">${formData.firmaRevisadoFecha || ""}</div>
-        </td>
-        <td style="padding:40px 12px 8px;border:1px solid #ddd;text-align:center;font-size:9px;">
-          <div style="border-top:1px solid #333;padding-top:6px;">${formData.firmaAprobadoPor || "—"}</div>
-          <div style="color:#888;margin-top:2px;">${formData.firmaAprobadoFecha || ""}</div>
-        </td>
-      </tr>
-    </table>`;
+  // ── Firmas ─────────────────────────────────────────────────────────────────
+  const firmas = [
+    { label: "ELABORADO POR", nombre: formData.firmaElaboradoPor || formData.docente || "—", fecha: formData.firmaElaboradoFecha || "" },
+    { label: "REVISADO POR",  nombre: formData.firmaRevisadoPor  || "—", fecha: formData.firmaRevisadoFecha  || "" },
+    { label: "APROBADO POR",  nombre: formData.firmaAprobadoPor  || "—", fecha: formData.firmaAprobadoFecha  || "" },
+  ];
 
   return `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PCA — ${areaInfo?.name || formData.area} — ${formData.grado} — ${formData.anioLectivo}</title>
+  <title>PCA — ${areaName} — ${formData.grado} — ${formData.anioLectivo}</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Arial', sans-serif;
-      font-size: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9px;
       color: #1a1a1a;
-      background: white;
-      padding: 20px;
+      background: #fff;
+      padding: 12mm 10mm;
     }
     @media print {
-      body { padding: 10mm; }
-      @page { size: A4; margin: 10mm; }
+      body { padding: 8mm 8mm; }
+      @page { size: A4 landscape; margin: 8mm; }
     }
-    h2 { font-size: 13px; color: ${areaColor}; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid ${areaColor}; padding-bottom: 4px; }
-    table { page-break-inside: avoid; }
+    table { border-collapse: collapse; width: 100%; }
+    .section-gap { height: 6px; }
   </style>
 </head>
 <body>
-  ${encabezadoHTML}
-  <div style="height:8px;"></div>
-  ${tiempoHTML}
-  <div style="height:8px;"></div>
-  ${objetivosAreaHTML}
-  <div style="height:8px;"></div>
-  ${objetivosGradoHTML}
-  <div style="height:8px;"></div>
-  ${ejesHTML ? ejesHTML + '<div style="height:8px;"></div>' : ""}
-  ${metodologiasHTML ? metodologiasHTML + '<div style="height:8px;"></div>' : ""}
 
-  <h2>📖 Unidades Didácticas Anuales</h2>
-  ${unidadesHTML}
+  <!-- ══════════════════════════════════════════════════════════
+       1. ENCABEZADO INSTITUCIONAL
+  ══════════════════════════════════════════════════════════ -->
+  <table style="margin-bottom:0;">
+    <tr>
+      <!-- Logo institución -->
+      <td style="width:80px;border:1.5px solid #334155;text-align:center;padding:8px 6px;vertical-align:middle;">
+        <div style="font-size:28px;line-height:1;">🏫</div>
+        <div style="font-size:7px;color:#64748B;margin-top:3px;font-weight:600;">INSTITUCIÓN</div>
+      </td>
 
-  ${bibliografiaHTML}
-  <div style="height:8px;"></div>
-  ${observacionesHTML ? observacionesHTML + '<div style="height:8px;"></div>' : ""}
-  ${duaHTML}
-  ${firmasHTML}
+      <!-- Bloque central: título + datos -->
+      <td style="border:1.5px solid #334155;padding:0;vertical-align:top;">
+        <!-- Título -->
+        <div style="background:${areaColor};color:#fff;text-align:center;padding:7px 10px;">
+          <div style="font-size:13px;font-weight:900;letter-spacing:1.5px;">PLANIFICACIÓN CURRICULAR ANUAL</div>
+          <div style="font-size:8px;margin-top:2px;opacity:0.85;">Sistema Educativo Ecuatoriano — Currículo Priorizado</div>
+        </div>
+        <!-- Datos institucionales en tabla interna -->
+        <table style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="padding:5px 8px;border-right:1px solid #CBD5E1;border-bottom:1px solid #CBD5E1;font-size:8.5px;width:25%;">
+              <span style="color:#64748B;font-weight:700;">Institución:</span><br>
+              <span style="font-weight:600;">${formData.institucion || "—"}</span>
+            </td>
+            <td style="padding:5px 8px;border-right:1px solid #CBD5E1;border-bottom:1px solid #CBD5E1;font-size:8.5px;width:25%;">
+              <span style="color:#64748B;font-weight:700;">Docente(s):</span><br>
+              <span style="font-weight:600;">${formData.docente || "—"}</span>
+            </td>
+            <td style="padding:5px 8px;border-right:1px solid #CBD5E1;border-bottom:1px solid #CBD5E1;font-size:8.5px;width:25%;">
+              <span style="color:#64748B;font-weight:700;">Área / Asignatura:</span><br>
+              <span style="font-weight:700;color:${areaColor};">${areaName}</span>
+            </td>
+            <td style="padding:5px 8px;border-bottom:1px solid #CBD5E1;font-size:8.5px;width:25%;">
+              <span style="color:#64748B;font-weight:700;">Subnivel:</span><br>
+              <span style="font-weight:600;">${subnivelName}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:5px 8px;border-right:1px solid #CBD5E1;font-size:8.5px;">
+              <span style="color:#64748B;font-weight:700;">Grado / Curso:</span><br>
+              <span style="font-weight:600;">${formData.grado}</span>
+            </td>
+            <td style="padding:5px 8px;border-right:1px solid #CBD5E1;font-size:8.5px;">
+              <span style="color:#64748B;font-weight:700;">Año Lectivo:</span><br>
+              <span style="font-weight:600;">${formData.anioLectivo}</span>
+            </td>
+            <td style="padding:5px 8px;border-right:1px solid #CBD5E1;font-size:8.5px;">
+              <span style="color:#64748B;font-weight:700;">Paralelo:</span><br>
+              <span style="font-weight:600;">${formData.paralelo || "—"}</span>
+            </td>
+            <td style="padding:5px 8px;font-size:8.5px;">
+              <span style="color:#64748B;font-weight:700;">Fecha:</span><br>
+              <span style="font-weight:600;">${new Date().toLocaleDateString("es-EC")}</span>
+            </td>
+          </tr>
+        </table>
+      </td>
 
-  <div style="text-align:center;margin-top:20px;font-size:8px;color:#aaa;">
-    Generado con PlanificaDoc Ecuador · ${new Date().toLocaleDateString("es-EC")} ·
+      <!-- Logo período -->
+      <td style="width:80px;border:1.5px solid #334155;text-align:center;padding:8px 6px;vertical-align:middle;">
+        <div style="font-size:28px;line-height:1;">📅</div>
+        <div style="font-size:7px;color:#64748B;margin-top:3px;font-weight:600;">PERÍODO</div>
+        <div style="font-size:9px;font-weight:800;color:${areaColor};margin-top:2px;">${formData.anioLectivo}</div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="section-gap"></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       2. DISTRIBUCIÓN DEL TIEMPO
+  ══════════════════════════════════════════════════════════ -->
+  <table>
+    <tr style="background:${areaColor};">
+      <td colspan="5" style="padding:5px 10px;color:#fff;font-size:9px;font-weight:700;letter-spacing:0.5px;">
+        DISTRIBUCIÓN DEL TIEMPO
+      </td>
+    </tr>
+    <tr style="background:#F1F5F9;text-align:center;">
+      <td style="padding:6px 8px;border:1px solid #CBD5E1;font-size:8.5px;">
+        <div style="color:#64748B;font-weight:700;margin-bottom:2px;">Carga Horaria Semanal</div>
+        <div style="font-size:15px;font-weight:800;color:${areaColor};">${formData.cargaHorariaSemanal}<span style="font-size:10px;"> períodos</span></div>
+      </td>
+      <td style="padding:6px 8px;border:1px solid #CBD5E1;font-size:8.5px;">
+        <div style="color:#64748B;font-weight:700;margin-bottom:2px;">Semanas Totales</div>
+        <div style="font-size:15px;font-weight:800;color:${areaColor};">${formData.semanasTrabajoTotal}</div>
+      </td>
+      <td style="padding:6px 8px;border:1px solid #CBD5E1;font-size:8.5px;">
+        <div style="color:#64748B;font-weight:700;margin-bottom:2px;">Semanas de Evaluación</div>
+        <div style="font-size:15px;font-weight:800;color:${areaColor};">${formData.semanasEvaluacion}</div>
+      </td>
+      <td style="padding:6px 8px;border:1px solid #CBD5E1;font-size:8.5px;">
+        <div style="color:#64748B;font-weight:700;margin-bottom:2px;">Semanas de Clase</div>
+        <div style="font-size:15px;font-weight:800;color:${areaColor};">${semanasClase}</div>
+      </td>
+      <td style="padding:6px 8px;border:1px solid #CBD5E1;font-size:8.5px;">
+        <div style="color:#64748B;font-weight:700;margin-bottom:2px;">Total Períodos Anuales</div>
+        <div style="font-size:15px;font-weight:800;color:${areaColor};">${totalHoras}</div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="section-gap"></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       3. OBJETIVOS + EJES + METODOLOGÍAS  (3 columnas)
+  ══════════════════════════════════════════════════════════ -->
+  <table>
+    <tr style="background:${areaColor};">
+      <td style="padding:5px 10px;color:#fff;font-size:9px;font-weight:700;width:35%;">OBJETIVOS DEL ÁREA — ${areaName.toUpperCase()}</td>
+      <td style="padding:5px 10px;color:#fff;font-size:9px;font-weight:700;border-left:1px solid rgba(255,255,255,0.3);width:35%;">OBJETIVOS DEL GRADO / CURSO — ${formData.grado}</td>
+      <td style="padding:5px 10px;color:#fff;font-size:9px;font-weight:700;border-left:1px solid rgba(255,255,255,0.3);width:30%;">EJES TRANSVERSALES</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 10px;border:1px solid #CBD5E1;font-size:8.5px;line-height:1.6;vertical-align:top;">
+        ${aiResult.objetivosArea || "—"}
+      </td>
+      <td style="padding:8px 10px;border:1px solid #CBD5E1;font-size:8.5px;line-height:1.6;vertical-align:top;">
+        ${aiResult.objetivosGrado || "—"}
+      </td>
+      <td style="padding:8px 10px;border:1px solid #CBD5E1;font-size:8.5px;line-height:1.7;vertical-align:top;">
+        <div style="margin-bottom:6px;">${ejesTexto}</div>
+        <div style="border-top:1px solid #E2E8F0;padding-top:6px;margin-top:6px;">
+          <span style="color:#64748B;font-weight:700;font-size:8px;">METODOLOGÍAS ACTIVAS</span><br>
+          <span style="line-height:1.6;">${metodologiasTexto}</span>
+        </div>
+        <div style="border-top:1px solid #E2E8F0;padding-top:6px;margin-top:6px;">
+          <span style="color:#64748B;font-weight:700;font-size:8px;">TÉCNICAS DE EVALUACIÓN</span><br>
+          <span style="line-height:1.6;">${tecnicasTexto}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="section-gap"></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       4. TABLA DE UNIDADES DIDÁCTICAS (formato landscape)
+  ══════════════════════════════════════════════════════════ -->
+  <table>
+    <tr style="background:${areaColor};">
+      <td colspan="7" style="padding:5px 10px;color:#fff;font-size:10px;font-weight:900;letter-spacing:0.5px;">
+        UNIDADES DIDÁCTICAS DE PLANIFICACIÓN ANUAL
+      </td>
+    </tr>
+    <tr>
+      <th style="${thBase}width:70px;">N.° / SEMANAS</th>
+      <th style="${thBase}width:100px;">TÍTULO DE LA UNIDAD</th>
+      <th style="${thBase}">OBJETIVOS ESPECÍFICOS</th>
+      <th style="${thBase}width:18%;">DESTREZAS CON CRITERIOS DE DESEMPEÑO (DCD)</th>
+      <th style="${thBase}">CONTENIDOS / SABERES ESENCIALES</th>
+      <th style="${thBase}">ORIENTACIONES METODOLÓGICAS</th>
+      <th style="${thBase}">CRITERIOS E INDICADORES DE EVALUACIÓN</th>
+    </tr>
+    ${unidadesFilas}
+  </table>
+
+  <div class="section-gap"></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       5. BIBLIOGRAFÍA + OBSERVACIONES + DUA  (en una fila)
+  ══════════════════════════════════════════════════════════ -->
+  <table>
+    <tr style="background:${areaColor};">
+      <td style="padding:5px 10px;color:#fff;font-size:9px;font-weight:700;width:35%;">BIBLIOGRAFÍA Y RECURSOS</td>
+      <td style="padding:5px 10px;color:#fff;font-size:9px;font-weight:700;border-left:1px solid rgba(255,255,255,0.3);width:35%;">OBSERVACIONES Y RECOMENDACIONES</td>
+      <td style="padding:5px 10px;color:#fff;font-size:9px;font-weight:700;border-left:1px solid rgba(255,255,255,0.3);width:30%;">DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA)</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 10px;border:1px solid #CBD5E1;font-size:8px;line-height:1.65;vertical-align:top;">
+        ${formData.bibliografiaDocente
+          ? `<div style="margin-bottom:4px;font-weight:700;color:#64748B;font-size:7.5px;">DEL DOCENTE</div>${formData.bibliografiaDocente}<br>`
+          : ""}
+        ${aiResult.bibliografiaSugerida
+          ? `<div style="margin-top:6px;margin-bottom:4px;font-weight:700;color:#64748B;font-size:7.5px;">SUGERIDA</div>${aiResult.bibliografiaSugerida}`
+          : ""}
+        ${!formData.bibliografiaDocente && !aiResult.bibliografiaSugerida ? "—" : ""}
+      </td>
+      <td style="padding:8px 10px;border:1px solid #CBD5E1;font-size:8.5px;line-height:1.6;vertical-align:top;">
+        ${aiResult.observaciones || "—"}
+      </td>
+      <td style="padding:8px 10px;border:1px solid #CBD5E1;vertical-align:top;">
+        <table style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="padding:4px 5px;border:1px solid #E2E8F0;text-align:center;vertical-align:top;width:33%;">
+              <div style="background:#EC4899;color:#fff;border-radius:5px;padding:4px 3px;font-size:7.5px;font-weight:700;margin-bottom:4px;">REPRESENTACIÓN</div>
+              <div style="font-size:7.5px;color:#374151;line-height:1.4;">Múltiples medios: imágenes, audio, video, texto.</div>
+            </td>
+            <td style="padding:4px 5px;border:1px solid #E2E8F0;text-align:center;vertical-align:top;width:33%;">
+              <div style="background:#1E3A5F;color:#fff;border-radius:5px;padding:4px 3px;font-size:7.5px;font-weight:700;margin-bottom:4px;">ACCIÓN Y EXPRESIÓN</div>
+              <div style="font-size:7.5px;color:#374151;line-height:1.4;">Oral, escrito, digital, kinestésico.</div>
+            </td>
+            <td style="padding:4px 5px;border:1px solid #E2E8F0;text-align:center;vertical-align:top;width:33%;">
+              <div style="background:#22C55E;color:#fff;border-radius:5px;padding:4px 3px;font-size:7.5px;font-weight:700;margin-bottom:4px;">IMPLICACIÓN</div>
+              <div style="font-size:7.5px;color:#374151;line-height:1.4;">Interés, persistencia y autorregulación.</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <div class="section-gap"></div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       6. FIRMAS DE APROBACIÓN
+  ══════════════════════════════════════════════════════════ -->
+  <table>
+    ${firmas.map(f => `
+      <td style="padding:30px 12px 8px;border:1px solid #CBD5E1;text-align:center;width:33.3%;">
+        <div style="border-top:1.5px solid #334155;padding-top:6px;font-size:8.5px;font-weight:700;">${f.nombre}</div>
+        ${f.fecha ? `<div style="font-size:7.5px;color:#64748B;margin-top:2px;">${f.fecha}</div>` : ""}
+        <div style="font-size:7.5px;color:#94A3B8;margin-top:3px;font-weight:600;">${f.label}</div>
+      </td>`
+    ).join("")}
+  </table>
+
+  <!-- Pie de página -->
+  <div style="text-align:center;margin-top:10px;font-size:7px;color:#94A3B8;border-top:1px solid #E2E8F0;padding-top:5px;">
+    Generado con PlanificaDoc Ecuador &nbsp;·&nbsp; ${new Date().toLocaleDateString("es-EC")} &nbsp;·&nbsp;
     Ministerio de Educación — Currículo Priorizado 2023-2024
   </div>
+
 </body>
 </html>`;
 }
