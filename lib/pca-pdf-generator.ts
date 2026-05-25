@@ -1,4 +1,17 @@
 import { PcaFormData, PcaAiResult, AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
+import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
+import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
+
+// Mapas ID → nombre legible (construidos una sola vez)
+const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
+  METODOLOGIAS_ACTIVAS.map(m => [m.id, m.nombre])
+);
+const TECNICA_LABEL: Record<string, string> = Object.fromEntries(
+  TECNICAS_EVALUACION.map(t => [t.id, t.nombre])
+);
+const EJE_LABEL: Record<string, string> = Object.fromEntries(
+  EJES_TRANSVERSALES_PCA.map(e => [e.id, e.nombre])
+);
 
 /**
  * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador
@@ -90,7 +103,7 @@ export function generarHTMLPca(formData: PcaFormData, aiResult: PcaAiResult): st
         </tr>
         <tr>
           <td style="padding:10px 12px;border:1px solid #ddd;font-size:10px;">
-            ${formData.ejesTransversales.map(e => `<span style="display:inline-block;background:#E0F2FE;color:#0369A1;border-radius:12px;padding:3px 10px;margin:2px;font-size:9px;font-weight:600;">${e}</span>`).join("")}
+            ${formData.ejesTransversales.map(e => `<span style="display:inline-block;background:#E0F2FE;color:#0369A1;border-radius:12px;padding:3px 10px;margin:2px;font-size:9px;font-weight:600;">${EJE_LABEL[e] || e}</span>`).join("")}
           </td>
         </tr>
       </table>` : "";
@@ -105,12 +118,12 @@ export function generarHTMLPca(formData: PcaFormData, aiResult: PcaAiResult): st
         <tr>
           <td style="padding:10px 12px;border:1px solid #ddd;font-size:10px;">
             ${formData.metodologiasActivas.length > 0
-              ? formData.metodologiasActivas.map(m => `<span style="display:inline-block;background:#EDE9FE;color:#6D28D9;border-radius:10px;padding:3px 9px;margin:2px;font-size:9px;font-weight:600;">${m}</span>`).join("")
+              ? formData.metodologiasActivas.map(m => `<span style="display:inline-block;background:#EDE9FE;color:#6D28D9;border-radius:10px;padding:3px 9px;margin:2px;font-size:9px;font-weight:600;">${METODOLOGIA_LABEL[m] || m}</span>`).join("")
               : "—"}
           </td>
           <td style="padding:10px 12px;border:1px solid #ddd;font-size:10px;">
             ${formData.tecnicasEvaluacion.length > 0
-              ? formData.tecnicasEvaluacion.map(t => `<span style="display:inline-block;background:#D1FAE5;color:#065F46;border-radius:10px;padding:3px 9px;margin:2px;font-size:9px;font-weight:600;">${t}</span>`).join("")
+              ? formData.tecnicasEvaluacion.map(t => `<span style="display:inline-block;background:#D1FAE5;color:#065F46;border-radius:10px;padding:3px 9px;margin:2px;font-size:9px;font-weight:600;">${TECNICA_LABEL[t] || t}</span>`).join("")
               : "—"}
           </td>
         </tr>
