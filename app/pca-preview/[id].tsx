@@ -51,6 +51,19 @@ function generateClientTxId(prefix: string): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
 }
 
+/** Convierte un Blob a base64 (para escritura en móvil con expo-file-system) */
+async function blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      resolve(result.split(",")[1]);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
 // ─── Sub-componentes ────────────────────────────────────────────────────────
 
 function SectionLabel({ text, colors }: { text: string; colors: any }) {
@@ -370,10 +383,17 @@ export default function PcaPreviewScreen() {
     try {
       const html = generarHTMLPca(formData, aiResult);
       if (Platform.OS === "web") {
-        const win = window.open("", "_blank");
-        win?.document.write(html);
-        win?.document.close();
-        win?.print();
+        // Crear blob URL para evitar bloqueo del popup blocker
+        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const win = window.open(url, "_blank");
+        setTimeout(() => URL.revokeObjectURL(url), 15000);
+        if (!win) {
+          Alert.alert(
+            "Popup bloqueado",
+            "Permite ventanas emergentes para este sitio y vuelve a intentarlo."
+          );
+        }
       } else {
         const ExpoPrint = await import("expo-print");
         const ExpoSharing = await import("expo-sharing");
@@ -392,7 +412,31 @@ export default function PcaPreviewScreen() {
     if (!doc) return;
     setExportingWord(true);
     try {
-      await generarWordPca(formData, aiResult);
+      const blob = await generarWordPca(formData, aiResult);
+      if (Platform.OS === "web") {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const areaLabel = AREAS_INFO[formData.area as keyof typeof AREAS_INFO]?.name || formData.area;
+        a.href = url;
+        a.download = `PCA - ${areaLabel} - ${formData.grado} - ${formData.anioLectivo}.docx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      } else {
+        // Móvil: guardar temporalmente y compartir
+        const ExpoFileSystem = await import("expo-file-system");
+        const ExpoSharing = await import("expo-sharing");
+        const base64 = await blobToBase64(blob);
+        const areaLabel = AREAS_INFO[formData.area as keyof typeof AREAS_INFO]?.name || formData.area;
+        const filename = `PCA-${areaLabel}-${formData.grado}.docx`.replace(/[^a-zA-Z0-9\-\.]/g, "_");
+        const fileUri = ExpoFileSystem.documentDirectory + filename;
+        await ExpoFileSystem.writeAsStringAsync(fileUri, base64, { encoding: ExpoFileSystem.EncodingType.Base64 });
+        await ExpoSharing.shareAsync(fileUri, {
+          mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          dialogTitle: "Guardar PCA Word",
+        });
+      }
     } catch (err: any) {
       Alert.alert("Error", "No se pudo exportar el archivo Word.");
       console.error(err);
