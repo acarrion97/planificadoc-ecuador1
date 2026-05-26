@@ -383,16 +383,22 @@ export default function PcaPreviewScreen() {
     try {
       const html = generarHTMLPca(formData, aiResult);
       if (Platform.OS === "web") {
-        // Crear blob URL para evitar bloqueo del popup blocker
-        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const win = window.open(url, "_blank");
-        setTimeout(() => URL.revokeObjectURL(url), 15000);
-        if (!win) {
-          Alert.alert(
-            "Popup bloqueado",
-            "Permite ventanas emergentes para este sitio y vuelve a intentarlo."
-          );
+        // Usar iframe oculto para print — evita popup blocker por completo
+        const iframe = document.createElement("iframe");
+        iframe.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden;";
+        document.body.appendChild(iframe);
+        const iframeDoc = iframe.contentWindow?.document;
+        if (iframeDoc) {
+          iframeDoc.open();
+          iframeDoc.write(html);
+          iframeDoc.close();
+          // Esperar a que carguen estilos antes de imprimir
+          setTimeout(() => {
+            try { iframe.contentWindow?.print(); } catch (_) {}
+            setTimeout(() => {
+              try { document.body.removeChild(iframe); } catch (_) {}
+            }, 3000);
+          }, 600);
         }
       } else {
         const ExpoPrint = await import("expo-print");

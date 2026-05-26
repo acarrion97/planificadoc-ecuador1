@@ -498,8 +498,13 @@ export async function generarWordPca(
     ],
   });
 
+  // En browser usamos Packer.toBlob() (API web-compatible).
+  // En Node.js (expo mobile / tests) usamos Packer.toBuffer().
+  if (typeof window !== "undefined" && typeof window.document !== "undefined") {
+    return await Packer.toBlob(doc);
+  }
+
   const buffer = await Packer.toBuffer(doc);
-  // Convert Node.js Buffer to ArrayBuffer for cross-platform Blob compatibility
   const arrayBuffer = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
   return new Blob([arrayBuffer], {
     type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
