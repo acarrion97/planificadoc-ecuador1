@@ -6,506 +6,594 @@ import {
   TableRow,
   TableCell,
   TextRun,
-  HeadingLevel,
   AlignmentType,
   WidthType,
   BorderStyle,
   ShadingType,
   VerticalAlign,
   PageOrientation,
-  convertInchesToTwip,
-  TableLayoutType,
 } from "docx";
-import { PcaFormData, PcaAiResult, AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
+import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
+import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
+import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 
-/* ── Helpers ───────────────────────────────────────────────────── */
+// ─── Constantes ───────────────────────────────────────────────────────────────
+const BG_SECTION = "DDEFF1"; // celeste MinEduc (cabeceras de sección)
+const FONT = "Arial";
 
-function hex(color: string): string {
-  return color.replace("#", "");
+// Mapas ID → nombre legible
+const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
+  METODOLOGIAS_ACTIVAS.map((m) => [m.id, m.nombre])
+);
+const TECNICA_LABEL: Record<string, string> = Object.fromEntries(
+  TECNICAS_EVALUACION.map((t) => [t.id, t.nombre])
+);
+const EJE_LABEL: Record<string, string> = Object.fromEntries(
+  EJES_TRANSVERSALES_PCA.map((e) => [e.id, e.nombre])
+);
+
+// Tamaños en half-points (docx): 1pt = 2 unidades
+const SZ16 = 32; // 16pt — título principal
+const SZ9  = 18; // 9pt  — subtítulos / año lectivo
+const SZ7  = 14; // 7pt  — texto normal
+const SZ6  = 12; // 6pt  — texto pequeño (firmas, notas)
+
+// Anchos de columna del grid de 7 columnas (en unidades pct = 50ths de %)
+// N°    Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
+const COL_W = [639, 623, 622, 622, 1253, 622, 620] as const;
+// Total = 5001 ≈ 5000 (100%)
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function run(text: string, bold = false, size = SZ7, color = "000000"): TextRun {
+  return new TextRun({ text: text ?? "—", bold, size, font: FONT, color });
 }
 
-function colorCell(text: string, bg: string, textColor = "FFFFFF"): TableCell {
-  return new TableCell({
-    shading: { fill: hex(bg), type: ShadingType.SOLID },
-    children: [
-      new Paragraph({
-        alignment: AlignmentType.CENTER,
-        children: [new TextRun({ text, bold: true, color: textColor, size: 20 })],
-      }),
-    ],
-    verticalAlign: VerticalAlign.CENTER,
-  });
+function emptyPara(): Paragraph {
+  return new Paragraph({ children: [run("", false, SZ7)] });
 }
 
-function labelCell(label: string, width = 2000): TableCell {
-  return new TableCell({
-    width: { size: width, type: WidthType.DXA },
-    shading: { fill: "F3F4F6", type: ShadingType.SOLID },
-    children: [new Paragraph({ children: [new TextRun({ text: label, bold: true, size: 18 })] })],
-    verticalAlign: VerticalAlign.CENTER,
-  });
-}
-
-function valueCell(text: string): TableCell {
-  return new TableCell({
-    children: [new Paragraph({ children: [new TextRun({ text: text || "—", size: 18 })] })],
-    verticalAlign: VerticalAlign.CENTER,
-  });
-}
-
-function sectionHeader(title: string, areaColor: string): Table {
-  return new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({
-        children: [
-          new TableCell({
-            shading: { fill: hex(areaColor), type: ShadingType.SOLID },
-            children: [
-              new Paragraph({
-                children: [new TextRun({ text: title, bold: true, color: "FFFFFF", size: 20 })],
-              }),
-            ],
-          }),
-        ],
-      }),
-    ],
-  });
-}
-
-function bodyTable(content: string, areaColor?: string): Table {
-  return new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({
-        children: [
-          new TableCell({
-            children: content.split("\n").map(
-              line => new Paragraph({ children: [new TextRun({ text: line || " ", size: 18 })] })
-            ),
-          }),
-        ],
-      }),
-    ],
-  });
-}
-
-function spacer(): Paragraph {
-  return new Paragraph({ children: [new TextRun({ text: "" })] });
-}
-
-/* ── Main export ──────────────────────────────────────────────── */
-
-export async function generarWordPca(
-  formData: PcaFormData,
-  aiResult: PcaAiResult
-): Promise<Blob> {
-  const areaInfo = AREAS_INFO[formData.area];
-  const areaColor = areaInfo?.color || "#1E3A5F";
-  const subnivelName = SUBNIVEL_NAMES[formData.subnivel];
-  const semanasClase = formData.semanasTrabajoTotal - formData.semanasEvaluacion;
-  const aiUnidades = aiResult.unidades || [];
-
-  /* ── 1. Encabezado ── */
-  const encabezadoTable = new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({
-        children: [
-          new TableCell({
-            shading: { fill: hex(areaColor), type: ShadingType.SOLID },
-            columnSpan: 4,
-            children: [
-              new Paragraph({
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({ text: "PLANIFICACIÓN CURRICULAR ANUAL", bold: true, color: "FFFFFF", size: 28 }),
-                ],
-              }),
-              new Paragraph({
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({ text: `Año Lectivo ${formData.anioLectivo} — Sistema Educativo Ecuatoriano`, color: "FFFFFF", size: 18 }),
-                ],
-              }),
-            ],
-          }),
-        ],
-      }),
-      new TableRow({
-        children: [
-          labelCell("Institución:"),
-          valueCell(formData.institucion),
-          labelCell("Docente:"),
-          valueCell(formData.docente),
-        ],
-      }),
-      new TableRow({
-        children: [
-          labelCell("Área:"),
-          valueCell(areaInfo?.name || formData.area),
-          labelCell("Subnivel:"),
-          valueCell(subnivelName),
-        ],
-      }),
-      new TableRow({
-        children: [
-          labelCell("Grado/Curso:"),
-          valueCell(formData.grado),
-          labelCell("Paralelo:"),
-          valueCell(formData.paralelo || "—"),
-        ],
-      }),
-    ],
-  });
-
-  /* ── 2. Tiempo ── */
-  const tiempoTable = new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({
-        children: [
-          colorCell("Carga Horaria Semanal\n" + formData.cargaHorariaSemanal + "h", areaColor),
-          colorCell("Semanas Totales\n" + formData.semanasTrabajoTotal, areaColor),
-          colorCell("Semanas Evaluación\n" + formData.semanasEvaluacion, areaColor),
-          colorCell("Semanas de Clase\n" + semanasClase, areaColor),
-          colorCell("Total Horas Anuales\n" + (semanasClase * formData.cargaHorariaSemanal) + "h", areaColor),
-        ],
-      }),
-    ],
-  });
-
-  /* ── 3. Objetivos ── */
-  const objetivosAreaSection = [
-    sectionHeader("OBJETIVOS DEL ÁREA DE " + (areaInfo?.name || formData.area).toUpperCase(), areaColor),
-    bodyTable(aiResult.objetivosArea || "—"),
-  ];
-
-  const objetivosGradoSection = [
-    sectionHeader("OBJETIVOS DEL GRADO / CURSO — " + formData.grado, areaColor),
-    bodyTable(aiResult.objetivosGrado || "—"),
-  ];
-
-  /* ── 4. Ejes transversales ── */
-  const ejesSection: (Table | Paragraph)[] = [];
-  if (formData.usaEjesTransversales && formData.ejesTransversales.length > 0) {
-    ejesSection.push(
-      sectionHeader("EJES TRANSVERSALES INSTITUCIONALES", "#374151"),
-      new Table({
-        width: { size: 100, type: WidthType.PERCENTAGE },
-        rows: [
-          new TableRow({
-            children: [
-              new TableCell({
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({ text: formData.ejesTransversales.join(" · "), size: 18 }),
-                    ],
-                  }),
-                ],
-              }),
-            ],
-          }),
-        ],
-      })
-    );
-  }
-
-  /* ── 5. Metodologías y técnicas ── */
-  const metodSection: (Table | Paragraph)[] = [];
-  if (formData.metodologiasActivas.length > 0 || formData.tecnicasEvaluacion.length > 0) {
-    metodSection.push(
-      new Table({
-        width: { size: 100, type: WidthType.PERCENTAGE },
-        rows: [
-          new TableRow({
-            children: [
-              new TableCell({
-                shading: { fill: "F3F4F6", type: ShadingType.SOLID },
-                children: [new Paragraph({ children: [new TextRun({ text: "METODOLOGÍAS ACTIVAS", bold: true, size: 18 })] })],
-              }),
-              new TableCell({
-                shading: { fill: "F3F4F6", type: ShadingType.SOLID },
-                children: [new Paragraph({ children: [new TextRun({ text: "TÉCNICAS DE EVALUACIÓN", bold: true, size: 18 })] })],
-              }),
-            ],
-          }),
-          new TableRow({
-            children: [
-              new TableCell({
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({ text: formData.metodologiasActivas.join(" · ") || "—", size: 18 }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({ text: formData.tecnicasEvaluacion.join(" · ") || "—", size: 18 }),
-                    ],
-                  }),
-                ],
-              }),
-            ],
-          }),
-        ],
-      })
-    );
-  }
-
-  /* ── 6. Unidades ── */
-  const unidadesElements: (Table | Paragraph)[] = [];
-
-  unidadesElements.push(
+function labeledPara(label: string, value: string): Paragraph[] {
+  return [
     new Paragraph({
-      heading: HeadingLevel.HEADING_2,
-      children: [new TextRun({ text: "UNIDADES DIDÁCTICAS ANUALES", bold: true, size: 24, color: hex(areaColor) })],
-    })
-  );
-
-  for (const unidad of formData.unidades) {
-    const aiUnidad = aiUnidades.find(u => u.numero === unidad.numero) || aiUnidades[unidad.numero - 1] || {};
-    const titulo = aiUnidad.titulo || unidad.titulo || `Unidad ${unidad.numero}`;
-
-    unidadesElements.push(spacer());
-
-    // Header row
-    const unidadRows: TableRow[] = [
-      new TableRow({
-        children: [
-          new TableCell({
-            shading: { fill: hex(areaColor), type: ShadingType.SOLID },
-            columnSpan: 2,
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({ text: `UNIDAD ${unidad.numero}: ${titulo.toUpperCase()}`, bold: true, color: "FFFFFF", size: 22 }),
-                ],
-              }),
-            ],
-          }),
-        ],
-      }),
-      new TableRow({
-        children: [
-          labelCell("Duración:", 1800),
-          valueCell(`${aiUnidad.duracionSemanas || unidad.duracionSemanas || "—"} semana(s)`),
-        ],
-      }),
-      new TableRow({
-        children: [
-          labelCell("Objetivos Específicos:", 1800),
-          valueCell(aiUnidad.objetivosEspecificos || unidad.objetivosEspecificos || "—"),
-        ],
-      }),
-    ];
-
-    // DCDs
-    if (unidad.dcdsSeleccionadas.length > 0) {
-      unidadRows.push(
-        new TableRow({
-          children: [
-            new TableCell({
-              shading: { fill: "F8F9FA", type: ShadingType.SOLID },
-              children: [new Paragraph({ children: [new TextRun({ text: "DCDs:", bold: true, size: 18 })] })],
-              verticalAlign: VerticalAlign.TOP,
-            }),
-            new TableCell({
-              children: unidad.dcdsSeleccionadas.map(dcd =>
-                new Paragraph({
-                  children: [
-                    new TextRun({ text: dcd.codigo + ": ", bold: true, color: hex(areaColor), size: 18 }),
-                    new TextRun({ text: dcd.enunciado, size: 18 }),
-                  ],
-                })
-              ),
-            }),
-          ],
-        })
-      );
-    }
-
-    unidadRows.push(
-      new TableRow({
-        children: [
-          labelCell("Contenidos / Saberes:", 1800),
-          valueCell(aiUnidad.contenidos || unidad.contenidos || "—"),
-        ],
-      }),
-      new TableRow({
-        children: [
-          labelCell("Orientaciones Metodológicas:", 1800),
-          valueCell(aiUnidad.orientacionesMetodologicas || unidad.orientacionesMetodologicas || "—"),
-        ],
-      }),
-      new TableRow({
-        children: [
-          labelCell("Evaluación:", 1800),
-          valueCell(aiUnidad.evaluacion || unidad.evaluacion || "—"),
-        ],
-      })
-    );
-
-    unidadesElements.push(
-      new Table({
-        width: { size: 100, type: WidthType.PERCENTAGE },
-        rows: unidadRows,
-      })
-    );
-  }
-
-  /* ── 7. Bibliografía ── */
-  const biblioSection: (Table | Paragraph)[] = [
-    sectionHeader("BIBLIOGRAFÍA Y RECURSOS", areaColor),
-    new Table({
-      width: { size: 100, type: WidthType.PERCENTAGE },
-      rows: [
-        new TableRow({
-          children: [
-            labelCell("Para el Docente:", 2000),
-            valueCell(formData.bibliografiaDocente || "—"),
-          ],
-        }),
-        ...(aiResult.bibliografiaSugerida ? [
-          new TableRow({
-            children: [
-              labelCell("Bibliografía Sugerida (IA):", 2000),
-              valueCell(aiResult.bibliografiaSugerida),
-            ],
-          }),
-        ] : []),
-      ],
+      spacing: { before: 20, after: 0 },
+      children: [run(label, true, SZ7)],
+    }),
+    new Paragraph({
+      spacing: { before: 0, after: 20 },
+      children: [run(value || "—", false, SZ7)],
     }),
   ];
+}
 
-  /* ── 8. Observaciones ── */
-  const obsSection: (Table | Paragraph)[] = [];
-  if (aiResult.observaciones) {
-    obsSection.push(
-      sectionHeader("OBSERVACIONES Y RECOMENDACIONES", "#374151"),
-      bodyTable(aiResult.observaciones)
-    );
-  }
+function inlinePara(label: string, value: string): Paragraph {
+  return new Paragraph({
+    spacing: { before: 30, after: 30 },
+    children: [run(label, true, SZ7), run(" " + (value || "—"), false, SZ7)],
+  });
+}
 
-  /* ── 9. DUA ── */
-  const duaSection: Table[] = [
-    sectionHeader("DISEÑO UNIVERSAL PARA EL APRENDIZAJE (DUA)", "#374151"),
-    new Table({
-      width: { size: 100, type: WidthType.PERCENTAGE },
-      rows: [
-        new TableRow({
-          children: [
-            colorCell("REPRESENTACIÓN\nMúltiples medios de presentación: imágenes, audio, video, texto.", "#EC4899"),
-            colorCell("ACCIÓN Y EXPRESIÓN\nAlternativas para demostrar aprendizaje: oral, escrito, digital, kinestésico.", "#1E3A5F"),
-            colorCell("IMPLICACIÓN / MOTIVACIÓN\nFomentar interés, persistencia y autorregulación del aprendizaje.", "#22C55E"),
-          ],
-        }),
-      ],
-    }),
-  ];
+function textPara(text: string, bold = false, size = SZ7, align: AlignmentType = AlignmentType.LEFT): Paragraph {
+  return new Paragraph({
+    alignment: align,
+    spacing: { before: 30, after: 30 },
+    children: [run(text || "—", bold, size)],
+  });
+}
 
-  /* ── 10. Firmas ── */
-  const firmasTable = new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({
-        children: [
-          colorCell("ELABORADO POR", "#374151", "FFFFFF"),
-          colorCell("REVISADO POR", "#374151", "FFFFFF"),
-          colorCell("APROBADO POR", "#374151", "FFFFFF"),
-        ],
+// Bordes de celda estándar
+const BORDER_THIN = { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" };
+const BORDER_NONE = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
+const stdBorders = {
+  top: BORDER_THIN, bottom: BORDER_THIN, left: BORDER_THIN, right: BORDER_THIN,
+};
+const noBorders = {
+  top: BORDER_NONE, bottom: BORDER_NONE, left: BORDER_NONE, right: BORDER_NONE,
+};
+
+type CellConfig = {
+  paragraphs: Paragraph[];
+  span?: number;
+  width?: number; // pct units
+  bg?: string;
+  vAlign?: VerticalAlign;
+  borders?: typeof stdBorders;
+};
+
+function makeCell(cfg: CellConfig): TableCell {
+  return new TableCell({
+    children: cfg.paragraphs,
+    columnSpan: cfg.span,
+    width: cfg.width !== undefined
+      ? { size: cfg.width, type: WidthType.PERCENTAGE }
+      : undefined,
+    shading: cfg.bg ? { fill: cfg.bg, type: ShadingType.SOLID } : undefined,
+    verticalAlign: cfg.vAlign ?? VerticalAlign.TOP,
+    borders: cfg.borders ?? stdBorders,
+  });
+}
+
+/** Fila de cabecera de sección — ocupa las 7 columnas */
+function sectionHeaderRow(label: string): TableRow {
+  return new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [textPara(label, true, SZ7)],
+        span: 7,
+        width: 5000,
+        bg: BG_SECTION,
+        vAlign: VerticalAlign.CENTER,
       }),
-      new TableRow({
-        children: [
-          new TableCell({
-            children: [
-              new Paragraph({ children: [new TextRun({ text: "\n\n" })] }),
-              new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formData.firmaElaboradoPor || formData.docente || "—", size: 18 })] }),
-              new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formData.firmaElaboradoFecha || "", size: 16, color: "888888" })] }),
-            ],
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({ children: [new TextRun({ text: "\n\n" })] }),
-              new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formData.firmaRevisadoPor || "—", size: 18 })] }),
-              new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formData.firmaRevisadoFecha || "", size: 16, color: "888888" })] }),
-            ],
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({ children: [new TextRun({ text: "\n\n" })] }),
-              new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formData.firmaAprobadoPor || "—", size: 18 })] }),
-              new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formData.firmaAprobadoFecha || "", size: 16, color: "888888" })] }),
-            ],
-          }),
+    ],
+  });
+}
+
+// ─── Función principal ────────────────────────────────────────────────────────
+
+export async function generarWordPca(formData: any, aiResult: any): Promise<Blob> {
+  const areaInfo   = AREAS_INFO[formData.area as keyof typeof AREAS_INFO];
+  const areaName   = areaInfo?.name || formData.area;
+  const subnivelName = SUBNIVEL_NAMES[formData.subnivel as keyof typeof SUBNIVEL_NAMES] || `Subnivel ${formData.subnivel}`;
+
+  const semanasClase   = (formData.semanasTrabajoTotal || 0) - (formData.semanasEvaluacion || 0);
+  const totalPeriodos  = semanasClase * (formData.cargaHorariaSemanal || 0);
+
+  const ejesTexto = formData.usaEjesTransversales && formData.ejesTransversales?.length > 0
+    ? formData.ejesTransversales.map((e: string) => EJE_LABEL[e] || e).join(", ")
+    : "No aplica";
+  const metodoTexto = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
+  const tecnicaTexto = (formData.tecnicasEvaluacion || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
+
+  const unidades: any[] = formData.unidades || [];
+  const aiUnidades: any[] = aiResult?.unidades || [];
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  TABLA PRINCIPAL
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // ── Fila 0: Encabezado institucional (Logo | Institución + Título | Año) ──
+  const headerRow0 = new TableRow({
+    children: [
+      // Logo/Institución (cols 1-2, span=2)
+      makeCell({
+        paragraphs: [
+          textPara("LOGO", true, SZ7, AlignmentType.CENTER),
+          textPara("INSTITUCIONAL", false, SZ6, AlignmentType.CENTER),
         ],
+        span: 2,
+        width: COL_W[0] + COL_W[1],
+        vAlign: VerticalAlign.CENTER,
+      }),
+      // Nombre institución (cols 3-5, span=3)
+      makeCell({
+        paragraphs: [
+          textPara(formData.institucion || "—", true, SZ9, AlignmentType.CENTER),
+        ],
+        span: 3,
+        width: COL_W[2] + COL_W[3] + COL_W[4],
+        vAlign: VerticalAlign.CENTER,
+      }),
+      // Año lectivo (cols 6-7, span=2)
+      makeCell({
+        paragraphs: [
+          textPara("AÑO LECTIVO", true, SZ7, AlignmentType.CENTER),
+          textPara(formData.anioLectivo || "—", true, SZ7, AlignmentType.CENTER),
+        ],
+        span: 2,
+        width: COL_W[5] + COL_W[6],
+        vAlign: VerticalAlign.CENTER,
       }),
     ],
   });
 
-  /* ── Ensamblar documento ── */
+  // ── Fila 1: Título principal ──
+  const headerRow1 = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [textPara("PLAN CURRICULAR ANUAL", true, SZ16, AlignmentType.CENTER)],
+        span: 7,
+        width: 5000,
+        vAlign: VerticalAlign.CENTER,
+      }),
+    ],
+  });
+
+  // ── Sección 1: DATOS INFORMATIVOS ──
+  const datosHeader = sectionHeaderRow("1. DATOS INFORMATIVOS");
+
+  const datosArea = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [inlinePara("Área:", areaName)],
+        span: 4,
+        width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3],
+      }),
+      makeCell({
+        paragraphs: [inlinePara("Asignatura:", areaName)],
+        span: 3,
+        width: COL_W[4] + COL_W[5] + COL_W[6],
+      }),
+    ],
+  });
+
+  const datosDocente = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [inlinePara("Docente(s):", formData.docente || "—")],
+        span: 7,
+        width: 5000,
+      }),
+    ],
+  });
+
+  const datosCurso = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [inlinePara("Grado/Curso:", `${formData.grado || "—"} — Paralelo: ${formData.paralelo || "—"}`)],
+        span: 4,
+        width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3],
+      }),
+      makeCell({
+        paragraphs: [inlinePara("Nivel Educativo:", subnivelName)],
+        span: 3,
+        width: COL_W[4] + COL_W[5] + COL_W[6],
+      }),
+    ],
+  });
+
+  // ── Sección 2: TIEMPO ──
+  const tiempoHeader = sectionHeaderRow("2. TIEMPO");
+
+  const tiempoLabels = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [textPara("Carga horaria semanal", true, SZ7, AlignmentType.CENTER)],
+        span: 2,
+        width: COL_W[0] + COL_W[1],
+        bg: BG_SECTION,
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara("No. Semanas de trabajo", true, SZ7, AlignmentType.CENTER)],
+        span: 1,
+        width: COL_W[2],
+        bg: BG_SECTION,
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara("Evaluación del aprendizaje e imprevistos", true, SZ7, AlignmentType.CENTER)],
+        span: 2,
+        width: COL_W[3] + COL_W[4],
+        bg: BG_SECTION,
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara("Total de semanas de clase", true, SZ7, AlignmentType.CENTER)],
+        span: 1,
+        width: COL_W[5],
+        bg: BG_SECTION,
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara("Total de periodos", true, SZ7, AlignmentType.CENTER)],
+        span: 1,
+        width: COL_W[6],
+        bg: BG_SECTION,
+        vAlign: VerticalAlign.CENTER,
+      }),
+    ],
+  });
+
+  const tiempoData = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [textPara(String(formData.cargaHorariaSemanal || "—"), false, SZ7, AlignmentType.CENTER)],
+        span: 2,
+        width: COL_W[0] + COL_W[1],
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara(String(formData.semanasTrabajoTotal || "—"), false, SZ7, AlignmentType.CENTER)],
+        width: COL_W[2],
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara(String(formData.semanasEvaluacion || "—"), false, SZ7, AlignmentType.CENTER)],
+        span: 2,
+        width: COL_W[3] + COL_W[4],
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara(String(semanasClase), false, SZ7, AlignmentType.CENTER)],
+        width: COL_W[5],
+        vAlign: VerticalAlign.CENTER,
+      }),
+      makeCell({
+        paragraphs: [textPara(String(totalPeriodos), false, SZ7, AlignmentType.CENTER)],
+        width: COL_W[6],
+        vAlign: VerticalAlign.CENTER,
+      }),
+    ],
+  });
+
+  // ── Sección 3: OBJETIVOS GENERALES ──
+  const objetivosHeader = sectionHeaderRow("3. OBJETIVOS GENERALES");
+
+  const objetivosData = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: labeledPara("Objetivos del área:", aiResult?.objetivosArea || "—"),
+        span: 4,
+        width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3],
+      }),
+      makeCell({
+        paragraphs: labeledPara("Objetivos del grado / curso:", aiResult?.objetivosGrado || "—"),
+        span: 3,
+        width: COL_W[4] + COL_W[5] + COL_W[6],
+      }),
+    ],
+  });
+
+  // ── Sección 4: INSERCIONES CURRICULARES ──
+  const insercionesHeader = sectionHeaderRow("4. INSERCIONES CURRICULARES");
+
+  const insercionesData = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [
+          new Paragraph({
+            spacing: { before: 20, after: 0 },
+            children: [run("Ejes transversales: ", true, SZ7), run(ejesTexto, false, SZ7)],
+          }),
+          new Paragraph({
+            spacing: { before: 20, after: 0 },
+            children: [run("Metodologías activas: ", true, SZ7), run(metodoTexto, false, SZ7)],
+          }),
+          new Paragraph({
+            spacing: { before: 20, after: 20 },
+            children: [run("Técnicas de evaluación: ", true, SZ7), run(tecnicaTexto, false, SZ7)],
+          }),
+        ],
+        span: 7,
+        width: 5000,
+      }),
+    ],
+  });
+
+  // ── Sección 5: UNIDADES DE PLANIFICACIÓN ──
+  const unidadesHeader = sectionHeaderRow("5. DESARROLLO DE UNIDADES DE PLANIFICACIÓN");
+
+  const unidadesColHeader = new TableRow({
+    children: [
+      makeCell({ paragraphs: [textPara("N.°", true, SZ7, AlignmentType.CENTER)],        width: COL_W[0], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Título de la unidad de planificación", true, SZ7, AlignmentType.CENTER)], width: COL_W[1], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Objetivos específicos de la unidad de planificación", true, SZ6, AlignmentType.CENTER)], width: COL_W[2], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Destrezas con criterios de desempeño (DCD)", true, SZ6, AlignmentType.CENTER)], width: COL_W[3], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Orientaciones metodológicas", true, SZ7, AlignmentType.CENTER)], width: COL_W[4], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Indicador de evaluación", true, SZ7, AlignmentType.CENTER)], width: COL_W[5], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Duración en semanas", true, SZ6, AlignmentType.CENTER)], width: COL_W[6], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+    ],
+  });
+
+  // Filas de unidades — DINÁMICAS según cuántas unidades haya
+  const unidadesRows: TableRow[] = unidades.map((unidad: any, idx: number) => {
+    const aiU = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
+    const dcdsTexto = (unidad.dcdsSeleccionadas || [])
+      .map((d: any) => `${d.codigo}: ${d.enunciado}`)
+      .join("\n");
+
+    // Cada DCD como párrafo separado
+    const dcdParrafos = (unidad.dcdsSeleccionadas || []).length > 0
+      ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
+          new Paragraph({
+            spacing: { before: 10, after: 10 },
+            children: [run(d.codigo, true, SZ6), run(": " + d.enunciado, false, SZ6)],
+          })
+        )
+      : [textPara("—", false, SZ7)];
+
+    return new TableRow({
+      children: [
+        makeCell({
+          paragraphs: [textPara(String(unidad.numero), true, SZ7, AlignmentType.CENTER)],
+          width: COL_W[0],
+          vAlign: VerticalAlign.CENTER,
+        }),
+        makeCell({
+          paragraphs: [textPara(aiU.titulo || `Unidad ${unidad.numero}`, true, SZ7)],
+          width: COL_W[1],
+        }),
+        makeCell({
+          paragraphs: [textPara(aiU.objetivosEspecificos || "—", false, SZ7)],
+          width: COL_W[2],
+        }),
+        makeCell({
+          paragraphs: dcdParrafos,
+          width: COL_W[3],
+        }),
+        makeCell({
+          paragraphs: [textPara(aiU.orientacionesMetodologicas || "—", false, SZ7)],
+          width: COL_W[4],
+        }),
+        makeCell({
+          paragraphs: [textPara(aiU.evaluacion || "—", false, SZ7)],
+          width: COL_W[5],
+        }),
+        makeCell({
+          paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)],
+          width: COL_W[6],
+          vAlign: VerticalAlign.CENTER,
+        }),
+      ],
+    });
+  });
+
+  // ── Sección 6+7: BIBLIOGRAFÍA y OBSERVACIONES ──
+  const biblioHeader = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [textPara("6. BIBLIOGRAFÍA / WEBGRAFÍA (Utilizar normas APA VI edición)", true, SZ7)],
+        span: 5,
+        width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3] + COL_W[4],
+        bg: BG_SECTION,
+      }),
+      makeCell({
+        paragraphs: [textPara("7. OBSERVACIONES", true, SZ7)],
+        span: 2,
+        width: COL_W[5] + COL_W[6],
+        bg: BG_SECTION,
+      }),
+    ],
+  });
+
+  const biblioData = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [
+          ...(formData.bibliografiaDocente
+            ? [textPara(formData.bibliografiaDocente, false, SZ7)]
+            : []),
+          textPara(aiResult?.bibliografiaSugerida || "—", false, SZ7),
+        ],
+        span: 5,
+        width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3] + COL_W[4],
+      }),
+      makeCell({
+        paragraphs: [textPara(aiResult?.observaciones || "—", false, SZ7)],
+        span: 2,
+        width: COL_W[5] + COL_W[6],
+      }),
+    ],
+  });
+
+  // ── TABLA PRINCIPAL ──
+  const mainTable = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      headerRow0,
+      headerRow1,
+      datosHeader,
+      datosArea,
+      datosDocente,
+      datosCurso,
+      tiempoHeader,
+      tiempoLabels,
+      tiempoData,
+      objetivosHeader,
+      objetivosData,
+      insercionesHeader,
+      insercionesData,
+      unidadesHeader,
+      unidadesColHeader,
+      ...unidadesRows,
+      biblioHeader,
+      biblioData,
+    ],
+  });
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  TABLA DE FIRMAS (tabla separada, ancho completo en twips)
+  // ══════════════════════════════════════════════════════════════════════════
+  const SIG_COL = 4994; // dxa, 3 columnas iguales = 14982 total
+
+  function sigCell(paragraphs: Paragraph[]): TableCell {
+    return new TableCell({
+      children: paragraphs,
+      width: { size: SIG_COL, type: WidthType.DXA },
+      verticalAlign: VerticalAlign.CENTER,
+      borders: stdBorders,
+    });
+  }
+
+  const firmas = [
+    { rol: "ELABORADO", cargo: "DOCENTE:", nombre: formData.firmaElaboradoPor || formData.docente || "", fecha: formData.firmaElaboradoFecha || "" },
+    { rol: "REVISADO",  cargo: "VICERRECTOR:", nombre: formData.firmaRevisadoPor || "",  fecha: formData.firmaRevisadoFecha  || "" },
+    { rol: "APROBADO",  cargo: "DIRECTOR:",    nombre: formData.firmaAprobadoPor  || "",  fecha: formData.firmaAprobadoFecha  || "" },
+  ];
+
+  const firmasTable = new Table({
+    width: { size: 14982, type: WidthType.DXA },
+    rows: [
+      // Fila: ELABORADO | REVISADO | APROBADO
+      new TableRow({
+        children: firmas.map((f) =>
+          sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])
+        ),
+      }),
+      // Fila: cargo
+      new TableRow({
+        children: firmas.map((f) =>
+          sigCell([textPara(f.cargo, true, SZ7)])
+        ),
+      }),
+      // Fila: nombre
+      new TableRow({
+        children: firmas.map((f) =>
+          sigCell([textPara(f.nombre || "_________________________", false, SZ7)])
+        ),
+      }),
+      // Fila: firma
+      new TableRow({
+        children: firmas.map(() =>
+          sigCell([textPara("Firma: _________________________", false, SZ7)])
+        ),
+      }),
+      // Fila: fecha
+      new TableRow({
+        children: firmas.map((f) =>
+          sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)])
+        ),
+      }),
+    ],
+  });
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  DOCUMENTO
+  // ══════════════════════════════════════════════════════════════════════════
   const doc = new Document({
+    styles: {
+      default: {
+        document: {
+          run: { font: FONT, size: SZ7 },
+        },
+      },
+    },
     sections: [
       {
         properties: {
           page: {
-            size: { orientation: PageOrientation.PORTRAIT },
+            size: {
+              orientation: PageOrientation.LANDSCAPE,
+              width: 16838,  // A4 landscape width in twips
+              height: 11906, // A4 landscape height in twips
+            },
             margin: {
-              top: convertInchesToTwip(0.6),
-              bottom: convertInchesToTwip(0.6),
-              left: convertInchesToTwip(0.8),
-              right: convertInchesToTwip(0.8),
+              top: 720,    // 0.5 inch
+              right: 720,
+              bottom: 720,
+              left: 720,
             },
           },
         },
         children: [
-          encabezadoTable,
-          spacer(),
-          tiempoTable,
-          spacer(),
-          ...objetivosAreaSection,
-          spacer(),
-          ...objetivosGradoSection,
-          spacer(),
-          ...(ejesSection.length > 0 ? [...ejesSection, spacer()] : []),
-          ...(metodSection.length > 0 ? [...metodSection, spacer()] : []),
-          ...unidadesElements,
-          spacer(),
-          ...biblioSection,
-          spacer(),
-          ...(obsSection.length > 0 ? [...obsSection, spacer()] : []),
-          ...duaSection,
-          spacer(),
+          mainTable,
+          new Paragraph({ children: [new TextRun({ text: "", size: SZ7 })] }),
           firmasTable,
-          spacer(),
-          new Paragraph({
-            alignment: AlignmentType.CENTER,
-            children: [
-              new TextRun({
-                text: `Generado con PlanificaDoc Ecuador · ${new Date().toLocaleDateString("es-EC")} · Ministerio de Educación — Currículo Priorizado 2023-2024`,
-                size: 14,
-                color: "AAAAAA",
-              }),
-            ],
-          }),
         ],
       },
     ],
   });
 
-  // En browser usamos Packer.toBlob() (API web-compatible).
-  // En Node.js (expo mobile / tests) usamos Packer.toBuffer().
+  // En browser: Packer.toBlob(); en Node (móvil): Packer.toBuffer()
   if (typeof window !== "undefined" && typeof window.document !== "undefined") {
     return await Packer.toBlob(doc);
   }
 
   const buffer = await Packer.toBuffer(doc);
-  const arrayBuffer = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
+  const arrayBuffer = buffer.buffer.slice(
+    buffer.byteOffset,
+    buffer.byteOffset + buffer.byteLength
+  ) as ArrayBuffer;
   return new Blob([arrayBuffer], {
     type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   });
