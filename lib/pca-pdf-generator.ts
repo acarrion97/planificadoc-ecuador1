@@ -34,6 +34,8 @@ export function generarHTMLPca(formData: PcaFormData, aiResult: PcaAiResult): st
     : "No aplica";
 
   // ── Tabla de unidades didácticas (landscape, columnas anchas) ──────────────
+  const tdBase = "padding:7px 8px;border:1px solid #CBD5E1;vertical-align:top;";
+  const thBase = `padding:8px 8px;border:1px solid #CBD5E1;text-align:center;font-size:9px;font-weight:700;color:#fff;background:${areaColor};`;
   const aiUnidades = aiResult.unidades || [];
 
   const unidadesFilas = formData.unidades.map((unidad, idx) => {
@@ -73,9 +75,6 @@ export function generarHTMLPca(formData: PcaFormData, aiResult: PcaAiResult): st
       </td>
     </tr>`;
   }).join("");
-
-  const tdBase = "padding:7px 8px;border:1px solid #CBD5E1;vertical-align:top;";
-  const thBase = `padding:8px 8px;border:1px solid #CBD5E1;text-align:center;font-size:9px;font-weight:700;color:#fff;background:${areaColor};`;
 
   // ── Firmas ─────────────────────────────────────────────────────────────────
   const firmas = [
