@@ -197,22 +197,32 @@ export const pcaRouter = router({
         }
 
         // 4. Normalizar y validar la estructura
+        // La IA a veces devuelve campos como objetos en lugar de strings (ej: contenidos: {conceptuales, procedimentales, actitudinales})
+        // Esta función garantiza que cualquier campo sea siempre string.
+        const toStr = (val: any): string => {
+          if (typeof val === "string") return val;
+          if (val === null || val === undefined) return "";
+          if (Array.isArray(val)) return val.map(toStr).join("; ");
+          if (typeof val === "object") return Object.values(val).map(toStr).join(" | ");
+          return String(val);
+        };
+
         const aiResult = {
-          objetivosArea: parsed.objetivos_area || "",
-          objetivosGrado: parsed.objetivos_grado || "",
+          objetivosArea: toStr(parsed.objetivos_area),
+          objetivosGrado: toStr(parsed.objetivos_grado),
           unidades: Array.isArray(parsed.unidades)
             ? parsed.unidades.map((u: any) => ({
                 numero: u.numero || 1,
-                titulo: u.titulo || "Unidad sin título",
-                objetivosEspecificos: u.objetivos_especificos || "",
-                contenidos: u.contenidos || "",
-                orientacionesMetodologicas: u.orientaciones_metodologicas || "",
-                evaluacion: u.evaluacion || "",
+                titulo: toStr(u.titulo) || "Unidad sin título",
+                objetivosEspecificos: toStr(u.objetivos_especificos),
+                contenidos: toStr(u.contenidos),
+                orientacionesMetodologicas: toStr(u.orientaciones_metodologicas),
+                evaluacion: toStr(u.evaluacion),
                 duracionSemanas: u.duracion_semanas || 1,
               }))
             : [],
-          bibliografiaSugerida: parsed.bibliografia_sugerida || "",
-          observaciones: parsed.observaciones || "",
+          bibliografiaSugerida: toStr(parsed.bibliografia_sugerida),
+          observaciones: toStr(parsed.observaciones),
         };
 
         // 5. Guardar resultado en BD

@@ -38,6 +38,15 @@ async function adminUnlockPca(pcaId: number, adminKey: string): Promise<{ succes
   }
 }
 
+/** Convierte cualquier valor a string seguro para renderizar en React */
+function toStr(val: any): string {
+  if (typeof val === "string") return val;
+  if (val === null || val === undefined) return "";
+  if (Array.isArray(val)) return val.map(toStr).join("; ");
+  if (typeof val === "object") return Object.values(val).map(toStr).join(" | ");
+  return String(val);
+}
+
 async function getSessionId(): Promise<string> {
   let id = await AsyncStorage.getItem("@planificadoc_device_id");
   if (!id) {
@@ -114,7 +123,7 @@ function UnidadCard({
       </View>
 
       {aiUnidad?.titulo && (
-        <Text style={[s.unidadTitulo, { color: "#003366" }]}>{aiUnidad.titulo}</Text>
+        <Text style={[s.unidadTitulo, { color: "#003366" }]}>{toStr(aiUnidad.titulo)}</Text>
       )}
 
       {dcds.length > 0 && (
@@ -131,28 +140,28 @@ function UnidadCard({
       {aiUnidad?.objetivosEspecificos && (
         <View style={{ marginBottom: 8 }}>
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Objetivos específicos</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiUnidad.objetivosEspecificos}</Text>
+          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.objetivosEspecificos)}</Text>
         </View>
       )}
 
       {aiUnidad?.contenidos && (
         <View style={{ marginBottom: 8 }}>
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Contenidos</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiUnidad.contenidos}</Text>
+          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.contenidos)}</Text>
         </View>
       )}
 
       {aiUnidad?.orientacionesMetodologicas && (
         <View style={{ marginBottom: 8 }}>
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Orientaciones metodológicas</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiUnidad.orientacionesMetodologicas}</Text>
+          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.orientacionesMetodologicas)}</Text>
         </View>
       )}
 
       {aiUnidad?.evaluacion && (
         <View style={{ marginBottom: 8 }}>
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Criterios de evaluación</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiUnidad.evaluacion}</Text>
+          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.evaluacion)}</Text>
         </View>
       )}
 
@@ -558,7 +567,7 @@ export default function PcaPreviewScreen() {
         <SectionLabel text="3. Objetivos Generales" colors={colors} />
         <View style={[s.card, { borderColor: colors.border }]}>
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Objetivos del área</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiResult.objetivosArea || "—"}</Text>
+          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiResult.objetivosArea) || "—"}</Text>
           {paid && (
             <Pressable onPress={() => handleRegenerar("objetivos_area")} style={s.inlineRegen}>
               <Text style={s.regenText}>🔄 Regenerar</Text>
@@ -566,7 +575,7 @@ export default function PcaPreviewScreen() {
           )}
           <View style={[s.divider, { borderColor: colors.border }]} />
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Objetivos del grado / curso</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiResult.objetivosGrado || "—"}</Text>
+          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiResult.objetivosGrado) || "—"}</Text>
           {paid && (
             <Pressable onPress={() => handleRegenerar("objetivos_grado")} style={s.inlineRegen}>
               <Text style={s.regenText}>🔄 Regenerar</Text>
@@ -680,7 +689,7 @@ export default function PcaPreviewScreen() {
                 </>
               )}
               <Text style={[s.fieldLabel, { color: colors.muted }]}>Bibliografía sugerida (IA)</Text>
-              <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiResult.bibliografiaSugerida || "—"}</Text>
+              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiResult.bibliografiaSugerida) || "—"}</Text>
               <Pressable onPress={() => handleRegenerar("bibliografia")} style={s.inlineRegen}>
                 <Text style={s.regenText}>🔄 Regenerar</Text>
               </Pressable>
@@ -688,7 +697,7 @@ export default function PcaPreviewScreen() {
 
             <SectionLabel text="8. Observaciones" colors={colors} />
             <View style={[s.card, { borderColor: colors.border }]}>
-              <Text style={[s.fieldValue, { color: colors.foreground }]}>{aiResult.observaciones || "—"}</Text>
+              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiResult.observaciones) || "—"}</Text>
               <Pressable onPress={() => handleRegenerar("observaciones")} style={s.inlineRegen}>
                 <Text style={s.regenText}>🔄 Regenerar</Text>
               </Pressable>

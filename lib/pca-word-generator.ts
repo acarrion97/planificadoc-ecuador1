@@ -17,6 +17,16 @@ import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 
+// ─── Utilidad ─────────────────────────────────────────────────────────────────
+/** Convierte cualquier valor a string seguro (la IA puede devolver objetos) */
+function toStr(val: any): string {
+  if (typeof val === "string") return val;
+  if (val === null || val === undefined) return "";
+  if (Array.isArray(val)) return val.map(toStr).join("; ");
+  if (typeof val === "object") return Object.values(val).map(toStr).join(" | ");
+  return String(val);
+}
+
 // ─── Constantes ───────────────────────────────────────────────────────────────
 const BG_SECTION = "DDEFF1"; // celeste MinEduc (cabeceras de sección)
 const FONT = "Arial";
@@ -322,12 +332,12 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   const objetivosData = new TableRow({
     children: [
       makeCell({
-        paragraphs: labeledPara("Objetivos del área:", aiResult?.objetivosArea || "—"),
+        paragraphs: labeledPara("Objetivos del área:", toStr(aiResult?.objetivosArea) || "—"),
         span: 4,
         width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3],
       }),
       makeCell({
-        paragraphs: labeledPara("Objetivos del grado / curso:", aiResult?.objetivosGrado || "—"),
+        paragraphs: labeledPara("Objetivos del grado / curso:", toStr(aiResult?.objetivosGrado) || "—"),
         span: 3,
         width: COL_W[4] + COL_W[5] + COL_W[6],
       }),
@@ -400,11 +410,11 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
           vAlign: VerticalAlign.CENTER,
         }),
         makeCell({
-          paragraphs: [textPara(aiU.titulo || `Unidad ${unidad.numero}`, true, SZ7)],
+          paragraphs: [textPara(toStr(aiU.titulo) || `Unidad ${unidad.numero}`, true, SZ7)],
           width: COL_W[1],
         }),
         makeCell({
-          paragraphs: [textPara(aiU.objetivosEspecificos || "—", false, SZ7)],
+          paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)],
           width: COL_W[2],
         }),
         makeCell({
@@ -412,11 +422,11 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
           width: COL_W[3],
         }),
         makeCell({
-          paragraphs: [textPara(aiU.orientacionesMetodologicas || "—", false, SZ7)],
+          paragraphs: [textPara(toStr(aiU.orientacionesMetodologicas) || "—", false, SZ7)],
           width: COL_W[4],
         }),
         makeCell({
-          paragraphs: [textPara(aiU.evaluacion || "—", false, SZ7)],
+          paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ7)],
           width: COL_W[5],
         }),
         makeCell({
@@ -453,13 +463,13 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
           ...(formData.bibliografiaDocente
             ? [textPara(formData.bibliografiaDocente, false, SZ7)]
             : []),
-          textPara(aiResult?.bibliografiaSugerida || "—", false, SZ7),
+          textPara(toStr(aiResult?.bibliografiaSugerida) || "—", false, SZ7),
         ],
         span: 5,
         width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3] + COL_W[4],
       }),
       makeCell({
-        paragraphs: [textPara(aiResult?.observaciones || "—", false, SZ7)],
+        paragraphs: [textPara(toStr(aiResult?.observaciones) || "—", false, SZ7)],
         span: 2,
         width: COL_W[5] + COL_W[6],
       }),

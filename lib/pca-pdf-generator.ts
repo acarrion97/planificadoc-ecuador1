@@ -21,6 +21,15 @@ const EJE_LABEL: Record<string, string> = Object.fromEntries(
  * - Columnas de unidades: N° | Título | Obj. específicos | Destrezas | Orientaciones | Indicador evaluación | Duración
  * - Número de filas de unidades DINÁMICO
  */
+/** Convierte cualquier valor a string seguro para renderizar en HTML */
+function toStr(val: any): string {
+  if (typeof val === "string") return val;
+  if (val === null || val === undefined) return "";
+  if (Array.isArray(val)) return val.map(toStr).join("; ");
+  if (typeof val === "object") return Object.values(val).map(toStr).join(" | ");
+  return String(val);
+}
+
 export function generarHTMLPca(formData: any, aiResult: any): string {
   const areaInfo      = AREAS_INFO[formData.area as keyof typeof AREAS_INFO];
   const areaName      = areaInfo?.name || formData.area;
@@ -54,10 +63,10 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
         ${unidad.numero}<br><span style="font-size:7px;font-weight:400;color:#555;">${ai.duracionSemanas || unidad.duracionSemanas || "—"} sem.</span>
       </td>
       <td style="${TD}font-weight:700;font-size:8px;width:${COL_PCT[1]};">${ai.titulo || `Unidad ${unidad.numero}`}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[2]};">${ai.objetivosEspecificos || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[2]};">${toStr(ai.objetivosEspecificos) || "—"}</td>
       <td style="${TD}font-size:7.5px;line-height:1.5;width:${COL_PCT[3]};">${dcdHTML}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[4]};">${ai.orientacionesMetodologicas || "—"}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[5]};">${ai.evaluacion || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[4]};">${toStr(ai.orientacionesMetodologicas) || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[5]};">${toStr(ai.evaluacion) || "—"}</td>
       <td style="${TD}text-align:center;font-size:8px;width:${COL_PCT[6]};">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
     </tr>`;
   }).join("");
@@ -156,10 +165,10 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
   <tr><td colspan="2" style="${SEC}">3. OBJETIVOS GENERALES</td></tr>
   <tr>
     <td style="${TD}font-size:8px;line-height:1.5;width:50%;">
-      <b>Objetivos del área:</b><br>${aiResult?.objetivosArea || "—"}
+      <b>Objetivos del área:</b><br>${toStr(aiResult?.objetivosArea) || "—"}
     </td>
     <td style="${TD}font-size:8px;line-height:1.5;width:50%;">
-      <b>Objetivos del grado / curso:</b><br>${aiResult?.objetivosGrado || "—"}
+      <b>Objetivos del grado / curso:</b><br>${toStr(aiResult?.objetivosGrado) || "—"}
     </td>
   </tr>
 </table>
@@ -205,10 +214,10 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
   </tr>
   <tr>
     <td style="${TD}font-size:7.5px;line-height:1.6;vertical-align:top;width:72%;">
-      ${formData.bibliografiaDocente ? formData.bibliografiaDocente + "<br><br>" : ""}${aiResult?.bibliografiaSugerida || "—"}
+      ${formData.bibliografiaDocente ? formData.bibliografiaDocente + "<br><br>" : ""}${toStr(aiResult?.bibliografiaSugerida) || "—"}
     </td>
     <td style="${TD}font-size:8px;line-height:1.5;vertical-align:top;width:28%;">
-      ${aiResult?.observaciones || "—"}
+      ${toStr(aiResult?.observaciones) || "—"}
     </td>
   </tr>
 </table>
