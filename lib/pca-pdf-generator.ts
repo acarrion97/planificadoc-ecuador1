@@ -66,8 +66,8 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
 
     return `
     <tr>
-      <td style="${TD}text-align:center;font-weight:700;font-size:8px;width:${COL_PCT[0]};">
-        ${unidad.numero}<br><span style="font-size:7px;font-weight:400;color:#555;">${ai.duracionSemanas || unidad.duracionSemanas || "—"} sem.</span>
+      <td style="${TD}text-align:center;font-weight:700;font-size:9px;width:${COL_PCT[0]};">
+        ${unidad.numero}
       </td>
       <td style="${TD}font-weight:700;font-size:8px;width:${COL_PCT[1]};">${ai.titulo || `Unidad ${unidad.numero}`}</td>
       <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[2]};">${toStr(ai.objetivosEspecificos) || "—"}</td>
@@ -108,34 +108,32 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
     <col style="width:25%">
   </colgroup>
   <tr>
-    <td rowspan="2" style="${BORDER}text-align:center;padding:8px 4px;vertical-align:middle;">
+    <td style="${BORDER}text-align:center;padding:8px 4px;vertical-align:middle;">
       <div style="font-size:7.5px;font-weight:700;color:#555;">LOGO<br>INSTITUCIONAL</div>
     </td>
     <td style="${BORDER}text-align:center;padding:6px;">
       <div style="font-size:14px;font-weight:900;letter-spacing:1px;">PLAN CURRICULAR ANUAL</div>
     </td>
-    <td rowspan="2" style="${BORDER}text-align:center;padding:6px;vertical-align:middle;">
+    <td style="${BORDER}text-align:center;padding:6px;vertical-align:middle;">
       <div style="font-size:7.5px;font-weight:700;">AÑO LECTIVO</div>
       <div style="font-size:11px;font-weight:900;">${formData.anioLectivo || "—"}</div>
     </td>
   </tr>
+</table>
+
+<div class="gap"></div>
+
+<!-- ═══ 1. DATOS INFORMATIVOS ═══ -->
+<table>
+  <tr><td colspan="4" style="${SEC}">1. DATOS INFORMATIVOS</td></tr>
   <tr>
-    <td style="${BORDER}padding:0;">
-      <table style="width:100%;border-collapse:collapse;">
-        <tr>
-          <td style="padding:3px 6px;border-right:1px solid #AAA;font-size:7.5px;width:25%;">
-            <b>Área:</b> ${areaName}<br><b>Asignatura:</b> ${areaName}
-          </td>
-          <td style="padding:3px 6px;border-right:1px solid #AAA;font-size:7.5px;width:35%;">
-            <b>Docente(s):</b> ${formData.docente || "—"}
-          </td>
-          <td style="padding:3px 6px;font-size:7.5px;width:40%;">
-            <b>Grado/Curso:</b> ${formData.grado || "—"} — Paralelo ${formData.paralelo || "—"}<br>
-            <b>Nivel Educativo:</b> ${subnivelName}
-          </td>
-        </tr>
-      </table>
-    </td>
+    <td style="${TD}font-size:8px;width:20%;"><b>Área:</b> ${areaName}</td>
+    <td style="${TD}font-size:8px;width:30%;"><b>Asignatura:</b> ${areaName}</td>
+    <td style="${TD}font-size:8px;width:25%;"><b>Curso:</b> ${formData.grado || "—"} — Paralelo ${formData.paralelo || "—"}</td>
+    <td style="${TD}font-size:8px;width:25%;"><b>Nivel Educativo:</b> ${subnivelName}</td>
+  </tr>
+  <tr>
+    <td colspan="4" style="${TD}font-size:8px;"><b>Docente:</b> ${formData.docente || "—"}</td>
   </tr>
 </table>
 
@@ -198,7 +196,7 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
     <th style="${TH}width:${COL_PCT[0]};">N.°</th>
     <th style="${TH}width:${COL_PCT[1]};">Título de la unidad de planificación</th>
     <th style="${TH}width:${COL_PCT[2]};">Objetivos específicos de la unidad de planificación</th>
-    <th style="${TH}width:${COL_PCT[3]};">Destrezas con criterios de desempeño (DCD)</th>
+    <th style="${TH}width:${COL_PCT[3]};">Destrezas</th>
     <th style="${TH}width:${COL_PCT[4]};">Orientaciones metodológicas</th>
     <th style="${TH}width:${COL_PCT[5]};">Indicador de evaluación</th>
     <th style="${TH}width:${COL_PCT[6]};">Duración en semanas</th>
