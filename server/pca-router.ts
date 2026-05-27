@@ -131,7 +131,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
       "duracion_semanas": número
     }
   ],
-  "bibliografia_sugerida": "Referencias bibliográficas en normas APA 7.ª edición, mínimo 5 fuentes actualizadas y pertinentes al área y subnivel",
+  "bibliografia_sugerida": "Referencias bibliográficas en normas APA 7.ª edición, mínimo 5 fuentes. OBLIGATORIO incluir: Ministerio de Educación del Ecuador. (2023). Currículo Nacional Priorizado para la Emergencia. Quito: MinEduc. — y otras fuentes del área entre 2020-2025",
   "observaciones": "Observaciones pedagógicas generales para la implementación de la PCA, incluyendo atención a la diversidad y principios DUA"
 }
 

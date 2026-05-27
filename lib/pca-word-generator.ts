@@ -49,9 +49,10 @@ const SZ7  = 14; // 7pt  — texto normal
 const SZ6  = 12; // 6pt  — texto pequeño (firmas, notas)
 
 // Anchos de columna del grid de 7 columnas (en unidades pct = 50ths de %)
-// N°    Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
-const COL_W = [639, 623, 622, 622, 1253, 622, 620] as const;
-// Total = 5001 ≈ 5000 (100%)
+// N°   Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
+//  5%    15%     18%      18%         22%           17%       5%
+const COL_W = [250, 750, 900, 900, 1100, 850, 250] as const;
+// Total = 5000 (100%)
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

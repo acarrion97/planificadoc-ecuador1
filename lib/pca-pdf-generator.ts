@@ -53,7 +53,8 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
 
   // Columnas de unidades: % del total (suma ≈ 100%)
   // N°    Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
-  const COL_PCT = ["5%", "12%", "15%", "15%", "22%", "22%", "9%"];
+  // N°   Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
+  const COL_PCT = ["4%", "14%", "17%", "17%", "22%", "21%", "5%"];
 
   const unidadesFilas = (formData.unidades || []).map((unidad: any, idx: number) => {
     const ai = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
