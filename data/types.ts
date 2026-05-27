@@ -168,6 +168,70 @@ export const SUBNIVEL_GRADOS: Record<Subnivel, string> = {
   5: "1ro - 3ro BGU",
 };
 
+// ============================================================
+// PLANIFICACIÓN SEMANAL
+// ============================================================
+
+/** Una hora de clase dentro de un día de la semana */
+export interface HoraSemanal {
+  id: string;
+  codigoDestreza: string;
+  destreza: Destreza | null;
+  tema: string;
+  temasAlternativos: TemaSugerido[];
+  temaSeleccionado: TemaSugerido | null;
+  // Configuración didáctica por hora (antes estaban en ConfiguracionDia)
+  habilidadesSocioemocionales: string[];
+  usaEjesTransversales: boolean;
+  insercionesCurriculares: string[];
+  usaCompetencias: boolean;
+  competencias: string[];
+  metodologiasActivas: string[];
+  tecnicasEvaluacion: string[];
+}
+
+/** Configuración completa de un día de la semana */
+export interface ConfiguracionDia {
+  activo: boolean;
+  cantidadHoras: 1 | 2 | 3;
+  horas: HoraSemanal[];
+}
+
+/** Planificación semanal completa (5 días) */
+export interface PlanificacionSemanal {
+  id: string;
+  fecha: string;
+  semanaInicio: string;
+  semanaFin: string;
+  institucion: string;
+  docente: string;
+  grado: string;
+  nivel: string;
+  paralelo: string;
+  periodoPedagogico: string;
+  trimestre: string;
+  periodos: string;
+  numeroUnidad: string;
+  tituloUnidad: string;
+  objetivosUnidad: string;
+  duaRepresentacion: string;
+  duaAccionExpresion: string;
+  duaImplicacion: string;
+  pctVisual: string;
+  pctAuditivo: string;
+  pctLectorEscritor: string;
+  pctKinestesico: string;
+  dias: {
+    lunes: ConfiguracionDia;
+    martes: ConfiguracionDia;
+    miercoles: ConfiguracionDia;
+    jueves: ConfiguracionDia;
+    viernes: ConfiguracionDia;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 export const AREAS_INFO: Record<Area, AreaInfo> = {
   M: {
     code: "M",

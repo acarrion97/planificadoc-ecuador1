@@ -804,6 +804,241 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
 </html>`;
 }
 
+// ============================================================
+// PLANIFICACIÓN SEMANAL — HTML GENERATOR
+// ============================================================
+
+/**
+ * Genera el HTML con el formato oficial del Ministerio de Educación de Ecuador
+ * para una Planificación Semanal (5 días).
+ * Tabla principal: DÍA | DCD | INDICADORES | ESTRATEGIAS+DUA | RECURSOS | ACTIVIDADES EVALUATIVAS
+ */
+export function generarHTMLSemanal(semana: import("../data/types").PlanificacionSemanal): string {
+  const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
+  type DiaSemanaKey = typeof DIAS[number];
+  const DIA_LABEL: Record<DiaSemanaKey, string> = {
+    lunes: "LUNES", martes: "MARTES", miercoles: "MIÉRCOLES", jueves: "JUEVES", viernes: "VIERNES",
+  };
+
+  // Helper: limpia texto de actividades quitando marcadores DUA residuales
+  const cleanAct = (act: string) => act
+    .replace(/\s*\(\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\)\s*/gi, "")
+    .replace(/\s*\[\s*I\s*:\s*(true|false)\s*,\s*R\s*:\s*(true|false)\s*,\s*A\s*:\s*(true|false)\s*\]\s*/gi, "")
+    .replace(/\s*DUA\s*:\s*\{[^}]*\}\s*/gi, "")
+    .replace(/\s*\(DUA[^)]*\)\s*/gi, "")
+    .trim();
+
+  type FaseKey = { duracion?: string; actividades?: string[]; duaActividades?: Array<{ representacion: boolean; accionExpresion: boolean; implicacion: boolean }> };
+  type EstructuraMap = Record<string, FaseKey>;
+
+  // Construir filas de la tabla principal
+  // Una fila por cada hora de clase de cada día activo
+  const diasActivos = DIAS.filter((d) => semana.dias[d]?.activo);
+
+  const filasHTML = diasActivos.map((dia) => {
+    const diaConfig = semana.dias[dia];
+    const horasConPlan = diaConfig.horas.filter(h => h.temaSeleccionado);
+    if (horasConPlan.length === 0) return "";
+
+    return horasConPlan.map((hora, horaIdx) => {
+      const plan = hora.temaSeleccionado!;
+      const est = plan.estructura as EstructuraMap;
+
+      // ── Columna 2: DCD ──
+      const dcdHTML = `
+        <strong style="color:#003366;font-size:8px;">${hora.codigoDestreza}</strong><br/>
+        <span style="font-size:7.5px;">${hora.destreza?.descripcion || ""}</span>
+        ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:7px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${plan.objetivoClase}</div>` : ""}`;
+
+      // ── Columna 3: Indicadores de evaluación ──
+      const indicadores = hora.destreza?.indicadoresEvaluacion || [];
+      const indHTML = indicadores.length
+        ? `<ul style="padding-left:10px;margin:0;">${indicadores.map(i => `<li style="font-size:7.5px;margin-bottom:2px;">${i}</li>`).join("")}</ul>`
+        : `<span style="font-size:7.5px;color:#888;">—</span>`;
+
+      // ── Columna 4: Estrategias ERCA + DUA ──
+      const fases = [
+        { key: "experiencia", label: "EXPERIENCIA", color: "#2980b9" },
+        { key: "reflexion", label: "REFLEXIÓN", color: "#8e44ad" },
+        { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", color: "#27ae60" },
+        { key: "aplicacion", label: "APLICACIÓN", color: "#e67e22" },
+      ];
+
+      const estrategiasHTML = `
+        <div style="font-size:6.5px;margin-bottom:3px;">
+          <span style="display:inline-block;width:8px;height:8px;background:#EC4899;border-radius:1px;vertical-align:middle;"></span> Representación&nbsp;&nbsp;
+          <span style="display:inline-block;width:8px;height:8px;background:#1E3A5F;border-radius:1px;vertical-align:middle;"></span> Acción/Expresión&nbsp;&nbsp;
+          <span style="display:inline-block;width:8px;height:8px;background:#22C55E;border-radius:1px;vertical-align:middle;"></span> Implicación
+        </div>
+        ${fases.map(({ key, label, color }) => {
+          const fase = est[key];
+          if (!fase?.actividades?.length) return "";
+          const actsHTML = (fase.actividades).map((act, idx) => {
+            const dua = fase.duaActividades?.[idx] ?? { representacion: false, accionExpresion: false, implicacion: false };
+            return `<li style="font-size:7px;margin-bottom:2px;line-height:1.3;">${idx + 1}. ${cleanAct(act)}
+              <span style="display:inline-block;width:7px;height:7px;background:${dua.representacion ? "#EC4899" : "#EC489938"};border-radius:1px;vertical-align:middle;margin-left:2px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
+              <span style="display:inline-block;width:7px;height:7px;background:${dua.accionExpresion ? "#1E3A5F" : "#1E3A5F38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
+              <span style="display:inline-block;width:7px;height:7px;background:${dua.implicacion ? "#22C55E" : "#22C55E38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
+            </li>`;
+          }).join("");
+          return `<div style="margin-bottom:4px;">
+            <div style="background:${color};color:white;font-size:7px;font-weight:bold;padding:1px 4px;border-radius:2px;margin-bottom:2px;">${label}${fase.duracion ? ` (${fase.duracion})` : ""}</div>
+            <ul style="list-style:none;padding:0;margin:0;">${actsHTML}</ul>
+          </div>`;
+        }).join("")}`;
+
+      // ── Columna 5: Recursos ──
+      const recursosHTML = plan.recursos?.length
+        ? plan.recursos.map(r => `<div style="font-size:7.5px;margin-bottom:2px;">• ${r}</div>`).join("")
+        : `<span style="font-size:7.5px;color:#888;">—</span>`;
+
+      // ── Columna 6: Actividades Evaluativas ──
+      const evalHTML = `
+        ${plan.evaluacionFormativa ? `<div style="font-size:7.5px;margin-bottom:4px;">${plan.evaluacionFormativa}</div>` : ""}
+        ${hora.tecnicasEvaluacion?.length ? `<div style="font-size:7px;color:#555;margin-top:2px;"><strong>Técnicas:</strong> ${hora.tecnicasEvaluacion.join(", ")}</div>` : ""}
+        ${hora.destreza?.criteriosEvaluacion?.length ? `<div style="font-size:7px;color:#555;margin-top:3px;"><strong>Criterios:</strong><ul style="padding-left:10px;margin:2px 0;">${hora.destreza.criteriosEvaluacion.map(c => `<li style="font-size:7px;">${c}</li>`).join("")}</ul></div>` : ""}`;
+
+      // rowspan en la celda de día solo para la primera hora
+      const diaCell = horaIdx === 0
+        ? `<td rowspan="${horasConPlan.length}" style="background:#D4A5C7;font-weight:bold;font-size:9px;text-align:center;vertical-align:middle;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);width:28px;padding:4px 2px;letter-spacing:1px;">${DIA_LABEL[dia]}</td>`
+        : "";
+
+      return `<tr>
+        ${diaCell}
+        <td style="width:16%;vertical-align:top;padding:5px;">${dcdHTML}</td>
+        <td style="width:14%;vertical-align:top;padding:5px;">${indHTML}</td>
+        <td style="width:36%;vertical-align:top;padding:5px;">${estrategiasHTML}</td>
+        <td style="width:12%;vertical-align:top;padding:5px;">${recursosHTML}</td>
+        <td style="width:16%;vertical-align:top;padding:5px;">${evalHTML}</td>
+      </tr>`;
+    }).join("");
+  }).join("");
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planificaci&oacute;n Semanal &mdash; ${semana.semanaInicio}</title>
+  <style>
+    @page { size: A4 landscape; margin: 10mm 8mm; }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important; }
+    body { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:9px; color:#1a1a1a; line-height:1.35; background:#fff; }
+
+    .header-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:5px; }
+    .sello { font-size:9px; font-weight:bold; color:#003366; border:1px solid #003366; padding:3px 7px; text-transform:uppercase; }
+    .inst-nombre { text-align:center; font-size:11px; font-weight:bold; color:#003366; text-transform:uppercase; }
+    .anio { font-size:10px; font-weight:bold; color:#003366; }
+
+    .titulo-doc { background:#D4A5C7; color:#1a1a1a; text-align:center; padding:4px 10px; font-size:9.5px; font-weight:bold; text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; border:1px solid #999; }
+
+    table.datos { width:100%; border-collapse:collapse; margin-bottom:5px; }
+    table.datos td { border:1px solid #888; padding:2px 5px; font-size:8px; vertical-align:middle; }
+    .lbl { background:#F5E6F0; font-weight:bold; color:#1a3c5e; }
+
+    table.principal { width:100%; border-collapse:collapse; margin-bottom:6px; table-layout:fixed; }
+    table.principal th { background:#D4A5C7; color:#1a1a1a; font-size:8px; font-weight:bold; text-align:center; padding:4px 3px; border:1px solid #888; text-transform:uppercase; vertical-align:middle; line-height:1.2; }
+    table.principal td { border:1px solid #888; vertical-align:top; font-size:8px; }
+
+    .estilos-row { display:flex; gap:16px; margin-bottom:5px; padding:4px 8px; border:1px solid #ccc; border-radius:3px; font-size:7.5px; background:#fafafa; }
+    .estilo-item { font-size:7.5px; }
+    .estilo-item strong { display:inline-block; min-width:110px; }
+
+    .footer { margin-top:10px; border-top:2px solid #003366; padding-top:4px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-txt { font-size:6.5px; color:#777; }
+    .footer-logo { font-size:7px; color:#003366; font-weight:bold; text-align:right; }
+    .app-badge { display:inline-block; background:#003366; color:white; font-size:6px; padding:1px 4px; border-radius:2px; margin-top:1px; }
+
+    .firmas { display:flex; justify-content:space-between; margin-top:14px; }
+    .firma-box { text-align:center; width:42%; }
+    .firma-linea { border-top:1px solid #333; padding-top:3px; font-size:7.5px; font-weight:bold; }
+    .firma-cargo { font-size:7px; color:#666; margin-top:2px; }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <div class="header-row">
+    <div class="sello">SELLO</div>
+    <div class="inst-nombre">${semana.institucion || "UNIDAD EDUCATIVA FISCAL"}</div>
+    <div class="anio">2026 &ndash; 2027</div>
+  </div>
+
+  <!-- TÍTULO -->
+  <div class="titulo-doc">PLANIFICACI&Oacute;N MICROCURRICULAR SEMANAL</div>
+
+  <!-- DATOS INFORMATIVOS -->
+  <table class="datos">
+    <tr>
+      <td class="lbl" style="width:11%;">Docente:</td>
+      <td style="width:21%;">${semana.docente || "___"}</td>
+      <td class="lbl" style="width:9%;">Grado/Curso:</td>
+      <td style="width:13%;">${semana.grado || "___"}${semana.paralelo ? " &mdash; " + semana.paralelo : ""}</td>
+      <td class="lbl" style="width:9%;">Trimestre:</td>
+      <td style="width:10%;">${semana.trimestre || "___"}</td>
+      <td class="lbl" style="width:9%;">Semana:</td>
+      <td style="width:18%;">${semana.semanaInicio} &mdash; ${semana.semanaFin}</td>
+    </tr>
+    <tr>
+      <td class="lbl">Instituci&oacute;n:</td>
+      <td colspan="3">${semana.institucion || "___"}</td>
+      <td class="lbl">Nivel:</td>
+      <td>${semana.nivel || "___"}</td>
+      <td class="lbl">Per&iacute;odos:</td>
+      <td>${semana.periodos || "___"}</td>
+    </tr>
+    <tr>
+      <td class="lbl">N.&ordm; de unidad de planificaci&oacute;n:</td>
+      <td style="width:8%;">${(semana as any).numeroUnidad || "___"}</td>
+      <td class="lbl" colspan="1">T&iacute;tulo de unidad de planificaci&oacute;n:</td>
+      <td colspan="2">${(semana as any).tituloUnidad || "___"}</td>
+      <td class="lbl">Objetivos espec&iacute;ficos de la unidad de planificaci&oacute;n:</td>
+      <td colspan="2">${(semana as any).objetivosUnidad || "___"}</td>
+    </tr>
+  </table>
+
+  <!-- TABLA PRINCIPAL -->
+  <table class="principal">
+    <thead>
+      <tr>
+        <th style="width:3%;">D&Iacute;A</th>
+        <th style="width:16%;">DESTREZAS CON CRITERIOS<br/>DE DESEMPE&Ntilde;O</th>
+        <th style="width:14%;">INDICADORES DE<br/>EVALUACI&Oacute;N</th>
+        <th style="width:36%;">ESTRATEGIAS METODOL&Oacute;GICAS ACTIVAS PARA LA ENSE&Ntilde;ANZA Y APRENDIZAJE<br/>Y ESTRATEGIAS METODOL&Oacute;GICAS DIVERSIFICADAS CON BASE AL DUA</th>
+        <th style="width:12%;">RECURSOS</th>
+        <th style="width:16%;">ACTIVIDADES<br/>EVALUATIVAS</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${filasHTML || `<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;font-style:italic;">No hay planificaciones generadas.</td></tr>`}
+    </tbody>
+  </table>
+
+  <!-- FIRMAS -->
+  <div class="firmas">
+    <div class="firma-box">
+      <div class="firma-linea">${semana.docente || "________________________"}</div>
+      <div class="firma-cargo">Docente</div>
+    </div>
+    <div class="firma-box">
+      <div class="firma-linea">________________________</div>
+      <div class="firma-cargo">Director/a de &Aacute;rea</div>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <div class="footer">
+    <div class="footer-txt">Formato basado en los lineamientos del Ministerio de Educaci&oacute;n del Ecuador 2026-2027.<br/>Curr&iacute;culo Nacional &mdash; EGB y BGU.</div>
+    <div class="footer-logo">
+      PlanificaDoc Ecuador
+      <div class="app-badge">Generado con PlanificaDoc</div>
+    </div>
+  </div>
+
+</body>
+</html>`;
+}
+
 /**
  * Descripciones breves de habilidades socioemocionales para la columna de indicadores
  */
