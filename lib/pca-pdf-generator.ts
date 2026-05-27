@@ -54,7 +54,8 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
   // Columnas de unidades: % del total (suma ≈ 100%)
   // N°    Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
   // N°   Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
-  const COL_PCT = ["4%", "14%", "17%", "17%", "22%", "21%", "5%"];
+  // N°  Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
+  const COL_PCT = ["3%", "13%", "17%", "18%", "24%", "21%", "4%"];
 
   const unidadesFilas = (formData.unidades || []).map((unidad: any, idx: number) => {
     const ai = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
@@ -66,15 +67,13 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
 
     return `
     <tr>
-      <td style="${TD}text-align:center;font-weight:700;font-size:9px;width:${COL_PCT[0]};">
-        ${unidad.numero}
-      </td>
-      <td style="${TD}font-weight:700;font-size:8px;width:${COL_PCT[1]};">${ai.titulo || `Unidad ${unidad.numero}`}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[2]};">${toStr(ai.objetivosEspecificos) || "—"}</td>
-      <td style="${TD}font-size:7.5px;line-height:1.5;width:${COL_PCT[3]};">${dcdHTML}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[4]};">${toStr(ai.orientacionesMetodologicas) || "—"}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;width:${COL_PCT[5]};">${toStr(ai.evaluacion) || "—"}</td>
-      <td style="${TD}text-align:center;font-size:8px;width:${COL_PCT[6]};">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
+      <td style="${TD}text-align:center;font-weight:700;font-size:9px;">${unidad.numero}</td>
+      <td style="${TD}font-weight:700;font-size:8px;">${ai.titulo || `Unidad ${unidad.numero}`}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.objetivosEspecificos) || "—"}</td>
+      <td style="${TD}font-size:7.5px;line-height:1.5;">${dcdHTML}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.orientacionesMetodologicas) || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.evaluacion) || "—"}</td>
+      <td style="${TD}text-align:center;font-size:8px;">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
     </tr>`;
   }).join("");
 
@@ -191,15 +190,24 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
 
 <!-- ═══ 5. UNIDADES DE PLANIFICACIÓN ═══ -->
 <table>
+  <colgroup>
+    <col style="width:${COL_PCT[0]}">
+    <col style="width:${COL_PCT[1]}">
+    <col style="width:${COL_PCT[2]}">
+    <col style="width:${COL_PCT[3]}">
+    <col style="width:${COL_PCT[4]}">
+    <col style="width:${COL_PCT[5]}">
+    <col style="width:${COL_PCT[6]}">
+  </colgroup>
   <tr><td colspan="7" style="${SEC}">5. DESARROLLO DE UNIDADES DE PLANIFICACIÓN</td></tr>
   <tr>
-    <th style="${TH}width:${COL_PCT[0]};">N.°</th>
-    <th style="${TH}width:${COL_PCT[1]};">Título de la unidad de planificación</th>
-    <th style="${TH}width:${COL_PCT[2]};">Objetivos específicos de la unidad de planificación</th>
-    <th style="${TH}width:${COL_PCT[3]};">Destrezas</th>
-    <th style="${TH}width:${COL_PCT[4]};">Orientaciones metodológicas</th>
-    <th style="${TH}width:${COL_PCT[5]};">Indicador de evaluación</th>
-    <th style="${TH}width:${COL_PCT[6]};">Duración en semanas</th>
+    <th style="${TH}">N.°</th>
+    <th style="${TH}">Título de la unidad de planificación</th>
+    <th style="${TH}">Objetivos específicos de la unidad de planificación</th>
+    <th style="${TH}">Destrezas</th>
+    <th style="${TH}">Orientaciones metodológicas</th>
+    <th style="${TH}">Indicador de evaluación</th>
+    <th style="${TH}">Duración en semanas</th>
   </tr>
   ${unidadesFilas}
 </table>
