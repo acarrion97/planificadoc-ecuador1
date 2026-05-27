@@ -117,7 +117,7 @@ function makeCell(cfg: CellConfig): TableCell {
     width: cfg.width !== undefined
       ? { size: cfg.width, type: WidthType.PERCENTAGE }
       : undefined,
-    shading: cfg.bg ? { fill: cfg.bg, type: ShadingType.SOLID } : undefined,
+    shading: cfg.bg ? { fill: cfg.bg, color: cfg.bg, type: ShadingType.CLEAR } : undefined,
     verticalAlign: cfg.vAlign ?? VerticalAlign.TOP,
     borders: cfg.borders ?? stdBorders,
   });
