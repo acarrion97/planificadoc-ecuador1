@@ -93,7 +93,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago Seguro</title>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
-  <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -165,35 +164,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Visa, Mastercard y PayPhone Wallet
     </div>
   </div>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      try {
-        const ppb = new PPaymentButtonBox({
-          token: '${payphoneToken}',
-          clientTransactionId: '${clientTxId}',
-          amount: ${pricing.amount},
-          amountWithoutTax: ${pricing.amount},
-          amountWithTax: 0,
-          tax: 0,
-          service: 0,
-          tip: 0,
-          currency: "USD",
-          storeId: "${payphoneStoreId}",
-          reference: "${reference}",
-          lang: "es",
-          defaultMethod: "card",
-          timeZone: -5,
-          email: "${email}",
-          responseUrl: "${responseUrl}",
-          documentId: "${documentId}",
-          phoneNumber: "${phoneNumber}",
-          generateToken: true,
-        }).render('pp-button');
-      } catch(e) {
-        console.error('PayPhone init error:', e);
-        document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;">Error al cargar el formulario de pago. Recarga la pagina.</p>';
-      }
-    });
+  <script type="module">
+    import { PPaymentButtonBox } from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+    try {
+      new PPaymentButtonBox({
+        token: '${payphoneToken}',
+        clientTransactionId: '${clientTxId}',
+        amount: ${pricing.amount},
+        amountWithoutTax: ${pricing.amount},
+        amountWithTax: 0,
+        tax: 0,
+        service: 0,
+        tip: 0,
+        currency: "USD",
+        storeId: "${payphoneStoreId}",
+        reference: "${reference}",
+        lang: "es",
+        defaultMethod: "card",
+        timeZone: -5,
+        email: "${email}",
+        responseUrl: "${responseUrl}",
+        documentId: "${documentId}",
+        phoneNumber: "${phoneNumber}",
+        generateToken: true,
+      }).render('pp-button');
+    } catch(e) {
+      console.error('PayPhone init error:', e);
+      document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;">Error al cargar el formulario de pago. Recarga la pagina.</p>';
+    }
   </script>
 </body>
 </html>`;
