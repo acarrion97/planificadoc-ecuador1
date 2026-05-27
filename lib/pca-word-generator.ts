@@ -379,7 +379,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
       makeCell({ paragraphs: [textPara("N.°", true, SZ7, AlignmentType.CENTER)],        width: COL_W[0], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Título de la unidad de planificación", true, SZ7, AlignmentType.CENTER)], width: COL_W[1], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Objetivos específicos de la unidad de planificación", true, SZ6, AlignmentType.CENTER)], width: COL_W[2], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
-      makeCell({ paragraphs: [textPara("Destrezas con criterios de desempeño (DCD)", true, SZ6, AlignmentType.CENTER)], width: COL_W[3], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Destrezas", true, SZ7, AlignmentType.CENTER)], width: COL_W[3], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Orientaciones metodológicas", true, SZ7, AlignmentType.CENTER)], width: COL_W[4], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Indicador de evaluación", true, SZ7, AlignmentType.CENTER)], width: COL_W[5], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Duración en semanas", true, SZ6, AlignmentType.CENTER)], width: COL_W[6], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
@@ -503,14 +503,15 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   });
 
   // ══════════════════════════════════════════════════════════════════════════
-  //  TABLA DE FIRMAS (tabla separada, ancho completo en twips)
+  //  TABLA DE FIRMAS (tabla separada, ancho completo — porcentaje para A4 landscape)
   // ══════════════════════════════════════════════════════════════════════════
-  const SIG_COL = 4994; // dxa, 3 columnas iguales = 14982 total
+  // 3 columnas iguales: 33.33% cada una (en unidades pct = 50ths de %)
+  const SIG_COL_PCT = 1667; // 1667/5000 ≈ 33.33%
 
   function sigCell(paragraphs: Paragraph[]): TableCell {
     return new TableCell({
       children: paragraphs,
-      width: { size: SIG_COL, type: WidthType.DXA },
+      width: { size: SIG_COL_PCT, type: WidthType.PERCENTAGE },
       verticalAlign: VerticalAlign.CENTER,
       borders: stdBorders,
     });
@@ -523,7 +524,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   ];
 
   const firmasTable = new Table({
-    width: { size: 14982, type: WidthType.DXA },
+    width: { size: 100, type: WidthType.PERCENTAGE },
     rows: [
       // Fila: ELABORADO | REVISADO | APROBADO
       new TableRow({
