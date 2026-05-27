@@ -4,9 +4,11 @@ import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import { Planificacion } from "@/data/types";
 import { generarHTMLPlanificacion } from "@/lib/pdf-generator";
+import { generarWordPlanificacion } from "@/lib/plan-word-generator";
 
 interface UseExportPdfReturn {
   exportarPDF: (plan: Planificacion) => Promise<void>;
+  exportarWord: (plan: Planificacion) => Promise<void>;
   isExporting: boolean;
 }
 
@@ -61,5 +63,38 @@ export function useExportPdf(): UseExportPdfReturn {
     }
   }, []);
 
-  return { exportarPDF, isExporting };
+  const exportarWord = useCallback(async (plan: Planificacion) => {
+    setIsExporting(true);
+    try {
+      const blob = await generarWordPlanificacion(plan);
+      if (Platform.OS === "web") {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `Planificacion-${plan.destreza.codigo}-${plan.fecha || "2026"}.docx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } else {
+        const arrayBuffer = await blob.arrayBuffer();
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+        const uri = `data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${base64}`;
+        await shareAsync(uri, {
+          UTI: ".docx",
+          mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          dialogTitle: `Planificación ${plan.destreza.codigo}`,
+        });
+      }
+    } catch (error) {
+      console.error("Error al exportar Word:", error);
+      if (Platform.OS !== "web") {
+        Alert.alert("Error", "No se pudo generar el Word. Intente nuevamente.", [{ text: "OK" }]);
+      }
+    } finally {
+      setIsExporting(false);
+    }
+  }, []);
+
+  return { exportarPDF, exportarWord, isExporting };
 }

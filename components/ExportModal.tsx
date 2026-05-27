@@ -13,6 +13,7 @@ import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import type { PlanificacionSemanal } from "@/data/types";
 import { generarHTMLSemanal } from "@/lib/pdf-generator";
+import { generarWordSemanal } from "@/lib/semanal-word-generator";
 import { useColors } from "@/hooks/use-colors";
 
 interface ExportModalProps {
@@ -27,10 +28,11 @@ interface ExportModalProps {
  * En web: abre el HTML en una nueva ventana y dispara window.print().
  * En móvil: genera un PDF y abre el diálogo de compartir.
  */
-export function ExportModal({ semana, triggerLabel = "Exportar PDF" }: ExportModalProps) {
+export function ExportModal({ semana, triggerLabel = "Exportar" }: ExportModalProps) {
   const colors = useColors();
   const [visible, setVisible] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [exportingWord, setExportingWord] = useState(false);
 
   const handleExportPDF = async () => {
     setExporting(true);
@@ -61,6 +63,40 @@ export function ExportModal({ semana, triggerLabel = "Exportar PDF" }: ExportMod
       }
     } finally {
       setExporting(false);
+    }
+  };
+
+  const handleExportWord = async () => {
+    setExportingWord(true);
+    try {
+      const blob = await generarWordSemanal(semana);
+      if (Platform.OS === "web") {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `PlanificacionSemanal-${semana.semanaInicio}.docx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } else {
+        const arrayBuffer = await blob.arrayBuffer();
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+        const uri = `data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${base64}`;
+        await shareAsync(uri, {
+          UTI: ".docx",
+          mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          dialogTitle: `Planificación Semanal ${semana.semanaInicio}`,
+        });
+      }
+      setVisible(false);
+    } catch (err) {
+      console.error("Error al exportar Word semanal:", err);
+      if (Platform.OS !== "web") {
+        Alert.alert("Error", "No se pudo generar el Word. Intente nuevamente.", [{ text: "OK" }]);
+      }
+    } finally {
+      setExportingWord(false);
     }
   };
 
@@ -100,10 +136,10 @@ export function ExportModal({ semana, triggerLabel = "Exportar PDF" }: ExportMod
             {/* Opción PDF */}
             <Pressable
               onPress={handleExportPDF}
-              disabled={exporting}
+              disabled={exporting || exportingWord}
               style={({ pressed }) => [
                 styles.optionBtn,
-                { backgroundColor: "#003366", opacity: pressed ? 0.8 : exporting ? 0.6 : 1 },
+                { backgroundColor: "#003366", opacity: pressed ? 0.8 : (exporting || exportingWord) ? 0.6 : 1 },
               ]}
             >
               {exporting ? (
@@ -117,6 +153,30 @@ export function ExportModal({ semana, triggerLabel = "Exportar PDF" }: ExportMod
                 </Text>
                 <Text style={styles.optionDesc}>
                   Formato oficial del Ministerio de Educación
+                </Text>
+              </View>
+            </Pressable>
+
+            {/* Opción Word */}
+            <Pressable
+              onPress={handleExportWord}
+              disabled={exporting || exportingWord}
+              style={({ pressed }) => [
+                styles.optionBtn,
+                { backgroundColor: "#1A56DB", opacity: pressed ? 0.8 : (exporting || exportingWord) ? 0.6 : 1 },
+              ]}
+            >
+              {exportingWord ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <Text style={styles.optionIcon}>📝</Text>
+              )}
+              <View style={{ flex: 1 }}>
+                <Text style={styles.optionTitle}>
+                  {exportingWord ? "Generando Word…" : "Exportar como Word"}
+                </Text>
+                <Text style={styles.optionDesc}>
+                  Archivo .docx editable (Microsoft Word)
                 </Text>
               </View>
             </Pressable>

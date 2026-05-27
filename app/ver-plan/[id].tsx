@@ -14,7 +14,7 @@ export default function VerPlanScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { getPlanificacion } = usePlanificaciones();
-  const { exportarPDF, isExporting } = useExportPdf();
+  const { exportarPDF, exportarWord, isExporting } = useExportPdf();
 
   const plan = getPlanificacion(id || "");
 
@@ -71,23 +71,40 @@ export default function VerPlanScreen() {
           <Text className="text-xs text-muted mt-1">2026 - 2027</Text>
         </View>
 
-        {/* Bot\u00f3n Exportar PDF */}
-        <View className="px-5 mt-3">
+        {/* Botones Exportar */}
+        <View className="px-5 mt-3" style={{ flexDirection: "row", gap: 8 }}>
           <Pressable
             onPress={() => exportarPDF(plan)}
             disabled={isExporting}
             style={({ pressed }) => [
               styles.exportButton,
-              { backgroundColor: "#003366", opacity: pressed ? 0.8 : isExporting ? 0.6 : 1 },
+              { flex: 1, backgroundColor: "#003366", opacity: pressed ? 0.8 : isExporting ? 0.6 : 1 },
             ]}
           >
             {isExporting ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <Text style={{ fontSize: 18 }}>{"\uD83D\uDCC4"}</Text>
+              <Text style={{ fontSize: 16 }}>{"\uD83D\uDCC4"}</Text>
             )}
             <Text style={styles.exportButtonText}>
-              {isExporting ? (isEFL ? "Generating PDF..." : "Generando PDF...") : (isEFL ? "Export PDF" : "Exportar PDF")}
+              {isExporting ? (isEFL ? "Generating..." : "Generando...") : (isEFL ? "Export PDF" : "PDF")}
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => exportarWord(plan)}
+            disabled={isExporting}
+            style={({ pressed }) => [
+              styles.exportButton,
+              { flex: 1, backgroundColor: "#1A56DB", opacity: pressed ? 0.8 : isExporting ? 0.6 : 1 },
+            ]}
+          >
+            {isExporting ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={{ fontSize: 16 }}>{"\uD83D\uDCDD"}</Text>
+            )}
+            <Text style={styles.exportButtonText}>
+              {isEFL ? "Word" : "Word"}
             </Text>
           </Pressable>
         </View>
