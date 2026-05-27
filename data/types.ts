@@ -152,6 +152,104 @@ export interface Planificacion {
   updatedAt: string;
 }
 
+// ============================================================
+// PLANIFICACIÓN CURRICULAR ANUAL (PCA)
+// ============================================================
+
+/** Eje transversal seleccionable en la PCA */
+export interface EjeTransversalPCA {
+  id: string;
+  nombre: string;
+  descripcion: string;
+}
+
+/** DCD seleccionada para una unidad: código + enunciado completo */
+export interface DcdSeleccionada {
+  codigo: string;
+  enunciado: string;
+}
+
+/** Una unidad de planificación dentro de la PCA */
+export interface PcaUnidad {
+  id: string;
+  /** Número de unidad (1, 2, 3...) */
+  numero: number;
+  /** DCD seleccionadas por el docente para esta unidad */
+  dcdsSeleccionadas: DcdSeleccionada[];
+  /** Duración en semanas — el docente la define */
+  duracionSemanas: number;
+  // ──── Campos generados por la IA ────
+  titulo?: string;
+  objetivosEspecificos?: string;
+  contenidos?: string;
+  orientacionesMetodologicas?: string;
+  evaluacion?: string;
+}
+
+/** Datos del formulario PCA que el docente completa (Tipo A) */
+export interface PcaFormData {
+  institucion: string;
+  docente: string;
+  area: Area;
+  subnivel: Subnivel;
+  grado: string;
+  anioLectivo: string;
+  paralelo: string;
+  // Sección Tiempo
+  cargaHorariaSemanal: number;
+  semanasTrabajoTotal: number;
+  semanasEvaluacion: number;
+  // Sección Ejes Transversales
+  usaEjesTransversales: boolean;
+  ejesTransversales: string[];
+  // Sección Unidades
+  unidades: PcaUnidad[];
+  // Sección Metodologías y Evaluación
+  metodologiasActivas: string[];
+  tecnicasEvaluacion: string[];
+  // Sección Bibliografía
+  bibliografiaDocente: string;
+  // Sección Firmas
+  firmaElaboradoPor: string;
+  firmaElaboradoFecha: string;
+  firmaRevisadoPor: string;
+  firmaRevisadoFecha: string;
+  firmaAprobadoPor: string;
+  firmaAprobadoFecha: string;
+}
+
+/** Resultado completo generado por la IA para la PCA */
+export interface PcaAiResult {
+  objetivosArea: string;
+  objetivosGrado: string;
+  unidades: Array<{
+    numero: number;
+    titulo: string;
+    objetivosEspecificos: string;
+    contenidos: string;
+    orientacionesMetodologicas: string;
+    evaluacion: string;
+    duracionSemanas: number;
+  }>;
+  bibliografiaSugerida: string;
+  observaciones: string;
+}
+
+/** Documento PCA completo tal como se guarda en la BD */
+export interface PcaDocument {
+  id: number;
+  sessionId: string;
+  status: "draft" | "generated" | "paid";
+  formData: PcaFormData;
+  aiResult: PcaAiResult | null;
+  clientTransactionId: string | null;
+  payphoneTransactionId: number | null;
+  authorizationCode: string | null;
+  amountPaid: number | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export const SUBNIVEL_NAMES: Record<Subnivel, string> = {
   1: "Preparatoria",
   2: "Básica Elemental",

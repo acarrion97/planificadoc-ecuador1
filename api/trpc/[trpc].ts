@@ -7,11 +7,13 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { topicsRouter } from "../../server/topics-router";
+import { pcaRouter } from "../../server/pca-router";
 import { router } from "../../server/_core/trpc";
 
-// Minimal router — only AI generation, no auth/session needed
+// Router expuesto en Vercel
 const vercelRouter = router({
   topics: topicsRouter,
+  pca: pcaRouter,
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

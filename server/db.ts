@@ -6,9 +6,11 @@ import {
   subscriptions,
   paymentTransactions,
   cardTokens,
+  pcaDocuments,
   InsertSubscription,
   InsertPaymentTransaction,
   InsertCardToken,
+  InsertPcaDocument,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
@@ -344,4 +346,145 @@ export async function deactivateCardToken(id: number) {
     .update(cardTokens)
     .set({ isActive: false })
     .where(eq(cardTokens.id, id));
+}
+
+// ============= PCA Document Queries =============
+
+/**
+ * Crea la tabla pca_documents si no existe.
+ * Se llama antes de cualquier operación PCA para garantizar que la tabla está presente
+ * incluso si la migración no se ejecutó durante el build.
+ */
+async function ensurePcaTable(): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    // sql`` from drizzle-orm/mysql2 allows raw SQL execution
+    await (db as any).execute(`
+      CREATE TABLE IF NOT EXISTS \`pca_documents\` (
+        \`id\` int NOT NULL AUTO_INCREMENT,
+        \`sessionId\` varchar(320) NOT NULL,
+        \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
+        \`formData\` text NOT NULL,
+        \`aiResult\` text,
+        \`clientTransactionId\` varchar(64) DEFAULT NULL,
+        \`payphoneTransactionId\` int DEFAULT NULL,
+        \`authorizationCode\` varchar(64) DEFAULT NULL,
+        \`amountPaid\` int DEFAULT NULL,
+        \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (\`id\`),
+        KEY \`idx_pca_sessionId\` (\`sessionId\`),
+        KEY \`idx_pca_clientTxId\` (\`clientTransactionId\`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    `);
+  } catch (err: any) {
+    // Si ya existe o hay otro error no crítico, continuar
+    if (!err?.message?.includes("already exists")) {
+      console.warn("[DB] ensurePcaTable warning:", err?.message);
+    }
+  }
+}
+
+/**
+ * Create a new PCA document (status=draft or generated).
+ */
+export async function createPcaDocument(data: {
+  sessionId: string;
+  status: "draft" | "generated" | "paid";
+  formData: string;
+  aiResult?: string | null;
+}): Promise<number> {
+  await ensurePcaTable();
+
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(pcaDocuments).values({
+    sessionId: data.sessionId,
+    status: data.status,
+    formData: data.formData,
+    aiResult: data.aiResult ?? null,
+  } as InsertPcaDocument);
+  return result[0].insertId;
+}
+
+/**
+ * Get a PCA document by ID.
+ */
+export async function getPcaDocument(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db
+    .select()
+    .from(pcaDocuments)
+    .where(eq(pcaDocuments.id, id))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+/**
+ * Update the AI result and mark as generated.
+ */
+export async function setPcaAiResult(id: number, aiResult: string): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({ status: "generated", aiResult })
+    .where(eq(pcaDocuments.id, id));
+}
+
+/**
+ * Store the PayPhone clientTransactionId when the docente initiates payment.
+ */
+export async function setPcaClientTxId(id: number, clientTransactionId: string): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({ clientTransactionId })
+    .where(eq(pcaDocuments.id, id));
+}
+
+/**
+ * Mark a PCA document as paid after successful PayPhone confirmation.
+ */
+export async function unlockPcaDocument(data: {
+  clientTransactionId: string;
+  payphoneTransactionId: number;
+  authorizationCode: string;
+  amountPaid: number;
+}): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({
+      status: "paid",
+      payphoneTransactionId: data.payphoneTransactionId,
+      authorizationCode: data.authorizationCode,
+      amountPaid: data.amountPaid,
+    })
+    .where(eq(pcaDocuments.clientTransactionId, data.clientTransactionId));
+}
+
+/**
+ * Get all PCA documents for a session (email/deviceId).
+ */
+export async function getPcaDocumentsBySession(sessionId: string) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(pcaDocuments)
+    .where(eq(pcaDocuments.sessionId, sessionId))
+    .orderBy(desc(pcaDocuments.createdAt));
 }

@@ -5,6 +5,7 @@ import {
   paymentTransactions,
   cardTokens,
   codeActivations,
+  pcaDocuments,
 } from "../../drizzle/schema";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -207,4 +208,49 @@ export async function deactivateCardToken(id: number) {
     .update(cardTokens)
     .set({ isActive: false })
     .where(eq(cardTokens.id, id));
+}
+
+// ============= PCA Document Queries (Serverless context) =============
+
+export async function getPcaDocumentByClientTxId(clientTransactionId: string) {
+  const db = getDb();
+  if (!db) return null;
+
+  const result = await db
+    .select()
+    .from(pcaDocuments)
+    .where(eq(pcaDocuments.clientTransactionId, clientTransactionId))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function unlockPcaDocument(data: {
+  clientTransactionId: string;
+  payphoneTransactionId: number;
+  authorizationCode: string;
+  amountPaid: number;
+}): Promise<void> {
+  const db = getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({
+      status: "paid",
+      payphoneTransactionId: data.payphoneTransactionId,
+      authorizationCode: data.authorizationCode,
+      amountPaid: data.amountPaid,
+    })
+    .where(eq(pcaDocuments.clientTransactionId, data.clientTransactionId));
+}
+
+export async function setPcaClientTxId(id: number, clientTransactionId: string): Promise<void> {
+  const db = getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({ clientTransactionId })
+    .where(eq(pcaDocuments.id, id));
 }

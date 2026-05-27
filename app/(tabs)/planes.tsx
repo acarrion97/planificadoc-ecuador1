@@ -1,4 +1,4 @@
-import { Text, View, FlatList, StyleSheet, Alert, Platform, ScrollView } from "react-native";
+import { Text, View, StyleSheet, Alert, Platform, ScrollView } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -39,6 +39,21 @@ export default function PlanesScreen() {
         {/* ── Header ── */}
         <View className="px-5 pt-4 pb-2">
           <Text className="text-3xl font-bold text-foreground">Mis Planes</Text>
+        </View>
+
+        {/* ── Botón PCA ── */}
+        <View style={styles.pcaEntry}>
+          <Pressable
+            onPress={() => router.push("/planificacion-anual" as any)}
+            style={({ pressed }) => [styles.pcaBtn, { opacity: pressed ? 0.85 : 1 }]}
+          >
+            <Text style={styles.pcaBtnIcon}>📋</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.pcaBtnTitle}>Crear Planificación Anual (PCA)</Text>
+              <Text style={styles.pcaBtnSub}>Currículo Priorizado · IA + PDF + Word</Text>
+            </View>
+            <Text style={styles.pcaBtnArrow}>›</Text>
+          </Pressable>
         </View>
 
         {/* ── Botón planificación semanal ── */}
@@ -137,6 +152,41 @@ export default function PlanesScreen() {
 }
 
 const styles = StyleSheet.create({
+  pcaEntry: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  pcaBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1E3A5F",
+    borderRadius: 14,
+    padding: 16,
+    gap: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  pcaBtnIcon: {
+    fontSize: 28,
+  },
+  pcaBtnTitle: {
+    color: "#ffffff",
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  pcaBtnSub: {
+    color: "#93C5FD",
+    fontSize: 12,
+    marginTop: 2,
+  },
+  pcaBtnArrow: {
+    color: "#93C5FD",
+    fontSize: 24,
+    fontWeight: "300",
+  },
   btnSemanal: { backgroundColor: "#003366", flexDirection: "row", alignItems: "center", borderRadius: 14, padding: 16 },
   btnSemanalTitle: { color: "#fff", fontSize: 15, fontWeight: "700" },
   btnSemanalSub: { color: "rgba(255,255,255,0.7)", fontSize: 12, marginTop: 1 },

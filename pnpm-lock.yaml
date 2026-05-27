@@ -46,7 +46,7 @@ importers:
         version: 1.1.1
       docx:
         specifier: ^8.5.0
-        version: 8.6.0
+        version: 8.5.0
       dotenv:
         specifier: ^16.6.1
         version: 16.6.1
@@ -3391,10 +3391,9 @@ packages:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
 
-  docx@8.6.0:
-    resolution: {integrity: sha512-JEzPozEsuGIyUkEqdGlCv/b1avYeXjR4PjwiLdPwRKdsI9spBCq4WP0QcGYfIANpgYdJSphw4IT8M/a9dpnpvQ==}
+  docx@8.5.0:
+    resolution: {integrity: sha512-4SbcbedPXTciySXiSnNNLuJXpvxFe5nqivbiEHXyL8P/w0wx2uW7YXNjnYgjW0e2e6vy+L/tMISU/oAiXCl57Q==}
     engines: {node: '>=10'}
-    deprecated: A API breaking change was introduced here, which was incompatible with semantic versioning
 
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
@@ -9866,7 +9865,7 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  docx@8.6.0:
+  docx@8.5.0:
     dependencies:
       '@types/node': 20.11.0
       jszip: 3.10.1

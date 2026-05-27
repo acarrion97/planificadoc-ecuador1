@@ -5,6 +5,8 @@ import {
   updatePaymentTransaction,
   createSubscription,
   saveCardToken,
+  getPcaDocumentByClientTxId,
+  unlockPcaDocument,
 } from "../_lib/db";
 
 const MONTHLY_PRICE_CENTS = 699;
@@ -40,6 +42,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.log("[PayPhone] Activate - generateToken field:", confirmData?.generateToken);
     console.log("[PayPhone] Activate - FULL JSON:", JSON.stringify(confirmData));
 
+    // ── Detect if this is a PCA one-time payment ──
+    const isPcaPayment = tx.plan === "pca";
+
     if (confirmData.statusCode === 3 && confirmData.transactionStatus === "Approved") {
       await updatePaymentTransaction(clientTxId, {
         payphoneTransactionId: confirmData.transactionId,
@@ -51,6 +56,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         lastDigits: confirmData.lastDigits,
         payphoneResponse: JSON.stringify(confirmData),
       });
+
+      // ── PCA: unlock the document, skip subscription creation ──
+      if (isPcaPayment) {
+        const pcaDoc = await getPcaDocumentByClientTxId(clientTxId);
+        if (pcaDoc) {
+          await unlockPcaDocument({
+            clientTransactionId: clientTxId,
+            payphoneTransactionId: confirmData.transactionId,
+            authorizationCode: confirmData.authorizationCode || "",
+            amountPaid: tx.amount,
+          });
+          console.log("[PayPhone PCA] Document unlocked, id:", pcaDoc.id);
+        } else {
+          console.warn("[PayPhone PCA] No pca_document found for clientTxId:", clientTxId);
+        }
+        return res.json({ success: true, type: "pca", pcaId: pcaDoc?.id || null });
+      }
 
       let cardTokenId: number | undefined;
       const cardToken = confirmData.cardToken || confirmData.ctoken || "";
