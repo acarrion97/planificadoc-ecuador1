@@ -45,6 +45,12 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
 
   const aiUnidades: any[] = aiResult?.unidades || [];
 
+  // ── Estilos inline (declarados ANTES de usarlos en unidadesFilas) ──
+  const BORDER = "border:1px solid #AAAAAA;";
+  const TD  = `padding:5px 6px;${BORDER}vertical-align:top;`;
+  const TH  = `padding:6px 5px;${BORDER}background:#DDEFF1;font-weight:700;font-size:8px;text-align:center;vertical-align:middle;`;
+  const SEC = `padding:5px 8px;${BORDER}background:#DDEFF1;font-weight:700;font-size:8.5px;`;
+
   // Columnas de unidades: % del total (suma ≈ 100%)
   // N°    Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
   const COL_PCT = ["5%", "12%", "15%", "15%", "22%", "22%", "9%"];
@@ -70,11 +76,6 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
       <td style="${TD}text-align:center;font-size:8px;width:${COL_PCT[6]};">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
     </tr>`;
   }).join("");
-
-  const BORDER = "border:1px solid #AAAAAA;";
-  const TD = `padding:5px 6px;${BORDER}vertical-align:top;`;
-  const TH = `padding:6px 5px;${BORDER}background:#DDEFF1;font-weight:700;font-size:8px;text-align:center;vertical-align:middle;`;
-  const SEC = `padding:5px 8px;${BORDER}background:#DDEFF1;font-weight:700;font-size:8.5px;`;
 
   const firmas = [
     { rol: "ELABORADO", cargo: "DOCENTE", nombre: formData.firmaElaboradoPor || formData.docente || "—", fecha: formData.firmaElaboradoFecha || "" },
