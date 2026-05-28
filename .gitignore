@@ -66,3 +66,13 @@ Thumbs.db
 
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
+
+# Local dev/test scripts and generated PCA artifacts
+_gen_*.cjs
+_gen_*.ts
+_gen_*.js
+_pca_*.json
+_pca_output/
+_pca_ref_analysis.txt
+_pca_ref_unzip/
+_semanal_*.json
