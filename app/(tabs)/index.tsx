@@ -178,7 +178,43 @@ export default function HomeScreen() {
                   </View>
                 </View>
 
-                {/* Bachillerato Técnico Section */}
+                {/* Planificación Curricular Section */}
+                <View className="px-5 mt-6 mb-3">
+                  <Text className="text-lg font-semibold text-foreground">
+                    Planificaci{"ó"}n Curricular
+                  </Text>
+                  <Text className="text-xs text-muted mt-1">
+                    Documentos oficiales MinEduc generados con IA
+                  </Text>
+                </View>
+                <View className="px-5">
+                  <View style={{ flexDirection: "row", gap: 12 }}>
+                    <Pressable
+                      onPress={() => router.push("/planificacion-anual" as any)}
+                      style={({ pressed }) => [
+                        styles.pcaCard,
+                        { backgroundColor: "#003366" + "15", borderColor: "#003366" + "30", opacity: pressed ? 0.7 : 1 },
+                      ]}
+                    >
+                      <Text style={{ fontSize: 24 }}>{"📋"}</Text>
+                      <Text style={[styles.pcaCardTitle, { color: "#003366" }]}>PCA Anual</Text>
+                      <Text style={[styles.pcaCardSub, { color: "#00336690" }]}>Plan Curricular Anual</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => router.push("/planificacion-trimestral" as any)}
+                      style={({ pressed }) => [
+                        styles.pcaCard,
+                        { backgroundColor: "#0E7490" + "15", borderColor: "#0E7490" + "30", opacity: pressed ? 0.7 : 1 },
+                      ]}
+                    >
+                      <Text style={{ fontSize: 24 }}>{"🗓️"}</Text>
+                      <Text style={[styles.pcaCardTitle, { color: "#0E7490" }]}>PCT Trimestral</Text>
+                      <Text style={[styles.pcaCardSub, { color: "#0E749090" }]}>Plan por trimestre</Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                                {/* Bachillerato Técnico Section */}
                 <View className="px-5 mt-6 mb-3">
                   <Text className="text-lg font-semibold text-foreground">
                     Bachillerato T{"\u00e9"}cnico
@@ -459,5 +495,21 @@ const styles = StyleSheet.create({
   btCardSubtitle: {
     fontSize: 12,
     marginTop: 3,
+  },
+  pcaCard: {
+    flex: 1,
+    borderRadius: 16,
+    padding: 14,
+    borderWidth: 1,
+    alignItems: 'flex-start' as const,
+    gap: 4,
+  },
+  pcaCardTitle: {
+    fontSize: 14,
+    fontWeight: '600' as const,
+  },
+  pcaCardSub: {
+    fontSize: 11,
+    fontWeight: '500' as const,
   },
 });
