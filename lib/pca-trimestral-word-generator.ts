@@ -136,6 +136,9 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
     : "No aplica";
   const metodoTexto  = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
   const tecnicaTexto = (formData.tecnicasEvaluacion  || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
+  const modeloTexto  = formData.modeloPedagogico === "ACC"
+    ? "ACC (Anticipación – Construcción – Consolidación)"
+    : "ERCA (Experiencia – Reflexión – Conceptualización – Aplicación)";
 
   const unidades: any[]   = formData.unidades  || [];
   const aiUnidades: any[] = aiResult?.unidades || [];
@@ -314,6 +317,10 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
     children: [
       makeCell({
         paragraphs: [
+          new Paragraph({
+            spacing: { before: 20, after: 0 },
+            children: [run("Modelo pedagógico: ", true, SZ7), run(modeloTexto, false, SZ7)],
+          }),
           new Paragraph({
             spacing: { before: 20, after: 0 },
             children: [run("Ejes transversales: ", true, SZ7), run(ejesTexto, false, SZ7)],

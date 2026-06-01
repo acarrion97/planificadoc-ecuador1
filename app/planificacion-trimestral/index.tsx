@@ -233,6 +233,9 @@ export default function PlanificacionTrimestralScreen() {
   const [metodologias, setMetodologias] = useState<string[]>([]);
   const [tecnicas, setTecnicas]         = useState<string[]>([]);
 
+  // ── Modelo pedagógico ──
+  const [modeloPedagogico, setModeloPedagogico] = useState<"ERCA" | "ACC">("ERCA");
+
   // ── Sección 7: Firmas ──
   const [firmaElab,      setFirmaElab]      = useState("");
   const [firmaElabFecha, setFirmaElabFecha] = useState("");
@@ -364,6 +367,7 @@ export default function PlanificacionTrimestralScreen() {
           dcdsSeleccionadas: u.dcdsSeleccionadas,
           duracionSemanas: u.duracionSemanas,
         })),
+        modeloPedagogico: modeloPedagogico,
         metodologiasActivas: metodologias,
         tecnicasEvaluacion: tecnicas,
         firmaElaboradoPor: firmaElab.trim(),
@@ -391,7 +395,7 @@ export default function PlanificacionTrimestralScreen() {
   }, [
     trimestre, institucion, docente, area, subnivel, grado, anioLectivo, paralelo,
     cargaHoraria, semanasTotal, semanasEval, usaEjes, ejesSeleccionados,
-    unidades, metodologias, tecnicas,
+    unidades, modeloPedagogico, metodologias, tecnicas,
     firmaElab, firmaElabFecha, firmaRev, firmaRevFecha, firmaApro, firmaAproFecha,
   ]);
 
@@ -644,7 +648,34 @@ export default function PlanificacionTrimestralScreen() {
         {/* ── SECCIÓN 5: Metodologías y evaluación ── */}
         <SectionTitle numero="5" titulo="Metodologías y evaluación" colors={colors} />
         <View style={styles.section}>
-          <FieldLabel label="Metodologías activas" colors={colors} />
+          <FieldLabel label="Modelo pedagógico" colors={colors} />
+          <View style={{ flexDirection: "row", gap: 10, marginBottom: 12 }}>
+            {(["ERCA", "ACC"] as const).map(modelo => (
+              <Pressable
+                key={modelo}
+                onPress={() => setModeloPedagogico(modelo)}
+                style={{
+                  flex: 1, paddingVertical: 10, borderRadius: 8, alignItems: "center",
+                  borderWidth: 2,
+                  borderColor: modeloPedagogico === modelo ? "#003366" : colors.border,
+                  backgroundColor: modeloPedagogico === modelo ? "#003366" : colors.surface,
+                }}
+              >
+                <Text style={{ fontWeight: "700", fontSize: 15, color: modeloPedagogico === modelo ? "#fff" : colors.foreground }}>
+                  {modelo}
+                </Text>
+                <Text style={{ fontSize: 10, color: modeloPedagogico === modelo ? "#CCDEFF" : colors.muted, marginTop: 2, textAlign: "center" }}>
+                  {modelo === "ERCA"
+                    ? "Experiencia · Reflexión
+Conceptualización · Aplicación"
+                    : "Anticipación · Construcción
+Consolidación"}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+
+                    <FieldLabel label="Metodologías activas" colors={colors} />
           <ChipSelector
             items={METODOLOGIAS_ACTIVAS.map(m => ({ id: m.id, nombre: m.nombre }))}
             selected={metodologias}

@@ -177,6 +177,7 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
   <tr><td colspan="7" style="${SEC}">4. INSERCIONES CURRICULARES</td></tr>
   <tr>
     <td colspan="7" style="${TD}font-size:7.5px;line-height:1.8;">
+      <b>Modelo pedagógico:</b> ${formData.modeloPedagogico === "ACC" ? "ACC (Anticipación – Construcción – Consolidación)" : "ERCA (Experiencia – Reflexión – Conceptualización – Aplicación)"}<br>
       <b>Ejes transversales:</b> ${ejesTexto}<br>
       <b>Metodologías activas:</b> ${metodoTexto}<br>
       <b>Técnicas de evaluación:</b> ${tecnicaTexto}
