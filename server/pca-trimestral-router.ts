@@ -131,7 +131,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
       "titulo": "Título descriptivo y pedagógico de la unidad",
       "objetivosEspecificos": "Objetivos específicos de aprendizaje de esta unidad, alineados a las DCD seleccionadas",
       "contenidos": "Contenidos conceptuales, procedimentales y actitudinales organizados temáticamente",
-      "orientacionesMetodologicas": "Estrategias metodológicas activas específicas para esta unidad, considerando las metodologías seleccionadas",
+      "orientacionesMetodologicas": "Descripción breve del proceso de enseñanza-aprendizaje usando el método ERCA: Experiencia (activación de saberes previos), Reflexión (análisis y cuestionamiento), Conceptualización (construcción del conocimiento) y Aplicación (práctica en contexto). Máximo 4 frases, una por fase. Sin detallar actividades específicas de clase.",
       "evaluacion": "Criterios de evaluación e indicadores de logro articulados con las técnicas de evaluación seleccionadas",
       "duracionSemanas": número
     }
@@ -141,7 +141,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
 REGLAS OBLIGATORIAS:
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
 - Los contenidos DEBEN corresponder exactamente a las DCD indicadas por el docente
-- Las orientaciones metodológicas DEBEN reflejar las metodologías activas seleccionadas
+- Las orientaciones metodológicas siguen el método ERCA (4 fases), son breves y generales — NO detalles de actividades de clase
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
 - Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo)
 - Usa lenguaje técnico-pedagógico apropiado para el nivel educativo
@@ -346,7 +346,8 @@ export const pcaTrimestralRouter = router({
         const unidadForm = formData.unidades.find((u: any) => u.numero === input.unidadNumero);
         if (!unidadForm) return { success: false, error: "Unidad no encontrada" };
         const dcdsTexto = unidadForm.dcdsSeleccionadas.map((d: any) => `- ${d.codigo}: "${d.enunciado}"`).join("\n");
-        prompt = `Regenera la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nResponde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientaciones_metodologicas":"","evaluacion":""}`;
+        prompt = `Regenera la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nIMPORTANTE: orientaciones_metodologicas sigue el método ERCA (Experiencia, Reflexión, Conceptualización, Aplicación), máximo 4 frases breves y generales — no detallar actividades específicas de clase.
+Responde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientaciones_metodologicas":"","evaluacion":""}`;
         responseKey = "unidad";
       }
 
