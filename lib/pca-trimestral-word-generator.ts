@@ -405,7 +405,11 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
         width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3] + COL_W[4],
       }),
       makeCell({
-        paragraphs: [textPara(toStr(aiResult?.observaciones) || "—", false, SZ7)],
+        paragraphs: [
+          textPara("_________________________________________", false, SZ7),
+          textPara("_________________________________________", false, SZ7),
+          textPara("_________________________________________", false, SZ7),
+        ],
         span: 2,
         width: COL_W[5] + COL_W[6],
       }),

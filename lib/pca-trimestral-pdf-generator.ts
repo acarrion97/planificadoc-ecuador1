@@ -209,7 +209,11 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
       _______________________________________<br>
       _______________________________________
     </td>
-    <td colspan="2" style="${TD}font-size:7.5px;line-height:1.5;">${toStr(aiResult?.observaciones) || "—"}</td>
+    <td colspan="2" style="${TD}font-size:7px;line-height:2.2;color:#666;">
+      _______________________________________<br>
+      _______________________________________<br>
+      _______________________________________
+    </td>
   </tr>
 </table>
 

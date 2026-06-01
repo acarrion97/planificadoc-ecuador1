@@ -645,10 +645,9 @@ export default function PcaTrimestralPreviewScreen() {
 
             <SectionLabel text="8. Observaciones" colors={colors} />
             <View style={[s.card, { borderColor: colors.border }]}>
-              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiResult.observaciones) || "—"}</Text>
-              <Pressable onPress={() => handleRegenerar("observaciones")} style={s.inlineRegen}>
-                <Text style={s.regenText}>🔄 Regenerar</Text>
-              </Pressable>
+              <Text style={[s.fieldValue, { color: colors.foreground, fontStyle: "italic" }]}>
+                ✍️ El docente completa este campo en el documento descargado.
+              </Text>
             </View>
 
             <SectionLabel text="9. Firmas de aprobación" colors={colors} />

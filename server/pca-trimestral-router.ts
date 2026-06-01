@@ -135,8 +135,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
       "evaluacion": "Criterios de evaluación e indicadores de logro articulados con las técnicas de evaluación seleccionadas",
       "duracionSemanas": número
     }
-  ],
-  "observaciones": "Observaciones pedagógicas para la implementación del trimestre, incluyendo articulación con trimestres anteriores y posteriores, atención a la diversidad y recomendaciones específicas para el período"
+  ]
 }
 
 REGLAS OBLIGATORIAS:
@@ -235,7 +234,6 @@ export const pcaTrimestralRouter = router({
                 duracionSemanas: u.duracion_semanas || u.duracionSemanas || 1,
               }))
             : [],
-          observaciones: toStr(parsed.observaciones),
         };
 
         // 5. Guardar resultado en BD (status → "generated")
@@ -324,7 +322,7 @@ export const pcaTrimestralRouter = router({
   regenerarSeccionTrimestral: publicProcedure
     .input(z.object({
       pcaId: z.number(),
-      seccion: z.enum(["objetivos_trimestre", "unidad", "observaciones"]),
+      seccion: z.enum(["objetivos_trimestre", "unidad"]),
       unidadNumero: z.number().optional(),
     }))
     .mutation(async ({ input }) => {
@@ -350,9 +348,6 @@ export const pcaTrimestralRouter = router({
         const dcdsTexto = unidadForm.dcdsSeleccionadas.map((d: any) => `- ${d.codigo}: "${d.enunciado}"`).join("\n");
         prompt = `Regenera la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nResponde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientaciones_metodologicas":"","evaluacion":""}`;
         responseKey = "unidad";
-      } else if (input.seccion === "observaciones") {
-        prompt = `Genera observaciones pedagógicas para la implementación del ${formData.trimestre} de ${areaNombre} en ${subnivelNombre}, incluyendo articulación con otros trimestres y atención a la diversidad. Responde SOLO con JSON: {"observaciones": "texto"}`;
-        responseKey = "observaciones";
       }
 
       try {
@@ -383,8 +378,6 @@ export const pcaTrimestralRouter = router({
           }
         } else if (responseKey === "objetivos_trimestre") {
           aiResult.objetivosTrimestre = parsed.objetivos_trimestre || aiResult.objetivosTrimestre;
-        } else if (responseKey === "observaciones") {
-          aiResult.observaciones = parsed.observaciones || aiResult.observaciones;
         }
 
         await setPcaAiResult(input.pcaId, JSON.stringify(aiResult));
