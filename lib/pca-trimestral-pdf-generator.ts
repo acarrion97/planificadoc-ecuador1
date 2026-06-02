@@ -45,21 +45,26 @@ function orientacionesHTML(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): string {
     ? ["anticipacion", "construccion", "consolidacion"]
     : ["experiencia", "reflexion", "conceptualizacion", "aplicacion"];
 
-  let obj: Record<string, string[]> = {};
-  if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
-    obj = raw;
-  } else {
-    obj[orden[0]] = [String(raw || "")];
-  }
+  const items: any[] = Array.isArray(raw)
+    ? raw
+    : (typeof raw === "object" && raw !== null ? [{ dcd: "", fases: raw }] : [{ dcd: "", fases: { [orden[0]]: [String(raw || "")] } }]);
 
-  return orden.map(fase => {
-    const actividades: string[] = Array.isArray(obj[fase]) ? obj[fase] : [];
-    const color = FASE_COLORS_HTML[fase] || "#003366";
-    const label = FASE_LABELS_HTML[fase] || fase.toUpperCase();
-    const items = actividades.map((a, i) =>
-      `<div style="font-size:6.5px;line-height:1.4;padding-left:6px;">${i+1}. ${a}</div>`
-    ).join("");
-    return `<div style="background:${color};color:#fff;font-weight:700;font-size:7px;padding:2px 4px;margin-top:3px;">${label}</div>${items}`;
+  return items.map(item => {
+    const fases: Record<string, string[]> = item.fases || item;
+    const dcdCodigo: string = item.dcd || "";
+    const dcdHeader = dcdCodigo
+      ? `<div style="background:#595959;color:#fff;font-weight:700;font-size:6.5px;padding:2px 4px;margin-top:5px;">DCD: ${dcdCodigo}</div>`
+      : "";
+    const fasesHTML = orden.map(fase => {
+      const actividades: string[] = Array.isArray(fases[fase]) ? fases[fase] : [];
+      const color = FASE_COLORS_HTML[fase] || "#003366";
+      const label = FASE_LABELS_HTML[fase] || fase.toUpperCase();
+      const acts = actividades.map((a, i) =>
+        `<div style="font-size:6px;line-height:1.4;padding-left:5px;">${i+1}. ${a}</div>`
+      ).join("");
+      return `<div style="background:${color};color:#fff;font-weight:700;font-size:6.5px;padding:2px 4px;margin-top:2px;">${label}</div>${acts}`;
+    }).join("");
+    return dcdHeader + fasesHTML;
   }).join("");
 }
 

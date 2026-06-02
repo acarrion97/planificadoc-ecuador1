@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v4.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v5.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -45,12 +45,58 @@ const aiResult = {
       titulo: "Los números hasta 9.999 y operaciones básicas",
       objetivosEspecificos: "Reconocer, leer y escribir números naturales hasta 9.999 en forma simbólica y gráfica. Aplicar adición y sustracción con reagrupación en problemas del entorno.",
       contenidos: "Números naturales hasta 9.999: lectura, escritura y representación. Valor posicional: unidades, decenas, centenas y millares. Adición y sustracción con reagrupación. Resolución de problemas aritméticos contextualizados.",
-      orientacionesMetodologicas: {
-        experiencia: ["Los estudiantes observarán billetes y monedas para reconocer números de hasta 4 cifras en contextos cotidianos.", "Responderán preguntas sobre cantidades: ¿Cuánto cuesta? ¿Cuál es mayor?", "Compartirán experiencias previas con números grandes."],
-        reflexion: ["Analizarán el valor posicional usando un ábaco y discutirán por qué el orden de las cifras importa.", "Compararán grupos de números y argumentarán cuál es mayor o menor.", "Identificarán patrones en la secuencia numérica hasta 9.999."],
-        conceptualizacion: ["Construirán el concepto de sistema decimal con bloques multibase (unidades, decenas, centenas, millares).", "Formalizarán el algoritmo de adición y sustracción con reagrupación.", "Registrarán ejemplos en su cuaderno con el proceso paso a paso."],
-        aplicacion: ["Resolverán problemas de compra-venta con números de 4 cifras en parejas.", "Crearán sus propios problemas matemáticos con datos del entorno.", "Verificarán resultados usando la operación inversa."]
-      },
+      orientacionesMetodologicas: [
+        {
+          dcd: "M.2.1.15",
+          fases: {
+            experiencia: [
+              "Observarán billetes y monedas del entorno para reconocer números de hasta 4 cifras (Marzano N1: reconocimiento).",
+              "Responderán preguntas orales: ¿Qué número es mayor? ¿Cuántos hay en total? activando saberes previos.",
+              "Ejecutarán conteos grupales con material concreto hasta 9.999.",
+            ],
+            reflexion: [
+              "Compararán dos grupos de números y argumentarán cuál es mayor usando el ábaco (Marzano N2: comprensión).",
+              "Clasificarán tarjetas numéricas según su valor posicional: U, D, C, M.",
+              "Analizarán errores comunes al leer números con ceros intermedios y los corregirán.",
+            ],
+            conceptualizacion: [
+              "Representarán números hasta 9.999 en forma simbólica, gráfica y con bloques multibase (Marzano N2: representación).",
+              "Construirán la tabla de valor posicional identificando unidades, decenas, centenas y millares.",
+              "Registrarán en su cuaderno ejemplos con el proceso de descomposición numérica.",
+            ],
+            aplicacion: [
+              "Resolverán problemas de compra-venta con precios de 4 cifras usando estrategias propias (Marzano N4: resolución de problemas).",
+              "Crearán sus propios enunciados matemáticos con datos reales del entorno escolar.",
+              "Verificarán resultados usando la operación inversa y justificarán su procedimiento.",
+            ],
+          },
+        },
+        {
+          dcd: "M.2.1.16",
+          fases: {
+            experiencia: [
+              "Recordarán el algoritmo de adición y sustracción sin reagrupación con ejercicios de calentamiento (Marzano N1: ejecución).",
+              "Identificarán en situaciones cotidianas cuándo se necesita reagrupar (compras, cambio de dinero).",
+              "Reconocerán el concepto de 'llevar' y 'prestar' en la vida diaria.",
+            ],
+            reflexion: [
+              "Analizarán paso a paso el proceso de reagrupación usando material Base 10 (Marzano N2-3: análisis).",
+              "Compararán procedimientos correctos e incorrectos de reagrupación e identificarán el error.",
+              "Generalizarán la regla de reagrupación para cualquier columna del algoritmo.",
+            ],
+            conceptualizacion: [
+              "Formalizarán el algoritmo de adición con reagrupación representándolo con bloques y en papel (Marzano N2).",
+              "Construirán un mapa conceptual del proceso de sustracción con reagrupación.",
+              "Modelarán el procedimiento paso a paso frente a sus compañeros explicando cada acción.",
+            ],
+            aplicacion: [
+              "Resolverán fichas de problemas de adición y sustracción con reagrupación en contextos reales (Marzano N4).",
+              "Inventarán problemas propios que requieran reagrupación y los intercambiarán con un compañero para resolver.",
+              "Autoevaluarán sus resultados usando una lista de verificación del proceso.",
+            ],
+          },
+        },
+      ],
       evaluacion: "Resuelve adiciones y sustracciones con reagrupación hasta 9.999 en contextos reales con al menos 80% de corrección. Representa correctamente números en forma simbólica y gráfica.",
       duracionSemanas: 4,
     },

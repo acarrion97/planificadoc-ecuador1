@@ -123,35 +123,50 @@ DATOS DEL PERÍODO:
 UNIDADES DEL TRIMESTRE:
 ${unidadesTexto}
 
+TAXONOMÍA DE MARZANO — aplica estos niveles en cada fase ${input.modeloPedagogico}:
+${input.modeloPedagogico === "ACC" ? `- ANTICIPACIÓN → Nivel 1 Recuperación (activar saberes previos: reconocer, recordar, ejecutar procedimientos conocidos)
+- CONSTRUCCIÓN → Niveles 2-3 Comprensión y Análisis (integrar, representar, comparar, clasificar, analizar errores, generalizar)
+- CONSOLIDACIÓN → Nivel 4 Utilización del Conocimiento (resolver problemas reales, tomar decisiones, experimentar, investigar)` : `- EXPERIENCIA → Nivel 1 Recuperación (activar saberes previos: reconocer, recordar, ejecutar procedimientos conocidos)
+- REFLEXIÓN → Niveles 2-3 Comprensión y Análisis (integrar nuevo conocimiento, comparar, clasificar, analizar errores, generalizar)
+- CONCEPTUALIZACIÓN → Nivel 2 Comprensión profunda (representar, simbolizar, construir significado, organizar conceptos)
+- APLICACIÓN → Nivel 4 Utilización del Conocimiento (resolver problemas reales, tomar decisiones, experimentar, crear)`}
+
 GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin bloques markdown:
 {
-  "objetivosTrimestre": "Objetivos específicos de aprendizaje para el ${input.trimestre}, alineados al currículo oficial MinEduc para ${areaNombre} en ${subnivelNombre} ${input.grado}. Articular con la progresión curricular del año lectivo.",
+  "objetivosTrimestre": "Objetivos específicos para el ${input.trimestre} alineados al currículo MinEduc Ecuador para ${areaNombre} ${subnivelNombre} ${input.grado}",
   "unidades": [
     {
       "numero": 1,
-      "titulo": "Título descriptivo y pedagógico de la unidad",
-      "objetivosEspecificos": "Objetivos específicos de aprendizaje de esta unidad, alineados a las DCD seleccionadas",
-      "contenidos": "Contenidos conceptuales, procedimentales y actitudinales organizados temáticamente",
-      "orientacionesMetodologicas": ${input.modeloPedagogico === "ACC" ? `{
-        "anticipacion": ["actividad 1 breve", "actividad 2 breve"],
-        "construccion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
-        "consolidacion": ["actividad 1 breve", "actividad 2 breve"]
-      }` : `{
-        "experiencia": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
-        "reflexion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
-        "conceptualizacion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
-        "aplicacion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"]
-      }`},
-      "evaluacion": "Criterios de evaluación e indicadores de logro articulados con las técnicas de evaluación seleccionadas",
+      "titulo": "Título descriptivo de la unidad",
+      "objetivosEspecificos": "Objetivos de aprendizaje alineados a las DCD",
+      "contenidos": "Contenidos conceptuales, procedimentales y actitudinales",
+      "orientacionesMetodologicas": [
+        {
+          "dcd": "código de la DCD (ej: M.2.1.15)",
+          "fases": ${input.modeloPedagogico === "ACC" ? `{
+            "anticipacion": ["actividad detallada 1 (Marzano N1: recuperación)", "actividad detallada 2", "actividad detallada 3"],
+            "construccion": ["actividad detallada 1 (Marzano N2-3: comprensión/análisis)", "actividad detallada 2", "actividad detallada 3", "actividad detallada 4"],
+            "consolidacion": ["actividad detallada 1 (Marzano N4: utilización)", "actividad detallada 2", "actividad detallada 3"]
+          }` : `{
+            "experiencia": ["actividad detallada 1 (Marzano N1: recuperación)", "actividad detallada 2", "actividad detallada 3"],
+            "reflexion": ["actividad detallada 1 (Marzano N2-3: comprensión/análisis)", "actividad detallada 2", "actividad detallada 3"],
+            "conceptualizacion": ["actividad detallada 1 (Marzano N2: comprensión profunda)", "actividad detallada 2", "actividad detallada 3"],
+            "aplicacion": ["actividad detallada 1 (Marzano N4: utilización)", "actividad detallada 2", "actividad detallada 3"]
+          }`}
+        }
+      ],
+      "evaluacion": "Criterios e indicadores de logro articulados con las técnicas de evaluación",
       "duracionSemanas": número
     }
   ]
 }
 
 REGLAS OBLIGATORIAS:
+- orientacionesMetodologicas es un ARRAY: un objeto por cada DCD seleccionada, con su código y sus fases
+- Las actividades deben ser detalladas como un plan de clase: redactadas en tercera persona plural ("Los estudiantes reconocerán...", "Identificarán...", "Resolverán...")
+- Aplica Taxonomía de Marzano: nivel 1 en Experiencia/Anticipación, niveles 2-3 en Reflexión/Construcción, nivel 4 en Aplicación/Consolidación
+- Mínimo 3 actividades por fase, máximo 5
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
-- Los contenidos DEBEN corresponder exactamente a las DCD indicadas por el docente
-- orientacionesMetodologicas DEBE ser un objeto JSON con las fases como claves y arrays de actividades breves como valores (máximo 3-4 actividades por fase, redactadas en futuro: "Los estudiantes reconocerán...")
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
 - Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo)
 - Usa lenguaje técnico-pedagógico apropiado para el nivel educativo

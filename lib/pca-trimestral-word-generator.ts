@@ -130,45 +130,53 @@ const FASE_LABELS: Record<string, string> = {
 };
 
 /**
- * Convierte orientacionesMetodologicas (objeto con fases o string legacy)
- * en párrafos con cabecera de color + actividades numeradas.
+ * Renderiza orientacionesMetodologicas como array de DCDs con fases ERCA/ACC.
+ * Cada DCD tiene cabecera gris y sus fases con cabecera de color + actividades.
  */
 function orientacionesParagraphs(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): Paragraph[] {
   const orden = modelo === "ACC"
     ? ["anticipacion", "construccion", "consolidacion"]
     : ["experiencia", "reflexion", "conceptualizacion", "aplicacion"];
 
-  let obj: Record<string, string[]> = {};
-
-  if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
-    obj = raw;
-  } else {
-    // fallback: texto plano → todo en primera fase
-    const texto = String(raw || "");
-    obj[orden[0]] = [texto];
-  }
-
   const paras: Paragraph[] = [];
-  for (const fase of orden) {
-    const actividades: string[] = Array.isArray(obj[fase]) ? obj[fase] : [];
-    const color = FASE_COLORS[fase] || "003366";
-    const label = FASE_LABELS[fase] || fase.toUpperCase();
 
-    // Cabecera de fase con fondo de color
-    paras.push(new Paragraph({
-      spacing: { before: 40, after: 0 },
-      shading: { fill: color, color: color, type: ShadingType.CLEAR },
-      children: [run(label, true, SZ6, "FFFFFF")],
-    }));
+  // Normalizar: acepta array de DCDs o fallback a objeto/string
+  const items: any[] = Array.isArray(raw)
+    ? raw
+    : (typeof raw === "object" && raw !== null ? [{ dcd: "", fases: raw }] : [{ dcd: "", fases: { [orden[0]]: [String(raw || "")] } }]);
 
-    // Actividades numeradas
-    actividades.forEach((act, i) => {
+  for (const item of items) {
+    const fases: Record<string, string[]> = item.fases || item;
+    const dcdCodigo: string = item.dcd || "";
+
+    // Cabecera de DCD
+    if (dcdCodigo) {
       paras.push(new Paragraph({
-        spacing: { before: 0, after: 0 },
-        indent: { left: 80 },
-        children: [run(`${i + 1}. ${act}`, false, SZ6)],
+        spacing: { before: 60, after: 0 },
+        shading: { fill: "595959", color: "595959", type: ShadingType.CLEAR },
+        children: [run(`DCD: ${dcdCodigo}`, true, SZ6, "FFFFFF")],
       }));
-    });
+    }
+
+    for (const fase of orden) {
+      const actividades: string[] = Array.isArray(fases[fase]) ? fases[fase] : [];
+      const color = FASE_COLORS[fase] || "003366";
+      const label = FASE_LABELS[fase] || fase.toUpperCase();
+
+      paras.push(new Paragraph({
+        spacing: { before: 30, after: 0 },
+        shading: { fill: color, color: color, type: ShadingType.CLEAR },
+        children: [run(label, true, SZ6, "FFFFFF")],
+      }));
+
+      actividades.forEach((act, i) => {
+        paras.push(new Paragraph({
+          spacing: { before: 0, after: 0 },
+          indent: { left: 80 },
+          children: [run(`${i + 1}. ${act}`, false, SZ6)],
+        }));
+      });
+    }
   }
 
   return paras.length > 0 ? paras : [textPara("—", false, SZ7)];
