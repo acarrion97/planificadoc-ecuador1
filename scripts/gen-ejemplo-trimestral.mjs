@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v2.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v3.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -98,68 +98,6 @@ function cell(paragraphs, { span = 1, width = null, bg = null, vAlign = Vertical
   });
 }
 
-/**
- * Tabla interna horizontal ERCA / ACC
- */
-function orientacionesTable(texto, modelo = "ERCA") {
-  const fases = modelo === "ACC"
-    ? [{ sigla: "A", nombre: "Anticipación" }, { sigla: "C", nombre: "Construcción" }, { sigla: "Co", nombre: "Consolidación" }]
-    : [{ sigla: "E", nombre: "Experiencia" }, { sigla: "R", nombre: "Reflexión" }, { sigla: "C", nombre: "Conceptualización" }, { sigla: "A", nombre: "Aplicación" }];
-
-  const raw = String(texto || "");
-  const partes = new Array(fases.length).fill("—");
-
-  if (modelo === "ACC") {
-    const mA  = raw.match(/A\s*[—–-]\s*(.*?)(?=\s*C\s*[—–-]|$)/s);
-    const mC  = raw.match(/(?<![Cc]o)\bC\s*[—–-]\s*(.*?)(?=\s*Co\s*[—–-]|$)/s);
-    const mCo = raw.match(/Co\s*[—–-]\s*(.*?)$/s);
-    if (mA)  partes[0] = mA[1].trim();
-    if (mC)  partes[1] = mC[1].trim();
-    if (mCo) partes[2] = mCo[1].trim();
-  } else {
-    const mE = raw.match(/E\s*[—–-]\s*(.*?)(?=\s*R\s*[—–-]|$)/s);
-    const mR = raw.match(/R\s*[—–-]\s*(.*?)(?=\s*C\s*[—–-]|$)/s);
-    const mC = raw.match(/C\s*[—–-]\s*(.*?)(?=\s*A\s*[—–-]|$)/s);
-    const mA = raw.match(/A\s*[—–-]\s*(.*?)$/s);
-    if (mE) partes[0] = mE[1].trim();
-    if (mR) partes[1] = mR[1].trim();
-    if (mC) partes[2] = mC[1].trim();
-    if (mA) partes[3] = mA[1].trim();
-    if (partes.every(p => p === "—")) partes[0] = raw;
-  }
-
-  const BG_FASE = "003366";
-  const SZ6 = 12;
-  const SZ7 = 14;
-  const pct = modelo === "ACC" ? 33 : 25;
-
-  return new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({
-        children: fases.map((f) => new TableCell({
-          width: { size: pct, type: WidthType.PERCENTAGE },
-          shading: { type: ShadingType.SOLID, color: BG_FASE, fill: BG_FASE },
-          borders: CELL_BORDERS,
-          verticalAlign: VerticalAlign.CENTER,
-          children: [
-            new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 20, after: 0 }, children: [new TextRun({ text: f.sigla, bold: true, size: SZ7, font: "Arial", color: "FFFFFF" })] }),
-            new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 20 }, children: [new TextRun({ text: f.nombre, size: SZ6, font: "Arial", color: "DDEFF1" })] }),
-          ],
-        })),
-      }),
-      new TableRow({
-        children: fases.map((_, i) => new TableCell({
-          width: { size: pct, type: WidthType.PERCENTAGE },
-          borders: CELL_BORDERS,
-          verticalAlign: VerticalAlign.TOP,
-          children: [new Paragraph({ spacing: { before: 30, after: 30 }, children: [new TextRun({ text: partes[i], size: SZ6, font: "Arial" })] })],
-        })),
-      }),
-    ],
-  });
-}
-
 function headerRow(text, span = 7) {
   return new TableRow({
     children: [cell([para([run(text, true, 15)], AlignmentType.LEFT)], { span, bg: BG_HEADER })],
@@ -211,12 +149,7 @@ const unidadesRows = aiResult.unidades.map(u => {
       cell([para([run(u.titulo, true, 14)])], { width: COLS[1] }),
       cell([para([run(u.objetivosEspecificos, false, 14)])], { width: COLS[2] }),
       cell(dcdsParas, { width: COLS[3] }),
-      new TableCell({
-        width: { size: COLS[4], type: WidthType.DXA },
-        borders: CELL_BORDERS,
-        verticalAlign: VerticalAlign.TOP,
-        children: [orientacionesTable(u.orientacionesMetodologicas, formData.modeloPedagogico)],
-      }),
+      cell([para([run(u.orientacionesMetodologicas, false, 14)])], { width: COLS[4] }),
       cell([para([run(u.evaluacion, false, 14)])], { width: COLS[5] }),
       cell([para([run(String(u.duracionSemanas), false, 14)], AlignmentType.CENTER)], { width: COLS[6] }),
     ],
