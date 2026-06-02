@@ -165,7 +165,7 @@ REGLAS OBLIGATORIAS:
 - orientacionesMetodologicas es un ARRAY: un objeto por cada DCD seleccionada, con su código y sus fases
 - Las actividades deben ser detalladas como un plan de clase: redactadas en tercera persona plural ("Los estudiantes reconocerán...", "Identificarán...", "Resolverán...")
 - Aplica Taxonomía de Marzano: nivel 1 en Experiencia/Anticipación, niveles 2-3 en Reflexión/Construcción, nivel 4 en Aplicación/Consolidación
-- Mínimo 3 actividades por fase, máximo 5
+- Mínimo 5 actividades por fase, máximo 8. Deben ser detalladas, variadas y progresivas dentro de cada nivel de Marzano
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
 - Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo)

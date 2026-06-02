@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v5.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v6.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -51,23 +51,35 @@ const aiResult = {
           fases: {
             experiencia: [
               "Observarán billetes y monedas del entorno para reconocer números de hasta 4 cifras (Marzano N1: reconocimiento).",
-              "Responderán preguntas orales: ¿Qué número es mayor? ¿Cuántos hay en total? activando saberes previos.",
-              "Ejecutarán conteos grupales con material concreto hasta 9.999.",
+              "Responderán preguntas orales: ¿Cuánto cuesta este artículo? ¿Cuál cantidad es mayor? activando saberes previos.",
+              "Ejecutarán conteos grupales con material concreto (palitos, fichas) agrupando de 10 en 10 hasta llegar a 9.999.",
+              "Recordarán los números del 1 al 999 y los ubicarán en la recta numérica colectiva del aula.",
+              "Escucharán situaciones cotidianas donde aparecen números grandes y los identificarán verbalmente.",
+              "Jugarán 'El número misterioso': el docente describe un número y los estudiantes lo adivinan y escriben.",
             ],
             reflexion: [
               "Compararán dos grupos de números y argumentarán cuál es mayor usando el ábaco (Marzano N2: comprensión).",
-              "Clasificarán tarjetas numéricas según su valor posicional: U, D, C, M.",
-              "Analizarán errores comunes al leer números con ceros intermedios y los corregirán.",
+              "Clasificarán tarjetas numéricas según su valor posicional: U, D, C, M en una tabla colectiva.",
+              "Analizarán errores comunes al leer números con ceros intermedios y explicarán por qué ocurren.",
+              "Ordenarán series de números de mayor a menor y de menor a mayor justificando su criterio.",
+              "Debatirán en parejas: ¿Puede un número de 3 cifras ser mayor que uno de 4? ¿Por qué?",
+              "Identificarán el patrón de la secuencia numérica y predecirán los siguientes números.",
             ],
             conceptualizacion: [
               "Representarán números hasta 9.999 en forma simbólica, gráfica y con bloques multibase (Marzano N2: representación).",
-              "Construirán la tabla de valor posicional identificando unidades, decenas, centenas y millares.",
-              "Registrarán en su cuaderno ejemplos con el proceso de descomposición numérica.",
+              "Construirán la tabla de valor posicional en cartulina identificando U, D, C y M con ejemplos propios.",
+              "Registrarán en su cuaderno la descomposición aditiva de 5 números distintos.",
+              "Elaborarán un glosario ilustrado con los términos: unidad, decena, centena, millar.",
+              "Leerán y escribirán números dictados por el docente en forma simbólica y en letras.",
+              "Completarán una ficha con la forma desarrollada y la forma compacta de números dados.",
             ],
             aplicacion: [
-              "Resolverán problemas de compra-venta con precios de 4 cifras usando estrategias propias (Marzano N4: resolución de problemas).",
-              "Crearán sus propios enunciados matemáticos con datos reales del entorno escolar.",
-              "Verificarán resultados usando la operación inversa y justificarán su procedimiento.",
+              "Resolverán problemas de compra-venta con precios de 4 cifras usando estrategias propias (Marzano N4).",
+              "Crearán sus propios enunciados matemáticos con datos reales tomados del entorno escolar.",
+              "Verificarán resultados usando la operación inversa y explicarán su procedimiento al grupo.",
+              "Participarán en un juego de mercado simulado donde asignan precios y realizan transacciones.",
+              "Diseñarán una lista de compras con precios de 4 cifras y calcularán el total.",
+              "Presentarán oralmente un problema resuelto, describiendo cada paso del proceso.",
             ],
           },
         },
