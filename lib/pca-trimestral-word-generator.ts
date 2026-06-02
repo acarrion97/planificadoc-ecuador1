@@ -108,6 +108,72 @@ function makeCell(cfg: CellConfig): TableCell {
   });
 }
 
+// Colores por fase
+const FASE_COLORS: Record<string, string> = {
+  experiencia:      "C0504D", // rojo/salmón
+  reflexion:        "4472C4", // azul
+  conceptualizacion:"70AD47", // verde
+  aplicacion:       "ED7D31", // naranja
+  anticipacion:     "C0504D", // rojo/salmón
+  construccion:     "4472C4", // azul
+  consolidacion:    "70AD47", // verde
+};
+
+const FASE_LABELS: Record<string, string> = {
+  experiencia:      "EXPERIENCIA",
+  reflexion:        "REFLEXIÓN",
+  conceptualizacion:"CONCEPTUALIZACIÓN",
+  aplicacion:       "APLICACIÓN",
+  anticipacion:     "ANTICIPACIÓN",
+  construccion:     "CONSTRUCCIÓN DEL CONOCIMIENTO",
+  consolidacion:    "CONSOLIDACIÓN",
+};
+
+/**
+ * Convierte orientacionesMetodologicas (objeto con fases o string legacy)
+ * en párrafos con cabecera de color + actividades numeradas.
+ */
+function orientacionesParagraphs(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): Paragraph[] {
+  const orden = modelo === "ACC"
+    ? ["anticipacion", "construccion", "consolidacion"]
+    : ["experiencia", "reflexion", "conceptualizacion", "aplicacion"];
+
+  let obj: Record<string, string[]> = {};
+
+  if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
+    obj = raw;
+  } else {
+    // fallback: texto plano → todo en primera fase
+    const texto = String(raw || "");
+    obj[orden[0]] = [texto];
+  }
+
+  const paras: Paragraph[] = [];
+  for (const fase of orden) {
+    const actividades: string[] = Array.isArray(obj[fase]) ? obj[fase] : [];
+    const color = FASE_COLORS[fase] || "003366";
+    const label = FASE_LABELS[fase] || fase.toUpperCase();
+
+    // Cabecera de fase con fondo de color
+    paras.push(new Paragraph({
+      spacing: { before: 40, after: 0 },
+      shading: { fill: color, color: color, type: ShadingType.CLEAR },
+      children: [run(label, true, SZ6, "FFFFFF")],
+    }));
+
+    // Actividades numeradas
+    actividades.forEach((act, i) => {
+      paras.push(new Paragraph({
+        spacing: { before: 0, after: 0 },
+        indent: { left: 80 },
+        children: [run(`${i + 1}. ${act}`, false, SZ6)],
+      }));
+    });
+  }
+
+  return paras.length > 0 ? paras : [textPara("—", false, SZ7)];
+}
+
 function sectionHeaderRow(label: string): TableRow {
   return new TableRow({
     children: [
@@ -372,7 +438,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
         makeCell({ paragraphs: [textPara(toStr(aiU.titulo) || `Unidad ${unidad.numero}`, true, SZ7)], width: COL_W[1] }),
         makeCell({ paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)], width: COL_W[2] }),
         makeCell({ paragraphs: dcdParrafos, width: COL_W[3] }),
-        makeCell({ paragraphs: [textPara(toStr(aiU.orientacionesMetodologicas) || "—", false, SZ7)], width: COL_W[4] }),
+        makeCell({ paragraphs: orientacionesParagraphs(aiU.orientacionesMetodologicas, formData.modeloPedagogico || "ERCA"), width: COL_W[4] }),
         makeCell({ paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ7)], width: COL_W[5] }),
         makeCell({ paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)], width: COL_W[6], vAlign: VerticalAlign.CENTER }),
       ],

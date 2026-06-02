@@ -132,7 +132,16 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
       "titulo": "Título descriptivo y pedagógico de la unidad",
       "objetivosEspecificos": "Objetivos específicos de aprendizaje de esta unidad, alineados a las DCD seleccionadas",
       "contenidos": "Contenidos conceptuales, procedimentales y actitudinales organizados temáticamente",
-      "orientacionesMetodologicas": "${input.modeloPedagogico === "ACC" ? "Descripción breve del proceso de enseñanza-aprendizaje usando el modelo ACC: Anticipación (activación de conocimientos previos y motivación), Construcción del conocimiento (desarrollo del nuevo aprendizaje con recursos y estrategias activas) y Consolidación (aplicación, síntesis y transferencia). Máximo 3 frases, una por fase. Sin detallar actividades específicas de clase." : "Descripción breve del proceso de enseñanza-aprendizaje usando el método ERCA: Experiencia (activación de saberes previos), Reflexión (análisis y cuestionamiento), Conceptualización (construcción del conocimiento) y Aplicación (práctica en contexto). Máximo 4 frases, una por fase. Sin detallar actividades específicas de clase."}",
+      "orientacionesMetodologicas": ${input.modeloPedagogico === "ACC" ? `{
+        "anticipacion": ["actividad 1 breve", "actividad 2 breve"],
+        "construccion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
+        "consolidacion": ["actividad 1 breve", "actividad 2 breve"]
+      }` : `{
+        "experiencia": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
+        "reflexion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
+        "conceptualizacion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"],
+        "aplicacion": ["actividad 1 breve", "actividad 2 breve", "actividad 3 breve"]
+      }`},
       "evaluacion": "Criterios de evaluación e indicadores de logro articulados con las técnicas de evaluación seleccionadas",
       "duracionSemanas": número
     }
@@ -142,7 +151,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
 REGLAS OBLIGATORIAS:
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
 - Los contenidos DEBEN corresponder exactamente a las DCD indicadas por el docente
-- Las orientaciones metodológicas siguen el modelo ${input.modeloPedagogico === "ACC" ? "ACC (3 fases: Anticipación, Construcción, Consolidación)" : "ERCA (4 fases: Experiencia, Reflexión, Conceptualización, Aplicación)"}, son breves y generales — NO detalles de actividades de clase
+- orientacionesMetodologicas DEBE ser un objeto JSON con las fases como claves y arrays de actividades breves como valores (máximo 3-4 actividades por fase, redactadas en futuro: "Los estudiantes reconocerán...")
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
 - Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo)
 - Usa lenguaje técnico-pedagógico apropiado para el nivel educativo

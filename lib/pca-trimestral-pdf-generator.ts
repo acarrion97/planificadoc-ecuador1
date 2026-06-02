@@ -21,6 +21,48 @@ function toStr(val: any): string {
   return String(val);
 }
 
+const FASE_COLORS_HTML: Record<string, string> = {
+  experiencia:      "#C0504D",
+  reflexion:        "#4472C4",
+  conceptualizacion:"#70AD47",
+  aplicacion:       "#ED7D31",
+  anticipacion:     "#C0504D",
+  construccion:     "#4472C4",
+  consolidacion:    "#70AD47",
+};
+const FASE_LABELS_HTML: Record<string, string> = {
+  experiencia:      "EXPERIENCIA",
+  reflexion:        "REFLEXIÓN",
+  conceptualizacion:"CONCEPTUALIZACIÓN",
+  aplicacion:       "APLICACIÓN",
+  anticipacion:     "ANTICIPACIÓN",
+  construccion:     "CONSTRUCCIÓN DEL CONOCIMIENTO",
+  consolidacion:    "CONSOLIDACIÓN",
+};
+
+function orientacionesHTML(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): string {
+  const orden = modelo === "ACC"
+    ? ["anticipacion", "construccion", "consolidacion"]
+    : ["experiencia", "reflexion", "conceptualizacion", "aplicacion"];
+
+  let obj: Record<string, string[]> = {};
+  if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
+    obj = raw;
+  } else {
+    obj[orden[0]] = [String(raw || "")];
+  }
+
+  return orden.map(fase => {
+    const actividades: string[] = Array.isArray(obj[fase]) ? obj[fase] : [];
+    const color = FASE_COLORS_HTML[fase] || "#003366";
+    const label = FASE_LABELS_HTML[fase] || fase.toUpperCase();
+    const items = actividades.map((a, i) =>
+      `<div style="font-size:6.5px;line-height:1.4;padding-left:6px;">${i+1}. ${a}</div>`
+    ).join("");
+    return `<div style="background:${color};color:#fff;font-weight:700;font-size:7px;padding:2px 4px;margin-top:3px;">${label}</div>${items}`;
+  }).join("");
+}
+
 /**
  * Genera el HTML del Plan Curricular Trimestral (PCT) para impresión / PDF.
  * Formato A4 landscape, Arial, cabeceras celeste MinEduc.
@@ -73,7 +115,7 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
       <td style="${TD}font-weight:700;font-size:8px;">${ai.titulo || `Unidad ${unidad.numero}`}</td>
       <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.objetivosEspecificos) || "—"}</td>
       <td style="${TD}font-size:7.5px;line-height:1.5;">${dcdHTML}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.orientacionesMetodologicas) || "—"}</td>
+      <td style="${TD}padding:2px;">${orientacionesHTML(ai.orientacionesMetodologicas, formData.modeloPedagogico || "ERCA")}</td>
       <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.evaluacion) || "—"}</td>
       <td style="${TD}text-align:center;font-size:8px;">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
     </tr>`;

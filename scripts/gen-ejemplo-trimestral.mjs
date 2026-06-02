@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v3.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v4.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -45,7 +45,12 @@ const aiResult = {
       titulo: "Los números hasta 9.999 y operaciones básicas",
       objetivosEspecificos: "Reconocer, leer y escribir números naturales hasta 9.999 en forma simbólica y gráfica. Aplicar adición y sustracción con reagrupación en problemas del entorno.",
       contenidos: "Números naturales hasta 9.999: lectura, escritura y representación. Valor posicional: unidades, decenas, centenas y millares. Adición y sustracción con reagrupación. Resolución de problemas aritméticos contextualizados.",
-      orientacionesMetodologicas: "E — Se activan saberes previos sobre conteo y agrupaciones mediante situaciones cotidianas (precios, distancias). R — Los estudiantes analizan el valor posicional y discuten diferencias entre unidades de distinto orden. C — Se construye el concepto de sistema decimal con bloques multibase y ábacos. A — Se resuelven problemas contextualizados de compra-venta con números de 4 cifras en parejas.",
+      orientacionesMetodologicas: {
+        experiencia: ["Los estudiantes observarán billetes y monedas para reconocer números de hasta 4 cifras en contextos cotidianos.", "Responderán preguntas sobre cantidades: ¿Cuánto cuesta? ¿Cuál es mayor?", "Compartirán experiencias previas con números grandes."],
+        reflexion: ["Analizarán el valor posicional usando un ábaco y discutirán por qué el orden de las cifras importa.", "Compararán grupos de números y argumentarán cuál es mayor o menor.", "Identificarán patrones en la secuencia numérica hasta 9.999."],
+        conceptualizacion: ["Construirán el concepto de sistema decimal con bloques multibase (unidades, decenas, centenas, millares).", "Formalizarán el algoritmo de adición y sustracción con reagrupación.", "Registrarán ejemplos en su cuaderno con el proceso paso a paso."],
+        aplicacion: ["Resolverán problemas de compra-venta con números de 4 cifras en parejas.", "Crearán sus propios problemas matemáticos con datos del entorno.", "Verificarán resultados usando la operación inversa."]
+      },
       evaluacion: "Resuelve adiciones y sustracciones con reagrupación hasta 9.999 en contextos reales con al menos 80% de corrección. Representa correctamente números en forma simbólica y gráfica.",
       duracionSemanas: 4,
     },
@@ -54,7 +59,12 @@ const aiResult = {
       titulo: "Figuras y cuerpos geométricos en el entorno",
       objetivosEspecificos: "Identificar y clasificar figuras geométricas planas (triángulo, cuadrado, rectángulo, círculo). Reconocer cuerpos geométricos en objetos del entorno.",
       contenidos: "Polígonos: triángulo, cuadriláteros y círculo — propiedades básicas. Cuerpos geométricos: cubo, esfera, cilindro, pirámide — características. Clasificación y comparación de figuras planas y cuerpos geométricos.",
-      orientacionesMetodologicas: "E — Se exploran objetos del aula y la naturaleza para identificar formas geométricas presentes en la vida real. R — Los estudiantes comparan figuras planas y cuerpos, argumentando semejanzas y diferencias. C — Se sistematizan las propiedades de polígonos y cuerpos con organizadores gráficos. A — Se construyen maquetas con material reciclado representando figuras y cuerpos estudiados.",
+      orientacionesMetodologicas: {
+        experiencia: ["Explorarán objetos del aula (cajas, pelotas, latas) para identificar formas geométricas en la vida real.", "Nombrarán figuras que reconocen en su entorno cotidiano."],
+        reflexion: ["Compararán figuras planas y cuerpos geométricos, argumentando semejanzas y diferencias.", "Clasificarán figuras según el número de lados, vértices y caras."],
+        conceptualizacion: ["Sistematizarán propiedades de triángulos, cuadriláteros y círculos en un organizador gráfico.", "Relacionarán cada cuerpo geométrico con objetos cotidianos concretos."],
+        aplicacion: ["Construirán maquetas con material reciclado representando figuras y cuerpos estudiados.", "Presentarán su maqueta describiendo las características geométricas usadas."]
+      },
       evaluacion: "Clasifica correctamente figuras y cuerpos geométricos según sus características, argumentando sus criterios con vocabulario matemático adecuado.",
       duracionSemanas: 4,
     },
@@ -63,7 +73,12 @@ const aiResult = {
       titulo: "Medición de longitudes y lectura del tiempo",
       objetivosEspecificos: "Estimar y medir longitudes con unidades convencionales (cm, m). Leer y registrar la hora en relojes analógicos y digitales.",
       contenidos: "Unidades de longitud del SI: centímetro y metro. Estimación y medición de objetos reales. Lectura de la hora: horas exactas, medias horas y cuartos. Resolución de situaciones de medición y tiempo en contextos escolares.",
-      orientacionesMetodologicas: "E — Se miden objetos del aula con pasos y palmos para reflexionar sobre la necesidad de unidades estándar. R — Se discute por qué las unidades no estándar generan resultados distintos entre compañeros. C — Se formalizan el centímetro y metro mediante demostración y ejercicios dirigidos con reglas. A — Se resuelven situaciones de medición y lectura de horarios en el contexto escolar.",
+      orientacionesMetodologicas: {
+        experiencia: ["Medirán el escritorio con pasos, palmos y lápices para evidenciar la necesidad de unidades estándar.", "Registrarán sus mediciones y las compararán con las de sus compañeros."],
+        reflexion: ["Discutirán por qué obtienen resultados distintos al medir el mismo objeto con diferentes unidades.", "Reflexionarán sobre la importancia de usar una unidad de medida universal."],
+        conceptualizacion: ["Formalizarán el centímetro y metro usando reglas y cintas métricas con demostraciones dirigidas.", "Aprenderán a leer la hora exacta, media hora y cuartos en relojes analógicos."],
+        aplicacion: ["Resolverán situaciones de medición de objetos del aula y del patio escolar.", "Elaborarán un horario semanal de clases practicando la lectura del tiempo."]
+      },
       evaluacion: "Mide longitudes con precisión usando cm y m, y lee la hora correctamente en situaciones cotidianas con al menos 75% de acierto.",
       duracionSemanas: 3,
     },
@@ -96,6 +111,44 @@ function cell(paragraphs, { span = 1, width = null, bg = null, vAlign = Vertical
     borders: CELL_BORDERS,
     children: paragraphs,
   });
+}
+
+const FASE_COLORS = {
+  experiencia: "C0504D", reflexion: "4472C4",
+  conceptualizacion: "70AD47", aplicacion: "ED7D31",
+  anticipacion: "C0504D", construccion: "4472C4", consolidacion: "70AD47",
+};
+const FASE_LABELS = {
+  experiencia: "EXPERIENCIA", reflexion: "REFLEXIÓN",
+  conceptualizacion: "CONCEPTUALIZACIÓN", aplicacion: "APLICACIÓN",
+  anticipacion: "ANTICIPACIÓN", construccion: "CONSTRUCCIÓN DEL CONOCIMIENTO", consolidacion: "CONSOLIDACIÓN",
+};
+
+function orientacionesParagraphs(raw, modelo = "ERCA") {
+  const orden = modelo === "ACC"
+    ? ["anticipacion", "construccion", "consolidacion"]
+    : ["experiencia", "reflexion", "conceptualizacion", "aplicacion"];
+  const obj = (typeof raw === "object" && raw !== null && !Array.isArray(raw)) ? raw : { [orden[0]]: [String(raw || "")] };
+  const SZ6 = 12;
+  const paras = [];
+  for (const fase of orden) {
+    const acts = Array.isArray(obj[fase]) ? obj[fase] : [];
+    const color = FASE_COLORS[fase] || "003366";
+    const label = FASE_LABELS[fase] || fase.toUpperCase();
+    paras.push(new Paragraph({
+      spacing: { before: 40, after: 0 },
+      shading: { type: ShadingType.SOLID, color, fill: color },
+      children: [new TextRun({ text: label, bold: true, size: SZ6, font: "Arial", color: "FFFFFF" })],
+    }));
+    acts.forEach((act, i) => {
+      paras.push(new Paragraph({
+        spacing: { before: 0, after: 0 },
+        indent: { left: 80 },
+        children: [new TextRun({ text: `${i + 1}. ${act}`, size: SZ6, font: "Arial" })],
+      }));
+    });
+  }
+  return paras.length ? paras : [new Paragraph({ children: [new TextRun({ text: "—", size: SZ6, font: "Arial" })] })];
 }
 
 function headerRow(text, span = 7) {
@@ -149,7 +202,7 @@ const unidadesRows = aiResult.unidades.map(u => {
       cell([para([run(u.titulo, true, 14)])], { width: COLS[1] }),
       cell([para([run(u.objetivosEspecificos, false, 14)])], { width: COLS[2] }),
       cell(dcdsParas, { width: COLS[3] }),
-      cell([para([run(u.orientacionesMetodologicas, false, 14)])], { width: COLS[4] }),
+      cell(orientacionesParagraphs(u.orientacionesMetodologicas, formData.modeloPedagogico), { width: COLS[4] }),
       cell([para([run(u.evaluacion, false, 14)])], { width: COLS[5] }),
       cell([para([run(String(u.duracionSemanas), false, 14)], AlignmentType.CENTER)], { width: COLS[6] }),
     ],
