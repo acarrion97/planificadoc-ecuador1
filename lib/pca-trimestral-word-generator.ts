@@ -108,6 +108,94 @@ function makeCell(cfg: CellConfig): TableCell {
   });
 }
 
+/**
+ * Tabla interna horizontal para orientaciones metodológicas.
+ * ERCA → 4 columnas (E R C A)
+ * ACC  → 3 columnas (A C Co)
+ */
+function orientacionesTable(texto: string, modelo: "ERCA" | "ACC" = "ERCA"): Table {
+  const fases = modelo === "ACC"
+    ? [
+        { sigla: "A",  nombre: "Anticipación" },
+        { sigla: "C",  nombre: "Construcción" },
+        { sigla: "Co", nombre: "Consolidación" },
+      ]
+    : [
+        { sigla: "E", nombre: "Experiencia" },
+        { sigla: "R", nombre: "Reflexión" },
+        { sigla: "C", nombre: "Conceptualización" },
+        { sigla: "A", nombre: "Aplicación" },
+      ];
+
+  // Dividir el texto por las siglas "E —", "R —", etc.
+  const partes: string[] = new Array(fases.length).fill("—");
+  const raw = String(texto || "");
+  if (modelo === "ACC") {
+    // buscar "A —", "C —", "Co —"
+    const mA  = raw.match(/A\s*[—–-]\s*(.*?)(?=\s*C\s*[—–-]|$)/s);
+    const mC  = raw.match(/(?<![Cc]o)\bC\s*[—–-]\s*(.*?)(?=\s*Co\s*[—–-]|$)/s);
+    const mCo = raw.match(/Co\s*[—–-]\s*(.*?)$/s);
+    if (mA)  partes[0] = mA[1].trim();
+    if (mC)  partes[1] = mC[1].trim();
+    if (mCo) partes[2] = mCo[1].trim();
+  } else {
+    const mE = raw.match(/E\s*[—–-]\s*(.*?)(?=\s*R\s*[—–-]|$)/s);
+    const mR = raw.match(/R\s*[—–-]\s*(.*?)(?=\s*C\s*[—–-]|$)/s);
+    const mC = raw.match(/C\s*[—–-]\s*(.*?)(?=\s*A\s*[—–-]|$)/s);
+    const mA = raw.match(/A\s*[—–-]\s*(.*?)$/s);
+    if (mE) partes[0] = mE[1].trim();
+    if (mR) partes[1] = mR[1].trim();
+    if (mC) partes[2] = mC[1].trim();
+    if (mA) partes[3] = mA[1].trim();
+    // Si no encontró fases, poner todo el texto en la primera
+    if (partes.every(p => p === "—")) partes[0] = raw;
+  }
+
+  const BG_FASE = "003366";
+  const pct = modelo === "ACC" ? 33 : 25;
+
+  return new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      // Fila 1: siglas con fondo azul
+      new TableRow({
+        children: fases.map((f, i) => new TableCell({
+          width: { size: pct, type: WidthType.PERCENTAGE },
+          shading: { fill: BG_FASE, color: BG_FASE, type: ShadingType.CLEAR },
+          borders: stdBorders,
+          verticalAlign: VerticalAlign.CENTER,
+          children: [
+            new Paragraph({
+              alignment: AlignmentType.CENTER,
+              spacing: { before: 20, after: 0 },
+              children: [run(f.sigla, true, SZ7, "FFFFFF")],
+            }),
+            new Paragraph({
+              alignment: AlignmentType.CENTER,
+              spacing: { before: 0, after: 20 },
+              children: [run(f.nombre, false, SZ6, "DDEFF1")],
+            }),
+          ],
+        })),
+      }),
+      // Fila 2: contenido de cada fase
+      new TableRow({
+        children: fases.map((_, i) => new TableCell({
+          width: { size: pct, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          verticalAlign: VerticalAlign.TOP,
+          children: [
+            new Paragraph({
+              spacing: { before: 30, after: 30 },
+              children: [run(partes[i], false, SZ6)],
+            }),
+          ],
+        })),
+      }),
+    ],
+  });
+}
+
 function sectionHeaderRow(label: string): TableRow {
   return new TableRow({
     children: [
@@ -372,7 +460,12 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
         makeCell({ paragraphs: [textPara(toStr(aiU.titulo) || `Unidad ${unidad.numero}`, true, SZ7)], width: COL_W[1] }),
         makeCell({ paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)], width: COL_W[2] }),
         makeCell({ paragraphs: dcdParrafos, width: COL_W[3] }),
-        makeCell({ paragraphs: [textPara(toStr(aiU.orientacionesMetodologicas) || "—", false, SZ7)], width: COL_W[4] }),
+        new TableCell({
+          width: { size: COL_W[4], type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          verticalAlign: VerticalAlign.TOP,
+          children: [orientacionesTable(toStr(aiU.orientacionesMetodologicas), formData.modeloPedagogico || "ERCA")],
+        }),
         makeCell({ paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ7)], width: COL_W[5] }),
         makeCell({ paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)], width: COL_W[6], vAlign: VerticalAlign.CENTER }),
       ],
