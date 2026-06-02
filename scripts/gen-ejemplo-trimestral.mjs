@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v6.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v7.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -280,7 +280,7 @@ const firmasRow = new TableRow({
     para([run(f.nombre || "_________________________", false, 13)], AlignmentType.CENTER, 20),
     para([run("Firma: _________________________", false, 13)], AlignmentType.CENTER, 60),
     para([run(`Fecha: ${f.fecha || "___________"}`, false, 13)], AlignmentType.CENTER, 20),
-  ], { span: 1 })),
+  ], { width: 5280 })),  // 15840 / 3 = ancho exacto 1/3 página
 });
 
 // ── Documento ─────────────────────────────────────────────────────────────────
@@ -398,7 +398,7 @@ const doc = new Document({
 
       // Firmas
       new Table({
-        width: { size: 100, type: WidthType.PERCENTAGE },
+        width: { size: 15840, type: WidthType.DXA },
         rows: [firmasRow],
       }),
     ],

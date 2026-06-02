@@ -526,12 +526,12 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   // ══════════════════════════════════════════════════════════════════════════
   //  TABLA DE FIRMAS
   // ══════════════════════════════════════════════════════════════════════════
-  const SIG_COL_PCT = 1667;
+  const SIG_COL_DXA = 5280; // 15840 / 3 = exactamente 1/3 del ancho landscape
 
   function sigCell(paragraphs: Paragraph[]): TableCell {
     return new TableCell({
       children: paragraphs,
-      width: { size: SIG_COL_PCT, type: WidthType.PERCENTAGE },
+      width: { size: SIG_COL_DXA, type: WidthType.DXA },
       verticalAlign: VerticalAlign.CENTER,
       borders: stdBorders,
     });
@@ -544,7 +544,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   ];
 
   const firmasTable = new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
+    width: { size: 15840, type: WidthType.DXA },
     rows: [
       new TableRow({ children: firmas.map((f) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])) }),
       new TableRow({ children: firmas.map((f) => sigCell([textPara(f.cargo, true, SZ7)])) }),
