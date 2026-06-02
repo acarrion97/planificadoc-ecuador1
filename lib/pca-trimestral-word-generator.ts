@@ -460,12 +460,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
         makeCell({ paragraphs: [textPara(toStr(aiU.titulo) || `Unidad ${unidad.numero}`, true, SZ7)], width: COL_W[1] }),
         makeCell({ paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)], width: COL_W[2] }),
         makeCell({ paragraphs: dcdParrafos, width: COL_W[3] }),
-        new TableCell({
-          width: { size: COL_W[4], type: WidthType.PERCENTAGE },
-          borders: stdBorders,
-          verticalAlign: VerticalAlign.TOP,
-          children: [orientacionesTable(toStr(aiU.orientacionesMetodologicas), formData.modeloPedagogico || "ERCA")],
-        }),
+        makeCell({ paragraphs: [textPara(toStr(aiU.orientacionesMetodologicas) || "—", false, SZ7)], width: COL_W[4] }),
         makeCell({ paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ7)], width: COL_W[5] }),
         makeCell({ paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)], width: COL_W[6], vAlign: VerticalAlign.CENTER }),
       ],
@@ -588,8 +583,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
           page: {
             size: {
               orientation: PageOrientation.LANDSCAPE,
-              width: 16838,
-              height: 11906,
+              width: 11906, height: 16838,
             },
             margin: { top: 720, right: 720, bottom: 720, left: 720 },
           },

@@ -576,8 +576,8 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
           page: {
             size: {
               orientation: PageOrientation.LANDSCAPE,
-              width: 16838,  // A4 landscape width in twips
-              height: 11906, // A4 landscape height in twips
+              width: 11906,  // A4 landscape (docx lib inverts w/h)
+              height: 16838, // A4 landscape height in twips
             },
             margin: {
               top: 720,    // 0.5 inch

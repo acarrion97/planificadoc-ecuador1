@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v2.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -244,8 +244,9 @@ const doc = new Document({
   sections: [{
     properties: {
       page: {
-        size: { orientation: PageOrientation.LANDSCAPE, width: 16838, height: 11906 },
+        size: { orientation: PageOrientation.LANDSCAPE, width: 11906, height: 16838 },
         margin: { top: 720, bottom: 720, left: 720, right: 720 },
+        // landscape requiere width > height y orientation explícito
       },
     },
     children: [
