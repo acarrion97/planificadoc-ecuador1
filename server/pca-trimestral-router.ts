@@ -165,7 +165,7 @@ REGLAS OBLIGATORIAS:
 - orientacionesMetodologicas es un ARRAY: un objeto por cada DCD seleccionada, con su código y sus fases
 - Las actividades deben ser detalladas como un plan de clase: redactadas en tercera persona plural ("Los estudiantes reconocerán...", "Identificarán...", "Resolverán...")
 - Aplica Taxonomía de Marzano: nivel 1 en Experiencia/Anticipación, niveles 2-3 en Reflexión/Construcción, nivel 4 en Aplicación/Consolidación
-- Mínimo 5 actividades por fase, máximo 8. Deben ser detalladas, variadas y progresivas dentro de cada nivel de Marzano
+- Mínimo 3 actividades por fase, máximo 5. Deben ser detalladas, variadas y progresivas dentro de cada nivel de Marzano
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
 - Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo)
@@ -217,7 +217,7 @@ export const pcaTrimestralRouter = router({
             { role: "user", content: prompt },
           ],
           response_format: { type: "json_object" },
-          max_tokens: 8192,
+          max_tokens: 16000,
         });
 
         const content = result.choices[0]?.message?.content;
@@ -249,15 +249,22 @@ export const pcaTrimestralRouter = router({
         const aiResult = {
           objetivosTrimestre: toStr(parsed.objetivos_trimestre || parsed.objetivosTrimestre),
           unidades: Array.isArray(parsed.unidades)
-            ? parsed.unidades.map((u: any) => ({
-                numero: u.numero || 1,
-                titulo: toStr(u.titulo) || "Unidad sin título",
-                objetivosEspecificos: toStr(u.objetivos_especificos || u.objetivosEspecificos),
-                contenidos: toStr(u.contenidos),
-                orientacionesMetodologicas: toStr(u.orientaciones_metodologicas || u.orientacionesMetodologicas),
-                evaluacion: toStr(u.evaluacion),
-                duracionSemanas: u.duracion_semanas || u.duracionSemanas || 1,
-              }))
+            ? parsed.unidades.map((u: any) => {
+                // Preservar orientacionesMetodologicas como array de DCDs (no convertir a string)
+                const orientRaw = u.orientaciones_metodologicas || u.orientacionesMetodologicas;
+                const orientaciones = Array.isArray(orientRaw)
+                  ? orientRaw
+                  : (orientRaw && typeof orientRaw === "object" ? orientRaw : toStr(orientRaw));
+                return {
+                  numero: u.numero || 1,
+                  titulo: toStr(u.titulo) || "Unidad sin título",
+                  objetivosEspecificos: toStr(u.objetivos_especificos || u.objetivosEspecificos),
+                  contenidos: toStr(u.contenidos),
+                  orientacionesMetodologicas: orientaciones,
+                  evaluacion: toStr(u.evaluacion),
+                  duracionSemanas: u.duracion_semanas || u.duracionSemanas || 1,
+                };
+              })
             : [],
         };
 
