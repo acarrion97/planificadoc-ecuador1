@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v17.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v18.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -230,10 +230,10 @@ const modeloTexto = formData.modeloPedagogico === "ACC"
   : "ERCA (Experiencia – Reflexión – Conceptualización – Aplicación)";
 
 // Ancho total ~15840 dxa (A4 landscape con márgenes ~720 dxa c/lado)
-// 7 columnas: 3%·13%·17%·18%·24%·21%·4%
+// 7 columnas: N°(angosta) | Título | ObjEsp | Destrezas | Orientaciones | Indicador | Duración
+// TW=15840: 300 + 2070 + 2640 + 2783 + 3854 + 2926 + 1267 = 15840
 const TW = 15840;
-const COLS = [Math.round(TW*0.03), Math.round(TW*0.13), Math.round(TW*0.17),
-              Math.round(TW*0.18), Math.round(TW*0.24), Math.round(TW*0.17), Math.round(TW*0.08)];
+const COLS = [300, 2070, 2640, 2783, 3854, 2926, 1267];
 
 // ── Filas de unidades ─────────────────────────────────────────────────────────
 const unidadesRows = aiResult.unidades.map(u => {

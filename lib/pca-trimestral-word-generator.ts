@@ -46,7 +46,9 @@ const SZ7  = 14; // 7pt
 const SZ6  = 12; // 6pt
 
 // 7 columnas: N° | Título | ObjEsp | Destrezas | Orientaciones | Indicador | Duración
-const COL_W = [250, 750, 900, 900, 1100, 850, 250] as const;
+// Total = 5000 (unidades de porcentaje 1/50 %). N° angosta, Duración igual al anterior.
+const COL_W = [100, 675, 860, 905, 1260, 950, 250] as const;
+// Suma: 100+675+860+905+1260+950+250 = 5000
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
