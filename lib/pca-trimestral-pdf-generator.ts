@@ -250,18 +250,8 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
     <td colspan="2" style="${SEC}">7. OBSERVACIONES</td>
   </tr>
   <tr>
-    <td colspan="5" style="${TD}font-size:7px;line-height:2.2;color:#666;">
-      _______________________________________<br>
-      _______________________________________<br>
-      _______________________________________<br>
-      _______________________________________<br>
-      _______________________________________
-    </td>
-    <td colspan="2" style="${TD}font-size:7px;line-height:2.2;color:#666;">
-      _______________________________________<br>
-      _______________________________________<br>
-      _______________________________________
-    </td>
+    <td colspan="5" style="${TD}font-size:7px;height:60px;">&nbsp;</td>
+    <td colspan="2" style="${TD}font-size:7px;height:60px;">&nbsp;</td>
   </tr>
 </table>
 

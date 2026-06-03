@@ -474,22 +474,12 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   const biblioObsData = new TableRow({
     children: [
       makeCell({
-        paragraphs: [
-          textPara("_________________________________________", false, SZ7),
-          textPara("_________________________________________", false, SZ7),
-          textPara("_________________________________________", false, SZ7),
-          textPara("_________________________________________", false, SZ7),
-          textPara("_________________________________________", false, SZ7),
-        ],
+        paragraphs: [emptyPara(), emptyPara(), emptyPara(), emptyPara(), emptyPara()],
         span: 5,
         width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3] + COL_W[4],
       }),
       makeCell({
-        paragraphs: [
-          textPara("_________________________________________", false, SZ7),
-          textPara("_________________________________________", false, SZ7),
-          textPara("_________________________________________", false, SZ7),
-        ],
+        paragraphs: [emptyPara(), emptyPara(), emptyPara()],
         span: 2,
         width: COL_W[5] + COL_W[6],
       }),

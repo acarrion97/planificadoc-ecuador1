@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v16.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v17.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -390,16 +390,16 @@ const doc = new Document({
           ]}),
           new TableRow({ children: [
             cell([
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
+              para([run("", false, 14)]),
+              para([run("", false, 14)]),
+              para([run("", false, 14)]),
+              para([run("", false, 14)]),
+              para([run("", false, 14)]),
             ], { span: 5 }),
             cell([
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
-              para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
+              para([run("", false, 14)]),
+              para([run("", false, 14)]),
+              para([run("", false, 14)]),
             ], { span: 2 }),
           ]}),
           // Firmas — celda única span=7 con tabla anidada de 3 columnas iguales
