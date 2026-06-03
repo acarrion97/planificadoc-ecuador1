@@ -45,10 +45,10 @@ const SZ9  = 18; // 9pt
 const SZ7  = 14; // 7pt
 const SZ6  = 12; // 6pt
 
-// 7 columnas: N° | Título | ObjEsp | Destrezas | Orientaciones | Indicador | Duración
-// Total = 5000 (unidades de porcentaje 1/50 %). N° angosta, Duración igual al anterior.
-const COL_W = [100, 675, 860, 905, 1260, 950, 250] as const;
-// Suma: 100+675+860+905+1260+950+250 = 5000
+// 7 columnas en DXA (A4 landscape 16838 − 1440 márgenes = 15398 dxa usables)
+// N°: angosta | Título | ObjEsp | Destrezas | Orientaciones | Indicador | Duración
+const COL_W = [310, 2050, 2480, 2480, 3600, 2728, 750] as const;
+const COL_TOTAL = COL_W.reduce((a, b) => a + b, 0); // 14398 dxa
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -102,7 +102,7 @@ function makeCell(cfg: CellConfig): TableCell {
     children: cfg.paragraphs,
     columnSpan: cfg.span,
     width: cfg.width !== undefined
-      ? { size: cfg.width, type: WidthType.PERCENTAGE }
+      ? { size: cfg.width, type: WidthType.DXA }
       : undefined,
     shading: cfg.bg ? { fill: cfg.bg, color: cfg.bg, type: ShadingType.CLEAR } : undefined,
     verticalAlign: cfg.vAlign ?? VerticalAlign.TOP,
@@ -189,7 +189,7 @@ function sectionHeaderRow(label: string): TableRow {
       makeCell({
         paragraphs: [textPara(label, true, SZ7)],
         span: 7,
-        width: 5000,
+        width: COL_TOTAL,
         bg: BG_SECTION,
         vAlign: VerticalAlign.CENTER,
       }),
@@ -259,7 +259,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       makeCell({
         paragraphs: [textPara("PLAN CURRICULAR TRIMESTRAL", true, SZ16, AlignmentType.CENTER)],
         span: 7,
-        width: 5000,
+        width: COL_TOTAL,
         vAlign: VerticalAlign.CENTER,
       }),
     ],
@@ -288,7 +288,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       makeCell({
         paragraphs: [inlinePara("Docente(s):", formData.docente || "—")],
         span: 7,
-        width: 5000,
+        width: COL_TOTAL,
       }),
     ],
   });
@@ -314,7 +314,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       makeCell({
         paragraphs: [inlinePara("Trimestre:", trimestre)],
         span: 7,
-        width: 5000,
+        width: COL_TOTAL,
       }),
     ],
   });
@@ -380,7 +380,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       makeCell({
         paragraphs: labeledPara(`Objetivos del ${trimestre}:`, toStr(aiResult?.objetivosTrimestre) || "—"),
         span: 7,
-        width: 5000,
+        width: COL_TOTAL,
       }),
     ],
   });
@@ -410,7 +410,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
           }),
         ],
         span: 7,
-        width: 5000,
+        width: COL_TOTAL,
       }),
     ],
   });
@@ -520,7 +520,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   const firmasRow = makeCell({
     paragraphs: [firmasInnerTable as unknown as Paragraph],
     span: 7,
-    width: 5000,
+    width: COL_TOTAL,
   });
 
   // ── TABLA PRINCIPAL ──
