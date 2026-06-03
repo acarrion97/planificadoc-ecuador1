@@ -40,6 +40,11 @@ export function getApiBaseUrl(): string {
       return "";
     }
 
+    // Local dev: localhost — API siempre en puerto 3000
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return `${protocol}//${hostname}:3000`;
+    }
+
     // Dev: Manus sandbox — derive API server URL from metro port
     const apiHostname = hostname.replace(/^8081-/, "3000-");
     if (apiHostname !== hostname) {

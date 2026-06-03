@@ -11,9 +11,10 @@ export type Area =
   | "CS.H"
   | "CS.F"
   | "EFL"
-  | "EG";
+  | "EG"
+  | "INI";
 
-export type Subnivel = 1 | 2 | 3 | 4 | 5;
+export type Subnivel = -1 | 0 | 1 | 2 | 3 | 4 | 5;
 
 export interface AreaInfo {
   code: Area;
@@ -505,6 +506,22 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
       3: "Economía y finanzas",
       4: "Emprendimiento e innovación",
       5: "Plan de negocios",
+    },
+  },
+  INI: {
+    code: "INI",
+    name: "Educación Inicial",
+    color: "#0EA5E9",
+    icon: "child-care",
+    emoji: "🧒",
+    bloques: {
+      1: "Identidad y Autonomía",
+      2: "Convivencia",
+      3: "Relaciones con el medio natural y cultural",
+      4: "Relaciones lógico-matemáticas",
+      5: "Comprensión y Expresión del Lenguaje",
+      6: "Expresión Artística",
+      7: "Expresión corporal y motricidad",
     },
   },
 };

@@ -148,6 +148,33 @@ export default function HomeScreen() {
             {/* Areas grid - only show when not searching */}
             {resultados.length === 0 && (
               <>
+                {/* Inicial Section */}
+                <View className="px-5 mt-4">
+                  <Pressable
+                    onPress={() => router.push("/planificar-inicial" as any)}
+                    style={({ pressed }) => ({
+                      backgroundColor: "#0EA5E9",
+                      borderRadius: 14,
+                      padding: 16,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 12,
+                      opacity: pressed ? 0.85 : 1,
+                    })}
+                  >
+                    <Text style={{ fontSize: 32 }}>🧒</Text>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
+                        Nueva Planificación Inicial
+                      </Text>
+                      <Text style={{ color: "#e0f2fe", fontSize: 12, marginTop: 2 }}>
+                        140 destrezas · 7 ámbitos · Actividades con IA
+                      </Text>
+                    </View>
+                    <Text style={{ color: "#fff", fontSize: 20 }}>›</Text>
+                  </Pressable>
+                </View>
+
                 {/* EGB Section */}
                 <View className="px-5 mt-6 mb-3">
                   <Text className="text-lg font-semibold text-foreground">
