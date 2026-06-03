@@ -6,6 +6,16 @@ import { eq } from "drizzle-orm";
 
 const MAX_DEVICES_PER_CODE = 2;
 
+// Códigos master: acceso ilimitado, sin registro de dispositivos.
+// Se definen en la variable de entorno MASTER_CODES (separados por coma).
+// Ejemplo en Vercel: MASTER_CODES=PLANIFICADOC-OWNER,OTRO-CODIGO
+const MASTER_CODES: Set<string> = new Set(
+  (process.env.MASTER_CODES || "")
+    .split(",")
+    .map((c) => c.trim().toUpperCase())
+    .filter(Boolean)
+);
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
 
@@ -20,6 +30,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const normalizedCode = code.trim().toUpperCase();
+
+    // ── Código master: acceso inmediato sin límite de dispositivos ──
+    if (MASTER_CODES.has(normalizedCode)) {
+      return res.json({ success: true, master: true });
+    }
 
     const db = getDb();
     if (!db) {
