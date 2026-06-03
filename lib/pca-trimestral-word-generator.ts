@@ -319,55 +319,54 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
     ],
   });
 
-  // ── Sección 2: TIEMPO ──
+  // ── Sección 2: TIEMPO — tabla interna con 5 columnas iguales ──
   const tiempoHeader = sectionHeaderRow("2. TIEMPO");
 
-  const tiempoLabels = new TableRow({
-    children: [
-      makeCell({
-        paragraphs: [textPara("Carga horaria semanal", true, SZ7, AlignmentType.CENTER)],
-        span: 2, width: COL_W[0] + COL_W[1], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
+  // 5 columnas iguales dentro de una celda que abarca las 7 columnas
+  const TIEMPO_COL = Math.round(COL_TOTAL / 5); // ~2880 dxa c/u
+  const tiempoLabels_headers = ["Carga horaria semanal", "No. Semanas de trabajo", "Evaluación e imprevistos", "Total semanas de clase", "Total períodos"];
+  const tiempoLabels_values  = [
+    String(formData.cargaHorariaSemanal || "—"),
+    String(formData.semanasTotal || "—"),
+    String(formData.semanasEvaluacion || "—"),
+    String(semanasClase),
+    String(totalPeriodos),
+  ];
+
+  const tiempoInnerTable = new Table({
+    width: { size: COL_TOTAL, type: WidthType.DXA },
+    rows: [
+      new TableRow({
+        children: tiempoLabels_headers.map((h) =>
+          new TableCell({
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 30, after: 30 }, children: [new TextRun({ text: h, bold: true, size: SZ7, font: FONT })] })],
+            width: { size: TIEMPO_COL, type: WidthType.DXA },
+            shading: { fill: BG_SECTION, color: BG_SECTION, type: ShadingType.CLEAR },
+            verticalAlign: VerticalAlign.CENTER,
+            borders: stdBorders,
+          })
+        ),
       }),
-      makeCell({
-        paragraphs: [textPara("No. Semanas de trabajo", true, SZ7, AlignmentType.CENTER)],
-        span: 1, width: COL_W[2], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
-      }),
-      makeCell({
-        paragraphs: [textPara("Evaluación e imprevistos", true, SZ7, AlignmentType.CENTER)],
-        span: 2, width: COL_W[3] + COL_W[4], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
-      }),
-      makeCell({
-        paragraphs: [textPara("Total semanas de clase", true, SZ7, AlignmentType.CENTER)],
-        span: 1, width: COL_W[5], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
-      }),
-      makeCell({
-        paragraphs: [textPara("Total períodos", true, SZ7, AlignmentType.CENTER)],
-        span: 1, width: COL_W[6], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
+      new TableRow({
+        children: tiempoLabels_values.map((v) =>
+          new TableCell({
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 30, after: 30 }, children: [new TextRun({ text: v, size: SZ7, font: FONT })] })],
+            width: { size: TIEMPO_COL, type: WidthType.DXA },
+            verticalAlign: VerticalAlign.CENTER,
+            borders: stdBorders,
+          })
+        ),
       }),
     ],
   });
 
-  const tiempoData = new TableRow({
+  const tiempoRow = new TableRow({
     children: [
-      makeCell({
-        paragraphs: [textPara(String(formData.cargaHorariaSemanal || "—"), false, SZ7, AlignmentType.CENTER)],
-        span: 2, width: COL_W[0] + COL_W[1], vAlign: VerticalAlign.CENTER,
-      }),
-      makeCell({
-        paragraphs: [textPara(String(formData.semanasTotal || "—"), false, SZ7, AlignmentType.CENTER)],
-        width: COL_W[2], vAlign: VerticalAlign.CENTER,
-      }),
-      makeCell({
-        paragraphs: [textPara(String(formData.semanasEvaluacion || "—"), false, SZ7, AlignmentType.CENTER)],
-        span: 2, width: COL_W[3] + COL_W[4], vAlign: VerticalAlign.CENTER,
-      }),
-      makeCell({
-        paragraphs: [textPara(String(semanasClase), false, SZ7, AlignmentType.CENTER)],
-        width: COL_W[5], vAlign: VerticalAlign.CENTER,
-      }),
-      makeCell({
-        paragraphs: [textPara(String(totalPeriodos), false, SZ7, AlignmentType.CENTER)],
-        width: COL_W[6], vAlign: VerticalAlign.CENTER,
+      new TableCell({
+        children: [tiempoInnerTable],
+        columnSpan: 7,
+        width: { size: COL_TOTAL, type: WidthType.DXA },
+        borders: stdBorders,
       }),
     ],
   });
@@ -535,8 +534,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       datosCurso,
       datosTrimestre,
       tiempoHeader,
-      tiempoLabels,
-      tiempoData,
+      tiempoRow,
       objetivosHeader,
       objetivosData,
       insercionesHeader,
