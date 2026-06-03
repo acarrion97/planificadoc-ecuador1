@@ -18,7 +18,6 @@ import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-pla
 import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 
 // ─── Utilidad ─────────────────────────────────────────────────────────────────
-/** Convierte cualquier valor a string seguro (la IA puede devolver objetos) */
 function toStr(val: any): string {
   if (typeof val === "string") return val;
   if (val === null || val === undefined) return "";
@@ -28,10 +27,9 @@ function toStr(val: any): string {
 }
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
-const BG_SECTION = "DDEFF1"; // celeste MinEduc (cabeceras de sección)
+const BG_SECTION = "DDEFF1"; // celeste MinEduc
 const FONT = "Arial";
 
-// Mapas ID → nombre legible
 const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
   METODOLOGIAS_ACTIVAS.map((m) => [m.id, m.nombre])
 );
@@ -42,17 +40,13 @@ const EJE_LABEL: Record<string, string> = Object.fromEntries(
   EJES_TRANSVERSALES_PCA.map((e) => [e.id, e.nombre])
 );
 
-// Tamaños en half-points (docx): 1pt = 2 unidades
-const SZ16 = 32; // 16pt — título principal
-const SZ9  = 18; // 9pt  — subtítulos / año lectivo
-const SZ7  = 14; // 7pt  — texto normal
-const SZ6  = 12; // 6pt  — texto pequeño (firmas, notas)
+const SZ16 = 32; // 16pt
+const SZ9  = 18; // 9pt
+const SZ7  = 14; // 7pt
+const SZ6  = 12; // 6pt
 
-// Anchos de columna del grid de 7 columnas (en unidades pct = 50ths de %)
-// N°   Título  ObjEsp  Destrezas  Orientaciones  Indicador  Duración
-//  5%    15%     18%      18%         22%           17%       5%
+// 7 columnas: N° | Título | ObjEsp | Destrezas | Orientaciones | Indicador | Duración
 const COL_W = [250, 750, 900, 900, 1100, 850, 250] as const;
-// Total = 5000 (100%)
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -66,14 +60,8 @@ function emptyPara(): Paragraph {
 
 function labeledPara(label: string, value: string): Paragraph[] {
   return [
-    new Paragraph({
-      spacing: { before: 20, after: 0 },
-      children: [run(label, true, SZ7)],
-    }),
-    new Paragraph({
-      spacing: { before: 0, after: 20 },
-      children: [run(value || "—", false, SZ7)],
-    }),
+    new Paragraph({ spacing: { before: 20, after: 0 }, children: [run(label, true, SZ7)] }),
+    new Paragraph({ spacing: { before: 0, after: 20 }, children: [run(value || "—", false, SZ7)] }),
   ];
 }
 
@@ -92,20 +80,16 @@ function textPara(text: string, bold = false, size = SZ7, align: AlignmentType =
   });
 }
 
-// Bordes de celda estándar
 const BORDER_THIN = { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" };
 const BORDER_NONE = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
 const stdBorders = {
   top: BORDER_THIN, bottom: BORDER_THIN, left: BORDER_THIN, right: BORDER_THIN,
 };
-const noBorders = {
-  top: BORDER_NONE, bottom: BORDER_NONE, left: BORDER_NONE, right: BORDER_NONE,
-};
 
 type CellConfig = {
   paragraphs: Paragraph[];
   span?: number;
-  width?: number; // pct units
+  width?: number;
   bg?: string;
   vAlign?: VerticalAlign;
   borders?: typeof stdBorders;
@@ -124,7 +108,79 @@ function makeCell(cfg: CellConfig): TableCell {
   });
 }
 
-/** Fila de cabecera de sección — ocupa las 7 columnas */
+// Colores por fase
+const FASE_COLORS: Record<string, string> = {
+  experiencia:      "C0504D", // rojo/salmón
+  reflexion:        "4472C4", // azul
+  conceptualizacion:"70AD47", // verde
+  aplicacion:       "ED7D31", // naranja
+  anticipacion:     "C0504D", // rojo/salmón
+  construccion:     "4472C4", // azul
+  consolidacion:    "70AD47", // verde
+};
+
+const FASE_LABELS: Record<string, string> = {
+  experiencia:      "EXPERIENCIA",
+  reflexion:        "REFLEXIÓN",
+  conceptualizacion:"CONCEPTUALIZACIÓN",
+  aplicacion:       "APLICACIÓN",
+  anticipacion:     "ANTICIPACIÓN",
+  construccion:     "CONSTRUCCIÓN DEL CONOCIMIENTO",
+  consolidacion:    "CONSOLIDACIÓN",
+};
+
+/**
+ * Renderiza orientacionesMetodologicas como array de DCDs con fases ERCA/ACC.
+ * Cada DCD tiene cabecera gris y sus fases con cabecera de color + actividades.
+ */
+function orientacionesParagraphs(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): Paragraph[] {
+  const orden = modelo === "ACC"
+    ? ["anticipacion", "construccion", "consolidacion"]
+    : ["experiencia", "reflexion", "conceptualizacion", "aplicacion"];
+
+  const paras: Paragraph[] = [];
+
+  // Normalizar: acepta array de DCDs o fallback a objeto/string
+  const items: any[] = Array.isArray(raw)
+    ? raw
+    : (typeof raw === "object" && raw !== null ? [{ dcd: "", fases: raw }] : [{ dcd: "", fases: { [orden[0]]: [String(raw || "")] } }]);
+
+  for (const item of items) {
+    const fases: Record<string, string[]> = item.fases || item;
+    const dcdCodigo: string = item.dcd || "";
+
+    // Cabecera de DCD
+    if (dcdCodigo) {
+      paras.push(new Paragraph({
+        spacing: { before: 60, after: 0 },
+        shading: { fill: "595959", color: "595959", type: ShadingType.CLEAR },
+        children: [run(`DCD: ${dcdCodigo}`, true, SZ6, "FFFFFF")],
+      }));
+    }
+
+    for (const fase of orden) {
+      const actividades: string[] = Array.isArray(fases[fase]) ? fases[fase] : [];
+      const color = FASE_COLORS[fase] || "003366";
+      const label = FASE_LABELS[fase] || fase.toUpperCase();
+
+      paras.push(new Paragraph({
+        spacing: { before: 30, after: 0 },
+        children: [run(label, true, SZ6, color)],
+      }));
+
+      actividades.forEach((act, i) => {
+        paras.push(new Paragraph({
+          spacing: { before: 0, after: 0 },
+          indent: { left: 80 },
+          children: [run(`${i + 1}. ${act}`, false, SZ6)],
+        }));
+      });
+    }
+  }
+
+  return paras.length > 0 ? paras : [textPara("—", false, SZ7)];
+}
+
 function sectionHeaderRow(label: string): TableRow {
   return new TableRow({
     children: [
@@ -141,31 +197,33 @@ function sectionHeaderRow(label: string): TableRow {
 
 // ─── Función principal ────────────────────────────────────────────────────────
 
-export async function generarWordPca(formData: any, aiResult: any): Promise<Blob> {
-  const areaInfo   = AREAS_INFO[formData.area as keyof typeof AREAS_INFO];
-  const areaName   = areaInfo?.name || formData.area;
-  const subnivelName = SUBNIVEL_NAMES[formData.subnivel as keyof typeof SUBNIVEL_NAMES] || `Subnivel ${formData.subnivel}`;
+export async function generarWordPcaTrimestral(formData: any, aiResult: any): Promise<Blob> {
+  const areaInfo      = AREAS_INFO[formData.area as keyof typeof AREAS_INFO];
+  const areaName      = areaInfo?.name || formData.area;
+  const subnivelName  = SUBNIVEL_NAMES[formData.subnivel as keyof typeof SUBNIVEL_NAMES] || `Subnivel ${formData.subnivel}`;
+  const semanasClase  = (formData.semanasTotal || 0) - (formData.semanasEvaluacion || 0);
+  const totalPeriodos = semanasClase * (formData.cargaHorariaSemanal || 0);
 
-  const semanasClase   = (formData.semanasTrabajoTotal || 0) - (formData.semanasEvaluacion || 0);
-  const totalPeriodos  = semanasClase * (formData.cargaHorariaSemanal || 0);
-
-  const ejesTexto = formData.usaEjesTransversales && formData.ejesTransversales?.length > 0
+  const ejesTexto    = formData.usaEjesTransversales && formData.ejesTransversales?.length > 0
     ? formData.ejesTransversales.map((e: string) => EJE_LABEL[e] || e).join(", ")
     : "No aplica";
-  const metodoTexto = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
-  const tecnicaTexto = (formData.tecnicasEvaluacion || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
+  const metodoTexto  = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
+  const tecnicaTexto = (formData.tecnicasEvaluacion  || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
+  const modeloTexto  = formData.modeloPedagogico === "ACC"
+    ? "ACC (Anticipación – Construcción – Consolidación)"
+    : "ERCA (Experiencia – Reflexión – Conceptualización – Aplicación)";
 
-  const unidades: any[] = formData.unidades || [];
+  const unidades: any[]   = formData.unidades  || [];
   const aiUnidades: any[] = aiResult?.unidades || [];
+  const trimestre: string = formData.trimestre  || "—";
 
   // ══════════════════════════════════════════════════════════════════════════
   //  TABLA PRINCIPAL
   // ══════════════════════════════════════════════════════════════════════════
 
-  // ── Fila 0: Encabezado institucional (Logo | Institución + Título | Año) ──
+  // ── Fila 0: Encabezado institucional ──
   const headerRow0 = new TableRow({
     children: [
-      // Logo/Institución (cols 1-2, span=2)
       makeCell({
         paragraphs: [
           textPara("LOGO", true, SZ7, AlignmentType.CENTER),
@@ -175,16 +233,12 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
         width: COL_W[0] + COL_W[1],
         vAlign: VerticalAlign.CENTER,
       }),
-      // Nombre institución (cols 3-5, span=3)
       makeCell({
-        paragraphs: [
-          textPara(formData.institucion || "—", true, SZ9, AlignmentType.CENTER),
-        ],
+        paragraphs: [textPara(formData.institucion || "—", true, SZ9, AlignmentType.CENTER)],
         span: 3,
         width: COL_W[2] + COL_W[3] + COL_W[4],
         vAlign: VerticalAlign.CENTER,
       }),
-      // Año lectivo (cols 6-7, span=2)
       makeCell({
         paragraphs: [
           textPara("AÑO LECTIVO", true, SZ7, AlignmentType.CENTER),
@@ -201,7 +255,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   const headerRow1 = new TableRow({
     children: [
       makeCell({
-        paragraphs: [textPara("PLAN CURRICULAR ANUAL", true, SZ16, AlignmentType.CENTER)],
+        paragraphs: [textPara("PLAN CURRICULAR TRIMESTRAL", true, SZ16, AlignmentType.CENTER)],
         span: 7,
         width: 5000,
         vAlign: VerticalAlign.CENTER,
@@ -252,6 +306,17 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
     ],
   });
 
+  // ── Fila de Trimestre (exclusiva de la PCT) ──
+  const datosTrimestre = new TableRow({
+    children: [
+      makeCell({
+        paragraphs: [inlinePara("Trimestre:", trimestre)],
+        span: 7,
+        width: 5000,
+      }),
+    ],
+  });
+
   // ── Sección 2: TIEMPO ──
   const tiempoHeader = sectionHeaderRow("2. TIEMPO");
 
@@ -259,38 +324,23 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
     children: [
       makeCell({
         paragraphs: [textPara("Carga horaria semanal", true, SZ7, AlignmentType.CENTER)],
-        span: 2,
-        width: COL_W[0] + COL_W[1],
-        bg: BG_SECTION,
-        vAlign: VerticalAlign.CENTER,
+        span: 2, width: COL_W[0] + COL_W[1], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
         paragraphs: [textPara("No. Semanas de trabajo", true, SZ7, AlignmentType.CENTER)],
-        span: 1,
-        width: COL_W[2],
-        bg: BG_SECTION,
-        vAlign: VerticalAlign.CENTER,
+        span: 1, width: COL_W[2], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
-        paragraphs: [textPara("Evaluación del aprendizaje e imprevistos", true, SZ7, AlignmentType.CENTER)],
-        span: 2,
-        width: COL_W[3] + COL_W[4],
-        bg: BG_SECTION,
-        vAlign: VerticalAlign.CENTER,
+        paragraphs: [textPara("Evaluación e imprevistos", true, SZ7, AlignmentType.CENTER)],
+        span: 2, width: COL_W[3] + COL_W[4], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
-        paragraphs: [textPara("Total de semanas de clase", true, SZ7, AlignmentType.CENTER)],
-        span: 1,
-        width: COL_W[5],
-        bg: BG_SECTION,
-        vAlign: VerticalAlign.CENTER,
+        paragraphs: [textPara("Total semanas de clase", true, SZ7, AlignmentType.CENTER)],
+        span: 1, width: COL_W[5], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
-        paragraphs: [textPara("Total de periodos", true, SZ7, AlignmentType.CENTER)],
-        span: 1,
-        width: COL_W[6],
-        bg: BG_SECTION,
-        vAlign: VerticalAlign.CENTER,
+        paragraphs: [textPara("Total períodos", true, SZ7, AlignmentType.CENTER)],
+        span: 1, width: COL_W[6], bg: BG_SECTION, vAlign: VerticalAlign.CENTER,
       }),
     ],
   });
@@ -299,48 +349,36 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
     children: [
       makeCell({
         paragraphs: [textPara(String(formData.cargaHorariaSemanal || "—"), false, SZ7, AlignmentType.CENTER)],
-        span: 2,
-        width: COL_W[0] + COL_W[1],
-        vAlign: VerticalAlign.CENTER,
+        span: 2, width: COL_W[0] + COL_W[1], vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
-        paragraphs: [textPara(String(formData.semanasTrabajoTotal || "—"), false, SZ7, AlignmentType.CENTER)],
-        width: COL_W[2],
-        vAlign: VerticalAlign.CENTER,
+        paragraphs: [textPara(String(formData.semanasTotal || "—"), false, SZ7, AlignmentType.CENTER)],
+        width: COL_W[2], vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
         paragraphs: [textPara(String(formData.semanasEvaluacion || "—"), false, SZ7, AlignmentType.CENTER)],
-        span: 2,
-        width: COL_W[3] + COL_W[4],
-        vAlign: VerticalAlign.CENTER,
+        span: 2, width: COL_W[3] + COL_W[4], vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
         paragraphs: [textPara(String(semanasClase), false, SZ7, AlignmentType.CENTER)],
-        width: COL_W[5],
-        vAlign: VerticalAlign.CENTER,
+        width: COL_W[5], vAlign: VerticalAlign.CENTER,
       }),
       makeCell({
         paragraphs: [textPara(String(totalPeriodos), false, SZ7, AlignmentType.CENTER)],
-        width: COL_W[6],
-        vAlign: VerticalAlign.CENTER,
+        width: COL_W[6], vAlign: VerticalAlign.CENTER,
       }),
     ],
   });
 
-  // ── Sección 3: OBJETIVOS GENERALES ──
-  const objetivosHeader = sectionHeaderRow("3. OBJETIVOS GENERALES");
+  // ── Sección 3: OBJETIVOS DEL TRIMESTRE ──
+  const objetivosHeader = sectionHeaderRow("3. OBJETIVOS DEL TRIMESTRE");
 
   const objetivosData = new TableRow({
     children: [
       makeCell({
-        paragraphs: labeledPara("Objetivos del área:", toStr(aiResult?.objetivosArea) || "—"),
-        span: 4,
-        width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3],
-      }),
-      makeCell({
-        paragraphs: labeledPara("Objetivos del grado / curso:", toStr(aiResult?.objetivosGrado) || "—"),
-        span: 3,
-        width: COL_W[4] + COL_W[5] + COL_W[6],
+        paragraphs: labeledPara(`Objetivos del ${trimestre}:`, toStr(aiResult?.objetivosTrimestre) || "—"),
+        span: 7,
+        width: 5000,
       }),
     ],
   });
@@ -352,6 +390,10 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
     children: [
       makeCell({
         paragraphs: [
+          new Paragraph({
+            spacing: { before: 20, after: 0 },
+            children: [run("Modelo pedagógico: ", true, SZ7), run(modeloTexto, false, SZ7)],
+          }),
           new Paragraph({
             spacing: { before: 20, after: 0 },
             children: [run("Ejes transversales: ", true, SZ7), run(ejesTexto, false, SZ7)],
@@ -376,24 +418,18 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
 
   const unidadesColHeader = new TableRow({
     children: [
-      makeCell({ paragraphs: [textPara("N.°", true, SZ7, AlignmentType.CENTER)],        width: COL_W[0], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
-      makeCell({ paragraphs: [textPara("Título de la unidad de planificación", true, SZ7, AlignmentType.CENTER)], width: COL_W[1], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
-      makeCell({ paragraphs: [textPara("Objetivos específicos de la unidad de planificación", true, SZ6, AlignmentType.CENTER)], width: COL_W[2], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("N.°", true, SZ7, AlignmentType.CENTER)], width: COL_W[0], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Título de la unidad", true, SZ7, AlignmentType.CENTER)], width: COL_W[1], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Objetivos específicos", true, SZ6, AlignmentType.CENTER)], width: COL_W[2], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Destrezas", true, SZ7, AlignmentType.CENTER)], width: COL_W[3], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Orientaciones metodológicas", true, SZ7, AlignmentType.CENTER)], width: COL_W[4], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
       makeCell({ paragraphs: [textPara("Indicador de evaluación", true, SZ7, AlignmentType.CENTER)], width: COL_W[5], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
-      makeCell({ paragraphs: [textPara("Duración en semanas", true, SZ6, AlignmentType.CENTER)], width: COL_W[6], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+      makeCell({ paragraphs: [textPara("Duración (semanas)", true, SZ6, AlignmentType.CENTER)], width: COL_W[6], bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
     ],
   });
 
-  // Filas de unidades — DINÁMICAS según cuántas unidades haya
   const unidadesRows: TableRow[] = unidades.map((unidad: any, idx: number) => {
     const aiU = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
-    const dcdsTexto = (unidad.dcdsSeleccionadas || [])
-      .map((d: any) => `${d.codigo}: ${d.enunciado}`)
-      .join("\n");
-
-    // Cada DCD como párrafo separado
     const dcdParrafos = (unidad.dcdsSeleccionadas || []).length > 0
       ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
           new Paragraph({
@@ -405,45 +441,22 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
 
     return new TableRow({
       children: [
-        makeCell({
-          paragraphs: [textPara(String(unidad.numero), true, SZ7, AlignmentType.CENTER)],
-          width: COL_W[0],
-          vAlign: VerticalAlign.CENTER,
-        }),
-        makeCell({
-          paragraphs: [textPara(toStr(aiU.titulo) || `Unidad ${unidad.numero}`, true, SZ7)],
-          width: COL_W[1],
-        }),
-        makeCell({
-          paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)],
-          width: COL_W[2],
-        }),
-        makeCell({
-          paragraphs: dcdParrafos,
-          width: COL_W[3],
-        }),
-        makeCell({
-          paragraphs: [textPara(toStr(aiU.orientacionesMetodologicas) || "—", false, SZ7)],
-          width: COL_W[4],
-        }),
-        makeCell({
-          paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ7)],
-          width: COL_W[5],
-        }),
-        makeCell({
-          paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)],
-          width: COL_W[6],
-          vAlign: VerticalAlign.CENTER,
-        }),
+        makeCell({ paragraphs: [textPara(String(unidad.numero), true, SZ7, AlignmentType.CENTER)], width: COL_W[0], vAlign: VerticalAlign.CENTER }),
+        makeCell({ paragraphs: [textPara(toStr(aiU.titulo) || `Unidad ${unidad.numero}`, true, SZ7)], width: COL_W[1] }),
+        makeCell({ paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)], width: COL_W[2] }),
+        makeCell({ paragraphs: dcdParrafos, width: COL_W[3] }),
+        makeCell({ paragraphs: orientacionesParagraphs(aiU.orientacionesMetodologicas, formData.modeloPedagogico || "ERCA"), width: COL_W[4] }),
+        makeCell({ paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ7)], width: COL_W[5] }),
+        makeCell({ paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)], width: COL_W[6], vAlign: VerticalAlign.CENTER }),
       ],
     });
   });
 
-  // ── Sección 6+7: BIBLIOGRAFÍA y OBSERVACIONES ──
-  const biblioHeader = new TableRow({
+  // ── Sección 6 + 7: BIBLIOGRAFÍA (en blanco) + OBSERVACIONES ──
+  const biblioObsHeader = new TableRow({
     children: [
       makeCell({
-        paragraphs: [textPara("6. BIBLIOGRAFÍA / WEBGRAFÍA (Utilizar normas APA VI edición)", true, SZ7)],
+        paragraphs: [textPara("6. BIBLIOGRAFÍA / WEBGRAFÍA (Utilizar normas APA)", true, SZ7)],
         span: 5,
         width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3] + COL_W[4],
         bg: BG_SECTION,
@@ -457,24 +470,55 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
     ],
   });
 
-  const biblioData = new TableRow({
+  // Bibliografía: 5 líneas en blanco para que el docente complete
+  const biblioObsData = new TableRow({
     children: [
       makeCell({
-        paragraphs: [
-          ...(formData.bibliografiaDocente
-            ? [textPara(formData.bibliografiaDocente, false, SZ7)]
-            : []),
-          textPara(toStr(aiResult?.bibliografiaSugerida) || "—", false, SZ7),
-        ],
+        paragraphs: [emptyPara(), emptyPara(), emptyPara(), emptyPara(), emptyPara()],
         span: 5,
         width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3] + COL_W[4],
       }),
       makeCell({
-        paragraphs: [textPara(toStr(aiResult?.observaciones) || "—", false, SZ7)],
+        paragraphs: [emptyPara(), emptyPara(), emptyPara()],
         span: 2,
         width: COL_W[5] + COL_W[6],
       }),
     ],
+  });
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  TABLA DE FIRMAS (tabla anidada en fila de tabla principal = ancho completo)
+  // ══════════════════════════════════════════════════════════════════════════
+  const firmas = [
+    { rol: "ELABORADO", cargo: "DOCENTE:",     nombre: formData.firmaElaboradoPor || formData.docente || "", fecha: formData.firmaElaboradoFecha || "" },
+    { rol: "REVISADO",  cargo: "VICERRECTOR:", nombre: formData.firmaRevisadoPor  || "", fecha: formData.firmaRevisadoFecha  || "" },
+    { rol: "APROBADO",  cargo: "DIRECTOR:",    nombre: formData.firmaAprobadoPor  || "", fecha: formData.firmaAprobadoFecha  || "" },
+  ];
+
+  function sigCell(paragraphs: Paragraph[]): TableCell {
+    return new TableCell({
+      children: paragraphs,
+      width: { size: 5280, type: WidthType.DXA }, // 15840/3
+      verticalAlign: VerticalAlign.CENTER,
+      borders: stdBorders,
+    });
+  }
+
+  const firmasInnerTable = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])) }),
+      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.cargo, true, SZ7)])) }),
+      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.nombre || "_________________________", false, SZ7)])) }),
+      new TableRow({ children: firmas.map(() => sigCell([textPara("Firma: _________________________", false, SZ7)])) }),
+      new TableRow({ children: firmas.map((f) => sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)])) }),
+    ],
+  });
+
+  const firmasRow = makeCell({
+    paragraphs: [firmasInnerTable as unknown as Paragraph],
+    span: 7,
+    width: 5000,
   });
 
   // ── TABLA PRINCIPAL ──
@@ -487,6 +531,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
       datosArea,
       datosDocente,
       datosCurso,
+      datosTrimestre,
       tiempoHeader,
       tiempoLabels,
       tiempoData,
@@ -497,65 +542,9 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
       unidadesHeader,
       unidadesColHeader,
       ...unidadesRows,
-      biblioHeader,
-      biblioData,
-    ],
-  });
-
-  // ══════════════════════════════════════════════════════════════════════════
-  //  TABLA DE FIRMAS (tabla separada, ancho completo — porcentaje para A4 landscape)
-  // ══════════════════════════════════════════════════════════════════════════
-  // 3 columnas iguales: 33.33% cada una (en unidades pct = 50ths de %)
-  const SIG_COL_PCT = 1667; // 1667/5000 ≈ 33.33%
-
-  function sigCell(paragraphs: Paragraph[]): TableCell {
-    return new TableCell({
-      children: paragraphs,
-      width: { size: SIG_COL_PCT, type: WidthType.PERCENTAGE },
-      verticalAlign: VerticalAlign.CENTER,
-      borders: stdBorders,
-    });
-  }
-
-  const firmas = [
-    { rol: "ELABORADO", cargo: "DOCENTE:", nombre: formData.firmaElaboradoPor || formData.docente || "", fecha: formData.firmaElaboradoFecha || "" },
-    { rol: "REVISADO",  cargo: "VICERRECTOR:", nombre: formData.firmaRevisadoPor || "",  fecha: formData.firmaRevisadoFecha  || "" },
-    { rol: "APROBADO",  cargo: "DIRECTOR:",    nombre: formData.firmaAprobadoPor  || "",  fecha: formData.firmaAprobadoFecha  || "" },
-  ];
-
-  const firmasTable = new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      // Fila: ELABORADO | REVISADO | APROBADO
-      new TableRow({
-        children: firmas.map((f) =>
-          sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])
-        ),
-      }),
-      // Fila: cargo
-      new TableRow({
-        children: firmas.map((f) =>
-          sigCell([textPara(f.cargo, true, SZ7)])
-        ),
-      }),
-      // Fila: nombre
-      new TableRow({
-        children: firmas.map((f) =>
-          sigCell([textPara(f.nombre || "_________________________", false, SZ7)])
-        ),
-      }),
-      // Fila: firma
-      new TableRow({
-        children: firmas.map(() =>
-          sigCell([textPara("Firma: _________________________", false, SZ7)])
-        ),
-      }),
-      // Fila: fecha
-      new TableRow({
-        children: firmas.map((f) =>
-          sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)])
-        ),
-      }),
+      biblioObsHeader,
+      biblioObsData,
+      new TableRow({ children: [firmasRow] }),
     ],
   });
 
@@ -565,9 +554,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   const doc = new Document({
     styles: {
       default: {
-        document: {
-          run: { font: FONT, size: SZ7 },
-        },
+        document: { run: { font: FONT, size: SZ7 } },
       },
     },
     sections: [
@@ -576,27 +563,18 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
           page: {
             size: {
               orientation: PageOrientation.LANDSCAPE,
-              width: 11906,  // A4 landscape (docx lib inverts w/h)
-              height: 16838, // A4 landscape height in twips
+              width: 11906, height: 16838,
             },
-            margin: {
-              top: 720,    // 0.5 inch
-              right: 720,
-              bottom: 720,
-              left: 720,
-            },
+            margin: { top: 720, right: 720, bottom: 720, left: 720 },
           },
         },
         children: [
           mainTable,
-          new Paragraph({ children: [new TextRun({ text: "", size: SZ7 })] }),
-          firmasTable,
         ],
       },
     ],
   });
 
-  // En browser: Packer.toBlob(); en Node (móvil): Packer.toBuffer()
   if (typeof window !== "undefined" && typeof window.document !== "undefined") {
     return await Packer.toBlob(doc);
   }
