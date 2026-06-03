@@ -505,10 +505,10 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
     { rol: "APROBADO",  cargo: "DIRECTOR:",    nombre: formData.firmaAprobadoPor  || "", fecha: formData.firmaAprobadoFecha  || "" },
   ];
 
-  function sigCell(paragraphs: Paragraph[], idx: number): TableCell {
+  function sigCell(paragraphs: Paragraph[]): TableCell {
     return new TableCell({
       children: paragraphs,
-      width: { size: idx < 2 ? 33 : 34, type: WidthType.PERCENTAGE },
+      width: { size: 5280, type: WidthType.DXA }, // 15840/3
       verticalAlign: VerticalAlign.CENTER,
       borders: stdBorders,
     });
@@ -517,11 +517,11 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   const firmasInnerTable = new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     rows: [
-      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)], i)) }),
-      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.cargo, true, SZ7)], i)) }),
-      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.nombre || "_________________________", false, SZ7)], i)) }),
-      new TableRow({ children: firmas.map((_f, i) => sigCell([textPara("Firma: _________________________", false, SZ7)], i)) }),
-      new TableRow({ children: firmas.map((f, i) => sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)], i)) }),
+      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])) }),
+      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.cargo, true, SZ7)])) }),
+      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.nombre || "_________________________", false, SZ7)])) }),
+      new TableRow({ children: firmas.map(() => sigCell([textPara("Firma: _________________________", false, SZ7)])) }),
+      new TableRow({ children: firmas.map((f) => sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)])) }),
     ],
   });
 

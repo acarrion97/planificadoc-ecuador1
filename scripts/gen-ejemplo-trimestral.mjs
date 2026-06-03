@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v15.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v16.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -274,9 +274,9 @@ const firmas = [
 ];
 const BORDER_NONE_CELL = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
 const firmasInnerRow = new TableRow({
-  children: firmas.map((f, i) => new TableCell({
+  children: firmas.map(f => new TableCell({
     borders: CELL_BORDERS,
-    width: { size: i < 2 ? 33 : 34, type: WidthType.PERCENTAGE },
+    width: { size: 5280, type: WidthType.DXA },
     verticalAlign: VerticalAlign.TOP,
     children: [
       para([run(f.rol, true, 14)], AlignmentType.CENTER),
