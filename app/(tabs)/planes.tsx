@@ -56,6 +56,21 @@ export default function PlanesScreen() {
           </Pressable>
         </View>
 
+        {/* ── Botón PCT Trimestral ── */}
+        <View style={styles.pcaEntry}>
+          <Pressable
+            onPress={() => router.push("/planificacion-trimestral" as any)}
+            style={({ pressed }) => [styles.pcaBtn, { opacity: pressed ? 0.85 : 1, backgroundColor: "#0E7490" }]}
+          >
+            <Text style={styles.pcaBtnIcon}>🗓️</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.pcaBtnTitle}>Crear Plan Trimestral (PCT)</Text>
+              <Text style={styles.pcaBtnSub}>Plan Curricular por Trimestre · IA + PDF + Word</Text>
+            </View>
+            <Text style={styles.pcaBtnArrow}>›</Text>
+          </Pressable>
+        </View>
+
         {/* ── Botón planificación semanal ── */}
         <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
           <Pressable
