@@ -666,10 +666,8 @@ export default function PlanificacionTrimestralScreen() {
                 </Text>
                 <Text style={{ fontSize: 10, color: modeloPedagogico === modelo ? "#CCDEFF" : colors.muted, marginTop: 2, textAlign: "center" }}>
                   {modelo === "ERCA"
-                    ? "Experiencia · Reflexión
-Conceptualización · Aplicación"
-                    : "Anticipación · Construcción
-Consolidación"}
+                    ? "Experiencia · Reflexión · Conceptualización · Aplicación"
+                    : "Anticipación · Construcción · Consolidación"}
                 </Text>
               </Pressable>
             ))}
