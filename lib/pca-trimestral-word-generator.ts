@@ -165,8 +165,7 @@ function orientacionesParagraphs(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): Par
 
       paras.push(new Paragraph({
         spacing: { before: 30, after: 0 },
-        shading: { fill: color, color: color, type: ShadingType.CLEAR },
-        children: [run(label, true, SZ6, "FFFFFF")],
+        children: [run(label, true, SZ6, color)],
       }));
 
       actividades.forEach((act, i) => {
@@ -497,6 +496,41 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
     ],
   });
 
+  // ══════════════════════════════════════════════════════════════════════════
+  //  TABLA DE FIRMAS (tabla anidada en fila de tabla principal = ancho completo)
+  // ══════════════════════════════════════════════════════════════════════════
+  const firmas = [
+    { rol: "ELABORADO", cargo: "DOCENTE:",     nombre: formData.firmaElaboradoPor || formData.docente || "", fecha: formData.firmaElaboradoFecha || "" },
+    { rol: "REVISADO",  cargo: "VICERRECTOR:", nombre: formData.firmaRevisadoPor  || "", fecha: formData.firmaRevisadoFecha  || "" },
+    { rol: "APROBADO",  cargo: "DIRECTOR:",    nombre: formData.firmaAprobadoPor  || "", fecha: formData.firmaAprobadoFecha  || "" },
+  ];
+
+  function sigCell(paragraphs: Paragraph[], idx: number): TableCell {
+    return new TableCell({
+      children: paragraphs,
+      width: { size: idx < 2 ? 33 : 34, type: WidthType.PERCENTAGE },
+      verticalAlign: VerticalAlign.CENTER,
+      borders: stdBorders,
+    });
+  }
+
+  const firmasInnerTable = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)], i)) }),
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.cargo, true, SZ7)], i)) }),
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.nombre || "_________________________", false, SZ7)], i)) }),
+      new TableRow({ children: firmas.map((_f, i) => sigCell([textPara("Firma: _________________________", false, SZ7)], i)) }),
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)], i)) }),
+    ],
+  });
+
+  const firmasRow = makeCell({
+    paragraphs: [firmasInnerTable as unknown as Paragraph],
+    span: 7,
+    width: 5000,
+  });
+
   // ── TABLA PRINCIPAL ──
   const mainTable = new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
@@ -520,37 +554,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       ...unidadesRows,
       biblioObsHeader,
       biblioObsData,
-    ],
-  });
-
-  // ══════════════════════════════════════════════════════════════════════════
-  //  TABLA DE FIRMAS
-  // ══════════════════════════════════════════════════════════════════════════
-  const SIG_COL_DXA = 5280; // 15840 / 3 = exactamente 1/3 del ancho landscape
-
-  function sigCell(paragraphs: Paragraph[]): TableCell {
-    return new TableCell({
-      children: paragraphs,
-      width: { size: SIG_COL_DXA, type: WidthType.DXA },
-      verticalAlign: VerticalAlign.CENTER,
-      borders: stdBorders,
-    });
-  }
-
-  const firmas = [
-    { rol: "ELABORADO", cargo: "DOCENTE:",     nombre: formData.firmaElaboradoPor || formData.docente || "", fecha: formData.firmaElaboradoFecha || "" },
-    { rol: "REVISADO",  cargo: "VICERRECTOR:", nombre: formData.firmaRevisadoPor  || "", fecha: formData.firmaRevisadoFecha  || "" },
-    { rol: "APROBADO",  cargo: "DIRECTOR:",    nombre: formData.firmaAprobadoPor  || "", fecha: formData.firmaAprobadoFecha  || "" },
-  ];
-
-  const firmasTable = new Table({
-    width: { size: 15840, type: WidthType.DXA },
-    rows: [
-      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])) }),
-      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.cargo, true, SZ7)])) }),
-      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.nombre || "_________________________", false, SZ7)])) }),
-      new TableRow({ children: firmas.map(() => sigCell([textPara("Firma: _________________________", false, SZ7)])) }),
-      new TableRow({ children: firmas.map((f) => sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)])) }),
+      new TableRow({ children: [firmasRow] }),
     ],
   });
 
@@ -576,8 +580,6 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
         },
         children: [
           mainTable,
-          new Paragraph({ children: [new TextRun({ text: "", size: SZ7 })] }),
-          firmasTable,
         ],
       },
     ],

@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(__dirname, "..", "ejemplo-pct-v7.docx");
+const OUT = path.join(__dirname, "..", "ejemplo-pct-v15.docx");
 
 // ── Datos de ejemplo ──────────────────────────────────────────────────────────
 const formData = {
@@ -160,12 +160,12 @@ function para(children, align = AlignmentType.LEFT, spaceBefore = 0, spaceAfter 
   return new Paragraph({ alignment: align, spacing: { before: spaceBefore, after: spaceAfter }, children });
 }
 
-function cell(paragraphs, { span = 1, width = null, bg = null, vAlign = VerticalAlign.TOP } = {}) {
+function cell(paragraphs, { span = 1, width = null, widthType = WidthType.DXA, bg = null, vAlign = VerticalAlign.TOP } = {}) {
   return new TableCell({
     columnSpan: span,
     verticalAlign: vAlign,
     shading: bg ? shading(bg) : undefined,
-    width: width ? { size: width, type: WidthType.DXA } : undefined,
+    width: width ? { size: width, type: widthType } : undefined,
     borders: CELL_BORDERS,
     children: paragraphs,
   });
@@ -195,8 +195,7 @@ function orientacionesParagraphs(raw, modelo = "ERCA") {
     const label = FASE_LABELS[fase] || fase.toUpperCase();
     paras.push(new Paragraph({
       spacing: { before: 40, after: 0 },
-      shading: { type: ShadingType.SOLID, color, fill: color },
-      children: [new TextRun({ text: label, bold: true, size: SZ6, font: "Arial", color: "FFFFFF" })],
+      children: [new TextRun({ text: label, bold: true, size: SZ6, font: "Arial", color })],
     }));
     acts.forEach((act, i) => {
       paras.push(new Paragraph({
@@ -267,20 +266,30 @@ const unidadesRows = aiResult.unidades.map(u => {
   });
 });
 
-// ── Tabla firmas ──────────────────────────────────────────────────────────────
+// ── Tabla firmas (tabla anidada dentro de celda única = hereda ancho completo) ──
 const firmas = [
   { rol: "ELABORADO", cargo: "DOCENTE:", nombre: formData.firmaElaboradoPor, fecha: formData.firmaElaboradoFecha },
   { rol: "REVISADO",  cargo: "VICERRECTOR:", nombre: "", fecha: "" },
   { rol: "APROBADO",  cargo: "DIRECTOR:", nombre: "", fecha: "" },
 ];
-const firmasRow = new TableRow({
-  children: firmas.map(f => cell([
-    para([run(f.rol, true, 14)], AlignmentType.CENTER),
-    para([run(f.cargo, false, 13)], AlignmentType.CENTER, 40),
-    para([run(f.nombre || "_________________________", false, 13)], AlignmentType.CENTER, 20),
-    para([run("Firma: _________________________", false, 13)], AlignmentType.CENTER, 60),
-    para([run(`Fecha: ${f.fecha || "___________"}`, false, 13)], AlignmentType.CENTER, 20),
-  ], { width: 5280 })),  // 15840 / 3 = ancho exacto 1/3 página
+const BORDER_NONE_CELL = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
+const firmasInnerRow = new TableRow({
+  children: firmas.map((f, i) => new TableCell({
+    borders: CELL_BORDERS,
+    width: { size: i < 2 ? 33 : 34, type: WidthType.PERCENTAGE },
+    verticalAlign: VerticalAlign.TOP,
+    children: [
+      para([run(f.rol, true, 14)], AlignmentType.CENTER),
+      para([run(f.cargo, false, 13)], AlignmentType.CENTER, 40),
+      para([run(f.nombre || "_________________________", false, 13)], AlignmentType.CENTER, 20),
+      para([run("Firma: _________________________", false, 13)], AlignmentType.CENTER, 60),
+      para([run(`Fecha: ${f.fecha || "___________"}`, false, 13)], AlignmentType.CENTER, 20),
+    ],
+  })),
+});
+const firmasInnerTable = new Table({
+  width: { size: 100, type: WidthType.PERCENTAGE },
+  rows: [firmasInnerRow],
 });
 
 // ── Documento ─────────────────────────────────────────────────────────────────
@@ -393,13 +402,11 @@ const doc = new Document({
               para([run("_______________________________________________", false, 14)], AlignmentType.LEFT, 80),
             ], { span: 2 }),
           ]}),
+          // Firmas — celda única span=7 con tabla anidada de 3 columnas iguales
+          new TableRow({ children: [
+            cell([firmasInnerTable], { span: 7, bg: "FFFFFF" }),
+          ]}),
         ],
-      }),
-
-      // Firmas
-      new Table({
-        width: { size: 15840, type: WidthType.DXA },
-        rows: [firmasRow],
       }),
     ],
   }],
