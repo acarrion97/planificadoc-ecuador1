@@ -83,6 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago PCA</title>
+  <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -133,11 +134,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Visa, Mastercard y PayPhone Wallet
     </div>
   </div>
-  <script type="module">
-    import * as PP from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
-    const PPaymentButtonBox = PP.PPaymentButtonBox || (PP.default && PP.default.PPaymentButtonBox) || PP.default;
+  <script>
     try {
-      new PPaymentButtonBox({
+      new window.PPaymentButtonBox({
         token: '${payphoneToken}',
         clientTransactionId: '${clientTxId}',
         amount: ${PCA_PRICE_CENTS},
@@ -157,8 +156,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         generateToken: false,
       }).render('pp-button');
     } catch(e) {
-      console.error('PayPhone init error:', e);
-      document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;">Error al cargar el formulario. Recarga la pagina.</p>';
+      console.error('PayPhone PCA error:', e);
+      document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;padding:16px;">❌ ' + (e.message || 'Error PayPhone') + '<br><a href="javascript:location.reload()">↺ Recargar</a></p>';
     }
   </script>
 </body>
@@ -205,6 +204,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago PCT Trimestral</title>
+  <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -256,12 +256,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Visa, Mastercard y PayPhone Wallet
     </div>
   </div>
-  <script type="module">
-    import * as PP from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
-    const PPaymentButtonBox = PP.PPaymentButtonBox || (PP.default && PP.default.PPaymentButtonBox) || PP.default;
+  <script>
     document.getElementById('pp-loading').style.display = 'none';
     try {
-      new PPaymentButtonBox({
+      new window.PPaymentButtonBox({
         token: '${payphoneToken}',
         clientTransactionId: '${clientTxId}',
         amount: ${PCT_TRIMESTRAL_PRICE_CENTS},
