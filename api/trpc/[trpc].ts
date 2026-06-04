@@ -9,6 +9,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { topicsRouter } from "../../server/topics-router";
 import { pcaRouter } from "../../server/pca-router";
 import { pcaTrimestralRouter } from "../../server/pca-trimestral-router";
+import { inicialRouter } from "../../server/inicial-router";
 import { router } from "../../server/_core/trpc";
 
 // Router expuesto en Vercel
@@ -16,6 +17,7 @@ const vercelRouter = router({
   topics: topicsRouter,
   pca: pcaRouter,
   pcaTrimestral: pcaTrimestralRouter,
+  inicial: inicialRouter,
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
