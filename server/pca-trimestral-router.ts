@@ -163,7 +163,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
 
 REGLAS OBLIGATORIAS:
 - orientacionesMetodologicas es un ARRAY: un objeto por cada DCD seleccionada, con su código y sus fases
-- Las actividades deben ser detalladas como un plan de clase: redactadas en tercera persona plural ("Los estudiantes reconocerán...", "Identificarán...", "Resolverán...")
+- Cada actividad DEBE iniciar con un VERBO EN INFINITIVO siguiendo Marzano (ej: "Reconocer...", "Identificar...", "Analizar...", "Resolver...", "Crear..."). NUNCA uses "Los estudiantes" al inicio.
 - Aplica Taxonomía de Marzano: nivel 1 en Experiencia/Anticipación, niveles 2-3 en Reflexión/Construcción, nivel 4 en Aplicación/Consolidación
 - Mínimo 3 actividades por fase, máximo 5. Deben ser detalladas, variadas y progresivas dentro de cada nivel de Marzano
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador

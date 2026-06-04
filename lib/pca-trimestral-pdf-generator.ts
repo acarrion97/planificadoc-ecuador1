@@ -62,7 +62,7 @@ function orientacionesHTML(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): string {
       const acts = actividades.map((a, i) =>
         `<div style="font-size:6px;line-height:1.4;padding-left:5px;">${i+1}. ${a}</div>`
       ).join("");
-      return `<div style="background:${color};color:#fff;font-weight:700;font-size:6.5px;padding:2px 4px;margin-top:2px;">${label}</div>${acts}`;
+      return `<div style="color:#000;font-weight:700;font-size:6.5px;padding:2px 4px;margin-top:2px;">${label}</div>${acts}`;
     }).join("");
     return dcdHeader + fasesHTML;
   }).join("");

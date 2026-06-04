@@ -167,7 +167,7 @@ function orientacionesParagraphs(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): Par
 
       paras.push(new Paragraph({
         spacing: { before: 30, after: 0 },
-        children: [run(label, true, SZ6, color)],
+        children: [run(label, true, SZ6, "000000")],
       }));
 
       actividades.forEach((act, i) => {
