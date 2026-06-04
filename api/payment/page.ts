@@ -345,6 +345,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago Seguro</title>
+  <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -417,10 +418,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Visa, Mastercard y PayPhone Wallet
     </div>
   </div>
-  <script type="module">
-    import { PPaymentButtonBox } from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+  <script>
     try {
-      new PPaymentButtonBox({
+      new window.PPaymentButtonBox({
         token: '${payphoneToken}',
         clientTransactionId: '${clientTxId}',
         amount: ${pricing.amount},
