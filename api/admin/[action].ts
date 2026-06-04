@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handleCors, verifyAdmin } from "../_lib/admin-auth";
 import { getDb } from "../_lib/db";
+import { sendRenewalReminderEmail, sendExpiredEmail } from "../../server/email";
 import {
   subscriptions,
   paymentTransactions,
@@ -533,6 +534,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .where(eq(pcaDocuments.id, parseInt(String(pcaId))));
 
       return res.json({ success: true, message: `PCA #${pcaId} desbloqueada para admin` });
+    }
+
+    // POST /api/admin/send-reminder → envía email de recordatorio manual a un usuario
+    if (action === "send-reminder") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, tipo, vencimiento, plan } = req.body || {};
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      let ok = false;
+      if (tipo === "expired") {
+        ok = await sendExpiredEmail(email, plan || "monthly");
+      } else {
+        ok = await sendRenewalReminderEmail(email, plan || "monthly", vencimiento || "mañana");
+      }
+      return res.json({ success: ok, email, tipo: tipo || "reminder" });
     }
 
     return res.status(404).json({ error: "Acción no encontrada" });
