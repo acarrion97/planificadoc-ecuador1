@@ -134,7 +134,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     </div>
   </div>
   <script type="module">
-    import { PPaymentButtonBox } from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+    import * as PP from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+    const PPaymentButtonBox = PP.PPaymentButtonBox || (PP.default && PP.default.PPaymentButtonBox) || PP.default;
     try {
       new PPaymentButtonBox({
         token: '${payphoneToken}',
@@ -256,7 +257,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     </div>
   </div>
   <script type="module">
-    import { PPaymentButtonBox } from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+    import * as PP from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+    const PPaymentButtonBox = PP.PPaymentButtonBox || (PP.default && PP.default.PPaymentButtonBox) || PP.default;
     document.getElementById('pp-loading').style.display = 'none';
     try {
       new PPaymentButtonBox({
