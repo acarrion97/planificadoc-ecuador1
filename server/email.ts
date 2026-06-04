@@ -262,8 +262,8 @@ export async function sendPromoReactivacionEmail(email: string): Promise<boolean
     <p style="color:#555;font-size:13px;line-height:1.6;margin-top:24px;text-align:center;">
       ¿Deseas una <strong>asesoría personalizada</strong> para enterarte de todo lo nuevo?<br>
       Contáctanos por WhatsApp:
-      <a href="https://wa.me/593978833533" style="color:#25D366;font-weight:700;">
-        📱 0978833533
+      <a href="https://wa.me/message/FIT552DP3R2VL1" style="color:#25D366;font-weight:700;">
+        📱 Escríbenos por WhatsApp
       </a>
     </p>
   `);
