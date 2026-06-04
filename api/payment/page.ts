@@ -255,41 +255,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Visa, Mastercard y PayPhone Wallet
     </div>
   </div>
-  <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      var s = document.createElement('script');
-      s.type = 'module';
-      s.textContent = \`
-        import { PPaymentButtonBox } from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
-        try {
-          document.getElementById('pp-loading').style.display = 'none';
-          new PPaymentButtonBox({
-            token: '${payphoneToken}',
-            clientTransactionId: '${clientTxId}',
-            amount: ${PCT_TRIMESTRAL_PRICE_CENTS},
-            amountWithoutTax: ${PCT_TRIMESTRAL_PRICE_CENTS},
-            amountWithTax: 0,
-            tax: 0,
-            service: 0,
-            tip: 0,
-            currency: "USD",
-            storeId: "${payphoneStoreId}",
-            reference: "${reference}",
-            lang: "es",
-            defaultMethod: "card",
-            timeZone: -5,
-            email: "${email}",
-            responseUrl: "${responseUrl}",
-            generateToken: false,
-          }).render('pp-button');
-        } catch(e) {
-          console.error('PayPhone init error:', e);
-          document.getElementById('pp-loading').style.display = 'none';
-          document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;padding:16px;">Error al cargar el formulario de pago.<br><a href="javascript:location.reload()" style="color:#0e7490;">Recargar página</a></p>';
-        }
-      \`;
-      document.head.appendChild(s);
-    });
+  <script type="module">
+    try {
+      const { PPaymentButtonBox } = await import('https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js');
+      document.getElementById('pp-loading').style.display = 'none';
+      new PPaymentButtonBox({
+        token: '${payphoneToken}',
+        clientTransactionId: '${clientTxId}',
+        amount: ${PCT_TRIMESTRAL_PRICE_CENTS},
+        amountWithoutTax: ${PCT_TRIMESTRAL_PRICE_CENTS},
+        amountWithTax: 0,
+        tax: 0,
+        service: 0,
+        tip: 0,
+        currency: "USD",
+        storeId: "${payphoneStoreId}",
+        reference: "${reference}",
+        lang: "es",
+        defaultMethod: "card",
+        timeZone: -5,
+        email: "${email}",
+        responseUrl: "${responseUrl}",
+        generateToken: false,
+      }).render('pp-button');
+    } catch(e) {
+      console.error('PayPhone PCT error:', e);
+      document.getElementById('pp-loading').style.display = 'none';
+      document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;padding:16px;">❌ Error: ' + (e?.message || 'No se pudo cargar PayPhone') + '<br><br><a href="javascript:location.reload()" style="color:#0e7490;font-weight:bold;">↺ Recargar página</a></p>';
+    }
   </script>
 </body>
 </html>`;
