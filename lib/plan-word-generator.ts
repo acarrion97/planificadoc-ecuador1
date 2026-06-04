@@ -264,9 +264,12 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
     ),
   }));
 
+  // A4 portrait: 11906 - 720*2 = 10466 twips disponibles, 6 columnas
+  const COL = 1744;
   const table = new Table({
     layout: TableLayoutType.FIXED,
-    width: { size: 100, type: WidthType.PERCENTAGE },
+    width: { size: 10466, type: WidthType.DXA },
+    columnWidths: [COL, COL, COL, COL, COL, COL],
     rows,
   });
 

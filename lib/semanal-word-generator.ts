@@ -265,9 +265,12 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
     ],
   }));
 
+  // A4 landscape: 16838 - 560*2 = 15718 twips disponibles, 8 columnas
+  const COL = Math.floor(15718 / 8); // 1964 cada una
   const table = new Table({
     layout: TableLayoutType.FIXED,
-    width: { size: 100, type: WidthType.PERCENTAGE },
+    width: { size: 15718, type: WidthType.DXA },
+    columnWidths: [COL, COL, COL, COL, COL, COL, COL, COL],
     rows,
   });
 
