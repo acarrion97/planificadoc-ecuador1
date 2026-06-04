@@ -256,9 +256,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     </div>
   </div>
   <script type="module">
+    import { PPaymentButtonBox } from 'https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js';
+    document.getElementById('pp-loading').style.display = 'none';
     try {
-      const { PPaymentButtonBox } = await import('https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js');
-      document.getElementById('pp-loading').style.display = 'none';
       new PPaymentButtonBox({
         token: '${payphoneToken}',
         clientTransactionId: '${clientTxId}',
@@ -280,8 +280,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }).render('pp-button');
     } catch(e) {
       console.error('PayPhone PCT error:', e);
-      document.getElementById('pp-loading').style.display = 'none';
-      document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;padding:16px;">❌ Error: ' + (e?.message || 'No se pudo cargar PayPhone') + '<br><br><a href="javascript:location.reload()" style="color:#0e7490;font-weight:bold;">↺ Recargar página</a></p>';
+      document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;padding:16px;">❌ ' + (e?.message || 'Error PayPhone') + '<br><br><a href="javascript:location.reload()" style="color:#0e7490;font-weight:bold;">↺ Recargar</a></p>';
     }
   </script>
 </body>
