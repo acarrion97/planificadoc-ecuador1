@@ -239,3 +239,34 @@ export async function sendChargeFailedEmail(email: string, plan: string, intento
 
   return sendEmail(email, subject, html);
 }
+
+// ── Email 5: Campaña de reactivación (usuarios expirados) ─────────────────────
+
+export async function sendPromoReactivacionEmail(email: string): Promise<boolean> {
+  const html = wrapTemplate(`
+    <h2 style="color:#003366;margin:0 0 16px;">¡Te extrañamos en PlanificaDoc! 👋</h2>
+    <p style="color:#333;font-size:15px;line-height:1.7;">
+      PlanificaDoc tiene <strong>muchas más actualizaciones</strong> de las que nos encantaría
+      pudieras explorar. No dejes que la carga docente consuma tu valioso tiempo
+      haciendo tareas repetitivas.
+    </p>
+    <p style="color:#333;font-size:15px;line-height:1.7;margin-top:12px;">
+      Renueva tu acceso y vuelve a generar planificaciones curriculares, planes
+      diarios y semanales con inteligencia artificial — en minutos.
+    </p>
+    <div style="text-align:center;">
+      <a href="https://www.planificadoc.app" style="${btnStyle}">
+        🔄 Renovar mi acceso
+      </a>
+    </div>
+    <p style="color:#555;font-size:13px;line-height:1.6;margin-top:24px;text-align:center;">
+      ¿Deseas una <strong>asesoría personalizada</strong> para enterarte de todo lo nuevo?<br>
+      Contáctanos por WhatsApp:
+      <a href="https://wa.me/593978833533" style="color:#25D366;font-weight:700;">
+        📱 0978833533
+      </a>
+    </p>
+  `);
+
+  return sendEmail(email, "PlanificaDoc tiene novedades para ti 🎉", html);
+}

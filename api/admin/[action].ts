@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handleCors, verifyAdmin } from "../_lib/admin-auth";
 import { getDb } from "../_lib/db";
-import { sendRenewalReminderEmail, sendExpiredEmail } from "../../server/email";
+import { sendRenewalReminderEmail, sendExpiredEmail, sendPromoReactivacionEmail } from "../../server/email";
 import {
   subscriptions,
   paymentTransactions,
@@ -534,6 +534,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .where(eq(pcaDocuments.id, parseInt(String(pcaId))));
 
       return res.json({ success: true, message: `PCA #${pcaId} desbloqueada para admin` });
+    }
+
+    // POST /api/admin/send-promo → envía campaña de reactivación a lista de emails
+    if (action === "send-promo") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { emails } = req.body || {};
+      if (!emails || !Array.isArray(emails)) return res.status(400).json({ error: "emails[] requerido" });
+      const results: { email: string; ok: boolean }[] = [];
+      for (const email of emails) {
+        const ok = await sendPromoReactivacionEmail(email);
+        results.push({ email, ok });
+      }
+      const sent = results.filter(r => r.ok).length;
+      return res.json({ success: true, sent, total: emails.length, results });
     }
 
     // POST /api/admin/send-reminder → envía email de recordatorio manual a un usuario
