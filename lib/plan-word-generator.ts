@@ -573,7 +573,7 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
     sections: [{
       properties: {
         page: {
-          size: { width: PW, height: 11906, orientation: "landscape" as any },
+          size: { width: PW, height: 11906 }, // landscape: width(16838) > height(11906)
           margin: { top: MAR, bottom: MAR, left: MAR, right: MAR },
         },
       },
