@@ -83,6 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago PCA</title>
+  <!-- IMPORTANTE: PayPhone NO es ES module — usa window.PPaymentButtonBox. NO usar import(). -->
   <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
   <style>
@@ -204,6 +205,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago PCT Trimestral</title>
+  <!-- IMPORTANTE: PayPhone NO es ES module — usa window.PPaymentButtonBox. NO usar import(). -->
   <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
   <style>
@@ -345,6 +347,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="origin">
   <title>PlanificaDoc - Pago Seguro</title>
+  <!-- IMPORTANTE: PayPhone NO es ES module — usa window.PPaymentButtonBox. NO usar import(). -->
   <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
   <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
   <style>
