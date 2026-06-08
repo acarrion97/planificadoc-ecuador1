@@ -117,13 +117,21 @@ Para CADA tema genera:
 5. Lista de 5 recursos necesarios
 6. Evaluación formativa (técnica e instrumento)
 
-OBLIGATORIO - Usar verbos de la Taxonomía de Marzano para cada etapa ERCA:
-- EXPERIENCIA: Usar verbos de RECUPERACIÓN y COMPRENSIÓN (Reconocer, Recordar, Identificar, Nombrar, Describir, Explicar, Interpretar, Predecir)
-- REFLEXIÓN: Usar verbos de ANÁLISIS y METACOGNICIÓN (Comparar, Clasificar, Analizar, Diferenciar, Evaluar, Reflexionar, Monitorear, Justificar)
-- CONCEPTUALIZACIÓN: Usar verbos de COMPRENSIÓN y ANÁLISIS (Integrar, Representar, Explicar, Resumir, Comparar, Clasificar, Organizar, Generalizar)
-- APLICACIÓN: Usar verbos de UTILIZACIÓN DEL CONOCIMIENTO y METACOGNICIÓN (Investigar, Experimentar, Resolver, Aplicar, Diseñar, Construir, Evaluar, Planificar)
+OBLIGATORIO - Taxonomía de Marzano por etapa ERCA:
+- EXPERIENCIA: RECUPERACIÓN/COMPRENSIÓN → Reconocer, Recordar, Identificar, Nombrar, Describir, Explicar, Interpretar, Predecir
+- REFLEXIÓN: ANÁLISIS/METACOGNICIÓN → Comparar, Clasificar, Analizar, Diferenciar, Evaluar, Reflexionar, Monitorear, Justificar
+- CONCEPTUALIZACIÓN: COMPRENSIÓN/ANÁLISIS → Integrar, Representar, Explicar, Resumir, Comparar, Clasificar, Organizar, Generalizar
+- APLICACIÓN: UTILIZACIÓN/METACOGNICIÓN → Investigar, Experimentar, Resolver, Aplicar, Diseñar, Construir, Evaluar, Planificar
 
-Cada actividad DEBE iniciar con uno de estos verbos de Marzano. NUNCA usar infinitivos genéricos como "Realizar", "Hacer", "Trabajar".
+FORMATO EXACTO DE CADA ACTIVIDAD — REGLA ABSOLUTA:
+✅ CORRECTO: "Reconocer figuras geométricas observando objetos del entorno."
+✅ CORRECTO: "Identificar características comunes clasificando materiales concretos."
+✅ CORRECTO: "Comparar conjuntos según sus atributos mediante preguntas guiadas."
+❌ PROHIBIDO: "Los estudiantes reconocerán..." → NUNCA usar sujeto + tiempo verbal
+❌ PROHIBIDO: "Se realizarán dinámicas de..." → NUNCA usar voz pasiva refleja
+❌ PROHIBIDO: "El docente pedirá que..." → NUNCA describir acción del docente
+❌ PROHIBIDO: "Realizar una actividad..." → NUNCA verbos genéricos sin contenido
+ESTRUCTURA: VERBO MARZANO EN INFINITIVO + objeto + modo/contexto. Sin sujeto. Sin conjugación.
 - Los temas deben ser CONTEXTUALIZADOS a la realidad ecuatoriana
 - Usa español correcto con tildes y ñ
 - NO uses emojis
@@ -153,8 +161,8 @@ Responde ÚNICAMENTE con un JSON válido:
             {
               role: "system",
               content: isEFL
-                ? "You are a pedagogical assistant specialized in the Ecuadorian EFL curriculum. You respond ONLY with valid JSON, no additional text. ALL content must be in English."
-                : "Eres un asistente pedagógico especializado en el currículo educativo ecuatoriano. Respondes ÚNICAMENTE con JSON válido, sin texto adicional.",
+                ? "You are a pedagogical assistant specialized in the Ecuadorian EFL curriculum. You respond ONLY with valid JSON, no additional text. ALL content must be in English. CRITICAL: Every activity MUST start with a Marzano taxonomy verb in infinitive form. NEVER use subject + conjugated verb (e.g. 'Students will...'). NEVER use passive voice (e.g. 'Activities will be...'). Format: VERB + object + context."
+                : "Eres un asistente pedagógico especializado en el currículo educativo ecuatoriano. Respondes ÚNICAMENTE con JSON válido, sin texto adicional. CRÍTICO: Cada actividad DEBE iniciar con un verbo de la Taxonomía de Marzano en INFINITIVO. NUNCA usar sujeto + verbo conjugado ('Los estudiantes reconocerán...'). NUNCA usar voz pasiva ('Se realizarán...'). FORMATO: VERBO INFINITIVO + objeto + contexto.",
             },
             { role: "user", content: prompt },
           ],
@@ -329,11 +337,21 @@ ${subnivel ? `SUBNIVEL: ${subnivel}` : ""}
 DESCRIPCIÓN: ${descripcionDestreza}
 TEMA: ${tema}${ejesTexto}${competenciasTexto}
 
-OBLIGATORIO - Usar verbos de la Taxonomía de Marzano:
-- EXPERIENCIA: Verbos de RECUPERACIÓN/COMPRENSIÓN (Reconocer, Recordar, Identificar, Nombrar, Describir, Explicar, Interpretar, Predecir)
-- REFLEXIÓN: Verbos de ANÁLISIS/METACOGNICIÓN (Comparar, Clasificar, Analizar, Diferenciar, Evaluar, Reflexionar, Monitorear, Justificar)
-- CONCEPTUALIZACIÓN: Verbos de COMPRENSIÓN/ANÁLISIS (Integrar, Representar, Explicar, Resumir, Comparar, Clasificar, Organizar, Generalizar)
-- APLICACIÓN: Verbos de UTILIZACIÓN/METACOGNICIÓN (Investigar, Experimentar, Resolver, Aplicar, Diseñar, Construir, Evaluar, Planificar)
+OBLIGATORIO - Taxonomía de Marzano por etapa ERCA:
+- EXPERIENCIA: RECUPERACIÓN/COMPRENSIÓN → Reconocer, Recordar, Identificar, Nombrar, Describir, Explicar, Interpretar, Predecir
+- REFLEXIÓN: ANÁLISIS/METACOGNICIÓN → Comparar, Clasificar, Analizar, Diferenciar, Evaluar, Reflexionar, Monitorear, Justificar
+- CONCEPTUALIZACIÓN: COMPRENSIÓN/ANÁLISIS → Integrar, Representar, Explicar, Resumir, Comparar, Clasificar, Organizar, Generalizar
+- APLICACIÓN: UTILIZACIÓN/METACOGNICIÓN → Investigar, Experimentar, Resolver, Aplicar, Diseñar, Construir, Evaluar, Planificar
+
+FORMATO EXACTO DE CADA ACTIVIDAD — REGLA ABSOLUTA:
+✅ CORRECTO: "Reconocer figuras geométricas observando objetos del entorno."
+✅ CORRECTO: "Identificar características comunes clasificando materiales concretos."
+✅ CORRECTO: "Comparar conjuntos según sus atributos mediante preguntas guiadas."
+❌ PROHIBIDO: "Los estudiantes reconocerán..." → NUNCA usar sujeto + tiempo verbal
+❌ PROHIBIDO: "Se realizarán dinámicas de..." → NUNCA usar voz pasiva refleja
+❌ PROHIBIDO: "El docente pedirá que..." → NUNCA describir acción del docente
+❌ PROHIBIDO: "Realizar una actividad..." → NUNCA verbos genéricos sin contenido
+ESTRUCTURA: VERBO MARZANO EN INFINITIVO + objeto + modo/contexto. Sin sujeto. Sin conjugación.
 ${duaInstruccion}
 
 Responde ÚNICAMENTE con JSON válido:
@@ -355,8 +373,8 @@ Responde ÚNICAMENTE con JSON válido:
             {
               role: "system",
               content: isEFL
-                ? "You are a pedagogical assistant specialized in the Ecuadorian EFL curriculum. You respond ONLY with valid JSON. ALL content in English."
-                : "Eres un asistente pedagógico especializado en el currículo educativo ecuatoriano. Respondes ÚNICAMENTE con JSON válido.",
+                ? "You are a pedagogical assistant specialized in the Ecuadorian EFL curriculum. You respond ONLY with valid JSON. ALL content in English. CRITICAL: Every activity MUST start with a Marzano taxonomy verb in infinitive form. NEVER use subject + conjugated verb. NEVER use passive voice. Format: VERB + object + context."
+                : "Eres un asistente pedagógico especializado en el currículo educativo ecuatoriano. Respondes ÚNICAMENTE con JSON válido. CRÍTICO: Cada actividad DEBE iniciar con un verbo de Marzano en INFINITIVO. NUNCA sujeto + conjugado ('Los estudiantes reconocerán...'). NUNCA voz pasiva ('Se realizarán...'). FORMATO: VERBO INFINITIVO + objeto + contexto.",
             },
             { role: "user", content: prompt },
           ],
@@ -526,7 +544,7 @@ Responde ÚNICAMENTE con JSON válido:
 
         const prompt = isEFL
           ? `Generate a complete 45-minute ERCA lesson plan.\nSKILL: ${task.codigoDestreza}\nAREA: ${areaNombre}\n${task.bloque ? `BLOCK: ${task.bloque}` : ""}${task.subnivel ? `\nSUBLEVEL: ${task.subnivel}` : ""}\nDESCRIPTION: ${task.descripcionDestreza}\nTOPIC: ${task.tema}${ejesTexto}${competenciasTexto}\n\nMANDATORY - Marzano Taxonomy:\n- EXPERIENCE: Recognize, Recall, Identify, Describe, Explain\n- REFLECTION: Compare, Analyze, Evaluate, Reflect, Justify\n- CONCEPTUALIZATION: Integrate, Explain, Summarize, Classify, Generalize\n- APPLICATION: Investigate, Solve, Apply, Design, Construct${duaInstruccion}\n\nRespond ONLY with valid JSON:\n{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experience","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflection","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualization","duracion":"15 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Application","duracion":"10 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string"}`
-          : `Genera una planificación ERCA completa de 45 minutos.\nDESTREZA: ${task.codigoDestreza}\nÁREA: ${areaNombre}\n${task.bloque ? `BLOQUE: ${task.bloque}` : ""}${task.subnivel ? `\nSUBNIVEL: ${task.subnivel}` : ""}\nDESCRIPCIÓN: ${task.descripcionDestreza}\nTEMA: ${task.tema}${ejesTexto}${competenciasTexto}\n\nOBLIGATORIO - Taxonomía de Marzano:\n- EXPERIENCIA: Reconocer, Recordar, Identificar, Describir, Explicar\n- REFLEXIÓN: Comparar, Analizar, Evaluar, Reflexionar, Justificar\n- CONCEPTUALIZACIÓN: Integrar, Explicar, Resumir, Clasificar, Generalizar\n- APLICACIÓN: Investigar, Resolver, Aplicar, Diseñar, Construir${duaInstruccion}\n\nResponde ÚNICAMENTE con JSON válido:\n{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experiencia","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflexión","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualización","duracion":"15 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Aplicación","duracion":"10 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string"}`;
+          : `Genera una planificación ERCA completa de 45 minutos.\nDESTREZA: ${task.codigoDestreza}\nÁREA: ${areaNombre}\n${task.bloque ? `BLOQUE: ${task.bloque}` : ""}${task.subnivel ? `\nSUBNIVEL: ${task.subnivel}` : ""}\nDESCRIPCIÓN: ${task.descripcionDestreza}\nTEMA: ${task.tema}${ejesTexto}${competenciasTexto}\n\nOBLIGATORIO - Taxonomía de Marzano:\n- EXPERIENCIA: Reconocer, Recordar, Identificar, Describir, Explicar\n- REFLEXIÓN: Comparar, Analizar, Evaluar, Reflexionar, Justificar\n- CONCEPTUALIZACIÓN: Integrar, Explicar, Resumir, Clasificar, Generalizar\n- APLICACIÓN: Investigar, Resolver, Aplicar, Diseñar, Construir\n\nFORMATO EXACTO DE CADA ACTIVIDAD — REGLA ABSOLUTA:\n✅ CORRECTO: "Reconocer figuras geométricas observando objetos del entorno."\n✅ CORRECTO: "Comparar conjuntos según sus atributos mediante preguntas guiadas."\n❌ PROHIBIDO: "Los estudiantes reconocerán..." → NUNCA sujeto + tiempo verbal\n❌ PROHIBIDO: "Se realizarán dinámicas de..." → NUNCA voz pasiva refleja\n❌ PROHIBIDO: "El docente pedirá que..." → NUNCA acción del docente\nESTRUCTURA: VERBO MARZANO EN INFINITIVO + objeto + modo. Sin sujeto. Sin conjugación.${duaInstruccion}\n\nResponde ÚNICAMENTE con JSON válido:\n{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experiencia","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflexión","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualización","duracion":"15 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Aplicación","duracion":"10 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string"}`;
 
         const result = await invokeLLM({
           messages: [
