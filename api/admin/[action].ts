@@ -8,8 +8,19 @@ import {
   cardTokens,
   codeActivations,
   docenteContacts,
+  docenteAccounts,
   planificacionStats,
 } from "../../drizzle/schema";
+import { randomBytes, scrypt } from "node:crypto";
+import { promisify } from "node:util";
+
+const scryptAsync = promisify(scrypt);
+
+async function hashPasswordAdmin(password: string): Promise<string> {
+  const salt = randomBytes(16).toString("hex");
+  const derived = (await scryptAsync(password, salt, 64)) as Buffer;
+  return `${salt}:${derived.toString("hex")}`;
+}
 import { eq, desc, and, lt, ne, sql as drizzleSql } from "drizzle-orm";
 import { pcaDocuments } from "../../drizzle/schema";
 
@@ -562,6 +573,67 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ok = await sendRenewalReminderEmail(email, plan || "monthly", vencimiento || "mañana");
       }
       return res.json({ success: ok, email, tipo: tipo || "reminder" });
+    }
+
+    // POST /api/admin/create-docente → crea cuenta de docente + suscripción manual
+    if (action === "create-docente") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, password, nombre, endDate } = req.body || {};
+      if (!email || !password || !nombre || !endDate) {
+        return res.status(400).json({ error: "email, password, nombre y endDate son requeridos" });
+      }
+
+      const normalizedEmail = (email as string).trim().toLowerCase();
+      const trimmedNombre = (nombre as string).trim();
+      const passwordHash = await hashPasswordAdmin(password as string);
+      const endDateObj = new Date(endDate as string);
+
+      // Upsert docenteAccount (actualiza contraseña si ya existe)
+      const existing = await db
+        .select({ id: docenteAccounts.id })
+        .from(docenteAccounts)
+        .where(eq(docenteAccounts.email, normalizedEmail))
+        .limit(1);
+
+      if (existing.length > 0) {
+        await db
+          .update(docenteAccounts)
+          .set({ passwordHash, nombre: trimmedNombre })
+          .where(eq(docenteAccounts.email, normalizedEmail));
+      } else {
+        await db.insert(docenteAccounts).values({
+          email: normalizedEmail,
+          nombre: trimmedNombre,
+          passwordHash,
+        });
+      }
+
+      // Cancelar suscripciones activas anteriores del mismo email
+      await db
+        .update(subscriptions)
+        .set({ status: "cancelled" })
+        .where(and(eq(subscriptions.email, normalizedEmail), eq(subscriptions.status, "active")));
+
+      // Crear nueva suscripción con la fecha de vencimiento indicada
+      await db.insert(subscriptions).values({
+        email: normalizedEmail,
+        plan: "monthly",
+        status: "active",
+        amountPaid: 0,
+        startDate: new Date(),
+        endDate: endDateObj,
+        isPromo: true,
+        isRecurring: false,
+      });
+
+      return res.json({
+        success: true,
+        message: `✅ Cuenta creada para ${normalizedEmail}. Acceso activo hasta ${endDateObj.toLocaleDateString("es-EC")}.`,
+        email: normalizedEmail,
+        nombre: trimmedNombre,
+        endDate: endDateObj.toISOString(),
+        updated: existing.length > 0,
+      });
     }
 
     return res.status(404).json({ error: "Acción no encontrada" });
