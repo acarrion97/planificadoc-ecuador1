@@ -18,8 +18,6 @@ import {
   buscarDestrezas,
   filtrarPorArea,
   Area,
-  FAMILIAS_PROFESIONALES,
-  FIGURAS_PROFESIONALES,
 } from "@/data";
 
 const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
@@ -239,40 +237,6 @@ export default function HomeScreen() {
                       <Text style={[styles.pcaCardSub, { color: "#0E749090" }]}>Plan por trimestre</Text>
                     </Pressable>
                   </View>
-                </View>
-
-                                {/* Bachillerato Técnico Section */}
-                <View className="px-5 mt-6 mb-3">
-                  <Text className="text-lg font-semibold text-foreground">
-                    Bachillerato T{"\u00e9"}cnico
-                  </Text>
-                  <Text className="text-xs text-muted mt-1">
-                    {FIGURAS_PROFESIONALES.length} figuras profesionales {"\u00b7"} 11 familias
-                  </Text>
-                </View>
-                <View className="px-5">
-                  <Pressable
-                    onPress={() => router.push("/bachillerato-tecnico" as any)}
-                    style={({ pressed }) => [
-                      styles.btCard,
-                      {
-                        backgroundColor: "#7C3AED15",
-                        borderColor: "#7C3AED30",
-                        opacity: pressed ? 0.7 : 1,
-                      },
-                    ]}
-                  >
-                    <Text style={{ fontSize: 28 }}>{"\uD83C\uDFED"}</Text>
-                    <View style={{ flex: 1, marginLeft: 12 }}>
-                      <Text style={[styles.btCardTitle, { color: "#7C3AED" }]}>
-                        Explorar Figuras Profesionales
-                      </Text>
-                      <Text style={[styles.btCardSubtitle, { color: "#7C3AED90" }]}>
-                        Contabilidad, Inform{"\u00e1"}tica, Agropecuaria, Turismo y m{"\u00e1"}s
-                      </Text>
-                    </View>
-                    <Text style={{ fontSize: 20, color: "#7C3AED" }}>{"\u203A"}</Text>
-                  </Pressable>
                 </View>
 
                 {/* Recent plans */}
@@ -507,21 +471,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 3,
     lineHeight: 16,
-  },
-  btCard: {
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
-  },
-  btCardTitle: {
-    fontSize: 15,
-    fontWeight: "600" as const,
-  },
-  btCardSubtitle: {
-    fontSize: 12,
-    marginTop: 3,
   },
   pcaCard: {
     flex: 1,
