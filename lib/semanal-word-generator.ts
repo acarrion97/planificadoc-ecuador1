@@ -73,7 +73,7 @@ function simpleCell(
   text: string,
   opts: {
     bold?: boolean; italic?: boolean; size?: number;
-    color?: string; bg?: string; align?: AlignmentType;
+    color?: string; bg?: string; align?: typeof AlignmentType[keyof typeof AlignmentType];
     colspan?: number; rowspan?: number;
   } = {}
 ): TableCell {
