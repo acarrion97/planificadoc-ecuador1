@@ -169,7 +169,7 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
 
     for (let hi = 0; hi < horas.length; hi++) {
       const hora = horas[hi];
-      const plan = (hora as any).planGenerado;
+      const plan = hora.temaSeleccionado;
 
       const dcdTexto = hora.codigoDestreza
         ? `${hora.codigoDestreza}\n${hora.descripcionDestreza || ""}`
@@ -220,7 +220,7 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
   for (const dia of diasActivos) {
     for (const hora of (semana.dias[dia]?.horas || [])) {
       (hora.tecnicasEvaluacion || []).forEach((t: string) => todasTecnicas.add(t));
-      const plan = (hora as any).planGenerado;
+      const plan = hora.temaSeleccionado;
       (plan?.recursos || []).forEach((r: string) => todosRecursos.add(r));
     }
   }
