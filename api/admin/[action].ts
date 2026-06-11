@@ -676,7 +676,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const normalized = (email as string).trim().toLowerCase();
       // Set endDate to past for any cancelled subscriptions with future endDate
       const result = await db.execute(
-        drizzleSql`UPDATE subscriptions SET end_date = '2000-01-01' WHERE email = ${normalized} AND status = 'cancelled' AND end_date > NOW()`
+        drizzleSql`UPDATE subscriptions SET endDate = '2000-01-01' WHERE email = ${normalized} AND status = 'cancelled' AND endDate > NOW()`
       );
       return res.json({ success: true, message: `Suscripciones canceladas con fecha futura corregidas para ${normalized}`, result });
     }
