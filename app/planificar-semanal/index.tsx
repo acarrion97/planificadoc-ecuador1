@@ -535,9 +535,7 @@ export default function PlanificarSemanalScreen() {
               <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                 {(subnivel === 5
                   ? (["CN.B","CN.Q","CN.F","CS.H","CS.F","EFL","EG"] as const)
-                  : subnivel === 1
-                    ? (["M","LL","CN","CS","EF","ECA","INI"] as const)
-                    : (["M","LL","CN","CS","EF","ECA"] as const)
+                  : (["M","LL","CN","CS","EF","ECA","EFL"] as const)
                 ).map(areaCode => {
                   const info = AREAS_INFO[areaCode];
                   const active = asignatura === info.name;
