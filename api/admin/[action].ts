@@ -636,6 +636,51 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
+    // POST /api/admin/run-trial-migration — adds trial columns to DB (run once)
+    if (action === "run-trial-migration") {
+      const results: string[] = [];
+      try {
+        await db.execute(drizzleSql`ALTER TABLE subscriptions MODIFY COLUMN status ENUM('active','expired','cancelled','past_due','trial') NOT NULL DEFAULT 'active'`);
+        results.push("✅ status enum updated (added trial)");
+      } catch (e: any) { results.push("ℹ️ status enum: " + e.message); }
+
+      try {
+        await db.execute(drizzleSql`ALTER TABLE subscriptions ADD COLUMN isTrial tinyint(1) NOT NULL DEFAULT 0 AFTER isRecurring`);
+        results.push("✅ isTrial column added");
+      } catch (e: any) { results.push("ℹ️ isTrial: " + e.message); }
+
+      try {
+        await db.execute(drizzleSql`ALTER TABLE subscriptions ADD COLUMN trialPlan varchar(32) DEFAULT NULL AFTER isTrial`);
+        results.push("✅ trialPlan column added");
+      } catch (e: any) { results.push("ℹ️ trialPlan: " + e.message); }
+
+      return res.json({ success: true, results });
+    }
+
+    // POST /api/admin/fix-email — fixes email typo in subscriptions
+    if (action === "fix-email") {
+      const { oldEmail, newEmail } = req.body || req.query;
+      if (!oldEmail || !newEmail) return res.status(400).json({ error: "oldEmail y newEmail requeridos" });
+      const old = (oldEmail as string).trim().toLowerCase();
+      const next = (newEmail as string).trim().toLowerCase();
+      await db.execute(drizzleSql`UPDATE subscriptions SET email = ${next} WHERE email = ${old}`);
+      await db.execute(drizzleSql`UPDATE card_tokens SET email = ${next} WHERE email = ${old}`);
+      await db.execute(drizzleSql`UPDATE payment_transactions SET email = ${next} WHERE email = ${old}`);
+      return res.json({ success: true, message: `Email actualizado: ${old} → ${next}` });
+    }
+
+    // POST /api/admin/fix-sub-display — expires future-dated cancelled subs that hide the active one
+    if (action === "fix-sub-display") {
+      const { email } = req.body || req.query;
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+      // Set endDate to past for any cancelled subscriptions with future endDate
+      const result = await db.execute(
+        drizzleSql`UPDATE subscriptions SET end_date = '2000-01-01' WHERE email = ${normalized} AND status = 'cancelled' AND end_date > NOW()`
+      );
+      return res.json({ success: true, message: `Suscripciones canceladas con fecha futura corregidas para ${normalized}`, result });
+    }
+
     return res.status(404).json({ error: "Acción no encontrada" });
   } catch (error) {
     console.error(`[Admin] Error in action '${action}':`, error);
