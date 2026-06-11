@@ -300,12 +300,14 @@ export function registerPayPhoneRoutes(app: Express) {
         });
 
         // Save card token for recurring billing if provided
+        // PayPhone returns the token as "ctoken" (JWT) — fallback to "cardToken" for safety
+        const resolvedCardToken = confirmData.cardToken || confirmData.ctoken;
         let cardTokenId: number | undefined;
-        if (confirmData.cardToken && tokenData) {
+        if (resolvedCardToken && tokenData) {
           try {
             cardTokenId = await saveCardToken({
               email: tx.email,
-              cardToken: confirmData.cardToken,
+              cardToken: resolvedCardToken,
               cardHolder: tokenData.cardHolder || "",
               documentId: tokenData.documentId || "",
               phoneNumber: tokenData.phoneNumber || "",
