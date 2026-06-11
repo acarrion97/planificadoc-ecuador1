@@ -669,6 +669,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, message: `Email actualizado: ${old} → ${next}` });
     }
 
+    // POST /api/admin/expire-user — expira inmediatamente las suscripciones activas de un email
+    if (action === "expire-user") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email } = req.body || {};
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+      const result = await db.execute(
+        drizzleSql`UPDATE subscriptions SET status = 'expired', endDate = NOW() WHERE email = ${normalized} AND status IN ('active', 'trial')`
+      );
+      return res.json({ success: true, message: `Acceso expirado para ${normalized}`, result });
+    }
+
     // POST /api/admin/fix-sub-display — expires future-dated cancelled subs that hide the active one
     if (action === "fix-sub-display") {
       const { email } = req.body || req.query;
