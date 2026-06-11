@@ -39,14 +39,14 @@ const DUA_I = "22C55E"; // Implicación      (verde)
 
 // ─── Anchos de columna (A4 landscape: 16838 - 2×560 = 15718 twips) ───────────
 const COL = {
-  dia:  700,
-  dcd:  2250,
-  ind:  2400,
-  est:  5700,
-  rec:  2150,
-  eva:  2518,
+  dia:  1000,   // ampliado para que MIÉRCOLES/JUEVES/VIERNES entren sin cortar
+  dcd:  2200,
+  ind:  2300,
+  est:  5500,
+  rec:  2050,
+  eva:  2668,
 } as const;
-// Total: 700+2250+2400+5700+2150+2518 = 15718 ✓
+// Total: 1000+2200+2300+5500+2050+2668 = 15718 ✓
 
 const BORDER_DEF = {
   top:    { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" },
@@ -513,33 +513,56 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
   // ══════════════════════════════════════════════════════════════
   // FIRMAS
   // ══════════════════════════════════════════════════════════════
-  rows.push(sectionRow("FIRMAS"));
+  rows.push(sectionRow("FIRMAS Y APROBACIÓN"));
+
+  // Fila con etiquetas de cargo (fondo azul oscuro)
   rows.push(new TableRow({
     children: [
-      new TableCell({
-        columnSpan: 2, borders: BORDER_DEF,
-        children: [
-          new Paragraph({ children: [new TextRun({ text: "ELABORADO POR (DOCENTE)", bold: true, size: 16, font: "Arial" })] }),
-          new Paragraph({ children: [new TextRun({ text: semana.docente || "—", size: 14, font: "Arial" })] }),
-          new Paragraph({ children: [new TextRun({ text: "\n\nFirma: ___________________________", size: 14, color: "888888", font: "Arial" })] }),
-        ],
+      simpleCell("ELABORADO POR", { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("REVISADO POR", { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("APROBADO POR", { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
+    ],
+  }));
+
+  // Fila con el cargo
+  rows.push(new TableRow({
+    children: [
+      simpleCell("Docente", { bold: false, size: 8, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("Vicerrector/a", { bold: false, size: 8, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("Director/a - Rector/a", { bold: false, size: 8, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
+    ],
+  }));
+
+  // Fila con nombre y espacio para firma
+  const firmaCell = (nombre: string) => new TableCell({
+    columnSpan: 2,
+    borders: BORDER_DEF,
+    verticalAlign: VerticalAlign.TOP,
+    children: [
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { before: 60, after: 200 },
+        children: [new TextRun({ text: nombre || " ", size: 14, font: "Arial", color: "333333" })],
       }),
-      new TableCell({
-        columnSpan: 2, borders: BORDER_DEF,
-        children: [
-          new Paragraph({ children: [new TextRun({ text: "REVISADO POR (VICERRECTOR)", bold: true, size: 16, font: "Arial" })] }),
-          new Paragraph({ children: [new TextRun({ text: "—", size: 14, font: "Arial" })] }),
-          new Paragraph({ children: [new TextRun({ text: "\n\nFirma: ___________________________", size: 14, color: "888888", font: "Arial" })] }),
-        ],
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        border: { top: { style: BorderStyle.SINGLE, size: 6, color: "003366" } },
+        spacing: { before: 0, after: 40 },
+        children: [new TextRun({ text: "Firma", size: 12, color: "888888", font: "Arial", italics: true })],
       }),
-      new TableCell({
-        columnSpan: 2, borders: BORDER_DEF,
-        children: [
-          new Paragraph({ children: [new TextRun({ text: "APROBADO POR (DIRECTOR/RECTOR)", bold: true, size: 16, font: "Arial" })] }),
-          new Paragraph({ children: [new TextRun({ text: "—", size: 14, font: "Arial" })] }),
-          new Paragraph({ children: [new TextRun({ text: "\n\nFirma: ___________________________", size: 14, color: "888888", font: "Arial" })] }),
-        ],
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { before: 60, after: 40 },
+        children: [new TextRun({ text: "Fecha: ____________", size: 12, color: "888888", font: "Arial" })],
       }),
+    ],
+  });
+
+  rows.push(new TableRow({
+    children: [
+      firmaCell(semana.docente),
+      firmaCell(""),
+      firmaCell(""),
     ],
   }));
 
