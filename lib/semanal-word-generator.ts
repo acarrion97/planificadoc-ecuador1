@@ -264,19 +264,6 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
   }));
 
   // ══════════════════════════════════════════════════════════════
-  // DUA
-  // ══════════════════════════════════════════════════════════════
-  rows.push(sectionRow("PRINCIPIOS DUA (Diseño Universal para el Aprendizaje)"));
-  rows.push(new TableRow({
-    children: [
-      simpleCell("Representación (rosa):",    { bold: true, size: 8, bg: BG_SUBHEAD, color: "9D174D" }),
-      simpleCell(semana.duaRepresentacion || "—",  { size: 8 }),
-      simpleCell("Acción / Expresión (azul):", { bold: true, size: 8, bg: BG_SUBHEAD, color: "1E3A8A" }),
-      simpleCell(semana.duaAccionExpresion || "—", { size: 8 }),
-      simpleCell("Implicación (verde):",       { bold: true, size: 8, bg: BG_SUBHEAD, color: "166534" }),
-      simpleCell(semana.duaImplicacion || "—",     { size: 8 }),
-    ],
-  }));
 
   // ══════════════════════════════════════════════════════════════
   // CABECERA DE COLUMNAS
