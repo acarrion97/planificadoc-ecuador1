@@ -304,6 +304,8 @@ export interface PlanificacionSemanal {
   semanaFin: string;
   institucion: string;
   docente: string;
+  asignatura?: string;
+  subnivel?: string;
   grado: string;
   nivel: string;
   paralelo: string;

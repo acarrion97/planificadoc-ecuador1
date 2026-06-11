@@ -230,12 +230,22 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
   }));
   rows.push(new TableRow({
     children: [
-      simpleCell("Grado / Curso:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(`${semana.grado || "—"} — ${semana.paralelo || "—"}`, { size: 8 }),
-      simpleCell("Nivel:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.nivel || "—", { size: 8 }),
+      simpleCell("Asignatura:", { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell((semana as any).asignatura || semana.nivel || "—", { size: 8 }),
+      simpleCell("Subnivel:", { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell((semana as any).subnivel || semana.nivel || "—", { size: 8 }),
       simpleCell("Trimestre:", { bold: true, size: 8, bg: BG_SUBHEAD }),
       simpleCell(semana.trimestre || "—", { size: 8 }),
+    ],
+  }));
+  rows.push(new TableRow({
+    children: [
+      simpleCell("Grado / Curso:", { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell(`${semana.grado || "—"} — Paralelo ${semana.paralelo || "—"}`, { size: 8 }),
+      simpleCell("Nivel:", { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell(semana.nivel || "—", { size: 8 }),
+      simpleCell("Períodos:", { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell(semana.periodos || "—", { size: 8 }),
     ],
   }));
   rows.push(new TableRow({

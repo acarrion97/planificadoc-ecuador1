@@ -93,6 +93,8 @@ export default function PlanificarSemanalScreen() {
   // ── Datos generales ──
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
+  const [subnivel, setSubnivel] = useState<number | null>(null); // 1-5
+  const [asignatura, setAsignatura] = useState("");              // nombre del área
   const [grado, setGrado] = useState("");
   const [nivel, setNivel] = useState("");
   const [paralelo, setParalelo] = useState("");
@@ -336,6 +338,8 @@ export default function PlanificarSemanalScreen() {
       semanaFin,
       institucion,
       docente,
+      asignatura,
+      subnivel: subnivel !== null ? SUBNIVEL_NAMES[subnivel as keyof typeof SUBNIVEL_NAMES] : "",
       grado,
       nivel,
       paralelo,
@@ -501,19 +505,101 @@ export default function PlanificarSemanalScreen() {
             value={docente} onChangeText={setDocente} placeholder="Nombre completo"
             placeholderTextColor={colors.muted} />
 
-          <View style={{ flexDirection: "row", gap: 8 }}>
-            <View style={{ flex: 1 }}>
-              <FieldLabel label="Grado/Curso" colors={colors} />
-              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
-                value={grado} onChangeText={setGrado} placeholder="Ej: 8vo EGB"
-                placeholderTextColor={colors.muted} />
-            </View>
-            <View style={{ flex: 1 }}>
-              <FieldLabel label="Paralelo" colors={colors} />
-              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
-                value={paralelo} onChangeText={setParalelo} placeholder="A, B, C..."
-                placeholderTextColor={colors.muted} />
-            </View>
+          {/* Subnivel */}
+          <FieldLabel label="Subnivel" colors={colors} />
+          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+            {([1, 2, 3, 4, 5] as const).map(n => {
+              const name = SUBNIVEL_NAMES[n];
+              const active = subnivel === n;
+              return (
+                <Pressable key={n} onPress={() => {
+                  setSubnivel(n);
+                  setNivel(n <= 4 ? "EGB" : "BGU");
+                  setGrado(""); // reset grado al cambiar subnivel
+                  setAsignatura(""); // reset asignatura
+                }}
+                  style={[styles.trimestreBtn, {
+                    borderColor: active ? "#003366" : colors.border,
+                    backgroundColor: active ? "#003366" : colors.surface,
+                  }]}>
+                  <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 12, fontWeight: "600" }}>{name}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          {/* Asignatura — chips según subnivel */}
+          {subnivel !== null && (
+            <>
+              <FieldLabel label="Asignatura" colors={colors} />
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                {(subnivel === 5
+                  ? (["CN.B","CN.Q","CN.F","CS.H","CS.F","EFL","EG"] as const)
+                  : subnivel === 1
+                    ? (["M","LL","CN","CS","EF","ECA","INI"] as const)
+                    : (["M","LL","CN","CS","EF","ECA"] as const)
+                ).map(areaCode => {
+                  const info = AREAS_INFO[areaCode];
+                  const active = asignatura === info.name;
+                  return (
+                    <Pressable key={areaCode} onPress={() => setAsignatura(active ? "" : info.name)}
+                      style={[styles.trimestreBtn, {
+                        borderColor: active ? info.color : colors.border,
+                        backgroundColor: active ? info.color + "20" : colors.surface,
+                        paddingHorizontal: 12,
+                      }]}>
+                      <Text style={{ color: active ? info.color : colors.foreground, fontSize: 12, fontWeight: active ? "700" : "500" }}>
+                        {info.emoji} {info.name}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </>
+          )}
+
+          {/* Grado — chips según subnivel */}
+          {subnivel !== null && (
+            <>
+              <FieldLabel label="Grado" colors={colors} />
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                {(subnivel === 1 ? ["1er EGB"]
+                  : subnivel === 2 ? ["2do EGB","3ro EGB","4to EGB"]
+                  : subnivel === 3 ? ["5to EGB","6to EGB","7mo EGB"]
+                  : subnivel === 4 ? ["8vo EGB","9no EGB","10mo EGB"]
+                  : ["1ro BGU","2do BGU","3ro BGU"]
+                ).map(g => {
+                  const active = grado === g;
+                  return (
+                    <Pressable key={g} onPress={() => setGrado(active ? "" : g)}
+                      style={[styles.trimestreBtn, {
+                        borderColor: active ? "#003366" : colors.border,
+                        backgroundColor: active ? "#003366" : colors.surface,
+                      }]}>
+                      <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 12, fontWeight: "600" }}>{g}</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </>
+          )}
+
+          {/* Paralelo */}
+          <FieldLabel label="Paralelo" colors={colors} />
+          <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap", marginBottom: 4 }}>
+            {["A","B","C","D","E"].map(p => {
+              const active = paralelo === p;
+              return (
+                <Pressable key={p} onPress={() => setParalelo(active ? "" : p)}
+                  style={[styles.trimestreBtn, {
+                    borderColor: active ? "#003366" : colors.border,
+                    backgroundColor: active ? "#003366" : colors.surface,
+                    minWidth: 44,
+                  }]}>
+                  <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 13, fontWeight: "700", textAlign: "center" }}>{p}</Text>
+                </Pressable>
+              );
+            })}
           </View>
 
           <FieldLabel label="Trimestre" colors={colors} />
