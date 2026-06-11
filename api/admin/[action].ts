@@ -669,6 +669,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, message: `Email actualizado: ${old} → ${next}` });
     }
 
+    // POST /api/admin/reset-password — cambia solo la contraseña sin tocar la suscripción
+    if (action === "reset-password") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, password } = req.body || {};
+      if (!email || !password) return res.status(400).json({ error: "email y password requeridos" });
+      const normalized = (email as string).trim().toLowerCase();
+      const existing = await db
+        .select({ id: docenteAccounts.id })
+        .from(docenteAccounts)
+        .where(eq(docenteAccounts.email, normalized))
+        .limit(1);
+      if (existing.length === 0) {
+        return res.status(404).json({ error: `No existe cuenta docente para ${normalized}` });
+      }
+      const passwordHash = await hashPasswordAdmin(password as string);
+      await db
+        .update(docenteAccounts)
+        .set({ passwordHash })
+        .where(eq(docenteAccounts.email, normalized));
+      return res.json({ success: true, message: `Contraseña actualizada para ${normalized}` });
+    }
+
     // POST /api/admin/expire-user — expira inmediatamente las suscripciones activas de un email
     if (action === "expire-user") {
       if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
