@@ -16,16 +16,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const email = (req.query.email as string)?.trim().toLowerCase();
     if (!email) return res.status(400).json({ error: "Email requerido" });
 
-    const subs = await db
+    // First try to find an active subscription; fallback to latest by endDate
+    const activeSubs = await db
+      .select()
+      .from(subscriptions)
+      .where(and(eq(subscriptions.email, email), eq(subscriptions.status, "active")))
+      .orderBy(desc(subscriptions.endDate))
+      .limit(1);
+
+    const allSubs = activeSubs.length > 0 ? activeSubs : await db
       .select()
       .from(subscriptions)
       .where(eq(subscriptions.email, email))
       .orderBy(desc(subscriptions.endDate))
       .limit(1);
 
-    if (subs.length === 0) return res.json({ hasSubscription: false });
+    if (allSubs.length === 0) return res.json({ hasSubscription: false });
 
-    const sub = subs[0];
+    const sub = allSubs[0];
     const now = new Date();
     const isActive = sub.status === "active" && new Date(sub.endDate) > now;
 
