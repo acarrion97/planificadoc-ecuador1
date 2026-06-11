@@ -353,34 +353,23 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
           })
         : undefined;
 
-      // ── Col 2: DESTREZA DCD ──────────────────────────────────────────────
+      // ── Col 2: DESTREZA DCD (código + descripción, sin duplicar) ────────
       const dcdChildren: Paragraph[] = [
         new Paragraph({
           children: [new TextRun({
             text: hora.codigoDestreza || "—",
             bold: true, size: 16, color: "003366", font: "Arial",
           })],
-          spacing: { after: 40 },
+          spacing: { after: 50 },
         }),
         new Paragraph({
           children: [new TextRun({
             text: destreza?.descripcion || "",
-            size: 14, font: "Arial", color: BLACK,
+            size: 13, font: "Arial", color: "222222",
           })],
-          spacing: { after: 40 },
+          spacing: { after: 0 },
         }),
       ];
-      if (plan.objetivoClase) {
-        dcdChildren.push(new Paragraph({
-          children: [new TextRun({
-            text: plan.objetivoClase,
-            size: 13, font: "Arial", italics: true, color: "444444",
-          })],
-          spacing: { before: 40 },
-          border: { left: { style: BorderStyle.SINGLE, size: 6, color: "003366" } },
-          indent: { left: 80 },
-        }));
-      }
 
       // ── Col 3: INDICADORES DE EVALUACIÓN ────────────────────────────────
       const indicadores = destreza?.indicadoresEvaluacion ?? [];
@@ -394,6 +383,20 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
 
       // ── Col 4: ESTRATEGIAS ERCA + DUA ────────────────────────────────────
       const estChildren: Paragraph[] = [];
+
+      // Objetivo de clase al inicio de la columna estrategias
+      if (plan.objetivoClase) {
+        estChildren.push(new Paragraph({
+          shading: shade("F0F4FA"),
+          spacing: { before: 0, after: 60 },
+          border: { left: { style: BorderStyle.SINGLE, size: 8, color: "003366" } },
+          indent: { left: 80 },
+          children: [
+            new TextRun({ text: "Objetivo: ", bold: true, size: 13, color: "003366", font: "Arial" }),
+            new TextRun({ text: plan.objetivoClase, size: 13, italics: true, color: "333333", font: "Arial" }),
+          ],
+        }));
+      }
 
       const FASES_ORDER: { key: FaseKey; duracion?: string }[] = [
         { key: "experiencia" },
