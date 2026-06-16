@@ -7,6 +7,9 @@ import {
   sendChargeFailedEmail,
   sendExpiredEmail,
   sendRenewalReminderEmail,
+  sendTrialEndingEmail,
+  sendTrialConvertedEmail,
+  sendTrialExpiredEmail,
 } from "../../server/email";
 
 const PAYPHONE_TOKEN_CHARGE_URL = "https://pay.payphonetodoesposible.com/api/transaction/web";
@@ -47,8 +50,137 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const now = new Date();
   let processed = 0, succeeded = 0, failed = 0, reminded = 0;
+  let trialsConverted = 0, trialsExpired = 0, trialsReminded = 0;
 
   try {
+    // ── 0. TRIALS: Conversión y recordatorio de pruebas gratuitas ──────────
+
+    // 0a. Recordatorio 1 día antes de que termine el trial
+    const trialEndingTomorrow = new Date(now);
+    trialEndingTomorrow.setDate(trialEndingTomorrow.getDate() + 1);
+    const trialEndingDayAfter = new Date(now);
+    trialEndingDayAfter.setDate(trialEndingDayAfter.getDate() + 2);
+
+    const trialsEnding = await db
+      .select()
+      .from(subscriptions)
+      .where(
+        and(
+          eq(subscriptions.status, "trial" as any),
+          gte(subscriptions.endDate, trialEndingTomorrow),
+          lte(subscriptions.endDate, trialEndingDayAfter)
+        )
+      );
+
+    for (const trial of trialsEnding) {
+      const trialEndStr = formatDate(new Date(trial.endDate));
+      await sendTrialEndingEmail(trial.email, (trial as any).trialPlan || trial.plan, trialEndStr);
+      trialsReminded++;
+      console.log(`[Trial] Recordatorio enviado a ${trial.email} — trial termina ${trialEndStr}`);
+    }
+
+    // 0b. Convertir trials vencidos → cobrar plan
+    const TRIAL_MONTHLY_PRICE = 599; // $5.99 (descontando $1 de verificación)
+    const TRIAL_ANNUAL_PRICE  = 5771; // $57.71 (descontando $1 de verificación)
+
+    const dueTrials = await db
+      .select()
+      .from(subscriptions)
+      .where(
+        and(
+          eq(subscriptions.status, "trial" as any),
+          lte(subscriptions.endDate, now)
+        )
+      );
+
+    for (const trial of dueTrials) {
+      const planForCharge = (trial as any).trialPlan || trial.plan || "monthly";
+      const amount = planForCharge === "annual" ? TRIAL_ANNUAL_PRICE : TRIAL_MONTHLY_PRICE;
+      processed++;
+
+      const tokens = await db
+        .select()
+        .from(cardTokens)
+        .where(and(eq(cardTokens.email, trial.email), eq(cardTokens.isActive, true)))
+        .limit(1);
+
+      if (tokens.length === 0) {
+        await db.update(subscriptions).set({ status: "expired" }).where(eq(subscriptions.id, trial.id));
+        await sendTrialExpiredEmail(trial.email);
+        trialsExpired++;
+        console.log(`[Trial] Sin token — expirado: ${trial.email}`);
+        continue;
+      }
+
+      const token = tokens[0];
+      const clientTxId = `PDOC-TRIAL-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+
+      try {
+        const response = await fetch(PAYPHONE_TOKEN_CHARGE_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${payphoneToken}`,
+          },
+          body: JSON.stringify({
+            cardHolder: token.cardHolder,
+            cardToken: token.cardToken,
+            documentId: token.documentId,
+            phoneNumber: token.phoneNumber?.startsWith("+") ? token.phoneNumber : "+" + (token.phoneNumber || ""),
+            email: trial.email,
+            amount,
+            amountWithoutTax: amount,
+            amountWithTax: 0,
+            tax: 0,
+            service: null,
+            tip: null,
+            clientTransactionId: clientTxId,
+            currency: "USD",
+            storeId: payphoneStoreId,
+            optionalParameter: `Conversion trial PlanificaDoc - ${planForCharge}`,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.statusCode === 3 && data.transactionStatus === "Approved") {
+          const newEndDate = new Date();
+          newEndDate.setMonth(newEndDate.getMonth() + (planForCharge === "annual" ? 12 : 1));
+
+          await db.update(subscriptions).set({
+            status: "active",
+            plan: planForCharge,
+            endDate: newEndDate,
+            isRecurring: true,
+            isTrial: false,
+            amountPaid: amount,
+            transactionId: String(data.transactionId),
+            authorizationCode: data.authorizationCode,
+            failedChargeAttempts: 0,
+            lastChargeAttempt: now,
+          } as any).where(eq(subscriptions.id, trial.id));
+
+          await sendTrialConvertedEmail(
+            trial.email,
+            planForCharge,
+            formatMonto(amount),
+            formatDate(newEndDate)
+          );
+          trialsConverted++;
+          console.log(`[Trial] Convertido a activo: ${trial.email}, plan=${planForCharge}`);
+        } else {
+          await db.update(subscriptions).set({ status: "expired" }).where(eq(subscriptions.id, trial.id));
+          await db.update(cardTokens).set({ isActive: false }).where(eq(cardTokens.id, token.id));
+          await sendTrialExpiredEmail(trial.email);
+          trialsExpired++;
+          console.log(`[Trial] Cobro fallido — expirado: ${trial.email}, statusCode=${data.statusCode}`);
+        }
+      } catch (err) {
+        console.error(`[Trial] Error procesando cobro de ${trial.email}:`, err);
+        trialsExpired++;
+      }
+    }
+
     // ── 1. AVISOS 7 días antes (solo Recurrente: No) ────────────────────────
     const in7Days = new Date(now);
     in7Days.setDate(in7Days.getDate() + 7);
@@ -131,7 +263,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           }),
         });
 
-        const data = await response.json();
+        // Read raw text first — PayPhone can return HTML on 500 errors (JSON.parse would throw)
+        const rawText = await response.text();
+        let data: any = null;
+        try { data = JSON.parse(rawText); } catch {
+          console.error(`[Recurring] PayPhone non-JSON for ${sub.email}: HTTP ${response.status} — ${rawText.substring(0, 200)}`);
+          const attemptsNonJson = (sub.failedChargeAttempts || 0) + 1;
+          if (attemptsNonJson >= MAX_RETRY_ATTEMPTS) {
+            await db.update(subscriptions).set({ status: "expired", isRecurring: false, failedChargeAttempts: attemptsNonJson, lastChargeAttempt: now }).where(eq(subscriptions.id, sub.id));
+            await db.update(cardTokens).set({ isActive: false }).where(eq(cardTokens.id, token.id));
+            await sendChargeFailedEmail(sub.email, sub.plan, attemptsNonJson, MAX_RETRY_ATTEMPTS);
+          } else {
+            await db.update(subscriptions).set({ status: "past_due", failedChargeAttempts: attemptsNonJson, lastChargeAttempt: now }).where(eq(subscriptions.id, sub.id));
+            await sendChargeFailedEmail(sub.email, sub.plan, attemptsNonJson, MAX_RETRY_ATTEMPTS);
+          }
+          failed++;
+          continue;
+        }
 
         if (data.statusCode === 3 && data.transactionStatus === "Approved") {
           const newEndDate = new Date(sub.endDate);
@@ -219,10 +367,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.log(`[Cron] Suscripción expirada: ${sub.email}`);
     }
 
-    console.log(`[Cron] Completo: ${reminded} avisos, ${processed} cobros (${succeeded} ok / ${failed} fallidos), ${expiredToday.length} expirados`);
+    console.log(`[Cron] Completo: trials(${trialsReminded} avisos / ${trialsConverted} convertidos / ${trialsExpired} expirados), ${reminded} avisos, ${processed} cobros (${succeeded} ok / ${failed} fallidos), ${expiredToday.length} expirados`);
 
     res.json({
       success: true,
+      trials: { reminded: trialsReminded, converted: trialsConverted, expired: trialsExpired },
       reminded,
       processed,
       succeeded,
