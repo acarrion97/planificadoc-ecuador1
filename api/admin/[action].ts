@@ -669,6 +669,62 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, message: `Email actualizado: ${old} → ${next}` });
     }
 
+    // GET /api/admin/test-recurring-charge?email=... — prueba cobro real con log completo de PayPhone
+    if (action === "test-recurring-charge") {
+      const email = ((req.query.email || req.body?.email) as string)?.trim().toLowerCase();
+      if (!email) return res.status(400).json({ error: "email requerido" });
+
+      const payphoneToken = process.env.PAYPHONE_TOKEN || "";
+      const payphoneStoreId = process.env.PAYPHONE_STORE_ID || "";
+      if (!payphoneToken || !payphoneStoreId) return res.status(500).json({ error: "PayPhone no configurado" });
+
+      const token = await db.select().from(cardTokens)
+        .where(and(eq(cardTokens.email, email), eq(cardTokens.isActive, true))).limit(1);
+      if (token.length === 0) return res.status(404).json({ error: "No hay token de tarjeta para este email" });
+
+      const t = token[0];
+      const clientTxId = `PDOC-TEST-${Date.now()}`;
+      const phoneNumber = t.phoneNumber?.startsWith("+") ? t.phoneNumber : "+" + (t.phoneNumber || "");
+
+      const payload = {
+        cardHolder: t.cardHolder,
+        cardToken: t.cardToken,
+        documentId: t.documentId,
+        phoneNumber,
+        email,
+        amount: 699,
+        amountWithoutTax: 699,
+        amountWithTax: 0,
+        tax: 0,
+        service: null,
+        tip: null,
+        clientTransactionId: clientTxId,
+        currency: "USD",
+        storeId: payphoneStoreId,
+        optionalParameter: "TEST cobro recurrente PlanificaDoc",
+      };
+
+      try {
+        const response = await fetch("https://pay.payphonetodoesposible.com/api/transaction/web", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
+          body: JSON.stringify(payload),
+        });
+        const rawText = await response.text();
+        let parsed: any = null;
+        try { parsed = JSON.parse(rawText); } catch {}
+        return res.json({
+          httpStatus: response.status,
+          httpOk: response.ok,
+          rawResponse: rawText.substring(0, 2000),
+          parsedResponse: parsed,
+          requestPayload: { ...payload, cardToken: payload.cardToken?.substring(0, 30) + "..." },
+        });
+      } catch (err: any) {
+        return res.json({ error: "Excepción al llamar a PayPhone", message: err.message });
+      }
+    }
+
     // POST /api/admin/reset-password — cambia solo la contraseña sin tocar la suscripción
     if (action === "reset-password") {
       if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
