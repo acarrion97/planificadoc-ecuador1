@@ -688,7 +688,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const payload = {
         cardHolder: t.cardHolder,
-        cardToken: t.cardToken,
+        ctoken: t.cardToken,
         documentId: t.documentId,
         phoneNumber,
         email,
