@@ -686,43 +686,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const clientTxId = `PDOC-TEST-${Date.now()}`;
       const phoneNumber = t.phoneNumber?.startsWith("+") ? t.phoneNumber : "+" + (t.phoneNumber || "");
 
-      const payload = {
-        cardHolder: t.cardHolder,
-        ctoken: t.cardToken,
-        documentId: t.documentId,
-        phoneNumber,
-        email,
-        amount: 699,
-        amountWithoutTax: 699,
-        amountWithTax: 0,
-        tax: 0,
-        service: null,
-        tip: null,
-        clientTransactionId: clientTxId,
-        currency: "USD",
-        storeId: payphoneStoreId,
-        optionalParameter: "TEST cobro recurrente PlanificaDoc",
-      };
+      // Try multiple payload variations to find what PayPhone accepts
+      const baseClientTxId = `PDOC-TEST-${Date.now()}`;
+      const phoneClean = t.phoneNumber?.replace(/^\+/, "") || "";
+      const phonePlus = t.phoneNumber?.startsWith("+") ? t.phoneNumber : "+" + (t.phoneNumber || "");
 
-      try {
-        const response = await fetch("https://pay.payphonetodoesposible.com/api/transaction/web", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
-          body: JSON.stringify(payload),
-        });
-        const rawText = await response.text();
-        let parsed: any = null;
-        try { parsed = JSON.parse(rawText); } catch {}
-        return res.json({
-          httpStatus: response.status,
-          httpOk: response.ok,
-          rawResponse: rawText.substring(0, 2000),
-          parsedResponse: parsed,
-          requestPayload: { ...payload, cardToken: payload.cardToken?.substring(0, 30) + "..." },
-        });
-      } catch (err: any) {
-        return res.json({ error: "Excepción al llamar a PayPhone", message: err.message });
+      const variants = [
+        { label: "cardToken+phone_sin_plus", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-1", currency: "USD", storeId: payphoneStoreId } },
+        { label: "cardToken+phone_con_plus", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phonePlus, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-2", currency: "USD", storeId: payphoneStoreId } },
+        { label: "cardToken+sin_email+sin_null", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-3", currency: "USD", storeId: payphoneStoreId } },
+        { label: "cardToken+con_iva", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 619, amountWithTax: 80, tax: 80, clientTransactionId: baseClientTxId + "-4", currency: "USD", storeId: payphoneStoreId } },
+      ];
+
+      const results: any[] = [];
+      for (const v of variants) {
+        try {
+          const resp = await fetch("https://pay.payphonetodoesposible.com/api/transaction/web", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
+            body: JSON.stringify(v.body),
+          });
+          const raw = await resp.text();
+          let parsed: any = null;
+          try { parsed = JSON.parse(raw); } catch {}
+          results.push({ variant: v.label, httpStatus: resp.status, httpOk: resp.ok, response: parsed || raw.substring(0, 300) });
+        } catch (err: any) {
+          results.push({ variant: v.label, error: err.message });
+        }
       }
+      return res.json({ results, cardInfo: { cardHolder: t.cardHolder, documentId: t.documentId, phoneNumber: t.phoneNumber } });
     }
 
     // POST /api/admin/reset-password — cambia solo la contraseña sin tocar la suscripción
