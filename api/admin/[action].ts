@@ -692,10 +692,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const phonePlus = t.phoneNumber?.startsWith("+") ? t.phoneNumber : "+" + (t.phoneNumber || "");
 
       const variants = [
-        { label: "cardToken+phone_sin_plus", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-1", currency: "USD", storeId: payphoneStoreId } },
-        { label: "cardToken+phone_con_plus", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phonePlus, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-2", currency: "USD", storeId: payphoneStoreId } },
-        { label: "cardToken+sin_email+sin_null", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-3", currency: "USD", storeId: payphoneStoreId } },
-        { label: "cardToken+con_iva", body: { cardHolder: t.cardHolder, cardToken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 619, amountWithTax: 80, tax: 80, clientTransactionId: baseClientTxId + "-4", currency: "USD", storeId: payphoneStoreId } },
+        { label: "ctoken+phone_sin_plus", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-1", currency: "USD", storeId: payphoneStoreId } },
+        { label: "ctoken+phone_con_plus", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phonePlus, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-2", currency: "USD", storeId: payphoneStoreId } },
+        { label: "ctoken+sin_email", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-3", currency: "USD", storeId: payphoneStoreId } },
+        { label: "ctoken+con_iva", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 619, amountWithTax: 80, tax: 80, clientTransactionId: baseClientTxId + "-4", currency: "USD", storeId: payphoneStoreId } },
       ];
 
       const results: any[] = [];
