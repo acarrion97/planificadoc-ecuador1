@@ -240,6 +240,170 @@ export async function sendChargeFailedEmail(email: string, plan: string, intento
   return sendEmail(email, subject, html);
 }
 
+// ── Email 5a: Bienvenida al trial (3 días gratis) ────────────────────────────
+
+export async function sendTrialStartedEmail(email: string, plan: string, trialEnd: string): Promise<boolean> {
+  const planLabel  = plan === "annual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
+  const planAmount = plan === "annual" ? "$57.71" : "$5.99"; // descontando $1 de verificación
+  const html = wrapTemplate(`
+    <h2 style="color:#065f46;margin:0 0 16px;">¡Tu prueba gratuita ha comenzado! 🎉</h2>
+    <p style="color:#333;font-size:15px;line-height:1.7;">
+      Bienvenido/a a <strong>PlanificaDoc Ecuador</strong>. Tienes <strong>3 días de acceso
+      completo</strong> para explorar todas las funciones.
+    </p>
+    <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:16px;margin:20px 0;">
+      <table style="width:100%;font-size:13px;color:#333;">
+        <tr><td style="padding:4px 0;color:#666;">Prueba gratuita hasta:</td><td style="padding:4px 0;font-weight:700;color:#065f46;">${trialEnd}</td></tr>
+        <tr><td style="padding:4px 0;color:#666;">Plan elegido:</td><td style="padding:4px 0;font-weight:700;">${planLabel}</td></tr>
+        <tr><td style="padding:4px 0;color:#666;">Primer cobro (${trialEnd}):</td><td style="padding:4px 0;font-weight:700;">${planAmount} USD</td></tr>
+      </table>
+    </div>
+    <p style="color:#555;font-size:13px;line-height:1.6;">
+      ✅ Genera Planificaciones Curriculares Anuales (PCA)<br>
+      ✅ Crea Planes Curriculares Trimestrales (PCT)<br>
+      ✅ Exporta en PDF y Word formato MinEduc<br>
+      ✅ 1,652+ destrezas por nivel y subnivel
+    </p>
+    <div style="text-align:center;">
+      <a href="https://planificadoc.app" style="${btnStyle}">
+        🚀 Comenzar a planificar
+      </a>
+    </div>
+    <p style="color:#888;font-size:12px;margin-top:24px;text-align:center;">
+      Puedes cancelar en cualquier momento desde la app antes de que finalice tu prueba.
+      Si tienes preguntas, escríbenos por
+      <a href="https://wa.me/message/FIT552DP3R2VL1" style="color:#25D366;">WhatsApp</a>.
+    </p>
+  `);
+  return sendEmail(email, "🎓 Tu prueba gratuita de 3 días en PlanificaDoc ha comenzado", html);
+}
+
+// ── Email 5b: Recordatorio 1 día antes de que termine el trial ───────────────
+
+export async function sendTrialEndingEmail(email: string, plan: string, chargeDate: string): Promise<boolean> {
+  const planLabel  = plan === "annual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
+  const planAmount = plan === "annual" ? "$57.71" : "$5.99";
+  const html = wrapTemplate(`
+    <h2 style="color:#92400e;margin:0 0 16px;">Tu prueba gratuita termina mañana ⏰</h2>
+    <p style="color:#333;font-size:15px;line-height:1.7;">
+      Tu período de prueba en PlanificaDoc vence <strong>mañana ${chargeDate}</strong>.
+      A partir de esa fecha se realizará el cobro automático de tu plan.
+    </p>
+    <div style="background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:16px;margin:20px 0;font-size:13px;color:#713f12;">
+      Plan: <strong>${planLabel}</strong><br>
+      Cobro el ${chargeDate}: <strong>${planAmount} USD</strong>
+    </div>
+    <p style="color:#555;font-size:13px;line-height:1.6;margin-top:12px;">
+      Si no deseas continuar, puedes cancelar desde la app antes de esa fecha — no se te cobrará nada más.
+    </p>
+    <div style="text-align:center;">
+      <a href="https://planificadoc.app" style="${btnStyle}">
+        Ir a PlanificaDoc
+      </a>
+    </div>
+    <p style="color:#888;font-size:12px;margin-top:24px;text-align:center;">
+      ¿Preguntas? <a href="https://wa.me/message/FIT552DP3R2VL1" style="color:#25D366;">WhatsApp</a>
+    </p>
+  `);
+  return sendEmail(email, "Tu prueba gratuita de PlanificaDoc termina mañana", html);
+}
+
+// ── Email 5c: Trial convertido a suscripción activa ──────────────────────────
+
+export async function sendTrialConvertedEmail(email: string, plan: string, amount: string, nextDate: string): Promise<boolean> {
+  const planLabel = plan === "annual" ? "Anual" : "Mensual";
+  const html = wrapTemplate(`
+    <h2 style="color:#006633;margin:0 0 16px;">¡Bienvenido/a a PlanificaDoc Premium! ✅</h2>
+    <p style="color:#333;font-size:14px;line-height:1.6;">
+      Tu período de prueba terminó y tu suscripción ha sido activada exitosamente.
+      Sigue disfrutando de todas las funciones sin interrupciones.
+    </p>
+    <div style="background:#f0f7f0;border:1px solid #c3e6c3;border-radius:6px;padding:16px;margin:20px 0;">
+      <table style="width:100%;font-size:13px;color:#333;">
+        <tr><td style="padding:4px 0;color:#666;">Plan:</td><td style="padding:4px 0;font-weight:700;">${planLabel}</td></tr>
+        <tr><td style="padding:4px 0;color:#666;">Cobro realizado:</td><td style="padding:4px 0;font-weight:700;">$${amount} USD</td></tr>
+        <tr><td style="padding:4px 0;color:#666;">Próxima renovación:</td><td style="padding:4px 0;font-weight:700;">${nextDate}</td></tr>
+      </table>
+    </div>
+    <div style="text-align:center;">
+      <a href="https://planificadoc.app" style="${btnStyle}">Ir a PlanificaDoc</a>
+    </div>
+  `);
+  return sendEmail(email, "✅ Tu suscripción PlanificaDoc está activa", html);
+}
+
+// ── Email 5d: Trial expirado sin cobro exitoso ────────────────────────────────
+
+export async function sendTrialExpiredEmail(email: string): Promise<boolean> {
+  const html = wrapTemplate(`
+    <h2 style="color:#cc0000;margin:0 0 16px;">Tu prueba gratuita ha terminado 😔</h2>
+    <p style="color:#333;font-size:14px;line-height:1.6;">
+      No pudimos procesar el cobro de tu tarjeta al finalizar el período de prueba,
+      por lo que tu acceso ha sido suspendido.
+    </p>
+    <p style="color:#555;font-size:13px;line-height:1.6;margin-top:12px;">
+      Puedes reactivar tu cuenta con una tarjeta válida en cualquier momento.
+    </p>
+    <div style="text-align:center;">
+      <a href="https://planificadoc.app/paywall" style="${btnStyle}">Reactivar mi cuenta</a>
+    </div>
+    <p style="color:#888;font-size:12px;margin-top:24px;text-align:center;">
+      ¿Necesitas ayuda? <a href="https://wa.me/message/FIT552DP3R2VL1" style="color:#25D366;">WhatsApp</a>
+    </p>
+  `);
+  return sendEmail(email, "Tu prueba gratuita de PlanificaDoc ha terminado", html);
+}
+
+// ── Email 6: Cobro recurrente fallido — necesita re-suscribirse ───────────────
+
+export async function sendResubscribeEmail(email: string, nombre: string): Promise<boolean> {
+  const btnSecondaryStyle = `
+    display:inline-block;
+    background:#25D366;
+    color:#fff;
+    padding:12px 28px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:14px;
+    margin-top:12px;
+  `;
+
+  const html = wrapTemplate(`
+    <h2 style="color:#cc0000;margin:0 0 16px;">Tu suscripción no pudo renovarse ❌</h2>
+    <p style="color:#333;font-size:14px;line-height:1.6;">
+      Hola <strong>${nombre}</strong>,
+    </p>
+    <p style="color:#333;font-size:14px;line-height:1.6;">
+      Queremos informarte que tu suscripción a PlanificaDoc <strong>no pudo renovarse automáticamente</strong>
+      debido a un inconveniente con el cobro de tu tarjeta.
+    </p>
+    <p style="color:#555;font-size:13px;line-height:1.6;margin-top:12px;">
+      Para seguir disfrutando de todos los beneficios de PlanificaDoc — generación ilimitada
+      de planificaciones, acceso a todas las unidades y funciones premium — necesitas renovar
+      tu suscripción manualmente.
+    </p>
+    <div style="text-align:center;margin-top:24px;">
+      <a href="https://www.planificadoc.app" style="${btnStyle}">
+        Renovar mi suscripción →
+      </a>
+    </div>
+    <p style="color:#555;font-size:13px;line-height:1.6;margin-top:28px;text-align:center;">
+      Si necesitas ayuda, contáctanos con nuestro equipo de soporte:
+    </p>
+    <div style="text-align:center;">
+      <a href="https://wa.me/message/FIT552DP3R2VL1" style="${btnSecondaryStyle}">
+        Contactar soporte por WhatsApp →
+      </a>
+    </div>
+    <p style="color:#888;font-size:12px;margin-top:28px;text-align:center;">
+      ¡Gracias por confiar en PlanificaDoc!<br>El equipo de PlanificaDoc
+    </p>
+  `);
+
+  return sendEmail(email, "Tu suscripción a PlanificaDoc no pudo renovarse", html);
+}
+
 // ── Email 5: Campaña de reactivación (usuarios expirados) ─────────────────────
 
 export async function sendPromoReactivacionEmail(email: string): Promise<boolean> {

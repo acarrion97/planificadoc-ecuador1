@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import axios from "axios";
 import { handleCors, verifyAdmin } from "../_lib/admin-auth";
 import { getDb } from "../_lib/db";
-import { sendRenewalReminderEmail, sendExpiredEmail, sendPromoReactivacionEmail } from "../../server/email";
+import { sendRenewalReminderEmail, sendExpiredEmail, sendPromoReactivacionEmail, sendResubscribeEmail } from "../../server/email";
 import {
   subscriptions,
   paymentTransactions,
@@ -861,6 +861,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       return res.json({ success: true, email: normalized, newEndDate, transactionId, authorizationCode });
+    }
+
+    // POST /api/admin/send-resubscribe-emails — envía email de re-suscripción a los 7 usuarios con cobro fallido
+    if (action === "send-resubscribe-emails") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+      const AFFECTED_EMAILS = [
+        "joleidytofino@gmail.com",
+        "sebas21pabon@gmail.com",
+        "andres.olivo@educacion.gob.ec",
+        "valentinatigre2015@gmail.com",
+        "myllcreaciones@gmail.com",
+        "barberankennya@gmail.com",
+        "rocio.valverde@docentes.educacion.edu.ec",
+      ];
+
+      const results: { email: string; nombre: string; sent: boolean }[] = [];
+
+      for (const email of AFFECTED_EMAILS) {
+        const accounts = await db.select({ nombre: docenteAccounts.nombre })
+          .from(docenteAccounts).where(eq(docenteAccounts.email, email)).limit(1);
+        const nombre = accounts[0]?.nombre || email.split("@")[0];
+        const sent = await sendResubscribeEmail(email, nombre);
+        results.push({ email, nombre, sent });
+      }
+
+      const sentCount = results.filter(r => r.sent).length;
+      return res.json({ success: true, sent: sentCount, total: AFFECTED_EMAILS.length, results });
     }
 
     return res.status(404).json({ error: "Acción no encontrada" });
