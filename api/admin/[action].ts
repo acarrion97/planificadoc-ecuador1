@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import axios from "axios";
 import { handleCors, verifyAdmin } from "../_lib/admin-auth";
 import { getDb } from "../_lib/db";
 import { sendRenewalReminderEmail, sendExpiredEmail, sendPromoReactivacionEmail } from "../../server/email";
@@ -676,6 +677,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const payphoneToken = process.env.PAYPHONE_TOKEN || "";
       const payphoneStoreId = process.env.PAYPHONE_STORE_ID || "";
+      const cardholderKey = process.env.PAYPHONE_CARDHOLDER_KEY || "";
       if (!payphoneToken || !payphoneStoreId) return res.status(500).json({ error: "PayPhone no configurado" });
 
       const token = await db.select().from(cardTokens)
@@ -683,38 +685,63 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (token.length === 0) return res.status(404).json({ error: "No hay token de tarjeta para este email" });
 
       const t = token[0];
-      const clientTxId = `PDOC-TEST-${Date.now()}`;
-      const phoneNumber = t.phoneNumber?.startsWith("+") ? t.phoneNumber : "+" + (t.phoneNumber || "");
-
-      // Try multiple payload variations to find what PayPhone accepts
-      const baseClientTxId = `PDOC-TEST-${Date.now()}`;
-      const phoneClean = t.phoneNumber?.replace(/^\+/, "") || "";
-      const phonePlus = t.phoneNumber?.startsWith("+") ? t.phoneNumber : "+" + (t.phoneNumber || "");
-
-      const variants = [
-        { label: "ctoken+phone_sin_plus", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-1", currency: "USD", storeId: payphoneStoreId } },
-        { label: "ctoken+phone_con_plus", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phonePlus, email, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-2", currency: "USD", storeId: payphoneStoreId } },
-        { label: "ctoken+sin_email", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, amount: 699, amountWithoutTax: 699, amountWithTax: 0, tax: 0, clientTransactionId: baseClientTxId + "-3", currency: "USD", storeId: payphoneStoreId } },
-        { label: "ctoken+con_iva", body: { cardHolder: t.cardHolder, ctoken: t.cardToken, documentId: t.documentId, phoneNumber: phoneClean, email, amount: 699, amountWithoutTax: 619, amountWithTax: 80, tax: 80, clientTransactionId: baseClientTxId + "-4", currency: "USD", storeId: payphoneStoreId } },
-      ];
-
-      const results: any[] = [];
-      for (const v of variants) {
-        try {
-          const resp = await fetch("https://pay.payphonetodoesposible.com/api/transaction/web", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
-            body: JSON.stringify(v.body),
-          });
-          const raw = await resp.text();
-          let parsed: any = null;
-          try { parsed = JSON.parse(raw); } catch {}
-          results.push({ variant: v.label, httpStatus: resp.status, httpOk: resp.ok, response: parsed || raw.substring(0, 300) });
-        } catch (err: any) {
-          results.push({ variant: v.label, error: err.message });
-        }
+      const { createCipheriv } = await import("node:crypto");
+      function encryptCH(name: string, key: string, algo: string, keyEncoding: BufferEncoding): string {
+        const k = Buffer.from(key, keyEncoding);
+        const c = createCipheriv(algo, k, "");
+        c.setAutoPadding(true);
+        return Buffer.concat([c.update(name, "utf8"), c.final()]).toString("base64");
       }
-      return res.json({ results, cardInfo: { cardHolder: t.cardHolder, documentId: t.documentId, phoneNumber: t.phoneNumber } });
+      const cardHolderName = t.cardHolder || "TITULAR";
+      const enc128hex = cardholderKey ? encryptCH(cardHolderName, cardholderKey, "aes-128-ecb", "hex") : cardHolderName;
+      const enc256utf8 = cardholderKey ? encryptCH(cardHolderName, cardholderKey, "aes-256-ecb", "utf8") : cardHolderName;
+      // Try AES-256-ECB (utf8 key = 32 bytes) first — AES-128-ECB (hex key = 16 bytes) was "Impossible to decode"
+      const encryptedHolder = enc256utf8;
+      const phoneClean = (t.phoneNumber || "").replace(/^\+/, "");
+      const phonePlus = t.phoneNumber?.startsWith("+") ? t.phoneNumber : "+" + (t.phoneNumber || "");
+      const nameParts = (t.cardHolder || "TITULAR").trim().split(" ");
+      const billTo = {
+        address1: "Ecuador", address2: "", country: "EC", state: "Pichincha", locality: "Quito",
+        firstName: nameParts[0] || "TITULAR", lastName: nameParts.slice(1).join(" ") || "-",
+        phoneNumber: phonePlus, email, postalCode: "170150", ipAddress: "127.0.0.1",
+      };
+      const lineItems = [{
+        productName: "Suscripcion PlanificaDoc - monthly", unitPrice: 699, quantity: 1,
+        totalAmount: 699, taxAmount: 0, productSKU: "PDOC-MONTHLY", productDescription: "Renovacion recurrente PlanificaDoc",
+      }];
+      const baseClientTxId = `PDOC-TEST-${Date.now()}`;
+      const body = {
+        cardHolder: encryptedHolder,
+        cardToken: t.cardToken,
+        documentId: t.documentId,
+        phoneNumber: phoneClean,
+        email,
+        amount: 699,
+        amountWithoutTax: 699,
+        amountWithTax: 0,
+        tax: 0,
+        service: null,
+        tip: null,
+        clientTransactionId: baseClientTxId,
+        currency: "USD",
+        storeId: payphoneStoreId,
+        order: { billTo, lineItems },
+      };
+
+      try {
+        const resp = await axios.post("https://pay.payphonetodoesposible.com/api/transaction/web", body, {
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
+          validateStatus: () => true,
+        });
+        return res.json({
+          httpStatus: resp.status, httpOk: resp.status >= 200 && resp.status < 300,
+          response: resp.data,
+          sentBody: { ...body, cardToken: body.cardToken.substring(0, 30) + "...", cardHolder: encryptedHolder },
+          cardInfo: { cardHolder: t.cardHolder, documentId: t.documentId, phoneNumber: t.phoneNumber },
+        });
+      } catch (err: any) {
+        return res.status(500).json({ error: err.message });
+      }
     }
 
     // POST /api/admin/reset-password — cambia solo la contraseña sin tocar la suscripción
@@ -761,6 +788,79 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         drizzleSql`UPDATE subscriptions SET endDate = '2000-01-01' WHERE email = ${normalized} AND status = 'cancelled' AND endDate > NOW()`
       );
       return res.json({ success: true, message: `Suscripciones canceladas con fecha futura corregidas para ${normalized}`, result });
+    }
+
+    // POST /api/admin/update-card-holder — rellena cardHolder/documentId/phoneNumber vacíos en cardTokens
+    if (action === "update-card-holder") {
+      const { email, cardHolder, documentId, phoneNumber } = req.body || req.query;
+      if (!email || !cardHolder || !documentId || !phoneNumber) return res.status(400).json({ error: "email, cardHolder, documentId, phoneNumber requeridos" });
+      const normalized = (email as string).trim().toLowerCase();
+      const result = await db.update(cardTokens).set({
+        cardHolder: (cardHolder as string).trim().toUpperCase(),
+        documentId: (documentId as string).trim(),
+        phoneNumber: (phoneNumber as string).trim(),
+      }).where(and(eq(cardTokens.email, normalized), eq(cardTokens.isActive, true)));
+      return res.json({ success: true, email: normalized, cardHolder: (cardHolder as string).trim().toUpperCase(), documentId, phoneNumber });
+    }
+
+    if (action === "user-payment-data") {
+      const { email } = req.body || req.query;
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+      const txns = await db.select({
+        cardHolder: paymentTransactions.cardHolder,
+        documentId: paymentTransactions.documentId,
+        phoneNumber: paymentTransactions.phoneNumber,
+        status: paymentTransactions.status,
+        createdAt: paymentTransactions.createdAt,
+      }).from(paymentTransactions)
+        .where(and(eq(paymentTransactions.email, normalized), eq(paymentTransactions.status, "approved")))
+        .orderBy(desc(paymentTransactions.createdAt)).limit(3);
+      const account = await db.select({ nombre: docenteAccounts.nombre })
+        .from(docenteAccounts).where(eq(docenteAccounts.email, normalized)).limit(1);
+      return res.json({ email: normalized, account: account[0] || null, transactions: txns });
+    }
+
+    if (action === "get-card-token") {
+      const { email } = req.body || req.query;
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+      const tokens = await db.select().from(cardTokens).where(eq(cardTokens.email, normalized));
+      return res.json({ email: normalized, tokens });
+    }
+
+    // POST /api/admin/manual-renew — extends subscription 1 month and updates cardToken after manual/test charge
+    if (action === "manual-renew") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, newCardToken, transactionId, authorizationCode, months } = req.body || {};
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+      const durationMonths = parseInt(months) || 1;
+
+      const { or } = await import("drizzle-orm");
+      const subs = await db.select().from(subscriptions)
+        .where(and(eq(subscriptions.email, normalized), or(eq(subscriptions.status, "active"), eq(subscriptions.status, "past_due"))))
+        .orderBy(desc(subscriptions.endDate)).limit(1);
+      if (subs.length === 0) return res.status(404).json({ error: "No hay suscripción activa o past_due" });
+
+      const sub = subs[0];
+      const newEndDate = new Date(sub.endDate);
+      newEndDate.setMonth(newEndDate.getMonth() + durationMonths);
+
+      await db.update(subscriptions).set({
+        status: "active",
+        endDate: newEndDate,
+        failedChargeAttempts: 0,
+        ...(transactionId ? { transactionId: String(transactionId) } : {}),
+        ...(authorizationCode ? { authorizationCode: String(authorizationCode) } : {}),
+      }).where(eq(subscriptions.id, sub.id));
+
+      if (newCardToken) {
+        await db.update(cardTokens).set({ cardToken: newCardToken })
+          .where(and(eq(cardTokens.email, normalized), eq(cardTokens.isActive, true)));
+      }
+
+      return res.json({ success: true, email: normalized, newEndDate, transactionId, authorizationCode });
     }
 
     return res.status(404).json({ error: "Acción no encontrada" });
