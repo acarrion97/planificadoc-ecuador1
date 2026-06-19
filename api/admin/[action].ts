@@ -692,7 +692,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         c.setAutoPadding(true);
         return Buffer.concat([c.update(name, "utf8"), c.final()]).toString("base64");
       }
-      const cardHolderName = t.cardHolder || "TITULAR";
+      const cardHolderName = (t.cardHolder || "TITULAR").toUpperCase();
       const enc128hex = cardholderKey ? encryptCH(cardHolderName, cardholderKey, "aes-128-ecb", "hex") : cardHolderName;
       const enc256utf8 = cardholderKey ? encryptCH(cardHolderName, cardholderKey, "aes-256-ecb", "utf8") : cardHolderName;
       // Try AES-256-ECB (utf8 key = 32 bytes) first — AES-128-ECB (hex key = 16 bytes) was "Impossible to decode"

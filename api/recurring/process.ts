@@ -1,4 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { createCipheriv } from "node:crypto";
+import axios from "axios";
 import { getDb } from "../_lib/db";
 import { subscriptions, cardTokens, paymentTransactions } from "../../drizzle/schema";
 import { eq, and, lte, gte } from "drizzle-orm";
@@ -16,6 +18,33 @@ const PAYPHONE_TOKEN_CHARGE_URL = "https://pay.payphonetodoesposible.com/api/tra
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
 const MAX_RETRY_ATTEMPTS = 3;
+
+function encryptCardHolder(cardHolder: string, key: string): string {
+  const keyBuf = Buffer.from(key, "utf8"); // 32-char key = 32 bytes = AES-256
+  const cipher = createCipheriv("aes-256-ecb", keyBuf, "");
+  cipher.setAutoPadding(true);
+  return Buffer.concat([cipher.update(cardHolder.toUpperCase(), "utf8"), cipher.final()]).toString("base64");
+}
+
+function buildBillTo(token: { cardHolder: string; phoneNumber: string }, email: string) {
+  const parts = token.cardHolder.trim().split(" ");
+  const firstName = parts[0] || "TITULAR";
+  const lastName = parts.slice(1).join(" ") || "-";
+  const phone = token.phoneNumber?.startsWith("+") ? token.phoneNumber : "+" + (token.phoneNumber || "593000000000");
+  return {
+    address1: "Ecuador",
+    address2: "",
+    country: "EC",
+    state: "Pichincha",
+    locality: "Quito",
+    firstName,
+    lastName,
+    phoneNumber: phone,
+    email,
+    postalCode: "170150",
+    ipAddress: "127.0.0.1",
+  };
+}
 
 function formatDate(d: Date): string {
   return d.toLocaleDateString("es-EC", { year: "numeric", month: "long", day: "numeric" });
@@ -40,6 +69,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const payphoneToken = process.env.PAYPHONE_TOKEN || "";
   const payphoneStoreId = process.env.PAYPHONE_STORE_ID || "";
+  const payphoneCardholderKey = process.env.PAYPHONE_CARDHOLDER_KEY || "";
 
   if (!payphoneToken || !payphoneStoreId) {
     return res.status(500).json({ error: "PayPhone not configured" });
@@ -116,32 +146,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const clientTxId = `PDOC-TRIAL-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
 
       try {
-        const response = await fetch(PAYPHONE_TOKEN_CHARGE_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${payphoneToken}`,
+        const axiosResp = await axios.post(PAYPHONE_TOKEN_CHARGE_URL, {
+          cardHolder: payphoneCardholderKey ? encryptCardHolder(token.cardHolder || "TITULAR", payphoneCardholderKey) : token.cardHolder,
+          cardToken: token.cardToken,
+          documentId: token.documentId,
+          phoneNumber: (token.phoneNumber || "").replace(/^\+/, ""),
+          email: trial.email,
+          amount,
+          amountWithoutTax: amount,
+          amountWithTax: 0,
+          tax: 0,
+          service: null,
+          tip: null,
+          clientTransactionId: clientTxId,
+          currency: "USD",
+          storeId: payphoneStoreId,
+          order: {
+            billTo: buildBillTo(token, trial.email),
+            lineItems: [{
+              productName: `Suscripcion PlanificaDoc - ${planForCharge}`,
+              unitPrice: amount,
+              quantity: 1,
+              totalAmount: amount,
+              taxAmount: 0,
+              productSKU: `PDOC-${planForCharge.toUpperCase()}`,
+              productDescription: `Conversion de trial a plan ${planForCharge} PlanificaDoc`,
+            }],
           },
-          body: JSON.stringify({
-            cardHolder: token.cardHolder,
-            cardToken: token.cardToken,
-            documentId: token.documentId,
-            phoneNumber: token.phoneNumber?.startsWith("+") ? token.phoneNumber : "+" + (token.phoneNumber || ""),
-            email: trial.email,
-            amount,
-            amountWithoutTax: amount,
-            amountWithTax: 0,
-            tax: 0,
-            service: null,
-            tip: null,
-            clientTransactionId: clientTxId,
-            currency: "USD",
-            storeId: payphoneStoreId,
-            optionalParameter: `Conversion trial PlanificaDoc - ${planForCharge}`,
-          }),
+        }, {
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
+          validateStatus: () => true,
         });
-
-        const data = await response.json();
+        const data = axiosResp.data;
 
         if (data.statusCode === 3 && data.transactionStatus === "Approved") {
           const newEndDate = new Date();
@@ -238,36 +274,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const clientTxId = `PDOC-REC-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
 
       try {
-        const response = await fetch(PAYPHONE_TOKEN_CHARGE_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${payphoneToken}`,
+        const axiosResp = await axios.post(PAYPHONE_TOKEN_CHARGE_URL, {
+          cardHolder: payphoneCardholderKey ? encryptCardHolder(token.cardHolder || "TITULAR", payphoneCardholderKey) : token.cardHolder,
+          cardToken: token.cardToken,
+          documentId: token.documentId,
+          phoneNumber: (token.phoneNumber || "").replace(/^\+/, ""),
+          email: sub.email,
+          amount,
+          amountWithoutTax: amount,
+          amountWithTax: 0,
+          tax: 0,
+          service: null,
+          tip: null,
+          clientTransactionId: clientTxId,
+          currency: "USD",
+          storeId: payphoneStoreId,
+          order: {
+            billTo: buildBillTo(token, sub.email),
+            lineItems: [{
+              productName: `Suscripcion PlanificaDoc - ${sub.plan}`,
+              unitPrice: amount,
+              quantity: 1,
+              totalAmount: amount,
+              taxAmount: 0,
+              productSKU: `PDOC-${sub.plan.toUpperCase()}`,
+              productDescription: `Renovacion recurrente plan ${sub.plan} PlanificaDoc`,
+            }],
           },
-          body: JSON.stringify({
-            cardHolder: token.cardHolder,
-            cardToken: token.cardToken,
-            documentId: token.documentId,
-            phoneNumber: token.phoneNumber?.startsWith("+") ? token.phoneNumber : "+" + (token.phoneNumber || ""),
-            email: sub.email,
-            amount,
-            amountWithoutTax: amount,
-            amountWithTax: 0,
-            tax: 0,
-            service: null,
-            tip: null,
-            clientTransactionId: clientTxId,
-            currency: "USD",
-            storeId: payphoneStoreId,
-            optionalParameter: `Renovacion recurrente PlanificaDoc - ${sub.plan}`,
-          }),
+        }, {
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
+          validateStatus: () => true,
         });
 
-        // Read raw text first — PayPhone can return HTML on 500 errors (JSON.parse would throw)
-        const rawText = await response.text();
-        let data: any = null;
-        try { data = JSON.parse(rawText); } catch {
-          console.error(`[Recurring] PayPhone non-JSON for ${sub.email}: HTTP ${response.status} — ${rawText.substring(0, 200)}`);
+        const data = axiosResp.data;
+        if (typeof data !== "object" || data === null) {
+          console.error(`[Recurring] PayPhone respuesta no-JSON for ${sub.email}: HTTP ${axiosResp.status}`);
           const attemptsNonJson = (sub.failedChargeAttempts || 0) + 1;
           if (attemptsNonJson >= MAX_RETRY_ATTEMPTS) {
             await db.update(subscriptions).set({ status: "expired", isRecurring: false, failedChargeAttempts: attemptsNonJson, lastChargeAttempt: now }).where(eq(subscriptions.id, sub.id));
