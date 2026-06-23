@@ -80,16 +80,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (action === "users") {
       const allSubs = await db.select().from(subscriptions).orderBy(desc(subscriptions.createdAt));
       const allTokens = await db.select().from(cardTokens);
+      const allApprovedTxns = await db.select({
+        email: paymentTransactions.email,
+        cardHolder: paymentTransactions.cardHolder,
+        documentId: paymentTransactions.documentId,
+        phoneNumber: paymentTransactions.phoneNumber,
+        cardBrand: paymentTransactions.cardBrand,
+        lastDigits: paymentTransactions.lastDigits,
+        createdAt: paymentTransactions.createdAt,
+      }).from(paymentTransactions)
+        .where(eq(paymentTransactions.status, "approved"))
+        .orderBy(desc(paymentTransactions.createdAt));
+
+      // Build a map of email → most recent approved txn with card data
+      const txnByEmail = new Map<string, typeof allApprovedTxns[0]>();
+      for (const txn of allApprovedTxns) {
+        const key = txn.email.toLowerCase();
+        if (!txnByEmail.has(key)) txnByEmail.set(key, txn);
+      }
+
       const userMap = new Map<string, any>();
       for (const sub of allSubs) {
         const email = sub.email.toLowerCase();
         if (!userMap.has(email)) {
           const token = allTokens.find(t => t.email.toLowerCase() === email);
+          const txn = txnByEmail.get(email);
           userMap.set(email, {
             email,
-            cardHolder: token?.cardHolder || "",
-            documentId: token?.documentId || "",
-            phoneNumber: token?.phoneNumber || "",
+            cardHolder: token?.cardHolder || txn?.cardHolder || "",
+            documentId: token?.documentId || txn?.documentId || "",
+            phoneNumber: token?.phoneNumber || txn?.phoneNumber || "",
             currentPlan: sub.plan,
             currentStatus: sub.status,
             isRecurring: sub.isRecurring,
@@ -98,8 +118,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             totalPaid: 0,
             subscriptionCount: 0,
             lastPayment: sub.createdAt,
-            cardBrand: token?.cardBrand || "",
-            lastDigits: token?.lastDigits || "",
+            cardBrand: token?.cardBrand || txn?.cardBrand || "",
+            lastDigits: token?.lastDigits || txn?.lastDigits || "",
           });
         }
         const user = userMap.get(email)!;

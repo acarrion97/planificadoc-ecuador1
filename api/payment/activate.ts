@@ -8,6 +8,7 @@ import {
   getPcaDocumentByClientTxId,
   unlockPcaDocument,
 } from "../_lib/db";
+import { sendTrialStartedEmail } from "../../server/email";
 
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
@@ -42,8 +43,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.log("[PayPhone] Activate - generateToken field:", confirmData?.generateToken);
     console.log("[PayPhone] Activate - FULL JSON:", JSON.stringify(confirmData));
 
-    // ── Detect if this is a PCA one-time payment ──
+    // ── Detect payment type ──
     const isPcaPayment = tx.plan === "pca";
+    const isTrialPayment = (tx.plan || "").startsWith("trial-");
+    const trialPlan = isTrialPayment ? (tx.plan || "").replace("trial-", "") : null; // "monthly" | "annual"
 
     if (confirmData.statusCode === 3 && confirmData.transactionStatus === "Approved") {
       await updatePaymentTransaction(clientTxId, {
@@ -55,6 +58,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         cardBrand: confirmData.cardBrand,
         lastDigits: confirmData.lastDigits,
         payphoneResponse: JSON.stringify(confirmData),
+        ...(tokenData?.cardHolder ? { cardHolder: tokenData.cardHolder } : {}),
+        ...(tokenData?.documentId ? { documentId: tokenData.documentId } : {}),
+        ...(tokenData?.phoneNumber ? { phoneNumber: tokenData.phoneNumber } : {}),
       });
 
       // ── PCA: unlock the document, skip subscription creation ──
@@ -72,6 +78,66 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           console.warn("[PayPhone PCA] No pca_document found for clientTxId:", clientTxId);
         }
         return res.json({ success: true, type: "pca", pcaId: pcaDoc?.id || null });
+      }
+
+      // ── Trial: create 3-day trial subscription ──
+      if (isTrialPayment) {
+        let cardTokenId: number | undefined;
+        const cardToken = confirmData.cardToken || confirmData.ctoken || "";
+        if (cardToken) {
+          try {
+            cardTokenId = await saveCardToken({
+              email: tx.email,
+              cardToken,
+              cardHolder: tokenData?.cardHolder || "",
+              documentId: tokenData?.documentId || "",
+              phoneNumber: tokenData?.phoneNumber || "",
+              cardBrand: confirmData.cardBrand,
+              lastDigits: confirmData.lastDigits,
+            });
+            console.log("[PayPhone Trial] Card token saved, id:", cardTokenId);
+          } catch (tokenError: any) {
+            console.error("[PayPhone Trial] Error saving card token:", tokenError?.message);
+          }
+        }
+
+        const trialStart = new Date();
+        const trialEnd   = new Date();
+        trialEnd.setDate(trialEnd.getDate() + 3); // 3 días de prueba
+
+        await createSubscription({
+          email:    tx.email,
+          plan:     (trialPlan as any) || "monthly",
+          status:   "trial" as any,
+          amountPaid: tx.amount, // $1.00 verificación
+          transactionId:    String(confirmData.transactionId),
+          authorizationCode: confirmData.authorizationCode,
+          startDate:  trialStart,
+          endDate:    trialEnd,
+          isPromo:    false,
+          isRecurring: !!cardTokenId,
+          isTrial:    true,
+          trialPlan:  (trialPlan as any) || "monthly",
+          cardTokenId: cardTokenId || null,
+          failedChargeAttempts: 0,
+        });
+
+        console.log(`[PayPhone Trial] Trial started for ${tx.email}, plan=${trialPlan}, ends=${trialEnd.toISOString()}`);
+
+        // Enviar email de bienvenida al trial (no blocking)
+        sendTrialStartedEmail(
+          tx.email,
+          trialPlan || "monthly",
+          trialEnd.toLocaleDateString("es-EC", { year: "numeric", month: "long", day: "numeric" })
+        ).catch((e) => console.error("[Trial Email]", e));
+
+        return res.json({
+          success:    true,
+          type:       "trial",
+          email:      tx.email,
+          trialEnd:   trialEnd.toISOString(),
+          isRecurring: !!cardTokenId,
+        });
       }
 
       let cardTokenId: number | undefined;
