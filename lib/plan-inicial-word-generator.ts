@@ -8,7 +8,7 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType, HeightRule,
 } from "docx";
-import type { PlanificacionInicialSemanal, AmbitoInicial, ClaseInicial } from "../data/types-inicial";
+import type { PlanificacionInicialSemanal, AmbitoInicial, ClaseInicial, DUAEtapa } from "../data/types-inicial";
 
 // ── Colores (tonos azul celeste) ──────────────────────────────────────────────
 const BG_HEADER   = "1A6BAE";  // azul oscuro — encabezados principales
@@ -23,6 +23,11 @@ const WHITE       = "FFFFFF";
 const COLOR_INICIO     = "154360";  // azul noche
 const COLOR_DESARROLLO = "145A32";  // verde oscuro
 const COLOR_CIERRE     = "784212";  // ámbar oscuro
+
+// Colores DUA
+const DUA_REP  = "EC4899";  // Representación — rosa
+const DUA_ACC  = "1E3A5F";  // Acción y Expresión — azul oscuro
+const DUA_IMP  = "22C55E";  // Implicación — verde
 
 // ── Dimensiones A4 landscape ─────────────────────────────────────────────────
 // 16838 × 11906 twips. Márgenes 720 c/u.
@@ -152,6 +157,25 @@ function tableRow(cells: TableCell[], minHeight?: number): TableRow {
   });
 }
 
+// ── Helper DUA ────────────────────────────────────────────────────────────────
+
+function buildDUAParagraph(dua: DUAEtapa | undefined): Paragraph {
+  if (!dua) return emptyPara();
+  const FILLED = "■"; // ■
+  const EMPTY  = "□"; // □
+  return new Paragraph({
+    children: [
+      new TextRun({ text: dua.representacion  ? FILLED : EMPTY, color: DUA_REP, size: 14, font: "Calibri" }),
+      new TextRun({ text: " Representación   ", color: DUA_REP, size: 13, bold: dua.representacion,  font: "Calibri" }),
+      new TextRun({ text: dua.accionExpresion ? FILLED : EMPTY, color: DUA_ACC, size: 14, font: "Calibri" }),
+      new TextRun({ text: " Acción y Expresión   ", color: DUA_ACC, size: 13, bold: dua.accionExpresion, font: "Calibri" }),
+      new TextRun({ text: dua.implicacion     ? FILLED : EMPTY, color: DUA_IMP, size: 14, font: "Calibri" }),
+      new TextRun({ text: " Implicación", color: DUA_IMP, size: 13, bold: dua.implicacion,      font: "Calibri" }),
+    ],
+    spacing: { after: 40 },
+  });
+}
+
 // ── Constructor del Proceso Metodológico ──────────────────────────────────────
 
 function buildProcesoCell(clase: ClaseInicial): TableCell {
@@ -175,18 +199,21 @@ function buildProcesoCell(clase: ClaseInicial): TableCell {
 
   // INICIO
   ps.push(p([run("INICIO", { bold: true, size: 16, color: COLOR_INICIO })]));
+  ps.push(buildDUAParagraph(clase.duaInicio));
   for (const act of clase.inicio) {
     ps.push(p([run(`• ${act}`, { size: 15 })]));
   }
 
   // DESARROLLO
   ps.push(p([run("DESARROLLO", { bold: true, size: 16, color: COLOR_DESARROLLO })]));
+  ps.push(buildDUAParagraph(clase.duaDesarrollo));
   for (const act of clase.desarrollo) {
     ps.push(p([run(`• ${act}`, { size: 15 })]));
   }
 
   // CIERRE
   ps.push(p([run("CIERRE", { bold: true, size: 16, color: COLOR_CIERRE })]));
+  ps.push(buildDUAParagraph(clase.duaCierre));
   for (const act of clase.cierre) {
     ps.push(p([run(`• ${act}`, { size: 15 })]));
   }

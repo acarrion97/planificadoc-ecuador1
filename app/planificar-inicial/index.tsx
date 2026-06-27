@@ -31,6 +31,18 @@ import type {
 // ── Constantes ────────────────────────────────────────────────────────────────
 const GRADOS = ["Inicial 1 (3 a 4 años)", "Inicial 2 (4 a 5 años)"];
 
+const DUA_ITEMS = [
+  { key: "representacion" as const,  label: "Representación",    color: "#EC4899" },
+  { key: "accionExpresion" as const, label: "Acción y Expresión", color: "#1E3A5F" },
+  { key: "implicacion" as const,     label: "Implicación",        color: "#22C55E" },
+] as const;
+
+type DUAEtapaState = { representacion: boolean; accionExpresion: boolean; implicacion: boolean };
+
+function duaVacio(): DUAEtapaState {
+  return { representacion: false, accionExpresion: false, implicacion: false };
+}
+
 const OBJETIVO_GRAL: Record<string, string> = {
   "Inicial 1 (3 a 4 años)":
     "Descubrir y relacionarse con su entorno inmediato, desarrollando su identidad y autonomía mediante actividades de juego y exploración.",
@@ -67,6 +79,9 @@ interface ClaseState {
   desarrolloText: string;
   cierreText: string;
   metodoEvaluacion: string[];
+  duaInicio: DUAEtapaState;
+  duaDesarrollo: DUAEtapaState;
+  duaCierre: DUAEtapaState;
 }
 
 interface AmbitoState {
@@ -98,6 +113,9 @@ function claseVacia(numero: number): ClaseState {
     desarrolloText: "",
     cierreText: "",
     metodoEvaluacion: ["Observación", "Fichas anecdóticas", "Fichas de cotejo"],
+    duaInicio: duaVacio(),
+    duaDesarrollo: duaVacio(),
+    duaCierre: duaVacio(),
   };
 }
 
@@ -288,6 +306,9 @@ export default function PlanificarInicialScreen() {
         desarrollo: lineasAArray(c.desarrolloText),
         cierre: lineasAArray(c.cierreText),
         metodoEvaluacion: c.metodoEvaluacion,
+        duaInicio: c.duaInicio,
+        duaDesarrollo: c.duaDesarrollo,
+        duaCierre: c.duaCierre,
       } satisfies ClaseInicial)),
     }));
 
@@ -735,6 +756,8 @@ function ClaseCard({
         onChange={t => onUpdate({ inicioText: t })}
         colors={colors}
         placeholder={"• Saludo y bienvenida\n• Observar el clima y ubicar la fecha\n• Registrar asistencia..."}
+        dua={cls.duaInicio}
+        onDUAChange={d => onUpdate({ duaInicio: d })}
       />
       <EtapaField
         label="DESARROLLO"
@@ -743,6 +766,8 @@ function ClaseCard({
         onChange={t => onUpdate({ desarrolloText: t })}
         colors={colors}
         placeholder={"• Actividad de exploración\n• Preguntas abiertas..."}
+        dua={cls.duaDesarrollo}
+        onDUAChange={d => onUpdate({ duaDesarrollo: d })}
       />
       <EtapaField
         label="CIERRE"
@@ -751,6 +776,8 @@ function ClaseCard({
         onChange={t => onUpdate({ cierreText: t })}
         colors={colors}
         placeholder={"• Actividad en cuadernillo\n• Retroalimentación\n• Despedida"}
+        dua={cls.duaCierre}
+        onDUAChange={d => onUpdate({ duaCierre: d })}
       />
 
       {/* Método evaluación */}
@@ -777,16 +804,57 @@ function ClaseCard({
   );
 }
 
+// ── DUASelector ───────────────────────────────────────────────────────────────
+function DUASelector({
+  dua,
+  onChange,
+}: {
+  dua: DUAEtapaState;
+  onChange: (dua: DUAEtapaState) => void;
+}) {
+  return (
+    <View style={s.duaRow}>
+      {DUA_ITEMS.map(item => {
+        const active = dua[item.key];
+        return (
+          <Pressable
+            key={item.key}
+            onPress={() => onChange({ ...dua, [item.key]: !active })}
+            style={({ pressed }) => [
+              s.duaChip,
+              {
+                backgroundColor: active ? item.color : "transparent",
+                borderColor: item.color,
+                opacity: pressed ? 0.7 : 1,
+              },
+            ]}
+          >
+            <View style={[s.duaSquare, { backgroundColor: active ? "#fff" : item.color }]} />
+            <Text style={[s.duaChipText, { color: active ? "#fff" : item.color }]}>
+              {item.label}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
+}
+
 // ── EtapaField ────────────────────────────────────────────────────────────────
 function EtapaField({
-  label, color, value, onChange, colors, placeholder,
+  label, color, value, onChange, colors, placeholder, dua, onDUAChange,
 }: {
   label: string; color: string; value: string; onChange: (t: string) => void;
   colors: any; placeholder?: string;
+  dua?: DUAEtapaState;
+  onDUAChange?: (dua: DUAEtapaState) => void;
 }) {
   return (
     <View style={{ marginTop: 10 }}>
       <Text style={[s.etapaLabel, { color }]}>{label}</Text>
+      {dua && onDUAChange && (
+        <DUASelector dua={dua} onChange={onDUAChange} />
+      )}
       <TextInput
         value={value}
         onChangeText={onChange}
@@ -884,4 +952,9 @@ const s = StyleSheet.create({
   exportBtn: { borderRadius: 14, paddingVertical: 18, alignItems: "center" },
   exportBtnText: { color: "#fff", fontSize: 17, fontWeight: "800" },
   hint: { fontSize: 12, fontStyle: "italic", marginBottom: 6 },
+  // DUA
+  duaRow: { flexDirection: "row", flexWrap: "wrap", gap: 5, marginBottom: 6, marginTop: 3 },
+  duaChip: { flexDirection: "row", alignItems: "center", gap: 4, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 20, borderWidth: 1.5 },
+  duaSquare: { width: 9, height: 9, borderRadius: 2 },
+  duaChipText: { fontSize: 11, fontWeight: "600" },
 });

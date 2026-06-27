@@ -4,6 +4,13 @@
  * Formato: Planificación Semanal por Experiencia de Aprendizaje
  */
 
+/** Indicadores DUA para una etapa de la clase */
+export interface DUAEtapa {
+  representacion: boolean;
+  accionExpresion: boolean;
+  implicacion: boolean;
+}
+
 /** Una clase individual dentro de la semana para un ámbito */
 export interface ClaseInicial {
   numero: number;
@@ -14,6 +21,10 @@ export interface ClaseInicial {
   desarrollo: string[];
   cierre: string[];
   metodoEvaluacion: string[];
+  /** Indicadores DUA por etapa */
+  duaInicio?: DUAEtapa;
+  duaDesarrollo?: DUAEtapa;
+  duaCierre?: DUAEtapa;
 }
 
 /** Un ámbito de desarrollo trabajado durante la semana */
