@@ -978,6 +978,88 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, sent: sentCount, total: AFFECTED_EMAILS.length, results });
     }
 
+    // POST /api/admin/record-payment — registra manualmente un cobro aprobado por PayPhone que no quedó en BD
+    // Úsalo cuando PayPhone muestra ✅ pero nuestra BD no tiene el registro (bug del statusCode "3" vs 3)
+    if (action === "record-payment") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, payphoneTransactionId, authorizationCode, amount, months } = req.body || {};
+      if (!email || !payphoneTransactionId) return res.status(400).json({ error: "email y payphoneTransactionId requeridos" });
+
+      const normalized = (email as string).trim().toLowerCase();
+      const amountCents = parseInt(amount) || 699;
+      const durationMonths = parseInt(months) || 1;
+
+      // Obtener datos de tarjeta desde cardTokens
+      const tokens = await db.select().from(cardTokens).where(eq(cardTokens.email, normalized)).limit(1);
+      const token = tokens[0];
+
+      // Insertar en paymentTransactions
+      const clientTxId = `ADMIN-REC-${payphoneTransactionId}-${Date.now()}`;
+      await db.insert(paymentTransactions).values({
+        clientTransactionId: clientTxId,
+        email: normalized,
+        amount: amountCents,
+        status: "approved",
+        payphoneTransactionId: parseInt(payphoneTransactionId),
+        authorizationCode: authorizationCode || "",
+        cardBrand: token?.cardBrand || null,
+        lastDigits: token?.lastDigits || null,
+        cardHolder: token?.cardHolder || null,
+        documentId: token?.documentId || null,
+        phoneNumber: token?.phoneNumber || null,
+        isRecurringCharge: true,
+        payphoneResponse: JSON.stringify({ source: "manual-admin-record", payphoneTransactionId, authorizationCode }),
+      });
+
+      // Extender suscripción activa si existe, o crear nueva
+      const { or } = await import("drizzle-orm");
+      const subs = await db.select().from(subscriptions)
+        .where(and(eq(subscriptions.email, normalized), or(eq(subscriptions.status, "active"), eq(subscriptions.status, "expired"))))
+        .orderBy(desc(subscriptions.endDate)).limit(1);
+
+      let newEndDate: Date;
+      if (subs.length > 0) {
+        const sub = subs[0];
+        newEndDate = new Date(sub.endDate < new Date() ? new Date() : sub.endDate);
+        newEndDate.setMonth(newEndDate.getMonth() + durationMonths);
+        await db.update(subscriptions).set({
+          status: "active",
+          endDate: newEndDate,
+          failedChargeAttempts: 0,
+          isRecurring: !!token,
+          amountPaid: amountCents,
+          transactionId: String(payphoneTransactionId),
+          ...(authorizationCode ? { authorizationCode: String(authorizationCode) } : {}),
+        }).where(eq(subscriptions.id, sub.id));
+      } else {
+        newEndDate = new Date();
+        newEndDate.setMonth(newEndDate.getMonth() + durationMonths);
+        const { createSubscription } = await import("../_lib/db");
+        await createSubscription({
+          email: normalized,
+          plan: "monthly",
+          status: "active",
+          amountPaid: amountCents,
+          transactionId: String(payphoneTransactionId),
+          startDate: new Date(),
+          endDate: newEndDate,
+          isPromo: false,
+          isRecurring: !!token,
+          isTrial: false,
+          failedChargeAttempts: 0,
+        });
+      }
+
+      return res.json({
+        success: true,
+        email: normalized,
+        payphoneTransactionId,
+        amountCents,
+        newEndDate: newEndDate.toISOString(),
+        clientTxId,
+      });
+    }
+
     return res.status(404).json({ error: "Acción no encontrada" });
   } catch (error) {
     console.error(`[Admin] Error in action '${action}':`, error);

@@ -181,6 +181,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
         const data = axiosResp.data;
 
+        console.log(`[Trial] PayPhone response for ${trial.email}: statusCode=${data.statusCode} transactionStatus=${data.transactionStatus} txId=${data.transactionId}`);
+
         if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           const newEndDate = new Date();
           newEndDate.setMonth(newEndDate.getMonth() + (planForCharge === "annual" ? 12 : 1));
@@ -197,6 +199,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             failedChargeAttempts: 0,
             lastChargeAttempt: now,
           } as any).where(eq(subscriptions.id, trial.id));
+
+          await db.insert(paymentTransactions).values({
+            clientTransactionId: clientTxId,
+            email: trial.email,
+            amount,
+            status: "approved",
+            payphoneTransactionId: data.transactionId,
+            authorizationCode: data.authorizationCode,
+            cardBrand: token.cardBrand,
+            lastDigits: token.lastDigits,
+            cardHolder: token.cardHolder,
+            documentId: token.documentId,
+            phoneNumber: token.phoneNumber,
+            isRecurringCharge: true,
+            payphoneResponse: JSON.stringify(data),
+          });
 
           await sendTrialConvertedEmail(
             trial.email,
@@ -324,6 +342,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           continue;
         }
 
+        console.log(`[Recurring] PayPhone response for ${sub.email}: statusCode=${data.statusCode} transactionStatus=${data.transactionStatus} txId=${data.transactionId}`);
+
         if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           const newEndDate = new Date(sub.endDate);
           newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
@@ -343,10 +363,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             authorizationCode: data.authorizationCode,
             cardBrand: token.cardBrand,
             lastDigits: token.lastDigits,
+            cardHolder: token.cardHolder,
+            documentId: token.documentId,
+            phoneNumber: token.phoneNumber,
             isRecurringCharge: true,
+            payphoneResponse: JSON.stringify(data),
           });
 
-          // ✉️ Confirmación de cobro exitoso
           await sendRenewalSuccessEmail(
             sub.email,
             sub.plan,
@@ -456,6 +479,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         const data = axiosResp.data;
 
+        console.log(`[PastDue] PayPhone response for ${sub.email}: statusCode=${data.statusCode} transactionStatus=${data.transactionStatus} txId=${data.transactionId}`);
+
         if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           const newEndDate = new Date(sub.endDate);
           newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
@@ -476,7 +501,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             authorizationCode: data.authorizationCode,
             cardBrand: token.cardBrand,
             lastDigits: token.lastDigits,
+            cardHolder: token.cardHolder,
+            documentId: token.documentId,
+            phoneNumber: token.phoneNumber,
             isRecurringCharge: true,
+            payphoneResponse: JSON.stringify(data),
           });
 
           await sendRenewalSuccessEmail(sub.email, sub.plan, formatDate(newEndDate), formatMonto(amount));

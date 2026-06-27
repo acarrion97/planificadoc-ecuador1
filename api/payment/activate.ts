@@ -48,7 +48,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const isTrialPayment = (tx.plan || "").startsWith("trial-");
     const trialPlan = isTrialPayment ? (tx.plan || "").replace("trial-", "") : null; // "monthly" | "annual"
 
-    if (confirmData.statusCode === 3 && confirmData.transactionStatus === "Approved") {
+    if (Number(confirmData.statusCode) === 3 && confirmData.transactionStatus?.toLowerCase() === "approved") {
       await updatePaymentTransaction(clientTxId, {
         payphoneTransactionId: confirmData.transactionId,
         status: "approved",
