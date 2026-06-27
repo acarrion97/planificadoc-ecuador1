@@ -181,7 +181,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
         const data = axiosResp.data;
 
-        if (data.statusCode === 3 && data.transactionStatus === "Approved") {
+        if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           const newEndDate = new Date();
           newEndDate.setMonth(newEndDate.getMonth() + (planForCharge === "annual" ? 12 : 1));
 
@@ -324,7 +324,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           continue;
         }
 
-        if (data.statusCode === 3 && data.transactionStatus === "Approved") {
+        if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           const newEndDate = new Date(sub.endDate);
           newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
 
@@ -456,7 +456,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         const data = axiosResp.data;
 
-        if (data.statusCode === 3 && data.transactionStatus === "Approved") {
+        if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           const newEndDate = new Date(sub.endDate);
           newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
 
