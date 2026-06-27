@@ -883,6 +883,68 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, email: normalized, newEndDate, transactionId, authorizationCode });
     }
 
+    // POST /api/admin/grant-access — crea cuenta + suscripción manual por N días
+    if (action === "grant-access") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, password, nombre, days } = req.body || {};
+      if (!email || !password) return res.status(400).json({ error: "email y password requeridos" });
+
+      const normalizedEmail = (email as string).trim().toLowerCase();
+      const trimmedNombre = (nombre as string || normalizedEmail.split("@")[0]).trim();
+      const durationDays = parseInt(days) || 7;
+
+      // Crear cuenta si no existe
+      let accountCreated = false;
+      const existing = await db.select({ id: docenteAccounts.id })
+        .from(docenteAccounts).where(eq(docenteAccounts.email, normalizedEmail)).limit(1);
+
+      if (existing.length === 0) {
+        const { randomBytes: rb, scrypt: sc } = await import("node:crypto");
+        const { promisify: prom } = await import("node:util");
+        const scryptAsync2 = prom(sc);
+        const salt = rb(16).toString("hex");
+        const derived = (await scryptAsync2(password as string, salt, 64)) as Buffer;
+        const passwordHash = `${salt}:${derived.toString("hex")}`;
+        await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
+        accountCreated = true;
+      }
+
+      // Expirar suscripciones activas previas
+      await db.execute(
+        drizzleSql`UPDATE subscriptions SET status = 'expired', endDate = NOW() WHERE email = ${normalizedEmail} AND status IN ('active', 'trial', 'past_due')`
+      );
+
+      // Crear nueva suscripción
+      const startDate = new Date();
+      const endDate = new Date();
+      endDate.setDate(endDate.getDate() + durationDays);
+
+      const { createSubscription } = await import("../_lib/db");
+      await createSubscription({
+        email: normalizedEmail,
+        plan: "monthly",
+        status: "active",
+        amountPaid: 0,
+        transactionId: `ADMIN-GRANT-${Date.now()}`,
+        startDate,
+        endDate,
+        isPromo: false,
+        isRecurring: false,
+        isTrial: false,
+        failedChargeAttempts: 0,
+      });
+
+      return res.json({
+        success: true,
+        email: normalizedEmail,
+        nombre: trimmedNombre,
+        accountCreated,
+        durationDays,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+      });
+    }
+
     // POST /api/admin/send-resubscribe-emails — envía email de re-suscripción a los 7 usuarios con cobro fallido
     if (action === "send-resubscribe-emails") {
       if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
