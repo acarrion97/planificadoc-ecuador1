@@ -117,6 +117,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             endDate: sub.endDate,
             totalPaid: 0,
             subscriptionCount: 0,
+            payingMonths: 0,
             lastPayment: sub.createdAt,
             cardBrand: token?.cardBrand || txn?.cardBrand || "",
             lastDigits: token?.lastDigits || txn?.lastDigits || "",
@@ -125,6 +126,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const user = userMap.get(email)!;
         user.totalPaid += sub.amountPaid;
         user.subscriptionCount += 1;
+        // Acumular meses pagados (excluir trials y registros sin pago)
+        if (sub.status !== "trial" && sub.amountPaid > 0) {
+          user.payingMonths += sub.plan === "annual" ? 12 : 1;
+        }
       }
       const userList = Array.from(userMap.values());
       return res.json({ users: userList, total: userList.length });
