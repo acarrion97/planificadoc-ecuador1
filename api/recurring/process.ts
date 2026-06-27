@@ -12,7 +12,9 @@ import {
   sendTrialEndingEmail,
   sendTrialConvertedEmail,
   sendTrialExpiredEmail,
+  sendResubscribeEmail,
 } from "../../server/email";
+import { docenteAccounts } from "../../drizzle/schema";
 
 const PAYPHONE_TOKEN_CHARGE_URL = "https://pay.payphonetodoesposible.com/api/transaction/web";
 const MONTHLY_PRICE_CENTS = 699;
@@ -382,6 +384,130 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
       } catch (chargeError) {
         console.error(`[Recurring] Error cobro ${sub.email}:`, chargeError);
+        failed++;
+      }
+    }
+
+    // ── 2b. REINTENTO past_due — cobros fallidos en espera ─────────────────
+    const pastDueSubs = await db
+      .select()
+      .from(subscriptions)
+      .where(eq(subscriptions.status, "past_due" as any));
+
+    for (const sub of pastDueSubs) {
+      processed++;
+
+      // Obtener nombre del usuario para el email
+      const accounts = await db.select({ nombre: docenteAccounts.nombre })
+        .from(docenteAccounts).where(eq(docenteAccounts.email, sub.email)).limit(1);
+      const nombre = accounts[0]?.nombre || sub.email.split("@")[0];
+
+      const tokens = await db
+        .select()
+        .from(cardTokens)
+        .where(and(eq(cardTokens.email, sub.email), eq(cardTokens.isActive, true)))
+        .limit(1);
+
+      // Sin token válido → expirar y pedir re-suscripción
+      if (tokens.length === 0) {
+        await db.update(subscriptions).set({ status: "expired" as any, isRecurring: false }).where(eq(subscriptions.id, sub.id));
+        await sendResubscribeEmail(sub.email, nombre);
+        failed++;
+        console.log(`[PastDue] Sin token — expirado: ${sub.email}`);
+        continue;
+      }
+
+      const token = tokens[0];
+      const amount = sub.plan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS;
+      const clientTxId = `PDOC-REC-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+
+      try {
+        const axiosResp = await axios.post(PAYPHONE_TOKEN_CHARGE_URL, {
+          cardHolder: payphoneCardholderKey ? encryptCardHolder(token.cardHolder || "TITULAR", payphoneCardholderKey) : token.cardHolder,
+          cardToken: token.cardToken,
+          documentId: token.documentId,
+          phoneNumber: (token.phoneNumber || "").replace(/^\+/, ""),
+          email: sub.email,
+          amount,
+          amountWithoutTax: amount,
+          amountWithTax: 0,
+          tax: 0,
+          service: null,
+          tip: null,
+          clientTransactionId: clientTxId,
+          currency: "USD",
+          storeId: payphoneStoreId,
+          order: {
+            billTo: buildBillTo(token, sub.email),
+            lineItems: [{
+              productName: `Suscripcion PlanificaDoc - ${sub.plan}`,
+              unitPrice: amount,
+              quantity: 1,
+              totalAmount: amount,
+              taxAmount: 0,
+              productSKU: `PDOC-${sub.plan.toUpperCase()}`,
+              productDescription: `Reintento cobro past_due plan ${sub.plan} PlanificaDoc`,
+            }],
+          },
+        }, {
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${payphoneToken}` },
+          validateStatus: () => true,
+        });
+
+        const data = axiosResp.data;
+
+        if (data.statusCode === 3 && data.transactionStatus === "Approved") {
+          const newEndDate = new Date(sub.endDate);
+          newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
+
+          await db.update(subscriptions).set({
+            status: "active",
+            endDate: newEndDate,
+            failedChargeAttempts: 0,
+            lastChargeAttempt: now,
+          }).where(eq(subscriptions.id, sub.id));
+
+          await db.insert(paymentTransactions).values({
+            clientTransactionId: clientTxId,
+            email: sub.email,
+            amount,
+            status: "approved",
+            payphoneTransactionId: data.transactionId,
+            authorizationCode: data.authorizationCode,
+            cardBrand: token.cardBrand,
+            lastDigits: token.lastDigits,
+            isRecurringCharge: true,
+          });
+
+          await sendRenewalSuccessEmail(sub.email, sub.plan, formatDate(newEndDate), formatMonto(amount));
+          succeeded++;
+          console.log(`[PastDue] Cobro exitoso: ${sub.email}`);
+        } else {
+          const attempts = (sub.failedChargeAttempts || 0) + 1;
+
+          if (attempts >= MAX_RETRY_ATTEMPTS) {
+            await db.update(subscriptions).set({
+              status: "expired" as any,
+              isRecurring: false,
+              failedChargeAttempts: attempts,
+              lastChargeAttempt: now,
+            }).where(eq(subscriptions.id, sub.id));
+            await db.update(cardTokens).set({ isActive: false }).where(eq(cardTokens.id, token.id));
+            await sendResubscribeEmail(sub.email, nombre);
+            console.log(`[PastDue] Max intentos alcanzado — expirado: ${sub.email}`);
+          } else {
+            await db.update(subscriptions).set({
+              status: "past_due" as any,
+              failedChargeAttempts: attempts,
+              lastChargeAttempt: now,
+            }).where(eq(subscriptions.id, sub.id));
+            await sendChargeFailedEmail(sub.email, sub.plan, attempts, MAX_RETRY_ATTEMPTS);
+            console.log(`[PastDue] Reintento ${attempts}/${MAX_RETRY_ATTEMPTS} fallido: ${sub.email}`);
+          }
+          failed++;
+        }
+      } catch (chargeError) {
+        console.error(`[PastDue] Error cobro ${sub.email}:`, chargeError);
         failed++;
       }
     }
