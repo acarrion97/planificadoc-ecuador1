@@ -83,6 +83,15 @@ INSTRUCCIONES
 4. CIERRE (3-4 ítems): Actividad de cuadernillo o ficha de trabajo (colorear, puntear, pegar), \
    retroalimentación personalizada, felicitación, despedida.
 
+5. INDICADORES DUA — para CADA actividad asigna true/false según corresponda:
+   - "rep" (Representación, rosa): la actividad usa objetos reales, láminas, imágenes, canciones \
+     o material visual/auditivo para PRESENTAR contenido a los niños.
+   - "acc" (Acción y Expresión, azul): los niños HACEN algo activo: tocar, manipular, moverse, \
+     señalar, cantar, colorear, pegar, responder preguntas, expresarse.
+   - "imp" (Implicación/Motivación, verde): la actividad genera MOTIVACIÓN, asombro, emoción \
+     o conexión personal con el tema (caja sorpresa, reto, felicitación, despedida cálida).
+   Puedes asignar más de uno por actividad si corresponde.
+
 REGLAS ESTRICTAS
 - ESTRUCTURA: Sigue la Taxonomía de Marzano. CADA ítem DEBE comenzar con un VERBO EN INFINITIVO. \
   Ejemplos válidos: "Saludar a los niños...", "Observar las imágenes...", "Identificar el color...", \
@@ -94,20 +103,26 @@ REGLAS ESTRICTAS
 - Actividades basadas en juego, movimiento, canciones y materiales manipulativos.
 - No uses emojis.
 - Español correcto con tildes y ñ.
-- Máximo 90 caracteres por ítem.
+- Máximo 90 caracteres por campo "actividad".
 
-Responde ÚNICAMENTE con este JSON válido:
+Responde ÚNICAMENTE con este JSON válido (cada actividad es un objeto con "actividad", "rep", "acc", "imp"):
 {
   "objetivoEspecifico": "string",
-  "inicio": ["string", "string", "string", "string", "string"],
-  "desarrollo": ["string", "string", "string", "string", "string", "string", "string"],
-  "cierre": ["string", "string", "string", "string"]
+  "inicio": [
+    { "actividad": "string", "rep": true, "acc": true, "imp": true }
+  ],
+  "desarrollo": [
+    { "actividad": "string", "rep": false, "acc": true, "imp": false }
+  ],
+  "cierre": [
+    { "actividad": "string", "rep": false, "acc": true, "imp": true }
+  ]
 }`;
 
       const result = await invokeLLM({
         messages: [{ role: "user", content: prompt }],
         responseFormat: { type: "json_object" },
-        maxTokens: 2048,
+        maxTokens: 3000,
       });
 
       const raw = result.choices?.[0]?.message?.content;
@@ -115,11 +130,12 @@ Responde ÚNICAMENTE con este JSON válido:
         throw new Error("La IA no devolvió contenido válido. Intenta de nuevo.");
       }
 
+      type ActividadIA = { actividad: string; rep: boolean; acc: boolean; imp: boolean };
       let parsed: {
         objetivoEspecifico: string;
-        inicio: string[];
-        desarrollo: string[];
-        cierre: string[];
+        inicio: ActividadIA[];
+        desarrollo: ActividadIA[];
+        cierre: ActividadIA[];
       };
 
       try {
@@ -142,11 +158,24 @@ Responde ÚNICAMENTE con este JSON válido:
         throw new Error("La respuesta de la IA está incompleta. Intenta de nuevo.");
       }
 
+      function mapActs(acts: ActividadIA[]) {
+        return acts
+          .filter(a => a?.actividad)
+          .map(a => ({
+            texto: a.actividad,
+            dua: {
+              representacion: Boolean(a.rep),
+              accionExpresion: Boolean(a.acc),
+              implicacion:     Boolean(a.imp),
+            },
+          }));
+      }
+
       return {
         objetivoEspecifico: parsed.objetivoEspecifico,
-        inicio:      parsed.inicio.filter(Boolean),
-        desarrollo:  parsed.desarrollo.filter(Boolean),
-        cierre:      parsed.cierre.filter(Boolean),
+        inicio:      mapActs(parsed.inicio),
+        desarrollo:  mapActs(parsed.desarrollo),
+        cierre:      mapActs(parsed.cierre),
       };
     }),
 });

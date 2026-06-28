@@ -268,9 +268,9 @@ export default function PlanificarInicialScreen() {
           generando: false,
           generado: true,
           objetivoEspecifico: res.objetivoEspecifico,
-          inicioActividades: res.inicio.map(t => actVacia(t)),
-          desarrolloActividades: res.desarrollo.map(t => actVacia(t)),
-          cierreActividades: res.cierre.map(t => actVacia(t)),
+          inicioActividades:      res.inicio.map(a => ({ id: uid(), texto: a.texto, dua: a.dua })),
+          desarrolloActividades:  res.desarrollo.map(a => ({ id: uid(), texto: a.texto, dua: a.dua })),
+          cierreActividades:      res.cierre.map(a => ({ id: uid(), texto: a.texto, dua: a.dua })),
         });
       } catch (err: any) {
         updateClase(ambitoId, claseId, { generando: false });
@@ -844,20 +844,18 @@ function EtapaField({
                 </Pressable>
               )}
             </View>
-            {/* DUA por actividad */}
+            {/* DUA por actividad — asignado por IA, solo visual */}
             <View style={s.actDUARow}>
               {DUA_ITEMS.map(item => {
                 const active = act.dua[item.key];
                 return (
-                  <Pressable
+                  <View
                     key={item.key}
-                    onPress={() => updateAt(idx, { ...act, dua: { ...act.dua, [item.key]: !active } })}
-                    style={({ pressed }) => [
+                    style={[
                       s.actDUAChip,
                       {
                         backgroundColor: active ? item.color : "transparent",
                         borderColor: item.color,
-                        opacity: pressed ? 0.7 : 1,
                       },
                     ]}
                   >
@@ -865,7 +863,7 @@ function EtapaField({
                     <Text style={[s.actDUAText, { color: active ? "#fff" : item.color }]}>
                       {item.label}
                     </Text>
-                  </Pressable>
+                  </View>
                 );
               })}
             </View>
