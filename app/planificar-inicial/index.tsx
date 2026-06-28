@@ -32,9 +32,9 @@ import type {
 const GRADOS = ["Inicial 1 (3 a 4 años)", "Inicial 2 (4 a 5 años)"];
 
 const DUA_ITEMS = [
-  { key: "representacion" as const,  label: "Representación",    color: "#EC4899" },
-  { key: "accionExpresion" as const, label: "Acción y Expresión", color: "#1E3A5F" },
-  { key: "implicacion" as const,     label: "Implicación",        color: "#22C55E" },
+  { key: "representacion" as const,  label: "Representación",     short: "Rep", color: "#EC4899" },
+  { key: "accionExpresion" as const, label: "Acción y Expresión", short: "A&E", color: "#1E3A5F" },
+  { key: "implicacion" as const,     label: "Implicación",        short: "Imp", color: "#22C55E" },
 ] as const;
 
 type DUAEtapaState = { representacion: boolean; accionExpresion: boolean; implicacion: boolean };
@@ -636,6 +636,20 @@ function AmbitoCard({
             <Text style={[s.clasesTitle, { color: colors.foreground }]}>Clases de este ámbito</Text>
           </View>
 
+          {/* Leyenda DUA */}
+          <View style={[s.duaLegend, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={[s.duaLegendTitle, { color: colors.muted }]}>Principios DUA (asignados por IA):</Text>
+            <View style={s.duaLegendRow}>
+              {DUA_ITEMS.map(item => (
+                <View key={item.key} style={s.duaLegendItem}>
+                  <Text style={{ color: item.color, fontSize: 13 }}>■</Text>
+                  <Text style={[s.duaLegendLabel, { color: item.color }]}>{item.short}</Text>
+                  <Text style={[s.duaLegendDesc, { color: colors.muted }]}> = {item.label}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+
           {amb.clases.map((cls, ci) => (
             <ClaseCard
               key={cls.id}
@@ -848,15 +862,13 @@ function EtapaField({
             <View style={s.actDUARow} pointerEvents="none">
               {DUA_ITEMS.map(item => {
                 const active = act.dua[item.key];
-                if (!active) return null;
                 return (
-                  <View
-                    key={item.key}
-                    style={[s.actDUABadge, { backgroundColor: item.color + "22", borderColor: item.color }]}
-                  >
-                    <View style={[s.actDUASquare, { backgroundColor: item.color }]} />
-                    <Text style={[s.actDUAText, { color: item.color }]}>
-                      {item.label}
+                  <View key={item.key} style={s.actDUAIndicator}>
+                    <Text style={[s.actDUASquareChar, { color: item.color }]}>
+                      {active ? "■" : "□"}
+                    </Text>
+                    <Text style={[s.actDUAShort, { color: item.color, fontWeight: active ? "700" : "400" }]}>
+                      {item.short}
                     </Text>
                   </View>
                 );
@@ -963,9 +975,16 @@ const s = StyleSheet.create({
   actInput: { flex: 1, borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, minHeight: 40 },
   actRemove: { color: "#EF4444", fontSize: 14, paddingTop: 10 },
   actDUARow: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginTop: 5, marginBottom: 2, paddingLeft: 20 },
-  actDUABadge: { flexDirection: "row", alignItems: "center", gap: 3, paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, borderWidth: 1 },
-  actDUASquare: { width: 7, height: 7, borderRadius: 1 },
-  actDUAText: { fontSize: 10, fontWeight: "600" },
+  actDUAIndicator: { flexDirection: "row", alignItems: "center", gap: 2, marginRight: 8 },
+  actDUASquareChar: { fontSize: 11 },
+  actDUAShort: { fontSize: 11 },
+  // Leyenda DUA
+  duaLegend: { borderRadius: 8, borderWidth: 1, padding: 8, marginTop: 8, marginBottom: 4 },
+  duaLegendTitle: { fontSize: 10, fontWeight: "600", marginBottom: 4 },
+  duaLegendRow: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  duaLegendItem: { flexDirection: "row", alignItems: "center", gap: 2 },
+  duaLegendLabel: { fontSize: 11, fontWeight: "700" },
+  duaLegendDesc: { fontSize: 11 },
   actAddBtn: { borderWidth: 1, borderStyle: "dashed", borderRadius: 8, paddingVertical: 7, alignItems: "center", marginTop: 6 },
   actAddText: { fontSize: 12, fontWeight: "700" },
 });

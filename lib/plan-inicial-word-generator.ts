@@ -164,16 +164,14 @@ function buildActividadConDUA(texto: string, dua?: DUAActividad): Paragraph {
   const EMPTY  = "□";
   const children: TextRun[] = [
     new TextRun({ text: `• ${texto}`, size: 15, font: "Calibri", color: DARK_TEXT }),
+    new TextRun({ text: "   ", size: 13, font: "Calibri" }),
+    new TextRun({ text: dua?.representacion  ? FILLED : EMPTY, color: DUA_REP, size: 13, bold: Boolean(dua?.representacion),  font: "Calibri" }),
+    new TextRun({ text: "Rep ", color: DUA_REP, size: 12, bold: Boolean(dua?.representacion),  font: "Calibri" }),
+    new TextRun({ text: dua?.accionExpresion ? FILLED : EMPTY, color: DUA_ACC, size: 13, bold: Boolean(dua?.accionExpresion), font: "Calibri" }),
+    new TextRun({ text: "A&E ", color: DUA_ACC, size: 12, bold: Boolean(dua?.accionExpresion), font: "Calibri" }),
+    new TextRun({ text: dua?.implicacion     ? FILLED : EMPTY, color: DUA_IMP, size: 13, bold: Boolean(dua?.implicacion),     font: "Calibri" }),
+    new TextRun({ text: "Imp",  color: DUA_IMP, size: 12, bold: Boolean(dua?.implicacion),     font: "Calibri" }),
   ];
-  if (dua && (dua.representacion || dua.accionExpresion || dua.implicacion)) {
-    children.push(new TextRun({ text: "   ", size: 13, font: "Calibri" }));
-    children.push(new TextRun({ text: dua.representacion  ? FILLED : EMPTY, color: DUA_REP, size: 13, bold: dua.representacion,  font: "Calibri" }));
-    children.push(new TextRun({ text: "Rep  ", color: DUA_REP, size: 12, font: "Calibri" }));
-    children.push(new TextRun({ text: dua.accionExpresion ? FILLED : EMPTY, color: DUA_ACC, size: 13, bold: dua.accionExpresion, font: "Calibri" }));
-    children.push(new TextRun({ text: "A&E  ", color: DUA_ACC, size: 12, font: "Calibri" }));
-    children.push(new TextRun({ text: dua.implicacion     ? FILLED : EMPTY, color: DUA_IMP, size: 13, bold: dua.implicacion,     font: "Calibri" }));
-    children.push(new TextRun({ text: "Imp", color: DUA_IMP, size: 12, font: "Calibri" }));
-  }
   return new Paragraph({ children, spacing: { after: 30 } });
 }
 
