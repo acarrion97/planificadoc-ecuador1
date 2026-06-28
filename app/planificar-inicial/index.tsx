@@ -729,8 +729,8 @@ function ClaseCard({
         )}
       </Pressable>
 
-      {/* Campos generados (siempre visibles para edición manual) */}
-      {(cls.generado || cls.objetivoEspecifico) && (
+      {/* Contenido generado por IA */}
+      {(cls.generado || cls.objetivoEspecifico || cls.inicioText) ? (
         <>
           <View style={[s.generadoBanner, { backgroundColor: "#0EA5E910" }]}>
             <Text style={{ color: "#0EA5E9", fontSize: 12, fontWeight: "600" }}>
@@ -746,39 +746,47 @@ function ClaseCard({
             textAlignVertical="top"
             style={[s.input, s.inputMulti, { backgroundColor: colors.surface, borderColor: "#0EA5E950", color: colors.foreground }]}
           />
-        </>
-      )}
 
-      <EtapaField
-        label="INICIO"
-        color="#154360"
-        value={cls.inicioText}
-        onChange={t => onUpdate({ inicioText: t })}
-        colors={colors}
-        placeholder={"• Saludo y bienvenida\n• Observar el clima y ubicar la fecha\n• Registrar asistencia..."}
-        dua={cls.duaInicio}
-        onDUAChange={d => onUpdate({ duaInicio: d })}
-      />
-      <EtapaField
-        label="DESARROLLO"
-        color="#145A32"
-        value={cls.desarrolloText}
-        onChange={t => onUpdate({ desarrolloText: t })}
-        colors={colors}
-        placeholder={"• Actividad de exploración\n• Preguntas abiertas..."}
-        dua={cls.duaDesarrollo}
-        onDUAChange={d => onUpdate({ duaDesarrollo: d })}
-      />
-      <EtapaField
-        label="CIERRE"
-        color="#784212"
-        value={cls.cierreText}
-        onChange={t => onUpdate({ cierreText: t })}
-        colors={colors}
-        placeholder={"• Actividad en cuadernillo\n• Retroalimentación\n• Despedida"}
-        dua={cls.duaCierre}
-        onDUAChange={d => onUpdate({ duaCierre: d })}
-      />
+          <EtapaField
+            label="INICIO"
+            color="#154360"
+            value={cls.inicioText}
+            onChange={t => onUpdate({ inicioText: t })}
+            colors={colors}
+            placeholder={"• Saludo y bienvenida\n• Observar el clima y ubicar la fecha\n• Registrar asistencia..."}
+            dua={cls.duaInicio}
+            onDUAChange={d => onUpdate({ duaInicio: d })}
+          />
+          <EtapaField
+            label="DESARROLLO"
+            color="#145A32"
+            value={cls.desarrolloText}
+            onChange={t => onUpdate({ desarrolloText: t })}
+            colors={colors}
+            placeholder={"• Actividad de exploración\n• Preguntas abiertas..."}
+            dua={cls.duaDesarrollo}
+            onDUAChange={d => onUpdate({ duaDesarrollo: d })}
+          />
+          <EtapaField
+            label="CIERRE"
+            color="#784212"
+            value={cls.cierreText}
+            onChange={t => onUpdate({ cierreText: t })}
+            colors={colors}
+            placeholder={"• Actividad en cuadernillo\n• Retroalimentación\n• Despedida"}
+            dua={cls.duaCierre}
+            onDUAChange={d => onUpdate({ duaCierre: d })}
+          />
+        </>
+      ) : (
+        <View style={[s.generarHint, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+          <Text style={{ color: colors.muted, fontSize: 13, textAlign: "center" }}>
+            Ingresa el tema y presiona{"\n"}
+            <Text style={{ color: "#1A6BAE", fontWeight: "700" }}>✨ Generar con IA</Text>
+            {"\n"}para desarrollar la clase
+          </Text>
+        </View>
+      )}
 
       {/* Método evaluación */}
       <Label text="Método de evaluación" />
@@ -952,6 +960,7 @@ const s = StyleSheet.create({
   exportBtn: { borderRadius: 14, paddingVertical: 18, alignItems: "center" },
   exportBtnText: { color: "#fff", fontSize: 17, fontWeight: "800" },
   hint: { fontSize: 12, fontStyle: "italic", marginBottom: 6 },
+  generarHint: { borderWidth: 1, borderStyle: "dashed", borderRadius: 10, padding: 16, marginTop: 10, alignItems: "center" },
   // DUA
   duaRow: { flexDirection: "row", flexWrap: "wrap", gap: 5, marginBottom: 6, marginTop: 3 },
   duaChip: { flexDirection: "row", alignItems: "center", gap: 4, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 20, borderWidth: 1.5 },
