@@ -161,17 +161,13 @@ function tableRow(cells: TableCell[], minHeight?: number): TableRow {
 
 function buildActividadConDUA(texto: string, dua?: DUAActividad): Paragraph {
   const FILLED = "■";
-  const EMPTY  = "□";
   const children: TextRun[] = [
     new TextRun({ text: `• ${texto}`, size: 15, font: "Calibri", color: DARK_TEXT }),
-    new TextRun({ text: "   ", size: 13, font: "Calibri" }),
-    new TextRun({ text: dua?.representacion  ? FILLED : EMPTY, color: DUA_REP, size: 13, bold: Boolean(dua?.representacion),  font: "Calibri" }),
-    new TextRun({ text: "Rep ", color: DUA_REP, size: 12, bold: Boolean(dua?.representacion),  font: "Calibri" }),
-    new TextRun({ text: dua?.accionExpresion ? FILLED : EMPTY, color: DUA_ACC, size: 13, bold: Boolean(dua?.accionExpresion), font: "Calibri" }),
-    new TextRun({ text: "A&E ", color: DUA_ACC, size: 12, bold: Boolean(dua?.accionExpresion), font: "Calibri" }),
-    new TextRun({ text: dua?.implicacion     ? FILLED : EMPTY, color: DUA_IMP, size: 13, bold: Boolean(dua?.implicacion),     font: "Calibri" }),
-    new TextRun({ text: "Imp",  color: DUA_IMP, size: 12, bold: Boolean(dua?.implicacion),     font: "Calibri" }),
+    new TextRun({ text: "  ", size: 13, font: "Calibri" }),
   ];
+  if (dua?.representacion)  children.push(new TextRun({ text: FILLED, color: DUA_REP, size: 16, font: "Calibri" }));
+  if (dua?.accionExpresion) children.push(new TextRun({ text: FILLED, color: DUA_ACC, size: 16, font: "Calibri" }));
+  if (dua?.implicacion)     children.push(new TextRun({ text: FILLED, color: DUA_IMP, size: 16, font: "Calibri" }));
   return new Paragraph({ children, spacing: { after: 30 } });
 }
 
@@ -179,6 +175,19 @@ function buildActividadConDUA(texto: string, dua?: DUAActividad): Paragraph {
 
 function buildProcesoCell(clase: ClaseInicial): TableCell {
   const ps: Paragraph[] = [];
+
+  // Leyenda DUA (una sola vez por clase)
+  ps.push(new Paragraph({
+    children: [
+      new TextRun({ text: "■ ", color: DUA_REP, size: 14, font: "Calibri" }),
+      new TextRun({ text: "Representación   ", color: DUA_REP, size: 13, font: "Calibri" }),
+      new TextRun({ text: "■ ", color: DUA_ACC, size: 14, font: "Calibri" }),
+      new TextRun({ text: "Acción y Expresión   ", color: DUA_ACC, size: 13, font: "Calibri" }),
+      new TextRun({ text: "■ ", color: DUA_IMP, size: 14, font: "Calibri" }),
+      new TextRun({ text: "Implicación", color: DUA_IMP, size: 13, font: "Calibri" }),
+    ],
+    spacing: { after: 60 },
+  }));
 
   // Encabezado de la clase
   ps.push(p([run(

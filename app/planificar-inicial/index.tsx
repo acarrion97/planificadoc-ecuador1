@@ -636,19 +636,6 @@ function AmbitoCard({
             <Text style={[s.clasesTitle, { color: colors.foreground }]}>Clases de este ámbito</Text>
           </View>
 
-          {/* Leyenda DUA */}
-          <View style={[s.duaLegend, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-            <Text style={[s.duaLegendTitle, { color: colors.muted }]}>Principios DUA (asignados por IA):</Text>
-            <View style={s.duaLegendRow}>
-              {DUA_ITEMS.map(item => (
-                <View key={item.key} style={s.duaLegendItem}>
-                  <Text style={{ color: item.color, fontSize: 13 }}>■</Text>
-                  <Text style={[s.duaLegendLabel, { color: item.color }]}>{item.short}</Text>
-                  <Text style={[s.duaLegendDesc, { color: colors.muted }]}> = {item.label}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
 
           {amb.clases.map((cls, ci) => (
             <ClaseCard
@@ -750,6 +737,16 @@ function ClaseCard({
             <Text style={{ color: "#0EA5E9", fontSize: 12, fontWeight: "600" }}>
               ✓ Generado con IA — puedes editar antes de exportar
             </Text>
+          </View>
+
+          {/* Leyenda DUA */}
+          <View style={s.duaLegendRow} pointerEvents="none">
+            {DUA_ITEMS.map(item => (
+              <View key={item.key} style={s.duaLegendItem}>
+                <View style={[s.duaLegendSquare, { backgroundColor: item.color }]} />
+                <Text style={[s.duaLegendLabel, { color: item.color }]}>{item.label}</Text>
+              </View>
+            ))}
           </View>
 
           <Label text="Objetivo específico" />
@@ -858,21 +855,13 @@ function EtapaField({
                 </Pressable>
               )}
             </View>
-            {/* DUA por actividad — asignado por IA, solo visual */}
+            {/* Cuadritos DUA — solo los activos, sin texto */}
             <View style={s.actDUARow} pointerEvents="none">
-              {DUA_ITEMS.map(item => {
-                const active = act.dua[item.key];
-                return (
-                  <View key={item.key} style={s.actDUAIndicator}>
-                    <Text style={[s.actDUASquareChar, { color: item.color }]}>
-                      {active ? "■" : "□"}
-                    </Text>
-                    <Text style={[s.actDUAShort, { color: item.color, fontWeight: active ? "700" : "400" }]}>
-                      {item.short}
-                    </Text>
-                  </View>
-                );
-              })}
+              {DUA_ITEMS.map(item =>
+                act.dua[item.key] ? (
+                  <View key={item.key} style={[s.actDUASquare, { backgroundColor: item.color }]} />
+                ) : null
+              )}
             </View>
           </View>
         </View>
@@ -974,17 +963,13 @@ const s = StyleSheet.create({
   actBullet: { fontSize: 16, fontWeight: "700", marginTop: 10, marginRight: 6 },
   actInput: { flex: 1, borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, minHeight: 40 },
   actRemove: { color: "#EF4444", fontSize: 14, paddingTop: 10 },
-  actDUARow: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginTop: 5, marginBottom: 2, paddingLeft: 20 },
-  actDUAIndicator: { flexDirection: "row", alignItems: "center", gap: 2, marginRight: 8 },
-  actDUASquareChar: { fontSize: 11 },
-  actDUAShort: { fontSize: 11 },
-  // Leyenda DUA
-  duaLegend: { borderRadius: 8, borderWidth: 1, padding: 8, marginTop: 8, marginBottom: 4 },
-  duaLegendTitle: { fontSize: 10, fontWeight: "600", marginBottom: 4 },
-  duaLegendRow: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
-  duaLegendItem: { flexDirection: "row", alignItems: "center", gap: 2 },
-  duaLegendLabel: { fontSize: 11, fontWeight: "700" },
-  duaLegendDesc: { fontSize: 11 },
+  actDUARow: { flexDirection: "row", gap: 5, marginTop: 5, marginBottom: 2, paddingLeft: 20 },
+  actDUASquare: { width: 13, height: 13, borderRadius: 2 },
+  // Leyenda DUA (dentro del banner IA)
+  duaLegendRow: { flexDirection: "row", flexWrap: "wrap", gap: 12, marginTop: 6, marginBottom: 4, paddingHorizontal: 2 },
+  duaLegendItem: { flexDirection: "row", alignItems: "center", gap: 5 },
+  duaLegendSquare: { width: 11, height: 11, borderRadius: 2 },
+  duaLegendLabel: { fontSize: 12, fontWeight: "500" },
   actAddBtn: { borderWidth: 1, borderStyle: "dashed", borderRadius: 8, paddingVertical: 7, alignItems: "center", marginTop: 6 },
   actAddText: { fontSize: 12, fontWeight: "700" },
 });
