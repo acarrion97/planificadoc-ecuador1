@@ -845,22 +845,17 @@ function EtapaField({
               )}
             </View>
             {/* DUA por actividad — asignado por IA, solo visual */}
-            <View style={s.actDUARow}>
+            <View style={s.actDUARow} pointerEvents="none">
               {DUA_ITEMS.map(item => {
                 const active = act.dua[item.key];
+                if (!active) return null;
                 return (
                   <View
                     key={item.key}
-                    style={[
-                      s.actDUAChip,
-                      {
-                        backgroundColor: active ? item.color : "transparent",
-                        borderColor: item.color,
-                      },
-                    ]}
+                    style={[s.actDUABadge, { backgroundColor: item.color + "22", borderColor: item.color }]}
                   >
-                    <View style={[s.actDUASquare, { backgroundColor: active ? "#fff" : item.color }]} />
-                    <Text style={[s.actDUAText, { color: active ? "#fff" : item.color }]}>
+                    <View style={[s.actDUASquare, { backgroundColor: item.color }]} />
+                    <Text style={[s.actDUAText, { color: item.color }]}>
                       {item.label}
                     </Text>
                   </View>
@@ -968,7 +963,7 @@ const s = StyleSheet.create({
   actInput: { flex: 1, borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, minHeight: 40 },
   actRemove: { color: "#EF4444", fontSize: 14, paddingTop: 10 },
   actDUARow: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginTop: 5, marginBottom: 2, paddingLeft: 20 },
-  actDUAChip: { flexDirection: "row", alignItems: "center", gap: 3, paddingHorizontal: 6, paddingVertical: 3, borderRadius: 12, borderWidth: 1 },
+  actDUABadge: { flexDirection: "row", alignItems: "center", gap: 3, paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, borderWidth: 1 },
   actDUASquare: { width: 7, height: 7, borderRadius: 1 },
   actDUAText: { fontSize: 10, fontWeight: "600" },
   actAddBtn: { borderWidth: 1, borderStyle: "dashed", borderRadius: 8, paddingVertical: 7, alignItems: "center", marginTop: 6 },
