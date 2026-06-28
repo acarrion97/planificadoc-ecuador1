@@ -8,7 +8,7 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType, HeightRule,
 } from "docx";
-import type { PlanificacionInicialSemanal, AmbitoInicial, ClaseInicial, DUAEtapa } from "../data/types-inicial";
+import type { PlanificacionInicialSemanal, AmbitoInicial, ClaseInicial, DUAActividad } from "../data/types-inicial";
 
 // ── Colores (tonos azul celeste) ──────────────────────────────────────────────
 const BG_HEADER   = "1A6BAE";  // azul oscuro — encabezados principales
@@ -157,23 +157,24 @@ function tableRow(cells: TableCell[], minHeight?: number): TableRow {
   });
 }
 
-// ── Helper DUA ────────────────────────────────────────────────────────────────
+// ── Helper DUA — una actividad con sus indicadores ───────────────────────────
 
-function buildDUAParagraph(dua: DUAEtapa | undefined): Paragraph {
-  if (!dua) return emptyPara();
-  const FILLED = "■"; // ■
-  const EMPTY  = "□"; // □
-  return new Paragraph({
-    children: [
-      new TextRun({ text: dua.representacion  ? FILLED : EMPTY, color: DUA_REP, size: 14, font: "Calibri" }),
-      new TextRun({ text: " Representación   ", color: DUA_REP, size: 13, bold: dua.representacion,  font: "Calibri" }),
-      new TextRun({ text: dua.accionExpresion ? FILLED : EMPTY, color: DUA_ACC, size: 14, font: "Calibri" }),
-      new TextRun({ text: " Acción y Expresión   ", color: DUA_ACC, size: 13, bold: dua.accionExpresion, font: "Calibri" }),
-      new TextRun({ text: dua.implicacion     ? FILLED : EMPTY, color: DUA_IMP, size: 14, font: "Calibri" }),
-      new TextRun({ text: " Implicación", color: DUA_IMP, size: 13, bold: dua.implicacion,      font: "Calibri" }),
-    ],
-    spacing: { after: 40 },
-  });
+function buildActividadConDUA(texto: string, dua?: DUAActividad): Paragraph {
+  const FILLED = "■";
+  const EMPTY  = "□";
+  const children: TextRun[] = [
+    new TextRun({ text: `• ${texto}`, size: 15, font: "Calibri", color: DARK_TEXT }),
+  ];
+  if (dua && (dua.representacion || dua.accionExpresion || dua.implicacion)) {
+    children.push(new TextRun({ text: "   ", size: 13, font: "Calibri" }));
+    children.push(new TextRun({ text: dua.representacion  ? FILLED : EMPTY, color: DUA_REP, size: 13, bold: dua.representacion,  font: "Calibri" }));
+    children.push(new TextRun({ text: "Rep  ", color: DUA_REP, size: 12, font: "Calibri" }));
+    children.push(new TextRun({ text: dua.accionExpresion ? FILLED : EMPTY, color: DUA_ACC, size: 13, bold: dua.accionExpresion, font: "Calibri" }));
+    children.push(new TextRun({ text: "A&E  ", color: DUA_ACC, size: 12, font: "Calibri" }));
+    children.push(new TextRun({ text: dua.implicacion     ? FILLED : EMPTY, color: DUA_IMP, size: 13, bold: dua.implicacion,     font: "Calibri" }));
+    children.push(new TextRun({ text: "Imp", color: DUA_IMP, size: 12, font: "Calibri" }));
+  }
+  return new Paragraph({ children, spacing: { after: 30 } });
 }
 
 // ── Constructor del Proceso Metodológico ──────────────────────────────────────
@@ -199,24 +200,21 @@ function buildProcesoCell(clase: ClaseInicial): TableCell {
 
   // INICIO
   ps.push(p([run("INICIO", { bold: true, size: 16, color: COLOR_INICIO })]));
-  ps.push(buildDUAParagraph(clase.duaInicio));
-  for (const act of clase.inicio) {
-    ps.push(p([run(`• ${act}`, { size: 15 })]));
-  }
+  clase.inicio.forEach((act, idx) => {
+    ps.push(buildActividadConDUA(act, clase.duaInicio?.[idx]));
+  });
 
   // DESARROLLO
   ps.push(p([run("DESARROLLO", { bold: true, size: 16, color: COLOR_DESARROLLO })]));
-  ps.push(buildDUAParagraph(clase.duaDesarrollo));
-  for (const act of clase.desarrollo) {
-    ps.push(p([run(`• ${act}`, { size: 15 })]));
-  }
+  clase.desarrollo.forEach((act, idx) => {
+    ps.push(buildActividadConDUA(act, clase.duaDesarrollo?.[idx]));
+  });
 
   // CIERRE
   ps.push(p([run("CIERRE", { bold: true, size: 16, color: COLOR_CIERRE })]));
-  ps.push(buildDUAParagraph(clase.duaCierre));
-  for (const act of clase.cierre) {
-    ps.push(p([run(`• ${act}`, { size: 15 })]));
-  }
+  clase.cierre.forEach((act, idx) => {
+    ps.push(buildActividadConDUA(act, clase.duaCierre?.[idx]));
+  });
 
   // Método de evaluación
   if (clase.metodoEvaluacion.length > 0) {

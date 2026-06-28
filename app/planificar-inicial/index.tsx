@@ -67,6 +67,12 @@ const AMBITOS_INI = AREAS_INFO["INI"].bloques; // {1: "Identidad y Autonomía", 
 const AMBITO_KEYS = Object.keys(AMBITOS_INI).map(Number).sort();
 
 // ── Tipos locales ─────────────────────────────────────────────────────────────
+interface ActividadState {
+  id: string;
+  texto: string;
+  dua: DUAEtapaState;
+}
+
 interface ClaseState {
   id: string;
   numero: number;
@@ -75,13 +81,10 @@ interface ClaseState {
   generando: boolean;
   generado: boolean;
   objetivoEspecifico: string;
-  inicioText: string;   // líneas separadas por \n
-  desarrolloText: string;
-  cierreText: string;
+  inicioActividades: ActividadState[];
+  desarrolloActividades: ActividadState[];
+  cierreActividades: ActividadState[];
   metodoEvaluacion: string[];
-  duaInicio: DUAEtapaState;
-  duaDesarrollo: DUAEtapaState;
-  duaCierre: DUAEtapaState;
 }
 
 interface AmbitoState {
@@ -100,6 +103,10 @@ function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
+function actVacia(texto = ""): ActividadState {
+  return { id: uid(), texto, dua: duaVacio() };
+}
+
 function claseVacia(numero: number): ClaseState {
   return {
     id: uid(),
@@ -109,13 +116,10 @@ function claseVacia(numero: number): ClaseState {
     generando: false,
     generado: false,
     objetivoEspecifico: "",
-    inicioText: "",
-    desarrolloText: "",
-    cierreText: "",
+    inicioActividades: [],
+    desarrolloActividades: [],
+    cierreActividades: [],
     metodoEvaluacion: ["Observación", "Fichas anecdóticas", "Fichas de cotejo"],
-    duaInicio: duaVacio(),
-    duaDesarrollo: duaVacio(),
-    duaCierre: duaVacio(),
   };
 }
 
@@ -130,10 +134,6 @@ function ambitoVacio(): AmbitoState {
     clases: [claseVacia(1)],
     expandido: true,
   };
-}
-
-function lineasAArray(text: string): string[] {
-  return text.split("\n").map(l => l.replace(/^[•\-\d.\s]+/, "").trim()).filter(Boolean);
 }
 
 // ── Componentes pequeños ──────────────────────────────────────────────────────
@@ -268,9 +268,9 @@ export default function PlanificarInicialScreen() {
           generando: false,
           generado: true,
           objetivoEspecifico: res.objetivoEspecifico,
-          inicioText: res.inicio.map(a => `• ${a}`).join("\n"),
-          desarrolloText: res.desarrollo.map(a => `• ${a}`).join("\n"),
-          cierreText: res.cierre.map(a => `• ${a}`).join("\n"),
+          inicioActividades: res.inicio.map(t => actVacia(t)),
+          desarrolloActividades: res.desarrollo.map(t => actVacia(t)),
+          cierreActividades: res.cierre.map(t => actVacia(t)),
         });
       } catch (err: any) {
         updateClase(ambitoId, claseId, { generando: false });
@@ -302,13 +302,13 @@ export default function PlanificarInicialScreen() {
         tema: c.tema || "—",
         objetivoEspecifico: c.objetivoEspecifico || "—",
         metodologia: c.metodologia,
-        inicio: lineasAArray(c.inicioText),
-        desarrollo: lineasAArray(c.desarrolloText),
-        cierre: lineasAArray(c.cierreText),
+        inicio: c.inicioActividades.map(a => a.texto).filter(Boolean),
+        desarrollo: c.desarrolloActividades.map(a => a.texto).filter(Boolean),
+        cierre: c.cierreActividades.map(a => a.texto).filter(Boolean),
         metodoEvaluacion: c.metodoEvaluacion,
-        duaInicio: c.duaInicio,
-        duaDesarrollo: c.duaDesarrollo,
-        duaCierre: c.duaCierre,
+        duaInicio: c.inicioActividades.map(a => a.dua),
+        duaDesarrollo: c.desarrolloActividades.map(a => a.dua),
+        duaCierre: c.cierreActividades.map(a => a.dua),
       } satisfies ClaseInicial)),
     }));
 
@@ -730,7 +730,7 @@ function ClaseCard({
       </Pressable>
 
       {/* Contenido generado por IA */}
-      {(cls.generado || cls.objetivoEspecifico || cls.inicioText) ? (
+      {(cls.generado || cls.objetivoEspecifico || cls.inicioActividades.length > 0) ? (
         <>
           <View style={[s.generadoBanner, { backgroundColor: "#0EA5E910" }]}>
             <Text style={{ color: "#0EA5E9", fontSize: 12, fontWeight: "600" }}>
@@ -750,32 +750,23 @@ function ClaseCard({
           <EtapaField
             label="INICIO"
             color="#154360"
-            value={cls.inicioText}
-            onChange={t => onUpdate({ inicioText: t })}
+            actividades={cls.inicioActividades}
+            onUpdateActividades={acts => onUpdate({ inicioActividades: acts })}
             colors={colors}
-            placeholder={"• Saludo y bienvenida\n• Observar el clima y ubicar la fecha\n• Registrar asistencia..."}
-            dua={cls.duaInicio}
-            onDUAChange={d => onUpdate({ duaInicio: d })}
           />
           <EtapaField
             label="DESARROLLO"
             color="#145A32"
-            value={cls.desarrolloText}
-            onChange={t => onUpdate({ desarrolloText: t })}
+            actividades={cls.desarrolloActividades}
+            onUpdateActividades={acts => onUpdate({ desarrolloActividades: acts })}
             colors={colors}
-            placeholder={"• Actividad de exploración\n• Preguntas abiertas..."}
-            dua={cls.duaDesarrollo}
-            onDUAChange={d => onUpdate({ duaDesarrollo: d })}
           />
           <EtapaField
             label="CIERRE"
             color="#784212"
-            value={cls.cierreText}
-            onChange={t => onUpdate({ cierreText: t })}
+            actividades={cls.cierreActividades}
+            onUpdateActividades={acts => onUpdate({ cierreActividades: acts })}
             colors={colors}
-            placeholder={"• Actividad en cuadernillo\n• Retroalimentación\n• Despedida"}
-            dua={cls.duaCierre}
-            onDUAChange={d => onUpdate({ duaCierre: d })}
           />
         </>
       ) : (
@@ -812,70 +803,82 @@ function ClaseCard({
   );
 }
 
-// ── DUASelector ───────────────────────────────────────────────────────────────
-function DUASelector({
-  dua,
-  onChange,
-}: {
-  dua: DUAEtapaState;
-  onChange: (dua: DUAEtapaState) => void;
-}) {
-  return (
-    <View style={s.duaRow}>
-      {DUA_ITEMS.map(item => {
-        const active = dua[item.key];
-        return (
-          <Pressable
-            key={item.key}
-            onPress={() => onChange({ ...dua, [item.key]: !active })}
-            style={({ pressed }) => [
-              s.duaChip,
-              {
-                backgroundColor: active ? item.color : "transparent",
-                borderColor: item.color,
-                opacity: pressed ? 0.7 : 1,
-              },
-            ]}
-          >
-            <View style={[s.duaSquare, { backgroundColor: active ? "#fff" : item.color }]} />
-            <Text style={[s.duaChipText, { color: active ? "#fff" : item.color }]}>
-              {item.label}
-            </Text>
-          </Pressable>
-        );
-      })}
-    </View>
-  );
-}
-
-// ── EtapaField ────────────────────────────────────────────────────────────────
+// ── EtapaField con DUA por actividad ─────────────────────────────────────────
 function EtapaField({
-  label, color, value, onChange, colors, placeholder, dua, onDUAChange,
+  label, color, actividades, onUpdateActividades, colors,
 }: {
-  label: string; color: string; value: string; onChange: (t: string) => void;
-  colors: any; placeholder?: string;
-  dua?: DUAEtapaState;
-  onDUAChange?: (dua: DUAEtapaState) => void;
+  label: string;
+  color: string;
+  actividades: ActividadState[];
+  onUpdateActividades: (acts: ActividadState[]) => void;
+  colors: any;
 }) {
+  function updateAt(idx: number, act: ActividadState) {
+    const next = [...actividades];
+    next[idx] = act;
+    onUpdateActividades(next);
+  }
+  function removeAt(idx: number) {
+    onUpdateActividades(actividades.filter((_, i) => i !== idx));
+  }
+
   return (
-    <View style={{ marginTop: 10 }}>
+    <View style={{ marginTop: 14 }}>
       <Text style={[s.etapaLabel, { color }]}>{label}</Text>
-      {dua && onDUAChange && (
-        <DUASelector dua={dua} onChange={onDUAChange} />
-      )}
-      <TextInput
-        value={value}
-        onChangeText={onChange}
-        multiline
-        textAlignVertical="top"
-        placeholder={placeholder}
-        placeholderTextColor={colors.muted}
-        style={[
-          s.input,
-          s.inputMulti,
-          { backgroundColor: colors.surface, borderColor: color + "40", color: colors.foreground },
-        ]}
-      />
+
+      {actividades.map((act, idx) => (
+        <View key={act.id} style={s.actRow}>
+          <View style={{ flex: 1 }}>
+            <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
+              <Text style={[s.actBullet, { color }]}>•</Text>
+              <TextInput
+                value={act.texto}
+                onChangeText={t => updateAt(idx, { ...act, texto: t })}
+                multiline
+                textAlignVertical="top"
+                style={[s.actInput, { color: colors.foreground, borderColor: color + "30", backgroundColor: colors.surface }]}
+              />
+              {actividades.length > 1 && (
+                <Pressable onPress={() => removeAt(idx)} style={{ paddingLeft: 6, paddingTop: 10 }}>
+                  <Text style={s.actRemove}>✕</Text>
+                </Pressable>
+              )}
+            </View>
+            {/* DUA por actividad */}
+            <View style={s.actDUARow}>
+              {DUA_ITEMS.map(item => {
+                const active = act.dua[item.key];
+                return (
+                  <Pressable
+                    key={item.key}
+                    onPress={() => updateAt(idx, { ...act, dua: { ...act.dua, [item.key]: !active } })}
+                    style={({ pressed }) => [
+                      s.actDUAChip,
+                      {
+                        backgroundColor: active ? item.color : "transparent",
+                        borderColor: item.color,
+                        opacity: pressed ? 0.7 : 1,
+                      },
+                    ]}
+                  >
+                    <View style={[s.actDUASquare, { backgroundColor: active ? "#fff" : item.color }]} />
+                    <Text style={[s.actDUAText, { color: active ? "#fff" : item.color }]}>
+                      {item.label}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+        </View>
+      ))}
+
+      <Pressable
+        onPress={() => onUpdateActividades([...actividades, actVacia()])}
+        style={({ pressed }) => [s.actAddBtn, { borderColor: color, opacity: pressed ? 0.7 : 1 }]}
+      >
+        <Text style={[s.actAddText, { color }]}>+ Actividad</Text>
+      </Pressable>
     </View>
   );
 }
@@ -961,9 +964,15 @@ const s = StyleSheet.create({
   exportBtnText: { color: "#fff", fontSize: 17, fontWeight: "800" },
   hint: { fontSize: 12, fontStyle: "italic", marginBottom: 6 },
   generarHint: { borderWidth: 1, borderStyle: "dashed", borderRadius: 10, padding: 16, marginTop: 10, alignItems: "center" },
-  // DUA
-  duaRow: { flexDirection: "row", flexWrap: "wrap", gap: 5, marginBottom: 6, marginTop: 3 },
-  duaChip: { flexDirection: "row", alignItems: "center", gap: 4, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 20, borderWidth: 1.5 },
-  duaSquare: { width: 9, height: 9, borderRadius: 2 },
-  duaChipText: { fontSize: 11, fontWeight: "600" },
+  // Actividades individuales con DUA
+  actRow: { marginTop: 8 },
+  actBullet: { fontSize: 16, fontWeight: "700", marginTop: 10, marginRight: 6 },
+  actInput: { flex: 1, borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, minHeight: 40 },
+  actRemove: { color: "#EF4444", fontSize: 14, paddingTop: 10 },
+  actDUARow: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginTop: 5, marginBottom: 2, paddingLeft: 20 },
+  actDUAChip: { flexDirection: "row", alignItems: "center", gap: 3, paddingHorizontal: 6, paddingVertical: 3, borderRadius: 12, borderWidth: 1 },
+  actDUASquare: { width: 7, height: 7, borderRadius: 1 },
+  actDUAText: { fontSize: 10, fontWeight: "600" },
+  actAddBtn: { borderWidth: 1, borderStyle: "dashed", borderRadius: 8, paddingVertical: 7, alignItems: "center", marginTop: 6 },
+  actAddText: { fontSize: 12, fontWeight: "700" },
 });
