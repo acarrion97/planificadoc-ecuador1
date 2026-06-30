@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import { Platform, ActivityIndicator, View } from "react-native";
+import { Platform, View } from "react-native";
 import "@/lib/_core/nativewind-pressable";
 import { ThemeProvider } from "@/lib/theme-provider";
 import {
@@ -21,6 +21,7 @@ import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-run
 import { PlanificacionesProvider } from "@/lib/planificaciones-context";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { AccessProvider, useAccess } from "@/lib/access-control";
+import { AnimatedLogoSplash } from "@/components/animated-logo-splash";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -32,16 +33,20 @@ export const unstable_settings = {
 /**
  * Inner layout that checks access state and redirects to paywall if needed.
  */
+const SPLASH_MIN_MS = 3200;
+
 function AppContent() {
   const { loaded, hasAccess } = useAccess();
   const segments = useSegments();
+  const [minTimeDone, setMinTimeDone] = useState(false);
 
-  if (!loaded) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#F8FAFC" }}>
-        <ActivityIndicator size="large" color="#1B5E9E" />
-      </View>
-    );
+  useEffect(() => {
+    const t = setTimeout(() => setMinTimeDone(true), SPLASH_MIN_MS);
+    return () => clearTimeout(t);
+  }, []);
+
+  if (!loaded || !minTimeDone) {
+    return <AnimatedLogoSplash />;
   }
 
   // If user doesn't have access and is NOT on the paywall screen, redirect to paywall
