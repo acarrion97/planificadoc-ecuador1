@@ -74,6 +74,7 @@ const FormDataTrimestralSchema = z.object({
   firmaRevisadoFecha: z.string(),
   firmaAprobadoPor: z.string(),
   firmaAprobadoFecha: z.string(),
+  deporteEnfoque: z.string().optional(),
 });
 
 // ─── Prompt ──────────────────────────────────────────────────────────────────
@@ -103,6 +104,10 @@ function buildPcaTrimestralPrompt(input: z.infer<typeof FormDataTrimestralSchema
     return `Unidad ${u.numero}:\nDCD seleccionadas:\n${dcds}\nDuración: ${u.duracionSemanas} semanas`;
   }).join("\n\n");
 
+  const deporteCtx = input.deporteEnfoque
+    ? `\n⚽ DEPORTE/DISCIPLINA SELECCIONADO: "${input.deporteEnfoque}". TODAS las actividades de las fases ${input.modeloPedagogico === "ACC" ? "Anticipación, Construcción y Consolidación" : "Experiencia, Reflexión, Conceptualización y Aplicación"} DEBEN contextualizarse específicamente a ${input.deporteEnfoque}: usa técnicas, gestos técnicos, situaciones de juego, reglamento y vocabulario propio de este deporte. Los indicadores de evaluación también deben medir habilidades propias de ${input.deporteEnfoque}.`
+    : "";
+
   return `Eres un experto en currículo educativo ecuatoriano. Genera una Planificación Curricular Trimestral (PCT) completa siguiendo el formato oficial del Ministerio de Educación del Ecuador.
 
 DATOS DEL PERÍODO:
@@ -118,7 +123,7 @@ DATOS DEL PERÍODO:
 - Total períodos del trimestre: ${totalPeriodos}
 - Ejes transversales: ${ejesTexto}
 - Metodologías activas: ${metodologiasTexto}
-- Técnicas de evaluación: ${tecnicasTexto}
+- Técnicas de evaluación: ${tecnicasTexto}${deporteCtx}
 
 UNIDADES DEL TRIMESTRE:
 ${unidadesTexto}

@@ -92,7 +92,6 @@ function UnidadCard({
   blurred,
   colors,
   onRegenerar,
-  onRegenerarEvaluacion,
   isPaid,
 }: {
   unidad: any;
@@ -101,7 +100,6 @@ function UnidadCard({
   blurred?: boolean;
   colors: any;
   onRegenerar?: () => void;
-  onRegenerarEvaluacion?: () => void;
   isPaid: boolean;
 }) {
   const dcds = unidad?.dcdsSeleccionadas || [];
@@ -152,21 +150,12 @@ function UnidadCard({
         </View>
       )}
 
-      <View style={{ marginBottom: 8 }}>
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+      {aiUnidad?.evaluacion && (
+        <View style={{ marginBottom: 8 }}>
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Criterios de evaluación</Text>
-          {isPaid && !aiUnidad?.evaluacion && onRegenerarEvaluacion && (
-            <Pressable onPress={onRegenerarEvaluacion} style={s.regenBtn}>
-              <Text style={s.regenText}>🔄 Generar indicadores</Text>
-            </Pressable>
-          )}
-        </View>
-        {aiUnidad?.evaluacion ? (
           <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.evaluacion)}</Text>
-        ) : isPaid ? (
-          <Text style={[s.fieldValue, { color: colors.muted, fontStyle: "italic" }]}>Sin indicadores — pulsa "Generar indicadores" para crearlos.</Text>
-        ) : null}
-      </View>
+        </View>
+      )}
 
       <Text style={[s.duracion, { color: colors.muted }]}>
         Duración: {aiUnidad?.duracionSemanas || unidad?.duracionSemanas || "—"} semana(s)
@@ -589,7 +578,6 @@ export default function PcaTrimestralPreviewScreen() {
                 colors={colors}
                 isPaid={paid}
                 onRegenerar={paid ? () => handleRegenerar("unidad", u.numero) : undefined}
-                onRegenerarEvaluacion={paid ? () => handleRegenerar("evaluacion_unidad", u.numero) : undefined}
               />
             );
           })}

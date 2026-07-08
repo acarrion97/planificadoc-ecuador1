@@ -69,6 +69,20 @@ const AREAS_LIST: { code: Area; nombre: string }[] = [
   { code: "EG",    nombre: "Emprendimiento y Gestión" },
 ];
 
+const DEPORTES_EF: { value: string; label: string }[] = [
+  { value: "Fútbol",          label: "⚽ Fútbol" },
+  { value: "Básquetbol",      label: "🏀 Básquetbol" },
+  { value: "Voleibol",        label: "🏐 Voleibol" },
+  { value: "Atletismo",       label: "🏃 Atletismo" },
+  { value: "Natación",        label: "🏊 Natación" },
+  { value: "Gimnasia",        label: "🤸 Gimnasia" },
+  { value: "Balonmano",       label: "🤾 Balonmano" },
+  { value: "Béisbol / Softbol", label: "⚾ Béisbol / Softbol" },
+  { value: "Tenis de mesa",   label: "🏓 Tenis de mesa" },
+  { value: "Ciclismo",        label: "🚴 Ciclismo" },
+  { value: "Ajedrez",         label: "♟️ Ajedrez" },
+];
+
 const SUBNIVELES: { value: Subnivel; label: string }[] = [
   { value: 2, label: "Básica Elemental (2.° - 4.°)" },
   { value: 3, label: "Básica Media (5.° - 7.°)" },
@@ -233,6 +247,9 @@ export default function PlanificacionTrimestralScreen() {
   const [metodologias, setMetodologias] = useState<string[]>([]);
   const [tecnicas, setTecnicas]         = useState<string[]>([]);
 
+  // ── Deporte específico (solo EF) ──
+  const [deporteEnfoque, setDeporteEnfoque] = useState("");
+
   // ── Modelo pedagógico ──
   const [modeloPedagogico, setModeloPedagogico] = useState<"ERCA" | "ACC">("ERCA");
 
@@ -304,6 +321,7 @@ export default function PlanificacionTrimestralScreen() {
     setArea(newArea as Area);
     setSubnivel(0);
     setGrado("");
+    setDeporteEnfoque("");
   }, [unidades]);
 
   const handleSubnivelChange = useCallback((v: string) => {
@@ -376,6 +394,7 @@ export default function PlanificacionTrimestralScreen() {
         firmaRevisadoFecha: firmaRevFecha.trim(),
         firmaAprobadoPor: firmaApro.trim(),
         firmaAprobadoFecha: firmaAproFecha.trim(),
+        deporteEnfoque: area === "EF" && deporteEnfoque ? deporteEnfoque : undefined,
       };
 
       const result = await generatePcaTrimestral.mutateAsync({
@@ -395,7 +414,7 @@ export default function PlanificacionTrimestralScreen() {
   }, [
     trimestre, institucion, docente, area, subnivel, grado, anioLectivo, paralelo,
     cargaHoraria, semanasTotal, semanasEval, usaEjes, ejesSeleccionados,
-    unidades, modeloPedagogico, metodologias, tecnicas,
+    unidades, modeloPedagogico, metodologias, tecnicas, deporteEnfoque,
     firmaElab, firmaElabFecha, firmaRev, firmaRevFecha, firmaApro, firmaAproFecha,
   ]);
 
@@ -466,6 +485,23 @@ export default function PlanificacionTrimestralScreen() {
             placeholder="Seleccionar área..."
             colors={colors}
           />
+
+          {area === "EF" && (
+            <>
+              <View style={{ height: 10 }} />
+              <FieldLabel label="Deporte o disciplina (opcional)" colors={colors} />
+              <Text style={[styles.hintB, { color: colors.muted, marginBottom: 6 }]}>
+                Si seleccionas uno, la IA adaptará todas las actividades ERCA/ACC a ese deporte.
+              </Text>
+              <SelectPicker
+                options={[{ value: "", label: "Sin deporte específico (general)" }, ...DEPORTES_EF]}
+                value={deporteEnfoque}
+                onSelect={setDeporteEnfoque}
+                placeholder="Sin deporte específico (general)"
+                colors={colors}
+              />
+            </>
+          )}
 
           <View style={{ height: 10 }} />
           <FieldLabel label="Subnivel" colors={colors} />
