@@ -488,3 +488,47 @@ export async function getPcaDocumentsBySession(sessionId: string) {
     .where(eq(pcaDocuments.sessionId, sessionId))
     .orderBy(desc(pcaDocuments.createdAt));
 }
+
+/**
+ * Mark a PCA document as paid without charging (for annual subscribers).
+ * amountPaid is set to 0 to distinguish from a real PayPhone payment.
+ */
+export async function setPcaStatusPaidFree(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({ status: "paid", amountPaid: 0 })
+    .where(eq(pcaDocuments.id, id));
+}
+
+/**
+ * Returns the active annual subscription for an email, or null if none.
+ * Used to auto-unlock PCA/PCT documents for annual plan subscribers.
+ */
+export async function getActiveAnnualSubscription(email: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const now = new Date();
+  const result = await db
+    .select()
+    .from(subscriptions)
+    .where(
+      and(
+        eq(subscriptions.email, email.toLowerCase()),
+        eq(subscriptions.status, "active"),
+        eq(subscriptions.plan, "annual")
+      )
+    )
+    .orderBy(desc(subscriptions.endDate))
+    .limit(1);
+
+  if (result.length === 0) return null;
+
+  const sub = result[0];
+  if (new Date(sub.endDate) < now) return null;
+
+  return sub;
+}

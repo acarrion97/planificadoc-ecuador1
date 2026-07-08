@@ -293,6 +293,9 @@ export function repairJson(raw: string): string {
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
 const MAX_RETRIES = 3;
 const BASE_DELAY_MS = 1500;
+// Abort 10 s before Vercel's 300-s function limit so the frontend receives a
+// clean error message instead of a cold TCP reset.
+const FETCH_TIMEOUT_MS = 290_000;
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -349,14 +352,30 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
       await sleep(BASE_DELAY_MS * Math.pow(2, attempt - 1));
     }
 
-    const response = await fetch(resolveApiUrl(), {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${ENV.forgeApiKey}`,
-      },
-      body,
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+    let response: Response;
+    try {
+      response = await fetch(resolveApiUrl(), {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${ENV.forgeApiKey}`,
+        },
+        body,
+        signal: controller.signal,
+      });
+    } catch (fetchErr: any) {
+      clearTimeout(timeoutId);
+      if (fetchErr?.name === "AbortError") {
+        throw new Error(
+          "La generación tardó demasiado. Por favor intenta de nuevo o reduce el número de unidades."
+        );
+      }
+      throw fetchErr;
+    }
+    clearTimeout(timeoutId);
 
     if (response.ok) {
       return (await response.json()) as InvokeResult;

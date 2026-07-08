@@ -5,6 +5,8 @@ import {
   createPcaDocument,
   getPcaDocument,
   setPcaAiResult,
+  setPcaStatusPaidFree,
+  getActiveAnnualSubscription,
   setPcaClientTxId,
   getPcaDocumentsBySession,
 } from "./db";
@@ -153,9 +155,17 @@ export const pcaRouter = router({
   generatePca: publicProcedure
     .input(z.object({
       sessionId: z.string().min(1),
+      email: z.string().email().optional(),
       formData: FormDataSchema,
     }))
     .mutation(async ({ input }) => {
+      // 0. Verificar suscripción anual → PCA incluida sin costo
+      let isAnnualSubscriber = false;
+      if (input.email) {
+        const annualSub = await getActiveAnnualSubscription(input.email);
+        isAnnualSubscriber = !!annualSub;
+      }
+
       // 1. Crear documento en BD con status "draft"
       const docId = await createPcaDocument({
         sessionId: input.sessionId,
@@ -228,13 +238,20 @@ export const pcaRouter = router({
         // 5. Guardar resultado en BD
         await setPcaAiResult(docId, JSON.stringify(aiResult));
 
-        return { success: true, pcaId: docId };
+        // 6. Si es suscriptor anual, desbloquear automáticamente
+        if (isAnnualSubscriber) {
+          await setPcaStatusPaidFree(docId);
+          return { success: true, pcaId: docId, autoUnlocked: true };
+        }
+
+        return { success: true, pcaId: docId, autoUnlocked: false };
       } catch (error: any) {
         console.error("[pca-router] Error generating PCA:", error);
         // El documento quedó en "draft" — el frontend puede reintentar
         return {
           success: false,
           pcaId: docId,
+          autoUnlocked: false,
           error: error.message || "Error al generar la PCA. Intenta de nuevo.",
         };
       }

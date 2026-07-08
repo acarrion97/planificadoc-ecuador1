@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
+import { useAccess } from "@/lib/access-control";
 import {
   TODAS_LAS_DESTREZAS,
   AREAS_INFO,
@@ -193,6 +194,7 @@ export default function PlanificacionAnualScreen() {
   const colors = useColors();
   const router = useRouter();
   const generatePca = trpc.pca.generatePca.useMutation();
+  const { subscribedEmail } = useAccess();
 
   // ── Sección 1: Datos informativos ──
   const [institucion, setInstitucion] = useState("");
@@ -369,7 +371,11 @@ export default function PlanificacionAnualScreen() {
         firmaAprobadoFecha: firmaAproFecha.trim(),
       };
 
-      const result = await generatePca.mutateAsync({ sessionId, formData });
+      const result = await generatePca.mutateAsync({
+        sessionId,
+        email: subscribedEmail ?? undefined,
+        formData,
+      });
 
       if (result.success && result.pcaId) {
         router.push(`/pca-preview/${result.pcaId}` as any);
