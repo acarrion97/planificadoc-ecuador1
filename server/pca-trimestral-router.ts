@@ -149,14 +149,14 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
         {
           "dcd": "código de la DCD (ej: M.2.1.15)",
           "fases": ${input.modeloPedagogico === "ACC" ? `{
-            "anticipacion": ["actividad detallada 1 (Marzano N1: recuperación)", "actividad detallada 2", "actividad detallada 3"],
-            "construccion": ["actividad detallada 1 (Marzano N2-3: comprensión/análisis)", "actividad detallada 2", "actividad detallada 3", "actividad detallada 4"],
-            "consolidacion": ["actividad detallada 1 (Marzano N4: utilización)", "actividad detallada 2", "actividad detallada 3"]
+            "anticipacion": ["actividad concisa 1 (Marzano N1: recuperación)", "actividad concisa 2"],
+            "construccion": ["actividad concisa 1 (Marzano N2-3: comprensión/análisis)", "actividad concisa 2"],
+            "consolidacion": ["actividad concisa 1 (Marzano N4: utilización)", "actividad concisa 2"]
           }` : `{
-            "experiencia": ["actividad detallada 1 (Marzano N1: recuperación)", "actividad detallada 2", "actividad detallada 3"],
-            "reflexion": ["actividad detallada 1 (Marzano N2-3: comprensión/análisis)", "actividad detallada 2", "actividad detallada 3"],
-            "conceptualizacion": ["actividad detallada 1 (Marzano N2: comprensión profunda)", "actividad detallada 2", "actividad detallada 3"],
-            "aplicacion": ["actividad detallada 1 (Marzano N4: utilización)", "actividad detallada 2", "actividad detallada 3"]
+            "experiencia": ["actividad concisa 1 (Marzano N1: recuperación)", "actividad concisa 2"],
+            "reflexion": ["actividad concisa 1 (Marzano N2-3: comprensión/análisis)", "actividad concisa 2"],
+            "conceptualizacion": ["actividad concisa 1 (Marzano N2: comprensión profunda)", "actividad concisa 2"],
+            "aplicacion": ["actividad concisa 1 (Marzano N4: utilización)", "actividad concisa 2"]
           }`}
         }
       ],
@@ -170,7 +170,7 @@ REGLAS OBLIGATORIAS:
 - orientacionesMetodologicas es un ARRAY: un objeto por cada DCD seleccionada, con su código y sus fases
 - Cada actividad DEBE iniciar con un VERBO EN INFINITIVO siguiendo Marzano (ej: "Reconocer...", "Identificar...", "Analizar...", "Resolver...", "Crear..."). NUNCA uses "Los estudiantes" al inicio.
 - Aplica Taxonomía de Marzano: nivel 1 en Experiencia/Anticipación, niveles 2-3 en Reflexión/Construcción, nivel 4 en Aplicación/Consolidación
-- Mínimo 3 actividades por fase, máximo 5. Deben ser detalladas, variadas y progresivas dentro de cada nivel de Marzano
+- Exactamente 2 actividades por fase (ni más, ni menos). Concisas pero específicas y progresivas dentro de cada nivel de Marzano
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
 - El campo "evaluacion" es OBLIGATORIO: NUNCA lo dejes vacío ni como "". Escribe mínimo 3 indicadores de logro específicos y medibles para las DCD de esa unidad
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
@@ -258,9 +258,18 @@ export const pcaTrimestralRouter = router({
             ? parsed.unidades.map((u: any) => {
                 // Preservar orientacionesMetodologicas como array de DCDs (no convertir a string)
                 const orientRaw = u.orientaciones_metodologicas || u.orientacionesMetodologicas;
-                const orientaciones = Array.isArray(orientRaw)
-                  ? orientRaw
-                  : (orientRaw && typeof orientRaw === "object" ? orientRaw : toStr(orientRaw));
+                let orientaciones: any;
+                if (Array.isArray(orientRaw)) {
+                  // Filtrar DCDs con todas las fases vacías (artefacto de truncación de JSON)
+                  const hasFases = (item: any) => {
+                    const f = item?.fases || {};
+                    return Object.values(f).some((v: any) => Array.isArray(v) && v.length > 0);
+                  };
+                  orientaciones = orientRaw.filter(hasFases);
+                  if (orientaciones.length === 0) orientaciones = orientRaw; // fallback: keep all
+                } else {
+                  orientaciones = orientRaw && typeof orientRaw === "object" ? orientRaw : toStr(orientRaw);
+                }
                 return {
                   numero: u.numero || 1,
                   titulo: toStr(u.titulo) || "Unidad sin título",

@@ -161,8 +161,9 @@ function orientacionesParagraphs(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): Par
     }
 
     for (const fase of orden) {
-      const actividades: string[] = Array.isArray(fases[fase]) ? fases[fase] : [];
-      const color = FASE_COLORS[fase] || "003366";
+      const actividades: string[] = Array.isArray(fases[fase]) ? fases[fase].filter((a: any) => typeof a === "string" && a.trim()) : [];
+      if (actividades.length === 0) continue;
+
       const label = FASE_LABELS[fase] || fase.toUpperCase();
 
       paras.push(new Paragraph({
