@@ -155,7 +155,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
           }`}
         }
       ],
-      "evaluacion": "Criterios e indicadores de logro articulados con las técnicas de evaluación",
+      "evaluacion": "OBLIGATORIO (no dejar vacío): 3-5 indicadores de logro específicos y observables para las DCD trabajadas, articulados con las técnicas de evaluación elegidas. Cada indicador inicia con verbo en infinitivo observable (ej: Demuestra, Ejecuta, Analiza, Resuelve, Crea).",
       "duracionSemanas": número
     }
   ]
@@ -167,6 +167,7 @@ REGLAS OBLIGATORIAS:
 - Aplica Taxonomía de Marzano: nivel 1 en Experiencia/Anticipación, niveles 2-3 en Reflexión/Construcción, nivel 4 en Aplicación/Consolidación
 - Mínimo 3 actividades por fase, máximo 5. Deben ser detalladas, variadas y progresivas dentro de cada nivel de Marzano
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
+- El campo "evaluacion" es OBLIGATORIO: NUNCA lo dejes vacío ni como "". Escribe mínimo 3 indicadores de logro específicos y medibles para las DCD de esa unidad
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
 - Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo)
 - Usa lenguaje técnico-pedagógico apropiado para el nivel educativo
@@ -261,7 +262,14 @@ export const pcaTrimestralRouter = router({
                   objetivosEspecificos: toStr(u.objetivos_especificos || u.objetivosEspecificos),
                   contenidos: toStr(u.contenidos),
                   orientacionesMetodologicas: orientaciones,
-                  evaluacion: toStr(u.evaluacion),
+                  evaluacion: toStr(
+                    u.evaluacion ||
+                    u.evaluacion_criterios ||
+                    u.criterios_evaluacion ||
+                    u.indicadores_evaluacion ||
+                    u.indicadores ||
+                    u.criterios
+                  ),
                   duracionSemanas: u.duracion_semanas || u.duracionSemanas || 1,
                 };
               })
@@ -354,7 +362,7 @@ export const pcaTrimestralRouter = router({
   regenerarSeccionTrimestral: publicProcedure
     .input(z.object({
       pcaId: z.number(),
-      seccion: z.enum(["objetivos_trimestre", "unidad"]),
+      seccion: z.enum(["objetivos_trimestre", "unidad", "evaluacion_unidad"]),
       unidadNumero: z.number().optional(),
     }))
     .mutation(async ({ input }) => {
@@ -381,6 +389,16 @@ export const pcaTrimestralRouter = router({
         prompt = `Regenera la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nIMPORTANTE: orientaciones_metodologicas sigue el modelo ${formData.modeloPedagogico === "ACC" ? "ACC (Anticipación, Construcción del conocimiento, Consolidación) — máximo 3 frases breves y generales" : "ERCA (Experiencia, Reflexión, Conceptualización, Aplicación) — máximo 4 frases breves y generales"} — no detallar actividades específicas de clase.
 Responde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientaciones_metodologicas":"","evaluacion":""}`;
         responseKey = "unidad";
+      } else if (input.seccion === "evaluacion_unidad" && input.unidadNumero != null) {
+        const unidadForm = formData.unidades.find((u: any) => u.numero === input.unidadNumero);
+        if (!unidadForm) return { success: false, error: "Unidad no encontrada" };
+        const dcdsTexto = unidadForm.dcdsSeleccionadas.map((d: any) => `- ${d.codigo}: "${d.enunciado}"`).join("\n");
+        prompt = `Genera los indicadores de evaluación para la Unidad ${input.unidadNumero} del PCT de ${areaNombre} ${subnivelNombre} ${formData.grado} (${formData.trimestre}).
+DCD trabajadas:\n${dcdsTexto}
+Técnicas de evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.
+OBLIGATORIO: 3-5 indicadores de logro específicos, observables y medibles, articulados con las técnicas de evaluación y las DCD listadas. Cada indicador inicia con verbo en infinitivo (ej: Demuestra, Ejecuta, Analiza, Resuelve, Crea).
+Responde SOLO con JSON: {"evaluacion": "Indicador 1... Indicador 2... Indicador 3..."}`;
+        responseKey = "evaluacion_unidad";
       }
 
       try {
@@ -407,6 +425,14 @@ Responde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"",
               contenidos: parsed.contenidos || aiResult.unidades[idx].contenidos,
               orientacionesMetodologicas: parsed.orientaciones_metodologicas || aiResult.unidades[idx].orientacionesMetodologicas,
               evaluacion: parsed.evaluacion || aiResult.unidades[idx].evaluacion,
+            };
+          }
+        } else if (responseKey === "evaluacion_unidad" && input.unidadNumero != null) {
+          const idx = aiResult.unidades?.findIndex((u: any) => u.numero === input.unidadNumero);
+          if (idx >= 0 && parsed.evaluacion) {
+            aiResult.unidades[idx] = {
+              ...aiResult.unidades[idx],
+              evaluacion: parsed.evaluacion,
             };
           }
         } else if (responseKey === "objetivos_trimestre") {
