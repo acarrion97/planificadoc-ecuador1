@@ -891,27 +891,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // POST /api/admin/grant-access — crea cuenta + suscripción manual por N días
     if (action === "grant-access") {
       if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-      const { email, password, nombre, days } = req.body || {};
+      const { email, password, nombre, days, plan } = req.body || {};
       if (!email || !password) return res.status(400).json({ error: "email y password requeridos" });
 
       const normalizedEmail = (email as string).trim().toLowerCase();
       const trimmedNombre = (nombre as string || normalizedEmail.split("@")[0]).trim();
       const durationDays = parseInt(days) || 7;
+      const subscriptionPlan = (plan as string) === "annual" ? "annual" : "monthly";
 
-      // Crear cuenta si no existe
+      // Crear o actualizar cuenta
       let accountCreated = false;
       const existing = await db.select({ id: docenteAccounts.id })
         .from(docenteAccounts).where(eq(docenteAccounts.email, normalizedEmail)).limit(1);
 
+      const { randomBytes: rb, scrypt: sc } = await import("node:crypto");
+      const { promisify: prom } = await import("node:util");
+      const scryptAsync2 = prom(sc);
+      const salt = rb(16).toString("hex");
+      const derived = (await scryptAsync2(password as string, salt, 64)) as Buffer;
+      const passwordHash = `${salt}:${derived.toString("hex")}`;
+
       if (existing.length === 0) {
-        const { randomBytes: rb, scrypt: sc } = await import("node:crypto");
-        const { promisify: prom } = await import("node:util");
-        const scryptAsync2 = prom(sc);
-        const salt = rb(16).toString("hex");
-        const derived = (await scryptAsync2(password as string, salt, 64)) as Buffer;
-        const passwordHash = `${salt}:${derived.toString("hex")}`;
         await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
         accountCreated = true;
+      } else {
+        await db.update(docenteAccounts).set({ passwordHash, nombre: trimmedNombre }).where(eq(docenteAccounts.email, normalizedEmail));
       }
 
       // Expirar suscripciones activas previas
@@ -927,7 +931,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const { createSubscription } = await import("../_lib/db");
       await createSubscription({
         email: normalizedEmail,
-        plan: "monthly",
+        plan: subscriptionPlan,
         status: "active",
         amountPaid: 0,
         transactionId: `ADMIN-GRANT-${Date.now()}`,
@@ -943,6 +947,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         success: true,
         email: normalizedEmail,
         nombre: trimmedNombre,
+        plan: subscriptionPlan,
         accountCreated,
         durationDays,
         startDate: startDate.toISOString(),
