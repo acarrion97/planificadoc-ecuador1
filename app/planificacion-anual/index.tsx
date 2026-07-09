@@ -194,7 +194,8 @@ export default function PlanificacionAnualScreen() {
   const colors = useColors();
   const router = useRouter();
   const generatePca = trpc.pca.generatePca.useMutation();
-  const { subscribedEmail } = useAccess();
+  const { subscribedEmail, authEmail } = useAccess();
+  const emailForGeneration = subscribedEmail ?? authEmail ?? undefined;
 
   // ── Sección 1: Datos informativos ──
   const [institucion, setInstitucion] = useState("");
@@ -373,7 +374,7 @@ export default function PlanificacionAnualScreen() {
 
       const result = await generatePca.mutateAsync({
         sessionId,
-        email: subscribedEmail ?? undefined,
+        email: emailForGeneration,
         formData,
       });
 

@@ -215,7 +215,8 @@ export default function PlanificacionTrimestralScreen() {
   const colors = useColors();
   const router = useRouter();
   const generatePcaTrimestral = trpc.pcaTrimestral.generatePcaTrimestral.useMutation();
-  const { subscribedEmail } = useAccess();
+  const { subscribedEmail, authEmail } = useAccess();
+  const emailForGeneration = subscribedEmail ?? authEmail ?? undefined;
 
   // ── Sección 1: Datos informativos ──
   const [trimestre, setTrimestre] = useState<TrimestreValue | "">("");
@@ -399,7 +400,7 @@ export default function PlanificacionTrimestralScreen() {
 
       const result = await generatePcaTrimestral.mutateAsync({
         sessionId,
-        email: subscribedEmail ?? undefined,
+        email: emailForGeneration,
         formData,
       });
 
