@@ -104,6 +104,10 @@ function buildPcaTrimestralPrompt(input: z.infer<typeof FormDataTrimestralSchema
     return `Unidad ${u.numero}:\nDCD seleccionadas:\n${dcds}\nDuración: ${u.duracionSemanas} semanas`;
   }).join("\n\n");
 
+  const eflCtx = input.area === "EFL"
+    ? `\n🇬🇧 IDIOMA OBLIGATORIO: Esta planificación es para LENGUA EXTRANJERA (INGLÉS). Todos los títulos de unidades, objetivos específicos, contenidos, actividades de las fases ${input.modeloPedagogico === "ACC" ? "Anticipación, Construcción y Consolidación" : "Experiencia, Reflexión, Conceptualización y Aplicación"} e indicadores de evaluación DEBEN estar redactados EN INGLÉS. Solo los campos administrativos (institución, docente, año lectivo) permanecen en español.`
+    : "";
+
   const deporteCtx = input.deporteEnfoque
     ? `\n⚽ DEPORTE/DISCIPLINA SELECCIONADO: "${input.deporteEnfoque}". TODAS las actividades de las fases ${input.modeloPedagogico === "ACC" ? "Anticipación, Construcción y Consolidación" : "Experiencia, Reflexión, Conceptualización y Aplicación"} DEBEN contextualizarse específicamente a ${input.deporteEnfoque}: usa técnicas, gestos técnicos, situaciones de juego, reglamento y vocabulario propio de este deporte. Los indicadores de evaluación también deben medir habilidades propias de ${input.deporteEnfoque}.`
     : "";
@@ -123,7 +127,7 @@ DATOS DEL PERÍODO:
 - Total períodos del trimestre: ${totalPeriodos}
 - Ejes transversales: ${ejesTexto}
 - Metodologías activas: ${metodologiasTexto}
-- Técnicas de evaluación: ${tecnicasTexto}${deporteCtx}
+- Técnicas de evaluación: ${tecnicasTexto}${eflCtx}${deporteCtx}
 
 UNIDADES DEL TRIMESTRE:
 ${unidadesTexto}
