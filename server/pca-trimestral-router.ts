@@ -29,11 +29,14 @@ const AREA_NAMES: Record<string, string> = {
   "CN.F": "Física",
   "CS.H": "Historia",
   "CS.F": "Filosofía",
+  "CS.EC": "Educación para la Ciudadanía",
+  KAI: "Cívica — Acompañamiento Integral en el Aula",
   EG: "Emprendimiento y Gestión",
 };
 
 const SUBNIVEL_NAMES: Record<number, string> = {
-  1: "Preparatoria",
+  0: "Educación Inicial (3-4 años)",
+  1: "Preparatoria (1.° EGB)",
   2: "Básica Elemental (2.° - 4.°)",
   3: "Básica Media (5.° - 7.°)",
   4: "Básica Superior (8.° - 10.°)",
@@ -108,6 +111,10 @@ function buildPcaTrimestralPrompt(input: z.infer<typeof FormDataTrimestralSchema
     ? `\n🇬🇧 IDIOMA OBLIGATORIO: Esta planificación es para LENGUA EXTRANJERA (INGLÉS). Todos los títulos de unidades, objetivos específicos, contenidos, actividades de las fases ${input.modeloPedagogico === "ACC" ? "Anticipación, Construcción y Consolidación" : "Experiencia, Reflexión, Conceptualización y Aplicación"} e indicadores de evaluación DEBEN estar redactados EN INGLÉS. Solo los campos administrativos (institución, docente, año lectivo) permanecen en español.`
     : "";
 
+  const kaiCtx = input.area === "KAI"
+    ? `\n🏛️ PERÍODO KAI — EVALUACIÓN CUALITATIVA OBLIGATORIA: Esta es una Planificación del período "Cívica — Acompañamiento Integral en el Aula (KAI)". La sección de evaluación ("evaluacion") de CADA unidad DEBE ser estrictamente CUALITATIVA. No uses calificaciones numéricas. Usa únicamente: A = Muy Satisfactorio / B = Satisfactorio / C = Poco Satisfactorio. Describe los indicadores actitudinales que se observarán para asignar cada nivel. Las actividades deben promover la formación ciudadana, la convivencia democrática y la ética pública.`
+    : "";
+
   const deporteCtx = input.deporteEnfoque
     ? `\n⚽ DEPORTE/DISCIPLINA SELECCIONADO: "${input.deporteEnfoque}". TODAS las actividades de las fases ${input.modeloPedagogico === "ACC" ? "Anticipación, Construcción y Consolidación" : "Experiencia, Reflexión, Conceptualización y Aplicación"} DEBEN contextualizarse específicamente a ${input.deporteEnfoque}: usa técnicas, gestos técnicos, situaciones de juego, reglamento y vocabulario propio de este deporte. Los indicadores de evaluación también deben medir habilidades propias de ${input.deporteEnfoque}.`
     : "";
@@ -127,7 +134,7 @@ DATOS DEL PERÍODO:
 - Total períodos del trimestre: ${totalPeriodos}
 - Ejes transversales: ${ejesTexto}
 - Metodologías activas: ${metodologiasTexto}
-- Técnicas de evaluación: ${tecnicasTexto}${eflCtx}${deporteCtx}
+- Técnicas de evaluación: ${tecnicasTexto}${eflCtx}${deporteCtx}${kaiCtx}
 
 UNIDADES DEL TRIMESTRE:
 ${unidadesTexto}

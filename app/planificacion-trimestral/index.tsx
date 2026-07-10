@@ -66,6 +66,8 @@ const AREAS_LIST: { code: Area; nombre: string }[] = [
   { code: "CN.F",  nombre: "Física" },
   { code: "CS.H",  nombre: "Historia" },
   { code: "CS.F",  nombre: "Filosofía" },
+  { code: "CS.EC", nombre: "Cívica (Educ. para la Ciudadanía)" },
+  { code: "KAI",   nombre: "Cívica — Acomp. Integral (KAI)" },
   { code: "EG",    nombre: "Emprendimiento y Gestión" },
 ];
 
@@ -90,7 +92,18 @@ const SUBNIVELES: { value: Subnivel; label: string }[] = [
   { value: 5, label: "Bachillerato General Unificado" },
 ];
 
+const SUBNIVELES_KAI: { value: Subnivel; label: string }[] = [
+  { value: 0, label: "Educación Inicial (3-4 años)" },
+  { value: 1, label: "Preparatoria (1.° EGB)" },
+  { value: 2, label: "Básica Elemental (2.° - 4.°)" },
+  { value: 3, label: "Básica Media (5.° - 7.°)" },
+  { value: 4, label: "Básica Superior (8.° - 10.°)" },
+  { value: 5, label: "Bachillerato General Unificado" },
+];
+
 const GRADOS_POR_SUBNIVEL: Record<number, string[]> = {
+  0: ["Grupo 1 (3 años)", "Grupo 2 (4 años)"],
+  1: ["1.° Grado EGB"],
   2: ["2.° EGB", "3.° EGB", "4.° EGB"],
   3: ["5.° EGB", "6.° EGB", "7.° EGB"],
   4: ["8.° EGB", "9.° EGB", "10.° EGB"],
@@ -328,6 +341,12 @@ export default function PlanificacionTrimestralScreen() {
   const handleSubnivelChange = useCallback((v: string) => {
     const anySelected = unidades.some(u => u.dcdsSeleccionadas.length > 0);
     const newSub = parseInt(v) as Subnivel;
+    const applyChange = () => {
+      setSubnivel(newSub);
+      setGrado("");
+      // Preparatoria e Inicial usan ACC; el resto ERCA
+      setModeloPedagogico(newSub <= 1 ? "ACC" : "ERCA");
+    };
     if (anySelected) {
       const msg = "Cambiar el subnivel borrará las destrezas. ¿Continuar?";
       if (Platform.OS === "web") {
@@ -338,9 +357,8 @@ export default function PlanificacionTrimestralScreen() {
           {
             text: "Sí, cambiar",
             onPress: () => {
-              setSubnivel(newSub);
-              setGrado("");
               setUnidades(prev => prev.map(u => ({ ...u, dcdsSeleccionadas: [] })));
+              applyChange();
             },
           },
         ]);
@@ -348,8 +366,7 @@ export default function PlanificacionTrimestralScreen() {
       }
       setUnidades(prev => prev.map(u => ({ ...u, dcdsSeleccionadas: [] })));
     }
-    setSubnivel(newSub);
-    setGrado("");
+    applyChange();
   }, [unidades]);
 
   // ── Validación y envío ──
@@ -507,7 +524,7 @@ export default function PlanificacionTrimestralScreen() {
           <View style={{ height: 10 }} />
           <FieldLabel label="Subnivel" colors={colors} />
           <SelectPicker
-            options={SUBNIVELES.map(s => ({ value: String(s.value), label: s.label }))}
+            options={(area === "KAI" ? SUBNIVELES_KAI : SUBNIVELES).map(s => ({ value: String(s.value), label: s.label }))}
             value={subnivel ? String(subnivel) : ""}
             onSelect={handleSubnivelChange}
             placeholder="Seleccionar subnivel..."

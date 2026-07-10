@@ -11,7 +11,14 @@ import { destrezasHistoria } from "./destrezas-historia";
 import { destrezasFilosofia } from "./destrezas-filosofia";
 import { destrezasIngles } from "./destrezas-ingles";
 import { destrezasEmprendimiento } from "./destrezas-emprendimiento";
+import { destrezasEducacionCiudadania as _rawEC } from "./destrezas-educacion-ciudadania";
+import { destrezasKAI } from "./destrezas-kai";
 import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
+
+const destrezasEducacionCiudadania: Destreza[] = _rawEC.map((d) => ({
+  ...d,
+  bloque: d.bloque ?? (parseInt(d.codigo.split(".")[3], 10) || 1),
+})) as Destreza[];
 
 export * from "./types";
 export { obtenerTemasSugeridos } from "./temas-sugeridos";
@@ -51,6 +58,8 @@ export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasFilosofia,
   ...destrezasIngles,
   ...destrezasEmprendimiento,
+  ...destrezasEducacionCiudadania,
+  ...destrezasKAI,
 ];
 
 export function buscarPorCodigo(codigo: string): Destreza | undefined {

@@ -1633,8 +1633,11 @@ const PLANTILLAS_POR_AREA: Record<Area, PlantillaActividades> = {
   "CN.F": PLANTILLAS_FISICA,
   "CS.H": PLANTILLAS_HISTORIA,
   "CS.F": PLANTILLAS_FILOSOFIA,
+  "CS.EC": PLANTILLAS_CS,
+  KAI: PLANTILLAS_CS,
   EFL: PLANTILLAS_INGLES,
   EG: PLANTILLAS_EMPRENDIMIENTO,
+  INI: PLANTILLAS_CS,
 };
 
 // ============================================================

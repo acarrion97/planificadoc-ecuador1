@@ -28,11 +28,14 @@ const AREA_NAMES: Record<string, string> = {
   "CN.F": "Física",
   "CS.H": "Historia",
   "CS.F": "Filosofía",
+  "CS.EC": "Educación para la Ciudadanía",
+  KAI: "Cívica — Acompañamiento Integral en el Aula",
   EG: "Emprendimiento y Gestión",
 };
 
 const SUBNIVEL_NAMES: Record<number, string> = {
-  1: "Preparatoria",
+  0: "Educación Inicial (3-4 años)",
+  1: "Preparatoria (1.° EGB)",
   2: "Básica Elemental (2.° - 4.°)",
   3: "Básica Media (5.° - 7.°)",
   4: "Básica Superior (8.° - 10.°)",

@@ -10,6 +10,8 @@ export type Area =
   | "CN.F"
   | "CS.H"
   | "CS.F"
+  | "CS.EC"
+  | "KAI"
   | "EFL"
   | "EG"
   | "INI";
@@ -480,6 +482,35 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
       2: "La argumentación y la construcción del discurso lógico",
       3: "Filosofía occidental y latinoamericana",
       4: "El individuo y la comunidad: lo ético, lo estético y lo hedónico",
+    },
+  },
+  "CS.EC": {
+    code: "CS.EC",
+    name: "Educación para la Ciudadanía",
+    color: "#0F766E",
+    icon: "account-balance",
+    emoji: "🏛️",
+    bloques: {
+      1: "Ciudadanía, derechos y sus declaraciones",
+      2: "Igualdad natural y participación",
+      3: "Orígenes de la democracia moderna",
+      4: "Derechos civiles y políticos",
+      5: "Democracia como experiencia social",
+      6: "Democracia en Ecuador",
+      7: "Cultura, identidad y plurinacionalidad",
+      8: "Estado, nación y gobierno",
+      9: "Asambleas constituyentes",
+      10: "Republicanismo y modelos democráticos",
+    },
+  },
+  "KAI": {
+    code: "KAI",
+    name: "Cívica — Acomp. Integral (KAI)",
+    color: "#DC2626",
+    icon: "account-balance",
+    emoji: "🏛️",
+    bloques: {
+      1: "Período de Convivencia y Ciudadanía",
     },
   },
   EFL: {

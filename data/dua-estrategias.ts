@@ -351,6 +351,51 @@ const ESTRATEGIAS_POR_AREA: Record<Area, DUAPlanificacion> = {
       "Valorar la creatividad, la innovación y la responsabilidad social en los proyectos.",
     ],
   },
+  "CS.EC": {
+    representacion: [
+      "Presentar casos reales de ejercicio ciudadano y participación democrática en Ecuador.",
+      "Usar mapas conceptuales, líneas de tiempo e infografías sobre derechos y deberes ciudadanos.",
+      "Proyectar documentales, noticias y testimonios sobre procesos democráticos ecuatorianos.",
+      "Proporcionar textos constitucionales y legales adaptados con glosarios accesibles.",
+    ],
+    accionExpresion: [
+      "Organizar debates, mesas redondas y asambleas estudiantiles simulando procesos democráticos.",
+      "Permitir la elaboración de propuestas ciudadanas escritas, orales o en formato digital.",
+      "Aceptar distintos formatos de evidencia: ensayos, presentaciones, carteles, audios o videos.",
+      "Proporcionar rúbricas claras con criterios de participación activa y argumentación fundamentada.",
+    ],
+    implicacion: [
+      "Vincular los contenidos con situaciones de la comunidad local y la realidad ecuatoriana actual.",
+      "Fomentar la reflexión sobre los derechos constitucionales y el rol del ciudadano en la democracia.",
+      "Promover el análisis crítico de noticias y eventos socio-políticos del contexto nacional.",
+      "Valorar la diversidad de opiniones y la participación respetuosa como ejercicio ciudadano.",
+    ],
+  },
+  INI: {
+    representacion: [...ESTRATEGIAS_GENERALES.representacion],
+    accionExpresion: [...ESTRATEGIAS_GENERALES.accionExpresion],
+    implicacion: [...ESTRATEGIAS_GENERALES.implicacion],
+  },
+  KAI: {
+    representacion: [
+      "Presentar casos reales y dilemas morales adaptados al nivel del estudiante (cuento, noticia, video corto).",
+      "Usar recursos visuales: mapas de valores, líneas de tiempo de derechos y deberes, infografías constitucionales.",
+      "Proyectar situaciones cotidianas de convivencia, conflicto o participación ciudadana para su análisis.",
+      "Ofrecer textos legales adaptados (Constitución, Código de la Niñez) con glosario accesible.",
+    ],
+    accionExpresion: [
+      "Organizar debates, asambleas de aula y simulaciones de procesos democráticos según el nivel.",
+      "Permitir evidencias variadas: compromisos escritos, mapas conceptuales, decálogos, defensas orales.",
+      "Aceptar expresiones artísticas, dramatizaciones y juego de roles como formas de demostrar aprendizaje.",
+      "Utilizar escalas cualitativas A/B/C para evaluar el progreso actitudinal, no notas numéricas.",
+    ],
+    implicacion: [
+      "Vincular los contenidos con situaciones reales del entorno escolar y comunitario del estudiante.",
+      "Fomentar el diálogo reflexivo sobre valores, responsabilidades y participación ciudadana.",
+      "Promover la autoevaluación y los compromisos personales como herramienta de crecimiento ético.",
+      "Relacionar los temas con la Constitución ecuatoriana y los derechos de la niñez y adolescencia.",
+    ],
+  },
 };
 
 /**
