@@ -313,10 +313,12 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     output_schema,
     responseFormat,
     response_format,
+    maxTokens,
+    max_tokens,
   } = params;
 
   const payload: Record<string, unknown> = {
-    model: "gpt-4o-mini",
+    model: "gpt-4o",
     messages: messages.map(normalizeMessage),
   };
 
@@ -329,7 +331,7 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     payload.tool_choice = normalizedToolChoice;
   }
 
-  payload.max_tokens = 8192;
+  payload.max_tokens = maxTokens || max_tokens || 8192;
 
   const normalizedResponseFormat = normalizeResponseFormat({
     responseFormat,
