@@ -289,6 +289,7 @@ export interface HoraSemanal {
   competencias: string[];
   metodologiasActivas: string[];
   tecnicasEvaluacion: string[];
+  deporteEnfoque?: string;
 }
 
 /** Configuración completa de un día de la semana */

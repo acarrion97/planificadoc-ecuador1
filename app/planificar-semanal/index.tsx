@@ -20,6 +20,20 @@ const DUA_ROSADO = "#EC4899";
 const DUA_AZUL   = "#1E3A5F";
 const DUA_VERDE  = "#22C55E";
 
+const DEPORTES_EF: { value: string; label: string }[] = [
+  { value: "Fútbol",             label: "⚽ Fútbol" },
+  { value: "Básquetbol",         label: "🏀 Básquetbol" },
+  { value: "Voleibol",           label: "🏐 Voleibol" },
+  { value: "Atletismo",          label: "🏃 Atletismo" },
+  { value: "Natación",           label: "🏊 Natación" },
+  { value: "Gimnasia",           label: "🤸 Gimnasia" },
+  { value: "Balonmano",          label: "🤾 Balonmano" },
+  { value: "Béisbol / Softbol",  label: "⚾ Béisbol / Softbol" },
+  { value: "Tenis de mesa",      label: "🏓 Tenis de mesa" },
+  { value: "Ciclismo",           label: "🚴 Ciclismo" },
+  { value: "Ajedrez",            label: "♟️ Ajedrez" },
+];
+
 const DIAS_SEMANA = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
 type DiaSemanaKey = typeof DIAS_SEMANA[number];
 const DIA_LABEL: Record<DiaSemanaKey, string> = {
@@ -70,6 +84,7 @@ function makeHora(): HoraSemanal {
     competencias: [],
     metodologiasActivas: [],
     tecnicasEvaluacion: [],
+    deporteEnfoque: "",
   };
 }
 
@@ -261,6 +276,7 @@ export default function PlanificarSemanalScreen() {
           ejesTransversales: h.usaEjesTransversales ? h.insercionesCurriculares : [],
           competencias: h.usaCompetencias ? h.competencias : [],
           metodologias: h.metodologiasActivas,
+          deporteEnfoque: h.destreza?.area === "EF" && h.deporteEnfoque ? h.deporteEnfoque : undefined,
         })),
       });
     }
@@ -821,6 +837,43 @@ function HoraBlock({
         <View style={[styles.destrezaSelected, { backgroundColor: (areaInfo?.color || "#003366") + "12", borderColor: (areaInfo?.color || "#003366") + "40" }]}>
           <Text style={{ color: areaInfo?.color, fontWeight: "700", fontSize: 13 }}>{hora.destreza.codigo}</Text>
           <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }} numberOfLines={2}>{hora.destreza.descripcion}</Text>
+        </View>
+      )}
+
+      {/* Deporte (solo EF) */}
+      {hora.destreza?.area === "EF" && (
+        <View style={{ marginTop: 10 }}>
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 0 }]}>Enfocar en deporte específico</Text>
+            <Switch
+              value={!!hora.deporteEnfoque}
+              onValueChange={(v) => onUpdate({ deporteEnfoque: v ? DEPORTES_EF[0].value : "" })}
+              trackColor={{ false: "#ccc", true: "#003366" }}
+              thumbColor="#fff"
+            />
+          </View>
+          {!!hora.deporteEnfoque && (
+            <View style={[styles.dropdownList, { backgroundColor: colors.surface, borderColor: colors.border, position: "relative", marginTop: 6 }]}>
+              {DEPORTES_EF.map((d) => (
+                <Pressable
+                  key={d.value}
+                  onPress={() => onUpdate({ deporteEnfoque: d.value })}
+                  style={({ pressed }) => [
+                    styles.dropdownItem,
+                    {
+                      borderBottomColor: colors.border,
+                      backgroundColor: hora.deporteEnfoque === d.value ? "#003366" + "18" : "transparent",
+                      opacity: pressed ? 0.7 : 1,
+                    },
+                  ]}
+                >
+                  <Text style={{ color: hora.deporteEnfoque === d.value ? "#003366" : colors.foreground, fontWeight: hora.deporteEnfoque === d.value ? "700" : "400", fontSize: 13 }}>
+                    {d.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          )}
         </View>
       )}
 
