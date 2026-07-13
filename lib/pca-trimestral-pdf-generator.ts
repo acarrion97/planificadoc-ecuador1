@@ -40,6 +40,18 @@ const FASE_LABELS_HTML: Record<string, string> = {
   consolidacion:    "CONSOLIDACIÓN",
 };
 
+function evaluacionHTML(raw: any): string {
+  const text = toStr(raw);
+  if (!text) return "—";
+  const partes = text
+    .split(/\.\s+/)
+    .map((s: string) => s.trim())
+    .filter((s: string) => s.length > 0)
+    .map((s: string) => (s.endsWith(".") ? s : s + "."));
+  if (partes.length <= 1) return text || "—";
+  return partes.map((p: string) => `<p style="margin:0 0 4px 0;">${p}</p>`).join("");
+}
+
 function orientacionesHTML(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): string {
   const orden = modelo === "ACC"
     ? ["anticipacion", "construccion", "consolidacion"]
@@ -121,7 +133,7 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
       <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.objetivosEspecificos) || "—"}</td>
       <td style="${TD}font-size:7.5px;line-height:1.5;">${dcdHTML}</td>
       <td style="${TD}padding:2px;">${orientacionesHTML(ai.orientacionesMetodologicas, formData.modeloPedagogico || "ERCA")}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.evaluacion) || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${evaluacionHTML(ai.evaluacion)}</td>
       <td style="${TD}text-align:center;font-size:8px;">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
     </tr>`;
   }).join("");

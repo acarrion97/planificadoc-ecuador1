@@ -132,6 +132,31 @@ const FASE_LABELS: Record<string, string> = {
 };
 
 /**
+ * Divide el campo evaluacion (string con indicadores separados por punto)
+ * en párrafos individuales, uno por indicador.
+ */
+function evaluacionParagraphs(raw: any): Paragraph[] {
+  const text = toStr(raw);
+  if (!text || text === "—") return [textPara("—", false, SZ7)];
+
+  // Split by ". " keeping the period at the end of each fragment
+  const partes = text
+    .split(/\.\s+/)
+    .map((s: string) => s.trim())
+    .filter((s: string) => s.length > 0)
+    .map((s: string) => (s.endsWith(".") ? s : s + "."));
+
+  if (partes.length <= 1) return [textPara(text, false, SZ7)];
+
+  return partes.map((indicador: string, i: number) =>
+    new Paragraph({
+      spacing: { before: i === 0 ? 0 : 40, after: 0 },
+      children: [run(indicador, false, SZ7)],
+    })
+  );
+}
+
+/**
  * Renderiza orientacionesMetodologicas como array de DCDs con fases ERCA/ACC.
  * Cada DCD tiene cabecera gris y sus fases con cabecera de color + actividades.
  */
@@ -448,7 +473,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
         makeCell({ paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)], width: COL_W[2] }),
         makeCell({ paragraphs: dcdParrafos, width: COL_W[3] }),
         makeCell({ paragraphs: orientacionesParagraphs(aiU.orientacionesMetodologicas, formData.modeloPedagogico || "ERCA"), width: COL_W[4] }),
-        makeCell({ paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ7)], width: COL_W[5] }),
+        makeCell({ paragraphs: evaluacionParagraphs(aiU.evaluacion), width: COL_W[5] }),
         makeCell({ paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)], width: COL_W[6], vAlign: VerticalAlign.CENTER }),
       ],
     });
