@@ -261,6 +261,7 @@ export default function PlanificacionTrimestralScreen() {
     { id: generateUnitId(), numero: 1, dcdsSeleccionadas: [], duracionSemanas: 4, modoTitulo: "ia", titulo: "", objetivosEspecificos: "" },
   ]);
   const [generandoUnidadId, setGenerandoUnidadId] = useState<string | null>(null);
+  const [deportePickerUnidadId, setDeportePickerUnidadId] = useState<string | null>(null);
   const generarTituloMutation = trpc.pcaTrimestral.generarTituloObjetivosUnidad.useMutation();
 
   // ── Sección 6: Metodologías y evaluación ──
@@ -795,17 +796,43 @@ export default function PlanificacionTrimestralScreen() {
                     <Text style={[styles.label, { color: colors.foreground }]}>⚽ Enfocar en deporte específico</Text>
                     <Switch
                       value={!!unidad.deporteEnfoque}
-                      onValueChange={v => updateUnidad(unidad.id, { deporteEnfoque: v ? DEPORTES_EF[0].value : "" })}
+                      onValueChange={v => {
+                        if (v) {
+                          updateUnidad(unidad.id, { deporteEnfoque: "" });
+                          setDeportePickerUnidadId(unidad.id);
+                        } else {
+                          updateUnidad(unidad.id, { deporteEnfoque: "" });
+                          setDeportePickerUnidadId(null);
+                        }
+                      }}
                       trackColor={{ false: "#ccc", true: "#003366" }}
                       thumbColor="#fff"
                     />
                   </View>
-                  {!!unidad.deporteEnfoque && (
+                  {/* Deporte ya seleccionado: chip + botón cambiar */}
+                  {!!unidad.deporteEnfoque && deportePickerUnidadId !== unidad.id && (
+                    <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                      <View style={{ paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, backgroundColor: "#003366" }}>
+                        <Text style={{ color: "#fff", fontSize: 13, fontWeight: "600" }}>
+                          {DEPORTES_EF.find(d => d.value === unidad.deporteEnfoque)?.label ?? unidad.deporteEnfoque}
+                        </Text>
+                      </View>
+                      <Pressable onPress={() => setDeportePickerUnidadId(unidad.id)}>
+                        <Text style={{ color: "#003366", fontSize: 12, fontWeight: "600" }}>Cambiar</Text>
+                      </Pressable>
+                    </View>
+                  )}
+                  {/* Lista picker: visible cuando switch ON y aún eligiendo */}
+                  {(deportePickerUnidadId === unidad.id || (!unidad.deporteEnfoque && false)) &&
+                    deportePickerUnidadId === unidad.id && (
                     <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
                       {DEPORTES_EF.map(d => (
                         <Pressable
                           key={d.value}
-                          onPress={() => updateUnidad(unidad.id, { deporteEnfoque: d.value })}
+                          onPress={() => {
+                            updateUnidad(unidad.id, { deporteEnfoque: d.value });
+                            setDeportePickerUnidadId(null);
+                          }}
                           style={{
                             paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20,
                             backgroundColor: unidad.deporteEnfoque === d.value ? "#003366" : colors.surface,
