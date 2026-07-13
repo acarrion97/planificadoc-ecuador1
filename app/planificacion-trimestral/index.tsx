@@ -303,6 +303,17 @@ export default function PlanificacionTrimestralScreen() {
     ]);
   }, []);
 
+  const updateUnidad = useCallback((id: string, patch: Partial<Unidad>) => {
+    setUnidades(prev => prev.map(u => u.id === id ? { ...u, ...patch } : u));
+  }, []);
+
+  const removeUnidad = useCallback((id: string) => {
+    setUnidades(prev => {
+      const next = prev.filter(u => u.id !== id);
+      return next.map((u, i) => ({ ...u, numero: i + 1 }));
+    });
+  }, []);
+
   const handleGenerarTitulo = useCallback(async (unidad: Unidad) => {
     if (unidad.dcdsSeleccionadas.length === 0) {
       Alert.alert("Sin destrezas", "Selecciona al menos una DCD antes de generar el título y objetivos.");
@@ -336,17 +347,6 @@ export default function PlanificacionTrimestralScreen() {
       setGenerandoUnidadId(null);
     }
   }, [area, subnivel, grado, trimestre, generarTituloMutation, updateUnidad]);
-
-  const removeUnidad = useCallback((id: string) => {
-    setUnidades(prev => {
-      const next = prev.filter(u => u.id !== id);
-      return next.map((u, i) => ({ ...u, numero: i + 1 }));
-    });
-  }, []);
-
-  const updateUnidad = useCallback((id: string, patch: Partial<Unidad>) => {
-    setUnidades(prev => prev.map(u => u.id === id ? { ...u, ...patch } : u));
-  }, []);
 
   const handleAreaChange = useCallback((newArea: string) => {
     const anySelected = unidades.some(u => u.dcdsSeleccionadas.length > 0);
