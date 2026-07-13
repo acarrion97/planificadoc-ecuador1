@@ -118,6 +118,7 @@ interface Unidad {
   modoTitulo: "ia" | "manual";
   titulo: string;
   objetivosEspecificos: string;
+  deporteEnfoque?: string;
 }
 
 // ─── Sub-componentes ──────────────────────────────────────────────────────────
@@ -443,6 +444,7 @@ export default function PlanificacionTrimestralScreen() {
           duracionSemanas: u.duracionSemanas,
           titulo: u.titulo.trim() || undefined,
           objetivosEspecificos: u.objetivosEspecificos.trim() || undefined,
+          deporteEnfoque: area === "EF" && u.deporteEnfoque ? u.deporteEnfoque : undefined,
         })),
         modeloPedagogico: modeloPedagogico,
         metodologiasActivas: metodologias,
@@ -784,6 +786,41 @@ export default function PlanificacionTrimestralScreen() {
                   value={unidad.dcdsSeleccionadas}
                   onChange={sel => updateUnidad(unidad.id, { dcdsSeleccionadas: sel })}
                 />
+              )}
+
+              {/* Selector de deporte — solo para EF */}
+              {area === "EF" && (
+                <View style={{ marginTop: 12 }}>
+                  <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                    <Text style={[styles.label, { color: colors.foreground }]}>⚽ Enfocar en deporte específico</Text>
+                    <Switch
+                      value={!!unidad.deporteEnfoque}
+                      onValueChange={v => updateUnidad(unidad.id, { deporteEnfoque: v ? DEPORTES_EF[0].value : "" })}
+                      trackColor={{ false: "#ccc", true: "#003366" }}
+                      thumbColor="#fff"
+                    />
+                  </View>
+                  {!!unidad.deporteEnfoque && (
+                    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
+                      {DEPORTES_EF.map(d => (
+                        <Pressable
+                          key={d.value}
+                          onPress={() => updateUnidad(unidad.id, { deporteEnfoque: d.value })}
+                          style={{
+                            paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20,
+                            backgroundColor: unidad.deporteEnfoque === d.value ? "#003366" : colors.surface,
+                            borderWidth: 1,
+                            borderColor: unidad.deporteEnfoque === d.value ? "#003366" : colors.border,
+                          }}
+                        >
+                          <Text style={{ fontSize: 13, color: unidad.deporteEnfoque === d.value ? "#fff" : colors.foreground }}>
+                            {d.label}
+                          </Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  )}
+                </View>
               )}
 
               <View style={{ height: 10 }} />

@@ -52,6 +52,7 @@ const UnidadSchema = z.object({
   duracionSemanas: z.number(),
   titulo: z.string().optional(),
   objetivosEspecificos: z.string().optional(),
+  deporteEnfoque: z.string().optional(),
 });
 
 const FormDataTrimestralSchema = z.object({
@@ -112,12 +113,19 @@ function buildPcaTrimestralPrompt(input: z.infer<typeof FormDataTrimestralSchema
     const objetivosLinea = u.objetivosEspecificos?.trim()
       ? `OBJETIVOS PREDEFINIDOS (úsalos exactamente, no los cambies): "${u.objetivosEspecificos.trim()}"`
       : "";
+    const modeloFases = input.modeloPedagogico === "ACC"
+      ? "Anticipación, Construcción y Consolidación"
+      : "Experiencia, Reflexión, Conceptualización y Aplicación";
+    const deporteLinea = u.deporteEnfoque?.trim()
+      ? `⚽ DEPORTE DE ESTA UNIDAD: "${u.deporteEnfoque}". TODAS las actividades de las fases ${modeloFases} DEBEN contextualizarse específicamente a ${u.deporteEnfoque}: usa técnicas, gestos técnicos, situaciones de juego, reglamento y vocabulario propio de este deporte. Los indicadores de evaluación también deben medir habilidades propias de ${u.deporteEnfoque}.`
+      : "";
     return [
       `Unidad ${u.numero}:`,
       `DCD seleccionadas:\n${dcds}`,
       `Duración: ${u.duracionSemanas} semanas`,
       tituloLinea,
       objetivosLinea,
+      deporteLinea,
     ].filter(Boolean).join("\n");
   }).join("\n\n");
 
