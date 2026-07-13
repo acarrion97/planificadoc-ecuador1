@@ -92,8 +92,6 @@ function UnidadCard({
   blurred,
   colors,
   onRegenerar,
-  onGuardarCampos,
-  onRegenerarTituloObjetivos,
   isPaid,
 }: {
   unidad: any;
@@ -102,118 +100,36 @@ function UnidadCard({
   blurred?: boolean;
   colors: any;
   onRegenerar?: () => void;
-  onGuardarCampos?: (titulo: string, objetivos: string) => Promise<void>;
-  onRegenerarTituloObjetivos?: () => Promise<void>;
   isPaid: boolean;
 }) {
   const dcds = unidad?.dcdsSeleccionadas || [];
-  const [editando, setEditando] = useState(false);
-  const [editTitulo, setEditTitulo] = useState("");
-  const [editObjetivos, setEditObjetivos] = useState("");
-  const [guardando, setGuardando] = useState(false);
-  const [regenerandoCampos, setRegenerandoCampos] = useState(false);
-
-  const abrirEdicion = () => {
-    setEditTitulo(toStr(aiUnidad?.titulo) || "");
-    setEditObjetivos(toStr(aiUnidad?.objetivosEspecificos) || "");
-    setEditando(true);
-  };
-
-  const handleGuardar = async () => {
-    if (!onGuardarCampos) return;
-    setGuardando(true);
-    await onGuardarCampos(editTitulo.trim(), editObjetivos.trim());
-    setGuardando(false);
-    setEditando(false);
-  };
-
-  const handleRegenerarCampos = async () => {
-    if (!onRegenerarTituloObjetivos) return;
-    setRegenerandoCampos(true);
-    await onRegenerarTituloObjetivos();
-    setRegenerandoCampos(false);
-    setEditando(false);
-  };
 
   return (
     <View style={[s.unidadCard, { borderColor: colors.border }, blurred && s.blurred]}>
       <View style={[s.unidadHeader, { backgroundColor: "#EAF3DE" }]}>
         <Text style={s.unidadNum}>Unidad {numero}</Text>
-        <View style={{ flexDirection: "row", gap: 6 }}>
-          {isPaid && !editando && (
-            <Pressable onPress={abrirEdicion} style={[s.regenBtn, { backgroundColor: "#003366" }]}>
-              <Text style={s.regenText}>✏️ Editar</Text>
-            </Pressable>
-          )}
-          {isPaid && onRegenerar && !editando && (
-            <Pressable onPress={onRegenerar} style={s.regenBtn}>
-              <Text style={s.regenText}>🔄 Regenerar</Text>
-            </Pressable>
-          )}
-        </View>
+        {isPaid && onRegenerar && (
+          <Pressable onPress={onRegenerar} style={s.regenBtn}>
+            <Text style={s.regenText}>🔄 Regenerar</Text>
+          </Pressable>
+        )}
       </View>
 
-      {/* ── Modo edición de título + objetivos ── */}
-      {editando ? (
-        <View style={{ padding: 12, gap: 10 }}>
-          <Text style={[s.fieldLabel, { color: colors.muted }]}>Título de la unidad</Text>
-          <TextInput
-            value={editTitulo}
-            onChangeText={setEditTitulo}
-            style={[s.editInput, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            placeholder="Escribe el título de la unidad..."
-            placeholderTextColor={colors.muted}
-          />
-          <Text style={[s.fieldLabel, { color: colors.muted }]}>Objetivos específicos</Text>
-          <TextInput
-            value={editObjetivos}
-            onChangeText={setEditObjetivos}
-            style={[s.editInput, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface, minHeight: 80 }]}
-            placeholder="Escribe los objetivos específicos..."
-            placeholderTextColor={colors.muted}
-            multiline
-            textAlignVertical="top"
-          />
-          <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
-            <Pressable
-              onPress={handleGuardar}
-              disabled={guardando || regenerandoCampos}
-              style={({ pressed }) => [s.editBtn, { backgroundColor: "#22C55E", opacity: pressed || guardando ? 0.7 : 1 }]}
-            >
-              <Text style={s.editBtnText}>{guardando ? "Guardando..." : "💾 Guardar"}</Text>
-            </Pressable>
-            <Pressable
-              onPress={handleRegenerarCampos}
-              disabled={guardando || regenerandoCampos}
-              style={({ pressed }) => [s.editBtn, { backgroundColor: "#7C3AED", opacity: pressed || regenerandoCampos ? 0.7 : 1 }]}
-            >
-              <Text style={s.editBtnText}>{regenerandoCampos ? "Generando..." : "✨ Generar con IA"}</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => setEditando(false)}
-              disabled={guardando || regenerandoCampos}
-              style={({ pressed }) => [s.editBtn, { backgroundColor: "#6B7280", opacity: pressed ? 0.7 : 1 }]}
-            >
-              <Text style={s.editBtnText}>Cancelar</Text>
-            </Pressable>
-          </View>
-        </View>
-      ) : (
-        <>
-          {aiUnidad?.titulo && (
-            <Text style={[s.unidadTitulo, { color: "#003366" }]}>{toStr(aiUnidad.titulo)}</Text>
-          )}
+      <>
+        {aiUnidad?.titulo && (
+          <Text style={[s.unidadTitulo, { color: "#003366" }]}>{toStr(aiUnidad.titulo)}</Text>
+        )}
 
-          {dcds.length > 0 && (
-            <View style={{ marginBottom: 8 }}>
-              <Text style={[s.fieldLabel, { color: colors.muted }]}>DCD seleccionadas</Text>
-              {dcds.map((d: any) => (
-                <Text key={d.codigo} style={[s.dcdItem, { color: colors.foreground }]}>
-                  • {d.codigo}: {d.enunciado}
-                </Text>
-              ))}
-            </View>
-          )}
+        {dcds.length > 0 && (
+          <View style={{ marginBottom: 8 }}>
+            <Text style={[s.fieldLabel, { color: colors.muted }]}>DCD seleccionadas</Text>
+            {dcds.map((d: any) => (
+              <Text key={d.codigo} style={[s.dcdItem, { color: colors.foreground }]}>
+                • {d.codigo}: {d.enunciado}
+              </Text>
+            ))}
+          </View>
+        )}
 
           {aiUnidad?.objetivosEspecificos && (
             <View style={{ marginBottom: 8 }}>
@@ -243,7 +159,6 @@ function UnidadCard({
             </View>
           )}
         </>
-      )}
 
       <Text style={[s.duracion, { color: colors.muted }]}>
         Duración: {aiUnidad?.duracionSemanas || unidad?.duracionSemanas || "—"} semana(s)
@@ -405,8 +320,7 @@ export default function PcaTrimestralPreviewScreen() {
   const [adminKey, setAdminKey]               = useState("");
   const [adminUnlocking, setAdminUnlocking]   = useState(false);
   const [adminMsg, setAdminMsg]               = useState("");
-  const regenerarMutation       = trpc.pcaTrimestral.regenerarSeccionTrimestral.useMutation();
-  const actualizarCamposMutation = trpc.pcaTrimestral.actualizarCamposUnidad.useMutation();
+  const regenerarMutation = trpc.pcaTrimestral.regenerarSeccionTrimestral.useMutation();
 
   const { data, isLoading, error, refetch } = trpc.pcaTrimestral.getPcaTrimestral.useQuery(
     { id: pcaId },
@@ -454,16 +368,6 @@ export default function PcaTrimestralPreviewScreen() {
       Alert.alert("Error", err.message);
     }
   }, [pcaId, regenerarMutation, refetch]);
-
-  const handleGuardarCampos = useCallback(async (unidadNumero: number, titulo: string, objetivosEspecificos: string) => {
-    try {
-      const result = await actualizarCamposMutation.mutateAsync({ pcaId, unidadNumero, titulo, objetivosEspecificos });
-      if (result.success) refetch();
-      else Alert.alert("Error", result.error || "No se pudo guardar");
-    } catch (err: any) {
-      Alert.alert("Error", err.message);
-    }
-  }, [pcaId, actualizarCamposMutation, refetch]);
 
   // ── Exportar PDF ──
   const handleExportPdf = useCallback(async () => {
@@ -677,8 +581,6 @@ export default function PcaTrimestralPreviewScreen() {
                 colors={colors}
                 isPaid={paid}
                 onRegenerar={paid ? () => handleRegenerar("unidad", u.numero) : undefined}
-                onGuardarCampos={paid ? (titulo, objetivos) => handleGuardarCampos(u.numero, titulo, objetivos) : undefined}
-                onRegenerarTituloObjetivos={paid ? () => handleRegenerar("titulo_objetivos", u.numero) : undefined}
               />
             );
           })}

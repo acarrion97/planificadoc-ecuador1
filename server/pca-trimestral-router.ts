@@ -50,6 +50,8 @@ const UnidadSchema = z.object({
   numero: z.number(),
   dcdsSeleccionadas: z.array(z.object({ codigo: z.string(), enunciado: z.string() })),
   duracionSemanas: z.number(),
+  titulo: z.string().optional(),
+  objetivosEspecificos: z.string().optional(),
 });
 
 const FormDataTrimestralSchema = z.object({
@@ -104,7 +106,19 @@ function buildPcaTrimestralPrompt(input: z.infer<typeof FormDataTrimestralSchema
     const dcds = u.dcdsSeleccionadas.length > 0
       ? u.dcdsSeleccionadas.map(d => `  - ${d.codigo}: "${d.enunciado}"`).join("\n")
       : "  (Sin DCD específicas seleccionadas)";
-    return `Unidad ${u.numero}:\nDCD seleccionadas:\n${dcds}\nDuración: ${u.duracionSemanas} semanas`;
+    const tituloLinea = u.titulo?.trim()
+      ? `TÍTULO PREDEFINIDO (úsalo exactamente, no lo cambies): "${u.titulo.trim()}"`
+      : "";
+    const objetivosLinea = u.objetivosEspecificos?.trim()
+      ? `OBJETIVOS PREDEFINIDOS (úsalos exactamente, no los cambies): "${u.objetivosEspecificos.trim()}"`
+      : "";
+    return [
+      `Unidad ${u.numero}:`,
+      `DCD seleccionadas:\n${dcds}`,
+      `Duración: ${u.duracionSemanas} semanas`,
+      tituloLinea,
+      objetivosLinea,
+    ].filter(Boolean).join("\n");
   }).join("\n\n");
 
   const eflCtx = input.area === "EFL"
@@ -487,6 +501,71 @@ Responde SOLO con JSON: {"evaluacion": "Indicador 1... Indicador 2... Indicador 
         return { success: true, aiResult };
       } catch (error: any) {
         return { success: false, error: error.message || "Error al regenerar" };
+      }
+    }),
+
+  /**
+   * Genera título y objetivos para una unidad dada sus DCDs.
+   * Valida coherencia: si el docente propuso un tema que no concuerda con las DCDs,
+   * devuelve coherente=false con un mensajeAlerta explicativo.
+   */
+  generarTituloObjetivosUnidad: publicProcedure
+    .input(z.object({
+      area: z.string(),
+      subnivel: z.number(),
+      grado: z.string(),
+      trimestre: z.string(),
+      dcdsSeleccionadas: z.array(z.object({ codigo: z.string(), enunciado: z.string() })),
+      tituloPropuesto: z.string().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const areaNombre     = AREA_NAMES[input.area] || input.area;
+      const subnivelNombre = SUBNIVEL_NAMES[input.subnivel] || `Subnivel ${input.subnivel}`;
+      const dcdsTexto      = input.dcdsSeleccionadas
+        .map(d => `- ${d.codigo}: "${d.enunciado}"`)
+        .join("\n");
+
+      const tituloCtx = input.tituloPropuesto?.trim()
+        ? `\nEl docente propone el tema/título: "${input.tituloPropuesto.trim()}"\nAnaliza si este tema es coherente con las DCD listadas. Si NO lo es, devuelve coherente: false con un mensajeAlerta claro indicando qué tema sería más apropiado.`
+        : "";
+
+      const prompt = `Eres un experto en currículo educativo ecuatoriano. Genera el título de unidad y los objetivos específicos para una unidad de PCT.
+
+ÁREA: ${areaNombre}
+NIVEL/SUBNIVEL: ${subnivelNombre} — ${input.grado}
+TRIMESTRE: ${input.trimestre}
+DCD seleccionadas:
+${dcdsTexto}${tituloCtx}
+
+REGLAS:
+- Si las DCD y el tema propuesto son coherentes (o no hay tema propuesto): genera título y objetivos alineados al currículo MinEduc Ecuador. coherente: true.
+- Si el tema propuesto NO concuerda con las DCD seleccionadas: coherente: false, deja titulo y objetivosEspecificos vacíos, y en mensajeAlerta explica brevemente la incoherencia y sugiere un tema más adecuado.
+- Título: descriptivo y atractivo, máx 70 caracteres.
+- Objetivos: redactados con verbos en infinitivo observable, alineados a las DCD.
+
+Responde SOLO con JSON válido:
+{"coherente":true,"titulo":"string","objetivosEspecificos":"string","mensajeAlerta":""}`;
+
+      try {
+        const result = await invokeLLM({
+          messages: [
+            { role: "system", content: "Eres un asistente pedagógico ecuatoriano. Responde ÚNICAMENTE con JSON válido." },
+            { role: "user", content: prompt },
+          ],
+          response_format: { type: "json_object" },
+          max_tokens: 1024,
+        });
+        const raw    = result.choices[0]?.message?.content;
+        const parsed = JSON.parse(typeof raw === "string" ? raw : "{}");
+        return {
+          success:              true,
+          coherente:            parsed.coherente !== false,
+          titulo:               parsed.titulo               || "",
+          objetivosEspecificos: parsed.objetivosEspecificos || "",
+          mensajeAlerta:        parsed.mensajeAlerta        || "",
+        };
+      } catch (err: any) {
+        return { success: false, coherente: false, titulo: "", objetivosEspecificos: "", mensajeAlerta: err.message };
       }
     }),
 

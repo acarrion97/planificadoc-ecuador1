@@ -115,6 +115,9 @@ interface Unidad {
   numero: number;
   dcdsSeleccionadas: DcdSeleccionada[];
   duracionSemanas: number;
+  modoTitulo: "ia" | "manual";
+  titulo: string;
+  objetivosEspecificos: string;
 }
 
 // ─── Sub-componentes ──────────────────────────────────────────────────────────
@@ -254,8 +257,10 @@ export default function PlanificacionTrimestralScreen() {
 
   // ── Sección 5: Unidades ──
   const [unidades, setUnidades] = useState<Unidad[]>([
-    { id: generateUnitId(), numero: 1, dcdsSeleccionadas: [], duracionSemanas: 4 },
+    { id: generateUnitId(), numero: 1, dcdsSeleccionadas: [], duracionSemanas: 4, modoTitulo: "ia", titulo: "", objetivosEspecificos: "" },
   ]);
+  const [generandoUnidadId, setGenerandoUnidadId] = useState<string | null>(null);
+  const generarTituloMutation = trpc.pcaTrimestral.generarTituloObjetivosUnidad.useMutation();
 
   // ── Sección 6: Metodologías y evaluación ──
   const [metodologias, setMetodologias] = useState<string[]>([]);
@@ -294,9 +299,43 @@ export default function PlanificacionTrimestralScreen() {
   const addUnidad = useCallback(() => {
     setUnidades(prev => [
       ...prev,
-      { id: generateUnitId(), numero: prev.length + 1, dcdsSeleccionadas: [], duracionSemanas: 3 },
+      { id: generateUnitId(), numero: prev.length + 1, dcdsSeleccionadas: [], duracionSemanas: 3, modoTitulo: "ia", titulo: "", objetivosEspecificos: "" },
     ]);
   }, []);
+
+  const handleGenerarTitulo = useCallback(async (unidad: Unidad) => {
+    if (unidad.dcdsSeleccionadas.length === 0) {
+      Alert.alert("Sin destrezas", "Selecciona al menos una DCD antes de generar el título y objetivos.");
+      return;
+    }
+    setGenerandoUnidadId(unidad.id);
+    try {
+      const result = await generarTituloMutation.mutateAsync({
+        area: area as string,
+        subnivel: subnivel as number,
+        grado,
+        trimestre: trimestre as string,
+        dcdsSeleccionadas: unidad.dcdsSeleccionadas,
+        tituloPropuesto: unidad.titulo.trim() || undefined,
+      });
+      if (!result.success) {
+        Alert.alert("Error", "No se pudo generar. Intenta de nuevo.");
+        return;
+      }
+      if (!result.coherente) {
+        Alert.alert(
+          "⚠️ Tema no compatible",
+          result.mensajeAlerta || "El tema propuesto no concuerda con las destrezas seleccionadas. Ajusta el tema o cambia las DCD.",
+        );
+        return;
+      }
+      updateUnidad(unidad.id, { titulo: result.titulo, objetivosEspecificos: result.objetivosEspecificos });
+    } catch (err: any) {
+      Alert.alert("Error", err.message || "Error de conexión.");
+    } finally {
+      setGenerandoUnidadId(null);
+    }
+  }, [area, subnivel, grado, trimestre, generarTituloMutation, updateUnidad]);
 
   const removeUnidad = useCallback((id: string) => {
     setUnidades(prev => {
@@ -402,6 +441,8 @@ export default function PlanificacionTrimestralScreen() {
           numero: u.numero,
           dcdsSeleccionadas: u.dcdsSeleccionadas,
           duracionSemanas: u.duracionSemanas,
+          titulo: u.titulo.trim() || undefined,
+          objetivosEspecificos: u.objetivosEspecificos.trim() || undefined,
         })),
         modeloPedagogico: modeloPedagogico,
         metodologiasActivas: metodologias,
@@ -649,19 +690,86 @@ export default function PlanificacionTrimestralScreen() {
                 )}
               </View>
 
-              <FieldLabel label="Título de la unidad" colors={colors} tipo="B" />
-              <View style={[styles.iaField, { borderColor: "#97C459" }]}>
-                <Text style={[styles.iaPlaceholder, { color: "#5A8A1F" }]}>La IA lo genera</Text>
+              {/* ── Título y Objetivos: manual o IA ── */}
+              <View style={{ flexDirection: "row", gap: 0, marginBottom: 10, borderRadius: 8, overflow: "hidden", borderWidth: 1, borderColor: colors.border }}>
+                {(["manual", "ia"] as const).map((modo) => (
+                  <Pressable
+                    key={modo}
+                    onPress={() => updateUnidad(unidad.id, { modoTitulo: modo })}
+                    style={{
+                      flex: 1, paddingVertical: 8, alignItems: "center",
+                      backgroundColor: unidad.modoTitulo === modo ? "#003366" : colors.surface,
+                    }}
+                  >
+                    <Text style={{ fontSize: 13, fontWeight: "700", color: unidad.modoTitulo === modo ? "#fff" : colors.muted }}>
+                      {modo === "manual" ? "✏️ Escribir yo" : "✨ Generar con IA"}
+                    </Text>
+                  </Pressable>
+                ))}
               </View>
-              <View style={{ height: 6 }} />
-              <FieldLabel label="Objetivos específicos" colors={colors} tipo="B" />
-              <View style={[styles.iaField, { borderColor: "#97C459" }]}>
-                <Text style={[styles.iaPlaceholder, { color: "#5A8A1F" }]}>La IA los genera</Text>
-              </View>
-              <View style={{ height: 6 }} />
+
+              {unidad.modoTitulo === "manual" ? (
+                <>
+                  <FieldLabel label="Título de la unidad" colors={colors} />
+                  <TextInput
+                    style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                    value={unidad.titulo}
+                    onChangeText={v => updateUnidad(unidad.id, { titulo: v })}
+                    placeholder="Ej: Los ecosistemas y la biodiversidad"
+                    placeholderTextColor={colors.muted}
+                  />
+                  <FieldLabel label="Objetivos específicos" colors={colors} />
+                  <TextInput
+                    style={[styles.input, { color: colors.foreground, borderColor: colors.border, minHeight: 72 }]}
+                    value={unidad.objetivosEspecificos}
+                    onChangeText={v => updateUnidad(unidad.id, { objetivosEspecificos: v })}
+                    placeholder="Escribe los objetivos específicos de esta unidad..."
+                    placeholderTextColor={colors.muted}
+                    multiline
+                    textAlignVertical="top"
+                  />
+                </>
+              ) : (
+                <>
+                  <FieldLabel label="Título de la unidad" colors={colors} tipo="B" />
+                  <TextInput
+                    style={[styles.input, { color: colors.foreground, borderColor: unidad.titulo ? "#22C55E" : colors.border }]}
+                    value={unidad.titulo}
+                    onChangeText={v => updateUnidad(unidad.id, { titulo: v })}
+                    placeholder="Opcional: escribe un tema para que la IA lo tome de base..."
+                    placeholderTextColor={colors.muted}
+                  />
+                  <TextInput
+                    style={[styles.input, { color: colors.foreground, borderColor: unidad.objetivosEspecificos ? "#22C55E" : colors.border, minHeight: 60 }]}
+                    value={unidad.objetivosEspecificos}
+                    onChangeText={v => updateUnidad(unidad.id, { objetivosEspecificos: v })}
+                    placeholder="Objetivos generados por IA (aparecen aquí tras generar)..."
+                    placeholderTextColor={colors.muted}
+                    multiline
+                    textAlignVertical="top"
+                    editable={false}
+                  />
+                  <Pressable
+                    onPress={() => handleGenerarTitulo(unidad)}
+                    disabled={generandoUnidadId === unidad.id}
+                    style={({ pressed }) => ({
+                      flexDirection: "row", alignItems: "center", justifyContent: "center",
+                      gap: 6, paddingVertical: 10, borderRadius: 8, marginBottom: 6,
+                      backgroundColor: generandoUnidadId === unidad.id ? "#ccc" : "#7C3AED",
+                      opacity: pressed ? 0.8 : 1,
+                    })}
+                  >
+                    <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>
+                      {generandoUnidadId === unidad.id ? "Generando..." : "✨ Generar título y objetivos"}
+                    </Text>
+                  </Pressable>
+                </>
+              )}
+
+              <View style={{ height: 4 }} />
               <FieldLabel label="Contenidos / Orientaciones / Evaluación" colors={colors} tipo="B" />
               <View style={[styles.iaField, { borderColor: "#97C459" }]}>
-                <Text style={[styles.iaPlaceholder, { color: "#5A8A1F" }]}>La IA los genera</Text>
+                <Text style={[styles.iaPlaceholder, { color: "#5A8A1F" }]}>La IA los genera al crear el PCT</Text>
               </View>
 
               <View style={{ height: 10 }} />
