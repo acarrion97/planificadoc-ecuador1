@@ -1065,6 +1065,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
+    // POST /api/admin/delete-user — borra TODOS los datos de un email de la BD
+    if (action === "delete-user") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email } = req.body || {};
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+      const log: string[] = [];
+
+      try {
+        const r1 = await db.delete(subscriptions).where(eq(subscriptions.email, normalized));
+        log.push(`subscriptions: ${(r1[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+      } catch (e: any) { log.push(`subscriptions ERROR: ${e.message}`); }
+
+      try {
+        const r2 = await db.delete(cardTokens).where(eq(cardTokens.email, normalized));
+        log.push(`card_tokens: ${(r2[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+      } catch (e: any) { log.push(`card_tokens ERROR: ${e.message}`); }
+
+      try {
+        const r3 = await db.delete(paymentTransactions).where(eq(paymentTransactions.email, normalized));
+        log.push(`payment_transactions: ${(r3[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+      } catch (e: any) { log.push(`payment_transactions ERROR: ${e.message}`); }
+
+      try {
+        const r4 = await db.delete(docenteAccounts).where(eq(docenteAccounts.email, normalized));
+        log.push(`docente_accounts: ${(r4[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+      } catch (e: any) { log.push(`docente_accounts ERROR: ${e.message}`); }
+
+      try {
+        const r5 = await db.delete(planificacionStats).where(eq(planificacionStats.identifier, normalized));
+        log.push(`planificacion_stats: ${(r5[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+      } catch (e: any) { log.push(`planificacion_stats ERROR: ${e.message}`); }
+
+      return res.json({ success: true, email: normalized, log });
+    }
+
     return res.status(404).json({ error: "Acción no encontrada" });
   } catch (error) {
     console.error(`[Admin] Error in action '${action}':`, error);
