@@ -387,7 +387,7 @@ export const pcaTrimestralRouter = router({
   regenerarSeccionTrimestral: publicProcedure
     .input(z.object({
       pcaId: z.number(),
-      seccion: z.enum(["objetivos_trimestre", "unidad", "evaluacion_unidad"]),
+      seccion: z.enum(["objetivos_trimestre", "unidad", "evaluacion_unidad", "titulo_objetivos"]),
       unidadNumero: z.number().optional(),
     }))
     .mutation(async ({ input }) => {
@@ -414,6 +414,16 @@ export const pcaTrimestralRouter = router({
         prompt = `Regenera la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nIMPORTANTE: orientaciones_metodologicas sigue el modelo ${formData.modeloPedagogico === "ACC" ? "ACC (Anticipación, Construcción del conocimiento, Consolidación) — máximo 3 frases breves y generales" : "ERCA (Experiencia, Reflexión, Conceptualización, Aplicación) — máximo 4 frases breves y generales"} — no detallar actividades específicas de clase.
 Responde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientaciones_metodologicas":"","evaluacion":""}`;
         responseKey = "unidad";
+      } else if (input.seccion === "titulo_objetivos" && input.unidadNumero != null) {
+        const unidadForm = formData.unidades.find((u: any) => u.numero === input.unidadNumero);
+        if (!unidadForm) return { success: false, error: "Unidad no encontrada" };
+        const dcdsTexto = unidadForm.dcdsSeleccionadas.map((d: any) => `- ${d.codigo}: "${d.enunciado}"`).join("\n");
+        prompt = `Genera el título y los objetivos específicos para la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) en ${subnivelNombre} ${formData.grado}.
+DCD seleccionadas:\n${dcdsTexto}
+Duración: ${unidadForm.duracionSemanas} semanas.
+El título debe ser descriptivo y atractivo (máx 60 caracteres). Los objetivos deben estar alineados al currículo oficial MinEduc Ecuador y expresados con verbos en infinitivo observable.
+Responde SOLO con JSON: {"titulo": "string", "objetivos_especificos": "string"}`;
+        responseKey = "titulo_objetivos";
       } else if (input.seccion === "evaluacion_unidad" && input.unidadNumero != null) {
         const unidadForm = formData.unidades.find((u: any) => u.numero === input.unidadNumero);
         if (!unidadForm) return { success: false, error: "Unidad no encontrada" };
@@ -440,7 +450,16 @@ Responde SOLO con JSON: {"evaluacion": "Indicador 1... Indicador 2... Indicador 
         const content = typeof rawContent === "string" ? rawContent : "{}";
         const parsed = JSON.parse(content);
 
-        if (input.seccion === "unidad" && input.unidadNumero != null) {
+        if (input.seccion === "titulo_objetivos" && input.unidadNumero != null) {
+          const idx = aiResult.unidades?.findIndex((u: any) => u.numero === input.unidadNumero);
+          if (idx >= 0) {
+            aiResult.unidades[idx] = {
+              ...aiResult.unidades[idx],
+              titulo: parsed.titulo || aiResult.unidades[idx].titulo,
+              objetivosEspecificos: parsed.objetivos_especificos || aiResult.unidades[idx].objetivosEspecificos,
+            };
+          }
+        } else if (input.seccion === "unidad" && input.unidadNumero != null) {
           const idx = aiResult.unidades?.findIndex((u: any) => u.numero === input.unidadNumero);
           if (idx >= 0) {
             aiResult.unidades[idx] = {
@@ -469,5 +488,29 @@ Responde SOLO con JSON: {"evaluacion": "Indicador 1... Indicador 2... Indicador 
       } catch (error: any) {
         return { success: false, error: error.message || "Error al regenerar" };
       }
+    }),
+
+  /**
+   * Guarda ediciones manuales de título y/u objetivos de una unidad.
+   */
+  actualizarCamposUnidad: publicProcedure
+    .input(z.object({
+      pcaId: z.number(),
+      unidadNumero: z.number(),
+      titulo: z.string().optional(),
+      objetivosEspecificos: z.string().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const doc = await getPcaDocument(input.pcaId);
+      if (!doc || doc.status !== "paid") {
+        return { success: false, error: "Documento no encontrado o no pagado" };
+      }
+      const aiResult = doc.aiResult ? JSON.parse(doc.aiResult) : {};
+      const idx = aiResult.unidades?.findIndex((u: any) => u.numero === input.unidadNumero);
+      if (idx == null || idx < 0) return { success: false, error: "Unidad no encontrada" };
+      if (input.titulo !== undefined) aiResult.unidades[idx].titulo = input.titulo;
+      if (input.objetivosEspecificos !== undefined) aiResult.unidades[idx].objetivosEspecificos = input.objetivosEspecificos;
+      await setPcaAiResult(input.pcaId, JSON.stringify(aiResult));
+      return { success: true, aiResult };
     }),
 });

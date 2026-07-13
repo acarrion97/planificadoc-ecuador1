@@ -92,6 +92,8 @@ function UnidadCard({
   blurred,
   colors,
   onRegenerar,
+  onGuardarCampos,
+  onRegenerarTituloObjetivos,
   isPaid,
 }: {
   unidad: any;
@@ -100,61 +102,147 @@ function UnidadCard({
   blurred?: boolean;
   colors: any;
   onRegenerar?: () => void;
+  onGuardarCampos?: (titulo: string, objetivos: string) => Promise<void>;
+  onRegenerarTituloObjetivos?: () => Promise<void>;
   isPaid: boolean;
 }) {
   const dcds = unidad?.dcdsSeleccionadas || [];
+  const [editando, setEditando] = useState(false);
+  const [editTitulo, setEditTitulo] = useState("");
+  const [editObjetivos, setEditObjetivos] = useState("");
+  const [guardando, setGuardando] = useState(false);
+  const [regenerandoCampos, setRegenerandoCampos] = useState(false);
+
+  const abrirEdicion = () => {
+    setEditTitulo(toStr(aiUnidad?.titulo) || "");
+    setEditObjetivos(toStr(aiUnidad?.objetivosEspecificos) || "");
+    setEditando(true);
+  };
+
+  const handleGuardar = async () => {
+    if (!onGuardarCampos) return;
+    setGuardando(true);
+    await onGuardarCampos(editTitulo.trim(), editObjetivos.trim());
+    setGuardando(false);
+    setEditando(false);
+  };
+
+  const handleRegenerarCampos = async () => {
+    if (!onRegenerarTituloObjetivos) return;
+    setRegenerandoCampos(true);
+    await onRegenerarTituloObjetivos();
+    setRegenerandoCampos(false);
+    setEditando(false);
+  };
+
   return (
     <View style={[s.unidadCard, { borderColor: colors.border }, blurred && s.blurred]}>
       <View style={[s.unidadHeader, { backgroundColor: "#EAF3DE" }]}>
         <Text style={s.unidadNum}>Unidad {numero}</Text>
-        {isPaid && onRegenerar && (
-          <Pressable onPress={onRegenerar} style={s.regenBtn}>
-            <Text style={s.regenText}>🔄 Regenerar</Text>
-          </Pressable>
-        )}
+        <View style={{ flexDirection: "row", gap: 6 }}>
+          {isPaid && !editando && (
+            <Pressable onPress={abrirEdicion} style={[s.regenBtn, { backgroundColor: "#003366" }]}>
+              <Text style={s.regenText}>✏️ Editar</Text>
+            </Pressable>
+          )}
+          {isPaid && onRegenerar && !editando && (
+            <Pressable onPress={onRegenerar} style={s.regenBtn}>
+              <Text style={s.regenText}>🔄 Regenerar</Text>
+            </Pressable>
+          )}
+        </View>
       </View>
 
-      {aiUnidad?.titulo && (
-        <Text style={[s.unidadTitulo, { color: "#003366" }]}>{toStr(aiUnidad.titulo)}</Text>
-      )}
-
-      {dcds.length > 0 && (
-        <View style={{ marginBottom: 8 }}>
-          <Text style={[s.fieldLabel, { color: colors.muted }]}>DCD seleccionadas</Text>
-          {dcds.map((d: any) => (
-            <Text key={d.codigo} style={[s.dcdItem, { color: colors.foreground }]}>
-              • {d.codigo}: {d.enunciado}
-            </Text>
-          ))}
-        </View>
-      )}
-
-      {aiUnidad?.objetivosEspecificos && (
-        <View style={{ marginBottom: 8 }}>
+      {/* ── Modo edición de título + objetivos ── */}
+      {editando ? (
+        <View style={{ padding: 12, gap: 10 }}>
+          <Text style={[s.fieldLabel, { color: colors.muted }]}>Título de la unidad</Text>
+          <TextInput
+            value={editTitulo}
+            onChangeText={setEditTitulo}
+            style={[s.editInput, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
+            placeholder="Escribe el título de la unidad..."
+            placeholderTextColor={colors.muted}
+          />
           <Text style={[s.fieldLabel, { color: colors.muted }]}>Objetivos específicos</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.objetivosEspecificos)}</Text>
+          <TextInput
+            value={editObjetivos}
+            onChangeText={setEditObjetivos}
+            style={[s.editInput, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface, minHeight: 80 }]}
+            placeholder="Escribe los objetivos específicos..."
+            placeholderTextColor={colors.muted}
+            multiline
+            textAlignVertical="top"
+          />
+          <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
+            <Pressable
+              onPress={handleGuardar}
+              disabled={guardando || regenerandoCampos}
+              style={({ pressed }) => [s.editBtn, { backgroundColor: "#22C55E", opacity: pressed || guardando ? 0.7 : 1 }]}
+            >
+              <Text style={s.editBtnText}>{guardando ? "Guardando..." : "💾 Guardar"}</Text>
+            </Pressable>
+            <Pressable
+              onPress={handleRegenerarCampos}
+              disabled={guardando || regenerandoCampos}
+              style={({ pressed }) => [s.editBtn, { backgroundColor: "#7C3AED", opacity: pressed || regenerandoCampos ? 0.7 : 1 }]}
+            >
+              <Text style={s.editBtnText}>{regenerandoCampos ? "Generando..." : "✨ Generar con IA"}</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => setEditando(false)}
+              disabled={guardando || regenerandoCampos}
+              style={({ pressed }) => [s.editBtn, { backgroundColor: "#6B7280", opacity: pressed ? 0.7 : 1 }]}
+            >
+              <Text style={s.editBtnText}>Cancelar</Text>
+            </Pressable>
+          </View>
         </View>
-      )}
+      ) : (
+        <>
+          {aiUnidad?.titulo && (
+            <Text style={[s.unidadTitulo, { color: "#003366" }]}>{toStr(aiUnidad.titulo)}</Text>
+          )}
 
-      {aiUnidad?.contenidos && (
-        <View style={{ marginBottom: 8 }}>
-          <Text style={[s.fieldLabel, { color: colors.muted }]}>Contenidos</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.contenidos)}</Text>
-        </View>
-      )}
+          {dcds.length > 0 && (
+            <View style={{ marginBottom: 8 }}>
+              <Text style={[s.fieldLabel, { color: colors.muted }]}>DCD seleccionadas</Text>
+              {dcds.map((d: any) => (
+                <Text key={d.codigo} style={[s.dcdItem, { color: colors.foreground }]}>
+                  • {d.codigo}: {d.enunciado}
+                </Text>
+              ))}
+            </View>
+          )}
 
-      {aiUnidad?.orientacionesMetodologicas && (
-        <View style={{ marginBottom: 8 }}>
-          <Text style={[s.fieldLabel, { color: colors.muted }]}>Orientaciones metodológicas</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.orientacionesMetodologicas)}</Text>
-        </View>
-      )}
+          {aiUnidad?.objetivosEspecificos && (
+            <View style={{ marginBottom: 8 }}>
+              <Text style={[s.fieldLabel, { color: colors.muted }]}>Objetivos específicos</Text>
+              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.objetivosEspecificos)}</Text>
+            </View>
+          )}
 
-      {aiUnidad?.evaluacion && (
-        <View style={{ marginBottom: 8 }}>
-          <Text style={[s.fieldLabel, { color: colors.muted }]}>Criterios de evaluación</Text>
-          <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.evaluacion)}</Text>
-        </View>
+          {aiUnidad?.contenidos && (
+            <View style={{ marginBottom: 8 }}>
+              <Text style={[s.fieldLabel, { color: colors.muted }]}>Contenidos</Text>
+              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.contenidos)}</Text>
+            </View>
+          )}
+
+          {aiUnidad?.orientacionesMetodologicas && (
+            <View style={{ marginBottom: 8 }}>
+              <Text style={[s.fieldLabel, { color: colors.muted }]}>Orientaciones metodológicas</Text>
+              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.orientacionesMetodologicas)}</Text>
+            </View>
+          )}
+
+          {aiUnidad?.evaluacion && (
+            <View style={{ marginBottom: 8 }}>
+              <Text style={[s.fieldLabel, { color: colors.muted }]}>Criterios de evaluación</Text>
+              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.evaluacion)}</Text>
+            </View>
+          )}
+        </>
       )}
 
       <Text style={[s.duracion, { color: colors.muted }]}>
@@ -317,7 +405,8 @@ export default function PcaTrimestralPreviewScreen() {
   const [adminKey, setAdminKey]               = useState("");
   const [adminUnlocking, setAdminUnlocking]   = useState(false);
   const [adminMsg, setAdminMsg]               = useState("");
-  const regenerarMutation = trpc.pcaTrimestral.regenerarSeccionTrimestral.useMutation();
+  const regenerarMutation       = trpc.pcaTrimestral.regenerarSeccionTrimestral.useMutation();
+  const actualizarCamposMutation = trpc.pcaTrimestral.actualizarCamposUnidad.useMutation();
 
   const { data, isLoading, error, refetch } = trpc.pcaTrimestral.getPcaTrimestral.useQuery(
     { id: pcaId },
@@ -365,6 +454,16 @@ export default function PcaTrimestralPreviewScreen() {
       Alert.alert("Error", err.message);
     }
   }, [pcaId, regenerarMutation, refetch]);
+
+  const handleGuardarCampos = useCallback(async (unidadNumero: number, titulo: string, objetivosEspecificos: string) => {
+    try {
+      const result = await actualizarCamposMutation.mutateAsync({ pcaId, unidadNumero, titulo, objetivosEspecificos });
+      if (result.success) refetch();
+      else Alert.alert("Error", result.error || "No se pudo guardar");
+    } catch (err: any) {
+      Alert.alert("Error", err.message);
+    }
+  }, [pcaId, actualizarCamposMutation, refetch]);
 
   // ── Exportar PDF ──
   const handleExportPdf = useCallback(async () => {
@@ -578,6 +677,8 @@ export default function PcaTrimestralPreviewScreen() {
                 colors={colors}
                 isPaid={paid}
                 onRegenerar={paid ? () => handleRegenerar("unidad", u.numero) : undefined}
+                onGuardarCampos={paid ? (titulo, objetivos) => handleGuardarCampos(u.numero, titulo, objetivos) : undefined}
+                onRegenerarTituloObjetivos={paid ? () => handleRegenerar("titulo_objetivos", u.numero) : undefined}
               />
             );
           })}
@@ -744,6 +845,9 @@ const s = StyleSheet.create({
   regenText:     { color: "#3B6D11", fontSize: 12, fontWeight: "600" },
   inlineRegen:   { alignSelf: "flex-end", marginTop: 6, paddingHorizontal: 8, paddingVertical: 4, backgroundColor: "#EAF3DE", borderRadius: 6 },
   unidadTitulo:  { fontSize: 15, fontWeight: "800", marginBottom: 10 },
+  editInput:     { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13 },
+  editBtn:       { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 8, alignItems: "center" },
+  editBtnText:   { color: "#fff", fontSize: 13, fontWeight: "700" },
   overlayWrap:   { alignItems: "center", marginVertical: 8 },
   blurGradient:  { height: 60, width: "100%", backgroundColor: "rgba(255,255,255,0.8)", marginBottom: -30, zIndex: 5 },
   payCard:       { borderWidth: 2, borderRadius: 16, padding: 20, alignItems: "center", marginHorizontal: 16, zIndex: 10, width: "100%", maxWidth: 440, shadowColor: "#000", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.12, shadowRadius: 12, elevation: 6 },
