@@ -3,10 +3,47 @@ import { createPaymentTransaction, setPcaClientTxId } from "../_lib/db";
 
 type PlanType = "monthly" | "annual";
 
+// Snippet JS que se inyecta en cada página de pago para capturar _fbp/_fbc
+// y llamar a /api/payphone/track antes de renderizar el botón de PayPhone.
+function fbTrackingScript(clientTxId: string, valueCents: number, email: string): string {
+  return `
+  <script>
+    (function() {
+      function readCookie(name) {
+        var c = document.cookie.split('; ').find(function(r) { return r.startsWith(name + '='); });
+        return c ? c.split('=').slice(1).join('=') : null;
+      }
+      var fbp = readCookie('_fbp');
+      var fbc = readCookie('_fbc');
+      if (!fbc) {
+        var fbclid = new URLSearchParams(window.location.search).get('fbclid');
+        if (fbclid) fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+      }
+      var eventId = (crypto.randomUUID ? crypto.randomUUID() : 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2));
+      window.__pdocEventId = eventId;
+      fetch('/api/payphone/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          clientTxId: '${clientTxId}',
+          eventId: eventId,
+          value: ${(valueCents / 100).toFixed(2)},
+          currency: 'USD',
+          fbp: fbp,
+          fbc: fbc,
+          email: '${email}',
+          sourceUrl: window.location.href
+        })
+      }).catch(function() {});
+    })();
+  </script>`;
+}
+
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
 const PCA_PRICE_CENTS = 1499;
 const PCT_TRIMESTRAL_PRICE_CENTS = 999; // $9.99
+const TRIAL_VERIFICATION_CENTS = 100;  // $1.00 verificación de tarjeta para trial
 
 function getPriceForPlan(plan: PlanType) {
   if (plan === "annual") {
@@ -28,6 +65,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const isPcaTrimestral = typeParam === "pca-trimestral";
   const pcaId = (isPca || isPcaTrimestral) ? ((req.query.pcaId as string) || "").trim() : "";
 
+  const isTrial = typeParam === "trial";
   const planParam = ((req.query.plan as string) || "monthly").toLowerCase();
   const plan: PlanType = planParam === "annual" ? "annual" : "monthly";
   const documentId = ((req.query.documentId as string) || "").trim();
@@ -297,6 +335,149 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
   }
 
+  // ──────────────── Trial Payment (3 días gratis, $1 verificación) ────────────────
+  if (isTrial) {
+    if (!documentId || !phoneNumber || !cardHolder) {
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      return res.status(400).send(`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PlanificaDoc - Datos incompletos</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0f172a,#1e3a5f);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{background:white;border-radius:20px;padding:36px 28px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}.icon{font-size:56px;margin-bottom:16px}h1{font-size:20px;color:#1e3a5f;margin-bottom:10px}p{font-size:14px;color:#555;line-height:1.6;margin-bottom:20px}.btn{display:inline-block;background:#059669;color:white;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px}</style>
+</head><body><div class="card">
+<div class="icon">⚠️</div>
+<h1>Completa tu informacion primero</h1>
+<p>Para iniciar tu prueba gratuita necesitamos tu cedula, telefono y nombre del titular de la tarjeta.</p>
+<a class="btn" href="https://planificadoc.app">Volver a PlanificaDoc</a>
+</div></body></html>`);
+    }
+
+    try {
+      const clientTxId = generateClientTxId(email);
+      const planLabel = plan === "annual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
+      const planFull  = plan === "annual" ? "$58.71" : "$6.99";
+      const planPeriod = plan === "annual" ? "al año" : "al mes";
+
+      await createPaymentTransaction({
+        clientTransactionId: clientTxId,
+        email,
+        amount: TRIAL_VERIFICATION_CENTS,
+        status: "pending",
+        plan: `trial-${plan}` as any, // activate.ts detecta "trial-*"
+        ...(cardHolder ? { cardHolder } : {}),
+        ...(documentId ? { documentId } : {}),
+        ...(phoneNumber ? { phoneNumber } : {}),
+      });
+
+      // responseUrl incluye plan para que activate.ts sepa qué plan activar
+      const responseUrl = `https://planificadoc.app/api/payment/confirm?type=trial&plan=${plan}&documentId=${encodeURIComponent(documentId)}&phoneNumber=${encodeURIComponent(phoneNumber)}&cardHolder=${encodeURIComponent(cardHolder)}&`;
+      const reference   = `PlanificaDoc - Trial 3 dias (verif.) - ${email}`;
+      // Para CAPI guardamos el precio real del plan, no el $1 de verificación
+      const trialPlanCents = plan === "annual" ? 5871 : 699;
+      const fbScript = fbTrackingScript(clientTxId, trialPlanCents, email);
+
+      const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="origin">
+  <title>PlanificaDoc - Prueba Gratuita 3 Dias</title>
+  <script src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
+  <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #0f172a 0%, #065f46 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .container { background: white; border-radius: 20px; padding: 32px 24px; max-width: 440px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .logo-section { text-align: center; margin-bottom: 20px; }
+    .logo-section h1 { font-size: 20px; color: #065f46; margin-top: 8px; }
+    .trial-hero { background: linear-gradient(135deg, #065f46, #059669); color: white; border-radius: 16px; padding: 24px 20px; text-align: center; margin-bottom: 20px; }
+    .trial-hero .big { font-size: 40px; font-weight: 900; line-height: 1; }
+    .trial-hero .sub { font-size: 16px; opacity: 0.95; margin-top: 4px; font-weight: 600; }
+    .trial-hero .then { font-size: 12px; opacity: 0.85; margin-top: 10px; }
+    .trial-hero .plan-badge { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700; margin-top: 8px; }
+    .info-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+    .info-row { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #065f46; margin-bottom: 10px; }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-row .icon { font-size: 16px; flex-shrink: 0; }
+    .verif-note { background: #fef9c3; border: 1px solid #fde047; border-radius: 10px; padding: 12px 14px; font-size: 12px; color: #713f12; margin-bottom: 20px; line-height: 1.5; }
+    .verif-note strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .payment-section h3 { font-size: 15px; color: #333; margin-bottom: 14px; text-align: center; }
+    .security-note { text-align: center; font-size: 11px; color: #999; margin-top: 14px; }
+    #pp-button { min-height: 260px; }
+  </style>
+  ${fbScript}
+</head>
+<body>
+  <div class="container">
+    <div class="logo-section">
+      <div style="font-size:44px;">🎓</div>
+      <h1>PlanificaDoc Ecuador</h1>
+    </div>
+    <div class="trial-hero">
+      <div class="big">3 DIAS</div>
+      <div class="sub">GRATIS</div>
+      <div class="plan-badge">Plan ${planLabel}</div>
+      <div class="then">Luego ${planFull} ${planPeriod} — cancela cuando quieras</div>
+    </div>
+    <div class="info-box">
+      <div class="info-row"><span class="icon">✅</span><span>Acceso completo a <strong>todas las funciones</strong> durante 3 dias</span></div>
+      <div class="info-row"><span class="icon">📋</span><span>Genera planificaciones con IA, exporta en Word y PDF</span></div>
+      <div class="info-row"><span class="icon">🔄</span><span>Tras los 3 dias se cobra <strong>${planFull} ${planPeriod}</strong> automaticamente</span></div>
+      <div class="info-row"><span class="icon">❌</span><span>Puedes <strong>cancelar cuando quieras</strong> desde la app, sin penalidad</span></div>
+    </div>
+    <div class="verif-note">
+      <strong>⚠️ Nota importante sobre el cobro de $1.00</strong>
+      Para verificar tu tarjeta se realizara un cargo de <strong>$1.00</strong> ahora mismo.
+      Este valor sera <strong>descontado de tu primera mensualidad</strong> (pagaras ${plan === "annual" ? "$57.71" : "$5.99"} en 3 dias en lugar de ${planFull}).
+    </div>
+    <div class="payment-section">
+      <h3>💳 Agrega tu tarjeta para iniciar la prueba</h3>
+      <div id="pp-button"></div>
+    </div>
+    <div class="security-note">
+      🔒 Pago seguro — PayPhone · Visa · Mastercard
+    </div>
+  </div>
+  <script>
+    try {
+      new window.PPaymentButtonBox({
+        token: '${payphoneToken}',
+        clientTransactionId: '${clientTxId}',
+        amount: ${TRIAL_VERIFICATION_CENTS},
+        amountWithoutTax: ${TRIAL_VERIFICATION_CENTS},
+        amountWithTax: 0,
+        tax: 0,
+        service: 0,
+        tip: 0,
+        currency: "USD",
+        storeId: "${payphoneStoreId}",
+        reference: "${reference}",
+        lang: "es",
+        defaultMethod: "card",
+        timeZone: -5,
+        email: "${email}",
+        responseUrl: "${responseUrl}",
+        documentId: "${documentId}",
+        phoneNumber: "${phoneNumber}",
+        generateToken: true,
+      }).render('pp-button');
+    } catch(e) {
+      console.error('PayPhone trial error:', e);
+      document.getElementById('pp-button').innerHTML = '<p style="color:red;text-align:center;padding:16px;">❌ ' + (e?.message || 'Error PayPhone') + '<br><a href="javascript:location.reload()">↺ Recargar</a></p>';
+    }
+  </script>
+</body>
+</html>`;
+
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("Referrer-Policy", "origin");
+      return res.send(html);
+    } catch (error) {
+      console.error("[PayPhone Trial] Error generating trial payment page:", error);
+      return res.status(500).send("Error al generar la pagina de prueba gratuita");
+    }
+  }
+
   // ──────────────── Subscription Payment (existing flow) ────────────────
   // These fields are REQUIRED for recurring billing (card tokenization).
   if (!documentId || !phoneNumber || !cardHolder) {
@@ -334,6 +515,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Always include these params in the responseUrl (empty string if not provided).
     // PayPhone appends &id=xxx&clientTransactionId=yyy after the trailing &.
     const responseUrl = `https://planificadoc.app/api/payment/confirm?documentId=${encodeURIComponent(documentId)}&phoneNumber=${encodeURIComponent(phoneNumber)}&cardHolder=${encodeURIComponent(cardHolder)}&`;
+    const fbScript = fbTrackingScript(clientTxId, pricing.amount, email);
 
     const planLabel = plan === "annual" ? "Anual (12 meses)" : "Mensual";
     const periodLabel = plan === "annual" ? "por año" : "por mes";
@@ -390,6 +572,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     .recurring-note { text-align: center; font-size: 12px; color: #1e3a5f; margin-top: 12px; padding: 10px; background: #e0f2fe; border-radius: 8px; border: 1px solid #bae6fd; }
     .recurring-note strong { display: block; margin-bottom: 4px; }
   </style>
+  ${fbScript}
 </head>
 <body>
   <div class="container">

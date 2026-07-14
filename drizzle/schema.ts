@@ -30,8 +30,8 @@ export const subscriptions = mysqlTable("subscriptions", {
   userId: int("userId"),
   /** Subscription plan: 'monthly' or 'annual' */
   plan: varchar("plan", { length: 32 }).notNull().default("monthly"),
-  /** Status: active, expired, cancelled, past_due (grace period) */
-  status: mysqlEnum("status", ["active", "expired", "cancelled", "past_due"]).default("active").notNull(),
+  /** Status: active, expired, cancelled, past_due (grace period), trial (3-day free trial) */
+  status: mysqlEnum("status", ["active", "expired", "cancelled", "past_due", "trial"]).default("active").notNull(),
   /** Amount paid in cents */
   amountPaid: int("amountPaid").notNull(),
   /** PayPhone transaction ID */
@@ -46,6 +46,10 @@ export const subscriptions = mysqlTable("subscriptions", {
   isPromo: boolean("isPromo").default(false).notNull(),
   /** Whether this subscription uses recurring billing */
   isRecurring: boolean("isRecurring").default(false).notNull(),
+  /** Whether this is a 3-day free trial (card on file, charges after trialPlan period) */
+  isTrial: boolean("isTrial").default(false).notNull(),
+  /** Plan to charge when trial converts: 'monthly' | 'annual' */
+  trialPlan: varchar("trialPlan", { length: 32 }),
   /** Card token ID reference for recurring billing */
   cardTokenId: int("cardTokenId"),
   /** Number of failed recurring charge attempts */
@@ -252,3 +256,24 @@ export const planificacionStats = mysqlTable("planificacion_stats", {
 
 export type PlanificacionStats = typeof planificacionStats.$inferSelect;
 export type InsertPlanificacionStats = typeof planificacionStats.$inferInsert;
+
+/**
+ * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.
+ * Se recuperan en activate.ts para enviar el evento Purchase a Meta CAPI.
+ */
+export const paymentAttribution = mysqlTable("payment_attribution", {
+  clientTxId:  varchar("client_tx_id", { length: 64 }).primaryKey(),
+  eventId:     varchar("event_id",     { length: 64 }).notNull(),
+  valueCents:  int("value_cents").notNull(),
+  currency:    varchar("currency",     { length: 8  }).notNull().default("USD"),
+  fbp:         varchar("fbp",          { length: 128 }),
+  fbc:         varchar("fbc",          { length: 255 }),
+  clientIp:    varchar("client_ip",    { length: 64  }),
+  userAgent:   varchar("user_agent",   { length: 512 }),
+  email:       varchar("email",        { length: 255 }),
+  phone:       varchar("phone",        { length: 32  }),
+  userId:      varchar("user_id",      { length: 64  }),
+  sourceUrl:   varchar("source_url",   { length: 512 }),
+  sent:        boolean("sent").notNull().default(false),
+  createdAt:   timestamp("created_at").defaultNow(),
+});

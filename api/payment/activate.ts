@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { eq } from "drizzle-orm";
 import { handleCors } from "../_lib/admin-auth";
 import {
   getPaymentTransaction,
@@ -7,11 +8,41 @@ import {
   saveCardToken,
   getPcaDocumentByClientTxId,
   unlockPcaDocument,
+  getDb,
 } from "../_lib/db";
+import { paymentAttribution } from "../../drizzle/schema";
 import { sendTrialStartedEmail } from "../../server/email";
+import { sendMetaPurchase } from "../../server/meta-capi";
 
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
+
+async function fireMetaCapi(clientTxId: string, valueCents: number) {
+  try {
+    const db = getDb();
+    const rows = await db.select().from(paymentAttribution).where(eq(paymentAttribution.clientTxId, clientTxId));
+    const row = rows[0];
+    if (!row || row.sent) return;
+
+    await sendMetaPurchase({
+      eventId: row.eventId,
+      value: valueCents / 100,
+      currency: row.currency || "USD",
+      eventSourceUrl: row.sourceUrl || "https://planificadoc.website/",
+      fbp: row.fbp,
+      fbc: row.fbc,
+      clientIp: row.clientIp,
+      userAgent: row.userAgent,
+      email: row.email,
+      externalId: row.userId,
+    });
+
+    await db.update(paymentAttribution).set({ sent: true }).where(eq(paymentAttribution.clientTxId, clientTxId));
+    console.log(`[Meta CAPI] Purchase event sent for clientTxId=${clientTxId}, value=$${(valueCents / 100).toFixed(2)}`);
+  } catch (e) {
+    console.error("[Meta CAPI] fireMetaCapi error:", e);
+  }
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
@@ -124,6 +155,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         console.log(`[PayPhone Trial] Trial started for ${tx.email}, plan=${trialPlan}, ends=${trialEnd.toISOString()}`);
 
+        // Meta CAPI: disparar Purchase con el valor real del plan (no $1)
+        fireMetaCapi(clientTxId, trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS).catch(
+          (e) => console.error("[Meta CAPI Trial]", e)
+        );
+
         // Enviar email de bienvenida al trial (no blocking)
         sendTrialStartedEmail(
           tx.email,
@@ -184,6 +220,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         cardTokenId: cardTokenId || null,
         failedChargeAttempts: 0,
       });
+
+      // Meta CAPI: disparar Purchase con el valor pagado
+      fireMetaCapi(clientTxId, tx.amount).catch(
+        (e) => console.error("[Meta CAPI]", e)
+      );
 
       res.json({ success: true, email: tx.email, isRecurring: !!cardTokenId });
     } else {

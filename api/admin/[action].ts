@@ -1101,6 +1101,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, email: normalized, log });
     }
 
+    // POST /api/admin/migrate-payment-attribution — crea la tabla si no existe
+    if (action === "migrate-payment-attribution") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      await db.execute(`
+        CREATE TABLE IF NOT EXISTS payment_attribution (
+          client_tx_id  VARCHAR(64)  PRIMARY KEY,
+          event_id      VARCHAR(64)  NOT NULL,
+          value_cents   INT          NOT NULL,
+          currency      VARCHAR(8)   NOT NULL DEFAULT 'USD',
+          fbp           VARCHAR(128),
+          fbc           VARCHAR(255),
+          client_ip     VARCHAR(64),
+          user_agent    VARCHAR(512),
+          email         VARCHAR(255),
+          phone         VARCHAR(32),
+          user_id       VARCHAR(64),
+          source_url    VARCHAR(512),
+          sent          BOOLEAN      NOT NULL DEFAULT FALSE,
+          created_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
+        )
+      `);
+      return res.json({ success: true, message: "Tabla payment_attribution creada (o ya existía)" });
+    }
+
     return res.status(404).json({ error: "Acción no encontrada" });
   } catch (error) {
     console.error(`[Admin] Error in action '${action}':`, error);
