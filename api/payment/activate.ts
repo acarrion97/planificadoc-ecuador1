@@ -20,6 +20,7 @@ const ANNUAL_PRICE_CENTS = 5871;
 async function fireMetaCapi(clientTxId: string, valueCents: number) {
   try {
     const db = getDb();
+    if (!db) return;
     const rows = await db.select().from(paymentAttribution).where(eq(paymentAttribution.clientTxId, clientTxId));
     const row = rows[0];
     if (!row || row.sent) return;
