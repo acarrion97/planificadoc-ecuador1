@@ -17,29 +17,46 @@ import { sendMetaPurchase } from "../../server/meta-capi";
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
 
-async function fireMetaCapi(clientTxId: string, valueCents: number) {
+async function fireMetaCapi(clientTxId: string, valueCents: number, txEmail?: string) {
   try {
-    const db = getDb();
-    if (!db) return;
-    const rows = await db.select().from(paymentAttribution).where(eq(paymentAttribution.clientTxId, clientTxId));
-    const row = rows[0];
-    if (!row || row.sent) return;
+    // Intentar obtener datos de atribución (fbp/fbc) — opcionales, mejoran match quality
+    let row: typeof paymentAttribution.$inferSelect | undefined;
+    try {
+      const db = getDb();
+      if (db) {
+        const rows = await db.select().from(paymentAttribution).where(eq(paymentAttribution.clientTxId, clientTxId));
+        row = rows[0];
+        if (row?.sent) {
+          console.log(`[Meta CAPI] Ya enviado para clientTxId=${clientTxId}, saltando`);
+          return;
+        }
+      }
+    } catch (dbErr) {
+      console.warn("[Meta CAPI] No se pudo leer payment_attribution, disparando sin fbp/fbc:", dbErr);
+    }
 
+    // Siempre disparar aunque no haya fila de atribución
+    const eventId = row?.eventId ?? `evt_${clientTxId}`;
     await sendMetaPurchase({
-      eventId: row.eventId,
+      eventId,
       value: valueCents / 100,
-      currency: row.currency || "USD",
-      eventSourceUrl: row.sourceUrl || "https://planificadoc.website/",
-      fbp: row.fbp,
-      fbc: row.fbc,
-      clientIp: row.clientIp,
-      userAgent: row.userAgent,
-      email: row.email,
-      externalId: row.userId,
+      currency: "USD",
+      eventSourceUrl: row?.sourceUrl ?? "https://planificadoc.website/pago",
+      fbp: row?.fbp ?? null,
+      fbc: row?.fbc ?? null,
+      clientIp: row?.clientIp ?? null,
+      userAgent: row?.userAgent ?? null,
+      email: row?.email ?? txEmail ?? null,
+      externalId: row?.userId ?? null,
     });
 
-    await db.update(paymentAttribution).set({ sent: true }).where(eq(paymentAttribution.clientTxId, clientTxId));
-    console.log(`[Meta CAPI] Purchase event sent for clientTxId=${clientTxId}, value=$${(valueCents / 100).toFixed(2)}`);
+    // Marcar como enviado si teníamos fila
+    if (row) {
+      const db = getDb();
+      if (db) await db.update(paymentAttribution).set({ sent: true }).where(eq(paymentAttribution.clientTxId, clientTxId));
+    }
+
+    console.log(`[Meta CAPI] Purchase enviado clientTxId=${clientTxId} value=$${(valueCents / 100).toFixed(2)} fbp=${row?.fbp ?? "none"}`);
   } catch (e) {
     console.error("[Meta CAPI] fireMetaCapi error:", e);
   }
@@ -157,7 +174,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log(`[PayPhone Trial] Trial started for ${tx.email}, plan=${trialPlan}, ends=${trialEnd.toISOString()}`);
 
         // Meta CAPI: disparar Purchase con el valor real del plan (no $1)
-        fireMetaCapi(clientTxId, trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS).catch(
+        fireMetaCapi(clientTxId, trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS, tx.email).catch(
           (e) => console.error("[Meta CAPI Trial]", e)
         );
 
@@ -223,7 +240,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
 
       // Meta CAPI: disparar Purchase con el valor pagado
-      fireMetaCapi(clientTxId, tx.amount).catch(
+      fireMetaCapi(clientTxId, tx.amount, tx.email).catch(
         (e) => console.error("[Meta CAPI]", e)
       );
 
