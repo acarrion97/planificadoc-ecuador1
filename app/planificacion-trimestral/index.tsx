@@ -93,8 +93,6 @@ const SUBNIVELES: { value: Subnivel; label: string }[] = [
 ];
 
 const SUBNIVELES_KAI: { value: Subnivel; label: string }[] = [
-  { value: 0, label: "Educación Inicial (3-4 años)" },
-  { value: 1, label: "Preparatoria (1.° EGB)" },
   { value: 2, label: "Básica Elemental (2.° - 4.°)" },
   { value: 3, label: "Básica Media (5.° - 7.°)" },
   { value: 4, label: "Básica Superior (8.° - 10.°)" },
