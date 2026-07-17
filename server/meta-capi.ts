@@ -21,8 +21,24 @@ type PurchaseInput = {
   eventTime?: number;
 };
 
-const sha256 = (v: string) =>
-  crypto.createHash("sha256").update(v.trim().toLowerCase()).digest("hex");
+// email: trim + lowercase + SHA-256
+function hashEmail(email: string): string {
+  return crypto.createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
+}
+
+// phone: solo dígitos → normalizar Ecuador (09... → 5939..., 9... de 9 dígitos → 5939...)
+// → SHA-256  (nunca lowercasear fbp/fbc — esos se pasan directo)
+function hashPhone(phone: string): string {
+  let digits = phone.replace(/[^0-9]/g, "");
+  // Ecuador: números locales empiezan con 0 (ej. 0987654321 → 10 dígitos)
+  if (digits.startsWith("0") && digits.length === 10) {
+    digits = "593" + digits.slice(1); // 0987... → 593987...
+  } else if (digits.length === 9 && !digits.startsWith("593")) {
+    // ya sin el 0 inicial (ej. 987654321)
+    digits = "593" + digits;
+  }
+  return crypto.createHash("sha256").update(digits).digest("hex");
+}
 
 export async function sendMetaPurchase(input: PurchaseInput) {
   const pixelId = process.env.META_PIXEL_ID;
@@ -38,8 +54,8 @@ export async function sendMetaPurchase(input: PurchaseInput) {
   if (input.fbc)        userData.fbc = input.fbc;
   if (input.clientIp)   userData.client_ip_address = input.clientIp;
   if (input.userAgent)  userData.client_user_agent = input.userAgent;
-  if (input.email)      userData.em = [sha256(input.email)];
-  if (input.phone)      userData.ph = [sha256(input.phone.replace(/[^0-9]/g, ""))];
+  if (input.email)      userData.em = [hashEmail(input.email)];
+  if (input.phone)      userData.ph = [hashPhone(input.phone)];
   if (input.externalId) userData.external_id = [sha256(input.externalId)];
 
   const body: Record<string, unknown> = {

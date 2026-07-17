@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Text, View, TextInput, ScrollView, StyleSheet,
   Linking, Platform, ActivityIndicator, Image, Alert, Pressable,
@@ -49,6 +49,46 @@ export default function PaywallScreen() {
   const [codeLoading, setCodeLoading] = useState(false);
 
   const [success, setSuccess] = useState(false);
+
+  // fbp/fbc capturados al cargar la pantalla (cross-domain desde .website o cookies propias de .app)
+  const [trackedFbp, setTrackedFbp] = useState<string | null>(null);
+  const [trackedFbc, setTrackedFbc] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (Platform.OS !== "web" || typeof window === "undefined") return;
+
+    const params = new URLSearchParams(window.location.search);
+
+    // 1. Prioridad: params de URL (vendrán desde planificadoc.website vía landing-meta-capture.js)
+    const urlFbp = params.get("fbp");
+    // _fbc: NO lowercasear ni transformar — pasar exacto
+    const urlFbc = params.get("fbc");
+
+    // 2. Fallback: cookies propias de .app (Meta Pixel activo en .app)
+    const getCookie = (name: string) => {
+      const match = document.cookie.split("; ").find((r) => r.startsWith(name + "="));
+      return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : null;
+    };
+    const cookieFbp = getCookie("_fbp");
+    const cookieFbc = getCookie("_fbc");
+
+    // 3. Fallback: construir fbc desde fbclid en la URL actual
+    const fbclid = params.get("fbclid");
+    const builtFbc =
+      !urlFbc && !cookieFbc && fbclid ? `fb.1.${Date.now()}.${fbclid}` : null;
+
+    const fbp = urlFbp || cookieFbp || null;
+    const fbc = urlFbc || cookieFbc || builtFbc || null;
+
+    if (fbp) setTrackedFbp(fbp);
+    if (fbc) setTrackedFbc(fbc);
+
+    // Persistir en sessionStorage para que esté disponible si la página recarga
+    try {
+      if (fbp) sessionStorage.setItem("pdoc_fbp", fbp);
+      if (fbc) sessionStorage.setItem("pdoc_fbc", fbc);
+    } catch {}
+  }, []);
 
   // ── Handlers ────────────────────────────────────────────────────────────────
 
@@ -101,16 +141,18 @@ export default function PaywallScreen() {
     else if (phone.startsWith("593")) phone = "+" + phone;
     else phone = "+593" + phone;
 
-    // Leer cookies Meta (_fbp / _fbc) antes de abrir la ventana de pago
-    let fbp: string | null = null;
-    let fbc: string | null = null;
-    if (Platform.OS === "web" && typeof document !== "undefined") {
+    // Usar fbp/fbc capturados en el mount (cross-domain desde .website o cookies .app)
+    // Fallback en el momento del clic solo si el mount no los capturó
+    let fbp: string | null = trackedFbp;
+    let fbc: string | null = trackedFbc;
+    if (Platform.OS === "web" && typeof document !== "undefined" && (!fbp || !fbc)) {
       const getCookie = (name: string) => {
         const match = document.cookie.split("; ").find((r) => r.startsWith(name + "="));
-        return match ? match.split("=").slice(1).join("=") : null;
+        return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : null;
       };
-      fbp = getCookie("_fbp");
-      fbc = getCookie("_fbc");
+      if (!fbp) fbp = getCookie("_fbp");
+      // _fbc: NO lowercasear — pasar exacto
+      if (!fbc) fbc = getCookie("_fbc");
       if (!fbc && typeof window !== "undefined") {
         const fbclid = new URLSearchParams(window.location.search).get("fbclid");
         if (fbclid) fbc = `fb.1.${Date.now()}.${fbclid}`;
