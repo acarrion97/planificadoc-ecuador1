@@ -26,16 +26,17 @@ function hashEmail(email: string): string {
   return crypto.createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
 }
 
-// phone: solo dígitos → normalizar Ecuador (09... → 5939..., 9... de 9 dígitos → 5939...)
-// → SHA-256  (nunca lowercasear fbp/fbc — esos se pasan directo)
+// phone: solo dígitos → normalizar Ecuador → SHA-256
+// Ecuador: 0987654321 (10 dig) → quitar 0 inicial → anteponer 593 → 593987654321 (12 dig)
+//          987654321  (9 dig)  → anteponer 593             → 593987654321 (12 dig)
+// (nunca alterar fbp/fbc — esos se pasan directo)
 function hashPhone(phone: string): string {
   let digits = phone.replace(/[^0-9]/g, "");
-  // Ecuador: números locales empiezan con 0 (ej. 0987654321 → 10 dígitos)
+  // quitar un único 0 inicial (prefijo local Ecuador) y anteponer código de país 593
   if (digits.startsWith("0") && digits.length === 10) {
-    digits = "593" + digits.slice(1); // 0987... → 593987...
+    digits = "593" + digits.slice(1); // "0987654321" → "593987654321" (12 dígitos)
   } else if (digits.length === 9 && !digits.startsWith("593")) {
-    // ya sin el 0 inicial (ej. 987654321)
-    digits = "593" + digits;
+    digits = "593" + digits;          // "987654321"  → "593987654321" (12 dígitos)
   }
   return crypto.createHash("sha256").update(digits).digest("hex");
 }

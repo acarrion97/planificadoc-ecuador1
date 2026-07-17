@@ -50,10 +50,32 @@
     return null;
   }
 
+  /* ── generar _fbp si el Pixel todavía no lo creó ────────────────────── */
+  // Formato oficial Meta: "fb.1.<timestamp_ms>.<random_8_digits>"
+  // El script puede correr antes del Pixel en el <head>; si lo generamos aquí
+  // el Pixel lo leerá luego y lo respetará (no sobreescribe si ya existe).
+
+  function generateFbp() {
+    var rand = Math.floor(Math.random() * 1e10).toString().slice(0, 10);
+    return "fb.1." + Date.now() + "." + rand;
+  }
+
+  function setFbpCookie(value) {
+    // 90 días, dominio raíz para que .website lo comparta
+    var exp = new Date(Date.now() + 90 * 24 * 3600 * 1000).toUTCString();
+    document.cookie = "_fbp=" + value + "; expires=" + exp + "; path=/; SameSite=Lax";
+  }
+
   /* ── captura temprana ─────────────────────────────────────────────────── */
 
   function capture() {
     var fbp = getCookie("_fbp");
+    // Si el Pixel aún no creó _fbp, generarlo ahora para que esté disponible
+    if (!fbp) {
+      fbp = generateFbp();
+      setFbpCookie(fbp);
+    }
+
     // _fbc: NO alterar, pasar exacto
     var fbc = getCookie("_fbc");
     var fbclid = getParam("fbclid");
