@@ -17,7 +17,7 @@ import { sendMetaPurchase } from "../../server/meta-capi";
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
 
-async function fireMetaCapi(clientTxId: string, valueCents: number, txEmail?: string) {
+async function fireMetaCapi(clientTxId: string, valueCents: number, txEmail?: string, txPhone?: string) {
   try {
     // Intentar obtener datos de atribución (fbp/fbc) — opcionales, mejoran match quality
     let row: typeof paymentAttribution.$inferSelect | undefined;
@@ -41,12 +41,13 @@ async function fireMetaCapi(clientTxId: string, valueCents: number, txEmail?: st
       eventId,
       value: valueCents / 100,
       currency: "USD",
-      eventSourceUrl: row?.sourceUrl ?? "https://planificadoc.website/pago",
+      eventSourceUrl: row?.sourceUrl ?? "https://planificadoc.app/pago",
       fbp: row?.fbp ?? null,
       fbc: row?.fbc ?? null,
       clientIp: row?.clientIp ?? null,
       userAgent: row?.userAgent ?? null,
       email: row?.email ?? txEmail ?? null,
+      phone: row?.phone ?? txPhone ?? null,
       externalId: row?.userId ?? null,
     });
 
@@ -174,7 +175,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log(`[PayPhone Trial] Trial started for ${tx.email}, plan=${trialPlan}, ends=${trialEnd.toISOString()}`);
 
         // Meta CAPI: disparar Purchase con el valor real del plan (no $1)
-        fireMetaCapi(clientTxId, trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS, tx.email).catch(
+        fireMetaCapi(clientTxId, trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS, tx.email, tx.phoneNumber ?? undefined).catch(
           (e) => console.error("[Meta CAPI Trial]", e)
         );
 
@@ -240,7 +241,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
 
       // Meta CAPI: disparar Purchase con el valor pagado
-      fireMetaCapi(clientTxId, tx.amount, tx.email).catch(
+      fireMetaCapi(clientTxId, tx.amount, tx.email, tx.phoneNumber ?? undefined).catch(
         (e) => console.error("[Meta CAPI]", e)
       );
 

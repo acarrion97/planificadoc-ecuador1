@@ -409,11 +409,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ...(phoneNumber ? { phoneNumber } : {}),
       });
 
+      // Guardar atribución Meta desde query params (fbp/fbc pasados por paywall.tsx)
+      const trialPlanCents = plan === "annual" ? 5871 : 699;
+      if (fbpFromUrl || fbcFromUrl) {
+        try {
+          const db = getDb();
+          if (db) {
+            const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ?? null;
+            const userAgent = (req.headers["user-agent"] as string) ?? null;
+            await db.insert(paymentAttribution).values({
+              clientTxId,
+              eventId: `evt_${clientTxId}`,
+              valueCents: trialPlanCents,
+              currency: "USD",
+              fbp: fbpFromUrl,
+              fbc: fbcFromUrl,
+              clientIp,
+              userAgent,
+              email,
+              phone: phoneNumber || null,
+              userId: null,
+              sourceUrl: req.headers.referer ?? "https://planificadoc.app",
+            }).onDuplicateKeyUpdate({ set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
+          }
+        } catch (attrErr) {
+          console.warn("[PayPhone Trial] No se pudo guardar fbp/fbc desde URL:", attrErr);
+        }
+      }
+
       // responseUrl incluye plan para que activate.ts sepa qué plan activar
       const responseUrl = `https://planificadoc.app/api/payment/confirm?type=trial&plan=${plan}&documentId=${encodeURIComponent(documentId)}&phoneNumber=${encodeURIComponent(phoneNumber)}&cardHolder=${encodeURIComponent(cardHolder)}&`;
       const reference   = `PlanificaDoc - Trial 3 dias (verif.) - ${email}`;
       // Para CAPI guardamos el precio real del plan, no el $1 de verificación
-      const trialPlanCents = plan === "annual" ? 5871 : 699;
       const fbScript = fbTrackingScript(clientTxId, trialPlanCents, email);
 
       const html = `<!DOCTYPE html>
@@ -538,6 +565,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const enableRecurring = true; // always enable since fields are now required
 
+  // Leer fbp/fbc pasados como query params desde paywall.tsx (más confiable que cookies en la nueva pestaña)
+  const fbpFromUrl = ((req.query.fbp as string) || "").trim() || null;
+  const fbcFromUrl = ((req.query.fbc as string) || "").trim() || null;
+
   try {
     const pricing = getPriceForPlan(plan);
     const clientTxId = generateClientTxId(email);
@@ -552,6 +583,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ...(documentId ? { documentId } : {}),
       ...(phoneNumber ? { phoneNumber } : {}),
     });
+
+    // Guardar atribución Meta desde query params antes de que el JS de la página pueda fallar
+    if (fbpFromUrl || fbcFromUrl) {
+      try {
+        const db = getDb();
+        if (db) {
+          const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ?? null;
+          const userAgent = (req.headers["user-agent"] as string) ?? null;
+          await db.insert(paymentAttribution).values({
+            clientTxId,
+            eventId: `evt_${clientTxId}`,
+            valueCents: pricing.amount,
+            currency: "USD",
+            fbp: fbpFromUrl,
+            fbc: fbcFromUrl,
+            clientIp,
+            userAgent,
+            email,
+            phone: phoneNumber || null,
+            userId: null,
+            sourceUrl: req.headers.referer ?? "https://planificadoc.app",
+          }).onDuplicateKeyUpdate({ set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
+        }
+      } catch (attrErr) {
+        console.warn("[PayPhone] No se pudo guardar fbp/fbc desde URL:", attrErr);
+      }
+    }
 
     // Always include these params in the responseUrl (empty string if not provided).
     // PayPhone appends &id=xxx&clientTransactionId=yyy after the trailing &.

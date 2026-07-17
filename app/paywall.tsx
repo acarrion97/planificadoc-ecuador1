@@ -101,7 +101,26 @@ export default function PaywallScreen() {
     else if (phone.startsWith("593")) phone = "+" + phone;
     else phone = "+593" + phone;
 
-    const url = `https://planificadoc.app/api/payment/page?email=${encodeURIComponent(payEmail)}&plan=${selectedPlan}&documentId=${encodeURIComponent(payDocumentId)}&phoneNumber=${encodeURIComponent(phone)}&cardHolder=${encodeURIComponent(payCardHolder.trim())}`;
+    // Leer cookies Meta (_fbp / _fbc) antes de abrir la ventana de pago
+    let fbp: string | null = null;
+    let fbc: string | null = null;
+    if (Platform.OS === "web" && typeof document !== "undefined") {
+      const getCookie = (name: string) => {
+        const match = document.cookie.split("; ").find((r) => r.startsWith(name + "="));
+        return match ? match.split("=").slice(1).join("=") : null;
+      };
+      fbp = getCookie("_fbp");
+      fbc = getCookie("_fbc");
+      if (!fbc && typeof window !== "undefined") {
+        const fbclid = new URLSearchParams(window.location.search).get("fbclid");
+        if (fbclid) fbc = `fb.1.${Date.now()}.${fbclid}`;
+      }
+    }
+
+    let url = `https://planificadoc.app/api/payment/page?email=${encodeURIComponent(payEmail)}&plan=${selectedPlan}&documentId=${encodeURIComponent(payDocumentId)}&phoneNumber=${encodeURIComponent(phone)}&cardHolder=${encodeURIComponent(payCardHolder.trim())}`;
+    if (fbp) url += `&fbp=${encodeURIComponent(fbp)}`;
+    if (fbc) url += `&fbc=${encodeURIComponent(fbc)}`;
+
     try {
       if (Platform.OS === "web") window.open(url, "_blank");
       else await Linking.openURL(url);
