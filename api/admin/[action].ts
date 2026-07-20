@@ -99,28 +99,58 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         if (!txnByEmail.has(key)) txnByEmail.set(key, txn);
       }
 
+      // Pre-index tokens by email para búsqueda eficiente
+      const activeTokenByEmail = new Map<string, typeof allTokens[0]>();
+      const anyTokenByEmail = new Map<string, typeof allTokens[0]>();
+      for (const t of allTokens) {
+        const key = t.email.toLowerCase();
+        if (t.isActive) activeTokenByEmail.set(key, t);
+        if (!anyTokenByEmail.has(key)) anyTokenByEmail.set(key, t);
+      }
+
+      // Para cada usuario, queremos la suscripción "actual" en este orden de prioridad:
+      // 1. active  2. trial  3. past_due  4. la más reciente (expired/cancelled)
+      const STATUS_PRIORITY: Record<string, number> = { active: 0, trial: 1, past_due: 2, expired: 3, cancelled: 4 };
+      const currentSubByEmail = new Map<string, typeof allSubs[0]>();
+      for (const sub of allSubs) {
+        const key = sub.email.toLowerCase();
+        const existing = currentSubByEmail.get(key);
+        const newPriority = STATUS_PRIORITY[sub.status] ?? 5;
+        const existingPriority = existing ? (STATUS_PRIORITY[existing.status] ?? 5) : 99;
+        if (!existing || newPriority < existingPriority) {
+          currentSubByEmail.set(key, sub);
+        }
+      }
+
       const userMap = new Map<string, any>();
       for (const sub of allSubs) {
         const email = sub.email.toLowerCase();
         if (!userMap.has(email)) {
-          const token = allTokens.find(t => t.email.toLowerCase() === email);
+          const activeToken = activeTokenByEmail.get(email);
+          const anyToken = anyTokenByEmail.get(email);
+          const bestToken = activeToken || anyToken;
           const txn = txnByEmail.get(email);
+          const currentSub = currentSubByEmail.get(email) || sub;
+
+          // isRecurring: tiene token activo (fuente de verdad) O su suscripción vigente lo indica
+          const isRecurring = !!activeToken || (currentSub.isRecurring && currentSub.status === "active");
+
           userMap.set(email, {
             email,
-            cardHolder: token?.cardHolder || txn?.cardHolder || "",
-            documentId: token?.documentId || txn?.documentId || "",
-            phoneNumber: token?.phoneNumber || txn?.phoneNumber || "",
-            currentPlan: sub.plan,
-            currentStatus: sub.status,
-            isRecurring: sub.isRecurring,
-            startDate: sub.startDate,
-            endDate: sub.endDate,
+            cardHolder: bestToken?.cardHolder || txn?.cardHolder || "",
+            documentId: bestToken?.documentId || txn?.documentId || "",
+            phoneNumber: bestToken?.phoneNumber || txn?.phoneNumber || "",
+            currentPlan: currentSub.plan,
+            currentStatus: currentSub.status,
+            isRecurring,
+            startDate: currentSub.startDate,
+            endDate: currentSub.endDate,
             totalPaid: 0,
             subscriptionCount: 0,
             payingMonths: 0,
-            lastPayment: sub.createdAt,
-            cardBrand: token?.cardBrand || txn?.cardBrand || "",
-            lastDigits: token?.lastDigits || txn?.lastDigits || "",
+            lastPayment: currentSub.createdAt,
+            cardBrand: bestToken?.cardBrand || txn?.cardBrand || "",
+            lastDigits: bestToken?.lastDigits || txn?.lastDigits || "",
           });
         }
         const user = userMap.get(email)!;
