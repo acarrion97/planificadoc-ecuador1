@@ -345,7 +345,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log(`[Recurring] PayPhone response for ${sub.email}: statusCode=${data.statusCode} transactionStatus=${data.transactionStatus} txId=${data.transactionId}`);
 
         if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
-          const newEndDate = new Date(sub.endDate);
+          // Calcular desde now (no desde sub.endDate) para evitar que una suscripción
+          // vencida hace >30 días genere un newEndDate que siga siendo pasado y
+          // el cron la vuelva a cobrar al día siguiente.
+          const newEndDate = new Date(now);
           newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
 
           await db.update(subscriptions).set({
@@ -482,7 +485,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log(`[PastDue] PayPhone response for ${sub.email}: statusCode=${data.statusCode} transactionStatus=${data.transactionStatus} txId=${data.transactionId}`);
 
         if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
-          const newEndDate = new Date(sub.endDate);
+          // Siempre desde now para que el nuevo período empiece hoy, no desde endDate vencida
+          const newEndDate = new Date(now);
           newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
 
           await db.update(subscriptions).set({
