@@ -1155,6 +1155,52 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, message: "Tabla payment_attribution creada (o ya existía)" });
     }
 
+    // POST /api/admin/send-reminders — envía recordatorio a usuarios activos sin token
+    // que vencen en los próximos N días (por defecto 14, configurable con ?days=N)
+    if (action === "send-reminders") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+      const days = Math.min(parseInt((req.query.days as string) || "14", 10), 60);
+      const now2 = new Date();
+      const cutoff = new Date(now2);
+      cutoff.setDate(cutoff.getDate() + days);
+
+      // Suscripciones activas que vencen dentro de `days` días
+      const expiringSubs = await db
+        .select()
+        .from(subscriptions)
+        .where(
+          and(
+            eq(subscriptions.status, "active"),
+            lte(subscriptions.endDate, cutoff)
+          )
+        );
+
+      // Excluir los que tienen token activo (serán cobrados automáticamente)
+      const activeTokenEmails2 = new Set(
+        (await db.select({ email: cardTokens.email }).from(cardTokens).where(eq(cardTokens.isActive, true)))
+          .map(t => t.email.toLowerCase())
+      );
+
+      const toRemind = expiringSubs.filter(s => !activeTokenEmails2.has(s.email.toLowerCase()));
+
+      const results: { email: string; endDate: string; sent: boolean }[] = [];
+      for (const sub of toRemind) {
+        const sent = await sendRenewalReminderEmail(sub.email, sub.plan, formatDate(new Date(sub.endDate)));
+        results.push({ email: sub.email, endDate: new Date(sub.endDate).toISOString().slice(0, 10), sent });
+        console.log(`[Admin send-reminders] ${sub.email} → ${sent ? "enviado" : "FALLÓ"}`);
+      }
+
+      return res.json({
+        success: true,
+        windowDays: days,
+        total: toRemind.length,
+        sent: results.filter(r => r.sent).length,
+        failed: results.filter(r => !r.sent).length,
+        results,
+      });
+    }
+
     return res.status(404).json({ error: "Acción no encontrada" });
   } catch (error) {
     console.error(`[Admin] Error in action '${action}':`, error);

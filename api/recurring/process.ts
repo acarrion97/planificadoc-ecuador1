@@ -237,23 +237,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // ── 1. AVISOS 7 días antes (solo Recurrente: No) ────────────────────────
+    // ── 1. AVISOS 7 días antes ───────────────────────────────────────────────
+    // Se envían a suscripciones activas que vencen en 7-8 días Y que NO tienen
+    // un token de tarjeta activo (es decir, no serán cobradas automáticamente).
+    // NO usamos sub.isRecurring porque puede estar desactualizado (token expirado).
     const in7Days = new Date(now);
     in7Days.setDate(in7Days.getDate() + 7);
     const in8Days = new Date(now);
     in8Days.setDate(in8Days.getDate() + 8);
 
-    const proximos = await db
+    const proximosAll = await db
       .select()
       .from(subscriptions)
       .where(
         and(
           eq(subscriptions.status, "active"),
-          eq(subscriptions.isRecurring, false),
           gte(subscriptions.endDate, in7Days),
           lte(subscriptions.endDate, in8Days)
         )
       );
+
+    // Obtener emails con token activo para excluirlos del recordatorio
+    const activeTokenEmails = new Set(
+      (await db.select({ email: cardTokens.email }).from(cardTokens).where(eq(cardTokens.isActive, true)))
+        .map(t => t.email.toLowerCase())
+    );
+
+    const proximos = proximosAll.filter(s => !activeTokenEmails.has(s.email.toLowerCase()));
 
     for (const sub of proximos) {
       await sendRenewalReminderEmail(sub.email, sub.plan, formatDate(new Date(sub.endDate)));
