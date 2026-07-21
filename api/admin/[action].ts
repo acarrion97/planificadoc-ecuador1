@@ -22,7 +22,7 @@ async function hashPasswordAdmin(password: string): Promise<string> {
   const derived = (await scryptAsync(password, salt, 64)) as Buffer;
   return `${salt}:${derived.toString("hex")}`;
 }
-import { eq, desc, and, lt, ne, sql as drizzleSql } from "drizzle-orm";
+import { eq, desc, and, lt, lte, ne, sql as drizzleSql } from "drizzle-orm";
 import { pcaDocuments } from "../../drizzle/schema";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
