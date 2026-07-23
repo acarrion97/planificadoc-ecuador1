@@ -1,5 +1,8 @@
-import { useEffect, useRef } from "react";
-import { View } from "react-native";
+/**
+ * Splash web usando nodos DOM puros — fuera del árbol de React para evitar
+ * el NotFoundError de removeChild cuando React reconcilia el virtual DOM.
+ */
+import { useEffect } from "react";
 
 const CSS = `
 @keyframes pd-book {
@@ -75,7 +78,7 @@ const HTML = `
       </g>
     </g>
   </svg>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;">
     <div style="font-size:34px;font-weight:800;letter-spacing:-0.02em;line-height:1;animation:pd-rise .7s cubic-bezier(.2,.7,.2,1) 2.95s both;">
       <span style="color:#ffffff;">Planifica</span><span style="color:#e0a41e;">Doc</span>
     </div>
@@ -87,33 +90,28 @@ const HTML = `
 `;
 
 export function AnimatedLogoSplash() {
-  const ref = useRef<View>(null);
-
   useEffect(() => {
-    const el = ref.current as unknown as HTMLDivElement;
-    if (!el) return;
-
+    // Creamos nodos DOM puros — completamente fuera del árbol de React
+    // para evitar el NotFoundError de removeChild en la reconciliación
     const style = document.createElement("style");
     style.textContent = CSS;
     document.head.appendChild(style);
-    el.innerHTML = HTML;
+
+    const overlay = document.createElement("div");
+    overlay.style.cssText = [
+      "position:fixed", "inset:0", "background:#003366",
+      "display:flex", "align-items:center", "justify-content:center",
+      "z-index:99999",
+    ].join(";");
+    overlay.innerHTML = HTML;
+    document.body.appendChild(overlay);
 
     return () => {
-      try { document.head.removeChild(style); } catch {}
+      if (overlay.parentNode === document.body) document.body.removeChild(overlay);
+      if (style.parentNode === document.head)   document.head.removeChild(style);
     };
   }, []);
 
-  return (
-    <View
-      ref={ref}
-      style={{
-        position: "absolute",
-        top: 0, left: 0, right: 0, bottom: 0,
-        backgroundColor: "#003366",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 9999,
-      }}
-    />
-  );
+  // No renderiza nada en el árbol de React
+  return null;
 }

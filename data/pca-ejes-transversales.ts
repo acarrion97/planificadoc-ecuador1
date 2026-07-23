@@ -36,15 +36,10 @@ export const EJES_TRANSVERSALES_PCA: EjeTransversalPCA[] = [
     emoji: "🚦",
   },
   {
-    id: "interculturalidad",
-    nombre: "Interculturalidad",
-    descripcion: "Valora y respeta la diversidad cultural, étnica y lingüística del Ecuador, promoviendo el diálogo intercultural y la inclusión.",
-    emoji: "🌍",
+    id: "civica_etica",
+    nombre: "Cívica, Ética e Integridad",
+    descripcion: "Fortalece la formación en valores éticos y morales, la participación democrática, la lucha contra la corrupción y el ejercicio responsable de derechos y deberes ciudadanos.",
+    emoji: "⚖️",
   },
-  {
-    id: "buen_vivir",
-    nombre: "Buen Vivir",
-    descripcion: "Integra los principios del Sumak Kawsay: armonía con la naturaleza, convivencia comunitaria y bienestar colectivo como horizonte de vida.",
-    emoji: "☀️",
-  },
+
 ];

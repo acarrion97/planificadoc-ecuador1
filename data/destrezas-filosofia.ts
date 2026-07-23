@@ -8,9 +8,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 1,
     descripcion: "Analiza el origen del pensamiento filosófico como crítica al pensamiento mítico, como la búsqueda del orden y la armonía, y como esfuerzo para explicar los fenómenos sociales y naturales, a partir de la reflexión en torno a problemas concretos, y la elaboración de preguntas complejas en función de ensayar respuestas significativas",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.1. Contrasta el pensamiento mítico del pensamiento científico y filosófico, identificando semejanzas y diferencias."],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano, del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su esfuerzo por plantear preguntas complejas y explicar la sociedad y la naturaleza por ellas mismas."],
+    indicadoresEvaluacion: ["I.CS.F.5.1.1. Analiza el origen del pensamiento filosófico como crítica al pensamiento mítico, como la búsqueda del orden y la armonía, y como esfuerzo para explicar los fenómenos sociales y naturales, a partir de la reflexión en torno a problemas concretos, y la elaboración de preguntas complejas en función de ensayar respuestas significativas. (I.2.)"],
   },
 
   {
@@ -20,9 +20,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 2,
     descripcion: "Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su “nosotros” pensante, a diferencia del “yo” pensante occidental. O",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.2"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano, del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su esfuerzo por plantear preguntas complejas y explicar la sociedad y la naturaleza por ellas mismas."],
+    indicadoresEvaluacion: ["I.CS.F.5.1.1. Analiza el origen del pensamiento filosófico como crítica al pensamiento mítico, como la búsqueda del orden y la armonía, y como esfuerzo para explicar los fenómenos sociales y naturales, a partir de la reflexión en torno a problemas concretos, y la elaboración de preguntas complejas en función de ensayar respuestas significativas. (I.2.)", "I.CS.F.5.1.2. Analiza las contribuciones del pensamiento filosófico en las diversas producciones del pensamiento humano en contraste con otras disciplinas, reconociendo la tendencia filosófica en cuanto a lo absoluto, hechos factuales y pensamiento cotidiano. (I.2.)"],
   },
 
   {
@@ -32,9 +32,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 3,
     descripcion: "Comprender la dimensión espacial desde los conceptos filosóficos de Cosmos y Armonía, y las construcciones intelectuales de los pueblos ancestrales en el afán de reivindicar una comprensión integral y alternativa. O",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.3"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano, del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su esfuerzo por plantear preguntas complejas y explicar la sociedad y la naturaleza por ellas mismas."],
+    indicadoresEvaluacion: ["I.CS.F.5.1.2. Analiza las contribuciones del pensamiento filosófico en las diversas producciones del pensamiento humano en contraste con otras disciplinas, reconociendo la tendencia filosófica en cuanto a lo absoluto, hechos factuales y pensamiento cotidiano. (I.2.)"],
   },
 
   {
@@ -44,9 +44,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 4,
     descripcion: "Interpretar las experiencias humanas por medio del análisis de las dimensiones ética, estética y política, la felicidad y el placer, para examinar y distinguir los principios y las implicaciones que se anudan en ellas en la vida cotidiana y en los grandes proyectos históricos. O",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.4"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano, del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su esfuerzo por plantear preguntas complejas y explicar la sociedad y la naturaleza por ellas mismas."],
+    indicadoresEvaluacion: ["I.CS.F.5.1.2. Analiza las contribuciones del pensamiento filosófico en las diversas producciones del pensamiento humano en contraste con otras disciplinas, reconociendo la tendencia filosófica en cuanto a lo absoluto, hechos factuales y pensamiento cotidiano. (I.2.)"],
   },
 
   {
@@ -56,9 +56,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 5,
     descripcion: "Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación.",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.5"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano, del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su esfuerzo por plantear preguntas complejas y explicar la sociedad y la naturaleza por ellas mismas."],
+    indicadoresEvaluacion: ["I.CS.F.5.1.1. Analiza el origen del pensamiento filosófico como crítica al pensamiento mítico, como la búsqueda del orden y la armonía, y como esfuerzo para explicar los fenómenos sociales y naturales, a partir de la reflexión en torno a problemas concretos, y la elaboración de preguntas complejas en función de ensayar respuestas significativas. (I.2.)", "I.CS.F.5.1.2. Analiza las contribuciones del pensamiento filosófico en las diversas producciones del pensamiento humano en contraste con otras disciplinas, reconociendo la tendencia filosófica en cuanto a lo absoluto, hechos factuales y pensamiento cotidiano. (I.2.)"],
   },
 
   {
@@ -68,9 +68,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 6,
     descripcion: "Discutir los desafíos planteados por Hipatia como pensadora y como mujer en la perspectiva de comprender actuales formas de intolerancia e irracionalidad",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.6"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.1. Compara las desigualdades de la democracia griega con la actual, a partir del análisis del caso de intolerancia e irracionalidad que sufrió la pensadora Hipatia, representante de la escuela neoplatónica, y de la carencia de la persuasión y la deliberación en el ejercicio de la ciudadanía a través de conceptos fundamentales sobre la comunidad, el quehacer y formas políticas. (J.1., J.4., S.1.)"],
   },
 
   {
@@ -80,9 +80,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 7,
     descripcion: "Analizar los conceptos fundamentales sobre la comunidad, el quehacer y las formas políticas, desde el enfoque de igualdad",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.7"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.1. Compara las desigualdades de la democracia griega con la actual, a partir del análisis del caso de intolerancia e irracionalidad que sufrió la pensadora Hipatia, representante de la escuela neoplatónica, y de la carencia de la persuasión y la deliberación en el ejercicio de la ciudadanía a través de conceptos fundamentales sobre la comunidad, el quehacer y formas políticas. (J.1., J.4., S.1.)"],
   },
 
   {
@@ -92,9 +92,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 8,
     descripcion: "Describir y categorizar el alcance de la idea del ser humano como “animal político” en función de su necesidad de vivir en sociedad. 76 I",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.8"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.2. Examina la importancia del método socrático y el diálogo racional y estructurado en la experiencia comunicativa del ser humano como animal político, en función de dilucidar las relaciones de poder que legitima una u otra posición filosófica. (J.3.)"],
   },
 
   {
@@ -104,9 +104,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 10,
     descripcion: "Establecer la importancia de la persuasión como base de la deliberación en el ejercicio de la ciudadanía",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.10"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.2. Examina la importancia del método socrático y el diálogo racional y estructurado en la experiencia comunicativa del ser humano como animal político, en función de dilucidar las relaciones de poder que legitima una u otra posición filosófica. (J.3.)"],
   },
 
   {
@@ -116,9 +116,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 11,
     descripcion: "Aplicar el método socrático y el diálogo estructurado en función de la construcción de un pensamiento creativo",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.11"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.2. Examina la importancia del método socrático y el diálogo racional y estructurado en la experiencia comunicativa del ser humano como animal político, en función de dilucidar las relaciones de poder que legitima una u otra posición filosófica. (J.3.)"],
   },
 
   {
@@ -128,9 +128,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 12,
     descripcion: "Establecer las bases fundamentales del diálogo racional como experiencia comunicativa fecunda",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.12"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.2. Examina la importancia del método socrático y el diálogo racional y estructurado en la experiencia comunicativa del ser humano como animal político, en función de dilucidar las relaciones de poder que legitima una u otra posición filosófica. (J.3.)"],
   },
 
   {
@@ -140,9 +140,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 13,
     descripcion: "Analizar de manera crítica las masculinidades tradicionales, explorando sobre nuevas formas de ser que se alineen con los principios de igualdad, diversidad y no violencia y promoviendo acciones concretas para desafiar normas patriarcales en su entorno inmediato",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.13"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.1. Compara las desigualdades de la democracia griega con la actual, a partir del análisis del caso de intolerancia e irracionalidad que sufrió la pensadora Hipatia, representante de la escuela neoplatónica, y de la carencia de la persuasión y la deliberación en el ejercicio de la ciudadanía a través de conceptos fundamentales sobre la comunidad, el quehacer y formas políticas. (J.1., J.4., S.1.)"],
   },
 
   {
@@ -152,9 +152,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 1,
     secuencial: 14,
     descripcion: "Evaluar críticamente las políticas nacionales e internacionales sobre movilidad humana, proponiendo acciones que promuevan la protección de los derechos de migrantes y refugiados, y la integración sostenible de las personas en movilidad en las comunidades receptoras a nivel local, regional o global",
-    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc."],
-    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su utilidad."],
-    indicadoresEvaluacion: ["I.CS.F.5.1.14"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.1. Compara las desigualdades de la democracia griega con la actual, a partir del análisis del caso de intolerancia e irracionalidad que sufrió la pensadora Hipatia, representante de la escuela neoplatónica, y de la carencia de la persuasión y la deliberación en el ejercicio de la ciudadanía a través de conceptos fundamentales sobre la comunidad, el quehacer y formas políticas. (J.1., J.4., S.1.)"],
   },
 
   {
@@ -164,9 +164,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 1,
     descripcion: "Compara las desigualdades de la democracia griega con la actual, a partir del análisis del caso de intolerancia e irracionalidad que sufrió la pensadora Hipatia, representante de la escuela neoplatónica, y de la carencia de la persuasión y la deliberación en el ejercicio de la ciudadanía a través de conceptos fundamentales sobre la comunidad, el quehacer y formas políticas",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.1. Analiza los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas."],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.3. Diferencia la verdad de la validez aplicándolas a la formación de conceptos y teorías y diferenciándolas en las ciencias formales y fácticas, mediante el uso de ejemplos."],
+    indicadoresEvaluacion: ["I.CS.F.5.3.1. Diferencia la verdad de la validez en la formación de conceptos y teorías en las ciencias formales y fácticas, aplicándolas al análisis de discursos y editoriales de prensa de líderes políticos. (I.2., I.4.)"],
   },
 
   {
@@ -176,9 +176,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 2,
     descripcion: "Examina la importancia del método socrático y el diálogo racional y estructurado en la experiencia comunicativa del ser humano como “animal político”, en función de dilucidar las relaciones de poder que legitima una u otra posición filosófica",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.2"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.3. Diferencia la verdad de la validez aplicándolas a la formación de conceptos y teorías y diferenciándolas en las ciencias formales y fácticas, mediante el uso de ejemplos."],
+    indicadoresEvaluacion: ["I.CS.F.5.3.1. Diferencia la verdad de la validez en la formación de conceptos y teorías en las ciencias formales y fácticas, aplicándolas al análisis de discursos y editoriales de prensa de líderes políticos. (I.2., I.4.)"],
   },
 
   {
@@ -188,9 +188,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 3,
     descripcion: "Analizar las estructuras y los principios generales de la argumentación lógica (lógica aristotélica, silogismos) para cultivar un pensamiento coherente y riguroso",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.3"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los instrumentos intelectuales de la argumentación lógica, evitando falacias, paradojas y contradicciones, estableciendo las ideas centrales y secundarias en la construcción de un discurso coherente y riguroso."],
+    indicadoresEvaluacion: ["I.CS.F.5.4.1. Comprende y aplica las estructuras y principios de la argumentación lógica y lógica simbólica, evitando falacias, paradojas y contradicciones, estableciendo las tesis centrales y secundarias en la construcción de un discurso coherente y riguroso. (I.1.)"],
   },
 
   {
@@ -200,9 +200,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 4,
     descripcion: "Diferenciar las falacias de las paradojas, en función de un ejercicio válido de razonamiento",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.4"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los instrumentos intelectuales de la argumentación lógica, evitando falacias, paradojas y contradicciones, estableciendo las ideas centrales y secundarias en la construcción de un discurso coherente y riguroso."],
+    indicadoresEvaluacion: ["I.CS.F.5.4.2. Diferencia las falacias de las paradojas, comprendiendo y aplicando los principios de la argumentación y deliberación, en el análisis de textos académicos y de prensa. (J.3.)"],
   },
 
   {
@@ -212,9 +212,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 5,
     descripcion: "Analizar la presencia de las principales falacias en textos académicos y de la prensa nacional e internacional",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.5"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los instrumentos intelectuales de la argumentación lógica, evitando falacias, paradojas y contradicciones, estableciendo las ideas centrales y secundarias en la construcción de un discurso coherente y riguroso."],
+    indicadoresEvaluacion: ["I.CS.F.5.4.2. Diferencia las falacias de las paradojas, comprendiendo y aplicando los principios de la argumentación y deliberación, en el análisis de textos académicos y de prensa. (J.3.)"],
   },
 
   {
@@ -224,9 +224,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 7,
     descripcion: "Identificar y decodificar contradicciones, paradojas y falacias en discursos orales y escritos tomando en cuenta estos conceptos y sus significados",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.7"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los instrumentos intelectuales de la argumentación lógica, evitando falacias, paradojas y contradicciones, estableciendo las ideas centrales y secundarias en la construcción de un discurso coherente y riguroso."],
+    indicadoresEvaluacion: ["I.CS.F.5.4.2. Diferencia las falacias de las paradojas, comprendiendo y aplicando los principios de la argumentación y deliberación, en el análisis de textos académicos y de prensa. (J.3.)"],
   },
 
   {
@@ -236,9 +236,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 9,
     descripcion: "Comprender y aplicar los procedimientos de la lógica simbólica y sus conectores para construir cadenas argumentativas.",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.9"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los instrumentos intelectuales de la argumentación lógica, evitando falacias, paradojas y contradicciones, estableciendo las ideas centrales y secundarias en la construcción de un discurso coherente y riguroso."],
+    indicadoresEvaluacion: ["I.CS.F.5.4.1. Comprende y aplica las estructuras y principios de la argumentación lógica y lógica simbólica, evitando falacias, paradojas y contradicciones, estableciendo las tesis centrales y secundarias en la construcción de un discurso coherente y riguroso. (I.1.)"],
   },
 
   {
@@ -248,9 +248,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 10,
     descripcion: "Explicar el proceso de formación del pensamiento y la construcción de conceptos y teorías, diferenciándolo de la realidad a que hacen referencia, mediante ejercicios de conceptualización",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.10"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.3. Diferencia la verdad de la validez aplicándolas a la formación de conceptos y teorías y diferenciándolas en las ciencias formales y fácticas, mediante el uso de ejemplos."],
+    indicadoresEvaluacion: ["I.CS.F.5.3.1. Diferencia la verdad de la validez en la formación de conceptos y teorías en las ciencias formales y fácticas, aplicándolas al análisis de discursos y editoriales de prensa de líderes políticos. (I.2., I.4.)"],
   },
 
   {
@@ -260,9 +260,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 11,
     descripcion: "Aplicar los conceptos de validez y de verdad en discursos de líderes políticos y editoriales de prensa",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.11"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.3. Diferencia la verdad de la validez aplicándolas a la formación de conceptos y teorías y diferenciándolas en las ciencias formales y fácticas, mediante el uso de ejemplos."],
+    indicadoresEvaluacion: ["I.CS.F.5.3.1. Diferencia la verdad de la validez en la formación de conceptos y teorías en las ciencias formales y fácticas, aplicándolas al análisis de discursos y editoriales de prensa de líderes políticos. (I.2., I.4.)"],
   },
 
   {
@@ -272,9 +272,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 12,
     descripcion: "Establecer semejanzas y diferencias entre las formas de pensamiento cotidiano y el ejercicio del pensamiento filosófico y científico, en función de su valoración diferenciada",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.12"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano, del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su esfuerzo por plantear preguntas complejas y explicar la sociedad y la naturaleza por ellas mismas."],
+    indicadoresEvaluacion: ["I.CS.F.5.1.1. Analiza el origen del pensamiento filosófico como crítica al pensamiento mítico, como la búsqueda del orden y la armonía, y como esfuerzo para explicar los fenómenos sociales y naturales, a partir de la reflexión en torno a problemas concretos, y la elaboración de preguntas complejas en función de ensayar respuestas significativas. (I.2.)"],
   },
 
   {
@@ -284,9 +284,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 13,
     descripcion: "Distinguir las características del ensayo latinoamericano y del tratado europeo en textos representativos",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.13"],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
   {
@@ -296,9 +296,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 14,
     descripcion: "Contrastar las perspectivas de objetividad y subjetividad presentes en el tratado europeo y en el ensayo latinoamericano, mediante el análisis del discurso, su descomposición en elementos y su posterior síntesis",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.14"],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
   {
@@ -308,9 +308,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 16,
     descripcion: "Identificar tesis centrales y secundarias en un discurso filosófico corto. I",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.16"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los instrumentos intelectuales de la argumentación lógica, evitando falacias, paradojas y contradicciones, estableciendo las ideas centrales y secundarias en la construcción de un discurso coherente y riguroso."],
+    indicadoresEvaluacion: ["I.CS.F.5.4.1. Comprende y aplica las estructuras y principios de la argumentación lógica y lógica simbólica, evitando falacias, paradojas y contradicciones, estableciendo las tesis centrales y secundarias en la construcción de un discurso coherente y riguroso. (I.1.)"],
   },
 
   {
@@ -320,9 +320,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 17,
     descripcion: "Identificar características de la identidad del “ser” latinoamericano en diversas expresiones artísticas (pintura, escultura, poesía, arquitectura, novela, ensayo literario) para elaborar un discurso y repensar su “ethos” a inicios del siglo XXI",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.17"],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
   {
@@ -332,9 +332,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 18,
     descripcion: "Analizar las nuevas concepciones de la filosofía latinoamericana por medio de ejercicios orales y escritos",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.18"],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
   {
@@ -344,9 +344,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 2,
     secuencial: 19,
     descripcion: "Analizar la importancia del uso del casco y demás indumentaria de protección homologada desde una perspectiva ética, desarrollando estrategias efectivas para promover su uso",
-    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad."],
-    criteriosEvaluacion: ["CE.CS.F.5.2. Analiza y diferencia los fundamentos del pensamiento filosófico occidental en sus diversas etapas históricas y representantes, contrastándolos con el pensamiento filosófico latinoamericano."],
-    indicadoresEvaluacion: ["I.CS.F.5.2.19"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.3. Diferencia la verdad de la validez aplicándolas a la formación de conceptos y teorías y diferenciándolas en las ciencias formales y fácticas, mediante el uso de ejemplos."],
+    indicadoresEvaluacion: ["I.CS.F.5.3.2. Propone estrategias para promover el uso del casco y demás indumentaria de protección homologada como parte esencial de la protección, demostrando un compromiso con el cumplimiento de las normas y la responsabilidad en la vía. (J.3., I.1, S.1.)"],
   },
 
   {
@@ -356,9 +356,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 3,
     secuencial: 1,
     descripcion: "Diferencia la verdad de la validez en la formación de conceptos y teorías en las ciencias formales y fácticas, aplicándolas al análisis de discursos y editoriales de prensa de líderes políticos",
-    objetivos: ["O.CS.F.5.3. Comprender la dimensión espacial desde los conceptos filosóficos de Cosmos y Armonía, vinculándolos con los de Caos y Complejidad presentes en el pensamiento contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.F.5.3. Aplica el método socrático y el método científico en el análisis de problemas filosóficos y cotidianos, diferenciando la reflexión filosófica de la opinión común."],
-    indicadoresEvaluacion: ["I.CS.F.5.3.1. Aplica el método socrático y el método científico en el análisis de problemas filosóficos."],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
   {
@@ -368,9 +368,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 3,
     secuencial: 2,
     descripcion: "Propone estrategias parapromover el uso del casco y demás indumentaria de protección homologada como parte esencial de la protección, demostrando un compromiso con el cumplimiento de las normas y la responsabilidad en la vía",
-    objetivos: ["O.CS.F.5.3. Comprender la dimensión espacial desde los conceptos filosóficos de Cosmos y Armonía, vinculándolos con los de Caos y Complejidad presentes en el pensamiento contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.F.5.3. Aplica el método socrático y el método científico en el análisis de problemas filosóficos y cotidianos, diferenciando la reflexión filosófica de la opinión común."],
-    indicadoresEvaluacion: ["I.CS.F.5.3.2"],
+    objetivos: ["O.CS.F.5.1. Desarrollar mecanismos intelectuales que otorgan las lógicas polivalentes simbólicas contemporáneas para el análisis argumentativo y para el conocimiento del lenguaje humano, a través del combate a las falacias, contradicciones, juicios a priori, etc., en función de desarrollar en el estudiante una ética del razonamiento fundamentado y argumentado racionalmente."],
+    criteriosEvaluacion: ["CE.CS.F.5.1. Contrasta el pensamiento mítico y cotidiano, del pensamiento científico y filosófico, estableciendo semejanzas y diferencias, considerando su relación con varias disciplinas y su esfuerzo por plantear preguntas complejas y explicar la sociedad y la naturaleza por ellas mismas."],
+    indicadoresEvaluacion: ["I.CS.F.5.1.2. Analiza las contribuciones del pensamiento filosófico en las diversas producciones del pensamiento humano en contraste con otras disciplinas, reconociendo la tendencia filosófica en cuanto a lo absoluto, hechos factuales y pensamiento cotidiano. (I.2.)"],
   },
 
   {
@@ -380,9 +380,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 3,
     secuencial: 3,
     descripcion: "Analizar las características del pensamiento filosófico latinoamericano, sus temas centrales y dudas sustanciales",
-    objetivos: ["O.CS.F.5.3. Comprender la dimensión espacial desde los conceptos filosóficos de Cosmos y Armonía, vinculándolos con los de Caos y Complejidad presentes en el pensamiento contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.F.5.3. Aplica el método socrático y el método científico en el análisis de problemas filosóficos y cotidianos, diferenciando la reflexión filosófica de la opinión común."],
-    indicadoresEvaluacion: ["I.CS.F.5.3.3"],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
   {
@@ -392,9 +392,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 3,
     secuencial: 4,
     descripcion: "Diferenciar el referente esencial de la reflexión filosófica europea (yo) y latinoamericana (nosotros) dentro de sus propias coordenadas históricas.",
-    objetivos: ["O.CS.F.5.3. Comprender la dimensión espacial desde los conceptos filosóficos de Cosmos y Armonía, vinculándolos con los de Caos y Complejidad presentes en el pensamiento contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.F.5.3. Aplica el método socrático y el método científico en el análisis de problemas filosóficos y cotidianos, diferenciando la reflexión filosófica de la opinión común."],
-    indicadoresEvaluacion: ["I.CS.F.5.3.4"],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
   {
@@ -404,9 +404,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 3,
     secuencial: 8,
     descripcion: "Identificar las relaciones de poder que legitima o cuestiona la filosofía clásica y latinoamericana, en función de sus motivaciones y resultados políticos",
-    objetivos: ["O.CS.F.5.3. Comprender la dimensión espacial desde los conceptos filosóficos de Cosmos y Armonía, vinculándolos con los de Caos y Complejidad presentes en el pensamiento contemporáneo."],
-    criteriosEvaluacion: ["CE.CS.F.5.3. Aplica el método socrático y el método científico en el análisis de problemas filosóficos y cotidianos, diferenciando la reflexión filosófica de la opinión común."],
-    indicadoresEvaluacion: ["I.CS.F.5.3.8"],
+    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo de la argumentación, la deliberación y la persuasión, en función de una forma democrática de comunicación."],
+    criteriosEvaluacion: ["CE.CS.F.5.2. Relaciona la reflexión filosófica con los conflictos de poder, el ejercicio político y ciudadano por medio del análisis de sus conceptos fundamentales, la práctica del método socrático, la deliberación, la persuasión racional y creativa en función de la igualdad social y la crítica a toda forma de intolerancia al pensamiento diferente, como en el caso de Hipatia."],
+    indicadoresEvaluacion: ["I.CS.F.5.2.1. Compara las desigualdades de la democracia griega con la actual, a partir del análisis del caso de intolerancia e irracionalidad que sufrió la pensadora Hipatia, representante de la escuela neoplatónica, y de la carencia de la persuasión y la deliberación en el ejercicio de la ciudadanía a través de conceptos fundamentales sobre la comunidad, el quehacer y formas políticas. (J.1., J.4., S.1.)", "I.CS.F.5.2.2. Examina la importancia del método socrático y el diálogo racional y estructurado en la experiencia comunicativa del ser humano como animal político, en función de dilucidar las relaciones de poder que legitima una u otra posición filosófica. (J.3.)"],
   },
 
   {
@@ -416,9 +416,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 4,
     secuencial: 1,
     descripcion: "Comprende y aplica las estructuras y principios de la argumentación lógica y lógica simbólica, evitando falacias, paradojas y contradicciones, estableciendo las tesis centrales y secundarias en la construcción de un discurso coherente y riguroso",
-    objetivos: ["O.CS.F.5.4. Interpretar las experiencias humanas por medio del análisis de las dimensiones ética, estética y política, la felicidad y el placer, para examinar y distinguir los principios y las implicaciones que se anudan en ellas en la vida cotidiana."],
-    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los principios de la lógica en la construcción de argumentos válidos, identificando falacias y paradojas en el discurso cotidiano."],
-    indicadoresEvaluacion: ["I.CS.F.5.4.1. Aplica los principios de la lógica en la construcción de argumentos válidos e identifica falacias."],
+    objetivos: ["O.CS.F.5.4. Interpretar las experiencias humanas por medio del análisis de las dimensiones ética, estética y política, la felicidad y el placer, para examinar y distinguir los principios y las implicaciones que se anudan en ellas en la vida cotidiana y en los grandes proyectos históricos."],
+    criteriosEvaluacion: ["CE.CS.F.5.6. Discute los fundamentos de la ética, las nociones de bien y mal, a partir del análisis de las virtudes platónicas y aristotélicas, la concepción cristiana de la virtud y el pecado y las reflexiones de Kant y Bentham, aplicándolas a la sociedad y la política."],
+    indicadoresEvaluacion: ["I.CS.F.5.6.1. Comprende los fundamentos filosóficos de la ética, las nociones del bien y el mal, las nociones cristianas de la virtud y el pecado y las reflexiones del kantismo y el utilitarismo, mediante el análisis de casos reales del sistema político y la sociedad. (J.1., J.3., I.4.)", "I.CS.F.5.6.2. Discute las virtudes platónicas y aristotélicas a partir de la reflexión en torno a las corrientes sobre el bien y el mal, destacando la formación de una opinión argumentada en casos de la vida cotidiana. (J.2., I.2., S.1.)"],
   },
 
   {
@@ -428,9 +428,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 4,
     secuencial: 2,
     descripcion: "Diferencia las falacias de las paradojas, comprendiendo y aplicando los principios de la argumentación y deliberación, en el análisis de textos académicos y de prensa",
-    objetivos: ["O.CS.F.5.4. Interpretar las experiencias humanas por medio del análisis de las dimensiones ética, estética y política, la felicidad y el placer, para examinar y distinguir los principios y las implicaciones que se anudan en ellas en la vida cotidiana."],
-    criteriosEvaluacion: ["CE.CS.F.5.4. Comprende y aplica los principios de la lógica en la construcción de argumentos válidos, identificando falacias y paradojas en el discurso cotidiano."],
-    indicadoresEvaluacion: ["I.CS.F.5.4.2"],
+    objetivos: ["O.CS.F.5.4. Interpretar las experiencias humanas por medio del análisis de las dimensiones ética, estética y política, la felicidad y el placer, para examinar y distinguir los principios y las implicaciones que se anudan en ellas en la vida cotidiana y en los grandes proyectos históricos."],
+    criteriosEvaluacion: ["CE.CS.F.5.6. Discute los fundamentos de la ética, las nociones de bien y mal, a partir del análisis de las virtudes platónicas y aristotélicas, la concepción cristiana de la virtud y el pecado y las reflexiones de Kant y Bentham, aplicándolas a la sociedad y la política."],
+    indicadoresEvaluacion: ["I.CS.F.5.6.1. Comprende los fundamentos filosóficos de la ética, las nociones del bien y el mal, las nociones cristianas de la virtud y el pecado y las reflexiones del kantismo y el utilitarismo, mediante el análisis de casos reales del sistema político y la sociedad. (J.1., J.3., I.4.)", "I.CS.F.5.6.3. Actúa con respeto hacia los usuarios de medios de transporte público y sostenible, demostrando una conciencia ética y de responsabilidad vial. (J.2., J.3., S.1.)"],
   },
 
   {
@@ -440,9 +440,9 @@ export const destrezasFilosofia: Destreza[] = [
     bloque: 5,
     secuencial: 1,
     descripcion: "Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (“yo” – “nosotros”; “objetividad” “subjetividad”; “libertad” – “liberación”), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del “ser” latinoamericano",
-    objetivos: ["O.CS.F.5.5. Conocer y aplicar las reglas de la argumentación lógica para validar razonamientos que contribuyan al desarrollo del pensamiento crítico y la comunicación efectiva."],
-    criteriosEvaluacion: ["CE.CS.F.5.5. Analiza y evalúa los fundamentos de la ética y la estética, estableciendo su relación con la vida cotidiana y la construcción de una sociedad justa."],
-    indicadoresEvaluacion: ["I.CS.F.5.5.1. Analiza los fundamentos de la ética y la estética y su relación con la vida cotidiana."],
+    objetivos: ["O.CS.F.5.2. Analizar, comprender y valorar la complejidad histórica del pensamiento latinoamericano en su relación con otras formas de filosofar y pensar la realidad, a través de su imbricación con las urgencias vitales de su historia, para comprender la razón de ser de su nosotros pensante, a diferencia del yo pensante occidental."],
+    criteriosEvaluacion: ["CE.CS.F.5.5. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático las construcciones intelectuales de los pueblos ancestrales."],
+    indicadoresEvaluacion: ["I.CS.F.5.5.1. Compara las características del pensamiento filosófico occidental y latinoamericano, con sus nuevas concepciones, identificando sus preocupaciones esenciales (yo - nosotros; objetividad - subjetividad; libertad - liberación), su contexto histórico, su identidad, cultura y las características de sus productos intelectuales específicos (el ensayo y el tratado), discutiendo desde el método socrático el Sumak Kawsay como proyecto utópico posible en la construcción del ser latinoamericano. (J.3.)"],
   },
 
 ];

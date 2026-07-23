@@ -33,6 +33,7 @@ import {
   ESTILOS_APRENDIZAJE,
   HABILIDADES_SOCIOEMOCIONALES,
 } from "@/data";
+import { obtenerDestrezasCivicaEtica } from "@/data/civica-etica-destrezas";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 import { useAccess } from "@/lib/access-control";
 import { trpc } from "@/lib/trpc";
@@ -124,6 +125,14 @@ export default function PlanificarScreen() {
     [destreza]
   );
 
+
+  // Destrezas sugeridas cuando el eje Cívica, Ética e Integridad está activo
+  const destrezasCivicaEtica = useMemo(() => {
+    if (!destreza) return [];
+    return obtenerDestrezasCivicaEtica(destreza.area, destreza.subnivel)
+      .map((codigo) => buscarPorCodigo(codigo))
+      .filter((d): d is NonNullable<typeof d> => d != null);
+  }, [destreza]);
   // Bloques curriculares del ÃÂ¡rea
   const bloquesCurriculares = useMemo(() => {
     if (!destreza) return [];
@@ -675,6 +684,7 @@ export default function PlanificarScreen() {
                   </Pressable>
                 ))}
               </View>
+              </>
             )}
           </View>
 
@@ -694,6 +704,7 @@ export default function PlanificarScreen() {
             </View>
 
             {usaEjesTransversales && insercionesDisponibles.length > 0 && (
+              <>
               <View style={{ marginTop: 10 }}>
                 <Text className="text-xs text-muted mb-2">
                   {isEFL ? "Select which ones:" : "Selecciona cuáles:"}
@@ -726,6 +737,23 @@ export default function PlanificarScreen() {
                   })}
                 </View>
               </View>
+
+              {/* Panel: destrezas sugeridas para Cívica, Ética e Integridad */}
+              {insercionesCurriculares.includes("civica-etica") && destrezasCivicaEtica.length > 0 && (
+                <View style={{ marginTop: 14, padding: 12, borderRadius: 12, backgroundColor: colors.primary + "08", borderWidth: 1.5, borderColor: colors.primary + "30" }}>
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary, marginBottom: 8 }}>
+                    {isEFL ? "⚖️ Suggested DCDs — Civic, Ethics & Integrity" : "⚖️ Destrezas sugeridas — Cívica, Ética e Integridad"}
+                  </Text>
+                  {destrezasCivicaEtica.map((d) => (
+                    <View key={d.codigo} style={{ marginBottom: 6 }}>
+                      <Text style={{ fontSize: 11, color: colors.foreground, lineHeight: 16 }}>
+                        <Text style={{ fontWeight: "700", color: colors.primary }}>{d.codigo} </Text>
+                        {d.descripcion}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              )}
             )}
             {usaEjesTransversales && insercionesDisponibles.length === 0 && (
               <Text className="text-xs text-muted mt-2">

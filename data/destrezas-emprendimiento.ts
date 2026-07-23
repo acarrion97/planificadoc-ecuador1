@@ -8,9 +8,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 1,
     descripcion: "Describir y explicar los conceptos básicos financieros de un emprendimiento, tales como ingresos, costos, gastos e inversión, punto de equilibrio y sus proyecciones futuras como elemento fundamental para las proyecciones",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.1. Identifica las características del emprendedor y los tipos de emprendimiento en el contexto ecuatoriano."],
+    objetivos: ["OG.EG.2. Comprender los conceptos de \"ingresos\", \"gastos\" e \"inversiones\" como elementos fundamentales para la toma de decisiones."],
+    criteriosEvaluacion: ["CE.EG.5.1. Utiliza los conceptos básicos contables para conocer el futuro financiero de un emprendimiento y determinar el capital de trabajo necesario."],
+    indicadoresEvaluacion: ["I.EG.5.1.1. Describe proyecciones financieras y el capital de trabajo de un emprendimiento basándose en conceptos financieros básicos. (I.1., I.4.)"],
   },
 
   {
@@ -20,9 +20,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 2,
     descripcion: "Distinguir los diferentes tipos de costos y gastos que puede tener un emprendimiento para determinar detenidamente el capital de trabajo necesario para un emprendimiento",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.2"],
+    objetivos: ["OG.EG.2. Comprender los conceptos de \"ingresos\", \"gastos\" e \"inversiones\" como elementos fundamentales para la toma de decisiones."],
+    criteriosEvaluacion: ["CE.EG.5.1. Utiliza los conceptos básicos contables para conocer el futuro financiero de un emprendimiento y determinar el capital de trabajo necesario."],
+    indicadoresEvaluacion: ["I.EG.5.1.2. Describe el capital de trabajo de un emprendimiento basándose en conceptos financieros básicos. (I.1., I.4.)"],
   },
 
   {
@@ -32,9 +32,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 3,
     descripcion: "Identificar la obligatoriedad jurídica de llevar contabilidad de acuerdo con lo establecido por las normas tributarias como elemento fundamental para determinar la forma de llevar la contabilidad",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.3"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.1. Ordena las cuentas contables de acuerdo con la naturaleza de la función de los asientos contables en aquellos emprendimientos obligados a llevar contabilidad, tomando en cuenta las normas tributarias establecidas por la autoridad competente. (I.4., J.2.)"],
   },
 
   {
@@ -44,9 +44,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 4,
     descripcion: "Deducir la importancia de la contabilidad como elemento de control financiero del emprendimiento",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.4"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.2. Registra transacciones en las cuentas contables bajo el principio de partida doble, según la normativa contable vigente. (J.2., I.4.)"],
   },
 
   {
@@ -56,9 +56,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 5,
     descripcion: "Explicar las principales normas contables relacionadas con la partida doble para establecer los impactos en las cuentas",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.5"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.2. Registra transacciones en las cuentas contables bajo el principio de partida doble, según la normativa contable vigente. (J.2., I.4.)"],
   },
 
   {
@@ -68,9 +68,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 6,
     descripcion: "Clasificar las principales cuentas contables con su respectivo nombre para personificarlas, mediante la determinación de la naturaleza de su función en los asientos contables, tales como caja, bancos, cuentas por cobrar, inventarios, activos fijos, depreciación, capital, cuentas por pagar, préstamos bancarios, capital",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.6"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.1. Ordena las cuentas contables de acuerdo con la naturaleza de la función de los asientos contables en aquellos emprendimientos obligados a llevar contabilidad, tomando en cuenta las normas tributarias establecidas por la autoridad competente. (I.4., J.2.)", "I.EG.5.2.2. Registra transacciones en las cuentas contables bajo el principio de partida doble, según la normativa contable vigente. (J.2., I.4.)"],
   },
 
   {
@@ -80,9 +80,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 7,
     descripcion: "Identificar los componentes básicos del activo, pasivo, patrimonio, ingresos, costos y gastos, de acuerdo con la normativa contable, para clasificar adecuadamente las cuentas contables.",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.7"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.1. Ordena las cuentas contables de acuerdo con la naturaleza de la función de los asientos contables en aquellos emprendimientos obligados a llevar contabilidad, tomando en cuenta las normas tributarias establecidas por la autoridad competente. (I.4., J.2.)"],
   },
 
   {
@@ -92,9 +92,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 8,
     descripcion: "Interpretar las cuentas contables mediante la identificación de los cambios que causan las transacciones en los activos, pasivos y patrimonios, reflejados en la cuenta por partida doble",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.8"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.2. Registra transacciones en las cuentas contables bajo el principio de partida doble, según la normativa contable vigente. (J.2., I.4.)"],
   },
 
   {
@@ -104,9 +104,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 9,
     descripcion: "Elaborar un balance general básico mediante la aplicación de los principios, conceptos, técnicas contables y la normatividad vigente",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.9"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.3. Construye estados financieros (balance general y estado de pérdidas y ganancias) aplicando técnicas contables y la normativa vigente. (I.4., J.3.)"],
   },
 
   {
@@ -116,9 +116,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 1,
     secuencial: 10,
     descripcion: "Elaborar un estado de pérdidas y ganancias básico mediante la aplicación de las cuentas contables y la ecuación contable en un caso de estudio",
-    objetivos: ["O.EG.5.1"],
-    criteriosEvaluacion: ["CE.EG.5.1. Comprende los conceptos fundamentales del emprendimiento y la gestión empresarial, identificando las características del emprendedor y los tipos de emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.1.10"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.2. Construye estados financieros (balance general y estado de pérdidas y ganancias) por medio de los cambios en las transacciones contables, basándose en la normativa contable y tributaria vigente."],
+    indicadoresEvaluacion: ["I.EG.5.2.3. Construye estados financieros (balance general y estado de pérdidas y ganancias) aplicando técnicas contables y la normativa vigente. (I.4., J.3.)"],
   },
 
   {
@@ -128,9 +128,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 2,
     secuencial: 1,
     descripcion: "Ordena las cuentas contables de acuerdo con la naturaleza de la función de los asientos contables en aquellos emprendimientos obligados a llevar contabilidad, tomando en cuenta las normas tributarias establecidas por la autoridad competente",
-    objetivos: ["O.EG.5.2"],
-    criteriosEvaluacion: ["CE.EG.5.2. Analiza el entorno económico, social y legal para la creación de emprendimientos, identificando oportunidades de negocio y evaluando su viabilidad."],
-    indicadoresEvaluacion: ["I.EG.5.2.1. Analiza el entorno económico y legal para identificar oportunidades de negocio viables."],
+    objetivos: ["OG.EG.3. Conocer y explicar los requisitos y responsabilidades legales y sociales que debe cumplir un emprendedor en el momento de crear y mantener un emprendimiento, como forma de retribuir al Estado por los servicios recibidos."],
+    criteriosEvaluacion: ["CE.EG.5.3. Justifica la importancia del pago de las obligaciones legales y tributarias de un emprendimiento al llenar los formularios básicos del SRI (RISE, IVA e Impuesto a la Renta) con el objetivo de crear una cultura tributaria."],
+    indicadoresEvaluacion: ["I.EG.5.3.1. Comprende la importancia de generar una cultura tanto tributaria como de responsabilidad legal en cualquier emprendimiento, para validar sus operaciones en el mercado. (S.1., I.1.)"],
   },
 
   {
@@ -140,9 +140,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 2,
     secuencial: 2,
     descripcion: "Identificar las obligaciones legales que debe cumplir un emprendedor como elemento fundamental para la operación del mismo",
-    objetivos: ["O.EG.5.2"],
-    criteriosEvaluacion: ["CE.EG.5.2. Analiza el entorno económico, social y legal para la creación de emprendimientos, identificando oportunidades de negocio y evaluando su viabilidad."],
-    indicadoresEvaluacion: ["I.EG.5.2.2"],
+    objetivos: ["OG.EG.3. Conocer y explicar los requisitos y responsabilidades legales y sociales que debe cumplir un emprendedor en el momento de crear y mantener un emprendimiento, como forma de retribuir al Estado por los servicios recibidos."],
+    criteriosEvaluacion: ["CE.EG.5.3. Justifica la importancia del pago de las obligaciones legales y tributarias de un emprendimiento al llenar los formularios básicos del SRI (RISE, IVA e Impuesto a la Renta) con el objetivo de crear una cultura tributaria."],
+    indicadoresEvaluacion: ["I.EG.5.3.1. Comprende la importancia de generar una cultura tanto tributaria como de responsabilidad legal en cualquier emprendimiento, para validar sus operaciones en el mercado. (S.1., I.1.)"],
   },
 
   {
@@ -152,9 +152,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 2,
     secuencial: 3,
     descripcion: "Construye estados financieros (balance general y estado de pérdidas y ganancias) aplicando técnicas contables y la normativa vigente",
-    objetivos: ["O.EG.5.2"],
-    criteriosEvaluacion: ["CE.EG.5.2. Analiza el entorno económico, social y legal para la creación de emprendimientos, identificando oportunidades de negocio y evaluando su viabilidad."],
-    indicadoresEvaluacion: ["I.EG.5.2.3"],
+    objetivos: ["OG.EG.3. Conocer y explicar los requisitos y responsabilidades legales y sociales que debe cumplir un emprendedor en el momento de crear y mantener un emprendimiento, como forma de retribuir al Estado por los servicios recibidos."],
+    criteriosEvaluacion: ["CE.EG.5.3. Justifica la importancia del pago de las obligaciones legales y tributarias de un emprendimiento al llenar los formularios básicos del SRI (RISE, IVA e Impuesto a la Renta) con el objetivo de crear una cultura tributaria."],
+    indicadoresEvaluacion: ["I.EG.5.3.1. Comprende la importancia de generar una cultura tanto tributaria como de responsabilidad legal en cualquier emprendimiento, para validar sus operaciones en el mercado. (S.1., I.1.)"],
   },
 
   {
@@ -164,9 +164,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 2,
     secuencial: 4,
     descripcion: "Aplicar los conocimientos tributarios en el llenado de los formularios básicos del SRI (RISE, IVA e Impuesto a la Renta).",
-    objetivos: ["O.EG.5.2"],
-    criteriosEvaluacion: ["CE.EG.5.2. Analiza el entorno económico, social y legal para la creación de emprendimientos, identificando oportunidades de negocio y evaluando su viabilidad."],
-    indicadoresEvaluacion: ["I.EG.5.2.4"],
+    objetivos: ["OG.EG.3. Conocer y explicar los requisitos y responsabilidades legales y sociales que debe cumplir un emprendedor en el momento de crear y mantener un emprendimiento, como forma de retribuir al Estado por los servicios recibidos."],
+    criteriosEvaluacion: ["CE.EG.5.3. Justifica la importancia del pago de las obligaciones legales y tributarias de un emprendimiento al llenar los formularios básicos del SRI (RISE, IVA e Impuesto a la Renta) con el objetivo de crear una cultura tributaria."],
+    indicadoresEvaluacion: ["I.EG.5.3.1. Comprende la importancia de generar una cultura tanto tributaria como de responsabilidad legal en cualquier emprendimiento, para validar sus operaciones en el mercado. (S.1., I.1.)"],
   },
 
   {
@@ -176,9 +176,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 2,
     secuencial: 5,
     descripcion: "Comprender los factores que afectan el poder adquisitivo del dinero, el impacto de los intereses compuestos en el ahorro evaluando las ventajas y desventajas de diversos productos de inversión",
-    objetivos: ["O.EG.5.2"],
-    criteriosEvaluacion: ["CE.EG.5.2. Analiza el entorno económico, social y legal para la creación de emprendimientos, identificando oportunidades de negocio y evaluando su viabilidad."],
-    indicadoresEvaluacion: ["I.EG.5.2.5"],
+    objetivos: ["OG.EG.3. Conocer y explicar los requisitos y responsabilidades legales y sociales que debe cumplir un emprendedor en el momento de crear y mantener un emprendimiento, como forma de retribuir al Estado por los servicios recibidos."],
+    criteriosEvaluacion: ["CE.EG.5.3. Justifica la importancia del pago de las obligaciones legales y tributarias de un emprendimiento al llenar los formularios básicos del SRI (RISE, IVA e Impuesto a la Renta) con el objetivo de crear una cultura tributaria."],
+    indicadoresEvaluacion: ["I.EG.5.3.1. Comprende la importancia de generar una cultura tanto tributaria como de responsabilidad legal en cualquier emprendimiento, para validar sus operaciones en el mercado. (S.1., I.1.)"],
   },
 
   {
@@ -188,9 +188,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 1,
     descripcion: "Comprende la importancia de generar una cultura tanto tributaria como de responsabilidad legal en cualquier emprendimiento, para validar sus operaciones en el mercado",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.1. Diseña un plan de negocios con estudio de mercado, plan de marketing y plan financiero."],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.4. Detecta, por medio de la investigación de campo, la necesidad de productos o servicios en un mercado, para asegurar un ciclo de vida duradero."],
+    indicadoresEvaluacion: ["I.EG.5.4.1. Determina, en una zona geográfica, la necesidad de un determinado bien o servicio para convertirla en su cliente frecuente. (S.4., S.1.)"],
   },
 
   {
@@ -200,9 +200,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 2,
     descripcion: "Describir y explicar los componentes del diseño de la investigación de campo para obtener información certera sobre el tema que se desea investigar o profundizar",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.2"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.4. Detecta, por medio de la investigación de campo, la necesidad de productos o servicios en un mercado, para asegurar un ciclo de vida duradero."],
+    indicadoresEvaluacion: ["I.EG.5.4.2. Ejecuta investigaciones de campo para obtener información certera sobre el tema que se desea investigar o profundizar. (I.1., S.2.)"],
   },
 
   {
@@ -212,9 +212,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 4,
     descripcion: "Ejecutar una investigación de campo entre los potenciales clientes/ usuarios determinados para establecer las necesidades de la zona geográfica, de tal manera que se determinen las potenciales ideas de emprendimiento",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.4"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.4. Detecta, por medio de la investigación de campo, la necesidad de productos o servicios en un mercado, para asegurar un ciclo de vida duradero."],
+    indicadoresEvaluacion: ["I.EG.5.4.2. Ejecuta investigaciones de campo para obtener información certera sobre el tema que se desea investigar o profundizar. (I.1., S.2.)"],
   },
 
   {
@@ -224,9 +224,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 5,
     descripcion: "Describir los conocimientos estadísticos básicos para tabular los datos recabados en una investigación de campo",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.5"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.5. Aplica procesos estadísticos que permiten una buena interpretación de la información de mercado, para asegurar más probabilidad de éxito en un emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.5.1. Presenta la información de mercado (oferta y demanda) a través de la representación gráfica de los datos procesados, en tablas, gráficas, histogramas, cálculo de frecuencias, diagramas, y estudios de medidas de tendencia central (media, mediana, moda), así como la información obtenida en la investigación de campo de forma resumida y concisa, de tal manera que se facilite la toma de decisiones. (I.2., I.4.)"],
   },
 
   {
@@ -236,9 +236,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 6,
     descripcion: "Presentar la información obtenida en la investigación de campo de forma resumida y concisa en función de su utilidad para la toma de decisiones",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.6"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.5. Aplica procesos estadísticos que permiten una buena interpretación de la información de mercado, para asegurar más probabilidad de éxito en un emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.5.1. Presenta la información de mercado (oferta y demanda) a través de la representación gráfica de los datos procesados, en tablas, gráficas, histogramas, cálculo de frecuencias, diagramas, y estudios de medidas de tendencia central (media, mediana, moda), así como la información obtenida en la investigación de campo de forma resumida y concisa, de tal manera que se facilite la toma de decisiones. (I.2., I.4.)"],
   },
 
   {
@@ -248,9 +248,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 7,
     descripcion: "Analizar estadísticamente la información de mercado (oferta y demanda) a partir de la representación gráfica de los datos procesados en tablas, gráficas, histogramas, cálculo de frecuencias, diagramas, estudios de medidas de tendencia central (media, mediana, moda)",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.7"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.5. Aplica procesos estadísticos que permiten una buena interpretación de la información de mercado, para asegurar más probabilidad de éxito en un emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.5.1. Presenta la información de mercado (oferta y demanda) a través de la representación gráfica de los datos procesados, en tablas, gráficas, histogramas, cálculo de frecuencias, diagramas, y estudios de medidas de tendencia central (media, mediana, moda), así como la información obtenida en la investigación de campo de forma resumida y concisa, de tal manera que se facilite la toma de decisiones. (I.2., I.4.)"],
   },
 
   {
@@ -260,9 +260,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 8,
     descripcion: "Utilizar metodologías para interpretar datos estadísticos como fundamento para la toma de decisiones y la selección de las ideas de emprendimiento con mayor probabilidad de éxito",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.8"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.5. Aplica procesos estadísticos que permiten una buena interpretación de la información de mercado, para asegurar más probabilidad de éxito en un emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.5.1. Presenta la información de mercado (oferta y demanda) a través de la representación gráfica de los datos procesados, en tablas, gráficas, histogramas, cálculo de frecuencias, diagramas, y estudios de medidas de tendencia central (media, mediana, moda), así como la información obtenida en la investigación de campo de forma resumida y concisa, de tal manera que se facilite la toma de decisiones. (I.2., I.4.)"],
   },
 
   {
@@ -272,9 +272,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 3,
     secuencial: 10,
     descripcion: "Analizar los delitos financieros existentes, como el robo de identidad, fraudes, estafas, entre otros, para tomar decisiones informadas y precautelar su integridad",
-    objetivos: ["O.EG.5.3"],
-    criteriosEvaluacion: ["CE.EG.5.3. Diseña un plan de negocios que incluya estudio de mercado, plan de marketing, plan operativo y plan financiero."],
-    indicadoresEvaluacion: ["I.EG.5.3.10"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.4. Detecta, por medio de la investigación de campo, la necesidad de productos o servicios en un mercado, para asegurar un ciclo de vida duradero."],
+    indicadoresEvaluacion: ["I.EG.5.4.2. Ejecuta investigaciones de campo para obtener información certera sobre el tema que se desea investigar o profundizar. (I.1., S.2.)"],
   },
 
   {
@@ -284,9 +284,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 1,
     descripcion: "Aplicar en un emprendimiento los elementos básicos de los principios de administración: planeación, organización, integración, dirección y control para generar las habilidades directivas requeridas para un emprendedor",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.1. Aplica principios de contabilidad básica en el registro de transacciones y elaboración de estados financieros."],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.6. Precisa una planificación de personal adecuada para elevar el rendimiento del emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.6.1. Valora, de acuerdo con un criterio administrativo, el cumplimiento de objetivos financieros, así como la responsabilidad social en la planificación de los recursos humanos (estructura organizacional, proceso de contratación, capacitación, deberes y derechos laborales, despido) y diagrama una estructura organizacional óptima para un emprendimiento. (I.4., S.3.)"],
   },
 
   {
@@ -296,9 +296,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 2,
     descripcion: "Ejecuta investigaciones de campo y diseña instrumentos de investigación para seleccionar las ideas de emprendimiento que presenten mayor factibilidad en el mercado",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.2"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.6. Precisa una planificación de personal adecuada para elevar el rendimiento del emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.6.1. Valora, de acuerdo con un criterio administrativo, el cumplimiento de objetivos financieros, así como la responsabilidad social en la planificación de los recursos humanos (estructura organizacional, proceso de contratación, capacitación, deberes y derechos laborales, despido) y diagrama una estructura organizacional óptima para un emprendimiento. (I.4., S.3.)"],
   },
 
   {
@@ -308,9 +308,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 3,
     descripcion: "Identificar, valorar e implementar el concepto de responsabilidad social en el desarrollo de emprendimientos como elemento fundamental para la generación de emprendimientos con carácter social",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.3"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.6. Precisa una planificación de personal adecuada para elevar el rendimiento del emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.6.1. Valora, de acuerdo con un criterio administrativo, el cumplimiento de objetivos financieros, así como la responsabilidad social en la planificación de los recursos humanos (estructura organizacional, proceso de contratación, capacitación, deberes y derechos laborales, despido) y diagrama una estructura organizacional óptima para un emprendimiento. (I.4., S.3.)"],
   },
 
   {
@@ -320,9 +320,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 4,
     descripcion: "Analizar conceptos básicos de economía (inflación, oferta, demanda, mercado, empleo) con el fin de establecer su impacto en las decisiones del emprendimiento",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.4"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.7. Juzga la eficiencia de un emprendimiento a partir de las variables económicas (\"inflación\", \"oferta\", \"demanda\", \"mercado\", \"empleo\", etc.), del entorno."],
+    indicadoresEvaluacion: ["I.EG.5.7.1. Comprueba la rentabilidad de un emprendimiento a partir del análisis de indicadores económicos (inflación, oferta, demanda, mercado, empleo, etc.), para favorecer la toma de decisiones. (I.2., I.1.)"],
   },
 
   {
@@ -332,9 +332,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 5,
     descripcion: "Aplicar principios básicos de microeconomía para el desarrollo de emprendimientos como elemento para la toma de decisiones",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.5"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.7. Juzga la eficiencia de un emprendimiento a partir de las variables económicas (\"inflación\", \"oferta\", \"demanda\", \"mercado\", \"empleo\", etc.), del entorno."],
+    indicadoresEvaluacion: ["I.EG.5.7.1. Comprueba la rentabilidad de un emprendimiento a partir del análisis de indicadores económicos (inflación, oferta, demanda, mercado, empleo, etc.), para favorecer la toma de decisiones. (I.2., I.1.)"],
   },
 
   {
@@ -344,9 +344,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 7,
     descripcion: "Generar herramientas para gestionar el estrés y disminuir sus efectos nocivos en el bienestar físico y emocional, durante la toma de decisiones en la planeación y ejecución de sus emprendimientos",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.7"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.6. Precisa una planificación de personal adecuada para elevar el rendimiento del emprendimiento."],
+    indicadoresEvaluacion: ["I.EG.5.6.1. Valora, de acuerdo con un criterio administrativo, el cumplimiento de objetivos financieros, así como la responsabilidad social en la planificación de los recursos humanos (estructura organizacional, proceso de contratación, capacitación, deberes y derechos laborales, despido) y diagrama una estructura organizacional óptima para un emprendimiento. (I.4., S.3.)"],
   },
 
   {
@@ -356,9 +356,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 9,
     descripcion: "Comprender el impacto de las tasas de interés, los tipos de cambio, la volatilidad del mercado, los impuestos y la inflación en las decisiones financieras",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.9"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.7. Juzga la eficiencia de un emprendimiento a partir de las variables económicas (\"inflación\", \"oferta\", \"demanda\", \"mercado\", \"empleo\", etc.), del entorno."],
+    indicadoresEvaluacion: ["I.EG.5.7.1. Comprueba la rentabilidad de un emprendimiento a partir del análisis de indicadores económicos (inflación, oferta, demanda, mercado, empleo, etc.), para favorecer la toma de decisiones. (I.2., I.1.)"],
   },
 
   {
@@ -368,9 +368,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 4,
     secuencial: 10,
     descripcion: "Reconocer los factores financieros que conducen a condiciones de equidad social e igualdad de ingresos",
-    objetivos: ["O.EG.5.4"],
-    criteriosEvaluacion: ["CE.EG.5.4. Aplica principios de contabilidad básica y administración financiera en la gestión de un emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.4.10"],
+    objetivos: ["OG.EG.6. Elaborar y analizar conceptos y principios básicos de administración de empresas y economía para la toma de decisiones y explicar su impacto en el desarrollo del emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.7. Juzga la eficiencia de un emprendimiento a partir de las variables económicas (\"inflación\", \"oferta\", \"demanda\", \"mercado\", \"empleo\", etc.), del entorno."],
+    indicadoresEvaluacion: ["I.EG.5.7.2. Analiza la rentabilidad de un emprendimiento a partir de sus costos marginales (costos hundidos). (I.2., S.3.)"],
   },
 
   {
@@ -380,9 +380,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 5,
     secuencial: 1,
     descripcion: "Presenta la información de mercado (oferta y demanda) a través de la representación gráfica de los datos procesados, en tablas, gráficas, histogramas, cálculo de frecuencias, diagramas, y estudios de medidas de tendencia central (media, mediana, moda), así como la información obtenida en la investigación de campo de forma resumida y concisa, de tal manera que se facilite la toma de decisiones",
-    objetivos: ["O.EG.5.5"],
-    criteriosEvaluacion: ["CE.EG.5.5. Comprende los principios de la administración y el liderazgo, aplicándolos en la gestión de equipos de trabajo y la toma de decisiones."],
-    indicadoresEvaluacion: ["I.EG.5.5.1. Aplica principios de administración y liderazgo en la gestión de equipos de trabajo."],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.4. Detecta, por medio de la investigación de campo, la necesidad de productos o servicios en un mercado, para asegurar un ciclo de vida duradero."],
+    indicadoresEvaluacion: ["I.EG.5.4.1. Determina, en una zona geográfica, la necesidad de un determinado bien o servicio para convertirla en su cliente frecuente. (S.4., S.1.)"],
   },
 
   {
@@ -392,9 +392,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 5,
     secuencial: 2,
     descripcion: "Exponer de forma sintetizada y sencilla el bien o servicio seleccionado por el estudiante (idea de emprendimiento) y sus características principales, de tal manera que en un lapso muy corto genere impacto entre quienes escuchan",
-    objetivos: ["O.EG.5.5"],
-    criteriosEvaluacion: ["CE.EG.5.5. Comprende los principios de la administración y el liderazgo, aplicándolos en la gestión de equipos de trabajo y la toma de decisiones."],
-    indicadoresEvaluacion: ["I.EG.5.5.2"],
+    objetivos: ["OG.EG.7. Diseñar y formular un proyecto básico de emprendimiento con todos los elementos necesarios y componentes de innovación."],
+    criteriosEvaluacion: ["CE.EG.5.8. Ofrece un nuevo producto o servicio que impacte un segmento de mercado definido."],
+    indicadoresEvaluacion: ["I.EG.5.8.1. Realiza una mezcla adecuada de las variables de mercado (producto, precio, plaza, promoción y personalización) para un bien o servicio nuevo que presenta a un segmento de mercado específico mediante mecanismos de comunicación eficaces. (I.3., S.1.)"],
   },
 
   {
@@ -404,9 +404,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 5,
     secuencial: 8,
     descripcion: "Describir y explicar de forma sencilla el segmento de mercado que se desea alcanzar y sus características, para establecer estrategias adecuadas para convertirlo en cliente/usuario",
-    objetivos: ["O.EG.5.5"],
-    criteriosEvaluacion: ["CE.EG.5.5. Comprende los principios de la administración y el liderazgo, aplicándolos en la gestión de equipos de trabajo y la toma de decisiones."],
-    indicadoresEvaluacion: ["I.EG.5.5.8"],
+    objetivos: ["OG.EG.5. Analizar las necesidades de la población, recolectar información basada en muestras e indagar sobre datos relacionados con el emprendimiento utilizando herramientas estadísticas."],
+    criteriosEvaluacion: ["CE.EG.5.4. Detecta, por medio de la investigación de campo, la necesidad de productos o servicios en un mercado, para asegurar un ciclo de vida duradero."],
+    indicadoresEvaluacion: ["I.EG.5.4.1. Determina, en una zona geográfica, la necesidad de un determinado bien o servicio para convertirla en su cliente frecuente. (S.4., S.1.)"],
   },
 
   {
@@ -416,9 +416,9 @@ export const destrezasEmprendimiento: Destreza[] = [
     bloque: 6,
     secuencial: 1,
     descripcion: "Valora, de acuerdo con un criterio administrativo, el cumplimiento de objetivos financieros, así como la responsabilidad social en la planificación de los recursos humanos (estructura organizacional, proceso de contratación, capacitación, deberes y derechos laborales, despido) y diagrama una estructura organizacional óptima para un emprendimiento",
-    objetivos: ["O.EG.5.6"],
-    criteriosEvaluacion: ["CE.EG.5.6. Evalúa la responsabilidad social empresarial y la ética en los negocios como factores clave para la sostenibilidad del emprendimiento."],
-    indicadoresEvaluacion: ["I.EG.5.6.1. Evalúa la responsabilidad social empresarial como factor clave para la sostenibilidad."],
+    objetivos: ["OG.EG.8. Conocer metodologías y técnicas para evaluar cuantitativa y cualitativamente la factibilidad de un proyecto de emprendimiento."],
+    criteriosEvaluacion: ["CE.EG.5.11. Elige emprendimientos de menor riesgo basándose en el análisis de la rentabilidad, periodo de recuperación, tasa interna de retorno y valor actual neto."],
+    indicadoresEvaluacion: ["I.EG.5.11.1. Elige el proyecto de emprendimiento con menor riesgo financiero después de analizar la rentabilidad, periodo de recuperación, tasa interna de retorno y valor actual neto. (I.1., I.2.)"],
   },
 
   {

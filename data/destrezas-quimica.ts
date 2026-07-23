@@ -8,9 +8,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 1,
     descripcion: "Analizar y clasificar las propiedades de los gases que se generan en la industria y aquellos que son más comunes en la vida y que inciden en la salud y el ambiente",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.1. Explica las propiedades de la materia a partir de los modelos atómicos y realiza configuraciones electrónicas."],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y las leyes de los gases, reconoce los gases más cotidianos, identifica los procesos físicos y su incidencia en la salud y en el ambiente."],
+    indicadoresEvaluacion: ["I.CN.Q.5.1.1. Explica las propiedades y leyes de los gases, reconoce los gases cotidianos, identifica los procesos físicos y su incidencia en la salud y el ambiente. (J.3., I.2.)"],
   },
 
   {
@@ -20,9 +20,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 2,
     descripcion: "Examinar las leyes que rigen el comportamiento de los gases desde el análisis experimental y la interpretación de resultados, para reconocer los procesos físicos que ocurren en la cotidianidad",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.2"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y las leyes de los gases, reconoce los gases más cotidianos, identifica los procesos físicos y su incidencia en la salud y en el ambiente."],
+    indicadoresEvaluacion: ["I.CN.Q.5.1.1. Explica las propiedades y leyes de los gases, reconoce los gases cotidianos, identifica los procesos físicos y su incidencia en la salud y el ambiente. (J.3., I.2.)"],
   },
 
   {
@@ -32,9 +32,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 3,
     descripcion: "Observar y comparar la teoría de Bohr con las teorías atómicas de Demócrito, Dalton, Thompson y Rutherford",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.3"],
+    objetivos: ["O.CN.Q.5.2. Demostrar conocimiento y comprensión de los hechos esenciales, conceptos, principios, teorías y leyes relacionadas con la Química a partir de la curiosidad científica, generando un compromiso potencial con la sociedad."],
+    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la comparación de las teorías atómicas de Bohr (explica los espectros de los elementos químicos), Demócrito, Dalton, Thompson y Rutherford y realiza ejercicios de la configuración electrónica desde el modelo mecánico-cuántico de la materia."],
+    indicadoresEvaluacion: ["I.CN.Q.5.2.1. Analiza la estructura del átomo comparando las teorías atómicas de Bohr (explica los espectros de los elementos químicos), Demócrito, Dalton, Thompson y Rutherford, y realiza ejercicios de la configuración electrónica desde el modelo mecánico-cuántico de la materia. (I.2.)"],
   },
 
   {
@@ -44,9 +44,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 5,
     descripcion: "Observar y aplicar el modelo mecánico-cuántico de la materia en la estructuración de la configuración electrónica de los átomos considerando la dualidad del electrón, los números cuánticos, los tipos de orbitales y la regla de Hund. I",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.5"],
+    objetivos: ["O.CN.Q.5.2. Demostrar conocimiento y comprensión de los hechos esenciales, conceptos, principios, teorías y leyes relacionadas con la Química a partir de la curiosidad científica, generando un compromiso potencial con la sociedad."],
+    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la comparación de las teorías atómicas de Bohr (explica los espectros de los elementos químicos), Demócrito, Dalton, Thompson y Rutherford y realiza ejercicios de la configuración electrónica desde el modelo mecánico-cuántico de la materia."],
+    indicadoresEvaluacion: ["I.CN.Q.5.2.1. Analiza la estructura del átomo comparando las teorías atómicas de Bohr (explica los espectros de los elementos químicos), Demócrito, Dalton, Thompson y Rutherford, y realiza ejercicios de la configuración electrónica desde el modelo mecánico-cuántico de la materia. (I.2.)"],
   },
 
   {
@@ -56,9 +56,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 6,
     descripcion: "Relacionar la estructura electrónica de los átomos con la posición en la tabla periódica, para deducir las propiedades químicas de los elementos. I",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.6"],
+    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, desarrollar configuraciones electrónicas y explicar su valor predictivo en el estudio de las propiedades químicas de los elementos y compuestos, impulsando un trabajo colaborativo, ético y honesto."],
+    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura electrónica de los átomos a partir de la posición en la tabla periódica, la variación periódica y sus propiedades físicas y químicas, por medio de experimentos sencillos."],
+    indicadoresEvaluacion: ["I.CN.Q.5.3.1. Analiza la estructura electrónica de los átomos a partir de la posición en la tabla periódica, la variación periódica y sus propiedades físicas y químicas, por medio de experimentos sencillos. (I.2.)"],
   },
 
   {
@@ -68,9 +68,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 8,
     descripcion: "Deducir y explicar la unión de átomos por su tendencia a donar, recibir o compartir electrones para alcanzar la estabilidad del gas noble más cercano, según la teoría de Kössel y Lewis. I",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.8"],
+    objetivos: ["O.CN.Q.5.7. Relacionar las propiedades de los elementos y de sus compuestos con la naturaleza de su enlace y su estructura generando así iniciativas propias en la formación de conocimientos con responsabilidad social."],
+    criteriosEvaluacion: ["CE.CN.Q.5.4. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.4.1. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares, y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones. (I.2.)"],
   },
 
   {
@@ -80,9 +80,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 9,
     descripcion: "Observar y clasificar el tipo de enlaces químicos y su fuerza partiendo del análisis de la relación existente entre la capacidad de transferir y compartir electrones y la configuración electrónica, con base en los valores de la electronegatividad.",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.9"],
+    objetivos: ["O.CN.Q.5.7. Relacionar las propiedades de los elementos y de sus compuestos con la naturaleza de su enlace y su estructura generando así iniciativas propias en la formación de conocimientos con responsabilidad social."],
+    criteriosEvaluacion: ["CE.CN.Q.5.4. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.4.1. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares, y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones. (I.2.)"],
   },
 
   {
@@ -92,9 +92,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 11,
     descripcion: "Establecer y diferenciar las fuerzas intermoleculares partiendo de la descripción del puente de hidrógeno, fuerzas de London y de Van der Walls, y dipolo-dipolo",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.11"],
+    objetivos: ["O.CN.Q.5.7. Relacionar las propiedades de los elementos y de sus compuestos con la naturaleza de su enlace y su estructura generando así iniciativas propias en la formación de conocimientos con responsabilidad social."],
+    criteriosEvaluacion: ["CE.CN.Q.5.4. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.4.1. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares, y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones. (I.2.)"],
   },
 
   {
@@ -104,9 +104,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 12,
     descripcion: "Deducir y predecir la posibilidad de formación de compuestos químicos, con base en el estado natural de los elementos, su estructura electrónica y su ubicación en la tabla periódica",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.12"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -116,9 +116,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 13,
     descripcion: "Interpretar las reacciones químicas como la reorganización y recombinación de los átomos con transferencia de energía, mediante la observación y cuantificación de átomos que participan en los reactivos y en los productos",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.13"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -128,9 +128,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 14,
     descripcion: "Comparar los tipos de reacciones químicas: combinación, descomposición, desplazamiento, exotérmicas y endotérmicas, partiendo de la experimentación, análisis e interpretación de los datos registrados y la complementación de información bibliográfica y procedente de las TIC. I",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.14"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -140,9 +140,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 16,
     descripcion: "Relacionar la estructura del átomo de carbono con su capacidad de formar enlaces de carbono-carbono, con la observación y descripción de modelos moleculares. Argumenta la estructura del átomo de carbono y demuestra que es un átomo excepcional, que tiene la capacidad de unirse consigo mismo con diferentes enlaces entre carbono-carbono, formando así moléculas orgánicas con propiedades físicas y químicas diversas",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.16"],
+    objetivos: ["O.CN.Q.5.2. Demostrar conocimiento y comprensión de los hechos esenciales, conceptos, principios, teorías y leyes relacionadas con la Química a partir de la curiosidad científica, generando un compromiso potencial con la sociedad."],
+    criteriosEvaluacion: ["CE.CN.Q.5.7. Argumenta la estructura del átomo de carbono y demuestra que es un átomo excepcional, que tiene la capacidad de unirse consigo mismo con diferentes enlaces entre carbono-carbono, formando así moléculas orgánicas con propiedades físicas y químicas diversas, que se representan mediante fórmulas que indican los tipos de enlace que la conforman."],
+    indicadoresEvaluacion: ["I.CN.Q.5.7.1. Argumenta la estructura del átomo de carbono y demuestra que es un átomo excepcional, que tiene la capacidad de unirse consigo mismo con diferentes enlaces entre carbono-carbono, formando así moléculas orgánicas con propiedades físicas y químicas diversas. (I.2., I.4.)"],
   },
 
   {
@@ -152,9 +152,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 18,
     descripcion: "Categorizar y clasificar a los hidrocarburos por su composición, su estructura, el tipo de enlace que une a los átomos de carbono y el análisis de sus propiedades físicas y su comportamiento químico. I",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.18"],
+    objetivos: ["O.CN.Q.5.2. Demostrar conocimiento y comprensión de los hechos esenciales, conceptos, principios, teorías y leyes relacionadas con la Química a partir de la curiosidad científica, generando un compromiso potencial con la sociedad."],
+    criteriosEvaluacion: ["CE.CN.Q.5.8. Distingue los hidrocarburos según su composición, su estructura y el tipo de enlace que une a los átomos de carbono; clasifica los hidrocarburos alifáticos, alcanos, alquenos y alquinos por su estructura molecular y sus propiedades físicas y químicas en algunos productos de uso cotidiano (gas doméstico, kerosene, velas, eteno, acetileno), así como también los compuestos aromáticos, particularmente del benceno, a partir del análisis de su estructura molecular, propiedades físicas y comportamiento químico."],
+    indicadoresEvaluacion: ["I.CN.Q.5.8.1. Explica la formación de los hidrocarburos, su estructura y el tipo de enlace, y los clasifica en alcanos, alquenos, alquinos y compuestos aromáticos de acuerdo a sus propiedades físicas y químicas, mediante experimentos básicos. (I.2., I.3.)"],
   },
 
   {
@@ -164,9 +164,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 20,
     descripcion: "Examinar y clasificar a los alcanos, alquenos y alquinos por su estructura molecular, sus propiedades físicas y químicas en algunos productos de uso cotidiano (gas doméstico, kerosene, espelmas, eteno, acetileno)",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.20"],
+    objetivos: ["O.CN.Q.5.2. Demostrar conocimiento y comprensión de los hechos esenciales, conceptos, principios, teorías y leyes relacionadas con la Química a partir de la curiosidad científica, generando un compromiso potencial con la sociedad."],
+    criteriosEvaluacion: ["CE.CN.Q.5.8. Distingue los hidrocarburos según su composición, su estructura y el tipo de enlace que une a los átomos de carbono; clasifica los hidrocarburos alifáticos, alcanos, alquenos y alquinos por su estructura molecular y sus propiedades físicas y químicas en algunos productos de uso cotidiano (gas doméstico, kerosene, velas, eteno, acetileno), así como también los compuestos aromáticos, particularmente del benceno, a partir del análisis de su estructura molecular, propiedades físicas y comportamiento químico."],
+    indicadoresEvaluacion: ["I.CN.Q.5.8.1. Explica la formación de los hidrocarburos, su estructura y el tipo de enlace, y los clasifica en alcanos, alquenos, alquinos y compuestos aromáticos de acuerdo a sus propiedades físicas y químicas, mediante experimentos básicos. (I.2., I.3.)"],
   },
 
   {
@@ -176,9 +176,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 21,
     descripcion: "Explicar e interpretar la estructura de los compuestos aromáticos, particularmente del benceno, desde el análisis de su estructura molecular, propiedades físicas y comportamiento químico",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.21"],
+    objetivos: ["O.CN.Q.5.2. Demostrar conocimiento y comprensión de los hechos esenciales, conceptos, principios, teorías y leyes relacionadas con la Química a partir de la curiosidad científica, generando un compromiso potencial con la sociedad."],
+    criteriosEvaluacion: ["CE.CN.Q.5.8. Distingue los hidrocarburos según su composición, su estructura y el tipo de enlace que une a los átomos de carbono; clasifica los hidrocarburos alifáticos, alcanos, alquenos y alquinos por su estructura molecular y sus propiedades físicas y químicas en algunos productos de uso cotidiano (gas doméstico, kerosene, velas, eteno, acetileno), así como también los compuestos aromáticos, particularmente del benceno, a partir del análisis de su estructura molecular, propiedades físicas y comportamiento químico."],
+    indicadoresEvaluacion: ["I.CN.Q.5.8.1. Explica la formación de los hidrocarburos, su estructura y el tipo de enlace, y los clasifica en alcanos, alquenos, alquinos y compuestos aromáticos de acuerdo a sus propiedades físicas y químicas, mediante experimentos básicos. (I.2., I.3.)"],
   },
 
   {
@@ -188,9 +188,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 22,
     descripcion: "Clasificar y analizar las series homólogas, desde la estructura de los compuestos orgánicos, por el tipo de grupo funcional que posee y sus propiedades particulares",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.22"],
+    objetivos: ["O.CN.Q.5.11. Evaluar, interpretar y sintetizar datos e información sobre las propiedades físicas y las características estructurales de los compuestos químicos para construir nuestra identidad y cultura de investigación científica."],
+    criteriosEvaluacion: ["CE.CN.Q.5.9. Explica las series homólogas a partir de la estructura de los compuestos orgánicos y del tipo de grupo funcional que poseen; las propiedades físicas y químicas de los compuestos oxigenados (alcoholes, aldehídos, ácidos, cetonas y éteres), basándose en el comportamiento de los grupos funcionales que forman parte de la molécula y que determinan la reactividad y las propiedades químicas de los compuestos; y los principios en los que se basa la nomenclatura de los compuestos orgánicos, fórmulas empíricas, moleculares, semidesarrolladas y desarrolladas, y las diferentes clases de isomería, resaltando sus principales características y explicando la actividad de los isómeros."],
+    indicadoresEvaluacion: ["I.CN.Q.5.9.1. Clasifica las series homólogas a partir de la estructura de los compuestos orgánicos. (I.2.)"],
   },
 
   {
@@ -200,9 +200,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 24,
     descripcion: "Interpretar y analizar las reacciones de oxidación y reducción como la transferencia de electrones que experimentan los elementos",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.24"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -212,9 +212,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 25,
     descripcion: "Deducir el número o índice de oxidación de cada elemento que forma parte del compuesto químico e interpretar las reglas establecidas para determinar el número de oxidación",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.25"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -224,9 +224,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 26,
     descripcion: "Aplicar y experimentar diferentes métodos de igualación de ecuaciones tomando en cuenta el cumplimiento de la ley de la conservación de la masa y la energía, así como las reglas de número de oxidación en la igualación de las ecuaciones de óxido-reducción",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.26"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -236,9 +236,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 28,
     descripcion: "Determinar y comparar la velocidad de las reacciones químicas mediante la variación de factores como la concentración de uno de los reactivos, el incremento de temperatura y el uso de algún catalizador, para deducir su importancia.",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.28"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -248,9 +248,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 1,
     secuencial: 29,
     descripcion: "Comparar y examinar las reacciones reversibles e irreversibles en función del equilibrio químico y la diferenciación del tipo de electrolitos que constituyen los compuestos químicos reaccionantes y los productos",
-    objetivos: ["O.CN.Q.5.1. Demostrar habilidades de pensamiento científico a fin de lograr flexibilidad intelectual, espíritu indagador y pensamiento crítico; actuar de manera autónoma en la generación de nuevos conocimientos."],
-    criteriosEvaluacion: ["CE.CN.Q.5.1. Explica las propiedades y la estructura de la materia a partir de los modelos atómicos y la configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.1.29"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -260,9 +260,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 1,
     descripcion: "Analiza la estructura del átomo comparando las teorías atómicas de Bohr (explica los espectros de los elementos químicos), Demócrito, Dalton, Thompson y Rutherford, y realiza ejercicios de la configuración electrónica desde el modelo mecánico-cuántico de la materia",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.1. Analiza la tabla periódica, identifica las propiedades periódicas y establece relaciones entre la configuración electrónica y la ubicación de los elementos."],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -272,9 +272,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 2,
     descripcion: "Comparar y examinar los valores de valencia y número de oxidación, partiendo del análisis de la electronegatividad, del tipo de enlace intramolecular y de las representaciones de Lewis de los compuestos químicos",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.2"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -284,9 +284,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 3,
     descripcion: "Examinar y clasificar la composición, formulación y nomenclatura de los óxidos, así como el método a seguir para su obtención (vía directa o indirecta) mediante la identificación del estado natural de los elementos a combinar y la estructura electrónica de los mismos",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.3"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -296,9 +296,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 4,
     descripcion: "Examinar y clasificar la composición, formulación y nomenclatura de los hidróxidos, diferenciar los métodos de obtención de los hidróxidos de los metales alcalinos del resto de metales e identificar la función de estos compuestos según la teoría de Brönsted-Lowry",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.4"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -308,9 +308,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 5,
     descripcion: "Examinar y clasificar la composición, formulación y nomenclatura de los ácidos: hidrácidos y oxácidos, e identificar la función de estos compuestos según la teoría de Brönsted-Lowry.",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.5"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -320,9 +320,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 6,
     descripcion: "Examinar y clasificar la composición, formulación y nomenclatura de las sales, identificar claramente si provienen de un ácido oxácido o un hidrácido y utilizar correctamente los aniones simples o complejos, reconociendo la estabilidad de estos en la formación de distintas sales. I",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.6"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -332,9 +332,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 7,
     descripcion: "Examinar y clasificar la composición, formulación y nomenclatura de los hidruros, diferenciar los metálicos de los no metálicos y estos últimos de los ácidos hidrácidos, resaltando las diferentes propiedades",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.7"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -344,9 +344,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 8,
     descripcion: "Deducir y comunicar que las ecuaciones químicas son las representaciones escritas de las reacciones que expresan todos los fenómenos y transformaciones que se producen",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.8"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -356,9 +356,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 9,
     descripcion: "Experimentar y deducir el cumplimiento de las leyes de transformación de la materia: leyes ponderales y de la conservación de la materia que rigen la formación de compuestos químicos",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.9"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.10. Argumenta mediante la experimentación el cumplimiento de las leyes de transformación de la materia, realizando cálculos de masa molecular de compuestos simples a partir de la masa atómica y el número de Avogadro, para determinar la masa molar y la composición porcentual de los compuestos químicos."],
+    indicadoresEvaluacion: ["I.CN.Q.5.10.1. Justifica desde la experimentación el cumplimiento de las leyes de transformación de la materia, mediante el cálculo de la masa molecular, la masa molar (aplicando número de Avogadro) y la composición porcentual de los compuestos químicos. (I.2.)"],
   },
 
   {
@@ -368,9 +368,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 10,
     descripcion: "Calcular y establecer la masa molecular de compuestos simples a partir de la masa atómica de sus componentes, para evidenciar que estas medidas son inmanejables en la práctica y que por tanto es necesario usar unidades de medida mayores, como el mol. I",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.10"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.10. Argumenta mediante la experimentación el cumplimiento de las leyes de transformación de la materia, realizando cálculos de masa molecular de compuestos simples a partir de la masa atómica y el número de Avogadro, para determinar la masa molar y la composición porcentual de los compuestos químicos."],
+    indicadoresEvaluacion: ["I.CN.Q.5.10.1. Justifica desde la experimentación el cumplimiento de las leyes de transformación de la materia, mediante el cálculo de la masa molecular, la masa molar (aplicando número de Avogadro) y la composición porcentual de los compuestos químicos. (I.2.)"],
   },
 
   {
@@ -380,9 +380,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 11,
     descripcion: "Utilizar el número de Avogadro en la determinación de la masa molar de varios elementos y compuestos químicos y establecer la diferencia con la masa de un átomo y una molécula",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.11"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.10. Argumenta mediante la experimentación el cumplimiento de las leyes de transformación de la materia, realizando cálculos de masa molecular de compuestos simples a partir de la masa atómica y el número de Avogadro, para determinar la masa molar y la composición porcentual de los compuestos químicos."],
+    indicadoresEvaluacion: ["I.CN.Q.5.10.1. Justifica desde la experimentación el cumplimiento de las leyes de transformación de la materia, mediante el cálculo de la masa molecular, la masa molar (aplicando número de Avogadro) y la composición porcentual de los compuestos químicos. (I.2.)"],
   },
 
   {
@@ -392,9 +392,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 13,
     descripcion: "Examinar y aplicar el método más apropiado para balancear las ecuaciones químicas basándose en la escritura correcta de las fórmulas químicas y el conocimiento del rol que desempeñan los coeficientes y subíndices, para utilizarlos o modificarlos correctamente.",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.13"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -404,9 +404,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 14,
     descripcion: "Establecer y examinar el comportamiento de los grupos funcionales en los compuestos orgánicos como parte de la molécula que determina la reactividad y las propiedades químicas de los compuestos. Clasifica las series homólogas a partir de la estructura de los compuestos orgánicos",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.14"],
+    objetivos: ["O.CN.Q.5.11. Evaluar, interpretar y sintetizar datos e información sobre las propiedades físicas y las características estructurales de los compuestos químicos para construir nuestra identidad y cultura de investigación científica."],
+    criteriosEvaluacion: ["CE.CN.Q.5.9. Explica las series homólogas a partir de la estructura de los compuestos orgánicos y del tipo de grupo funcional que poseen; las propiedades físicas y químicas de los compuestos oxigenados (alcoholes, aldehídos, ácidos, cetonas y éteres), basándose en el comportamiento de los grupos funcionales que forman parte de la molécula y que determinan la reactividad y las propiedades químicas de los compuestos; y los principios en los que se basa la nomenclatura de los compuestos orgánicos, fórmulas empíricas, moleculares, semidesarrolladas y desarrolladas, y las diferentes clases de isomería, resaltando sus principales características y explicando la actividad de los isómeros."],
+    indicadoresEvaluacion: ["I.CN.Q.5.9.2. Explica el comportamiento de los grupos funcionales, las propiedades de los compuestos orgánicos determinando sus fórmulas; y aplica la nomenclatura de los compuestos orgánicos analizando las clases de isomerías. (I.2.)"],
   },
 
   {
@@ -416,9 +416,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 16,
     descripcion: "Analizar y aplicar los principios en los que se basa la nomenclatura de los compuestos orgánicos en algunas sustancias de uso cotidiano con sus nombres comerciales",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.16"],
+    objetivos: ["O.CN.Q.5.11. Evaluar, interpretar y sintetizar datos e información sobre las propiedades físicas y las características estructurales de los compuestos químicos para construir nuestra identidad y cultura de investigación científica."],
+    criteriosEvaluacion: ["CE.CN.Q.5.9. Explica las series homólogas a partir de la estructura de los compuestos orgánicos y del tipo de grupo funcional que poseen; las propiedades físicas y químicas de los compuestos oxigenados (alcoholes, aldehídos, ácidos, cetonas y éteres), basándose en el comportamiento de los grupos funcionales que forman parte de la molécula y que determinan la reactividad y las propiedades químicas de los compuestos; y los principios en los que se basa la nomenclatura de los compuestos orgánicos, fórmulas empíricas, moleculares, semidesarrolladas y desarrolladas, y las diferentes clases de isomería, resaltando sus principales características y explicando la actividad de los isómeros."],
+    indicadoresEvaluacion: ["I.CN.Q.5.9.2. Explica el comportamiento de los grupos funcionales, las propiedades de los compuestos orgánicos determinando sus fórmulas; y aplica la nomenclatura de los compuestos orgánicos analizando las clases de isomerías. (I.2.)"],
   },
 
   {
@@ -428,9 +428,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 2,
     secuencial: 17,
     descripcion: "Establecer y analizar las diferentes clases de isomería resaltando sus principales características y explicando la actividad de los isómeros, mediante la interpretación de imágenes, ejemplos típicos y lecturas científicas",
-    objetivos: ["O.CN.Q.5.2. Comprender la importancia de la Química en la vida cotidiana y su papel en el desarrollo tecnológico y social."],
-    criteriosEvaluacion: ["CE.CN.Q.5.2. Analiza la estructura del átomo en función de la tabla periódica, las propiedades periódicas de los elementos químicos y realiza ejercicios de configuración electrónica."],
-    indicadoresEvaluacion: ["I.CN.Q.5.2.17"],
+    objetivos: ["O.CN.Q.5.11. Evaluar, interpretar y sintetizar datos e información sobre las propiedades físicas y las características estructurales de los compuestos químicos para construir nuestra identidad y cultura de investigación científica."],
+    criteriosEvaluacion: ["CE.CN.Q.5.9. Explica las series homólogas a partir de la estructura de los compuestos orgánicos y del tipo de grupo funcional que poseen; las propiedades físicas y químicas de los compuestos oxigenados (alcoholes, aldehídos, ácidos, cetonas y éteres), basándose en el comportamiento de los grupos funcionales que forman parte de la molécula y que determinan la reactividad y las propiedades químicas de los compuestos; y los principios en los que se basa la nomenclatura de los compuestos orgánicos, fórmulas empíricas, moleculares, semidesarrolladas y desarrolladas, y las diferentes clases de isomería, resaltando sus principales características y explicando la actividad de los isómeros."],
+    indicadoresEvaluacion: ["I.CN.Q.5.9.2. Explica el comportamiento de los grupos funcionales, las propiedades de los compuestos orgánicos determinando sus fórmulas; y aplica la nomenclatura de los compuestos orgánicos analizando las clases de isomerías. (I.2.)"],
   },
 
   {
@@ -440,9 +440,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 1,
     descripcion: "Analiza la estructura electrónica de los átomos a partir de la posición en la tabla periódica, la variación periódica y sus propiedades físicas y químicas, por medio de experimentos sencillos",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.1. Clasifica los tipos de enlace químico (iónico, covalente, metálico) y explica las propiedades de los compuestos según su tipo de enlace."],
+    objetivos: ["O.CN.Q.5.9. Reconocer diversos tipos de sistemas dispersos según el estado de agregación de sus componentes y el tamaño de las partículas de su fase dispersa, sus propiedades y aplicaciones tecnológicas y reparar diversos tipos de disoluciones de concentraciones conocidas en un entorno de trabajo colaborativo utilizando todos los recursos físicos e intelectuales disponibles."],
+    criteriosEvaluacion: ["CE.CN.Q.5.11. Analiza las características de los sistemas dispersos según su estado de agregación y compara las disoluciones de diferente concentración en las soluciones de uso cotidiano a través de la experimentación sencilla."],
+    indicadoresEvaluacion: ["I.CN.Q.5.11.1. Compara las disoluciones de diferente concentración en las soluciones de uso cotidiano, a través de la realización de experimentos sencillos. (I.2., I.4.)"],
   },
 
   {
@@ -452,9 +452,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 2,
     descripcion: "Comparar y analizar disoluciones de diferente concentración, mediante la elaboración de soluciones de uso común. Compara las disoluciones de diferente concentración en las soluciones de uso cotidiano, a través de la realización de experimentos sencillos",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.2"],
+    objetivos: ["O.CN.Q.5.9. Reconocer diversos tipos de sistemas dispersos según el estado de agregación de sus componentes y el tamaño de las partículas de su fase dispersa, sus propiedades y aplicaciones tecnológicas y reparar diversos tipos de disoluciones de concentraciones conocidas en un entorno de trabajo colaborativo utilizando todos los recursos físicos e intelectuales disponibles."],
+    criteriosEvaluacion: ["CE.CN.Q.5.11. Analiza las características de los sistemas dispersos según su estado de agregación y compara las disoluciones de diferente concentración en las soluciones de uso cotidiano a través de la experimentación sencilla."],
+    indicadoresEvaluacion: ["I.CN.Q.5.11.1. Compara las disoluciones de diferente concentración en las soluciones de uso cotidiano, a través de la realización de experimentos sencillos. (I.2., I.4.)"],
   },
 
   {
@@ -464,9 +464,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 3,
     descripcion: "Determinar y examinar la importancia de las reacciones ácido-base en la vida cotidiana. I",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.3"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base en la vida cotidiana, respecto al significado de la acidez, la forma de su determinación y su importancia en diferentes ámbitos de la vida y la determinación del pH a través de la medición de este parámetro en varias soluciones de uso diario y experimenta el proceso de desalinización en su hogar o en su comunidad como estrategia de obtención de agua dulce."],
+    indicadoresEvaluacion: ["I.CN.Q.5.12.1. Determina y explica la importancia de las reacciones ácido-base y de la acidez en la vida cotidiana, y experimenta con el balance del pH en soluciones comunes y con la de desalinización del agua. (I.2., J.3.)"],
   },
 
   {
@@ -476,9 +476,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 4,
     descripcion: "Analizar y deducir a partir de la comprensión del significado de la acidez, la forma de su determinación y su importancia en diferentes ámbitos de la vida, como la aplicación de los antiácidos y el balance del pH estomacal, en la industria y en la agricultura, con ayuda de las TIC",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.4"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base en la vida cotidiana, respecto al significado de la acidez, la forma de su determinación y su importancia en diferentes ámbitos de la vida y la determinación del pH a través de la medición de este parámetro en varias soluciones de uso diario y experimenta el proceso de desalinización en su hogar o en su comunidad como estrategia de obtención de agua dulce."],
+    indicadoresEvaluacion: ["I.CN.Q.5.12.1. Determina y explica la importancia de las reacciones ácido-base y de la acidez en la vida cotidiana, y experimenta con el balance del pH en soluciones comunes y con la de desalinización del agua. (I.2., J.3.)"],
   },
 
   {
@@ -488,9 +488,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 5,
     descripcion: "Deducir y comunicar la importancia del pH a través de la medición de este parámetro en varias soluciones de uso diario",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.5"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base en la vida cotidiana, respecto al significado de la acidez, la forma de su determinación y su importancia en diferentes ámbitos de la vida y la determinación del pH a través de la medición de este parámetro en varias soluciones de uso diario y experimenta el proceso de desalinización en su hogar o en su comunidad como estrategia de obtención de agua dulce."],
+    indicadoresEvaluacion: ["I.CN.Q.5.12.1. Determina y explica la importancia de las reacciones ácido-base y de la acidez en la vida cotidiana, y experimenta con el balance del pH en soluciones comunes y con la de desalinización del agua. (I.2., J.3.)"],
   },
 
   {
@@ -500,9 +500,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 6,
     descripcion: "Diseñar y experimentar el proceso de desalinización en el hogar o en la comunidad como estrategia para la obtención de agua dulce. 36 I",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.6"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base en la vida cotidiana, respecto al significado de la acidez, la forma de su determinación y su importancia en diferentes ámbitos de la vida y la determinación del pH a través de la medición de este parámetro en varias soluciones de uso diario y experimenta el proceso de desalinización en su hogar o en su comunidad como estrategia de obtención de agua dulce."],
+    indicadoresEvaluacion: ["I.CN.Q.5.12.2. Explica desde la ejecución de sencillos experimentos el proceso de desalinización y emite su importancia para la comunidad. (J.3., I.2.)"],
   },
 
   {
@@ -512,9 +512,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 7,
     descripcion: "Explicar y examinar el origen, la composición e importancia del petróleo, no solo como fuente de energía, sino como materia prima para la elaboración de una gran cantidad de productos, a partir del uso de las TIC. Explica la importancia del petróleo y los polímeros en la creación de materia prima y su aplicabilidad en la vida diaria",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.7"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.13. Valora el origen y la composición del petróleo y su importancia como fuente de energía y materia prima para la elaboración de una gran cantidad de productos; comunica la importancia de los polímeros artificiales en sustitución de productos naturales en la industria y su aplicabilidad en la vida cotidiana; explica los símbolos que indican la presencia de los compuestos aromáticos y aplica las medidas de seguridad recomendadas para su manejo; y comprende la importancia para el ser humano de alcoholes, aldehídos, cetonas, éteres, ácidos carboxílicos grasos y ésteres, de amidas y aminas, de glúcidos, lípidos, proteínas y aminoácidos, en la vida diaria, en la industria, en la medicina, así como las alteraciones para la salud que pueden causar la deficiencia o el exceso de su consumo."],
+    indicadoresEvaluacion: ["I.CN.Q.5.13.1. Explica la importancia del petróleo y los polímeros en la creación de materia prima y su aplicabilidad en la vida diaria. (I.2., S.1.)"],
   },
 
   {
@@ -524,9 +524,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 10,
     descripcion: "Examinar y explicar la importancia de los alcoholes, aldehídos, cetonas y éteres en la industria, en la medicina y la vida diaria (solventes como la acetona, el alcohol, algunos éteres como antisépticos como el peligro de su empleo no apropiado (incidencia del alcohol en la química cerebral, muerte por ingestión del alcohol metílico). I",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.10"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.13. Valora el origen y la composición del petróleo y su importancia como fuente de energía y materia prima para la elaboración de una gran cantidad de productos; comunica la importancia de los polímeros artificiales en sustitución de productos naturales en la industria y su aplicabilidad en la vida cotidiana; explica los símbolos que indican la presencia de los compuestos aromáticos y aplica las medidas de seguridad recomendadas para su manejo; y comprende la importancia para el ser humano de alcoholes, aldehídos, cetonas, éteres, ácidos carboxílicos grasos y ésteres, de amidas y aminas, de glúcidos, lípidos, proteínas y aminoácidos, en la vida diaria, en la industria, en la medicina, así como las alteraciones para la salud que pueden causar la deficiencia o el exceso de su consumo."],
+    indicadoresEvaluacion: ["I.CN.Q.5.13.2. Argumenta la importancia para el ser humano de los alcoholes, aldehídos, cetonas, éteres ácidos carboxílicos grasos y esteres, amidas y aminas, glúcidos, lípidos, proteínas y aminoácidos (industria y medicina); identifica los riesgos y determina las medidas de seguridad recomendadas para su manejo; y explica los símbolos que identifican la presencia de los compuestos aromáticos. (J.3., S.1.)"],
   },
 
   {
@@ -536,9 +536,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 11,
     descripcion: "Examinar y comunicar la importancia de los ácidos carboxílicos grasos y ésteres, de las amidas y aminas, de los glúcidos, lípidos, proteínas y aminoácidos para el ser humano en la vida diaria, en la industria y en la medicina, así como las alteraciones que puede causar la deficiencia o exceso de su consumo, por ejemplo: de las anfetaminas, para valorar la trascendencia de una dieta diaria balanceada, mediante el uso de las TIC",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.11"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.13. Valora el origen y la composición del petróleo y su importancia como fuente de energía y materia prima para la elaboración de una gran cantidad de productos; comunica la importancia de los polímeros artificiales en sustitución de productos naturales en la industria y su aplicabilidad en la vida cotidiana; explica los símbolos que indican la presencia de los compuestos aromáticos y aplica las medidas de seguridad recomendadas para su manejo; y comprende la importancia para el ser humano de alcoholes, aldehídos, cetonas, éteres, ácidos carboxílicos grasos y ésteres, de amidas y aminas, de glúcidos, lípidos, proteínas y aminoácidos, en la vida diaria, en la industria, en la medicina, así como las alteraciones para la salud que pueden causar la deficiencia o el exceso de su consumo."],
+    indicadoresEvaluacion: ["I.CN.Q.5.13.2. Argumenta la importancia para el ser humano de los alcoholes, aldehídos, cetonas, éteres ácidos carboxílicos grasos y esteres, amidas y aminas, glúcidos, lípidos, proteínas y aminoácidos (industria y medicina); identifica los riesgos y determina las medidas de seguridad recomendadas para su manejo; y explica los símbolos que identifican la presencia de los compuestos aromáticos. (J.3., S.1.)"],
   },
 
   {
@@ -548,9 +548,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 12,
     descripcion: "Establecer y comunicar los factores que inciden en la velocidad de la corrosión y sus efectos, para adoptar métodos de prevención",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.12"],
+    objetivos: ["O.CN.Q.5.10. Manipular con seguridad materiales y reactivos químicos teniendo en cuenta sus propiedades físicas y químicas, considerando la leyenda de los pictogramas y cualquier peligro específico asociado con su uso, actuando de manera responsable con el ambiente."],
+    criteriosEvaluacion: ["CE.CN.Q.5.14. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica la toxicidad y permanencia de los contaminantes ambientales y los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida."],
+    indicadoresEvaluacion: ["I.CN.Q.5.14.1. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica los contaminantes ambientales, los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida. (J.3., S.3.)"],
   },
 
   {
@@ -560,9 +560,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 13,
     descripcion: "Examinar y comunicar los contaminantes y los efectos que producen en el entorno natural y la salud humana basándose en su toxicidad y su permanencia en el ambiente; y difundir el uso de prácticas ambientalmente amigables que se pueden utilizar en la vida diaria. I",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.13"],
+    objetivos: ["O.CN.Q.5.10. Manipular con seguridad materiales y reactivos químicos teniendo en cuenta sus propiedades físicas y químicas, considerando la leyenda de los pictogramas y cualquier peligro específico asociado con su uso, actuando de manera responsable con el ambiente."],
+    criteriosEvaluacion: ["CE.CN.Q.5.14. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica la toxicidad y permanencia de los contaminantes ambientales y los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida."],
+    indicadoresEvaluacion: ["I.CN.Q.5.14.1. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica los contaminantes ambientales, los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida. (J.3., S.3.)"],
   },
 
   {
@@ -572,9 +572,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 14,
     descripcion: "Examinar y explicar la utilidad de algunos biomateriales para mejorar la calidad de vida de los seres humanos",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.14"],
+    objetivos: ["O.CN.Q.5.10. Manipular con seguridad materiales y reactivos químicos teniendo en cuenta sus propiedades físicas y químicas, considerando la leyenda de los pictogramas y cualquier peligro específico asociado con su uso, actuando de manera responsable con el ambiente."],
+    criteriosEvaluacion: ["CE.CN.Q.5.14. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica la toxicidad y permanencia de los contaminantes ambientales y los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida."],
+    indicadoresEvaluacion: ["I.CN.Q.5.14.1. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica los contaminantes ambientales, los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida. (J.3., S.3.)"],
   },
 
   {
@@ -584,9 +584,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 3,
     secuencial: 15,
     descripcion: "Comunicar prácticas de prevención de la corrosión de los materiales expresando con claridad las implicaciones éticas y sus opiniones sobre la importancia de los biomateriales en la vida cotidiana.",
-    objetivos: ["O.CN.Q.5.3. Interpretar la estructura atómica y molecular, las propiedades de la materia y las leyes que la rigen."],
-    criteriosEvaluacion: ["CE.CN.Q.5.3. Analiza la estructura de los compuestos químicos inorgánicos y orgánicos, clasifica los tipos de enlace y explica las propiedades físicas de los compuestos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.3.15"],
+    objetivos: ["O.CN.Q.5.10. Manipular con seguridad materiales y reactivos químicos teniendo en cuenta sus propiedades físicas y químicas, considerando la leyenda de los pictogramas y cualquier peligro específico asociado con su uso, actuando de manera responsable con el ambiente."],
+    criteriosEvaluacion: ["CE.CN.Q.5.14. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica la toxicidad y permanencia de los contaminantes ambientales y los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida."],
+    indicadoresEvaluacion: ["I.CN.Q.5.14.1. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica los contaminantes ambientales, los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida. (J.3., S.3.)"],
   },
 
   {
@@ -596,9 +596,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 4,
     secuencial: 1,
     descripcion: "Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares, y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones",
-    objetivos: ["O.CN.Q.5.4. Reconocer los diferentes tipos de reacciones químicas y las leyes que las gobiernan."],
-    criteriosEvaluacion: ["CE.CN.Q.5.4. Explica la formación de compuestos químicos inorgánicos (óxidos, hidróxidos, ácidos y sales) mediante el análisis de su estructura, formulación y nomenclatura."],
-    indicadoresEvaluacion: ["I.CN.Q.5.4.1. Formula y nombra compuestos químicos inorgánicos (óxidos, hidróxidos, ácidos y sales) utilizando la nomenclatura IUPAC."],
+    objetivos: ["O.CN.Q.5.7. Relacionar las propiedades de los elementos y de sus compuestos con la naturaleza de su enlace y su estructura generando así iniciativas propias en la formación de conocimientos con responsabilidad social."],
+    criteriosEvaluacion: ["CE.CN.Q.5.4. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.4.1. Argumenta con fundamento científico que los átomos se unen debido a diferentes tipos de enlaces y fuerzas intermoleculares, y que tienen la capacidad de relacionarse de acuerdo a sus propiedades al ceder o ganar electrones. (I.2.)"],
   },
 
   {
@@ -608,9 +608,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 5,
     secuencial: 1,
     descripcion: "Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura",
-    objetivos: ["O.CN.Q.5.5. Identificar y analizar las propiedades de los compuestos orgánicos e inorgánicos y su importancia en la vida diaria."],
-    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos y sales), basándose en las propiedades de los elementos."],
-    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea la formación de compuestos químicos binarios y ternarios basándose en las propiedades y valencia de los elementos."],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.5. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, enlace químico, número de oxidación, composición, formulación y nomenclatura."],
+    indicadoresEvaluacion: ["I.CN.Q.5.5.1. Plantea, mediante el trabajo cooperativo, la formación de posibles compuestos químicos binarios y ternarios (óxidos, hidróxidos, ácidos, sales e hidruros) de acuerdo a su afinidad, estructura electrónica, enlace químico, número de oxidación, composición, formulación y nomenclatura. (I.2., S.4.)"],
   },
 
   {
@@ -620,9 +620,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 6,
     secuencial: 1,
     descripcion: "Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones",
-    objetivos: ["O.CN.Q.5.6. Planificar y ejecutar investigaciones experimentales que involucren el uso de reactivos y materiales de laboratorio."],
-    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce el cumplimiento de las leyes de transformación de la materia mediante la experimentación con reacciones químicas sencillas."],
-    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Verifica experimentalmente las leyes de conservación de la masa y las proporciones definidas en reacciones químicas."],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.6. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones."],
+    indicadoresEvaluacion: ["I.CN.Q.5.6.1. Deduce la posibilidad de que se efectúen las reacciones químicas de acuerdo a la transferencia de energía y a la presencia de diferentes catalizadores; clasifica los tipos de reacciones y reconoce los estados de oxidación de los elementos y compuestos, y la actividad de los metales; y efectúa la igualación de reacciones químicas con distintos métodos, cumpliendo con la ley de la conservación de la masa y la energía para balancear las ecuaciones. (I.2.)"],
   },
 
   {
@@ -632,9 +632,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 8,
     secuencial: 1,
     descripcion: "Explica la formación de los hidrocarburos, su estructura y el tipo de enlace, y los clasifica en alcanos, alquenos, alquinos y compuestos aromáticos de acuerdo a sus propiedades físicas y químicas, mediante experimentos básicos",
-    objetivos: ["O.CN.Q.5.8. Comunicar información científica, resultados y conclusiones de sus indagaciones mediante informes estructurados."],
-    criteriosEvaluacion: ["CE.CN.Q.5.8. Explica las propiedades de los compuestos orgánicos mediante el análisis de su estructura molecular, grupo funcional y la relación estructura-propiedades."],
-    indicadoresEvaluacion: ["I.CN.Q.5.8.1. Identifica los grupos funcionales de los compuestos orgánicos y explica la relación entre estructura molecular y propiedades."],
+    objetivos: ["O.CN.Q.5.2. Demostrar conocimiento y comprensión de los hechos esenciales, conceptos, principios, teorías y leyes relacionadas con la Química a partir de la curiosidad científica, generando un compromiso potencial con la sociedad."],
+    criteriosEvaluacion: ["CE.CN.Q.5.8. Distingue los hidrocarburos según su composición, su estructura y el tipo de enlace que une a los átomos de carbono; clasifica los hidrocarburos alifáticos, alcanos, alquenos y alquinos por su estructura molecular y sus propiedades físicas y químicas en algunos productos de uso cotidiano (gas doméstico, kerosene, velas, eteno, acetileno), así como también los compuestos aromáticos, particularmente del benceno, a partir del análisis de su estructura molecular, propiedades físicas y comportamiento químico."],
+    indicadoresEvaluacion: ["I.CN.Q.5.8.1. Explica la formación de los hidrocarburos, su estructura y el tipo de enlace, y los clasifica en alcanos, alquenos, alquinos y compuestos aromáticos de acuerdo a sus propiedades físicas y químicas, mediante experimentos básicos. (I.2., I.3.)"],
   },
 
   {
@@ -644,9 +644,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 10,
     secuencial: 1,
     descripcion: "Justifica desde la experimentación el cumplimiento de las leyes de transformación de la materia, mediante el cálculo de la masa molecular, la masa molar (aplicando número de Avogadro) y la composición porcentual de los compuestos químicos",
-    objetivos: ["O.CN.Q.5.10. Manipular con seguridad materiales y reactivos químicos teniendo en cuenta sus propiedades físicas y químicas."],
-    criteriosEvaluacion: ["CE.CN.Q.5.10. Argumenta mediante la experimentación el cumplimiento de las leyes de transformación de la materia, realizando cálculos de masa molecular de compuestos simples."],
-    indicadoresEvaluacion: ["I.CN.Q.5.10.1. Realiza cálculos de masa molecular, mol y número de Avogadro en la resolución de problemas estequiométricos."],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.10. Argumenta mediante la experimentación el cumplimiento de las leyes de transformación de la materia, realizando cálculos de masa molecular de compuestos simples a partir de la masa atómica y el número de Avogadro, para determinar la masa molar y la composición porcentual de los compuestos químicos."],
+    indicadoresEvaluacion: ["I.CN.Q.5.10.1. Justifica desde la experimentación el cumplimiento de las leyes de transformación de la materia, mediante el cálculo de la masa molecular, la masa molar (aplicando número de Avogadro) y la composición porcentual de los compuestos químicos. (I.2.)"],
   },
 
   {
@@ -656,9 +656,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 12,
     secuencial: 1,
     descripcion: "Determina y explica la importancia de las reacciones ácido-base y de la acidez en la vida cotidiana, y experimenta con el balance del pH en soluciones comunes y con la de desalinización del agua",
-    objetivos: ["O.CN.Q.5.12. Comprender la importancia del equilibrio químico y la cinética de las reacciones."],
-    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base y de óxido-reducción en la vida cotidiana y en los procesos biológicos e industriales."],
-    indicadoresEvaluacion: ["I.CN.Q.5.12.1. Explica las reacciones ácido-base y de óxido-reducción, su importancia biológica e industrial."],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base en la vida cotidiana, respecto al significado de la acidez, la forma de su determinación y su importancia en diferentes ámbitos de la vida y la determinación del pH a través de la medición de este parámetro en varias soluciones de uso diario y experimenta el proceso de desalinización en su hogar o en su comunidad como estrategia de obtención de agua dulce."],
+    indicadoresEvaluacion: ["I.CN.Q.5.12.1. Determina y explica la importancia de las reacciones ácido-base y de la acidez en la vida cotidiana, y experimenta con el balance del pH en soluciones comunes y con la de desalinización del agua. (I.2., J.3.)"],
   },
 
   {
@@ -668,9 +668,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 12,
     secuencial: 2,
     descripcion: "Explica desde la ejecución de sencillos experimentos el proceso de desalinización y emite su importancia para la comunidad",
-    objetivos: ["O.CN.Q.5.12. Comprender la importancia del equilibrio químico y la cinética de las reacciones."],
-    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base y de óxido-reducción en la vida cotidiana y en los procesos biológicos e industriales."],
-    indicadoresEvaluacion: ["I.CN.Q.5.12.2"],
+    objetivos: ["O.CN.Q.5.4. Reconocer, a partir de la curiosidad intelectual y la indagación, los factores que dan origen a las transformaciones de la materia, comprender que esta se conserva y proceder con respeto hacia la naturaleza para evidenciar los cambios de estado."],
+    criteriosEvaluacion: ["CE.CN.Q.5.12. Explica la importancia de las reacciones ácido-base en la vida cotidiana, respecto al significado de la acidez, la forma de su determinación y su importancia en diferentes ámbitos de la vida y la determinación del pH a través de la medición de este parámetro en varias soluciones de uso diario y experimenta el proceso de desalinización en su hogar o en su comunidad como estrategia de obtención de agua dulce."],
+    indicadoresEvaluacion: ["I.CN.Q.5.12.2. Explica desde la ejecución de sencillos experimentos el proceso de desalinización y emite su importancia para la comunidad. (J.3., I.2.)"],
   },
 
   {
@@ -680,9 +680,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 13,
     secuencial: 2,
     descripcion: "Argumenta la importancia para el ser humano de los alcoholes, aldehídos, cetonas, éteres ácidos carboxílicos grasos y esteres, amidas y aminas, glúcidos, lípidos, proteínas y aminoácidos (industria y medicina); identifica los riegos y determina las medidas de seguridad recomendadas para su manejo; y explica los símbolos que identifican la presencia de los compuestos aromáticos",
-    objetivos: ["O.CN.Q.5.13. Analizar las soluciones acuosas y sus propiedades coligativas."],
-    criteriosEvaluacion: ["CE.CN.Q.5.13. Explica la importancia de las soluciones acuosas en los procesos biológicos e industriales, mediante el análisis de las propiedades de las soluciones."],
-    indicadoresEvaluacion: ["I.CN.Q.5.13.2"],
+    objetivos: ["O.CN.Q.5.5. Identificar los elementos químicos y sus compuestos principales desde la perspectiva de su importancia económica, industrial, medioambiental y en la vida diaria."],
+    criteriosEvaluacion: ["CE.CN.Q.5.13. Valora el origen y la composición del petróleo y su importancia como fuente de energía y materia prima para la elaboración de una gran cantidad de productos; comunica la importancia de los polímeros artificiales en sustitución de productos naturales en la industria y su aplicabilidad en la vida cotidiana; explica los símbolos que indican la presencia de los compuestos aromáticos y aplica las medidas de seguridad recomendadas para su manejo; y comprende la importancia para el ser humano de alcoholes, aldehídos, cetonas, éteres, ácidos carboxílicos grasos y ésteres, de amidas y aminas, de glúcidos, lípidos, proteínas y aminoácidos, en la vida diaria, en la industria, en la medicina, así como las alteraciones para la salud que pueden causar la deficiencia o el exceso de su consumo."],
+    indicadoresEvaluacion: ["I.CN.Q.5.13.2. Argumenta la importancia para el ser humano de los alcoholes, aldehídos, cetonas, éteres ácidos carboxílicos grasos y esteres, amidas y aminas, glúcidos, lípidos, proteínas y aminoácidos (industria y medicina); identifica los riesgos y determina las medidas de seguridad recomendadas para su manejo; y explica los símbolos que identifican la presencia de los compuestos aromáticos. (J.3., S.1.)"],
   },
 
   {
@@ -692,9 +692,9 @@ export const destrezasQuimica: Destreza[] = [
     bloque: 14,
     secuencial: 1,
     descripcion: "Argumenta la importancia de los biomateriales en la vida cotidiana, identifica los contaminantes ambientales, los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida",
-    objetivos: ["O.CN.Q.5.14. Comprender los procesos de óxido-reducción y electroquímica y sus aplicaciones."],
-    criteriosEvaluacion: ["CE.CN.Q.5.14. Argumenta la importancia del petróleo y sus derivados en la vida cotidiana y en la economía del país."],
-    indicadoresEvaluacion: ["I.CN.Q.5.14.1. Describe la composición del petróleo, sus derivados y su importancia económica para el Ecuador."],
+    objetivos: ["O.CN.Q.5.10. Manipular con seguridad materiales y reactivos químicos teniendo en cuenta sus propiedades físicas y químicas, considerando la leyenda de los pictogramas y cualquier peligro específico asociado con su uso, actuando de manera responsable con el ambiente."],
+    criteriosEvaluacion: ["CE.CN.Q.5.14. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica la toxicidad y permanencia de los contaminantes ambientales y los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida."],
+    indicadoresEvaluacion: ["I.CN.Q.5.14.1. Argumenta la importancia de los biomateriales en la vida cotidiana, identifica los contaminantes ambientales, los factores que inciden en la velocidad de la corrosión de los materiales y comunica métodos y prácticas éticas de prevención para una mejor calidad de vida. (J.3., S.3.)"],
   },
 
 ];

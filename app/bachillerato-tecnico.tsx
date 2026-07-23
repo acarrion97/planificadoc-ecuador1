@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   Text,
   View,
-  FlatList,
+  ScrollView,
   StyleSheet,
 } from "react-native";
 import { Pressable } from "react-native";
@@ -32,78 +32,73 @@ export default function BachilleratoTecnicoScreen() {
 
   return (
     <ScreenContainer className="flex-1">
-      <FlatList
-        data={familiasFiltradas}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.listContent}
-        ListHeaderComponent={
-          <View>
-            {/* Header */}
-            <View className="px-5 pt-4 pb-2">
-              <Pressable
-                onPress={() => router.back()}
-                style={({ pressed }) => [{ opacity: pressed ? 0.6 : 1, marginBottom: 8 }]}
-              >
-                <Text style={{ fontSize: 16, color: colors.primary }}>
-                  {"\u2039"} Volver
-                </Text>
-              </Pressable>
-              <Text className="text-2xl font-bold text-foreground">
-                Bachillerato T{"\u00e9"}cnico
-              </Text>
-              <Text className="text-sm text-muted mt-1">
-                Selecciona una figura profesional para planificar
-              </Text>
-            </View>
+      <ScrollView contentContainerStyle={styles.listContent}>
+        {/* Header */}
+        <View className="px-5 pt-4 pb-2">
+          <Pressable
+            onPress={() => router.back()}
+            style={({ pressed }) => [{ opacity: pressed ? 0.6 : 1, marginBottom: 8 }]}
+          >
+            <Text style={{ fontSize: 16, color: colors.primary }}>
+              {"\u2039"} Volver
+            </Text>
+          </Pressable>
+          <Text className="text-2xl font-bold text-foreground">
+            Bachillerato T{"\u00e9"}cnico
+          </Text>
+          <Text className="text-sm text-muted mt-1">
+            Selecciona una figura profesional para planificar
+          </Text>
+        </View>
 
-            {/* Area tabs */}
-            <View style={styles.tabsContainer}>
-              {AREAS_BT.map((area) => (
-                <Pressable
-                  key={area.id}
-                  onPress={() => {
-                    setSelectedArea(area.id);
-                    setExpandedFamilia(null);
-                  }}
-                  style={({ pressed }) => [
-                    styles.tab,
-                    {
-                      backgroundColor:
-                        selectedArea === area.id
-                          ? colors.primary
-                          : colors.surface,
-                      borderColor:
-                        selectedArea === area.id
-                          ? colors.primary
-                          : colors.border,
-                      opacity: pressed ? 0.8 : 1,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.tabText,
-                      {
-                        color:
-                          selectedArea === area.id
-                            ? "#fff"
-                            : colors.foreground,
-                      },
-                    ]}
-                  >
-                    {area.nombre}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          </View>
-        }
-        renderItem={({ item: familia }) => {
+        {/* Area tabs */}
+        <View style={styles.tabsContainer}>
+          {AREAS_BT.map((area) => (
+            <Pressable
+              key={area.id}
+              onPress={() => {
+                setSelectedArea(area.id);
+                setExpandedFamilia(null);
+              }}
+              style={({ pressed }) => [
+                styles.tab,
+                {
+                  backgroundColor:
+                    selectedArea === area.id
+                      ? colors.primary
+                      : colors.surface,
+                  borderColor:
+                    selectedArea === area.id
+                      ? colors.primary
+                      : colors.border,
+                  opacity: pressed ? 0.8 : 1,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.tabText,
+                  {
+                    color:
+                      selectedArea === area.id
+                        ? "#fff"
+                        : colors.foreground,
+                  },
+                ]}
+              >
+                {area.nombre}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+
+        {/* Familia list \u2014 ScrollView avoids FlatList virtualization removeChild conflicts */}
+        {familiasFiltradas.map((familia) => {
           const figuras = obtenerFigurasPorFamilia(familia.id);
           const isExpanded = expandedFamilia === familia.id;
 
           return (
-            <View style={[styles.familiaContainer, { borderColor: colors.border }]}>
+            <View key={familia.id} style={[styles.familiaContainer, { borderColor: colors.border }]}>
               <Pressable
                 onPress={() =>
                   setExpandedFamilia(isExpanded ? null : familia.id)
@@ -167,8 +162,8 @@ export default function BachilleratoTecnicoScreen() {
               )}
             </View>
           );
-        }}
-      />
+        })}
+      </ScrollView>
     </ScreenContainer>
   );
 }

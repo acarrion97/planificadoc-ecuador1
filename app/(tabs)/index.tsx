@@ -239,6 +239,35 @@ export default function HomeScreen() {
                   </View>
                 </View>
 
+                {/* Bachillerato Técnico — oculto hasta completar el módulo */}
+                {false && (
+                  <View className="px-5 mt-4">
+                    <Pressable
+                      onPress={() => router.push("/bachillerato-tecnico" as any)}
+                      style={({ pressed }) => ({
+                        backgroundColor: "#7C3AED",
+                        borderRadius: 14,
+                        padding: 16,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 12,
+                        opacity: pressed ? 0.85 : 1,
+                      })}
+                    >
+                      <Text style={{ fontSize: 32 }}>🏭</Text>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
+                          Bachillerato T{"é"}cnico
+                        </Text>
+                        <Text style={{ color: "#ede9fe", fontSize: 12, marginTop: 2 }}>
+                          Figuras profesionales {"·"} M{"ó"}dulos formativos
+                        </Text>
+                      </View>
+                      <Text style={{ color: "#fff", fontSize: 20 }}>{"›"}</Text>
+                    </Pressable>
+                  </View>
+                )}
+
                 {/* Recent plans */}
                 {recientes.length > 0 && (
                   <>

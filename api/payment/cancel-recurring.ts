@@ -22,29 +22,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const normalizedEmail = email.trim().toLowerCase();
 
-    const subs = await db
+    // Buscar suscripción activa o trial
+    const allSubs = await db
       .select()
       .from(subscriptions)
-      .where(
-        and(
-          eq(subscriptions.email, normalizedEmail),
-          eq(subscriptions.status, "active")
-        )
-      )
-      .limit(1);
+      .where(eq(subscriptions.email, normalizedEmail))
+      .limit(5);
 
-    if (subs.length === 0) {
+    const now = new Date();
+    const activeSub = allSubs.find(
+      (s) => (s.status === "active" || s.status === ("trial" as any)) && new Date(s.endDate) > now
+    );
+
+    if (!activeSub) {
       return res.json({ success: false, message: "No hay suscripción activa" });
     }
+
+    const isTrial = (activeSub as any).isTrial || activeSub.status === "trial";
 
     await db
       .update(subscriptions)
       .set({ status: "cancelled" })
-      .where(eq(subscriptions.id, subs[0].id));
+      .where(eq(subscriptions.id, activeSub.id));
 
     res.json({
       success: true,
-      message: "Renovación automática cancelada. Tu acceso continúa hasta " + subs[0].endDate,
+      cancelled: isTrial ? "trial" : "subscription",
+      message: isTrial
+        ? "Prueba gratuita cancelada. No se realizará ningún cobro adicional."
+        : "Renovación automática cancelada. Tu acceso continúa hasta " + activeSub.endDate,
     });
   } catch (error) {
     console.error("[PayPhone] Cancel recurring error:", error);

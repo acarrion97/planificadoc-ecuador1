@@ -17,34 +17,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!db) return res.status(500).json({ error: "Base de datos no disponible" });
 
     const now = new Date();
+    // Buscar suscripción activa O en período de trial
     const subs = await db
       .select()
       .from(subscriptions)
-      .where(
-        and(
-          eq(subscriptions.email, email),
-          eq(subscriptions.status, "active")
-        )
-      )
+      .where(eq(subscriptions.email, email))
       .orderBy(desc(subscriptions.endDate))
-      .limit(1);
+      .limit(5);
 
-    if (subs.length === 0) {
-      return res.json({ active: false });
-    }
+    // Considerar activo: status=active o status=trial, y endDate > now
+    const validSub = subs.find(
+      (s) => (s.status === "active" || s.status === ("trial" as any)) && new Date(s.endDate) > now
+    );
 
-    const sub = subs[0];
-    const isActive = new Date(sub.endDate) > now;
-
-    if (!isActive) {
+    if (!validSub) {
       return res.json({ active: false });
     }
 
     res.json({
       active: true,
-      plan: sub.plan,
-      endDate: sub.endDate,
-      isRecurring: sub.isRecurring,
+      plan: validSub.plan,
+      endDate: validSub.endDate,
+      isRecurring: validSub.isRecurring,
+      isTrial: (validSub as any).isTrial || false,
+      trialDaysLeft: (validSub as any).isTrial
+        ? Math.ceil((new Date(validSub.endDate).getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+        : null,
     });
   } catch (error) {
     console.error("[Payment] Status error:", error);

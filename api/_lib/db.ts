@@ -19,6 +19,20 @@ export function getDb() {
 
 // ============= Subscription Queries =============
 
+/**
+ * Returns trial subscriptions whose 3-day period has ended and are ready to be converted.
+ */
+export async function getTrialsDueForConversion() {
+  const db = getDb();
+  if (!db) return [];
+  const now = new Date();
+  const result = await db
+    .select()
+    .from(subscriptions)
+    .where(eq(subscriptions.status, "trial" as any));
+  return result.filter((sub) => new Date(sub.endDate) <= now);
+}
+
 export async function getActiveSubscription(email: string) {
   const db = getDb();
   if (!db) return null;
@@ -27,27 +41,19 @@ export async function getActiveSubscription(email: string) {
   const result = await db
     .select()
     .from(subscriptions)
-    .where(
-      and(
-        eq(subscriptions.email, email.toLowerCase()),
-        eq(subscriptions.status, "active")
-      )
-    )
+    .where(eq(subscriptions.email, email.toLowerCase()))
     .orderBy(desc(subscriptions.endDate))
-    .limit(1);
+    .limit(5);
 
   if (result.length === 0) return null;
 
-  const sub = result[0];
-  if (new Date(sub.endDate) < now) {
-    await db
-      .update(subscriptions)
-      .set({ status: "expired" })
-      .where(eq(subscriptions.id, sub.id));
-    return null;
-  }
+  // Acepta status=active o status=trial (periodo de prueba)
+  const validSub = result.find(
+    (s) => (s.status === "active" || s.status === ("trial" as any)) && new Date(s.endDate) > now
+  );
+  if (!validSub) return null;
 
-  return sub;
+  return validSub;
 }
 
 export async function createSubscription(data: any) {

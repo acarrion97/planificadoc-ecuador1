@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Text, View, FlatList, SectionList, StyleSheet } from "react-native";
+import { Text, View, FlatList, SectionList, ScrollView, StyleSheet } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -72,7 +72,7 @@ export default function ExplorarScreen() {
   // Area selection view with sections
   if (!selectedArea) {
     return (
-      <ScreenContainer className="flex-1">
+      <ScreenContainer key="areas" className="flex-1">
         <View className="px-5 pt-4 pb-2">
           <Text className="text-3xl font-bold text-foreground">Explorar</Text>
           <Text className="text-base text-muted mt-1">
@@ -136,7 +136,7 @@ export default function ExplorarScreen() {
   // Subnivel selection view
   if (!selectedSubnivel) {
     return (
-      <ScreenContainer className="flex-1">
+      <ScreenContainer key={`subniveles-${selectedArea}`} className="flex-1">
         <View className="px-5 pt-4 pb-2">
           <Pressable
             onPress={handleBack}
@@ -160,14 +160,13 @@ export default function ExplorarScreen() {
             Selecciona un subnivel
           </Text>
         </View>
-        <FlatList
-          data={subniveles}
-          keyExtractor={(item) => String(item)}
-          contentContainerStyle={styles.listContent}
-          renderItem={({ item }) => {
+        {/* ScrollView avoids FlatList virtualization removeChild conflict on height transitions */}
+        <ScrollView contentContainerStyle={styles.listContent}>
+          {subniveles.map((item) => {
             const count = filtrarPorAreaYSubnivel(selectedArea, item).length;
             return (
               <Pressable
+                key={String(item)}
                 onPress={() => setSelectedSubnivel(item)}
                 style={({ pressed }) => [
                   styles.subnivelRow,
@@ -203,15 +202,15 @@ export default function ExplorarScreen() {
                 <Text style={{ fontSize: 18, color: colors.muted }}>{"\u203A"}</Text>
               </Pressable>
             );
-          }}
-        />
+          })}
+        </ScrollView>
       </ScreenContainer>
     );
   }
 
   // Destrezas list view
   return (
-    <ScreenContainer className="flex-1">
+    <ScreenContainer key={`destrezas-${selectedArea}-${selectedSubnivel}`} className="flex-1">
       <View className="px-5 pt-4 pb-2">
         <Pressable
           onPress={handleBack}
@@ -236,6 +235,7 @@ export default function ExplorarScreen() {
         data={destrezas}
         keyExtractor={(item) => item.codigo}
         contentContainerStyle={styles.listContent}
+        removeClippedSubviews={false}
         renderItem={({ item }) => (
           <Pressable
             onPress={() => router.push(`/destreza/${item.codigo}` as any)}
