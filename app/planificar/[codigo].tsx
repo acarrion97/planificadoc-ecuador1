@@ -684,7 +684,6 @@ export default function PlanificarScreen() {
                   </Pressable>
                 ))}
               </View>
-              </>
             )}
           </View>
 
