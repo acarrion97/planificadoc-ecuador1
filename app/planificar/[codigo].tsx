@@ -737,19 +737,27 @@ export default function PlanificarScreen() {
                 </View>
               </View>
             )}
-            {usaEjesTransversales && insercionesCurriculares.includes("civica-etica") && destrezasCivicaEtica.length > 0 && (
+            {usaEjesTransversales && insercionesCurriculares.includes("civica-etica") && (
               <View style={{ marginTop: 14, padding: 12, borderRadius: 12, backgroundColor: colors.primary + "08", borderWidth: 1.5, borderColor: colors.primary + "30" }}>
                 <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary, marginBottom: 8 }}>
                   {isEFL ? "⚖️ Suggested DCDs — Civic, Ethics & Integrity" : "⚖️ Destrezas sugeridas — Cívica, Ética e Integridad"}
                 </Text>
-                {destrezasCivicaEtica.map((d) => (
-                  <View key={d.codigo} style={{ marginBottom: 6 }}>
-                    <Text style={{ fontSize: 11, color: colors.foreground, lineHeight: 16 }}>
-                      <Text style={{ fontWeight: "700", color: colors.primary }}>{d.codigo} </Text>
-                      {d.descripcion}
-                    </Text>
-                  </View>
-                ))}
+                {destrezasCivicaEtica.length > 0 ? (
+                  destrezasCivicaEtica.map((d) => (
+                    <View key={d.codigo} style={{ marginBottom: 6 }}>
+                      <Text style={{ fontSize: 11, color: colors.foreground, lineHeight: 16 }}>
+                        <Text style={{ fontWeight: "700", color: colors.primary }}>{d.codigo} </Text>
+                        {d.descripcion}
+                      </Text>
+                    </View>
+                  ))
+                ) : (
+                  <Text style={{ fontSize: 11, color: colors.muted, fontStyle: "italic" }}>
+                    {isEFL
+                      ? "No specific DCDs mapped for this subject/level in the Civic Education insertion."
+                      : "No hay destrezas específicas mapeadas para esta asignatura y subnivel en la inserción de Cívica, Ética e Integridad."}
+                  </Text>
+                )}
               </View>
             )}
             {usaEjesTransversales && insercionesDisponibles.length === 0 && (
