@@ -800,6 +800,7 @@ function HoraBlock({
   const [busqueda, setBusqueda] = useState(hora.codigoDestreza);
   const [resultados, setResultados] = useState<Destreza[]>([]);
   const [buscando, setBuscando] = useState(false);
+  const [showDeportes, setShowDeportes] = useState(false);
 
   // Cuando cambia el área seleccionada, pre-carga las primeras destrezas
   useEffect(() => {
@@ -891,12 +892,23 @@ function HoraBlock({
             <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 0 }]}>Enfocar en deporte específico</Text>
             <Switch
               value={!!hora.deporteEnfoque}
-              onValueChange={(v) => onUpdate({ deporteEnfoque: v ? DEPORTES_EF[0].value : "" })}
+              onValueChange={(v) => {
+                if (v) { setShowDeportes(true); }
+                else { onUpdate({ deporteEnfoque: "" }); setShowDeportes(false); }
+              }}
               trackColor={{ false: "#ccc", true: "#003366" }}
               thumbColor="#fff"
             />
           </View>
-          {!!hora.deporteEnfoque && (
+          {hora.deporteEnfoque ? (
+            <Pressable onPress={() => setShowDeportes(s => !s)} style={{ marginTop: 6, flexDirection: "row", alignItems: "center", gap: 6 }}>
+              <Text style={{ fontSize: 13, color: "#003366", fontWeight: "700" }}>
+                {DEPORTES_EF.find(d => d.value === hora.deporteEnfoque)?.label ?? hora.deporteEnfoque}
+              </Text>
+              <Text style={{ fontSize: 11, color: colors.muted }}>{showDeportes ? "▲" : "▼"}</Text>
+            </Pressable>
+          ) : null}
+          {showDeportes && (
             <ScrollView
               style={[styles.dropdownList, { backgroundColor: colors.surface, borderColor: colors.border, marginTop: 6, maxHeight: 200 }]}
               nestedScrollEnabled
@@ -905,7 +917,7 @@ function HoraBlock({
               {DEPORTES_EF.map((d) => (
                 <Pressable
                   key={d.value}
-                  onPress={() => onUpdate({ deporteEnfoque: d.value })}
+                  onPress={() => { onUpdate({ deporteEnfoque: d.value }); setShowDeportes(false); }}
                   style={({ pressed }) => [
                     styles.dropdownItem,
                     {
