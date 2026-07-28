@@ -572,7 +572,7 @@ export default function PlanificarSemanalScreen() {
                       </Text>
                     </Pressable>
                   );
-                })
+                })}
               </View>
             </>
           )}
