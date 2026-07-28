@@ -800,8 +800,6 @@ function HoraBlock({
   const [busqueda, setBusqueda] = useState(hora.codigoDestreza);
   const [resultados, setResultados] = useState<Destreza[]>([]);
   const [buscando, setBuscando] = useState(false);
-  const [showDeportes, setShowDeportes] = useState(false);
-
   // Cuando cambia el área seleccionada, pre-carga las primeras destrezas
   useEffect(() => {
     if (areaCode) {
@@ -888,52 +886,26 @@ function HoraBlock({
       {/* Deporte (solo EF) */}
       {hora.destreza?.area === "EF" && (
         <View style={{ marginTop: 10 }}>
-          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-            <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 0 }]}>Enfocar en deporte específico</Text>
-            <Switch
-              value={!!hora.deporteEnfoque}
-              onValueChange={(v) => {
-                if (v) { setShowDeportes(true); }
-                else { onUpdate({ deporteEnfoque: "" }); setShowDeportes(false); }
-              }}
-              trackColor={{ false: "#ccc", true: "#003366" }}
-              thumbColor="#fff"
-            />
-          </View>
-          {hora.deporteEnfoque ? (
-            <Pressable onPress={() => setShowDeportes(s => !s)} style={{ marginTop: 6, flexDirection: "row", alignItems: "center", gap: 6 }}>
-              <Text style={{ fontSize: 13, color: "#003366", fontWeight: "700" }}>
-                {DEPORTES_EF.find(d => d.value === hora.deporteEnfoque)?.label ?? hora.deporteEnfoque}
-              </Text>
-              <Text style={{ fontSize: 11, color: colors.muted }}>{showDeportes ? "▲" : "▼"}</Text>
-            </Pressable>
-          ) : null}
-          {showDeportes && (
-            <ScrollView
-              style={[styles.dropdownList, { backgroundColor: colors.surface, borderColor: colors.border, marginTop: 6, maxHeight: 200 }]}
-              nestedScrollEnabled
-              keyboardShouldPersistTaps="handled"
-            >
-              {DEPORTES_EF.map((d) => (
-                <Pressable
-                  key={d.value}
-                  onPress={() => { onUpdate({ deporteEnfoque: d.value }); setShowDeportes(false); }}
-                  style={({ pressed }) => [
-                    styles.dropdownItem,
-                    {
-                      borderBottomColor: colors.border,
-                      backgroundColor: hora.deporteEnfoque === d.value ? "#003366" + "18" : "transparent",
-                      opacity: pressed ? 0.7 : 1,
-                    },
-                  ]}
-                >
-                  <Text style={{ color: hora.deporteEnfoque === d.value ? "#003366" : colors.foreground, fontWeight: hora.deporteEnfoque === d.value ? "700" : "400", fontSize: 13 }}>
-                    {d.label}
-                  </Text>
-                </Pressable>
-              ))}
-            </ScrollView>
-          )}
+          <Text style={[styles.fieldLabel, { color: colors.muted }]}>Deporte específico (opcional)</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+            <View style={{ flexDirection: "row", gap: 6, paddingVertical: 4 }}>
+              {DEPORTES_EF.map((d) => {
+                const sel = hora.deporteEnfoque === d.value;
+                return (
+                  <Pressable
+                    key={d.value}
+                    onPress={() => onUpdate({ deporteEnfoque: sel ? "" : d.value })}
+                    style={[styles.chip, {
+                      backgroundColor: sel ? "#003366" : colors.surface,
+                      borderColor: sel ? "#003366" : colors.border,
+                    }]}
+                  >
+                    <Text style={{ color: sel ? "#fff" : colors.foreground, fontSize: 12 }}>{d.label}</Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </ScrollView>
         </View>
       )}
 
