@@ -884,6 +884,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ email: normalized, tokens });
     }
 
+    // POST /api/admin/add-payment-record — inserta una fila de suscripción pagada para reflejar un pago manual
+    if (action === "add-payment-record") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, startDate: sd, endDate: ed, amountPaid: ap, transactionId: tid, authorizationCode: ac, plan: pl } = req.body || {};
+      if (!email || !ed) return res.status(400).json({ error: "email y endDate requeridos" });
+      const normalized = (email as string).trim().toLowerCase();
+      const amount = parseInt(ap) || 699;
+      const subPlan = (pl as string) === "annual" ? "annual" : "monthly";
+      const start = sd ? new Date(sd as string) : new Date();
+      const end = new Date(ed as string);
+      await db.insert(subscriptions).values({
+        email: normalized,
+        plan: subPlan,
+        status: "active",
+        amountPaid: amount,
+        transactionId: tid ? String(tid) : `ADMIN-RECORD-${Date.now()}`,
+        ...(ac ? { authorizationCode: String(ac) } : {}),
+        startDate: start,
+        endDate: end,
+        isRecurring: true,
+      });
+      return res.json({ success: true, email: normalized, plan: subPlan, startDate: start, endDate: end, amountPaid: amount });
+    }
+
     // POST /api/admin/manual-renew — extends subscription 1 month and updates cardToken after manual/test charge
     if (action === "manual-renew") {
       if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
