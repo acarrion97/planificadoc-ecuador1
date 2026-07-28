@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Text, View, ScrollView, TextInput, StyleSheet, Alert, Platform,
   ActivityIndicator, Switch, Pressable, FlatList,
@@ -8,7 +8,7 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import {
-  buscarDestrezas, AREAS_INFO, SUBNIVEL_NAMES, SUBNIVEL_GRADOS,
+  buscarDestrezas, TODAS_LAS_DESTREZAS, AREAS_INFO, SUBNIVEL_NAMES, SUBNIVEL_GRADOS,
   obtenerInsercionesPorAsignatura, COMPETENCIAS, METODOLOGIAS_ACTIVAS,
   TECNICAS_EVALUACION, HABILIDADES_SOCIOEMOCIONALES, obtenerNombreBloque,
 } from "@/data";
@@ -110,6 +110,7 @@ export default function PlanificarSemanalScreen() {
   const [docente, setDocente] = useState("");
   const [subnivel, setSubnivel] = useState<number | null>(null); // 1-5
   const [asignatura, setAsignatura] = useState("");              // nombre del área
+  const [selectedAreaCode, setSelectedAreaCode] = useState<string>("");
   const [grado, setGrado] = useState("");
   const [nivel, setNivel] = useState("");
   const [paralelo, setParalelo] = useState("");
@@ -531,8 +532,9 @@ export default function PlanificarSemanalScreen() {
                 <Pressable key={n} onPress={() => {
                   setSubnivel(n);
                   setNivel(n <= 4 ? "EGB" : "BGU");
-                  setGrado(""); // reset grado al cambiar subnivel
-                  setAsignatura(""); // reset asignatura
+                  setGrado("");
+                  setAsignatura("");
+                  setSelectedAreaCode("");
                 }}
                   style={[styles.trimestreBtn, {
                     borderColor: active ? "#003366" : colors.border,
@@ -550,13 +552,16 @@ export default function PlanificarSemanalScreen() {
               <FieldLabel label="Asignatura" colors={colors} />
               <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                 {(subnivel === 5
-                  ? (["CN.B","CN.Q","CN.F","CS.H","CS.F","EFL","EG"] as const)
+                  ? (["CN.B","CN.Q","CN.F","CS.H","CS.F","CS.EC","EFL","EG"] as const)
                   : (["M","LL","CN","CS","EF","ECA","EFL"] as const)
-                ).map(areaCode => {
-                  const info = AREAS_INFO[areaCode];
-                  const active = asignatura === info.name;
+                ).map(code => {
+                  const info = AREAS_INFO[code];
+                  const active = selectedAreaCode === code;
                   return (
-                    <Pressable key={areaCode} onPress={() => setAsignatura(active ? "" : info.name)}
+                    <Pressable key={code} onPress={() => {
+                      if (active) { setAsignatura(""); setSelectedAreaCode(""); }
+                      else { setAsignatura(info.name); setSelectedAreaCode(code); }
+                    }}
                       style={[styles.trimestreBtn, {
                         borderColor: active ? info.color : colors.border,
                         backgroundColor: active ? info.color + "20" : colors.surface,
@@ -567,7 +572,7 @@ export default function PlanificarSemanalScreen() {
                       </Text>
                     </Pressable>
                   );
-                })}
+                })
               </View>
             </>
           )}
@@ -673,6 +678,8 @@ export default function PlanificarSemanalScreen() {
             config={dias[dia]}
             colors={colors}
             isLast={diaIdx === DIAS_SEMANA.length - 1}
+            areaCode={selectedAreaCode}
+            subnivel={subnivel}
             onToggleActivo={() => updateDia(dia, { activo: !dias[dia].activo })}
             onSetCantidadHoras={(n) => setCantidadHoras(dia, n)}
             onUpdateHora={(horaId, update) => updateHora(dia, horaId, update)}
@@ -701,7 +708,7 @@ export default function PlanificarSemanalScreen() {
 // ─── Subcomponente: bloque de configuración de un día ────────
 
 function DiaConfigBlock({
-  dia, config, colors, isLast,
+  dia, config, colors, isLast, areaCode, subnivel,
   onToggleActivo, onSetCantidadHoras, onUpdateHora, onSugerirTemas,
   onToggleChipHora, onToggleBoolHora, onCopiarAlSiguiente,
 }: {
@@ -709,6 +716,8 @@ function DiaConfigBlock({
   config: ConfiguracionDia;
   colors: any;
   isLast: boolean;
+  areaCode: string;
+  subnivel: number | null;
   onToggleActivo: () => void;
   onSetCantidadHoras: (n: 1 | 2 | 3) => void;
   onUpdateHora: (horaId: string, update: Partial<HoraSemanal>) => void;
@@ -746,6 +755,7 @@ function DiaConfigBlock({
           {/* Horas */}
           {config.horas.map((hora, horaIdx) => (
             <HoraBlock key={hora.id} hora={hora} horaIdx={horaIdx} colors={colors}
+              areaCode={areaCode} subnivel={subnivel}
               onUpdate={(update) => onUpdateHora(hora.id, update)}
               onSugerirTemas={() => onSugerirTemas(hora.id)}
               onToggleChip={(field, id) => onToggleChipHora(hora.id, field, id)}
@@ -775,11 +785,13 @@ function DiaConfigBlock({
 // ─── Subcomponente: una hora dentro de un día ────────────────
 
 function HoraBlock({
-  hora, horaIdx, colors, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
+  hora, horaIdx, colors, areaCode, subnivel, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
 }: {
   hora: HoraSemanal;
   horaIdx: number;
   colors: any;
+  areaCode: string;
+  subnivel: number | null;
   onUpdate: (update: Partial<HoraSemanal>) => void;
   onSugerirTemas: () => void;
   onToggleChip: (field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
@@ -789,12 +801,44 @@ function HoraBlock({
   const [resultados, setResultados] = useState<Destreza[]>([]);
   const [buscando, setBuscando] = useState(false);
 
+  // Cuando cambia el área seleccionada, pre-carga las primeras destrezas
+  useEffect(() => {
+    if (areaCode) {
+      const pool = TODAS_LAS_DESTREZAS.filter(
+        d => d.area === areaCode && (subnivel === null || d.subnivel === subnivel)
+      );
+      setBusqueda("");
+      setResultados(pool.slice(0, 10));
+      setBuscando(pool.length > 0);
+    } else {
+      setResultados([]);
+      setBuscando(false);
+    }
+  }, [areaCode, subnivel]);
+
   const handleBuscarDestreza = (q: string) => {
     setBusqueda(q);
-    if (q.length < 2) { setResultados([]); return; }
-    const found = buscarDestrezas(q).slice(0, 8);
-    setResultados(found);
-    setBuscando(found.length > 0);
+    if (areaCode) {
+      const pool = TODAS_LAS_DESTREZAS.filter(
+        d => d.area === areaCode && (subnivel === null || d.subnivel === subnivel)
+      );
+      if (q.length < 2) {
+        setResultados(pool.slice(0, 10));
+        setBuscando(pool.length > 0);
+      } else {
+        const filtered = pool.filter(
+          d => d.codigo.toUpperCase().includes(q.toUpperCase()) ||
+               d.descripcion.toUpperCase().includes(q.toUpperCase())
+        ).slice(0, 10);
+        setResultados(filtered);
+        setBuscando(filtered.length > 0);
+      }
+    } else {
+      if (q.length < 2) { setResultados([]); setBuscando(false); return; }
+      const found = buscarDestrezas(q).slice(0, 10);
+      setResultados(found);
+      setBuscando(found.length > 0);
+    }
   };
 
   const handleSeleccionarDestreza = (d: Destreza) => {
@@ -853,7 +897,11 @@ function HoraBlock({
             />
           </View>
           {!!hora.deporteEnfoque && (
-            <View style={[styles.dropdownList, { backgroundColor: colors.surface, borderColor: colors.border, position: "relative", marginTop: 6 }]}>
+            <ScrollView
+              style={[styles.dropdownList, { backgroundColor: colors.surface, borderColor: colors.border, marginTop: 6, maxHeight: 200 }]}
+              nestedScrollEnabled
+              keyboardShouldPersistTaps="handled"
+            >
               {DEPORTES_EF.map((d) => (
                 <Pressable
                   key={d.value}
@@ -872,7 +920,7 @@ function HoraBlock({
                   </Text>
                 </Pressable>
               ))}
-            </View>
+            </ScrollView>
           )}
         </View>
       )}
