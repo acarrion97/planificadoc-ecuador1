@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import {
   Text, View, ScrollView, TextInput, StyleSheet, Alert, Platform,
-  ActivityIndicator, Switch, Pressable, FlatList,
+  ActivityIndicator, Switch, Pressable, FlatList, Modal,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -797,9 +797,10 @@ function HoraBlock({
   onToggleChip: (field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
   onToggleBool: (field: "usaEjesTransversales" | "usaCompetencias") => void;
 }) {
-  const [busqueda, setBusqueda] = useState(hora.codigoDestreza);
+  const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState<Destreza[]>([]);
   const [buscando, setBuscando] = useState(false);
+  const [showDCDModal, setShowDCDModal] = useState(false);
   // Cuando cambia el área seleccionada, pre-carga las primeras destrezas
   useEffect(() => {
     if (areaCode) {
@@ -841,10 +842,26 @@ function HoraBlock({
   };
 
   const handleSeleccionarDestreza = (d: Destreza) => {
-    setBusqueda(d.codigo);
+    setBusqueda("");
     setResultados([]);
     setBuscando(false);
+    setShowDCDModal(false);
     onUpdate({ codigoDestreza: d.codigo, destreza: d });
+  };
+
+  const abrirDCDModal = () => {
+    setBusqueda("");
+    if (areaCode) {
+      const pool = TODAS_LAS_DESTREZAS.filter(
+        d => d.area === areaCode && (subnivel === null || d.subnivel === subnivel)
+      );
+      setResultados(pool.slice(0, 20));
+      setBuscando(pool.length > 0);
+    } else {
+      setResultados([]);
+      setBuscando(false);
+    }
+    setShowDCDModal(true);
   };
 
   const areaInfo = hora.destreza ? AREAS_INFO[hora.destreza.area] : null;
@@ -855,33 +872,81 @@ function HoraBlock({
 
       {/* Búsqueda de destreza */}
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>DCD (Destreza con Criterio de Desempeño)</Text>
-      <TextInput
-        style={[styles.input, { color: colors.foreground, borderColor: hora.destreza ? "#22C55E" : colors.border }]}
-        value={busqueda}
-        onChangeText={handleBuscarDestreza}
-        placeholder="Busca por código o descripción... ej: M.4.1.1"
-        placeholderTextColor={colors.muted}
-      />
-      {buscando && resultados.length > 0 && (
-        <View style={[styles.dropdownList, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-          {resultados.map(d => {
-            const ai = AREAS_INFO[d.area];
-            return (
-              <Pressable key={d.codigo} onPress={() => handleSeleccionarDestreza(d)}
-                style={({ pressed }) => [styles.dropdownItem, { borderBottomColor: colors.border, opacity: pressed ? 0.7 : 1 }]}>
-                <Text style={{ color: ai?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>{d.codigo}</Text>
-                <Text style={{ color: colors.foreground, fontSize: 12, flex: 1, marginLeft: 8 }} numberOfLines={2}>{d.descripcion}</Text>
-              </Pressable>
-            );
-          })}
-        </View>
-      )}
-      {hora.destreza && (
-        <View style={[styles.destrezaSelected, { backgroundColor: (areaInfo?.color || "#003366") + "12", borderColor: (areaInfo?.color || "#003366") + "40" }]}>
-          <Text style={{ color: areaInfo?.color, fontWeight: "700", fontSize: 13 }}>{hora.destreza.codigo}</Text>
-          <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }} numberOfLines={2}>{hora.destreza.descripcion}</Text>
-        </View>
-      )}
+
+      {/* Botón para abrir el picker */}
+      <Pressable
+        onPress={abrirDCDModal}
+        style={({ pressed }) => [{
+          borderWidth: 1,
+          borderRadius: 8,
+          padding: 10,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          opacity: pressed ? 0.7 : 1,
+          borderColor: hora.destreza ? "#22C55E" : colors.border,
+          backgroundColor: hora.destreza ? "#22C55E10" : colors.surface,
+        }]}
+      >
+        {hora.destreza ? (
+          <View style={{ flex: 1 }}>
+            <Text style={{ color: areaInfo?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>{hora.destreza.codigo}</Text>
+            <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }} numberOfLines={2}>{hora.destreza.descripcion}</Text>
+          </View>
+        ) : (
+          <Text style={{ color: colors.muted, fontSize: 13 }}>🔍 Seleccionar DCD...</Text>
+        )}
+        <Text style={{ color: colors.muted, fontSize: 16, marginLeft: 8 }}>▼</Text>
+      </Pressable>
+
+      {/* Modal picker de DCDs */}
+      <Modal visible={showDCDModal} transparent animationType="fade" onRequestClose={() => setShowDCDModal(false)}>
+        <Pressable
+          style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.45)", justifyContent: "center", alignItems: "center" }}
+          onPress={() => setShowDCDModal(false)}
+        >
+          <Pressable
+            style={{ width: "90%", maxWidth: 520, backgroundColor: colors.background, borderRadius: 14, padding: 16, maxHeight: "80%" }}
+            onPress={() => {}}
+          >
+            <Text style={{ fontWeight: "700", fontSize: 14, color: colors.foreground, marginBottom: 10 }}>Seleccionar DCD</Text>
+            <TextInput
+              autoFocus
+              style={[styles.input, { color: colors.foreground, borderColor: colors.border, marginBottom: 8 }]}
+              value={busqueda}
+              onChangeText={handleBuscarDestreza}
+              placeholder="Busca por código o descripción... ej: M.4.1.1"
+              placeholderTextColor={colors.muted}
+            />
+            <ScrollView keyboardShouldPersistTaps="handled" style={{ maxHeight: 360 }}>
+              {resultados.map(d => {
+                const ai = AREAS_INFO[d.area];
+                return (
+                  <Pressable
+                    key={d.codigo}
+                    onPress={() => handleSeleccionarDestreza(d)}
+                    style={({ pressed }) => [styles.dropdownItem, { borderBottomColor: colors.border, opacity: pressed ? 0.7 : 1 }]}
+                  >
+                    <Text style={{ color: ai?.color || colors.primary, fontWeight: "700", fontSize: 12, minWidth: 70 }}>{d.codigo}</Text>
+                    <Text style={{ color: colors.foreground, fontSize: 12, flex: 1, marginLeft: 8 }}>{d.descripcion}</Text>
+                  </Pressable>
+                );
+              })}
+              {resultados.length === 0 && (
+                <Text style={{ color: colors.muted, textAlign: "center", padding: 20, fontStyle: "italic" }}>
+                  {busqueda.length < 2 ? "Escribe para buscar..." : "Sin resultados"}
+                </Text>
+              )}
+            </ScrollView>
+            <Pressable
+              onPress={() => setShowDCDModal(false)}
+              style={{ marginTop: 12, padding: 10, borderRadius: 8, backgroundColor: colors.border, alignItems: "center" }}
+            >
+              <Text style={{ color: colors.foreground, fontWeight: "600" }}>Cancelar</Text>
+            </Pressable>
+          </Pressable>
+        </Pressable>
+      </Modal>
 
       {/* Deporte (solo EF) */}
       {hora.destreza?.area === "EF" && (
