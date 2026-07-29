@@ -54,7 +54,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Comprender la importancia de la integridad en las relaciones interpersonales y el ejercicio de los derechos.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Pensamiento crítico (Evaluación cualitativa: A / B / C)"],
+    indicadoresEvaluacion: ["Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)"],
     habilidadesSocioemocionales: ["pensamiento_critico"],
   },
   {
@@ -66,7 +66,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Identificar consecuencias del accionar honesto o deshonesto en situaciones cotidianas.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Conciencia social (Evaluación cualitativa: A / B / C)"],
+    indicadoresEvaluacion: ["Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)"],
     habilidadesSocioemocionales: ["conciencia_social"],
   },
   {
@@ -79,8 +79,8 @@ export const destrezasCAI: Destreza[] = [
     objetivos: [],
     criteriosEvaluacion: [],
     indicadoresEvaluacion: [
-      "Toma de decisiones (Evaluación cualitativa: A / B / C)",
-      "Pensamiento crítico (Evaluación cualitativa: A / B / C)",
+      "Toma de decisiones: Identifica diferentes opciones y consecuencias a corto plazo y su responsabilidad al elegirlas. (A / B / C)",
+      "Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)",
     ],
     habilidadesSocioemocionales: ["toma_decisiones", "pensamiento_critico"],
   },
@@ -94,8 +94,8 @@ export const destrezasCAI: Destreza[] = [
     objetivos: [],
     criteriosEvaluacion: [],
     indicadoresEvaluacion: [
-      "Conciencia social (Evaluación cualitativa: A / B / C)",
-      "Pensamiento ético (Evaluación cualitativa: A / B / C)",
+      "Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)",
+      "Pensamiento ético: Comprende la importancia de actuar de manera justa y respetuosa. (A / B / C)",
     ],
     habilidadesSocioemocionales: ["conciencia_social", "pensamiento_etico"],
   },
@@ -109,8 +109,8 @@ export const destrezasCAI: Destreza[] = [
     objetivos: [],
     criteriosEvaluacion: [],
     indicadoresEvaluacion: [
-      "Conciencia social (Evaluación cualitativa: A / B / C)",
-      "Ciudadanía global (Evaluación cualitativa: A / B / C)",
+      "Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)",
+      "Ciudadanía global: Compara y contrasta diferentes culturas, geografías y formas de vida en diversas partes del mundo. (A / B / C)",
     ],
     habilidadesSocioemocionales: ["conciencia_social", "ciudadania_global"],
   },
@@ -124,8 +124,8 @@ export const destrezasCAI: Destreza[] = [
     objetivos: [],
     criteriosEvaluacion: [],
     indicadoresEvaluacion: [
-      "Toma de decisiones (Evaluación cualitativa: A / B / C)",
-      "Pensamiento ético (Evaluación cualitativa: A / B / C)",
+      "Toma de decisiones: Identifica diferentes opciones y consecuencias a corto plazo y su responsabilidad al elegirlas. (A / B / C)",
+      "Pensamiento ético: Comprende la importancia de actuar de manera justa y respetuosa. (A / B / C)",
     ],
     habilidadesSocioemocionales: ["toma_decisiones", "pensamiento_etico"],
   },
@@ -139,8 +139,8 @@ export const destrezasCAI: Destreza[] = [
     objetivos: [],
     criteriosEvaluacion: [],
     indicadoresEvaluacion: [
-      "Conciencia social (Evaluación cualitativa: A / B / C)",
-      "Ciudadanía global (Evaluación cualitativa: A / B / C)",
+      "Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)",
+      "Ciudadanía global: Compara y contrasta diferentes culturas, geografías y formas de vida en diversas partes del mundo. (A / B / C)",
     ],
     habilidadesSocioemocionales: ["conciencia_social", "ciudadania_global"],
   },
@@ -153,7 +153,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Analizar situaciones y generar soluciones innovadoras para resolver problemas complejos y comunicar ideas creativas, en actividades grupales.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Pensamiento crítico (Evaluación cualitativa: A / B / C)"],
+    indicadoresEvaluacion: ["Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)"],
     habilidadesSocioemocionales: ["pensamiento_critico"],
   },
   {
@@ -165,7 +165,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Reflexionar sobre la importancia de los valores de justicia, igualdad, respeto, solidaridad y empatía para aplicarlos en la interacción con las demás personas.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Conciencia social (Evaluación cualitativa: A / B / C)"],
+    indicadoresEvaluacion: ["Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)"],
     habilidadesSocioemocionales: ["conciencia_social"],
   },
   {
@@ -178,9 +178,9 @@ export const destrezasCAI: Destreza[] = [
     objetivos: [],
     criteriosEvaluacion: [],
     indicadoresEvaluacion: [
-      "Pensamiento crítico (Evaluación cualitativa: A / B / C)",
-      "Manejo de problemas (Evaluación cualitativa: A / B / C)",
-      "Pensamiento creativo (Evaluación cualitativa: A / B / C)",
+      "Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)",
+      "Manejo de problemas: Describe problemas cotidianos simples y propone posibles soluciones, considerando las consecuencias. (A / B / C)",
+      "Pensamiento creativo: Genera ideas y soluciones diversas a problemas en actividades de arte, música y juego. (A / B / C)",
     ],
     habilidadesSocioemocionales: ["pensamiento_critico", "manejo_problemas", "pensamiento_creativo"],
   },
