@@ -9,6 +9,8 @@ export interface HabilidadSocioemocional {
   nombre: string;
   nameEN: string;
   emoji: string;
+  /** Solo aparece en planificación CAI — no se muestra en otras asignaturas */
+  caiOnly?: boolean;
 }
 
 export const HABILIDADES_SOCIOEMOCIONALES: HabilidadSocioemocional[] = [
@@ -26,4 +28,6 @@ export const HABILIDADES_SOCIOEMOCIONALES: HabilidadSocioemocional[] = [
   { id: "perseverancia", nombre: "Perseverancia", nameEN: "Perseverance", emoji: "\uD83C\uDFC6" },
   { id: "ciudadania_global", nombre: "Ciudadan\u00EDa global", nameEN: "Global citizenship", emoji: "\uD83C\uDF0E" },
   { id: "pensamiento_creativo", nombre: "Pensamiento creativo", nameEN: "Creative thinking", emoji: "\uD83C\uDFA8" },
+  { id: "manejo_emociones", nombre: "Manejo de emociones y sentimientos", nameEN: "Emotion management", emoji: "\uD83D\uDC9B", caiOnly: true },
+  { id: "manejo_estres", nombre: "Manejo de estr\u00E9s y tensiones", nameEN: "Stress management", emoji: "\uD83C\uDF2C\uFE0F", caiOnly: true },
 ];
