@@ -13,6 +13,7 @@ import { destrezasIngles } from "./destrezas-ingles";
 import { destrezasEmprendimiento } from "./destrezas-emprendimiento";
 import { destrezasEducacionCiudadania as _rawEC } from "./destrezas-educacion-ciudadania";
 import { destrezasCAI } from "./destrezas-kai";
+export { NOMBRES_BLOQUES_CAI, CRITERIOS_CAI, OBJETIVO_NIVEL_CAI } from "./destrezas-kai";
 import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
 
 const destrezasEducacionCiudadania: Destreza[] = _rawEC.map((d) => ({

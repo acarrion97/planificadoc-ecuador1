@@ -11,6 +11,7 @@ import {
   buscarDestrezas, TODAS_LAS_DESTREZAS, AREAS_INFO, SUBNIVEL_NAMES, SUBNIVEL_GRADOS,
   obtenerInsercionesPorAsignatura, COMPETENCIAS, METODOLOGIAS_ACTIVAS,
   TECNICAS_EVALUACION, HABILIDADES_SOCIOEMOCIONALES, obtenerNombreBloque,
+  NOMBRES_BLOQUES_CAI, CRITERIOS_CAI, OBJETIVO_NIVEL_CAI,
 } from "@/data";
 import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad } from "@/data/types";
 import { trpc } from "@/lib/trpc";
@@ -120,6 +121,7 @@ export default function PlanificarSemanalScreen() {
   const [numeroUnidad, setNumeroUnidad] = useState("");
   const [tituloUnidad, setTituloUnidad] = useState("");
   const [objetivosUnidad, setObjetivosUnidad] = useState("");
+  const [bloqueCAI, setBloqueCAI] = useState<number | null>(null);
 
   // ── Configuración por día ──
   const [dias, setDias] = useState<DiasState>({
@@ -225,6 +227,15 @@ export default function PlanificarSemanalScreen() {
       },
     }));
   }, []);
+
+  // ─── Selección de bloque curricular CAI ─────────────────
+  const handleSelectBloqueCAI = useCallback((bloque: number) => {
+    setBloqueCAI(bloque);
+    setNumeroUnidad(String(bloque));
+    setTituloUnidad(NOMBRES_BLOQUES_CAI[bloque] ?? "");
+    const criterio = subnivel !== null ? (CRITERIOS_CAI[subnivel]?.[bloque] ?? "") : "";
+    setObjetivosUnidad(criterio);
+  }, [subnivel]);
 
   // ─── Sugerir temas para una hora ─────────────────────────
 
@@ -366,6 +377,7 @@ export default function PlanificarSemanalScreen() {
       numeroUnidad,
       tituloUnidad,
       objetivosUnidad,
+      bloqueCAI: bloqueCAI ?? undefined,
       duaRepresentacion: "",
       duaAccionExpresion: "",
       duaImplicacion: "",
@@ -646,27 +658,79 @@ export default function PlanificarSemanalScreen() {
             </View>
           </View>
 
-          {/* Unidad de planificación */}
-          <View style={{ flexDirection: "row", gap: 8, marginTop: 4 }}>
-            <View style={{ width: 80 }}>
-              <FieldLabel label="N.º Unidad" colors={colors} />
-              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
-                value={numeroUnidad} onChangeText={setNumeroUnidad} placeholder="1"
-                placeholderTextColor={colors.muted} keyboardType="number-pad" />
-            </View>
-            <View style={{ flex: 1 }}>
-              <FieldLabel label="Título de unidad de planificación" colors={colors} />
-              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
-                value={tituloUnidad} onChangeText={setTituloUnidad} placeholder="Nombre de la unidad"
-                placeholderTextColor={colors.muted} />
-            </View>
-          </View>
-
-          <FieldLabel label="Objetivos específicos de la unidad de planificación" colors={colors} />
-          <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
-            value={objetivosUnidad} onChangeText={setObjetivosUnidad}
-            placeholder="Escribe los objetivos de la unidad..."
-            placeholderTextColor={colors.muted} multiline numberOfLines={3} />
+          {selectedAreaCode === "CAI" ? (
+            /* ── Bloque curricular CAI ── */
+            <>
+              {subnivel !== null && OBJETIVO_NIVEL_CAI[subnivel] ? (
+                <View style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 8, borderLeftWidth: 3, borderLeftColor: "#7C3AED" }}>
+                  <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED", marginBottom: 2 }}>OBJETIVO DEL NIVEL</Text>
+                  <Text style={{ fontSize: 12, color: colors.foreground, lineHeight: 17 }}>{OBJETIVO_NIVEL_CAI[subnivel]}</Text>
+                </View>
+              ) : null}
+              <FieldLabel label="Bloque curricular" colors={colors} />
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+                {[1, 2, 3].map(n => {
+                  const active = bloqueCAI === n;
+                  return (
+                    <Pressable
+                      key={n}
+                      onPress={() => handleSelectBloqueCAI(n)}
+                      style={{
+                        paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8,
+                        borderWidth: 1.5,
+                        borderColor: active ? "#7C3AED" : colors.border,
+                        backgroundColor: active ? "#7C3AED18" : "transparent",
+                      }}
+                    >
+                      <Text style={{ fontWeight: "600", fontSize: 12, color: active ? "#7C3AED" : colors.muted }}>
+                        Bloque {n}
+                      </Text>
+                      <Text style={{ fontSize: 11, color: active ? "#7C3AED" : colors.muted, marginTop: 2 }}>
+                        {NOMBRES_BLOQUES_CAI[n]}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+              {bloqueCAI !== null && (
+                <>
+                  <FieldLabel label="Criterio de evaluación del bloque" colors={colors} />
+                  <TextInput
+                    style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
+                    value={objetivosUnidad}
+                    onChangeText={setObjetivosUnidad}
+                    placeholder="Criterio de evaluación del bloque..."
+                    placeholderTextColor={colors.muted}
+                    multiline
+                    numberOfLines={3}
+                  />
+                </>
+              )}
+            </>
+          ) : (
+            /* ── Unidad de planificación (otras asignaturas) ── */
+            <>
+              <View style={{ flexDirection: "row", gap: 8, marginTop: 4 }}>
+                <View style={{ width: 80 }}>
+                  <FieldLabel label="N.º Unidad" colors={colors} />
+                  <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                    value={numeroUnidad} onChangeText={setNumeroUnidad} placeholder="1"
+                    placeholderTextColor={colors.muted} keyboardType="number-pad" />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <FieldLabel label="Título de unidad de planificación" colors={colors} />
+                  <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                    value={tituloUnidad} onChangeText={setTituloUnidad} placeholder="Nombre de la unidad"
+                    placeholderTextColor={colors.muted} />
+                </View>
+              </View>
+              <FieldLabel label="Objetivos específicos de la unidad de planificación" colors={colors} />
+              <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
+                value={objetivosUnidad} onChangeText={setObjetivosUnidad}
+                placeholder="Escribe los objetivos de la unidad..."
+                placeholderTextColor={colors.muted} multiline numberOfLines={3} />
+            </>
+          )}
         </View>
 
         {/* ── SECCIÓN 2: Configuración por día ── */}
@@ -680,6 +744,7 @@ export default function PlanificarSemanalScreen() {
             isLast={diaIdx === DIAS_SEMANA.length - 1}
             areaCode={selectedAreaCode}
             subnivel={subnivel}
+            bloqueCAI={bloqueCAI}
             onToggleActivo={() => updateDia(dia, { activo: !dias[dia].activo })}
             onSetCantidadHoras={(n) => setCantidadHoras(dia, n)}
             onUpdateHora={(horaId, update) => updateHora(dia, horaId, update)}
@@ -708,7 +773,7 @@ export default function PlanificarSemanalScreen() {
 // ─── Subcomponente: bloque de configuración de un día ────────
 
 function DiaConfigBlock({
-  dia, config, colors, isLast, areaCode, subnivel,
+  dia, config, colors, isLast, areaCode, subnivel, bloqueCAI,
   onToggleActivo, onSetCantidadHoras, onUpdateHora, onSugerirTemas,
   onToggleChipHora, onToggleBoolHora, onCopiarAlSiguiente,
 }: {
@@ -718,6 +783,7 @@ function DiaConfigBlock({
   isLast: boolean;
   areaCode: string;
   subnivel: number | null;
+  bloqueCAI: number | null;
   onToggleActivo: () => void;
   onSetCantidadHoras: (n: 1 | 2 | 3) => void;
   onUpdateHora: (horaId: string, update: Partial<HoraSemanal>) => void;
@@ -755,7 +821,7 @@ function DiaConfigBlock({
           {/* Horas */}
           {config.horas.map((hora, horaIdx) => (
             <HoraBlock key={hora.id} hora={hora} horaIdx={horaIdx} colors={colors}
-              areaCode={areaCode} subnivel={subnivel}
+              areaCode={areaCode} subnivel={subnivel} bloqueCAI={bloqueCAI}
               onUpdate={(update) => onUpdateHora(hora.id, update)}
               onSugerirTemas={() => onSugerirTemas(hora.id)}
               onToggleChip={(field, id) => onToggleChipHora(hora.id, field, id)}
@@ -785,13 +851,14 @@ function DiaConfigBlock({
 // ─── Subcomponente: una hora dentro de un día ────────────────
 
 function HoraBlock({
-  hora, horaIdx, colors, areaCode, subnivel, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
+  hora, horaIdx, colors, areaCode, subnivel, bloqueCAI, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
 }: {
   hora: HoraSemanal;
   horaIdx: number;
   colors: any;
   areaCode: string;
   subnivel: number | null;
+  bloqueCAI: number | null;
   onUpdate: (update: Partial<HoraSemanal>) => void;
   onSugerirTemas: () => void;
   onToggleChip: (field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
@@ -801,12 +868,18 @@ function HoraBlock({
   const [resultados, setResultados] = useState<Destreza[]>([]);
   const [buscando, setBuscando] = useState(false);
   const [showDCDModal, setShowDCDModal] = useState(false);
-  // Cuando cambia el área seleccionada, pre-carga las primeras destrezas
+  // Pool de destrezas: filtra por área + subnivel; para CAI también por bloque si está seleccionado
+  const buildPool = () => TODAS_LAS_DESTREZAS.filter(d => {
+    if (d.area !== areaCode) return false;
+    if (subnivel !== null && d.subnivel !== subnivel) return false;
+    if (areaCode === "CAI" && bloqueCAI !== null && d.bloque !== bloqueCAI) return false;
+    return true;
+  });
+
+  // Cuando cambia el área/bloque/subnivel, pre-carga las primeras destrezas
   useEffect(() => {
     if (areaCode) {
-      const pool = TODAS_LAS_DESTREZAS.filter(
-        d => d.area === areaCode && (subnivel === null || d.subnivel === subnivel)
-      );
+      const pool = buildPool();
       setBusqueda("");
       setResultados(pool.slice(0, 10));
       setBuscando(pool.length > 0);
@@ -814,14 +887,12 @@ function HoraBlock({
       setResultados([]);
       setBuscando(false);
     }
-  }, [areaCode, subnivel]);
+  }, [areaCode, subnivel, bloqueCAI]);
 
   const handleBuscarDestreza = (q: string) => {
     setBusqueda(q);
     if (areaCode) {
-      const pool = TODAS_LAS_DESTREZAS.filter(
-        d => d.area === areaCode && (subnivel === null || d.subnivel === subnivel)
-      );
+      const pool = buildPool();
       if (q.length < 2) {
         setResultados(pool.slice(0, 10));
         setBuscando(pool.length > 0);
@@ -852,9 +923,7 @@ function HoraBlock({
   const abrirDCDModal = () => {
     setBusqueda("");
     if (areaCode) {
-      const pool = TODAS_LAS_DESTREZAS.filter(
-        d => d.area === areaCode && (subnivel === null || d.subnivel === subnivel)
-      );
+      const pool = buildPool();
       setResultados(pool.slice(0, 20));
       setBuscando(pool.length > 0);
     } else {

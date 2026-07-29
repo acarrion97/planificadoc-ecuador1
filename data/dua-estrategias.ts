@@ -376,7 +376,7 @@ const ESTRATEGIAS_POR_AREA: Record<Area, DUAPlanificacion> = {
     accionExpresion: [...ESTRATEGIAS_GENERALES.accionExpresion],
     implicacion: [...ESTRATEGIAS_GENERALES.implicacion],
   },
-  KAI: {
+  CAI: {
     representacion: [
       "Presentar casos reales y dilemas morales adaptados al nivel del estudiante (cuento, noticia, video corto).",
       "Usar recursos visuales: mapas de valores, líneas de tiempo de derechos y deberes, infografías constitucionales.",

@@ -320,6 +320,7 @@ export interface PlanificacionSemanal {
   numeroUnidad: string;
   tituloUnidad: string;
   objetivosUnidad: string;
+  bloqueCAI?: number;
   duaRepresentacion: string;
   duaAccionExpresion: string;
   duaImplicacion: string;

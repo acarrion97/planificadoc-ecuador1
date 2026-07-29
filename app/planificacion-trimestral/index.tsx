@@ -67,7 +67,7 @@ const AREAS_LIST: { code: Area; nombre: string }[] = [
   { code: "CS.H",  nombre: "Historia" },
   { code: "CS.F",  nombre: "Filosofía" },
   { code: "CS.EC", nombre: "Cívica (Educ. para la Ciudadanía)" },
-  { code: "KAI",   nombre: "Cívica — Acomp. Integral (KAI)" },
+  { code: "CAI",   nombre: "Cívica — Acomp. Integral (CAI)" },
   { code: "EG",    nombre: "Emprendimiento y Gestión" },
 ];
 
@@ -92,7 +92,7 @@ const SUBNIVELES: { value: Subnivel; label: string }[] = [
   { value: 5, label: "Bachillerato General Unificado" },
 ];
 
-const SUBNIVELES_KAI: { value: Subnivel; label: string }[] = [
+const SUBNIVELES_CAI: { value: Subnivel; label: string }[] = [
   { value: 2, label: "Básica Elemental (2.° - 4.°)" },
   { value: 3, label: "Básica Media (5.° - 7.°)" },
   { value: 4, label: "Básica Superior (8.° - 10.°)" },
@@ -566,7 +566,7 @@ export default function PlanificacionTrimestralScreen() {
           <View style={{ height: 10 }} />
           <FieldLabel label="Subnivel" colors={colors} />
           <SelectPicker
-            options={(area === "KAI" ? SUBNIVELES_KAI : SUBNIVELES).map(s => ({ value: String(s.value), label: s.label }))}
+            options={(area === "CAI" ? SUBNIVELES_CAI : SUBNIVELES).map(s => ({ value: String(s.value), label: s.label }))}
             value={subnivel ? String(subnivel) : ""}
             onSelect={handleSubnivelChange}
             placeholder="Seleccionar subnivel..."

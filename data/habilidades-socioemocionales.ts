@@ -30,4 +30,6 @@ export const HABILIDADES_SOCIOEMOCIONALES: HabilidadSocioemocional[] = [
   { id: "pensamiento_creativo", nombre: "Pensamiento creativo", nameEN: "Creative thinking", emoji: "\uD83C\uDFA8" },
   { id: "manejo_emociones", nombre: "Manejo de emociones y sentimientos", nameEN: "Emotion management", emoji: "\uD83D\uDC9B", caiOnly: true },
   { id: "manejo_estres", nombre: "Manejo de estr\u00E9s y tensiones", nameEN: "Stress management", emoji: "\uD83C\uDF2C\uFE0F", caiOnly: true },
+  { id: "relaciones_interpersonales", nombre: "Relaciones interpersonales", nameEN: "Interpersonal relationships", emoji: "\uD83E\uDD1D", caiOnly: true },
+  { id: "manejo_conflictos", nombre: "Manejo de conflictos", nameEN: "Conflict management", emoji: "\uD83D\uDD4A\uFE0F", caiOnly: true },
 ];
