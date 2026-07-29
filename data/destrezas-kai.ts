@@ -1,14 +1,14 @@
-import { Destreza } from "./types";
+﻿import { Destreza } from "./types";
 
 // KAI — Acompañamiento Integral en el Aula (Cívica)
 // Período transversal obligatorio en todos los subniveles — MinEduc Ecuador 2026
 // Evaluación: CUALITATIVA con escala A (Muy Satisfactorio) / B (Satisfactorio) / C (Poco Satisfactorio)
 
-export const destrezasKAI: Destreza[] = [
+export const destrezasCAI: Destreza[] = [
   // ── Educación Inicial (subnivel 0 — grupos de 3 y 4 años) ────────────────
   {
-    codigo: "KAI.1.1",
-    area: "KAI",
+    codigo: "CAI.1.1",
+    area: "CAI",
     subnivel: 0,
     bloque: 1,
     secuencial: 1,
@@ -26,8 +26,8 @@ export const destrezasKAI: Destreza[] = [
 
   // ── Preparatoria — 1.° EGB (subnivel 1) ─────────────────────────────────
   {
-    codigo: "KAI.1.2",
-    area: "KAI",
+    codigo: "CAI.1.2",
+    area: "CAI",
     subnivel: 1,
     bloque: 1,
     secuencial: 2,
@@ -45,8 +45,8 @@ export const destrezasKAI: Destreza[] = [
 
   // ── Básica Elemental — 2.°, 3.° y 4.° EGB (subnivel 2) ──────────────────
   {
-    codigo: "KAI.2.1",
-    area: "KAI",
+    codigo: "CAI.2.1",
+    area: "CAI",
     subnivel: 2,
     bloque: 1,
     secuencial: 1,
@@ -68,8 +68,8 @@ export const destrezasKAI: Destreza[] = [
     ],
   },
   {
-    codigo: "KAI.2.2",
-    area: "KAI",
+    codigo: "CAI.2.2",
+    area: "CAI",
     subnivel: 2,
     bloque: 2,
     secuencial: 1,
@@ -87,8 +87,8 @@ export const destrezasKAI: Destreza[] = [
     ],
   },
   {
-    codigo: "KAI.2.3",
-    area: "KAI",
+    codigo: "CAI.2.3",
+    area: "CAI",
     subnivel: 2,
     bloque: 3,
     secuencial: 1,
@@ -110,8 +110,8 @@ export const destrezasKAI: Destreza[] = [
 
   // ── Básica Media — 5.°, 6.° y 7.° EGB (subnivel 3) ─────────────────────
   {
-    codigo: "KAI.3.1",
-    area: "KAI",
+    codigo: "CAI.3.1",
+    area: "CAI",
     subnivel: 3,
     bloque: 1,
     secuencial: 1,
@@ -133,8 +133,8 @@ export const destrezasKAI: Destreza[] = [
     ],
   },
   {
-    codigo: "KAI.3.2",
-    area: "KAI",
+    codigo: "CAI.3.2",
+    area: "CAI",
     subnivel: 3,
     bloque: 2,
     secuencial: 1,
@@ -152,8 +152,8 @@ export const destrezasKAI: Destreza[] = [
     ],
   },
   {
-    codigo: "KAI.3.3",
-    area: "KAI",
+    codigo: "CAI.3.3",
+    area: "CAI",
     subnivel: 3,
     bloque: 3,
     secuencial: 1,
@@ -175,8 +175,8 @@ export const destrezasKAI: Destreza[] = [
 
   // ── Básica Superior — 8.°, 9.° y 10.° EGB (subnivel 4) ─────────────────
   {
-    codigo: "KAI.4.1",
-    area: "KAI",
+    codigo: "CAI.4.1",
+    area: "CAI",
     subnivel: 4,
     bloque: 1,
     secuencial: 1,
@@ -198,8 +198,8 @@ export const destrezasKAI: Destreza[] = [
     ],
   },
   {
-    codigo: "KAI.4.2",
-    area: "KAI",
+    codigo: "CAI.4.2",
+    area: "CAI",
     subnivel: 4,
     bloque: 2,
     secuencial: 1,
@@ -217,8 +217,8 @@ export const destrezasKAI: Destreza[] = [
     ],
   },
   {
-    codigo: "KAI.4.3",
-    area: "KAI",
+    codigo: "CAI.4.3",
+    area: "CAI",
     subnivel: 4,
     bloque: 3,
     secuencial: 1,
@@ -240,8 +240,8 @@ export const destrezasKAI: Destreza[] = [
 
   // ── Bachillerato General Unificado — 1.°, 2.° y 3.° BGU (subnivel 5) ───
   {
-    codigo: "KAI.5.1",
-    area: "KAI",
+    codigo: "CAI.5.1",
+    area: "CAI",
     subnivel: 5,
     bloque: 1,
     secuencial: 1,
@@ -264,8 +264,8 @@ export const destrezasKAI: Destreza[] = [
   },
 
   {
-    codigo: "KAI.5.2",
-    area: "KAI",
+    codigo: "CAI.5.2",
+    area: "CAI",
     subnivel: 5,
     bloque: 2,
     secuencial: 1,
@@ -284,8 +284,8 @@ export const destrezasKAI: Destreza[] = [
   },
 
   {
-    codigo: "KAI.5.3",
-    area: "KAI",
+    codigo: "CAI.5.3",
+    area: "CAI",
     subnivel: 5,
     bloque: 3,
     secuencial: 1,

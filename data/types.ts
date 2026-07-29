@@ -1,4 +1,4 @@
-export type Area =
+﻿export type Area =
   | "M"
   | "LL"
   | "CN"
@@ -11,7 +11,7 @@ export type Area =
   | "CS.H"
   | "CS.F"
   | "CS.EC"
-  | "KAI"
+  | "CAI"
   | "EFL"
   | "EG"
   | "INI";
@@ -504,9 +504,9 @@ export const AREAS_INFO: Record<Area, AreaInfo> = {
       10: "Republicanismo y modelos democráticos",
     },
   },
-  "KAI": {
-    code: "KAI",
-    name: "Cívica — Acomp. Integral (KAI)",
+  "CAI": {
+    code: "CAI",
+    name: "Cívica — Acomp. Integral (CAI)",
     color: "#DC2626",
     icon: "account-balance",
     emoji: "🏛️",

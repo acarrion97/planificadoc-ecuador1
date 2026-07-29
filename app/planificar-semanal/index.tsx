@@ -552,8 +552,8 @@ export default function PlanificarSemanalScreen() {
               <FieldLabel label="Asignatura" colors={colors} />
               <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                 {(subnivel === 5
-                  ? (["CN.B","CN.Q","CN.F","CS.H","CS.F","CS.EC","EFL","EG"] as const)
-                  : (["M","LL","CN","CS","EF","ECA","EFL"] as const)
+                  ? (["CN.B","CN.Q","CN.F","CS.H","CS.F","CS.EC","EFL","EG","CAI"] as const)
+                  : (["M","LL","CN","CS","EF","ECA","EFL","CAI"] as const)
                 ).map(code => {
                   const info = AREAS_INFO[code];
                   const active = selectedAreaCode === code;

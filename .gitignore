@@ -31,6 +31,7 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
 .env.prod
 .env.production
@@ -76,3 +77,21 @@ _pca_output/
 _pca_ref_analysis.txt
 _pca_ref_unzip/
 _semanal_*.json
+
+# Scratch scripts and temp outputs
+_*.py
+_*.ts
+_*.mjs
+_*.json
+_*.html
+_*.docx
+_*.zip
+_dl_unzip/
+tmp_*/
+~$*
+ejemplo-pct*.docx
+ejemplo-pct*.zip
+test*.docx
+test*.zip
+start-dev.bat
+drizzle/0005_trial_subscriptions.sql

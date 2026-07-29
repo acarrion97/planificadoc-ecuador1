@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+﻿import React, { useState, useMemo, useCallback } from "react";
 import {
   View,
   Text,
@@ -59,7 +59,7 @@ const AREAS_LIST: { code: Area; nombre: string }[] = [
   { code: "CS.H", nombre: "Historia" },
   { code: "CS.F", nombre: "Filosofía" },
   { code: "CS.EC", nombre: "Cívica (Educ. para la Ciudadanía)" },
-  { code: "KAI", nombre: "Cívica — Acomp. Integral (KAI)" },
+  { code: "CAI", nombre: "Cívica — Acomp. Integral (CAI)" },
   { code: "EG", nombre: "Emprendimiento y Gestión" },
 ];
 
@@ -70,7 +70,7 @@ const SUBNIVELES: { value: Subnivel; label: string }[] = [
   { value: 5, label: "Bachillerato General Unificado" },
 ];
 
-const SUBNIVELES_KAI: { value: Subnivel; label: string }[] = [
+const SUBNIVELES_CAI: { value: Subnivel; label: string }[] = [
   { value: 0, label: "Educación Inicial (3-4 años)" },
   { value: 1, label: "Preparatoria (1.° EGB)" },
   { value: 2, label: "Básica Elemental (2.° - 4.°)" },
@@ -482,7 +482,7 @@ export default function PlanificacionAnualScreen() {
           <View style={{ height: 10 }} />
           <FieldLabel label="Subnivel" colors={colors} />
           <SelectPicker
-            options={(area === "KAI" ? SUBNIVELES_KAI : SUBNIVELES).map(s => ({ value: String(s.value), label: s.label }))}
+            options={(area === "CAI" ? SUBNIVELES_CAI : SUBNIVELES).map(s => ({ value: String(s.value), label: s.label }))}
             value={subnivel ? String(subnivel) : ""}
             onSelect={handleSubnivelChange}
             placeholder="Seleccionar subnivel..."

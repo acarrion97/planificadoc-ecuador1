@@ -1,4 +1,4 @@
-import { destrezasMatematica } from "./destrezas-matematica";
+﻿import { destrezasMatematica } from "./destrezas-matematica";
 import { destrezasLengua } from "./destrezas-lengua";
 import { destrezasCienciasNaturales } from "./destrezas-cn";
 import { destrezasEstudiosSociales } from "./destrezas-cs";
@@ -12,7 +12,7 @@ import { destrezasFilosofia } from "./destrezas-filosofia";
 import { destrezasIngles } from "./destrezas-ingles";
 import { destrezasEmprendimiento } from "./destrezas-emprendimiento";
 import { destrezasEducacionCiudadania as _rawEC } from "./destrezas-educacion-ciudadania";
-import { destrezasKAI } from "./destrezas-kai";
+import { destrezasCAI } from "./destrezas-kai";
 import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
 
 const destrezasEducacionCiudadania: Destreza[] = _rawEC.map((d) => ({
@@ -59,7 +59,7 @@ export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasIngles,
   ...destrezasEmprendimiento,
   ...destrezasEducacionCiudadania,
-  ...destrezasKAI,
+  ...destrezasCAI,
 ];
 
 export function buscarPorCodigo(codigo: string): Destreza | undefined {
