@@ -6,6 +6,12 @@
 
 // ── Indicadores de evaluación por bloque (seleccionables para cualquier destreza del bloque) ──
 
+const IND_2_2 = [
+  "Manejo de emociones y sentimientos: Reconoce y expresa emociones y sentimientos y, reconoce emociones básicas (tristeza, alegría, ira, miedo) de las otras personas. (A / B / C)",
+  "Manejo de estrés y tensiones: Reconoce los desencadenantes del estrés. (A / B / C)",
+  "Autoconocimiento: Describe sus estados de ánimo, sus fortalezas y preferencias. (A / B / C)",
+];
+
 const IND_2_1 = [
   "Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)",
   "Manejo de problemas: Describe problemas cotidianos simples y propone posibles soluciones, considerando las consecuencias. (A / B / C)",
@@ -188,7 +194,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Reconocer los valores y creencias familiares que influyen en el comportamiento y las decisiones personales.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [],
+    indicadoresEvaluacion: IND_2_2,
     habilidadesSocioemocionales: ["autoconocimiento"],
   },
   {
@@ -200,7 +206,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Identificar y valorar sus fortalezas en la adaptación a desafíos, tanto en juegos estructurados como en tareas escolares, demostrando flexibilidad y resiliencia.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [],
+    indicadoresEvaluacion: IND_2_2,
     habilidadesSocioemocionales: ["autoconocimiento"],
   },
   {
@@ -212,7 +218,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Identificar estrategias para regular sus emociones y manejar el estrés en el entorno escolar y social.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [],
+    indicadoresEvaluacion: IND_2_2,
     habilidadesSocioemocionales: ["manejo_emociones", "manejo_estres"],
   },
   {
