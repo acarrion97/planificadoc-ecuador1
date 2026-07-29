@@ -1,8 +1,20 @@
 ﻿import { Destreza } from "./types";
 
-// KAI — Acompañamiento Integral en el Aula (Cívica)
+// CAI — Cívica y Acompañamiento Integral en el Aula
 // Período transversal obligatorio en todos los subniveles — MinEduc Ecuador 2026
 // Evaluación: CUALITATIVA con escala A (Muy Satisfactorio) / B (Satisfactorio) / C (Poco Satisfactorio)
+
+// ── Indicadores de evaluación por bloque (seleccionables para cualquier destreza del bloque) ──
+
+const IND_2_1 = [
+  "Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)",
+  "Manejo de problemas: Describe problemas cotidianos simples y propone posibles soluciones, considerando las consecuencias. (A / B / C)",
+  "Toma de decisiones: Identifica diferentes opciones y consecuencias a corto plazo y su responsabilidad al elegirlas. (A / B / C)",
+  "Pensamiento creativo: Genera ideas y soluciones diversas a problemas en actividades de arte, música y juego. (A / B / C)",
+  "Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)",
+  "Pensamiento ético: Comprende la importancia de actuar de manera justa y respetuosa. (A / B / C)",
+  "Ciudadanía global: Compara y contrasta diferentes culturas, geografías y formas de vida en diversas partes del mundo. (A / B / C)",
+];
 
 export const destrezasCAI: Destreza[] = [
   // ── Educación Inicial (subnivel 0 — grupos de 3 y 4 años) ────────────────
@@ -54,7 +66,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Comprender la importancia de la integridad en las relaciones interpersonales y el ejercicio de los derechos.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)"],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["pensamiento_critico"],
   },
   {
@@ -66,7 +78,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Identificar consecuencias del accionar honesto o deshonesto en situaciones cotidianas.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)"],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["conciencia_social"],
   },
   {
@@ -78,10 +90,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Participar en actividades democráticas en el entorno escolar, comprendiendo la importancia de los roles y sus responsabilidades.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Toma de decisiones: Identifica diferentes opciones y consecuencias a corto plazo y su responsabilidad al elegirlas. (A / B / C)",
-      "Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["toma_decisiones", "pensamiento_critico"],
   },
   {
@@ -93,10 +102,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Desarrollar un sentido de justicia social a través de la identificación de situaciones que conlleven a la reflexión.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)",
-      "Pensamiento ético: Comprende la importancia de actuar de manera justa y respetuosa. (A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["conciencia_social", "pensamiento_etico"],
   },
   {
@@ -108,10 +114,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Identificar principios de responsabilidad social en el cuidado del medio ambiente, en el entorno escolar y comunitario.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)",
-      "Ciudadanía global: Compara y contrasta diferentes culturas, geografías y formas de vida en diversas partes del mundo. (A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["conciencia_social", "ciudadania_global"],
   },
   {
@@ -123,10 +126,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Evaluar opciones y tomar decisiones responsables para resolver conflictos en el contexto de actividades escolares y situaciones cotidianas.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Toma de decisiones: Identifica diferentes opciones y consecuencias a corto plazo y su responsabilidad al elegirlas. (A / B / C)",
-      "Pensamiento ético: Comprende la importancia de actuar de manera justa y respetuosa. (A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["toma_decisiones", "pensamiento_etico"],
   },
   {
@@ -138,10 +138,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Describir el significado y la importancia de los símbolos nacionales y los hechos históricos, a través de relatos, actividades lúdicas y discusiones guiadas.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)",
-      "Ciudadanía global: Compara y contrasta diferentes culturas, geografías y formas de vida en diversas partes del mundo. (A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["conciencia_social", "ciudadania_global"],
   },
   {
@@ -153,7 +150,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Analizar situaciones y generar soluciones innovadoras para resolver problemas complejos y comunicar ideas creativas, en actividades grupales.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)"],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["pensamiento_critico"],
   },
   {
@@ -165,7 +162,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Reflexionar sobre la importancia de los valores de justicia, igualdad, respeto, solidaridad y empatía para aplicarlos en la interacción con las demás personas.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: ["Conciencia social: Respeta las reglas de convivencia y muestra actitudes de respeto y consideración hacia las demás personas. (A / B / C)"],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["conciencia_social"],
   },
   {
@@ -177,11 +174,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Analizar y generar soluciones innovadoras básicas, para resolver problemas complejos y comunicar ideas creativas.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Pensamiento crítico: Indaga información sencilla y respalda sus opiniones. (A / B / C)",
-      "Manejo de problemas: Describe problemas cotidianos simples y propone posibles soluciones, considerando las consecuencias. (A / B / C)",
-      "Pensamiento creativo: Genera ideas y soluciones diversas a problemas en actividades de arte, música y juego. (A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["pensamiento_critico", "manejo_problemas", "pensamiento_creativo"],
   },
 
@@ -195,11 +188,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Reconocer valores, creencias y fortalezas personales, e identificar estrategias para regular las emociones y manejar el estrés en el entorno escolar y social.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Manejo de emociones y sentimientos (Evaluación cualitativa: A / B / C)",
-      "Manejo de estrés y tensiones (Evaluación cualitativa: A / B / C)",
-      "Autoconocimiento (Evaluación cualitativa: A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["autorregulacion", "autoconocimiento", "resiliencia"],
   },
   {
@@ -211,12 +200,7 @@ export const destrezasCAI: Destreza[] = [
     descripcion: "Desarrollar habilidades de trabajo en equipo, comunicación asertiva y empatía en la resolución de conflictos, fomentando la inclusión y el respeto hacia la diversidad cultural y social.",
     objetivos: [],
     criteriosEvaluacion: [],
-    indicadoresEvaluacion: [
-      "Empatía (Evaluación cualitativa: A / B / C)",
-      "Trabajo en equipo (Evaluación cualitativa: A / B / C)",
-      "Comunicación efectiva/asertiva (Evaluación cualitativa: A / B / C)",
-      "Manejo de conflictos (Evaluación cualitativa: A / B / C)",
-    ],
+    indicadoresEvaluacion: IND_2_1,
     habilidadesSocioemocionales: ["empatia", "trabajo_colaborativo", "comunicacion_asertiva"],
   },
 
