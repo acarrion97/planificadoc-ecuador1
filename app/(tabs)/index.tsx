@@ -20,8 +20,8 @@ import {
   Area,
 } from "@/data";
 
-const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
-const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "EFL", "EG"];
+const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "CAI"];
+const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "EFL", "EG", "CAI"];
 
 export default function HomeScreen() {
   const colors = useColors();
@@ -115,7 +115,7 @@ export default function HomeScreen() {
             {/* Stats */}
             <View className="px-5 mt-3">
               <Text className="text-sm text-muted">
-                {TODAS_LAS_DESTREZAS.length} destrezas disponibles {"\u00b7"} 13 asignaturas
+                {TODAS_LAS_DESTREZAS.length} destrezas disponibles {"\u00b7"} 14 asignaturas
               </Text>
             </View>
 
