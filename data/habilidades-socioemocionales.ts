@@ -24,4 +24,6 @@ export const HABILIDADES_SOCIOEMOCIONALES: HabilidadSocioemocional[] = [
   { id: "resiliencia", nombre: "Resiliencia", nameEN: "Resilience", emoji: "\uD83D\uDCAA" },
   { id: "toma_decisiones", nombre: "Toma de decisiones responsable", nameEN: "Responsible decision-making", emoji: "\u2705" },
   { id: "perseverancia", nombre: "Perseverancia", nameEN: "Perseverance", emoji: "\uD83C\uDFC6" },
+  { id: "ciudadania_global", nombre: "Ciudadan\u00EDa global", nameEN: "Global citizenship", emoji: "\uD83C\uDF0E" },
+  { id: "pensamiento_creativo", nombre: "Pensamiento creativo", nameEN: "Creative thinking", emoji: "\uD83C\uDFA8" },
 ];

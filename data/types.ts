@@ -37,6 +37,8 @@ export interface Destreza {
   objetivos: string[];
   criteriosEvaluacion: string[];
   indicadoresEvaluacion: string[];
+  /** IDs de habilidades socioemocionales pre-asignadas (solo CAI — bloqueadas en UI) */
+  habilidadesSocioemocionales?: string[];
 }
 
 /**
