@@ -917,7 +917,11 @@ function HoraBlock({
     setResultados([]);
     setBuscando(false);
     setShowDCDModal(false);
-    onUpdate({ codigoDestreza: d.codigo, destreza: d });
+    onUpdate({
+      codigoDestreza: d.codigo,
+      destreza: d,
+      habilidadesSocioemocionales: d.habilidadesSocioemocionales ?? [],
+    });
   };
 
   const abrirDCDModal = () => {
@@ -1086,7 +1090,10 @@ function HoraBlock({
       {/* Habilidades Socioemocionales */}
       <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Habilidades Socioemocionales</Text>
       <View style={styles.chipsWrap}>
-        {HABILIDADES_SOCIOEMOCIONALES.map(h => (
+        {(hora.destreza?.habilidadesSocioemocionales?.length
+          ? HABILIDADES_SOCIOEMOCIONALES.filter(h => hora.destreza!.habilidadesSocioemocionales.includes(h.id))
+          : HABILIDADES_SOCIOEMOCIONALES.filter(h => !h.caiOnly)
+        ).map(h => (
           <ChipBtn key={h.id} label={`${h.emoji} ${h.nombre}`}
             selected={hora.habilidadesSocioemocionales.includes(h.id)}
             onPress={() => onToggleChip("habilidadesSocioemocionales", h.id)} colors={colors} />
