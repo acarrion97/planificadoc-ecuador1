@@ -339,6 +339,132 @@ export interface PlanificacionSemanal {
   updatedAt: string;
 }
 
+// ============================================================
+// ADAPTACIONES CURRICULARES
+// ============================================================
+
+export type GradoAdaptacion = 1 | 2 | 3;
+
+export type TipoNEE =
+  | "discapacidad_visual"
+  | "discapacidad_auditiva"
+  | "discapacidad_motriz"
+  | "discapacidad_intelectual"
+  | "tea"
+  | "tdah"
+  | "dislexia"
+  | "discalculia"
+  | "trastorno_lenguaje"
+  | "altas_capacidades"
+  | "dificultades_socioemocionales"
+  | "otra";
+
+export interface AdaptacionPedagogicaSugerida {
+  categoria: string;
+  descripcion: string;
+  estrategias: string[];
+}
+
+export interface AdaptacionAiResult {
+  perfilNEE: {
+    tipo: string;
+    descripcion: string;
+    fortalezas: string[];
+    desafios: string[];
+    apoyos: string[];
+  };
+  destrezaOriginal: {
+    codigo: string;
+    descripcion: string;
+  };
+  /** Solo para grado 2 y 3 */
+  destrezaAdaptada?: string;
+  /** Solo para grado 2 y 3 */
+  criterioAdaptado?: string;
+  /** Solo para grado 2 y 3 */
+  indicadoresAdaptados?: string[];
+  /** Siempre presente (grado 1, 2, 3) */
+  adaptacionesAcceso: AdaptacionPedagogicaSugerida[];
+  /** Solo para grado 2 y 3 */
+  adaptacionesProceso?: AdaptacionPedagogicaSugerida[];
+  /** Solo para grado 3 */
+  adaptacionesResultado?: AdaptacionPedagogicaSugerida[];
+  metodologiasSugeridas: string[];
+  recursosEspecificos: string[];
+  seguimiento: string;
+  observaciones: string;
+}
+
+export interface CurricularAdaptationForm {
+  // Identificación del contexto
+  institucion: string;
+  docente: string;
+  anioLectivo: string;
+  area: string;
+  subnivel: number;
+  grado: string;
+  paralelo: string;
+  periodoPedagogico: string;
+  trimestre: string;
+  /** Código anónimo — no se requiere nombre real del estudiante */
+  codigoEstudiante: string;
+  // Destreza a adaptar
+  codigoDestreza: string;
+  descripcionDestreza: string;
+  // Configuración de la adaptación
+  gradoAdaptacion: GradoAdaptacion;
+  tipoNEE: TipoNEE;
+  estiloAprendizaje: string;
+  // Perfil pedagógico
+  fortalezas: string;
+  desafios: string;
+  apoyosDisponibles: string;
+}
+
+export interface CurricularAdaptation {
+  id: string;
+  sessionId: string;
+  form: CurricularAdaptationForm;
+  aiResult: AdaptacionAiResult | null;
+  version: number;
+  status: "draft" | "generated";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const TIPOS_NEE_INFO: Record<TipoNEE, { nombre: string; emoji: string }> = {
+  discapacidad_visual:          { nombre: "Discapacidad Visual",              emoji: "👁️" },
+  discapacidad_auditiva:        { nombre: "Discapacidad Auditiva / Hipoacusia", emoji: "👂" },
+  discapacidad_motriz:          { nombre: "Discapacidad Motriz / Física",     emoji: "♿" },
+  discapacidad_intelectual:     { nombre: "Discapacidad Intelectual",         emoji: "🧠" },
+  tea:                          { nombre: "TEA — Trastorno del Espectro Autista", emoji: "🧩" },
+  tdah:                         { nombre: "TDAH — Déficit de Atención e Hiperactividad", emoji: "⚡" },
+  dislexia:                     { nombre: "Dislexia",                        emoji: "📖" },
+  discalculia:                  { nombre: "Discalculia",                     emoji: "🔢" },
+  trastorno_lenguaje:           { nombre: "Trastorno del Lenguaje",          emoji: "💬" },
+  altas_capacidades:            { nombre: "Altas Capacidades / Superdotación", emoji: "⭐" },
+  dificultades_socioemocionales:{ nombre: "Dificultades Socioemocionales",   emoji: "💛" },
+  otra:                         { nombre: "Otra NEE",                        emoji: "📋" },
+};
+
+export const GRADO_ADAPTACION_INFO: Record<GradoAdaptacion, { nombre: string; descripcion: string; color: string }> = {
+  1: {
+    nombre: "Grado 1 — No Significativa",
+    descripcion: "Adaptaciones de acceso: ajustes en metodología, recursos y organización del aula sin modificar la destreza ni los criterios de evaluación.",
+    color: "#16A34A",
+  },
+  2: {
+    nombre: "Grado 2 — Moderada",
+    descripcion: "Adaptaciones de acceso y de proceso: se ajustan actividades, tiempos y agrupamientos. La destreza se simplifica levemente pero conserva el objetivo central.",
+    color: "#D97706",
+  },
+  3: {
+    nombre: "Grado 3 — Significativa",
+    descripcion: "Adaptaciones de acceso, proceso y resultado: se modifica sustancialmente la destreza, el criterio de evaluación y los indicadores de logro.",
+    color: "#DC2626",
+  },
+};
+
 export const AREAS_INFO: Record<Area, AreaInfo> = {
   M: {
     code: "M",

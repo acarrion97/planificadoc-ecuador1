@@ -258,6 +258,49 @@ export type PlanificacionStats = typeof planificacionStats.$inferSelect;
 export type InsertPlanificacionStats = typeof planificacionStats.$inferInsert;
 
 /**
+ * Adaptaciones Curriculares — documentos generados con IA para estudiantes con NEE.
+ * Privacy-first: no se requiere nombre real; se usa código anónimo de estudiante.
+ */
+export const curricularAdaptations = mysqlTable("curricular_adaptations", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente o deviceId como fallback */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  /** Código anónimo del estudiante — sin nombre real */
+  codigoEstudiante: varchar("codigoEstudiante", { length: 64 }),
+  /** Contexto pedagógico */
+  institucion: varchar("institucion", { length: 255 }),
+  docente: varchar("docente", { length: 255 }),
+  anioLectivo: varchar("anioLectivo", { length: 20 }),
+  area: varchar("area", { length: 20 }).notNull(),
+  subnivel: int("subnivel"),
+  grado: varchar("grado", { length: 64 }).notNull(),
+  paralelo: varchar("paralelo", { length: 20 }),
+  periodoPedagogico: varchar("periodoPedagogico", { length: 64 }),
+  trimestre: varchar("trimestre", { length: 20 }),
+  /** Destreza a adaptar */
+  codigoDestreza: varchar("codigoDestreza", { length: 64 }),
+  descripcionDestreza: text("descripcionDestreza"),
+  /** 1 = acceso, 2 = proceso, 3 = resultado */
+  gradoAdaptacion: mysqlEnum("gradoAdaptacion", ["1", "2", "3"]).notNull(),
+  /** Tipo de NEE — nunca diagnóstico médico */
+  tipoNEE: varchar("tipoNEE", { length: 64 }).notNull(),
+  estiloAprendizaje: varchar("estiloAprendizaje", { length: 64 }),
+  fortalezas: text("fortalezas"),
+  desafios: text("desafios"),
+  apoyosDisponibles: text("apoyosDisponibles"),
+  /** JSON del resultado de la IA (AdaptacionAiResult) */
+  aiResult: text("aiResult"),
+  /** Número de versión: se incrementa en cada regeneración */
+  version: int("version").default(1).notNull(),
+  status: mysqlEnum("status", ["draft", "generated"]).default("draft").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CurricularAdaptationRow = typeof curricularAdaptations.$inferSelect;
+export type InsertCurricularAdaptation = typeof curricularAdaptations.$inferInsert;
+
+/**
  * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.
  * Se recuperan en activate.ts para enviar el evento Purchase a Meta CAPI.
  */

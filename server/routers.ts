@@ -6,6 +6,7 @@ import { topicsRouter } from "./topics-router";
 import { pcaRouter } from "./pca-router";
 import { pcaTrimestralRouter } from "./pca-trimestral-router";
 import { inicialRouter } from "./inicial-router";
+import { adaptacionesRouter } from "./adaptaciones-router";
 
 export const appRouter = router({
   // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -25,6 +26,7 @@ export const appRouter = router({
   pca: pcaRouter,
   pcaTrimestral: pcaTrimestralRouter,
   inicial: inicialRouter,
+  adaptaciones: adaptacionesRouter,
 });
 
 export type AppRouter = typeof appRouter;
