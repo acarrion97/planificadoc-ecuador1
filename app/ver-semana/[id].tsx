@@ -29,7 +29,10 @@ export default function VerSemanaScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { getSemana, deleteSemana } = usePlanificaciones();
-  const [tabActivo, setTabActivo] = useState<TabActivo>("lunes");
+  const primerDiaConContenido = DIAS_SEMANA.find(d =>
+    semana.dias[d]?.activo && semana.dias[d].horas.some(h => h.temaSeleccionado)
+  ) ?? "lunes";
+  const [tabActivo, setTabActivo] = useState<TabActivo>(primerDiaConContenido);
 
   const semana = getSemana(id || "");
 
@@ -48,7 +51,9 @@ export default function VerSemanaScreen() {
     );
   }
 
-  const diasActivos = DIAS_SEMANA.filter(d => semana.dias[d]?.activo);
+  const diasActivos = DIAS_SEMANA.filter(d =>
+    semana.dias[d]?.activo && semana.dias[d].horas.some(h => h.temaSeleccionado)
+  );
   const adaptacionesVisibles = (semana.adaptacionesCurriculares || []).filter(a => a.incluirEnExportacion);
   const tieneAdaptaciones = adaptacionesVisibles.length > 0;
 
@@ -132,6 +137,14 @@ export default function VerSemanaScreen() {
         {/* Contenido días */}
         {tabActivo !== "adaptaciones" && (
         <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+          {!(semana.dias[tabActivo as DiaSemanaKey]?.horas || []).some(h => h.temaSeleccionado) && (
+            <View style={{ padding: 40, alignItems: "center" }}>
+              <Text style={{ fontSize: 36, marginBottom: 12 }}>📋</Text>
+              <Text style={{ color: colors.muted, fontSize: 14, textAlign: "center" }}>
+                No hay planificación generada para este día
+              </Text>
+            </View>
+          )}
           {(semana.dias[tabActivo as DiaSemanaKey]?.horas || []).map((hora, i) => {
             if (!hora.temaSeleccionado) return null;
             const plan = hora.temaSeleccionado;

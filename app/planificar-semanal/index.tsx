@@ -1213,9 +1213,26 @@ function ResultadoView({
 
         {/* Contenido del día activo */}
         <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
-          {(diasConPlanes[tabActivo] || []).sort((a, b) => a.horaIndex - b.horaIndex).map(({ horaIndex, plan }) => {
+          {(diasConPlanes[tabActivo] || []).sort((a, b) => a.horaIndex - b.horaIndex).map((item) => {
+            const { horaIndex, plan } = item as any;
             const hora = dias[tabActivo]?.horas[horaIndex];
-            if (!plan) return null;
+            if (!plan) {
+              return (
+                <View key={horaIndex} style={[styles.horaPlanCard, { borderColor: "#FCA5A5", backgroundColor: "#FEF2F2" }]}>
+                  <View style={{ padding: 16, alignItems: "center", gap: 10 }}>
+                    <Text style={{ fontSize: 24 }}>⚠️</Text>
+                    <Text style={{ fontWeight: "700", color: "#DC2626", fontSize: 14 }}>
+                      Error al generar Hora {horaIndex + 1}
+                    </Text>
+                    {item.error ? <Text style={{ color: "#DC2626", fontSize: 12, textAlign: "center" }}>{item.error}</Text> : null}
+                    <Pressable onPress={() => onRegenerarHora(tabActivo, horaIndex)}
+                      style={({ pressed }) => ({ backgroundColor: "#DC2626", paddingHorizontal: 16, paddingVertical: 8, borderRadius: 8, opacity: pressed ? 0.7 : 1 })}>
+                      <Text style={{ color: "#fff", fontWeight: "600", fontSize: 13 }}>🔄 Reintentar</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              );
+            }
             return (
               <HoraPlanCard
                 key={horaIndex}
@@ -1227,7 +1244,7 @@ function ResultadoView({
               />
             );
           })}
-          {(!diasConPlanes[tabActivo] || !diasConPlanes[tabActivo].some(h => h.plan)) && (
+          {(!diasConPlanes[tabActivo] || diasConPlanes[tabActivo].length === 0) && (
             <View style={{ padding: 32, alignItems: "center" }}>
               <Text style={{ color: colors.muted }}>No hay planificación para este día</Text>
             </View>
