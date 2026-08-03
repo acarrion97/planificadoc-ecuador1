@@ -307,7 +307,7 @@ export default function PlanificarSemanalScreen() {
       if (result.success) {
         setDiasConPlanes(result.diasConPlanes as any);
         // Activar primer día activo
-        const primerDiaActivo = DIAS_SEMANA.find(d => dias[d].activo && result.diasConPlanes[d]);
+        const primerDiaActivo = DIAS_SEMANA.find(d => dias[d].activo && (result.diasConPlanes[d]?.length ?? 0) > 0);
         if (primerDiaActivo) setTabActivo(primerDiaActivo);
         setPaso("resultado");
       } else {
@@ -1179,7 +1179,7 @@ function ResultadoView({
   onVolver: () => void;
   isGuardando: boolean;
 }) {
-  const diasActivos = DIAS_SEMANA.filter(d => dias[d].activo && diasConPlanes[d]);
+  const diasActivos = DIAS_SEMANA.filter(d => dias[d].activo && (diasConPlanes[d]?.length ?? 0) > 0);
 
   return (
     <ScreenContainer edges={["top","bottom","left","right"]} className="flex-1">
@@ -1227,7 +1227,7 @@ function ResultadoView({
               />
             );
           })}
-          {(!diasConPlanes[tabActivo] || diasConPlanes[tabActivo].length === 0) && (
+          {(!diasConPlanes[tabActivo] || !diasConPlanes[tabActivo].some(h => h.plan)) && (
             <View style={{ padding: 32, alignItems: "center" }}>
               <Text style={{ color: colors.muted }}>No hay planificación para este día</Text>
             </View>
