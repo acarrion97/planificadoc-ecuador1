@@ -337,6 +337,8 @@ export interface PlanificacionSemanal {
   };
   createdAt: string;
   updatedAt: string;
+  /** Adaptaciones curriculares vinculadas a esta planificación semanal */
+  adaptacionesCurriculares?: AdaptacionCurricular[];
 }
 
 // ============================================================
@@ -430,6 +432,42 @@ export interface CurricularAdaptation {
   status: "draft" | "generated";
   createdAt: string;
   updatedAt: string;
+}
+
+/**
+ * Versión embebida que se guarda dentro de PlanificacionSemanal y se incluye
+ * en los documentos exportados (Word/PDF).
+ * NO incluir diagnósticos médicos — solo información pedagógica.
+ * Usar código anónimo; el nombre del estudiante es opcional.
+ */
+export interface AdaptacionCurricular {
+  id: string;
+  /** Código anónimo del estudiante — no exponer nombre real por defecto */
+  codigoEstudiante: string;
+  /** Nombre del estudiante — opcional y configurable para la exportación */
+  nombreEstudiante?: string;
+  /** Si false, no aparece en el documento exportado */
+  incluirEnExportacion: boolean;
+  // Contexto curricular
+  codigoDestreza: string;
+  descripcionDestreza?: string;
+  gradoAdaptacion: GradoAdaptacion;
+  categoriaNecesidad: string;
+  tipoNecesidad: TipoNEE;
+  /** Descripción pedagógica del perfil — sin lenguaje médico ni diagnóstico clínico */
+  descripcionNecesidad?: string;
+  // Resultados de la adaptación (según grado)
+  destrezaAdaptada?: string;        // grado 2 y 3
+  criterioAdaptado?: string;        // grado 2 y 3
+  indicadoresAdaptados?: string[];  // grado 2 y 3
+  adaptacionesAcceso: AdaptacionPedagogicaSugerida[];
+  adaptacionesProceso?: AdaptacionPedagogicaSugerida[];    // grado 2 y 3
+  adaptacionesResultado?: AdaptacionPedagogicaSugerida[];  // grado 3
+  metodologiasSugeridas?: string[];
+  recursosEspecificos?: string[];
+  seguimiento?: string;
+  observaciones?: string;
+  createdAt: string;
 }
 
 export const TIPOS_NEE_INFO: Record<TipoNEE, { nombre: string; emoji: string }> = {

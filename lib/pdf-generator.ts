@@ -1,4 +1,8 @@
-import { Planificacion, AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
+import {
+  Planificacion, AREAS_INFO, SUBNIVEL_NAMES,
+  AdaptacionCurricular, TipoNEE, GradoAdaptacion,
+  TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
+} from "../data/types";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
@@ -808,12 +812,142 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
 // PLANIFICACIÓN SEMANAL — HTML GENERATOR
 // ============================================================
 
+/** Escapa caracteres HTML para evitar XSS y errores de parseo */
+function esc(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/**
+ * Genera el bloque HTML de Adaptaciones Curriculares para appender
+ * al final de la Planificación Semanal.
+ * Devuelve string vacío si no hay adaptaciones activas (documento idéntico al original).
+ */
+function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[]): string {
+  const activas = adaptaciones.filter(a => a.incluirEnExportacion !== false);
+  if (activas.length === 0) return "";
+
+  const filasBloqueHTML = activas.map(adap => {
+    const tipoNombre = TIPOS_NEE_INFO[adap.tipoNecesidad as TipoNEE]?.nombre ?? adap.tipoNecesidad;
+    const gradoInfo  = GRADO_ADAPTACION_INFO[adap.gradoAdaptacion as GradoAdaptacion];
+    const codigoLabel = adap.nombreEstudiante
+      ? `${esc(adap.nombreEstudiante)} (${esc(adap.codigoEstudiante)})`
+      : `Código: ${esc(adap.codigoEstudiante)}`;
+
+    // ── Celda derecha: contenido según grado ──
+    let derechaHTML = `<div style="font-size:7.5px;margin-bottom:4px;">
+      <strong style="color:#003366;">${esc(adap.codigoDestreza)}</strong>
+      ${adap.descripcionDestreza ? ` &mdash; <em style="color:#444;">${esc(adap.descripcionDestreza)}</em>` : ""}
+    </div>`;
+
+    if (adap.gradoAdaptacion >= 2) {
+      if (adap.destrezaAdaptada) {
+        derechaHTML += `<div style="font-size:7.5px;background:#EDE9FE;padding:2px 5px;margin-bottom:3px;border-left:3px solid #7B2D8B;">
+          <strong style="color:#4A1942;">Destreza adaptada:</strong> ${esc(adap.destrezaAdaptada)}
+        </div>`;
+      }
+      if (adap.criterioAdaptado) {
+        derechaHTML += `<div style="font-size:7.5px;margin-bottom:3px;">
+          <strong style="color:#4A1942;">Criterio adaptado:</strong> ${esc(adap.criterioAdaptado)}
+        </div>`;
+      }
+      if (adap.indicadoresAdaptados?.length) {
+        derechaHTML += `<div style="font-size:7.5px;margin-bottom:2px;"><strong style="color:#4A1942;">Indicadores:</strong></div>
+          <ul style="margin:0 0 4px 12px;padding:0;">
+          ${adap.indicadoresAdaptados.map(i => `<li style="font-size:7px;">${esc(i)}</li>`).join("")}
+          </ul>`;
+      }
+    }
+
+    const renderBloque = (b: { categoria: string; descripcion: string; estrategias: string[] }) =>
+      `<div style="font-size:7px;margin-bottom:3px;">
+        <strong>${esc(b.categoria)}:</strong> ${esc(b.descripcion)}
+        <ul style="margin:1px 0 0 10px;padding:0;">
+          ${b.estrategias.map(e => `<li style="font-size:6.5px;margin-bottom:1px;">${esc(e)}</li>`).join("")}
+        </ul>
+      </div>`;
+
+    if (adap.adaptacionesAcceso?.length) {
+      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">ADAPTACIONES DE ACCESO</div>`;
+      derechaHTML += adap.adaptacionesAcceso.map(renderBloque).join("");
+    }
+    if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
+      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#8E44AD;margin:4px 0 2px;">ADAPTACIONES DE PROCESO</div>`;
+      derechaHTML += adap.adaptacionesProceso.map(renderBloque).join("");
+    }
+    if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
+      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#E67E22;margin:4px 0 2px;">ADAPTACIONES DE RESULTADO</div>`;
+      derechaHTML += adap.adaptacionesResultado.map(renderBloque).join("");
+    }
+    if (adap.metodologiasSugeridas?.length) {
+      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">METODOLOGÍAS SUGERIDAS</div>
+        <ul style="margin:0 0 4px 12px;padding:0;">
+          ${adap.metodologiasSugeridas.map(m => `<li style="font-size:7px;">${esc(m)}</li>`).join("")}
+        </ul>`;
+    }
+    if (adap.recursosEspecificos?.length) {
+      derechaHTML += `<div style="font-size:7px;margin-top:2px;"><strong>Recursos:</strong> ${adap.recursosEspecificos.map(esc).join(" &middot; ")}</div>`;
+    }
+    if (adap.seguimiento) {
+      derechaHTML += `<div style="font-size:7px;margin-top:3px;"><strong>Seguimiento:</strong> ${esc(adap.seguimiento)}</div>`;
+    }
+    if (adap.observaciones) {
+      derechaHTML += `<div style="font-size:7px;margin-top:2px;color:#555;font-style:italic;">${esc(adap.observaciones)}</div>`;
+    }
+
+    return `
+      <tr style="page-break-inside:avoid;">
+        <th colspan="6" style="background:#7B2D8B;color:white;font-size:7.5px;text-align:left;padding:3px 6px;font-weight:bold;">
+          ${codigoLabel} &nbsp;&middot;&nbsp; ${esc(tipoNombre)} &nbsp;&middot;&nbsp; ${esc(gradoInfo.nombre)}
+        </th>
+      </tr>
+      <tr style="page-break-inside:avoid;">
+        <td colspan="2" style="width:25%;background:#F9F5FF;vertical-align:top;padding:5px 6px;border:1px solid #888;">
+          <div style="font-size:7.5px;font-weight:bold;color:#4A1942;margin-bottom:4px;">IDENTIFICACIÓN</div>
+          <div style="font-size:7px;margin-bottom:2px;"><strong>Código:</strong> ${esc(adap.codigoEstudiante)}</div>
+          <div style="font-size:7px;margin-bottom:2px;"><strong>NEE:</strong> ${esc(tipoNombre)}</div>
+          <div style="font-size:7px;margin-bottom:2px;"><strong>Grado:</strong> ${esc(gradoInfo.nombre)}</div>
+          ${adap.descripcionNecesidad
+            ? `<div style="font-size:6.5px;color:#555;font-style:italic;margin-top:4px;">${esc(adap.descripcionNecesidad)}</div>`
+            : ""}
+        </td>
+        <td colspan="4" style="vertical-align:top;padding:5px 6px;border:1px solid #888;">
+          ${derechaHTML}
+        </td>
+      </tr>`;
+  }).join("");
+
+  return `
+    <div style="page-break-before:always;">
+      <div class="seccion-titulo" style="background:#4A1942;color:white;border-color:#4A1942;">
+        ADAPTACIONES CURRICULARES &mdash; ${activas.length} estudiante${activas.length !== 1 ? "s" : ""}
+      </div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:6px;">
+        <thead>
+          <tr>
+            <th colspan="2" style="background:#4A1942;color:white;font-size:7.5px;padding:3px 6px;text-align:center;border:1px solid #4A1942;">ESTUDIANTE</th>
+            <th colspan="4" style="background:#4A1942;color:white;font-size:7.5px;padding:3px 6px;text-align:center;border:1px solid #4A1942;">ADAPTACIONES PEDAGÓGICAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filasBloqueHTML}
+        </tbody>
+      </table>
+    </div>`;
+}
+
 /**
  * Genera el HTML con el formato oficial del Ministerio de Educación de Ecuador
  * para una Planificación Semanal (5 días).
  * Tabla principal: DÍA | DCD | INDICADORES | ESTRATEGIAS+DUA | RECURSOS | ACTIVIDADES EVALUATIVAS
  */
-export function generarHTMLSemanal(semana: import("../data/types").PlanificacionSemanal): string {
+export function generarHTMLSemanal(
+  semana: import("../data/types").PlanificacionSemanal,
+  adaptaciones?: AdaptacionCurricular[],
+): string {
   const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
   type DiaSemanaKey = typeof DIAS[number];
   const DIA_LABEL: Record<DiaSemanaKey, string> = {
@@ -1013,6 +1147,8 @@ export function generarHTMLSemanal(semana: import("../data/types").Planificacion
       ${filasHTML || `<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;font-style:italic;">No hay planificaciones generadas.</td></tr>`}
     </tbody>
   </table>
+
+  ${generarHTMLAdaptacionesCurriculares(adaptaciones ?? semana.adaptacionesCurriculares ?? [])}
 
   <!-- FIRMAS -->
   <div class="firmas">

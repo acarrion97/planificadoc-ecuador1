@@ -13,7 +13,11 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType,
 } from "docx";
-import type { PlanificacionSemanal, ConfiguracionDia } from "../data/types";
+import type {
+  PlanificacionSemanal, ConfiguracionDia, AdaptacionCurricular,
+  GradoAdaptacion, TipoNEE,
+} from "../data/types";
+import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
 
 // ─── Paleta ───────────────────────────────────────────────────────────────────
 const BG_TITLE     = "003366";
@@ -169,6 +173,236 @@ function duaLegendPara(): Paragraph {
   });
 }
 
+// ─── Paleta adaptaciones curriculares ────────────────────────────────────────
+const BG_ADAPT_TITLE = "4A1942";  // violeta oscuro — cabecera de sección
+const BG_ADAPT_HEAD  = "7B2D8B";  // violeta medio — subcabecera por estudiante
+const BG_ADAPT_LEFT  = "F9F5FF";  // violeta muy claro — celda izquierda
+
+// ─── Helpers para adaptaciones ───────────────────────────────────────────────
+
+function parBoldValor(label: string, valor: string, size = 7): Paragraph {
+  return new Paragraph({
+    spacing: { after: 18 },
+    children: [
+      new TextRun({ text: label + " ", bold: true, size: size * 2, font: "Arial", color: BLACK }),
+      new TextRun({ text: valor, size: size * 2, font: "Arial", color: BLACK }),
+    ],
+  });
+}
+
+function parSeccionAdapt(label: string, color: string): Paragraph {
+  return new Paragraph({
+    spacing: { before: 40, after: 14 },
+    children: [new TextRun({ text: label, bold: true, size: 13, font: "Arial", color })],
+  });
+}
+
+function parBloquePedagogico(
+  bloque: { categoria: string; descripcion: string; estrategias: string[] },
+): Paragraph[] {
+  return [
+    new Paragraph({
+      spacing: { before: 20, after: 10 },
+      children: [
+        new TextRun({ text: bloque.categoria + ": ", bold: true, size: 12, font: "Arial", color: "003366" }),
+        new TextRun({ text: bloque.descripcion, size: 12, font: "Arial", color: BLACK }),
+      ],
+    }),
+    ...bloque.estrategias.map(e =>
+      new Paragraph({
+        bullet: { level: 0 },
+        spacing: { after: 10 },
+        children: [new TextRun({ text: e, size: 11, font: "Arial", color: "333333" })],
+      })
+    ),
+  ];
+}
+
+/**
+ * Genera las filas de la tabla para la sección de Adaptaciones Curriculares.
+ * Devuelve array vacío si no hay adaptaciones activas (documento idéntico al original).
+ */
+function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[]): TableRow[] {
+  const activas = adaptaciones.filter(a => a.incluirEnExportacion !== false);
+  if (activas.length === 0) return [];
+
+  const filas: TableRow[] = [];
+
+  filas.push(sectionRow(
+    `ADAPTACIONES CURRICULARES — ${activas.length} estudiante${activas.length !== 1 ? "s" : ""}`
+  ));
+
+  for (const adap of activas) {
+    const tipoInfo = TIPOS_NEE_INFO[adap.tipoNecesidad as TipoNEE];
+    const tipoNombre = tipoInfo?.nombre ?? adap.tipoNecesidad;
+    const gradoInfo = GRADO_ADAPTACION_INFO[adap.gradoAdaptacion as GradoAdaptacion];
+    const codigoLabel = adap.nombreEstudiante
+      ? `${adap.nombreEstudiante} (${adap.codigoEstudiante})`
+      : adap.codigoEstudiante;
+
+    // Subcabecera por estudiante (fondo violeta oscuro)
+    filas.push(new TableRow({
+      children: [
+        simpleCell(
+          `${codigoLabel}   ·   ${tipoNombre}   ·   ${gradoInfo.nombre}`,
+          { bold: true, size: 8, bg: BG_ADAPT_HEAD, color: WHITE, colspan: 6 }
+        ),
+      ],
+    }));
+
+    // Celda izquierda: identificación del estudiante
+    const leftChildren: Paragraph[] = [
+      new Paragraph({
+        spacing: { before: 0, after: 30 },
+        children: [new TextRun({ text: "IDENTIFICACIÓN", bold: true, size: 13, color: BG_ADAPT_TITLE, font: "Arial" })],
+      }),
+      parBoldValor("Código:", adap.codigoEstudiante),
+      parBoldValor("NEE:", tipoNombre),
+      parBoldValor("Grado de adaptación:", gradoInfo.nombre),
+    ];
+    if (adap.descripcionNecesidad) {
+      leftChildren.push(new Paragraph({
+        spacing: { before: 20, after: 0 },
+        children: [new TextRun({
+          text: adap.descripcionNecesidad,
+          size: 11, italics: true, font: "Arial", color: "555555",
+        })],
+      }));
+    }
+
+    // Celda derecha: contenido de la adaptación
+    const rightChildren: Paragraph[] = [];
+
+    // Destreza original
+    rightChildren.push(new Paragraph({
+      spacing: { before: 0, after: 14 },
+      children: [
+        new TextRun({ text: "Destreza: ", bold: true, size: 12, color: "003366", font: "Arial" }),
+        new TextRun({ text: adap.codigoDestreza, bold: true, size: 12, font: "Arial", color: BLACK }),
+        ...(adap.descripcionDestreza ? [new TextRun({
+          text: " — " + adap.descripcionDestreza,
+          size: 11, italics: true, font: "Arial", color: "444444",
+        })] : []),
+      ],
+    }));
+
+    // Grado 2/3: destreza, criterio e indicadores adaptados
+    if (adap.gradoAdaptacion >= 2) {
+      if (adap.destrezaAdaptada) {
+        rightChildren.push(new Paragraph({
+          spacing: { before: 20, after: 12 },
+          shading: { fill: "EDE9FE", color: "EDE9FE", type: ShadingType.CLEAR },
+          children: [
+            new TextRun({ text: "DESTREZA ADAPTADA: ", bold: true, size: 12, color: BG_ADAPT_TITLE, font: "Arial" }),
+            new TextRun({ text: adap.destrezaAdaptada, size: 12, font: "Arial", color: BLACK }),
+          ],
+        }));
+      }
+      if (adap.criterioAdaptado) {
+        rightChildren.push(new Paragraph({
+          spacing: { after: 12 },
+          children: [
+            new TextRun({ text: "Criterio adaptado: ", bold: true, size: 12, color: BG_ADAPT_TITLE, font: "Arial" }),
+            new TextRun({ text: adap.criterioAdaptado, size: 12, font: "Arial", color: BLACK }),
+          ],
+        }));
+      }
+      if (adap.indicadoresAdaptados?.length) {
+        rightChildren.push(new Paragraph({
+          spacing: { before: 14, after: 10 },
+          children: [new TextRun({ text: "Indicadores adaptados:", bold: true, size: 12, color: BG_ADAPT_TITLE, font: "Arial" })],
+        }));
+        adap.indicadoresAdaptados.forEach(ind =>
+          rightChildren.push(new Paragraph({
+            bullet: { level: 0 },
+            spacing: { after: 10 },
+            children: [new TextRun({ text: ind, size: 11, font: "Arial", color: BLACK })],
+          }))
+        );
+      }
+    }
+
+    // Adaptaciones de acceso (siempre)
+    if (adap.adaptacionesAcceso?.length) {
+      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE ACCESO", "003366"));
+      adap.adaptacionesAcceso.forEach(b => rightChildren.push(...parBloquePedagogico(b)));
+    }
+
+    // Adaptaciones de proceso (grado 2/3)
+    if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
+      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE PROCESO", "8E44AD"));
+      adap.adaptacionesProceso.forEach(b => rightChildren.push(...parBloquePedagogico(b)));
+    }
+
+    // Adaptaciones de resultado (grado 3)
+    if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
+      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE RESULTADO", "E67E22"));
+      adap.adaptacionesResultado.forEach(b => rightChildren.push(...parBloquePedagogico(b)));
+    }
+
+    // Metodologías y recursos
+    if (adap.metodologiasSugeridas?.length) {
+      rightChildren.push(parSeccionAdapt("METODOLOGÍAS SUGERIDAS", "003366"));
+      adap.metodologiasSugeridas.forEach(m =>
+        rightChildren.push(new Paragraph({
+          bullet: { level: 0 },
+          spacing: { after: 10 },
+          children: [new TextRun({ text: m, size: 11, font: "Arial", color: BLACK })],
+        }))
+      );
+    }
+    if (adap.recursosEspecificos?.length) {
+      rightChildren.push(new Paragraph({
+        spacing: { before: 20, after: 10 },
+        children: [
+          new TextRun({ text: "Recursos: ", bold: true, size: 12, font: "Arial", color: "444444" }),
+          new TextRun({ text: adap.recursosEspecificos.join(" · "), size: 11, font: "Arial", color: "333333" }),
+        ],
+      }));
+    }
+
+    // Seguimiento y observaciones
+    if (adap.seguimiento) {
+      rightChildren.push(new Paragraph({
+        spacing: { before: 20, after: 10 },
+        children: [
+          new TextRun({ text: "Seguimiento: ", bold: true, size: 12, font: "Arial", color: "003366" }),
+          new TextRun({ text: adap.seguimiento, size: 11, font: "Arial", color: "333333" }),
+        ],
+      }));
+    }
+    if (adap.observaciones) {
+      rightChildren.push(new Paragraph({
+        spacing: { before: 14, after: 0 },
+        children: [
+          new TextRun({ text: "Observaciones: ", bold: true, size: 12, font: "Arial", color: "555555" }),
+          new TextRun({ text: adap.observaciones, size: 11, italics: true, font: "Arial", color: "555555" }),
+        ],
+      }));
+    }
+
+    filas.push(new TableRow({
+      children: [
+        new TableCell({
+          columnSpan: 2,
+          borders: BORDER_DEF,
+          shading: shade(BG_ADAPT_LEFT),
+          verticalAlign: VerticalAlign.TOP,
+          children: leftChildren,
+        }),
+        new TableCell({
+          columnSpan: 4,
+          borders: BORDER_DEF,
+          verticalAlign: VerticalAlign.TOP,
+          children: rightChildren,
+        }),
+      ],
+    }));
+  }
+
+  return filas;
+}
+
 const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
 type DiaSemanaKey = typeof DIAS[number];
 const DIA_LABEL: Record<DiaSemanaKey, string> = {
@@ -183,7 +417,10 @@ const DIA_COLOR: Record<DiaSemanaKey, string> = {
 
 // ─── Export principal ─────────────────────────────────────────────────────────
 
-export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<Blob> {
+export async function generarWordSemanal(
+  semana: PlanificacionSemanal,
+  adaptaciones?: AdaptacionCurricular[],
+): Promise<Blob> {
   const rows: TableRow[] = [];
 
   // ══════════════════════════════════════════════════════════════
@@ -552,6 +789,14 @@ export async function generarWordSemanal(semana: PlanificacionSemanal): Promise<
       firmaCell(""),
     ],
   }));
+
+  // ══════════════════════════════════════════════════════════════
+  // ADAPTACIONES CURRICULARES (opcional — appended tras las firmas)
+  // ══════════════════════════════════════════════════════════════
+  const adaptacionesRows = crearSeccionAdaptacionesCurriculares(
+    adaptaciones ?? semana.adaptacionesCurriculares ?? []
+  );
+  rows.push(...adaptacionesRows);
 
   // ══════════════════════════════════════════════════════════════
   // CONSTRUIR DOCUMENTO

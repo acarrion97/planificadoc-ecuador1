@@ -37,7 +37,7 @@ export function ExportModal({ semana, triggerLabel = "Exportar" }: ExportModalPr
   const handleExportPDF = async () => {
     setExporting(true);
     try {
-      const html = generarHTMLSemanal(semana);
+      const html = generarHTMLSemanal(semana, semana.adaptacionesCurriculares);
 
       if (Platform.OS === "web") {
         const win = window.open("", "_blank");
@@ -69,7 +69,7 @@ export function ExportModal({ semana, triggerLabel = "Exportar" }: ExportModalPr
   const handleExportWord = async () => {
     setExportingWord(true);
     try {
-      const blob = await generarWordSemanal(semana);
+      const blob = await generarWordSemanal(semana, semana.adaptacionesCurriculares);
       if (Platform.OS === "web") {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
