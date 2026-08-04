@@ -7,7 +7,7 @@ import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO } from "@/data";
 import type { DUAActividad, AdaptacionCurricular, AdaptacionPedagogicaSugerida } from "@/data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "@/data/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ExportModal } from "@/components/ExportModal";
 
 const DUA_ROSADO = "#EC4899";
@@ -29,12 +29,17 @@ export default function VerSemanaScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { getSemana, deleteSemana } = usePlanificaciones();
-  const primerDiaConContenido = DIAS_SEMANA.find(d =>
-    semana.dias[d]?.activo && semana.dias[d].horas.some(h => h.temaSeleccionado)
-  ) ?? "lunes";
-  const [tabActivo, setTabActivo] = useState<TabActivo>(primerDiaConContenido);
+  const [tabActivo, setTabActivo] = useState<TabActivo>("lunes");
 
   const semana = getSemana(id || "");
+
+  useEffect(() => {
+    if (!semana) return;
+    const firstDay = DIAS_SEMANA.find(d =>
+      semana.dias[d]?.activo && semana.dias[d].horas.some(h => h.temaSeleccionado)
+    );
+    if (firstDay) setTabActivo(firstDay);
+  }, [semana?.id]);
 
   if (!semana) {
     return (
