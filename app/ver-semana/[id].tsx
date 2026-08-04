@@ -59,8 +59,8 @@ export default function VerSemanaScreen() {
   const diasActivos = DIAS_SEMANA.filter(d =>
     semana.dias[d]?.activo && semana.dias[d].horas.some(h => h.temaSeleccionado)
   );
-  const adaptacionesVisibles = (semana.adaptacionesCurriculares || []).filter(a => a.incluirEnExportacion);
-  const tieneAdaptaciones = adaptacionesVisibles.length > 0;
+  const todasLasAdaptaciones = semana.adaptacionesCurriculares || [];
+  const adaptacionesVisibles = todasLasAdaptaciones.filter(a => a.incluirEnExportacion);
 
   const handleEliminar = () => {
     const confirm = () => {
@@ -117,23 +117,57 @@ export default function VerSemanaScreen() {
               <Text style={[styles.tabLabel, { color: tabActivo === d ? "#003366" : colors.muted }]}>{DIA_LABEL[d]}</Text>
             </Pressable>
           ))}
-          {tieneAdaptaciones && (
-            <Pressable onPress={() => setTabActivo("adaptaciones")}
-              style={[styles.tab, { borderBottomColor: tabActivo === "adaptaciones" ? "#7B2D8B" : "transparent" }]}>
-              <Text style={{ fontSize: 14 }}>♿</Text>
-              <Text style={[styles.tabLabel, { color: tabActivo === "adaptaciones" ? "#7B2D8B" : colors.muted }]}>ADAPT.</Text>
-            </Pressable>
-          )}
+          <Pressable onPress={() => setTabActivo("adaptaciones")}
+            style={[styles.tab, { borderBottomColor: tabActivo === "adaptaciones" ? "#7B2D8B" : "transparent" }]}>
+            <Text style={{ fontSize: 14 }}>♿</Text>
+            <Text style={[styles.tabLabel, { color: tabActivo === "adaptaciones" ? "#7B2D8B" : colors.muted }]}>
+              ADAPT.{todasLasAdaptaciones.length > 0 ? ` (${todasLasAdaptaciones.length})` : ""}
+            </Text>
+          </Pressable>
         </ScrollView>
 
         {/* Contenido adaptaciones */}
         {tabActivo === "adaptaciones" && (
           <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
             <View style={[stylesAdap2.adaptHeader, { backgroundColor: "#4A1942" }]}>
-              <Text style={stylesAdap2.adaptHeaderTitle}>♿ ADAPTACIONES CURRICULARES</Text>
-              <Text style={stylesAdap2.adaptHeaderSub}>{adaptacionesVisibles.length} estudiante{adaptacionesVisibles.length !== 1 ? "s" : ""} con NEE</Text>
+              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                <View>
+                  <Text style={stylesAdap2.adaptHeaderTitle}>♿ ADAPTACIONES CURRICULARES</Text>
+                  <Text style={stylesAdap2.adaptHeaderSub}>
+                    {todasLasAdaptaciones.length > 0
+                      ? `${todasLasAdaptaciones.length} estudiante${todasLasAdaptaciones.length !== 1 ? "s" : ""} con NEE`
+                      : "Sin adaptaciones registradas"}
+                  </Text>
+                </View>
+                <Pressable
+                  onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { semanaId: semana.id } })}
+                  style={({ pressed }) => ({
+                    backgroundColor: pressed ? "#7B2D8B" : "#9D3FB5",
+                    paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8,
+                  })}
+                >
+                  <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>+ Agregar</Text>
+                </Pressable>
+              </View>
             </View>
-            {adaptacionesVisibles.map((adap, idx) => (
+            {todasLasAdaptaciones.length === 0 && (
+              <View style={{ padding: 40, alignItems: "center" }}>
+                <Text style={{ fontSize: 40, marginBottom: 12 }}>♿</Text>
+                <Text style={{ fontSize: 15, fontWeight: "700", color: "#4A1942", marginBottom: 6 }}>
+                  Sin adaptaciones curriculares
+                </Text>
+                <Text style={{ fontSize: 13, color: colors.muted, textAlign: "center", marginBottom: 20 }}>
+                  Agrega una adaptación para estudiantes con necesidades educativas especiales (NEE).
+                </Text>
+                <Pressable
+                  onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { semanaId: semana.id } })}
+                  style={{ backgroundColor: "#7B2D8B", paddingHorizontal: 20, paddingVertical: 12, borderRadius: 10 }}
+                >
+                  <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>♿ Crear adaptación curricular</Text>
+                </Pressable>
+              </View>
+            )}
+            {todasLasAdaptaciones.map((adap, idx) => (
               <AdaptacionCard key={adap.id || idx} adap={adap} colors={colors} />
             ))}
           </ScrollView>

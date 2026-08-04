@@ -3,7 +3,7 @@ import {
   View, Text, TextInput, ScrollView, Pressable,
   StyleSheet, Alert, ActivityIndicator, Platform,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { shareAsync } from "expo-sharing";
 import { ScreenContainer } from "@/components/screen-container";
@@ -12,10 +12,11 @@ import { trpc } from "@/lib/trpc";
 import {
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
   type CurricularAdaptation, type CurricularAdaptationForm,
-  type AdaptacionAiResult, type TipoNEE, type GradoAdaptacion,
+  type AdaptacionAiResult, type AdaptacionCurricular, type TipoNEE, type GradoAdaptacion,
 } from "@/data/types";
 import { TODAS_LAS_DESTREZAS } from "@/data";
 import { generarWordAdaptacion } from "@/lib/adaptacion-word-generator";
+import { usePlanificaciones } from "@/lib/planificaciones-context";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
@@ -194,13 +195,17 @@ function DestrezaBuscador({
 export default function AdaptacionCurricularScreen() {
   const colors = useColors();
   const router = useRouter();
+  const { semanaId } = useLocalSearchParams<{ semanaId?: string }>();
   const scrollRef = useRef<ScrollView>(null);
+
+  const { getSemana, updateSemana } = usePlanificaciones();
 
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<CurricularAdaptationForm>(FORM_EMPTY);
   const [aiResult, setAiResult] = useState<AdaptacionAiResult | null>(null);
   const [savedId, setSavedId] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
+  const [vinculada, setVinculada] = useState(false);
 
   const generateMutation = trpc.adaptaciones.generate.useMutation();
 
@@ -246,14 +251,51 @@ export default function AdaptacionCurricularScreen() {
     try {
       const res = await generateMutation.mutateAsync({ form, sessionId });
       setAiResult(res.aiResult);
-      await saveLocally(res.aiResult, sessionId);
+      const id = await saveLocally(res.aiResult, sessionId);
+      if (semanaId) {
+        await linkToSemana(res.aiResult, id);
+      }
       nextStep();
     } catch (err: any) {
       Alert.alert("Error al generar", err?.message ?? "Intenta de nuevo.");
     }
   }
 
-  async function saveLocally(result: AdaptacionAiResult, sessionId: string) {
+  async function linkToSemana(result: AdaptacionAiResult, adaptacionId: string) {
+    if (!semanaId) return;
+    const semana = getSemana(semanaId);
+    if (!semana) return;
+
+    const neeInfo = TIPOS_NEE_INFO[form.tipoNEE];
+    const nueva: AdaptacionCurricular = {
+      id: adaptacionId,
+      codigoEstudiante: form.codigoEstudiante || "E-001",
+      incluirEnExportacion: true,
+      codigoDestreza: form.codigoDestreza,
+      descripcionDestreza: form.descripcionDestreza,
+      gradoAdaptacion: form.gradoAdaptacion,
+      categoriaNecesidad: neeInfo?.nombre ?? form.tipoNEE,
+      tipoNecesidad: form.tipoNEE,
+      descripcionNecesidad: result.perfilNEE?.descripcion,
+      destrezaAdaptada: result.destrezaAdaptada ?? undefined,
+      criterioAdaptado: result.criterioAdaptado ?? undefined,
+      indicadoresAdaptados: result.indicadoresAdaptados ?? [],
+      adaptacionesAcceso: result.adaptacionesAcceso ?? [],
+      adaptacionesProceso: result.adaptacionesProceso ?? [],
+      adaptacionesResultado: result.adaptacionesResultado ?? [],
+      metodologiasSugeridas: result.metodologiasSugeridas ?? [],
+      recursosEspecificos: result.recursosEspecificos ?? [],
+      seguimiento: result.seguimiento ?? undefined,
+      observaciones: result.observaciones ?? undefined,
+      createdAt: new Date().toISOString(),
+    };
+
+    const adaptaciones = [...(semana.adaptacionesCurriculares || []), nueva];
+    await updateSemana({ ...semana, adaptacionesCurriculares: adaptaciones });
+    setVinculada(true);
+  }
+
+  async function saveLocally(result: AdaptacionAiResult, sessionId: string): Promise<string> {
     const id = savedId ?? (Date.now().toString(36) + Math.random().toString(36).substr(2, 5));
     setSavedId(id);
 
@@ -273,6 +315,7 @@ export default function AdaptacionCurricularScreen() {
     const idx = all.findIndex((a) => a.id === id);
     if (idx >= 0) all[idx] = record; else all.unshift(record);
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+    return id;
   }
 
   async function handleExportWord() {
@@ -326,10 +369,18 @@ export default function AdaptacionCurricularScreen() {
       <ScrollView ref={scrollRef} contentContainerStyle={{ padding: 16 }} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 12 }}>
-          <Pressable onPress={() => router.back()} style={{ marginRight: 12 }}>
+          <Pressable
+            onPress={() => semanaId ? router.replace({ pathname: "/ver-semana/[id]", params: { id: semanaId } }) : router.back()}
+            style={{ marginRight: 12 }}
+          >
             <Text style={{ fontSize: 22, color: colors.primary }}>←</Text>
           </Pressable>
-          <Text style={{ fontSize: 18, fontWeight: "700", color: colors.text }}>Adaptacion Curricular</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 18, fontWeight: "700", color: colors.text }}>Adaptacion Curricular</Text>
+            {semanaId && (
+              <Text style={{ fontSize: 11, color: colors.muted }}>Vinculando a planificación semanal</Text>
+            )}
+          </View>
         </View>
 
         <StepBar current={step} total={5} colors={colors} />
@@ -576,13 +627,24 @@ export default function AdaptacionCurricularScreen() {
 
         {/* ── PASO 4: Resultado ── */}
         {step === 4 && aiResult && (
-          <ResultadoEditable
-            aiResult={aiResult}
-            form={form}
-            colors={colors}
-            onExport={handleExportWord}
-            exporting={exporting}
-          />
+          <>
+            {vinculada && semanaId && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#16A34A", marginBottom: 12, flexDirection: "row", alignItems: "center", gap: 8 }}>
+                <Text style={{ fontSize: 18 }}>✅</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: "#15803D" }}>Vinculada a la planificación semanal</Text>
+                  <Text style={{ fontSize: 11, color: "#166534" }}>Aparecerá en el tab "ADAPT." al volver.</Text>
+                </View>
+              </View>
+            )}
+            <ResultadoEditable
+              aiResult={aiResult}
+              form={form}
+              colors={colors}
+              onExport={handleExportWord}
+              exporting={exporting}
+            />
+          </>
         )}
 
         {/* Botones de navegacion */}
@@ -622,14 +684,24 @@ export default function AdaptacionCurricularScreen() {
         )}
 
         {step === 4 && (
-          <Pressable
-            onPress={() => { setStep(0); setAiResult(null); setForm(FORM_EMPTY); setSavedId(null); }}
-            style={{ marginTop: 20, alignItems: "center" }}
-          >
-            <Text style={{ fontSize: 12, color: colors.primary, textDecorationLine: "underline" }}>
-              + Nueva adaptacion
-            </Text>
-          </Pressable>
+          <View style={{ marginTop: 20, gap: 12 }}>
+            {semanaId && (
+              <Pressable
+                onPress={() => router.replace({ pathname: "/ver-semana/[id]", params: { id: semanaId! } })}
+                style={{ backgroundColor: "#4A1942", borderRadius: 10, paddingVertical: 13, alignItems: "center" }}
+              >
+                <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>← Volver a la planificación</Text>
+              </Pressable>
+            )}
+            <Pressable
+              onPress={() => { setStep(0); setAiResult(null); setForm(FORM_EMPTY); setSavedId(null); setVinculada(false); }}
+              style={{ alignItems: "center" }}
+            >
+              <Text style={{ fontSize: 12, color: colors.primary, textDecorationLine: "underline" }}>
+                + Nueva adaptacion
+              </Text>
+            </Pressable>
+          </View>
         )}
       </ScrollView>
     </ScreenContainer>
