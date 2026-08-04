@@ -201,7 +201,23 @@ export default function AdaptacionCurricularScreen() {
   const { getSemana, updateSemana } = usePlanificaciones();
 
   const [step, setStep] = useState(0);
-  const [form, setForm] = useState<CurricularAdaptationForm>(FORM_EMPTY);
+  const [form, setForm] = useState<CurricularAdaptationForm>(() => {
+    if (semanaId) {
+      const s = getSemana(semanaId);
+      if (s) {
+        return {
+          ...FORM_EMPTY,
+          institucion: s.institucion || "",
+          docente: s.docente || "",
+          grado: s.grado || "",
+          paralelo: s.paralelo || "",
+          trimestre: s.trimestre || "",
+          periodoPedagogico: s.periodoPedagogico || "",
+        };
+      }
+    }
+    return FORM_EMPTY;
+  });
   const [aiResult, setAiResult] = useState<AdaptacionAiResult | null>(null);
   const [savedId, setSavedId] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
