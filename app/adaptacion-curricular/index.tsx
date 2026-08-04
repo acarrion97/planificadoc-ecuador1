@@ -929,6 +929,31 @@ function ResultadoEditable({
           <Text style={{ fontSize: 12, color: colors.text }}>{aiResult.observaciones}</Text>
         </ResultSection>
       ) : null}
+
+      {/* Adaptaciones por fase ERCA */}
+      {aiResult.adaptacionesERCA && (
+        <ResultSection title="Adaptaciones por fase ERCA" emoji="🔄" color="#0F766E">
+          <ERCARow fase="Experiencia" subtitulo="Activación de saberes previos" items={aiResult.adaptacionesERCA.experiencia} color="#059669" bg="#ECFDF5" colors={colors} />
+          <ERCARow fase="Reflexión" subtitulo="Análisis crítico" items={aiResult.adaptacionesERCA.reflexion} color="#2563EB" bg="#EFF6FF" colors={colors} />
+          <ERCARow fase="Conceptualización" subtitulo="Construcción del concepto" items={aiResult.adaptacionesERCA.conceptualizacion} color="#D97706" bg="#FEF9C3" colors={colors} />
+          <ERCARow fase="Aplicación" subtitulo="Transferencia y práctica" items={aiResult.adaptacionesERCA.aplicacion} color="#DC2626" bg="#FFF1F2" colors={colors} />
+        </ResultSection>
+      )}
+
+      {/* Evaluación adaptada */}
+      {aiResult.evaluacionAdaptada && (
+        <ResultSection title="Evaluación adaptada" emoji="📋" color="#0F766E">
+          <BulletGroup title="Criterios de evaluación" items={aiResult.evaluacionAdaptada.criterios} color="#059669" colors={colors} />
+          <BulletGroup title="Instrumentos" items={aiResult.evaluacionAdaptada.instrumentos} color="#2563EB" colors={colors} />
+        </ResultSection>
+      )}
+
+      {/* Rúbrica de evaluación */}
+      {aiResult.rubrica?.length ? (
+        <ResultSection title="Rúbrica de evaluación adaptada" emoji="📊" color="#7C3AED">
+          <RubricaTable rubrica={aiResult.rubrica} colors={colors} />
+        </ResultSection>
+      ) : null}
     </View>
   );
 }
@@ -937,13 +962,14 @@ function ResultSection({
   title, emoji, color, children,
 }: { title: string; emoji: string; color: string; children: React.ReactNode }) {
   return (
-    <View style={{ marginBottom: 16, borderWidth: 1, borderColor: color + "40", borderRadius: 12, overflow: "hidden" }}>
-      <View style={{ backgroundColor: color + "18", paddingHorizontal: 12, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: color + "30" }}>
-        <Text style={{ fontSize: 13, fontWeight: "700", color }}>
-          {emoji} {title}
+    <View style={{ marginBottom: 16, borderWidth: 1.5, borderColor: color + "35", borderRadius: 14, overflow: "hidden" }}>
+      <View style={{ backgroundColor: color, paddingHorizontal: 14, paddingVertical: 10, flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <Text style={{ fontSize: 16 }}>{emoji}</Text>
+        <Text style={{ fontSize: 13, fontWeight: "700", color: "#FFFFFF", flex: 1 }}>
+          {title}
         </Text>
       </View>
-      <View style={{ padding: 12 }}>{children}</View>
+      <View style={{ padding: 14 }}>{children}</View>
     </View>
   );
 }
@@ -962,11 +988,76 @@ function BulletGroup({ title, items, color, colors }: { title: string; items: st
 
 function AdaptacionCard({ item, colors }: { item: { categoria: string; descripcion: string; estrategias: string[] }; colors: any }) {
   return (
-    <View style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 8, borderWidth: 1, borderColor: colors.border }}>
-      <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary, marginBottom: 2 }}>{item.categoria}</Text>
-      <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 6 }}>{item.descripcion}</Text>
-      {item.estrategias.map((e, i) => (
-        <Text key={i} style={{ fontSize: 11, color: colors.text, marginBottom: 2 }}>• {e}</Text>
+    <View style={{ backgroundColor: colors.surface, borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1, borderColor: colors.border }}>
+      <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary, marginBottom: 3 }}>{item.categoria}</Text>
+      <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 8, lineHeight: 16 }}>{item.descripcion}</Text>
+      <View style={{ gap: 4 }}>
+        {item.estrategias.map((e, i) => (
+          <View key={i} style={{ flexDirection: "row", gap: 6, alignItems: "flex-start" }}>
+            <Text style={{ fontSize: 12, color: colors.primary, marginTop: 1 }}>›</Text>
+            <Text style={{ fontSize: 11, color: colors.text, flex: 1, lineHeight: 16 }}>{e}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+function ERCARow({ fase, subtitulo, items, color, bg, colors }: {
+  fase: string; subtitulo: string; items: string[]; color: string; bg: string; colors: any;
+}) {
+  return (
+    <View style={{ marginBottom: 10 }}>
+      <View style={{ borderRadius: 8, overflow: "hidden", borderWidth: 1, borderColor: color + "40" }}>
+        <View style={{ backgroundColor: bg, paddingHorizontal: 12, paddingVertical: 6, flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <View style={{ width: 4, height: "100%", backgroundColor: color, borderRadius: 2, position: "absolute", left: 0, top: 0, bottom: 0 }} />
+          <View style={{ paddingLeft: 8 }}>
+            <Text style={{ fontSize: 12, fontWeight: "700", color }}>{fase}</Text>
+            <Text style={{ fontSize: 10, color: color + "BB" }}>{subtitulo}</Text>
+          </View>
+        </View>
+        <View style={{ padding: 10, gap: 4 }}>
+          {items?.map((item, i) => (
+            <View key={i} style={{ flexDirection: "row", gap: 6, alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 12, color, marginTop: 1 }}>›</Text>
+              <Text style={{ fontSize: 11, color: colors.text, flex: 1, lineHeight: 16 }}>{item}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+    </View>
+  );
+}
+
+function RubricaTable({ rubrica, colors }: {
+  rubrica: Array<{ criterio: string; excelente: string; satisfactorio: string; enProceso: string; necesitaApoyo: string }>;
+  colors: any;
+}) {
+  const niveles = [
+    { key: "excelente" as const, label: "Siempre Alcanza", color: "#16A34A", bg: "#DCFCE7" },
+    { key: "satisfactorio" as const, label: "Alcanza", color: "#2563EB", bg: "#DBEAFE" },
+    { key: "enProceso" as const, label: "Próximo a Alcanzar", color: "#D97706", bg: "#FEF3C7" },
+    { key: "necesitaApoyo" as const, label: "No Alcanza", color: "#DC2626", bg: "#FEE2E2" },
+  ];
+
+  return (
+    <View style={{ gap: 12 }}>
+      {rubrica.map((fila, i) => (
+        <View key={i} style={{ borderRadius: 10, overflow: "hidden", borderWidth: 1, borderColor: "#7C3AED33" }}>
+          <View style={{ backgroundColor: "#F5F3FF", padding: 10, borderBottomWidth: 1, borderBottomColor: "#7C3AED22" }}>
+            <Text style={{ fontSize: 12, fontWeight: "700", color: "#7C3AED" }}>Criterio {i + 1}: {fila.criterio}</Text>
+          </View>
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            {niveles.map((nivel) => (
+              <View key={nivel.key} style={{ width: "50%", padding: 8, borderWidth: 0.5, borderColor: colors.border }}>
+                <View style={{ backgroundColor: nivel.bg, borderRadius: 4, paddingHorizontal: 6, paddingVertical: 2, marginBottom: 4, alignSelf: "flex-start" }}>
+                  <Text style={{ fontSize: 9, fontWeight: "700", color: nivel.color }}>{nivel.label}</Text>
+                </View>
+                <Text style={{ fontSize: 11, color: colors.text, lineHeight: 15 }}>{fila[nivel.key]}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
       ))}
     </View>
   );

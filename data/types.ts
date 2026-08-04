@@ -395,6 +395,26 @@ export interface AdaptacionAiResult {
   recursosEspecificos: string[];
   seguimiento: string;
   observaciones: string;
+  /** Adaptaciones por fase del ciclo ERCA — opcional, campos nuevos */
+  adaptacionesERCA?: {
+    experiencia: string[];
+    reflexion: string[];
+    conceptualizacion: string[];
+    aplicacion: string[];
+  };
+  /** Criterios e instrumentos de evaluación adaptados */
+  evaluacionAdaptada?: {
+    criterios: string[];
+    instrumentos: string[];
+  };
+  /** Rúbrica de evaluación con 4 niveles de desempeño */
+  rubrica?: Array<{
+    criterio: string;
+    excelente: string;
+    satisfactorio: string;
+    enProceso: string;
+    necesitaApoyo: string;
+  }>;
 }
 
 export interface CurricularAdaptationForm {

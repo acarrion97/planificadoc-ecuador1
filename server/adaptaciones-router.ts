@@ -103,11 +103,14 @@ INSTRUCCIONES IMPORTANTES:
 - Si el grado es 2: incluir destrezaAdaptada, criterioAdaptado, indicadoresAdaptados y adaptacionesProceso (NO adaptacionesResultado).
 - Si el grado es 3: incluir todos los campos.
 - Generar exactamente 3 adaptaciones de acceso, ${incluirProceso ? "3 de proceso" : ""}${incluirResultado ? " y 3 de resultado" : ""}.
-- Cada adaptación tiene: categoria (string), descripcion (1 oración), estrategias (array de 2–3 strings concretos).
-- metodologiasSugeridas: 4 metodologías activas aplicables.
-- recursosEspecificos: 4–5 recursos concretos y accesibles.
+- Cada adaptación tiene: categoria (string), descripcion (1 oración), estrategias (array de 2–3 strings concretos y específicos).
+- metodologiasSugeridas: 4 metodologías activas aplicables a la destreza y al tipo de NEE.
+- recursosEspecificos: 5 materiales CONCRETOS Y ESPECÍFICOS (ej: bloques lógicos, regletas Cuisenaire, pictogramas, tarjetas visuales, organizadores gráficos, fichas de trabajo adaptadas, material reciclado, aplicaciones digitales específicas, tabletas, etc.) apropiados para la destreza y el tipo de NEE.
 - seguimiento: párrafo de 2–3 oraciones sobre cómo hacer seguimiento de la adaptación.
 - observaciones: 1–2 oraciones finales.
+- adaptacionesERCA: Para cada fase del modelo ERCA, escribe 2 sugerencias concretas de cómo adaptar la actividad para el estudiante con NEE, considerando su estilo de aprendizaje y la destreza trabajada. Las sugerencias deben ser directamente aplicables en el aula.
+- evaluacionAdaptada: Genera 3 criterios de evaluación pedagógica adaptados al nivel del estudiante y 3 instrumentos de evaluación concretos y accesibles (ej: lista de cotejo, rúbrica simplificada, portafolio, observación directa con registro, prueba oral, etc.).
+- rubrica: Genera exactamente 3 criterios de rúbrica de evaluación con 4 niveles de desempeño adaptados al perfil NEE del estudiante. Los niveles son: excelente (Siempre Alcanza — nivel 4), satisfactorio (Alcanza — nivel 3), enProceso (Próximo a Alcanzar — nivel 2), necesitaApoyo (No Alcanza — nivel 1). Usa lenguaje pedagógico concreto y accesible.
 
 Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
 {
@@ -145,7 +148,40 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   "metodologiasSugeridas": ["string", "string", "string", "string"],
   "recursosEspecificos": ["string", "string", "string", "string", "string"],
   "seguimiento": "string",
-  "observaciones": "string"
+  "observaciones": "string",
+  "adaptacionesERCA": {
+    "experiencia": ["string (sugerencia concreta para Experiencia/activación)", "string"],
+    "reflexion": ["string (sugerencia concreta para Reflexión/análisis)", "string"],
+    "conceptualizacion": ["string (sugerencia concreta para Conceptualización)", "string"],
+    "aplicacion": ["string (sugerencia concreta para Aplicación/transferencia)", "string"]
+  },
+  "evaluacionAdaptada": {
+    "criterios": ["string (criterio de evaluación adaptado 1)", "string", "string"],
+    "instrumentos": ["string (instrumento concreto 1)", "string", "string"]
+  },
+  "rubrica": [
+    {
+      "criterio": "string (nombre del criterio de evaluación)",
+      "excelente": "string (descripción nivel 4 — Siempre Alcanza)",
+      "satisfactorio": "string (descripción nivel 3 — Alcanza)",
+      "enProceso": "string (descripción nivel 2 — Próximo a Alcanzar)",
+      "necesitaApoyo": "string (descripción nivel 1 — No Alcanza)"
+    },
+    {
+      "criterio": "string",
+      "excelente": "string",
+      "satisfactorio": "string",
+      "enProceso": "string",
+      "necesitaApoyo": "string"
+    },
+    {
+      "criterio": "string",
+      "excelente": "string",
+      "satisfactorio": "string",
+      "enProceso": "string",
+      "necesitaApoyo": "string"
+    }
+  ]
 }`;
 }
 
@@ -168,7 +204,7 @@ export const adaptacionesRouter = router({
           { role: "system", content: "Eres un experto en educación inclusiva ecuatoriana. Responde siempre con JSON válido." },
           { role: "user", content: prompt },
         ],
-        maxTokens: 4096,
+        maxTokens: 6000,
         responseFormat: { type: "json_object" },
       });
 
