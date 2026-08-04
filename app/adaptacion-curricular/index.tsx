@@ -77,25 +77,31 @@ function Label({ text, colors }: { text: string; colors: any }) {
 }
 
 function Field({
-  label, value, onChangeText, colors, multiline = false, placeholder = "",
+  label, value, onChangeText, colors, multiline = false, placeholder = "", disabled = false,
 }: {
   label: string; value: string; onChangeText: (t: string) => void;
-  colors: any; multiline?: boolean; placeholder?: string;
+  colors: any; multiline?: boolean; placeholder?: string; disabled?: boolean;
 }) {
   return (
     <View style={{ marginBottom: 12 }}>
-      <Label text={label} colors={colors} />
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4 }}>
+        <Text style={{ fontSize: 12, fontWeight: "600", color: colors.muted }}>{label}</Text>
+        {disabled && <Text style={{ fontSize: 10, color: "#16A34A", fontWeight: "600" }}>✓ planificación</Text>}
+      </View>
       <TextInput
         value={value}
         onChangeText={onChangeText}
         multiline={multiline}
         placeholder={placeholder}
         placeholderTextColor={colors.muted}
+        editable={!disabled}
         style={[styles.input, {
-          borderColor: colors.border, color: colors.text,
-          backgroundColor: colors.surface,
+          borderColor: disabled ? colors.border : colors.border,
+          color: disabled ? colors.muted : colors.text,
+          backgroundColor: disabled ? (colors.surface + "BB") : colors.surface,
           minHeight: multiline ? 72 : 40,
           textAlignVertical: multiline ? "top" : "center",
+          opacity: disabled ? 0.75 : 1,
         }]}
       />
     </View>
@@ -405,32 +411,51 @@ export default function AdaptacionCurricularScreen() {
         {step === 0 && (
           <View>
             <SectionHeading text="Contexto pedagogico" colors={colors} />
-            <Field label="Institucion educativa" value={form.institucion} onChangeText={(v) => setField("institucion", v)} colors={colors} />
-            <Field label="Docente" value={form.docente} onChangeText={(v) => setField("docente", v)} colors={colors} />
+
+            {semanaId && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#16A34A", marginBottom: 14, flexDirection: "row", alignItems: "center", gap: 8 }}>
+                <Text style={{ fontSize: 16 }}>📋</Text>
+                <Text style={{ fontSize: 11, color: "#15803D", flex: 1 }}>
+                  Los campos marcados con <Text style={{ fontWeight: "700" }}>✓ planificación</Text> se toman de la planificación semanal y no pueden editarse.
+                </Text>
+              </View>
+            )}
+
+            <Field label="Institucion educativa" value={form.institucion} onChangeText={(v) => setField("institucion", v)} colors={colors} disabled={!!semanaId} />
+            <Field label="Docente" value={form.docente} onChangeText={(v) => setField("docente", v)} colors={colors} disabled={!!semanaId} />
             <Field label="Año lectivo" value={form.anioLectivo} onChangeText={(v) => setField("anioLectivo", v)} colors={colors} />
 
             <View style={{ marginBottom: 12 }}>
-              <Label text="Grado / Curso" colors={colors} />
-              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
-                {Object.values(GRADOS_POR_SUBNIVEL).flat().map((g) => (
-                  <Pressable
-                    key={g}
-                    onPress={() => setField("grado", g)}
-                    style={{
-                      paddingHorizontal: 10, paddingVertical: 5, borderRadius: 16,
-                      backgroundColor: form.grado === g ? colors.primary : colors.surface,
-                      borderWidth: 1, borderColor: form.grado === g ? colors.primary : colors.border,
-                    }}
-                  >
-                    <Text style={{ fontSize: 11, color: form.grado === g ? "#fff" : colors.text }}>{g}</Text>
-                  </Pressable>
-                ))}
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                <Text style={{ fontSize: 12, fontWeight: "600", color: colors.muted }}>Grado / Curso</Text>
+                {semanaId && <Text style={{ fontSize: 10, color: "#16A34A", fontWeight: "600" }}>✓ planificación</Text>}
               </View>
+              {semanaId ? (
+                <View style={[styles.input, { height: 40, justifyContent: "center", opacity: 0.75, backgroundColor: colors.surface + "BB" }]}>
+                  <Text style={{ fontSize: 13, color: colors.muted, paddingHorizontal: 4 }}>{form.grado || "—"}</Text>
+                </View>
+              ) : (
+                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
+                  {Object.values(GRADOS_POR_SUBNIVEL).flat().map((g) => (
+                    <Pressable
+                      key={g}
+                      onPress={() => setField("grado", g)}
+                      style={{
+                        paddingHorizontal: 10, paddingVertical: 5, borderRadius: 16,
+                        backgroundColor: form.grado === g ? colors.primary : colors.surface,
+                        borderWidth: 1, borderColor: form.grado === g ? colors.primary : colors.border,
+                      }}
+                    >
+                      <Text style={{ fontSize: 11, color: form.grado === g ? "#fff" : colors.text }}>{g}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+              )}
             </View>
 
-            <Field label="Paralelo" value={form.paralelo} onChangeText={(v) => setField("paralelo", v)} colors={colors} placeholder="Ej: A" />
-            <Field label="Periodo pedagogico" value={form.periodoPedagogico} onChangeText={(v) => setField("periodoPedagogico", v)} colors={colors} />
-            <Field label="Trimestre" value={form.trimestre} onChangeText={(v) => setField("trimestre", v)} colors={colors} placeholder="Ej: 1.° trimestre" />
+            <Field label="Paralelo" value={form.paralelo} onChangeText={(v) => setField("paralelo", v)} colors={colors} placeholder="Ej: A" disabled={!!semanaId} />
+            <Field label="Periodo pedagogico" value={form.periodoPedagogico} onChangeText={(v) => setField("periodoPedagogico", v)} colors={colors} disabled={!!semanaId} />
+            <Field label="Trimestre" value={form.trimestre} onChangeText={(v) => setField("trimestre", v)} colors={colors} placeholder="Ej: 1.° trimestre" disabled={!!semanaId} />
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Codigo del estudiante (anonimo)" colors={colors} />
