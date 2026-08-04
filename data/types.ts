@@ -79,6 +79,23 @@ export interface EstructuraClase {
   aplicacion: FaseClase;
 }
 
+/** Evaluación formativa estructurada con técnica, instrumento, evidencia y criterio */
+export interface EvaluacionEstructurada {
+  tecnica: string;
+  instrumento: string;
+  evidencia: string;
+  criterio: string;
+}
+
+/** Criterio de una rúbrica de evaluación con 4 niveles de desempeño (MinEduc Ecuador) */
+export interface RubricaCriterio {
+  criterio: string;
+  excelente: string;
+  satisfactorio: string;
+  enProceso: string;
+  noAlcanza: string;
+}
+
 /**
  * Tema sugerido para una destreza, con estructura de clase pre-generada
  */
@@ -90,6 +107,10 @@ export interface TemaSugerido {
   estructura: EstructuraClase;
   recursos: string[];
   evaluacionFormativa: string;
+  /** Evaluación formativa estructurada (generada por IA) — backward compatible */
+  evaluacionEstructurada?: EvaluacionEstructurada;
+  /** Rúbrica de evaluación con 3 criterios × 4 niveles (generada por IA) */
+  rubricaSemanal?: RubricaCriterio[];
 }
 
 /**

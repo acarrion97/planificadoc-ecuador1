@@ -485,6 +485,8 @@ Responde ÚNICAMENTE con JSON válido:
                 competencias: z.array(z.string()).optional(),
                 metodologias: z.array(z.string()).optional(),
                 deporteEnfoque: z.string().optional(),
+                indicadoresEvaluacion: z.array(z.string()).optional(),
+                criteriosEvaluacion: z.array(z.string()).optional(),
               })
             ),
           })
@@ -495,6 +497,7 @@ Responde ÚNICAMENTE con JSON válido:
       // Aplanar todos los pares dia+hora en una lista de tasks
       type Task = {
         dia: string;
+        diaNumero: number;
         horaIndex: number;
         codigoDestreza: string;
         descripcionDestreza: string;
@@ -506,12 +509,16 @@ Responde ÚNICAMENTE con JSON válido:
         competencias?: string[];
         metodologias?: string[];
         deporteEnfoque?: string;
+        indicadoresEvaluacion?: string[];
+        criteriosEvaluacion?: string[];
       };
+
+      const DIA_NUMERO: Record<string, number> = { lunes: 1, martes: 2, miercoles: 3, jueves: 4, viernes: 5 };
 
       const tasks: Task[] = [];
       for (const diaConfig of input.dias) {
         for (const hora of diaConfig.horas) {
-          tasks.push({ dia: diaConfig.dia, ...hora });
+          tasks.push({ dia: diaConfig.dia, diaNumero: DIA_NUMERO[diaConfig.dia.toLowerCase()] ?? 1, ...hora });
         }
       }
 
@@ -548,9 +555,45 @@ Responde ÚNICAMENTE con JSON válido:
           ? `\n⚽ DEPORTE SELECCIONADO: "${task.deporteEnfoque}". TODAS las actividades de las fases ERCA DEBEN contextualizarse específicamente a ${task.deporteEnfoque}: usa técnicas, gestos técnicos, situaciones de juego, reglamento y vocabulario propio de este deporte. La evaluación formativa también debe medir habilidades propias de ${task.deporteEnfoque}.`
           : "";
 
+        // Progresión pedagógica por día de la semana (req 2)
+        const progresionES = [
+          "",
+          "\nPROGRESIÓN SEMANAL — DÍA 1 (Lunes): Inicia con actividades concretas, manipulativas y de exploración. Vocabulario simple. Materiales físicos. Actividades de reconocimiento y descripción.",
+          "\nPROGRESIÓN SEMANAL — DÍA 2 (Martes): Incrementa complejidad. Introduce comparación y clasificación. Conecta con lo trabajado el día anterior usando nuevas situaciones.",
+          "\nPROGRESIÓN SEMANAL — DÍA 3 (Miércoles): Complejidad media. Actividades de análisis e integración de conceptos. Generalización a nuevos contextos.",
+          "\nPROGRESIÓN SEMANAL — DÍA 4 (Jueves): Mayor abstracción. Resolución de problemas y aplicación en situaciones nuevas. Mayor autonomía del estudiante.",
+          "\nPROGRESIÓN SEMANAL — DÍA 5 (Viernes): Síntesis y cierre. Actividades de diseño, creación o evaluación. Mayor complejidad cognitiva según Marzano. Consolidación de la semana.",
+        ];
+        const progresionEN = [
+          "",
+          "\nWEEKLY PROGRESSION — DAY 1 (Monday): Start with concrete, hands-on exploration activities. Simple vocabulary. Physical materials. Recognition and description activities.",
+          "\nWEEKLY PROGRESSION — DAY 2 (Tuesday): Increase complexity. Introduce comparison and classification. Connect to prior day using new situations.",
+          "\nWEEKLY PROGRESSION — DAY 3 (Wednesday): Medium complexity. Analysis and concept integration. Generalization to new contexts.",
+          "\nWEEKLY PROGRESSION — DAY 4 (Thursday): Higher abstraction. Problem-solving and application in new situations. Greater student autonomy.",
+          "\nWEEKLY PROGRESSION — DAY 5 (Friday): Synthesis and closure. Design, creation, or evaluation tasks. Higher cognitive complexity. Week consolidation.",
+        ];
+        const progresionCtx = isEFL
+          ? (progresionEN[task.diaNumero] ?? "")
+          : (progresionES[task.diaNumero] ?? "");
+
+        // Coherencia curricular — usa solo indicadores/criterios de esta destreza (req 1 & 7)
+        const indText = task.indicadoresEvaluacion?.length
+          ? task.indicadoresEvaluacion.map(i => `  • ${i}`).join("\n")
+          : "";
+        const ceText = task.criteriosEvaluacion?.length
+          ? task.criteriosEvaluacion.map(c => `  • ${c}`).join("\n")
+          : "";
+        const coherenciaCtxES = `\nCOHERENCIA CURRICULAR — REGLA ABSOLUTA:\nLos indicadores, criterios y objetivo de evaluación DEBEN derivarse EXCLUSIVAMENTE de la destreza ${task.codigoDestreza}. NUNCA inventes indicadores de otras destrezas o bloques curriculares.${indText ? `\nIndicadores oficiales de esta destreza (basa la evaluación en estos):\n${indText}` : ""}${ceText ? `\nCriterios de evaluación oficiales:\n${ceText}` : ""}`;
+        const coherenciaCtxEN = `\nCURRICULAR COHERENCE — ABSOLUTE RULE:\nIndicators, criteria, and evaluation objectives MUST derive EXCLUSIVELY from skill ${task.codigoDestreza}. NEVER invent indicators from other skills or curricular blocks.${indText ? `\nOfficial indicators for this skill (base evaluation on these):\n${indText}` : ""}${ceText ? `\nOfficial evaluation criteria:\n${ceText}` : ""}`;
+        const coherenciaCtx = isEFL ? coherenciaCtxEN : coherenciaCtxES;
+
+        // Esquema JSON extendido con evaluacionEstructurada y rubricaSemanal (req 3 & 5)
+        const jsonSchemaES = `{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experiencia","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflexión","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualización","duracion":"15 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Aplicación","duracion":"10 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string","evaluacionEstructurada":{"tecnica":"Técnica de evaluación (Observación directa / Prueba oral / Portafolio / Autoevaluación)","instrumento":"Instrumento concreto (Lista de cotejo / Rúbrica / Registro anecdótico / Escala de valoración)","evidencia":"Descripción concreta de qué produce o hace el estudiante como evidencia observable","criterio":"Criterio de logro medible derivado de los indicadores oficiales de la destreza"},"rubricaSemanal":[{"criterio":"Primer criterio de evaluación (máx 60 chars)","excelente":"Siempre Alcanza: descripción del desempeño óptimo y autónomo","satisfactorio":"Alcanza: descripción del desempeño esperado con pequeños errores","enProceso":"Próximo a Alcanzar: desempeño parcial, requiere apoyo del docente","noAlcanza":"No Alcanza: no demuestra el aprendizaje esperado"},{"criterio":"Segundo criterio de evaluación","excelente":"Siempre Alcanza: ...","satisfactorio":"Alcanza: ...","enProceso":"Próximo a Alcanzar: ...","noAlcanza":"No Alcanza: ..."},{"criterio":"Tercer criterio de evaluación","excelente":"Siempre Alcanza: ...","satisfactorio":"Alcanza: ...","enProceso":"Próximo a Alcanzar: ...","noAlcanza":"No Alcanza: ..."}]}`;
+        const jsonSchemaEN = `{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experience","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflection","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualization","duracion":"15 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Application","duracion":"10 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string","evaluacionEstructurada":{"tecnica":"Evaluation technique (Direct observation / Oral test / Portfolio / Self-assessment)","instrumento":"Specific instrument (Checklist / Rubric / Anecdotal record / Rating scale)","evidencia":"Concrete description of what the student produces or does as observable evidence","criterio":"Measurable achievement criterion derived from the official skill indicators"},"rubricaSemanal":[{"criterio":"First evaluation criterion (max 60 chars)","excelente":"Always Achieves: description of optimal autonomous performance","satisfactorio":"Achieves: description of expected performance with minor errors","enProceso":"Near Achievement: partial performance, requires teacher support","noAlcanza":"Does Not Achieve: does not demonstrate expected learning"},{"criterio":"Second evaluation criterion","excelente":"Always Achieves: ...","satisfactorio":"Achieves: ...","enProceso":"Near Achievement: ...","noAlcanza":"Does Not Achieve: ..."},{"criterio":"Third evaluation criterion","excelente":"Always Achieves: ...","satisfactorio":"Achieves: ...","enProceso":"Near Achievement: ...","noAlcanza":"Does Not Achieve: ..."}]}`;
+
         const prompt = isEFL
-          ? `Generate a complete 45-minute ERCA lesson plan.\nSKILL: ${task.codigoDestreza}\nAREA: ${areaNombre}\n${task.bloque ? `BLOCK: ${task.bloque}` : ""}${task.subnivel ? `\nSUBLEVEL: ${task.subnivel}` : ""}\nDESCRIPTION: ${task.descripcionDestreza}\nTOPIC: ${task.tema}${ejesTexto}${competenciasTexto}\n\nMANDATORY - Marzano Taxonomy:\n- EXPERIENCE: Recognize, Recall, Identify, Describe, Explain\n- REFLECTION: Compare, Analyze, Evaluate, Reflect, Justify\n- CONCEPTUALIZATION: Integrate, Explain, Summarize, Classify, Generalize\n- APPLICATION: Investigate, Solve, Apply, Design, Construct${duaInstruccion}\n\nRespond ONLY with valid JSON:\n{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experience","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflection","duracion":"10 minutes","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualization","duracion":"15 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Application","duracion":"10 minutes","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string"}`
-          : `Genera una planificación ERCA completa de 45 minutos.\nDESTREZA: ${task.codigoDestreza}\nÁREA: ${areaNombre}\n${task.bloque ? `BLOQUE: ${task.bloque}` : ""}${task.subnivel ? `\nSUBNIVEL: ${task.subnivel}` : ""}\nDESCRIPCIÓN: ${task.descripcionDestreza}\nTEMA: ${task.tema}${ejesTexto}${competenciasTexto}${deporteCtx}\n\nOBLIGATORIO - Taxonomía de Marzano:\n- EXPERIENCIA: Reconocer, Recordar, Identificar, Describir, Explicar\n- REFLEXIÓN: Comparar, Analizar, Evaluar, Reflexionar, Justificar\n- CONCEPTUALIZACIÓN: Integrar, Explicar, Resumir, Clasificar, Generalizar\n- APLICACIÓN: Investigar, Resolver, Aplicar, Diseñar, Construir\n\nFORMATO EXACTO DE CADA ACTIVIDAD — REGLA ABSOLUTA:\n✅ CORRECTO: "Reconocer figuras geométricas observando objetos del entorno."\n✅ CORRECTO: "Comparar conjuntos según sus atributos mediante preguntas guiadas."\n❌ PROHIBIDO: "Los estudiantes reconocerán..." → NUNCA sujeto + tiempo verbal\n❌ PROHIBIDO: "Se realizarán dinámicas de..." → NUNCA voz pasiva refleja\n❌ PROHIBIDO: "El docente pedirá que..." → NUNCA acción del docente\nESTRUCTURA: VERBO MARZANO EN INFINITIVO + objeto + modo. Sin sujeto. Sin conjugación.${duaInstruccion}\n\nResponde ÚNICAMENTE con JSON válido:\n{"objetivoClase":"string","estructura":{"experiencia":{"titulo":"Experiencia","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true}]},"reflexion":{"titulo":"Reflexión","duracion":"10 minutos","actividades":["string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false}]},"conceptualizacion":{"titulo":"Conceptualización","duracion":"15 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":true,"A":false},{"I":false,"R":true,"A":true},{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":false},{"I":true,"R":false,"A":true}]},"aplicacion":{"titulo":"Aplicación","duracion":"10 minutos","actividades":["string","string","string","string","string"],"dua":[{"I":true,"R":false,"A":true},{"I":false,"R":true,"A":true},{"I":true,"R":true,"A":false},{"I":false,"R":false,"A":true},{"I":true,"R":true,"A":true}]}},"recursos":["string","string","string","string","string"],"evaluacionFormativa":"string"}`;
+          ? `Generate a complete 45-minute ERCA lesson plan.\nSKILL: ${task.codigoDestreza}\nAREA: ${areaNombre}\n${task.bloque ? `BLOCK: ${task.bloque}` : ""}${task.subnivel ? `\nSUBLEVEL: ${task.subnivel}` : ""}\nDESCRIPTION: ${task.descripcionDestreza}\nTOPIC: ${task.tema}${ejesTexto}${competenciasTexto}${coherenciaCtx}${progresionCtx}\n\nMANDATORY - Marzano Taxonomy:\n- EXPERIENCE: Recognize, Recall, Identify, Describe, Explain\n- REFLECTION: Compare, Analyze, Evaluate, Reflect, Justify\n- CONCEPTUALIZATION: Integrate, Explain, Summarize, Classify, Generalize\n- APPLICATION: Investigate, Solve, Apply, Design, Construct${duaInstruccion}\n\nRespond ONLY with valid JSON:\n${jsonSchemaEN}`
+          : `Genera una planificación ERCA completa de 45 minutos.\nDESTREZA: ${task.codigoDestreza}\nÁREA: ${areaNombre}\n${task.bloque ? `BLOQUE: ${task.bloque}` : ""}${task.subnivel ? `\nSUBNIVEL: ${task.subnivel}` : ""}\nDESCRIPCIÓN: ${task.descripcionDestreza}\nTEMA: ${task.tema}${ejesTexto}${competenciasTexto}${deporteCtx}${coherenciaCtx}${progresionCtx}\n\nOBLIGATORIO - Taxonomía de Marzano:\n- EXPERIENCIA: Reconocer, Recordar, Identificar, Describir, Explicar\n- REFLEXIÓN: Comparar, Analizar, Evaluar, Reflexionar, Justificar\n- CONCEPTUALIZACIÓN: Integrar, Explicar, Resumir, Clasificar, Generalizar\n- APLICACIÓN: Investigar, Resolver, Aplicar, Diseñar, Construir\n\nFORMATO EXACTO DE CADA ACTIVIDAD — REGLA ABSOLUTA:\n✅ CORRECTO: "Reconocer figuras geométricas observando objetos del entorno."\n✅ CORRECTO: "Comparar conjuntos según sus atributos mediante preguntas guiadas."\n❌ PROHIBIDO: "Los estudiantes reconocerán..." → NUNCA sujeto + tiempo verbal\n❌ PROHIBIDO: "Se realizarán dinámicas de..." → NUNCA voz pasiva refleja\n❌ PROHIBIDO: "El docente pedirá que..." → NUNCA acción del docente\nESTRUCTURA: VERBO MARZANO EN INFINITIVO + objeto + modo. Sin sujeto. Sin conjugación.${duaInstruccion}\n\nResponde ÚNICAMENTE con JSON válido:\n${jsonSchemaES}`;
 
         const result = await invokeLLM({
           messages: [
@@ -611,11 +654,18 @@ Responde ÚNICAMENTE con JSON válido:
           };
         }
 
+        const evalEst = parsed.evaluacionEstructurada;
+        const rubrica = Array.isArray(parsed.rubricaSemanal) ? parsed.rubricaSemanal : undefined;
+
         return {
           objetivoClase: parsed.objetivoClase || "",
           estructura,
           recursos: Array.isArray(parsed.recursos) ? parsed.recursos : [],
           evaluacionFormativa: parsed.evaluacionFormativa || "",
+          evaluacionEstructurada: evalEst && typeof evalEst === "object" && evalEst.tecnica
+            ? { tecnica: evalEst.tecnica, instrumento: evalEst.instrumento, evidencia: evalEst.evidencia, criterio: evalEst.criterio }
+            : undefined,
+          rubricaSemanal: rubrica?.length ? rubrica : undefined,
         };
       }
 

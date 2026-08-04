@@ -289,6 +289,8 @@ export default function PlanificarSemanalScreen() {
           competencias: h.usaCompetencias ? h.competencias : [],
           metodologias: h.metodologiasActivas,
           deporteEnfoque: h.destreza?.area === "EF" && h.deporteEnfoque ? h.deporteEnfoque : undefined,
+          indicadoresEvaluacion: h.destreza!.indicadoresEvaluacion ?? [],
+          criteriosEvaluacion: h.destreza!.criteriosEvaluacion ?? [],
         })),
       });
     }
@@ -339,6 +341,8 @@ export default function PlanificarSemanalScreen() {
             ejesTransversales: hora.usaEjesTransversales ? hora.insercionesCurriculares : [],
             competencias: hora.usaCompetencias ? hora.competencias : [],
             metodologias: hora.metodologiasActivas,
+            indicadoresEvaluacion: hora.destreza!.indicadoresEvaluacion ?? [],
+            criteriosEvaluacion: hora.destreza!.criteriosEvaluacion ?? [],
           }],
         }],
       });
@@ -371,6 +375,8 @@ export default function PlanificarSemanalScreen() {
           estructura: diasConPlanes[diaKey][i]?.plan?.estructura,
           recursos: diasConPlanes[diaKey][i]?.plan?.recursos || [],
           evaluacionFormativa: diasConPlanes[diaKey][i]?.plan?.evaluacionFormativa || "",
+          evaluacionEstructurada: diasConPlanes[diaKey][i]?.plan?.evaluacionEstructurada ?? undefined,
+          rubricaSemanal: diasConPlanes[diaKey][i]?.plan?.rubricaSemanal ?? undefined,
         } : h.temaSeleccionado,
       })),
     });
@@ -1347,12 +1353,27 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
       )}
 
       {/* Evaluación */}
-      {plan.evaluacionFormativa && (
+      {(plan as any).evaluacionEstructurada ? (
+        <View style={[styles.planFooterSection, { borderTopColor: colors.border }]}>
+          <Text style={styles.planFooterLabel}>📊 Evaluación formativa</Text>
+          {[
+            ["Técnica", (plan as any).evaluacionEstructurada.tecnica],
+            ["Instrumento", (plan as any).evaluacionEstructurada.instrumento],
+            ["Evidencia", (plan as any).evaluacionEstructurada.evidencia],
+            ["Criterio", (plan as any).evaluacionEstructurada.criterio],
+          ].map(([label, value]) => value ? (
+            <View key={label as string} style={{ flexDirection: "row", marginTop: 4 }}>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: "#003366", minWidth: 80 }}>{label as string}: </Text>
+              <Text style={{ fontSize: 11, color: colors.foreground, flex: 1 }}>{value as string}</Text>
+            </View>
+          ) : null)}
+        </View>
+      ) : plan.evaluacionFormativa ? (
         <View style={[styles.planFooterSection, { borderTopColor: colors.border }]}>
           <Text style={styles.planFooterLabel}>📊 Evaluación formativa</Text>
           <Text style={{ fontSize: 12, color: colors.foreground }}>{plan.evaluacionFormativa}</Text>
         </View>
-      )}
+      ) : null}
 
       {/* DUA Legend */}
       <View style={[styles.duaLegend, { borderTopColor: colors.border }]}>

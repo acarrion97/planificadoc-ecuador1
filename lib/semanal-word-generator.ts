@@ -95,7 +95,7 @@ function simpleCell(
             text: text || "—",
             bold:    opts.bold    ?? false,
             italics: opts.italic  ?? false,
-            size:    (opts.size ?? 8) * 2,
+            size:    (opts.size ?? 9) * 2,
             color:   opts.color   ?? BLACK,
             font:    "Arial",
           }),
@@ -125,7 +125,7 @@ function faseHeaderPara(label: string, duracion: string | undefined, bgColor: st
     children: [
       new TextRun({
         text: `${label}${duracion ? ` (${duracion})` : ""}`,
-        bold: true, size: 14, color: WHITE, font: "Arial",
+        bold: true, size: 16, color: WHITE, font: "Arial",
       }),
     ],
   });
@@ -149,7 +149,7 @@ function actividadPara(
     spacing: { before: 30, after: 30 },
     indent:  { left: 60 },
     children: [
-      new TextRun({ text: `${num}. ${clean}  `, size: 13, font: "Arial", color: "222222" }),
+      new TextRun({ text: `${num}. ${clean}  `, size: 15, font: "Arial", color: "222222" }),
       // ■ Representación
       new TextRun({ text: "■", size: 14, color: dua.representacion ? DUA_R : "F9C6DD", font: "Arial" }),
       new TextRun({ text: "■", size: 14, color: dua.accionExpresion ? DUA_A : "C5D4E0", font: "Arial" }),
@@ -455,6 +455,87 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
   return filas;
 }
 
+// Colores niveles rúbrica
+const RUB_AA = "16A34A"; // Verde   — Siempre Alcanza
+const RUB_A  = "2563EB"; // Azul    — Alcanza
+const RUB_PA = "D97706"; // Ámbar   — Próximo a Alcanzar
+const RUB_NA = "DC2626"; // Rojo    — No Alcanza
+
+/** Tabla de rúbrica balanceada (5 columnas) como tabla anidada */
+function rubricaInnerTable(
+  rubrica: Array<{ criterio: string; excelente: string; satisfactorio: string; enProceso: string; noAlcanza: string }>
+): Table {
+  const hRow = new TableRow({
+    tableHeader: true,
+    children: [
+      simpleCell("CRITERIO DE EVALUACIÓN",  { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE }),
+      simpleCell("SIEMPRE ALCANZA\n(Sobresaliente)", { bold: true, size: 7, bg: RUB_AA, color: WHITE }),
+      simpleCell("ALCANZA\n(Satisfactorio)",         { bold: true, size: 7, bg: RUB_A,  color: WHITE }),
+      simpleCell("PRÓXIMO A ALCANZAR\n(En proceso)",  { bold: true, size: 7, bg: RUB_PA, color: WHITE }),
+      simpleCell("NO ALCANZA",                       { bold: true, size: 7, bg: RUB_NA, color: WHITE }),
+    ],
+  });
+  const dRows = rubrica.map((row, idx) =>
+    new TableRow({
+      children: [
+        simpleCell(`${idx + 1}. ${row.criterio}`, { bold: true, size: 8 }),
+        simpleCell(row.excelente,      { size: 7, bg: "F0FDF4" }),
+        simpleCell(row.satisfactorio,  { size: 7, bg: "EFF6FF" }),
+        simpleCell(row.enProceso,      { size: 7, bg: "FFFBEB" }),
+        simpleCell(row.noAlcanza,      { size: 7, bg: "FEF2F2" }),
+      ],
+    })
+  );
+  // Total 15718 DXA — balanceado para 5 columnas
+  return new Table({
+    width: { size: 15718, type: WidthType.DXA },
+    columnWidths: [3400, 3080, 3080, 3080, 3078],
+    rows: [hRow, ...dRows],
+  });
+}
+
+/** Genera las filas de la sección Rúbrica de Evaluación (req 5) */
+function crearSeccionRubrica(semana: PlanificacionSemanal): TableRow[] {
+  // Recolectar rúbricas únicas por código de destreza
+  const rubricasPorDestreza = new Map<string, Array<{ criterio: string; excelente: string; satisfactorio: string; enProceso: string; noAlcanza: string }>>();
+  for (const dia of (["lunes", "martes", "miercoles", "jueves", "viernes"] as const)) {
+    const config = semana.dias[dia];
+    if (!config?.activo) continue;
+    for (const hora of config.horas) {
+      const plan = hora.temaSeleccionado as any;
+      if (!plan?.rubricaSemanal?.length) continue;
+      if (!rubricasPorDestreza.has(hora.codigoDestreza)) {
+        rubricasPorDestreza.set(hora.codigoDestreza, plan.rubricaSemanal);
+      }
+    }
+  }
+  if (rubricasPorDestreza.size === 0) return [];
+
+  const filas: TableRow[] = [sectionRow("RÚBRICA DE EVALUACIÓN")];
+
+  for (const [codigo, rubrica] of rubricasPorDestreza.entries()) {
+    // Subheader por destreza
+    filas.push(new TableRow({
+      children: [
+        simpleCell(`Destreza: ${codigo}`, { bold: true, size: 8, bg: "1A3A5C", color: WHITE, colspan: 6 }),
+      ],
+    }));
+    // Tabla de rúbrica como nested table en un single-cell colspan=6
+    filas.push(new TableRow({
+      children: [
+        new TableCell({
+          columnSpan: 6,
+          borders: BORDER_DEF,
+          verticalAlign: VerticalAlign.TOP,
+          children: [rubricaInnerTable(rubrica)] as any,
+        }),
+      ],
+    }));
+  }
+
+  return filas;
+}
+
 const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
 type DiaSemanaKey = typeof DIAS[number];
 const DIA_LABEL: Record<DiaSemanaKey, string> = {
@@ -651,7 +732,7 @@ export async function generarWordSemanal(
         new Paragraph({
           children: [new TextRun({
             text: destreza?.descripcion || "",
-            size: 13, font: "Arial", color: "222222",
+            size: 15, font: "Arial", color: "222222",
           })],
           spacing: { after: 0 },
         }),
@@ -663,7 +744,7 @@ export async function generarWordSemanal(
         ? indicadores.map((ind, i) => new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 30 },
-            children: [new TextRun({ text: ind, size: 13, font: "Arial", color: BLACK })],
+            children: [new TextRun({ text: ind, size: 15, font: "Arial", color: BLACK })],
           }))
         : [new Paragraph({ children: [new TextRun({ text: "—", size: 14, font: "Arial", color: "999999" })] })];
 
@@ -678,8 +759,8 @@ export async function generarWordSemanal(
           border: { left: { style: BorderStyle.SINGLE, size: 8, color: "003366" } },
           indent: { left: 80 },
           children: [
-            new TextRun({ text: "Objetivo: ", bold: true, size: 13, color: "003366", font: "Arial" }),
-            new TextRun({ text: plan.objetivoClase, size: 13, italics: true, color: "333333", font: "Arial" }),
+            new TextRun({ text: "Objetivo: ", bold: true, size: 15, color: "003366", font: "Arial" }),
+            new TextRun({ text: plan.objetivoClase, size: 15, italics: true, color: "333333", font: "Arial" }),
           ],
         }));
       }
@@ -727,42 +808,61 @@ export async function generarWordSemanal(
         ? recursos.map(r => new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 30 },
-            children: [new TextRun({ text: r, size: 13, font: "Arial", color: BLACK })],
+            children: [new TextRun({ text: r, size: 15, font: "Arial", color: BLACK })],
           }))
         : [new Paragraph({ children: [new TextRun({ text: "—", size: 14, font: "Arial", color: "999999" })] })];
 
       // ── Col 6: ACTIVIDADES EVALUATIVAS ───────────────────────────────────
       const evaChildren: Paragraph[] = [];
-      if (plan.evaluacionFormativa) {
+      const evalEst = (plan as any).evaluacionEstructurada;
+      if (evalEst) {
+        // Req 3: evaluación estructurada (Técnica / Instrumento / Evidencia / Criterio)
+        for (const [label, value] of [
+          ["Técnica:", evalEst.tecnica],
+          ["Instrumento:", evalEst.instrumento],
+          ["Evidencia:", evalEst.evidencia],
+          ["Criterio:", evalEst.criterio],
+        ] as [string, string][]) {
+          if (value) {
+            evaChildren.push(new Paragraph({
+              spacing: { before: 20, after: 24 },
+              children: [
+                new TextRun({ text: label + " ", bold: true, size: 15, font: "Arial", color: "003366" }),
+                new TextRun({ text: value, size: 14, font: "Arial", color: "333333" }),
+              ],
+            }));
+          }
+        }
+      } else if (plan.evaluacionFormativa) {
         evaChildren.push(new Paragraph({
-          children: [new TextRun({ text: plan.evaluacionFormativa, size: 13, font: "Arial", color: BLACK })],
+          children: [new TextRun({ text: plan.evaluacionFormativa, size: 15, font: "Arial", color: BLACK })],
           spacing: { after: 40 },
         }));
       }
       if (hora.tecnicasEvaluacion?.length) {
         evaChildren.push(new Paragraph({
-          children: [new TextRun({ text: "Técnicas:", bold: true, size: 13, font: "Arial", color: "003366" })],
+          children: [new TextRun({ text: "Técnicas:", bold: true, size: 15, font: "Arial", color: "003366" })],
           spacing: { after: 20 },
         }));
         hora.tecnicasEvaluacion.forEach(t =>
           evaChildren.push(new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 20 },
-            children: [new TextRun({ text: t, size: 13, font: "Arial", color: BLACK })],
+            children: [new TextRun({ text: t, size: 14, font: "Arial", color: BLACK })],
           }))
         );
       }
       const criterios = destreza?.criteriosEvaluacion ?? [];
       if (criterios.length) {
         evaChildren.push(new Paragraph({
-          children: [new TextRun({ text: "Criterios:", bold: true, size: 13, font: "Arial", color: "003366" })],
+          children: [new TextRun({ text: "Criterios oficiales:", bold: true, size: 15, font: "Arial", color: "003366" })],
           spacing: { before: 40, after: 20 },
         }));
         criterios.forEach(c =>
           evaChildren.push(new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 20 },
-            children: [new TextRun({ text: c, size: 12, font: "Arial", color: "333333" })],
+            children: [new TextRun({ text: c, size: 14, font: "Arial", color: "333333" })],
           }))
         );
       }
@@ -785,6 +885,12 @@ export async function generarWordSemanal(
       rows.push(new TableRow({ children: cells }));
     }
   }
+
+  // ══════════════════════════════════════════════════════════════
+  // RÚBRICA DE EVALUACIÓN (req 5 — antes de adaptaciones y firmas)
+  // ══════════════════════════════════════════════════════════════
+  const rubricaRows = crearSeccionRubrica(semana);
+  rows.push(...rubricaRows);
 
   // ══════════════════════════════════════════════════════════════
   // ADAPTACIONES CURRICULARES (antes de las firmas)
