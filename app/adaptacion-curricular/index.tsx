@@ -463,7 +463,6 @@ export default function AdaptacionCurricularScreen() {
             </View>
 
             <Field label="Paralelo" value={form.paralelo} onChangeText={(v) => setField("paralelo", v)} colors={colors} placeholder="Ej: A" disabled={!!semanaId} />
-            <Field label="Periodo pedagogico" value={form.periodoPedagogico} onChangeText={(v) => setField("periodoPedagogico", v)} colors={colors} disabled={!!semanaId} />
             <Field label="Trimestre" value={form.trimestre} onChangeText={(v) => setField("trimestre", v)} colors={colors} placeholder="Ej: 1.° trimestre" disabled={!!semanaId} />
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
