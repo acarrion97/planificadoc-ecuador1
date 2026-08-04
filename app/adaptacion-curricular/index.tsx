@@ -228,6 +228,8 @@ export default function AdaptacionCurricularScreen() {
   const [savedId, setSavedId] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
   const [vinculada, setVinculada] = useState(false);
+  const [generateError, setGenerateError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const generateMutation = trpc.adaptaciones.generate.useMutation();
 
@@ -259,11 +261,13 @@ export default function AdaptacionCurricularScreen() {
 
   function handleNext() {
     const err = validateStep();
-    if (err) { Alert.alert("Dato requerido", err); return; }
+    if (err) { setValidationError(err); return; }
+    setValidationError(null);
     nextStep();
   }
 
   async function handleGenerate() {
+    setGenerateError(null);
     let sessionId = await AsyncStorage.getItem("@planificadoc_device_id");
     if (!sessionId) {
       sessionId = Math.random().toString(36).substr(2, 16) + Date.now().toString(36);
@@ -272,6 +276,10 @@ export default function AdaptacionCurricularScreen() {
 
     try {
       const res = await generateMutation.mutateAsync({ form, sessionId });
+      if (!res?.aiResult) {
+        setGenerateError("La IA no devolvió resultados. Intenta de nuevo.");
+        return;
+      }
       setAiResult(res.aiResult);
       const id = await saveLocally(res.aiResult, sessionId);
       if (semanaId) {
@@ -279,7 +287,8 @@ export default function AdaptacionCurricularScreen() {
       }
       nextStep();
     } catch (err: any) {
-      Alert.alert("Error al generar", err?.message ?? "Intenta de nuevo.");
+      const msg = err?.data?.message || err?.message || "Error de conexión. Intenta de nuevo.";
+      setGenerateError(msg);
     }
   }
 
@@ -663,6 +672,35 @@ export default function AdaptacionCurricularScreen() {
                 Esto puede tomar entre 15 y 30 segundos...
               </Text>
             )}
+
+            {generateError && (
+              <View style={{ backgroundColor: "#FEE2E2", borderRadius: 10, padding: 14, marginTop: 14, borderWidth: 1, borderColor: "#FCA5A5" }}>
+                <Text style={{ fontSize: 13, fontWeight: "700", color: "#DC2626", marginBottom: 4 }}>❌ Error al generar</Text>
+                <Text style={{ fontSize: 12, color: "#991B1B" }}>{generateError}</Text>
+                <Text style={{ fontSize: 11, color: "#DC2626", marginTop: 8 }}>
+                  Verifica tu conexión e intenta de nuevo. Si el problema persiste, el servicio de IA puede estar temporalmente no disponible.
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
+
+        {/* ── PASO 4: Resultado — fallback si aiResult es null ── */}
+        {step === 4 && !aiResult && (
+          <View style={{ padding: 24, alignItems: "center", gap: 12 }}>
+            <Text style={{ fontSize: 40 }}>⚠️</Text>
+            <Text style={{ fontSize: 15, fontWeight: "700", color: "#DC2626", textAlign: "center" }}>
+              No se pudo obtener el resultado
+            </Text>
+            <Text style={{ fontSize: 12, color: colors.muted, textAlign: "center" }}>
+              La generación falló o la respuesta llegó vacía. Vuelve al paso anterior e intenta de nuevo.
+            </Text>
+            <Pressable
+              onPress={() => { setStep(3); setGenerateError(null); scrollTop(); }}
+              style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}
+            >
+              <Text style={{ color: "#fff", fontWeight: "700" }}>← Volver a Generar</Text>
+            </Pressable>
           </View>
         )}
 
@@ -686,6 +724,14 @@ export default function AdaptacionCurricularScreen() {
               exporting={exporting}
             />
           </>
+        )}
+
+        {/* Error de validación inline */}
+        {validationError && step < 3 && (
+          <View style={{ backgroundColor: "#FEF3C7", borderRadius: 8, padding: 12, marginTop: 8, borderWidth: 1, borderColor: "#F59E0B", flexDirection: "row", gap: 8 }}>
+            <Text style={{ fontSize: 14 }}>⚠️</Text>
+            <Text style={{ fontSize: 12, color: "#92400E", flex: 1 }}>{validationError}</Text>
+          </View>
         )}
 
         {/* Botones de navegacion */}
@@ -735,7 +781,7 @@ export default function AdaptacionCurricularScreen() {
               </Pressable>
             )}
             <Pressable
-              onPress={() => { setStep(0); setAiResult(null); setForm(FORM_EMPTY); setSavedId(null); setVinculada(false); }}
+              onPress={() => { setStep(0); setAiResult(null); setForm(FORM_EMPTY); setSavedId(null); setVinculada(false); setGenerateError(null); }}
               style={{ alignItems: "center" }}
             >
               <Text style={{ fontSize: 12, color: colors.primary, textDecorationLine: "underline" }}>
