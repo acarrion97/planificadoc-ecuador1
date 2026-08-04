@@ -218,6 +218,67 @@ function parBloquePedagogico(
   ];
 }
 
+/** Tabla anidada para bloques de adaptación (Categoría | Descripción | Estrategias) */
+function adaptacionInnerTable(
+  items: Array<{ categoria: string; descripcion: string; estrategias: string[] }>,
+  headerBg: string,
+): Table {
+  const hRow = new TableRow({
+    tableHeader: true,
+    children: [
+      simpleCell("CATEGORÍA",   { bold: true, size: 7, bg: headerBg, color: WHITE }),
+      simpleCell("DESCRIPCIÓN", { bold: true, size: 7, bg: headerBg, color: WHITE }),
+      simpleCell("ESTRATEGIAS", { bold: true, size: 7, bg: headerBg, color: WHITE }),
+    ],
+  });
+  const dRows = items.map(item =>
+    new TableRow({
+      children: [
+        simpleCell(item.categoria,   { bold: true, size: 7, bg: "F5F3FF" }),
+        simpleCell(item.descripcion, { size: 7 }),
+        new TableCell({
+          borders: BORDER_DEF,
+          verticalAlign: VerticalAlign.TOP,
+          children: item.estrategias.map(e =>
+            new Paragraph({
+              spacing: { after: 20 },
+              children: [new TextRun({ text: `• ${e}`, size: 14, font: "Arial", color: BLACK })],
+            })
+          ),
+        }),
+      ],
+    })
+  );
+  return new Table({
+    width: { size: 12518, type: WidthType.DXA },
+    columnWidths: [2700, 4200, 5618],
+    rows: [hRow, ...dRows],
+  });
+}
+
+/** Tabla de una columna para listas simples (metodologías, recursos) */
+function bulletInnerTable(items: string[], bg?: string): Table {
+  return new Table({
+    width: { size: 12518, type: WidthType.DXA },
+    rows: items.map(item =>
+      new TableRow({
+        children: [
+          new TableCell({
+            borders: BORDER_DEF,
+            shading: bg ? { fill: bg, color: bg, type: ShadingType.CLEAR } : undefined,
+            children: [
+              new Paragraph({
+                spacing: { after: 20 },
+                children: [new TextRun({ text: `• ${item}`, size: 14, font: "Arial", color: BLACK })],
+              }),
+            ],
+          }),
+        ],
+      })
+    ),
+  });
+}
+
 /**
  * Genera las filas de la tabla para la sección de Adaptaciones Curriculares.
  * Devuelve array vacío si no hay adaptaciones activas (documento idéntico al original).
@@ -270,8 +331,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       }));
     }
 
-    // Celda derecha: contenido de la adaptación
-    const rightChildren: Paragraph[] = [];
+    // Celda derecha: contenido de la adaptación (mezcla Paragraph + Table)
+    const rightChildren: (Paragraph | Table)[] = [];
 
     // Destreza original
     rightChildren.push(new Paragraph({
@@ -286,79 +347,70 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       ],
     }));
 
-    // Grado 2/3: destreza, criterio e indicadores adaptados
+    // Grado 2/3: destreza, criterio e indicadores adaptados en tabla
     if (adap.gradoAdaptacion >= 2) {
+      const infoRows: TableRow[] = [];
       if (adap.destrezaAdaptada) {
-        rightChildren.push(new Paragraph({
-          spacing: { before: 20, after: 12 },
-          shading: { fill: "EDE9FE", color: "EDE9FE", type: ShadingType.CLEAR },
-          children: [
-            new TextRun({ text: "DESTREZA ADAPTADA: ", bold: true, size: 12, color: BG_ADAPT_TITLE, font: "Arial" }),
-            new TextRun({ text: adap.destrezaAdaptada, size: 12, font: "Arial", color: BLACK }),
-          ],
-        }));
+        infoRows.push(new TableRow({ children: [
+          simpleCell("DESTREZA ADAPTADA:", { bold: true, size: 7, bg: "EDE9FE", color: BG_ADAPT_TITLE }),
+          simpleCell(adap.destrezaAdaptada, { size: 7, bold: true }),
+        ]}));
       }
       if (adap.criterioAdaptado) {
-        rightChildren.push(new Paragraph({
-          spacing: { after: 12 },
-          children: [
-            new TextRun({ text: "Criterio adaptado: ", bold: true, size: 12, color: BG_ADAPT_TITLE, font: "Arial" }),
-            new TextRun({ text: adap.criterioAdaptado, size: 12, font: "Arial", color: BLACK }),
-          ],
-        }));
+        infoRows.push(new TableRow({ children: [
+          simpleCell("Criterio adaptado:", { bold: true, size: 7, bg: "F5F3FF", color: BG_ADAPT_TITLE }),
+          simpleCell(adap.criterioAdaptado, { size: 7 }),
+        ]}));
       }
       if (adap.indicadoresAdaptados?.length) {
-        rightChildren.push(new Paragraph({
-          spacing: { before: 14, after: 10 },
-          children: [new TextRun({ text: "Indicadores adaptados:", bold: true, size: 12, color: BG_ADAPT_TITLE, font: "Arial" })],
+        infoRows.push(new TableRow({ children: [
+          simpleCell("Indicadores adaptados:", { bold: true, size: 7, bg: "F5F3FF", color: BG_ADAPT_TITLE }),
+          new TableCell({
+            borders: BORDER_DEF,
+            verticalAlign: VerticalAlign.TOP,
+            children: adap.indicadoresAdaptados.map(ind =>
+              new Paragraph({ spacing: { after: 16 }, children: [new TextRun({ text: `• ${ind}`, size: 14, font: "Arial", color: BLACK })] })
+            ),
+          }),
+        ]}));
+      }
+      if (infoRows.length) {
+        rightChildren.push(new Table({
+          width: { size: 12518, type: WidthType.DXA },
+          columnWidths: [3200, 9318],
+          rows: infoRows,
         }));
-        adap.indicadoresAdaptados.forEach(ind =>
-          rightChildren.push(new Paragraph({
-            bullet: { level: 0 },
-            spacing: { after: 10 },
-            children: [new TextRun({ text: ind, size: 11, font: "Arial", color: BLACK })],
-          }))
-        );
       }
     }
 
-    // Adaptaciones de acceso (siempre)
+    // Adaptaciones de acceso (siempre) — tabla
     if (adap.adaptacionesAcceso?.length) {
-      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE ACCESO", "003366"));
-      adap.adaptacionesAcceso.forEach(b => rightChildren.push(...parBloquePedagogico(b)));
+      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE ACCESO", "1A3A5C"));
+      rightChildren.push(adaptacionInnerTable(adap.adaptacionesAcceso, "1A3A5C"));
     }
 
-    // Adaptaciones de proceso (grado 2/3)
+    // Adaptaciones de proceso (grado 2/3) — tabla
     if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
       rightChildren.push(parSeccionAdapt("ADAPTACIONES DE PROCESO", "8E44AD"));
-      adap.adaptacionesProceso.forEach(b => rightChildren.push(...parBloquePedagogico(b)));
+      rightChildren.push(adaptacionInnerTable(adap.adaptacionesProceso, "8E44AD"));
     }
 
-    // Adaptaciones de resultado (grado 3)
+    // Adaptaciones de resultado (grado 3) — tabla
     if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
       rightChildren.push(parSeccionAdapt("ADAPTACIONES DE RESULTADO", "E67E22"));
-      adap.adaptacionesResultado.forEach(b => rightChildren.push(...parBloquePedagogico(b)));
+      rightChildren.push(adaptacionInnerTable(adap.adaptacionesResultado, "E67E22"));
     }
 
-    // Metodologías y recursos
+    // Metodologías — tabla de una columna
     if (adap.metodologiasSugeridas?.length) {
       rightChildren.push(parSeccionAdapt("METODOLOGÍAS SUGERIDAS", "003366"));
-      adap.metodologiasSugeridas.forEach(m =>
-        rightChildren.push(new Paragraph({
-          bullet: { level: 0 },
-          spacing: { after: 10 },
-          children: [new TextRun({ text: m, size: 11, font: "Arial", color: BLACK })],
-        }))
-      );
+      rightChildren.push(bulletInnerTable(adap.metodologiasSugeridas, "F0F4FA"));
     }
+
+    // Recursos — tabla de una columna
     if (adap.recursosEspecificos?.length) {
-      rightChildren.push(new Paragraph({
-        spacing: { before: 20, after: 10 },
-        children: [
-          new TextRun({ text: "Recursos: ", bold: true, size: 12, font: "Arial", color: "444444" }),
-          new TextRun({ text: adap.recursosEspecificos.join(" · "), size: 11, font: "Arial", color: "333333" }),
-        ],
-      }));
+      rightChildren.push(parSeccionAdapt("RECURSOS ESPECÍFICOS", "444444"));
+      rightChildren.push(bulletInnerTable(adap.recursosEspecificos));
     }
 
     // Seguimiento y observaciones
@@ -394,7 +446,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
           columnSpan: 4,
           borders: BORDER_DEF,
           verticalAlign: VerticalAlign.TOP,
-          children: rightChildren,
+          children: rightChildren as any,
         }),
       ],
     }));
@@ -735,6 +787,14 @@ export async function generarWordSemanal(
   }
 
   // ══════════════════════════════════════════════════════════════
+  // ADAPTACIONES CURRICULARES (antes de las firmas)
+  // ══════════════════════════════════════════════════════════════
+  const adaptacionesRows = crearSeccionAdaptacionesCurriculares(
+    adaptaciones ?? semana.adaptacionesCurriculares ?? []
+  );
+  rows.push(...adaptacionesRows);
+
+  // ══════════════════════════════════════════════════════════════
   // FIRMAS
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("FIRMAS Y APROBACIÓN"));
@@ -789,14 +849,6 @@ export async function generarWordSemanal(
       firmaCell(""),
     ],
   }));
-
-  // ══════════════════════════════════════════════════════════════
-  // ADAPTACIONES CURRICULARES (opcional — appended tras las firmas)
-  // ══════════════════════════════════════════════════════════════
-  const adaptacionesRows = crearSeccionAdaptacionesCurriculares(
-    adaptaciones ?? semana.adaptacionesCurriculares ?? []
-  );
-  rows.push(...adaptacionesRows);
 
   // ══════════════════════════════════════════════════════════════
   // CONSTRUIR DOCUMENTO
