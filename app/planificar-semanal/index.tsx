@@ -357,9 +357,24 @@ export default function PlanificarSemanalScreen() {
     }
   };
 
-  const handleGuardar = async () => {
+  const buildSemana = (): PlanificacionSemanal => {
     const now = new Date().toISOString();
-    const semana: PlanificacionSemanal = {
+    const mapDia = (diaKey: DiaSemanaKey) => ({
+      ...dias[diaKey],
+      horas: dias[diaKey].horas.map((h, i) => ({
+        ...h,
+        temaSeleccionado: diasConPlanes[diaKey]?.[i] ? {
+          id: h.temaSeleccionado?.id || generateId(),
+          titulo: h.temaSeleccionado?.titulo || h.tema,
+          descripcionBreve: "",
+          objetivoClase: diasConPlanes[diaKey][i]?.plan?.objetivoClase || "",
+          estructura: diasConPlanes[diaKey][i]?.plan?.estructura,
+          recursos: diasConPlanes[diaKey][i]?.plan?.recursos || [],
+          evaluacionFormativa: diasConPlanes[diaKey][i]?.plan?.evaluacionFormativa || "",
+        } : h.temaSeleccionado,
+      })),
+    });
+    return {
       id: generateId(),
       fecha: getTodayDate(),
       semanaInicio,
@@ -386,87 +401,27 @@ export default function PlanificarSemanalScreen() {
       pctLectorEscritor: "",
       pctKinestesico: "",
       dias: {
-        lunes: {
-          ...dias.lunes,
-          horas: dias.lunes.horas.map((h, i) => ({
-            ...h,
-            temaSeleccionado: diasConPlanes.lunes?.[i] ? {
-              id: h.temaSeleccionado?.id || generateId(),
-              titulo: h.temaSeleccionado?.titulo || h.tema,
-              descripcionBreve: "",
-              objetivoClase: diasConPlanes.lunes[i]?.plan?.objetivoClase || "",
-              estructura: diasConPlanes.lunes[i]?.plan?.estructura,
-              recursos: diasConPlanes.lunes[i]?.plan?.recursos || [],
-              evaluacionFormativa: diasConPlanes.lunes[i]?.plan?.evaluacionFormativa || "",
-            } : h.temaSeleccionado,
-          })),
-        },
-        martes: {
-          ...dias.martes,
-          horas: dias.martes.horas.map((h, i) => ({
-            ...h,
-            temaSeleccionado: diasConPlanes.martes?.[i] ? {
-              id: h.temaSeleccionado?.id || generateId(),
-              titulo: h.temaSeleccionado?.titulo || h.tema,
-              descripcionBreve: "",
-              objetivoClase: diasConPlanes.martes[i]?.plan?.objetivoClase || "",
-              estructura: diasConPlanes.martes[i]?.plan?.estructura,
-              recursos: diasConPlanes.martes[i]?.plan?.recursos || [],
-              evaluacionFormativa: diasConPlanes.martes[i]?.plan?.evaluacionFormativa || "",
-            } : h.temaSeleccionado,
-          })),
-        },
-        miercoles: {
-          ...dias.miercoles,
-          horas: dias.miercoles.horas.map((h, i) => ({
-            ...h,
-            temaSeleccionado: diasConPlanes.miercoles?.[i] ? {
-              id: h.temaSeleccionado?.id || generateId(),
-              titulo: h.temaSeleccionado?.titulo || h.tema,
-              descripcionBreve: "",
-              objetivoClase: diasConPlanes.miercoles[i]?.plan?.objetivoClase || "",
-              estructura: diasConPlanes.miercoles[i]?.plan?.estructura,
-              recursos: diasConPlanes.miercoles[i]?.plan?.recursos || [],
-              evaluacionFormativa: diasConPlanes.miercoles[i]?.plan?.evaluacionFormativa || "",
-            } : h.temaSeleccionado,
-          })),
-        },
-        jueves: {
-          ...dias.jueves,
-          horas: dias.jueves.horas.map((h, i) => ({
-            ...h,
-            temaSeleccionado: diasConPlanes.jueves?.[i] ? {
-              id: h.temaSeleccionado?.id || generateId(),
-              titulo: h.temaSeleccionado?.titulo || h.tema,
-              descripcionBreve: "",
-              objetivoClase: diasConPlanes.jueves[i]?.plan?.objetivoClase || "",
-              estructura: diasConPlanes.jueves[i]?.plan?.estructura,
-              recursos: diasConPlanes.jueves[i]?.plan?.recursos || [],
-              evaluacionFormativa: diasConPlanes.jueves[i]?.plan?.evaluacionFormativa || "",
-            } : h.temaSeleccionado,
-          })),
-        },
-        viernes: {
-          ...dias.viernes,
-          horas: dias.viernes.horas.map((h, i) => ({
-            ...h,
-            temaSeleccionado: diasConPlanes.viernes?.[i] ? {
-              id: h.temaSeleccionado?.id || generateId(),
-              titulo: h.temaSeleccionado?.titulo || h.tema,
-              descripcionBreve: "",
-              objetivoClase: diasConPlanes.viernes[i]?.plan?.objetivoClase || "",
-              estructura: diasConPlanes.viernes[i]?.plan?.estructura,
-              recursos: diasConPlanes.viernes[i]?.plan?.recursos || [],
-              evaluacionFormativa: diasConPlanes.viernes[i]?.plan?.evaluacionFormativa || "",
-            } : h.temaSeleccionado,
-          })),
-        },
+        lunes: mapDia("lunes"),
+        martes: mapDia("martes"),
+        miercoles: mapDia("miercoles"),
+        jueves: mapDia("jueves"),
+        viernes: mapDia("viernes"),
       },
       createdAt: now,
       updatedAt: now,
     };
+  };
+
+  const handleGuardar = async () => {
+    const semana = buildSemana();
     await addSemana(semana);
     router.replace(`/ver-semana/${semana.id}` as any);
+  };
+
+  const handleGuardarParaAdaptacion = async () => {
+    const semana = buildSemana();
+    await addSemana(semana);
+    router.replace({ pathname: "/adaptacion-curricular", params: { semanaId: semana.id } });
   };
 
   // ─── RENDER ───────────────────────────────────────────────
@@ -496,6 +451,7 @@ export default function PlanificarSemanalScreen() {
       setTabActivo={setTabActivo}
       onRegenerarHora={regenerarHora}
       onGuardar={handleGuardar}
+      onGuardarParaAdaptacion={handleGuardarParaAdaptacion}
       onVolver={() => setPaso("configuracion")}
       isGuardando={false}
     />;
@@ -1167,7 +1123,7 @@ function HoraBlock({
 
 function ResultadoView({
   colors, dias, diasConPlanes, tabActivo, setTabActivo,
-  onRegenerarHora, onGuardar, onVolver, isGuardando,
+  onRegenerarHora, onGuardar, onGuardarParaAdaptacion, onVolver, isGuardando,
 }: {
   colors: any;
   dias: DiasState;
@@ -1176,10 +1132,12 @@ function ResultadoView({
   setTabActivo: (d: DiaSemanaKey) => void;
   onRegenerarHora: (dia: DiaSemanaKey, horaIndex: number) => void;
   onGuardar: () => void;
+  onGuardarParaAdaptacion: () => void;
   onVolver: () => void;
   isGuardando: boolean;
 }) {
   const diasActivos = DIAS_SEMANA.filter(d => dias[d].activo && (diasConPlanes[d]?.length ?? 0) > 0);
+  const [tabAdaptaciones, setTabAdaptaciones] = useState(false);
 
   return (
     <ScreenContainer edges={["top","bottom","left","right"]} className="flex-1">
@@ -1201,17 +1159,70 @@ function ResultadoView({
         {/* Tabs por día */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[styles.tabsRow, { borderBottomColor: colors.border }]}>
           {diasActivos.map(d => (
-            <Pressable key={d} onPress={() => setTabActivo(d)}
-              style={[styles.tab, { borderBottomColor: tabActivo === d ? "#003366" : "transparent" }]}>
+            <Pressable key={d} onPress={() => { setTabActivo(d); setTabAdaptaciones(false); }}
+              style={[styles.tab, { borderBottomColor: !tabAdaptaciones && tabActivo === d ? "#003366" : "transparent" }]}>
               <Text style={{ fontSize: 14 }}>{DIA_EMOJI[d]}</Text>
-              <Text style={[styles.tabLabel, { color: tabActivo === d ? "#003366" : colors.muted }]}>
+              <Text style={[styles.tabLabel, { color: !tabAdaptaciones && tabActivo === d ? "#003366" : colors.muted }]}>
                 {DIA_LABEL[d]}
               </Text>
             </Pressable>
           ))}
+          <Pressable onPress={() => setTabAdaptaciones(true)}
+            style={[styles.tab, { borderBottomColor: tabAdaptaciones ? "#7B2D8B" : "transparent" }]}>
+            <Text style={{ fontSize: 14 }}>♿</Text>
+            <Text style={[styles.tabLabel, { color: tabAdaptaciones ? "#7B2D8B" : colors.muted }]}>ADAPT.</Text>
+          </Pressable>
         </ScrollView>
 
+        {/* Contenido adaptaciones */}
+        {tabAdaptaciones && (
+          <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 48, alignItems: "center" }}>
+            <View style={{ width: "100%", maxWidth: 520 }}>
+              <View style={{ backgroundColor: "#4A1942", borderRadius: 14, padding: 20, marginBottom: 20, alignItems: "center" }}>
+                <Text style={{ fontSize: 36, marginBottom: 8 }}>♿</Text>
+                <Text style={{ color: "#fff", fontSize: 16, fontWeight: "700", textAlign: "center", marginBottom: 6 }}>
+                  Adaptaciones Curriculares
+                </Text>
+                <Text style={{ color: "#E9D5FF", fontSize: 13, textAlign: "center" }}>
+                  Para agregar adaptaciones curriculares a esta planificación, primero guárdala. Los datos del contexto (institución, docente, grado) se pre-rellenarán automáticamente.
+                </Text>
+              </View>
+
+              <Pressable
+                onPress={onGuardarParaAdaptacion}
+                style={({ pressed }) => ({
+                  backgroundColor: pressed ? "#6B21A8" : "#7B2D8B",
+                  borderRadius: 12, paddingVertical: 16,
+                  alignItems: "center", marginBottom: 12,
+                  opacity: isGuardando ? 0.7 : 1,
+                })}
+              >
+                {isGuardando
+                  ? <ActivityIndicator color="#fff" size="small" />
+                  : <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
+                      💾 Guardar y agregar adaptación
+                    </Text>}
+              </Pressable>
+
+              <Pressable
+                onPress={onGuardar}
+                style={({ pressed }) => ({
+                  backgroundColor: colors.surface, borderRadius: 12,
+                  paddingVertical: 13, alignItems: "center",
+                  borderWidth: 1, borderColor: colors.border,
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text style={{ color: colors.foreground, fontWeight: "600", fontSize: 14 }}>
+                  💾 Solo guardar (sin adaptaciones)
+                </Text>
+              </Pressable>
+            </View>
+          </ScrollView>
+        )}
+
         {/* Contenido del día activo */}
+        {!tabAdaptaciones && (
         <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
           {(diasConPlanes[tabActivo] || []).sort((a, b) => a.horaIndex - b.horaIndex).map((item) => {
             const { horaIndex, plan } = item as any;
@@ -1250,6 +1261,7 @@ function ResultadoView({
             </View>
           )}
         </ScrollView>
+        )}
       </View>
     </ScreenContainer>
   );
@@ -1427,9 +1439,9 @@ const styles = StyleSheet.create({
   resultHeader: { flexDirection: "row", alignItems: "center", paddingHorizontal: 16, paddingVertical: 10, borderBottomWidth: 1 },
   resultTitle: { flex: 1, fontSize: 16, fontWeight: "700", textAlign: "center" },
   btnGuardar: { backgroundColor: "#003366", paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8 },
-  tabsRow: { borderBottomWidth: 1 },
-  tab: { paddingHorizontal: 16, paddingVertical: 10, alignItems: "center", borderBottomWidth: 2 },
-  tabLabel: { fontSize: 13, fontWeight: "600", marginTop: 2 },
+  tabsRow: { borderBottomWidth: 1, height: 66, flexShrink: 0 },
+  tab: { paddingHorizontal: 16, paddingVertical: 10, alignItems: "center", justifyContent: "center", borderBottomWidth: 2, height: 66 },
+  tabLabel: { fontSize: 12, fontWeight: "600", marginTop: 2 },
   horaPlanCard: { margin: 16, marginBottom: 0, borderRadius: 12, borderWidth: 1, overflow: "hidden" },
   horaPlanHeader: { padding: 12 },
   horaPlanTitle: { fontSize: 14, fontWeight: "700" },
