@@ -158,17 +158,14 @@ function actividadPara(
   });
 }
 
-/** Párrafo de leyenda DUA (arriba de la columna estrategias) */
+/** Párrafo de leyenda DUA — solo cuadritos de color */
 function duaLegendPara(): Paragraph {
   return new Paragraph({
     spacing: { before: 10, after: 30 },
     children: [
-      new TextRun({ text: "■ ", size: 13, color: DUA_R, font: "Arial" }),
-      new TextRun({ text: "Representación   ", size: 12, color: "666666", font: "Arial" }),
-      new TextRun({ text: "■ ", size: 13, color: DUA_A, font: "Arial" }),
-      new TextRun({ text: "Acción/Expresión   ", size: 12, color: "666666", font: "Arial" }),
-      new TextRun({ text: "■ ", size: 13, color: DUA_I, font: "Arial" }),
-      new TextRun({ text: "Implicación", size: 12, color: "666666", font: "Arial" }),
+      new TextRun({ text: "■ ", size: 20, color: DUA_R, font: "Arial" }),
+      new TextRun({ text: "■ ", size: 20, color: DUA_A, font: "Arial" }),
+      new TextRun({ text: "■",  size: 20, color: DUA_I, font: "Arial" }),
     ],
   });
 }
@@ -180,7 +177,7 @@ const BG_ADAPT_LEFT  = "F9F5FF";  // violeta muy claro — celda izquierda
 
 // ─── Helpers para adaptaciones ───────────────────────────────────────────────
 
-function parBoldValor(label: string, valor: string, size = 7): Paragraph {
+function parBoldValor(label: string, valor: string, size = 12): Paragraph {
   return new Paragraph({
     spacing: { after: 18 },
     children: [
@@ -193,7 +190,7 @@ function parBoldValor(label: string, valor: string, size = 7): Paragraph {
 function parSeccionAdapt(label: string, color: string): Paragraph {
   return new Paragraph({
     spacing: { before: 40, after: 14 },
-    children: [new TextRun({ text: label, bold: true, size: 13, font: "Arial", color })],
+    children: [new TextRun({ text: label, bold: true, size: 24, font: "Arial", color })],
   });
 }
 
@@ -204,15 +201,15 @@ function parBloquePedagogico(
     new Paragraph({
       spacing: { before: 20, after: 10 },
       children: [
-        new TextRun({ text: bloque.categoria + ": ", bold: true, size: 12, font: "Arial", color: "003366" }),
-        new TextRun({ text: bloque.descripcion, size: 12, font: "Arial", color: BLACK }),
+        new TextRun({ text: bloque.categoria + ": ", bold: true, size: 24, font: "Arial", color: "003366" }),
+        new TextRun({ text: bloque.descripcion, size: 24, font: "Arial", color: BLACK }),
       ],
     }),
     ...bloque.estrategias.map(e =>
       new Paragraph({
         bullet: { level: 0 },
         spacing: { after: 10 },
-        children: [new TextRun({ text: e, size: 11, font: "Arial", color: "333333" })],
+        children: [new TextRun({ text: e, size: 24, font: "Arial", color: "333333" })],
       })
     ),
   ];
@@ -315,7 +312,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
     const leftChildren: Paragraph[] = [
       new Paragraph({
         spacing: { before: 0, after: 30 },
-        children: [new TextRun({ text: "IDENTIFICACIÓN", bold: true, size: 13, color: BG_ADAPT_TITLE, font: "Arial" })],
+        children: [new TextRun({ text: "IDENTIFICACIÓN", bold: true, size: 24, color: BG_ADAPT_TITLE, font: "Arial" })],
       }),
       parBoldValor("Código:", adap.codigoEstudiante),
       parBoldValor("NEE:", tipoNombre),
@@ -326,7 +323,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
         spacing: { before: 20, after: 0 },
         children: [new TextRun({
           text: adap.descripcionNecesidad,
-          size: 11, italics: true, font: "Arial", color: "555555",
+          size: 24, italics: true, font: "Arial", color: "555555",
         })],
       }));
     }
@@ -338,11 +335,11 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
     rightChildren.push(new Paragraph({
       spacing: { before: 0, after: 14 },
       children: [
-        new TextRun({ text: "Destreza: ", bold: true, size: 12, color: "003366", font: "Arial" }),
-        new TextRun({ text: adap.codigoDestreza, bold: true, size: 12, font: "Arial", color: BLACK }),
+        new TextRun({ text: "Destreza: ", bold: true, size: 24, color: "003366", font: "Arial" }),
+        new TextRun({ text: adap.codigoDestreza, bold: true, size: 24, font: "Arial", color: BLACK }),
         ...(adap.descripcionDestreza ? [new TextRun({
           text: " — " + adap.descripcionDestreza,
-          size: 11, italics: true, font: "Arial", color: "444444",
+          size: 24, italics: true, font: "Arial", color: "444444",
         })] : []),
       ],
     }));
@@ -405,8 +402,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             spacing: { before: 20, after: 8 },
             indent: { left: 30 },
             children: [
-              new TextRun({ text: "Objetivo: ", bold: true, size: 11, font: "Arial", color: bgD }),
-              new TextRun({ text: dp.objetivo, size: 10, italics: true, font: "Arial", color: "444444" }),
+              new TextRun({ text: "Objetivo: ", bold: true, size: 24, font: "Arial", color: bgD }),
+              new TextRun({ text: dp.objetivo, size: 24, italics: true, font: "Arial", color: "444444" }),
             ],
           }));
         }
@@ -415,8 +412,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             spacing: { before: 0, after: 12 },
             indent: { left: 30 },
             children: [
-              new TextRun({ text: "Obj. adaptado: ", bold: true, size: 11, font: "Arial", color: bgD }),
-              new TextRun({ text: (dp as any).objetivoAdaptado, bold: true, size: 10, font: "Arial", color: BLACK }),
+              new TextRun({ text: "Obj. adaptado: ", bold: true, size: 24, font: "Arial", color: bgD }),
+              new TextRun({ text: (dp as any).objetivoAdaptado, bold: true, size: 24, font: "Arial", color: BLACK }),
             ],
           }));
         }
@@ -427,13 +424,13 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
               shading: { fill: dark, color: dark, type: ShadingType.CLEAR },
               spacing: { before: 8, after: 0 },
               indent: { left: 30 },
-              children: [new TextRun({ text: label, bold: true, size: 12, font: "Arial", color: WHITE })],
+              children: [new TextRun({ text: label, bold: true, size: 24, font: "Arial", color: WHITE })],
             }));
             leftContent.push(new Paragraph({
               shading: { fill: light, color: light, type: ShadingType.CLEAR },
               spacing: { before: 0, after: 8 },
               indent: { left: 40 },
-              children: [new TextRun({ text: val, size: 11, font: "Arial", color: BLACK })],
+              children: [new TextRun({ text: val, size: 24, font: "Arial", color: BLACK })],
             }));
           }
         }
@@ -443,15 +440,15 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
         const middleContent: Paragraph[] = dp.recursosAdaptados?.length
           ? dp.recursosAdaptados.map(r => new Paragraph({
               spacing: { before: 8, after: 12 },
-              children: [new TextRun({ text: `• ${r}`, size: 11, font: "Arial", color: BLACK })],
+              children: [new TextRun({ text: `• ${r}`, size: 24, font: "Arial", color: BLACK })],
             }))
-          : [new Paragraph({ children: [new TextRun({ text: "—", size: 11, font: "Arial", color: BLACK })] })];
+          : [new Paragraph({ children: [new TextRun({ text: "—", size: 24, font: "Arial", color: BLACK })] })];
 
         // Columna derecha: evaluación
         const evalContent: Paragraph[] = [new Paragraph({
           spacing: { before: 10, after: 10 },
           indent: { left: 30 },
-          children: [new TextRun({ text: dp.evaluacionAdaptada || "—", size: 11, font: "Arial", color: BLACK })],
+          children: [new TextRun({ text: dp.evaluacionAdaptada || "—", size: 24, font: "Arial", color: BLACK })],
         })];
 
         // Tabla 3 columnas — total 12518 DXA
@@ -468,7 +465,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
                 children: [new Paragraph({
                   spacing: { before: 25, after: 25 },
                   indent: { left: 40 },
-                  children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 14, font: "Arial", color: WHITE })],
+                  children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 24, font: "Arial", color: WHITE })],
                 })],
               }),
             ]}),
@@ -482,12 +479,12 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
                   new Paragraph({
                     spacing: { before: 16, after: 4 },
                     indent: { left: 30 },
-                    children: [new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 12, font: "Arial", color: WHITE })],
+                    children: [new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 24, font: "Arial", color: WHITE })],
                   }),
                   new Paragraph({
                     spacing: { before: 0, after: 8 },
                     indent: { left: 30 },
-                    children: [new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", italics: true, size: 10, font: "Arial", color: "CCCCCC" })],
+                    children: [new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", italics: true, size: 24, font: "Arial", color: "CCCCCC" })],
                   }),
                 ],
               }),
@@ -536,8 +533,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       rightChildren.push(new Paragraph({
         spacing: { before: 20, after: 10 },
         children: [
-          new TextRun({ text: "Seguimiento: ", bold: true, size: 12, font: "Arial", color: "003366" }),
-          new TextRun({ text: adap.seguimiento, size: 11, font: "Arial", color: "333333" }),
+          new TextRun({ text: "Seguimiento: ", bold: true, size: 24, font: "Arial", color: "003366" }),
+          new TextRun({ text: adap.seguimiento, size: 24, font: "Arial", color: "333333" }),
         ],
       }));
     }
@@ -545,8 +542,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       rightChildren.push(new Paragraph({
         spacing: { before: 14, after: 0 },
         children: [
-          new TextRun({ text: "Observaciones: ", bold: true, size: 12, font: "Arial", color: "555555" }),
-          new TextRun({ text: adap.observaciones, size: 11, italics: true, font: "Arial", color: "555555" }),
+          new TextRun({ text: "Observaciones: ", bold: true, size: 24, font: "Arial", color: "555555" }),
+          new TextRun({ text: adap.observaciones, size: 24, italics: true, font: "Arial", color: "555555" }),
         ],
       }));
     }
