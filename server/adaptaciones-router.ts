@@ -9,6 +9,22 @@ import type { AdaptacionAiResult, GradoAdaptacion } from "../data/types";
 
 // ─── Zod schemas ──────────────────────────────────────────────────────────────
 
+/** Contexto de la planificación semanal vinculada — actividades ERCA reales por día */
+const SemanaContextDiaSchema = z.object({
+  dia: z.string(),
+  tema: z.string(),
+  actividades: z.object({
+    experiencia: z.array(z.string()),
+    reflexion: z.array(z.string()),
+    conceptualizacion: z.array(z.string()),
+    aplicacion: z.array(z.string()),
+  }),
+  recursos: z.array(z.string()),
+});
+const SemanaContextSchema = z.object({
+  dias: z.array(SemanaContextDiaSchema),
+});
+
 const FormSchema = z.object({
   institucion: z.string(),
   docente: z.string(),
@@ -47,7 +63,10 @@ const SUBNIVEL_NAMES: Record<number, string> = {
   4: "Básica Superior (8.°–10.°)", 5: "Bachillerato General Unificado",
 };
 
-function buildPrompt(input: z.infer<typeof FormSchema>): string {
+function buildPrompt(
+  input: z.infer<typeof FormSchema>,
+  semanaContext?: z.infer<typeof SemanaContextSchema>,
+): string {
   const grado = input.gradoAdaptacion as GradoAdaptacion;
   const neeInfo = NEE_STRATEGIES[input.tipoNEE as keyof typeof NEE_STRATEGIES];
   const areaNombre = AREA_NAMES[input.area] ?? input.area;
@@ -95,6 +114,31 @@ ${estrategiasNEE}
 TIPO DE ADAPTACIÓN SOLICITADA:
 ${gradoDesc}
 
+${semanaContext?.dias?.length ? `
+──────────────────────────────────────────────────────────────────
+PLANIFICACIÓN SEMANAL CONTEXTUAL (REFERENCIA OBLIGATORIA):
+La adaptación debe referirse ESPECÍFICAMENTE a las actividades ya planificadas esta semana.
+NO generes sugerencias genéricas — todo debe derivarse de lo que realmente se trabajará en el aula.
+
+${semanaContext.dias.map((d) => {
+  const act = d.actividades;
+  const experiencia = act.experiencia.slice(0, 2).join(" | ") || "(sin actividades)";
+  const reflexion = act.reflexion.slice(0, 2).join(" | ") || "(sin actividades)";
+  const conceptualizacion = act.conceptualizacion.slice(0, 2).join(" | ") || "(sin actividades)";
+  const aplicacion = act.aplicacion.slice(0, 2).join(" | ") || "(sin actividades)";
+  const recursos = d.recursos.slice(0, 4).join(", ") || "(sin recursos específicos)";
+  return `${d.dia.toUpperCase()} — Tema: "${d.tema}"
+  Experiencia (activación concreta): ${experiencia}
+  Reflexión (análisis/discusión): ${reflexion}
+  Conceptualización (construcción conceptual): ${conceptualizacion}
+  Aplicación (transferencia/creación): ${aplicacion}
+  Recursos utilizados: ${recursos}`;
+}).join("\n\n")}
+
+GENERA "adaptacionesPorDia" con exactamente ${semanaContext.dias.length} entradas (una por cada día listado arriba).
+Cada adaptación DEBE mencionar las actividades y recursos concretos del día correspondiente.
+──────────────────────────────────────────────────────────────────
+` : ""}
 INSTRUCCIONES IMPORTANTES:
 - NO uses lenguaje médico ni diagnósticos clínicos. Usa lenguaje pedagógico y educativo.
 - Las fortalezas, desafíos y apoyos deben describirse en términos de aprendizaje y participación.
@@ -181,7 +225,16 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
       "enProceso": "string",
       "necesitaApoyo": "string"
     }
-  ]
+  ]${semanaContext?.dias?.length ? `,
+  "adaptacionesPorDia": [
+    ${semanaContext.dias.map((d) => `{
+      "dia": "${d.dia}",
+      "adaptacionAcceso": "string (cómo adaptar el acceso a las actividades del ${d.dia}: materiales, espacio, tiempo, apoyos — referencia las actividades concretas de ese día)",
+      "adaptacionMetodologica": "string (estrategia pedagógica específica para las actividades del ${d.dia} considerando el perfil NEE — menciona las fases ERCA del día)",
+      "recursosAdaptados": ["string (recurso adaptado específico 1 para el ${d.dia})", "string (recurso adaptado específico 2)"],
+      "evaluacionAdaptada": "string (cómo evaluar el logro del ${d.dia} según la actividad de aplicación planificada)"
+    }`).join(",\n    ")}
+  ]` : ""}
 }`;
 }
 
@@ -195,16 +248,18 @@ export const adaptacionesRouter = router({
       form: FormSchema,
       sessionId: z.string().min(1),
       existingId: z.number().optional(),
+      /** Contexto de la planificación semanal vinculada (actividades ERCA reales por día) */
+      semanaContext: SemanaContextSchema.optional(),
     }))
     .mutation(async ({ input }) => {
-      const prompt = buildPrompt(input.form);
+      const prompt = buildPrompt(input.form, input.semanaContext);
 
       const raw = await invokeLLM({
         messages: [
           { role: "system", content: "Eres un experto en educación inclusiva ecuatoriana. Responde siempre con JSON válido." },
           { role: "user", content: prompt },
         ],
-        maxTokens: 6000,
+        maxTokens: 8000,
         responseFormat: { type: "json_object" },
       });
 

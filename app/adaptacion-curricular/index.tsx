@@ -13,6 +13,7 @@ import {
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
   type CurricularAdaptation, type CurricularAdaptationForm,
   type AdaptacionAiResult, type AdaptacionCurricular, type TipoNEE, type GradoAdaptacion,
+  type PlanificacionSemanal,
 } from "@/data/types";
 import { TODAS_LAS_DESTREZAS } from "@/data";
 import { generarWordAdaptacion } from "@/lib/adaptacion-word-generator";
@@ -39,6 +40,50 @@ const GRADOS_POR_SUBNIVEL: Record<number, string[]> = {
   4: ["8.° EGB", "9.° EGB", "10.° EGB"],
   5: ["1.° BGU", "2.° BGU", "3.° BGU"],
 };
+
+// ─── Semana context extractor ─────────────────────────────────────────────────
+
+const DIA_KEYS_ORDER = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
+const DIA_LABELS: Record<string, string> = {
+  lunes: "Lunes", martes: "Martes", miercoles: "Miércoles",
+  jueves: "Jueves", viernes: "Viernes",
+};
+
+function buildSemanaContext(semana: PlanificacionSemanal, codigoDestreza: string) {
+  const dias: Array<{
+    dia: string;
+    tema: string;
+    actividades: { experiencia: string[]; reflexion: string[]; conceptualizacion: string[]; aplicacion: string[] };
+    recursos: string[];
+  }> = [];
+
+  for (const key of DIA_KEYS_ORDER) {
+    const config = (semana.dias as any)[key];
+    if (!config?.activo) continue;
+
+    const hora = (config.horas as any[]).find(
+      (h: any) => h.codigoDestreza === codigoDestreza && h.temaSeleccionado,
+    ) ?? (config.horas as any[]).find((h: any) => h.temaSeleccionado);
+
+    if (!hora?.temaSeleccionado) continue;
+    const plan = hora.temaSeleccionado as any;
+    const est = plan.estructura ?? {};
+
+    dias.push({
+      dia: DIA_LABELS[key] ?? key,
+      tema: plan.titulo || plan.tema || hora.tema || "(sin tema)",
+      actividades: {
+        experiencia: est.experiencia?.actividades ?? [],
+        reflexion: est.reflexion?.actividades ?? [],
+        conceptualizacion: est.conceptualizacion?.actividades ?? [],
+        aplicacion: est.aplicacion?.actividades ?? [],
+      },
+      recursos: plan.recursos ?? [],
+    });
+  }
+
+  return dias.length > 0 ? { dias } : undefined;
+}
 
 // ─── Form vacío ───────────────────────────────────────────────────────────────
 
@@ -274,8 +319,13 @@ export default function AdaptacionCurricularScreen() {
       await AsyncStorage.setItem("@planificadoc_device_id", sessionId);
     }
 
+    // Extraer contexto ERCA de la planificación semanal vinculada
+    const semanaContext = semanaId
+      ? buildSemanaContext(getSemana(semanaId) ?? {} as PlanificacionSemanal, form.codigoDestreza)
+      : undefined;
+
     try {
-      const res = await generateMutation.mutateAsync({ form, sessionId });
+      const res = await generateMutation.mutateAsync({ form, sessionId, semanaContext });
       if (!res?.aiResult) {
         setGenerateError("La IA no devolvió resultados. Intenta de nuevo.");
         return;
@@ -318,6 +368,7 @@ export default function AdaptacionCurricularScreen() {
       recursosEspecificos: result.recursosEspecificos ?? [],
       seguimiento: result.seguimiento ?? undefined,
       observaciones: result.observaciones ?? undefined,
+      adaptacionesPorDia: result.adaptacionesPorDia?.length ? result.adaptacionesPorDia : undefined,
       createdAt: new Date().toISOString(),
     };
 

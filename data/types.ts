@@ -79,6 +79,18 @@ export interface EstructuraClase {
   aplicacion: FaseClase;
 }
 
+/**
+ * Adaptación curricular específica para un día de la semana.
+ * Se genera cuando hay contexto de planificación semanal (actividades ERCA reales).
+ */
+export interface AdaptacionDiaPlan {
+  dia: string;
+  adaptacionAcceso: string;
+  adaptacionMetodologica: string;
+  recursosAdaptados: string[];
+  evaluacionAdaptada: string;
+}
+
 /** Evaluación formativa estructurada con técnica, instrumento, evidencia y criterio */
 export interface EvaluacionEstructurada {
   tecnica: string;
@@ -436,6 +448,12 @@ export interface AdaptacionAiResult {
     enProceso: string;
     necesitaApoyo: string;
   }>;
+  /**
+   * Adaptaciones organizadas por día, referenciando las actividades ERCA reales
+   * de la planificación semanal vinculada. Sustituye las secciones genéricas de
+   * acceso / proceso / resultado / metodologías cuando hay contexto semanal.
+   */
+  adaptacionesPorDia?: AdaptacionDiaPlan[];
 }
 
 export interface CurricularAdaptationForm {
@@ -508,6 +526,8 @@ export interface AdaptacionCurricular {
   recursosEspecificos?: string[];
   seguimiento?: string;
   observaciones?: string;
+  /** Adaptaciones por día vinculadas a la planificación semanal */
+  adaptacionesPorDia?: AdaptacionDiaPlan[];
   createdAt: string;
 }
 

@@ -7,7 +7,7 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, HeadingLevel, PageOrientation,
 } from "docx";
-import type { CurricularAdaptation, AdaptacionAiResult, AdaptacionPedagogicaSugerida } from "../data/types";
+import type { CurricularAdaptation, AdaptacionAiResult, AdaptacionPedagogicaSugerida, AdaptacionDiaPlan } from "../data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
 
 // ─── Paleta ──────────────────────────────────────────────────────────────────
@@ -217,6 +217,64 @@ function bulletCell(items: string[], bg?: string): TableCell {
   );
 }
 
+// Numeración romana para headings dinámicos
+const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII"];
+
+const DIA_BG_COLORS = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
+
+/** Genera la tabla de adaptaciones para un día concreto */
+function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)[] {
+  const bgColor = DIA_BG_COLORS[index % DIA_BG_COLORS.length];
+  const result: (Table | Paragraph)[] = [];
+
+  result.push(
+    new Table({
+      width: { size: 100, type: WidthType.PERCENTAGE },
+      rows: [
+        new TableRow({
+          children: [
+            simpleCell(dia.dia.toUpperCase(), {
+              bold: true, size: 12, color: WHITE, bg: bgColor,
+              align: AlignmentType.LEFT,
+              spacing: { before: 60, after: 120 },
+            }),
+          ],
+        }),
+      ],
+    })
+  );
+
+  const rows: TableRow[] = [
+    new TableRow({ children: [
+      simpleCell("Adaptación de acceso:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
+      simpleCell(dia.adaptacionAcceso || "—", { size: 11 }),
+    ]}),
+    new TableRow({ children: [
+      simpleCell("Estrategia metodológica:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
+      simpleCell(dia.adaptacionMetodologica || "—", { size: 11 }),
+    ]}),
+    new TableRow({ children: [
+      simpleCell("Recursos adaptados:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
+      dia.recursosAdaptados?.length
+        ? bulletCell(dia.recursosAdaptados)
+        : simpleCell("—", { size: 11 }),
+    ]}),
+    new TableRow({ children: [
+      simpleCell("Evaluación del día:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
+      simpleCell(dia.evaluacionAdaptada || "—", { size: 11 }),
+    ]}),
+  ];
+
+  result.push(new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    columnWidths: [3000, 8000],
+    rows,
+  }));
+
+  result.push(new Paragraph({ text: "", spacing: { after: 80 } }));
+  return result;
+}
+
 // ─── Exportación principal ────────────────────────────────────────────────────
 
 export async function generarWordAdaptacion(
@@ -229,6 +287,8 @@ export async function generarWordAdaptacion(
   const gradoBg = form.gradoAdaptacion === 1 ? BG_GREEN : form.gradoAdaptacion === 2 ? BG_ORANGE : BG_RED;
 
   const sections: (Table | Paragraph)[] = [];
+  const hasPorDia = Array.isArray(ai?.adaptacionesPorDia) && ai.adaptacionesPorDia.length > 0;
+  let sn = 4; // cuatro secciones fijas (I–IV) ya añadidas al documento
 
   // ── Título principal ──────────────────────────────────────────────────────
   sections.push(
@@ -410,37 +470,41 @@ export async function generarWordAdaptacion(
   }
   sections.push(spacer());
 
-  // ── Adaptaciones de acceso ────────────────────────────────────────────────
-  if (ai?.adaptacionesAcceso?.length) {
-    sections.push(heading("V. ADAPTACIONES DE ACCESO (Grado 1, 2 y 3)", BG_HEAD));
-    sections.push(adaptacionTable(ai.adaptacionesAcceso, "1A3A5C"));
+  // ── V: Adaptaciones por día (solo cuando hay planificación semanal vinculada) ──
+  if (hasPorDia) {
+    sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES CURRICULARES POR DÍA`, "0F766E"));
+    sections.push(new Paragraph({ text: "", spacing: { after: 80 } }));
+    ai.adaptacionesPorDia!.forEach((dia, i) => {
+      perDiaTable(dia, i).forEach((el) => sections.push(el));
+    });
     sections.push(spacer());
+  } else {
+    // ── V–VIII: Secciones genéricas (solo cuando NO hay planificación semanal) ─
+    if (ai?.adaptacionesAcceso?.length) {
+      sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES DE ACCESO (Grado 1, 2 y 3)`, BG_HEAD));
+      sections.push(adaptacionTable(ai.adaptacionesAcceso, "1A3A5C"));
+      sections.push(spacer());
+    }
+    if (ai?.adaptacionesProceso?.length) {
+      sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES DE PROCESO (Grado 2 y 3)`, "B45309"));
+      sections.push(adaptacionTable(ai.adaptacionesProceso, "B45309"));
+      sections.push(spacer());
+    }
+    if (ai?.adaptacionesResultado?.length) {
+      sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES DE RESULTADO (Grado 3)`, "B91C1C"));
+      sections.push(adaptacionTable(ai.adaptacionesResultado, "B91C1C"));
+      sections.push(spacer());
+    }
+    if (ai?.metodologiasSugeridas?.length) {
+      sections.push(heading(`${ROMAN[++sn]}. METODOLOGÍAS ACTIVAS SUGERIDAS`, BG_HEAD));
+      sections.push(bulletList(ai.metodologiasSugeridas));
+      sections.push(spacer());
+    }
   }
 
-  // ── Adaptaciones de proceso (grado 2+) ───────────────────────────────────
-  if (ai?.adaptacionesProceso?.length) {
-    sections.push(heading("VI. ADAPTACIONES DE PROCESO (Grado 2 y 3)", "B45309"));
-    sections.push(adaptacionTable(ai.adaptacionesProceso, "B45309"));
-    sections.push(spacer());
-  }
-
-  // ── Adaptaciones de resultado (grado 3) ──────────────────────────────────
-  if (ai?.adaptacionesResultado?.length) {
-    sections.push(heading("VII. ADAPTACIONES DE RESULTADO (Grado 3)", "B91C1C"));
-    sections.push(adaptacionTable(ai.adaptacionesResultado, "B91C1C"));
-    sections.push(spacer());
-  }
-
-  // ── Metodologías ─────────────────────────────────────────────────────────
-  if (ai?.metodologiasSugeridas?.length) {
-    sections.push(heading("VIII. METODOLOGÍAS ACTIVAS SUGERIDAS", BG_HEAD));
-    sections.push(bulletList(ai.metodologiasSugeridas));
-    sections.push(spacer());
-  }
-
-  // ── Adaptaciones por fase ERCA ────────────────────────────────────────────
+  // ── ERCA ────────────────────────────────────────────────────────────────────
   if (ai?.adaptacionesERCA) {
-    sections.push(heading("IX. ADAPTACIONES POR FASE ERCA", "0F766E"));
+    sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES POR FASE ERCA`, "0F766E"));
     sections.push(
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
@@ -510,7 +574,7 @@ export async function generarWordAdaptacion(
 
   // ── Evaluación adaptada ───────────────────────────────────────────────────
   if (ai?.evaluacionAdaptada) {
-    sections.push(heading("X. EVALUACIÓN ADAPTADA", "0F766E"));
+    sections.push(heading(`${ROMAN[++sn]}. EVALUACIÓN ADAPTADA`, "0F766E"));
     sections.push(
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
@@ -534,30 +598,30 @@ export async function generarWordAdaptacion(
     sections.push(spacer());
   }
 
-  // ── Recursos específicos ──────────────────────────────────────────────────
-  if (ai?.recursosEspecificos?.length) {
-    sections.push(heading("XI. RECURSOS ESPECÍFICOS DE APOYO", BG_HEAD));
+  // ── Recursos específicos (solo cuando NO hay adaptaciones por día) ─────────
+  if (ai?.recursosEspecificos?.length && !hasPorDia) {
+    sections.push(heading(`${ROMAN[++sn]}. RECURSOS ESPECÍFICOS DE APOYO`, BG_HEAD));
     sections.push(bulletList(ai.recursosEspecificos));
     sections.push(spacer());
   }
 
   // ── Seguimiento ───────────────────────────────────────────────────────────
   if (ai?.seguimiento) {
-    sections.push(heading("XII. PLAN DE SEGUIMIENTO Y MONITOREO", BG_HEAD));
+    sections.push(heading(`${ROMAN[++sn]}. PLAN DE SEGUIMIENTO Y MONITOREO`, BG_HEAD));
     sections.push(textBlock(ai.seguimiento, "F8FAFC"));
     sections.push(spacer());
   }
 
   // ── Observaciones ─────────────────────────────────────────────────────────
   if (ai?.observaciones) {
-    sections.push(heading("XIII. OBSERVACIONES", BG_HEAD));
+    sections.push(heading(`${ROMAN[++sn]}. OBSERVACIONES`, BG_HEAD));
     sections.push(textBlock(ai.observaciones, "F8FAFC"));
     sections.push(spacer());
   }
 
   // ── Rúbrica de evaluación adaptada ───────────────────────────────────────
   if (ai?.rubrica?.length) {
-    sections.push(heading("XIV. RÚBRICA DE EVALUACIÓN ADAPTADA", "7C3AED"));
+    sections.push(heading(`${ROMAN[++sn]}. RÚBRICA DE EVALUACIÓN ADAPTADA`, "7C3AED"));
     const rubricaHeaderRow = new TableRow({
       tableHeader: true,
       children: [
@@ -590,7 +654,7 @@ export async function generarWordAdaptacion(
   }
 
   // ── Firmas ────────────────────────────────────────────────────────────────
-  sections.push(heading("XV. FIRMAS DE RESPONSABILIDAD", BG_HEAD));
+  sections.push(heading(`${ROMAN[++sn]}. FIRMAS DE RESPONSABILIDAD`, BG_HEAD));
   sections.push(
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },

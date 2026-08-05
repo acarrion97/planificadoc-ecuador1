@@ -383,34 +383,79 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       }
     }
 
-    // Adaptaciones de acceso (siempre) — tabla
-    if (adap.adaptacionesAcceso?.length) {
-      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE ACCESO", "1A3A5C"));
-      rightChildren.push(adaptacionInnerTable(adap.adaptacionesAcceso, "1A3A5C"));
-    }
-
-    // Adaptaciones de proceso (grado 2/3) — tabla
-    if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
-      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE PROCESO", "8E44AD"));
-      rightChildren.push(adaptacionInnerTable(adap.adaptacionesProceso, "8E44AD"));
-    }
-
-    // Adaptaciones de resultado (grado 3) — tabla
-    if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
-      rightChildren.push(parSeccionAdapt("ADAPTACIONES DE RESULTADO", "E67E22"));
-      rightChildren.push(adaptacionInnerTable(adap.adaptacionesResultado, "E67E22"));
-    }
-
-    // Metodologías — tabla de una columna
-    if (adap.metodologiasSugeridas?.length) {
-      rightChildren.push(parSeccionAdapt("METODOLOGÍAS SUGERIDAS", "003366"));
-      rightChildren.push(bulletInnerTable(adap.metodologiasSugeridas, "F0F4FA"));
-    }
-
-    // Recursos — tabla de una columna
-    if (adap.recursosEspecificos?.length) {
-      rightChildren.push(parSeccionAdapt("RECURSOS ESPECÍFICOS", "444444"));
-      rightChildren.push(bulletInnerTable(adap.recursosEspecificos));
+    if (adap.adaptacionesPorDia?.length) {
+      // ── ADAPTACIONES POR DÍA (vinculadas a planificación semanal) ────────
+      rightChildren.push(parSeccionAdapt("ADAPTACIONES POR DÍA", "0F766E"));
+      const DIA_BG_SEMANAL = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
+      for (let di = 0; di < adap.adaptacionesPorDia.length; di++) {
+        const dp = adap.adaptacionesPorDia[di];
+        const bgD = DIA_BG_SEMANAL[di % DIA_BG_SEMANAL.length];
+        // Sub-encabezado del día
+        rightChildren.push(new Paragraph({
+          spacing: { before: 30, after: 8 },
+          children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 13, font: "Arial", color: bgD })],
+        }));
+        const diaRows: TableRow[] = [];
+        if (dp.adaptacionAcceso) {
+          diaRows.push(new TableRow({ children: [
+            simpleCell("Acceso:", { bold: true, size: 7, bg: "EDE9FE", color: "4A1942" }),
+            simpleCell(dp.adaptacionAcceso, { size: 7 }),
+          ]}));
+        }
+        if (dp.adaptacionMetodologica) {
+          diaRows.push(new TableRow({ children: [
+            simpleCell("Metodología:", { bold: true, size: 7, bg: "F5F3FF", color: "4A1942" }),
+            simpleCell(dp.adaptacionMetodologica, { size: 7 }),
+          ]}));
+        }
+        if (dp.recursosAdaptados?.length) {
+          diaRows.push(new TableRow({ children: [
+            simpleCell("Recursos:", { bold: true, size: 7, bg: "F5F3FF", color: "4A1942" }),
+            new TableCell({
+              borders: BORDER_DEF,
+              verticalAlign: VerticalAlign.TOP,
+              children: dp.recursosAdaptados.map(r =>
+                new Paragraph({ spacing: { after: 12 }, children: [new TextRun({ text: `• ${r}`, size: 13, font: "Arial", color: BLACK })] })
+              ),
+            }),
+          ]}));
+        }
+        if (dp.evaluacionAdaptada) {
+          diaRows.push(new TableRow({ children: [
+            simpleCell("Evaluación:", { bold: true, size: 7, bg: "F5F3FF", color: "4A1942" }),
+            simpleCell(dp.evaluacionAdaptada, { size: 7 }),
+          ]}));
+        }
+        if (diaRows.length) {
+          rightChildren.push(new Table({
+            width: { size: 12518, type: WidthType.DXA },
+            columnWidths: [2200, 10318],
+            rows: diaRows,
+          }));
+        }
+      }
+    } else {
+      // ── SECCIONES GENÉRICAS (sin planificación semanal vinculada) ─────────
+      if (adap.adaptacionesAcceso?.length) {
+        rightChildren.push(parSeccionAdapt("ADAPTACIONES DE ACCESO", "1A3A5C"));
+        rightChildren.push(adaptacionInnerTable(adap.adaptacionesAcceso, "1A3A5C"));
+      }
+      if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
+        rightChildren.push(parSeccionAdapt("ADAPTACIONES DE PROCESO", "8E44AD"));
+        rightChildren.push(adaptacionInnerTable(adap.adaptacionesProceso, "8E44AD"));
+      }
+      if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
+        rightChildren.push(parSeccionAdapt("ADAPTACIONES DE RESULTADO", "E67E22"));
+        rightChildren.push(adaptacionInnerTable(adap.adaptacionesResultado, "E67E22"));
+      }
+      if (adap.metodologiasSugeridas?.length) {
+        rightChildren.push(parSeccionAdapt("METODOLOGÍAS SUGERIDAS", "003366"));
+        rightChildren.push(bulletInnerTable(adap.metodologiasSugeridas, "F0F4FA"));
+      }
+      if (adap.recursosEspecificos?.length) {
+        rightChildren.push(parSeccionAdapt("RECURSOS ESPECÍFICOS", "444444"));
+        rightChildren.push(bulletInnerTable(adap.recursosEspecificos));
+      }
     }
 
     // Seguimiento y observaciones
