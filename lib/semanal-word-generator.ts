@@ -406,31 +406,56 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             ],
           }));
         }
+        const ERCA_SEMANAL_CFG = [
+          { key: "experiencia",       label: "EXPERIENCIA",      dark: "2980B9", light: "EBF5FB" },
+          { key: "reflexion",         label: "REFLEXIÓN",        dark: "8E44AD", light: "F5EEF8" },
+          { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN",dark: "27AE60", light: "EAFAF1" },
+          { key: "aplicacion",        label: "APLICACIÓN",       dark: "E67E22", light: "FEF9E7" },
+        ] as const;
+
         const diaRows: TableRow[] = [];
+
+        // Acceso — etiqueta izquierda + contenido derecha
         if (dp.adaptacionAcceso) {
           diaRows.push(new TableRow({ children: [
-            simpleCell("Acceso:", { bold: true, size: 7, bg: "EDE9FE", color: "4A1942" }),
+            simpleCell("ACCESO", { bold: true, size: 7, bg: bgD, color: WHITE }),
             simpleCell(dp.adaptacionAcceso, { size: 7 }),
           ]}));
         }
-        // ERCA por fase (estrategias metodológicas adaptadas)
-        const ERCA_SEMANAL: Array<{ key: keyof typeof dp.adaptacionERCA; label: string; bg: string }> = [
-          { key: "experiencia",       label: "Experiencia:",      bg: "ECFDF5" },
-          { key: "reflexion",         label: "Reflexión:",        bg: "EFF6FF" },
-          { key: "conceptualizacion", label: "Conceptualiz.:",    bg: "FEFCE8" },
-          { key: "aplicacion",        label: "Aplicación:",       bg: "FFF1F2" },
-        ];
+
+        // Cabecera de estrategias ERCA
         if (dp.adaptacionERCA) {
-          for (const { key, label, bg } of ERCA_SEMANAL) {
-            const val = dp.adaptacionERCA[key];
+          diaRows.push(new TableRow({ children: [
+            simpleCell("ESTRATEGIAS METODOLÓGICAS ACTIVAS (ERCA)", {
+              bold: true, size: 7, bg: "1A3A5C", color: WHITE, colspan: 2,
+            }),
+          ]}));
+          for (const { key, label, dark, light } of ERCA_SEMANAL_CFG) {
+            const val = (dp.adaptacionERCA as any)[key];
             if (val) {
+              // Cabecera de fase — fila completa coloreada
               diaRows.push(new TableRow({ children: [
-                simpleCell(label, { bold: true, size: 7, bg, color: "4A1942" }),
-                simpleCell(val, { size: 7 }),
+                simpleCell(label, { bold: true, size: 8, bg: dark, color: WHITE, colspan: 2 }),
+              ]}));
+              // Contenido de la fase — fila con fondo claro
+              diaRows.push(new TableRow({ children: [
+                new TableCell({
+                  columnSpan: 2,
+                  borders: BORDER_DEF,
+                  shading: { fill: light, color: light, type: ShadingType.CLEAR },
+                  verticalAlign: VerticalAlign.TOP,
+                  children: [new Paragraph({
+                    indent: { left: 60 },
+                    spacing: { before: 20, after: 20 },
+                    children: [new TextRun({ text: val, size: 13, font: "Arial", color: BLACK })],
+                  })],
+                }),
               ]}));
             }
           }
         }
+
+        // Recursos y evaluación
         if (dp.recursosAdaptados?.length) {
           diaRows.push(new TableRow({ children: [
             simpleCell("Recursos:", { bold: true, size: 7, bg: "F5F3FF", color: "4A1942" }),
