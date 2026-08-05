@@ -30,7 +30,9 @@ const TIPOS_NEE_LIST = Object.entries(TIPOS_NEE_INFO).map(([id, info]) => ({
 
 const ESTILOS_APRENDIZAJE = ["Visual", "Auditivo", "Lecto-escritor", "Kinestesico", "Multimodal"];
 
-const STEP_LABELS = ["Identificacion", "Grado", "Perfil", "Generar", "Resultado"];
+const STEP_LABELS = ["Identificacion", "Grado", "Dias", "Perfil", "Generar", "Resultado"];
+
+const TODOS_LOS_DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
 const GRADOS_POR_SUBNIVEL: Record<number, string[]> = {
   0: ["Grupo 1 (3 años)", "Grupo 2 (4 años)"],
@@ -49,7 +51,7 @@ const DIA_LABELS: Record<string, string> = {
   jueves: "Jueves", viernes: "Viernes",
 };
 
-function buildSemanaContext(semana: PlanificacionSemanal, codigoDestreza: string) {
+function buildSemanaContext(semana: PlanificacionSemanal, codigoDestreza: string, diasFiltro?: string[]) {
   const dias: Array<{
     dia: string;
     tema: string;
@@ -61,6 +63,8 @@ function buildSemanaContext(semana: PlanificacionSemanal, codigoDestreza: string
   for (const key of DIA_KEYS_ORDER) {
     const config = (semana.dias as any)[key];
     if (!config?.activo) continue;
+    const diaLabel = DIA_LABELS[key] ?? key;
+    if (diasFiltro && !diasFiltro.includes(diaLabel)) continue;
 
     const hora = (config.horas as any[]).find(
       (h: any) => h.codigoDestreza === codigoDestreza && h.temaSeleccionado,
@@ -278,6 +282,22 @@ export default function AdaptacionCurricularScreen() {
   const [generateError, setGenerateError] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
 
+  // Días que el docente selecciona para generar adaptaciones
+  const diasDisponibles: string[] = (() => {
+    if (semanaId) {
+      const s = getSemana(semanaId);
+      if (s) return DIA_KEYS_ORDER.filter(k => (s.dias as any)[k]?.activo).map(k => DIA_LABELS[k]);
+    }
+    return TODOS_LOS_DIAS;
+  })();
+  const [diasSeleccionados, setDiasSeleccionados] = useState<string[]>(diasDisponibles);
+
+  function toggleDia(dia: string) {
+    setDiasSeleccionados((prev) =>
+      prev.includes(dia) ? prev.filter((d) => d !== dia) : [...prev, dia]
+    );
+  }
+
   const generateMutation = trpc.adaptaciones.generate.useMutation();
 
   function setField<K extends keyof CurricularAdaptationForm>(key: K, val: CurricularAdaptationForm[K]) {
@@ -298,6 +318,10 @@ export default function AdaptacionCurricularScreen() {
         return "Describe la destreza con al menos 10 caracteres.";
     }
     if (step === 2) {
+      if (diasSeleccionados.length === 0)
+        return "Selecciona al menos un día para generar la adaptación.";
+    }
+    if (step === 3) {
       if (!form.fortalezas || form.fortalezas.length < 10)
         return "Describe las fortalezas del estudiante.";
       if (!form.desafios || form.desafios.length < 10)
@@ -321,9 +345,9 @@ export default function AdaptacionCurricularScreen() {
       await AsyncStorage.setItem("@planificadoc_device_id", sessionId);
     }
 
-    // Extraer contexto ERCA de la planificación semanal vinculada
+    // Extraer contexto ERCA de la planificación semanal vinculada, filtrado por días seleccionados
     const semanaContext = semanaId
-      ? buildSemanaContext(getSemana(semanaId) ?? {} as PlanificacionSemanal, form.codigoDestreza)
+      ? buildSemanaContext(getSemana(semanaId) ?? {} as PlanificacionSemanal, form.codigoDestreza, diasSeleccionados)
       : undefined;
 
     try {
@@ -467,7 +491,7 @@ export default function AdaptacionCurricularScreen() {
           </View>
         </View>
 
-        <StepBar current={step} total={5} colors={colors} />
+        <StepBar current={step} total={6} colors={colors} />
 
         {/* ── PASO 0: Identificacion ── */}
         {step === 0 && (
@@ -603,8 +627,63 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 2: Perfil pedagogico ── */}
+        {/* ── PASO 2: Días de adaptación ── */}
         {step === 2 && (
+          <View>
+            <SectionHeading text="Días que requieren adaptación" colors={colors} />
+            <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 14 }}>
+              Selecciona los días de la semana en que el estudiante necesita adaptación curricular.
+            </Text>
+
+            {semanaId && (
+              <View style={{ backgroundColor: "#DBEAFE", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#2563EB", marginBottom: 14, flexDirection: "row", alignItems: "center", gap: 8 }}>
+                <Text style={{ fontSize: 14 }}>📋</Text>
+                <Text style={{ fontSize: 11, color: "#1E3A8A", flex: 1 }}>
+                  Se muestran solo los días activos en la planificación semanal vinculada. La IA generará adaptaciones ERCA específicas para cada día seleccionado.
+                </Text>
+              </View>
+            )}
+
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 16 }}>
+              {diasDisponibles.map((dia) => {
+                const sel = diasSeleccionados.includes(dia);
+                return (
+                  <Pressable
+                    key={dia}
+                    onPress={() => toggleDia(dia)}
+                    style={{
+                      paddingHorizontal: 20, paddingVertical: 14, borderRadius: 12,
+                      backgroundColor: sel ? colors.primary : colors.surface,
+                      borderWidth: 2, borderColor: sel ? colors.primary : colors.border,
+                      minWidth: 90, alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ fontSize: 13, fontWeight: "700", color: sel ? "#fff" : colors.text }}>{dia}</Text>
+                    {sel && <Text style={{ fontSize: 10, color: "rgba(255,255,255,0.8)", marginTop: 2 }}>✓ activo</Text>}
+                  </Pressable>
+                );
+              })}
+            </View>
+
+            {diasSeleccionados.length === 0 && (
+              <View style={{ backgroundColor: "#FEF3C7", borderRadius: 8, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginBottom: 12 }}>
+                <Text style={{ fontSize: 12, color: "#92400E" }}>⚠️ Selecciona al menos un día para continuar.</Text>
+              </View>
+            )}
+
+            <View style={{ backgroundColor: colors.surface, borderRadius: 10, padding: 12, borderWidth: 1, borderColor: colors.border }}>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: colors.text, marginBottom: 4 }}>
+                Días seleccionados: {diasSeleccionados.length}
+              </Text>
+              <Text style={{ fontSize: 11, color: colors.muted }}>
+                {diasSeleccionados.length > 0 ? diasSeleccionados.join(" • ") : "—"}
+              </Text>
+            </View>
+          </View>
+        )}
+
+        {/* ── PASO 3: Perfil pedagogico ── */}
+        {step === 3 && (
           <View>
             <SectionHeading text="Tipo de NEE" colors={colors} />
             <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
@@ -674,8 +753,8 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 3: Generar ── */}
-        {step === 3 && (
+        {/* ── PASO 4: Generar ── */}
+        {step === 4 && (
           <View>
             <SectionHeading text="Resumen de la adaptacion" colors={colors} />
 
@@ -686,6 +765,7 @@ export default function AdaptacionCurricularScreen() {
               <SummaryRow label="Tipo de NEE" value={`${TIPOS_NEE_INFO[form.tipoNEE]?.emoji ?? ""} ${TIPOS_NEE_INFO[form.tipoNEE]?.nombre ?? form.tipoNEE}`} colors={colors} />
               <SummaryRow label="Estilo aprendizaje" value={form.estiloAprendizaje} colors={colors} />
               <SummaryRow label="Codigo estudiante" value={form.codigoEstudiante || "E-001"} colors={colors} />
+              <SummaryRow label="Días de adaptación" value={diasSeleccionados.join(" • ") || "—"} colors={colors} />
             </View>
 
             <View style={{ backgroundColor: "#DBEAFE", borderRadius: 10, padding: 12, marginBottom: 20, borderWidth: 1, borderColor: "#2563EB" }}>
@@ -737,8 +817,8 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 4: Resultado — fallback si aiResult es null ── */}
-        {step === 4 && !aiResult && (
+        {/* ── PASO 5: Resultado — fallback si aiResult es null ── */}
+        {step === 5 && !aiResult && (
           <View style={{ padding: 24, alignItems: "center", gap: 12 }}>
             <Text style={{ fontSize: 40 }}>⚠️</Text>
             <Text style={{ fontSize: 15, fontWeight: "700", color: "#DC2626", textAlign: "center" }}>
@@ -748,7 +828,7 @@ export default function AdaptacionCurricularScreen() {
               La generación falló o la respuesta llegó vacía. Vuelve al paso anterior e intenta de nuevo.
             </Text>
             <Pressable
-              onPress={() => { setStep(3); setGenerateError(null); scrollTop(); }}
+              onPress={() => { setStep(4); setGenerateError(null); scrollTop(); }}
               style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}
             >
               <Text style={{ color: "#fff", fontWeight: "700" }}>← Volver a Generar</Text>
@@ -756,8 +836,8 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 4: Resultado ── */}
-        {step === 4 && aiResult && (
+        {/* ── PASO 5: Resultado ── */}
+        {step === 5 && aiResult && (
           <>
             {vinculada && semanaId && (
               <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#16A34A", marginBottom: 12, flexDirection: "row", alignItems: "center", gap: 8 }}>
@@ -779,7 +859,7 @@ export default function AdaptacionCurricularScreen() {
         )}
 
         {/* Error de validación inline */}
-        {validationError && step < 3 && (
+        {validationError && step < 4 && (
           <View style={{ backgroundColor: "#FEF3C7", borderRadius: 8, padding: 12, marginTop: 8, borderWidth: 1, borderColor: "#F59E0B", flexDirection: "row", gap: 8 }}>
             <Text style={{ fontSize: 14 }}>⚠️</Text>
             <Text style={{ fontSize: 12, color: "#92400E", flex: 1 }}>{validationError}</Text>
@@ -787,9 +867,9 @@ export default function AdaptacionCurricularScreen() {
         )}
 
         {/* Botones de navegacion */}
-        {step < 4 && (
+        {step < 5 && (
           <View style={{ flexDirection: "row", gap: 12, marginTop: 20, marginBottom: 8 }}>
-            {step > 0 && step !== 3 && (
+            {step > 0 && step !== 4 && (
               <Pressable
                 onPress={prevStep}
                 style={{
@@ -800,7 +880,7 @@ export default function AdaptacionCurricularScreen() {
                 <Text style={{ color: colors.text, fontWeight: "600" }}>← Anterior</Text>
               </Pressable>
             )}
-            {step < 3 && (
+            {step < 4 && (
               <Pressable
                 onPress={handleNext}
                 style={{ flex: 2, borderRadius: 10, paddingVertical: 12, alignItems: "center", backgroundColor: colors.primary }}
@@ -808,7 +888,7 @@ export default function AdaptacionCurricularScreen() {
                 <Text style={{ color: "#fff", fontWeight: "700" }}>Siguiente →</Text>
               </Pressable>
             )}
-            {step === 3 && (
+            {step === 4 && (
               <Pressable
                 onPress={prevStep}
                 style={{
@@ -822,7 +902,7 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <View style={{ marginTop: 20, gap: 12 }}>
             {semanaId && (
               <Pressable
