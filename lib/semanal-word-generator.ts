@@ -95,7 +95,7 @@ function simpleCell(
             text: text || "—",
             bold:    opts.bold    ?? false,
             italics: opts.italic  ?? false,
-            size:    (opts.size ?? 9) * 2,
+            size:    (opts.size ?? 12) * 2,
             color:   opts.color   ?? BLACK,
             font:    "Arial",
           }),
@@ -125,7 +125,7 @@ function faseHeaderPara(label: string, duracion: string | undefined, bgColor: st
     children: [
       new TextRun({
         text: `${label}${duracion ? ` (${duracion})` : ""}`,
-        bold: true, size: 16, color: WHITE, font: "Arial",
+        bold: true, size: 24, color: WHITE, font: "Arial",
       }),
     ],
   });
@@ -149,7 +149,7 @@ function actividadPara(
     spacing: { before: 30, after: 30 },
     indent:  { left: 60 },
     children: [
-      new TextRun({ text: `${num}. ${clean}  `, size: 15, font: "Arial", color: "222222" }),
+      new TextRun({ text: `${num}. ${clean}  `, size: 24, font: "Arial", color: "222222" }),
       // ■ Representación
       new TextRun({ text: "■", size: 14, color: dua.representacion ? DUA_R : "F9C6DD", font: "Arial" }),
       new TextRun({ text: "■", size: 14, color: dua.accionExpresion ? DUA_A : "C5D4E0", font: "Arial" }),
@@ -472,20 +472,6 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
                 })],
               }),
             ]}),
-            // Fila 1: ACCESO (etiqueta | contenido colspan=2)
-            new TableRow({ children: [
-              simpleCell("ACCESO", { bold: true, size: 8, bg: bgD, color: WHITE }),
-              new TableCell({
-                columnSpan: 2,
-                borders: BORDER_DEF,
-                verticalAlign: VerticalAlign.TOP,
-                children: [new Paragraph({
-                  spacing: { before: 8, after: 8 },
-                  indent: { left: 30 },
-                  children: [new TextRun({ text: dp.adaptacionAcceso || "—", size: 11, font: "Arial", color: BLACK })],
-                })],
-              }),
-            ]}),
             // Fila 2: gran encabezado ERCA (colspan=3)
             new TableRow({ children: [
               new TableCell({
@@ -788,7 +774,7 @@ export async function generarWordSemanal(
           new Paragraph({
             children: [new TextRun({
               text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE",
-              bold: true, size: 16, color: WHITE, font: "Arial",
+              bold: true, size: 24, color: WHITE, font: "Arial",
             })],
           }),
           new Paragraph({
@@ -1017,12 +1003,6 @@ export async function generarWordSemanal(
       rows.push(new TableRow({ children: cells }));
     }
   }
-
-  // ══════════════════════════════════════════════════════════════
-  // RÚBRICA DE EVALUACIÓN (req 5 — antes de adaptaciones y firmas)
-  // ══════════════════════════════════════════════════════════════
-  const rubricaRows = crearSeccionRubrica(semana);
-  rows.push(...rubricaRows);
 
   // ══════════════════════════════════════════════════════════════
   // ADAPTACIONES CURRICULARES (antes de las firmas)
