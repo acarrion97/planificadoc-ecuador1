@@ -21,6 +21,19 @@ const BG_RED     = "FEE2E2";
 const WHITE      = "FFFFFF";
 const DARK       = "1E293B";
 
+// Colores ERCA (idénticos al semanal-word-generator)
+const FASE_ADAPT = {
+  experiencia:       { dark: "2980B9", light: "EBF5FB", label: "EXPERIENCIA" },
+  reflexion:         { dark: "8E44AD", light: "F5EEF8", label: "REFLEXIÓN" },
+  conceptualizacion: { dark: "27AE60", light: "EAFAF1", label: "CONCEPTUALIZACIÓN" },
+  aplicacion:        { dark: "E67E22", light: "FEF9E7", label: "APLICACIÓN" },
+} as const;
+
+// Colores DUA
+const DUA_R = "EC4899"; // Representación
+const DUA_A = "1E3A5F"; // Acción/Expresión
+const DUA_I = "22C55E"; // Implicación
+
 const BORDER_DEF = {
   top:    { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" },
   bottom: { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" },
@@ -222,86 +235,122 @@ const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", 
 
 const DIA_BG_COLORS = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
 
-const ERCA_CFG = [
-  { key: "experiencia",      label: "Experiencia",       bg: "ECFDF5", color: "065F46" },
-  { key: "reflexion",        label: "Reflexión",         bg: "EFF6FF", color: "1E40AF" },
-  { key: "conceptualizacion",label: "Conceptualización", bg: "FEFCE8", color: "854D0E" },
-  { key: "aplicacion",       label: "Aplicación",        bg: "FFF1F2", color: "9F1239" },
-] as const;
-
-/** Genera las tablas de adaptación para un día concreto (acceso + ERCA + recursos + evaluación) */
+/** Genera las tablas de adaptación para un día concreto con formato visual igual al semanal */
 function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)[] {
   const bgColor = DIA_BG_COLORS[index % DIA_BG_COLORS.length];
   const result: (Table | Paragraph)[] = [];
 
-  // Encabezado del día
-  result.push(
-    new Table({
+  // ── Encabezado del día ─────────────────────────────────────────────────────
+  result.push(new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [new TableRow({
+      children: [simpleCell(dia.dia.toUpperCase(), {
+        bold: true, size: 12, color: WHITE, bg: bgColor,
+        align: AlignmentType.LEFT, spacing: { before: 60, after: 120 },
+      })],
+    })],
+  }));
+
+  // ── Objetivo de clase (si existe) ──────────────────────────────────────────
+  if (dia.objetivo) {
+    result.push(new Table({
+      width: { size: 100, type: WidthType.PERCENTAGE },
+      rows: [new TableRow({
+        children: [cell([
+          new Paragraph({
+            spacing: { before: 40, after: 40 },
+            border: { left: { style: BorderStyle.SINGLE, size: 8, color: bgColor } },
+            indent: { left: 80 },
+            children: [
+              new TextRun({ text: "Objetivo: ", bold: true, size: 22, color: bgColor }),
+              new TextRun({ text: dia.objetivo, size: 21, italics: true, color: DARK }),
+            ],
+          }),
+        ])],
+      })],
+    }));
+  }
+
+  // ── Adaptación de acceso ───────────────────────────────────────────────────
+  result.push(new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    columnWidths: [3000, 8000],
+    rows: [new TableRow({ children: [
+      simpleCell("Adaptación de acceso:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
+      simpleCell(dia.adaptacionAcceso || "—", { size: 11 }),
+    ]})],
+  }));
+
+  // ── ESTRATEGIAS METODOLÓGICAS ACTIVAS (ERCA) — formato visual ─────────────
+  result.push(new Paragraph({
+    spacing: { before: 100, after: 20 },
+    children: [
+      new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 22, color: bgColor }),
+    ],
+  }));
+  result.push(new Paragraph({
+    spacing: { before: 0, after: 40 },
+    children: [
+      new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", size: 20, italics: true, color: "666666" }),
+    ],
+  }));
+
+  // Fases ERCA con header coloreado igual al semanal
+  const faseKeys = ["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const;
+  for (const key of faseKeys) {
+    const cfg = FASE_ADAPT[key];
+    const textoAdaptado = dia.adaptacionERCA?.[key] || "—";
+    result.push(new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       rows: [
-        new TableRow({
-          children: [
-            simpleCell(dia.dia.toUpperCase(), {
-              bold: true, size: 12, color: WHITE, bg: bgColor,
-              align: AlignmentType.LEFT,
-              spacing: { before: 60, after: 120 },
-            }),
-          ],
-        }),
-      ],
-    })
-  );
-
-  // Fila de acceso
-  result.push(new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [3000, 8000],
-    rows: [
-      new TableRow({ children: [
-        simpleCell("Adaptación de acceso:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
-        simpleCell(dia.adaptacionAcceso || "—", { size: 11 }),
-      ]}),
-    ],
-  }));
-
-  // Sección ERCA — estrategias metodológicas activas adaptadas
-  result.push(new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [
-      new TableRow({
-        children: [
-          simpleCell("ESTRATEGIAS METODOLÓGICAS ACTIVAS ADAPTADAS (ERCA)", {
-            bold: true, size: 11, color: WHITE, bg: bgColor, colspan: 2,
-            spacing: { before: 40, after: 80 },
-          }),
-        ],
-      }),
-      ...ERCA_CFG.map(({ key, label, bg, color }) =>
+        // Cabecera de fase con fondo de color
+        new TableRow({ children: [
+          cell([new Paragraph({
+            shading: { fill: cfg.dark, color: cfg.dark, type: ShadingType.CLEAR },
+            spacing: { before: 20, after: 20 },
+            children: [new TextRun({ text: cfg.label, bold: true, size: 16, color: WHITE })],
+          })]),
+        ]}),
+        // Texto de la adaptación con fondo claro
         new TableRow({ children: [
           cell(
-            [new Paragraph({
-              children: [new TextRun({ text: label, bold: true, size: 22, color, font: "Arial" })],
-              spacing: { before: 20, after: 20 },
-            })],
-            { bg, colspan: 1 }
+            textoAdaptado.split(". ").filter(Boolean).map((frase, i, arr) =>
+              new Paragraph({
+                spacing: { before: 30, after: 30 },
+                indent: { left: 60 },
+                children: [
+                  new TextRun({ text: `${i + 1}. ${frase}${i < arr.length - 1 ? "." : ""}`, size: 20, color: DARK }),
+                ],
+              })
+            ),
+            { bg: cfg.light }
           ),
-          simpleCell(dia.adaptacionERCA?.[key] || "—", { size: 11 }),
         ]}),
-      ),
+      ],
+    }));
+  }
+
+  // ── Leyenda DUA ────────────────────────────────────────────────────────────
+  result.push(new Paragraph({
+    spacing: { before: 20, after: 40 },
+    children: [
+      new TextRun({ text: "■ ", size: 16, color: DUA_R }),
+      new TextRun({ text: "Representación   ", size: 15, color: "666666" }),
+      new TextRun({ text: "■ ", size: 16, color: DUA_A }),
+      new TextRun({ text: "Acción/Expresión   ", size: 15, color: "666666" }),
+      new TextRun({ text: "■ ", size: 16, color: DUA_I }),
+      new TextRun({ text: "Implicación", size: 15, color: "666666" }),
     ],
-    columnWidths: [3000, 8000],
   }));
 
-  // Recursos y evaluación
+  // ── Recursos y evaluación ──────────────────────────────────────────────────
   result.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     columnWidths: [3000, 8000],
     rows: [
       new TableRow({ children: [
         simpleCell("Recursos adaptados:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
-        dia.recursosAdaptados?.length
-          ? bulletCell(dia.recursosAdaptados)
-          : simpleCell("—", { size: 11 }),
+        dia.recursosAdaptados?.length ? bulletCell(dia.recursosAdaptados) : simpleCell("—", { size: 11 }),
       ]}),
       new TableRow({ children: [
         simpleCell("Evaluación del día:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
@@ -310,7 +359,7 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
     ],
   }));
 
-  result.push(new Paragraph({ text: "", spacing: { after: 120 } }));
+  result.push(new Paragraph({ text: "", spacing: { after: 160 } }));
   return result;
 }
 

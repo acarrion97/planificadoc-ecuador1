@@ -13,6 +13,7 @@ import type { AdaptacionAiResult, GradoAdaptacion } from "../data/types";
 const SemanaContextDiaSchema = z.object({
   dia: z.string(),
   tema: z.string(),
+  objetivo: z.string().optional(),
   actividades: z.object({
     experiencia: z.array(z.string()),
     reflexion: z.array(z.string()),
@@ -127,7 +128,7 @@ ${semanaContext.dias.map((d) => {
   const conceptualizacion = act.conceptualizacion.slice(0, 2).join(" | ") || "(sin actividades)";
   const aplicacion = act.aplicacion.slice(0, 2).join(" | ") || "(sin actividades)";
   const recursos = d.recursos.slice(0, 4).join(", ") || "(sin recursos específicos)";
-  return `${d.dia.toUpperCase()} — Tema: "${d.tema}"
+  return `${d.dia.toUpperCase()} — Tema: "${d.tema}"${d.objetivo ? `\n  Objetivo: "${d.objetivo}"` : ""}
   → Experiencia planificada: ${experiencia}
   → Reflexión planificada: ${reflexion}
   → Conceptualización planificada: ${conceptualizacion}
@@ -229,6 +230,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   "adaptacionesPorDia": [
     ${semanaContext.dias.map((d) => `{
       "dia": "${d.dia}",
+      "objetivo": "${d.objetivo ?? "(objetivo del día)"}",
       "adaptacionAcceso": "string (ajustes de acceso para las actividades del ${d.dia}: materiales, espacio, tiempos, apoyos físicos/sensoriales — referencia los recursos concretos del día)",
       "adaptacionERCA": {
         "experiencia": "string (cómo adaptar la Experiencia del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",

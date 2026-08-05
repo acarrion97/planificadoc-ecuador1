@@ -462,6 +462,8 @@ export interface AdaptacionAiResult {
  */
 export interface AdaptacionDiaPlan {
   dia: string;
+  /** Objetivo de clase del día (tomado de la planificación semanal) */
+  objetivo?: string;
   adaptacionAcceso: string;
   /** Adaptación de cada fase ERCA del día (estrategias metodológicas activas) */
   adaptacionERCA: {

@@ -53,6 +53,7 @@ function buildSemanaContext(semana: PlanificacionSemanal, codigoDestreza: string
   const dias: Array<{
     dia: string;
     tema: string;
+    objetivo?: string;
     actividades: { experiencia: string[]; reflexion: string[]; conceptualizacion: string[]; aplicacion: string[] };
     recursos: string[];
   }> = [];
@@ -72,6 +73,7 @@ function buildSemanaContext(semana: PlanificacionSemanal, codigoDestreza: string
     dias.push({
       dia: DIA_LABELS[key] ?? key,
       tema: plan.titulo || plan.tema || hora.tema || "(sin tema)",
+      objetivo: plan.objetivoClase || undefined,
       actividades: {
         experiencia: est.experiencia?.actividades ?? [],
         reflexion: est.reflexion?.actividades ?? [],

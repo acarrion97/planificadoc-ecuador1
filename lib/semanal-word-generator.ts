@@ -395,6 +395,17 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
           spacing: { before: 30, after: 8 },
           children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 13, font: "Arial", color: bgD })],
         }));
+        // Objetivo del día
+        if (dp.objetivo) {
+          rightChildren.push(new Paragraph({
+            spacing: { before: 0, after: 8 },
+            indent: { left: 40 },
+            children: [
+              new TextRun({ text: "Objetivo: ", bold: true, size: 11, font: "Arial", color: bgD }),
+              new TextRun({ text: dp.objetivo, size: 11, italics: true, font: "Arial", color: "444444" }),
+            ],
+          }));
+        }
         const diaRows: TableRow[] = [];
         if (dp.adaptacionAcceso) {
           diaRows.push(new TableRow({ children: [
