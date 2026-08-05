@@ -235,7 +235,7 @@ const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", 
 
 const DIA_BG_COLORS = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
 
-/** Genera las tablas de adaptación para un día concreto con formato visual igual al semanal */
+/** Genera el bloque de adaptación por día en formato 3 columnas (igual al semanal) */
 function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)[] {
   const bgColor = DIA_BG_COLORS[index % DIA_BG_COLORS.length];
   const result: (Table | Paragraph)[] = [];
@@ -246,134 +246,138 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
     rows: [new TableRow({
       children: [simpleCell(dia.dia.toUpperCase(), {
         bold: true, size: 12, color: WHITE, bg: bgColor,
-        align: AlignmentType.LEFT, spacing: { before: 60, after: 120 },
+        align: AlignmentType.LEFT, spacing: { before: 60, after: 100 },
       })],
     })],
   }));
 
-  // ── Objetivo de clase (original + adaptado en 2 columnas) ─────────────────
-  if (dia.objetivo || dia.objetivoAdaptado) {
-    const objRows: TableRow[] = [];
-    if (dia.objetivo) {
-      objRows.push(new TableRow({ children: [
-        simpleCell("Objetivo del día:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
-        cell([new Paragraph({
-          spacing: { before: 40, after: 40 },
-          indent: { left: 80 },
-          children: [new TextRun({ text: dia.objetivo, size: 20, italics: true, color: DARK })],
-        })]),
-      ]}));
-    }
-    if (dia.objetivoAdaptado) {
-      objRows.push(new TableRow({ children: [
-        simpleCell("Objetivo adaptado:", { bold: true, size: 11, bg: bgColor, color: WHITE }),
-        cell([new Paragraph({
-          spacing: { before: 40, after: 40 },
-          indent: { left: 80 },
-          children: [new TextRun({ text: dia.objetivoAdaptado, bold: true, size: 20, color: DARK })],
-        })]),
-      ]}));
-    }
-    result.push(new Table({
-      width: { size: 100, type: WidthType.PERCENTAGE },
-      columnWidths: [3000, 8000],
-      rows: objRows,
-    }));
-  }
-
-  // ── Adaptación de acceso ───────────────────────────────────────────────────
+  // ── Adaptación de acceso (fila completa) ───────────────────────────────────
   result.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [3000, 8000],
+    columnWidths: [2800, 8200],
     rows: [new TableRow({ children: [
-      simpleCell("Adaptación de acceso:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
+      simpleCell("ACCESO", { bold: true, size: 11, color: WHITE, bg: bgColor }),
       simpleCell(dia.adaptacionAcceso || "—", { size: 11 }),
     ]})],
   }));
 
-  // ── ESTRATEGIAS METODOLÓGICAS ACTIVAS (ERCA) — formato visual ─────────────
-  result.push(new Paragraph({
-    spacing: { before: 100, after: 20 },
-    children: [
-      new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 22, color: bgColor }),
-    ],
-  }));
-  result.push(new Paragraph({
-    spacing: { before: 0, after: 40 },
-    children: [
-      new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", size: 20, italics: true, color: "666666" }),
-    ],
-  }));
+  // ── Bloque 3 columnas: ERCA | RECURSOS | EVALUACIÓN ───────────────────────
+  // Columna izquierda: objetivos + fases ERCA + leyenda DUA
+  const leftContent: (Paragraph | Table)[] = [];
 
-  // Fases ERCA con header coloreado igual al semanal
+  // Objetivo original
+  if (dia.objetivo) {
+    leftContent.push(new Paragraph({
+      spacing: { before: 40, after: 20 },
+      children: [
+        new TextRun({ text: "Objetivo: ", bold: true, size: 19, color: bgColor }),
+        new TextRun({ text: dia.objetivo, size: 18, italics: true, color: DARK }),
+      ],
+    }));
+  }
+  // Objetivo adaptado
+  if (dia.objetivoAdaptado) {
+    leftContent.push(new Paragraph({
+      spacing: { before: 0, after: 50 },
+      children: [
+        new TextRun({ text: "Obj. adaptado: ", bold: true, size: 19, color: bgColor }),
+        new TextRun({ text: dia.objetivoAdaptado, bold: true, size: 18, color: DARK }),
+      ],
+    }));
+  }
+
+  // Fases ERCA como tablas anidadas con cabecera coloreada
   const faseKeys = ["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const;
   for (const key of faseKeys) {
     const cfg = FASE_ADAPT[key];
-    const textoAdaptado = dia.adaptacionERCA?.[key] || "—";
-    result.push(new Table({
+    const texto = dia.adaptacionERCA?.[key] || "—";
+    leftContent.push(new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       rows: [
-        // Cabecera de fase con fondo de color
         new TableRow({ children: [
           cell([new Paragraph({
-            shading: { fill: cfg.dark, color: cfg.dark, type: ShadingType.CLEAR },
             spacing: { before: 20, after: 20 },
             children: [new TextRun({ text: cfg.label, bold: true, size: 16, color: WHITE })],
-          })]),
+          })], { bg: cfg.dark }),
         ]}),
-        // Texto de la adaptación con fondo claro
         new TableRow({ children: [
-          cell(
-            [new Paragraph({
-              spacing: { before: 40, after: 40 },
-              indent: { left: 80 },
-              children: [new TextRun({ text: textoAdaptado, size: 20, color: DARK })],
-            })],
-            { bg: cfg.light }
-          ),
+          cell([new Paragraph({
+            spacing: { before: 40, after: 40 },
+            indent: { left: 60 },
+            children: [new TextRun({ text: texto, size: 18, color: DARK })],
+          })], { bg: cfg.light }),
         ]}),
       ],
     }));
   }
 
-  // ── Leyenda DUA ────────────────────────────────────────────────────────────
-  result.push(new Paragraph({
-    spacing: { before: 20, after: 40 },
+  // Leyenda DUA al pie de la columna izquierda
+  leftContent.push(new Paragraph({
+    spacing: { before: 30, after: 30 },
     children: [
-      new TextRun({ text: "■ ", size: 16, color: DUA_R }),
-      new TextRun({ text: "Representación   ", size: 15, color: "666666" }),
-      new TextRun({ text: "■ ", size: 16, color: DUA_A }),
-      new TextRun({ text: "Acción/Expresión   ", size: 15, color: "666666" }),
-      new TextRun({ text: "■ ", size: 16, color: DUA_I }),
-      new TextRun({ text: "Implicación", size: 15, color: "666666" }),
+      new TextRun({ text: "■ ", size: 15, color: DUA_R }),
+      new TextRun({ text: "Representación   ", size: 14, color: "666666" }),
+      new TextRun({ text: "■ ", size: 15, color: DUA_A }),
+      new TextRun({ text: "Acción/Expresión   ", size: 14, color: "666666" }),
+      new TextRun({ text: "■ ", size: 15, color: DUA_I }),
+      new TextRun({ text: "Implicación", size: 14, color: "666666" }),
     ],
   }));
 
-  // ── Recursos y evaluación — 2 columnas lado a lado ────────────────────────
+  // Columna central: recursos adaptados (bullets)
+  const middleContent: Paragraph[] = dia.recursosAdaptados?.length
+    ? dia.recursosAdaptados.map((r) => new Paragraph({
+        spacing: { before: 20, after: 40 },
+        children: [
+          new TextRun({ text: "• ", size: 20, color: DARK }),
+          new TextRun({ text: r, size: 20, color: DARK }),
+        ],
+      }))
+    : [new Paragraph({ children: [new TextRun({ text: "—", size: 20, color: DARK })] })];
+
+  // Columna derecha: evaluación adaptada
+  const rightContent: Paragraph[] = [
+    new Paragraph({
+      spacing: { before: 40, after: 40 },
+      indent: { left: 60 },
+      children: [new TextRun({ text: dia.evaluacionAdaptada || "—", size: 19, color: DARK })],
+    }),
+  ];
+
+  // Tabla principal 3 columnas — columnWidths totalizan ~11000 DXA
   result.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [5500, 5500],
+    columnWidths: [5600, 2700, 2700],
     rows: [
-      // Fila de cabeceras
+      // Fila de gran encabezado (colspan=3)
       new TableRow({ children: [
-        simpleCell("RECURSOS ADAPTADOS", { bold: true, size: 11, color: WHITE, bg: "4A1942", align: AlignmentType.CENTER }),
-        simpleCell("EVALUACIÓN DEL DÍA", { bold: true, size: 11, color: WHITE, bg: "0F766E", align: AlignmentType.CENTER }),
+        cell([
+          new Paragraph({
+            spacing: { before: 50, after: 10 },
+            children: [new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 19, color: WHITE })],
+          }),
+          new Paragraph({
+            spacing: { before: 0, after: 40 },
+            children: [new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", size: 17, italics: true, color: "DDDDDD" })],
+          }),
+        ], { bg: BG_HEAD, colspan: 3 }),
+      ]}),
+      // Fila de cabeceras de columna
+      new TableRow({ children: [
+        simpleCell("ESTRATEGIAS ERCA ADAPTADAS", { bold: true, size: 10, color: WHITE, bg: "374151", align: AlignmentType.CENTER }),
+        simpleCell("RECURSOS ADAPTADOS", { bold: true, size: 10, color: WHITE, bg: "374151", align: AlignmentType.CENTER }),
+        simpleCell("EVALUACIÓN ADAPTADA", { bold: true, size: 10, color: WHITE, bg: "374151", align: AlignmentType.CENTER }),
       ]}),
       // Fila de contenido
       new TableRow({ children: [
-        dia.recursosAdaptados?.length
-          ? bulletCell(dia.recursosAdaptados, "F5F3FF")
-          : simpleCell("—", { size: 11, bg: "F5F3FF" }),
-        cell([new Paragraph({
-          spacing: { before: 40, after: 40 },
-          indent: { left: 80 },
-          children: [new TextRun({ text: dia.evaluacionAdaptada || "—", size: 20, color: DARK })],
-        })], { bg: "F0FDF4" }),
+        new TableCell({ borders: BORDER_DEF, verticalAlign: VerticalAlign.TOP, children: leftContent }),
+        new TableCell({ borders: BORDER_DEF, verticalAlign: VerticalAlign.TOP, children: middleContent }),
+        new TableCell({ borders: BORDER_DEF, verticalAlign: VerticalAlign.TOP, children: rightContent }),
       ]}),
     ],
   }));
 
-  result.push(new Paragraph({ text: "", spacing: { after: 160 } }));
+  result.push(new Paragraph({ text: "", spacing: { after: 200 } }));
   return result;
 }
 
