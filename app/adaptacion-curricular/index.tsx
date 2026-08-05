@@ -474,7 +474,13 @@ export default function AdaptacionCurricularScreen() {
 
   return (
     <ScreenContainer>
-      <ScrollView ref={scrollRef} contentContainerStyle={{ padding: 16 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        ref={scrollRef}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
+        showsVerticalScrollIndicator
+        keyboardShouldPersistTaps="handled"
+      >
         {/* Header */}
         <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 12 }}>
           <Pressable
