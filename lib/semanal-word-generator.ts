@@ -455,6 +455,18 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
           }
         }
 
+        // Leyenda DUA (después de las fases ERCA)
+        if (dp.adaptacionERCA) {
+          diaRows.push(new TableRow({ children: [
+            new TableCell({
+              columnSpan: 2,
+              borders: BORDER_DEF,
+              verticalAlign: VerticalAlign.TOP,
+              children: [duaLegendPara()],
+            }),
+          ]}));
+        }
+
         // Recursos y evaluación
         if (dp.recursosAdaptados?.length) {
           diaRows.push(new TableRow({ children: [

@@ -314,15 +314,11 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
         // Texto de la adaptación con fondo claro
         new TableRow({ children: [
           cell(
-            textoAdaptado.split(". ").filter(Boolean).map((frase, i, arr) =>
-              new Paragraph({
-                spacing: { before: 30, after: 30 },
-                indent: { left: 60 },
-                children: [
-                  new TextRun({ text: `${i + 1}. ${frase}${i < arr.length - 1 ? "." : ""}`, size: 20, color: DARK }),
-                ],
-              })
-            ),
+            [new Paragraph({
+              spacing: { before: 40, after: 40 },
+              indent: { left: 80 },
+              children: [new TextRun({ text: textoAdaptado, size: 20, color: DARK })],
+            })],
             { bg: cfg.light }
           ),
         ]}),
