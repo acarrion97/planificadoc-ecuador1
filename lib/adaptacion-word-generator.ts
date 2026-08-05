@@ -251,23 +251,33 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
     })],
   }));
 
-  // ── Objetivo de clase (si existe) ──────────────────────────────────────────
-  if (dia.objetivo) {
+  // ── Objetivo de clase (original + adaptado en 2 columnas) ─────────────────
+  if (dia.objetivo || dia.objetivoAdaptado) {
+    const objRows: TableRow[] = [];
+    if (dia.objetivo) {
+      objRows.push(new TableRow({ children: [
+        simpleCell("Objetivo del día:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
+        cell([new Paragraph({
+          spacing: { before: 40, after: 40 },
+          indent: { left: 80 },
+          children: [new TextRun({ text: dia.objetivo, size: 20, italics: true, color: DARK })],
+        })]),
+      ]}));
+    }
+    if (dia.objetivoAdaptado) {
+      objRows.push(new TableRow({ children: [
+        simpleCell("Objetivo adaptado:", { bold: true, size: 11, bg: bgColor, color: WHITE }),
+        cell([new Paragraph({
+          spacing: { before: 40, after: 40 },
+          indent: { left: 80 },
+          children: [new TextRun({ text: dia.objetivoAdaptado, bold: true, size: 20, color: DARK })],
+        })]),
+      ]}));
+    }
     result.push(new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
-      rows: [new TableRow({
-        children: [cell([
-          new Paragraph({
-            spacing: { before: 40, after: 40 },
-            border: { left: { style: BorderStyle.SINGLE, size: 8, color: bgColor } },
-            indent: { left: 80 },
-            children: [
-              new TextRun({ text: "Objetivo: ", bold: true, size: 22, color: bgColor }),
-              new TextRun({ text: dia.objetivo, size: 21, italics: true, color: DARK }),
-            ],
-          }),
-        ])],
-      })],
+      columnWidths: [3000, 8000],
+      rows: objRows,
     }));
   }
 
@@ -339,18 +349,26 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
     ],
   }));
 
-  // ── Recursos y evaluación ──────────────────────────────────────────────────
+  // ── Recursos y evaluación — 2 columnas lado a lado ────────────────────────
   result.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [3000, 8000],
+    columnWidths: [5500, 5500],
     rows: [
+      // Fila de cabeceras
       new TableRow({ children: [
-        simpleCell("Recursos adaptados:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
-        dia.recursosAdaptados?.length ? bulletCell(dia.recursosAdaptados) : simpleCell("—", { size: 11 }),
+        simpleCell("RECURSOS ADAPTADOS", { bold: true, size: 11, color: WHITE, bg: "4A1942", align: AlignmentType.CENTER }),
+        simpleCell("EVALUACIÓN DEL DÍA", { bold: true, size: 11, color: WHITE, bg: "0F766E", align: AlignmentType.CENTER }),
       ]}),
+      // Fila de contenido
       new TableRow({ children: [
-        simpleCell("Evaluación del día:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
-        simpleCell(dia.evaluacionAdaptada || "—", { size: 11 }),
+        dia.recursosAdaptados?.length
+          ? bulletCell(dia.recursosAdaptados, "F5F3FF")
+          : simpleCell("—", { size: 11, bg: "F5F3FF" }),
+        cell([new Paragraph({
+          spacing: { before: 40, after: 40 },
+          indent: { left: 80 },
+          children: [new TextRun({ text: dia.evaluacionAdaptada || "—", size: 20, color: DARK })],
+        })], { bg: "F0FDF4" }),
       ]}),
     ],
   }));

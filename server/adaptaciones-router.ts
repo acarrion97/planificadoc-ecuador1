@@ -231,6 +231,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
     ${semanaContext.dias.map((d) => `{
       "dia": "${d.dia}",
       "objetivo": "${d.objetivo ?? "(objetivo del día)"}",
+      "objetivoAdaptado": "string (reformulación del objetivo de ${d.dia} ajustada al nivel y perfil NEE del estudiante — debe ser alcanzable y medible)",
       "adaptacionAcceso": "string (ajustes de acceso para las actividades del ${d.dia}: materiales, espacio, tiempos, apoyos físicos/sensoriales — referencia los recursos concretos del día)",
       "adaptacionERCA": {
         "experiencia": "string (cómo adaptar la Experiencia del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",
