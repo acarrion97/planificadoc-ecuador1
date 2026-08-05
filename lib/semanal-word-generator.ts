@@ -402,11 +402,23 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             simpleCell(dp.adaptacionAcceso, { size: 7 }),
           ]}));
         }
-        if (dp.adaptacionMetodologica) {
-          diaRows.push(new TableRow({ children: [
-            simpleCell("Metodología:", { bold: true, size: 7, bg: "F5F3FF", color: "4A1942" }),
-            simpleCell(dp.adaptacionMetodologica, { size: 7 }),
-          ]}));
+        // ERCA por fase (estrategias metodológicas adaptadas)
+        const ERCA_SEMANAL: Array<{ key: keyof typeof dp.adaptacionERCA; label: string; bg: string }> = [
+          { key: "experiencia",       label: "Experiencia:",      bg: "ECFDF5" },
+          { key: "reflexion",         label: "Reflexión:",        bg: "EFF6FF" },
+          { key: "conceptualizacion", label: "Conceptualiz.:",    bg: "FEFCE8" },
+          { key: "aplicacion",        label: "Aplicación:",       bg: "FFF1F2" },
+        ];
+        if (dp.adaptacionERCA) {
+          for (const { key, label, bg } of ERCA_SEMANAL) {
+            const val = dp.adaptacionERCA[key];
+            if (val) {
+              diaRows.push(new TableRow({ children: [
+                simpleCell(label, { bold: true, size: 7, bg, color: "4A1942" }),
+                simpleCell(val, { size: 7 }),
+              ]}));
+            }
+          }
         }
         if (dp.recursosAdaptados?.length) {
           diaRows.push(new TableRow({ children: [

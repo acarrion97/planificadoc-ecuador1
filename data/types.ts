@@ -456,6 +456,24 @@ export interface AdaptacionAiResult {
   adaptacionesPorDia?: AdaptacionDiaPlan[];
 }
 
+/**
+ * Adaptación curricular por día de la semana, vinculada a la planificación semanal.
+ * Incluye adaptación de cada fase ERCA planificada para ese día.
+ */
+export interface AdaptacionDiaPlan {
+  dia: string;
+  adaptacionAcceso: string;
+  /** Adaptación de cada fase ERCA del día (estrategias metodológicas activas) */
+  adaptacionERCA: {
+    experiencia: string;
+    reflexion: string;
+    conceptualizacion: string;
+    aplicacion: string;
+  };
+  recursosAdaptados: string[];
+  evaluacionAdaptada: string;
+}
+
 export interface CurricularAdaptationForm {
   // Identificación del contexto
   institucion: string;

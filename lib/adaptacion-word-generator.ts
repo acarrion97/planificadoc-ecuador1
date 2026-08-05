@@ -222,11 +222,19 @@ const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", 
 
 const DIA_BG_COLORS = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
 
-/** Genera la tabla de adaptaciones para un día concreto */
+const ERCA_CFG = [
+  { key: "experiencia",      label: "Experiencia",       bg: "ECFDF5", color: "065F46" },
+  { key: "reflexion",        label: "Reflexión",         bg: "EFF6FF", color: "1E40AF" },
+  { key: "conceptualizacion",label: "Conceptualización", bg: "FEFCE8", color: "854D0E" },
+  { key: "aplicacion",       label: "Aplicación",        bg: "FFF1F2", color: "9F1239" },
+] as const;
+
+/** Genera las tablas de adaptación para un día concreto (acceso + ERCA + recursos + evaluación) */
 function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)[] {
   const bgColor = DIA_BG_COLORS[index % DIA_BG_COLORS.length];
   const result: (Table | Paragraph)[] = [];
 
+  // Encabezado del día
   result.push(
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
@@ -244,34 +252,65 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
     })
   );
 
-  const rows: TableRow[] = [
-    new TableRow({ children: [
-      simpleCell("Adaptación de acceso:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
-      simpleCell(dia.adaptacionAcceso || "—", { size: 11 }),
-    ]}),
-    new TableRow({ children: [
-      simpleCell("Estrategia metodológica:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
-      simpleCell(dia.adaptacionMetodologica || "—", { size: 11 }),
-    ]}),
-    new TableRow({ children: [
-      simpleCell("Recursos adaptados:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
-      dia.recursosAdaptados?.length
-        ? bulletCell(dia.recursosAdaptados)
-        : simpleCell("—", { size: 11 }),
-    ]}),
-    new TableRow({ children: [
-      simpleCell("Evaluación del día:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
-      simpleCell(dia.evaluacionAdaptada || "—", { size: 11 }),
-    ]}),
-  ];
-
+  // Fila de acceso
   result.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     columnWidths: [3000, 8000],
-    rows,
+    rows: [
+      new TableRow({ children: [
+        simpleCell("Adaptación de acceso:", { bold: true, size: 11, bg: "EDE9FE", color: "4A1942" }),
+        simpleCell(dia.adaptacionAcceso || "—", { size: 11 }),
+      ]}),
+    ],
   }));
 
-  result.push(new Paragraph({ text: "", spacing: { after: 80 } }));
+  // Sección ERCA — estrategias metodológicas activas adaptadas
+  result.push(new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      new TableRow({
+        children: [
+          simpleCell("ESTRATEGIAS METODOLÓGICAS ACTIVAS ADAPTADAS (ERCA)", {
+            bold: true, size: 11, color: WHITE, bg: bgColor, colspan: 2,
+            spacing: { before: 40, after: 80 },
+          }),
+        ],
+      }),
+      ...ERCA_CFG.map(({ key, label, bg, color }) =>
+        new TableRow({ children: [
+          cell(
+            [new Paragraph({
+              children: [new TextRun({ text: label, bold: true, size: 22, color, font: "Arial" })],
+              spacing: { before: 20, after: 20 },
+            })],
+            { bg, colspan: 1 }
+          ),
+          simpleCell(dia.adaptacionERCA?.[key] || "—", { size: 11 }),
+        ]}),
+      ),
+    ],
+    columnWidths: [3000, 8000],
+  }));
+
+  // Recursos y evaluación
+  result.push(new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    columnWidths: [3000, 8000],
+    rows: [
+      new TableRow({ children: [
+        simpleCell("Recursos adaptados:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
+        dia.recursosAdaptados?.length
+          ? bulletCell(dia.recursosAdaptados)
+          : simpleCell("—", { size: 11 }),
+      ]}),
+      new TableRow({ children: [
+        simpleCell("Evaluación del día:", { bold: true, size: 11, bg: "F5F3FF", color: "4A1942" }),
+        simpleCell(dia.evaluacionAdaptada || "—", { size: 11 }),
+      ]}),
+    ],
+  }));
+
+  result.push(new Paragraph({ text: "", spacing: { after: 120 } }));
   return result;
 }
 

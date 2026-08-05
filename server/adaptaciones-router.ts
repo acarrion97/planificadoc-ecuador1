@@ -116,9 +116,9 @@ ${gradoDesc}
 
 ${semanaContext?.dias?.length ? `
 ──────────────────────────────────────────────────────────────────
-PLANIFICACIÓN SEMANAL CONTEXTUAL (REFERENCIA OBLIGATORIA):
-La adaptación debe referirse ESPECÍFICAMENTE a las actividades ya planificadas esta semana.
-NO generes sugerencias genéricas — todo debe derivarse de lo que realmente se trabajará en el aula.
+ESTRATEGIAS METODOLÓGICAS ACTIVAS POR DÍA (REFERENCIA OBLIGATORIA):
+Las adaptaciones curriculares DEBEN derivarse de las actividades ERCA realmente planificadas.
+Cada fase ERCA es una Estrategia Metodológica Activa — adapta CADA FASE para el perfil NEE.
 
 ${semanaContext.dias.map((d) => {
   const act = d.actividades;
@@ -128,15 +128,15 @@ ${semanaContext.dias.map((d) => {
   const aplicacion = act.aplicacion.slice(0, 2).join(" | ") || "(sin actividades)";
   const recursos = d.recursos.slice(0, 4).join(", ") || "(sin recursos específicos)";
   return `${d.dia.toUpperCase()} — Tema: "${d.tema}"
-  Experiencia (activación concreta): ${experiencia}
-  Reflexión (análisis/discusión): ${reflexion}
-  Conceptualización (construcción conceptual): ${conceptualizacion}
-  Aplicación (transferencia/creación): ${aplicacion}
-  Recursos utilizados: ${recursos}`;
+  → Experiencia planificada: ${experiencia}
+  → Reflexión planificada: ${reflexion}
+  → Conceptualización planificada: ${conceptualizacion}
+  → Aplicación planificada: ${aplicacion}
+  → Recursos del día: ${recursos}`;
 }).join("\n\n")}
 
-GENERA "adaptacionesPorDia" con exactamente ${semanaContext.dias.length} entradas (una por cada día listado arriba).
-Cada adaptación DEBE mencionar las actividades y recursos concretos del día correspondiente.
+REGLA: Para cada día genera "adaptacionERCA" con adaptación ESPECÍFICA de cada fase.
+Ejemplo: si la Experiencia usa bloques lógicos → "adaptacionERCA.experiencia" debe decir cómo usar esos bloques adaptados al NEE.
 ──────────────────────────────────────────────────────────────────
 ` : ""}
 INSTRUCCIONES IMPORTANTES:
@@ -229,10 +229,15 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   "adaptacionesPorDia": [
     ${semanaContext.dias.map((d) => `{
       "dia": "${d.dia}",
-      "adaptacionAcceso": "string (cómo adaptar el acceso a las actividades del ${d.dia}: materiales, espacio, tiempo, apoyos — referencia las actividades concretas de ese día)",
-      "adaptacionMetodologica": "string (estrategia pedagógica específica para las actividades del ${d.dia} considerando el perfil NEE — menciona las fases ERCA del día)",
-      "recursosAdaptados": ["string (recurso adaptado específico 1 para el ${d.dia})", "string (recurso adaptado específico 2)"],
-      "evaluacionAdaptada": "string (cómo evaluar el logro del ${d.dia} según la actividad de aplicación planificada)"
+      "adaptacionAcceso": "string (ajustes de acceso para las actividades del ${d.dia}: materiales, espacio, tiempos, apoyos físicos/sensoriales — referencia los recursos concretos del día)",
+      "adaptacionERCA": {
+        "experiencia": "string (cómo adaptar la Experiencia del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",
+        "reflexion": "string (cómo adaptar la Reflexión del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",
+        "conceptualizacion": "string (cómo adaptar la Conceptualización del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",
+        "aplicacion": "string (cómo adaptar la Aplicación del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)"
+      },
+      "recursosAdaptados": ["string (recurso del día adaptado para el NEE 1)", "string (recurso adaptado 2)"],
+      "evaluacionAdaptada": "string (cómo evaluar el logro del ${d.dia} de forma adaptada al perfil NEE)"
     }`).join(",\n    ")}
   ]` : ""}
 }`;
