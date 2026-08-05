@@ -239,9 +239,12 @@ export default function PlanificarSemanalScreen() {
 
   // ─── Sugerir temas para una hora ─────────────────────────
 
+  const [loadingHoraId, setLoadingHoraId] = useState<string | null>(null);
+
   const sugerirTemas = useCallback(async (dia: DiaSemanaKey, horaId: string) => {
     const hora = dias[dia].horas.find(h => h.id === horaId);
     if (!hora?.destreza || !hora.tema.trim()) return;
+    setLoadingHoraId(horaId);
     try {
       const result = await generateAiMutation.mutateAsync({
         codigoDestreza: hora.destreza.codigo,
@@ -257,6 +260,8 @@ export default function PlanificarSemanalScreen() {
       }
     } catch (err: any) {
       console.error("Error sugerirTemas:", err);
+    } finally {
+      setLoadingHoraId(null);
     }
   }, [dias, generateAiMutation, updateHora]);
 
@@ -711,6 +716,7 @@ export default function PlanificarSemanalScreen() {
             onSetCantidadHoras={(n) => setCantidadHoras(dia, n)}
             onUpdateHora={(horaId, update) => updateHora(dia, horaId, update)}
             onSugerirTemas={(horaId) => sugerirTemas(dia, horaId)}
+            loadingHoraId={loadingHoraId}
             onToggleChipHora={(horaId, field, id) => toggleChipHora(dia, horaId, field, id)}
             onToggleBoolHora={(horaId, field) => toggleBoolHora(dia, horaId, field)}
             onCopiarAlSiguiente={() => copiarAlSiguienteDia(dia)}
@@ -737,7 +743,7 @@ export default function PlanificarSemanalScreen() {
 function DiaConfigBlock({
   dia, config, colors, isLast, areaCode, subnivel, bloqueCAI,
   onToggleActivo, onSetCantidadHoras, onUpdateHora, onSugerirTemas,
-  onToggleChipHora, onToggleBoolHora, onCopiarAlSiguiente,
+  loadingHoraId, onToggleChipHora, onToggleBoolHora, onCopiarAlSiguiente,
 }: {
   dia: DiaSemanaKey;
   config: ConfiguracionDia;
@@ -750,6 +756,7 @@ function DiaConfigBlock({
   onSetCantidadHoras: (n: 1 | 2 | 3) => void;
   onUpdateHora: (horaId: string, update: Partial<HoraSemanal>) => void;
   onSugerirTemas: (horaId: string) => void;
+  loadingHoraId: string | null;
   onToggleChipHora: (horaId: string, field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
   onToggleBoolHora: (horaId: string, field: "usaEjesTransversales" | "usaCompetencias") => void;
   onCopiarAlSiguiente: () => void;
@@ -784,6 +791,7 @@ function DiaConfigBlock({
           {config.horas.map((hora, horaIdx) => (
             <HoraBlock key={hora.id} hora={hora} horaIdx={horaIdx} colors={colors}
               areaCode={areaCode} subnivel={subnivel} bloqueCAI={bloqueCAI}
+              isLoadingIA={loadingHoraId === hora.id}
               onUpdate={(update) => onUpdateHora(hora.id, update)}
               onSugerirTemas={() => onSugerirTemas(hora.id)}
               onToggleChip={(field, id) => onToggleChipHora(hora.id, field, id)}
@@ -813,7 +821,7 @@ function DiaConfigBlock({
 // ─── Subcomponente: una hora dentro de un día ────────────────
 
 function HoraBlock({
-  hora, horaIdx, colors, areaCode, subnivel, bloqueCAI, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
+  hora, horaIdx, colors, areaCode, subnivel, bloqueCAI, isLoadingIA, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
 }: {
   hora: HoraSemanal;
   horaIdx: number;
@@ -821,6 +829,7 @@ function HoraBlock({
   areaCode: string;
   subnivel: number | null;
   bloqueCAI: number | null;
+  isLoadingIA: boolean;
   onUpdate: (update: Partial<HoraSemanal>) => void;
   onSugerirTemas: () => void;
   onToggleChip: (field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
@@ -1021,11 +1030,20 @@ function HoraBlock({
 
       {/* Botón sugerir */}
       {hora.destreza && hora.tema.trim().length > 2 && (
-        <Pressable onPress={onSugerirTemas}
-          style={({ pressed }) => [styles.btnSugerir, { opacity: pressed ? 0.8 : 1 }]}>
-          <Text style={{ fontSize: 14 }}>✨</Text>
-          <Text style={{ color: "#fff", fontSize: 13, fontWeight: "600", marginLeft: 6 }}>Sugerir alternativas con IA</Text>
-        </Pressable>
+        <>
+          <Pressable onPress={onSugerirTemas} disabled={isLoadingIA}
+            style={({ pressed }) => [styles.btnSugerir, { opacity: isLoadingIA ? 0.6 : pressed ? 0.8 : 1 }]}>
+            <Text style={{ fontSize: 14 }}>{isLoadingIA ? "⏳" : "✨"}</Text>
+            <Text style={{ color: "#fff", fontSize: 13, fontWeight: "600", marginLeft: 6 }}>
+              {isLoadingIA ? "Generando sugerencias..." : "Sugerir alternativas con IA"}
+            </Text>
+          </Pressable>
+          {isLoadingIA && (
+            <Text style={{ fontSize: 11, color: "#7C3AED", textAlign: "center", marginTop: 6 }}>
+              Esto puede tomar entre 15 y 30 segundos...
+            </Text>
+          )}
+        </>
       )}
 
       {/* Alternativas sugeridas */}
