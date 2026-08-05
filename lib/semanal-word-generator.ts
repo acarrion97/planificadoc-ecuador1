@@ -384,115 +384,142 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
     }
 
     if (adap.adaptacionesPorDia?.length) {
-      // ── ADAPTACIONES POR DÍA (vinculadas a planificación semanal) ────────
+      // ── ADAPTACIONES POR DÍA — formato 3 columnas (igual al word de adaptaciones) ──
       rightChildren.push(parSeccionAdapt("ADAPTACIONES POR DÍA", "0F766E"));
       const DIA_BG_SEMANAL = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
+      const ERCA_SEMANAL_CFG = [
+        { key: "experiencia",       label: "EXPERIENCIA",       dark: "2980B9", light: "EBF5FB" },
+        { key: "reflexion",         label: "REFLEXIÓN",         dark: "8E44AD", light: "F5EEF8" },
+        { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", dark: "27AE60", light: "EAFAF1" },
+        { key: "aplicacion",        label: "APLICACIÓN",        dark: "E67E22", light: "FEF9E7" },
+      ] as const;
+
       for (let di = 0; di < adap.adaptacionesPorDia.length; di++) {
         const dp = adap.adaptacionesPorDia[di];
         const bgD = DIA_BG_SEMANAL[di % DIA_BG_SEMANAL.length];
-        // Sub-encabezado del día
-        rightChildren.push(new Paragraph({
-          spacing: { before: 30, after: 8 },
-          children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 13, font: "Arial", color: bgD })],
-        }));
-        // Objetivo del día
+
+        // Columna izquierda: objetivo(s) + fases ERCA + leyenda DUA
+        const leftContent: (Paragraph | Table)[] = [];
         if (dp.objetivo) {
-          rightChildren.push(new Paragraph({
-            spacing: { before: 0, after: 8 },
-            indent: { left: 40 },
+          leftContent.push(new Paragraph({
+            spacing: { before: 20, after: 8 },
+            indent: { left: 30 },
             children: [
               new TextRun({ text: "Objetivo: ", bold: true, size: 11, font: "Arial", color: bgD }),
-              new TextRun({ text: dp.objetivo, size: 11, italics: true, font: "Arial", color: "444444" }),
+              new TextRun({ text: dp.objetivo, size: 10, italics: true, font: "Arial", color: "444444" }),
             ],
           }));
         }
-        const ERCA_SEMANAL_CFG = [
-          { key: "experiencia",       label: "EXPERIENCIA",      dark: "2980B9", light: "EBF5FB" },
-          { key: "reflexion",         label: "REFLEXIÓN",        dark: "8E44AD", light: "F5EEF8" },
-          { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN",dark: "27AE60", light: "EAFAF1" },
-          { key: "aplicacion",        label: "APLICACIÓN",       dark: "E67E22", light: "FEF9E7" },
-        ] as const;
-
-        const diaRows: TableRow[] = [];
-
-        // Acceso — etiqueta izquierda + contenido derecha
-        if (dp.adaptacionAcceso) {
-          diaRows.push(new TableRow({ children: [
-            simpleCell("ACCESO", { bold: true, size: 7, bg: bgD, color: WHITE }),
-            simpleCell(dp.adaptacionAcceso, { size: 7 }),
-          ]}));
-        }
-
-        // Cabecera de estrategias ERCA
-        if (dp.adaptacionERCA) {
-          diaRows.push(new TableRow({ children: [
-            simpleCell("ESTRATEGIAS METODOLÓGICAS ACTIVAS (ERCA)", {
-              bold: true, size: 7, bg: "1A3A5C", color: WHITE, colspan: 2,
-            }),
-          ]}));
-          for (const { key, label, dark, light } of ERCA_SEMANAL_CFG) {
-            const val = (dp.adaptacionERCA as any)[key];
-            if (val) {
-              // Cabecera de fase — fila completa coloreada
-              diaRows.push(new TableRow({ children: [
-                simpleCell(label, { bold: true, size: 8, bg: dark, color: WHITE, colspan: 2 }),
-              ]}));
-              // Contenido de la fase — fila con fondo claro
-              diaRows.push(new TableRow({ children: [
-                new TableCell({
-                  columnSpan: 2,
-                  borders: BORDER_DEF,
-                  shading: { fill: light, color: light, type: ShadingType.CLEAR },
-                  verticalAlign: VerticalAlign.TOP,
-                  children: [new Paragraph({
-                    indent: { left: 60 },
-                    spacing: { before: 20, after: 20 },
-                    children: [new TextRun({ text: val, size: 13, font: "Arial", color: BLACK })],
-                  })],
-                }),
-              ]}));
-            }
-          }
-        }
-
-        // Leyenda DUA (después de las fases ERCA)
-        if (dp.adaptacionERCA) {
-          diaRows.push(new TableRow({ children: [
-            new TableCell({
-              columnSpan: 2,
-              borders: BORDER_DEF,
-              verticalAlign: VerticalAlign.TOP,
-              children: [duaLegendPara()],
-            }),
-          ]}));
-        }
-
-        // Recursos y evaluación
-        if (dp.recursosAdaptados?.length) {
-          diaRows.push(new TableRow({ children: [
-            simpleCell("Recursos:", { bold: true, size: 7, bg: "F5F3FF", color: "4A1942" }),
-            new TableCell({
-              borders: BORDER_DEF,
-              verticalAlign: VerticalAlign.TOP,
-              children: dp.recursosAdaptados.map(r =>
-                new Paragraph({ spacing: { after: 12 }, children: [new TextRun({ text: `• ${r}`, size: 13, font: "Arial", color: BLACK })] })
-              ),
-            }),
-          ]}));
-        }
-        if (dp.evaluacionAdaptada) {
-          diaRows.push(new TableRow({ children: [
-            simpleCell("Evaluación:", { bold: true, size: 7, bg: "F5F3FF", color: "4A1942" }),
-            simpleCell(dp.evaluacionAdaptada, { size: 7 }),
-          ]}));
-        }
-        if (diaRows.length) {
-          rightChildren.push(new Table({
-            width: { size: 12518, type: WidthType.DXA },
-            columnWidths: [2200, 10318],
-            rows: diaRows,
+        if ((dp as any).objetivoAdaptado) {
+          leftContent.push(new Paragraph({
+            spacing: { before: 0, after: 12 },
+            indent: { left: 30 },
+            children: [
+              new TextRun({ text: "Obj. adaptado: ", bold: true, size: 11, font: "Arial", color: bgD }),
+              new TextRun({ text: (dp as any).objetivoAdaptado, bold: true, size: 10, font: "Arial", color: BLACK }),
+            ],
           }));
         }
+        for (const { key, label, dark, light } of ERCA_SEMANAL_CFG) {
+          const val = (dp.adaptacionERCA as any)[key];
+          if (val) {
+            leftContent.push(new Paragraph({
+              shading: { fill: dark, color: dark, type: ShadingType.CLEAR },
+              spacing: { before: 8, after: 0 },
+              indent: { left: 30 },
+              children: [new TextRun({ text: label, bold: true, size: 12, font: "Arial", color: WHITE })],
+            }));
+            leftContent.push(new Paragraph({
+              shading: { fill: light, color: light, type: ShadingType.CLEAR },
+              spacing: { before: 0, after: 8 },
+              indent: { left: 40 },
+              children: [new TextRun({ text: val, size: 11, font: "Arial", color: BLACK })],
+            }));
+          }
+        }
+        leftContent.push(duaLegendPara());
+
+        // Columna central: recursos
+        const middleContent: Paragraph[] = dp.recursosAdaptados?.length
+          ? dp.recursosAdaptados.map(r => new Paragraph({
+              spacing: { before: 8, after: 12 },
+              children: [new TextRun({ text: `• ${r}`, size: 11, font: "Arial", color: BLACK })],
+            }))
+          : [new Paragraph({ children: [new TextRun({ text: "—", size: 11, font: "Arial", color: BLACK })] })];
+
+        // Columna derecha: evaluación
+        const evalContent: Paragraph[] = [new Paragraph({
+          spacing: { before: 10, after: 10 },
+          indent: { left: 30 },
+          children: [new TextRun({ text: dp.evaluacionAdaptada || "—", size: 11, font: "Arial", color: BLACK })],
+        })];
+
+        // Tabla 3 columnas — total 12518 DXA
+        rightChildren.push(new Table({
+          width: { size: 12518, type: WidthType.DXA },
+          columnWidths: [6000, 3259, 3259],
+          rows: [
+            // Fila 0: encabezado del día (colspan=3)
+            new TableRow({ children: [
+              new TableCell({
+                columnSpan: 3,
+                borders: BORDER_DEF,
+                shading: { fill: bgD, color: bgD, type: ShadingType.CLEAR },
+                children: [new Paragraph({
+                  spacing: { before: 25, after: 25 },
+                  indent: { left: 40 },
+                  children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 14, font: "Arial", color: WHITE })],
+                })],
+              }),
+            ]}),
+            // Fila 1: ACCESO (etiqueta | contenido colspan=2)
+            new TableRow({ children: [
+              simpleCell("ACCESO", { bold: true, size: 8, bg: bgD, color: WHITE }),
+              new TableCell({
+                columnSpan: 2,
+                borders: BORDER_DEF,
+                verticalAlign: VerticalAlign.TOP,
+                children: [new Paragraph({
+                  spacing: { before: 8, after: 8 },
+                  indent: { left: 30 },
+                  children: [new TextRun({ text: dp.adaptacionAcceso || "—", size: 11, font: "Arial", color: BLACK })],
+                })],
+              }),
+            ]}),
+            // Fila 2: gran encabezado ERCA (colspan=3)
+            new TableRow({ children: [
+              new TableCell({
+                columnSpan: 3,
+                borders: BORDER_DEF,
+                shading: { fill: "1A3A5C", color: "1A3A5C", type: ShadingType.CLEAR },
+                children: [
+                  new Paragraph({
+                    spacing: { before: 16, after: 4 },
+                    indent: { left: 30 },
+                    children: [new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 12, font: "Arial", color: WHITE })],
+                  }),
+                  new Paragraph({
+                    spacing: { before: 0, after: 8 },
+                    indent: { left: 30 },
+                    children: [new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", italics: true, size: 10, font: "Arial", color: "CCCCCC" })],
+                  }),
+                ],
+              }),
+            ]}),
+            // Fila 3: cabeceras de columna
+            new TableRow({ children: [
+              simpleCell("ESTRATEGIAS ERCA ADAPTADAS", { bold: true, size: 8, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
+              simpleCell("RECURSOS ADAPTADOS",         { bold: true, size: 8, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
+              simpleCell("EVALUACIÓN ADAPTADA",        { bold: true, size: 8, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
+            ]}),
+            // Fila 4: contenido
+            new TableRow({ children: [
+              new TableCell({ borders: BORDER_DEF, verticalAlign: VerticalAlign.TOP, children: leftContent }),
+              new TableCell({ borders: BORDER_DEF, verticalAlign: VerticalAlign.TOP, children: middleContent }),
+              new TableCell({ borders: BORDER_DEF, verticalAlign: VerticalAlign.TOP, children: evalContent }),
+            ]}),
+          ],
+        }));
       }
     } else {
       // ── SECCIONES GENÉRICAS (sin planificación semanal vinculada) ─────────
