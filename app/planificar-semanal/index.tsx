@@ -5,6 +5,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
+import { DestrezaIconos } from "@/components/DestrezaIconos";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import {
@@ -934,7 +935,10 @@ function HoraBlock({
       >
         {hora.destreza ? (
           <View style={{ flex: 1 }}>
-            <Text style={{ color: areaInfo?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>{hora.destreza.codigo}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+              <Text style={{ color: areaInfo?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>{hora.destreza.codigo}</Text>
+              <DestrezaIconos codigo={hora.destreza.codigo} size={15} />
+            </View>
             <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }} numberOfLines={2}>{hora.destreza.descripcion}</Text>
           </View>
         ) : (
@@ -971,7 +975,10 @@ function HoraBlock({
                     onPress={() => handleSeleccionarDestreza(d)}
                     style={({ pressed }) => [styles.dropdownItem, { borderBottomColor: colors.border, opacity: pressed ? 0.7 : 1 }]}
                   >
-                    <Text style={{ color: ai?.color || colors.primary, fontWeight: "700", fontSize: 12, minWidth: 70 }}>{d.codigo}</Text>
+                    <View style={{ minWidth: 70 }}>
+                      <Text style={{ color: ai?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>{d.codigo}</Text>
+                      <DestrezaIconos codigo={d.codigo} size={13} style={{ marginTop: 3 }} />
+                    </View>
                     <Text style={{ color: colors.foreground, fontSize: 12, flex: 1, marginLeft: 8 }}>{d.descripcion}</Text>
                   </Pressable>
                 );

@@ -18,6 +18,40 @@ import type {
   GradoAdaptacion, TipoNEE,
 } from "../data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
+import { obtenerIconosDestreza } from "../src/data/iconosPorDestreza";
+
+// ─── Chips de íconos DCD (competencias/inserciones curriculares) ────────────
+// Colores fieles a la iconografía oficial de los PDF del currículo priorizado.
+const ICONO_CHIP: Record<string, { label: string; bg: string; color: string }> = {
+  competencias_comunicacionales:      { label: "C",    bg: "7FE0D4", color: "184A56" },
+  competencias_matematicas:           { label: "CM",   bg: "1E7EC8", color: "FFFFFF" },
+  competencias_digitales:             { label: "D",    bg: "EF6C24", color: "FFFFFF" },
+  competencias_socioemocionales:      { label: "CS",   bg: "F0C020", color: "5C3D1E" },
+  insercion_civica_etica_integridad:  { label: "CÍV",  bg: "F0A0C6", color: "4E347E" },
+  insercion_desarrollo_sostenible:    { label: "DS",   bg: "C7DE3A", color: "4E347E" },
+  insercion_educacion_financiera:     { label: "FIN",  bg: "8AD1A8", color: "1F5C3D" },
+  insercion_educacion_socioemocional: { label: "S-E",  bg: "F5D9AC", color: "7A4A1F" },
+  insercion_educacion_vial:           { label: "VIAL", bg: "B7DFF2", color: "1F4E6B" },
+  insercion_seguridad_integral:       { label: "SEG",  bg: "F26DA8", color: "FFFFFF" },
+};
+
+/** TextRuns de chips de íconos (competencias/inserciones) para un código DCD. */
+function iconosChipsRuns(codigo: string | undefined | null): TextRun[] {
+  if (!codigo) return [];
+  const iconos = obtenerIconosDestreza(codigo);
+  const runs: TextRun[] = [];
+  for (const nombre of iconos) {
+    const chip = ICONO_CHIP[nombre];
+    if (!chip) continue;
+    runs.push(new TextRun({
+      text: ` ${chip.label} `,
+      bold: true, size: 12, font: "Arial", color: chip.color,
+      shading: { fill: chip.bg, color: chip.bg, type: ShadingType.CLEAR },
+    }));
+    runs.push(new TextRun({ text: " ", size: 12 }));
+  }
+  return runs;
+}
 
 // ─── Paleta ───────────────────────────────────────────────────────────────────
 const BG_TITLE     = "003366";
@@ -836,6 +870,7 @@ export async function generarWordSemanal(
         : undefined;
 
       // ── Col 2: DESTREZA DCD (código + descripción, sin duplicar) ────────
+      const chipsRuns = iconosChipsRuns(hora.codigoDestreza);
       const dcdChildren: Paragraph[] = [
         new Paragraph({
           children: [new TextRun({
@@ -849,8 +884,11 @@ export async function generarWordSemanal(
             text: destreza?.descripcion || "",
             size: 15, font: "Arial", color: "222222",
           })],
-          spacing: { after: 0 },
+          spacing: { after: chipsRuns.length ? 40 : 0 },
         }),
+        ...(chipsRuns.length
+          ? [new Paragraph({ spacing: { after: 0 }, children: chipsRuns })]
+          : []),
       ];
 
       // ── Col 3: INDICADORES DE EVALUACIÓN ────────────────────────────────
