@@ -6,6 +6,21 @@ import {
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
+import { obtenerIconosDestreza } from "../src/data/iconosPorDestreza";
+import { ICONOS_DCD_BASE64 } from "./iconos-base64";
+
+/** HTML <img> de los iconos (competencias/inserciones) asociados a una DCD. */
+function iconosDestrezaHTML(codigo: string | undefined | null): string {
+  if (!codigo) return "";
+  const iconos = obtenerIconosDestreza(codigo);
+  if (iconos.length === 0) return "";
+  const imgs = iconos
+    .map((n) => ICONOS_DCD_BASE64[n])
+    .filter(Boolean)
+    .map((src) => `<img src="${src}" style="width:14px;height:14px;border-radius:50%;margin-right:2px;vertical-align:middle;" />`)
+    .join("");
+  return `<div style="margin-top:2px;">${imgs}</div>`;
+}
 
 /**
  * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador 2026-2027
@@ -982,6 +997,7 @@ export function generarHTMLSemanal(
       const dcdHTML = `
         <strong style="color:#003366;font-size:8px;">${hora.codigoDestreza}</strong><br/>
         <span style="font-size:7.5px;">${hora.destreza?.descripcion || ""}</span>
+        ${iconosDestrezaHTML(hora.codigoDestreza)}
         ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:7px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${plan.objetivoClase}</div>` : ""}`;
 
       // ── Columna 3: Indicadores de evaluación ──
