@@ -10,7 +10,7 @@
  */
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
-  TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
+  TextRun, ImageRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType,
 } from "docx";
 import type {
@@ -19,34 +19,24 @@ import type {
 } from "../data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
 import { obtenerIconosDestreza } from "../src/data/iconosPorDestreza";
+import { ICONOS_DCD_BASE64 } from "./iconos-base64";
 
-// ─── Chips de íconos DCD (competencias/inserciones curriculares) ────────────
-// Colores fieles a la iconografía oficial de los PDF del currículo priorizado.
-const ICONO_CHIP: Record<string, { label: string; bg: string; color: string }> = {
-  competencias_comunicacionales:      { label: "C",    bg: "7FE0D4", color: "184A56" },
-  competencias_matematicas:           { label: "CM",   bg: "1E7EC8", color: "FFFFFF" },
-  competencias_digitales:             { label: "D",    bg: "EF6C24", color: "FFFFFF" },
-  competencias_socioemocionales:      { label: "CS",   bg: "F0C020", color: "5C3D1E" },
-  insercion_civica_etica_integridad:  { label: "CÍV",  bg: "F0A0C6", color: "4E347E" },
-  insercion_desarrollo_sostenible:    { label: "DS",   bg: "C7DE3A", color: "4E347E" },
-  insercion_educacion_financiera:     { label: "FIN",  bg: "8AD1A8", color: "1F5C3D" },
-  insercion_educacion_socioemocional: { label: "S-E",  bg: "F5D9AC", color: "7A4A1F" },
-  insercion_educacion_vial:           { label: "VIAL", bg: "B7DFF2", color: "1F4E6B" },
-  insercion_seguridad_integral:       { label: "SEG",  bg: "F26DA8", color: "FFFFFF" },
-};
+// ─── Íconos DCD (competencias/inserciones curriculares) ─────────────────────
+// Imágenes reales (base64, 72x72 origen) incrustadas vía ImageRun, extraídas
+// y verificadas desde los PDF oficiales del currículo priorizado.
+const ICONO_DCD_SIZE = 16; // px en el documento
 
-/** TextRuns de chips de íconos (competencias/inserciones) para un código DCD. */
-function iconosChipsRuns(codigo: string | undefined | null): TextRun[] {
+/** Runs (imagen + texto) con los íconos (competencias/inserciones) de un código DCD. */
+function iconosDcdRuns(codigo: string | undefined | null): (TextRun | ImageRun)[] {
   if (!codigo) return [];
   const iconos = obtenerIconosDestreza(codigo);
-  const runs: TextRun[] = [];
+  const runs: (TextRun | ImageRun)[] = [];
   for (const nombre of iconos) {
-    const chip = ICONO_CHIP[nombre];
-    if (!chip) continue;
-    runs.push(new TextRun({
-      text: ` ${chip.label} `,
-      bold: true, size: 12, font: "Arial", color: chip.color,
-      shading: { fill: chip.bg, color: chip.bg, type: ShadingType.CLEAR },
+    const data = ICONOS_DCD_BASE64[nombre];
+    if (!data) continue;
+    runs.push(new ImageRun({
+      data,
+      transformation: { width: ICONO_DCD_SIZE, height: ICONO_DCD_SIZE },
     }));
     runs.push(new TextRun({ text: " ", size: 12 }));
   }
@@ -870,7 +860,7 @@ export async function generarWordSemanal(
         : undefined;
 
       // ── Col 2: DESTREZA DCD (código + descripción, sin duplicar) ────────
-      const chipsRuns = iconosChipsRuns(hora.codigoDestreza);
+      const chipsRuns = iconosDcdRuns(hora.codigoDestreza);
       const dcdChildren: Paragraph[] = [
         new Paragraph({
           children: [new TextRun({
