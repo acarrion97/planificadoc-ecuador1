@@ -1,676 +1,657 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import {
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  StyleSheet,
-  Alert,
-  Platform,
+  View, Text, TextInput, ScrollView, Pressable,
+  StyleSheet, Alert, ActivityIndicator, Platform,
 } from "react-native";
-import { Pressable } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { shareAsync } from "expo-sharing";
+import * as Print from "expo-print";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
-import { usePlanificaciones } from "@/lib/planificaciones-context";
-import {
-  obtenerFiguraPorId,
-  obtenerTodosLosModulos,
-  COMPETENCIAS,
-  METODOLOGIAS_ACTIVAS,
-  TECNICAS_EVALUACION,
-  ESTILOS_APRENDIZAJE,
-  obtenerInsercionesPorAsignatura,
-} from "@/data";
-import type { ModuloFormativo } from "@/data";
+import { trpc } from "@/lib/trpc";
+import { usePlanificacionesBT, type ModuloBTCombinado } from "@/lib/planificaciones-bt-context";
+import { obtenerFiguraPorId, obtenerTodosLosModulos } from "@/data/bachillerato-tecnico";
+import type {
+  PlanUnidadTrabajoBT, UnidadCompetencia, ResultadoAprendizaje,
+  Procedimiento, FaseProcedimiento, ContenidosBT, EstrategiaMetodologicaBT,
+  ProcedimientoCriterioEvaluacion, UnidadTrabajoUnidadCompetencia, UnidadTrabajoResultadoAprendizaje,
+} from "@/data/types-bt";
+import { generarWordPlanBT } from "@/lib/bt-word-generator";
+import { generarHTMLPlanBT } from "@/lib/pdf-generator";
+
+const STEP_LABELS = ["Módulo", "Catálogo", "Competencia", "Unidad", "Generar", "Resultado"];
+
+// ─── Sub-componentes (mismo patrón visual que adaptacion-curricular) ───────
+
+function StepBar({ current, total, colors }: { current: number; total: number; colors: any }) {
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center", gap: 4, marginBottom: 16 }}>
+      {Array.from({ length: total }).map((_, i) => (
+        <View key={i} style={{ flex: 1, flexDirection: "column", alignItems: "center", gap: 2 }}>
+          <View style={{
+            height: 4, width: "100%", borderRadius: 2,
+            backgroundColor: i <= current ? colors.primary : colors.border,
+          }} />
+          <Text style={{ fontSize: 9, color: i === current ? colors.primary : colors.muted }}>
+            {STEP_LABELS[i]}
+          </Text>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function SectionHeading({ text, colors }: { text: string; colors: any }) {
+  return (
+    <Text style={{ fontSize: 14, fontWeight: "700", color: colors.primary, marginBottom: 8, marginTop: 4 }}>
+      {text}
+    </Text>
+  );
+}
+
+function Field({
+  label, value, onChangeText, colors, multiline = false, placeholder = "", keyboardType,
+}: {
+  label: string; value: string; onChangeText: (t: string) => void;
+  colors: any; multiline?: boolean; placeholder?: string; keyboardType?: "numeric";
+}) {
+  return (
+    <View style={{ marginBottom: 12 }}>
+      <Text style={{ fontSize: 12, fontWeight: "600", color: colors.muted, marginBottom: 4 }}>{label}</Text>
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        multiline={multiline}
+        placeholder={placeholder}
+        placeholderTextColor={colors.muted}
+        keyboardType={keyboardType}
+        style={[styles.input, {
+          borderColor: colors.border, color: colors.text, backgroundColor: colors.surface,
+          minHeight: multiline ? 72 : 40, textAlignVertical: multiline ? "top" : "center",
+        }]}
+      />
+    </View>
+  );
+}
+
+// ─── Estado de la Unidad de Trabajo en construcción ────────────────────────
+
+interface UTState {
+  nombre: string;
+  tiempoEstimadoPeriodos: string;
+  procedimientos: Procedimiento[];
+  contenidos: ContenidosBT;
+  estrategiasMetodologicas: EstrategiaMetodologicaBT[];
+}
+
+const UT_EMPTY: UTState = {
+  nombre: "", tiempoEstimadoPeriodos: "",
+  procedimientos: [],
+  contenidos: { conceptuales: [], procedimentales: [], actitudinales: [] },
+  estrategiasMetodologicas: [],
+};
 
 export default function PlanificarBTScreen() {
   const { figuraId } = useLocalSearchParams<{ figuraId: string }>();
   const colors = useColors();
   const router = useRouter();
-  const { addPlanificacion } = usePlanificaciones();
+  const scrollRef = useRef<ScrollView>(null);
+
+  const { addPlanBT, guardarCatalogoUsuarioBT, obtenerCatalogoModulo, moduloTieneCatalogoCompleto } = usePlanificacionesBT();
 
   const figura = useMemo(() => obtenerFiguraPorId(figuraId), [figuraId]);
-  const modulos = useMemo(() => obtenerTodosLosModulos(figuraId), [figuraId]);
+  const modulosEstaticos = useMemo(() => obtenerTodosLosModulos(figuraId), [figuraId]);
 
-  // Form state
-  const [selectedModulo, setSelectedModulo] = useState<ModuloFormativo | null>(null);
+  const [step, setStep] = useState(0);
+  const [selectedModuloCodigo, setSelectedModuloCodigo] = useState<string | null>(null);
+  const moduloCombinado: ModuloBTCombinado | undefined = selectedModuloCodigo
+    ? obtenerCatalogoModulo(figuraId, selectedModuloCodigo)
+    : undefined;
+  const catalogoCompleto = selectedModuloCodigo ? moduloTieneCatalogoCompleto(figuraId, selectedModuloCodigo) : false;
+
+  // Paso "Completar catálogo" — mini-formulario cuando el módulo no tiene UC/RA
+  const [catObjetivoModulo, setCatObjetivoModulo] = useState("");
+  const [catUCTexto, setCatUCTexto] = useState("");
+  const [catRATexto, setCatRATexto] = useState("");
+  const [catCETexto, setCatCETexto] = useState(""); // una por línea
+
+  // Selección de UC/RA para esta Unidad de Trabajo
+  const [ucSeleccionadas, setUcSeleccionadas] = useState<string[]>([]);
+  const [raSeleccionados, setRaSeleccionados] = useState<string[]>([]);
+
+  // Datos institucionales / Unidad de Trabajo
+  const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
-  const [grado, setGrado] = useState("1ro BT");
-  const [periodos, setPeriodos] = useState("6");
-  const [semana, setSemana] = useState("");
-  const [tema, setTema] = useState("");
+  const [curso, setCurso] = useState("");
+  const [paralelo, setParalelo] = useState("");
+  const [anioLectivo, setAnioLectivo] = useState("2025-2026");
+  const [ut, setUt] = useState<UTState>(UT_EMPTY);
 
-  // Secciones de chips
-  const [selectedInserciones, setSelectedInserciones] = useState<string[]>([]);
-  const [selectedCompetencias, setSelectedCompetencias] = useState<string[]>([]);
-  const [selectedMetodologias, setSelectedMetodologias] = useState<string[]>([]);
-  const [selectedTecnicas, setSelectedTecnicas] = useState<string[]>([]);
-  const [selectedEstilos, setSelectedEstilos] = useState<string[]>([]);
+  const [generateError, setGenerateError] = useState<string | null>(null);
+  const [savedPlan, setSavedPlan] = useState<PlanUnidadTrabajoBT | null>(null);
+  const [exporting, setExporting] = useState(false);
+  const [exportingPdf, setExportingPdf] = useState(false);
+  const [procedimientoCriterioEvaluacion, setProcedimientoCriterioEvaluacion] = useState<ProcedimientoCriterioEvaluacion[]>([]);
 
-  // ERCA
-  const [experiencia, setExperiencia] = useState("");
-  const [reflexion, setReflexion] = useState("");
-  const [conceptualizacion, setConceptualizacion] = useState("");
-  const [aplicacion, setAplicacion] = useState("");
-  const [recursos, setRecursos] = useState("");
-  const [evaluacion, setEvaluacion] = useState("");
-  const [observaciones, setObservaciones] = useState("");
+  const generateMutation = trpc.bt.generateUnidadTrabajo.useMutation();
 
-  // Inserciones filtradas (para BT usamos las generales)
-  const insercionesDisponibles = useMemo(() => {
-    return obtenerInsercionesPorAsignatura("EG", 5);
-  }, []);
+  function scrollTop() {
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
+  }
 
-  const toggleChip = (
-    list: string[],
-    setList: (v: string[]) => void,
-    value: string
-  ) => {
-    if (list.includes(value)) {
-      setList(list.filter((v2) => v2 !== value));
-    } else {
-      setList([...list, value]);
+  function goTo(s: number) { setStep(s); scrollTop(); }
+
+  // Criterios de evaluación/desempeño disponibles para la selección actual (UC + RA elegidos)
+  const criteriosDisponibles = useMemo(() => {
+    if (!moduloCombinado) return [] as { id: string; texto: string }[];
+    const items: { id: string; texto: string }[] = [];
+    for (const ra of moduloCombinado.resultadosAprendizaje || []) {
+      if (raSeleccionados.includes(ra.id)) items.push(...ra.criteriosEvaluacion);
     }
-  };
+    for (const uc of moduloCombinado.unidadesCompetencia) {
+      if (!ucSeleccionadas.includes(uc.id)) continue;
+      for (const ec of uc.elementosCompetencia || []) {
+        items.push(...ec.criteriosDesempeno);
+      }
+    }
+    return items;
+  }, [moduloCombinado, raSeleccionados, ucSeleccionadas]);
 
-  const handleSave = () => {
-    if (!selectedModulo) {
-      if (Platform.OS === "web") alert("Selecciona un m\u00f3dulo formativo");
-      else Alert.alert("Error", "Selecciona un m\u00f3dulo formativo");
+  function toggleSeleccion(list: string[], setList: (v: string[]) => void, id: string) {
+    setList(list.includes(id) ? list.filter((x) => x !== id) : [...list, id]);
+  }
+
+  async function handleGuardarCatalogo() {
+    if (!selectedModuloCodigo) return;
+    if (!catUCTexto.trim() || !catRATexto.trim() || !catCETexto.trim()) {
+      Alert.alert("Faltan datos", "Ingresa al menos el texto de la Unidad de Competencia, un Resultado de Aprendizaje y sus Criterios de Evaluación.");
       return;
     }
-    if (!tema.trim()) {
-      if (Platform.OS === "web") alert("Ingresa el tema de la clase");
-      else Alert.alert("Error", "Ingresa el tema de la clase");
-      return;
-    }
-
-    const plan = {
-      id: Date.now().toString(),
-      fecha: new Date().toLocaleDateString("es-EC"),
-      docente,
-      asignatura: `BT - ${figura?.nombre ?? ""}`,
-      grado,
-      periodos: parseInt(periodos) || 6,
-      semana,
-      destreza: {
-        codigo: selectedModulo.codigo,
-        descripcion: selectedModulo.descripcion,
-        area: "EG" as any,
-        subnivel: 5 as any,
-        bloque: 1,
-        objetivos: [figura?.objetivoGeneral ?? ""],
-        criteriosEvaluacion: [`CE.BT. Criterio de evaluaci\u00f3n del m\u00f3dulo ${selectedModulo.nombre}`],
-        indicadoresEvaluacion: [`I.BT. Indicador de evaluaci\u00f3n del m\u00f3dulo ${selectedModulo.nombre}`],
-      },
-      tema,
-      insercionesCurriculares: selectedInserciones,
-      competencias: selectedCompetencias,
-      metodologiasActivas: selectedMetodologias,
-      tecnicasEvaluacion: selectedTecnicas,
-      estilosAprendizaje: selectedEstilos,
-      erca: {
-        experiencia,
-        reflexion,
-        conceptualizacion,
-        aplicacion,
-      },
-      recursos,
-      evaluacion,
-      observaciones,
-      dua: { principios: [], estrategias: "" },
+    const nuevaUC: UnidadCompetencia = {
+      id: `USR-UC-${Date.now()}`,
+      texto: catUCTexto.trim(),
     };
+    const nuevoRA: ResultadoAprendizaje = {
+      id: `USR-RA-${Date.now()}`,
+      texto: catRATexto.trim(),
+      criteriosEvaluacion: catCETexto
+        .split("\n")
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .map((texto, i) => ({ id: `USR-CE-${Date.now()}-${i}`, texto })),
+    };
+    await guardarCatalogoUsuarioBT(
+      figuraId,
+      selectedModuloCodigo,
+      { objetivoModulo: catObjetivoModulo.trim() || undefined, resultadosAprendizaje: [nuevoRA] },
+      nuevaUC
+    );
+    goTo(2);
+  }
 
-    addPlanificacion(plan as any);
-    if (Platform.OS === "web") {
-      alert("Planificaci\u00f3n guardada exitosamente");
-    } else {
-      Alert.alert("Guardado", "Planificaci\u00f3n guardada exitosamente");
+  async function handleGenerate() {
+    if (!moduloCombinado || criteriosDisponibles.length === 0) {
+      setGenerateError("Selecciona al menos una Unidad de Competencia o Resultado de Aprendizaje con criterios.");
+      return;
     }
-    router.back();
-  };
+    setGenerateError(null);
+    try {
+      const ucTexto = moduloCombinado.unidadesCompetencia
+        .filter((u) => ucSeleccionadas.includes(u.id))
+        .map((u) => u.texto)
+        .join(" | ");
+      const raTexto = (moduloCombinado.resultadosAprendizaje || [])
+        .filter((r) => raSeleccionados.includes(r.id))
+        .map((r) => r.texto)
+        .join(" | ");
+
+      const res = await generateMutation.mutateAsync({
+        figuraNombre: figura?.nombre || "",
+        moduloNombre: moduloCombinado.nombre,
+        moduloObjetivo: moduloCombinado.objetivoModulo || moduloCombinado.descripcion,
+        nivel: moduloCombinado.nivel,
+        unidadCompetenciaTexto: ucTexto || undefined,
+        resultadoAprendizajeTexto: raTexto || undefined,
+        criteriosEvaluacion: criteriosDisponibles,
+        nombreUnidadTrabajo: ut.nombre || moduloCombinado.nombre,
+        tiempoEstimadoPeriodos: parseInt(ut.tiempoEstimadoPeriodos, 10) || 10,
+        numProcedimientos: 3,
+      });
+
+      setUt((prev) => ({
+        ...prev,
+        procedimientos: res.procedimientos,
+        contenidos: res.contenidos,
+        estrategiasMetodologicas: res.estrategiasMetodologicas,
+      }));
+      setProcedimientoCriterioEvaluacion(res.procedimientoCriterioEvaluacion);
+      goTo(5);
+    } catch (err: any) {
+      setGenerateError(err?.data?.message || err?.message || "Error de conexión. Intenta de nuevo.");
+    }
+  }
+
+  function buildPlan(): PlanUnidadTrabajoBT {
+    const now = new Date().toISOString();
+    const utUC: UnidadTrabajoUnidadCompetencia[] = ucSeleccionadas.map((unidadCompetenciaId) => ({
+      unidadTrabajoId: "UT-1", unidadCompetenciaId,
+    }));
+    const utRA: UnidadTrabajoResultadoAprendizaje[] = raSeleccionados.map((resultadoAprendizajeId) => ({
+      unidadTrabajoId: "UT-1", resultadoAprendizajeId,
+    }));
+    return {
+      id: savedPlan?.id ?? (Date.now().toString(36) + Math.random().toString(36).slice(2, 7)),
+      figuraProfesionalId: figuraId,
+      moduloId: selectedModuloCodigo || "",
+      institucion, docente, curso, paralelo, anioLectivo,
+      nombreModuloFormativo: moduloCombinado?.nombre || "",
+      objetivoModuloFormativo: moduloCombinado?.objetivoModulo || moduloCombinado?.descripcion || "",
+      horasPedagogicas: ut.tiempoEstimadoPeriodos,
+      unidadTrabajo: {
+        id: "UT-1", numero: 1, nombre: ut.nombre,
+        tiempoEstimadoPeriodos: parseInt(ut.tiempoEstimadoPeriodos, 10) || 0,
+        contenidos: ut.contenidos,
+        estrategiasMetodologicas: ut.estrategiasMetodologicas,
+        procedimientos: ut.procedimientos,
+      },
+      unidadTrabajoUnidadCompetencia: utUC,
+      unidadTrabajoResultadoAprendizaje: utRA,
+      unidadTrabajoInstrumentoEvaluacion: [],
+      procedimientoCriterioEvaluacion,
+      createdAt: savedPlan?.createdAt ?? now,
+      updatedAt: now,
+    };
+  }
+
+  async function handleGuardar() {
+    const plan = buildPlan();
+    await addPlanBT(plan);
+    setSavedPlan(plan);
+    if (Platform.OS === "web") alert("Planificación BT guardada");
+    else Alert.alert("Guardado", "Planificación BT guardada");
+  }
+
+  async function handleExportWord() {
+    setExporting(true);
+    try {
+      const plan = savedPlan ?? buildPlan();
+      const blob = await generarWordPlanBT(plan);
+      const filename = `plan_unidad_trabajo_${plan.moduloId || "BT"}.docx`;
+      if (Platform.OS === "web") {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } else {
+        const arrayBuffer = await blob.arrayBuffer();
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+        const uri = `data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${base64}`;
+        await shareAsync(uri, {
+          UTI: ".docx",
+          mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          dialogTitle: "Plan de Unidad de Trabajo BT",
+        });
+      }
+    } catch (err: any) {
+      Alert.alert("Error al exportar", err?.message ?? "No se pudo generar el documento.");
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  async function handleExportPDF() {
+    setExportingPdf(true);
+    try {
+      const plan = savedPlan ?? buildPlan();
+      const html = generarHTMLPlanBT(plan);
+      if (Platform.OS === "web") {
+        const win = window.open("", "_blank");
+        if (win) {
+          win.document.write(html);
+          win.document.close();
+          win.focus();
+          setTimeout(() => win.print(), 500);
+        }
+      } else {
+        const { uri } = await Print.printToFileAsync({ html, base64: false });
+        await shareAsync(uri, {
+          UTI: ".pdf",
+          mimeType: "application/pdf",
+          dialogTitle: "Plan de Unidad de Trabajo BT",
+        });
+      }
+    } catch (err: any) {
+      Alert.alert("Error al exportar", err?.message ?? "No se pudo generar el PDF.");
+    } finally {
+      setExportingPdf(false);
+    }
+  }
 
   if (!figura) {
     return (
-      <ScreenContainer className="flex-1 items-center justify-center p-6">
-        <Text className="text-lg text-muted">Figura profesional no encontrada</Text>
+      <ScreenContainer>
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "center", padding: 24 }}>
+          <Text style={{ color: colors.muted }}>Figura profesional no encontrada</Text>
+        </View>
       </ScreenContainer>
     );
   }
 
   return (
-    <ScreenContainer className="flex-1">
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Header */}
-        <View className="px-5 pt-4 pb-2">
-          <Pressable
-            onPress={() => router.back()}
-            style={({ pressed }) => [{ opacity: pressed ? 0.6 : 1, marginBottom: 8 }]}
-          >
-            <Text style={{ fontSize: 16, color: colors.primary }}>
-              {"\u2039"} Volver
-            </Text>
+    <ScreenContainer>
+      <ScrollView
+        ref={scrollRef}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
+        showsVerticalScrollIndicator
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 12 }}>
+          <Pressable onPress={() => router.back()} style={{ marginRight: 12 }}>
+            <Text style={{ fontSize: 22, color: colors.primary }}>←</Text>
           </Pressable>
-          <Text className="text-xl font-bold text-foreground">
-            Planificar: {figura.nombre}
-          </Text>
-          <Text className="text-sm text-muted mt-1" numberOfLines={2}>
-            {figura.objetivoGeneral}
-          </Text>
-        </View>
-
-        {/* Datos Informativos */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            1. DATOS INFORMATIVOS
-          </Text>
-          <View style={styles.fieldRow}>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.label, { color: colors.muted }]}>Docente</Text>
-              <TextInput
-                style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-                value={docente}
-                onChangeText={setDocente}
-                placeholder="Nombre del docente"
-                placeholderTextColor={colors.muted}
-              />
-            </View>
-          </View>
-          <View style={styles.fieldRow}>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.label, { color: colors.muted }]}>Curso</Text>
-              <TextInput
-                style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-                value={grado}
-                onChangeText={setGrado}
-                placeholder="1ro BT"
-                placeholderTextColor={colors.muted}
-              />
-            </View>
-            <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={[styles.label, { color: colors.muted }]}>Semana</Text>
-              <TextInput
-                style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-                value={semana}
-                onChangeText={setSemana}
-                placeholder="Semana 1"
-                placeholderTextColor={colors.muted}
-              />
-            </View>
-          </View>
-          <View style={styles.fieldRow}>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.label, { color: colors.muted }]}>Per{"\u00ed"}odos</Text>
-              <TextInput
-                style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-                value={periodos}
-                onChangeText={setPeriodos}
-                keyboardType="numeric"
-                placeholderTextColor={colors.muted}
-              />
-            </View>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 18, fontWeight: "700", color: colors.text }}>Planificar: {figura.nombre}</Text>
+            <Text style={{ fontSize: 11, color: colors.muted }} numberOfLines={1}>Bachillerato Técnico</Text>
           </View>
         </View>
 
-        {/* Módulo Formativo */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            2. M{"\u00d3"}DULO FORMATIVO
-          </Text>
-          <Text style={[styles.label, { color: colors.muted }]}>
-            Selecciona el m{"\u00f3"}dulo a planificar:
-          </Text>
-          <View style={styles.modulosContainer}>
-            {modulos.map((modulo) => (
+        <StepBar current={step} total={6} colors={colors} />
+
+        {/* ── PASO 0: Módulo ── */}
+        {step === 0 && (
+          <View>
+            <SectionHeading text="Selecciona el módulo formativo" colors={colors} />
+            {modulosEstaticos.map((m) => {
+              const sel = selectedModuloCodigo === m.codigo;
+              return (
+                <Pressable
+                  key={m.codigo}
+                  onPress={() => setSelectedModuloCodigo(m.codigo)}
+                  style={{
+                    borderWidth: 1.5, borderRadius: 12, padding: 12, marginBottom: 10,
+                    borderColor: sel ? colors.primary : colors.border,
+                    backgroundColor: sel ? colors.primary + "15" : colors.surface,
+                  }}
+                >
+                  <Text style={{ fontSize: 13, fontWeight: "700", color: sel ? colors.primary : colors.text }}>{m.nombre}</Text>
+                  <Text style={{ fontSize: 11, color: colors.muted, marginTop: 2 }}>{m.categoria || "módulo"} · Año {m.anio}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        )}
+
+        {/* ── PASO 1: Catálogo (condicional) ── */}
+        {step === 1 && (
+          catalogoCompleto ? (
+            <View>
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#16A34A" }}>
+                <Text style={{ fontSize: 12, color: "#15803D" }}>✅ Este módulo ya tiene catálogo (Unidad de Competencia / Resultados de Aprendizaje). Puedes continuar.</Text>
+              </View>
+            </View>
+          ) : (
+            <View>
+              <SectionHeading text="Completa el catálogo de este módulo" colors={colors} />
+              <View style={{ backgroundColor: "#FEF3C7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginBottom: 12 }}>
+                <Text style={{ fontSize: 11, color: "#92400E" }}>
+                  Aún no hay catálogo oficial cargado para este módulo. Ingresa (o pega desde el currículo oficial de tu figura)
+                  la Unidad de Competencia, un Resultado de Aprendizaje y sus Criterios de Evaluación. Esto se guarda en tu
+                  dispositivo y no vuelve a pedirse para este módulo.
+                </Text>
+              </View>
+              <Field label="Objetivo del módulo (opcional)" value={catObjetivoModulo} onChangeText={setCatObjetivoModulo} colors={colors} multiline />
+              <Field label="Unidad de Competencia" value={catUCTexto} onChangeText={setCatUCTexto} colors={colors} multiline placeholder="Ej: UC1: Aplicar..." />
+              <Field label="Resultado de Aprendizaje" value={catRATexto} onChangeText={setCatRATexto} colors={colors} multiline placeholder="Ej: RA.1. Analizar..." />
+              <Field label="Criterios de Evaluación (uno por línea)" value={catCETexto} onChangeText={setCatCETexto} colors={colors} multiline placeholder={"CE1.1: ...\nCE1.2: ..."} />
               <Pressable
-                key={modulo.codigo}
-                onPress={() => setSelectedModulo(modulo)}
-                style={({ pressed }) => [
-                  styles.moduloChip,
-                  {
-                    backgroundColor:
-                      selectedModulo?.codigo === modulo.codigo
-                        ? colors.primary
-                        : colors.surface,
-                    borderColor:
-                      selectedModulo?.codigo === modulo.codigo
-                        ? colors.primary
-                        : colors.border,
-                    opacity: pressed ? 0.8 : 1,
-                  },
-                ]}
+                onPress={handleGuardarCatalogo}
+                style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, alignItems: "center", marginTop: 4 }}
               >
-                <Text
-                  style={{
-                    fontSize: 13,
-                    fontWeight: "500",
-                    color:
-                      selectedModulo?.codigo === modulo.codigo
-                        ? "#fff"
-                        : colors.foreground,
-                  }}
-                >
-                  {modulo.nombre}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 11,
-                    color:
-                      selectedModulo?.codigo === modulo.codigo
-                        ? "#ffffffcc"
-                        : colors.muted,
-                    marginTop: 2,
-                  }}
-                >
-                  A{"\u00f1"}o {modulo.anio}
-                </Text>
+                <Text style={{ color: "#fff", fontWeight: "700" }}>Guardar catálogo y continuar</Text>
               </Pressable>
-            ))}
+            </View>
+          )
+        )}
+
+        {/* ── PASO 2: Competencia (selección UC/RA) ── */}
+        {step === 2 && moduloCombinado && (
+          <View>
+            <SectionHeading text="Unidad(es) de Competencia" colors={colors} />
+            {moduloCombinado.unidadesCompetencia.length === 0 && (
+              <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 8 }}>Este módulo no tiene UC/EC/CD, solo Resultados de Aprendizaje (ver abajo).</Text>
+            )}
+            {moduloCombinado.unidadesCompetencia.map((uc) => {
+              const sel = ucSeleccionadas.includes(uc.id);
+              return (
+                <Pressable
+                  key={uc.id}
+                  onPress={() => toggleSeleccion(ucSeleccionadas, setUcSeleccionadas, uc.id)}
+                  style={{
+                    borderWidth: 1.5, borderRadius: 10, padding: 10, marginBottom: 8,
+                    borderColor: sel ? colors.primary : colors.border,
+                    backgroundColor: sel ? colors.primary + "15" : colors.surface,
+                  }}
+                >
+                  <Text style={{ fontSize: 12, color: colors.text }}>{uc.texto}</Text>
+                  {(uc.elementosCompetencia || []).map((ec) => (
+                    <Text key={ec.id} style={{ fontSize: 11, color: colors.muted, marginTop: 4, marginLeft: 8 }}>• {ec.texto}</Text>
+                  ))}
+                </Pressable>
+              );
+            })}
+
+            <SectionHeading text="Resultado(s) de Aprendizaje" colors={colors} />
+            {(moduloCombinado.resultadosAprendizaje || []).length === 0 && (
+              <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 8 }}>Este módulo no tiene RA/CE propios.</Text>
+            )}
+            {(moduloCombinado.resultadosAprendizaje || []).map((ra) => {
+              const sel = raSeleccionados.includes(ra.id);
+              return (
+                <Pressable
+                  key={ra.id}
+                  onPress={() => toggleSeleccion(raSeleccionados, setRaSeleccionados, ra.id)}
+                  style={{
+                    borderWidth: 1.5, borderRadius: 10, padding: 10, marginBottom: 8,
+                    borderColor: sel ? colors.primary : colors.border,
+                    backgroundColor: sel ? colors.primary + "15" : colors.surface,
+                  }}
+                >
+                  <Text style={{ fontSize: 12, color: colors.text }}>{ra.texto}</Text>
+                </Pressable>
+              );
+            })}
+
+            {criteriosDisponibles.length === 0 && (
+              <View style={{ backgroundColor: "#FEF3C7", borderRadius: 8, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginTop: 4 }}>
+                <Text style={{ fontSize: 11, color: "#92400E" }}>⚠️ Selecciona al menos una UC o RA para continuar.</Text>
+              </View>
+            )}
           </View>
-          {selectedModulo && (
-            <View style={[styles.moduloDetail, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-              <Text style={[styles.label, { color: colors.muted }]}>Descripci{"\u00f3"}n:</Text>
-              <Text style={{ color: colors.foreground, fontSize: 14, lineHeight: 20 }}>
-                {selectedModulo.descripcion}
+        )}
+
+        {/* ── PASO 3: Unidad de Trabajo ── */}
+        {step === 3 && (
+          <View>
+            <SectionHeading text="Datos institucionales" colors={colors} />
+            <Field label="Institución educativa" value={institucion} onChangeText={setInstitucion} colors={colors} />
+            <Field label="Docente" value={docente} onChangeText={setDocente} colors={colors} />
+            <Field label="Curso" value={curso} onChangeText={setCurso} colors={colors} placeholder="Ej: 1ro de Bachillerato" />
+            <Field label="Paralelo" value={paralelo} onChangeText={setParalelo} colors={colors} placeholder="Ej: A" />
+            <Field label="Año lectivo" value={anioLectivo} onChangeText={setAnioLectivo} colors={colors} />
+
+            <SectionHeading text="Unidad de Trabajo" colors={colors} />
+            <Field label="Nombre de la Unidad de Trabajo" value={ut.nombre} onChangeText={(v) => setUt((s) => ({ ...s, nombre: v }))} colors={colors} />
+            <Field label="Tiempo estimado (periodos pedagógicos)" value={ut.tiempoEstimadoPeriodos} onChangeText={(v) => setUt((s) => ({ ...s, tiempoEstimadoPeriodos: v }))} colors={colors} keyboardType="numeric" />
+          </View>
+        )}
+
+        {/* ── PASO 4: Generar ── */}
+        {step === 4 && (
+          <View>
+            <SectionHeading text="Resumen" colors={colors} />
+            <View style={{ backgroundColor: colors.surface, borderRadius: 12, padding: 14, borderWidth: 1, borderColor: colors.border, marginBottom: 16 }}>
+              <Text style={{ fontSize: 11, color: colors.muted }}>Módulo: <Text style={{ color: colors.text }}>{moduloCombinado?.nombre}</Text></Text>
+              <Text style={{ fontSize: 11, color: colors.muted, marginTop: 4 }}>Unidad de Trabajo: <Text style={{ color: colors.text }}>{ut.nombre || "—"}</Text></Text>
+              <Text style={{ fontSize: 11, color: colors.muted, marginTop: 4 }}>Criterios seleccionados: <Text style={{ color: colors.text }}>{criteriosDisponibles.length}</Text></Text>
+            </View>
+
+            <View style={{ backgroundColor: "#DBEAFE", borderRadius: 10, padding: 12, marginBottom: 20, borderWidth: 1, borderColor: "#2563EB" }}>
+              <Text style={{ fontSize: 12, fontWeight: "700", color: "#1D4ED8", marginBottom: 4 }}>🤖 La IA generará</Text>
+              <Text style={{ fontSize: 11, color: "#1E3A8A" }}>
+                Procedimientos con fases, recursos y criterios — anclados exclusivamente a los criterios de evaluación/desempeño
+                seleccionados — más los contenidos y estrategias metodológicas de la Unidad de Trabajo.
               </Text>
             </View>
-          )}
-        </View>
 
-        {/* Tema */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            3. TEMA DE CLASE
-          </Text>
-          <TextInput
-            style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={tema}
-            onChangeText={setTema}
-            placeholder="Tema de la clase"
-            placeholderTextColor={colors.muted}
-          />
-        </View>
+            <Pressable
+              onPress={handleGenerate}
+              disabled={generateMutation.isPending}
+              style={{ backgroundColor: colors.primary, borderRadius: 12, paddingVertical: 16, alignItems: "center" }}
+            >
+              {generateMutation.isPending ? (
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                  <ActivityIndicator color="#fff" size="small" />
+                  <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>Generando...</Text>
+                </View>
+              ) : (
+                <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>✨ Generar Unidad de Trabajo</Text>
+              )}
+            </Pressable>
+            {generateMutation.isPending && (
+              <Text style={{ fontSize: 11, color: colors.muted, textAlign: "center", marginTop: 8 }}>Esto puede tomar entre 15 y 30 segundos...</Text>
+            )}
+            {generateError && (
+              <View style={{ backgroundColor: "#FEE2E2", borderRadius: 10, padding: 14, marginTop: 14, borderWidth: 1, borderColor: "#FCA5A5" }}>
+                <Text style={{ fontSize: 12, color: "#991B1B" }}>{generateError}</Text>
+              </View>
+            )}
+          </View>
+        )}
 
-        {/* Inserciones Curriculares */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            4. INSERCIONES CURRICULARES
-          </Text>
-          <View style={styles.chipsContainer}>
-            {insercionesDisponibles.map((ins) => (
-              <Pressable
-                key={ins.id}
-                onPress={() => toggleChip(selectedInserciones, setSelectedInserciones, ins.id)}
-                style={({ pressed }) => [
-                  styles.chip,
-                  {
-                    backgroundColor: selectedInserciones.includes(ins.id)
-                      ? colors.primary
-                      : colors.surface,
-                    borderColor: selectedInserciones.includes(ins.id)
-                      ? colors.primary
-                      : colors.border,
-                    opacity: pressed ? 0.8 : 1,
-                  },
-                ]}
-              >
-                <Text
+        {/* ── PASO 5: Resultado ── */}
+        {step === 5 && (
+          <View>
+            {ut.procedimientos.length === 0 ? (
+              <Text style={{ fontSize: 12, color: colors.muted }}>No hay resultado aún. Vuelve al paso anterior.</Text>
+            ) : (
+              <>
+                <View style={{ backgroundColor: "#DCFCE7", borderRadius: 12, padding: 14, borderWidth: 1, borderColor: "#16A34A", marginBottom: 16 }}>
+                  <Text style={{ fontSize: 13, fontWeight: "700", color: "#15803D" }}>✅ Unidad de Trabajo generada</Text>
+                </View>
+
+                {ut.procedimientos.map((p, i) => (
+                  <View key={p.id} style={{ borderWidth: 1, borderColor: colors.border, borderRadius: 12, padding: 12, marginBottom: 10, backgroundColor: colors.surface }}>
+                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.primary }}>{i + 1}. {p.nombre}</Text>
+                    <Text style={{ fontSize: 11, color: colors.text, marginTop: 4 }}>{p.objetivo}</Text>
+                    <Text style={{ fontSize: 10, color: colors.muted, marginTop: 4 }}>Tiempo: {p.tiempo}</Text>
+                    {p.fases.map((f: FaseProcedimiento, fi) => (
+                      <Text key={fi} style={{ fontSize: 11, color: colors.text, marginTop: 4 }}>• {f.nombre}: {f.descripcion}</Text>
+                    ))}
+                    {p.recursos.length > 0 && (
+                      <Text style={{ fontSize: 10, color: colors.muted, marginTop: 6 }}>Recursos: {p.recursos.join(", ")}</Text>
+                    )}
+                    <Text style={{ fontSize: 10, color: colors.muted, marginTop: 4 }}>
+                      Evaluación: {p.evaluacion.tecnica} — {p.evaluacion.instrumento}
+                    </Text>
+                  </View>
+                ))}
+
+                <SectionHeading text="Contenidos" colors={colors} />
+                {(["conceptuales", "procedimentales", "actitudinales"] as const).map((k) => (
+                  ut.contenidos[k].length > 0 && (
+                    <View key={k} style={{ marginBottom: 8 }}>
+                      <Text style={{ fontSize: 10, fontWeight: "700", color: colors.muted }}>{k.toUpperCase()}</Text>
+                      {ut.contenidos[k].map((c, i) => <Text key={i} style={{ fontSize: 11, color: colors.text }}>• {c}</Text>)}
+                    </View>
+                  )
+                ))}
+
+                {ut.estrategiasMetodologicas.length > 0 && (
+                  <>
+                    <SectionHeading text="Estrategias metodológicas" colors={colors} />
+                    {ut.estrategiasMetodologicas.map((e, i) => (
+                      <Text key={i} style={{ fontSize: 11, color: colors.text, marginBottom: 4 }}>• {e.nombre}{e.descripcion ? `: ${e.descripcion}` : ""}</Text>
+                    ))}
+                  </>
+                )}
+
+                <Pressable
+                  onPress={handleGuardar}
+                  style={{ backgroundColor: "#16A34A", borderRadius: 12, paddingVertical: 14, alignItems: "center", marginTop: 16 }}
+                >
+                  <Text style={{ color: "#fff", fontWeight: "700" }}>{savedPlan ? "✓ Guardado — actualizar" : "Guardar planificación"}</Text>
+                </Pressable>
+
+                <Pressable
+                  onPress={handleExportWord}
+                  disabled={exporting}
                   style={{
-                    fontSize: 12,
-                    color: selectedInserciones.includes(ins.id) ? "#fff" : colors.foreground,
+                    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8,
+                    backgroundColor: "#1E3A8A", borderRadius: 12, paddingVertical: 14, marginTop: 12,
                   }}
                 >
-                  {ins.nombre}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </View>
+                  {exporting ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ fontSize: 18 }}>📄</Text>}
+                  <Text style={{ color: "#fff", fontWeight: "700" }}>{exporting ? "Generando Word..." : "Exportar como Word (.docx)"}</Text>
+                </Pressable>
 
-        {/* Competencias */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            5. COMPETENCIAS
-          </Text>
-          <View style={styles.chipsContainer}>
-            {COMPETENCIAS.map((comp) => (
-              <Pressable
-                key={comp.id}
-                onPress={() => toggleChip(selectedCompetencias, setSelectedCompetencias, comp.id)}
-                style={({ pressed }) => [
-                  styles.chip,
-                  {
-                    backgroundColor: selectedCompetencias.includes(comp.id)
-                      ? colors.primary
-                      : colors.surface,
-                    borderColor: selectedCompetencias.includes(comp.id)
-                      ? colors.primary
-                      : colors.border,
-                    opacity: pressed ? 0.8 : 1,
-                  },
-                ]}
-              >
-                <Text
+                <Pressable
+                  onPress={handleExportPDF}
+                  disabled={exportingPdf}
                   style={{
-                    fontSize: 12,
-                    color: selectedCompetencias.includes(comp.id) ? "#fff" : colors.foreground,
+                    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8,
+                    backgroundColor: "#7C2D12", borderRadius: 12, paddingVertical: 14, marginTop: 12,
                   }}
                 >
-                  {comp.nombreCorto} - {comp.nombre}
-                </Text>
-              </Pressable>
-            ))}
+                  {exportingPdf ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ fontSize: 18 }}>🖨️</Text>}
+                  <Text style={{ color: "#fff", fontWeight: "700" }}>{exportingPdf ? "Generando PDF..." : "Exportar como PDF"}</Text>
+                </Pressable>
+              </>
+            )}
           </View>
-        </View>
+        )}
 
-        {/* Metodologías Activas */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            6. METODOLOG{"\u00cd"}AS ACTIVAS
-          </Text>
-          <View style={styles.chipsContainer}>
-            {METODOLOGIAS_ACTIVAS.map((met) => (
+        {/* Navegación */}
+        {step < 5 && (
+          <View style={{ flexDirection: "row", gap: 12, marginTop: 20, marginBottom: 8 }}>
+            {step > 0 && (
               <Pressable
-                key={met.id}
-                onPress={() => toggleChip(selectedMetodologias, setSelectedMetodologias, met.id)}
-                style={({ pressed }) => [
-                  styles.chip,
-                  {
-                    backgroundColor: selectedMetodologias.includes(met.id)
-                      ? colors.primary
-                      : colors.surface,
-                    borderColor: selectedMetodologias.includes(met.id)
-                      ? colors.primary
-                      : colors.border,
-                    opacity: pressed ? 0.8 : 1,
-                  },
-                ]}
+                onPress={() => goTo(step - 1)}
+                style={{ flex: 1, borderRadius: 10, paddingVertical: 12, alignItems: "center", borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }}
               >
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: selectedMetodologias.includes(met.id) ? "#fff" : colors.foreground,
-                  }}
-                >
-                  {met.nombre}
-                </Text>
+                <Text style={{ color: colors.text, fontWeight: "600" }}>← Anterior</Text>
               </Pressable>
-            ))}
-          </View>
-        </View>
-
-        {/* Técnicas de Evaluación */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            7. T{"\u00c9"}CNICAS E INSTRUMENTOS DE EVALUACI{"\u00d3"}N
-          </Text>
-          <View style={styles.chipsContainer}>
-            {TECNICAS_EVALUACION.map((tec) => (
+            )}
+            {step !== 4 && !(step === 1 && !catalogoCompleto) && (
               <Pressable
-                key={tec.id}
-                onPress={() => toggleChip(selectedTecnicas, setSelectedTecnicas, tec.id)}
-                style={({ pressed }) => [
-                  styles.chip,
-                  {
-                    backgroundColor: selectedTecnicas.includes(tec.id)
-                      ? colors.primary
-                      : colors.surface,
-                    borderColor: selectedTecnicas.includes(tec.id)
-                      ? colors.primary
-                      : colors.border,
-                    opacity: pressed ? 0.8 : 1,
-                  },
-                ]}
+                onPress={() => {
+                  if (step === 0 && !selectedModuloCodigo) {
+                    Alert.alert("Selecciona un módulo", "Elige un módulo formativo para continuar.");
+                    return;
+                  }
+                  if (step === 2 && criteriosDisponibles.length === 0) {
+                    Alert.alert("Selecciona competencia", "Elige al menos una Unidad de Competencia o Resultado de Aprendizaje.");
+                    return;
+                  }
+                  if (step === 3 && !ut.nombre.trim()) {
+                    Alert.alert("Falta el nombre", "Ingresa el nombre de la Unidad de Trabajo.");
+                    return;
+                  }
+                  goTo(step + 1);
+                }}
+                style={{ flex: 2, borderRadius: 10, paddingVertical: 12, alignItems: "center", backgroundColor: colors.primary }}
               >
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: selectedTecnicas.includes(tec.id) ? "#fff" : colors.foreground,
-                  }}
-                >
-                  {tec.nombre}
-                </Text>
+                <Text style={{ color: "#fff", fontWeight: "700" }}>Siguiente →</Text>
               </Pressable>
-            ))}
+            )}
           </View>
-        </View>
-
-        {/* Estilos de Aprendizaje */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            8. ESTILOS DE APRENDIZAJE
-          </Text>
-          <View style={styles.chipsContainer}>
-            {ESTILOS_APRENDIZAJE.map((est) => (
-              <Pressable
-                key={est.id}
-                onPress={() => toggleChip(selectedEstilos, setSelectedEstilos, est.id)}
-                style={({ pressed }) => [
-                  styles.chip,
-                  {
-                    backgroundColor: selectedEstilos.includes(est.id)
-                      ? colors.primary
-                      : colors.surface,
-                    borderColor: selectedEstilos.includes(est.id)
-                      ? colors.primary
-                      : colors.border,
-                    opacity: pressed ? 0.8 : 1,
-                  },
-                ]}
-              >
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: selectedEstilos.includes(est.id) ? "#fff" : colors.foreground,
-                  }}
-                >
-                  {est.nombre}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </View>
-
-        {/* ERCA */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            9. ESTRATEGIAS METODOL{"\u00d3"}GICAS (ERCA)
-          </Text>
-
-          <Text style={[styles.label, { color: colors.muted }]}>Experiencia (Inicio)</Text>
-          <TextInput
-            style={[styles.textArea, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={experiencia}
-            onChangeText={setExperiencia}
-            placeholder="Actividades de experiencia concreta..."
-            placeholderTextColor={colors.muted}
-            multiline
-            numberOfLines={3}
-          />
-
-          <Text style={[styles.label, { color: colors.muted, marginTop: 12 }]}>Reflexi{"\u00f3"}n</Text>
-          <TextInput
-            style={[styles.textArea, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={reflexion}
-            onChangeText={setReflexion}
-            placeholder="Actividades de reflexi\u00f3n..."
-            placeholderTextColor={colors.muted}
-            multiline
-            numberOfLines={3}
-          />
-
-          <Text style={[styles.label, { color: colors.muted, marginTop: 12 }]}>Conceptualizaci{"\u00f3"}n</Text>
-          <TextInput
-            style={[styles.textArea, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={conceptualizacion}
-            onChangeText={setConceptualizacion}
-            placeholder="Actividades de conceptualizaci\u00f3n..."
-            placeholderTextColor={colors.muted}
-            multiline
-            numberOfLines={3}
-          />
-
-          <Text style={[styles.label, { color: colors.muted, marginTop: 12 }]}>Aplicaci{"\u00f3"}n</Text>
-          <TextInput
-            style={[styles.textArea, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={aplicacion}
-            onChangeText={setAplicacion}
-            placeholder="Actividades de aplicaci\u00f3n..."
-            placeholderTextColor={colors.muted}
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-
-        {/* Recursos */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            10. RECURSOS
-          </Text>
-          <TextInput
-            style={[styles.textArea, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={recursos}
-            onChangeText={setRecursos}
-            placeholder="Materiales y recursos did\u00e1cticos..."
-            placeholderTextColor={colors.muted}
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-
-        {/* Evaluación */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            11. ACTIVIDADES EVALUATIVAS
-          </Text>
-          <TextInput
-            style={[styles.textArea, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={evaluacion}
-            onChangeText={setEvaluacion}
-            placeholder="Actividades de evaluaci\u00f3n..."
-            placeholderTextColor={colors.muted}
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-
-        {/* Observaciones */}
-        <View style={[styles.section, { borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-            12. OBSERVACIONES
-          </Text>
-          <TextInput
-            style={[styles.textArea, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.surface }]}
-            value={observaciones}
-            onChangeText={setObservaciones}
-            placeholder="Observaciones adicionales..."
-            placeholderTextColor={colors.muted}
-            multiline
-            numberOfLines={3}
-          />
-        </View>
-
-        {/* Save button */}
-        <View className="px-5 mt-4 mb-10">
-          <Pressable
-            onPress={handleSave}
-            style={({ pressed }) => [
-              styles.saveButton,
-              {
-                backgroundColor: colors.primary,
-                opacity: pressed ? 0.85 : 1,
-                transform: [{ scale: pressed ? 0.98 : 1 }],
-              },
-            ]}
-          >
-            <Text style={styles.saveButtonText}>Guardar Planificaci{"\u00f3"}n</Text>
-          </Pressable>
-        </View>
+        )}
       </ScrollView>
     </ScreenContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollContent: {
-    paddingBottom: 40,
-  },
-  section: {
-    marginHorizontal: 20,
-    marginTop: 20,
-    paddingBottom: 16,
-    borderBottomWidth: 1,
-  },
-  sectionTitle: {
-    fontSize: 15,
-    fontWeight: "700",
-    marginBottom: 12,
-  },
-  label: {
-    fontSize: 13,
-    fontWeight: "500",
-    marginBottom: 6,
-  },
-  fieldRow: {
-    flexDirection: "row",
-    marginBottom: 12,
-  },
-  input: {
-    height: 44,
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    fontSize: 15,
-  },
-  textArea: {
-    minHeight: 80,
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingTop: 12,
-    paddingBottom: 12,
-    fontSize: 14,
-    textAlignVertical: "top",
-  },
-  modulosContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginTop: 8,
-  },
-  moduloChip: {
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  moduloDetail: {
-    marginTop: 12,
-    padding: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  chipsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  chip: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  saveButton: {
-    height: 52,
-    borderRadius: 14,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  saveButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-  },
+  input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 8, fontSize: 13 },
 });

@@ -2,12 +2,14 @@
  * Datos del Bachillerato Técnico - Catálogo de Figuras Profesionales
  * Fuente: Acuerdo Ministerial Nro. MINEDUC-MINEDUC-2024-00065-A
  */
+import type { ModuloFormativoBTExtras } from "./types-bt";
+import { obtenerUnidadesCompetenciaDeModulo } from "./bachillerato-tecnico-uc";
 
-export interface ModuloFormativo {
+export interface ModuloFormativo extends Partial<ModuloFormativoBTExtras> {
   codigo: string;
   nombre: string;
   descripcion: string;
-  anio: number; // 1, 2 o 3 (año de BT)
+  anio: number; // 1, 2 o 3 (año de inicio de BT; ver duracionPeriodos para el detalle por año)
 }
 
 export interface FiguraProfesional {
@@ -361,11 +363,118 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
     nombre: "Actividad Física, Deporte y Recreación",
     familia: "deportes",
     area: "deportes_salud",
-    objetivoGeneral: "Planificar y ejecutar programas de actividad física, deporte y recreación aplicando principios de entrenamiento deportivo y promoción de la salud.",
+    objetivoGeneral:
+      "Planificar, ejecutar y evaluar actividades relacionadas con la actividad física, el deporte y la recreación, aplicando principios técnicos, deportivos y de seguridad, con un enfoque inclusivo, sostenible y de participación comunitaria.",
+    // Catálogo real transcrito de curriculo-fip-afdr.pdf, perfil-profesional-afdr.pdf y
+    // D-P-E Sesiones Deportivas y Recreativas.docx. Los módulos sin resultadosAprendizaje/UC
+    // vinculada quedan con estadoCatalogo "pendiente": no se fabrica contenido curricular oficial.
     modulos: [
-      { codigo: "AF.1.1", nombre: "Fundamentos de la Actividad Física", descripcion: "Comprender principios anatómicos, fisiológicos y biomecánicos del movimiento humano.", anio: 1 },
-      { codigo: "AF.2.1", nombre: "Entrenamiento Deportivo", descripcion: "Planificar y dirigir sesiones de entrenamiento deportivo aplicando metodologías.", anio: 2 },
-      { codigo: "AF.3.1", nombre: "Recreación y Gestión Deportiva", descripcion: "Organizar eventos deportivos y programas recreativos para diferentes poblaciones.", anio: 3 },
+      {
+        codigo: "AF.1.1",
+        nombre: "Salud, hábitos y práctica recreativa",
+        descripcion: "Comprender los fundamentos de la actividad física y su relación con la salud integral y el desarrollo humano.",
+        anio: 1,
+        categoria: "generico",
+        estadoCatalogo: "completo",
+        duracionPeriodos: { 1: 3, 2: 2, 3: null },
+        objetivoModulo:
+          "Comprender los fundamentos de la actividad física y su relación con la salud integral y el desarrollo humano, mediante el análisis de sus principios, la reflexión sobre la práctica regular de ejercicio físico y la aplicación de normas de seguridad, higiene y cuidado corporal, para promover estilos de vida activos, seguros y saludables.",
+        resultadosAprendizaje: [
+          {
+            id: "AFDR-RA.1",
+            texto: "RA.1. Analizar los principios de la actividad física y su relación con la salud y el bienestar incluyendo sus efectos en el cuerpo humano y la vida cotidiana.",
+            criteriosEvaluacion: [
+              { id: "AFDR-CE1.1", texto: "CE1.1: Relaciona los componentes de la condición física con su importancia en el mantenimiento de la salud integral." },
+              { id: "AFDR-CE1.2", texto: "CE1.2: Compara las diferencias entre actividad física, recreación, ejercicio y deporte según su aporte al bienestar físico y social." },
+              { id: "AFDR-CE1.3", texto: "CE1.3: Explica los beneficios del ejercicio sobre los sistemas corporales, argumentando su influencia en el rendimiento y la salud personal." },
+            ],
+          },
+          {
+            id: "AFDR-RA.2",
+            texto: "RA.2 Establecer la importancia de la práctica frecuente de actividades físicas, deportivas y recreativas con propuestas que promuevan la salud integral y la prevención de enfermedades.",
+            criteriosEvaluacion: [
+              { id: "AFDR-CE2.1", texto: "CE2.1: Analiza hábitos de vida saludable valorando su incidencia en la práctica de actividades físicas, deportivas y recreativas." },
+              { id: "AFDR-CE2.2", texto: "CE2.2: Relaciona la práctica de actividades físicas y recreativas con la prevención de enfermedades y el desarrollo humano." },
+              { id: "AFDR-CE2.3", texto: "CE2.3: Diseña campañas de concienciación sobre los beneficios de los hábitos saludables y la actividad física." },
+              { id: "AFDR-CE2.4", texto: "CE2.4: Formula un plan de actividades físicas, deportivas y recreativas que fomenta la salud y la prevención de enfermedades considerando recursos, contexto y necesidades del grupo." },
+            ],
+          },
+          {
+            id: "AFDR-RA.3",
+            texto: "RA.3 Aplicar normas de seguridad, higiene y cuidado corporal en la participación de actividades físicas, deportivas y recreativas garantizando la prevención de riesgos y el bienestar integral.",
+            criteriosEvaluacion: [
+              { id: "AFDR-CE3.1", texto: "CE3.1: Clasifica las normas de seguridad, higiene y cuidado corporal según el tipo de actividad física, deportiva o recreativa." },
+              { id: "AFDR-CE3.3", texto: "CE3.3: Ejecuta actividades físicas, deportivas y recreativas aplicando correctamente normas de seguridad, higiene y cuidado personal." },
+              { id: "AFDR-CE3.4", texto: "CE3.4: Promueve actividades físicas, deportivas y recreativas orientadas al fortalecimiento del desarrollo físico, mental y social en su comunidad." },
+            ],
+          },
+        ],
+      },
+      {
+        codigo: "AF.1.2",
+        nombre: "Desarrollo deportivo y cultural",
+        descripcion: "Gestionar y promover proyectos que fomenten la identidad y participación social a través del deporte y la cultura.",
+        anio: 1,
+        categoria: "generico",
+        estadoCatalogo: "pendiente",
+        duracionPeriodos: { 1: 2, 2: 2, 3: null },
+      },
+      {
+        codigo: "AF.1.3",
+        nombre: "Administración deportiva y cultural",
+        descripcion: "Gestionar recursos humanos, materiales y financieros en entidades deportivas y culturales de forma eficiente.",
+        anio: 1,
+        categoria: "generico",
+        estadoCatalogo: "pendiente",
+        duracionPeriodos: { 1: 2, 2: 2, 3: null },
+      },
+      {
+        codigo: "AF.2.1",
+        nombre: "Planificación de actividades deportivas y recreativas",
+        descripcion: "Planificar programas y sesiones de actividades físicas, deportivas y recreativas considerando las características de los participantes, los recursos disponibles y los objetivos propuestos.",
+        anio: 1,
+        categoria: "especializacion",
+        estadoCatalogo: "pendiente",
+        duracionPeriodos: { 1: 4, 2: 3, 3: 3 },
+      },
+      {
+        codigo: "AF.2.2",
+        nombre: "Sesiones deportivas y recreativas",
+        descripcion: "Ejecutar sesiones de actividad física, deporte y recreación aplicando técnicas adecuadas, criterios de seguridad y estrategias de inclusión.",
+        anio: 1,
+        categoria: "especializacion",
+        estadoCatalogo: "completo",
+        duracionPeriodos: { 1: 6, 2: 6, 3: 8 },
+        objetivoModulo:
+          "Ejecutar sesiones de actividad física, deporte y recreación aplicando técnicas adecuadas, criterios de seguridad y estrategias de inclusión, favoreciendo la participación activa, el aprendizaje motriz y la cohesión social.",
+      },
+      {
+        codigo: "AF.2.3",
+        nombre: "Promoción de la salud y valores en la práctica deportiva",
+        descripcion: "Fomentar hábitos de vida saludable, responsable y valores sociales a través de la práctica de la actividad física, el deporte y la recreación.",
+        anio: 1,
+        categoria: "especializacion",
+        estadoCatalogo: "pendiente",
+        duracionPeriodos: { 1: 2, 2: 2, 3: 3 },
+      },
+      {
+        codigo: "AF.2.4",
+        nombre: "Seguridad, higiene y primeros auxilios deportivos",
+        descripcion: "Aplicar medidas preventivas, de seguridad, higiene y primeros auxilios en actividades físicas, deportivas y recreativas.",
+        anio: 2,
+        categoria: "especializacion",
+        estadoCatalogo: "completo",
+        duracionPeriodos: { 1: null, 2: 2, 3: 4 },
+      },
+      {
+        codigo: "AF.3.1",
+        nombre: "Módulo Práctico Experimental",
+        descripcion: "Aplicación práctica integradora de las competencias desarrolladas en los módulos de especialización.",
+        anio: 1,
+        categoria: "practico",
+        estadoCatalogo: "pendiente",
+        duracionPeriodos: { 1: 2, 2: 2, 3: 3 },
+      },
     ],
   },
   {
@@ -520,4 +629,18 @@ export function obtenerTodosLosModulos(figuraId: string): ModuloFormativo[] {
   const figura = FIGURAS_PROFESIONALES.find((f) => f.id === figuraId);
   if (!figura) return [];
   return figura.modulos;
+}
+
+/**
+ * Un módulo tiene catálogo completo si tiene Resultados de Aprendizaje propios
+ * (catálogo genérico) y/o al menos una Unidad de Competencia vinculada
+ * (catálogo de especialización, ver data/bachillerato-tecnico-uc.ts).
+ * No considera el catálogo ingresado por el usuario — para eso usar
+ * obtenerCatalogoModulo() de lib/planificaciones-bt-context.tsx, que combina
+ * este catálogo estático con lo que el docente haya guardado.
+ */
+export function tieneCatalogoCompleto(modulo: ModuloFormativo): boolean {
+  const tieneRA = !!modulo.resultadosAprendizaje?.length;
+  const tieneUC = obtenerUnidadesCompetenciaDeModulo(modulo.codigo).length > 0;
+  return modulo.estadoCatalogo === "completo" && (tieneRA || tieneUC);
 }

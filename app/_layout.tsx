@@ -19,6 +19,7 @@ import type { EdgeInsets, Metrics, Rect } from "react-native-safe-area-context";
 import { trpc, createTRPCClient } from "@/lib/trpc";
 import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-runtime";
 import { PlanificacionesProvider } from "@/lib/planificaciones-context";
+import { PlanificacionesBTProvider } from "@/lib/planificaciones-bt-context";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { AccessProvider, useAccess } from "@/lib/access-control";
 import { AnimatedLogoSplash } from "@/components/animated-logo-splash";
@@ -63,19 +64,21 @@ function AppContent() {
 
   return (
     <PlanificacionesProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="paywall" />
-        <Stack.Screen name="destreza/[codigo]" options={{ presentation: "card" }} />
-        <Stack.Screen name="planificar/[codigo]" options={{ presentation: "card" }} />
-        <Stack.Screen name="ver-plan/[id]" options={{ presentation: "card" }} />
-        <Stack.Screen name="planificar-semanal/index" options={{ presentation: "card" }} />
-        <Stack.Screen name="ver-semana/[id]" options={{ presentation: "card" }} />
-        <Stack.Screen name="planificar-inicial/index" options={{ presentation: "card" }} />
-        <Stack.Screen name="bachillerato-tecnico" options={{ presentation: "card" }} />
-        <Stack.Screen name="planificar-bt/[figuraId]" options={{ presentation: "card" }} />
-        <Stack.Screen name="oauth/callback" />
-      </Stack>
+      <PlanificacionesBTProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="paywall" />
+          <Stack.Screen name="destreza/[codigo]" options={{ presentation: "card" }} />
+          <Stack.Screen name="planificar/[codigo]" options={{ presentation: "card" }} />
+          <Stack.Screen name="ver-plan/[id]" options={{ presentation: "card" }} />
+          <Stack.Screen name="planificar-semanal/index" options={{ presentation: "card" }} />
+          <Stack.Screen name="ver-semana/[id]" options={{ presentation: "card" }} />
+          <Stack.Screen name="planificar-inicial/index" options={{ presentation: "card" }} />
+          <Stack.Screen name="bachillerato-tecnico" options={{ presentation: "card" }} />
+          <Stack.Screen name="planificar-bt/[figuraId]" options={{ presentation: "card" }} />
+          <Stack.Screen name="oauth/callback" />
+        </Stack>
+      </PlanificacionesBTProvider>
     </PlanificacionesProvider>
   );
 }

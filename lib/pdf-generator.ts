@@ -3,6 +3,7 @@ import {
   AdaptacionCurricular, TipoNEE, GradoAdaptacion,
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
 } from "../data/types";
+import type { PlanUnidadTrabajoBT } from "../data/types-bt";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
@@ -1249,4 +1250,141 @@ function getHabilidadDescripcion(id: string, isEFL: boolean): string {
   const desc = descripciones[id];
   if (!desc) return "";
   return isEFL ? desc.en : desc.es;
+}
+
+// ============================================================
+// BACHILLERATO TÉCNICO — PLAN DE UNIDAD DE TRABAJO — HTML GENERATOR
+// Módulo intencionalmente independiente de las funciones EGB/BGU de arriba
+// (aislamiento del sistema BT). Reutiliza solo esc() (helper genérico de
+// escape HTML) y las mismas clases CSS .firmas/.firma-box/.firma-linea que
+// el resto de la app, para mantener consistencia visual entre exportaciones.
+// ============================================================
+
+export function generarHTMLPlanBT(plan: PlanUnidadTrabajoBT): string {
+  const criteriosDe = (procedimientoId: string) =>
+    plan.procedimientoCriterioEvaluacion
+      .filter((pc) => pc.procedimientoId === procedimientoId)
+      .map((pc) => pc.criterioEvaluacionId)
+      .join(", ") || "—";
+
+  const filasProcedimientos = plan.unidadTrabajo.procedimientos
+    .map(
+      (p, i) => `
+    <tr>
+      <td style="text-align:center;">${i + 1}</td>
+      <td><strong>${esc(p.nombre)}</strong></td>
+      <td>${esc(p.objetivo)}</td>
+      <td>${esc(p.tiempo)}</td>
+      <td>${p.fases.map((f) => `<div><strong>${esc(f.nombre)}:</strong> ${esc(f.descripcion)}</div>`).join("")}</td>
+      <td>${p.recursos.map((r) => `<div>• ${esc(r)}</div>`).join("")}</td>
+      <td>${esc(criteriosDe(p.id))}</td>
+      <td>${esc(p.evaluacion.tecnica)}<br/>${esc(p.evaluacion.instrumento)}</td>
+    </tr>`
+    )
+    .join("");
+
+  const contenidosHTML = (["conceptuales", "procedimentales", "actitudinales"] as const)
+    .map((k) => {
+      const items = plan.unidadTrabajo.contenidos[k];
+      if (!items.length) return "";
+      return `<div style="margin-top:6px;"><strong>${k[0].toUpperCase()}${k.slice(1)}</strong>${items
+        .map((it) => `<div>• ${esc(it)}</div>`)
+        .join("")}</div>`;
+    })
+    .join("");
+
+  const estrategiasHTML = plan.unidadTrabajo.estrategiasMetodologicas
+    .map((e) => `<div>• <strong>${esc(e.nombre)}</strong>${e.descripcion ? `: ${esc(e.descripcion)}` : ""}</div>`)
+    .join("");
+
+  const adaptacionesHTML = plan.adaptacionesCurriculares?.length
+    ? plan.adaptacionesCurriculares
+        .map(
+          (a) => `
+    <table class="tabla-plan" style="margin-bottom:8px;">
+      <tr><th>Especificación de la necesidad educativa atendida</th><th>Especificación de la adaptación aplicada</th></tr>
+      <tr>
+        <td>${esc(a.categoriaNecesidad)}${a.descripcionNecesidad ? " — " + esc(a.descripcionNecesidad) : ""}</td>
+        <td>${(a.adaptacionesAcceso || []).map((x) => `<div>• ${esc(x.categoria)}: ${esc(x.descripcion)}</div>`).join("") || "—"}</td>
+      </tr>
+    </table>`
+        )
+        .join("")
+    : `<p style="color:#666;font-style:italic;">No se registraron adaptaciones curriculares para esta unidad.</p>`;
+
+  const bibliografiaHTML = plan.bibliografiaWebgrafia?.length
+    ? plan.bibliografiaWebgrafia.map((r) => `<div>• ${esc(r)}</div>`).join("")
+    : `<p style="color:#666;">—</p>`;
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Plan de Unidad de Trabajo — ${esc(plan.unidadTrabajo.nombre)}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; margin: 24px; font-size: 11px; }
+  h1 { background:#003366; color:#fff; padding:10px 14px; font-size:16px; margin:0 0 4px; }
+  h2 { background:#1A3A5C; color:#fff; padding:6px 10px; font-size:12px; margin:16px 0 8px; }
+  .subt { color:#555; font-style:italic; margin:0 0 16px; }
+  table.tabla-plan { width:100%; border-collapse:collapse; margin-bottom:8px; }
+  table.tabla-plan th, table.tabla-plan td { border:1px solid #999; padding:6px 8px; text-align:left; vertical-align:top; font-size:10px; }
+  table.tabla-plan th { background:#EAF4F6; font-weight:bold; }
+  .label-cell { background:#EAF4F6; font-weight:bold; width:28%; }
+  .firmas { display:flex; justify-content:space-between; margin-top:24px; gap:16px; }
+  .firma-box { text-align:center; width:32%; }
+  .firma-linea { border-top:1px solid #333; padding-top:4px; font-size:10px; margin-top:36px; }
+  @media print { body { margin: 10mm; } }
+</style>
+</head>
+<body>
+  <h1>PLAN DE UNIDAD DE TRABAJO</h1>
+  <p class="subt">Bachillerato Técnico</p>
+
+  <h2>1.- DATOS DE REFERENCIA</h2>
+  <table class="tabla-plan">
+    <tr><td class="label-cell">Institución educativa</td><td>${esc(plan.institucion || "—")}</td></tr>
+    <tr><td class="label-cell">Docente</td><td>${esc(plan.docente || "—")}</td></tr>
+    <tr><td class="label-cell">Curso / Paralelo</td><td>${esc(plan.curso || "—")} / ${esc(plan.paralelo || "—")}</td></tr>
+    <tr><td class="label-cell">Año lectivo</td><td>${esc(plan.anioLectivo || "—")}</td></tr>
+    <tr><td class="label-cell">Módulo formativo</td><td>${esc(plan.nombreModuloFormativo || "—")}</td></tr>
+    <tr><td class="label-cell">Objetivo del módulo</td><td>${esc(plan.objetivoModuloFormativo || "—")}</td></tr>
+    <tr><td class="label-cell">Unidad de Trabajo</td><td>N.° ${plan.unidadTrabajo.numero} — ${esc(plan.unidadTrabajo.nombre || "—")}</td></tr>
+    <tr><td class="label-cell">Horas pedagógicas</td><td>${plan.unidadTrabajo.tiempoEstimadoPeriodos || plan.horasPedagogicas || "—"}</td></tr>
+  </table>
+
+  <h2>2.- DESARROLLO DE LA UNIDAD DE TRABAJO</h2>
+  <table class="tabla-plan">
+    <tr>
+      <th>N.°</th><th>Nombre</th><th>Objetivo</th><th>Tiempo</th>
+      <th>Secuencia de la actividad</th><th>Recursos</th><th>Criterios</th><th>Técnica / Instrumento</th>
+    </tr>
+    ${filasProcedimientos}
+  </table>
+
+  <div style="margin-top:10px;"><strong>Contenidos</strong>${contenidosHTML}</div>
+  ${estrategiasHTML ? `<div style="margin-top:10px;"><strong>Estrategias metodológicas</strong>${estrategiasHTML}</div>` : ""}
+
+  <h2>3.- ADAPTACIONES CURRICULARES</h2>
+  ${adaptacionesHTML}
+
+  <h2>4.- BIBLIOGRAFÍA/WEBGRAFÍA</h2>
+  ${bibliografiaHTML}
+
+  <div class="firmas">
+    <div class="firma-box">
+      <div class="firma-linea">${esc(plan.elaboradoPor?.nombre || plan.docente || "________________________")}</div>
+      <div style="font-size:9px;color:#555;">ELABORADO POR (Docente)</div>
+    </div>
+    <div class="firma-box">
+      <div class="firma-linea">${esc(plan.revisadoPor?.nombre || "________________________")}</div>
+      <div style="font-size:9px;color:#555;">REVISADO POR</div>
+    </div>
+    <div class="firma-box">
+      <div class="firma-linea">${esc(plan.aprobadoPor?.nombre || "________________________")}</div>
+      <div style="font-size:9px;color:#555;">APROBADO POR</div>
+    </div>
+  </div>
+</body>
+</html>`;
 }
