@@ -4,14 +4,16 @@
  * Nivela, Semanas 4-5 Crea), en modalidad general (EGB/BGU) o Bachillerato
  * Técnico.
  *
- * Estructura y paleta replican intencionalmente lib/semanal-word-generator.ts:
- * UNA sola tabla continua (título colspan → "DATOS INFORMATIVOS" colspan →
- * filas etiqueta/valor pareadas → filas de sección colspan por cada semana →
- * tablas de detalle), banda de título azul marino (#003366), filas de sección
- * celeste (#DDEFF1) con texto azul oscuro, cabeceras de columna azul oscuro
- * (#1A3A5C) con texto blanco, celdas de etiqueta celeste claro (#EAF4F6) —
- * para que el documento se vea consistente con el formato institucional
- * MinEduc que ya usan los docentes en la planificación semanal.
+ * Estructura replica intencionalmente lib/semanal-word-generator.ts: UNA sola
+ * tabla continua de 6 columnas (título colspan → "DATOS INFORMATIVOS" colspan
+ * → filas etiqueta/valor pareadas → "DESARROLLO SEMANAL POR DÍA" con las
+ * mismas 6 cabeceras de columna — DÍA | DESTREZAS CON CRITERIOS DE DESEMPEÑO |
+ * INDICADORES DE EVALUACIÓN | ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA
+ * ENSEÑANZA Y APRENDIZAJE | RECURSOS | ACTIVIDADES EVALUATIVAS), mismo tamaño
+ * de letra uniforme en todo el documento y texto en negrita negro (sin colores
+ * de texto) — solo la banda de título y las cabeceras de columna/sección
+ * conservan el fondo azul institucional, igual que en la planificación
+ * semanal real.
  *
  * Módulo intencionalmente independiente de lib/semanal-word-generator.ts,
  * lib/adaptacion-word-generator.ts y lib/bt-word-generator.ts (duplica sus
@@ -31,24 +33,26 @@ const BG_TITLE = "003366";
 const BG_COLHEAD = "1A3A5C";
 const BG_SECTION = "DDEFF1";
 const BG_SUBHEAD = "EAF4F6";
-const TEXT_SECTION = "1A3A5C";
-const SUBTITLE_COLOR = "A8C4E0";
 const BG_EVAL_OFICIAL = "DC2626";
 
-const NUM_COLS = 4;
+const NUM_COLS = 6;
+// Tamaño de letra único para todo el contenido de la tabla (en puntos)
+const FS = 8;
 
-// Días de la semana — misma paleta que lib/semanal-word-generator.ts
 const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
 type DiaKey = typeof DIAS[number];
 const DIA_LABEL: Record<DiaKey, string> = {
   lunes: "LUNES", martes: "MARTES", miercoles: "MIÉRCOLES", jueves: "JUEVES", viernes: "VIERNES",
 };
-const DIA_BG: Record<DiaKey, string> = {
-  lunes: "EFF6FF", martes: "F0FDF4", miercoles: "FEFCE8", jueves: "FFF7ED", viernes: "FAF5FF",
-};
-const DIA_COLOR: Record<DiaKey, string> = {
-  lunes: "1E3A8A", martes: "166534", miercoles: "854D0E", jueves: "9A3412", viernes: "6B21A8",
-};
+
+const COLUMNAS_DIA = [
+  "DÍA",
+  "DESTREZAS CON CRITERIOS DE DESEMPEÑO",
+  "INDICADORES DE EVALUACIÓN",
+  "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE",
+  "RECURSOS",
+  "ACTIVIDADES EVALUATIVAS",
+];
 
 /** Distribuye una lista de items en 5 casilleros (lunes..viernes), agrupando por índice % 5 */
 function agruparPorDia<T>(items: T[]): T[][] {
@@ -68,12 +72,12 @@ function shade(color: string) {
   return { fill: color, color, type: ShadingType.CLEAR };
 }
 
-/** Celda simple con un único TextRun */
+/** Celda simple con un único TextRun — negrita/negro por defecto, sin colores de texto */
 function simpleCell(
   text: string,
   opts: {
-    bold?: boolean; italic?: boolean; size?: number;
-    color?: string; bg?: string; align?: (typeof AlignmentType)[keyof typeof AlignmentType];
+    bold?: boolean; bg?: string; textColor?: string;
+    align?: (typeof AlignmentType)[keyof typeof AlignmentType];
     colspan?: number; rowspan?: number;
   } = {}
 ): TableCell {
@@ -90,9 +94,8 @@ function simpleCell(
           new TextRun({
             text: text || "—",
             bold: opts.bold ?? false,
-            italics: opts.italic ?? false,
-            size: (opts.size ?? 12) * 2,
-            color: opts.color ?? BLACK,
+            size: FS * 2,
+            color: opts.textColor ?? BLACK,
             font: "Arial",
           }),
         ],
@@ -102,7 +105,7 @@ function simpleCell(
 }
 
 /** Celda con múltiples párrafos (uno por línea de `lines`), opcionalmente con viñetas */
-function multiLineCell(lines: string[], opts: { size?: number; color?: string; bullet?: boolean; colspan?: number } = {}): TableCell {
+function multiLineCell(lines: string[], opts: { bullet?: boolean; colspan?: number; bold?: boolean } = {}): TableCell {
   return new TableCell({
     columnSpan: opts.colspan,
     verticalAlign: VerticalAlign.TOP,
@@ -112,27 +115,27 @@ function multiLineCell(lines: string[], opts: { size?: number; color?: string; b
         new Paragraph({
           bullet: opts.bullet ? { level: 0 } : undefined,
           spacing: { after: 40 },
-          children: [new TextRun({ text: line, size: (opts.size ?? 9) * 2, color: opts.color ?? BLACK, font: "Arial" })],
+          children: [new TextRun({ text: line, size: FS * 2, bold: opts.bold ?? false, color: BLACK, font: "Arial" })],
         })
     ),
   });
 }
 
-/** Fila de sección — banda celeste con texto azul marino, ocupa todas las columnas */
+/** Fila de sección — banda celeste con texto negro en negrita, ocupa todas las columnas */
 function sectionRow(label: string): TableRow {
   return new TableRow({
-    children: [simpleCell(label, { bold: true, size: 9, bg: BG_SECTION, color: TEXT_SECTION, colspan: NUM_COLS })],
+    children: [simpleCell(label, { bold: true, bg: BG_SECTION, colspan: NUM_COLS })],
   });
 }
 
-/** Fila con dos pares etiqueta/valor, igual que las filas de "DATOS INFORMATIVOS" de la planificación semanal */
+/** Fila con dos pares etiqueta/valor, igual que las filas de "DATOS INFORMATIVOS" de la planificación semanal (colspan 1+2+1+2=6) */
 function dosLabelValueRow(label1: string, value1: string, label2: string, value2: string): TableRow {
   return new TableRow({
     children: [
-      simpleCell(label1, { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(value1 || "—", { size: 8 }),
-      simpleCell(label2, { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(value2 || "—", { size: 8 }),
+      simpleCell(label1, { bold: true, bg: BG_SUBHEAD }),
+      simpleCell(value1 || "—", { colspan: 2 }),
+      simpleCell(label2, { bold: true, bg: BG_SUBHEAD }),
+      simpleCell(value2 || "—", { colspan: 2 }),
     ],
   });
 }
@@ -141,16 +144,16 @@ function dosLabelValueRow(label1: string, value1: string, label2: string, value2
 function labelValueRow(label: string, value: string): TableRow {
   return new TableRow({
     children: [
-      simpleCell(label, { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(value || "—", { size: 8, colspan: NUM_COLS - 1 }),
+      simpleCell(label, { bold: true, bg: BG_SUBHEAD }),
+      simpleCell(value || "—", { colspan: NUM_COLS - 1 }),
     ],
   });
 }
 
-/** Fila de subtítulo dentro de una sección (etiqueta en cursiva azul, ocupa todas las columnas) */
+/** Fila de subtítulo dentro de una sección — negrita negro, ocupa todas las columnas */
 function subHeadingRow(text: string): TableRow {
   return new TableRow({
-    children: [simpleCell(text, { bold: true, italic: true, size: 9, color: BG_TITLE, colspan: NUM_COLS })],
+    children: [simpleCell(text, { bold: true, colspan: NUM_COLS })],
   });
 }
 
@@ -159,23 +162,22 @@ function bulletsRow(lines: string[]): TableRow {
   return new TableRow({ children: [multiLineCell(lines, { bullet: true, colspan: NUM_COLS })] });
 }
 
-/** Fila de cabecera de tabla de detalle (fondo azul oscuro, texto blanco) */
+/** Fila de cabecera de tabla de detalle (fondo azul oscuro, texto blanco negrita) */
 function headerRow(labels: string[]): TableRow {
   return new TableRow({
     tableHeader: true,
-    children: labels.map((l) => simpleCell(l, { bold: true, color: WHITE, bg: BG_COLHEAD, size: 8 })),
+    children: labels.map((l) => simpleCell(l, { bold: true, textColor: WHITE, bg: BG_COLHEAD })),
   });
 }
 
-/** Celda coloreada con el nombre del día, igual que la columna DÍA de la planificación semanal */
+/** Celda con el nombre del día — negrita negro, sin color de fondo por día */
 function diaCell(dia: DiaKey): TableCell {
   return new TableCell({
-    shading: shade(DIA_BG[dia]),
     borders: BORDER_DEF,
     verticalAlign: VerticalAlign.CENTER,
     children: [new Paragraph({
       alignment: AlignmentType.CENTER,
-      children: [new TextRun({ text: DIA_LABEL[dia], bold: true, size: 16, color: DIA_COLOR[dia], font: "Arial" })],
+      children: [new TextRun({ text: DIA_LABEL[dia], bold: true, size: FS * 2, color: BLACK, font: "Arial" })],
     })],
   });
 }
@@ -186,7 +188,7 @@ function diaContentCell(lines: string[]): TableCell {
     verticalAlign: VerticalAlign.TOP,
     borders: BORDER_DEF,
     children: (lines.length ? lines : ["—"]).map(
-      (line) => new Paragraph({ spacing: { after: 30 }, children: [new TextRun({ text: line, size: 16, font: "Arial" })] })
+      (line) => new Paragraph({ spacing: { after: 30 }, children: [new TextRun({ text: line, size: FS * 2, color: BLACK, font: "Arial" })] })
     ),
   });
 }
@@ -208,13 +210,13 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         children: [
           new Paragraph({
             alignment: AlignmentType.CENTER,
-            children: [new TextRun({ text: "CONECTA, NIVELA Y CREA", bold: true, size: 24, color: WHITE, font: "Arial" })],
+            children: [new TextRun({ text: "CONECTA, NIVELA Y CREA", bold: true, size: FS * 2 + 6, color: WHITE, font: "Arial" })],
           }),
           new Paragraph({
             alignment: AlignmentType.CENTER,
             children: [new TextRun({
               text: esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas",
-              size: 16, color: SUBTITLE_COLOR, font: "Arial",
+              size: FS * 2, color: WHITE, font: "Arial",
             })],
           }),
         ],
@@ -237,7 +239,8 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   // SEMANA 1 — CONECTA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANA 1 — CONECTA"));
-  rows.push(headerRow(["DÍA", "ACTIVIDAD DE ADAPTACIÓN", "DESTREZA DIAGNOSTICADA", "NIVEL DETECTADO"]));
+  rows.push(subHeadingRow("DESARROLLO SEMANAL POR DÍA"));
+  rows.push(headerRow(COLUMNAS_DIA));
   {
     const actividadesPorDia = agruparPorDia(plan.semana1.actividadesAdaptacion.filter(Boolean));
     const diagnosticoPorDia = agruparPorDia(plan.semana1.diagnosticoAcademico);
@@ -245,9 +248,11 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       rows.push(new TableRow({
         children: [
           diaCell(dia),
-          diaContentCell(actividadesPorDia[i]),
-          diaContentCell(diagnosticoPorDia[i].map((d) => `[${d.area}] ${d.destrezaCodigo}: ${d.destrezaDescripcion}`)),
+          diaContentCell(diagnosticoPorDia[i].map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`)),
           diaContentCell(diagnosticoPorDia[i].map((d) => d.nivelDetectado)),
+          diaContentCell(actividadesPorDia[i]),
+          diaContentCell([]),
+          diaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
         ],
       }));
     });
@@ -276,7 +281,8 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   // SEMANAS 2-3 — NIVELA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANAS 2-3 — NIVELA"));
-  rows.push(headerRow(["DÍA", "DESTREZA", "ACTIVIDAD DE NIVELACIÓN", "CONIVELACIÓN"]));
+  rows.push(subHeadingRow("DESARROLLO SEMANAL POR DÍA"));
+  rows.push(headerRow(COLUMNAS_DIA));
   for (const numSemana of [2, 3] as const) {
     rows.push(subHeadingRow(`Semana ${numSemana}`));
     const actividadesSemana = plan.semana2y3.actividadesNivelacion.filter((a) => a.semana === numSemana);
@@ -289,9 +295,11 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       rows.push(new TableRow({
         children: [
           diaCell(dia),
-          diaContentCell(actividadesPorDia[i].map((a) => `[${a.area}] ${a.destrezaCodigo}: ${a.destrezaDescripcion}`)),
+          diaContentCell(actividadesPorDia[i].map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`)),
+          diaContentCell([]),
           diaContentCell(actividadesPorDia[i].map((a) => a.descripcionActividad || "—")),
-          diaContentCell(parejasSemana[i].map((p) => `${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`)),
+          diaContentCell(parejasSemana[i].map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`)),
+          diaContentCell([]),
         ],
       }));
     });
@@ -299,13 +307,20 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
 
   if (esBT && plan.semana2y3BT?.actividadesNivelacionTecnica.length) {
     rows.push(subHeadingRow("Nivelación técnica"));
-    rows.push(headerRow(["Criterio técnico", "Criterio técnico", "Actividad", "Articulación con Matemática"]));
+    rows.push(new TableRow({
+      tableHeader: true,
+      children: [
+        simpleCell("Criterio técnico", { bold: true, textColor: WHITE, bg: BG_COLHEAD, colspan: 2 }),
+        simpleCell("Actividad", { bold: true, textColor: WHITE, bg: BG_COLHEAD, colspan: 2 }),
+        simpleCell("Articulación con Matemática", { bold: true, textColor: WHITE, bg: BG_COLHEAD, colspan: 2 }),
+      ],
+    }));
     for (const a of plan.semana2y3BT.actividadesNivelacionTecnica) {
       rows.push(new TableRow({
         children: [
-          simpleCell(a.criterioTexto, { size: 8, colspan: 2 }),
-          simpleCell(a.descripcionActividad || "—", { size: 8 }),
-          simpleCell(a.articulacionMatematica || "—", { size: 8 }),
+          simpleCell(a.criterioTexto, { colspan: 2 }),
+          simpleCell(a.descripcionActividad || "—", { colspan: 2 }),
+          simpleCell(a.articulacionMatematica || "—", { colspan: 2 }),
         ],
       }));
     }
@@ -313,13 +328,20 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
 
   rows.push(subHeadingRow("Parejas de conivelación (tutoría entre pares)"));
   if (plan.semana2y3.parejasConivelacion.length) {
-    rows.push(headerRow(["Apoya", "Apoyado", "Destreza foco", "Destreza foco"]));
+    rows.push(new TableRow({
+      tableHeader: true,
+      children: [
+        simpleCell("Apoya", { bold: true, textColor: WHITE, bg: BG_COLHEAD, colspan: 2 }),
+        simpleCell("Apoyado", { bold: true, textColor: WHITE, bg: BG_COLHEAD, colspan: 2 }),
+        simpleCell("Destreza foco", { bold: true, textColor: WHITE, bg: BG_COLHEAD, colspan: 2 }),
+      ],
+    }));
     for (const p of plan.semana2y3.parejasConivelacion) {
       rows.push(new TableRow({
         children: [
-          simpleCell(p.estudianteApoyoNombre, { size: 8 }),
-          simpleCell(p.estudianteApoyadoNombre, { size: 8 }),
-          simpleCell(p.destrezaFocoDescripcion, { size: 8, colspan: 2 }),
+          simpleCell(p.estudianteApoyoNombre, { colspan: 2 }),
+          simpleCell(p.estudianteApoyadoNombre, { colspan: 2 }),
+          simpleCell(p.destrezaFocoDescripcion, { colspan: 2 }),
         ],
       }));
     }
@@ -338,7 +360,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         shading: shade(BG_EVAL_OFICIAL),
         borders: BORDER_DEF,
         children: [new Paragraph({
-          children: [new TextRun({ text: "ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL", bold: true, size: 18, color: WHITE, font: "Arial" })],
+          children: [new TextRun({ text: "ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL", bold: true, size: FS * 2, color: WHITE, font: "Arial" })],
         })],
       }),
     ],

@@ -1434,12 +1434,15 @@ type CncDiaKey = typeof CNC_DIAS[number];
 const CNC_DIA_LABEL: Record<CncDiaKey, string> = {
   lunes: "LUNES", martes: "MARTES", miercoles: "MIÉRCOLES", jueves: "JUEVES", viernes: "VIERNES",
 };
-const CNC_DIA_BG: Record<CncDiaKey, string> = {
-  lunes: "EFF6FF", martes: "F0FDF4", miercoles: "FEFCE8", jueves: "FFF7ED", viernes: "FAF5FF",
-};
-const CNC_DIA_COLOR: Record<CncDiaKey, string> = {
-  lunes: "1E3A8A", martes: "166534", miercoles: "854D0E", jueves: "9A3412", viernes: "6B21A8",
-};
+
+const CNC_COLUMNAS_DIA = [
+  "DÍA",
+  "DESTREZAS CON CRITERIOS DE DESEMPEÑO",
+  "INDICADORES DE EVALUACIÓN",
+  "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE",
+  "RECURSOS",
+  "ACTIVIDADES EVALUATIVAS",
+];
 
 /** Distribuye una lista de items en 5 casilleros (lunes..viernes), agrupando por índice % 5 */
 function cncAgruparPorDia<T>(items: T[]): T[][] {
@@ -1451,30 +1454,31 @@ function cncAgruparPorDia<T>(items: T[]): T[][] {
 export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
   const esBT = plan.modalidad === "bt";
 
-  const seccion = (label: string) => `<tr><td colspan="4" class="section-row">${esc(label)}</td></tr>`;
-  const subheading = (text: string) => `<tr><td colspan="4" class="subheading">${esc(text)}</td></tr>`;
+  const seccion = (label: string) => `<tr><td colspan="6" class="section-row">${esc(label)}</td></tr>`;
+  const subheading = (text: string) => `<tr><td colspan="6" class="subheading">${esc(text)}</td></tr>`;
   const dosLabelValue = (l1: string, v1: string, l2: string, v2: string) =>
-    `<tr><td class="label-cell">${esc(l1)}</td><td>${esc(v1 || "—")}</td><td class="label-cell">${esc(l2)}</td><td>${esc(v2 || "—")}</td></tr>`;
+    `<tr><td class="label-cell">${esc(l1)}</td><td colspan="2">${esc(v1 || "—")}</td><td class="label-cell">${esc(l2)}</td><td colspan="2">${esc(v2 || "—")}</td></tr>`;
   const labelValue = (label: string, value: string) =>
-    `<tr><td class="label-cell">${esc(label)}</td><td colspan="3">${esc(value || "—")}</td></tr>`;
+    `<tr><td class="label-cell">${esc(label)}</td><td colspan="5">${esc(value || "—")}</td></tr>`;
   const bullets = (lines: string[]) =>
-    `<tr><td colspan="4">${lines.filter(Boolean).length
-      ? lines.filter(Boolean).map((l) => `<div>• ${esc(l)}</div>`).join("")
-      : `<span style="color:#888;">—</span>`}</td></tr>`;
-  const header4 = (labels: string[]) => `<tr>${labels.map((l) => `<th>${esc(l)}</th>`).join("")}</tr>`;
-  const diaCellHTML = (dia: CncDiaKey) =>
-    `<td style="background:${CNC_DIA_BG[dia]};color:${CNC_DIA_COLOR[dia]};font-weight:bold;text-align:center;">${CNC_DIA_LABEL[dia]}</td>`;
+    `<tr><td colspan="6">${lines.filter(Boolean).length
+      ? lines.filter(Boolean).map((l) => `<div>${esc(l)}</div>`).join("")
+      : "—"}</td></tr>`;
+  const header6 = (labels: string[]) => `<tr>${labels.map((l) => `<th>${esc(l)}</th>`).join("")}</tr>`;
+  const diaCellHTML = (dia: CncDiaKey) => `<td style="text-align:center;font-weight:bold;">${CNC_DIA_LABEL[dia]}</td>`;
   const contentCellHTML = (lines: string[]) =>
-    `<td>${lines.length ? lines.map((l) => `<div>${esc(l)}</div>`).join("") : `<span style="color:#888;">—</span>`}</td>`;
+    `<td>${lines.length ? lines.map((l) => `<div>${esc(l)}</div>`).join("") : "—"}</td>`;
 
   const diasSemana1HTML = (() => {
     const actividadesPorDia = cncAgruparPorDia(plan.semana1.actividadesAdaptacion.filter(Boolean));
     const diagnosticoPorDia = cncAgruparPorDia(plan.semana1.diagnosticoAcademico);
     return CNC_DIAS.map((dia, i) => `<tr>
         ${diaCellHTML(dia)}
-        ${contentCellHTML(actividadesPorDia[i])}
-        ${contentCellHTML(diagnosticoPorDia[i].map((d) => `[${d.area}] ${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
+        ${contentCellHTML(diagnosticoPorDia[i].map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
         ${contentCellHTML(diagnosticoPorDia[i].map((d) => d.nivelDetectado))}
+        ${contentCellHTML(actividadesPorDia[i])}
+        ${contentCellHTML([])}
+        ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
       </tr>`).join("");
   })();
 
@@ -1486,16 +1490,18 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     );
     const filas = CNC_DIAS.map((dia, i) => `<tr>
         ${diaCellHTML(dia)}
-        ${contentCellHTML(actividadesPorDia[i].map((a) => `[${a.area}] ${a.destrezaCodigo}: ${a.destrezaDescripcion}`))}
+        ${contentCellHTML(actividadesPorDia[i].map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`))}
+        ${contentCellHTML([])}
         ${contentCellHTML(actividadesPorDia[i].map((a) => a.descripcionActividad || "—"))}
-        ${contentCellHTML(parejasSemana[i].map((p) => `${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
+        ${contentCellHTML(parejasSemana[i].map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
+        ${contentCellHTML([])}
       </tr>`).join("");
     return subheading(`Semana ${numSemana}`) + filas;
   }).join("");
 
   const conivelacionHTML = plan.semana2y3.parejasConivelacion.length
     ? plan.semana2y3.parejasConivelacion
-        .map((p) => `<tr><td>${esc(p.estudianteApoyoNombre)}</td><td>${esc(p.estudianteApoyadoNombre)}</td><td colspan="2">${esc(p.destrezaFocoDescripcion)}</td></tr>`)
+        .map((p) => `<tr><td colspan="2">${esc(p.estudianteApoyoNombre)}</td><td colspan="2">${esc(p.estudianteApoyadoNombre)}</td><td colspan="2">${esc(p.destrezaFocoDescripcion)}</td></tr>`)
         .join("")
     : bullets([]);
 
@@ -1506,23 +1512,23 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
 <title>Conecta, Nivela y Crea</title>
 <style>
   * { box-sizing: border-box; }
-  body { font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; margin: 24px; font-size: 11px; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #000; margin: 24px; font-size: 8px; }
   table.tabla-plan { width:100%; border-collapse:collapse; }
-  table.tabla-plan td, table.tabla-plan th { border:1px solid #999; padding:5px 8px; text-align:left; vertical-align:top; font-size:9px; }
+  table.tabla-plan td, table.tabla-plan th { border:1px solid #999; padding:5px 8px; text-align:left; vertical-align:top; font-size:8px; }
   table.tabla-plan th { background:#1A3A5C; color:#fff; font-weight:bold; }
   .title-cell { background:#003366; color:#fff; text-align:center; padding:12px; }
-  .title-cell .titulo { font-size:16px; font-weight:bold; }
-  .title-cell .subt { font-size:11px; color:#A8C4E0; font-style:italic; margin-top:2px; }
-  .section-row { background:#DDEFF1; color:#1A3A5C; font-weight:bold; font-size:10px; padding:6px 8px; }
-  .subheading { color:#003366; font-weight:bold; font-style:italic; font-size:10px; }
-  .label-cell { background:#EAF4F6; font-weight:bold; width:22%; }
-  .banner-oficial { background:#DC2626; color:#fff; font-weight:bold; font-size:9.5px; }
+  .title-cell .titulo { font-size:14px; font-weight:bold; }
+  .title-cell .subt { font-size:8px; margin-top:2px; }
+  .section-row { background:#DDEFF1; font-weight:bold; padding:6px 8px; }
+  .subheading { font-weight:bold; }
+  .label-cell { background:#EAF4F6; font-weight:bold; width:16%; }
+  .banner-oficial { background:#DC2626; color:#fff; font-weight:bold; }
   @media print { body { margin: 10mm; } }
 </style>
 </head>
 <body>
   <table class="tabla-plan">
-    <tr><td colspan="4" class="title-cell">
+    <tr><td colspan="6" class="title-cell">
       <div class="titulo">CONECTA, NIVELA Y CREA</div>
       <div class="subt">${esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas"}</div>
     </td></tr>
@@ -1533,7 +1539,8 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${dosLabelValue("Modalidad:", esBT ? "Bachillerato Técnico" : "General (EGB/BGU)", "Módulo:", esBT ? (plan.moduloId || "—") : "—")}
 
     ${seccion("SEMANA 1 — CONECTA")}
-    ${header4(["DÍA", "ACTIVIDAD DE ADAPTACIÓN", "DESTREZA DIAGNOSTICADA", "NIVEL DETECTADO"])}
+    ${subheading("DESARROLLO SEMANAL POR DÍA")}
+    ${header6(CNC_COLUMNAS_DIA)}
     ${diasSemana1HTML}
     ${esBT && plan.semana1BT ? `
     ${subheading("Reconocimiento de espacios técnicos")}
@@ -1548,19 +1555,20 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? bullets(plan.semana1.tecnicasReflexion) : ""}
 
     ${seccion("SEMANAS 2-3 — NIVELA")}
-    ${header4(["DÍA", "DESTREZA", "ACTIVIDAD DE NIVELACIÓN", "CONIVELACIÓN"])}
+    ${subheading("DESARROLLO SEMANAL POR DÍA")}
+    ${header6(CNC_COLUMNAS_DIA)}
     ${diasNivelacionHTML}
     ${esBT && plan.semana2y3BT?.actividadesNivelacionTecnica.length ? `
     ${subheading("Nivelación técnica")}
-    ${header4(["Criterio técnico", "Criterio técnico", "Actividad", "Articulación con Matemática"])}
-    ${plan.semana2y3BT.actividadesNivelacionTecnica.map((a) => `<tr><td colspan="2">${esc(a.criterioTexto)}</td><td>${esc(a.descripcionActividad || "—")}</td><td>${esc(a.articulacionMatematica || "—")}</td></tr>`).join("")}
+    <tr><th colspan="2">Criterio técnico</th><th colspan="2">Actividad</th><th colspan="2">Articulación con Matemática</th></tr>
+    ${plan.semana2y3BT.actividadesNivelacionTecnica.map((a) => `<tr><td colspan="2">${esc(a.criterioTexto)}</td><td colspan="2">${esc(a.descripcionActividad || "—")}</td><td colspan="2">${esc(a.articulacionMatematica || "—")}</td></tr>`).join("")}
     ` : ""}
     ${subheading("Parejas de conivelación (tutoría entre pares)")}
-    ${plan.semana2y3.parejasConivelacion.length ? header4(["Apoya", "Apoyado", "Destreza foco", "Destreza foco"]) : ""}
+    ${plan.semana2y3.parejasConivelacion.length ? `<tr><th colspan="2">Apoya</th><th colspan="2">Apoyado</th><th colspan="2">Destreza foco</th></tr>` : ""}
     ${conivelacionHTML}
 
     ${seccion("SEMANAS 4-5 — CREA")}
-    <tr><td colspan="4" class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</td></tr>
+    <tr><td colspan="6" class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</td></tr>
     ${esBT && plan.semana4y5BT
       ? `${labelValue("Tipo de producto acreditable:", plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " "))}
          ${labelValue("Descripción:", plan.semana4y5BT.productoAcreditable.descripcion)}`
