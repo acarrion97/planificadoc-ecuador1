@@ -5,6 +5,7 @@ import {
 } from "../data/types";
 import type { PlanUnidadTrabajoBT } from "../data/types-bt";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import { buscarPorCodigo as cncBuscarPorCodigo } from "../data";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
@@ -1428,6 +1429,22 @@ export function generarHTMLPlanBT(plan: PlanUnidadTrabajoBT): string {
  * HTML del plan "Conecta, Nivela y Crea" (CNC) para exportación a PDF —
  * las 5 semanas de arranque del año escolar, modalidad general o BT.
  */
+/** Indicadores de evaluación reales del catálogo curricular (igual que la tabla de planificación semanal) */
+function cncIndicadoresDe(codigo: string): string[] {
+  return cncBuscarPorCodigo(codigo)?.indicadoresEvaluacion ?? [];
+}
+
+/** Indicadores reales de una lista de destrezas — si una destreza no tiene indicadores en el catálogo, cae al nivel detectado */
+function cncIndicadoresParaDestrezas(items: { destrezaCodigo: string; nivelDetectado?: string }[]): string[] {
+  const out: string[] = [];
+  for (const it of items) {
+    const ind = cncIndicadoresDe(it.destrezaCodigo);
+    if (ind.length) out.push(...ind);
+    else if (it.nivelDetectado) out.push(`Nivel detectado: ${it.nivelDetectado}`);
+  }
+  return out;
+}
+
 const CNC_COLUMNAS_SEMANA = [
   "SEMANA",
   "DESTREZAS CON CRITERIOS DE DESEMPEÑO",
@@ -1458,7 +1475,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
   const semana1HTML = `<tr>
       ${semanaCellHTML("SEMANA 1")}
       ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
-      ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => d.nivelDetectado))}
+      ${contentCellHTML(cncIndicadoresParaDestrezas(plan.semana1.diagnosticoAcademico))}
       ${contentCellHTML(plan.semana1.actividadesAdaptacion.filter(Boolean))}
       ${contentCellHTML([])}
       ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
@@ -1472,7 +1489,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     return `<tr>
         ${semanaCellHTML(`SEMANA ${numSemana}`)}
         ${contentCellHTML(actividadesSemana.map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`))}
-        ${contentCellHTML([])}
+        ${contentCellHTML(cncIndicadoresParaDestrezas(actividadesSemana))}
         ${contentCellHTML(actividadesSemana.map((a) => a.descripcionActividad || "—"))}
         ${contentCellHTML(parejasSemana.map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
         ${contentCellHTML([])}

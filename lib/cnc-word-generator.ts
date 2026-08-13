@@ -26,6 +26,23 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType, VerticalAlign,
 } from "docx";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import { buscarPorCodigo } from "../data";
+
+/** Indicadores de evaluación reales del catálogo curricular para una destreza (igual que semanal-word-generator) */
+function indicadoresDe(codigo: string): string[] {
+  return buscarPorCodigo(codigo)?.indicadoresEvaluacion ?? [];
+}
+
+/** Indicadores reales de una lista de destrezas — si una destreza no tiene indicadores en el catálogo, cae al nivel detectado */
+function indicadoresParaDestrezas(items: { destrezaCodigo: string; nivelDetectado?: string }[]): string[] {
+  const out: string[] = [];
+  for (const it of items) {
+    const ind = indicadoresDe(it.destrezaCodigo);
+    if (ind.length) out.push(...ind);
+    else if (it.nivelDetectado) out.push(`Nivel detectado: ${it.nivelDetectado}`);
+  }
+  return out;
+}
 
 const WHITE = "FFFFFF";
 const BLACK = "000000";
@@ -232,7 +249,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     children: [
       semanaCell("SEMANA 1"),
       semanaContentCell(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`)),
-      semanaContentCell(plan.semana1.diagnosticoAcademico.map((d) => d.nivelDetectado)),
+      semanaContentCell(indicadoresParaDestrezas(plan.semana1.diagnosticoAcademico)),
       semanaContentCell(plan.semana1.actividadesAdaptacion.filter(Boolean)),
       semanaContentCell([]),
       semanaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
@@ -273,7 +290,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       children: [
         semanaCell(`SEMANA ${numSemana}`),
         semanaContentCell(actividadesSemana.map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`)),
-        semanaContentCell([]),
+        semanaContentCell(indicadoresParaDestrezas(actividadesSemana)),
         semanaContentCell(actividadesSemana.map((a) => a.descripcionActividad || "—")),
         semanaContentCell(parejasSemana.map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`)),
         semanaContentCell([]),
