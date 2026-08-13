@@ -296,8 +296,46 @@ export default function ConectaNivelaCreaScreen() {
       }
       setAiResult(res.aiResult);
 
+      // Completa con sugerencias de la IA solo los campos que el docente dejó vacíos —
+      // lo que el docente ya escribió nunca se sobreescribe.
+      const actividadesAdaptacion = plan.semana1.actividadesAdaptacion.filter(Boolean).length
+        ? plan.semana1.actividadesAdaptacion
+        : res.aiResult.actividadesAdaptacionSugeridas;
+      const tecnicasReflexion = plan.semana1.tecnicasReflexion.filter(Boolean).length
+        ? plan.semana1.tecnicasReflexion
+        : res.aiResult.tecnicaDiagnosticoSugerida;
+
+      const actividadesNivelacion = plan.semana2y3.actividadesNivelacion.length
+        ? plan.semana2y3.actividadesNivelacion.map((a) => {
+            if (a.descripcionActividad) return a;
+            const sugerida = res.aiResult.actividadesNivelacionSugeridas.find((s) => s.destrezaCodigo === a.destrezaCodigo);
+            return sugerida ? { ...a, descripcionActividad: sugerida.descripcionActividad } : a;
+          })
+        : res.aiResult.actividadesNivelacionSugeridas.map((s) => ({
+            destrezaCodigo: s.destrezaCodigo, destrezaDescripcion: s.destrezaDescripcion,
+            area: s.area, descripcionActividad: s.descripcionActividad, semana: s.semana,
+          }));
+
+      const semana1BTCompletado = plan.semana1BT ? {
+        reconocimientoEspacios: plan.semana1BT.reconocimientoEspacios.filter(Boolean).length
+          ? plan.semana1BT.reconocimientoEspacios : [],
+        diagnosticoTecnico: plan.semana1BT.diagnosticoTecnico.length
+          ? plan.semana1BT.diagnosticoTecnico
+          : (res.aiResult.diagnosticoTecnicoSugerido ?? []),
+      } : plan.semana1BT;
+
+      const semana2y3BTCompletado = plan.semana2y3BT ? {
+        actividadesNivelacionTecnica: plan.semana2y3BT.actividadesNivelacionTecnica.length
+          ? plan.semana2y3BT.actividadesNivelacionTecnica
+          : (res.aiResult.actividadesNivelacionTecnicaSugeridas ?? []),
+      } : plan.semana2y3BT;
+
       const actualizado: PlanConectaNivelaCrea = {
         ...plan,
+        semana1: { ...plan.semana1, actividadesAdaptacion, tecnicasReflexion },
+        semana1BT: semana1BTCompletado,
+        semana2y3: { ...plan.semana2y3, actividadesNivelacion },
+        semana2y3BT: semana2y3BTCompletado,
         semana4y5: {
           proyecto: {
             ...res.aiResult.proyectoSugerido,
