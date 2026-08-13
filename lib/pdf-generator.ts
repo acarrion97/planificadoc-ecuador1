@@ -1500,13 +1500,13 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
 <style>
   * { box-sizing: border-box; }
   body { font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; margin: 24px; font-size: 11px; }
-  h1 { background:#0F766E; color:#fff; padding:10px 14px; font-size:16px; margin:0 0 4px; }
-  h2 { background:#115E59; color:#fff; padding:6px 10px; font-size:12px; margin:16px 0 8px; }
-  .subt { color:#555; font-style:italic; margin:0 0 16px; }
+  h1 { background:#003366; color:#fff; padding:10px 14px; font-size:16px; margin:0 0 4px; }
+  h2 { background:#DDEFF1; color:#1A3A5C; padding:6px 10px; font-size:12px; margin:16px 0 8px; font-weight:bold; }
+  .subt { color:#A8C4E0; background:#003366; font-style:italic; margin:0 0 16px; padding:2px 14px 8px; }
   table.tabla-plan { width:100%; border-collapse:collapse; margin-bottom:8px; }
   table.tabla-plan th, table.tabla-plan td { border:1px solid #999; padding:6px 8px; text-align:left; vertical-align:top; font-size:10px; }
-  table.tabla-plan th { background:#ECFDF5; font-weight:bold; }
-  .label-cell { background:#ECFDF5; font-weight:bold; width:28%; }
+  table.tabla-plan th { background:#1A3A5C; color:#fff; font-weight:bold; }
+  .label-cell { background:#EAF4F6; font-weight:bold; width:28%; }
   .banner-oficial { background:#DC2626; color:#fff; padding:8px 12px; font-weight:bold; font-size:11px; margin:8px 0 12px; }
   @media print { body { margin: 10mm; } }
 </style>
