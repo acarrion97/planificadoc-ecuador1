@@ -1428,28 +1428,14 @@ export function generarHTMLPlanBT(plan: PlanUnidadTrabajoBT): string {
  * HTML del plan "Conecta, Nivela y Crea" (CNC) para exportación a PDF —
  * las 5 semanas de arranque del año escolar, modalidad general o BT.
  */
-// Días de la semana — misma paleta que lib/semanal-word-generator.ts / lib/cnc-word-generator.ts
-const CNC_DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
-type CncDiaKey = typeof CNC_DIAS[number];
-const CNC_DIA_LABEL: Record<CncDiaKey, string> = {
-  lunes: "LUNES", martes: "MARTES", miercoles: "MIÉRCOLES", jueves: "JUEVES", viernes: "VIERNES",
-};
-
-const CNC_COLUMNAS_DIA = [
-  "DÍA",
+const CNC_COLUMNAS_SEMANA = [
+  "SEMANA",
   "DESTREZAS CON CRITERIOS DE DESEMPEÑO",
   "INDICADORES DE EVALUACIÓN",
   "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE",
   "RECURSOS",
   "ACTIVIDADES EVALUATIVAS",
 ];
-
-/** Distribuye una lista de items en 5 casilleros (lunes..viernes), agrupando por índice % 5 */
-function cncAgruparPorDia<T>(items: T[]): T[][] {
-  const buckets: T[][] = [[], [], [], [], []];
-  items.forEach((it, i) => buckets[i % 5].push(it));
-  return buckets;
-}
 
 export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
   const esBT = plan.modalidad === "bt";
@@ -1465,38 +1451,32 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
       ? lines.filter(Boolean).map((l) => `<div>${esc(l)}</div>`).join("")
       : "—"}</td></tr>`;
   const header6 = (labels: string[]) => `<tr>${labels.map((l) => `<th>${esc(l)}</th>`).join("")}</tr>`;
-  const diaCellHTML = (dia: CncDiaKey) => `<td style="text-align:center;font-weight:bold;">${CNC_DIA_LABEL[dia]}</td>`;
+  const semanaCellHTML = (label: string) => `<td style="text-align:center;font-weight:bold;">${esc(label)}</td>`;
   const contentCellHTML = (lines: string[]) =>
     `<td>${lines.length ? lines.map((l) => `<div>${esc(l)}</div>`).join("") : "—"}</td>`;
 
-  const diasSemana1HTML = (() => {
-    const actividadesPorDia = cncAgruparPorDia(plan.semana1.actividadesAdaptacion.filter(Boolean));
-    const diagnosticoPorDia = cncAgruparPorDia(plan.semana1.diagnosticoAcademico);
-    return CNC_DIAS.map((dia, i) => `<tr>
-        ${diaCellHTML(dia)}
-        ${contentCellHTML(diagnosticoPorDia[i].map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
-        ${contentCellHTML(diagnosticoPorDia[i].map((d) => d.nivelDetectado))}
-        ${contentCellHTML(actividadesPorDia[i])}
-        ${contentCellHTML([])}
-        ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
-      </tr>`).join("");
-  })();
+  const semana1HTML = `<tr>
+      ${semanaCellHTML("SEMANA 1")}
+      ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
+      ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => d.nivelDetectado))}
+      ${contentCellHTML(plan.semana1.actividadesAdaptacion.filter(Boolean))}
+      ${contentCellHTML([])}
+      ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
+    </tr>`;
 
-  const diasNivelacionHTML = [2, 3].map((numSemana) => {
+  const nivelacionSemanasHTML = [2, 3].map((numSemana) => {
     const actividadesSemana = plan.semana2y3.actividadesNivelacion.filter((a) => a.semana === numSemana);
-    const actividadesPorDia = cncAgruparPorDia(actividadesSemana);
-    const parejasSemana = cncAgruparPorDia(
-      plan.semana2y3.parejasConivelacion.filter((_, i) => (numSemana === 2 ? i % 2 === 0 : i % 2 === 1))
+    const parejasSemana = plan.semana2y3.parejasConivelacion.filter(
+      (_, i) => (numSemana === 2 ? i % 2 === 0 : i % 2 === 1)
     );
-    const filas = CNC_DIAS.map((dia, i) => `<tr>
-        ${diaCellHTML(dia)}
-        ${contentCellHTML(actividadesPorDia[i].map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`))}
+    return `<tr>
+        ${semanaCellHTML(`SEMANA ${numSemana}`)}
+        ${contentCellHTML(actividadesSemana.map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`))}
         ${contentCellHTML([])}
-        ${contentCellHTML(actividadesPorDia[i].map((a) => a.descripcionActividad || "—"))}
-        ${contentCellHTML(parejasSemana[i].map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
+        ${contentCellHTML(actividadesSemana.map((a) => a.descripcionActividad || "—"))}
+        ${contentCellHTML(parejasSemana.map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
         ${contentCellHTML([])}
-      </tr>`).join("");
-    return subheading(`Semana ${numSemana}`) + filas;
+      </tr>`;
   }).join("");
 
   const conivelacionHTML = plan.semana2y3.parejasConivelacion.length
@@ -1539,9 +1519,8 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${dosLabelValue("Modalidad:", esBT ? "Bachillerato Técnico" : "General (EGB/BGU)", "Módulo:", esBT ? (plan.moduloId || "—") : "—")}
 
     ${seccion("SEMANA 1 — CONECTA")}
-    ${subheading("DESARROLLO SEMANAL POR DÍA")}
-    ${header6(CNC_COLUMNAS_DIA)}
-    ${diasSemana1HTML}
+    ${header6(CNC_COLUMNAS_SEMANA)}
+    ${semana1HTML}
     ${esBT && plan.semana1BT ? `
     ${subheading("Reconocimiento de espacios técnicos")}
     ${bullets(plan.semana1BT.reconocimientoEspacios)}
@@ -1555,9 +1534,8 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? bullets(plan.semana1.tecnicasReflexion) : ""}
 
     ${seccion("SEMANAS 2-3 — NIVELA")}
-    ${subheading("DESARROLLO SEMANAL POR DÍA")}
-    ${header6(CNC_COLUMNAS_DIA)}
-    ${diasNivelacionHTML}
+    ${header6(CNC_COLUMNAS_SEMANA)}
+    ${nivelacionSemanasHTML}
     ${esBT && plan.semana2y3BT?.actividadesNivelacionTecnica.length ? `
     ${subheading("Nivelación técnica")}
     <tr><th colspan="2">Criterio técnico</th><th colspan="2">Actividad</th><th colspan="2">Articulación con Matemática</th></tr>
