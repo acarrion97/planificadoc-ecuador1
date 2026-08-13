@@ -251,7 +251,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       semanaContentCell(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`)),
       semanaContentCell(indicadoresParaDestrezas(plan.semana1.diagnosticoAcademico)),
       semanaContentCell(plan.semana1.actividadesAdaptacion.filter(Boolean)),
-      semanaContentCell([]),
+      semanaContentCell(plan.aiResult?.recursosSemana1Sugeridos ?? []),
       semanaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
     ],
   }));
@@ -293,7 +293,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell(indicadoresParaDestrezas(actividadesSemana)),
         semanaContentCell(actividadesSemana.map((a) => a.descripcionActividad || "—")),
         semanaContentCell(parejasSemana.map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`)),
-        semanaContentCell([]),
+        semanaContentCell(plan.aiResult?.actividadesEvaluativasNivelacionSugeridas ?? []),
       ],
     }));
   }
@@ -370,8 +370,8 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell([p.tipo.replace(/_/g, " ")]),
         semanaContentCell([]),
         semanaContentCell(["Diseño y elaboración del producto acreditable"]),
-        semanaContentCell([]),
-        semanaContentCell([]),
+        semanaContentCell(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? []),
+        semanaContentCell(["Seguimiento formativo del proceso de elaboración"]),
       ],
     }));
     rows.push(new TableRow({
@@ -380,7 +380,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell([p.tipo.replace(/_/g, " ")]),
         semanaContentCell([]),
         semanaContentCell(["Presentación del producto acreditable"]),
-        semanaContentCell([]),
+        semanaContentCell(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? []),
         semanaContentCell(["Evaluación cualitativa formativa oficial"]),
       ],
     }));
@@ -397,7 +397,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell(p.evidenciasCognitivas),
         semanaContentCell([p.titulo || "Diseño y desarrollo del proyecto interdisciplinario"]),
         semanaContentCell(p.areasIntegradas),
-        semanaContentCell([]),
+        semanaContentCell(["Seguimiento formativo del desarrollo del proyecto"]),
       ],
     }));
     rows.push(new TableRow({

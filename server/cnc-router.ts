@@ -197,6 +197,8 @@ INSTRUCCIONES IMPORTANTES:
 - Para cada actividad de nivelación sugerida, incluye "estrategiaConivelacion": una sugerencia concreta de cómo aprovechar tutoría entre pares para esa destreza específica.
 - El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — es un requisito formal del MinEduc, no una opción.
 - "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
+- "recursosSemana1Sugeridos": 3-5 recursos didácticos concretos (materiales, textos, fichas, recursos digitales) apropiados para las actividades de adaptación y el diagnóstico de la Semana 1.
+- "actividadesEvaluativasNivelacionSugeridas": 2-3 actividades evaluativas concretas (técnica + instrumento, ej. "Observación directa con lista de cotejo") para dar seguimiento al progreso durante las Semanas 2-3.
 - Lenguaje pedagógico, concreto y aplicable en el aula ecuatoriana.
 
 Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
@@ -215,7 +217,9 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
     "evidenciasActitudinales": ["string", "string", "string"],
     "esEvaluacionFormativaOficial": true
   },
-  "cronogramaSemanal": "string"${esBT ? `,
+  "cronogramaSemanal": "string",
+  "recursosSemana1Sugeridos": ["string", "string", "string"],
+  "actividadesEvaluativasNivelacionSugeridas": ["string", "string"]${esBT ? `,
   "diagnosticoTecnicoSugerido": [
     { "criterioId": "string (id real del catálogo)", "criterioTexto": "string (texto real del catálogo)", "observaciones": "string", "nivelDetectado": "iniciado" }
   ],

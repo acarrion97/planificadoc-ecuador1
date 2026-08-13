@@ -137,6 +137,10 @@ export interface ConectaNivelaCreaAiResult {
   proyectoSugerido: ProyectoInterdisciplinarioCNC;
   /** Resumen narrativo de las 5 semanas, para el encabezado del documento */
   cronogramaSemanal: string;
+  /** Recursos didácticos sugeridos para la Semana 1 (columna RECURSOS del documento) */
+  recursosSemana1Sugeridos: string[];
+  /** Actividades evaluativas sugeridas para las Semanas 2-3 (columna ACTIVIDADES EVALUATIVAS) */
+  actividadesEvaluativasNivelacionSugeridas: string[];
   // presentes solo si modalidad === "bt"
   diagnosticoTecnicoSugerido?: DiagnosticoTecnicoBT[];
   actividadesNivelacionTecnicaSugeridas?: ActividadNivelacionTecnicaBT[];

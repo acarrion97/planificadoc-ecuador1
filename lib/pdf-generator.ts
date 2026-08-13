@@ -1477,7 +1477,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
       ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
       ${contentCellHTML(cncIndicadoresParaDestrezas(plan.semana1.diagnosticoAcademico))}
       ${contentCellHTML(plan.semana1.actividadesAdaptacion.filter(Boolean))}
-      ${contentCellHTML([])}
+      ${contentCellHTML(plan.aiResult?.recursosSemana1Sugeridos ?? [])}
       ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
     </tr>`;
 
@@ -1492,7 +1492,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
         ${contentCellHTML(cncIndicadoresParaDestrezas(actividadesSemana))}
         ${contentCellHTML(actividadesSemana.map((a) => a.descripcionActividad || "—"))}
         ${contentCellHTML(parejasSemana.map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
-        ${contentCellHTML([])}
+        ${contentCellHTML(plan.aiResult?.actividadesEvaluativasNivelacionSugeridas ?? [])}
       </tr>`;
   }).join("");
 
@@ -1573,15 +1573,15 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
            ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
            ${contentCellHTML([])}
            ${contentCellHTML(["Diseño y elaboración del producto acreditable"])}
-           ${contentCellHTML([])}
-           ${contentCellHTML([])}
+           ${contentCellHTML(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [])}
+           ${contentCellHTML(["Seguimiento formativo del proceso de elaboración"])}
          </tr>
          <tr>
            ${semanaCellHTML("SEMANA 5")}
            ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
            ${contentCellHTML([])}
            ${contentCellHTML(["Presentación del producto acreditable"])}
-           ${contentCellHTML([])}
+           ${contentCellHTML(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [])}
            ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
          </tr>`
       : `${labelValue("Título:", plan.semana4y5.proyecto.titulo)}
@@ -1594,7 +1594,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
            ${contentCellHTML(plan.semana4y5.proyecto.evidenciasCognitivas)}
            ${contentCellHTML([plan.semana4y5.proyecto.titulo || "Diseño y desarrollo del proyecto interdisciplinario"])}
            ${contentCellHTML(plan.semana4y5.proyecto.areasIntegradas)}
-           ${contentCellHTML([])}
+           ${contentCellHTML(["Seguimiento formativo del desarrollo del proyecto"])}
          </tr>
          <tr>
            ${semanaCellHTML("SEMANA 5")}
