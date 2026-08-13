@@ -5,6 +5,7 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO } from "@/data";
+import { PlanesBTSection } from "@/components/PlanesBTSection";
 
 export default function PlanesScreen() {
   const colors = useColors();
@@ -85,6 +86,8 @@ export default function PlanesScreen() {
             <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
           </Pressable>
         </View>
+
+        <PlanesBTSection />
 
         {/* ── Semanas guardadas ── */}
         {semanas.length > 0 && (
