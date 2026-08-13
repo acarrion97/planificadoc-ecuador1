@@ -37,6 +37,26 @@ const BG_EVAL_OFICIAL = "DC2626";
 
 const NUM_COLS = 4;
 
+// Días de la semana — misma paleta que lib/semanal-word-generator.ts
+const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
+type DiaKey = typeof DIAS[number];
+const DIA_LABEL: Record<DiaKey, string> = {
+  lunes: "LUNES", martes: "MARTES", miercoles: "MIÉRCOLES", jueves: "JUEVES", viernes: "VIERNES",
+};
+const DIA_BG: Record<DiaKey, string> = {
+  lunes: "EFF6FF", martes: "F0FDF4", miercoles: "FEFCE8", jueves: "FFF7ED", viernes: "FAF5FF",
+};
+const DIA_COLOR: Record<DiaKey, string> = {
+  lunes: "1E3A8A", martes: "166534", miercoles: "854D0E", jueves: "9A3412", viernes: "6B21A8",
+};
+
+/** Distribuye una lista de items en 5 casilleros (lunes..viernes), agrupando por índice % 5 */
+function agruparPorDia<T>(items: T[]): T[][] {
+  const buckets: T[][] = [[], [], [], [], []];
+  items.forEach((it, i) => buckets[i % 5].push(it));
+  return buckets;
+}
+
 const BORDER_DEF = {
   top: { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" },
   bottom: { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" },
@@ -147,6 +167,30 @@ function headerRow(labels: string[]): TableRow {
   });
 }
 
+/** Celda coloreada con el nombre del día, igual que la columna DÍA de la planificación semanal */
+function diaCell(dia: DiaKey): TableCell {
+  return new TableCell({
+    shading: shade(DIA_BG[dia]),
+    borders: BORDER_DEF,
+    verticalAlign: VerticalAlign.CENTER,
+    children: [new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [new TextRun({ text: DIA_LABEL[dia], bold: true, size: 16, color: DIA_COLOR[dia], font: "Arial" })],
+    })],
+  });
+}
+
+/** Celda de contenido para una fila de día — una línea por item, "—" si está vacía */
+function diaContentCell(lines: string[]): TableCell {
+  return new TableCell({
+    verticalAlign: VerticalAlign.TOP,
+    borders: BORDER_DEF,
+    children: (lines.length ? lines : ["—"]).map(
+      (line) => new Paragraph({ spacing: { after: 30 }, children: [new TextRun({ text: line, size: 16, font: "Arial" })] })
+    ),
+  });
+}
+
 export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<Blob> {
   const esBT = plan.modalidad === "bt";
   const rows: TableRow[] = [];
@@ -193,23 +237,20 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   // SEMANA 1 — CONECTA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANA 1 — CONECTA"));
-  rows.push(subHeadingRow("Actividades de adaptación"));
-  rows.push(bulletsRow(plan.semana1.actividadesAdaptacion.filter(Boolean)));
-
-  rows.push(subHeadingRow("Diagnóstico académico (Lengua y Matemática)"));
-  if (plan.semana1.diagnosticoAcademico.length) {
-    rows.push(headerRow(["Área", "Destreza", "Destreza", "Nivel detectado"]));
-    for (const d of plan.semana1.diagnosticoAcademico) {
+  rows.push(headerRow(["DÍA", "ACTIVIDAD DE ADAPTACIÓN", "DESTREZA DIAGNOSTICADA", "NIVEL DETECTADO"]));
+  {
+    const actividadesPorDia = agruparPorDia(plan.semana1.actividadesAdaptacion.filter(Boolean));
+    const diagnosticoPorDia = agruparPorDia(plan.semana1.diagnosticoAcademico);
+    DIAS.forEach((dia, i) => {
       rows.push(new TableRow({
         children: [
-          simpleCell(d.area, { size: 8 }),
-          simpleCell(`${d.destrezaCodigo}: ${d.destrezaDescripcion}`, { size: 8, colspan: 2 }),
-          simpleCell(d.nivelDetectado, { size: 8 }),
+          diaCell(dia),
+          diaContentCell(actividadesPorDia[i]),
+          diaContentCell(diagnosticoPorDia[i].map((d) => `[${d.area}] ${d.destrezaCodigo}: ${d.destrezaDescripcion}`)),
+          diaContentCell(diagnosticoPorDia[i].map((d) => d.nivelDetectado)),
         ],
       }));
-    }
-  } else {
-    rows.push(bulletsRow([]));
+    });
   }
 
   if (esBT && plan.semana1BT) {
@@ -235,20 +276,25 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   // SEMANAS 2-3 — NIVELA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANAS 2-3 — NIVELA"));
-  if (plan.semana2y3.actividadesNivelacion.length) {
-    rows.push(headerRow(["Área", "Destreza", "Actividad", "Semana"]));
-    for (const a of plan.semana2y3.actividadesNivelacion) {
+  rows.push(headerRow(["DÍA", "DESTREZA", "ACTIVIDAD DE NIVELACIÓN", "CONIVELACIÓN"]));
+  for (const numSemana of [2, 3] as const) {
+    rows.push(subHeadingRow(`Semana ${numSemana}`));
+    const actividadesSemana = plan.semana2y3.actividadesNivelacion.filter((a) => a.semana === numSemana);
+    const actividadesPorDia = agruparPorDia(actividadesSemana);
+    // Reparte las parejas de conivelación entre ambas semanas por índice, solo para referencia visual del día
+    const parejasSemana = agruparPorDia(
+      plan.semana2y3.parejasConivelacion.filter((_, i) => (numSemana === 2 ? i % 2 === 0 : i % 2 === 1))
+    );
+    DIAS.forEach((dia, i) => {
       rows.push(new TableRow({
         children: [
-          simpleCell(a.area, { size: 8 }),
-          simpleCell(`${a.destrezaCodigo}: ${a.destrezaDescripcion}`, { size: 8 }),
-          simpleCell(a.descripcionActividad || "—", { size: 8 }),
-          simpleCell(String(a.semana), { size: 8, align: AlignmentType.CENTER }),
+          diaCell(dia),
+          diaContentCell(actividadesPorDia[i].map((a) => `[${a.area}] ${a.destrezaCodigo}: ${a.destrezaDescripcion}`)),
+          diaContentCell(actividadesPorDia[i].map((a) => a.descripcionActividad || "—")),
+          diaContentCell(parejasSemana[i].map((p) => `${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`)),
         ],
       }));
-    }
-  } else {
-    rows.push(bulletsRow([]));
+    });
   }
 
   if (esBT && plan.semana2y3BT?.actividadesNivelacionTecnica.length) {
