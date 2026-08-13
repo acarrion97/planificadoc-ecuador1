@@ -232,6 +232,8 @@ export default function ConectaNivelaCreaScreen() {
   const [saved, setSaved] = useState(false);
 
   const generateMutation = trpc.cnc.generate.useMutation();
+  const sugerirReflexionMutation = trpc.cnc.sugerirReflexionDece.useMutation();
+  const sugerirConivelacionMutation = trpc.cnc.sugerirConivelacion.useMutation();
 
   const esBT = plan.modalidad === "bt";
   const figuraSeleccionada: FiguraProfesional | undefined = FIGURAS_PROFESIONALES.find((f) => f.id === plan.figuraProfesionalId);
@@ -384,6 +386,46 @@ export default function ConectaNivelaCreaScreen() {
   function addPareja() {
     const nueva: ParejaConivelacion = { id: nuevoId(), estudianteApoyoNombre: "", estudianteApoyadoNombre: "", destrezaFocoCodigo: "", destrezaFocoDescripcion: "" };
     setPlan((p) => ({ ...p, semana2y3: { ...p.semana2y3, parejasConivelacion: [...p.semana2y3.parejasConivelacion, nueva] } }));
+  }
+
+  async function handleSugerirReflexionDece() {
+    try {
+      const res = await sugerirReflexionMutation.mutateAsync({
+        diagnosticoAcademico: plan.semana1.diagnosticoAcademico,
+        diagnosticoSocioemocional: plan.semana1.diagnosticoSocioemocional,
+      });
+      setPlan((p) => ({
+        ...p,
+        semana1: {
+          ...p.semana1,
+          tecnicasReflexion: res.tecnicasReflexion,
+          coordinacionDece: res.coordinacionDece,
+        },
+      }));
+    } catch (err: any) {
+      Alert.alert("Error al sugerir", err?.data?.message || err?.message || "No se pudo generar la sugerencia.");
+    }
+  }
+
+  async function handleSugerirConivelacion() {
+    if (!plan.semana2y3.actividadesNivelacion.length) {
+      Alert.alert("Agrega destrezas primero", "Selecciona al menos una destreza de nivelación para sugerir parejas de conivelación.");
+      return;
+    }
+    try {
+      const res = await sugerirConivelacionMutation.mutateAsync({ actividadesNivelacion: plan.semana2y3.actividadesNivelacion });
+      const nuevas: ParejaConivelacion[] = res.parejasSugeridas.map((s) => ({
+        id: nuevoId(),
+        estudianteApoyoNombre: "",
+        estudianteApoyadoNombre: "",
+        destrezaFocoCodigo: s.destrezaFocoCodigo,
+        destrezaFocoDescripcion: s.destrezaFocoDescripcion,
+        notas: s.sugerenciaEnfoque,
+      }));
+      setPlan((p) => ({ ...p, semana2y3: { ...p.semana2y3, parejasConivelacion: [...p.semana2y3.parejasConivelacion, ...nuevas] } }));
+    } catch (err: any) {
+      Alert.alert("Error al sugerir", err?.data?.message || err?.message || "No se pudo generar la sugerencia.");
+    }
   }
 
   function updatePareja(id: string, campo: keyof ParejaConivelacion, valor: string) {
@@ -588,6 +630,21 @@ export default function ConectaNivelaCreaScreen() {
               }}
             />
 
+            <Pressable
+              onPress={handleSugerirReflexionDece}
+              disabled={sugerirReflexionMutation.isPending}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: colors.primary + "20", borderRadius: 10, borderWidth: 1, borderColor: colors.primary, paddingVertical: 10, marginBottom: 12 }}
+            >
+              {sugerirReflexionMutation.isPending ? (
+                <ActivityIndicator color={colors.primary} size="small" />
+              ) : (
+                <Text style={{ fontSize: 13 }}>✨</Text>
+              )}
+              <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary }}>
+                {sugerirReflexionMutation.isPending ? "Sugiriendo..." : "Sugerir con IA (técnicas + nota DECE)"}
+              </Text>
+            </Pressable>
+
             <Field
               label="Nota de coordinación con DECE"
               value={plan.semana1.coordinacionDece}
@@ -654,8 +711,28 @@ export default function ConectaNivelaCreaScreen() {
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Parejas de conivelación" colors={colors} />
+            <Pressable
+              onPress={handleSugerirConivelacion}
+              disabled={sugerirConivelacionMutation.isPending}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: colors.primary + "20", borderRadius: 10, borderWidth: 1, borderColor: colors.primary, paddingVertical: 10, marginBottom: 12 }}
+            >
+              {sugerirConivelacionMutation.isPending ? (
+                <ActivityIndicator color={colors.primary} size="small" />
+              ) : (
+                <Text style={{ fontSize: 13 }}>✨</Text>
+              )}
+              <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary }}>
+                {sugerirConivelacionMutation.isPending ? "Sugiriendo..." : "Sugerir parejas con IA (por destreza)"}
+              </Text>
+            </Pressable>
             {plan.semana2y3.parejasConivelacion.map((pc) => (
               <View key={pc.id} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 8, borderWidth: 1, borderColor: colors.border }}>
+                {pc.notas ? (
+                  <View style={{ backgroundColor: colors.primary + "15", borderRadius: 6, padding: 8, marginBottom: 8 }}>
+                    <Text style={{ fontSize: 10, fontWeight: "700", color: colors.primary, marginBottom: 2 }}>✨ SUGERENCIA IA</Text>
+                    <Text style={{ fontSize: 11, color: colors.text }}>{pc.notas}</Text>
+                  </View>
+                ) : null}
                 <Field label="Estudiante que apoya" value={pc.estudianteApoyoNombre} onChangeText={(v) => updatePareja(pc.id, "estudianteApoyoNombre", v)} colors={colors} />
                 <Field label="Estudiante apoyado" value={pc.estudianteApoyadoNombre} onChangeText={(v) => updatePareja(pc.id, "estudianteApoyadoNombre", v)} colors={colors} />
                 <Field label="Destreza foco" value={pc.destrezaFocoDescripcion} onChangeText={(v) => updatePareja(pc.id, "destrezaFocoDescripcion", v)} colors={colors} placeholder="Ej: Fracciones" />

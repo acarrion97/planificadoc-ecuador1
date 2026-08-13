@@ -302,6 +302,97 @@ export const cncRouter = router({
       return { id: null, aiResult };
     }),
 
+  /** Sugiere técnicas de reflexión directa y la nota de coordinación DECE a partir del diagnóstico ya ingresado */
+  sugerirReflexionDece: publicProcedure
+    .input(z.object({
+      diagnosticoAcademico: z.array(DiagnosticoAcademicoSchema),
+      diagnosticoSocioemocional: z.array(DiagnosticoSocioemocionalSchema),
+    }))
+    .mutation(async ({ input }) => {
+      const academico = input.diagnosticoAcademico
+        .map((d) => `- [${d.area}] ${d.destrezaCodigo}: "${d.destrezaDescripcion}" (${d.nivelDetectado})`)
+        .join("\n") || "(sin diagnóstico académico aún)";
+      const socioemocional = input.diagnosticoSocioemocional
+        .map((h) => `- ${h.habilidadId}`)
+        .join("\n") || "(sin habilidades socioemocionales seleccionadas aún)";
+
+      const prompt = `Eres un experto en el programa "Conecta, Nivela y Crea" del MinEduc Ecuador (Semana 1 — diagnóstico dual académico y socioemocional, coordinado con el equipo DECE).
+
+Diagnóstico académico registrado:
+${academico}
+
+Habilidades socioemocionales seleccionadas:
+${socioemocional}
+
+Genera:
+- "tecnicasReflexion": 3-4 técnicas de reflexión directa concretas y aplicables en el aula (ej. preguntas abiertas para indagar saberes previos), coherentes con las destrezas y habilidades listadas arriba.
+- "coordinacionDece": 1-2 oraciones de nota de coordinación con el equipo DECE, coherente con las habilidades socioemocionales seleccionadas (o un texto genérico de invitación a coordinar si no hay habilidades seleccionadas).
+
+Responde ÚNICAMENTE con JSON: { "tecnicasReflexion": ["string", "string", "string"], "coordinacionDece": "string" }`;
+
+      const raw = await invokeLLM({
+        messages: [
+          { role: "system", content: "Eres un experto en el programa Conecta, Nivela y Crea del sistema educativo ecuatoriano. Responde siempre con JSON válido." },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 1200,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+      try {
+        return JSON.parse(rawContent) as { tecnicasReflexion: string[]; coordinacionDece: string };
+      } catch {
+        return JSON.parse(repairJson(rawContent)) as { tecnicasReflexion: string[]; coordinacionDece: string };
+      }
+    }),
+
+  /** Sugiere la lógica de emparejamiento de conivelación (qué destreza trabajar en cada pareja) — el docente completa los nombres reales */
+  sugerirConivelacion: publicProcedure
+    .input(z.object({
+      actividadesNivelacion: z.array(ActividadNivelacionSchema),
+    }))
+    .mutation(async ({ input }) => {
+      if (!input.actividadesNivelacion.length) {
+        return { parejasSugeridas: [] as { destrezaFocoCodigo: string; destrezaFocoDescripcion: string; sugerenciaEnfoque: string }[] };
+      }
+
+      const destrezas = input.actividadesNivelacion
+        .map((a) => `- [${a.area}] ${a.destrezaCodigo}: "${a.destrezaDescripcion}"`)
+        .join("\n");
+
+      const prompt = `Eres un experto en "conivelación" (tutoría entre pares) del programa "Conecta, Nivela y Crea" del MinEduc Ecuador.
+
+Destrezas de nivelación seleccionadas por el docente (usa ÚNICAMENTE estas, no inventes otras):
+${destrezas}
+
+Para CADA destreza, sugiere una pareja de conivelación: no inventes nombres de estudiantes (el docente los completará), solo sugiere el enfoque de la tutoría entre pares para esa destreza específica.
+
+Responde ÚNICAMENTE con JSON: { "parejasSugeridas": [ { "destrezaFocoCodigo": "string", "destrezaFocoDescripcion": "string", "sugerenciaEnfoque": "string (1 oración concreta de cómo el estudiante más consolidado puede apoyar al compañero en esta destreza)" } ] }`;
+
+      const raw = await invokeLLM({
+        messages: [
+          { role: "system", content: "Eres un experto en el programa Conecta, Nivela y Crea del sistema educativo ecuatoriano. Responde siempre con JSON válido." },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 1500,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+      try {
+        return JSON.parse(rawContent) as { parejasSugeridas: { destrezaFocoCodigo: string; destrezaFocoDescripcion: string; sugerenciaEnfoque: string }[] };
+      } catch {
+        return JSON.parse(repairJson(rawContent)) as { parejasSugeridas: { destrezaFocoCodigo: string; destrezaFocoDescripcion: string; sugerenciaEnfoque: string }[] };
+      }
+    }),
+
   /** Lista los planes guardados de una sesión */
   list: publicProcedure
     .input(z.object({ sessionId: z.string() }))
