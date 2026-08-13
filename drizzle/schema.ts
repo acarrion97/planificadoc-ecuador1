@@ -301,6 +301,37 @@ export type CurricularAdaptationRow = typeof curricularAdaptations.$inferSelect;
 export type InsertCurricularAdaptation = typeof curricularAdaptations.$inferInsert;
 
 /**
+ * Conecta, Nivela y Crea (CNC) — planes generados con IA para las 5 semanas
+ * de arranque del año escolar (MinEduc). Respaldo best-effort en la nube,
+ * igual que curricularAdaptations; la app funciona sin esta tabla si falla.
+ */
+export const connectaNivelaCrea = mysqlTable("connecta_nivela_crea", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente o deviceId como fallback */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  institucion: varchar("institucion", { length: 255 }),
+  docente: varchar("docente", { length: 255 }),
+  anioLectivo: varchar("anioLectivo", { length: 20 }),
+  grado: varchar("grado", { length: 64 }),
+  paralelo: varchar("paralelo", { length: 20 }),
+  subnivel: varchar("subnivel", { length: 64 }),
+  /** "general" | "bt" */
+  modalidad: mysqlEnum("modalidad", ["general", "bt"]).default("general").notNull(),
+  figuraProfesionalId: varchar("figuraProfesionalId", { length: 64 }),
+  moduloId: varchar("moduloId", { length: 64 }),
+  /** JSON del formulario completo (Semana1/2y3/4y5 + extras BT) */
+  form: text("form"),
+  /** JSON del resultado de la IA (ConectaNivelaCreaAiResult) */
+  aiResult: text("aiResult"),
+  status: mysqlEnum("status", ["draft", "generated"]).default("draft").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ConnectaNivelaCreaRow = typeof connectaNivelaCrea.$inferSelect;
+export type InsertConnectaNivelaCrea = typeof connectaNivelaCrea.$inferInsert;
+
+/**
  * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.
  * Se recuperan en activate.ts para enviar el evento Purchase a Meta CAPI.
  */

@@ -12,6 +12,7 @@ import { pcaTrimestralRouter } from "../../server/pca-trimestral-router";
 import { inicialRouter } from "../../server/inicial-router";
 import { adaptacionesRouter } from "../../server/adaptaciones-router";
 import { btRouter } from "../../server/bt-router";
+import { cncRouter } from "../../server/cnc-router";
 import { router } from "../../server/_core/trpc";
 
 // Router expuesto en Vercel
@@ -22,6 +23,7 @@ const vercelRouter = router({
   inicial: inicialRouter,
   adaptaciones: adaptacionesRouter,
   bt: btRouter,
+  cnc: cncRouter,
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

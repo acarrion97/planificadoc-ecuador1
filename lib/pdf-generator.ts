@@ -4,6 +4,7 @@ import {
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
 } from "../data/types";
 import type { PlanUnidadTrabajoBT } from "../data/types-bt";
+import type { PlanConectaNivelaCrea } from "../data/types-cnc";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
@@ -1419,6 +1420,128 @@ export function generarHTMLPlanBT(plan: PlanUnidadTrabajoBT): string {
       <div style="font-size:9px;color:#555;">APROBADO POR</div>
     </div>
   </div>
+</body>
+</html>`;
+}
+
+/**
+ * HTML del plan "Conecta, Nivela y Crea" (CNC) para exportación a PDF —
+ * las 5 semanas de arranque del año escolar, modalidad general o BT.
+ */
+export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
+  const esBT = plan.modalidad === "bt";
+
+  const diagnosticoAcademicoHTML = plan.semana1.diagnosticoAcademico.length
+    ? `<table class="tabla-plan">
+        <tr><th>Área</th><th>Destreza</th><th>Nivel detectado</th></tr>
+        ${plan.semana1.diagnosticoAcademico
+          .map((d) => `<tr><td>${esc(d.area)}</td><td>${esc(d.destrezaCodigo)}: ${esc(d.destrezaDescripcion)}</td><td>${esc(d.nivelDetectado)}</td></tr>`)
+          .join("")}
+      </table>`
+    : `<p style="color:#666;">—</p>`;
+
+  const diagnosticoTecnicoHTML = esBT && plan.semana1BT?.diagnosticoTecnico.length
+    ? plan.semana1BT.diagnosticoTecnico.map((d) => `<div>• ${esc(d.criterioTexto)} — ${esc(d.nivelDetectado)}</div>`).join("")
+    : "";
+
+  const espaciosHTML = esBT && plan.semana1BT?.reconocimientoEspacios.length
+    ? plan.semana1BT.reconocimientoEspacios.filter(Boolean).map((e) => `<div>• ${esc(e)}</div>`).join("")
+    : "";
+
+  const socioemocionalHTML = plan.semana1.diagnosticoSocioemocional.length
+    ? plan.semana1.diagnosticoSocioemocional.map((h) => `<div>• ${esc(h.habilidadId)}${h.observaciones ? " — " + esc(h.observaciones) : ""}</div>`).join("")
+    : `<p style="color:#666;">—</p>`;
+
+  const nivelacionHTML = plan.semana2y3.actividadesNivelacion.length
+    ? `<table class="tabla-plan">
+        <tr><th>Área</th><th>Destreza</th><th>Actividad</th><th>Semana</th></tr>
+        ${plan.semana2y3.actividadesNivelacion
+          .map((a) => `<tr><td>${esc(a.area)}</td><td>${esc(a.destrezaCodigo)}: ${esc(a.destrezaDescripcion)}</td><td>${esc(a.descripcionActividad || "—")}</td><td style="text-align:center;">${a.semana}</td></tr>`)
+          .join("")}
+      </table>`
+    : `<p style="color:#666;">—</p>`;
+
+  const nivelacionTecnicaHTML = esBT && plan.semana2y3BT?.actividadesNivelacionTecnica.length
+    ? `<table class="tabla-plan">
+        <tr><th>Criterio técnico</th><th>Actividad</th><th>Articulación con Matemática</th></tr>
+        ${plan.semana2y3BT.actividadesNivelacionTecnica
+          .map((a) => `<tr><td>${esc(a.criterioTexto)}</td><td>${esc(a.descripcionActividad || "—")}</td><td>${esc(a.articulacionMatematica || "—")}</td></tr>`)
+          .join("")}
+      </table>`
+    : "";
+
+  const conivelacionHTML = plan.semana2y3.parejasConivelacion.length
+    ? `<table class="tabla-plan">
+        <tr><th>Apoya</th><th>Apoyado</th><th>Destreza foco</th></tr>
+        ${plan.semana2y3.parejasConivelacion
+          .map((p) => `<tr><td>${esc(p.estudianteApoyoNombre)}</td><td>${esc(p.estudianteApoyadoNombre)}</td><td>${esc(p.destrezaFocoDescripcion)}</td></tr>`)
+          .join("")}
+      </table>`
+    : `<p style="color:#666;">—</p>`;
+
+  const semana4y5HTML = esBT && plan.semana4y5BT
+    ? `<table class="tabla-plan">
+        <tr><td class="label-cell">Tipo de producto acreditable</td><td>${esc(plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " "))}</td></tr>
+        <tr><td class="label-cell">Descripción</td><td>${esc(plan.semana4y5BT.productoAcreditable.descripcion || "—")}</td></tr>
+      </table>`
+    : `<table class="tabla-plan">
+        <tr><td class="label-cell">Título</td><td>${esc(plan.semana4y5.proyecto.titulo || "—")}</td></tr>
+        <tr><td class="label-cell">Áreas integradas</td><td>${esc(plan.semana4y5.proyecto.areasIntegradas.join(", ") || "—")}</td></tr>
+        <tr><td class="label-cell">Descripción</td><td>${esc(plan.semana4y5.proyecto.descripcion || "—")}</td></tr>
+        ${plan.semana4y5.proyecto.evidenciasCognitivas.length ? `<tr><td class="label-cell">Evidencias cognitivas</td><td>${plan.semana4y5.proyecto.evidenciasCognitivas.map((e) => `<div>• ${esc(e)}</div>`).join("")}</td></tr>` : ""}
+        ${plan.semana4y5.proyecto.evidenciasActitudinales.length ? `<tr><td class="label-cell">Evidencias actitudinales</td><td>${plan.semana4y5.proyecto.evidenciasActitudinales.map((e) => `<div>• ${esc(e)}</div>`).join("")}</td></tr>` : ""}
+      </table>`;
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Conecta, Nivela y Crea</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; margin: 24px; font-size: 11px; }
+  h1 { background:#0F766E; color:#fff; padding:10px 14px; font-size:16px; margin:0 0 4px; }
+  h2 { background:#115E59; color:#fff; padding:6px 10px; font-size:12px; margin:16px 0 8px; }
+  .subt { color:#555; font-style:italic; margin:0 0 16px; }
+  table.tabla-plan { width:100%; border-collapse:collapse; margin-bottom:8px; }
+  table.tabla-plan th, table.tabla-plan td { border:1px solid #999; padding:6px 8px; text-align:left; vertical-align:top; font-size:10px; }
+  table.tabla-plan th { background:#ECFDF5; font-weight:bold; }
+  .label-cell { background:#ECFDF5; font-weight:bold; width:28%; }
+  .banner-oficial { background:#DC2626; color:#fff; padding:8px 12px; font-weight:bold; font-size:11px; margin:8px 0 12px; }
+  @media print { body { margin: 10mm; } }
+</style>
+</head>
+<body>
+  <h1>CONECTA, NIVELA Y CREA</h1>
+  <p class="subt">${esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas"}</p>
+
+  <h2>I. IDENTIFICACIÓN</h2>
+  <table class="tabla-plan">
+    <tr><td class="label-cell">Institución educativa</td><td>${esc(plan.institucion || "—")}</td></tr>
+    <tr><td class="label-cell">Docente</td><td>${esc(plan.docente || "—")}</td></tr>
+    <tr><td class="label-cell">Grado / Paralelo</td><td>${esc(plan.grado || "—")} / ${esc(plan.paralelo || "—")}</td></tr>
+    <tr><td class="label-cell">Año lectivo</td><td>${esc(plan.anioLectivo || "—")}</td></tr>
+    <tr><td class="label-cell">Modalidad</td><td>${esBT ? "Bachillerato Técnico" : "General (EGB/BGU)"}</td></tr>
+    ${esBT ? `<tr><td class="label-cell">Módulo</td><td>${esc(plan.moduloId || "—")}</td></tr>` : ""}
+  </table>
+
+  <h2>II. SEMANA 1 — CONECTA</h2>
+  <div><strong>Actividades de adaptación</strong>${plan.semana1.actividadesAdaptacion.filter(Boolean).map((a) => `<div>• ${esc(a)}</div>`).join("") || "<p style=\"color:#666;\">—</p>"}</div>
+  <div style="margin-top:10px;"><strong>Diagnóstico académico (Lengua y Matemática)</strong>${diagnosticoAcademicoHTML}</div>
+  ${esBT ? `<div style="margin-top:10px;"><strong>Reconocimiento de espacios técnicos</strong>${espaciosHTML}</div>
+  <div style="margin-top:10px;"><strong>Diagnóstico técnico</strong>${diagnosticoTecnicoHTML}</div>` : ""}
+  <div style="margin-top:10px;"><strong>Diagnóstico socioemocional</strong>${socioemocionalHTML}</div>
+  <div style="margin-top:10px;"><strong>Coordinación DECE:</strong> ${esc(plan.semana1.coordinacionDece || "—")}</div>
+
+  <h2>III. SEMANAS 2-3 — NIVELA</h2>
+  ${nivelacionHTML}
+  ${nivelacionTecnicaHTML ? `<div style="margin-top:10px;"><strong>Nivelación técnica</strong></div>${nivelacionTecnicaHTML}` : ""}
+  <div style="margin-top:10px;"><strong>Parejas de conivelación</strong></div>
+  ${conivelacionHTML}
+
+  <h2>IV. SEMANAS 4-5 — CREA</h2>
+  <div class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</div>
+  ${semana4y5HTML}
 </body>
 </html>`;
 }
