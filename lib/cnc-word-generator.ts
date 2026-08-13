@@ -346,19 +346,53 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     const p = plan.semana4y5BT.productoAcreditable;
     rows.push(labelValueRow("Tipo de producto acreditable:", p.tipo.replace(/_/g, " ")));
     rows.push(labelValueRow("Descripción:", p.descripcion));
+    rows.push(headerRow(COLUMNAS_SEMANA));
+    rows.push(new TableRow({
+      children: [
+        semanaCell("SEMANA 4"),
+        semanaContentCell([p.tipo.replace(/_/g, " ")]),
+        semanaContentCell([]),
+        semanaContentCell(["Diseño y elaboración del producto acreditable"]),
+        semanaContentCell([]),
+        semanaContentCell([]),
+      ],
+    }));
+    rows.push(new TableRow({
+      children: [
+        semanaCell("SEMANA 5"),
+        semanaContentCell([p.tipo.replace(/_/g, " ")]),
+        semanaContentCell([]),
+        semanaContentCell(["Presentación del producto acreditable"]),
+        semanaContentCell([]),
+        semanaContentCell(["Evaluación cualitativa formativa oficial"]),
+      ],
+    }));
   } else {
     const p = plan.semana4y5.proyecto;
     rows.push(labelValueRow("Título:", p.titulo));
     rows.push(labelValueRow("Áreas integradas:", p.areasIntegradas.join(", ") || "—"));
     rows.push(labelValueRow("Descripción:", p.descripcion));
-    if (p.evidenciasCognitivas.length) {
-      rows.push(subHeadingRow("Evidencias cognitivas"));
-      rows.push(bulletsRow(p.evidenciasCognitivas));
-    }
-    if (p.evidenciasActitudinales.length) {
-      rows.push(subHeadingRow("Evidencias actitudinales"));
-      rows.push(bulletsRow(p.evidenciasActitudinales));
-    }
+    rows.push(headerRow(COLUMNAS_SEMANA));
+    rows.push(new TableRow({
+      children: [
+        semanaCell("SEMANA 4"),
+        semanaContentCell(p.destrezasReforzadas),
+        semanaContentCell(p.evidenciasCognitivas),
+        semanaContentCell([p.titulo || "Diseño y desarrollo del proyecto interdisciplinario"]),
+        semanaContentCell(p.areasIntegradas),
+        semanaContentCell([]),
+      ],
+    }));
+    rows.push(new TableRow({
+      children: [
+        semanaCell("SEMANA 5"),
+        semanaContentCell(p.destrezasReforzadas),
+        semanaContentCell(p.evidenciasActitudinales),
+        semanaContentCell(["Presentación y socialización del proyecto interdisciplinario"]),
+        semanaContentCell(p.areasIntegradas),
+        semanaContentCell(["Evaluación cualitativa formativa oficial"]),
+      ],
+    }));
   }
 
   const doc = new Document({

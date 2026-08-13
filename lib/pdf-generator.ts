@@ -1549,14 +1549,44 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     <tr><td colspan="6" class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</td></tr>
     ${esBT && plan.semana4y5BT
       ? `${labelValue("Tipo de producto acreditable:", plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " "))}
-         ${labelValue("Descripción:", plan.semana4y5BT.productoAcreditable.descripcion)}`
+         ${labelValue("Descripción:", plan.semana4y5BT.productoAcreditable.descripcion)}
+         ${header6(CNC_COLUMNAS_SEMANA)}
+         <tr>
+           ${semanaCellHTML("SEMANA 4")}
+           ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
+           ${contentCellHTML([])}
+           ${contentCellHTML(["Diseño y elaboración del producto acreditable"])}
+           ${contentCellHTML([])}
+           ${contentCellHTML([])}
+         </tr>
+         <tr>
+           ${semanaCellHTML("SEMANA 5")}
+           ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
+           ${contentCellHTML([])}
+           ${contentCellHTML(["Presentación del producto acreditable"])}
+           ${contentCellHTML([])}
+           ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
+         </tr>`
       : `${labelValue("Título:", plan.semana4y5.proyecto.titulo)}
          ${labelValue("Áreas integradas:", plan.semana4y5.proyecto.areasIntegradas.join(", "))}
          ${labelValue("Descripción:", plan.semana4y5.proyecto.descripcion)}
-         ${plan.semana4y5.proyecto.evidenciasCognitivas.length ? subheading("Evidencias cognitivas") : ""}
-         ${plan.semana4y5.proyecto.evidenciasCognitivas.length ? bullets(plan.semana4y5.proyecto.evidenciasCognitivas) : ""}
-         ${plan.semana4y5.proyecto.evidenciasActitudinales.length ? subheading("Evidencias actitudinales") : ""}
-         ${plan.semana4y5.proyecto.evidenciasActitudinales.length ? bullets(plan.semana4y5.proyecto.evidenciasActitudinales) : ""}`}
+         ${header6(CNC_COLUMNAS_SEMANA)}
+         <tr>
+           ${semanaCellHTML("SEMANA 4")}
+           ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
+           ${contentCellHTML(plan.semana4y5.proyecto.evidenciasCognitivas)}
+           ${contentCellHTML([plan.semana4y5.proyecto.titulo || "Diseño y desarrollo del proyecto interdisciplinario"])}
+           ${contentCellHTML(plan.semana4y5.proyecto.areasIntegradas)}
+           ${contentCellHTML([])}
+         </tr>
+         <tr>
+           ${semanaCellHTML("SEMANA 5")}
+           ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
+           ${contentCellHTML(plan.semana4y5.proyecto.evidenciasActitudinales)}
+           ${contentCellHTML(["Presentación y socialización del proyecto interdisciplinario"])}
+           ${contentCellHTML(plan.semana4y5.proyecto.areasIntegradas)}
+           ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
+         </tr>`}
   </table>
 </body>
 </html>`;
