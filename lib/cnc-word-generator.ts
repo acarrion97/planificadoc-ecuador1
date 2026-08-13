@@ -4,9 +4,12 @@
  * Nivela, Semanas 4-5 Crea), en modalidad general (EGB/BGU) o Bachillerato
  * Técnico.
  *
- * Paleta y convenciones de estilo (banda de título azul marino, filas de
- * sección celeste, cabeceras de columna azul oscuro, celdas de etiqueta
- * celeste claro) replican intencionalmente lib/semanal-word-generator.ts
+ * Estructura y paleta replican intencionalmente lib/semanal-word-generator.ts:
+ * UNA sola tabla continua (título colspan → "DATOS INFORMATIVOS" colspan →
+ * filas etiqueta/valor pareadas → filas de sección colspan por cada semana →
+ * tablas de detalle), banda de título azul marino (#003366), filas de sección
+ * celeste (#DDEFF1) con texto azul oscuro, cabeceras de columna azul oscuro
+ * (#1A3A5C) con texto blanco, celdas de etiqueta celeste claro (#EAF4F6) —
  * para que el documento se vea consistente con el formato institucional
  * MinEduc que ya usan los docentes en la planificación semanal.
  *
@@ -32,6 +35,8 @@ const TEXT_SECTION = "1A3A5C";
 const SUBTITLE_COLOR = "A8C4E0";
 const BG_EVAL_OFICIAL = "DC2626";
 
+const NUM_COLS = 4;
+
 const BORDER_DEF = {
   top: { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" },
   bottom: { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" },
@@ -43,16 +48,18 @@ function shade(color: string) {
   return { fill: color, color, type: ShadingType.CLEAR };
 }
 
+/** Celda simple con un único TextRun */
 function simpleCell(
   text: string,
   opts: {
     bold?: boolean; italic?: boolean; size?: number;
     color?: string; bg?: string; align?: (typeof AlignmentType)[keyof typeof AlignmentType];
-    colspan?: number;
+    colspan?: number; rowspan?: number;
   } = {}
 ): TableCell {
   return new TableCell({
     columnSpan: opts.colspan,
+    rowSpan: opts.rowspan,
     verticalAlign: VerticalAlign.TOP,
     shading: opts.bg ? shade(opts.bg) : undefined,
     borders: BORDER_DEF,
@@ -74,235 +81,239 @@ function simpleCell(
   });
 }
 
-/** Fila de sección — banda celeste con texto azul marino, igual que sectionRow() de la planificación semanal */
-function sectionRow(label: string, colspan: number): TableRow {
-  return new TableRow({
-    children: [simpleCell(label, { bold: true, size: 9, bg: BG_SECTION, color: TEXT_SECTION, colspan })],
+/** Celda con múltiples párrafos (uno por línea de `lines`), opcionalmente con viñetas */
+function multiLineCell(lines: string[], opts: { size?: number; color?: string; bullet?: boolean; colspan?: number } = {}): TableCell {
+  return new TableCell({
+    columnSpan: opts.colspan,
+    verticalAlign: VerticalAlign.TOP,
+    borders: BORDER_DEF,
+    children: (lines.length ? lines : ["—"]).map(
+      (line) =>
+        new Paragraph({
+          bullet: opts.bullet ? { level: 0 } : undefined,
+          spacing: { after: 40 },
+          children: [new TextRun({ text: line, size: (opts.size ?? 9) * 2, color: opts.color ?? BLACK, font: "Arial" })],
+        })
+    ),
   });
 }
 
-function labelValueRow(label: string, value: string): TableRow {
+/** Fila de sección — banda celeste con texto azul marino, ocupa todas las columnas */
+function sectionRow(label: string): TableRow {
+  return new TableRow({
+    children: [simpleCell(label, { bold: true, size: 9, bg: BG_SECTION, color: TEXT_SECTION, colspan: NUM_COLS })],
+  });
+}
+
+/** Fila con dos pares etiqueta/valor, igual que las filas de "DATOS INFORMATIVOS" de la planificación semanal */
+function dosLabelValueRow(label1: string, value1: string, label2: string, value2: string): TableRow {
   return new TableRow({
     children: [
-      simpleCell(label, { bold: true, size: 9, bg: BG_SUBHEAD, colspan: 1 }),
-      simpleCell(value || "—", { size: 9, colspan: 3 }),
+      simpleCell(label1, { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell(value1 || "—", { size: 8 }),
+      simpleCell(label2, { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell(value2 || "—", { size: 8 }),
     ],
   });
 }
 
-function subHeading(text: string): Paragraph {
-  return new Paragraph({ spacing: { before: 160, after: 60 }, children: [new TextRun({ text, bold: true, size: 22, color: BG_TITLE, font: "Arial" })] });
+/** Fila con un único par etiqueta/valor ocupando el resto de columnas */
+function labelValueRow(label: string, value: string): TableRow {
+  return new TableRow({
+    children: [
+      simpleCell(label, { bold: true, size: 8, bg: BG_SUBHEAD }),
+      simpleCell(value || "—", { size: 8, colspan: NUM_COLS - 1 }),
+    ],
+  });
+}
+
+/** Fila de subtítulo dentro de una sección (etiqueta en cursiva azul, ocupa todas las columnas) */
+function subHeadingRow(text: string): TableRow {
+  return new TableRow({
+    children: [simpleCell(text, { bold: true, italic: true, size: 9, color: BG_TITLE, colspan: NUM_COLS })],
+  });
+}
+
+/** Fila con lista de viñetas ocupando todas las columnas */
+function bulletsRow(lines: string[]): TableRow {
+  return new TableRow({ children: [multiLineCell(lines, { bullet: true, colspan: NUM_COLS })] });
+}
+
+/** Fila de cabecera de tabla de detalle (fondo azul oscuro, texto blanco) */
+function headerRow(labels: string[]): TableRow {
+  return new TableRow({
+    tableHeader: true,
+    children: labels.map((l) => simpleCell(l, { bold: true, color: WHITE, bg: BG_COLHEAD, size: 8 })),
+  });
 }
 
 export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<Blob> {
-  const children: (Paragraph | Table)[] = [];
   const esBT = plan.modalidad === "bt";
+  const rows: TableRow[] = [];
 
-  // ── Cabecera principal — banda azul marino, igual que "PLANIFICACIÓN MICROCURRICULAR SEMANAL" ──
-  children.push(
-    new Paragraph({
-      shading: shade(BG_TITLE),
-      alignment: AlignmentType.CENTER,
-      spacing: { after: 40 },
-      children: [new TextRun({ text: "CONECTA, NIVELA Y CREA", bold: true, size: 24, color: WHITE, font: "Arial" })],
-    }),
-    new Paragraph({
-      shading: shade(BG_TITLE),
-      alignment: AlignmentType.CENTER,
-      spacing: { after: 200 },
-      children: [
-        new TextRun({
-          text: esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas",
-          size: 16, color: SUBTITLE_COLOR, font: "Arial",
-        }),
-      ],
-    })
-  );
+  // ══════════════════════════════════════════════════════════════
+  // CABECERA PRINCIPAL
+  // ══════════════════════════════════════════════════════════════
+  rows.push(new TableRow({
+    children: [
+      new TableCell({
+        columnSpan: NUM_COLS,
+        shading: shade(BG_TITLE),
+        borders: BORDER_DEF,
+        verticalAlign: VerticalAlign.CENTER,
+        children: [
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({ text: "CONECTA, NIVELA Y CREA", bold: true, size: 24, color: WHITE, font: "Arial" })],
+          }),
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({
+              text: esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas",
+              size: 16, color: SUBTITLE_COLOR, font: "Arial",
+            })],
+          }),
+        ],
+      }),
+    ],
+  }));
 
-  // ── I. DATOS INFORMATIVOS ──
-  const filasId = [
-    labelValueRow("Institución educativa", plan.institucion),
-    labelValueRow("Docente", plan.docente),
-    labelValueRow("Grado / Paralelo", `${plan.grado || "—"} / ${plan.paralelo || "—"}`),
-    labelValueRow("Año lectivo", plan.anioLectivo),
-    labelValueRow("Modalidad", esBT ? "Bachillerato Técnico" : "General (EGB/BGU)"),
-  ];
-  if (esBT) {
-    filasId.push(labelValueRow("Módulo", plan.moduloId || "—"));
-  }
-  children.push(
-    new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [sectionRow("DATOS INFORMATIVOS", 4), ...filasId] })
-  );
+  // ══════════════════════════════════════════════════════════════
+  // DATOS INFORMATIVOS
+  // ══════════════════════════════════════════════════════════════
+  rows.push(sectionRow("DATOS INFORMATIVOS"));
+  rows.push(dosLabelValueRow("Institución:", plan.institucion, "Docente:", plan.docente));
+  rows.push(dosLabelValueRow("Grado / Paralelo:", `${plan.grado || "—"} / ${plan.paralelo || "—"}`, "Año lectivo:", plan.anioLectivo));
+  rows.push(dosLabelValueRow(
+    "Modalidad:", esBT ? "Bachillerato Técnico" : "General (EGB/BGU)",
+    "Módulo:", esBT ? (plan.moduloId || "—") : "—",
+  ));
 
-  // ── II. SEMANA 1 — CONECTA ──
-  children.push(
-    new Paragraph({ spacing: { before: 220 }, children: [] }),
-    new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [sectionRow("SEMANA 1 — CONECTA", 3)] })
-  );
-  children.push(subHeading("Actividades de adaptación"));
-  for (const a of plan.semana1.actividadesAdaptacion.filter(Boolean)) {
-    children.push(new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: a, size: 20, font: "Arial" })] }));
-  }
+  // ══════════════════════════════════════════════════════════════
+  // SEMANA 1 — CONECTA
+  // ══════════════════════════════════════════════════════════════
+  rows.push(sectionRow("SEMANA 1 — CONECTA"));
+  rows.push(subHeadingRow("Actividades de adaptación"));
+  rows.push(bulletsRow(plan.semana1.actividadesAdaptacion.filter(Boolean)));
 
-  children.push(subHeading("Diagnóstico académico (Lengua y Matemática)"));
+  rows.push(subHeadingRow("Diagnóstico académico (Lengua y Matemática)"));
   if (plan.semana1.diagnosticoAcademico.length) {
-    const headerRow = new TableRow({
-      tableHeader: true,
-      children: [
-        simpleCell("Área", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Destreza", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Nivel detectado", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-      ],
-    });
-    const rows = plan.semana1.diagnosticoAcademico.map((d) => new TableRow({
-      children: [
-        simpleCell(d.area, { size: 9 }),
-        simpleCell(`${d.destrezaCodigo}: ${d.destrezaDescripcion}`, { size: 9 }),
-        simpleCell(d.nivelDetectado, { size: 9 }),
-      ],
-    }));
-    children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [headerRow, ...rows] }));
+    rows.push(headerRow(["Área", "Destreza", "Destreza", "Nivel detectado"]));
+    for (const d of plan.semana1.diagnosticoAcademico) {
+      rows.push(new TableRow({
+        children: [
+          simpleCell(d.area, { size: 8 }),
+          simpleCell(`${d.destrezaCodigo}: ${d.destrezaDescripcion}`, { size: 8, colspan: 2 }),
+          simpleCell(d.nivelDetectado, { size: 8 }),
+        ],
+      }));
+    }
+  } else {
+    rows.push(bulletsRow([]));
   }
 
   if (esBT && plan.semana1BT) {
-    children.push(subHeading("Reconocimiento de espacios técnicos"));
-    for (const e of plan.semana1BT.reconocimientoEspacios.filter(Boolean)) {
-      children.push(new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: e, size: 20, font: "Arial" })] }));
-    }
+    rows.push(subHeadingRow("Reconocimiento de espacios técnicos"));
+    rows.push(bulletsRow(plan.semana1BT.reconocimientoEspacios.filter(Boolean)));
     if (plan.semana1BT.diagnosticoTecnico.length) {
-      children.push(new Paragraph({ spacing: { before: 100, after: 60 }, children: [new TextRun({ text: "Diagnóstico técnico (criterios reales del módulo)", bold: true, size: 20, font: "Arial" })] }));
-      for (const d of plan.semana1BT.diagnosticoTecnico) {
-        children.push(new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: `${d.criterioTexto} — ${d.nivelDetectado}`, size: 20, font: "Arial" })] }));
-      }
+      rows.push(subHeadingRow("Diagnóstico técnico (criterios reales del módulo)"));
+      rows.push(bulletsRow(plan.semana1BT.diagnosticoTecnico.map((d) => `${d.criterioTexto} — ${d.nivelDetectado}`)));
     }
   }
 
-  children.push(subHeading("Diagnóstico socioemocional"));
-  for (const h of plan.semana1.diagnosticoSocioemocional) {
-    children.push(new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: `${h.habilidadId}${h.observaciones ? " — " + h.observaciones : ""}`, size: 20, font: "Arial" })] }));
-  }
-  children.push(
-    new Paragraph({ spacing: { before: 100 }, children: [new TextRun({ text: "Coordinación DECE: ", bold: true, size: 20, font: "Arial" }), new TextRun({ text: plan.semana1.coordinacionDece || "—", size: 20, font: "Arial" })] })
-  );
+  rows.push(subHeadingRow("Diagnóstico socioemocional"));
+  rows.push(bulletsRow(plan.semana1.diagnosticoSocioemocional.map((h) => `${h.habilidadId}${h.observaciones ? " — " + h.observaciones : ""}`)));
+
+  rows.push(labelValueRow("Coordinación DECE:", plan.semana1.coordinacionDece));
+
   if (plan.semana1.tecnicasReflexion.filter(Boolean).length) {
-    children.push(new Paragraph({ spacing: { before: 100, after: 40 }, children: [new TextRun({ text: "Técnicas de reflexión", bold: true, size: 20, font: "Arial" })] }));
-    for (const t of plan.semana1.tecnicasReflexion.filter(Boolean)) {
-      children.push(new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: t, size: 20, font: "Arial" })] }));
-    }
+    rows.push(subHeadingRow("Técnicas de reflexión"));
+    rows.push(bulletsRow(plan.semana1.tecnicasReflexion.filter(Boolean)));
   }
 
-  // ── III. SEMANAS 2-3 — NIVELA ──
-  children.push(
-    new Paragraph({ spacing: { before: 220 }, children: [] }),
-    new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [sectionRow("SEMANAS 2-3 — NIVELA", 4)] })
-  );
+  // ══════════════════════════════════════════════════════════════
+  // SEMANAS 2-3 — NIVELA
+  // ══════════════════════════════════════════════════════════════
+  rows.push(sectionRow("SEMANAS 2-3 — NIVELA"));
   if (plan.semana2y3.actividadesNivelacion.length) {
-    const headerRow = new TableRow({
-      tableHeader: true,
-      children: [
-        simpleCell("Área", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Destreza", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Actividad", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Semana", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-      ],
-    });
-    const rows = plan.semana2y3.actividadesNivelacion.map((a) => new TableRow({
-      children: [
-        simpleCell(a.area, { size: 9 }),
-        simpleCell(`${a.destrezaCodigo}: ${a.destrezaDescripcion}`, { size: 9 }),
-        simpleCell(a.descripcionActividad || "—", { size: 9 }),
-        simpleCell(String(a.semana), { size: 9, align: AlignmentType.CENTER }),
-      ],
-    }));
-    children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [headerRow, ...rows] }));
+    rows.push(headerRow(["Área", "Destreza", "Actividad", "Semana"]));
+    for (const a of plan.semana2y3.actividadesNivelacion) {
+      rows.push(new TableRow({
+        children: [
+          simpleCell(a.area, { size: 8 }),
+          simpleCell(`${a.destrezaCodigo}: ${a.destrezaDescripcion}`, { size: 8 }),
+          simpleCell(a.descripcionActividad || "—", { size: 8 }),
+          simpleCell(String(a.semana), { size: 8, align: AlignmentType.CENTER }),
+        ],
+      }));
+    }
+  } else {
+    rows.push(bulletsRow([]));
   }
 
   if (esBT && plan.semana2y3BT?.actividadesNivelacionTecnica.length) {
-    children.push(subHeading("Nivelación técnica"));
-    const headerRow = new TableRow({
-      tableHeader: true,
-      children: [
-        simpleCell("Criterio técnico", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Actividad", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Articulación con Matemática", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-      ],
-    });
-    const rows = plan.semana2y3BT.actividadesNivelacionTecnica.map((a) => new TableRow({
-      children: [
-        simpleCell(a.criterioTexto, { size: 9 }),
-        simpleCell(a.descripcionActividad || "—", { size: 9 }),
-        simpleCell(a.articulacionMatematica || "—", { size: 9 }),
-      ],
-    }));
-    children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [headerRow, ...rows] }));
+    rows.push(subHeadingRow("Nivelación técnica"));
+    rows.push(headerRow(["Criterio técnico", "Criterio técnico", "Actividad", "Articulación con Matemática"]));
+    for (const a of plan.semana2y3BT.actividadesNivelacionTecnica) {
+      rows.push(new TableRow({
+        children: [
+          simpleCell(a.criterioTexto, { size: 8, colspan: 2 }),
+          simpleCell(a.descripcionActividad || "—", { size: 8 }),
+          simpleCell(a.articulacionMatematica || "—", { size: 8 }),
+        ],
+      }));
+    }
   }
 
-  children.push(subHeading("Parejas de conivelación (tutoría entre pares)"));
+  rows.push(subHeadingRow("Parejas de conivelación (tutoría entre pares)"));
   if (plan.semana2y3.parejasConivelacion.length) {
-    const headerRow = new TableRow({
-      tableHeader: true,
-      children: [
-        simpleCell("Apoya", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Apoyado", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-        simpleCell("Destreza foco", { bold: true, color: WHITE, bg: BG_COLHEAD, size: 9 }),
-      ],
-    });
-    const rows = plan.semana2y3.parejasConivelacion.map((p) => new TableRow({
-      children: [
-        simpleCell(p.estudianteApoyoNombre, { size: 9 }),
-        simpleCell(p.estudianteApoyadoNombre, { size: 9 }),
-        simpleCell(p.destrezaFocoDescripcion, { size: 9 }),
-      ],
-    }));
-    children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [headerRow, ...rows] }));
+    rows.push(headerRow(["Apoya", "Apoyado", "Destreza foco", "Destreza foco"]));
+    for (const p of plan.semana2y3.parejasConivelacion) {
+      rows.push(new TableRow({
+        children: [
+          simpleCell(p.estudianteApoyoNombre, { size: 8 }),
+          simpleCell(p.estudianteApoyadoNombre, { size: 8 }),
+          simpleCell(p.destrezaFocoDescripcion, { size: 8, colspan: 2 }),
+        ],
+      }));
+    }
   } else {
-    children.push(new Paragraph({ children: [new TextRun({ text: "—", size: 20, color: "666666", font: "Arial" })] }));
+    rows.push(bulletsRow([]));
   }
 
-  // ── IV. SEMANAS 4-5 — CREA ──
-  children.push(
-    new Paragraph({ spacing: { before: 220 }, children: [] }),
-    new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: [sectionRow("SEMANAS 4-5 — CREA", 4)] })
-  );
-  children.push(
-    new Paragraph({
-      shading: shade(BG_EVAL_OFICIAL),
-      spacing: { before: 100, after: 120 },
-      children: [new TextRun({ text: "ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL", bold: true, size: 20, color: WHITE, font: "Arial" })],
-    })
-  );
+  // ══════════════════════════════════════════════════════════════
+  // SEMANAS 4-5 — CREA
+  // ══════════════════════════════════════════════════════════════
+  rows.push(sectionRow("SEMANAS 4-5 — CREA"));
+  rows.push(new TableRow({
+    children: [
+      new TableCell({
+        columnSpan: NUM_COLS,
+        shading: shade(BG_EVAL_OFICIAL),
+        borders: BORDER_DEF,
+        children: [new Paragraph({
+          children: [new TextRun({ text: "ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL", bold: true, size: 18, color: WHITE, font: "Arial" })],
+        })],
+      }),
+    ],
+  }));
 
   if (esBT && plan.semana4y5BT) {
     const p = plan.semana4y5BT.productoAcreditable;
-    children.push(
-      new Table({
-        width: { size: 100, type: WidthType.PERCENTAGE },
-        rows: [
-          labelValueRow("Tipo de producto acreditable", p.tipo.replace(/_/g, " ")),
-          labelValueRow("Descripción", p.descripcion),
-        ],
-      })
-    );
+    rows.push(labelValueRow("Tipo de producto acreditable:", p.tipo.replace(/_/g, " ")));
+    rows.push(labelValueRow("Descripción:", p.descripcion));
   } else {
     const p = plan.semana4y5.proyecto;
-    children.push(
-      new Table({
-        width: { size: 100, type: WidthType.PERCENTAGE },
-        rows: [
-          labelValueRow("Título", p.titulo),
-          labelValueRow("Áreas integradas", p.areasIntegradas.join(", ") || "—"),
-        ],
-      }),
-      new Paragraph({ spacing: { before: 100, after: 60 }, children: [new TextRun({ text: "Descripción", bold: true, size: 20, font: "Arial" })] }),
-      new Paragraph({ children: [new TextRun({ text: p.descripcion || "—", size: 20, font: "Arial" })] })
-    );
+    rows.push(labelValueRow("Título:", p.titulo));
+    rows.push(labelValueRow("Áreas integradas:", p.areasIntegradas.join(", ") || "—"));
+    rows.push(labelValueRow("Descripción:", p.descripcion));
     if (p.evidenciasCognitivas.length) {
-      children.push(new Paragraph({ spacing: { before: 120, after: 60 }, children: [new TextRun({ text: "Evidencias cognitivas", bold: true, size: 20, font: "Arial" })] }));
-      for (const e of p.evidenciasCognitivas) children.push(new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: e, size: 20, font: "Arial" })] }));
+      rows.push(subHeadingRow("Evidencias cognitivas"));
+      rows.push(bulletsRow(p.evidenciasCognitivas));
     }
     if (p.evidenciasActitudinales.length) {
-      children.push(new Paragraph({ spacing: { before: 120, after: 60 }, children: [new TextRun({ text: "Evidencias actitudinales", bold: true, size: 20, font: "Arial" })] }));
-      for (const e of p.evidenciasActitudinales) children.push(new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: e, size: 20, font: "Arial" })] }));
+      rows.push(subHeadingRow("Evidencias actitudinales"));
+      rows.push(bulletsRow(p.evidenciasActitudinales));
     }
   }
 
@@ -310,7 +321,12 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     sections: [
       {
         properties: { page: { margin: { top: 720, bottom: 720, left: 900, right: 900 } } },
-        children,
+        children: [
+          new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows,
+          }),
+        ],
       },
     ],
   });
