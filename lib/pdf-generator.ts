@@ -877,34 +877,101 @@ function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[
       }
     }
 
-    const renderBloque = (b: { categoria: string; descripcion: string; estrategias: string[] }) =>
-      `<div style="font-size:7px;margin-bottom:3px;">
-        <strong>${esc(b.categoria)}:</strong> ${esc(b.descripcion)}
-        <ul style="margin:1px 0 0 10px;padding:0;">
-          ${b.estrategias.map(e => `<li style="font-size:6.5px;margin-bottom:1px;">${esc(e)}</li>`).join("")}
-        </ul>
-      </div>`;
+    if (adap.adaptacionesPorDia?.length) {
+      // ── ADAPTACIONES POR DÍA — formato ERCA 3 columnas (igual al Word semanal) ──
+      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#0F766E;margin:4px 0 2px;">ADAPTACIONES POR DÍA</div>`;
+      const DIA_BG_PDF = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
+      const ERCA_PDF_CFG = [
+        { key: "experiencia",       label: "EXPERIENCIA",       dark: "2980B9", light: "EBF5FB" },
+        { key: "reflexion",         label: "REFLEXIÓN",         dark: "8E44AD", light: "F5EEF8" },
+        { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", dark: "27AE60", light: "EAFAF1" },
+        { key: "aplicacion",        label: "APLICACIÓN",        dark: "E67E22", light: "FEF9E7" },
+      ] as const;
 
-    if (adap.adaptacionesAcceso?.length) {
-      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">ADAPTACIONES DE ACCESO</div>`;
-      derechaHTML += adap.adaptacionesAcceso.map(renderBloque).join("");
-    }
-    if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
-      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#8E44AD;margin:4px 0 2px;">ADAPTACIONES DE PROCESO</div>`;
-      derechaHTML += adap.adaptacionesProceso.map(renderBloque).join("");
-    }
-    if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
-      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#E67E22;margin:4px 0 2px;">ADAPTACIONES DE RESULTADO</div>`;
-      derechaHTML += adap.adaptacionesResultado.map(renderBloque).join("");
-    }
-    if (adap.metodologiasSugeridas?.length) {
-      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">METODOLOGÍAS SUGERIDAS</div>
-        <ul style="margin:0 0 4px 12px;padding:0;">
-          ${adap.metodologiasSugeridas.map(m => `<li style="font-size:7px;">${esc(m)}</li>`).join("")}
-        </ul>`;
-    }
-    if (adap.recursosEspecificos?.length) {
-      derechaHTML += `<div style="font-size:7px;margin-top:2px;"><strong>Recursos:</strong> ${adap.recursosEspecificos.map(esc).join(" &middot; ")}</div>`;
+      adap.adaptacionesPorDia.forEach((dp, di) => {
+        const bgD = DIA_BG_PDF[di % DIA_BG_PDF.length];
+
+        // Columna izquierda: objetivo(s) + fases ERCA + leyenda DUA
+        let left = "";
+        if (dp.objetivo) {
+          left += `<div style="font-size:7px;margin-bottom:2px;"><strong style="color:${bgD};">Objetivo:</strong> <em style="color:#444;">${esc(dp.objetivo)}</em></div>`;
+        }
+        if ((dp as any).objetivoAdaptado) {
+          left += `<div style="font-size:7px;margin-bottom:3px;"><strong style="color:${bgD};">Obj. adaptado:</strong> <strong>${esc((dp as any).objetivoAdaptado)}</strong></div>`;
+        }
+        for (const { key, label, dark, light } of ERCA_PDF_CFG) {
+          const val = (dp.adaptacionERCA as any)?.[key];
+          if (!val) continue;
+          left += `<div style="background:${dark};color:white;font-size:6.5px;font-weight:bold;padding:2px 5px;margin-top:3px;">${label}</div>
+            <div style="background:${light};font-size:6.5px;padding:2px 5px;margin-bottom:2px;color:#111;">${esc(val)}</div>`;
+        }
+        left += `<div style="font-size:6px;margin-top:3px;color:#666;">
+          <span style="color:#EC4899;">■</span> <span>Representación</span>&nbsp;&nbsp;
+          <span style="color:#1E3A5F;">■</span> <span>Acción/Expresión</span>&nbsp;&nbsp;
+          <span style="color:#22C55E;">■</span> <span>Implicación</span>
+        </div>`;
+
+        // Columna central: recursos adaptados
+        const middle = dp.recursosAdaptados?.length
+          ? dp.recursosAdaptados.map(r => `<div style="font-size:6.5px;margin-bottom:2px;">&bull; ${esc(r)}</div>`).join("")
+          : `<div style="font-size:6.5px;color:#888;">—</div>`;
+
+        // Columna derecha: evaluación adaptada
+        const right = `<div style="font-size:6.5px;color:#111;">${esc(dp.evaluacionAdaptada || "—")}</div>`;
+
+        derechaHTML += `
+          <table style="width:100%;border-collapse:collapse;margin-bottom:6px;">
+            <tr>
+              <td colspan="3" style="background:${bgD};color:white;font-size:7px;font-weight:bold;padding:3px 6px;">${esc(dp.dia.toUpperCase())}</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="background:#1A3A5C;color:white;font-size:6.5px;font-weight:bold;padding:2px 6px;">ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="background:#1A3A5C;color:#CCCCCC;font-size:6px;font-style:italic;padding:1px 6px;">Estrategias metodológicas diversificadas con base al DUA</td>
+            </tr>
+            <tr>
+              <td style="background:#374151;color:white;font-size:6.5px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">ESTRATEGIAS ERCA ADAPTADAS</td>
+              <td style="background:#374151;color:white;font-size:6.5px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">RECURSOS ADAPTADOS</td>
+              <td style="background:#374151;color:white;font-size:6.5px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">EVALUACIÓN ADAPTADA</td>
+            </tr>
+            <tr>
+              <td style="vertical-align:top;padding:4px 5px;border:1px solid #888;width:46%;">${left}</td>
+              <td style="vertical-align:top;padding:4px 5px;border:1px solid #888;width:27%;">${middle}</td>
+              <td style="vertical-align:top;padding:4px 5px;border:1px solid #888;width:27%;">${right}</td>
+            </tr>
+          </table>`;
+      });
+    } else {
+      const renderBloque = (b: { categoria: string; descripcion: string; estrategias: string[] }) =>
+        `<div style="font-size:7px;margin-bottom:3px;">
+          <strong>${esc(b.categoria)}:</strong> ${esc(b.descripcion)}
+          <ul style="margin:1px 0 0 10px;padding:0;">
+            ${b.estrategias.map(e => `<li style="font-size:6.5px;margin-bottom:1px;">${esc(e)}</li>`).join("")}
+          </ul>
+        </div>`;
+
+      if (adap.adaptacionesAcceso?.length) {
+        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">ADAPTACIONES DE ACCESO</div>`;
+        derechaHTML += adap.adaptacionesAcceso.map(renderBloque).join("");
+      }
+      if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
+        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#8E44AD;margin:4px 0 2px;">ADAPTACIONES DE PROCESO</div>`;
+        derechaHTML += adap.adaptacionesProceso.map(renderBloque).join("");
+      }
+      if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
+        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#E67E22;margin:4px 0 2px;">ADAPTACIONES DE RESULTADO</div>`;
+        derechaHTML += adap.adaptacionesResultado.map(renderBloque).join("");
+      }
+      if (adap.metodologiasSugeridas?.length) {
+        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">METODOLOGÍAS SUGERIDAS</div>
+          <ul style="margin:0 0 4px 12px;padding:0;">
+            ${adap.metodologiasSugeridas.map(m => `<li style="font-size:7px;">${esc(m)}</li>`).join("")}
+          </ul>`;
+      }
+      if (adap.recursosEspecificos?.length) {
+        derechaHTML += `<div style="font-size:7px;margin-top:2px;"><strong>Recursos:</strong> ${adap.recursosEspecificos.map(esc).join(" &middot; ")}</div>`;
+      }
     }
     if (adap.seguimiento) {
       derechaHTML += `<div style="font-size:7px;margin-top:3px;"><strong>Seguimiento:</strong> ${esc(adap.seguimiento)}</div>`;
