@@ -10,7 +10,6 @@ import {
 } from "docx";
 import type { Planificacion } from "../data/types";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
-import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
 
@@ -116,15 +115,6 @@ function sep(): Paragraph {
 }
 
 // ── Datos helpers ──────────────────────────────────────────────────────────────
-function resolveInserciones(plan: Planificacion, isEFL: boolean): string {
-  const ids = (plan.insercionesCurriculares as string[] | undefined) || (plan.insercionCurricular ? [(plan.insercionCurricular as string)] : []);
-  if (ids.length === 0) return "—";
-  return ids.map((id: string) => {
-    const ins = INSERCIONES_CURRICULARES.find(i => i.id === id);
-    return ins ? (isEFL ? ins.nameEN : ins.nombreCorto) : id;
-  }).filter(Boolean).join(", ");
-}
-
 function resolveHabilidades(plan: Planificacion, isEFL: boolean): string {
   const ids: string[] = (plan as any).habilidadesSocioemocionales || [];
   if (ids.length === 0) return isEFL ? "Not specified" : "No especificadas";
@@ -276,7 +266,6 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
   const D5 = Math.floor(TW * 0.12);  // label  ~1886
   const D6 = TW - D1 - D2 - D3 - D4 - D5; // value (resto)
 
-  const insercionesText = resolveInserciones(plan, isEFL);
   const nivel = (plan as any).nivel || (plan.destreza?.subnivel <= 4 ? "Educación General Básica" : "Bachillerato General Unificado");
 
   function dRow(l1: string, v1: string, l2: string, v2: string, l3: string, v3: string): TableRow {
@@ -296,8 +285,8 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
          t("Período Pedagógico:", "Period:"), (plan as any).periodoPedagogico || areaInfo?.name || "—",
          t("Trimestre:", "Quarter:"),          plan.trimestre || "Primero"),
     dRow(t("Nivel:", "Level:"),               nivel,
-         t("Inserción Curricular:", "Curricular Insertion:"), insercionesText,
-         t("Fecha Inicio:", "Start Date:"),   (plan as any).fechaInicio || "___/___/______"),
+         t("Fecha Inicio:", "Start Date:"),   (plan as any).fechaInicio || "___/___/______",
+         "", ""),
     dRow(t("Subnivel:", "Sublevel:"),         subnivelName,
          t("Nombre Docente:", "Teacher:"),    plan.docente || "—",
          t("Fecha Fin:", "End Date:"),        (plan as any).fechaFin || "___/___/______"),
@@ -433,12 +422,6 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
   );
   const instrumentosText = resolveTecnicas(plan, isEFL);
 
-  // Competencias
-  const destrezaCompetencias = (plan as any).competencias || [];
-  const competenciasStr = destrezaCompetencias.length > 0
-    ? destrezaCompetencias.join(", ")
-    : "";
-
   // Estrategias ERCA
   const ercaParas = buildERCAParagraphs(plan, isEFL);
 
@@ -460,7 +443,6 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
         // Destreza
         tc([
           p(plan.destreza?.codigo || "—", { bold: true, size: 8 }),
-          ...(competenciasStr ? [p(competenciasStr, { size: 7, color: "666666" })] : []),
           p(""),
           p(plan.destreza?.descripcion || "—", { size: 8 }),
         ], M1),

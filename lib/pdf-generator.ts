@@ -3,8 +3,7 @@ import {
   AdaptacionCurricular, TipoNEE, GradoAdaptacion,
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
 } from "../data/types";
-import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
-import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
+import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
 import { obtenerIconosDestreza } from "../src/data/iconosPorDestreza";
 import { ICONOS_DCD_BASE64 } from "./iconos-base64";
@@ -146,25 +145,6 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
   const objetivosHTML = plan.destreza.objetivos
     .map((obj) => `<li>${obj}</li>`)
     .join("");
-
-  // Inserciones curriculares
-  const insercionesHTML = (() => {
-    const ids = plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : []);
-    if (ids.length === 0) return isEFL ? "Not specified" : "No especificadas";
-    return '<ul style="margin:0;padding-left:16px;">' + ids.map((id: string) => {
-      const ins = INSERCIONES_CURRICULARES.find(i => i.id === id);
-      return ins ? `<li>${isEFL ? ins.nameEN : ins.nombreCorto}</li>` : '';
-    }).join('') + '</ul>';
-  })();
-
-  // Competencias
-  const competenciasHTML = (() => {
-    if (!plan.competencias || plan.competencias.length === 0) return "";
-    return '<ul style="margin:0;padding-left:16px;">' + plan.competencias.map((id: string) => {
-      const comp = COMPETENCIAS.find(c => c.id === id);
-      return comp ? `<li>${isEFL ? comp.nameEN : comp.nombre}</li>` : '';
-    }).join('') + '</ul>';
-  })();
 
   // Metodologías activas
   const metodologiasHTML = (() => {
@@ -610,17 +590,9 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     <tr>
       <td class="label">${isEFL ? "Level:" : "Nivel:"}</td>
       <td class="value">${plan.nivel || (plan.destreza.subnivel <= 4 ? "Educación General Básica" : "Bachillerato General Unificado")}</td>
-      <td class="label">${isEFL ? "Curricular Insertion:" : "Inserción Curricular:"}</td>
-      <td class="value">${(() => {
-        const ids = plan.insercionesCurriculares || (plan.insercionCurricular ? [plan.insercionCurricular] : []);
-        if (ids.length === 0) return areaInfo.name;
-        return ids.map((id: string) => {
-          const ins = INSERCIONES_CURRICULARES.find(i => i.id === id);
-          return ins ? (isEFL ? ins.nameEN : ins.nombreCorto) : "";
-        }).filter(Boolean).join(", ");
-      })()}</td>
       <td class="label">${isEFL ? "Start Date:" : "Fecha Inicio:"}</td>
       <td class="value">${plan.fechaInicio || "___/___/______"}</td>
+      <td class="label" colspan="2"></td>
     </tr>
     <tr>
       <td class="label">${isEFL ? "Sublevel:" : "Subnivel:"}</td>
@@ -777,12 +749,6 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       <div class="dua-texto">${plan.dua?.implicacion || (isEFL ? "Motivate students through meaningful activities and connection to their context." : "Motivar a los estudiantes mediante actividades significativas y conexión con su contexto.")}</div>
     </div>
   </div>
-
-  ${plan.usaCompetencias && competenciasHTML ? `
-  <!-- COMPETENCIAS -->
-  <div class="seccion-titulo">${isEFL ? "COMPETENCIES" : "COMPETENCIAS"}</div>
-  <div class="recursos-box">${competenciasHTML}</div>
-  ` : ""}
 
   ${metodologiasHTML ? `
   <!-- METODOLOGÍAS ACTIVAS -->

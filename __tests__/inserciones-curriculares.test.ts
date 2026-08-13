@@ -82,11 +82,10 @@ describe("Inserciones Curriculares - PDF Integration", () => {
     updatedAt: new Date().toISOString(),
   };
 
-  it("PDF should include inserciones curriculares section with selected insertion", () => {
+  it("PDF should NOT include inserciones curriculares section", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    // In the new format, insertions appear in the Inserción Curricular field row
-    expect(html).toContain("Inserción Curricular");
-    expect(html).toContain("Desarrollo Sostenible");
+    expect(html).not.toContain("Inserción Curricular");
+    expect(html).not.toContain("Desarrollo Sostenible");
   });
 
   it("PDF should show 'No especificadas' when no insertion is selected", () => {
@@ -95,7 +94,7 @@ describe("Inserciones Curriculares - PDF Integration", () => {
     expect(html).toContain("No especificadas");
   });
 
-  it("PDF for EFL should show English insertion name", () => {
+  it("PDF for EFL should NOT show English insertion name", () => {
     const planEFL: Planificacion = {
       ...mockPlan,
       asignatura: "Inglés",
@@ -103,7 +102,7 @@ describe("Inserciones Curriculares - PDF Integration", () => {
       insercionCurricular: "financiera",
     };
     const html = generarHTMLPlanificacion(planEFL);
-    expect(html).toContain("Curricular Insertion");
-    expect(html).toContain("Financial Education");
+    expect(html).not.toContain("Curricular Insertion");
+    expect(html).not.toContain("Financial Education");
   });
 });
