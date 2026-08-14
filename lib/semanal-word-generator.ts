@@ -173,7 +173,7 @@ function actividadPara(
     spacing: { before: 30, after: 30 },
     indent:  { left: 60 },
     children: [
-      new TextRun({ text: `${num}. ${clean}  `, size: 18, font: "Arial", color: "222222" }),
+      new TextRun({ text: `${num}. ${clean}  `, size: 20, font: "Arial", color: "222222" }),
       // ■ Representación
       new TextRun({ text: "■", size: 14, color: dua.representacion ? DUA_R : "F9C6DD", font: "Arial" }),
       new TextRun({ text: "■", size: 14, color: dua.accionExpresion ? DUA_A : "C5D4E0", font: "Arial" }),

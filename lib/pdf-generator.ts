@@ -1055,9 +1055,11 @@ export function generarHTMLSemanal(
         ${fases.map(({ key, label, color }) => {
           const fase = est[key];
           if (!fase?.actividades?.length) return "";
+          // Actividades ERCA a 12px (~9pt en papel, A4 impreso con 1px≈0.75pt).
+          // Coherente con el Word semanal (10pt) sin duplicar páginas. Rango aceptable: 11-13px.
           const actsHTML = (fase.actividades).map((act, idx) => {
             const dua = fase.duaActividades?.[idx] ?? { representacion: false, accionExpresion: false, implicacion: false };
-            return `<li style="font-size:9px;margin-bottom:2px;line-height:1.3;">${idx + 1}. ${cleanAct(act)}
+            return `<li style="font-size:12px;margin-bottom:2px;line-height:1.3;">${idx + 1}. ${cleanAct(act)}
               <span style="display:inline-block;width:7px;height:7px;background:${dua.representacion ? "#EC4899" : "#EC489938"};border-radius:1px;vertical-align:middle;margin-left:2px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
               <span style="display:inline-block;width:7px;height:7px;background:${dua.accionExpresion ? "#1E3A5F" : "#1E3A5F38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
               <span style="display:inline-block;width:7px;height:7px;background:${dua.implicacion ? "#22C55E" : "#22C55E38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
