@@ -819,34 +819,33 @@ function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[
       : `Código: ${esc(adap.codigoEstudiante)}`;
 
     // ── Celda derecha: contenido según grado ──
-    let derechaHTML = `<div style="font-size:7.5px;margin-bottom:4px;">
+    let derechaHTML = `<div style="font-size:9px;margin-bottom:4px;">
       <strong style="color:#003366;">${esc(adap.codigoDestreza)}</strong>
       ${adap.descripcionDestreza ? ` &mdash; <em style="color:#444;">${esc(adap.descripcionDestreza)}</em>` : ""}
     </div>`;
 
     if (adap.gradoAdaptacion >= 2) {
       if (adap.destrezaAdaptada) {
-        derechaHTML += `<div style="font-size:7.5px;background:#EDE9FE;padding:2px 5px;margin-bottom:3px;border-left:3px solid #7B2D8B;">
+        derechaHTML += `<div style="font-size:9px;background:#EDE9FE;padding:2px 5px;margin-bottom:3px;border-left:3px solid #7B2D8B;">
           <strong style="color:#4A1942;">Destreza adaptada:</strong> ${esc(adap.destrezaAdaptada)}
         </div>`;
       }
       if (adap.criterioAdaptado) {
-        derechaHTML += `<div style="font-size:7.5px;margin-bottom:3px;">
+        derechaHTML += `<div style="font-size:9px;margin-bottom:3px;">
           <strong style="color:#4A1942;">Criterio adaptado:</strong> ${esc(adap.criterioAdaptado)}
         </div>`;
       }
       if (adap.indicadoresAdaptados?.length) {
-        derechaHTML += `<div style="font-size:7.5px;margin-bottom:2px;"><strong style="color:#4A1942;">Indicadores:</strong></div>
+        derechaHTML += `<div style="font-size:9px;margin-bottom:2px;"><strong style="color:#4A1942;">Indicadores:</strong></div>
           <ul style="margin:0 0 4px 12px;padding:0;">
-          ${adap.indicadoresAdaptados.map(i => `<li style="font-size:7px;">${esc(i)}</li>`).join("")}
+          ${adap.indicadoresAdaptados.map(i => `<li style="font-size:9px;">${esc(i)}</li>`).join("")}
           </ul>`;
       }
     }
 
     if (adap.adaptacionesPorDia?.length) {
       // ── ADAPTACIONES POR DÍA — formato ERCA 3 columnas (igual al Word semanal) ──
-      derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#0F766E;margin:4px 0 2px;">ADAPTACIONES POR DÍA</div>`;
-      const DIA_BG_PDF = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
+      derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#000;margin:4px 0 2px;">ADAPTACIONES POR DÍA</div>`;
       const ERCA_PDF_CFG = [
         { key: "experiencia",       label: "EXPERIENCIA",       dark: "2980B9", light: "EBF5FB" },
         { key: "reflexion",         label: "REFLEXIÓN",         dark: "8E44AD", light: "F5EEF8" },
@@ -855,23 +854,21 @@ function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[
       ] as const;
 
       adap.adaptacionesPorDia.forEach((dp, di) => {
-        const bgD = DIA_BG_PDF[di % DIA_BG_PDF.length];
-
         // Columna izquierda: objetivo(s) + fases ERCA + leyenda DUA
         let left = "";
         if (dp.objetivo) {
-          left += `<div style="font-size:7px;margin-bottom:2px;"><strong style="color:${bgD};">Objetivo:</strong> <em style="color:#444;">${esc(dp.objetivo)}</em></div>`;
+          left += `<div style="font-size:9px;margin-bottom:2px;"><strong>Objetivo:</strong> <em style="color:#444;">${esc(dp.objetivo)}</em></div>`;
         }
         if ((dp as any).objetivoAdaptado) {
-          left += `<div style="font-size:7px;margin-bottom:3px;"><strong style="color:${bgD};">Obj. adaptado:</strong> <strong>${esc((dp as any).objetivoAdaptado)}</strong></div>`;
+          left += `<div style="font-size:9px;margin-bottom:3px;"><strong>Obj. adaptado:</strong> <strong>${esc((dp as any).objetivoAdaptado)}</strong></div>`;
         }
         for (const { key, label, dark, light } of ERCA_PDF_CFG) {
           const val = (dp.adaptacionERCA as any)?.[key];
           if (!val) continue;
-          left += `<div style="background:${dark};color:white;font-size:6.5px;font-weight:bold;padding:2px 5px;margin-top:3px;">${label}</div>
-            <div style="background:${light};font-size:6.5px;padding:2px 5px;margin-bottom:2px;color:#111;">${esc(val)}</div>`;
+          left += `<div style="background:${dark};color:white;font-size:9px;font-weight:bold;padding:2px 5px;margin-top:3px;">${label}</div>
+            <div style="background:${light};font-size:9px;padding:2px 5px;margin-bottom:2px;color:#111;">${esc(val)}</div>`;
         }
-        left += `<div style="font-size:6px;margin-top:3px;color:#666;">
+        left += `<div style="font-size:9px;margin-top:3px;color:#666;">
           <span style="color:#EC4899;">■</span> <span>Representación</span>&nbsp;&nbsp;
           <span style="color:#1E3A5F;">■</span> <span>Acción/Expresión</span>&nbsp;&nbsp;
           <span style="color:#22C55E;">■</span> <span>Implicación</span>
@@ -879,27 +876,27 @@ function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[
 
         // Columna central: recursos adaptados
         const middle = dp.recursosAdaptados?.length
-          ? dp.recursosAdaptados.map(r => `<div style="font-size:6.5px;margin-bottom:2px;">&bull; ${esc(r)}</div>`).join("")
-          : `<div style="font-size:6.5px;color:#888;">—</div>`;
+          ? dp.recursosAdaptados.map(r => `<div style="font-size:9px;margin-bottom:2px;">&bull; ${esc(r)}</div>`).join("")
+          : `<div style="font-size:9px;color:#888;">—</div>`;
 
         // Columna derecha: evaluación adaptada
-        const right = `<div style="font-size:6.5px;color:#111;">${esc(dp.evaluacionAdaptada || "—")}</div>`;
+        const right = `<div style="font-size:9px;color:#111;">${esc(dp.evaluacionAdaptada || "—")}</div>`;
 
         derechaHTML += `
           <table style="width:100%;border-collapse:collapse;margin-bottom:6px;">
             <tr>
-              <td colspan="3" style="background:${bgD};color:white;font-size:7px;font-weight:bold;padding:3px 6px;">${esc(dp.dia.toUpperCase())}</td>
+              <td colspan="3" style="font-size:9px;font-weight:bold;padding:3px 6px;border:1px solid #888;">${esc(dp.dia.toUpperCase())}</td>
             </tr>
             <tr>
-              <td colspan="3" style="background:#1A3A5C;color:white;font-size:6.5px;font-weight:bold;padding:2px 6px;">ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE</td>
+              <td colspan="3" style="background:#1A3A5C;color:white;font-size:9px;font-weight:bold;padding:2px 6px;">ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE</td>
             </tr>
             <tr>
-              <td colspan="3" style="background:#1A3A5C;color:#CCCCCC;font-size:6px;font-style:italic;padding:1px 6px;">Estrategias metodológicas diversificadas con base al DUA</td>
+              <td colspan="3" style="background:#1A3A5C;color:#CCCCCC;font-size:9px;font-style:italic;padding:1px 6px;">Estrategias metodológicas diversificadas con base al DUA</td>
             </tr>
             <tr>
-              <td style="background:#374151;color:white;font-size:6.5px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">ESTRATEGIAS ERCA ADAPTADAS</td>
-              <td style="background:#374151;color:white;font-size:6.5px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">RECURSOS ADAPTADOS</td>
-              <td style="background:#374151;color:white;font-size:6.5px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">EVALUACIÓN ADAPTADA</td>
+              <td style="background:#374151;color:white;font-size:9px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">ESTRATEGIAS ERCA ADAPTADAS</td>
+              <td style="background:#374151;color:white;font-size:9px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">RECURSOS ADAPTADOS</td>
+              <td style="background:#374151;color:white;font-size:9px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">EVALUACIÓN ADAPTADA</td>
             </tr>
             <tr>
               <td style="vertical-align:top;padding:4px 5px;border:1px solid #888;width:46%;">${left}</td>
@@ -910,56 +907,56 @@ function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[
       });
     } else {
       const renderBloque = (b: { categoria: string; descripcion: string; estrategias: string[] }) =>
-        `<div style="font-size:7px;margin-bottom:3px;">
+        `<div style="font-size:9px;margin-bottom:3px;">
           <strong>${esc(b.categoria)}:</strong> ${esc(b.descripcion)}
           <ul style="margin:1px 0 0 10px;padding:0;">
-            ${b.estrategias.map(e => `<li style="font-size:6.5px;margin-bottom:1px;">${esc(e)}</li>`).join("")}
+            ${b.estrategias.map(e => `<li style="font-size:9px;margin-bottom:1px;">${esc(e)}</li>`).join("")}
           </ul>
         </div>`;
 
       if (adap.adaptacionesAcceso?.length) {
-        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">ADAPTACIONES DE ACCESO</div>`;
+        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#003366;margin:4px 0 2px;">ADAPTACIONES DE ACCESO</div>`;
         derechaHTML += adap.adaptacionesAcceso.map(renderBloque).join("");
       }
       if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
-        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#8E44AD;margin:4px 0 2px;">ADAPTACIONES DE PROCESO</div>`;
+        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#8E44AD;margin:4px 0 2px;">ADAPTACIONES DE PROCESO</div>`;
         derechaHTML += adap.adaptacionesProceso.map(renderBloque).join("");
       }
       if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
-        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#E67E22;margin:4px 0 2px;">ADAPTACIONES DE RESULTADO</div>`;
+        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#E67E22;margin:4px 0 2px;">ADAPTACIONES DE RESULTADO</div>`;
         derechaHTML += adap.adaptacionesResultado.map(renderBloque).join("");
       }
       if (adap.metodologiasSugeridas?.length) {
-        derechaHTML += `<div style="font-size:7.5px;font-weight:bold;color:#003366;margin:4px 0 2px;">METODOLOGÍAS SUGERIDAS</div>
+        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#003366;margin:4px 0 2px;">METODOLOGÍAS SUGERIDAS</div>
           <ul style="margin:0 0 4px 12px;padding:0;">
-            ${adap.metodologiasSugeridas.map(m => `<li style="font-size:7px;">${esc(m)}</li>`).join("")}
+            ${adap.metodologiasSugeridas.map(m => `<li style="font-size:9px;">${esc(m)}</li>`).join("")}
           </ul>`;
       }
       if (adap.recursosEspecificos?.length) {
-        derechaHTML += `<div style="font-size:7px;margin-top:2px;"><strong>Recursos:</strong> ${adap.recursosEspecificos.map(esc).join(" &middot; ")}</div>`;
+        derechaHTML += `<div style="font-size:9px;margin-top:2px;"><strong>Recursos:</strong> ${adap.recursosEspecificos.map(esc).join(" &middot; ")}</div>`;
       }
     }
     if (adap.seguimiento) {
-      derechaHTML += `<div style="font-size:7px;margin-top:3px;"><strong>Seguimiento:</strong> ${esc(adap.seguimiento)}</div>`;
+      derechaHTML += `<div style="font-size:9px;margin-top:3px;"><strong>Seguimiento:</strong> ${esc(adap.seguimiento)}</div>`;
     }
     if (adap.observaciones) {
-      derechaHTML += `<div style="font-size:7px;margin-top:2px;color:#555;font-style:italic;">${esc(adap.observaciones)}</div>`;
+      derechaHTML += `<div style="font-size:9px;margin-top:2px;color:#555;font-style:italic;">${esc(adap.observaciones)}</div>`;
     }
 
     return `
       <tr style="page-break-inside:avoid;">
-        <th colspan="6" style="background:#7B2D8B;color:white;font-size:7.5px;text-align:left;padding:3px 6px;font-weight:bold;">
+        <th colspan="6" style="background:#7B2D8B;color:white;font-size:9px;text-align:left;padding:3px 6px;font-weight:bold;">
           ${codigoLabel} &nbsp;&middot;&nbsp; ${esc(tipoNombre)} &nbsp;&middot;&nbsp; ${esc(gradoInfo.nombre)}
         </th>
       </tr>
       <tr style="page-break-inside:avoid;">
         <td colspan="2" style="width:25%;background:#F9F5FF;vertical-align:top;padding:5px 6px;border:1px solid #888;">
-          <div style="font-size:7.5px;font-weight:bold;color:#4A1942;margin-bottom:4px;">IDENTIFICACIÓN</div>
-          <div style="font-size:7px;margin-bottom:2px;"><strong>Código:</strong> ${esc(adap.codigoEstudiante)}</div>
-          <div style="font-size:7px;margin-bottom:2px;"><strong>NEE:</strong> ${esc(tipoNombre)}</div>
-          <div style="font-size:7px;margin-bottom:2px;"><strong>Grado:</strong> ${esc(gradoInfo.nombre)}</div>
+          <div style="font-size:9px;font-weight:bold;color:#4A1942;margin-bottom:4px;">IDENTIFICACIÓN</div>
+          <div style="font-size:9px;margin-bottom:2px;"><strong>Código:</strong> ${esc(adap.codigoEstudiante)}</div>
+          <div style="font-size:9px;margin-bottom:2px;"><strong>NEE:</strong> ${esc(tipoNombre)}</div>
+          <div style="font-size:9px;margin-bottom:2px;"><strong>Grado:</strong> ${esc(gradoInfo.nombre)}</div>
           ${adap.descripcionNecesidad
-            ? `<div style="font-size:6.5px;color:#555;font-style:italic;margin-top:4px;">${esc(adap.descripcionNecesidad)}</div>`
+            ? `<div style="font-size:9px;color:#555;font-style:italic;margin-top:4px;">${esc(adap.descripcionNecesidad)}</div>`
             : ""}
         </td>
         <td colspan="4" style="vertical-align:top;padding:5px 6px;border:1px solid #888;">
@@ -976,8 +973,8 @@ function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[
       <table style="width:100%;border-collapse:collapse;margin-bottom:6px;">
         <thead>
           <tr>
-            <th colspan="2" style="background:#4A1942;color:white;font-size:7.5px;padding:3px 6px;text-align:center;border:1px solid #4A1942;">ESTUDIANTE</th>
-            <th colspan="4" style="background:#4A1942;color:white;font-size:7.5px;padding:3px 6px;text-align:center;border:1px solid #4A1942;">ADAPTACIONES PEDAGÓGICAS</th>
+            <th colspan="2" style="background:#4A1942;color:white;font-size:9px;padding:3px 6px;text-align:center;border:1px solid #4A1942;">ESTUDIANTE</th>
+            <th colspan="4" style="background:#4A1942;color:white;font-size:9px;padding:3px 6px;text-align:center;border:1px solid #4A1942;">ADAPTACIONES PEDAGÓGICAS</th>
           </tr>
         </thead>
         <tbody>
@@ -1028,16 +1025,16 @@ export function generarHTMLSemanal(
 
       // ── Columna 2: DCD ──
       const dcdHTML = `
-        <strong style="color:#003366;font-size:8px;">${hora.codigoDestreza}</strong><br/>
-        <span style="font-size:7.5px;">${hora.destreza?.descripcion || ""}</span>
+        <strong style="color:#003366;font-size:9px;">${hora.codigoDestreza}</strong><br/>
+        <span style="font-size:9px;">${hora.destreza?.descripcion || ""}</span>
         ${iconosDestrezaHTML(hora.codigoDestreza)}
-        ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:7px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${plan.objetivoClase}</div>` : ""}`;
+        ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:9px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${plan.objetivoClase}</div>` : ""}`;
 
       // ── Columna 3: Indicadores de evaluación ──
       const indicadores = hora.destreza?.indicadoresEvaluacion || [];
       const indHTML = indicadores.length
-        ? `<ul style="padding-left:10px;margin:0;">${indicadores.map(i => `<li style="font-size:7.5px;margin-bottom:2px;">${i}</li>`).join("")}</ul>`
-        : `<span style="font-size:7.5px;color:#888;">—</span>`;
+        ? `<ul style="padding-left:10px;margin:0;">${indicadores.map(i => `<li style="font-size:9px;margin-bottom:2px;">${i}</li>`).join("")}</ul>`
+        : `<span style="font-size:9px;color:#888;">—</span>`;
 
       // ── Columna 4: Estrategias ERCA + DUA ──
       const fases = [
@@ -1048,7 +1045,7 @@ export function generarHTMLSemanal(
       ];
 
       const estrategiasHTML = `
-        <div style="font-size:6.5px;margin-bottom:3px;">
+        <div style="font-size:9px;margin-bottom:3px;">
           <span style="display:inline-block;width:8px;height:8px;background:#EC4899;border-radius:1px;vertical-align:middle;"></span> Representación&nbsp;&nbsp;
           <span style="display:inline-block;width:8px;height:8px;background:#1E3A5F;border-radius:1px;vertical-align:middle;"></span> Acción/Expresión&nbsp;&nbsp;
           <span style="display:inline-block;width:8px;height:8px;background:#22C55E;border-radius:1px;vertical-align:middle;"></span> Implicación
@@ -1058,28 +1055,28 @@ export function generarHTMLSemanal(
           if (!fase?.actividades?.length) return "";
           const actsHTML = (fase.actividades).map((act, idx) => {
             const dua = fase.duaActividades?.[idx] ?? { representacion: false, accionExpresion: false, implicacion: false };
-            return `<li style="font-size:7px;margin-bottom:2px;line-height:1.3;">${idx + 1}. ${cleanAct(act)}
+            return `<li style="font-size:9px;margin-bottom:2px;line-height:1.3;">${idx + 1}. ${cleanAct(act)}
               <span style="display:inline-block;width:7px;height:7px;background:${dua.representacion ? "#EC4899" : "#EC489938"};border-radius:1px;vertical-align:middle;margin-left:2px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
               <span style="display:inline-block;width:7px;height:7px;background:${dua.accionExpresion ? "#1E3A5F" : "#1E3A5F38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
               <span style="display:inline-block;width:7px;height:7px;background:${dua.implicacion ? "#22C55E" : "#22C55E38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>
             </li>`;
           }).join("");
           return `<div style="margin-bottom:4px;">
-            <div style="background:${color};color:white;font-size:7px;font-weight:bold;padding:1px 4px;border-radius:2px;margin-bottom:2px;">${label}${fase.duracion ? ` (${fase.duracion})` : ""}</div>
+            <div style="background:${color};color:white;font-size:9px;font-weight:bold;padding:1px 4px;border-radius:2px;margin-bottom:2px;">${label}${fase.duracion ? ` (${fase.duracion})` : ""}</div>
             <ul style="list-style:none;padding:0;margin:0;">${actsHTML}</ul>
           </div>`;
         }).join("")}`;
 
       // ── Columna 5: Recursos ──
       const recursosHTML = plan.recursos?.length
-        ? plan.recursos.map(r => `<div style="font-size:7.5px;margin-bottom:2px;">• ${r}</div>`).join("")
-        : `<span style="font-size:7.5px;color:#888;">—</span>`;
+        ? plan.recursos.map(r => `<div style="font-size:9px;margin-bottom:2px;">• ${r}</div>`).join("")
+        : `<span style="font-size:9px;color:#888;">—</span>`;
 
       // ── Columna 6: Actividades Evaluativas ──
       const evalHTML = `
-        ${plan.evaluacionFormativa ? `<div style="font-size:7.5px;margin-bottom:4px;">${plan.evaluacionFormativa}</div>` : ""}
-        ${hora.tecnicasEvaluacion?.length ? `<div style="font-size:7px;color:#555;margin-top:2px;"><strong>Técnicas:</strong> ${hora.tecnicasEvaluacion.join(", ")}</div>` : ""}
-        ${hora.destreza?.criteriosEvaluacion?.length ? `<div style="font-size:7px;color:#555;margin-top:3px;"><strong>Criterios:</strong><ul style="padding-left:10px;margin:2px 0;">${hora.destreza.criteriosEvaluacion.map(c => `<li style="font-size:7px;">${c}</li>`).join("")}</ul></div>` : ""}`;
+        ${plan.evaluacionFormativa ? `<div style="font-size:9px;margin-bottom:4px;">${plan.evaluacionFormativa}</div>` : ""}
+        ${hora.tecnicasEvaluacion?.length ? `<div style="font-size:9px;color:#555;margin-top:2px;"><strong>Técnicas:</strong> ${hora.tecnicasEvaluacion.join(", ")}</div>` : ""}
+        ${hora.destreza?.criteriosEvaluacion?.length ? `<div style="font-size:9px;color:#555;margin-top:3px;"><strong>Criterios:</strong><ul style="padding-left:10px;margin:2px 0;">${hora.destreza.criteriosEvaluacion.map(c => `<li style="font-size:9px;">${c}</li>`).join("")}</ul></div>` : ""}`;
 
       // rowspan en la celda de día solo para la primera hora
       const diaCell = horaIdx === 0
@@ -1110,32 +1107,32 @@ export function generarHTMLSemanal(
 
     .header-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:5px; }
     .sello { font-size:9px; font-weight:bold; color:#003366; border:1px solid #003366; padding:3px 7px; text-transform:uppercase; }
-    .inst-nombre { text-align:center; font-size:11px; font-weight:bold; color:#003366; text-transform:uppercase; }
-    .anio { font-size:10px; font-weight:bold; color:#003366; }
+    .inst-nombre { text-align:center; font-size:9px; font-weight:bold; color:#003366; text-transform:uppercase; }
+    .anio { font-size:9px; font-weight:bold; color:#003366; }
 
-    .titulo-doc { background:#D4A5C7; color:#1a1a1a; text-align:center; padding:4px 10px; font-size:9.5px; font-weight:bold; text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; border:1px solid #999; }
+    .titulo-doc { background:#D4A5C7; color:#1a1a1a; text-align:center; padding:4px 10px; font-size:9px; font-weight:bold; text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; border:1px solid #999; }
 
     table.datos { width:100%; border-collapse:collapse; margin-bottom:5px; }
-    table.datos td { border:1px solid #888; padding:2px 5px; font-size:8px; vertical-align:middle; }
+    table.datos td { border:1px solid #888; padding:2px 5px; font-size:9px; vertical-align:middle; }
     .lbl { background:#F5E6F0; font-weight:bold; color:#1a3c5e; }
 
     table.principal { width:100%; border-collapse:collapse; margin-bottom:6px; table-layout:fixed; }
-    table.principal th { background:#D4A5C7; color:#1a1a1a; font-size:8px; font-weight:bold; text-align:center; padding:4px 3px; border:1px solid #888; text-transform:uppercase; vertical-align:middle; line-height:1.2; }
-    table.principal td { border:1px solid #888; vertical-align:top; font-size:8px; }
+    table.principal th { background:#D4A5C7; color:#1a1a1a; font-size:9px; font-weight:bold; text-align:center; padding:4px 3px; border:1px solid #888; text-transform:uppercase; vertical-align:middle; line-height:1.2; }
+    table.principal td { border:1px solid #888; vertical-align:top; font-size:9px; }
 
-    .estilos-row { display:flex; gap:16px; margin-bottom:5px; padding:4px 8px; border:1px solid #ccc; border-radius:3px; font-size:7.5px; background:#fafafa; }
-    .estilo-item { font-size:7.5px; }
+    .estilos-row { display:flex; gap:16px; margin-bottom:5px; padding:4px 8px; border:1px solid #ccc; border-radius:3px; font-size:9px; background:#fafafa; }
+    .estilo-item { font-size:9px; }
     .estilo-item strong { display:inline-block; min-width:110px; }
 
     .footer { margin-top:10px; border-top:2px solid #003366; padding-top:4px; display:flex; justify-content:space-between; align-items:center; }
-    .footer-txt { font-size:6.5px; color:#777; }
-    .footer-logo { font-size:7px; color:#003366; font-weight:bold; text-align:right; }
-    .app-badge { display:inline-block; background:#003366; color:white; font-size:6px; padding:1px 4px; border-radius:2px; margin-top:1px; }
+    .footer-txt { font-size:9px; color:#777; }
+    .footer-logo { font-size:9px; color:#003366; font-weight:bold; text-align:right; }
+    .app-badge { display:inline-block; background:#003366; color:white; font-size:9px; padding:1px 4px; border-radius:2px; margin-top:1px; }
 
     .firmas { display:flex; justify-content:space-between; margin-top:14px; }
     .firma-box { text-align:center; width:42%; }
-    .firma-linea { border-top:1px solid #333; padding-top:3px; font-size:7.5px; font-weight:bold; }
-    .firma-cargo { font-size:7px; color:#666; margin-top:2px; }
+    .firma-linea { border-top:1px solid #333; padding-top:3px; font-size:9px; font-weight:bold; }
+    .firma-cargo { font-size:9px; color:#666; margin-top:2px; }
   </style>
 </head>
 <body>
