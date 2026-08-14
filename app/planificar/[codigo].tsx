@@ -308,7 +308,7 @@ export default function PlanificarScreen() {
   };
 
   // ===== Guardar =====
-  const handleSave = async () => {
+  const handleSave = async (irAAdaptacion = false) => {
     if (!docente.trim()) {
       if (Platform.OS === "web") {
         alert(isEFL ? "Please enter teacher name" : "Por favor ingresa el nombre del docente");
@@ -377,7 +377,11 @@ export default function PlanificarScreen() {
     };
 
     await addPlanificacion(plan);
-    router.replace(`/ver-plan/${plan.id}` as any);
+    if (irAAdaptacion) {
+      router.replace({ pathname: "/adaptacion-curricular", params: { planId: plan.id } });
+    } else {
+      router.replace(`/ver-plan/${plan.id}` as any);
+    }
   };
 
   // ==========================================
@@ -1008,11 +1012,25 @@ export default function PlanificarScreen() {
           {/* Guardar */}
           <View className="px-5 mt-6 mb-10">
             <Pressable
-              onPress={handleSave}
+              onPress={() => handleSave()}
               style={({ pressed }) => [styles.saveBtn, { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] }]}
             >
               <Text style={{ fontSize: 20 }}>{"💾"}</Text>
               <Text style={styles.saveBtnText}>{isEFL ? "Save Lesson Plan" : "Guardar Planificación"}</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => handleSave(true)}
+              style={({ pressed }) => [styles.saveBtn, {
+                backgroundColor: "#4A1942",
+                opacity: pressed ? 0.85 : 1,
+                transform: [{ scale: pressed ? 0.98 : 1 }],
+                marginTop: 10,
+              }]}
+            >
+              <Text style={{ fontSize: 20 }}>{"♿"}</Text>
+              <Text style={styles.saveBtnText}>
+                {isEFL ? "Save & Create Adaptation" : "Guardar y crear Adaptación Curricular"}
+              </Text>
             </Pressable>
           </View>
         </ScrollView>

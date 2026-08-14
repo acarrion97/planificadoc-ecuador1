@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { generarHTMLPlanificacion } from "../lib/pdf-generator";
-import { Planificacion, Destreza, TemaSugerido } from "../data/types";
+import { Planificacion, Destreza, TemaSugerido, AdaptacionCurricular } from "../data/types";
 
 const mockDestreza: Destreza = {
   codigo: "M.3.1.1",
@@ -202,5 +202,80 @@ describe("generarHTMLPlanificacion", () => {
     expect(html).toContain("INDICADORES DE EVALUACIÓN");
     expect(html).toContain("ESTRATEGIAS METODOLÓGICAS");
     expect(html).toContain("EVALUACIÓN");
+  });
+
+  it("debe omitir la sección de adaptaciones cuando no hay adaptaciones", () => {
+    const html = generarHTMLPlanificacion(mockPlan);
+    expect(html).not.toContain("ADAPTACIONES CURRICULARES");
+  });
+
+  it("debe incluir la sección de adaptaciones curriculares de la planificación diaria", () => {
+    const adaptacion: AdaptacionCurricular = {
+      id: "adap-1",
+      codigoEstudiante: "E-05",
+      incluirEnExportacion: true,
+      codigoDestreza: "M.3.1.1",
+      descripcionDestreza: "Generar sucesiones con sumas y restas.",
+      gradoAdaptacion: 2,
+      categoriaNecesidad: "Dislexia",
+      tipoNecesidad: "dislexia",
+      destrezaAdaptada: "Generar sucesiones simples con sumas.",
+      criterioAdaptado: "Reconoce sucesiones básicas.",
+      indicadoresAdaptados: ["Identifica el patrón de la sucesión."],
+      adaptacionesAcceso: [
+        { categoria: "Acceso visual", descripcion: "Materiales con mayor contraste.", estrategias: ["Tarjetas grandes"] },
+      ],
+      adaptacionesPorDia: [
+        {
+          dia: "Clase",
+          objetivo: "Representar y comparar fracciones.",
+          objetivoAdaptado: "Representar fracciones con apoyo gráfico.",
+          adaptacionAcceso: "Apoyo visual y tiempos ampliados.",
+          adaptacionERCA: {
+            experiencia: "Usar pictogramas de los platos típicos.",
+            reflexion: "Responder con tarjetas de opciones.",
+            conceptualizacion: "Definir fracción con bloques.",
+            aplicacion: "Resolver con material concreto.",
+          },
+          recursosAdaptados: ["Pictogramas", "Bloques lógicos"],
+          evaluacionAdaptada: "Lista de cotejo con dibujos.",
+          adaptacionMetodologica: "Trabajo en pares con apoyo gráfico.",
+        },
+      ],
+      seguimiento: "Revisar avance cada semana.",
+      createdAt: "2026-04-03T12:00:00.000Z",
+    };
+
+    const planConAdaptacion: Planificacion = {
+      ...mockPlan,
+      adaptacionesCurriculares: [adaptacion],
+    };
+    const html = generarHTMLPlanificacion(planConAdaptacion);
+    expect(html).toContain("ADAPTACIONES CURRICULARES");
+    expect(html).toContain("E-05");
+    expect(html).toContain("Dislexia");
+    expect(html).toContain("ADAPTACIONES POR DÍA");
+    expect(html).toContain("Pictogramas");
+  });
+
+  it("debe omitir adaptaciones con incluirEnExportacion false", () => {
+    const adaptacion: AdaptacionCurricular = {
+      id: "adap-2",
+      codigoEstudiante: "E-06",
+      incluirEnExportacion: false,
+      codigoDestreza: "M.3.1.1",
+      gradoAdaptacion: 1,
+      categoriaNecesidad: "TDAH",
+      tipoNecesidad: "tdah",
+      adaptacionesAcceso: [],
+      createdAt: "2026-04-03T12:00:00.000Z",
+    };
+    const planConAdaptacion: Planificacion = {
+      ...mockPlan,
+      adaptacionesCurriculares: [adaptacion],
+    };
+    const html = generarHTMLPlanificacion(planConAdaptacion);
+    expect(html).not.toContain("ADAPTACIONES CURRICULARES");
+    expect(html).not.toContain("E-06");
   });
 });

@@ -186,6 +186,8 @@ export interface Planificacion {
     accionExpresion: string;
     implicacion: string;
   };
+  /** Adaptaciones curriculares vinculadas a esta planificación diaria */
+  adaptacionesCurriculares?: AdaptacionCurricular[];
   createdAt: string;
   updatedAt: string;
 }

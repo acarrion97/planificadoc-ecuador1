@@ -7,7 +7,8 @@ import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO, obtenerNombreBloque, SUBNIVEL_NAMES, INSERCIONES_CURRICULARES, COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "@/data";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
 import { useExportPdf } from "@/hooks/use-export-pdf";
-import type { FaseClase, DUAActividad } from "@/data/types";
+import type { FaseClase, DUAActividad, AdaptacionCurricular, AdaptacionPedagogicaSugerida } from "@/data/types";
+import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "@/data/types";
 
 export default function VerPlanScreen() {
   const colors = useColors();
@@ -458,6 +459,55 @@ export default function VerPlanScreen() {
           </SectionCard>
         ) : null}
 
+        {/* Adaptaciones curriculares */}
+        <View className="px-5 mt-4">
+          <View
+            style={[stylesAdap.adaptHeader, { backgroundColor: "#4A1942" }]}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <View style={{ flex: 1, marginRight: 8 }}>
+                <Text style={stylesAdap.adaptHeaderTitle}>{"\u267F"} ADAPTACIONES CURRICULARES</Text>
+                <Text style={stylesAdap.adaptHeaderSub}>
+                  {(plan.adaptacionesCurriculares?.length || 0) > 0
+                    ? `${plan.adaptacionesCurriculares!.length} estudiante${plan.adaptacionesCurriculares!.length !== 1 ? "s" : ""} con NEE`
+                    : "Sin adaptaciones registradas"}
+                </Text>
+              </View>
+              <Pressable
+                onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { planId: plan.id } })}
+                style={({ pressed }) => ({
+                  backgroundColor: pressed ? "#7B2D8B" : "#9D3FB5",
+                  paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8,
+                })}
+              >
+                <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>+ Agregar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+
+        {(plan.adaptacionesCurriculares?.length || 0) === 0 ? (
+          <View style={{ padding: 24, alignItems: "center" }}>
+            <Text style={{ fontSize: 36, marginBottom: 8 }}>{"\u267F"}</Text>
+            <Text style={{ fontSize: 15, fontWeight: "700", color: "#4A1942", marginBottom: 6 }}>
+              Sin adaptaciones curriculares
+            </Text>
+            <Text style={{ fontSize: 13, color: colors.muted, textAlign: "center", marginBottom: 14 }}>
+              Agrega una adaptación para estudiantes con necesidades educativas especiales (NEE).
+            </Text>
+            <Pressable
+              onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { planId: plan.id } })}
+              style={{ backgroundColor: "#7B2D8B", paddingHorizontal: 20, paddingVertical: 12, borderRadius: 10 }}
+            >
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>{"\u267F"} Crear adaptación curricular</Text>
+            </Pressable>
+          </View>
+        ) : (
+          (plan.adaptacionesCurriculares || []).map((adap, idx) => (
+            <AdaptacionCardDiaria key={adap.id || idx} adap={adap} colors={colors} />
+          ))
+        )}
+
         <View style={{ height: 40 }} />
       </ScrollView>
     </ScreenContainer>
@@ -587,6 +637,214 @@ function DataRow({
     </View>
   );
 }
+
+// ==========================================
+// COMPONENTE: Tarjeta de adaptación curricular diaria
+// ==========================================
+function AdaptacionCardDiaria({
+  adap,
+  colors,
+}: {
+  adap: AdaptacionCurricular;
+  colors: any;
+}) {
+  const neeInfo = TIPOS_NEE_INFO[adap.tipoNecesidad];
+  const gradoInfo = GRADO_ADAPTACION_INFO[adap.gradoAdaptacion];
+
+  return (
+    <View style={[stylesAdap.card, { borderColor: "#7B2D8B33", backgroundColor: colors.surface }]}>
+      {/* Cabecera estudiante */}
+      <View style={[stylesAdap.cardHead, { backgroundColor: "#4A1942" }]}>
+        <Text style={stylesAdap.cardCode}>
+          {neeInfo?.emoji ?? "\u267F"} {adap.codigoEstudiante}
+          {adap.nombreEstudiante ? ` · ${adap.nombreEstudiante}` : ""}
+        </Text>
+        <View style={[stylesAdap.gradoBadge, { backgroundColor: gradoInfo?.color ?? "#7B2D8B" }]}>
+          <Text style={stylesAdap.gradoBadgeText}>Grado {adap.gradoAdaptacion}</Text>
+        </View>
+      </View>
+
+      {/* NEE + categoría */}
+      <View style={[stylesAdap.row, { borderBottomColor: colors.border }]}>
+        <InfoChipDiaria label="Tipo NEE" value={neeInfo?.nombre ?? adap.tipoNecesidad} />
+        <InfoChipDiaria label="Categoría" value={adap.categoriaNecesidad} />
+      </View>
+
+      {/* Descripción pedagógica */}
+      {adap.descripcionNecesidad ? (
+        <View style={[stylesAdap.section, { borderBottomColor: colors.border }]}>
+          <Text style={[stylesAdap.sectionLabel, { color: "#7B2D8B" }]}>{"\uD83D\uDCCB"} Necesidad pedagógica</Text>
+          <Text style={[stylesAdap.sectionText, { color: colors.foreground }]}>{adap.descripcionNecesidad}</Text>
+        </View>
+      ) : null}
+
+      {/* Destreza */}
+      {adap.codigoDestreza ? (
+        <View style={[stylesAdap.section, { borderBottomColor: colors.border }]}>
+          <Text style={[stylesAdap.sectionLabel, { color: "#003366" }]}>{"\uD83C\uDFAF"} Destreza</Text>
+          <Text style={[stylesAdap.sectionCode, { color: "#003366" }]}>{adap.codigoDestreza}</Text>
+          {adap.descripcionDestreza ? <Text style={[stylesAdap.sectionText, { color: colors.foreground }]}>{adap.descripcionDestreza}</Text> : null}
+          {adap.destrezaAdaptada ? (
+            <View style={stylesAdap.adaptedBox}>
+              <Text style={stylesAdap.adaptedLabel}>Destreza adaptada:</Text>
+              <Text style={[stylesAdap.sectionText, { color: colors.foreground }]}>{adap.destrezaAdaptada}</Text>
+            </View>
+          ) : null}
+        </View>
+      ) : null}
+
+      {/* Adaptaciones por día (clase) */}
+      {adap.adaptacionesPorDia?.length ? (
+        adap.adaptacionesPorDia.map((dp, i) => (
+          <View key={i} style={[stylesAdap.section, { borderBottomColor: colors.border }]}>
+            <Text style={[stylesAdap.sectionLabel, { color: "#7B2D8B" }]}>{"\uD83D\uDCC6"} Adaptación de la clase ({dp.dia})</Text>
+            {dp.objetivo ? <Text style={[stylesAdap.sectionText, { color: colors.muted }]}>Objetivo: {dp.objetivo}</Text> : null}
+            {dp.objetivoAdaptado ? <Text style={[stylesAdap.sectionText, { color: colors.foreground, marginTop: 2 }]}>Objetivo adaptado: <Text style={{ fontWeight: "700" }}>{dp.objetivoAdaptado}</Text></Text> : null}
+            {dp.adaptacionAcceso ? (
+              <Text style={[stylesAdap.sectionText, { color: colors.foreground, marginTop: 4 }]}>
+                <Text style={[stylesAdap.sectionLabel, { color: "#1A56DB" }]}>{"\uD83D\uDD13"} Acceso: </Text>
+                {dp.adaptacionAcceso}
+              </Text>
+            ) : null}
+            {(["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const).map((key) => {
+              const val = (dp.adaptacionERCA as any)?.[key];
+              if (!val) return null;
+              const label = key === "experiencia" ? "EXPERIENCIA" : key === "reflexion" ? "REFLEXIÓN" : key === "conceptualizacion" ? "CONCEPTUALIZACIÓN" : "APLICACIÓN";
+              return (
+                <View key={key} style={{ marginTop: 6 }}>
+                  <Text style={{ fontSize: 10, fontWeight: "700", color: "#7B2D8B", marginBottom: 2 }}>{label}</Text>
+                  <Text style={[stylesAdap.sectionText, { color: colors.foreground }]}>{val}</Text>
+                </View>
+              );
+            })}
+            {dp.recursosAdaptados?.length ? (
+              <View style={{ marginTop: 6 }}>
+                <Text style={[stylesAdap.sectionLabel, { color: "#7B2D8B" }]}>{"\uD83D\uDCE6"} Recursos adaptados</Text>
+                {dp.recursosAdaptados.map((r, j) => (
+                  <Text key={j} style={[stylesAdap.bullet, { color: colors.foreground }]}>• {r}</Text>
+                ))}
+              </View>
+            ) : null}
+            {dp.evaluacionAdaptada ? (
+              <Text style={[stylesAdap.sectionText, { color: colors.foreground, marginTop: 6 }]}>
+                <Text style={[stylesAdap.sectionLabel, { color: "#059669" }]}>{"\uD83D\uDCCA"} Evaluación: </Text>
+                {dp.evaluacionAdaptada}
+              </Text>
+            ) : null}
+          </View>
+        ))
+      ) : null}
+
+      {/* Adaptaciones de acceso */}
+      {adap.adaptacionesAcceso?.length > 0 && (
+        <AdapListDiaria label="\uD83D\uDD13 Adaptaciones de Acceso" items={adap.adaptacionesAcceso} color="#1A56DB" colors={colors} />
+      )}
+
+      {/* Adaptaciones de proceso — grado 2 y 3 */}
+      {adap.adaptacionesProceso && adap.adaptacionesProceso.length > 0 && (
+        <AdapListDiaria label="\u2699\uFE0F Adaptaciones de Proceso" items={adap.adaptacionesProceso} color="#D97706" colors={colors} />
+      )}
+
+      {/* Adaptaciones de resultado — grado 3 */}
+      {adap.adaptacionesResultado && adap.adaptacionesResultado.length > 0 && (
+        <AdapListDiaria label="\uD83D\uDCCA Adaptaciones de Resultado" items={adap.adaptacionesResultado} color="#059669" colors={colors} />
+      )}
+
+      {/* Recursos específicos */}
+      {adap.recursosEspecificos && adap.recursosEspecificos.length > 0 && (
+        <View style={[stylesAdap.section, { borderBottomColor: colors.border }]}>
+          <Text style={[stylesAdap.sectionLabel, { color: "#7B2D8B" }]}>{"\uD83D\uDCE6"} Recursos específicos</Text>
+          {adap.recursosEspecificos.map((r, i) => (
+            <Text key={i} style={[stylesAdap.bullet, { color: colors.foreground }]}>• {r}</Text>
+          ))}
+        </View>
+      )}
+
+      {/* Metodologías sugeridas */}
+      {adap.metodologiasSugeridas && adap.metodologiasSugeridas.length > 0 && (
+        <View style={[stylesAdap.section, { borderBottomColor: colors.border }]}>
+          <Text style={[stylesAdap.sectionLabel, { color: "#7B2D8B" }]}>{"\uD83E\uDDE0"} Metodologías sugeridas</Text>
+          {adap.metodologiasSugeridas.map((m, i) => (
+            <Text key={i} style={[stylesAdap.bullet, { color: colors.foreground }]}>• {m}</Text>
+          ))}
+        </View>
+      )}
+
+      {/* Seguimiento / observaciones */}
+      {(adap.seguimiento || adap.observaciones) ? (
+        <View style={stylesAdap.section}>
+          {adap.seguimiento ? (
+            <>
+              <Text style={[stylesAdap.sectionLabel, { color: "#7B2D8B" }]}>{"\uD83D\uDD0D"} Seguimiento</Text>
+              <Text style={[stylesAdap.sectionText, { color: colors.foreground }]}>{adap.seguimiento}</Text>
+            </>
+          ) : null}
+          {adap.observaciones ? (
+            <>
+              <Text style={[stylesAdap.sectionLabel, { color: "#7B2D8B", marginTop: 6 }]}>{"\uD83D\uDCAC"} Observaciones</Text>
+              <Text style={[stylesAdap.sectionText, { color: colors.foreground }]}>{adap.observaciones}</Text>
+            </>
+          ) : null}
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+function InfoChipDiaria({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={stylesAdap.chip}>
+      <Text style={stylesAdap.chipLabel}>{label}</Text>
+      <Text style={stylesAdap.chipValue}>{value}</Text>
+    </View>
+  );
+}
+
+function AdapListDiaria({ label, items, color, colors }: {
+  label: string;
+  items: AdaptacionPedagogicaSugerida[];
+  color: string;
+  colors: any;
+}) {
+  return (
+    <View style={[stylesAdap.section, { borderBottomColor: colors.border, borderLeftWidth: 3, borderLeftColor: color, paddingLeft: 10 }]}>
+      <Text style={[stylesAdap.sectionLabel, { color }]}>{label}</Text>
+      {items.map((item, i) => (
+        <View key={i} style={stylesAdap.adapItem}>
+          <Text style={[stylesAdap.adapItemType, { color }]}>{item.categoria}</Text>
+          <Text style={[stylesAdap.sectionText, { color: colors.foreground }]}>{item.descripcion}</Text>
+          {item.estrategias?.map((e, j) => (
+            <Text key={j} style={[stylesAdap.bullet, { color: colors.muted }]}>↳ {e}</Text>
+          ))}
+        </View>
+      ))}
+    </View>
+  );
+}
+
+const stylesAdap = StyleSheet.create({
+  adaptHeader: { padding: 14, borderRadius: 12, marginBottom: 8 },
+  adaptHeaderTitle: { color: "#fff", fontSize: 14, fontWeight: "700" },
+  adaptHeaderSub: { color: "#E9D5FF", fontSize: 12, marginTop: 2 },
+  card: { marginHorizontal: 16, marginBottom: 12, borderRadius: 12, borderWidth: 1, overflow: "hidden" },
+  cardHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: 12 },
+  cardCode: { color: "#fff", fontSize: 14, fontWeight: "700", flex: 1 },
+  gradoBadge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8 },
+  gradoBadgeText: { color: "#fff", fontSize: 11, fontWeight: "700" },
+  row: { flexDirection: "row", gap: 8, padding: 10, borderBottomWidth: 1, flexWrap: "wrap" },
+  chip: { backgroundColor: "#F9F5FF", paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, minWidth: 100 },
+  chipLabel: { fontSize: 10, fontWeight: "700", color: "#7B2D8B", marginBottom: 1 },
+  chipValue: { fontSize: 12, color: "#4A1942" },
+  section: { padding: 12, borderBottomWidth: 1 },
+  sectionLabel: { fontSize: 11, fontWeight: "700", marginBottom: 4 },
+  sectionCode: { fontSize: 12, fontWeight: "600", marginBottom: 2 },
+  sectionText: { fontSize: 12, lineHeight: 17 },
+  adaptedBox: { marginTop: 6, paddingTop: 6, borderTopWidth: 1, borderTopColor: "#7B2D8B22" },
+  adaptedLabel: { fontSize: 10, fontWeight: "700", color: "#7B2D8B", marginBottom: 2 },
+  bullet: { fontSize: 12, lineHeight: 18, marginLeft: 4 },
+  adapItem: { marginTop: 4 },
+  adapItemType: { fontSize: 10, fontWeight: "700", marginBottom: 1 },
+});
 
 const styles = StyleSheet.create({
   scrollContent: {

@@ -762,6 +762,8 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     ${plan.observaciones || (isEFL ? "No additional observations." : "Sin observaciones adicionales.")}
   </div>
 
+  ${generarHTMLAdaptacionesCurriculares(plan.adaptacionesCurriculares ?? [])}
+
   <!-- FIRMAS -->
   <div class="firmas">
     <div class="firma-box">
@@ -807,7 +809,7 @@ function esc(s: string): string {
  * al final de la Planificación Semanal.
  * Devuelve string vacío si no hay adaptaciones activas (documento idéntico al original).
  */
-function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[]): string {
+export function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular[]): string {
   const activas = adaptaciones.filter(a => a.incluirEnExportacion !== false);
   if (activas.length === 0) return "";
 
