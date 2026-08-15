@@ -4,7 +4,7 @@ import { getDb } from "../_lib/db";
 import { codeActivations } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 
-const MAX_DEVICES_PER_CODE = 2;
+const MAX_DEVICES_PER_CODE = 3;
 
 // Códigos master: acceso ilimitado, sin registro de dispositivos.
 // Se definen en la variable de entorno MASTER_CODES (separados por coma).
