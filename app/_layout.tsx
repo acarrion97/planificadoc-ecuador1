@@ -21,6 +21,7 @@ import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-run
 import { PlanificacionesProvider } from "@/lib/planificaciones-context";
 import { PlanificacionesBTProvider } from "@/lib/planificaciones-bt-context";
 import { PlanificacionesCNCProvider } from "@/lib/planificaciones-cnc-context";
+import { EvaluacionesProvider } from "@/lib/evaluaciones-context";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { AccessProvider, useAccess } from "@/lib/access-control";
 import { AnimatedLogoSplash } from "@/components/animated-logo-splash";
@@ -67,6 +68,7 @@ function AppContent() {
     <PlanificacionesProvider>
       <PlanificacionesBTProvider>
         <PlanificacionesCNCProvider>
+          <EvaluacionesProvider>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="paywall" />
@@ -79,8 +81,11 @@ function AppContent() {
             <Stack.Screen name="bachillerato-tecnico" options={{ presentation: "card" }} />
             <Stack.Screen name="planificar-bt/[figuraId]" options={{ presentation: "card" }} />
             <Stack.Screen name="conecta-nivela-crea/index" options={{ presentation: "card" }} />
+            <Stack.Screen name="evaluacion-diagnostica/index" options={{ presentation: "card" }} />
+            <Stack.Screen name="ver-evaluacion/[id]" options={{ presentation: "card" }} />
             <Stack.Screen name="oauth/callback" />
           </Stack>
+          </EvaluacionesProvider>
         </PlanificacionesCNCProvider>
       </PlanificacionesBTProvider>
     </PlanificacionesProvider>

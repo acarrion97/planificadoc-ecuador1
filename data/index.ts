@@ -33,6 +33,7 @@ export { NIVELES_MARZANO, MAPEO_ERCA_MARZANO, obtenerVerbosParaEtapa, generarTex
 export type { NivelMarzano, MapeoERCAMarzano } from "./taxonomia-marzano";
 export { HABILIDADES_SOCIOEMOCIONALES } from "./habilidades-socioemocionales";
 export type { HabilidadSocioemocional } from "./habilidades-socioemocionales";
+export * from "./types-evaluacion";
 export {
   AREAS_BT,
   FAMILIAS_PROFESIONALES,

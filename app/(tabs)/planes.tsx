@@ -7,6 +7,7 @@ import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO } from "@/data";
 import { PlanesBTSection } from "@/components/PlanesBTSection";
 import { PlanesCNCSection } from "@/components/PlanesCNCSection";
+import { PlanesEvaluacionSection } from "@/components/PlanesEvaluacionSection";
 
 export default function PlanesScreen() {
   const colors = useColors();
@@ -90,6 +91,7 @@ export default function PlanesScreen() {
 
         <PlanesBTSection />
         <PlanesCNCSection />
+        <PlanesEvaluacionSection />
 
         {/* ── Semanas guardadas ── */}
         {semanas.length > 0 && (

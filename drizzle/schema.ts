@@ -332,6 +332,29 @@ export type ConnectaNivelaCreaRow = typeof connectaNivelaCrea.$inferSelect;
 export type InsertConnectaNivelaCrea = typeof connectaNivelaCrea.$inferInsert;
 
 /**
+ * Evaluaciones Diagnósticas — respaldo best-effort en la nube de las
+ * evaluaciones creadas por el docente. La fuente de verdad es AsyncStorage;
+ * la app funciona sin esta tabla si falla. Mismo patrón que
+ * connectaNivelaCrea: formulario y resultado IA como JSON.
+ */
+export const evaluacionesDiagnosticas = mysqlTable("evaluaciones_diagnosticas", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente o deviceId como fallback */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  /** Estado de la evaluación local */
+  status: mysqlEnum("status", ["borrador", "publicada", "aplicada", "analizada"]).default("borrador").notNull(),
+  /** JSON de la EvaluacionDiagnostica completa */
+  form: text("form"),
+  /** JSON de preguntas sugeridas por IA (si las hubo) */
+  aiResult: text("aiResult"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type EvaluacionDiagnosticaRow = typeof evaluacionesDiagnosticas.$inferSelect;
+export type InsertEvaluacionDiagnostica = typeof evaluacionesDiagnosticas.$inferInsert;
+
+/**
  * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.
  * Se recuperan en activate.ts para enviar el evento Purchase a Meta CAPI.
  */
