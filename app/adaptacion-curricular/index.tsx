@@ -13,7 +13,7 @@ import {
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
   type CurricularAdaptation, type CurricularAdaptationForm,
   type AdaptacionAiResult, type AdaptacionCurricular, type TipoNEE, type GradoAdaptacion,
-  type PlanificacionSemanal,
+  type PlanificacionSemanal, type Planificacion,
 } from "@/data/types";
 import { TODAS_LAS_DESTREZAS } from "@/data";
 import { generarWordAdaptacion } from "@/lib/adaptacion-word-generator";
@@ -91,6 +91,23 @@ function buildSemanaContext(semana: PlanificacionSemanal, codigoDestreza: string
   return dias.length > 0 ? { dias } : undefined;
 }
 
+/** Contexto ERCA de la planificación diaria vinculada (una sola clase) */
+function buildPlanContext(plan: Planificacion | undefined) {
+  const temaSel = (plan as any)?.temaSeleccionado;
+  const est = temaSel?.estructura ?? {};
+  return {
+    tema: temaSel?.titulo || (plan as any)?.temaClase || "(sin tema)",
+    objetivo: temaSel?.objetivoClase || undefined,
+    actividades: {
+      experiencia: est.experiencia?.actividades ?? [],
+      reflexion: est.reflexion?.actividades ?? [],
+      conceptualizacion: est.conceptualizacion?.actividades ?? [],
+      aplicacion: est.aplicacion?.actividades ?? [],
+    },
+    recursos: temaSel?.recursos ?? [],
+  };
+}
+
 // ─── Form vacío ───────────────────────────────────────────────────────────────
 
 const FORM_EMPTY: CurricularAdaptationForm = {
@@ -105,7 +122,7 @@ const FORM_EMPTY: CurricularAdaptationForm = {
 
 // ─── Sub-componentes ──────────────────────────────────────────────────────────
 
-function StepBar({ current, total, colors }: { current: number; total: number; colors: any }) {
+function StepBar({ current, total, labels, colors }: { current: number; total: number; labels: string[]; colors: any }) {
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 4, marginBottom: 16 }}>
       {Array.from({ length: total }).map((_, i) => (
@@ -115,7 +132,7 @@ function StepBar({ current, total, colors }: { current: number; total: number; c
             backgroundColor: i <= current ? colors.primary : colors.border,
           }} />
           <Text style={{ fontSize: 9, color: i === current ? colors.primary : colors.muted }}>
-            {STEP_LABELS[i]}
+            {labels[i]}
           </Text>
         </View>
       ))}
@@ -198,9 +215,9 @@ function SectionHeading({ text, colors }: { text: string; colors: any }) {
 }
 
 function DestrezaBuscador({
-  value, onSelect, colors,
+  value, onSelect, colors, disabled = false,
 }: {
-  value: string; onSelect: (codigo: string, desc: string) => void; colors: any;
+  value: string; onSelect: (codigo: string, desc: string) => void; colors: any; disabled?: boolean;
 }) {
   const [query, setQuery] = useState(value);
   const [results, setResults] = useState<typeof TODAS_LAS_DESTREZAS>([]);
@@ -224,7 +241,12 @@ function DestrezaBuscador({
         onChangeText={search}
         placeholder="Ej: M.3.1.5 o fracciones..."
         placeholderTextColor={colors.muted}
-        style={[styles.input, { borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
+        editable={!disabled}
+        style={[styles.input, {
+          borderColor: colors.border, color: disabled ? colors.muted : colors.text,
+          backgroundColor: disabled ? colors.surface + "BB" : colors.surface,
+          opacity: disabled ? 0.75 : 1,
+        }]}
       />
       {results.map((d) => (
         <Pressable
@@ -252,10 +274,10 @@ function DestrezaBuscador({
 export default function AdaptacionCurricularScreen() {
   const colors = useColors();
   const router = useRouter();
-  const { semanaId } = useLocalSearchParams<{ semanaId?: string }>();
+  const { semanaId, planId } = useLocalSearchParams<{ semanaId?: string; planId?: string }>();
   const scrollRef = useRef<ScrollView>(null);
 
-  const { getSemana, updateSemana } = usePlanificaciones();
+  const { getSemana, updateSemana, getPlanificacion, updatePlanificacion } = usePlanificaciones();
 
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<CurricularAdaptationForm>(() => {
@@ -270,6 +292,24 @@ export default function AdaptacionCurricularScreen() {
           paralelo: s.paralelo || "",
           trimestre: s.trimestre || "",
           periodoPedagogico: s.periodoPedagogico || "",
+        };
+      }
+    }
+    if (planId) {
+      const p = getPlanificacion(planId);
+      if (p) {
+        return {
+          ...FORM_EMPTY,
+          institucion: p.institucion || "",
+          docente: p.docente || "",
+          grado: p.grado || "",
+          paralelo: p.paralelo || "",
+          trimestre: p.trimestre || "",
+          periodoPedagogico: p.periodoPedagogico || "",
+          codigoDestreza: p.destreza?.codigo || "",
+          descripcionDestreza: p.destreza?.descripcion || "",
+          area: p.destreza?.area || "",
+          subnivel: p.destreza?.subnivel ?? 3,
         };
       }
     }
@@ -288,9 +328,20 @@ export default function AdaptacionCurricularScreen() {
       const s = getSemana(semanaId);
       if (s) return DIA_KEYS_ORDER.filter(k => (s.dias as any)[k]?.activo).map(k => DIA_LABELS[k]);
     }
+    if (planId) return ["Clase"];
     return TODOS_LOS_DIAS;
   })();
   const [diasSeleccionados, setDiasSeleccionados] = useState<string[]>(diasDisponibles);
+
+  // Flujo de pasos: la planificación diaria no tiene selección de días
+  const esDiario = !!planId;
+  const idxPerfil = esDiario ? 2 : 3;
+  const idxGenerar = esDiario ? 3 : 4;
+  const idxResultado = esDiario ? 4 : 5;
+  const totalSteps = esDiario ? 5 : 6;
+  const stepLabels = esDiario
+    ? ["Identificacion", "Grado", "Perfil", "Generar", "Resultado"]
+    : STEP_LABELS;
 
   function toggleDia(dia: string) {
     setDiasSeleccionados((prev) =>
@@ -317,11 +368,11 @@ export default function AdaptacionCurricularScreen() {
       if (!form.descripcionDestreza || form.descripcionDestreza.length < 10)
         return "Describe la destreza con al menos 10 caracteres.";
     }
-    if (step === 2) {
+    if (step === 2 && !esDiario) {
       if (diasSeleccionados.length === 0)
         return "Selecciona al menos un día para generar la adaptación.";
     }
-    if (step === 3) {
+    if (step === idxPerfil) {
       if (!form.fortalezas || form.fortalezas.length < 10)
         return "Describe las fortalezas del estudiante.";
       if (!form.desafios || form.desafios.length < 10)
@@ -345,13 +396,16 @@ export default function AdaptacionCurricularScreen() {
       await AsyncStorage.setItem("@planificadoc_device_id", sessionId);
     }
 
-    // Extraer contexto ERCA de la planificación semanal vinculada, filtrado por días seleccionados
+    // Extraer contexto ERCA de la planificación vinculada
     const semanaContext = semanaId
       ? buildSemanaContext(getSemana(semanaId) ?? {} as PlanificacionSemanal, form.codigoDestreza, diasSeleccionados)
       : undefined;
+    const planContext = planId
+      ? buildPlanContext(getPlanificacion(planId))
+      : undefined;
 
     try {
-      const res = await generateMutation.mutateAsync({ form, sessionId, semanaContext });
+      const res = await generateMutation.mutateAsync({ form, sessionId, semanaContext, planContext });
       if (!res?.aiResult) {
         setGenerateError("La IA no devolvió resultados. Intenta de nuevo.");
         return;
@@ -360,6 +414,9 @@ export default function AdaptacionCurricularScreen() {
       const id = await saveLocally(res.aiResult, sessionId);
       if (semanaId) {
         await linkToSemana(res.aiResult, id);
+      }
+      if (planId) {
+        await linkToPlan(res.aiResult, id);
       }
       nextStep();
     } catch (err: any) {
@@ -373,8 +430,26 @@ export default function AdaptacionCurricularScreen() {
     const semana = getSemana(semanaId);
     if (!semana) return;
 
+    const nueva = buildAdaptacionCurricular(result, adaptacionId);
+    const adaptaciones = [...(semana.adaptacionesCurriculares || []), nueva];
+    await updateSemana({ ...semana, adaptacionesCurriculares: adaptaciones });
+    setVinculada(true);
+  }
+
+  async function linkToPlan(result: AdaptacionAiResult, adaptacionId: string) {
+    if (!planId) return;
+    const plan = getPlanificacion(planId);
+    if (!plan) return;
+
+    const nueva = buildAdaptacionCurricular(result, adaptacionId);
+    const adaptaciones = [...(plan.adaptacionesCurriculares || []), nueva];
+    await updatePlanificacion({ ...plan, adaptacionesCurriculares: adaptaciones });
+    setVinculada(true);
+  }
+
+  function buildAdaptacionCurricular(result: AdaptacionAiResult, adaptacionId: string): AdaptacionCurricular {
     const neeInfo = TIPOS_NEE_INFO[form.tipoNEE];
-    const nueva: AdaptacionCurricular = {
+    return {
       id: adaptacionId,
       codigoEstudiante: form.codigoEstudiante || "E-001",
       incluirEnExportacion: true,
@@ -397,10 +472,6 @@ export default function AdaptacionCurricularScreen() {
       adaptacionesPorDia: result.adaptacionesPorDia?.length ? result.adaptacionesPorDia : undefined,
       createdAt: new Date().toISOString(),
     };
-
-    const adaptaciones = [...(semana.adaptacionesCurriculares || []), nueva];
-    await updateSemana({ ...semana, adaptacionesCurriculares: adaptaciones });
-    setVinculada(true);
   }
 
   async function saveLocally(result: AdaptacionAiResult, sessionId: string): Promise<string> {
@@ -484,7 +555,11 @@ export default function AdaptacionCurricularScreen() {
         {/* Header */}
         <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 12 }}>
           <Pressable
-            onPress={() => semanaId ? router.replace({ pathname: "/ver-semana/[id]", params: { id: semanaId } }) : router.back()}
+            onPress={() => {
+              if (semanaId) router.replace({ pathname: "/ver-semana/[id]", params: { id: semanaId } });
+              else if (planId) router.replace({ pathname: "/ver-plan/[id]", params: { id: planId } });
+              else router.back();
+            }}
             style={{ marginRight: 12 }}
           >
             <Text style={{ fontSize: 22, color: colors.primary }}>←</Text>
@@ -494,35 +569,38 @@ export default function AdaptacionCurricularScreen() {
             {semanaId && (
               <Text style={{ fontSize: 11, color: colors.muted }}>Vinculando a planificación semanal</Text>
             )}
+            {planId && (
+              <Text style={{ fontSize: 11, color: colors.muted }}>Vinculando a planificación diaria</Text>
+            )}
           </View>
         </View>
 
-        <StepBar current={step} total={6} colors={colors} />
+        <StepBar current={step} total={totalSteps} labels={stepLabels} colors={colors} />
 
         {/* ── PASO 0: Identificacion ── */}
         {step === 0 && (
           <View>
             <SectionHeading text="Contexto pedagogico" colors={colors} />
 
-            {semanaId && (
+            {(semanaId || planId) && (
               <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#16A34A", marginBottom: 14, flexDirection: "row", alignItems: "center", gap: 8 }}>
                 <Text style={{ fontSize: 16 }}>📋</Text>
                 <Text style={{ fontSize: 11, color: "#15803D", flex: 1 }}>
-                  Los campos marcados con <Text style={{ fontWeight: "700" }}>✓ planificación</Text> se toman de la planificación semanal y no pueden editarse.
+                  Los campos marcados con <Text style={{ fontWeight: "700" }}>✓ planificación</Text> se toman de la planificación vinculada y no pueden editarse.
                 </Text>
               </View>
             )}
 
-            <Field label="Institucion educativa" value={form.institucion} onChangeText={(v) => setField("institucion", v)} colors={colors} disabled={!!semanaId} />
-            <Field label="Docente" value={form.docente} onChangeText={(v) => setField("docente", v)} colors={colors} disabled={!!semanaId} />
+            <Field label="Institucion educativa" value={form.institucion} onChangeText={(v) => setField("institucion", v)} colors={colors} disabled={!!semanaId || !!planId} />
+            <Field label="Docente" value={form.docente} onChangeText={(v) => setField("docente", v)} colors={colors} disabled={!!semanaId || !!planId} />
             <Field label="Año lectivo" value={form.anioLectivo} onChangeText={(v) => setField("anioLectivo", v)} colors={colors} />
 
             <View style={{ marginBottom: 12 }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4 }}>
                 <Text style={{ fontSize: 12, fontWeight: "600", color: colors.muted }}>Grado / Curso</Text>
-                {semanaId && <Text style={{ fontSize: 10, color: "#16A34A", fontWeight: "600" }}>✓ planificación</Text>}
+                {(semanaId || planId) && <Text style={{ fontSize: 10, color: "#16A34A", fontWeight: "600" }}>✓ planificación</Text>}
               </View>
-              {semanaId ? (
+              {(semanaId || planId) ? (
                 <View style={[styles.input, { height: 40, justifyContent: "center", opacity: 0.75, backgroundColor: colors.surface + "BB" }]}>
                   <Text style={{ fontSize: 13, color: colors.muted, paddingHorizontal: 4 }}>{form.grado || "—"}</Text>
                 </View>
@@ -545,8 +623,8 @@ export default function AdaptacionCurricularScreen() {
               )}
             </View>
 
-            <Field label="Paralelo" value={form.paralelo} onChangeText={(v) => setField("paralelo", v)} colors={colors} placeholder="Ej: A" disabled={!!semanaId} />
-            <Field label="Trimestre" value={form.trimestre} onChangeText={(v) => setField("trimestre", v)} colors={colors} placeholder="Ej: 1.° trimestre" disabled={!!semanaId} />
+            <Field label="Paralelo" value={form.paralelo} onChangeText={(v) => setField("paralelo", v)} colors={colors} placeholder="Ej: A" disabled={!!semanaId || !!planId} />
+            <Field label="Trimestre" value={form.trimestre} onChangeText={(v) => setField("trimestre", v)} colors={colors} placeholder="Ej: 1.° trimestre" disabled={!!semanaId || !!planId} />
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Codigo del estudiante (anonimo)" colors={colors} />
@@ -559,6 +637,13 @@ export default function AdaptacionCurricularScreen() {
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Destreza a adaptar" colors={colors} />
+            {planId && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#16A34A", marginBottom: 12 }}>
+                <Text style={{ fontSize: 11, color: "#15803D" }}>
+                  La destreza se toma de la planificación diaria vinculada y no puede modificarse.
+                </Text>
+              </View>
+            )}
             <DestrezaBuscador
               value={form.codigoDestreza}
               onSelect={(codigo, desc) => {
@@ -566,6 +651,7 @@ export default function AdaptacionCurricularScreen() {
                 setField("descripcionDestreza", desc);
               }}
               colors={colors}
+              disabled={!!planId}
             />
             <Field
               label="Descripcion de la destreza (editable)"
@@ -633,8 +719,8 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 2: Días de adaptación ── */}
-        {step === 2 && (
+        {/* ── PASO 2: Días de adaptación (solo semanal) ── */}
+        {step === 2 && !esDiario && (
           <View>
             <SectionHeading text="Días que requieren adaptación" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 14 }}>
@@ -688,8 +774,8 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 3: Perfil pedagogico ── */}
-        {step === 3 && (
+        {/* ── PASO: Perfil pedagogico ── */}
+        {step === idxPerfil && (
           <View>
             <SectionHeading text="Tipo de NEE" colors={colors} />
             <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
@@ -759,8 +845,8 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 4: Generar ── */}
-        {step === 4 && (
+        {/* ── PASO: Generar ── */}
+        {step === idxGenerar && (
           <View>
             <SectionHeading text="Resumen de la adaptacion" colors={colors} />
 
@@ -823,8 +909,8 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 5: Resultado — fallback si aiResult es null ── */}
-        {step === 5 && !aiResult && (
+        {/* ── PASO: Resultado — fallback si aiResult es null ── */}
+        {step === idxResultado && !aiResult && (
           <View style={{ padding: 24, alignItems: "center", gap: 12 }}>
             <Text style={{ fontSize: 40 }}>⚠️</Text>
             <Text style={{ fontSize: 15, fontWeight: "700", color: "#DC2626", textAlign: "center" }}>
@@ -834,7 +920,7 @@ export default function AdaptacionCurricularScreen() {
               La generación falló o la respuesta llegó vacía. Vuelve al paso anterior e intenta de nuevo.
             </Text>
             <Pressable
-              onPress={() => { setStep(4); setGenerateError(null); scrollTop(); }}
+              onPress={() => { setStep(idxGenerar); setGenerateError(null); scrollTop(); }}
               style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}
             >
               <Text style={{ color: "#fff", fontWeight: "700" }}>← Volver a Generar</Text>
@@ -842,15 +928,17 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {/* ── PASO 5: Resultado ── */}
-        {step === 5 && aiResult && (
+        {/* ── PASO: Resultado ── */}
+        {step === idxResultado && aiResult && (
           <>
-            {vinculada && semanaId && (
+            {vinculada && (semanaId || planId) && (
               <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#16A34A", marginBottom: 12, flexDirection: "row", alignItems: "center", gap: 8 }}>
                 <Text style={{ fontSize: 18 }}>✅</Text>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 12, fontWeight: "700", color: "#15803D" }}>Vinculada a la planificación semanal</Text>
-                  <Text style={{ fontSize: 11, color: "#166534" }}>Aparecerá en el tab "ADAPT." al volver.</Text>
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: "#15803D" }}>
+                    Vinculada a la planificación {semanaId ? "semanal" : "diaria"}
+                  </Text>
+                  <Text style={{ fontSize: 11, color: "#166534" }}>Aparecerá en la sección de adaptaciones al volver.</Text>
                 </View>
               </View>
             )}
@@ -865,7 +953,7 @@ export default function AdaptacionCurricularScreen() {
         )}
 
         {/* Error de validación inline */}
-        {validationError && step < 4 && (
+        {validationError && step < idxGenerar && (
           <View style={{ backgroundColor: "#FEF3C7", borderRadius: 8, padding: 12, marginTop: 8, borderWidth: 1, borderColor: "#F59E0B", flexDirection: "row", gap: 8 }}>
             <Text style={{ fontSize: 14 }}>⚠️</Text>
             <Text style={{ fontSize: 12, color: "#92400E", flex: 1 }}>{validationError}</Text>
@@ -873,9 +961,9 @@ export default function AdaptacionCurricularScreen() {
         )}
 
         {/* Botones de navegacion */}
-        {step < 5 && (
+        {step < idxResultado && (
           <View style={{ flexDirection: "row", gap: 12, marginTop: 20, marginBottom: 8 }}>
-            {step > 0 && step !== 4 && (
+            {step > 0 && step !== idxGenerar && (
               <Pressable
                 onPress={prevStep}
                 style={{
@@ -886,7 +974,7 @@ export default function AdaptacionCurricularScreen() {
                 <Text style={{ color: colors.text, fontWeight: "600" }}>← Anterior</Text>
               </Pressable>
             )}
-            {step < 4 && (
+            {step < idxGenerar && (
               <Pressable
                 onPress={handleNext}
                 style={{ flex: 2, borderRadius: 10, paddingVertical: 12, alignItems: "center", backgroundColor: colors.primary }}
@@ -894,7 +982,7 @@ export default function AdaptacionCurricularScreen() {
                 <Text style={{ color: "#fff", fontWeight: "700" }}>Siguiente →</Text>
               </Pressable>
             )}
-            {step === 4 && (
+            {step === idxGenerar && (
               <Pressable
                 onPress={prevStep}
                 style={{
@@ -908,11 +996,19 @@ export default function AdaptacionCurricularScreen() {
           </View>
         )}
 
-        {step === 5 && (
+        {step === idxResultado && (
           <View style={{ marginTop: 20, gap: 12 }}>
             {semanaId && (
               <Pressable
                 onPress={() => router.replace({ pathname: "/ver-semana/[id]", params: { id: semanaId! } })}
+                style={{ backgroundColor: "#4A1942", borderRadius: 10, paddingVertical: 13, alignItems: "center" }}
+              >
+                <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>← Volver a la planificación</Text>
+              </Pressable>
+            )}
+            {planId && (
+              <Pressable
+                onPress={() => router.replace({ pathname: "/ver-plan/[id]", params: { id: planId! } })}
                 style={{ backgroundColor: "#4A1942", borderRadius: 10, paddingVertical: 13, alignItems: "center" }}
               >
                 <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>← Volver a la planificación</Text>

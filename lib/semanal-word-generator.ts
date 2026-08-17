@@ -38,7 +38,7 @@ function iconosDcdRuns(codigo: string | undefined | null): (TextRun | ImageRun)[
       data,
       transformation: { width: ICONO_DCD_SIZE, height: ICONO_DCD_SIZE },
     }));
-    runs.push(new TextRun({ text: " ", size: 12 }));
+    runs.push(new TextRun({ text: " ", size: 18 }));
   }
   return runs;
 }
@@ -149,7 +149,7 @@ function faseHeaderPara(label: string, duracion: string | undefined, bgColor: st
     children: [
       new TextRun({
         text: `${label}${duracion ? ` (${duracion})` : ""}`,
-        bold: true, size: 24, color: WHITE, font: "Arial",
+        bold: true, size: 18, color: WHITE, font: "Arial",
       }),
     ],
   });
@@ -173,7 +173,7 @@ function actividadPara(
     spacing: { before: 30, after: 30 },
     indent:  { left: 60 },
     children: [
-      new TextRun({ text: `${num}. ${clean}  `, size: 24, font: "Arial", color: "222222" }),
+      new TextRun({ text: `${num}. ${clean}  `, size: 20, font: "Arial", color: "222222" }),
       // ■ Representación
       new TextRun({ text: "■", size: 14, color: dua.representacion ? DUA_R : "F9C6DD", font: "Arial" }),
       new TextRun({ text: "■", size: 14, color: dua.accionExpresion ? DUA_A : "C5D4E0", font: "Arial" }),
@@ -201,7 +201,7 @@ const BG_ADAPT_LEFT  = "F9F5FF";  // violeta muy claro — celda izquierda
 
 // ─── Helpers para adaptaciones ───────────────────────────────────────────────
 
-function parBoldValor(label: string, valor: string, size = 12): Paragraph {
+function parBoldValor(label: string, valor: string, size = 9): Paragraph {
   return new Paragraph({
     spacing: { after: 18 },
     children: [
@@ -214,7 +214,7 @@ function parBoldValor(label: string, valor: string, size = 12): Paragraph {
 function parSeccionAdapt(label: string, color: string): Paragraph {
   return new Paragraph({
     spacing: { before: 40, after: 14 },
-    children: [new TextRun({ text: label, bold: true, size: 24, font: "Arial", color })],
+    children: [new TextRun({ text: label, bold: true, size: 18, font: "Arial", color })],
   });
 }
 
@@ -225,15 +225,15 @@ function parBloquePedagogico(
     new Paragraph({
       spacing: { before: 20, after: 10 },
       children: [
-        new TextRun({ text: bloque.categoria + ": ", bold: true, size: 24, font: "Arial", color: "003366" }),
-        new TextRun({ text: bloque.descripcion, size: 24, font: "Arial", color: BLACK }),
+        new TextRun({ text: bloque.categoria + ": ", bold: true, size: 18, font: "Arial", color: "003366" }),
+        new TextRun({ text: bloque.descripcion, size: 18, font: "Arial", color: BLACK }),
       ],
     }),
     ...bloque.estrategias.map(e =>
       new Paragraph({
         bullet: { level: 0 },
         spacing: { after: 10 },
-        children: [new TextRun({ text: e, size: 24, font: "Arial", color: "333333" })],
+        children: [new TextRun({ text: e, size: 18, font: "Arial", color: "333333" })],
       })
     ),
   ];
@@ -247,23 +247,23 @@ function adaptacionInnerTable(
   const hRow = new TableRow({
     tableHeader: true,
     children: [
-      simpleCell("CATEGORÍA",   { bold: true, size: 7, bg: headerBg, color: WHITE }),
-      simpleCell("DESCRIPCIÓN", { bold: true, size: 7, bg: headerBg, color: WHITE }),
-      simpleCell("ESTRATEGIAS", { bold: true, size: 7, bg: headerBg, color: WHITE }),
+      simpleCell("CATEGORÍA",   { bold: true, size: 9, bg: headerBg, color: WHITE }),
+      simpleCell("DESCRIPCIÓN", { bold: true, size: 9, bg: headerBg, color: WHITE }),
+      simpleCell("ESTRATEGIAS", { bold: true, size: 9, bg: headerBg, color: WHITE }),
     ],
   });
   const dRows = items.map(item =>
     new TableRow({
       children: [
-        simpleCell(item.categoria,   { bold: true, size: 7, bg: "F5F3FF" }),
-        simpleCell(item.descripcion, { size: 7 }),
+        simpleCell(item.categoria,   { bold: true, size: 9, bg: "F5F3FF" }),
+        simpleCell(item.descripcion, { size: 9 }),
         new TableCell({
           borders: BORDER_DEF,
           verticalAlign: VerticalAlign.TOP,
           children: item.estrategias.map(e =>
             new Paragraph({
               spacing: { after: 20 },
-              children: [new TextRun({ text: `• ${e}`, size: 14, font: "Arial", color: BLACK })],
+              children: [new TextRun({ text: `• ${e}`, size: 18, font: "Arial", color: BLACK })],
             })
           ),
         }),
@@ -290,7 +290,7 @@ function bulletInnerTable(items: string[], bg?: string): Table {
             children: [
               new Paragraph({
                 spacing: { after: 20 },
-                children: [new TextRun({ text: `• ${item}`, size: 14, font: "Arial", color: BLACK })],
+                children: [new TextRun({ text: `• ${item}`, size: 18, font: "Arial", color: BLACK })],
               }),
             ],
           }),
@@ -327,7 +327,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       children: [
         simpleCell(
           `${codigoLabel}   ·   ${tipoNombre}   ·   ${gradoInfo.nombre}`,
-          { bold: true, size: 8, bg: BG_ADAPT_HEAD, color: WHITE, colspan: 6 }
+          { bold: true, size: 9, bg: BG_ADAPT_HEAD, color: WHITE, colspan: 6 }
         ),
       ],
     }));
@@ -336,7 +336,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
     const leftChildren: Paragraph[] = [
       new Paragraph({
         spacing: { before: 0, after: 30 },
-        children: [new TextRun({ text: "IDENTIFICACIÓN", bold: true, size: 24, color: BG_ADAPT_TITLE, font: "Arial" })],
+        children: [new TextRun({ text: "IDENTIFICACIÓN", bold: true, size: 18, color: BG_ADAPT_TITLE, font: "Arial" })],
       }),
       parBoldValor("Código:", adap.codigoEstudiante),
       parBoldValor("NEE:", tipoNombre),
@@ -347,7 +347,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
         spacing: { before: 20, after: 0 },
         children: [new TextRun({
           text: adap.descripcionNecesidad,
-          size: 24, italics: true, font: "Arial", color: "555555",
+          size: 18, italics: true, font: "Arial", color: "555555",
         })],
       }));
     }
@@ -359,11 +359,11 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
     rightChildren.push(new Paragraph({
       spacing: { before: 0, after: 14 },
       children: [
-        new TextRun({ text: "Destreza: ", bold: true, size: 24, color: "003366", font: "Arial" }),
-        new TextRun({ text: adap.codigoDestreza, bold: true, size: 24, font: "Arial", color: BLACK }),
+        new TextRun({ text: "Destreza: ", bold: true, size: 18, color: "003366", font: "Arial" }),
+        new TextRun({ text: adap.codigoDestreza, bold: true, size: 18, font: "Arial", color: BLACK }),
         ...(adap.descripcionDestreza ? [new TextRun({
           text: " — " + adap.descripcionDestreza,
-          size: 24, italics: true, font: "Arial", color: "444444",
+          size: 18, italics: true, font: "Arial", color: "444444",
         })] : []),
       ],
     }));
@@ -373,24 +373,24 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       const infoRows: TableRow[] = [];
       if (adap.destrezaAdaptada) {
         infoRows.push(new TableRow({ children: [
-          simpleCell("DESTREZA ADAPTADA:", { bold: true, size: 7, bg: "EDE9FE", color: BG_ADAPT_TITLE }),
-          simpleCell(adap.destrezaAdaptada, { size: 7, bold: true }),
+          simpleCell("DESTREZA ADAPTADA:", { bold: true, size: 9, bg: "EDE9FE", color: BG_ADAPT_TITLE }),
+          simpleCell(adap.destrezaAdaptada, { size: 9, bold: true }),
         ]}));
       }
       if (adap.criterioAdaptado) {
         infoRows.push(new TableRow({ children: [
-          simpleCell("Criterio adaptado:", { bold: true, size: 7, bg: "F5F3FF", color: BG_ADAPT_TITLE }),
-          simpleCell(adap.criterioAdaptado, { size: 7 }),
+          simpleCell("Criterio adaptado:", { bold: true, size: 9, bg: "F5F3FF", color: BG_ADAPT_TITLE }),
+          simpleCell(adap.criterioAdaptado, { size: 9 }),
         ]}));
       }
       if (adap.indicadoresAdaptados?.length) {
         infoRows.push(new TableRow({ children: [
-          simpleCell("Indicadores adaptados:", { bold: true, size: 7, bg: "F5F3FF", color: BG_ADAPT_TITLE }),
+          simpleCell("Indicadores adaptados:", { bold: true, size: 9, bg: "F5F3FF", color: BG_ADAPT_TITLE }),
           new TableCell({
             borders: BORDER_DEF,
             verticalAlign: VerticalAlign.TOP,
             children: adap.indicadoresAdaptados.map(ind =>
-              new Paragraph({ spacing: { after: 16 }, children: [new TextRun({ text: `• ${ind}`, size: 14, font: "Arial", color: BLACK })] })
+              new Paragraph({ spacing: { after: 16 }, children: [new TextRun({ text: `• ${ind}`, size: 18, font: "Arial", color: BLACK })] })
             ),
           }),
         ]}));
@@ -406,8 +406,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
 
     if (adap.adaptacionesPorDia?.length) {
       // ── ADAPTACIONES POR DÍA — formato 3 columnas (igual al word de adaptaciones) ──
-      rightChildren.push(parSeccionAdapt("ADAPTACIONES POR DÍA", "0F766E"));
-      const DIA_BG_SEMANAL = ["1A3A5C", "0F766E", "7C3AED", "B45309", "0369A1"];
+      rightChildren.push(parSeccionAdapt("ADAPTACIONES POR DÍA", "000000"));
       const ERCA_SEMANAL_CFG = [
         { key: "experiencia",       label: "EXPERIENCIA",       dark: "2980B9", light: "EBF5FB" },
         { key: "reflexion",         label: "REFLEXIÓN",         dark: "8E44AD", light: "F5EEF8" },
@@ -417,7 +416,6 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
 
       for (let di = 0; di < adap.adaptacionesPorDia.length; di++) {
         const dp = adap.adaptacionesPorDia[di];
-        const bgD = DIA_BG_SEMANAL[di % DIA_BG_SEMANAL.length];
 
         // Columna izquierda: objetivo(s) + fases ERCA + leyenda DUA
         const leftContent: (Paragraph | Table)[] = [];
@@ -426,8 +424,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             spacing: { before: 20, after: 8 },
             indent: { left: 30 },
             children: [
-              new TextRun({ text: "Objetivo: ", bold: true, size: 24, font: "Arial", color: bgD }),
-              new TextRun({ text: dp.objetivo, size: 24, italics: true, font: "Arial", color: "444444" }),
+              new TextRun({ text: "Objetivo: ", bold: true, size: 18, font: "Arial", color: BLACK }),
+              new TextRun({ text: dp.objetivo, size: 18, italics: true, font: "Arial", color: "444444" }),
             ],
           }));
         }
@@ -436,8 +434,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             spacing: { before: 0, after: 12 },
             indent: { left: 30 },
             children: [
-              new TextRun({ text: "Obj. adaptado: ", bold: true, size: 24, font: "Arial", color: bgD }),
-              new TextRun({ text: (dp as any).objetivoAdaptado, bold: true, size: 24, font: "Arial", color: BLACK }),
+              new TextRun({ text: "Obj. adaptado: ", bold: true, size: 18, font: "Arial", color: BLACK }),
+              new TextRun({ text: (dp as any).objetivoAdaptado, bold: true, size: 18, font: "Arial", color: BLACK }),
             ],
           }));
         }
@@ -448,13 +446,13 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
               shading: { fill: dark, color: dark, type: ShadingType.CLEAR },
               spacing: { before: 8, after: 0 },
               indent: { left: 30 },
-              children: [new TextRun({ text: label, bold: true, size: 24, font: "Arial", color: WHITE })],
+              children: [new TextRun({ text: label, bold: true, size: 18, font: "Arial", color: WHITE })],
             }));
             leftContent.push(new Paragraph({
               shading: { fill: light, color: light, type: ShadingType.CLEAR },
               spacing: { before: 0, after: 8 },
               indent: { left: 40 },
-              children: [new TextRun({ text: val, size: 24, font: "Arial", color: BLACK })],
+              children: [new TextRun({ text: val, size: 18, font: "Arial", color: BLACK })],
             }));
           }
         }
@@ -464,15 +462,15 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
         const middleContent: Paragraph[] = dp.recursosAdaptados?.length
           ? dp.recursosAdaptados.map(r => new Paragraph({
               spacing: { before: 8, after: 12 },
-              children: [new TextRun({ text: `• ${r}`, size: 24, font: "Arial", color: BLACK })],
+              children: [new TextRun({ text: `• ${r}`, size: 18, font: "Arial", color: BLACK })],
             }))
-          : [new Paragraph({ children: [new TextRun({ text: "—", size: 24, font: "Arial", color: BLACK })] })];
+          : [new Paragraph({ children: [new TextRun({ text: "—", size: 18, font: "Arial", color: BLACK })] })];
 
         // Columna derecha: evaluación
         const evalContent: Paragraph[] = [new Paragraph({
           spacing: { before: 10, after: 10 },
           indent: { left: 30 },
-          children: [new TextRun({ text: dp.evaluacionAdaptada || "—", size: 24, font: "Arial", color: BLACK })],
+          children: [new TextRun({ text: dp.evaluacionAdaptada || "—", size: 18, font: "Arial", color: BLACK })],
         })];
 
         // Tabla 3 columnas — total 12518 DXA
@@ -485,11 +483,10 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
               new TableCell({
                 columnSpan: 3,
                 borders: BORDER_DEF,
-                shading: { fill: bgD, color: bgD, type: ShadingType.CLEAR },
                 children: [new Paragraph({
                   spacing: { before: 25, after: 25 },
                   indent: { left: 40 },
-                  children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 24, font: "Arial", color: WHITE })],
+                  children: [new TextRun({ text: dp.dia.toUpperCase(), bold: true, size: 18, font: "Arial", color: BLACK })],
                 })],
               }),
             ]}),
@@ -503,21 +500,21 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
                   new Paragraph({
                     spacing: { before: 16, after: 4 },
                     indent: { left: 30 },
-                    children: [new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 24, font: "Arial", color: WHITE })],
+                    children: [new TextRun({ text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", bold: true, size: 18, font: "Arial", color: WHITE })],
                   }),
                   new Paragraph({
                     spacing: { before: 0, after: 8 },
                     indent: { left: 30 },
-                    children: [new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", italics: true, size: 24, font: "Arial", color: "CCCCCC" })],
+                    children: [new TextRun({ text: "Estrategias metodológicas diversificadas con base al DUA", italics: true, size: 18, font: "Arial", color: "CCCCCC" })],
                   }),
                 ],
               }),
             ]}),
             // Fila 3: cabeceras de columna
             new TableRow({ children: [
-              simpleCell("ESTRATEGIAS ERCA ADAPTADAS", { bold: true, size: 8, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
-              simpleCell("RECURSOS ADAPTADOS",         { bold: true, size: 8, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
-              simpleCell("EVALUACIÓN ADAPTADA",        { bold: true, size: 8, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
+              simpleCell("ESTRATEGIAS ERCA ADAPTADAS", { bold: true, size: 9, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
+              simpleCell("RECURSOS ADAPTADOS",         { bold: true, size: 9, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
+              simpleCell("EVALUACIÓN ADAPTADA",        { bold: true, size: 9, bg: "374151", color: WHITE, align: AlignmentType.CENTER }),
             ]}),
             // Fila 4: contenido
             new TableRow({ children: [
@@ -557,8 +554,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       rightChildren.push(new Paragraph({
         spacing: { before: 20, after: 10 },
         children: [
-          new TextRun({ text: "Seguimiento: ", bold: true, size: 24, font: "Arial", color: "003366" }),
-          new TextRun({ text: adap.seguimiento, size: 24, font: "Arial", color: "333333" }),
+          new TextRun({ text: "Seguimiento: ", bold: true, size: 18, font: "Arial", color: "003366" }),
+          new TextRun({ text: adap.seguimiento, size: 18, font: "Arial", color: "333333" }),
         ],
       }));
     }
@@ -566,8 +563,8 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       rightChildren.push(new Paragraph({
         spacing: { before: 14, after: 0 },
         children: [
-          new TextRun({ text: "Observaciones: ", bold: true, size: 24, font: "Arial", color: "555555" }),
-          new TextRun({ text: adap.observaciones, size: 24, italics: true, font: "Arial", color: "555555" }),
+          new TextRun({ text: "Observaciones: ", bold: true, size: 18, font: "Arial", color: "555555" }),
+          new TextRun({ text: adap.observaciones, size: 18, italics: true, font: "Arial", color: "555555" }),
         ],
       }));
     }
@@ -607,21 +604,21 @@ function rubricaInnerTable(
   const hRow = new TableRow({
     tableHeader: true,
     children: [
-      simpleCell("CRITERIO DE EVALUACIÓN",  { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE }),
-      simpleCell("SIEMPRE ALCANZA\n(Sobresaliente)", { bold: true, size: 7, bg: RUB_AA, color: WHITE }),
-      simpleCell("ALCANZA\n(Satisfactorio)",         { bold: true, size: 7, bg: RUB_A,  color: WHITE }),
-      simpleCell("PRÓXIMO A ALCANZAR\n(En proceso)",  { bold: true, size: 7, bg: RUB_PA, color: WHITE }),
-      simpleCell("NO ALCANZA",                       { bold: true, size: 7, bg: RUB_NA, color: WHITE }),
+      simpleCell("CRITERIO DE EVALUACIÓN",  { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE }),
+      simpleCell("SIEMPRE ALCANZA\n(Sobresaliente)", { bold: true, size: 9, bg: RUB_AA, color: WHITE }),
+      simpleCell("ALCANZA\n(Satisfactorio)",         { bold: true, size: 9, bg: RUB_A,  color: WHITE }),
+      simpleCell("PRÓXIMO A ALCANZAR\n(En proceso)",  { bold: true, size: 9, bg: RUB_PA, color: WHITE }),
+      simpleCell("NO ALCANZA",                       { bold: true, size: 9, bg: RUB_NA, color: WHITE }),
     ],
   });
   const dRows = rubrica.map((row, idx) =>
     new TableRow({
       children: [
-        simpleCell(`${idx + 1}. ${row.criterio}`, { bold: true, size: 8 }),
-        simpleCell(row.excelente,      { size: 7, bg: "F0FDF4" }),
-        simpleCell(row.satisfactorio,  { size: 7, bg: "EFF6FF" }),
-        simpleCell(row.enProceso,      { size: 7, bg: "FFFBEB" }),
-        simpleCell(row.noAlcanza,      { size: 7, bg: "FEF2F2" }),
+        simpleCell(`${idx + 1}. ${row.criterio}`, { bold: true, size: 9 }),
+        simpleCell(row.excelente,      { size: 9, bg: "F0FDF4" }),
+        simpleCell(row.satisfactorio,  { size: 9, bg: "EFF6FF" }),
+        simpleCell(row.enProceso,      { size: 9, bg: "FFFBEB" }),
+        simpleCell(row.noAlcanza,      { size: 9, bg: "FEF2F2" }),
       ],
     })
   );
@@ -656,7 +653,7 @@ function crearSeccionRubrica(semana: PlanificacionSemanal): TableRow[] {
     // Subheader por destreza
     filas.push(new TableRow({
       children: [
-        simpleCell(`Destreza: ${codigo}`, { bold: true, size: 8, bg: "1A3A5C", color: WHITE, colspan: 6 }),
+        simpleCell(`Destreza: ${codigo}`, { bold: true, size: 9, bg: "1A3A5C", color: WHITE, colspan: 6 }),
       ],
     }));
     // Tabla de rúbrica como nested table en un single-cell colspan=6
@@ -710,14 +707,14 @@ export async function generarWordSemanal(
             alignment: AlignmentType.CENTER,
             children: [new TextRun({
               text: "PLANIFICACIÓN MICROCURRICULAR SEMANAL",
-              bold: true, size: 24, color: WHITE, font: "Arial",
+              bold: true, size: 18, color: WHITE, font: "Arial",
             })],
           }),
           new Paragraph({
             alignment: AlignmentType.CENTER,
             children: [new TextRun({
               text: `Semana: ${semana.semanaInicio} — ${semana.semanaFin}`,
-              size: 16, color: "A8C4E0", font: "Arial",
+              size: 18, color: "A8C4E0", font: "Arial",
             })],
           }),
         ],
@@ -731,44 +728,44 @@ export async function generarWordSemanal(
   rows.push(sectionRow("DATOS INFORMATIVOS"));
   rows.push(new TableRow({
     children: [
-      simpleCell("Institución:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.institucion || "—", { size: 8, colspan: 2 }),
-      simpleCell("Docente:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.docente || "—", { size: 8, colspan: 2 }),
+      simpleCell("Institución:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.institucion || "—", { size: 9, colspan: 2 }),
+      simpleCell("Docente:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.docente || "—", { size: 9, colspan: 2 }),
     ],
   }));
   rows.push(new TableRow({
     children: [
-      simpleCell("Asignatura:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell((semana as any).asignatura || semana.nivel || "—", { size: 8 }),
-      simpleCell("Subnivel:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell((semana as any).subnivel || semana.nivel || "—", { size: 8 }),
-      simpleCell("Trimestre:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.trimestre || "—", { size: 8 }),
+      simpleCell("Asignatura:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell((semana as any).asignatura || semana.nivel || "—", { size: 9 }),
+      simpleCell("Subnivel:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell((semana as any).subnivel || semana.nivel || "—", { size: 9 }),
+      simpleCell("Trimestre:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.trimestre || "—", { size: 9 }),
     ],
   }));
   rows.push(new TableRow({
     children: [
-      simpleCell("Grado / Curso:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(`${semana.grado || "—"} — Paralelo ${semana.paralelo || "—"}`, { size: 8 }),
-      simpleCell("Nivel:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.nivel || "—", { size: 8 }),
-      simpleCell("Períodos:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.periodos || "—", { size: 8 }),
+      simpleCell("Grado / Curso:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(`${semana.grado || "—"} — Paralelo ${semana.paralelo || "—"}`, { size: 9 }),
+      simpleCell("Nivel:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.nivel || "—", { size: 9 }),
+      simpleCell("Períodos:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.periodos || "—", { size: 9 }),
     ],
   }));
   rows.push(new TableRow({
     children: [
-      simpleCell("Unidad N.°:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.numeroUnidad || "—", { size: 8 }),
-      simpleCell("Título de la unidad:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.tituloUnidad || "—", { size: 8, colspan: 3 }),
+      simpleCell("Unidad N.°:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.numeroUnidad || "—", { size: 9 }),
+      simpleCell("Título de la unidad:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.tituloUnidad || "—", { size: 9, colspan: 3 }),
     ],
   }));
   rows.push(new TableRow({
     children: [
-      simpleCell("Objetivos de la unidad:", { bold: true, size: 8, bg: BG_SUBHEAD }),
-      simpleCell(semana.objetivosUnidad || "—", { size: 8, colspan: 5 }),
+      simpleCell("Objetivos de la unidad:", { bold: true, size: 9, bg: BG_SUBHEAD }),
+      simpleCell(semana.objetivosUnidad || "—", { size: 9, colspan: 5 }),
     ],
   }));
 
@@ -781,11 +778,11 @@ export async function generarWordSemanal(
   rows.push(new TableRow({
     children: [
       simpleCell("DÍA",
-        { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE, align: AlignmentType.CENTER }),
+        { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE, align: AlignmentType.CENTER }),
       simpleCell("DESTREZAS CON CRITERIOS\nDE DESEMPEÑO",
-        { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE }),
+        { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE }),
       simpleCell("INDICADORES DE\nEVALUACIÓN",
-        { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE }),
+        { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE }),
       // Cabecera ESTRATEGIAS con leyenda DUA inline
       new TableCell({
         shading: shade(BG_COLHEAD),
@@ -795,22 +792,22 @@ export async function generarWordSemanal(
           new Paragraph({
             children: [new TextRun({
               text: "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE",
-              bold: true, size: 24, color: WHITE, font: "Arial",
+              bold: true, size: 18, color: WHITE, font: "Arial",
             })],
           }),
           new Paragraph({
             children: [new TextRun({
               text: "Estrategias metodológicas diversificadas con base al DUA",
-              size: 13, color: "A8C4E0", font: "Arial", italics: true,
+              size: 18, color: "A8C4E0", font: "Arial", italics: true,
             })],
           }),
           duaLegendPara(),
         ],
       }),
       simpleCell("RECURSOS",
-        { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE }),
+        { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE }),
       simpleCell("ACTIVIDADES\nEVALUATIVAS",
-        { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE }),
+        { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE }),
     ],
   }));
 
@@ -852,7 +849,7 @@ export async function generarWordSemanal(
                 alignment: AlignmentType.CENTER,
                 children: [new TextRun({
                   text: `Hora ${hi + 1}`,
-                  size: 13, color: "888888", font: "Arial",
+                  size: 18, color: "888888", font: "Arial",
                 })],
               })] : []),
             ],
@@ -865,14 +862,14 @@ export async function generarWordSemanal(
         new Paragraph({
           children: [new TextRun({
             text: hora.codigoDestreza || "—",
-            bold: true, size: 16, color: "003366", font: "Arial",
+            bold: true, size: 18, color: "003366", font: "Arial",
           })],
           spacing: { after: 50 },
         }),
         new Paragraph({
           children: [new TextRun({
             text: destreza?.descripcion || "",
-            size: 15, font: "Arial", color: "222222",
+            size: 18, font: "Arial", color: "222222",
           })],
           spacing: { after: chipsRuns.length ? 40 : 0 },
         }),
@@ -887,9 +884,9 @@ export async function generarWordSemanal(
         ? indicadores.map((ind, i) => new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 30 },
-            children: [new TextRun({ text: ind, size: 15, font: "Arial", color: BLACK })],
+            children: [new TextRun({ text: ind, size: 18, font: "Arial", color: BLACK })],
           }))
-        : [new Paragraph({ children: [new TextRun({ text: "—", size: 14, font: "Arial", color: "999999" })] })];
+        : [new Paragraph({ children: [new TextRun({ text: "—", size: 18, font: "Arial", color: "999999" })] })];
 
       // ── Col 4: ESTRATEGIAS ERCA + DUA ────────────────────────────────────
       const estChildren: Paragraph[] = [];
@@ -902,8 +899,8 @@ export async function generarWordSemanal(
           border: { left: { style: BorderStyle.SINGLE, size: 8, color: "003366" } },
           indent: { left: 80 },
           children: [
-            new TextRun({ text: "Objetivo: ", bold: true, size: 15, color: "003366", font: "Arial" }),
-            new TextRun({ text: plan.objetivoClase, size: 15, italics: true, color: "333333", font: "Arial" }),
+            new TextRun({ text: "Objetivo: ", bold: true, size: 18, color: "003366", font: "Arial" }),
+            new TextRun({ text: plan.objetivoClase, size: 18, italics: true, color: "333333", font: "Arial" }),
           ],
         }));
       }
@@ -941,7 +938,7 @@ export async function generarWordSemanal(
 
       if (estChildren.length === 0) {
         estChildren.push(new Paragraph({
-          children: [new TextRun({ text: "—", size: 14, font: "Arial", color: "999999" })],
+          children: [new TextRun({ text: "—", size: 18, font: "Arial", color: "999999" })],
         }));
       }
 
@@ -951,9 +948,9 @@ export async function generarWordSemanal(
         ? recursos.map(r => new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 30 },
-            children: [new TextRun({ text: r, size: 15, font: "Arial", color: BLACK })],
+            children: [new TextRun({ text: r, size: 18, font: "Arial", color: BLACK })],
           }))
-        : [new Paragraph({ children: [new TextRun({ text: "—", size: 14, font: "Arial", color: "999999" })] })];
+        : [new Paragraph({ children: [new TextRun({ text: "—", size: 18, font: "Arial", color: "999999" })] })];
 
       // ── Col 6: ACTIVIDADES EVALUATIVAS ───────────────────────────────────
       const evaChildren: Paragraph[] = [];
@@ -970,47 +967,47 @@ export async function generarWordSemanal(
             evaChildren.push(new Paragraph({
               spacing: { before: 20, after: 24 },
               children: [
-                new TextRun({ text: label + " ", bold: true, size: 15, font: "Arial", color: "003366" }),
-                new TextRun({ text: value, size: 14, font: "Arial", color: "333333" }),
+                new TextRun({ text: label + " ", bold: true, size: 18, font: "Arial", color: "003366" }),
+                new TextRun({ text: value, size: 18, font: "Arial", color: "333333" }),
               ],
             }));
           }
         }
       } else if (plan.evaluacionFormativa) {
         evaChildren.push(new Paragraph({
-          children: [new TextRun({ text: plan.evaluacionFormativa, size: 15, font: "Arial", color: BLACK })],
+          children: [new TextRun({ text: plan.evaluacionFormativa, size: 18, font: "Arial", color: BLACK })],
           spacing: { after: 40 },
         }));
       }
       if (hora.tecnicasEvaluacion?.length) {
         evaChildren.push(new Paragraph({
-          children: [new TextRun({ text: "Técnicas:", bold: true, size: 15, font: "Arial", color: "003366" })],
+          children: [new TextRun({ text: "Técnicas:", bold: true, size: 18, font: "Arial", color: "003366" })],
           spacing: { after: 20 },
         }));
         hora.tecnicasEvaluacion.forEach(t =>
           evaChildren.push(new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 20 },
-            children: [new TextRun({ text: t, size: 14, font: "Arial", color: BLACK })],
+            children: [new TextRun({ text: t, size: 18, font: "Arial", color: BLACK })],
           }))
         );
       }
       const criterios = destreza?.criteriosEvaluacion ?? [];
       if (criterios.length) {
         evaChildren.push(new Paragraph({
-          children: [new TextRun({ text: "Criterios oficiales:", bold: true, size: 15, font: "Arial", color: "003366" })],
+          children: [new TextRun({ text: "Criterios oficiales:", bold: true, size: 18, font: "Arial", color: "003366" })],
           spacing: { before: 40, after: 20 },
         }));
         criterios.forEach(c =>
           evaChildren.push(new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 20 },
-            children: [new TextRun({ text: c, size: 14, font: "Arial", color: "333333" })],
+            children: [new TextRun({ text: c, size: 18, font: "Arial", color: "333333" })],
           }))
         );
       }
       if (evaChildren.length === 0) {
-        evaChildren.push(new Paragraph({ children: [new TextRun({ text: "—", size: 14, font: "Arial", color: "999999" })] }));
+        evaChildren.push(new Paragraph({ children: [new TextRun({ text: "—", size: 18, font: "Arial", color: "999999" })] }));
       }
 
       // ── Construir la fila ────────────────────────────────────────────────
@@ -1045,18 +1042,18 @@ export async function generarWordSemanal(
   // Fila con etiquetas de cargo (fondo azul oscuro)
   rows.push(new TableRow({
     children: [
-      simpleCell("ELABORADO POR", { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
-      simpleCell("REVISADO POR", { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
-      simpleCell("APROBADO POR", { bold: true, size: 8, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("ELABORADO POR", { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("REVISADO POR", { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("APROBADO POR", { bold: true, size: 9, bg: BG_COLHEAD, color: WHITE, colspan: 2, align: AlignmentType.CENTER }),
     ],
   }));
 
   // Fila con el cargo
   rows.push(new TableRow({
     children: [
-      simpleCell("Docente", { bold: false, size: 8, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
-      simpleCell("Vicerrector/a", { bold: false, size: 8, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
-      simpleCell("Director/a - Rector/a", { bold: false, size: 8, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("Docente", { bold: false, size: 9, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("Vicerrector/a", { bold: false, size: 9, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
+      simpleCell("Director/a - Rector/a", { bold: false, size: 9, bg: BG_SUBHEAD, colspan: 2, align: AlignmentType.CENTER }),
     ],
   }));
 
@@ -1069,18 +1066,18 @@ export async function generarWordSemanal(
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing: { before: 60, after: 200 },
-        children: [new TextRun({ text: nombre || " ", size: 14, font: "Arial", color: "333333" })],
+        children: [new TextRun({ text: nombre || " ", size: 18, font: "Arial", color: "333333" })],
       }),
       new Paragraph({
         alignment: AlignmentType.CENTER,
         border: { top: { style: BorderStyle.SINGLE, size: 6, color: "003366" } },
         spacing: { before: 0, after: 40 },
-        children: [new TextRun({ text: "Firma", size: 12, color: "888888", font: "Arial", italics: true })],
+        children: [new TextRun({ text: "Firma", size: 18, color: "888888", font: "Arial", italics: true })],
       }),
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing: { before: 60, after: 40 },
-        children: [new TextRun({ text: "Fecha: ____________", size: 12, color: "888888", font: "Arial" })],
+        children: [new TextRun({ text: "Fecha: ____________", size: 18, color: "888888", font: "Arial" })],
       }),
     ],
   });

@@ -9,7 +9,6 @@ import {
   Platform,
   KeyboardAvoidingView,
   ActivityIndicator,
-  Switch,
 } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
@@ -25,15 +24,10 @@ import {
   Planificacion,
   DUAActividad,
   generarTextoDUA,
-  obtenerInsercionesPorAsignatura,
-  obtenerNombreInsercion,
-  COMPETENCIAS,
-  METODOLOGIAS_ACTIVAS,
   TECNICAS_EVALUACION,
   ESTILOS_APRENDIZAJE,
   HABILIDADES_SOCIOEMOCIONALES,
 } from "@/data";
-import { obtenerDestrezasCivicaEtica } from "@/data/civica-etica-destrezas";
 import { useExportPdf } from "@/hooks/use-export-pdf";
 import { useAccess } from "@/lib/access-control";
 import { trpc } from "@/lib/trpc";
@@ -69,14 +63,7 @@ export default function PlanificarScreen() {
   const [generandoTemas, setGenerandoTemas] = useState(false);
   const [errorTemas, setErrorTemas] = useState<string | null>(null);
 
-  // Toggles
-  const [usaEjesTransversales, setUsaEjesTransversales] = useState(false);
-  const [usaCompetencias, setUsaCompetencias] = useState(false);
-
   // Selecciones
-  const [insercionesCurriculares, setInsercionesCurriculares] = useState<string[]>([]);
-  const [competenciasSeleccionadas, setCompetenciasSeleccionadas] = useState<string[]>([]);
-  const [metodologiasSeleccionadas, setMetodologiasSeleccionadas] = useState<string[]>([]);
   const [tecnicasSeleccionadas, setTecnicasSeleccionadas] = useState<string[]>([]);
   const [estilosSeleccionados, setEstilosSeleccionados] = useState<string[]>([]);
   const [habilidadesSocioemocionales, setHabilidadesSocioemocionales] = useState<string[]>([]);
@@ -119,21 +106,7 @@ export default function PlanificarScreen() {
   const [estructuraGenerada, setEstructuraGenerada] = useState<any>(null);
   const [temaFinal, setTemaFinal] = useState("");
 
-  // Inserciones filtradas
-  const insercionesDisponibles = useMemo(
-    () => (destreza ? obtenerInsercionesPorAsignatura(destreza.area, destreza.subnivel) : []),
-    [destreza]
-  );
-
-
-  // Destrezas sugeridas cuando el eje Cívica, Ética e Integridad está activo
-  const destrezasCivicaEtica = useMemo(() => {
-    if (!destreza) return [];
-    return obtenerDestrezasCivicaEtica(destreza.area, destreza.subnivel)
-      .map((codigo) => buscarPorCodigo(codigo))
-      .filter((d): d is NonNullable<typeof d> => d != null);
-  }, [destreza]);
-  // Bloques curriculares del ÃÂ¡rea
+  // Bloques curriculares del área
   const bloquesCurriculares = useMemo(() => {
     if (!destreza) return [];
     const areaInfo = AREAS_INFO[destreza.area];
@@ -235,18 +208,6 @@ export default function PlanificarScreen() {
     setGenerandoPlan(true);
     setErrorPlan(null);
 
-    // Preparar nombres de ejes y competencias para el prompt
-    const ejesNombres = usaEjesTransversales && insercionesCurriculares.length > 0
-      ? insercionesCurriculares.map(id => obtenerNombreInsercion(id, isEFL))
-      : undefined;
-
-    const competenciasNombres = usaCompetencias && competenciasSeleccionadas.length > 0
-      ? competenciasSeleccionadas.map(id => {
-          const comp = COMPETENCIAS.find(c => c.id === id);
-          return comp ? (isEFL ? comp.nameEN : comp.nombre) : id;
-        })
-      : undefined;
-
     try {
       const result = await generatePlanMutation.mutateAsync({
         codigoDestreza: destreza.codigo,
@@ -255,8 +216,6 @@ export default function PlanificarScreen() {
         bloque: obtenerNombreBloque(destreza.area, destreza.bloque),
         subnivel: destreza.subnivel,
         tema,
-        ejesTransversales: ejesNombres,
-        competencias: competenciasNombres,
       });
 
       if (result.success && result.plan) {
@@ -308,7 +267,7 @@ export default function PlanificarScreen() {
   };
 
   // ===== Guardar =====
-  const handleSave = async () => {
+  const handleSave = async (irAAdaptacion = false) => {
     if (!docente.trim()) {
       if (Platform.OS === "web") {
         alert(isEFL ? "Please enter teacher name" : "Por favor ingresa el nombre del docente");
@@ -360,11 +319,8 @@ export default function PlanificarScreen() {
       evaluacion: evaluacion.trim(),
       tecnicasInstrumentos: tecnicas.trim(),
       observaciones: observaciones.trim(),
-      usaEjesTransversales,
-      insercionesCurriculares: insercionesCurriculares.length > 0 ? insercionesCurriculares : undefined,
-      usaCompetencias,
-      competencias: competenciasSeleccionadas.length > 0 ? competenciasSeleccionadas : undefined,
-      metodologiasActivas: metodologiasSeleccionadas.length > 0 ? metodologiasSeleccionadas : undefined,
+      usaEjesTransversales: false,
+      usaCompetencias: false,
       tecnicasEvaluacionSeleccionadas: tecnicasSeleccionadas.length > 0 ? tecnicasSeleccionadas : undefined,
       estilosAprendizaje: estilosSeleccionados.length > 0 ? estilosSeleccionados : undefined,
       dua: {
@@ -377,7 +333,11 @@ export default function PlanificarScreen() {
     };
 
     await addPlanificacion(plan);
-    router.replace(`/ver-plan/${plan.id}` as any);
+    if (irAAdaptacion) {
+      router.replace({ pathname: "/adaptacion-curricular", params: { planId: plan.id } });
+    } else {
+      router.replace(`/ver-plan/${plan.id}` as any);
+    }
   };
 
   // ==========================================
@@ -687,171 +647,6 @@ export default function PlanificarScreen() {
             )}
           </View>
 
-          {/* ===== TOGGLE: EJES TRANSVERSALES ===== */}
-          <SectionTitle title={isEFL ? "Cross-cutting Themes" : "6. Ejes Transversales (Inserciones Curriculares)"} emoji={"🌐"} colors={colors} />
-          <View className="px-5 mt-1">
-            <View style={styles.toggleRow}>
-              <Text className="text-sm text-foreground flex-1">
-                {isEFL ? "Work with cross-cutting themes?" : "¿Trabajar con ejes transversales?"}
-              </Text>
-              <Switch
-                value={usaEjesTransversales}
-                onValueChange={setUsaEjesTransversales}
-                trackColor={{ false: colors.border, true: colors.primary + "60" }}
-                thumbColor={usaEjesTransversales ? colors.primary : "#f4f3f4"}
-              />
-            </View>
-
-            {usaEjesTransversales && insercionesDisponibles.length > 0 && (
-              <View style={{ marginTop: 10 }}>
-                <Text className="text-xs text-muted mb-2">
-                  {isEFL ? "Select which ones:" : "Selecciona cuáles:"}
-                </Text>
-                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-                  {insercionesDisponibles.map((ins) => {
-                    const isSelected = insercionesCurriculares.includes(ins.id);
-                    return (
-                      <Pressable
-                        key={ins.id}
-                        onPress={() => {
-                          if (isSelected) {
-                            setInsercionesCurriculares(insercionesCurriculares.filter(id => id !== ins.id));
-                          } else {
-                            setInsercionesCurriculares([...insercionesCurriculares, ins.id]);
-                          }
-                        }}
-                        style={({ pressed }) => [{
-                          paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20,
-                          borderWidth: 1.5, borderColor: isSelected ? colors.primary : colors.border,
-                          backgroundColor: isSelected ? colors.primary + "15" : colors.surface,
-                          opacity: pressed ? 0.7 : 1,
-                        }]}
-                      >
-                        <Text style={{ fontSize: 12, fontWeight: isSelected ? "700" : "500", color: isSelected ? colors.primary : colors.foreground }}>
-                          {ins.emoji} {isEFL ? ins.nameEN : ins.nombreCorto}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              </View>
-            )}
-            {usaEjesTransversales && insercionesCurriculares.includes("civica-etica") && (
-              <View style={{ marginTop: 14, padding: 12, borderRadius: 12, backgroundColor: colors.primary + "08", borderWidth: 1.5, borderColor: colors.primary + "30" }}>
-                <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary, marginBottom: 8 }}>
-                  {isEFL ? "⚖️ Suggested DCDs — Civic, Ethics & Integrity" : "⚖️ Destrezas sugeridas — Cívica, Ética e Integridad"}
-                </Text>
-                {destrezasCivicaEtica.length > 0 ? (
-                  destrezasCivicaEtica.map((d) => (
-                    <View key={d.codigo} style={{ marginBottom: 6 }}>
-                      <Text style={{ fontSize: 11, color: colors.foreground, lineHeight: 16 }}>
-                        <Text style={{ fontWeight: "700", color: colors.primary }}>{d.codigo} </Text>
-                        {d.descripcion}
-                      </Text>
-                    </View>
-                  ))
-                ) : (
-                  <Text style={{ fontSize: 11, color: colors.muted, fontStyle: "italic" }}>
-                    {isEFL
-                      ? "No specific DCDs mapped for this subject/level in the Civic Education insertion."
-                      : "No hay destrezas específicas mapeadas para esta asignatura y subnivel en la inserción de Cívica, Ética e Integridad."}
-                  </Text>
-                )}
-              </View>
-            )}
-            {usaEjesTransversales && insercionesDisponibles.length === 0 && (
-              <Text className="text-xs text-muted mt-2">
-                {isEFL ? "No specific insertions for this subject/level" : "No hay inserciones específicas para esta asignatura/subnivel"}
-              </Text>
-            )}
-          </View>
-
-          {/* ===== TOGGLE: COMPETENCIAS ===== */}
-          <SectionTitle title={isEFL ? "7. Competencies" : "7. Competencias"} emoji={"🎯"} colors={colors} />
-          <View className="px-5 mt-1">
-            <View style={styles.toggleRow}>
-              <Text className="text-sm text-foreground flex-1">
-                {isEFL ? "Work with competencies?" : "¿Trabajar con competencias?"}
-              </Text>
-              <Switch
-                value={usaCompetencias}
-                onValueChange={setUsaCompetencias}
-                trackColor={{ false: colors.border, true: colors.primary + "60" }}
-                thumbColor={usaCompetencias ? colors.primary : "#f4f3f4"}
-              />
-            </View>
-
-            {usaCompetencias && (
-              <View style={{ marginTop: 10 }}>
-                <Text className="text-xs text-muted mb-2">
-                  {isEFL ? "Select which ones:" : "Selecciona cuáles:"}
-                </Text>
-                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-                  {COMPETENCIAS.map((comp) => {
-                    const isSelected = competenciasSeleccionadas.includes(comp.id);
-                    return (
-                      <Pressable
-                        key={comp.id}
-                        onPress={() => {
-                          if (isSelected) {
-                            setCompetenciasSeleccionadas(competenciasSeleccionadas.filter(id => id !== comp.id));
-                          } else {
-                            setCompetenciasSeleccionadas([...competenciasSeleccionadas, comp.id]);
-                          }
-                        }}
-                        style={({ pressed }) => [{
-                          paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20,
-                          borderWidth: 1.5, borderColor: isSelected ? colors.primary : colors.border,
-                          backgroundColor: isSelected ? colors.primary + "15" : colors.surface,
-                          opacity: pressed ? 0.7 : 1,
-                        }]}
-                      >
-                        <Text style={{ fontSize: 12, fontWeight: isSelected ? "700" : "500", color: isSelected ? colors.primary : colors.foreground }}>
-                          {comp.emoji} {isEFL ? comp.nameEN : comp.nombre}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              </View>
-            )}
-          </View>
-
-          {/* ===== METODOLOGÍAS ACTIVAS ===== */}
-          <SectionTitle title={isEFL ? "Active Methodologies" : "Metodologías Activas"} emoji={"💡"} colors={colors} />
-          <View className="px-5 mt-1 mb-2">
-            <Text className="text-xs text-muted mb-2">
-              {isEFL ? "Select the active methodologies:" : "Selecciona las metodologías activas:"}
-            </Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-              {METODOLOGIAS_ACTIVAS.map((met) => {
-                const isSelected = metodologiasSeleccionadas.includes(met.id);
-                return (
-                  <Pressable
-                    key={met.id}
-                    onPress={() => {
-                      if (isSelected) {
-                        setMetodologiasSeleccionadas(metodologiasSeleccionadas.filter(id => id !== met.id));
-                      } else {
-                        setMetodologiasSeleccionadas([...metodologiasSeleccionadas, met.id]);
-                      }
-                    }}
-                    style={({ pressed }) => [{
-                      paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20,
-                      borderWidth: 1.5, borderColor: isSelected ? "#7C3AED" : colors.border,
-                      backgroundColor: isSelected ? "#7C3AED15" : colors.surface,
-                      opacity: pressed ? 0.7 : 1,
-                    }]}
-                  >
-                    <Text style={{ fontSize: 12, fontWeight: isSelected ? "700" : "500", color: isSelected ? "#7C3AED" : colors.foreground }}>
-                      {isEFL ? met.nameEN : met.nombre}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </View>
-
           {/* ===== TÉCNICAS DE EVALUACIÓN ===== */}
           <SectionTitle title={isEFL ? "Assessment Techniques" : "Técnicas de Evaluación"} emoji={"📋"} colors={colors} />
           <View className="px-5 mt-1 mb-2">
@@ -1008,11 +803,25 @@ export default function PlanificarScreen() {
           {/* Guardar */}
           <View className="px-5 mt-6 mb-10">
             <Pressable
-              onPress={handleSave}
+              onPress={() => handleSave()}
               style={({ pressed }) => [styles.saveBtn, { backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] }]}
             >
               <Text style={{ fontSize: 20 }}>{"💾"}</Text>
               <Text style={styles.saveBtnText}>{isEFL ? "Save Lesson Plan" : "Guardar Planificación"}</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => handleSave(true)}
+              style={({ pressed }) => [styles.saveBtn, {
+                backgroundColor: "#4A1942",
+                opacity: pressed ? 0.85 : 1,
+                transform: [{ scale: pressed ? 0.98 : 1 }],
+                marginTop: 10,
+              }]}
+            >
+              <Text style={{ fontSize: 20 }}>{"♿"}</Text>
+              <Text style={styles.saveBtnText}>
+                {isEFL ? "Save & Create Adaptation" : "Guardar y crear Adaptación Curricular"}
+              </Text>
             </Pressable>
           </View>
         </ScrollView>

@@ -26,6 +26,19 @@ const SemanaContextSchema = z.object({
   dias: z.array(SemanaContextDiaSchema),
 });
 
+/** Contexto de la planificación diaria vinculada — actividades ERCA reales de la clase */
+const PlanContextSchema = z.object({
+  tema: z.string(),
+  objetivo: z.string().optional(),
+  actividades: z.object({
+    experiencia: z.array(z.string()),
+    reflexion: z.array(z.string()),
+    conceptualizacion: z.array(z.string()),
+    aplicacion: z.array(z.string()),
+  }),
+  recursos: z.array(z.string()),
+});
+
 const FormSchema = z.object({
   institucion: z.string(),
   docente: z.string(),
@@ -67,6 +80,7 @@ const SUBNIVEL_NAMES: Record<number, string> = {
 function buildPrompt(
   input: z.infer<typeof FormSchema>,
   semanaContext?: z.infer<typeof SemanaContextSchema>,
+  planContext?: z.infer<typeof PlanContextSchema>,
 ): string {
   const grado = input.gradoAdaptacion as GradoAdaptacion;
   const neeInfo = NEE_STRATEGIES[input.tipoNEE as keyof typeof NEE_STRATEGIES];
@@ -137,6 +151,23 @@ ${semanaContext.dias.map((d) => {
 }).join("\n\n")}
 
 REGLA: Para cada día genera "adaptacionERCA" con adaptación ESPECÍFICA de cada fase.
+Ejemplo: si la Experiencia usa bloques lógicos → "adaptacionERCA.experiencia" debe decir cómo usar esos bloques adaptados al NEE.
+──────────────────────────────────────────────────────────────────
+` : ""}
+${planContext ? `
+──────────────────────────────────────────────────────────────────
+PLANIFICACIÓN DIARIA VINCULADA (REFERENCIA OBLIGATORIA):
+Las adaptaciones curriculares DEBEN derivarse de las actividades ERCA realmente planificadas en la clase.
+Cada fase ERCA es una Estrategia Metodológica Activa — adapta CADA FASE para el perfil NEE.
+
+CLASE — Tema: "${planContext.tema}"${planContext.objetivo ? `\n  Objetivo: "${planContext.objetivo}"` : ""}
+  → Experiencia planificada: ${planContext.actividades.experiencia.slice(0, 2).join(" | ") || "(sin actividades)"}
+  → Reflexión planificada: ${planContext.actividades.reflexion.slice(0, 2).join(" | ") || "(sin actividades)"}
+  → Conceptualización planificada: ${planContext.actividades.conceptualizacion.slice(0, 2).join(" | ") || "(sin actividades)"}
+  → Aplicación planificada: ${planContext.actividades.aplicacion.slice(0, 2).join(" | ") || "(sin actividades)"}
+  → Recursos de la clase: ${planContext.recursos.slice(0, 4).join(", ") || "(sin recursos específicos)"}
+
+REGLA: Genera "adaptacionesPorDia" con UNA sola entrada (dia: "Clase") con "adaptacionERCA" ESPECÍFICA de cada fase.
 Ejemplo: si la Experiencia usa bloques lógicos → "adaptacionERCA.experiencia" debe decir cómo usar esos bloques adaptados al NEE.
 ──────────────────────────────────────────────────────────────────
 ` : ""}
@@ -242,6 +273,22 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
       "recursosAdaptados": ["string (recurso del día adaptado para el NEE 1)", "string (recurso adaptado 2)"],
       "evaluacionAdaptada": "string (cómo evaluar el logro del ${d.dia} de forma adaptada al perfil NEE)"
     }`).join(",\n    ")}
+  ]` : planContext ? `,
+  "adaptacionesPorDia": [
+    {
+      "dia": "Clase",
+      "objetivo": "${planContext.objetivo ?? "(objetivo de la clase)"}",
+      "objetivoAdaptado": "string (reformulación del objetivo de la clase ajustada al nivel y perfil NEE del estudiante — debe ser alcanzable y medible)",
+      "adaptacionAcceso": "string (ajustes de acceso para las actividades de la clase: materiales, espacio, tiempos, apoyos físicos/sensoriales — referencia los recursos concretos de la clase)",
+      "adaptacionERCA": {
+        "experiencia": "string (cómo adaptar la Experiencia — referencia la actividad planificada y la modifica para el perfil NEE)",
+        "reflexion": "string (cómo adaptar la Reflexión — referencia la actividad planificada y la modifica para el perfil NEE)",
+        "conceptualizacion": "string (cómo adaptar la Conceptualización — referencia la actividad planificada y la modifica para el perfil NEE)",
+        "aplicacion": "string (cómo adaptar la Aplicación — referencia la actividad planificada y la modifica para el perfil NEE)"
+      },
+      "recursosAdaptados": ["string (recurso de la clase adaptado para el NEE 1)", "string (recurso adaptado 2)"],
+      "evaluacionAdaptada": "string (cómo evaluar el logro de la clase de forma adaptada al perfil NEE)"
+    }
   ]` : ""}
 }`;
 }
@@ -258,9 +305,11 @@ export const adaptacionesRouter = router({
       existingId: z.number().optional(),
       /** Contexto de la planificación semanal vinculada (actividades ERCA reales por día) */
       semanaContext: SemanaContextSchema.optional(),
+      /** Contexto de la planificación diaria vinculada (actividades ERCA reales de la clase) */
+      planContext: PlanContextSchema.optional(),
     }))
     .mutation(async ({ input }) => {
-      const prompt = buildPrompt(input.form, input.semanaContext);
+      const prompt = buildPrompt(input.form, input.semanaContext, input.planContext);
 
       const raw = await invokeLLM({
         messages: [
