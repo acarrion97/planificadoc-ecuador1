@@ -111,6 +111,21 @@ export default function VerEvaluacionScreen() {
     if (ev) { setUmbralDominado(String(ev.umbrales.dominadoMin)); setUmbralRefuerzo(String(ev.umbrales.refuerzoMax)); }
   }, [ev?.id]);
 
+  const promedios = useMemo(() => {
+    if (!ev) return null;
+    const conR = ev.resultados.filter((r) => r.respuestas.length > 0);
+    if (!conR.length) return null;
+    const prom = conR.reduce((s, r) => s + calcularResultadoEstudiante(ev, r).porcentaje, 0) / conR.length;
+    let d = 0, p = 0, rf = 0;
+    for (const r of conR) {
+      const c = calcularResultadoEstudiante(ev, r).porcentaje;
+      if (c >= ev.umbrales.dominadoMin) d++;
+      else if (c < ev.umbrales.refuerzoMax) rf++;
+      else p++;
+    }
+    return { promedio: Math.round(prom), dominado: d, enProceso: p, refuerzo: rf, total: conR.length };
+  }, [ev]);
+
   if (!ev) {
     return (
       <ScreenContainer className="flex-1">
@@ -128,20 +143,6 @@ export default function VerEvaluacionScreen() {
   const evaluados = estudiantesEvaluados(ev);
   const brechas = calcularBrechasCurso(ev);
   const recomendaciones = generarRecomendaciones(ev);
-
-  const promedios = useMemo(() => {
-    const conR = ev.resultados.filter((r) => r.respuestas.length > 0);
-    if (!conR.length) return null;
-    const prom = conR.reduce((s, r) => s + calcularResultadoEstudiante(ev, r).porcentaje, 0) / conR.length;
-    let d = 0, p = 0, rf = 0;
-    for (const r of conR) {
-      const c = calcularResultadoEstudiante(ev, r).porcentaje;
-      if (c >= ev.umbrales.dominadoMin) d++;
-      else if (c < ev.umbrales.refuerzoMax) rf++;
-      else p++;
-    }
-    return { promedio: Math.round(prom), dominado: d, enProceso: p, refuerzo: rf, total: conR.length };
-  }, [ev]);
 
   function resultadoDe(est: EstudianteEvaluacion): ResultadoEstudiante | undefined {
     return evRef.current?.resultados.find((r) => r.estudianteId === est.id);
