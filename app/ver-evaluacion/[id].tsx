@@ -31,7 +31,7 @@ import {
   generarRecomendaciones,
   estudiantesEvaluados,
 } from "@/lib/evaluacion-utils";
-import { generarHTMLEvaluacion } from "@/lib/evaluacion-pdf-generator";
+import { generarHTMLEvaluacion, generarHTMLPruebaImprimible } from "@/lib/evaluacion-pdf-generator";
 import { generarWordEvaluacion } from "@/lib/evaluacion-word-generator";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import type { PlanConectaNivelaCrea, DiagnosticoAcademicoCNC } from "@/data/types-cnc";
@@ -106,6 +106,8 @@ export default function VerEvaluacionScreen() {
   const [umbralDominado, setUmbralDominado] = useState("70");
   const [umbralRefuerzo, setUmbralRefuerzo] = useState("40");
   const [exportando, setExportando] = useState<"word" | "pdf" | "cnc" | null>(null);
+  const [imprimiendoPrueba, setImprimiendoPrueba] = useState(false);
+  const [pruebaConClave, setPruebaConClave] = useState(false);
 
   useEffect(() => {
     if (ev) { setUmbralDominado(String(ev.umbrales.dominadoMin)); setUmbralRefuerzo(String(ev.umbrales.refuerzoMax)); }
@@ -321,6 +323,27 @@ export default function VerEvaluacionScreen() {
     }
   }
 
+  async function imprimirPrueba() {
+    const e = evRef.current;
+    if (!e) return;
+    setImprimiendoPrueba(true);
+    try {
+      const html = generarHTMLPruebaImprimible(e, { conClave: pruebaConClave });
+      if (Platform.OS === "web") {
+        const w = window.open("", "_blank");
+        if (w) { w.document.write(html); w.document.close(); w.focus(); w.print(); }
+      } else {
+        const { printToFileAsync } = await import("expo-print");
+        const { uri } = await printToFileAsync({ html });
+        await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf", dialogTitle: "Prueba Diagnóstica" });
+      }
+    } catch (err: any) {
+      Alert.alert("Error al imprimir", err?.message ?? "No se pudo generar la prueba.");
+    } finally {
+      setImprimiendoPrueba(false);
+    }
+  }
+
   // ── Exportación a Conecta-Nivela-Crea ──
   const cncDisponible = (ev.area === "LL" || ev.area === "M") && evaluados.length > 0;
   function nivelDominanteEstado(d: { dominado: number; enProceso: number; requiereRefuerzo: number }): "dominado" | "en_proceso" | "requiere_refuerzo" {
@@ -417,6 +440,16 @@ export default function VerEvaluacionScreen() {
               <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>✓ Marcar analizada</Text>
             </Pressable>
           )}
+          <Pressable onPress={() => imprimirPrueba()} disabled={imprimiendoPrueba}
+            style={[styles.chipBtn, { backgroundColor: "#1D4ED8", opacity: imprimiendoPrueba ? 0.5 : 1 }]}>
+            <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>{imprimiendoPrueba ? "..." : "🖨️ Imprimir prueba"}</Text>
+          </Pressable>
+          <Pressable onPress={() => setPruebaConClave((v) => !v)}
+            style={[styles.chipBtn, { backgroundColor: pruebaConClave ? colors.primary : colors.surface, borderWidth: 1, borderColor: pruebaConClave ? colors.primary : colors.border }]}>
+            <Text style={{ color: pruebaConClave ? "#fff" : colors.text, fontSize: 12, fontWeight: "600" }}>
+              {pruebaConClave ? "✔ Clave de respuestas" : "Clave de respuestas"}
+            </Text>
+          </Pressable>
           <Pressable onPress={() => handleExport("pdf")} disabled={exportando !== null}
             style={[styles.chipBtn, { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, opacity: exportando === "pdf" ? 0.5 : 1 }]}>
             <Text style={{ color: colors.text, fontSize: 12, fontWeight: "600" }}>{exportando === "pdf" ? "..." : "PDF"}</Text>
