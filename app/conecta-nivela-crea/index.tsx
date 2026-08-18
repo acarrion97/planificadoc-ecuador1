@@ -32,6 +32,12 @@ const GRADOS_TODOS = [
   "8.° EGB", "9.° EGB", "10.° EGB", "1.° BGU", "2.° BGU", "3.° BGU",
 ];
 
+// Bachillerato Técnico tiene sus propios 3 años (no EGB/BGU); coincide con el
+// campo "anio" de ModuloFormativo y con el reconocimiento de BT en
+// lib/evaluacion-utils.ts (esBachilleratoTecnico), al que este grado viaja
+// cuando el docente crea una evaluación diagnóstica desde este wizard.
+const GRADOS_BT = ["1.° BT", "2.° BT", "3.° BT"];
+
 const TIPOS_PRODUCTO_BT: { id: "maqueta" | "software_basico" | "plan_negocio" | "mantenimiento_equipo" | "otro"; label: string }[] = [
   { id: "maqueta", label: "Maqueta" },
   { id: "software_basico", label: "Software básico" },
@@ -602,7 +608,7 @@ export default function ConectaNivelaCreaScreen() {
 
             <Label text="Grado / Curso" colors={colors} />
             <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
-              {GRADOS_TODOS.map((g) => (
+              {(esBT ? GRADOS_BT : GRADOS_TODOS).map((g) => (
                 <Pressable
                   key={g}
                   onPress={() => setPlan((p) => ({ ...p, grado: g }))}
@@ -624,7 +630,16 @@ export default function ConectaNivelaCreaScreen() {
             <ChipGroup
               options={["general", "bt"] as const}
               selected={plan.modalidad}
-              onSelect={(v) => setPlan((p) => ({ ...p, modalidad: v, figuraProfesionalId: undefined, moduloId: undefined }))}
+              onSelect={(v) => setPlan((p) => ({
+                ...p,
+                modalidad: v,
+                // El grado seleccionado pertenece a la lista de la modalidad
+                // anterior (EGB/BGU vs. BT); se limpia para no dejar un
+                // valor que ya no aparece entre las opciones visibles.
+                grado: v !== p.modalidad ? "" : p.grado,
+                figuraProfesionalId: undefined,
+                moduloId: undefined,
+              }))}
               colors={colors}
               getLabel={(v) => v === "general" ? "General (EGB/BGU)" : "Bachillerato Técnico"}
             />
