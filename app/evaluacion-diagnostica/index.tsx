@@ -140,6 +140,13 @@ const AREAS = Object.keys(AREAS_INFO) as Area[];
 // oficial "Herramientas para la evaluación diagnóstica" (2026-2027) incluso
 // ejemplifica con Ciencias Naturales.
 const AREAS_DIAGNOSTICO = AREAS.filter((a) => a !== "CAI");
+// "Conecta, Nivela y Crea" está oficialmente restringido a las asignaturas
+// fundacionales (Lengua y Literatura, Matemática) — verificado en
+// "Lineamientos pedagógicos. Costa-Galápagos; 2026-2027", sección 2.1
+// (educacion.gob.ec). Cuando la evaluación se crea desde el wizard CNC, el
+// área debe quedar acotada a lo que esa fase realmente evalúa; fuera de ese
+// flujo, el módulo sigue siendo de propósito general (ver AREAS_DIAGNOSTICO).
+const AREAS_CNC: Area[] = ["LL", "M"];
 
 const TIPOS_PREGUNTA = Object.keys(TIPO_PREGUNTA_INFO) as TipoPreguntaDiagnostica[];
 const DIFICULTADES = Object.keys(DIFICULTAD_INFO) as DificultadPregunta[];
@@ -289,7 +296,7 @@ export default function EvaluacionDiagnosticaScreen() {
       const dest = buscarPorCodigo(codigo);
       if (dest?.area) conteoPorArea[dest.area] = (conteoPorArea[dest.area] ?? 0) + 1;
     }
-    const conArea = AREAS_DIAGNOSTICO.filter((a) => (conteoPorArea[a] ?? 0) > 0);
+    const conArea = AREAS_CNC.filter((a) => (conteoPorArea[a] ?? 0) > 0);
     if (conArea.length === 0) return;
     conArea.sort((a, b) => (conteoPorArea[b] ?? 0) - (conteoPorArea[a] ?? 0));
     const ganadora = conArea[0];
@@ -640,8 +647,13 @@ export default function EvaluacionDiagnosticaScreen() {
               </Text>
             </Pressable>
             <Label text="Área" colors={colors} />
+            {desdeCNC && (
+              <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 6 }}>
+                Conecta, Nivela y Crea diagnostica únicamente Lengua y Literatura y Matemática.
+              </Text>
+            )}
             <ChipGroup<Area>
-              options={AREAS_DIAGNOSTICO}
+              options={desdeCNC ? AREAS_CNC : AREAS_DIAGNOSTICO}
               selected={area ?? ("" as Area)}
               onSelect={(v) => {
                 setArea(v);
@@ -953,16 +965,27 @@ export default function EvaluacionDiagnosticaScreen() {
               <Text style={{ fontSize: 13, color: colors.text }}>Estudiantes: 0 (se registran al aplicar)</Text>
               <Text style={{ fontSize: 13, color: colors.text }}>Umbrales: Dominado ≥ {dominadoMin}% · Refuerzo &lt; {refuerzoMax}%</Text>
             </View>
-            <View style={{ flexDirection: "row", gap: 12, marginTop: 16 }}>
+            {desdeCNC ? (
+              // Al crear la evaluación desde el wizard CNC, publicar es una
+              // decisión aparte que el docente puede tomar más tarde desde la
+              // evaluación ya guardada — acá solo se guarda el borrador para
+              // no interrumpir el flujo de planificación con esa decisión.
               <Pressable onPress={handleGuardar} disabled={saving}
-                style={({ pressed }) => [styles.actionBtn, { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, opacity: pressed ? 0.8 : 1 }]}>
-                <Text style={{ color: colors.text, fontWeight: "600" }}>Guardar borrador</Text>
+                style={({ pressed }) => [styles.actionBtn, { backgroundColor: colors.primary, marginTop: 16, opacity: pressed ? 0.8 : saving ? 0.5 : 1 }]}>
+                <Text style={{ color: "#fff", fontWeight: "600" }}>{saving ? "Guardando..." : "Guardar"}</Text>
               </Pressable>
-              <Pressable onPress={handlePublicar} disabled={saving}
-                style={({ pressed }) => [styles.actionBtn, { backgroundColor: colors.primary, opacity: pressed ? 0.8 : saving ? 0.5 : 1 }]}>
-                <Text style={{ color: "#fff", fontWeight: "600" }}>{saving ? "Guardando..." : "Publicar evaluación"}</Text>
-              </Pressable>
-            </View>
+            ) : (
+              <View style={{ flexDirection: "row", gap: 12, marginTop: 16 }}>
+                <Pressable onPress={handleGuardar} disabled={saving}
+                  style={({ pressed }) => [styles.actionBtn, { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, opacity: pressed ? 0.8 : 1 }]}>
+                  <Text style={{ color: colors.text, fontWeight: "600" }}>Guardar borrador</Text>
+                </Pressable>
+                <Pressable onPress={handlePublicar} disabled={saving}
+                  style={({ pressed }) => [styles.actionBtn, { backgroundColor: colors.primary, opacity: pressed ? 0.8 : saving ? 0.5 : 1 }]}>
+                  <Text style={{ color: "#fff", fontWeight: "600" }}>{saving ? "Guardando..." : "Publicar evaluación"}</Text>
+                </Pressable>
+              </View>
+            )}
           </View>
         )}
       </ScrollView>
