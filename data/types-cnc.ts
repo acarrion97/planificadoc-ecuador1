@@ -106,6 +106,12 @@ export interface ProyectoInterdisciplinarioCNC {
   descripcion: string;
   /** CN, CS, ECA, etc. */
   areasIntegradas: string[];
+  /** Producto final explícito del proyecto (sugerido por IA si vacío, editable) */
+  productoFinal: string;
+  /** Actividades concretas de la Semana 4 (planificación, elaboración, revisión...) */
+  actividadesSemana4: string[];
+  /** Actividades concretas de la Semana 5 (finalización, socialización, reflexión...) */
+  actividadesSemana5: string[];
   /** códigos del diagnóstico de Semana 1 que este proyecto refuerza */
   destrezasReforzadas: string[];
   evidenciasCognitivas: string[];
@@ -122,6 +128,10 @@ export interface Semana4y5CNC {
 export interface ProductoAcreditableBT {
   tipo: "maqueta" | "software_basico" | "plan_negocio" | "mantenimiento_equipo" | "otro";
   descripcion: string;
+  /** Actividades concretas de elaboración del producto (Semana 4) */
+  actividadesSemana4: string[];
+  /** Actividades concretas de presentación del producto (Semana 5) */
+  actividadesSemana5: string[];
 }
 
 export interface Semana4y5CNCExtraBT {

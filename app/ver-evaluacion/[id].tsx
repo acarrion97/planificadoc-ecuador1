@@ -56,7 +56,8 @@ function planCNCVacio(): PlanConectaNivelaCrea {
     semana2y3: { actividadesNivelacion: [], parejasConivelacion: [] },
     semana4y5: {
       proyecto: {
-        titulo: "", descripcion: "", areasIntegradas: [], destrezasReforzadas: [],
+        titulo: "", descripcion: "", areasIntegradas: [], productoFinal: "",
+        actividadesSemana4: [], actividadesSemana5: [], destrezasReforzadas: [],
         evidenciasCognitivas: [], evidenciasActitudinales: [], esEvaluacionFormativaOficial: true,
       },
     },

@@ -78,11 +78,16 @@ const Semana4y5Schema = z.object({
   descripcion: z.string(),
   areasIntegradas: z.array(z.string()),
   notasDocente: z.string().optional(),
+  productoFinal: z.string().optional(),
+  actividadesSemana4: z.array(z.string()).optional(),
+  actividadesSemana5: z.array(z.string()).optional(),
 });
 
 const Semana4y5BTSchema = z.object({
   tipoProducto: z.enum(["maqueta", "software_basico", "plan_negocio", "mantenimiento_equipo", "otro"]),
   descripcion: z.string(),
+  actividadesSemana4: z.array(z.string()).optional(),
+  actividadesSemana5: z.array(z.string()).optional(),
 });
 
 const FormSchema = z.object({
@@ -190,10 +195,14 @@ SEMANAS 4-5 — CREA (proyecto interdisciplinario que constituye FORMALMENTE una
 Título propuesto por el docente: ${input.semana4y5.titulo || "(el docente no propuso título — sugiere uno)"}
 Descripción/notas del docente: ${input.semana4y5.descripcion || "(sin notas)"}
 Áreas a integrar sugeridas por el docente: ${input.semana4y5.areasIntegradas.join(", ") || "(ninguna — sugiere áreas coherentes con el diagnóstico)"}
+Producto final propuesto por el docente: ${input.semana4y5.productoFinal || "(vacío — sugiere un producto final concreto)"}
+Actividades de la Semana 4 propuestas por el docente: ${input.semana4y5.actividadesSemana4?.filter(Boolean).length ? input.semana4y5.actividadesSemana4!.join("; ") : "(vacío — sugiere 3-5 actividades de planificación/organización/elaboración)"}
+Actividades de la Semana 5 propuestas por el docente: ${input.semana4y5.actividadesSemana5?.filter(Boolean).length ? input.semana4y5.actividadesSemana5!.join("; ") : "(vacío — sugiere 3-5 actividades de finalización/socialización/reflexión)"}
 
 INSTRUCCIONES IMPORTANTES:
 - NO inventes destrezas, códigos curriculares ni criterios técnicos que no estén listados arriba — usa únicamente los proporcionados por el docente${esBT ? " o el catálogo técnico del módulo" : ""}.
 - El proyecto/producto de Semanas 4-5 debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
+- "productoFinal" del proyecto y "actividadesSemana4"/"actividadesSemana5": derívalos de las DCD diagnosticadas en Semana 1, las destrezas a reforzar, las áreas integradas y el contexto. Si el docente ya escribió un campo (productoFinal, actividadesSemana4 o actividadesSemana5), devuélvelo EXACTAMENTE como está; solo sugiere contenido cuando el campo está vacío.
 - Para cada actividad de nivelación sugerida, incluye "estrategiaConivelacion": una sugerencia concreta de cómo aprovechar tutoría entre pares para esa destreza específica.
 - El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — es un requisito formal del MinEduc, no una opción.
 - "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
@@ -212,6 +221,9 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
     "titulo": "string",
     "descripcion": "string (3-4 oraciones)",
     "areasIntegradas": ["string", "string"],
+    "productoFinal": "string (1 oración concreta del producto final del proyecto)",
+    "actividadesSemana4": ["string (3-5 actividades: planificación, organización de equipos, investigación, elaboración, revisión)"],
+    "actividadesSemana5": ["string (3-5 actividades: finalización, socialización, presentación, reflexión)"],
     "destrezasReforzadas": ["string (códigos del diagnóstico)"],
     "evidenciasCognitivas": ["string", "string", "string"],
     "evidenciasActitudinales": ["string", "string", "string"],
@@ -226,7 +238,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   "actividadesNivelacionTecnicaSugeridas": [
     { "criterioId": "string", "criterioTexto": "string", "descripcionActividad": "string", "semana": 2, "articulacionMatematica": "string" }
   ],
-  "productoAcreditableSugerido": { "tipo": "maqueta", "descripcion": "string" }` : ""}
+  "productoAcreditableSugerido": { "tipo": "maqueta", "descripcion": "string", "actividadesSemana4": ["string (3-5 actividades de elaboración del producto)"], "actividadesSemana5": ["string (3-5 actividades de presentación/evaluación del producto)"] }` : ""}
 }`;
 }
 

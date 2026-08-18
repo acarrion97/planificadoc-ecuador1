@@ -57,7 +57,8 @@ function planVacio(): PlanConectaNivelaCrea {
     semana2y3: { actividadesNivelacion: [], parejasConivelacion: [] },
     semana4y5: {
       proyecto: {
-        titulo: "", descripcion: "", areasIntegradas: [], destrezasReforzadas: [],
+        titulo: "", descripcion: "", areasIntegradas: [], productoFinal: "",
+        actividadesSemana4: [], actividadesSemana5: [], destrezasReforzadas: [],
         evidenciasCognitivas: [], evidenciasActitudinales: [], esEvaluacionFormativaOficial: true,
       },
     },
@@ -344,8 +345,18 @@ export default function ConectaNivelaCreaScreen() {
             descripcion: plan.semana4y5.proyecto.descripcion,
             areasIntegradas: plan.semana4y5.proyecto.areasIntegradas,
             notasDocente: undefined,
+            productoFinal: plan.semana4y5.proyecto.productoFinal,
+            actividadesSemana4: plan.semana4y5.proyecto.actividadesSemana4,
+            actividadesSemana5: plan.semana4y5.proyecto.actividadesSemana5,
           },
-          semana4y5BT: plan.semana4y5BT ? { tipoProducto: plan.semana4y5BT.productoAcreditable.tipo, descripcion: plan.semana4y5BT.productoAcreditable.descripcion } : undefined,
+          semana4y5BT: plan.semana4y5BT
+            ? {
+                tipoProducto: plan.semana4y5BT.productoAcreditable.tipo,
+                descripcion: plan.semana4y5BT.productoAcreditable.descripcion,
+                actividadesSemana4: plan.semana4y5BT.productoAcreditable.actividadesSemana4,
+                actividadesSemana5: plan.semana4y5BT.productoAcreditable.actividadesSemana5,
+              }
+            : undefined,
         },
         sessionId,
       });
@@ -399,10 +410,33 @@ export default function ConectaNivelaCreaScreen() {
           proyecto: {
             ...res.aiResult.proyectoSugerido,
             titulo: plan.semana4y5.proyecto.titulo || res.aiResult.proyectoSugerido.titulo,
+            descripcion: plan.semana4y5.proyecto.descripcion || res.aiResult.proyectoSugerido.descripcion,
+            areasIntegradas: plan.semana4y5.proyecto.areasIntegradas.length
+              ? plan.semana4y5.proyecto.areasIntegradas
+              : (res.aiResult.proyectoSugerido.areasIntegradas ?? []),
+            productoFinal: plan.semana4y5.proyecto.productoFinal || res.aiResult.proyectoSugerido.productoFinal || "",
+            actividadesSemana4: plan.semana4y5.proyecto.actividadesSemana4.length
+              ? plan.semana4y5.proyecto.actividadesSemana4
+              : (res.aiResult.proyectoSugerido.actividadesSemana4 ?? []),
+            actividadesSemana5: plan.semana4y5.proyecto.actividadesSemana5.length
+              ? plan.semana4y5.proyecto.actividadesSemana5
+              : (res.aiResult.proyectoSugerido.actividadesSemana5 ?? []),
           },
         },
         semana4y5BT: res.aiResult.productoAcreditableSugerido
-          ? { productoAcreditable: res.aiResult.productoAcreditableSugerido }
+          ? {
+              productoAcreditable: {
+                ...res.aiResult.productoAcreditableSugerido,
+                tipo: plan.semana4y5BT?.productoAcreditable.tipo || res.aiResult.productoAcreditableSugerido.tipo,
+                descripcion: plan.semana4y5BT?.productoAcreditable.descripcion || res.aiResult.productoAcreditableSugerido.descripcion,
+                actividadesSemana4: plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.length
+                  ? plan.semana4y5BT.productoAcreditable.actividadesSemana4
+                  : (res.aiResult.productoAcreditableSugerido.actividadesSemana4 ?? []),
+                actividadesSemana5: plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.length
+                  ? plan.semana4y5BT.productoAcreditable.actividadesSemana5
+                  : (res.aiResult.productoAcreditableSugerido.actividadesSemana5 ?? []),
+              },
+            }
           : plan.semana4y5BT,
         aiResult: res.aiResult,
         status: "generado",
@@ -964,6 +998,30 @@ export default function ConectaNivelaCreaScreen() {
                   colors={colors}
                   multiline
                 />
+                <Field
+                  label="Producto final (opcional — la IA sugiere uno si lo dejas vacío)"
+                  value={plan.semana4y5.proyecto.productoFinal}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, productoFinal: v } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder="Ej: Decálogo ilustrado de convivencia y seguridad integral"
+                />
+                <Field
+                  label="Actividades Semana 4 (una por línea)"
+                  value={plan.semana4y5.proyecto.actividadesSemana4.join("\n")}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, actividadesSemana4: v.split("\n") } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder={"Ej: Planificación del proyecto...\nOrganización de equipos de trabajo..."}
+                />
+                <Field
+                  label="Actividades Semana 5 (una por línea)"
+                  value={plan.semana4y5.proyecto.actividadesSemana5.join("\n")}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, actividadesSemana5: v.split("\n") } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder={"Ej: Finalización del producto...\nSocialización y presentación..."}
+                />
               </>
             )}
 
@@ -973,16 +1031,32 @@ export default function ConectaNivelaCreaScreen() {
                 <ChipGroup
                   options={TIPOS_PRODUCTO_BT.map((t) => t.id)}
                   selected={plan.semana4y5BT?.productoAcreditable.tipo ?? "maqueta"}
-                  onSelect={(v) => setPlan((p) => ({ ...p, semana4y5BT: { productoAcreditable: { tipo: v, descripcion: p.semana4y5BT?.productoAcreditable.descripcion ?? "" } } }))}
+                  onSelect={(v) => setPlan((p) => ({ ...p, semana4y5BT: { productoAcreditable: { tipo: v, descripcion: p.semana4y5BT?.productoAcreditable.descripcion ?? "", actividadesSemana4: p.semana4y5BT?.productoAcreditable.actividadesSemana4 ?? [], actividadesSemana5: p.semana4y5BT?.productoAcreditable.actividadesSemana5 ?? [] } } }))}
                   colors={colors}
                   getLabel={(v) => TIPOS_PRODUCTO_BT.find((t) => t.id === v)?.label ?? v}
                 />
                 <Field
                   label="Descripción del producto"
                   value={plan.semana4y5BT?.productoAcreditable.descripcion ?? ""}
-                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5BT: { productoAcreditable: { tipo: p.semana4y5BT?.productoAcreditable.tipo ?? "maqueta", descripcion: v } } }))}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5BT: { productoAcreditable: { tipo: p.semana4y5BT?.productoAcreditable.tipo ?? "maqueta", descripcion: v, actividadesSemana4: p.semana4y5BT?.productoAcreditable.actividadesSemana4 ?? [], actividadesSemana5: p.semana4y5BT?.productoAcreditable.actividadesSemana5 ?? [] } } }))}
                   colors={colors}
                   multiline
+                />
+                <Field
+                  label="Actividades Semana 4 (una por línea)"
+                  value={plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.join("\n") ?? ""}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5BT: { productoAcreditable: { tipo: p.semana4y5BT?.productoAcreditable.tipo ?? "maqueta", descripcion: p.semana4y5BT?.productoAcreditable.descripcion ?? "", actividadesSemana4: v.split("\n"), actividadesSemana5: p.semana4y5BT?.productoAcreditable.actividadesSemana5 ?? [] } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder={"Ej: Selección de materiales...\nElaboración del producto..."}
+                />
+                <Field
+                  label="Actividades Semana 5 (una por línea)"
+                  value={plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.join("\n") ?? ""}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5BT: { productoAcreditable: { tipo: p.semana4y5BT?.productoAcreditable.tipo ?? "maqueta", descripcion: p.semana4y5BT?.productoAcreditable.descripcion ?? "", actividadesSemana4: p.semana4y5BT?.productoAcreditable.actividadesSemana4 ?? [], actividadesSemana5: v.split("\n") } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder={"Ej: Presentación del producto...\nEvaluación cualitativa formativa..."}
                 />
               </>
             )}
@@ -1069,8 +1143,57 @@ export default function ConectaNivelaCreaScreen() {
                 <View style={{ backgroundColor: "#FEE2E2", borderRadius: 8, padding: 8, marginBottom: 10 }}>
                   <Text style={{ fontSize: 10, fontWeight: "700", color: "#991B1B" }}>EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</Text>
                 </View>
-                <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{aiResult.proyectoSugerido.titulo}</Text>
-                <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{aiResult.proyectoSugerido.descripcion}</Text>
+                {!esBT ? (
+                  <>
+                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{plan.semana4y5.proyecto.titulo}</Text>
+                    <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5.proyecto.descripcion}</Text>
+                    {!!plan.semana4y5.proyecto.productoFinal && (
+                      <View style={{ marginTop: 8, backgroundColor: "#FFF7ED", borderRadius: 8, padding: 8, borderWidth: 1, borderColor: "#FDBA74" }}>
+                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#9A3412" }}>📦 Producto final</Text>
+                        <Text style={{ fontSize: 12, color: "#431407", marginTop: 2 }}>{plan.semana4y5.proyecto.productoFinal}</Text>
+                      </View>
+                    )}
+                    {plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? (
+                      <View style={{ marginTop: 8 }}>
+                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 4 — Planificación y elaboración</Text>
+                        {plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean).map((a, i) => (
+                          <Text key={`s4-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                        ))}
+                      </View>
+                    ) : null}
+                    {plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? (
+                      <View style={{ marginTop: 8 }}>
+                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 5 — Socialización y reflexión</Text>
+                        {plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean).map((a, i) => (
+                          <Text key={`s5-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                        ))}
+                      </View>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>
+                      {TIPOS_PRODUCTO_BT.find((t) => t.id === plan.semana4y5BT?.productoAcreditable.tipo)?.label ?? "Producto acreditable"}
+                    </Text>
+                    <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5BT?.productoAcreditable.descripcion}</Text>
+                    {plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.filter(Boolean).length ? (
+                      <View style={{ marginTop: 8 }}>
+                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 4 — Elaboración del producto</Text>
+                        {plan.semana4y5BT.productoAcreditable.actividadesSemana4.filter(Boolean).map((a, i) => (
+                          <Text key={`s4bt-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                        ))}
+                      </View>
+                    ) : null}
+                    {plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? (
+                      <View style={{ marginTop: 8 }}>
+                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 5 — Presentación y evaluación</Text>
+                        {plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean).map((a, i) => (
+                          <Text key={`s5bt-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                        ))}
+                      </View>
+                    ) : null}
+                  </>
+                )}
               </View>
             </View>
           </View>

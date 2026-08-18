@@ -369,7 +369,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaCell("SEMANA 4"),
         semanaContentCell([p.tipo.replace(/_/g, " ")]),
         semanaContentCell([]),
-        semanaContentCell(["Diseño y elaboración del producto acreditable"]),
+        semanaContentCell(p.actividadesSemana4?.filter(Boolean).length ? p.actividadesSemana4.filter(Boolean) : ["Diseño y elaboración del producto acreditable"]),
         semanaContentCell(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? []),
         semanaContentCell(["Seguimiento formativo del proceso de elaboración"]),
       ],
@@ -379,7 +379,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaCell("SEMANA 5"),
         semanaContentCell([p.tipo.replace(/_/g, " ")]),
         semanaContentCell([]),
-        semanaContentCell(["Presentación del producto acreditable"]),
+        semanaContentCell(p.actividadesSemana5?.filter(Boolean).length ? p.actividadesSemana5.filter(Boolean) : ["Presentación del producto acreditable"]),
         semanaContentCell(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? []),
         semanaContentCell(["Evaluación cualitativa formativa oficial"]),
       ],
@@ -389,13 +389,14 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     rows.push(labelValueRow("Título:", p.titulo));
     rows.push(labelValueRow("Áreas integradas:", p.areasIntegradas.join(", ") || "—"));
     rows.push(labelValueRow("Descripción:", p.descripcion));
+    rows.push(labelValueRow("Producto final:", p.productoFinal));
     rows.push(headerRow(COLUMNAS_SEMANA));
     rows.push(new TableRow({
       children: [
         semanaCell("SEMANA 4"),
         semanaContentCell(p.destrezasReforzadas),
         semanaContentCell(p.evidenciasCognitivas),
-        semanaContentCell([p.titulo || "Diseño y desarrollo del proyecto interdisciplinario"]),
+        semanaContentCell(p.actividadesSemana4?.filter(Boolean).length ? p.actividadesSemana4.filter(Boolean) : ["Diseño y desarrollo del proyecto interdisciplinario"]),
         semanaContentCell(p.areasIntegradas),
         semanaContentCell(["Seguimiento formativo del desarrollo del proyecto"]),
       ],
@@ -405,7 +406,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaCell("SEMANA 5"),
         semanaContentCell(p.destrezasReforzadas),
         semanaContentCell(p.evidenciasActitudinales),
-        semanaContentCell(["Presentación y socialización del proyecto interdisciplinario"]),
+        semanaContentCell(p.actividadesSemana5?.filter(Boolean).length ? p.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"]),
         semanaContentCell(p.areasIntegradas),
         semanaContentCell(["Evaluación cualitativa formativa oficial"]),
       ],
