@@ -29,20 +29,6 @@ export function PlanesEvaluacionSection() {
 
   return (
     <View>
-      <View style={{ paddingHorizontal: 20, marginBottom: 8, marginTop: 8 }}>
-        <Pressable
-          onPress={() => router.push("/evaluacion-diagnostica" as any)}
-          style={({ pressed }) => [styles.btn, { opacity: pressed ? 0.85 : 1 }]}
-        >
-          <Text style={{ fontSize: 22 }}>📋</Text>
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text style={styles.btnTitle}>Crear Evaluación Diagnóstica</Text>
-            <Text style={styles.btnSub}>Conocimientos previos y brechas por DCD · IA + PDF/Word</Text>
-          </View>
-          <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
-        </Pressable>
-      </View>
-
       {evaluaciones.length > 0 && (
         <View style={{ marginBottom: 8 }}>
           <Text style={[styles.sectionLabel, { color: colors.muted }]}>
@@ -88,9 +74,6 @@ export function PlanesEvaluacionSection() {
 }
 
 const styles = StyleSheet.create({
-  btn: { backgroundColor: "#1D4ED8", flexDirection: "row", alignItems: "center", borderRadius: 14, padding: 16 },
-  btnTitle: { color: "#fff", fontSize: 15, fontWeight: "700" },
-  btnSub: { color: "rgba(255,255,255,0.7)", fontSize: 12, marginTop: 1 },
   sectionLabel: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5, paddingHorizontal: 20, marginTop: 16, marginBottom: 8 },
   card: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
   header: { flexDirection: "row", alignItems: "center" },

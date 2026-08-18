@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import {
   View, Text, TextInput, ScrollView, Pressable,
   StyleSheet, Alert, ActivityIndicator, Platform,
@@ -18,11 +18,14 @@ import type {
   ParejaConivelacion, ActividadNivelacionCNC,
 } from "@/data/types-cnc";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
+import { useEvaluaciones } from "@/lib/evaluaciones-context";
+import { calcularBrechasCurso, estudiantesEvaluados } from "@/lib/evaluacion-utils";
+import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado } from "@/lib/cnc-diagnostico";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
-const STEP_LABELS = ["Identificacion", "Semana 1", "Semanas 2-3", "Semanas 4-5", "Resultado"];
+const STEP_LABELS = ["Identificacion", "Diagnóstico", "Semana 1", "Semanas 2-3", "Semanas 4-5", "Resultado"];
 
 const GRADOS_TODOS = [
   "1.° Grado EGB", "2.° EGB", "3.° EGB", "4.° EGB", "5.° EGB", "6.° EGB", "7.° EGB",
@@ -222,6 +225,7 @@ export default function ConectaNivelaCreaScreen() {
   const router = useRouter();
   const scrollRef = useRef<ScrollView>(null);
   const { addPlanCNC } = usePlanificacionesCNC();
+  const { evaluaciones } = useEvaluaciones();
 
   const [step, setStep] = useState(0);
   const [plan, setPlan] = useState<PlanConectaNivelaCrea>(planVacio);
@@ -230,6 +234,7 @@ export default function ConectaNivelaCreaScreen() {
   const [validationError, setValidationError] = useState<string | null>(null);
   const [exporting, setExporting] = useState<"word" | "pdf" | null>(null);
   const [saved, setSaved] = useState(false);
+  const [evaluacionVinculadaId, setEvaluacionVinculadaId] = useState<string | null>(null);
 
   const generateMutation = trpc.cnc.generate.useMutation();
   const sugerirReflexionMutation = trpc.cnc.sugerirReflexionDece.useMutation();
@@ -238,6 +243,45 @@ export default function ConectaNivelaCreaScreen() {
   const esBT = plan.modalidad === "bt";
   const figuraSeleccionada: FiguraProfesional | undefined = FIGURAS_PROFESIONALES.find((f) => f.id === plan.figuraProfesionalId);
   const moduloSeleccionado: ModuloFormativo | undefined = figuraSeleccionada?.modulos.find((m) => m.codigo === plan.moduloId);
+
+  // Evaluaciones aplicables a CNC: solo Lengua y Matemática, con aplicados y brechas
+  const evaluacionesCNC = useMemo(
+    () =>
+      evaluaciones
+        .filter((e) => e.area === "LL" || e.area === "M")
+        .map((ev) => ({
+          ev,
+          aplicados: estudiantesEvaluados(ev).length,
+          brechas: calcularBrechasCurso(ev),
+        })),
+    [evaluaciones]
+  );
+
+  function vincularEvaluacion(evId: string) {
+    const entry = evaluacionesCNC.find((x) => x.ev.id === evId);
+    if (!entry || entry.aplicados === 0) {
+      Alert.alert("Evaluación sin aplicar", "Debe ser aplicada primero para poder vincular sus resultados.");
+      return;
+    }
+    const importar = () => {
+      const diagnostico = diagnosticoAcademicoDesdeBrechas(entry.brechas, entry.ev.area as "LL" | "M");
+      setPlan((p) => ({ ...p, semana1: { ...p.semana1, diagnosticoAcademico: diagnostico } }));
+      setEvaluacionVinculadaId(evId);
+    };
+    if (plan.semana1.diagnosticoAcademico.length > 0) {
+      const msg = "Ya existe un diagnóstico académico registrado en Semana 1. ¿Deseas reemplazarlo con las brechas de la evaluación seleccionada?";
+      if (Platform.OS === "web") {
+        if (confirm(msg)) importar();
+      } else {
+        Alert.alert("Reemplazar diagnóstico", msg, [
+          { text: "Cancelar", style: "cancel" },
+          { text: "Reemplazar", onPress: importar },
+        ]);
+      }
+    } else {
+      importar();
+    }
+  }
 
   function scrollTop() { scrollRef.current?.scrollTo({ y: 0, animated: true }); }
   function nextStep() { setStep((s) => s + 1); scrollTop(); }
@@ -248,10 +292,10 @@ export default function ConectaNivelaCreaScreen() {
       if (!plan.grado) return "Selecciona el grado o curso.";
       if (esBT && (!plan.figuraProfesionalId || !plan.moduloId)) return "Selecciona Figura Profesional y Módulo.";
     }
-    if (step === 1) {
+    if (step === 2) {
       if (!plan.semana1.diagnosticoAcademico.length) return "Agrega al menos una destreza al diagnóstico académico.";
     }
-    if (step === 2) {
+    if (step === 3) {
       if (!plan.semana2y3.actividadesNivelacion.length) return "Agrega al menos una destreza de nivelación.";
     }
     return null;
@@ -497,7 +541,7 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         </View>
 
-        <StepBar current={step} total={5} colors={colors} />
+        <StepBar current={step} total={6} colors={colors} />
 
         {/* ── PASO 0: Identificación ── */}
         {step === 0 && (
@@ -587,8 +631,94 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 1: Semana 1 — Conecta ── */}
+        {/* ── PASO 1: Diagnóstico ── */}
         {step === 1 && (
+          <View>
+            <SectionHeading text="Diagnóstico" colors={colors} />
+            <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
+              Vincula una evaluación diagnóstica de Lengua y Literatura o Matemática para prellenar el diagnóstico académico de la Semana 1 con sus brechas, o crea una nueva.
+            </Text>
+
+            {evaluacionVinculadaId && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#16A34A", marginBottom: 14 }}>
+                <Text style={{ fontSize: 11, fontWeight: "700", color: "#15803D" }}>✅ Evaluación vinculada</Text>
+                {(() => {
+                  const x = evaluacionesCNC.find((e) => e.ev.id === evaluacionVinculadaId);
+                  if (!x) return null;
+                  return (
+                    <>
+                      <Text style={{ fontSize: 12, color: "#166534", marginTop: 4 }}>{x.ev.nombre}</Text>
+                      <Text style={{ fontSize: 11, color: "#166534", marginTop: 2 }}>
+                        {x.ev.area === "LL" ? "Lengua y Literatura" : "Matemática"} · {x.aplicados} aplicado(s) — {plan.semana1.diagnosticoAcademico.length} DCD importadas a Semana 1.
+                      </Text>
+                    </>
+                  );
+                })()}
+              </View>
+            )}
+
+            <Pressable
+              onPress={() => router.push("/evaluacion-diagnostica" as any)}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#1D4ED8", borderRadius: 12, paddingVertical: 14, marginBottom: 16 }}
+            >
+              <Text style={{ fontSize: 16, color: "#fff" }}>＋</Text>
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>Crear evaluación diagnóstica</Text>
+            </Pressable>
+
+            <SectionHeading text="Evaluaciones disponibles (Lengua y Matemática)" colors={colors} />
+            {evaluacionesCNC.length === 0 ? (
+              <Text style={{ fontSize: 12, color: colors.muted, textAlign: "center", paddingVertical: 24 }}>
+                Aún no hay evaluaciones de Lengua y Matemática. Crea una para poder vincularla.
+              </Text>
+            ) : (
+              evaluacionesCNC.map(({ ev, aplicados, brechas }) => {
+                const vinculada = ev.id === evaluacionVinculadaId;
+                const linkable = aplicados > 0;
+                const dominadas = brechas.filter((b) => nivelDominanteEstado(b) === "dominado").length;
+                const enProceso = brechas.filter((b) => nivelDominanteEstado(b) === "en_proceso").length;
+                const refuerzo = brechas.filter((b) => nivelDominanteEstado(b) === "requiere_refuerzo").length;
+                return (
+                  <View
+                    key={ev.id}
+                    style={{
+                      backgroundColor: colors.surface, borderRadius: 10, padding: 12, marginBottom: 10,
+                      borderWidth: 1, borderColor: vinculada ? colors.primary : colors.border,
+                    }}
+                  >
+                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }} numberOfLines={1}>{ev.nombre}</Text>
+                    <Text style={{ fontSize: 11, color: colors.muted, marginTop: 2 }}>
+                      {ev.grado} {ev.paralelo ? `· ${ev.paralelo}` : ""} · {ev.area === "LL" ? "Lengua y Literatura" : "Matemática"}
+                    </Text>
+                    <Text style={{ fontSize: 11, color: colors.muted, marginTop: 4 }}>
+                      {aplicados} aplicado(s) · Brechas: 🟢 {dominadas} · 🟡 {enProceso} · 🔴 {refuerzo}
+                    </Text>
+                    {!linkable ? (
+                      <Text style={{ fontSize: 11, color: "#92400E", marginTop: 6 }}>
+                        ⚠️ Debe ser aplicada primero para vincular sus resultados.
+                      </Text>
+                    ) : (
+                      <Pressable
+                        onPress={() => vincularEvaluacion(ev.id)}
+                        style={{
+                          marginTop: 8, alignSelf: "flex-start", borderRadius: 8, paddingVertical: 8, paddingHorizontal: 14,
+                          backgroundColor: vinculada ? colors.surface : colors.primary, borderWidth: 1,
+                          borderColor: vinculada ? colors.primary : colors.primary,
+                        }}
+                      >
+                        <Text style={{ fontSize: 12, fontWeight: "700", color: vinculada ? colors.primary : "#fff" }}>
+                          {vinculada ? "Vincular de nuevo" : "Vincular a Semana 1"}
+                        </Text>
+                      </Pressable>
+                    )}
+                  </View>
+                );
+              })
+            )}
+          </View>
+        )}
+
+        {/* ── PASO 2: Semana 1 — Conecta ── */}
+        {step === 2 && (
           <View>
             <SectionHeading text="Semana 1 — Conecta" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
@@ -703,8 +833,8 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 2: Semanas 2-3 — Nivela ── */}
-        {step === 2 && (
+        {/* ── PASO 3: Semanas 2-3 — Nivela ── */}
+        {step === 3 && (
           <View>
             <SectionHeading text="Semanas 2-3 — Nivela" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
@@ -782,8 +912,8 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 3: Semanas 4-5 — Crea ── */}
-        {step === 3 && (
+        {/* ── PASO 4: Semanas 4-5 — Crea ── */}
+        {step === 4 && (
           <View>
             <SectionHeading text="Semanas 4-5 — Crea" colors={colors} />
             <View style={{ backgroundColor: "#FEF3C7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginBottom: 14 }}>
@@ -850,18 +980,18 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 4: Resultado ── */}
-        {step === 4 && !aiResult && (
+        {/* ── PASO 5: Resultado ── */}
+        {step === 5 && !aiResult && (
           <View style={{ padding: 24, alignItems: "center", gap: 12 }}>
             <Text style={{ fontSize: 40 }}>⚠️</Text>
             <Text style={{ fontSize: 15, fontWeight: "700", color: "#DC2626", textAlign: "center" }}>No se pudo obtener el resultado</Text>
-            <Pressable onPress={() => { setStep(3); scrollTop(); }} style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}>
+            <Pressable onPress={() => { setStep(4); scrollTop(); }} style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}>
               <Text style={{ color: "#fff", fontWeight: "700" }}>← Volver a Generar</Text>
             </Pressable>
           </View>
         )}
 
-        {step === 4 && aiResult && (
+        {step === 5 && aiResult && (
           <View>
             <View style={{ backgroundColor: "#DCFCE7", borderRadius: 12, padding: 14, borderWidth: 1, borderColor: "#16A34A", marginBottom: 16 }}>
               <Text style={{ fontSize: 13, fontWeight: "700", color: "#15803D" }}>✅ Plan generado{saved ? " y guardado" : ""}</Text>
@@ -915,21 +1045,21 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {validationError && step < 3 && (
+        {validationError && step < 4 && (
           <View style={{ backgroundColor: "#FEF3C7", borderRadius: 8, padding: 12, marginTop: 8, borderWidth: 1, borderColor: "#F59E0B", flexDirection: "row", gap: 8 }}>
             <Text style={{ fontSize: 14 }}>⚠️</Text>
             <Text style={{ fontSize: 12, color: "#92400E", flex: 1 }}>{validationError}</Text>
           </View>
         )}
 
-        {step < 4 && (
+        {step < 5 && (
           <View style={{ flexDirection: "row", gap: 12, marginTop: 20, marginBottom: 8 }}>
             {step > 0 && (
               <Pressable onPress={prevStep} style={{ flex: 1, borderRadius: 10, paddingVertical: 12, alignItems: "center", borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }}>
                 <Text style={{ color: colors.text, fontWeight: "600" }}>← Anterior</Text>
               </Pressable>
             )}
-            {step < 3 && (
+            {step < 4 && (
               <Pressable onPress={handleNext} style={{ flex: 2, borderRadius: 10, paddingVertical: 12, alignItems: "center", backgroundColor: colors.primary }}>
                 <Text style={{ color: "#fff", fontWeight: "700" }}>Siguiente →</Text>
               </Pressable>
@@ -937,7 +1067,7 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <Pressable
             onPress={() => { setStep(0); setAiResult(null); setPlan(planVacio()); setSaved(false); setGenerateError(null); }}
             style={{ alignItems: "center", marginTop: 20 }}

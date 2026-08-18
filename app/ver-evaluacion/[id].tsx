@@ -34,7 +34,8 @@ import {
 import { generarHTMLEvaluacion, generarHTMLPruebaImprimible } from "@/lib/evaluacion-pdf-generator";
 import { generarWordEvaluacion } from "@/lib/evaluacion-word-generator";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
-import type { PlanConectaNivelaCrea, DiagnosticoAcademicoCNC } from "@/data/types-cnc";
+import type { PlanConectaNivelaCrea } from "@/data/types-cnc";
+import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado } from "@/lib/cnc-diagnostico";
 import { trpc } from "@/lib/trpc";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -346,18 +347,6 @@ export default function VerEvaluacionScreen() {
 
   // ── Exportación a Conecta-Nivela-Crea ──
   const cncDisponible = (ev.area === "LL" || ev.area === "M") && evaluados.length > 0;
-  function nivelDominanteEstado(d: { dominado: number; enProceso: number; requiereRefuerzo: number }): "dominado" | "en_proceso" | "requiere_refuerzo" {
-    const max = Math.max(d.dominado, d.enProceso, d.requiereRefuerzo);
-    if (d.requiereRefuerzo === max) return "requiere_refuerzo";
-    if (d.enProceso === max) return "en_proceso";
-    return "dominado";
-  }
-  function nivelCNC(d: { dominado: number; enProceso: number; requiereRefuerzo: number }): "logrado" | "en_proceso" | "iniciado" {
-    const estado = nivelDominanteEstado(d);
-    if (estado === "dominado") return "logrado";
-    if (estado === "en_proceso") return "en_proceso";
-    return "iniciado";
-  }
 
   async function exportarACNC() {
     if (!cncDisponible) return;
@@ -377,13 +366,7 @@ export default function VerEvaluacionScreen() {
     if (!e) return;
     setExportando("cnc");
     try {
-      const diagnostico: DiagnosticoAcademicoCNC[] = brechas.map((b) => ({
-        destrezaCodigo: b.dcdCodigo,
-        destrezaDescripcion: b.descripcion,
-        area: e.area as "LL" | "M",
-        observaciones: `Evaluación diagnóstica: ${b.porcentajeDominio}% de dominio · ${b.requiereRefuerzo} estudiante(s) en refuerzo.`,
-        nivelDetectado: nivelCNC(b),
-      }));
+      const diagnostico = diagnosticoAcademicoDesdeBrechas(brechas, e.area as "LL" | "M");
       const plan = planCNCVacio();
       plan.grado = e.grado;
       plan.paralelo = e.paralelo;
