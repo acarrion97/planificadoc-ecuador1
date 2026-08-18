@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import {
   View, Text, TextInput, ScrollView, Pressable,
   StyleSheet, Alert, ActivityIndicator, Platform,
@@ -256,6 +256,21 @@ export default function ConectaNivelaCreaScreen() {
         })),
     [evaluaciones]
   );
+
+  const evaluacionesIdsRef = useRef<string[]>([]);
+  const pendingAutoLinkRef = useRef(false);
+
+  useEffect(() => {
+    const ids = evaluaciones.map((e) => e.id);
+    if (pendingAutoLinkRef.current) {
+      const nueva = evaluaciones.find((e) => !evaluacionesIdsRef.current.includes(e.id));
+      if (nueva) {
+        pendingAutoLinkRef.current = false;
+        if (nueva.area === "LL" || nueva.area === "M") vincularEvaluacion(nueva.id);
+      }
+    }
+    evaluacionesIdsRef.current = ids;
+  }, [evaluaciones]);
 
   function vincularEvaluacion(evId: string) {
     const entry = evaluacionesCNC.find((x) => x.ev.id === evId);
@@ -658,7 +673,11 @@ export default function ConectaNivelaCreaScreen() {
             )}
 
             <Pressable
-              onPress={() => router.push("/evaluacion-diagnostica" as any)}
+              onPress={() => {
+                pendingAutoLinkRef.current = true;
+                const q = `from=cnc&anioLectivo=${encodeURIComponent(plan.anioLectivo || "")}&grado=${encodeURIComponent(plan.grado || "")}&paralelo=${encodeURIComponent(plan.paralelo || "")}`;
+                router.push(`/evaluacion-diagnostica?${q}` as any);
+              }}
               style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#1D4ED8", borderRadius: 12, paddingVertical: 14, marginBottom: 16 }}
             >
               <Text style={{ fontSize: 16, color: "#fff" }}>＋</Text>

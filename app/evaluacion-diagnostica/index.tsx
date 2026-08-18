@@ -14,7 +14,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useColors } from "@/hooks/use-colors";
 import { ScreenContainer } from "@/components/screen-container";
@@ -133,6 +133,8 @@ const DIFICULTADES = Object.keys(DIFICULTAD_INFO) as DificultadPregunta[];
 export default function EvaluacionDiagnosticaScreen() {
   const colors = useColors();
   const router = useRouter();
+  const params = useLocalSearchParams<{ from?: string; anioLectivo?: string; grado?: string; paralelo?: string }>();
+  const desdeCNC = params.from === "cnc";
   const { addEvaluacion, bancoPreguntas, addPreguntaBanco } = useEvaluaciones();
   const sugerirMutation = trpc.evaluacion.sugerirPreguntas.useMutation();
   const backupMutation = trpc.evaluacion.guardarBackup.useMutation();
@@ -143,11 +145,11 @@ export default function EvaluacionDiagnosticaScreen() {
 
   // ── Contexto ──
   const [nombre, setNombre] = useState("");
-  const [anioLectivo, setAnioLectivo] = useState("2026-2027");
+  const [anioLectivo, setAnioLectivo] = useState(String(params.anioLectivo ?? "2026-2027"));
   const [area, setArea] = useState<Area | null>(null);
   const [subnivel, setSubnivel] = useState<Subnivel | null>(null);
-  const [grado, setGrado] = useState("");
-  const [paralelo, setParalelo] = useState("");
+  const [grado, setGrado] = useState(String(params.grado ?? ""));
+  const [paralelo, setParalelo] = useState(String(params.paralelo ?? ""));
   const [asignatura, setAsignatura] = useState("");
   const [fecha, setFecha] = useState("");
   const [duracion, setDuracion] = useState("30");
@@ -412,7 +414,8 @@ export default function EvaluacionDiagnosticaScreen() {
     try {
       const ev = construirEvaluacion("borrador");
       await persistirYGuardarBackup(ev);
-      router.replace(`/ver-evaluacion/${ev.id}` as any);
+      if (desdeCNC) router.back();
+      else router.replace(`/ver-evaluacion/${ev.id}` as any);
     } finally {
       setSaving(false);
     }
@@ -429,7 +432,8 @@ export default function EvaluacionDiagnosticaScreen() {
     try {
       const ev = construirEvaluacion("publicada");
       await persistirYGuardarBackup(ev);
-      router.replace(`/ver-evaluacion/${ev.id}` as any);
+      if (desdeCNC) router.back();
+      else router.replace(`/ver-evaluacion/${ev.id}` as any);
     } finally {
       setSaving(false);
     }
