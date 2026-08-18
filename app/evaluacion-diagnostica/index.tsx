@@ -285,6 +285,7 @@ export default function EvaluacionDiagnosticaScreen() {
     conArea.sort((a, b) => (conteoPorArea[b] ?? 0) - (conteoPorArea[a] ?? 0));
     const ganadora = conArea[0];
     setArea(ganadora);
+    setAsignatura(AREAS_INFO[ganadora].name);
     if (!nombre.trim()) setNombre(`Diagnóstico inicial de ${AREAS_INFO[ganadora].name}`);
     preseleccionarDcdsDeWizard(ganadora);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -635,13 +636,16 @@ export default function EvaluacionDiagnosticaScreen() {
               selected={area ?? ("" as Area)}
               onSelect={(v) => {
                 setArea(v);
+                // La asignatura es la materia específica que se diagnostica; el
+                // área ya la determina (LL → Lengua y Literatura, M →
+                // Matemática...), así que no hace falta pedirla por separado.
+                setAsignatura(AREAS_INFO[v].name);
                 if (!nombre.trim()) setNombre(`Diagnóstico inicial de ${AREAS_INFO[v].name}`);
                 preseleccionarDcdsDeWizard(v);
               }}
               colors={colors}
               getLabel={(a) => `${AREAS_INFO[a].emoji} ${AREAS_INFO[a].name}`}
             />
-            <Field label="Asignatura" value={asignatura} onChangeText={setAsignatura} placeholder="Ej. Matemática" colors={colors} />
             <Field label="Fecha" value={fecha} onChangeText={setFecha} placeholder="Ej. 2026-09-01" colors={colors} />
             <Field label="Duración (minutos)" value={duracion} onChangeText={setDuracion} colors={colors} keyboardType="numeric" />
             <Field label="Instrucciones" value={instrucciones} onChangeText={setInstrucciones} multiline placeholder="Instrucciones para los estudiantes" colors={colors} />
