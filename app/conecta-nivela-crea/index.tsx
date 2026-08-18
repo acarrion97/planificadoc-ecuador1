@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 import {
   View, Text, TextInput, ScrollView, Pressable,
-  StyleSheet, Alert, ActivityIndicator, Platform,
+  StyleSheet, Alert, ActivityIndicator, Platform, Modal,
 } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -206,6 +206,7 @@ function DestrezaBuscadorCNC({
   onSelect: (codigo: string, desc: string) => void;
   colors: any;
 }) {
+  const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<typeof TODAS_LAS_DESTREZAS>([]);
 
@@ -218,6 +219,12 @@ function DestrezaBuscadorCNC({
         (d) => d.area === area && (d.codigo.toLowerCase().includes(q) || d.descripcion.toLowerCase().includes(q))
       ).slice(0, 6)
     );
+  }
+
+  function cerrar() {
+    setOpen(false);
+    setQuery("");
+    setResults([]);
   }
 
   // La Semana 1 diagnostica lo que el estudiante debería traer del nivel
@@ -234,61 +241,110 @@ function DestrezaBuscadorCNC({
       ? TODAS_LAS_DESTREZAS.filter((d) => d.area === prerreq.area && d.subnivel === prerreq.subnivel)
       : [];
   const sugeridas = sugeridasTodas.slice(0, 30);
+  const nombreArea = area === "LL" ? "Lengua y Literatura" : "Matemática";
 
   return (
     <View style={{ marginBottom: 12 }}>
-      <Label text={`Buscar destreza de ${area === "LL" ? "Lengua y Literatura" : "Matemática"}`} colors={colors} />
-      <TextInput
-        value={query}
-        onChangeText={search}
-        placeholder="Código o descripción..."
-        placeholderTextColor={colors.muted}
-        style={[styles.input, { borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
-      />
+      <Label text={`Destreza de ${nombreArea}`} colors={colors} />
 
-      {!query && sugeridas.length > 0 && (
-        <View style={{ marginTop: 6 }}>
-          <Text style={{ fontSize: 10, color: colors.muted, marginBottom: 4 }}>
-            Del nivel prerrequisito ({obtenerNombreSubnivel(prerreq!.subnivel)}) — lo que el estudiante debería traer
-          </Text>
-          <ScrollView style={{ maxHeight: 220 }} nestedScrollEnabled keyboardShouldPersistTaps="handled">
-            {sugeridas.map((d) => (
-              <Pressable
-                key={d.codigo}
-                onPress={() => onSelect(d.codigo, d.descripcion)}
-                style={{ padding: 10, borderWidth: 1, borderColor: colors.border, borderRadius: 8, marginBottom: 4, backgroundColor: colors.surface }}
-              >
-                <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>{d.codigo}</Text>
-                <Text style={{ fontSize: 11, color: colors.text }} numberOfLines={2}>{d.descripcion}</Text>
-              </Pressable>
-            ))}
-            {sugeridasTodas.length > sugeridas.length && (
-              <Text style={{ fontSize: 10, color: colors.muted, textAlign: "center", paddingVertical: 4 }}>
-                Usa el buscador para ver el resto ({sugeridasTodas.length} destrezas en total)
-              </Text>
-            )}
-          </ScrollView>
-        </View>
-      )}
+      {/* Botón compacto que abre el picker — mismo patrón que planificar-semanal */}
+      <Pressable
+        onPress={() => setOpen(true)}
+        style={({ pressed }) => [{
+          borderWidth: 1, borderRadius: 8, padding: 10,
+          flexDirection: "row", alignItems: "center", justifyContent: "space-between",
+          opacity: pressed ? 0.7 : 1,
+          borderColor: colors.border, backgroundColor: colors.surface,
+        }]}
+      >
+        <Text style={{ color: colors.muted, fontSize: 13 }}>🔍 Agregar destreza de {nombreArea}...</Text>
+        <Text style={{ color: colors.muted, fontSize: 16, marginLeft: 8 }}>▼</Text>
+      </Pressable>
 
-      {!query && !sugeridas.length && subnivelCurso !== null && (
-        <Text style={{ fontSize: 10, color: colors.muted, marginTop: 6 }}>
-          {prerreq
-            ? `El nivel prerrequisito (${obtenerNombreSubnivel(prerreq.subnivel)}) no tiene destrezas de ${area === "LL" ? "Lengua y Literatura" : "Matemática"} — ese subnivel usa currículo integrado. Usa el buscador si necesitas otra destreza.`
-            : "Este grado no tiene un nivel prerrequisito definido. Usa el buscador para encontrar destrezas."}
-        </Text>
-      )}
-
-      {results.map((d) => (
+      <Modal visible={open} transparent animationType="fade" onRequestClose={cerrar}>
         <Pressable
-          key={d.codigo}
-          onPress={() => { onSelect(d.codigo, d.descripcion); setQuery(""); setResults([]); }}
-          style={{ padding: 10, borderWidth: 1, borderColor: colors.border, borderRadius: 8, marginTop: 4, backgroundColor: colors.surface }}
+          style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.45)", justifyContent: "center", alignItems: "center" }}
+          onPress={cerrar}
         >
-          <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>{d.codigo}</Text>
-          <Text style={{ fontSize: 11, color: colors.text }} numberOfLines={2}>{d.descripcion}</Text>
+          <Pressable
+            style={{ width: "90%", maxWidth: 520, backgroundColor: colors.background, borderRadius: 14, padding: 16, maxHeight: "80%" }}
+            onPress={() => {}}
+          >
+            <Text style={{ fontWeight: "700", fontSize: 14, color: colors.foreground, marginBottom: 10 }}>
+              Agregar destreza de {nombreArea}
+            </Text>
+            <TextInput
+              autoFocus
+              value={query}
+              onChangeText={search}
+              placeholder="Código o descripción..."
+              placeholderTextColor={colors.muted}
+              style={[styles.input, { color: colors.foreground, borderColor: colors.border, marginBottom: 8 }]}
+            />
+
+            <ScrollView keyboardShouldPersistTaps="handled" style={{ maxHeight: 360 }}>
+              {!query && sugeridas.length > 0 && (
+                <>
+                  <Text style={{ fontSize: 10, color: colors.muted, marginBottom: 6 }}>
+                    Del nivel prerrequisito ({obtenerNombreSubnivel(prerreq!.subnivel)}) — lo que el estudiante debería traer
+                  </Text>
+                  {sugeridas.map((d) => (
+                    <Pressable
+                      key={d.codigo}
+                      onPress={() => onSelect(d.codigo, d.descripcion)}
+                      style={({ pressed }) => [styles.dropdownItem, { borderBottomColor: colors.border, opacity: pressed ? 0.7 : 1 }]}
+                    >
+                      <Text style={{ minWidth: 62, color: colors.primary, fontWeight: "700", fontSize: 12 }}>{d.codigo}</Text>
+                      <Text style={{ color: colors.foreground, fontSize: 12, flex: 1, marginLeft: 8 }} numberOfLines={2}>
+                        {d.descripcion}
+                      </Text>
+                    </Pressable>
+                  ))}
+                  {sugeridasTodas.length > sugeridas.length && (
+                    <Text style={{ fontSize: 10, color: colors.muted, textAlign: "center", paddingVertical: 6 }}>
+                      Usa el buscador para ver el resto ({sugeridasTodas.length} destrezas en total)
+                    </Text>
+                  )}
+                </>
+              )}
+
+              {!query && !sugeridas.length && subnivelCurso !== null && (
+                <Text style={{ fontSize: 11, color: colors.muted, padding: 8, fontStyle: "italic" }}>
+                  {prerreq
+                    ? `El nivel prerrequisito (${obtenerNombreSubnivel(prerreq.subnivel)}) no tiene destrezas de ${nombreArea} — ese subnivel usa currículo integrado. Usa el buscador si necesitas otra destreza.`
+                    : "Este grado no tiene un nivel prerrequisito definido. Usa el buscador para encontrar destrezas."}
+                </Text>
+              )}
+
+              {query && results.map((d) => (
+                <Pressable
+                  key={d.codigo}
+                  onPress={() => { onSelect(d.codigo, d.descripcion); setQuery(""); setResults([]); }}
+                  style={({ pressed }) => [styles.dropdownItem, { borderBottomColor: colors.border, opacity: pressed ? 0.7 : 1 }]}
+                >
+                  <Text style={{ minWidth: 62, color: colors.primary, fontWeight: "700", fontSize: 12 }}>{d.codigo}</Text>
+                  <Text style={{ color: colors.foreground, fontSize: 12, flex: 1, marginLeft: 8 }} numberOfLines={2}>
+                    {d.descripcion}
+                  </Text>
+                </Pressable>
+              ))}
+              {query && query.length >= 3 && results.length === 0 && (
+                <Text style={{ color: colors.muted, textAlign: "center", padding: 20, fontStyle: "italic" }}>Sin resultados</Text>
+              )}
+              {query && query.length > 0 && query.length < 3 && (
+                <Text style={{ color: colors.muted, textAlign: "center", padding: 20, fontStyle: "italic" }}>Escribe para buscar...</Text>
+              )}
+            </ScrollView>
+
+            <Pressable
+              onPress={cerrar}
+              style={{ marginTop: 12, padding: 10, borderRadius: 8, backgroundColor: colors.border, alignItems: "center" }}
+            >
+              <Text style={{ color: colors.foreground, fontWeight: "600" }}>Listo</Text>
+            </Pressable>
+          </Pressable>
         </Pressable>
-      ))}
+      </Modal>
     </View>
   );
 }
@@ -1332,4 +1388,5 @@ function ResultSection({ title, emoji, color, children }: { title: string; emoji
 
 const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 8, fontSize: 13 },
+  dropdownItem: { flexDirection: "row", alignItems: "center", padding: 10, borderBottomWidth: 1 },
 });
