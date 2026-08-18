@@ -5,11 +5,11 @@ Integra la Evaluación Diagnóstica como paso formal del wizard "Conecta, Nivela
 ## ADDED Requirements
 
 ### Requirement: Wizard includes a formal Diagnostic step
-The CNC wizard SHALL include a "Diagnóstico" step positioned between identification and the Semana 1 (Conecta) step. The wizard SHALL present its steps in the order Identificación, Diagnóstico, Semana 1 (Conecta), Semanas 2-3 (Nivela), Semanas 4-5 (Crea), Resultado.
+The CNC wizard SHALL include a "Diagnóstico" step positioned as the last data-entry step, right before the Resultado step. The wizard SHALL present its steps in the order Identificación, Semana 1 (Conecta), Semanas 2-3 (Nivela), Semanas 4-5 (Crea), Diagnóstico, Resultado, so that the destrezas chosen in the previous weeks are already available when creating or linking the diagnostic evaluation.
 
 #### Scenario: Navigating the wizard
 - **WHEN** a teacher opens the CNC planifier
-- **THEN** the step indicator shows six steps with "Diagnóstico" as the second step, after Identificación and before Semana 1
+- **THEN** the step indicator shows six steps with "Diagnóstico" as the fifth step, after Semanas 4-5 and before Resultado
 
 #### Scenario: Advancing without linking
 - **WHEN** a teacher reaches the Diagnóstico step and does not link any evaluation
