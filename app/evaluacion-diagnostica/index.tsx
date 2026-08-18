@@ -3,7 +3,7 @@
  *  0 Contexto → 1 Selección de DCD → 2 Banco de preguntas (manual + IA)
  *  → 3 Matriz → 4 Revisar / Guardar / Publicar.
  */
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -205,6 +205,25 @@ export default function EvaluacionDiagnosticaScreen() {
       setDcdsAuto(pre.length);
     }
   }
+
+  // Auto-selección de área al venir desde el wizard CNC: las DCD del paso anterior
+  // determinan el área (LL o M — la de mayor presencia); el docente puede ajustarla.
+  useEffect(() => {
+    if (!desdeCNC || dcdsDeWizard.length === 0) return;
+    const conteoPorArea: Partial<Record<Area, number>> = {};
+    for (const codigo of dcdsDeWizard) {
+      const dest = buscarPorCodigo(codigo);
+      if (dest?.area) conteoPorArea[dest.area] = (conteoPorArea[dest.area] ?? 0) + 1;
+    }
+    const conArea = AREAS.filter((a) => (conteoPorArea[a] ?? 0) > 0);
+    if (conArea.length === 0) return;
+    conArea.sort((a, b) => (conteoPorArea[b] ?? 0) - (conteoPorArea[a] ?? 0));
+    const ganadora = conArea[0];
+    setArea(ganadora);
+    if (!nombre.trim()) setNombre(`Diagnóstico inicial de ${AREAS_INFO[ganadora].name}`);
+    preseleccionarDcdsDeWizard(ganadora);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const dcdsEvaluadas = useMemo(
     () =>
