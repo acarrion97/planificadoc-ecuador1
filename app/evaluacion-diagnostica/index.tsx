@@ -25,8 +25,11 @@ import {
   SUBNIVEL_NAMES,
   filtrarPorAreaYSubnivel,
   buscarPorCodigo,
+  obtenerNombreSubnivel,
   Area,
 } from "@/data";
+import type { Destreza } from "@/data/types";
+import { resolverPrerrequisito } from "@/lib/curriculo-prerrequisitos";
 import {
   TIPO_PREGUNTA_INFO,
   DIFICULTAD_INFO,
@@ -38,7 +41,7 @@ import {
   EstatusEvaluacion,
 } from "@/data/types-evaluacion";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
-import { UMBRALES_DEFECTO, subnivelDesdeGrado } from "@/lib/evaluacion-utils";
+import { UMBRALES_DEFECTO, subnivelDesdeGrado, esBachilleratoTecnico } from "@/lib/evaluacion-utils";
 import { trpc } from "@/lib/trpc";
 
 const hoy = new Date();
@@ -189,21 +192,83 @@ export default function EvaluacionDiagnosticaScreen() {
   const [qRetro, setQRetro] = useState("");
   const [showManualForm, setShowManualForm] = useState(false);
 
+  // ── Subnivel a diagnosticar ──
+  // Un diagnóstico mide aprendizajes previos, así que por defecto se ofrecen
+  // las DCD del subnivel prerrequisito; el subnivel del curso queda disponible
+  // para que el docente lo agregue (imprescindible en grados que comparten
+  // subnivel, como 5.° y 6.° EGB). Ver design.md D10.
+  const prerrequisito = useMemo(
+    () => (area && subnivel !== null ? resolverPrerrequisito(area, subnivel) : null),
+    [area, subnivel]
+  );
+  const [incluirPrerrequisito, setIncluirPrerrequisito] = useState(true);
+  const [incluirActual, setIncluirActual] = useState(false);
+
+  // Sin prerrequisito definido solo queda el subnivel del curso (10.5).
+  const prerrequisitoActivo = !!prerrequisito && incluirPrerrequisito;
+  const actualActivo = !prerrequisito || incluirActual;
+
+  function alternarPrerrequisito() {
+    // Nunca dejar los dos grupos apagados: quedaría un selector vacío.
+    if (incluirPrerrequisito && !incluirActual) setIncluirActual(true);
+    setIncluirPrerrequisito((v) => !v);
+  }
+
+  function alternarActual() {
+    if (!prerrequisito) return; // único grupo disponible
+    if (incluirActual && !incluirPrerrequisito) setIncluirPrerrequisito(true);
+    setIncluirActual((v) => !v);
+  }
+
   const destrezasPorContexto = useMemo(() => {
     if (!area || subnivel === null) return [];
-    return filtrarPorAreaYSubnivel(area, subnivel);
-  }, [area, subnivel]);
+    const lista: Destreza[] = [];
+    if (prerrequisito && prerrequisitoActivo) {
+      lista.push(
+        ...filtrarPorAreaYSubnivel(prerrequisito.area, prerrequisito.subnivel)
+      );
+    }
+    if (actualActivo) lista.push(...filtrarPorAreaYSubnivel(area, subnivel));
+    return lista;
+  }, [area, subnivel, prerrequisito, prerrequisitoActivo, actualActivo]);
 
   function preseleccionarDcdsDeWizard(v: Area) {
     if (seleccion.length > 0 || subnivel === null || dcdsDeWizard.length === 0) return;
-    const pre = dcdsDeWizard
+    // Mismo resolvedor que la selección manual: un plan CNC puede referenciar
+    // DCD de arrastre, y filtrarlas por el subnivel del curso las descartaría
+    // en silencio. Se calcula desde `v` porque el estado `area` aún no se
+    // actualizó cuando esta función corre. Ver design.md D10.
+    const prerreqDeWizard = resolverPrerrequisito(v, subnivel);
+    const admisibles = dcdsDeWizard
       .map((codigo) => buscarPorCodigo(codigo))
-      .filter((d): d is NonNullable<typeof d> => !!d && d.area === v && d.subnivel === subnivel)
-      .map((d) => ({ codigo: d.codigo, enunciado: d.descripcion }));
-    if (pre.length) {
-      setSeleccion(pre);
-      setDcdsAuto(pre.length);
+      .filter((d): d is NonNullable<typeof d> => {
+        if (!d) return false;
+        if (d.area === v && d.subnivel === subnivel) return true;
+        return (
+          !!prerreqDeWizard &&
+          d.area === prerreqDeWizard.area &&
+          d.subnivel === prerreqDeWizard.subnivel
+        );
+      });
+    if (!admisibles.length) return;
+
+    // Activar los grupos que aportaron DCD, para que las preseleccionadas sean
+    // visibles en el selector y no queden como chips sin fila correspondiente.
+    if (admisibles.some((d) => d.subnivel === subnivel && d.area === v)) {
+      setIncluirActual(true);
     }
+    if (
+      prerreqDeWizard &&
+      admisibles.some(
+        (d) => d.area === prerreqDeWizard.area && d.subnivel === prerreqDeWizard.subnivel
+      )
+    ) {
+      setIncluirPrerrequisito(true);
+    }
+
+    const pre = admisibles.map((d) => ({ codigo: d.codigo, enunciado: d.descripcion }));
+    setSeleccion(pre);
+    setDcdsAuto(pre.length);
   }
 
   // Auto-selección de área al venir desde el wizard CNC: las DCD del paso anterior
@@ -606,11 +671,80 @@ export default function EvaluacionDiagnosticaScreen() {
             <Text style={{ fontSize: 13, color: colors.muted, marginBottom: 12 }}>
               Selecciona las destrezas (DCD) que deseas diagnosticar. Se usan los indicadores y criterios reales del catálogo curricular.
             </Text>
+
+            {/* Subnivel a diagnosticar: prerrequisito por defecto, actual disponible */}
+            {area && subnivel !== null && (
+              <View style={{ marginBottom: 12 }}>
+                <Text style={{ fontSize: 12, fontWeight: "700", color: colors.foreground, marginBottom: 6 }}>
+                  ¿De qué nivel son los aprendizajes a diagnosticar?
+                </Text>
+                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
+                  {prerrequisito && (
+                    <Pressable
+                      onPress={alternarPrerrequisito}
+                      style={[
+                        styles.subnivelChip,
+                        {
+                          borderColor: prerrequisitoActivo ? "#7C3AED" : colors.border,
+                          backgroundColor: prerrequisitoActivo ? "#EEEDFE" : colors.surface,
+                        },
+                      ]}
+                    >
+                      <Text style={{ fontSize: 12, fontWeight: "700", color: prerrequisitoActivo ? "#4C1D95" : colors.text }}>
+                        {prerrequisitoActivo ? "✓ " : ""}
+                        {AREAS_INFO[prerrequisito.area]?.name ?? prerrequisito.area} ·{" "}
+                        {obtenerNombreSubnivel(prerrequisito.subnivel)}
+                      </Text>
+                      <Text style={{ fontSize: 10, color: colors.muted }}>Prerrequisito (arrastre)</Text>
+                    </Pressable>
+                  )}
+                  <Pressable
+                    onPress={alternarActual}
+                    style={[
+                      styles.subnivelChip,
+                      {
+                        borderColor: actualActivo ? "#7C3AED" : colors.border,
+                        backgroundColor: actualActivo ? "#EEEDFE" : colors.surface,
+                      },
+                    ]}
+                  >
+                    <Text style={{ fontSize: 12, fontWeight: "700", color: actualActivo ? "#4C1D95" : colors.text }}>
+                      {actualActivo ? "✓ " : ""}
+                      {AREAS_INFO[area]?.name ?? area} · {obtenerNombreSubnivel(subnivel)}
+                    </Text>
+                    <Text style={{ fontSize: 10, color: colors.muted }}>Nivel actual del curso</Text>
+                  </Pressable>
+                </View>
+
+                {!prerrequisito ? (
+                  <Text style={{ fontSize: 11, color: colors.muted, marginTop: 8 }}>
+                    ℹ️ {AREAS_INFO[area]?.name ?? area} no tiene un nivel prerrequisito definido en el
+                    catálogo curricular, así que solo se ofrecen las destrezas del nivel actual. No se
+                    proponen áreas sustitutas.
+                  </Text>
+                ) : (
+                  <Text style={{ fontSize: 11, color: colors.muted, marginTop: 8 }}>
+                    Un diagnóstico mide lo que el estudiante debería traer, por eso viene marcado el
+                    nivel prerrequisito. Puedes agregar el nivel actual si también quieres evaluarlo.
+                  </Text>
+                )}
+
+                {esBachilleratoTecnico(grado) && (
+                  <Text style={{ fontSize: 11, color: colors.muted, marginTop: 6 }}>
+                    🔧 Bachillerato Técnico: se diagnostican las destrezas de formación general del
+                    área seleccionada. El diagnóstico técnico por módulos formativos y resultados de
+                    aprendizaje todavía no está disponible.
+                  </Text>
+                )}
+              </View>
+            )}
+
             <DcdMultiSelector
               destrezas={destrezasPorContexto}
               value={seleccion}
               onChange={setSeleccion}
               placeholder="Buscar destreza..."
+              mostrarSubnivel
             />
           </View>
         )}
@@ -845,6 +979,7 @@ const styles = StyleSheet.create({
   iaBtnSub: { color: "rgba(255,255,255,0.75)", fontSize: 11, marginTop: 1 },
   section: { borderRadius: 12, borderWidth: 1, padding: 12, marginBottom: 12 },
   smallBtn: { borderRadius: 8, paddingHorizontal: 12, paddingVertical: 8, alignItems: "center", alignSelf: "flex-start" },
+  subnivelChip: { borderRadius: 10, borderWidth: 1, paddingHorizontal: 10, paddingVertical: 8, minWidth: 150 },
   puntajeInput: { width: 44, borderRadius: 6, borderWidth: 1, paddingHorizontal: 6, paddingVertical: 4, fontSize: 12, textAlign: "center" },
   footer: {
     position: "absolute", bottom: 0, left: 0, right: 0, padding: 16, borderTopWidth: 0.5,

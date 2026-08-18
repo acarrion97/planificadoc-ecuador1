@@ -115,10 +115,39 @@ export interface ResultadoCalculadoEstudiante {
   porDcd: ResultadoPorDcd[];
 }
 
+/**
+ * Origen curricular de una DCD respecto del curso evaluado.
+ * `no_determinado` = el código no resuelve en el catálogo vigente; se informa,
+ * no se asigna un origen por defecto (design.md D11).
+ */
+export type OrigenCurricular = "arrastre" | "nivel_actual" | "no_determinado";
+
+export const ORIGEN_CURRICULAR_INFO: Record<
+  OrigenCurricular,
+  { nombre: string; descripcion: string }
+> = {
+  arrastre: {
+    nombre: "Aprendizajes de arrastre",
+    descripcion: "Destrezas de un nivel prerrequisito, anteriores al curso actual",
+  },
+  nivel_actual: {
+    nombre: "Aprendizajes del nivel actual",
+    descripcion: "Destrezas del subnivel que cursa el estudiante",
+  },
+  no_determinado: {
+    nombre: "Origen no determinado",
+    descripcion: "El código de la destreza no consta en el catálogo vigente",
+  },
+};
+
 /** Brecha agregada del curso para una DCD */
 export interface BrechaCurso {
   dcdCodigo: string;
   descripcion: string;
+  /** Derivado del catálogo, no declarado por el docente ni persistido */
+  origen: OrigenCurricular;
+  /** Subnivel real de la DCD; null si el código no resuelve */
+  subnivelOrigen: Subnivel | null;
   totalEstudiantes: number;
   dominado: number;
   enProceso: number;

@@ -7,11 +7,12 @@ import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
   TextRun, WidthType, ShadingType, AlignmentType, BorderStyle,
 } from "docx";
-import type { EvaluacionDiagnostica } from "../data/types-evaluacion";
+import type { EvaluacionDiagnostica, BrechaCurso } from "../data/types-evaluacion";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data";
 import {
   ESTATUS_EVALUACION_INFO,
   ESTADO_APRENDIZAJE_INFO,
+  ORIGEN_CURRICULAR_INFO,
   EstadoAprendizaje,
 } from "../data/types-evaluacion";
 import {
@@ -74,6 +75,13 @@ function nivelDominante(b: { dominado: number; enProceso: number; requiereRefuer
   return "dominado";
 }
 
+/** Subnivel de origen de una brecha en texto corto para reportes (design.md D11) */
+function origenTexto(b: BrechaCurso): string {
+  if (b.subnivelOrigen === null) return ORIGEN_CURRICULAR_INFO.no_determinado.nombre;
+  const nombreSubnivel = SUBNIVEL_NAMES[b.subnivelOrigen] ?? `Subnivel ${b.subnivelOrigen}`;
+  return b.origen === "arrastre" ? `${nombreSubnivel} (arrastre)` : nombreSubnivel;
+}
+
 export async function generarWordEvaluacion(ev: EvaluacionDiagnostica): Promise<Blob> {
   const brechas = calcularBrechasCurso(ev);
   const recomendaciones = generarRecomendaciones(ev);
@@ -132,6 +140,7 @@ export async function generarWordEvaluacion(ev: EvaluacionDiagnostica): Promise<
     const headerAprendizaje = row([
       cell("DCD", { bold: true, fill: BG_COLHEAD, color: "FFFFFF" }),
       cell("Descripción", { bold: true, fill: BG_COLHEAD, color: "FFFFFF" }),
+      cell("Origen", { bold: true, fill: BG_COLHEAD, color: "FFFFFF" }),
       cell("Dominado", { bold: true, fill: BG_COLHEAD, color: "FFFFFF", align: "center" }),
       cell("En proceso", { bold: true, fill: BG_COLHEAD, color: "FFFFFF", align: "center" }),
       cell("Refuerzo", { bold: true, fill: BG_COLHEAD, color: "FFFFFF", align: "center" }),
@@ -143,6 +152,7 @@ export async function generarWordEvaluacion(ev: EvaluacionDiagnostica): Promise<
       return row([
         cell(b.dcdCodigo, { bold: true }),
         cell(b.descripcion),
+        cell(origenTexto(b), { size: 16 }),
         cell(String(b.dominado), { align: "center" }),
         cell(String(b.enProceso), { align: "center" }),
         cell(String(b.requiereRefuerzo), { align: "center" }),
@@ -158,13 +168,18 @@ export async function generarWordEvaluacion(ev: EvaluacionDiagnostica): Promise<
   }
 
   if (recomendaciones.length) {
+    const origenPorCodigo = new Map(brechas.map((b) => [b.dcdCodigo, origenTexto(b)]));
     children.push(sectionTitle("Recomendaciones pedagógicas"));
     for (const r of recomendaciones) {
       const color = ESTADO_APRENDIZAJE_INFO[r.nivel].color;
+      const origen = origenPorCodigo.get(r.dcdCodigo);
       children.push(
         new Paragraph({
           spacing: { after: 80 },
-          children: [new TextRun({ text: `${r.dcdCodigo} — ${r.dcdDescripcion}`, bold: true, color, size: 20 })],
+          children: [
+            new TextRun({ text: `${r.dcdCodigo} — ${r.dcdDescripcion}`, bold: true, color, size: 20 }),
+            ...(origen ? [new TextRun({ text: `  ·  ${origen}`, color: "6b7280", size: 16 })] : []),
+          ],
         }),
         new Paragraph({
           spacing: { after: 120 },

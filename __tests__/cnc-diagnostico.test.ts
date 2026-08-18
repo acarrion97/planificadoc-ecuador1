@@ -9,6 +9,11 @@ import type { BrechaCurso } from "../data/types-evaluacion";
 function brecha(overrides: Partial<BrechaCurso> & { dcdCodigo: string }): BrechaCurso {
   return {
     descripcion: `Descripción de ${overrides.dcdCodigo}`,
+    // Origen curricular es irrelevante para lo que prueba este archivo
+    // (mapeo de brechas → diagnóstico CNC); se fija en un valor neutro y
+    // consistente entre sí (no_determinado ⇒ subnivelOrigen null).
+    origen: "no_determinado",
+    subnivelOrigen: null,
     totalEstudiantes: 10,
     dominado: 0,
     enProceso: 0,

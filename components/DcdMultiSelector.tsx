@@ -10,6 +10,17 @@ import {
 } from "react-native";
 import { useColors } from "@/hooks/use-colors";
 import { Destreza } from "@/data/types";
+import { obtenerNombreSubnivel, buscarPorCodigo } from "@/data";
+
+/**
+ * Subnivel de una DCD ya seleccionada. Los chips solo guardan código y
+ * enunciado, así que el subnivel se resuelve contra el catálogo. Devuelve
+ * null si el código no resuelve: se omite la etiqueta en vez de inventarla.
+ */
+function subnivelDeCodigo(codigo: string): string | null {
+  const d = buscarPorCodigo(codigo);
+  return d ? obtenerNombreSubnivel(d.subnivel) : null;
+}
 
 export interface DcdSeleccionada {
   codigo: string;
@@ -21,9 +32,16 @@ interface Props {
   value: DcdSeleccionada[];
   onChange: (selected: DcdSeleccionada[]) => void;
   placeholder?: string;
+  /**
+   * Muestra el subnivel de cada destreza. Opt-in: solo lo necesitan los flujos
+   * que ofrecen DCD de más de un subnivel a la vez (Evaluación Diagnóstica,
+   * que combina el subnivel prerrequisito con el del curso). Los flujos de
+   * planificación pasan un único subnivel y no deben ver la etiqueta.
+   */
+  mostrarSubnivel?: boolean;
 }
 
-export function DcdMultiSelector({ destrezas, value, onChange, placeholder }: Props) {
+export function DcdMultiSelector({ destrezas, value, onChange, placeholder, mostrarSubnivel }: Props) {
   const colors = useColors();
   const [query, setQuery] = useState("");
 
@@ -62,7 +80,12 @@ export function DcdMultiSelector({ destrezas, value, onChange, placeholder }: Pr
               key={d.codigo}
               style={[styles.chip, { backgroundColor: "#EEEDFE", borderColor: "#7C3AED" }]}
             >
-              <Text style={[styles.chipText, { color: "#4C1D95" }]}>{d.codigo}</Text>
+              <Text style={[styles.chipText, { color: "#4C1D95" }]}>
+                {d.codigo}
+                {mostrarSubnivel && subnivelDeCodigo(d.codigo)
+                  ? ` · ${subnivelDeCodigo(d.codigo)}`
+                  : ""}
+              </Text>
               <Pressable onPress={() => remove(d.codigo)} hitSlop={6} style={styles.chipX}>
                 <Text style={{ color: "#7C3AED", fontSize: 13, fontWeight: "700" }}>×</Text>
               </Pressable>
@@ -110,9 +133,16 @@ export function DcdMultiSelector({ destrezas, value, onChange, placeholder }: Pr
                     {sel && <Text style={{ color: "#fff", fontSize: 10, fontWeight: "900" }}>✓</Text>}
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={[styles.rowCode, { color: sel ? "#4C1D95" : colors.foreground }]}>
-                      {d.codigo}
-                    </Text>
+                    <View style={styles.rowCodeLine}>
+                      <Text style={[styles.rowCode, { color: sel ? "#4C1D95" : colors.foreground }]}>
+                        {d.codigo}
+                      </Text>
+                      {mostrarSubnivel && (
+                        <Text style={[styles.subnivelTag, { color: colors.muted, borderColor: colors.border }]}>
+                          {obtenerNombreSubnivel(d.subnivel)}
+                        </Text>
+                      )}
+                    </View>
                     <Text
                       style={[styles.rowDesc, { color: colors.muted }]}
                       numberOfLines={Platform.OS === "web" ? 2 : 2}
@@ -195,10 +225,23 @@ const styles = StyleSheet.create({
     marginTop: 2,
     flexShrink: 0,
   },
+  rowCodeLine: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 2,
+  },
   rowCode: {
     fontSize: 12,
     fontWeight: "700",
-    marginBottom: 2,
+  },
+  subnivelTag: {
+    fontSize: 9,
+    fontWeight: "600",
+    borderWidth: 1,
+    borderRadius: 6,
+    paddingHorizontal: 5,
+    paddingVertical: 1,
   },
   rowDesc: {
     fontSize: 12,

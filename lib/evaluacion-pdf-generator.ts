@@ -3,13 +3,14 @@
  * Sigue el patrón de lib/pca-pdf-generator.ts: HTML con estilos en línea
  * que luego se imprime (window.print en web / expo-print en móvil).
  */
-import type { EvaluacionDiagnostica } from "../data/types-evaluacion";
+import type { EvaluacionDiagnostica, BrechaCurso } from "../data/types-evaluacion";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data";
 import {
   ESTATUS_EVALUACION_INFO,
   TIPO_PREGUNTA_INFO,
   DIFICULTAD_INFO,
   ESTADO_APRENDIZAJE_INFO,
+  ORIGEN_CURRICULAR_INFO,
   EstadoAprendizaje,
 } from "../data/types-evaluacion";
 import {
@@ -43,6 +44,13 @@ function nivelDominante(b: { dominado: number; enProceso: number; requiereRefuer
   if (b.requiereRefuerzo === max) return "requiere_refuerzo";
   if (b.enProceso === max) return "en_proceso";
   return "dominado";
+}
+
+/** Subnivel de origen de una brecha en texto corto para reportes (design.md D11) */
+function origenTexto(b: BrechaCurso): string {
+  if (b.subnivelOrigen === null) return ORIGEN_CURRICULAR_INFO.no_determinado.nombre;
+  const nombreSubnivel = SUBNIVEL_NAMES[b.subnivelOrigen] ?? `Subnivel ${b.subnivelOrigen}`;
+  return b.origen === "arrastre" ? `${nombreSubnivel} (arrastre)` : nombreSubnivel;
 }
 
 /** Resultados por estudiante con los cálculos derivados (no persistidos) */
@@ -97,17 +105,21 @@ export function generarHTMLEvaluacion(ev: EvaluacionDiagnostica): string {
       return `<tr>
         <td style="padding:6px;border:1px solid ${PALETA.borde};font-size:11px;font-weight:700;">${esc(b.dcdCodigo)}</td>
         <td style="padding:6px;border:1px solid ${PALETA.borde};font-size:10px;">${esc(b.descripcion)}</td>
+        <td style="padding:6px;border:1px solid ${PALETA.borde};font-size:9px;color:${PALETA.muted};">${esc(origenTexto(b))}</td>
         <td style="padding:6px;border:1px solid ${PALETA.borde};font-size:10px;color:${info.color};font-weight:700;">${info.nombre}</td>
         <td style="padding:6px;border:1px solid ${PALETA.borde};font-size:10px;">${detalle}</td>
       </tr>`;
     })
     .join("");
 
+  const origenPorCodigo = new Map(brechas.map((b) => [b.dcdCodigo, origenTexto(b)]));
   const recs = recomendaciones
     .map((r) => {
       const color = ESTADO_APRENDIZAJE_INFO[r.nivel].color;
+      const origen = origenPorCodigo.get(r.dcdCodigo);
       return `<div style="margin-bottom:8px;font-size:11px;">
         <b style="color:${color};">${esc(r.dcdCodigo)}</b>
+        ${origen ? `<span style="color:${PALETA.muted};font-size:9px;"> · ${esc(origen)}</span>` : ""}
         <div style="color:${PALETA.texto};margin-top:2px;">${esc(r.texto)}</div>
       </div>`;
     })
@@ -187,6 +199,7 @@ function aprendizajeTabla(ev: EvaluacionDiagnostica, filas: string): string {
       <thead><tr>
         <th style="padding:6px;border:1px solid ${PALETA.borde};background:${PALETA.encabezado};color:#fff;font-size:11px;">DCD</th>
         <th style="padding:6px;border:1px solid ${PALETA.borde};background:${PALETA.encabezado};color:#fff;font-size:11px;">Descripción</th>
+        <th style="padding:6px;border:1px solid ${PALETA.borde};background:${PALETA.encabezado};color:#fff;font-size:11px;">Origen</th>
         <th style="padding:6px;border:1px solid ${PALETA.borde};background:${PALETA.encabezado};color:#fff;font-size:11px;">Nivel dominante del curso</th>
         <th style="padding:6px;border:1px solid ${PALETA.borde};background:${PALETA.encabezado};color:#fff;font-size:11px;">Distribución</th>
       </tr></thead><tbody>${filas}</tbody></table>`;

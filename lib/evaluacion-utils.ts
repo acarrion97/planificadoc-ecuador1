@@ -10,6 +10,7 @@ import type {
   BrechaCurso,
   EstadoAprendizaje,
   EvaluacionDiagnostica,
+  OrigenCurricular,
   PreguntaDiagnostica,
   Recomendacion,
   RespuestaPregunta,
@@ -18,6 +19,7 @@ import type {
   UmbralesEvaluacion,
 } from "@/data/types-evaluacion";
 import type { Subnivel } from "@/data/types";
+import { buscarPorCodigo } from "@/data";
 
 /** Umbrales por defecto: dominado ≥ 70, refuerzo < 40. Configurables por evaluación. */
 export const UMBRALES_DEFECTO: UmbralesEvaluacion = {
@@ -29,14 +31,38 @@ export const UMBRALES_DEFECTO: UmbralesEvaluacion = {
  * Infiere el subnivel educativo desde el grado/curso en texto
  * (ej: "8.° EGB", "3ro EGB", "1.° BGU"). Devuelve null si no puede inferirlo.
  */
-export function subnivelDesdeGrado(grado: string): Subnivel | null {
-  const g = grado
+/** Normaliza un grado para analizarlo: minúsculas, sin ordinales ni puntuación. */
+function normalizarGrado(grado: string): string {
+  return grado
     .toLowerCase()
     .replace(/[º°]/g, " ")
     .replace(/[.,]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/**
+ * Indica si el grado corresponde a Bachillerato Técnico, que en el resto de la
+ * app existe como *modalidad* (`plan.modalidad === "bt"`) y no como grado.
+ *
+ * Sirve para distinguir la modalidad de un grado que simplemente no tiene
+ * prerrequisito: BT sí tiene nivel (Bachillerato), lo que no tiene todavía es
+ * diagnóstico curricular técnico por módulos formativos y resultados de
+ * aprendizaje — eso queda fuera de este change.
+ */
+export function esBachilleratoTecnico(grado: string): boolean {
+  const g = normalizarGrado(grado);
+  if (!g) return false;
+  // "1ro BT" → "1ro bt" · "1ro B.T." → "1ro b t" (los puntos ya son espacios)
+  return /\bbt\b/.test(g) || /\bb t\b/.test(g) || /\bt[eé]cnico\b/.test(g);
+}
+
+export function subnivelDesdeGrado(grado: string): Subnivel | null {
+  const g = normalizarGrado(grado);
   if (!g) return null;
+  // Bachillerato Técnico antes del análisis numérico: "1ro BT" contiene un 1 y
+  // caería en Preparatoria, que es justo lo contrario de su nivel real.
+  if (esBachilleratoTecnico(g)) return 5;
   if (g.includes("bgu") || g.includes("bachillerato") || g.includes("inicial")) {
     return g.includes("inicial") ? -1 : 5;
   }
@@ -172,6 +198,50 @@ export function estudiantesEvaluados(evaluacion: EvaluacionDiagnostica) {
 }
 
 /**
+ * Origen curricular de una DCD respecto del subnivel del curso.
+ *
+ * Se deriva del catálogo (`buscarPorCodigo`), sin campo declarado ni
+ * persistido: `DcdEvaluada` solo guarda el código. Si el código no resuelve
+ * —catálogo actualizado, destreza retirada— el origen queda *no determinado*
+ * en lugar de caer por defecto en "nivel actual". El % de logro no depende del
+ * subnivel, así que ese resultado sigue siendo correcto. Ver design.md D11.
+ */
+export function origenDeDcd(
+  codigo: string,
+  subnivelCurso: Subnivel
+): { origen: OrigenCurricular; subnivel: Subnivel | null } {
+  const destreza = buscarPorCodigo(codigo);
+  if (!destreza) return { origen: "no_determinado", subnivel: null };
+  // Solo un subnivel estrictamente anterior es arrastre. La UI no ofrece
+  // subniveles superiores al del curso, así que el resto es nivel actual.
+  const origen: OrigenCurricular =
+    destreza.subnivel < subnivelCurso ? "arrastre" : "nivel_actual";
+  return { origen, subnivel: destreza.subnivel };
+}
+
+export interface BrechasPorOrigen {
+  arrastre: BrechaCurso[];
+  nivelActual: BrechaCurso[];
+  noDeterminado: BrechaCurso[];
+  /**
+   * Solo tiene sentido agrupar si más de un origen tiene contenido; con un
+   * único subnivel evaluado la UI muestra la lista plana, sin grupos vacíos.
+   */
+  agrupar: boolean;
+}
+
+/** Reparte las brechas por origen curricular conservando el orden de prioridad. */
+export function agruparBrechasPorOrigen(brechas: BrechaCurso[]): BrechasPorOrigen {
+  const arrastre = brechas.filter((b) => b.origen === "arrastre");
+  const nivelActual = brechas.filter((b) => b.origen === "nivel_actual");
+  const noDeterminado = brechas.filter((b) => b.origen === "no_determinado");
+  const gruposConContenido = [arrastre, nivelActual, noDeterminado].filter(
+    (g) => g.length > 0
+  ).length;
+  return { arrastre, nivelActual, noDeterminado, agrupar: gruposConContenido > 1 };
+}
+
+/**
  * Agrega las brechas del curso por DCD: cuántos estudiantes dominan / están
  * en proceso / requieren refuerzo, con porcentajes del curso. Ordenadas por
  * prioridad de intervención (más 🔴 primero).
@@ -213,9 +283,12 @@ export function calcularBrechasCurso(evaluacion: EvaluacionDiagnostica): BrechaC
   for (const [codigo, c] of conteo.entries()) {
     const total = evaluados.length;
     if (total === 0) continue;
+    const { origen, subnivel: subnivelOrigen } = origenDeDcd(codigo, evaluacion.subnivel);
     brechas.push({
       dcdCodigo: codigo,
       descripcion: c.descripcion,
+      origen,
+      subnivelOrigen,
       totalEstudiantes: total,
       dominado: c.dominado,
       enProceso: c.enProceso,

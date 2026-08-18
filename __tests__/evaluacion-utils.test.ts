@@ -6,7 +6,11 @@ import {
   calcularBrechasCurso,
   generarRecomendaciones,
   subnivelDesdeGrado,
+  esBachilleratoTecnico,
+  origenDeDcd,
+  agruparBrechasPorOrigen,
 } from "../lib/evaluacion-utils";
+import { resolverPrerrequisito } from "../lib/curriculo-prerrequisitos";
 import type {
   EvaluacionDiagnostica,
   PreguntaDiagnostica,
@@ -256,6 +260,159 @@ describe("subnivelDesdeGrado", () => {
 
   it("no puede inferir sin grado o número", () => {
     expect(subnivelDesdeGrado("")).toBeNull();
+    expect(subnivelDesdeGrado("Paralelo A")).toBeNull();
+  });
+});
+
+describe("Brechas por origen curricular", () => {
+  /** Curso de 8.° EGB (subnivel 4) que diagnostica arrastre de Básica Media. */
+  function evaluacionMixta(overrides: Partial<EvaluacionDiagnostica> = {}) {
+    return evaluacionBasica({
+      subnivel: 4,
+      grado: "8vo EGB",
+      dcdsEvaluadas: [
+        { codigo: "M.3.1.1", descripcion: "Arrastre de Básica Media", indicadores: [] },
+        { codigo: "M.4.1.1", descripcion: "Del nivel actual", indicadores: [] },
+      ],
+      preguntas: [
+        pregunta({ id: "p1", dcdCodigo: "M.3.1.1" }),
+        pregunta({ id: "p2", dcdCodigo: "M.4.1.1" }),
+      ],
+      estudiantes: [{ id: "s1", codigo: "E01", incluirEnReportes: true }],
+      resultados: [
+        {
+          estudianteId: "s1",
+          intentoPermitido: false,
+          respuestas: [
+            { preguntaId: "p1", respuesta: "b", correcta: false },
+            { preguntaId: "p2", respuesta: "b", correcta: false },
+          ],
+        },
+      ],
+      ...overrides,
+    });
+  }
+
+  it("clasifica cada DCD según su subnivel real", () => {
+    expect(origenDeDcd("M.3.1.1", 4)).toEqual({ origen: "arrastre", subnivel: 3 });
+    expect(origenDeDcd("M.4.1.1", 4)).toEqual({ origen: "nivel_actual", subnivel: 4 });
+  });
+
+  it("agrupa brechas mixtas por origen", () => {
+    const brechas = calcularBrechasCurso(evaluacionMixta());
+    const grupos = agruparBrechasPorOrigen(brechas);
+
+    expect(grupos.agrupar).toBe(true);
+    expect(grupos.arrastre.map((b) => b.dcdCodigo)).toEqual(["M.3.1.1"]);
+    expect(grupos.nivelActual.map((b) => b.dcdCodigo)).toEqual(["M.4.1.1"]);
+    expect(grupos.noDeterminado).toEqual([]);
+  });
+
+  it("no agrupa cuando todas las DCD comparten subnivel", () => {
+    const brechas = calcularBrechasCurso(
+      evaluacionMixta({
+        dcdsEvaluadas: [
+          { codigo: "M.4.1.1", descripcion: "Del nivel actual", indicadores: [] },
+          { codigo: "M.4.1.2", descripcion: "También del nivel actual", indicadores: [] },
+        ],
+        preguntas: [
+          pregunta({ id: "p1", dcdCodigo: "M.4.1.1" }),
+          pregunta({ id: "p2", dcdCodigo: "M.4.1.2" }),
+        ],
+      })
+    );
+    const grupos = agruparBrechasPorOrigen(brechas);
+
+    expect(grupos.agrupar).toBe(false);
+    expect(grupos.arrastre).toEqual([]);
+    expect(grupos.nivelActual).toHaveLength(2);
+  });
+
+  it("una DCD con código no resoluble queda con origen no determinado", () => {
+    const evaluacion = evaluacionMixta({
+      dcdsEvaluadas: [
+        {
+          codigo: "XX.9.9.9",
+          descripcion: "Destreza retirada del catálogo",
+          indicadores: ["Indicador registrado en su momento"],
+        },
+      ],
+      preguntas: [pregunta({ id: "p1", dcdCodigo: "XX.9.9.9" })],
+      resultados: [
+        {
+          estudianteId: "s1",
+          intentoPermitido: false,
+          respuestas: [{ preguntaId: "p1", respuesta: "b", correcta: false }],
+        },
+      ],
+    });
+
+    const brechas = calcularBrechasCurso(evaluacion);
+    expect(brechas).toHaveLength(1);
+    expect(brechas[0].origen).toBe("no_determinado");
+    expect(brechas[0].subnivelOrigen).toBeNull();
+    // No cae por defecto en "nivel actual"
+    expect(brechas[0].origen).not.toBe("nivel_actual");
+    // Conserva la descripción registrada y el cálculo de logro sigue siendo válido
+    expect(brechas[0].descripcion).toBe("Destreza retirada del catálogo");
+    expect(brechas[0].porcentajeDificultad).toBe(100);
+
+    const calculado = calcularResultadoEstudiante(evaluacion, evaluacion.resultados[0]);
+    expect(calculado.porDcd[0].porcentajeLogro).toBe(0);
+  });
+
+  it("origenDeDcd no inventa subnivel para un código desconocido", () => {
+    expect(origenDeDcd("XX.9.9.9", 4)).toEqual({
+      origen: "no_determinado",
+      subnivel: null,
+    });
+  });
+});
+
+describe("Bachillerato Técnico en el grado", () => {
+  const SUBNIVEL_PREPARATORIA = 1;
+  const SUBNIVEL_BACHILLERATO = 5;
+
+  it("reconoce la forma extendida", () => {
+    expect(subnivelDesdeGrado("1ro Bachillerato Técnico")).toBe(SUBNIVEL_BACHILLERATO);
+    expect(subnivelDesdeGrado("2do Bachillerato Tecnico")).toBe(SUBNIVEL_BACHILLERATO);
+    expect(esBachilleratoTecnico("3ro Bachillerato Técnico")).toBe(true);
+  });
+
+  it("reconoce la abreviatura que usa la app", () => {
+    expect(subnivelDesdeGrado("1ro BT")).toBe(SUBNIVEL_BACHILLERATO);
+    expect(subnivelDesdeGrado("2do BT")).toBe(SUBNIVEL_BACHILLERATO);
+    expect(subnivelDesdeGrado("3ro B.T.")).toBe(SUBNIVEL_BACHILLERATO);
+    expect(subnivelDesdeGrado("BT 1")).toBe(SUBNIVEL_BACHILLERATO);
+  });
+
+  it("nunca deriva a Preparatoria", () => {
+    for (const grado of ["1ro BT", "2do BT", "3ro BT", "1ro B.T.", "BT 1"]) {
+      expect(subnivelDesdeGrado(grado)).not.toBe(SUBNIVEL_PREPARATORIA);
+    }
+  });
+
+  it("un curso de BT sí tiene nivel prerrequisito: no dispara el aviso de ausencia", () => {
+    // El aviso "sin nivel prerrequisito definido" se muestra cuando el
+    // resolvedor devuelve null. Con BT bien reconocido, un área de formación
+    // general resuelve normalmente.
+    const subnivel = subnivelDesdeGrado("1ro BT");
+    expect(subnivel).not.toBeNull();
+    expect(resolverPrerrequisito("LL", subnivel!)).toEqual({ area: "LL", subnivel: 4 });
+    expect(resolverPrerrequisito("M", subnivel!)).toEqual({ area: "M", subnivel: 4 });
+    expect(resolverPrerrequisito("CN.F", subnivel!)).toEqual({ area: "CN", subnivel: 4 });
+  });
+
+  it("distingue la modalidad BT de un grado corriente", () => {
+    expect(esBachilleratoTecnico("1ro BT")).toBe(true);
+    expect(esBachilleratoTecnico("1ro BGU")).toBe(false);
+    expect(esBachilleratoTecnico("8vo EGB")).toBe(false);
+    expect(esBachilleratoTecnico("")).toBe(false);
+  });
+
+  it("no altera el parseo de grados que no son BT", () => {
+    expect(subnivelDesdeGrado("8vo EGB")).toBe(4);
+    expect(subnivelDesdeGrado("1.° BGU")).toBe(5);
     expect(subnivelDesdeGrado("Paralelo A")).toBeNull();
   });
 });

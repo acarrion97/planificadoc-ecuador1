@@ -30,7 +30,11 @@ import {
   calcularBrechasCurso,
   generarRecomendaciones,
   estudiantesEvaluados,
+  agruparBrechasPorOrigen,
 } from "@/lib/evaluacion-utils";
+import { ORIGEN_CURRICULAR_INFO } from "@/data/types-evaluacion";
+import { obtenerNombreSubnivel } from "@/data";
+import type { BrechaCurso } from "@/data/types-evaluacion";
 import { generarHTMLEvaluacion, generarHTMLPruebaImprimible } from "@/lib/evaluacion-pdf-generator";
 import { generarWordEvaluacion } from "@/lib/evaluacion-word-generator";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
@@ -41,6 +45,42 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function nuevoId() {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+}
+
+/**
+ * Fila de una brecha por DCD. Muestra el subnivel de origen para que una
+ * brecha de arrastre sea distinguible de una del nivel actual incluso fuera
+ * de su grupo (p. ej. cuando la lista va sin agrupar).
+ */
+function FilaBrecha({
+  brecha: b,
+  colors,
+}: {
+  brecha: BrechaCurso;
+  colors: ReturnType<typeof useColors>;
+}) {
+  const nivel = nivelDominanteEstado(b);
+  const info = ESTADO_APRENDIZAJE_INFO[nivel];
+  const subnivelTexto =
+    b.subnivelOrigen !== null ? obtenerNombreSubnivel(b.subnivelOrigen) : "Nivel no determinado";
+  return (
+    <View style={{ marginBottom: 10 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <Text style={{ fontSize: 13, fontWeight: "700", color: colors.foreground }}>{b.dcdCodigo}</Text>
+        <Text style={{ fontSize: 11, color: colors.muted, flex: 1 }}>{b.descripcion}</Text>
+        <Text style={{ fontSize: 11, fontWeight: "700", color: info.color }}>{info.nombre}</Text>
+      </View>
+      <View style={{ height: 8, borderRadius: 4, backgroundColor: colors.background, overflow: "hidden", marginTop: 6 }}>
+        <View style={{ flexDirection: "row", height: "100%" }}>
+          <View style={{ width: `${b.porcentajeDominio}%`, backgroundColor: "#16A34A" }} />
+          <View style={{ width: `${Math.max(0, b.porcentajeDificultad)}%`, backgroundColor: "#D97706" }} />
+        </View>
+      </View>
+      <Text style={{ fontSize: 10, color: colors.muted, marginTop: 4 }}>
+        {subnivelTexto} · Prioridad {b.prioridad} · 🟢 {b.dominado} · 🟡 {b.enProceso} · 🔴 {b.requiereRefuerzo} · {b.porcentajeDominio}% dominio
+      </Text>
+    </View>
+  );
 }
 
 function planCNCVacio(): PlanConectaNivelaCrea {
@@ -146,6 +186,7 @@ export default function VerEvaluacionScreen() {
   const estatus = ESTATUS_EVALUACION_INFO[ev.status];
   const evaluados = estudiantesEvaluados(ev);
   const brechas = calcularBrechasCurso(ev);
+  const gruposBrechas = agruparBrechasPorOrigen(brechas);
   const recomendaciones = generarRecomendaciones(ev);
 
   function resultadoDe(est: EstudianteEvaluacion): ResultadoEstudiante | undefined {
@@ -651,32 +692,40 @@ export default function VerEvaluacionScreen() {
           </View>
         )}
 
-        {/* Resultados por aprendizaje */}
+        {/* Resultados por aprendizaje, agrupados por origen curricular */}
         {brechas.length > 0 && (
           <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
             <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Resultados por aprendizaje</Text>
-            {brechas.map((b) => {
-              const nivel = nivelDominanteEstado(b);
-              const info = ESTADO_APRENDIZAJE_INFO[nivel];
-              return (
-                <View key={b.dcdCodigo} style={{ marginBottom: 10 }}>
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.foreground }}>{b.dcdCodigo}</Text>
-                    <Text style={{ fontSize: 11, color: colors.muted, flex: 1 }}>{b.descripcion}</Text>
-                    <Text style={{ fontSize: 11, fontWeight: "700", color: info.color }}>{info.nombre}</Text>
-                  </View>
-                  <View style={{ height: 8, borderRadius: 4, backgroundColor: colors.background, overflow: "hidden", marginTop: 6 }}>
-                    <View style={{ flexDirection: "row", height: "100%" }}>
-                      <View style={{ width: `${b.porcentajeDominio}%`, backgroundColor: "#16A34A" }} />
-                      <View style={{ width: `${Math.max(0, b.porcentajeDificultad)}%`, backgroundColor: "#D97706" }} />
+            {gruposBrechas.agrupar ? (
+              <>
+                {/* El arrastre va primero: es la brecha más urgente y la que
+                    justifica nivelar antes de avanzar con el nivel actual. */}
+                {(["arrastre", "nivel_actual", "no_determinado"] as const).map((origen) => {
+                  const lista =
+                    origen === "arrastre"
+                      ? gruposBrechas.arrastre
+                      : origen === "nivel_actual"
+                      ? gruposBrechas.nivelActual
+                      : gruposBrechas.noDeterminado;
+                  if (lista.length === 0) return null;
+                  return (
+                    <View key={origen} style={{ marginBottom: 6 }}>
+                      <Text style={{ fontSize: 12, fontWeight: "800", color: colors.foreground, marginBottom: 2 }}>
+                        {ORIGEN_CURRICULAR_INFO[origen].nombre}
+                      </Text>
+                      <Text style={{ fontSize: 10, color: colors.muted, marginBottom: 8 }}>
+                        {ORIGEN_CURRICULAR_INFO[origen].descripcion}
+                      </Text>
+                      {lista.map((b) => (
+                        <FilaBrecha key={b.dcdCodigo} brecha={b} colors={colors} />
+                      ))}
                     </View>
-                  </View>
-                  <Text style={{ fontSize: 10, color: colors.muted, marginTop: 4 }}>
-                    Prioridad {b.prioridad} · 🟢 {b.dominado} · 🟡 {b.enProceso} · 🔴 {b.requiereRefuerzo} · {b.porcentajeDominio}% dominio
-                  </Text>
-                </View>
-              );
-            })}
+                  );
+                })}
+              </>
+            ) : (
+              brechas.map((b) => <FilaBrecha key={b.dcdCodigo} brecha={b} colors={colors} />)
+            )}
           </View>
         )}
 
