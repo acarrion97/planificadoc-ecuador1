@@ -27,4 +27,4 @@
 
 - [x] 5.1 `pnpm check` sin nuevos errores TS sobre el baseline (49)
 - [x] 5.2 Tests: `__tests__/cnc-producto-final.test.ts` (7 tests) — contenido real en HTML, fallback legado (General y BT), Word genera con y sin actividades
-- [ ] 5.3 Smoke test manual en preview: generar plan General y BT, verificar producto final + actividades en resultado y en exportación Word/PDF; abrir un plan legado y exportar sin errores
+- [x] 5.3 Smoke test manual en preview: generar plan General y BT, verificar producto final + actividades en resultado y en exportación Word/PDF; abrir un plan legado y exportar sin errores
