@@ -44,8 +44,31 @@
 
 - [x] 8.1 Botón "Exportar a Conecta, Nivela y Crea": mapeo 🟢→logrado, 🟡→en_proceso, 🔴→iniciado; crea/actualiza el `diagnosticoAcademico` de Semana 1 de un plan CNC (solo DCD área LL/M; inhabilitado con explicación si se evalúan otras áreas); requiere confirmación y no toca planes sin autorización.
 
-## 9. Verificación final
+## 9. Verificación de la primera versión
 
 - [x] 9.1 `pnpm check`: 0 errores TS nuevos sobre la línea base (49 preexistentes).
 - [x] 9.2 Ejecutar `__tests__/evaluacion-utils.test.ts` y la suite completa (`pnpm test`).
-- [ ] 9.3 Smoke test manual: crear → publicar → aplicar → ver resultados → exportar reportes → exportar a CNC.
+
+## 10. Subnivel prerrequisito (enmienda)
+
+- [ ] 10.1 Crear `lib/curriculo-prerrequisitos.ts` con `resolverPrerrequisito(area, subnivel): { area, subnivel } | null` según D10: (a) áreas con punto → prefijo en `subnivel - 1` (`CN.F@5 → CN@4`, `CS.EC@5 → CS@4`, etc.); (b) cualquier área en subnivel 2 → `CAI@1` (Preparatoria es currículo integrado); (c) caso general → misma área en `subnivel - 1`; (d) `null` cuando no hay predecesor en el catálogo (`EG@5`, subniveles ≤ 1).
+- [ ] 10.2 Escribir `__tests__/curriculo-prerrequisitos.test.ts`: los seis mapeos de Bachillerato, Básica Elemental → CAI, caso general, `EG@5 → null`, y una verificación de que todo par (área, subnivel) presente en el catálogo resuelve a un par existente o a `null` explícito.
+- [ ] 10.3 Paso 1 del wizard: ofrecer las DCD del subnivel prerrequisito **por defecto** y mantener las del subnivel del curso disponibles para selección; reemplazar el filtro rígido `filtrarPorAreaYSubnivel(area, subnivel)` de `app/evaluacion-diagnostica/index.tsx`.
+- [ ] 10.4 Mostrar el subnivel de origen de cada DCD en el selector y en la lista de seleccionadas (`DcdMultiSelector` recibe un array plano; basta con la etiqueta).
+- [ ] 10.5 Cuando `resolverPrerrequisito` devuelve `null`, informar que no existe prerrequisito definido y ofrecer solo el subnivel del curso, sin proponer áreas sustitutas.
+- [ ] 10.6 Preselección desde el wizard CNC: usar el mismo resolvedor en lugar del filtro `d.subnivel === subnivel`, para que las DCD de arrastre del plan no se descarten en silencio.
+
+## 11. Brechas por origen curricular
+
+- [ ] 11.1 `lib/evaluacion-utils.ts`: clasificar cada brecha como arrastre o nivel actual comparando el subnivel de la DCD (vía `buscarPorCodigo`) con el subnivel del curso; sin campo nuevo en `EvaluacionDiagnostica`. Cuando el código no resuelve, marcar el origen como no determinado en lugar de asignar uno por defecto.
+- [ ] 11.2 Extender `__tests__/evaluacion-utils.test.ts`: brechas mixtas agrupadas por origen, evaluación de un solo subnivel sin grupos vacíos, y DCD con código no resoluble (conserva descripción e indicadores, calcula logro, origen no determinado).
+- [ ] 11.3 `app/ver-evaluacion/[id].tsx`: presentar las brechas agrupadas por origen, omitiendo la agrupación cuando todas las DCD comparten subnivel.
+- [ ] 11.4 `lib/evaluacion-pdf-generator.ts`: incluir el subnivel de origen de cada DCD en los informes de brechas, por DCD y matriz.
+- [ ] 11.5 `lib/evaluacion-word-generator.ts`: mismos ajustes que 11.4.
+
+## 12. Verificación final
+
+- [ ] 12.1 `pnpm check`: 0 errores TS nuevos sobre la línea base.
+- [ ] 12.2 `pnpm test` con los nuevos tests de 10.2 y 11.2.
+- [ ] 12.3 Smoke test manual: crear → publicar → aplicar → ver resultados → exportar reportes → exportar a CNC, cubriendo además 8.° EGB (prerrequisito por defecto), 6.° EGB (subnivel del curso seleccionable), Física 1.° BGU (`CN.F@5 → CN@4`) y Emprendimiento 1.° BGU (sin prerrequisito definido).
+- [ ] 12.4 Verificar que la enmienda no introdujo campos persistidos nuevos: `EvaluacionDiagnostica` y `DcdEvaluada` conservan su forma y el subnivel de toda DCD se obtiene con `buscarPorCodigo(codigo)` (D10). Confirmar en el smoke que una evaluación guardada antes de la enmienda se abre y calcula brechas por origen sin migración.

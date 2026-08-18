@@ -54,6 +54,44 @@ Botón "Exportar a Conecta, Nivela y Crea": mapeo 🟢→`logrado`, 🟡→`en_p
 ### D9. Aislamiento del módulo
 Todos los archivos del módulo son nuevos y no se modifican los archivos de los flujos existentes salvo: `server/routers.ts` (registrar router) y `app/(tabs)/planes.tsx` (entrada). Replica la independencia de archivos que ya establece CNC.
 
+### D10. Subnivel prerrequisito resuelto por mapa explícito, no por resta
+
+Un diagnóstico mide lo que el estudiante *debería traer*, por lo que las DCD relevantes suelen ser de un subnivel anterior al del curso. La primera versión filtraba el selector por el subnivel derivado del grado (`filtrarPorAreaYSubnivel(area, subnivel)`), lo que hacía imposible seleccionar prerrequisitos justo en los saltos de subnivel — que es donde el diagnóstico más importa.
+
+La regla no puede ser `subnivel - 1`, porque el catálogo no ofrece todas las áreas en todos los subniveles (verificado sobre `data/destrezas-*.ts`):
+
+| área | -1 | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|---|
+| INI | ✓ | ✓ | | | | | |
+| CAI | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| LL, M, CN, CS | | | | ✓ | ✓ | ✓ | (CN y CS se cortan en 4) |
+| ECA, EF, EFL | | | | ✓ | ✓ | ✓ | ✓ |
+| CN.B, CN.F, CN.Q | | | | | | | ✓ |
+| CS.H, CS.F, CS.EC | | | | | | | ✓ |
+| EG | | | | | | | ✓ |
+
+Se define entonces un resolvedor `(área, subnivel) → (área, subnivel) | null`:
+
+1. **Áreas de Bachillerato derivadas** — el código de área ya codifica la jerarquía con un punto: `CN.F@5 → CN@4`, `CN.Q@5 → CN@4`, `CN.B@5 → CN@4`, `CS.H@5 → CS@4`, `CS.F@5 → CS@4`, `CS.EC@5 → CS@4`. Se resuelve tomando el prefijo anterior al punto.
+2. **Preparatoria es currículo integrado** — el subnivel 1 solo ofrece `CAI`, por lo que *cualquier* área de Básica Elemental toma `CAI@1` como prerrequisito: `LL@2 → CAI@1`, `M@2 → CAI@1`, `CN@2 → CAI@1`, etc.
+3. **Caso general** — misma área, subnivel anterior: `LL@4 → LL@3`.
+4. **Sin prerrequisito definido** — `EG@5` no tiene predecesor en el catálogo, y los subniveles de Inicial/Preparatoria quedan fuera del alcance del módulo. El resolvedor devuelve `null` y la UI lo informa; **no** se sustituye por un área "parecida".
+
+Decisiones asociadas:
+
+- **El prerrequisito es el default, no una restricción.** El subnivel del curso siempre queda seleccionable. Forzar el anterior sería una regresión para los grados que comparten subnivel: 5.° y 6.° EGB son ambos Básica Media, y el catálogo ecuatoriano define destrezas por subnivel (la institución las dosifica por grado), de modo que los prerrequisitos de 6.° ya viven en el subnivel del curso.
+- **Un único resolvedor para los dos caminos de entrada.** Tanto el selector manual como la preselección de DCD que llega desde el wizard CNC usan la misma función. Con dos reglas distintas, las DCD de arrastre que vienen de un plan CNC se descartarían en silencio (comportamiento previo en `app/evaluacion-diagnostica/index.tsx`).
+- **Sin campo nuevo en la evaluación.** `DcdEvaluada` guarda `codigo`, y el subnivel se deriva con `buscarPorCodigo`. `EvaluacionDiagnostica.subnivel` conserva su significado actual (el subnivel del curso) y las evaluaciones ya guardadas en AsyncStorage siguen siendo válidas sin migración.
+- **Ubicación**: `lib/curriculo-prerrequisitos.ts`, archivo nuevo propiedad del módulo, para no tocar `data/index.ts` (ver D9). Si otro módulo lo necesita más adelante, se promueve.
+
+Alternativa descartada: permitir que el docente elija cualquier subnivel sin default. Es más flexible pero pierde la guía pedagógica, que es justamente el aporte del módulo.
+
+### D11. Brechas clasificadas por origen curricular
+
+Con DCD de varios subniveles en una misma evaluación, una lista plana de brechas no permite distinguir un rezago de arrastre de una dificultad del nivel actual — y son decisiones pedagógicas distintas. La clasificación se deriva del subnivel de la DCD en el catálogo comparado con el subnivel del curso, sin campo declarado por el docente. Alimenta el análisis en pantalla y los reportes, y hace explícita la trazabilidad hacia la fase *Nivela* de CNC.
+
+Derivar en lugar de persistir tiene un borde: `DcdEvaluada` desnormaliza `descripcion` e `indicadores` (precisamente porque un código podría dejar de resolver ante un catálogo actualizado), pero el subnivel es puramente derivado. Si `buscarPorCodigo` no resuelve, el resultado individual y el % de logro siguen siendo correctos —no dependen del subnivel— y solo se pierde la clasificación por origen. En ese caso la DCD se presenta con **origen no determinado**, en lugar de caer por defecto en "nivel actual": es coherente con el criterio del módulo de informar antes que inventar (mismo trato que `EG@5` sin prerrequisito en D10) y evita desnormalizar el subnivel, que contradiría la decisión de no crecer el modelo persistido.
+
 ## Risks / Trade-offs
 
 - [Límite de línea base TS: `pnpm check` ya reporta 49 errores preexistentes] → El módulo debe añadir 0 errores; código nuevo con tipos explícitos; verificar con `pnpm check` antes de terminar.
@@ -61,6 +99,8 @@ Todos los archivos del módulo son nuevos y no se modifican los archivos de los 
 - [IA puede sugerir preguntas de calidad variable] → Solo propone (nunca incorpora sin revisión), validación Zod estricta y grounding en indicadores reales.
 - [Umbrales por defecto pueden no reflejar criterios institucionales] → Configurables por evaluación; documentar los valores por defecto en la UI.
 - [Integración CNC limitada a LL/M por el modelo actual] → Si el docente evalúa otras áreas, la exportación a CNC queda inhabilitada con explicación clara (el plan CNC solo diagnostica Lengua/Matemática).
+- [El mapa de prerrequisitos (D10) se desactualiza si cambia la cobertura del catálogo] → El mapa se deriva de reglas (prefijo de área, Preparatoria integrada) y no de una tabla caso por caso; se cubre con tests que verifican que todo par (área, subnivel) presente en el catálogo resuelve a un par existente o a `null` explícito.
+- [El catálogo no registra de qué versión del currículo proviene cada DCD] → Los códigos DCD son estables entre el Currículo 2016 y los priorizados posteriores (el priorizado es un subconjunto), por lo que la trazabilidad por código se mantiene. Pero el módulo no puede advertir que una DCD no estuvo priorizada en el año que la cohorte cursó ese grado, y podría reportar como brecha algo que nunca se enseñó. Queda fuera del alcance de este change; requiere procedencia por archivo en `data/destrezas-*.ts`.
 
 ## Migration Plan
 

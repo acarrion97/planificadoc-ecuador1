@@ -18,13 +18,47 @@ El sistema SHALL permitir crear una evaluación diagnóstica con: nombre, año l
 ### Requirement: Selección de DCD con trazabilidad curricular
 El sistema SHALL permitir seleccionar las destrezas (DCD) a diagnosticar usando únicamente el catálogo estático existente, mostrando para cada una sus criterios e indicadores de evaluación reales. Cada pregunta del banco SHALL quedar vinculada a una DCD y opcionalmente a un indicador.
 
-#### Scenario: Seleccionar DCD por área y subnivel
-- **WHEN** el docente selecciona área, subnivel y busca una destreza en el catálogo
+#### Scenario: Seleccionar DCD del catálogo
+- **WHEN** el docente busca una destreza entre las ofrecidas y la agrega
 - **THEN** el sistema la agrega con su descripción, criterios e indicadores sin inventar contenido curricular
 
 #### Scenario: Pregunta sin trazabilidad
 - **WHEN** el docente intenta guardar una pregunta sin DCD asociada
 - **THEN** el sistema rechaza la pregunta y solicita asociarla a una DCD
+
+### Requirement: Selección del subnivel a diagnosticar
+Una evaluación diagnóstica mide aprendizajes previos, por lo que el sistema SHALL permitir al docente elegir de qué subnivel provienen las DCD a diagnosticar, sin restringirlo al subnivel del curso. El sistema SHALL ofrecer por defecto el **subnivel prerrequisito** (ver "Mapa de subniveles prerrequisito") y SHALL mantener el subnivel del curso disponible para selección. Cada DCD ofrecida o seleccionada SHALL mostrar a qué subnivel pertenece.
+
+#### Scenario: Curso en salto de subnivel
+- **WHEN** el docente crea una evaluación para 8.° EGB (Básica Superior)
+- **THEN** el sistema ofrece por defecto las DCD de Básica Media y mantiene disponibles las de Básica Superior
+
+#### Scenario: Grado que comparte subnivel con el anterior
+- **WHEN** el docente crea una evaluación para 6.° EGB, cuyo grado previo (5.°) pertenece al mismo subnivel curricular
+- **THEN** el sistema permite seleccionar las DCD del subnivel del curso, de modo que los prerrequisitos del grado anterior siguen siendo seleccionables
+
+#### Scenario: DCD de subniveles distintos en una misma evaluación
+- **WHEN** el docente selecciona DCD del subnivel prerrequisito y del subnivel del curso
+- **THEN** el sistema acepta ambas en la misma evaluación y conserva el subnivel de origen de cada una
+
+### Requirement: Mapa de subniveles prerrequisito
+El sistema SHALL resolver el subnivel prerrequisito mediante un mapa curricular explícito de (área, subnivel) a (área, subnivel), y no mediante una resta aritmética sobre el subnivel, porque el catálogo no ofrece todas las áreas en todos los subniveles. Cuando no exista un prerrequisito definido, el sistema SHALL informarlo y NO SHALL sustituirlo por un área equivalente inventada. La resolución SHALL ser idéntica en todos los caminos de entrada al módulo.
+
+#### Scenario: Área de Bachillerato sin continuidad hacia abajo
+- **WHEN** el docente crea una evaluación de Física de 1.° BGU, área que solo existe en Bachillerato
+- **THEN** el sistema ofrece como prerrequisito las DCD de Ciencias Naturales de Básica Superior
+
+#### Scenario: Preparatoria como currículo integrado
+- **WHEN** el docente crea una evaluación de un área de Básica Elemental, cuyo subnivel previo (Preparatoria) no ofrece áreas separadas
+- **THEN** el sistema ofrece como prerrequisito las DCD del Currículo Integrador de Preparatoria
+
+#### Scenario: Área sin prerrequisito definido
+- **WHEN** el docente crea una evaluación de Emprendimiento y Gestión, área sin predecesor en el catálogo
+- **THEN** el sistema informa que no existe un prerrequisito definido, ofrece únicamente el subnivel del curso y no propone un área sustituta
+
+#### Scenario: Misma resolución desde el plan CNC
+- **WHEN** el docente llega al módulo desde un plan Conecta, Nivela y Crea que referencia DCD de un subnivel distinto al del curso
+- **THEN** el sistema preselecciona esas DCD aplicando el mismo mapa de prerrequisitos que la selección manual, sin descartarlas en silencio
 
 ### Requirement: Banco de preguntas reutilizable
 El sistema SHALL mantener un banco de preguntas local reutilizable entre evaluaciones. Cada pregunta tiene: enunciado, tipo, nivel de dificultad, puntaje, DCD, indicador opcional, opciones (para selección múltiple), respuesta correcta, retroalimentación y estado activa/inactiva. Los tipos iniciales SHALL ser selección múltiple, verdadero/falso, respuesta corta y ejercicio/problema, con diseño extensible a más tipos.
@@ -98,6 +132,25 @@ El sistema SHALL agregar los resultados de todos los estudiantes por DCD y mostr
 #### Scenario: Brechas del curso
 - **WHEN** hay resultados registrados para múltiples estudiantes
 - **THEN** el sistema muestra por cada DCD cuántos estudiantes la dominan, están en proceso o requieren refuerzo, con porcentajes del curso
+
+### Requirement: Brechas clasificadas por origen curricular
+El sistema SHALL clasificar cada brecha según el subnivel de origen de su DCD, distinguiendo las brechas de **arrastre** (DCD de un subnivel prerrequisito) de las del **nivel actual** (DCD del subnivel del curso), y SHALL mostrar esa clasificación tanto en el análisis de resultados como en los reportes. La clasificación SHALL derivarse del subnivel de la DCD en el catálogo, sin requerir que el docente la declare. Cuando el código de una DCD no pueda resolverse en el catálogo, el sistema SHALL presentarla con su origen no determinado y NO SHALL asignarle un origen por defecto.
+
+#### Scenario: Brechas de arrastre y de nivel actual
+- **WHEN** la evaluación incluye DCD del subnivel prerrequisito y del subnivel del curso, y ambas presentan brechas
+- **THEN** el sistema las presenta agrupadas por origen, indicando cuáles corresponden a aprendizajes de arrastre y cuáles al nivel actual
+
+#### Scenario: Evaluación de un solo subnivel
+- **WHEN** todas las DCD evaluadas pertenecen al mismo subnivel
+- **THEN** el sistema muestra las brechas sin dividirlas en grupos, evitando una agrupación vacía
+
+#### Scenario: Origen visible en los reportes
+- **WHEN** el docente exporta el informe de brechas
+- **THEN** cada DCD aparece con su subnivel de origen, de modo que una brecha de arrastre sea distinguible de una del nivel actual
+
+#### Scenario: DCD cuyo código ya no existe en el catálogo
+- **WHEN** una evaluación guardada contiene una DCD cuyo código no se resuelve en el catálogo vigente
+- **THEN** el sistema conserva su descripción e indicadores registrados, calcula su porcentaje de logro con normalidad y la presenta con origen no determinado, sin ubicarla en arrastre ni en nivel actual
 
 ### Requirement: Recomendaciones pedagógicas por regla local
 El sistema SHALL generar recomendaciones de forma determinista (sin IA) a partir de las brechas: para cada DCD en estado En proceso o Requiere refuerzo, una recomendación anclada a esa destreza y a sus indicadores. Las recomendaciones SHALL priorizarse según la severidad de la brecha.
