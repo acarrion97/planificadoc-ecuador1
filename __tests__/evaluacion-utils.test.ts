@@ -5,6 +5,7 @@ import {
   calcularResultadoEstudiante,
   calcularBrechasCurso,
   generarRecomendaciones,
+  subnivelDesdeGrado,
 } from "../lib/evaluacion-utils";
 import type {
   EvaluacionDiagnostica,
@@ -231,5 +232,30 @@ describe("generarRecomendaciones", () => {
 
   it("sin estudiantes evaluados → sin recomendaciones", () => {
     expect(generarRecomendaciones(evaluacionBasica())).toEqual([]);
+  });
+});
+
+describe("subnivelDesdeGrado", () => {
+  it("mapea grados EGB y BGU al subnivel correcto", () => {
+    expect(subnivelDesdeGrado("1.° Grado EGB")).toBe(1);
+    expect(subnivelDesdeGrado("2.° EGB")).toBe(2);
+    expect(subnivelDesdeGrado("4.° EGB")).toBe(2);
+    expect(subnivelDesdeGrado("5.° EGB")).toBe(3);
+    expect(subnivelDesdeGrado("7.° EGB")).toBe(3);
+    expect(subnivelDesdeGrado("8.° EGB")).toBe(4);
+    expect(subnivelDesdeGrado("10.° EGB")).toBe(4);
+    expect(subnivelDesdeGrado("1.° BGU")).toBe(5);
+    expect(subnivelDesdeGrado("3ro BGU")).toBe(5);
+  });
+
+  it("tolera variaciones de formato", () => {
+    expect(subnivelDesdeGrado("3ro EGB")).toBe(2);
+    expect(subnivelDesdeGrado("8vo EGB")).toBe(4);
+    expect(subnivelDesdeGrado("Bachillerato 2")).toBe(5);
+  });
+
+  it("no puede inferir sin grado o número", () => {
+    expect(subnivelDesdeGrado("")).toBeNull();
+    expect(subnivelDesdeGrado("Paralelo A")).toBeNull();
   });
 });

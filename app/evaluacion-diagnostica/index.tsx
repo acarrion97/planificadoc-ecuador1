@@ -26,7 +26,6 @@ import {
   filtrarPorAreaYSubnivel,
   buscarPorCodigo,
   Area,
-  Subnivel,
 } from "@/data";
 import {
   TIPO_PREGUNTA_INFO,
@@ -39,7 +38,7 @@ import {
   EstatusEvaluacion,
 } from "@/data/types-evaluacion";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
-import { UMBRALES_DEFECTO } from "@/lib/evaluacion-utils";
+import { UMBRALES_DEFECTO, subnivelDesdeGrado } from "@/lib/evaluacion-utils";
 import { trpc } from "@/lib/trpc";
 
 const hoy = new Date();
@@ -129,7 +128,6 @@ function ChipGroup<T extends string | number>({
 }
 
 const AREAS = Object.keys(AREAS_INFO) as Area[];
-const SUBNIVELES = Object.keys(SUBNIVEL_NAMES).map(Number) as Subnivel[];
 
 const TIPOS_PREGUNTA = Object.keys(TIPO_PREGUNTA_INFO) as TipoPreguntaDiagnostica[];
 const DIFICULTADES = Object.keys(DIFICULTAD_INFO) as DificultadPregunta[];
@@ -137,8 +135,12 @@ const DIFICULTADES = Object.keys(DIFICULTAD_INFO) as DificultadPregunta[];
 export default function EvaluacionDiagnosticaScreen() {
   const colors = useColors();
   const router = useRouter();
-  const params = useLocalSearchParams<{ from?: string; anioLectivo?: string; grado?: string; paralelo?: string }>();
+  const params = useLocalSearchParams<{ from?: string; anioLectivo?: string; grado?: string; paralelo?: string; dcds?: string }>();
   const desdeCNC = params.from === "cnc";
+  const dcdsDeWizard = useMemo(
+    () => String(params.dcds ?? "").split(",").map((c) => c.trim()).filter(Boolean),
+    [params.dcds]
+  );
   const { addEvaluacion, bancoPreguntas, addPreguntaBanco } = useEvaluaciones();
   const sugerirMutation = trpc.evaluacion.sugerirPreguntas.useMutation();
   const sugerirNombreMutation = trpc.evaluacion.sugerirNombre.useMutation();
@@ -152,9 +154,9 @@ export default function EvaluacionDiagnosticaScreen() {
   const [nombre, setNombre] = useState("");
   const [anioLectivo, setAnioLectivo] = useState(String(params.anioLectivo ?? "2026-2027"));
   const [area, setArea] = useState<Area | null>(null);
-  const [subnivel, setSubnivel] = useState<Subnivel | null>(null);
   const [grado, setGrado] = useState(String(params.grado ?? ""));
   const [paralelo, setParalelo] = useState(String(params.paralelo ?? ""));
+  const subnivel = subnivelDesdeGrado(grado);
   const [asignatura, setAsignatura] = useState("");
   const [fecha, setFecha] = useState(fechaHoy);
   const [duracion, setDuracion] = useState("30");
@@ -165,6 +167,7 @@ export default function EvaluacionDiagnosticaScreen() {
 
   // ── DCD seleccionadas (DcdSeleccionada[] = codigo + enunciado) ──
   const [seleccion, setSeleccion] = useState<{ codigo: string; enunciado: string }[]>([]);
+  const [dcdsAuto, setDcdsAuto] = useState(0);
 
   // ── Preguntas de la evaluación ──
   const [preguntas, setPreguntas] = useState<PreguntaDiagnostica[]>([]);
@@ -190,6 +193,18 @@ export default function EvaluacionDiagnosticaScreen() {
     if (!area || subnivel === null) return [];
     return filtrarPorAreaYSubnivel(area, subnivel);
   }, [area, subnivel]);
+
+  function preseleccionarDcdsDeWizard(v: Area) {
+    if (seleccion.length > 0 || subnivel === null || dcdsDeWizard.length === 0) return;
+    const pre = dcdsDeWizard
+      .map((codigo) => buscarPorCodigo(codigo))
+      .filter((d): d is NonNullable<typeof d> => !!d && d.area === v && d.subnivel === subnivel)
+      .map((d) => ({ codigo: d.codigo, enunciado: d.descripcion }));
+    if (pre.length) {
+      setSeleccion(pre);
+      setDcdsAuto(pre.length);
+    }
+  }
 
   const dcdsEvaluadas = useMemo(
     () =>
@@ -218,7 +233,7 @@ export default function EvaluacionDiagnosticaScreen() {
     if (step === 0) {
       if (!nombre.trim()) return "Escribe el nombre de la evaluación.";
       if (!area) return "Selecciona el área.";
-      if (subnivel === null) return "Selecciona el subnivel.";
+      if (subnivel === null) return "Escribe un grado o curso válido (ej: 8.° EGB, 1.° BGU).";
       if (!grado.trim()) return "Escribe el grado o curso.";
       const pt = Number(puntajeTotal);
       if (!pt || pt <= 0) return "Define un puntaje total válido.";
@@ -537,12 +552,11 @@ export default function EvaluacionDiagnosticaScreen() {
               onSelect={(v) => {
                 setArea(v);
                 if (!nombre.trim()) setNombre(`Diagnóstico inicial de ${AREAS_INFO[v].name}`);
+                preseleccionarDcdsDeWizard(v);
               }}
               colors={colors}
               getLabel={(a) => `${AREAS_INFO[a].emoji} ${AREAS_INFO[a].name}`}
             />
-            <Label text="Subnivel" colors={colors} />
-            <ChipGroup<Subnivel> options={SUBNIVELES} selected={subnivel ?? (-1 as Subnivel)} onSelect={(v) => setSubnivel(v)} colors={colors} getLabel={(s) => SUBNIVEL_NAMES[s] ?? `Subnivel ${s}`} />
             <Field label="Asignatura" value={asignatura} onChangeText={setAsignatura} placeholder="Ej. Matemática" colors={colors} />
             <Field label="Fecha" value={fecha} onChangeText={setFecha} placeholder="Ej. 2026-09-01" colors={colors} />
             <Field label="Duración (minutos)" value={duracion} onChangeText={setDuracion} colors={colors} keyboardType="numeric" />
@@ -563,6 +577,13 @@ export default function EvaluacionDiagnosticaScreen() {
         {/* ── Paso 1: DCD ── */}
         {step === 1 && (
           <View>
+            {dcdsAuto > 0 && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 8, padding: 10, borderWidth: 1, borderColor: "#16A34A", marginBottom: 12 }}>
+                <Text style={{ fontSize: 12, color: "#166534" }}>
+                  ✅ {dcdsAuto} destreza(s) preseleccionada(s) desde tus pasos anteriores (Conecta/Nivela). Puedes ajustarlas aquí.
+                </Text>
+              </View>
+            )}
             <Text style={{ fontSize: 13, color: colors.muted, marginBottom: 12 }}>
               Selecciona las destrezas (DCD) que deseas diagnosticar. Se usan los indicadores y criterios reales del catálogo curricular.
             </Text>

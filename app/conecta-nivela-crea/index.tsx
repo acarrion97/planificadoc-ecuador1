@@ -675,7 +675,19 @@ export default function ConectaNivelaCreaScreen() {
             <Pressable
               onPress={() => {
                 pendingAutoLinkRef.current = true;
-                const q = `from=cnc&anioLectivo=${encodeURIComponent(plan.anioLectivo || "")}&grado=${encodeURIComponent(plan.grado || "")}&paralelo=${encodeURIComponent(plan.paralelo || "")}`;
+                const dcds = Array.from(
+                  new Set([
+                    ...plan.semana1.diagnosticoAcademico.map((d) => d.destrezaCodigo),
+                    ...plan.semana2y3.actividadesNivelacion.map((a) => a.destrezaCodigo),
+                  ])
+                );
+                const q = [
+                  `from=cnc`,
+                  `anioLectivo=${encodeURIComponent(plan.anioLectivo || "")}`,
+                  `grado=${encodeURIComponent(plan.grado || "")}`,
+                  `paralelo=${encodeURIComponent(plan.paralelo || "")}`,
+                  dcds.length ? `dcds=${encodeURIComponent(dcds.join(","))}` : "",
+                ].filter(Boolean).join("&");
                 router.push(`/evaluacion-diagnostica?${q}` as any);
               }}
               style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#1D4ED8", borderRadius: 12, paddingVertical: 14, marginBottom: 16 }}

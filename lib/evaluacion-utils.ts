@@ -17,12 +17,39 @@ import type {
   ResultadoEstudiante,
   UmbralesEvaluacion,
 } from "@/data/types-evaluacion";
+import type { Subnivel } from "@/data/types";
 
 /** Umbrales por defecto: dominado ≥ 70, refuerzo < 40. Configurables por evaluación. */
 export const UMBRALES_DEFECTO: UmbralesEvaluacion = {
   dominadoMin: 70,
   refuerzoMax: 40,
 };
+
+/**
+ * Infiere el subnivel educativo desde el grado/curso en texto
+ * (ej: "8.° EGB", "3ro EGB", "1.° BGU"). Devuelve null si no puede inferirlo.
+ */
+export function subnivelDesdeGrado(grado: string): Subnivel | null {
+  const g = grado
+    .toLowerCase()
+    .replace(/[º°]/g, " ")
+    .replace(/[.,]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!g) return null;
+  if (g.includes("bgu") || g.includes("bachillerato") || g.includes("inicial")) {
+    return g.includes("inicial") ? -1 : 5;
+  }
+  const match = g.match(/(\d+)/);
+  if (!match) return null;
+  const n = Number(match[1]);
+  if (Number.isNaN(n)) return null;
+  if (n <= 1) return 1;
+  if (n <= 4) return 2;
+  if (n <= 7) return 3;
+  if (n <= 10) return 4;
+  return 5;
+}
 
 /** Clasifica un % de logro según umbrales configurables */
 export function clasificarAprendizaje(
