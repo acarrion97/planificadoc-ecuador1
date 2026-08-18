@@ -25,7 +25,7 @@ import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
-const STEP_LABELS = ["Identificacion", "Diagnóstico", "Semana 1", "Semanas 2-3", "Semanas 4-5", "Resultado"];
+const STEP_LABELS = ["Identificacion", "Semana 1", "Semanas 2-3", "Semanas 4-5", "Diagnóstico", "Resultado"];
 
 const GRADOS_TODOS = [
   "1.° Grado EGB", "2.° EGB", "3.° EGB", "4.° EGB", "5.° EGB", "6.° EGB", "7.° EGB",
@@ -307,10 +307,10 @@ export default function ConectaNivelaCreaScreen() {
       if (!plan.grado) return "Selecciona el grado o curso.";
       if (esBT && (!plan.figuraProfesionalId || !plan.moduloId)) return "Selecciona Figura Profesional y Módulo.";
     }
-    if (step === 2) {
+    if (step === 1) {
       if (!plan.semana1.diagnosticoAcademico.length) return "Agrega al menos una destreza al diagnóstico académico.";
     }
-    if (step === 3) {
+    if (step === 2) {
       if (!plan.semana2y3.actividadesNivelacion.length) return "Agrega al menos una destreza de nivelación.";
     }
     return null;
@@ -646,8 +646,8 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 1: Diagnóstico ── */}
-        {step === 1 && (
+        {/* ── PASO 4: Diagnóstico ── */}
+        {step === 4 && (
           <View>
             <SectionHeading text="Diagnóstico" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
@@ -736,8 +736,8 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 2: Semana 1 — Conecta ── */}
-        {step === 2 && (
+        {/* ── PASO 1: Semana 1 — Conecta ── */}
+        {step === 1 && (
           <View>
             <SectionHeading text="Semana 1 — Conecta" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
@@ -852,8 +852,8 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 3: Semanas 2-3 — Nivela ── */}
-        {step === 3 && (
+        {/* ── PASO 2: Semanas 2-3 — Nivela ── */}
+        {step === 2 && (
           <View>
             <SectionHeading text="Semanas 2-3 — Nivela" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
@@ -931,8 +931,8 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 4: Semanas 4-5 — Crea ── */}
-        {step === 4 && (
+        {/* ── PASO 3: Semanas 4-5 — Crea ── */}
+        {step === 3 && (
           <View>
             <SectionHeading text="Semanas 4-5 — Crea" colors={colors} />
             <View style={{ backgroundColor: "#FEF3C7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginBottom: 14 }}>
@@ -1004,7 +1004,7 @@ export default function ConectaNivelaCreaScreen() {
           <View style={{ padding: 24, alignItems: "center", gap: 12 }}>
             <Text style={{ fontSize: 40 }}>⚠️</Text>
             <Text style={{ fontSize: 15, fontWeight: "700", color: "#DC2626", textAlign: "center" }}>No se pudo obtener el resultado</Text>
-            <Pressable onPress={() => { setStep(4); scrollTop(); }} style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}>
+            <Pressable onPress={() => { setStep(3); scrollTop(); }} style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}>
               <Text style={{ color: "#fff", fontWeight: "700" }}>← Volver a Generar</Text>
             </Pressable>
           </View>
@@ -1064,7 +1064,7 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {validationError && step < 4 && (
+        {validationError && step < 3 && (
           <View style={{ backgroundColor: "#FEF3C7", borderRadius: 8, padding: 12, marginTop: 8, borderWidth: 1, borderColor: "#F59E0B", flexDirection: "row", gap: 8 }}>
             <Text style={{ fontSize: 14 }}>⚠️</Text>
             <Text style={{ fontSize: 12, color: "#92400E", flex: 1 }}>{validationError}</Text>
@@ -1078,7 +1078,7 @@ export default function ConectaNivelaCreaScreen() {
                 <Text style={{ color: colors.text, fontWeight: "600" }}>← Anterior</Text>
               </Pressable>
             )}
-            {step < 4 && (
+            {(step < 3 || step === 4) && (
               <Pressable onPress={handleNext} style={{ flex: 2, borderRadius: 10, paddingVertical: 12, alignItems: "center", backgroundColor: colors.primary }}>
                 <Text style={{ color: "#fff", fontWeight: "700" }}>Siguiente →</Text>
               </Pressable>

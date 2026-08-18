@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Platform,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -40,6 +41,9 @@ import {
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
 import { UMBRALES_DEFECTO } from "@/lib/evaluacion-utils";
 import { trpc } from "@/lib/trpc";
+
+const hoy = new Date();
+const fechaHoy = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(hoy.getDate()).padStart(2, "0")}`;
 
 function nuevoId() {
   return Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
@@ -137,6 +141,7 @@ export default function EvaluacionDiagnosticaScreen() {
   const desdeCNC = params.from === "cnc";
   const { addEvaluacion, bancoPreguntas, addPreguntaBanco } = useEvaluaciones();
   const sugerirMutation = trpc.evaluacion.sugerirPreguntas.useMutation();
+  const sugerirNombreMutation = trpc.evaluacion.sugerirNombre.useMutation();
   const backupMutation = trpc.evaluacion.guardarBackup.useMutation();
 
   const [step, setStep] = useState(0);
@@ -151,7 +156,7 @@ export default function EvaluacionDiagnosticaScreen() {
   const [grado, setGrado] = useState(String(params.grado ?? ""));
   const [paralelo, setParalelo] = useState(String(params.paralelo ?? ""));
   const [asignatura, setAsignatura] = useState("");
-  const [fecha, setFecha] = useState("");
+  const [fecha, setFecha] = useState(fechaHoy);
   const [duracion, setDuracion] = useState("30");
   const [instrucciones, setInstrucciones] = useState("");
   const [puntajeTotal, setPuntajeTotal] = useState("10");
@@ -303,6 +308,22 @@ export default function EvaluacionDiagnosticaScreen() {
   }
 
   // ── IA ──
+  async function sugerirNombreConIA() {
+    if (!area) { setValidationError("Selecciona el área para generar el nombre con IA."); return; }
+    setValidationError(null);
+    try {
+      const res = await sugerirNombreMutation.mutateAsync({
+        area: AREAS_INFO[area].name,
+        grado,
+        paralelo,
+        anioLectivo,
+      });
+      if (res?.nombre) setNombre(res.nombre);
+    } catch (e: any) {
+      setValidationError(e?.message ?? "No se pudo generar el nombre. Intenta de nuevo.");
+    }
+  }
+
   async function sugerirConIA() {
     setIaError(null);
     setSugerencias([]);
@@ -480,14 +501,48 @@ export default function EvaluacionDiagnosticaScreen() {
         {/* ── Paso 0: Contexto ── */}
         {step === 0 && (
           <View>
-            <Field label="Nombre de la evaluación" value={nombre} onChangeText={setNombre} placeholder="Ej. Diagnóstico inicial de Matemática" colors={colors} />
-            <Field label="Año lectivo" value={anioLectivo} onChangeText={setAnioLectivo} colors={colors} />
+            {!desdeCNC && (
+              <>
+                <Field label="Año lectivo" value={anioLectivo} onChangeText={setAnioLectivo} colors={colors} />
+                <Field label="Grado / Curso" value={grado} onChangeText={setGrado} placeholder="Ej. 3ro EGB" colors={colors} />
+                <Field label="Paralelo" value={paralelo} onChangeText={setParalelo} placeholder="Ej. A" colors={colors} />
+              </>
+            )}
+            <Label text="Nombre de la evaluación" colors={colors} />
+            <TextInput
+              value={nombre}
+              onChangeText={setNombre}
+              placeholder="Ej. Diagnóstico inicial de Matemática"
+              placeholderTextColor={colors.muted}
+              style={[styles.input, { borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
+            />
+            <Pressable
+              onPress={sugerirNombreConIA}
+              disabled={sugerirNombreMutation.isPending}
+              style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 12, marginTop: 6 }}
+            >
+              {sugerirNombreMutation.isPending ? (
+                <ActivityIndicator color={colors.primary} size="small" />
+              ) : (
+                <Text style={{ fontSize: 13 }}>✨</Text>
+              )}
+              <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary }}>
+                {sugerirNombreMutation.isPending ? "Generando nombre..." : "Generar nombre con IA"}
+              </Text>
+            </Pressable>
             <Label text="Área" colors={colors} />
-            <ChipGroup<Area> options={AREAS} selected={area ?? ("" as Area)} onSelect={(v) => setArea(v)} colors={colors} getLabel={(a) => `${AREAS_INFO[a].emoji} ${AREAS_INFO[a].name}`} />
+            <ChipGroup<Area>
+              options={AREAS}
+              selected={area ?? ("" as Area)}
+              onSelect={(v) => {
+                setArea(v);
+                if (!nombre.trim()) setNombre(`Diagnóstico inicial de ${AREAS_INFO[v].name}`);
+              }}
+              colors={colors}
+              getLabel={(a) => `${AREAS_INFO[a].emoji} ${AREAS_INFO[a].name}`}
+            />
             <Label text="Subnivel" colors={colors} />
             <ChipGroup<Subnivel> options={SUBNIVELES} selected={subnivel ?? (-1 as Subnivel)} onSelect={(v) => setSubnivel(v)} colors={colors} getLabel={(s) => SUBNIVEL_NAMES[s] ?? `Subnivel ${s}`} />
-            <Field label="Grado / Curso" value={grado} onChangeText={setGrado} placeholder="Ej. 3ro EGB" colors={colors} />
-            <Field label="Paralelo" value={paralelo} onChangeText={setParalelo} placeholder="Ej. A" colors={colors} />
             <Field label="Asignatura" value={asignatura} onChangeText={setAsignatura} placeholder="Ej. Matemática" colors={colors} />
             <Field label="Fecha" value={fecha} onChangeText={setFecha} placeholder="Ej. 2026-09-01" colors={colors} />
             <Field label="Duración (minutos)" value={duracion} onChangeText={setDuracion} colors={colors} keyboardType="numeric" />

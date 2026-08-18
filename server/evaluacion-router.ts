@@ -31,6 +31,17 @@ const SugerirPreguntasResultSchema = z.object({
   preguntas: z.array(PreguntaSugeridaSchema).min(1),
 });
 
+const SugerirNombreSchema = z.object({
+  area: z.string().min(1),
+  grado: z.string().default(""),
+  paralelo: z.string().default(""),
+  anioLectivo: z.string().default(""),
+});
+
+const SugerirNombreResultSchema = z.object({
+  nombre: z.string().min(1),
+});
+
 const GuardarBackupSchema = z.object({
   sessionId: z.string().min(1),
   status: z.enum(["borrador", "publicada", "aplicada", "analizada"]),
@@ -109,6 +120,70 @@ async function ensureEvaluacionTable(): Promise<void> {
 }
 
 export const evaluacionRouter = router({
+  /**
+   * Sugiere un nombre conciso y profesional para la evaluación diagnóstica.
+   */
+  sugerirNombre: publicProcedure
+    .input(SugerirNombreSchema)
+    .mutation(async ({ input }) => {
+      const contexto = [
+        input.area && `- Área: ${input.area}`,
+        input.grado && `- Grado: ${input.grado}`,
+        input.paralelo && `- Paralelo: ${input.paralelo}`,
+        input.anioLectivo && `- Año lectivo: ${input.anioLectivo}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      const prompt = `Genera un nombre conciso y profesional para una evaluación diagnóstica inicial del sistema educativo ecuatoriano.
+
+CONTEXTO:
+${contexto || "- Sin contexto adicional"}
+
+REGLAS:
+- Formato tipo: "Diagnóstico inicial de {Área} · {grado} {paralelo} · {año lectivo}".
+- Conciso, sin comillas, apto como nombre de evaluación.
+
+Responde ÚNICAMENTE con JSON válido:
+{ "nombre": "string" }`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en evaluación diagnóstica del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 200,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      const result = SugerirNombreResultSchema.safeParse(parsed);
+      if (!result.success) {
+        throw new Error("La IA no devolvió un nombre válido. Intenta de nuevo.");
+      }
+
+      return result.data;
+    }),
+
   /**
    * Sugiere preguntas por DCD con IA, fundamentadas EXCLUSIVAMENTE en los
    * indicadores/criterios reales del catálogo. No incorpora nada: devuelve
