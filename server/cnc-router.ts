@@ -84,7 +84,10 @@ const Semana4y5Schema = z.object({
 });
 
 const Semana4y5BTSchema = z.object({
-  tipoProducto: z.enum(["maqueta", "software_basico", "plan_negocio", "mantenimiento_equipo", "otro"]),
+  tipoProducto: z.enum([
+    "maqueta", "software_basico", "plan_negocio", "mantenimiento_equipo",
+    "servicio_programa", "evento_presentacion", "material_protocolo", "otro",
+  ]),
   descripcion: z.string(),
   actividadesSemana4: z.array(z.string()).optional(),
   actividadesSemana5: z.array(z.string()).optional(),
@@ -142,7 +145,7 @@ ${criteriosReales.length ? criteriosReales.join("\n") : "(sin catálogo técnico
 REGLAS BT:
 - Semana 1: además de la adaptación general, incluye reconocimiento de espacios técnicos (talleres/laboratorios/granjas) y diagnóstico de prerrequisitos técnicos reales tomados EXCLUSIVAMENTE de los criterios listados arriba.
 - Semanas 2-3: la nivelación debe reforzar destrezas procedimentales/técnicas del módulo (no solo teoría), articulando cada actividad técnica con el refuerzo de Matemática cuando sea pertinente.
-- Semanas 4-5: en vez de un proyecto interdisciplinario genérico, sugiere un "productoAcreditableSugerido" técnico-práctico (maqueta, software básico, plan de negocio inicial, mantenimiento de equipo) coherente con la Figura Profesional — nunca un ensayo o cartel genérico.
+- Semanas 4-5: en vez de un proyecto interdisciplinario genérico, sugiere un "productoAcreditableSugerido" técnico-práctico coherente con la Figura Profesional — nunca un ensayo o cartel genérico. Si la figura es industrial/técnica (construcción, mecánica, electrónica, agropecuaria, TI, etc.), usa maqueta / software básico / plan de negocio inicial / mantenimiento de equipo. Si la figura es de servicio, cuidado o cultura (p. ej. Atención a la Primera Infancia, Asistencia y Cuidado a Grupos Prioritarios, Seguridad Ciudadana, Gestión Cultural, Hostelería, Gestión Turística, Actividad Física y Deporte), usa servicio_programa, evento_presentacion o material_protocolo — nunca fuerces una maqueta o un mantenimiento de equipo donde no corresponde.
 ──────────────────────────────────────────────────────────────────
 `;
   }
@@ -238,7 +241,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   "actividadesNivelacionTecnicaSugeridas": [
     { "criterioId": "string", "criterioTexto": "string", "descripcionActividad": "string", "semana": 2, "articulacionMatematica": "string" }
   ],
-  "productoAcreditableSugerido": { "tipo": "maqueta", "descripcion": "string", "actividadesSemana4": ["string (3-5 actividades de elaboración del producto)"], "actividadesSemana5": ["string (3-5 actividades de presentación/evaluación del producto)"] }` : ""}
+  "productoAcreditableSugerido": { "tipo": "maqueta|software_basico|plan_negocio|mantenimiento_equipo|servicio_programa|evento_presentacion|material_protocolo|otro (elige el que corresponda a la Figura Profesional, ver REGLAS BT)", "descripcion": "string", "actividadesSemana4": ["string (3-5 actividades de elaboración del producto)"], "actividadesSemana5": ["string (3-5 actividades de presentación/evaluación del producto)"] }` : ""}
 }`;
 }
 

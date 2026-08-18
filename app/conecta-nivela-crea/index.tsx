@@ -9,7 +9,8 @@ import { shareAsync } from "expo-sharing";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { TODAS_LAS_DESTREZAS } from "@/data";
+import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel } from "@/data";
+import type { Subnivel } from "@/data/types";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
 import { FIGURAS_PROFESIONALES, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
 import type {
@@ -19,7 +20,8 @@ import type {
 } from "@/data/types-cnc";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
-import { calcularBrechasCurso, estudiantesEvaluados } from "@/lib/evaluacion-utils";
+import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado } from "@/lib/evaluacion-utils";
+import { resolverPrerrequisito } from "@/lib/curriculo-prerrequisitos";
 import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado } from "@/lib/cnc-diagnostico";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 
@@ -38,11 +40,22 @@ const GRADOS_TODOS = [
 // cuando el docente crea una evaluación diagnóstica desde este wizard.
 const GRADOS_BT = ["1.° BT", "2.° BT", "3.° BT"];
 
-const TIPOS_PRODUCTO_BT: { id: "maqueta" | "software_basico" | "plan_negocio" | "mantenimiento_equipo" | "otro"; label: string }[] = [
+// Las figuras profesionales de BT no son todas industriales: Atención a la
+// Primera Infancia, Gestión Cultural, Hostelería, Seguridad Ciudadana,
+// Actividad Física y Deporte, etc. son de servicio o cuidado. Las últimas 3
+// categorías (antes de "Otro") cubren esos casos sin forzar una maqueta o un
+// mantenimiento de equipo donde no corresponde.
+const TIPOS_PRODUCTO_BT: {
+  id: "maqueta" | "software_basico" | "plan_negocio" | "mantenimiento_equipo" | "servicio_programa" | "evento_presentacion" | "material_protocolo" | "otro";
+  label: string;
+}[] = [
   { id: "maqueta", label: "Maqueta" },
   { id: "software_basico", label: "Software básico" },
   { id: "plan_negocio", label: "Plan de negocio" },
   { id: "mantenimiento_equipo", label: "Mantenimiento de equipo" },
+  { id: "servicio_programa", label: "Servicio o programa" },
+  { id: "evento_presentacion", label: "Evento o presentación" },
+  { id: "material_protocolo", label: "Material o protocolo" },
   { id: "otro", label: "Otro" },
 ];
 
@@ -185,8 +198,14 @@ function SectionHeading({ text, colors }: { text: string; colors: any }) {
 }
 
 function DestrezaBuscadorCNC({
-  area, onSelect, colors,
-}: { area: "LL" | "M"; onSelect: (codigo: string, desc: string) => void; colors: any }) {
+  area, subnivelCurso, onSelect, colors,
+}: {
+  area: "LL" | "M";
+  /** Subnivel del curso (derivado del grado); null si no se pudo inferir */
+  subnivelCurso: Subnivel | null;
+  onSelect: (codigo: string, desc: string) => void;
+  colors: any;
+}) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<typeof TODAS_LAS_DESTREZAS>([]);
 
@@ -201,6 +220,21 @@ function DestrezaBuscadorCNC({
     );
   }
 
+  // La Semana 1 diagnostica lo que el estudiante debería traer del nivel
+  // anterior — mismo criterio de "subnivel prerrequisito" que Evaluación
+  // Diagnóstica (design.md D10 de ese módulo, lib/curriculo-prerrequisitos.ts).
+  // Sin esto, el prerrequisito solo aparecía si el docente ya sabía el código
+  // exacto para escribirlo: la búsqueda no tenía ningún filtro de subnivel.
+  const prerreq = subnivelCurso !== null ? resolverPrerrequisito(area, subnivelCurso) : null;
+  // El modelo de diagnóstico académico de CNC solo admite LL/M (no CAI), así
+  // que si el prerrequisito real es Preparatoria (currículo integrado) no hay
+  // nada que sugerir aquí — se informa en vez de mostrar destrezas de otra área.
+  const sugeridasTodas =
+    prerreq && prerreq.area === area
+      ? TODAS_LAS_DESTREZAS.filter((d) => d.area === prerreq.area && d.subnivel === prerreq.subnivel)
+      : [];
+  const sugeridas = sugeridasTodas.slice(0, 30);
+
   return (
     <View style={{ marginBottom: 12 }}>
       <Label text={`Buscar destreza de ${area === "LL" ? "Lengua y Literatura" : "Matemática"}`} colors={colors} />
@@ -211,6 +245,40 @@ function DestrezaBuscadorCNC({
         placeholderTextColor={colors.muted}
         style={[styles.input, { borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
       />
+
+      {!query && sugeridas.length > 0 && (
+        <View style={{ marginTop: 6 }}>
+          <Text style={{ fontSize: 10, color: colors.muted, marginBottom: 4 }}>
+            Del nivel prerrequisito ({obtenerNombreSubnivel(prerreq!.subnivel)}) — lo que el estudiante debería traer
+          </Text>
+          <ScrollView style={{ maxHeight: 220 }} nestedScrollEnabled keyboardShouldPersistTaps="handled">
+            {sugeridas.map((d) => (
+              <Pressable
+                key={d.codigo}
+                onPress={() => onSelect(d.codigo, d.descripcion)}
+                style={{ padding: 10, borderWidth: 1, borderColor: colors.border, borderRadius: 8, marginBottom: 4, backgroundColor: colors.surface }}
+              >
+                <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>{d.codigo}</Text>
+                <Text style={{ fontSize: 11, color: colors.text }} numberOfLines={2}>{d.descripcion}</Text>
+              </Pressable>
+            ))}
+            {sugeridasTodas.length > sugeridas.length && (
+              <Text style={{ fontSize: 10, color: colors.muted, textAlign: "center", paddingVertical: 4 }}>
+                Usa el buscador para ver el resto ({sugeridasTodas.length} destrezas en total)
+              </Text>
+            )}
+          </ScrollView>
+        </View>
+      )}
+
+      {!query && !sugeridas.length && subnivelCurso !== null && (
+        <Text style={{ fontSize: 10, color: colors.muted, marginTop: 6 }}>
+          {prerreq
+            ? `El nivel prerrequisito (${obtenerNombreSubnivel(prerreq.subnivel)}) no tiene destrezas de ${area === "LL" ? "Lengua y Literatura" : "Matemática"} — ese subnivel usa currículo integrado. Usa el buscador si necesitas otra destreza.`
+            : "Este grado no tiene un nivel prerrequisito definido. Usa el buscador para encontrar destrezas."}
+        </Text>
+      )}
+
       {results.map((d) => (
         <Pressable
           key={d.codigo}
@@ -248,6 +316,7 @@ export default function ConectaNivelaCreaScreen() {
   const sugerirConivelacionMutation = trpc.cnc.sugerirConivelacion.useMutation();
 
   const esBT = plan.modalidad === "bt";
+  const subnivelCurso = subnivelDesdeGrado(plan.grado);
   const figuraSeleccionada: FiguraProfesional | undefined = FIGURAS_PROFESIONALES.find((f) => f.id === plan.figuraProfesionalId);
   const moduloSeleccionado: ModuloFormativo | undefined = figuraSeleccionada?.modulos.find((m) => m.codigo === plan.moduloId);
 
@@ -816,8 +885,8 @@ export default function ConectaNivelaCreaScreen() {
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Diagnóstico académico (Lengua y Matemática)" colors={colors} />
-            <DestrezaBuscadorCNC area="LL" onSelect={(c, d) => addDiagnosticoAcademico(c, d, "LL")} colors={colors} />
-            <DestrezaBuscadorCNC area="M" onSelect={(c, d) => addDiagnosticoAcademico(c, d, "M")} colors={colors} />
+            <DestrezaBuscadorCNC area="LL" subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "LL")} colors={colors} />
+            <DestrezaBuscadorCNC area="M" subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "M")} colors={colors} />
             {plan.semana1.diagnosticoAcademico.map((d, i) => (
               <View key={i} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
                 <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{d.area}] {d.destrezaCodigo}</Text>
@@ -921,8 +990,8 @@ export default function ConectaNivelaCreaScreen() {
               Refuerzo focalizado en Lengua y Matemática, con "conivelación" (tutoría entre pares).
             </Text>
 
-            <DestrezaBuscadorCNC area="LL" onSelect={(c, d) => addActividadNivelacion(c, d, "LL", 2)} colors={colors} />
-            <DestrezaBuscadorCNC area="M" onSelect={(c, d) => addActividadNivelacion(c, d, "M", 2)} colors={colors} />
+            <DestrezaBuscadorCNC area="LL" subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", 2)} colors={colors} />
+            <DestrezaBuscadorCNC area="M" subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "M", 2)} colors={colors} />
             {plan.semana2y3.actividadesNivelacion.map((a, i) => (
               <View key={i} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
                 <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{a.area}] {a.destrezaCodigo} — semana {a.semana}</Text>

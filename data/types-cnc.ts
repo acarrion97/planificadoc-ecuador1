@@ -124,9 +124,23 @@ export interface Semana4y5CNC {
   proyecto: ProyectoInterdisciplinarioCNC;
 }
 
-/** Solo aplica si modalidad === "bt" — reemplaza el proyecto genérico por un producto técnico-práctico */
+/**
+ * Solo aplica si modalidad === "bt" — reemplaza el proyecto genérico por un
+ * producto técnico-práctico. Las figuras profesionales de BT no son todas
+ * industriales (Atención a la Primera Infancia, Gestión Cultural, Hostelería,
+ * Seguridad Ciudadana, Actividad Física y Deporte, etc. son de servicio o
+ * cuidado), por eso el tipo incluye categorías más allá de las técnicas.
+ */
 export interface ProductoAcreditableBT {
-  tipo: "maqueta" | "software_basico" | "plan_negocio" | "mantenimiento_equipo" | "otro";
+  tipo:
+    | "maqueta"
+    | "software_basico"
+    | "plan_negocio"
+    | "mantenimiento_equipo"
+    | "servicio_programa"
+    | "evento_presentacion"
+    | "material_protocolo"
+    | "otro";
   descripcion: string;
   /** Actividades concretas de elaboración del producto (Semana 4) */
   actividadesSemana4: string[];
