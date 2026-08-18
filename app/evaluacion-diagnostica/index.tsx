@@ -131,6 +131,15 @@ function ChipGroup<T extends string | number>({
 }
 
 const AREAS = Object.keys(AREAS_INFO) as Area[];
+// CAI ("Cívica — Acompañamiento Integral") es un período pedagógico
+// transversal, no una materia independiente para la que un docente cree una
+// evaluación diagnóstica propia (a diferencia de EG "Emprendimiento y
+// Gestión", que sí es una materia real de Bachillerato con sus propios
+// bloques). Decisión de producto, no un mandato curricular: el ministerio no
+// restringe la evaluación diagnóstica general por materia — el instructivo
+// oficial "Herramientas para la evaluación diagnóstica" (2026-2027) incluso
+// ejemplifica con Ciencias Naturales.
+const AREAS_DIAGNOSTICO = AREAS.filter((a) => a !== "CAI");
 
 const TIPOS_PREGUNTA = Object.keys(TIPO_PREGUNTA_INFO) as TipoPreguntaDiagnostica[];
 const DIFICULTADES = Object.keys(DIFICULTAD_INFO) as DificultadPregunta[];
@@ -280,7 +289,7 @@ export default function EvaluacionDiagnosticaScreen() {
       const dest = buscarPorCodigo(codigo);
       if (dest?.area) conteoPorArea[dest.area] = (conteoPorArea[dest.area] ?? 0) + 1;
     }
-    const conArea = AREAS.filter((a) => (conteoPorArea[a] ?? 0) > 0);
+    const conArea = AREAS_DIAGNOSTICO.filter((a) => (conteoPorArea[a] ?? 0) > 0);
     if (conArea.length === 0) return;
     conArea.sort((a, b) => (conteoPorArea[b] ?? 0) - (conteoPorArea[a] ?? 0));
     const ganadora = conArea[0];
@@ -632,7 +641,7 @@ export default function EvaluacionDiagnosticaScreen() {
             </Pressable>
             <Label text="Área" colors={colors} />
             <ChipGroup<Area>
-              options={AREAS}
+              options={AREAS_DIAGNOSTICO}
               selected={area ?? ("" as Area)}
               onSelect={(v) => {
                 setArea(v);
