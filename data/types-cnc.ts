@@ -101,21 +101,63 @@ export interface Semana2y3CNCExtraBT {
 
 // ─── Semanas 4-5 — Crea ──────────────────────────────────────────────────────
 
+/**
+ * Escala de desempeño estándar del sistema de evaluación ecuatoriano (1-10),
+ * usada para diseñar la rúbrica del proyecto interdisciplinar. Verificado en
+ * "Sugerencias para el diseño de un proyecto interdisciplinar" (Dirección
+ * Nacional de Estándares Educativos, paquete oficial 2026-2027,
+ * educacion.gob.ec) — Tabla 1, ejemplo de rúbrica de Básica Superior.
+ */
+export type NivelDesempenoRubrica = "avanzado" | "intermedio" | "basico" | "en_desarrollo";
+
+export const NIVELES_DESEMPENO_RUBRICA: Record<NivelDesempenoRubrica, { nombre: string; rango: string }> = {
+  avanzado: { nombre: "Avanzado", rango: "10-9" },
+  intermedio: { nombre: "Intermedio", rango: "8-7" },
+  basico: { nombre: "Básico", rango: "6-5" },
+  en_desarrollo: { nombre: "En Desarrollo", rango: "4-1" },
+};
+
 export interface ProyectoInterdisciplinarioCNC {
   titulo: string;
   descripcion: string;
   /** CN, CS, ECA, etc. */
   areasIntegradas: string[];
+  /**
+   * Objetivo de aprendizaje rector del proyecto (Paso 1 del instructivo
+   * oficial: "Seleccionar el objetivo de aprendizaje que atenderá el
+   * proyecto interdisciplinar").
+   */
+  objetivoAprendizaje: string;
   /** Producto final explícito del proyecto (sugerido por IA si vacío, editable) */
   productoFinal: string;
+  /**
+   * Producto intermedio: primer entregable, al término de la Semana 4 —
+   * distinto del producto final de Semana 5 (Anexo 2 del instructivo oficial).
+   */
+  productoIntermedio: string;
+  /** Objetivo semanal — logros a alcanzar al término de la Semana 4 */
+  objetivoSemana4: string;
+  /** Objetivo semanal — logros a alcanzar al término de la Semana 5 */
+  objetivoSemana5: string;
   /** Actividades concretas de la Semana 4 (planificación, elaboración, revisión...) */
   actividadesSemana4: string[];
   /** Actividades concretas de la Semana 5 (finalización, socialización, reflexión...) */
   actividadesSemana5: string[];
-  /** códigos del diagnóstico de Semana 1 que este proyecto refuerza */
+  /**
+   * Códigos del diagnóstico de Semana 1 que este proyecto refuerza —
+   * seleccionados por el docente; la IA los sugiere si se dejan vacíos. Base
+   * para derivar la rúbrica (indicadores reales del catálogo por destreza).
+   */
   destrezasReforzadas: string[];
   evidenciasCognitivas: string[];
   evidenciasActitudinales: string[];
+  /**
+   * Compromisos surgidos de la puesta en común y reflexión grupal al cierre
+   * del proyecto (Anexo 2 del instructivo oficial).
+   */
+  compromisos: string;
+  /** Preguntas de autoevaluación/metacognición para el estudiantado */
+  autoevaluacion: string[];
   /** Flag fija — requisito MinEduc, no editable por el docente */
   esEvaluacionFormativaOficial: true;
 }

@@ -78,9 +78,16 @@ const Semana4y5Schema = z.object({
   descripcion: z.string(),
   areasIntegradas: z.array(z.string()),
   notasDocente: z.string().optional(),
+  objetivoAprendizaje: z.string().optional(),
   productoFinal: z.string().optional(),
+  productoIntermedio: z.string().optional(),
+  objetivoSemana4: z.string().optional(),
+  objetivoSemana5: z.string().optional(),
   actividadesSemana4: z.array(z.string()).optional(),
   actividadesSemana5: z.array(z.string()).optional(),
+  destrezasReforzadas: z.array(z.string()).optional(),
+  compromisos: z.string().optional(),
+  autoevaluacion: z.array(z.string()).optional(),
 });
 
 const Semana4y5BTSchema = z.object({
@@ -197,15 +204,26 @@ ${parejas}
 SEMANAS 4-5 — CREA (proyecto interdisciplinario que constituye FORMALMENTE una evaluación cualitativa y formativa oficial, no una actividad de cierre opcional):
 Título propuesto por el docente: ${input.semana4y5.titulo || "(el docente no propuso título — sugiere uno)"}
 Descripción/notas del docente: ${input.semana4y5.descripcion || "(sin notas)"}
+Objetivo de aprendizaje propuesto por el docente: ${input.semana4y5.objetivoAprendizaje || "(vacío — sugiere uno)"}
 Áreas a integrar sugeridas por el docente: ${input.semana4y5.areasIntegradas.join(", ") || "(ninguna — sugiere áreas coherentes con el diagnóstico)"}
-Producto final propuesto por el docente: ${input.semana4y5.productoFinal || "(vacío — sugiere un producto final concreto)"}
+Destrezas a reforzar seleccionadas por el docente: ${input.semana4y5.destrezasReforzadas?.filter(Boolean).length ? input.semana4y5.destrezasReforzadas!.join(", ") : "(vacío — sugiere las destrezas del diagnóstico de Semana 1 que este proyecto debería reforzar)"}
+Producto intermedio (Semana 4) propuesto por el docente: ${input.semana4y5.productoIntermedio || "(vacío — sugiere un primer entregable, distinto del producto final)"}
+Producto final (Semana 5) propuesto por el docente: ${input.semana4y5.productoFinal || "(vacío — sugiere un producto final concreto)"}
+Objetivo de la Semana 4 propuesto por el docente: ${input.semana4y5.objetivoSemana4 || "(vacío — sugiere uno)"}
 Actividades de la Semana 4 propuestas por el docente: ${input.semana4y5.actividadesSemana4?.filter(Boolean).length ? input.semana4y5.actividadesSemana4!.join("; ") : "(vacío — sugiere 3-5 actividades de planificación/organización/elaboración)"}
+Objetivo de la Semana 5 propuesto por el docente: ${input.semana4y5.objetivoSemana5 || "(vacío — sugiere uno)"}
 Actividades de la Semana 5 propuestas por el docente: ${input.semana4y5.actividadesSemana5?.filter(Boolean).length ? input.semana4y5.actividadesSemana5!.join("; ") : "(vacío — sugiere 3-5 actividades de finalización/socialización/reflexión)"}
+Compromisos propuestos por el docente: ${input.semana4y5.compromisos || "(vacío — sugiere unos, orientados a la mejora continua cognitiva/procedimental/actitudinal)"}
+Preguntas de autoevaluación propuestas por el docente: ${input.semana4y5.autoevaluacion?.filter(Boolean).length ? input.semana4y5.autoevaluacion!.join("; ") : "(vacío — sugiere 2-3 preguntas de metacognición)"}
 
 INSTRUCCIONES IMPORTANTES:
 - NO inventes destrezas, códigos curriculares ni criterios técnicos que no estén listados arriba — usa únicamente los proporcionados por el docente${esBT ? " o el catálogo técnico del módulo" : ""}.
 - El proyecto/producto de Semanas 4-5 debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
-- "productoFinal" del proyecto y "actividadesSemana4"/"actividadesSemana5": derívalos de las DCD diagnosticadas en Semana 1, las destrezas a reforzar, las áreas integradas y el contexto. Si el docente ya escribió un campo (productoFinal, actividadesSemana4 o actividadesSemana5), devuélvelo EXACTAMENTE como está; solo sugiere contenido cuando el campo está vacío.
+- "productoIntermedio" (entregable de Semana 4) y "productoFinal" (entregable de Semana 5) son DISTINTOS: el intermedio es un avance parcial (borrador, primera versión), el final es el proyecto terminado. No los confundas ni repitas el mismo texto en ambos.
+- "objetivoAprendizaje" es único y rector de todo el proyecto; "objetivoSemana4"/"objetivoSemana5" son los logros parciales que aportan a ese objetivo general al término de cada semana — más específicos y acotados que el objetivo de aprendizaje.
+- "productoFinal", "productoIntermedio" y las actividades de cada semana: derívalos de las DCD diagnosticadas en Semana 1, las destrezas a reforzar, las áreas integradas y el contexto. Si el docente ya escribió un campo, devuélvelo EXACTAMENTE como está; solo sugiere contenido cuando el campo está vacío.
+- "compromisos": una síntesis breve de mejora continua (cognitiva, procedimental, actitudinal) coherente con las destrezas reforzadas — no una lista de tareas pendientes.
+- "autoevaluacion": preguntas dirigidas al estudiantado para reflexionar sobre su propio proceso de aprendizaje, no al docente.
 - Para cada actividad de nivelación sugerida, incluye "estrategiaConivelacion": una sugerencia concreta de cómo aprovechar tutoría entre pares para esa destreza específica.
 - El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — es un requisito formal del MinEduc, no una opción.
 - "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
@@ -224,12 +242,18 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
     "titulo": "string",
     "descripcion": "string (3-4 oraciones)",
     "areasIntegradas": ["string", "string"],
-    "productoFinal": "string (1 oración concreta del producto final del proyecto)",
+    "objetivoAprendizaje": "string (1 oración: el logro rector que persigue todo el proyecto)",
+    "productoIntermedio": "string (1 oración: entregable parcial de la Semana 4, distinto del producto final)",
+    "productoFinal": "string (1 oración concreta del producto final del proyecto, entregado en Semana 5)",
+    "objetivoSemana4": "string (1 oración: logro parcial al término de la Semana 4)",
     "actividadesSemana4": ["string (3-5 actividades: planificación, organización de equipos, investigación, elaboración, revisión)"],
+    "objetivoSemana5": "string (1 oración: logro parcial al término de la Semana 5)",
     "actividadesSemana5": ["string (3-5 actividades: finalización, socialización, presentación, reflexión)"],
-    "destrezasReforzadas": ["string (códigos del diagnóstico)"],
+    "destrezasReforzadas": ["string (códigos del diagnóstico de Semana 1 que este proyecto refuerza)"],
     "evidenciasCognitivas": ["string", "string", "string"],
     "evidenciasActitudinales": ["string", "string", "string"],
+    "compromisos": "string (síntesis de mejora continua, no una lista de tareas)",
+    "autoevaluacion": ["string (pregunta de metacognición para el estudiantado)", "string"],
     "esEvaluacionFormativaOficial": true
   },
   "cronogramaSemanal": "string",

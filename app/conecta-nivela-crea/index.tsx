@@ -22,7 +22,8 @@ import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
 import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado } from "@/lib/evaluacion-utils";
 import { resolverPrerrequisito } from "@/lib/curriculo-prerrequisitos";
-import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado } from "@/lib/cnc-diagnostico";
+import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado, rubricaProyectoDesdeDestrezas } from "@/lib/cnc-diagnostico";
+import { NIVELES_DESEMPENO_RUBRICA } from "@/data/types-cnc";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
@@ -76,9 +77,13 @@ function planVacio(): PlanConectaNivelaCrea {
     semana2y3: { actividadesNivelacion: [], parejasConivelacion: [] },
     semana4y5: {
       proyecto: {
-        titulo: "", descripcion: "", areasIntegradas: [], productoFinal: "",
+        titulo: "", descripcion: "", areasIntegradas: [],
+        objetivoAprendizaje: "", productoFinal: "", productoIntermedio: "",
+        objetivoSemana4: "", objetivoSemana5: "",
         actividadesSemana4: [], actividadesSemana5: [], destrezasReforzadas: [],
-        evidenciasCognitivas: [], evidenciasActitudinales: [], esEvaluacionFormativaOficial: true,
+        evidenciasCognitivas: [], evidenciasActitudinales: [],
+        compromisos: "", autoevaluacion: [],
+        esEvaluacionFormativaOficial: true,
       },
     },
     status: "borrador",
@@ -376,6 +381,15 @@ export default function ConectaNivelaCreaScreen() {
   const figuraSeleccionada: FiguraProfesional | undefined = FIGURAS_PROFESIONALES.find((f) => f.id === plan.figuraProfesionalId);
   const moduloSeleccionado: ModuloFormativo | undefined = figuraSeleccionada?.modulos.find((m) => m.codigo === plan.moduloId);
 
+  // Rúbrica del proyecto interdisciplinar (Semanas 4-5), derivada de las
+  // destrezas a reforzar — no se persiste, se recalcula del catálogo cada vez
+  // (mismo criterio que las brechas de Evaluación Diagnóstica: una sola
+  // fuente de verdad, sin duplicar contenido curricular).
+  const rubricaProyecto = useMemo(
+    () => rubricaProyectoDesdeDestrezas(plan.semana4y5.proyecto.destrezasReforzadas),
+    [plan.semana4y5.proyecto.destrezasReforzadas]
+  );
+
   // Evaluaciones aplicables a CNC: solo Lengua y Matemática, con aplicados y brechas
   const evaluacionesCNC = useMemo(
     () =>
@@ -476,9 +490,16 @@ export default function ConectaNivelaCreaScreen() {
             descripcion: plan.semana4y5.proyecto.descripcion,
             areasIntegradas: plan.semana4y5.proyecto.areasIntegradas,
             notasDocente: undefined,
+            objetivoAprendizaje: plan.semana4y5.proyecto.objetivoAprendizaje,
             productoFinal: plan.semana4y5.proyecto.productoFinal,
+            productoIntermedio: plan.semana4y5.proyecto.productoIntermedio,
+            objetivoSemana4: plan.semana4y5.proyecto.objetivoSemana4,
+            objetivoSemana5: plan.semana4y5.proyecto.objetivoSemana5,
             actividadesSemana4: plan.semana4y5.proyecto.actividadesSemana4,
             actividadesSemana5: plan.semana4y5.proyecto.actividadesSemana5,
+            destrezasReforzadas: plan.semana4y5.proyecto.destrezasReforzadas,
+            compromisos: plan.semana4y5.proyecto.compromisos,
+            autoevaluacion: plan.semana4y5.proyecto.autoevaluacion,
           },
           semana4y5BT: plan.semana4y5BT
             ? {
@@ -545,13 +566,28 @@ export default function ConectaNivelaCreaScreen() {
             areasIntegradas: plan.semana4y5.proyecto.areasIntegradas.length
               ? plan.semana4y5.proyecto.areasIntegradas
               : (res.aiResult.proyectoSugerido.areasIntegradas ?? []),
+            objetivoAprendizaje:
+              plan.semana4y5.proyecto.objetivoAprendizaje || res.aiResult.proyectoSugerido.objetivoAprendizaje || "",
             productoFinal: plan.semana4y5.proyecto.productoFinal || res.aiResult.proyectoSugerido.productoFinal || "",
+            productoIntermedio:
+              plan.semana4y5.proyecto.productoIntermedio || res.aiResult.proyectoSugerido.productoIntermedio || "",
+            objetivoSemana4:
+              plan.semana4y5.proyecto.objetivoSemana4 || res.aiResult.proyectoSugerido.objetivoSemana4 || "",
+            objetivoSemana5:
+              plan.semana4y5.proyecto.objetivoSemana5 || res.aiResult.proyectoSugerido.objetivoSemana5 || "",
             actividadesSemana4: plan.semana4y5.proyecto.actividadesSemana4.length
               ? plan.semana4y5.proyecto.actividadesSemana4
               : (res.aiResult.proyectoSugerido.actividadesSemana4 ?? []),
             actividadesSemana5: plan.semana4y5.proyecto.actividadesSemana5.length
               ? plan.semana4y5.proyecto.actividadesSemana5
               : (res.aiResult.proyectoSugerido.actividadesSemana5 ?? []),
+            destrezasReforzadas: plan.semana4y5.proyecto.destrezasReforzadas.length
+              ? plan.semana4y5.proyecto.destrezasReforzadas
+              : (res.aiResult.proyectoSugerido.destrezasReforzadas ?? []),
+            compromisos: plan.semana4y5.proyecto.compromisos || res.aiResult.proyectoSugerido.compromisos || "",
+            autoevaluacion: plan.semana4y5.proyecto.autoevaluacion.length
+              ? plan.semana4y5.proyecto.autoevaluacion
+              : (res.aiResult.proyectoSugerido.autoevaluacion ?? []),
           },
         },
         semana4y5BT: res.aiResult.productoAcreditableSugerido
@@ -1132,19 +1168,78 @@ export default function ConectaNivelaCreaScreen() {
                 <Field label="Título del proyecto (opcional — la IA sugiere uno si lo dejas vacío)" value={plan.semana4y5.proyecto.titulo} onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, titulo: v } } }))} colors={colors} />
                 <Field label="Descripción / notas" value={plan.semana4y5.proyecto.descripcion} onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, descripcion: v } } }))} colors={colors} multiline />
                 <Field
+                  label="Objetivo de aprendizaje (opcional — la IA sugiere uno si lo dejas vacío)"
+                  value={plan.semana4y5.proyecto.objetivoAprendizaje}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, objetivoAprendizaje: v } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder="Ej: Reforzar el uso de estructuras de la lengua oral y la resolución de operaciones con números enteros mediante un proyecto sobre desarrollo sostenible"
+                />
+                <Field
                   label="Áreas a integrar (una por línea, ej: CN, CS, ECA)"
                   value={plan.semana4y5.proyecto.areasIntegradas.join("\n")}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, areasIntegradas: v.split("\n") } } }))}
                   colors={colors}
                   multiline
                 />
+
+                <Label text="Destrezas a reforzar (del diagnóstico de Semana 1)" colors={colors} />
+                {plan.semana1.diagnosticoAcademico.length === 0 ? (
+                  <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 12 }}>
+                    Completa el diagnóstico académico de Semana 1 para poder elegir aquí las destrezas que este
+                    proyecto refuerza. Mientras tanto, la IA las sugiere al generar el plan.
+                  </Text>
+                ) : (
+                  <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                    {plan.semana1.diagnosticoAcademico.map((d) => {
+                      const sel = plan.semana4y5.proyecto.destrezasReforzadas.includes(d.destrezaCodigo);
+                      return (
+                        <Pressable
+                          key={d.destrezaCodigo}
+                          onPress={() =>
+                            setPlan((p) => {
+                              const actuales = p.semana4y5.proyecto.destrezasReforzadas;
+                              const destrezasReforzadas = actuales.includes(d.destrezaCodigo)
+                                ? actuales.filter((c) => c !== d.destrezaCodigo)
+                                : [...actuales, d.destrezaCodigo];
+                              return { ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, destrezasReforzadas } } };
+                            })
+                          }
+                          style={{
+                            paddingHorizontal: 10, paddingVertical: 5, borderRadius: 16,
+                            backgroundColor: sel ? colors.primary : colors.surface,
+                            borderWidth: 1, borderColor: sel ? colors.primary : colors.border,
+                          }}
+                        >
+                          <Text style={{ fontSize: 11, color: sel ? "#fff" : colors.text }}>[{d.area}] {d.destrezaCodigo}</Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                )}
+
                 <Field
-                  label="Producto final (opcional — la IA sugiere uno si lo dejas vacío)"
+                  label="Producto intermedio — entregable de la Semana 4 (opcional — la IA sugiere uno si lo dejas vacío)"
+                  value={plan.semana4y5.proyecto.productoIntermedio}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, productoIntermedio: v } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder="Ej: Borrador del tríptico con la información recopilada"
+                />
+                <Field
+                  label="Producto final — entregable de la Semana 5 (opcional — la IA sugiere uno si lo dejas vacío)"
                   value={plan.semana4y5.proyecto.productoFinal}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, productoFinal: v } } }))}
                   colors={colors}
                   multiline
-                  placeholder="Ej: Decálogo ilustrado de convivencia y seguridad integral"
+                  placeholder="Ej: Tríptico informativo terminado sobre convivencia y seguridad integral"
+                />
+                <Field
+                  label="Objetivo de la Semana 4 (opcional — la IA sugiere uno si lo dejas vacío)"
+                  value={plan.semana4y5.proyecto.objetivoSemana4}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, objetivoSemana4: v } } }))}
+                  colors={colors}
+                  multiline
                 />
                 <Field
                   label="Actividades Semana 4 (una por línea)"
@@ -1155,6 +1250,13 @@ export default function ConectaNivelaCreaScreen() {
                   placeholder={"Ej: Planificación del proyecto...\nOrganización de equipos de trabajo..."}
                 />
                 <Field
+                  label="Objetivo de la Semana 5 (opcional — la IA sugiere uno si lo dejas vacío)"
+                  value={plan.semana4y5.proyecto.objetivoSemana5}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, objetivoSemana5: v } } }))}
+                  colors={colors}
+                  multiline
+                />
+                <Field
                   label="Actividades Semana 5 (una por línea)"
                   value={plan.semana4y5.proyecto.actividadesSemana5.join("\n")}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, actividadesSemana5: v.split("\n") } } }))}
@@ -1162,6 +1264,59 @@ export default function ConectaNivelaCreaScreen() {
                   multiline
                   placeholder={"Ej: Finalización del producto...\nSocialización y presentación..."}
                 />
+                <Field
+                  label="Compromisos (opcional — la IA sugiere unos si lo dejas vacío)"
+                  value={plan.semana4y5.proyecto.compromisos}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, compromisos: v } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder="Compromisos surgidos de la reflexión grupal al cierre del proyecto"
+                />
+                <Field
+                  label="Preguntas de autoevaluación / metacognición (una por línea)"
+                  value={plan.semana4y5.proyecto.autoevaluacion.join("\n")}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, autoevaluacion: v.split("\n") } } }))}
+                  colors={colors}
+                  multiline
+                  placeholder={"Ej: ¿Qué aprendiste con este proyecto que no sabías antes?\n¿Cómo aplicarías esto en tu vida cotidiana?"}
+                />
+
+                {rubricaProyecto.length > 0 && (
+                  <>
+                    <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
+                    <SectionHeading text="Rúbrica del proyecto (vista previa)" colors={colors} />
+                    <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 10 }}>
+                      Derivada de las destrezas a reforzar, con sus indicadores de evaluación reales del catálogo.
+                      La escala es la estándar de evaluación (Avanzado 10-9, Intermedio 8-7, Básico 6-5, En
+                      Desarrollo 4-1); se aplica al momento de calificar con el estudiantado, fuera de esta
+                      planificación.
+                    </Text>
+                    {rubricaProyecto.map((fila) => (
+                      <View key={fila.destrezaCodigo} style={{ padding: 10, borderWidth: 1, borderColor: colors.border, borderRadius: 8, marginBottom: 8, backgroundColor: colors.surface }}>
+                        <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{fila.area}] {fila.destrezaCodigo}</Text>
+                        <Text style={{ fontSize: 11, color: colors.text, marginTop: 2 }}>{fila.destrezaDescripcion}</Text>
+                        {fila.indicadores.length > 0 ? (
+                          fila.indicadores.map((ind, i) => (
+                            <Text key={i} style={{ fontSize: 10, color: colors.muted, marginTop: 4 }}>• {ind}</Text>
+                          ))
+                        ) : (
+                          <Text style={{ fontSize: 10, color: colors.muted, marginTop: 4, fontStyle: "italic" }}>
+                            Sin indicadores registrados en el catálogo para esta destreza.
+                          </Text>
+                        )}
+                      </View>
+                    ))}
+                    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                      {(Object.keys(NIVELES_DESEMPENO_RUBRICA) as (keyof typeof NIVELES_DESEMPENO_RUBRICA)[]).map((nivel) => (
+                        <View key={nivel} style={{ paddingHorizontal: 10, paddingVertical: 5, borderRadius: 16, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background }}>
+                          <Text style={{ fontSize: 11, color: colors.text }}>
+                            {NIVELES_DESEMPENO_RUBRICA[nivel].nombre} ({NIVELES_DESEMPENO_RUBRICA[nivel].rango})
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  </>
+                )}
               </>
             )}
 

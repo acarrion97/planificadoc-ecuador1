@@ -3,8 +3,10 @@ import {
   nivelDominanteEstado,
   nivelCNC,
   diagnosticoAcademicoDesdeBrechas,
+  rubricaProyectoDesdeDestrezas,
 } from "../lib/cnc-diagnostico";
 import type { BrechaCurso } from "../data/types-evaluacion";
+import { buscarPorCodigo } from "../data";
 
 function brecha(overrides: Partial<BrechaCurso> & { dcdCodigo: string }): BrechaCurso {
   return {
@@ -84,5 +86,39 @@ describe("diagnosticoAcademicoDesdeBrechas", () => {
     const m = diagnosticoAcademicoDesdeBrechas([brecha({ dcdCodigo: "M.3.1.1" })], "M");
     expect(ll[0].area).toBe("LL");
     expect(m[0].area).toBe("M");
+  });
+});
+
+describe("rubricaProyectoDesdeDestrezas", () => {
+  it("deriva la fila con los indicadores reales del catálogo para un código válido", () => {
+    const esperado = buscarPorCodigo("LL.4.1.1");
+    expect(esperado).toBeDefined();
+
+    const filas = rubricaProyectoDesdeDestrezas(["LL.4.1.1"]);
+    expect(filas).toHaveLength(1);
+    expect(filas[0]).toEqual({
+      destrezaCodigo: "LL.4.1.1",
+      destrezaDescripcion: esperado!.descripcion,
+      area: "LL",
+      indicadores: esperado!.indicadoresEvaluacion,
+    });
+  });
+
+  it("no genera fila para un código que no resuelve en el catálogo (no inventa datos)", () => {
+    expect(rubricaProyectoDesdeDestrezas(["XX.9.9.9"])).toEqual([]);
+  });
+
+  it("mezcla códigos válidos e inválidos: solo los válidos generan fila", () => {
+    const filas = rubricaProyectoDesdeDestrezas(["LL.4.1.1", "XX.9.9.9", "M.4.1.1"]);
+    expect(filas.map((f) => f.destrezaCodigo)).toEqual(["LL.4.1.1", "M.4.1.1"]);
+  });
+
+  it("descarta códigos duplicados", () => {
+    const filas = rubricaProyectoDesdeDestrezas(["LL.4.1.1", "LL.4.1.1"]);
+    expect(filas).toHaveLength(1);
+  });
+
+  it("lista vacía si no se pasan códigos", () => {
+    expect(rubricaProyectoDesdeDestrezas([])).toEqual([]);
   });
 });
