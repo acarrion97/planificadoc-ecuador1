@@ -249,6 +249,7 @@ function adaptacionInnerTable(
   );
   return new Table({
     width: { size: 12518, type: WidthType.DXA },
+    layout: TableLayoutType.FIXED,
     columnWidths: [2700, 4200, 5618],
     rows: [hRow, ...dRows],
   });
@@ -375,6 +376,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
       if (infoRows.length) {
         rightChildren.push(new Table({
           width: { size: 12518, type: WidthType.DXA },
+          layout: TableLayoutType.FIXED,
           columnWidths: [3200, 9318],
           rows: infoRows,
         }));
@@ -453,6 +455,7 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
         // Tabla 3 columnas — total 12518 DXA
         rightChildren.push(new Table({
           width: { size: 12518, type: WidthType.DXA },
+          layout: TableLayoutType.FIXED,
           columnWidths: [6000, 3259, 3259],
           rows: [
             // Fila 0: encabezado del día (colspan=3)
@@ -602,6 +605,7 @@ function rubricaInnerTable(
   // Total 15718 DXA — balanceado para 5 columnas
   return new Table({
     width: { size: 15718, type: WidthType.DXA },
+    layout: TableLayoutType.FIXED,
     columnWidths: [3400, 3080, 3080, 3080, 3078],
     rows: [hRow, ...dRows],
   });

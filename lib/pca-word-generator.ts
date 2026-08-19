@@ -13,6 +13,7 @@ import {
   VerticalAlign,
   PageOrientation,
   HeightRule,
+  TableLayoutType,
 } from "docx";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
@@ -487,6 +488,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   // ── TABLA PRINCIPAL ──
   const mainTable = new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
     rows: [
       headerRow0,
       headerRow1,
@@ -532,6 +534,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
 
   const firmasTable = new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
     rows: [
       // Fila: ELABORADO | REVISADO | APROBADO
       new TableRow({

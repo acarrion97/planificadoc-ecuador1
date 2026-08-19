@@ -12,6 +12,7 @@ import {
   ShadingType,
   VerticalAlign,
   PageOrientation,
+  TableLayoutType,
 } from "docx";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
@@ -362,6 +363,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
 
   const tiempoInnerTable = new Table({
     width: { size: COL_TOTAL, type: WidthType.DXA },
+    layout: TableLayoutType.FIXED,
     rows: [
       new TableRow({
         children: tiempoLabels_headers.map((h) =>
@@ -534,6 +536,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
 
   const firmasInnerTable = new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
     rows: [
       new TableRow({ children: firmas.map((f) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])) }),
       new TableRow({ children: firmas.map((f) => sigCell([textPara(f.cargo, true, SZ7)])) }),
@@ -552,6 +555,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   // ── TABLA PRINCIPAL ──
   const mainTable = new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
     rows: [
       headerRow0,
       headerRow1,
