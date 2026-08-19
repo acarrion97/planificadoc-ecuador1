@@ -5,21 +5,7 @@ import {
 } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
-import { obtenerIconosDestreza } from "../src/data/iconosPorDestreza";
-import { ICONOS_DCD_BASE64 } from "./iconos-base64";
-
-/** HTML <img> de los iconos (competencias/inserciones) asociados a una DCD. */
-function iconosDestrezaHTML(codigo: string | undefined | null): string {
-  if (!codigo) return "";
-  const iconos = obtenerIconosDestreza(codigo);
-  if (iconos.length === 0) return "";
-  const imgs = iconos
-    .map((n) => ICONOS_DCD_BASE64[n])
-    .filter(Boolean)
-    .map((src) => `<img src="${src}" style="width:14px;height:14px;border-radius:50%;margin-right:2px;vertical-align:middle;" />`)
-    .join("");
-  return `<div style="margin-top:2px;">${imgs}</div>`;
-}
+import { iconosDestrezaHTML } from "./dcd-iconos";
 
 /**
  * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador 2026-2027
@@ -677,6 +663,7 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
       <tr>
         <td>
           <strong>${plan.destreza.codigo}</strong>
+          ${iconosDestrezaHTML(plan.destreza.codigo)}
           ${competenciasBadgesHTML ? `<div style="margin-top:3px;">${competenciasBadgesHTML}</div>` : ""}
           <br/>
           ${plan.destreza.descripcion}

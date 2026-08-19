@@ -16,6 +16,7 @@ import {
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
+import { iconosDcdRuns } from "./dcd-iconos";
 
 // ─── Utilidad ─────────────────────────────────────────────────────────────────
 function toStr(val: any): string {
@@ -461,7 +462,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
           new Paragraph({
             spacing: { before: 10, after: 10 },
-            children: [run(d.codigo, true, SZ6), run(": " + d.enunciado, false, SZ6)],
+            children: [run(d.codigo, true, SZ6), run(": " + d.enunciado, false, SZ6), ...iconosDcdRuns(d.codigo)],
           })
         )
       : [textPara("—", false, SZ7)];

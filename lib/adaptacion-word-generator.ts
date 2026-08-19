@@ -9,6 +9,7 @@ import {
 } from "docx";
 import type { CurricularAdaptation, AdaptacionAiResult, AdaptacionPedagogicaSugerida, AdaptacionDiaPlan } from "../data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
+import { iconosDcdRuns } from "./dcd-iconos";
 
 // ─── Paleta ──────────────────────────────────────────────────────────────────
 const BG_TITLE   = "003366";
@@ -538,7 +539,23 @@ export async function generarWordAdaptacion(
       rows: [
         new TableRow({ children: [
           simpleCell("Destreza ORIGINAL:", { bold: true, size: 11, bg: "F1F5F9" }),
-          simpleCell(`[${form.codigoDestreza}] ${form.descripcionDestreza}`, { size: 11, italic: true }),
+          new TableCell({
+            borders: BORDER_DEF,
+            verticalAlign: VerticalAlign.TOP,
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `[${form.codigoDestreza}] ${form.descripcionDestreza}`,
+                    italics: true,
+                    size: 22,
+                    color: DARK,
+                  }),
+                  ...iconosDcdRuns(form.codigoDestreza),
+                ],
+              }),
+            ],
+          }),
         ]}),
         ...(ai?.destrezaAdaptada ? [
           new TableRow({ children: [

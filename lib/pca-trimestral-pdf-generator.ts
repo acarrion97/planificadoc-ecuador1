@@ -1,6 +1,7 @@
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
+import { iconosDestrezaHTML } from "./dcd-iconos";
 
 // ─── Mapas legibles ───────────────────────────────────────────────────────────
 const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
@@ -122,7 +123,7 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
     const ai = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
     const dcdHTML = (unidad.dcdsSeleccionadas || []).length > 0
       ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
-          `<div style="margin-bottom:3px;"><b style="color:#1a6b3a;">${d.codigo}</b> ${d.enunciado}</div>`
+          `<div style="margin-bottom:3px;"><b style="color:#1a6b3a;">${d.codigo}</b> ${d.enunciado}${iconosDestrezaHTML(d.codigo)}</div>`
         ).join("")
       : "<em style='color:#999;'>—</em>";
 

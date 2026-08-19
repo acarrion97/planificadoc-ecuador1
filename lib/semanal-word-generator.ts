@@ -10,7 +10,7 @@
  */
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
-  TextRun, ImageRun, WidthType, BorderStyle, ShadingType, AlignmentType,
+  TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType,
 } from "docx";
 import type {
@@ -18,30 +18,7 @@ import type {
   GradoAdaptacion, TipoNEE,
 } from "../data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
-import { obtenerIconosDestreza } from "../src/data/iconosPorDestreza";
-import { ICONOS_DCD_BASE64 } from "./iconos-base64";
-
-// ─── Íconos DCD (competencias/inserciones curriculares) ─────────────────────
-// Imágenes reales (base64, 72x72 origen) incrustadas vía ImageRun, extraídas
-// y verificadas desde los PDF oficiales del currículo priorizado.
-const ICONO_DCD_SIZE = 16; // px en el documento
-
-/** Runs (imagen + texto) con los íconos (competencias/inserciones) de un código DCD. */
-function iconosDcdRuns(codigo: string | undefined | null): (TextRun | ImageRun)[] {
-  if (!codigo) return [];
-  const iconos = obtenerIconosDestreza(codigo);
-  const runs: (TextRun | ImageRun)[] = [];
-  for (const nombre of iconos) {
-    const data = ICONOS_DCD_BASE64[nombre];
-    if (!data) continue;
-    runs.push(new ImageRun({
-      data,
-      transformation: { width: ICONO_DCD_SIZE, height: ICONO_DCD_SIZE },
-    }));
-    runs.push(new TextRun({ text: " ", size: 18 }));
-  }
-  return runs;
-}
+import { iconosDcdRuns } from "./dcd-iconos";
 
 // ─── Paleta ───────────────────────────────────────────────────────────────────
 const BG_TITLE     = "003366";
