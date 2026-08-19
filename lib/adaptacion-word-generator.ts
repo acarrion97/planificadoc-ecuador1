@@ -769,7 +769,7 @@ export async function generarWordAdaptacion(
     sections.push(
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
-        columnWidths: [2500, 2300, 2300, 2300, 1600],
+        columnWidths: [2500, 2075, 2075, 2075, 2075],
         rows: [rubricaHeaderRow, ...rubricaDataRows],
       })
     );
