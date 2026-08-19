@@ -12,6 +12,7 @@ import {
   ShadingType,
   VerticalAlign,
   PageOrientation,
+  HeightRule,
 } from "docx";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
@@ -54,6 +55,10 @@ const SZ6  = 12; // 6pt  — texto pequeño (firmas, notas)
 //  5%    15%     18%      18%         22%           17%       5%
 const COL_W = [250, 750, 900, 900, 1100, 850, 250] as const;
 // Total = 5000 (100%)
+
+// Alto mínimo uniforme de las filas de unidades (twips) — evita que filas con
+// poco contenido se vean desproporcionadamente más bajas que las demás.
+const UNIDAD_ROW_MIN_HEIGHT = 1200;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -405,6 +410,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
       : [textPara("—", false, SZ7)];
 
     return new TableRow({
+      height: { value: UNIDAD_ROW_MIN_HEIGHT, rule: HeightRule.ATLEAST },
       children: [
         makeCell({
           paragraphs: [textPara(String(unidad.numero), true, SZ7, AlignmentType.CENTER)],
