@@ -14,6 +14,7 @@ import { adaptacionesRouter } from "../../server/adaptaciones-router";
 import { btRouter } from "../../server/bt-router";
 import { cncRouter } from "../../server/cnc-router";
 import { evaluacionRouter } from "../../server/evaluacion-router";
+import { dcdDesagregacionesRouter } from "../../server/dcd-desagregacion-router";
 import { router } from "../../server/_core/trpc";
 
 // Router expuesto en Vercel
@@ -26,6 +27,7 @@ const vercelRouter = router({
   bt: btRouter,
   cnc: cncRouter,
   evaluacion: evaluacionRouter,
+  dcdDesagregaciones: dcdDesagregacionesRouter,
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
