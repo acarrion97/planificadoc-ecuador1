@@ -1369,6 +1369,65 @@ export default function ConectaNivelaCreaScreen() {
               </Pressable>
             </View>
 
+            {/* ── Imprimir prueba diagnóstica (Lengua y Matemática) ── */}
+            <Pressable
+              onPress={() => setMostrarImpresion((v) => !v)}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#1D4ED8", borderRadius: 12, paddingVertical: 14, marginBottom: mostrarImpresion ? 12 : 20 }}
+            >
+              <Text style={{ fontSize: 16 }}>🖨️</Text>
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>
+                {mostrarImpresion ? "Ocultar impresión de pruebas" : "Imprimir prueba diagnóstica"}
+              </Text>
+            </Pressable>
+
+            {mostrarImpresion && (
+              <View style={{ borderRadius: 12, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface, padding: 12, marginBottom: 20 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: colors.foreground, flex: 1 }}>
+                    Pruebas para imprimir (Lengua y Matemática)
+                  </Text>
+                  <Pressable onPress={() => setPruebaConClave((v) => !v)}
+                    style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, backgroundColor: pruebaConClave ? colors.primary : colors.background, borderWidth: 1, borderColor: pruebaConClave ? colors.primary : colors.border }}>
+                    <Text style={{ fontSize: 11, color: pruebaConClave ? "#fff" : colors.text, fontWeight: "600" }}>
+                      {pruebaConClave ? "✔ Clave de respuestas" : "Clave de respuestas"}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {evaluacionesPorArea.length === 0 ? (
+                  <Text style={{ fontSize: 12, color: colors.muted, textAlign: "center", paddingVertical: 12 }}>
+                    No hay evaluaciones de Lengua y Literatura o Matemática para imprimir. Crea una primero.
+                  </Text>
+                ) : (
+                  evaluacionesPorArea.map((grupo) => (
+                    <View key={grupo.area} style={{ marginBottom: 10 }}>
+                      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                        <Text style={{ fontSize: 14 }}>{grupo.emoji}</Text>
+                        <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{grupo.nombre}</Text>
+                        <Text style={{ fontSize: 11, color: colors.muted }}>({grupo.items.length})</Text>
+                      </View>
+                      {grupo.items.map(({ ev, aplicados }) => (
+                        <View key={ev.id} style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, marginBottom: 6 }}>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)} style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 12, fontWeight: "600", color: colors.text }} numberOfLines={1}>{ev.nombre}</Text>
+                            <Text style={{ fontSize: 10, color: colors.muted }}>{ev.grado} {ev.paralelo ? `· ${ev.paralelo}` : ""} · {aplicados} aplicado(s)</Text>
+                          </Pressable>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)}
+                            style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }}>
+                            <Text style={{ fontSize: 11, color: colors.text, fontWeight: "600" }}>Ver</Text>
+                          </Pressable>
+                          <Pressable onPress={() => imprimirPrueba(ev.id)} disabled={imprimiendoPruebaId === ev.id}
+                            style={{ padding: 8, borderRadius: 8, backgroundColor: "#1D4ED8", opacity: imprimiendoPruebaId === ev.id ? 0.5 : 1 }}>
+                            {imprimiendoPruebaId === ev.id ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ fontSize: 14 }}>🖨️</Text>}
+                          </Pressable>
+                        </View>
+                      ))}
+                    </View>
+                  ))
+                )}
+              </View>
+            )}
+
             <ResultSection title="Cronograma de las 5 semanas" emoji="🗓️" color={colors.primary}>
               <Text style={{ fontSize: 12, color: colors.text }}>{aiResult.cronogramaSemanal}</Text>
             </ResultSection>
