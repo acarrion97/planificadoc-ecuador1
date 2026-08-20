@@ -46,11 +46,11 @@
 
 ## 7. Verificación
 
-- [ ] 7.1 Escribir pruebas de `gradosDeSubnivel` y de la resolución de indicador principal (incluida Preparatoria → `null`)
-- [ ] 7.2 Escribir pruebas de reutilización: DCD+grado existente no regenera; DCD+grado faltante ofrece generar
-- [ ] 7.3 Escribir pruebas del post-proceso: último grado idéntico al oficial y rechazo/advertencia de contenido fuera de la DCD original
-- [ ] 7.4 Ejecutar lint/typecheck del proyecto y confirmar que la app funciona sin la tabla (best-effort: el selector vuelve al comportamiento actual si la nube falla)
-- [ ] 7.5 Prueba funcional end-to-end: seleccionar CN.2.1.1 en 3.º EGB → "Desagregar" → generar ladder → elegir versión de 3.º → guardar → crear planificación y verificar que PCA/PCT/semanal/plan de unidad muestran la DCD graduada; otra planificación que elige la DCD oficial continúa mostrando el texto oficial
+- [x] 7.1 Escribir pruebas de `gradosDeSubnivel` y de la resolución de indicador principal (incluida Preparatoria → `null`)
+- [x] 7.2 Escribir pruebas de reutilización: DCD+grado existente no regenera; DCD+grado faltante ofrece generar
+- [x] 7.3 Escribir pruebas del post-proceso: último grado idéntico al oficial y rechazo/advertencia de contenido fuera de la DCD original
+- [x] 7.4 Ejecutar lint/typecheck del proyecto y confirmar que la app funciona sin la tabla (best-effort: el selector vuelve al comportamiento actual si la nube falla)
+- [x] 7.5 Prueba funcional end-to-end: seleccionar CN.2.1.1 en 3.º EGB → "Desagregar" → generar ladder → elegir versión de 3.º → guardar → crear planificación y verificar que PCA/PCT/semanal/plan de unidad muestran la DCD graduada; otra planificación que elige la DCD oficial continúa mostrando el texto oficial
 
 ## 8. Consumo en PCA/PCT/semanal
 

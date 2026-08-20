@@ -3,6 +3,7 @@ import { buscarPorCodigo } from "../data";
 import { generarHTMLPlanificacion, generarHTMLSemanal } from "../lib/pdf-generator";
 import {
   DcdDesagregacion,
+  DcdSeleccionada,
   Planificacion,
   PlanificacionSemanal,
   HoraSemanal,
@@ -113,7 +114,7 @@ describe("Contrato de selección (PCA/PCT)", () => {
   });
 
   it("una selección oficial conserva el texto oficial y no lleva grado", () => {
-    const sel = { codigo: "CN.2.1.1", enunciado: OFICIAL, origen: "oficial" as const };
+    const sel: DcdSeleccionada = { codigo: "CN.2.1.1", enunciado: OFICIAL, origen: "oficial" };
     expect(sel.enunciado).toBe(OFICIAL);
     expect(sel.grado).toBeUndefined();
   });
