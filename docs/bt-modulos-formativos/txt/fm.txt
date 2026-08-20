@@ -1,0 +1,2051 @@
+   MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “FABRICACIÓN EN
+                            MADERA”
+
+   1. Objetivo general
+
+Formar bachilleres capaces de realizar procesos de diseño, fabricación, instalación y
+mantenimiento de productos en madera y derivados, aplicando estándares de seguridad,
+calidad y buenas prácticas ambientales; con manejo elemental de CAD 2D y nociones de
+fabricación digital (CNC/láser) a nivel auxiliar, para desempeñarse en talleres, montajes
+efímeros/escénicos y obras de instalación de mobiliario.
+
+   2. Plan de estudios
+
+                                                              1ro        2do       3ro
+Total periodos pedagógicos tronco común
+                                                               19        19         19
+Tipos de módulo     Módulos                                   1ro        2do       3ro
+    Módulos         Seguridad Industrial                       2          2
+ Genéricos de la    Procesos industriales sostenibles          2          2
+     Familia
+   Profesional      Dibujo Técnico Aplicado                    2          2
+                    Fundamentos y Preparación de
+                                                               3          3
+                    Materiales
+                    Manejo de Herramientas y
+     Módulos                                                   5          5          5
+                    Maquinarias
+  Especialización   Técnicas de Fabricación                    5          5          9
+                  Innovación,       Comercialización     y
+                                                                                     3
+                  Logística
+Módulo Práctico Experimental                                   2          2          4
+Total de periodos pedagógicos formación técnica                21        21         21
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la Familia Industrial. Gracias a las características de
+los módulos trabajados en esta etapa, adquieren herramientas que le permiten construir
+una opinión más informada y tomar decisiones con mayor fundamento. Esto favorece su
+capacidad para, en caso de que lo desee, transitar entre distintas figuras profesionales
+dentro de la misma familia, continuar con su trayectoria educativa, insertarse en el mundo
+laboral o emprender un proyecto propio.
+
+ Se estructuran los siguientes módulos genéricos:
+
+   ●   Seguridad Industrial
+   ●   Procesos Industriales Sostenibles
+   ●   Dibujo Técnico Aplicado
+                                  Módulo Genérico Nro. 1
+Nombre del módulo                      Seguridad Industrial
+Nivel:                                 1ro y 2do
+Duración:                              160 periodos pedagógicos
+                                       UC 1: Aplicar normas, procedimientos, planes de
+                                       seguridad e higiene en talleres, laboratorios y
+Unidad de competencia                  procesos industriales, en la prevención de riesgos,
+asociada:                              mediante el uso adecuado de herramientas, equipos y
+                                       máquinas, demostrando responsabilidad, disciplina y
+                                       ética profesional.
+Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Emplear normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Identifica señales de seguridad en talleres y laboratorios verificando su ubicación y
+legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Revisa el estado de los equipos de protección personal asegurando su
+operatividad antes de cada actividad.
+CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA 2: Establecer procedimientos de identificación, análisis y prevención de riesgos
+en entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE2.3: Ejecuta medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+RA 3: Ejecutar planes de acción frente a emergencias siguiendo protocolos de
+comunicación, evacuación y control de incidentes, con el fin de reducir daños
+humanos y materiales.
+CE3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE3.3: Emplea la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de
+la integridad de personas y bienes.
+RA 4: Integrar prácticas de seguridad, higiene y sostenibilidad en actividades
+industriales promoviendo disciplina, ética profesional y mejora continua.
+CE4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y
+compromiso con la mejora continua.
+Contenidos
+Conceptuales                   Procedimentales                Actitudinales
+• Fundamentos de la            • Identificar riesgos          • Demostrar disciplina en
+    seguridad industrial,         presentes en el entorno        el cumplimiento de
+    principios, objetivos y       laboral utilizando             normas de seguridad e
+    beneficios.                   herramientas de                higiene.
+• Legislación y normativa         observación    y registro.  • Mostrar interés en la
+    vigente en seguridad,      • Analizar diagramas de           identificación y control de
+    salud ocupacional e           procesos industriales          riesgos industriales.
+    higiene laboral (nacional     para localizar posibles     • Cumplir con el uso
+    e internacional).             focos de peligro.              permanente y correcto
+• Derechos y obligaciones • Seleccionar equipos de               de equipos de protección
+    en prevención de riesgos      protección personal            personal.
+    laborales.                    según tipo de actividad y • Valorar la importancia
+• Normas generales de             riesgo identificado.           del orden y la limpieza
+    seguridad en talleres,     • Utilizar correctamente          en la seguridad del
+    laboratorios y plantas        equipos de protección          trabajo.
+    industriales.                 personal garantizando       • Respetar la señalización
+• Tipos de riesgos                seguridad y comodidad.         de seguridad instalada.
+    industriales: físicos,     • Instalar y verificar         • Demostrar
+    químicos, biológicos,         señalización de                responsabilidad en la
+    ergonómicos, eléctricos,      seguridad en talleres y        ejecución de protocolos
+    mecánicos y                   plantas industriales.          de emergencia.
+    psicosociales.             • Aplicar rutinas de orden     • Asumir una actitud
+• Equipos de protección           y limpieza siguiendo el        preventiva frente a los
+    personal (EPP):               método 5S.                     riesgos laborales.
+    clasificación,             • Ejecutar procedimientos • Mantener disposición
+    características, uso y        de análisis de riesgos         activa en simulacros de
+    mantenimiento.                aplicando matrices de          evacuación y control de
+                                  evaluación.                    incendios.
+•   Señalización de             •   Elaborar informes           •   Mostrar compromiso con
+    seguridad industrial:           técnicos de riesgos con         la protección del medio
+    códigos de colores,             base en observaciones,          ambiente y la
+    pictogramas, ubicación y        análisis y normativa            sostenibilidad en
+    normas técnicas.                vigente.                        procesos industriales.
+•   Procedimientos de           •   Implementar medidas         •   Evidenciar ética
+    limpieza y orden en el          preventivas y correctivas       profesional en la toma de
+    trabajo, 5S y buenas            ajustadas a riesgos             decisiones relacionadas
+    prácticas de higiene.           detectados.                     con seguridad y salud.
+•   Metodologías de             •   Desarrollar planes de       •   Demostrar liderazgo en
+    identificación y                evacuación simulados en         la organización de
+    evaluación de riesgos,          talleres, laboratorios y        grupos frente a
+    análisis de trabajo             espacios industriales.          situaciones de riesgo.
+    seguro (ATS), matriz de     •   Actuar en simulacros de     •   Fomentar el trabajo
+    riesgos, método del árbol       emergencia aplicando            colaborativo en la mejora
+    de causas.                      protocolos de                   de las condiciones de
+•   Medidas preventivas y           comunicación y                  seguridad.
+    correctivas aplicadas a         evacuación.                 •   Mantener actitud
+    riesgos específicos en      •   Utilizar extintores,            reflexiva frente a
+    talleres de electrónica,        hidrantes y otros equipos       incidentes para promover
+    mecatrónica,                    contra incendios                la mejora continua.
+    electromecánica,                conforme a normas           •   Asumir respeto por la
+    madera, alimentos y             técnicas.                       vida, la salud y el
+    calzado.                    •   Aplicar técnicas básicas        bienestar colectivo como
+•   Planes de emergencia,           de primeros auxilios en         valores fundamentales.
+    objetivos, estructura,          casos de accidentes
+    responsables y                  simulados.
+    procedimientos.             •   Evaluar condiciones
+•   Protocolos de                   ergonómicas de los
+    evacuación, primeros            puestos de trabajo y
+    auxilios, control de            proponer mejoras.
+    incendios y                 •   Documentar y comunicar
+    comunicación en                 incidentes, accidentes y
+    emergencias.                    medidas correctivas.
+•   Manejo seguro de            •   Participar en actividades
+    herramientas manuales,          colaborativas de mejora
+    eléctricas y de máquinas        continua en seguridad e
+    industriales.                   higiene industrial.
+•   Ergonomía aplicada a
+    puestos de trabajo,
+    posturas, manipulación
+    de cargas, prevención de
+    lesiones.
+•   Cultura de seguridad y
+    mejora continua,
+    responsabilidad, ética,
+    disciplina y sostenibilidad
+    en el trabajo.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+    riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+    con seguridad industrial.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+  • Aprendizaje Basado en Proyectos (ABP)
+  • Aprendizaje en Contextos Reales
+  • Role-Playing y Simulaciones
+  • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación                  Especificaciones técnicas                  Cantidad
+                              Entorno de aprendizaje
+Infraestructura/espacio                                                  1
+                              (aula)
+                              Computadoras con acceso a internet
+Laboratorio                                                              1
+                              Proyector
+Referencias Bibliográficas
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+        Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+        https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+      seguridad y salud ocupacional para la prevención de accidentes laborales en
+      empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+         evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+         riesgos laborales
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+       gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+       uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+
+
+                                 Módulo Genérico Nro.2
+
+Nombre del módulo:                    Procesos Industriales Sostenibles
+
+Nivel:                                1ro y 2do
+
+Duración:                             160 periodos pedagógicos
+
+                                      UC 2: Emplear prácticas de sostenibilidad y control
+                                      de calidad en actividades industriales mediante el
+                                      uso de tecnologías limpias, criterios de eficiencia
+Unidad de competencia                 energética, minimización de residuos, garantizando
+asociada:                             la reducción de impactos ambientales y la
+                                      optimización de estos en beneficio del entorno local,
+                                      integrando fundamentos de formación y orientación
+                                      laboral y salud ocupacional.
+
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones
+frente a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando
+reducción en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su
+disminución mediante prácticas de control.
+RA 3: Gestionar el uso de materias primas y energía en procesos industriales
+garantizando reducción de costos operativos y aprovechamiento responsable de
+los recursos.
+CE3.1: Identifica puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales
+comprobando reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto
+ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Identifica normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3: Practica acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Identifica productos y materiales según parámetros establecidos en normas
+técnicas y procedimientos internos.
+CE6.2: Emplea pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+
+Conceptuales                     Procedimentales                  Actitudinales
+
+•   Principios de                •   Identificar fuentes de       •   Mostrar interés en la
+    sostenibilidad en                consumo energético y             aplicación de prácticas
+    procesos industriales,           materiales en procesos           sostenibles en procesos
+    definición, importancia y        industriales.                    industriales.
+    aplicación.                  •   Medir y registrar            •   Cumplir con los
+•   Conceptos básicos de             consumos eléctricos,             procedimientos de
+    eficiencia energética,           térmicos e hidráulicos.          reducción, reutilización y
+    consumo, pérdidas,           •   Analizar impactos                reciclaje de materiales.
+    rendimiento, ahorro.             ambientales de               •   Valorar la importancia
+•   Energías renovables              actividades productivas.         del ahorro energético y
+    aplicadas a la industria,    •   Aplicar técnicas básicas         del aprovechamiento
+    solar, eólica, biomasa,          de reducción,                    responsable de
+    hidráulica.                      reutilización y reciclaje.       recursos.
+•   Impactos ambientales de      •   Elaborar reportes de         •   Mostrar orden, precisión
+    los procesos industriales,       consumo y residuos en            y método en las
+    contaminación del aire,          procesos                         actividades de medición,
+    agua, suelo y ruido.             experimentales.                  registro y análisis.
+•   Estrategias de consumo       •   Implementar estrategias      •   Asumir una actitud
+    responsable de materias          de optimización del              reflexiva frente al
+    primas y energía.                consumo eléctrico en             impacto ambiental de los
+•   Introducción a la                equipos.                         procesos industriales.
+    economía circular,           •   Comparar el rendimiento      •   Evidenciar iniciativa en
+    reducción, reutilización y       de energías                      la búsqueda de
+    reciclaje.                       convencionales y                 soluciones tecnológicas
+•   Marco normativo                  renovables.                      limpias.
+    ambiental básico             •   Aplicar técnicas de          •   Demostrar eficiencia en
+    nacional e internacional         minimización de residuos         la aplicación de
+    relacionado con                  sólidos, líquidos y              conocimientos para la
+    sostenibilidad.                  gaseosos.                        mejora de procesos.
+•   Tecnologías limpias          •   Diseñar planes de            •   Mantener una actitud
+    aplicadas a procesos             aprovechamiento de               positiva frente al trabajo
+    industriales.                    residuos valorizables.           colaborativo y proyectos
+•   Técnicas de optimización     •   Documentar                       colectivos.
+    del consumo eléctrico en         procedimientos de            •   Respetar normativas
+    equipos y sistemas.              sostenibilidad aplicados         ambientales vigentes y
+•  Procedimientos de               en procesos                    aplicarlas de forma
+   minimización de residuos        experimentales.                consciente.
+   y emisiones                 •   Integrar sistemas de       •   Tomar conciencia de la
+   contaminantes.                  automatización que             importancia de innovar
+• Modelos de gestión               mejoren la eficiencia          en el uso de energías
+   energética y de recursos        energética.                    renovables y tecnologías
+   en entornos industriales.   •   Evaluar indicadores de         limpias.
+• Sistemas de tratamiento          sostenibilidad en          •   Manifestar compromiso
+   y valorización de               procesos simulados y           con el cuidado del
+   residuos industriales.          reales.                        entorno social,
+• Relación entre eficiencia    •   Incorporar energías            económico y ambiental.
+   energética y reducción          renovables en prototipos
+   de costos operativos.           o procesos de
+• Automatización y control         laboratorio.
+   industrial orientados a     •   Diseñar propuestas de
+   sostenibilidad.                 mejora de procesos
+• Integración de energías          industriales con base en
+   renovables en procesos          tecnologías limpias.
+   productivos.                •   Validar la reducción de
+• Innovación y tendencias          costos operativos
+   en tecnologías                  mediante la optimización
+   sostenibles.                    de recursos
+• Indicadores de
+   sostenibilidad, huella de
+   carbono, huella hídrica,
+   eficiencia global de
+   recursos.
+• Normas internacionales
+   de sostenibilidad
+   industrial (ISO 14001,
+   ISO 50001).
+• Diseño y mejora de
+   procesos industriales con
+   enfoque ambiental.
+• Proyectos integrales de
+   sostenibilidad en
+   procesos industriales,
+   análisis, implementación
+   y evaluación de
+   resultados.
+Perfil del o la docente
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+    Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+    sector industrial sostenible.
+
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+•   Aprendizaje Basado en Proyectos (ABP)
+
+•   Aprendizaje en Contextos Reales
+
+•   Role-Playing y Simulaciones
+
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                 Especificaciones técnicas                          Cantidad
+
+                             Entorno de aprendizaje
+Infraestructura/espacio                                                 1
+                             (aula)
+
+                             Computadoras con acceso a internet
+Laboratorio
+                             Proyector                                  1
+
+Referencias Bibliográficas
+
+Besterfield, D. H. (2009). Control de calidad (8.ª ed.). Pearson Educación.
+       https://maaz.ihmc.us/rid%3D1Y2G0F7VH-1RQJ94G-
+       CVP/Control%20de%20Calidad%20H.%20Besterfield.pdf
+
+Comisión Económica para América Latina y el Caribe. (2021). Economía circular en
+      América Latina y el Caribe: Oportunidades para una recuperación transformadora.
+      https://repositorio.cepal.org/handle/11362/47309
+
+Comisión para la Seguridad de los Productos de Consumo de los Estados Unidos. (2006).
+      Manual para la fabricación de productos de consumo seguros: Control de calidad.
+      https://www.cpsc.gov/s3fs-public/pdfs/blk_pdf_handbookspanishjul06.pdf
+
+Falcón, P. C. G. (2022). Mejora del desempeño ambiental, de seguridad y salud
+       ocupacional: Caso de una empresa peruana de agroquímicos. Industrial Data,
+       25(2). https://revistasinvestigacion.unmsm.edu.pe/index.php/idata
+
+Gutiérrez Pulido, H. (2013). Control estadístico de la calidad y Seis Sigma (2.ª ed.).
+       McGraw-Hill Education. https://www.uv.mx/personal/ermeneses/files/2018/05/6-
+       control-estadistico-de-la-calidad-y-seis-sigma-gutierrez-2da.pdf
+
+Organización de las Naciones Unidas para la Alimentación y la Agricultura. (2018).
+       Manuales para el control de calidad en laboratorios de alimentos.
+         https://openknowledge.fao.org/server/api/core/bitstreams/6768c081-bda7-455b-
+         a14e-3cf9f6498bea/content
+
+Organización Internacional de Normalización. (2015). ISO 14001:2015. Sistemas de
+       gestión ambiental—Requisitos con orientación para su uso.
+       https://www.iso.org/standard/60857.html
+
+Organización Internacional de Normalización. (2018). ISO 50001:2018. Sistemas de
+       gestión de la energía—Requisitos con orientación para su uso.
+       https://www.iso.org/standard/69426.html
+
+
+
+
+                                Módulo Genérico Nro.3
+
+Nombre del módulo:                  Dibujo Técnico Aplicado
+
+Nivel:                              1ro y 2do
+
+Duración:                           240 periodos pedagógicos
+
+                                    UC 3: Elaborar representaciones gráficas técnicas
+                                    aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia               herramientas digitales como CAD, CAE y modelado
+asociada:                           3D, generando planos, modelos y prototipos con
+                                    precisión, creatividad, responsabilidad y compromiso
+                                    con la calidad en contextos industriales diversos.
+
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Identifica símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Realiza planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2: Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+ Contenidos
+
+Conceptuales                   Procedimentales                 Actitudinales
+
+                               •   Trazar líneas, vistas y •      Mostrar interés en la
+•   Principios básicos del
+                                   escalas en bocetos y           lectura, interpretación y
+    dibujo técnico: líneas,
+                                   planos.                        elaboración de planos
+    tipos de vistas y escalas.
+                               •   Utilizar instrumentos de       técnicos.
+•   Normas internacionales y
+                                   dibujo     técnico    con •    Cumplir con las normas
+    nacionales de dibujo
+                                   precisión.                     de        calidad      en
+    técnico (ISO, DIN, INEN).
+                               •   Identificar simbología y       representaciones
+•   Principios fundamentales
+                                   aplicar normas básicas         gráficas.
+    de geometría aplicados al
+                                   en       representaciones •    Valorar la precisión y
+    dibujo técnico.
+                                   gráficas.                      exactitud en los dibujos
+•   Sistemas de proyección       •   Interpretar         planos        como       garantía       de
+    ortogonal, isométrica y          bidimensionales simples.          seguridad y confiabilidad.
+    oblicua.                     •   Representar         figuras   •   Demostrar             orden,
+•   Lectura e interpretación         geométricas aplicadas a           responsabilidad y método
+    de planos y esquemas             piezas básicas.                   en el uso de herramientas
+    técnicos.                    •   Elaborar planos con               manuales y digitales.
+•   Conceptos de acotación,          cortes,     secciones     y   •   Asumir actitud reflexiva y
+    tolerancias y ajustes en         detalles.                         analítica al interpretar
+    representaciones             •   Dibujar       ensamblajes         planos     y     diagramas
+    gráficas.                        simples          aplicando        técnicos.
+•   Rotulación y simbología          normas de rotulación y        •   Mostrar iniciativa en la
+    básica      en      planos       acotación.                        búsqueda de soluciones
+    técnicos.                    •   Usar software CAD en la           gráficas ante problemas
+•   Representación          de       creación                 de       de representación.
+    cortes,    secciones     y       representaciones 2D.          •   Demostrar liderazgo en
+    detalles técnicos.           •   Representar diagramas y           actividades colaborativas
+•   Principios              de       esquemas funcionales de           de diseño gráfico técnico.
+    normalización en planos          sistemas técnicos.            •   Aplicar     criterios     de
+    de piezas y ensamblajes.     •   Comprobar exactitud de            creatividad e innovación
+•   Escalas de reducción y           planos mediante cotejo            en el desarrollo de planos
+    ampliación aplicadas a la        con piezas o modelos              y modelos.
+    industria.                       reales.                       •   Respetar las normas de
+•   Geometría      descriptiva   •   Generar modelos 3D                seguridad en el uso de
+    aplicada    a    sistemas        mediante herramientas             equipos e instalaciones
+    complejos.                       CAD.                              de laboratorio de CAD.
+•   Introducción             a   •   Simular funcionamiento y      •   Demostrar
+    herramientas CAD en 2D,          ensamblajes en software           responsabilidad en la
+    funciones     básicas    y       CAD/CAE.                          entrega oportuna y con
+    comandos esenciales.         •   Crear prototipos digitales        calidad     de      trabajos
+•   Elaboración de planos            y planos listos para              gráficos.
+    constructivos            y       fabricación.                  •   Mostrar         disposición
+    diagramas funcionales.       •   Optimizar                         positiva y activa en
+•   Principios              de       representaciones                  actividades individuales y
+    representación gráfica en        gráficas         mediante         grupales.
+    componentes mecánicos,           automatización           de   •   Usar con cuidado los
+    electrónicos             y       comandos y macros en              materiales, equipos y
+    estructurales.                   CAD.                              software                  de
+•   Modelado tridimensional      •   Presentar proyectos de            representación gráfica.
+    en software CAD y                diseño gráfico técnico        •   Valorar la importancia
+    generación de prototipos         con enfoque innovador y           del dibujo técnico como
+    digitales.                       colaborativo.                     lenguaje universal en la
+•   Ensamblajes              y                                         industria.
+    simulación              de
+    funcionamiento         con
+    herramientas CAD/CAE.
+•  Generación de vistas
+   explotadas y despieces
+   técnicos.
+• Renderizado básico y
+   presentación de modelos
+   3D.
+• Optimización de planos
+   digitales            para
+   manufactura             y
+   fabricación asistida por
+   computadora (CAM).
+• Innovación y creatividad
+   en el diseño gráfico
+   aplicado a procesos
+   industriales.
+• Integración del dibujo
+   técnico en proyectos
+   interdisciplinarios    de
+   diseño, producción y
+   mantenimiento.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+   Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+   al área de representación gráfica y diseño técnico.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+
+       Aprendizaje Basado en Proyectos (ABP)
+       Aprendizaje en Contextos Reales
+       Role-Playing y Simulaciones
+       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                               Detalle de especificaciones             Cantidad
+Denominación
+                               técnicas
+Infraestructura/espacio        Entorno de aprendizaje (aula)           1
+
+                               Computadoras con acceso a internet
+Laboratorio                                                            1
+                               Proyector
+Referencias Bibliográficas
+
+
+Fernández-Bravo, P. U. (2009). Mecanizado básico. Paraninfo.
+          https://www.paraninfo.es/catalogo/9788497326933/mecanizado-basico
+ Fernández Saavedra, D. (2019). Material docente: Dibujo Industrial I. Diseño asistido por
+           ordenador (CAD). Universidad Politécnica de Madrid. https://oa.upm.es/57277/
+
+ Gómez González, S. (2018). Interpretación gráfica. Paraninfo.
+         https://www.paraninfo.es/catalogo/9788428339773/interpretacion-grafica
+
+ Organización Internacional de Normalización. (2017). ISO 128-1:2017. Technical
+           drawings—General principles of presentation—Part 1: Introduction and index.
+           https://www.iso.org/standard/65023.html
+
+ Organización Internacional de Normalización. (2020). ISO 129-1:2018. Technical product
+           documentation (TPD)—Presentation of dimensions and tolerances.
+           https://www.iso.org/standard/70657.html
+
+ Razo-Arteaga, V. A. (2022). El diseño, la manufactura y análisis asistido por computadora
+           (CAD/CAM/CAE) en el desarrollo de productos en América Latina. Información
+           Tecnológica, 33(2), 297–308.
+           https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-
+           07642022000200297
+
+ Revatta Espinoza, J. (2016). Dibujo para diseño de ingeniería I. Universidad Continental.
+           https://repositorio.continental.edu.pe/handle/20.500.12394/2210
+
+ SOLIDWORKS. (2025). 3D ContentCentral®. Biblioteca gratuita de modelos CAD 2D y
+        3D. https://www.3dcontentcentral.com/
+
+
+
+   4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Fabricación en Madera
+desarrollarán competencias técnicas para transformar la madera y sus derivados en
+productos de calidad, aplicando técnicas de preparación, corte, ensamblaje, acabado,
+control de calidad y comercialización. Comprenderán los fundamentos de la madera, los
+estilos y criterios estéticos promueven el uso eficiente de materiales y recursos, prácticas
+sostenibles, innovación y mejora de productos existentes, preparándolos para integrarse
+al sector productivo y responder a las necesidades del mercado local y nacional.
+
+Se estructuran los siguientes módulos de especialización para primero, segundo y tercero
+de bachillerato:
+
+   •   Fundamentos y Preparación de Materiales
+   •   Manejo de Herramientas y Maquinarias
+   •   Técnicas de Fabricación
+   •   Innovación, Comercialización y Logística
+                    Módulo de Especialización Nro. 1
+Nombre del módulo:                      Fundamentos y Preparación de Materiales
+Nivel:                                  1ro, 2do
+Duración:                               240 periodos pedagógicos
+                                        UC1. Preparar materiales de madera y sus
+                                        derivados, maquinaria y herramienta, aplicando
+                                        normas de seguridad, higiene y criterios de calidad,
+Unidad de competencia asociada:
+                                        con el fin de dejarlos listos y adecuados en los
+                                        procesos de transformación y ensamblaje en el
+                                        taller.
+Objetivo del módulo: Desarrollar competencias para preparar la madera y sus derivados,
+así como para alistar la maquinaria y las herramientas del taller, aplicando normas de
+seguridad, higiene y criterios de calidad, con el propósito de asegurar condiciones óptimas
+para los procesos de transformación y ensamblaje
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Reconocer las características y aplicaciones de la madera y sus derivados,
+valorando su pertinencia según criterios de selección y sostenibilidad.
+CE1.1: Distingue las especies y tipos de madera y tableros a partir de su textura, color,
+densidad y apariencia superficial, conforme a fichas técnicas.
+CE1.2: Organiza las maderas y tableros según sus propiedades físicas y mecánicas,
+considerando su uso adecuado en el taller.
+CE1.3: Determina el material más adecuado en función del tipo de producto, exigencias
+estructurales y requerimientos de resistencia.
+CE1.4: Valora criterios de sostenibilidad al seleccionar materiales que favorezcan el uso
+responsable, la reducción de desperdicios y el aprovechamiento eficiente de recursos.
+RA 2: Aplicar normas técnicas de secado, medición y almacenamiento de la madera
+y sus derivados, asegurando su idoneidad para los procesos de fabricación.
+CE2.1 Verifica el secado y la humedad del material mediante la verificación de peso,
+humedad relativa y ventilación, siguiendo normas técnicas del taller.
+CE2.2: Ejecuta las mediciones y trazados iniciales aplicando instrumentos manuales o
+digitales y respetando las tolerancias técnicas del plano o croquis.
+CE2.3: Clasifica y etiqueta las piezas según su tipo, dimensiones, orientación de fibra y
+destino dentro del proceso de fabricación.
+CE2.4: Distingue métodos de almacenamiento y apilado del material utilizando técnica
+que eviten deformaciones, humedad, golpes o deterioro, de acuerdo con estándares del
+taller.
+RA 3: Ejecutar operaciones básicas de corte, cepillado y ensamblaje mediante el
+uso seguro y calibrado de herramientas y equipos del taller.
+CE3.1: Identifica las partes, funciones y aplicaciones de herramientas y equipos
+relacionándolos con las operaciones de corte, cepillado, perforado y ensamblaje.
+CE3.2: Verifica la calibración y el estado operativo de herramientas y equipos mediante
+inspección visual, pruebas de funcionamiento y contraste con especificaciones del
+fabricante.
+CE3.3: Usa herramientas y equipo en operaciones básicas de corte, cepillado, perforado
+y ensamblaje siguiendo planos, marcaciones y normas de precisión del proceso.
+CE3.4: Utiliza procedimientos técnicos y registra ajustes, fallos o incidencias en la
+limpieza y el mantenimiento preventivo de herramientas y equipos.
+RA 4: Aplicar prácticas de seguridad, higiene y gestión ambiental durante la
+preparación de materiales en el taller.
+CE4.1: Demuestra el uso correcto de equipo de protección personal de acuerdo con las
+actividades del taller y los riesgos identificados en cada operación.
+CE4.2: Organiza el espacio de trabajo aplicando el sistema 5g y cumpliendo
+procedimientos establecidos del taller.
+CE4.3: Clasifica los residuos y retazos según su tipo, volumen y potencial de reutilización,
+cumpliendo normas internas de gestión de residuos.
+CE4.4: Promueve prácticas ambientales reduciendo desperdicios, optimizando el uso de
+materiales y aplicando acciones de eficiencia en el taller.
+Contenidos
+Conceptuales                      Procedimentales                   Actitudinales
+• Fundamentos del trabajo • Identificar maderas y • Demostrar
+    con madera y sus                   derivados según sus             responsabilidad en la
+    derivados.                         propiedades         físicas,    manipulación, selección
+• Terminología básica del              mecánicas    y estéticas.       y     clasificación     del
+    sector maderero (madera • Clasificar materiales de                 material.
+    maciza, tableros, veta,            acuerdo con especie, • Mantener                 orden     y
+    humedad,         densidad,         humedad, dimensiones,           disciplina en el área de
+    defectos, etc.).                   densidad y destino de           trabajo para prevenir
+• Importancia                del       uso.                            riesgos.
+    acondicionamiento        del • Seleccionar el material • Respetar normas de
+    material en los procesos           adecuado             según      seguridad,          orden,
+    de transformación.                 resistencia, acabado y          higiene y uso del taller.
+• Características generales            requerimientos    técnicos   • Reconocer                 la
+    de la industria de la              del producto.                   importancia de prácticas
+    madera,      su     historia, • Aplicar criterios de               sostenibles en el uso de
+    cadenas productivas y              sostenibilidad en la            materiales.
+    aplicaciones.                      elección del material • Colaborar con el equipo
+• La       madera       en     la      (origen,     certificación,     de        trabajo       en
+    arquitectura, el mobiliario        uso responsable).               actividades del taller.
+    y objetos utilitarios a lo • Identificar                estilos • Guardar rigurosidad en
+    largo del tiempo.                  constructivos             en    la revisión inicial del
+• Patrimonio         carpintero        madera      y técnicas          material.
+    ecuatoriano                 y      patrimoniales.               • Cuidar herramientas y
+    latinoamericano.              • Verificar contenido de             equipos para prolongar
+• Relación         entre       la      humedad,          rectitud,     su vida útil.
+    preparación del material y         escuadra    y  estabilidad   • Mantener constancia en
+    los estándares de calidad          dimensional              del    prácticas de control de
+    del producto final.                material.                       calidad inicial
+•   Fundamentos del flujo de       •   Registrar parámetros •       Asumir compromiso con
+    trabajo en un taller de            de revisión inicial en       la calidad y la precisión
+    carpintería.                       formatos de control y        en       las       tareas
+•   Principios               de        trazabilidad.                realizadas.
+    sostenibilidad             y   •   Acondicionar la madera
+    aprovechamiento                    mediante          secado,
+    responsable del recurso            estabilización y revisión
+    forestal.                          previa         a        la
+    Normativa técnica del              transformación.
+    sector maderero (INEN,         •   Aplicar parámetros de
+    certificaciones                    calibración y ajuste
+    FSC/PEFC, estándares               técnico según tipo de
+    de origen y procedencia).          material antes del corte
+•   Principios de trazabilidad         o mecanizado.
+    en producción maderera.        •   Ejecutar métodos de
+•   Preparación orientada a            inspección técnica y
+    producción seriada o por           control de calidad del
+    lotes.                             material preparado.
+    Especies de madera y sus       •   Aplicar protocolos de
+    propiedades        (textura,       entrega, liberación y
+    color,            densidad,        trazabilidad del material
+    resistencia).                      previo al ensamble.
+•   Tipos de madera y              •   Utilizar instrumentos de
+    derivados (maciza, MDF,            medición y trazado
+    OSB,        contrachapado,         respetando tolerancias
+    aglomerado).                       técnicas establecidas.
+•   Propiedades físicas y          •   Ejecutar         trazados
+    mecánicas del material             iniciales     sobre     el
+    maderero.                          material con precisión
+•   Defectos críticos que              según el despiece o
+    afectan su proceso de              especificaciones.
+    transformación      (nudos,    •   Etiquetar piezas y lotes
+    fendas, deformaciones,             según orden de uso,
+    sobre secado).                     clasificación técnica o
+•   Factores que influyen en           secuencia productiva.
+    la estabilidad dimensional     •   Organizar el material en
+    (humedad, temperatura,             áreas                  de
+    secado).                           almacenamiento
+•   Conceptos de secado,               garantizando
+    contenido de humedad y             ventilación, separación
+    ventilación del material.          y protección.
+•   Criterios de selección del     •   Reconocer          partes,
+    material     según     uso,        funciones y usos de
+    resistencia, diseño y              herramientas
+    función del producto.
+•   Sistemas de clasificación,         manuales, eléctricas y
+    etiquetado y trazabilidad          equipos del taller.
+    del material.                  •   Evaluar     el      estado
+•   Tolerancias técnicas en            operativo               de
+    medición,      trazado     y       herramientas y equipos
+    corte.                             verificando fijaciones,
+•   Normas                    de       calibración              y
+    almacenamiento, apilado,           seguridad.
+    protección y preservación      •   Operar     herramientas
+    del material.                      manuales y eléctricas
+•   Métodos de inspección              en actividades básicas
+    técnica y control de               de preparación del
+    calidad en        materiales       material.
+    antes del ensamble.            •   Aplicar mantenimiento
+•   Normas        de     control       preventivo      mediante
+    dimensional            para        limpieza,
+    preparación de piezas.             lubricación ligera,
+•   Identificación            de       resguardo y ajustes
+    parámetros         técnicos        simples.
+    asociados al ajuste de         •   Registrar incidencias,
+    maquinaria.                        fallas o mantenimientos
+•   Interpretación de fichas           realizados              en
+    técnicas y manuales del            herramientas y equipos
+    fabricante.                        para control técnico.
+•   Conceptos iniciales sobre      •   Utilizar correctamente
+    herramientas manuales,             los      equipos        de
+    eléctricas y equipos de            protección personal e
+    taller.                            implementar normas de
+•   Tipos, partes y función de         seguridad e higiene
+    herramientas manuales,             durante la preparación
+    eléctricas y maquinaria            del material.
+    básica.                        •   Aplicar el sistema 5S
+•   Principios de calibración,         para mantener orden y
+    verificación operativa y           organización del taller.
+    ajuste técnico.                •   Gestionar       residuos,
+•   Diagnóstico de fallas              retazos y desperdicios
+    comunes y desviaciones             siguiendo prácticas de
+    en calibración.                    reducción, reutilización
+•   Conceptos                 de       y            clasificación
+    mantenimiento                      ambiental.
+    preventivo, limpieza y
+    registro técnico.
+•   Gestión      técnica     del
+    inventario                de
+    herramientas               y
+    consumibles.
+• Marco normativo básico
+    de seguridad, salud e
+    higiene aplicable al taller
+    de carpintería.
+• Equipos de protección
+    personal (EPP): tipos,
+    funciones y aplicación.
+• Organización del taller
+    bajo el sistema 5S.
+• Gestión de residuos,
+    retazos y desperdicios en
+    el taller.
+• Buenas              prácticas
+    ambientales en el uso y
+    disposición del material.
+• Principios de flujo de
+    producción      en    taller
+    (secuencia,         etapas,
+    ordenamientos).
+• Trazabilidad del material y
+    del proceso.
+• Preparación del material
+    orientada a producción
+    seriada o por lotes.
+• Gestión        técnica    del
+    inventario, herramientas,
+    consumibles y estado
+    operativo.
+Perfil del o la docente:
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+    Forestal, Tecnología en Madera o Procesos de Transformación de la Madera, Diseño
+    Industrial con énfasis en materiales, Construcción Civil.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                 Detalle de especificaciones técnicas Cantidad
+Infraestructura/espacio      Entorno de aprendizaje (aula)           1
+                                Computadoras con acceso a internet
+Laboratorio                                                              1
+                                Proyector
+                                Taller de carpintería con zonas
+Taller                          diferenciadas, ventilación e iluminación 1
+                                adecuada.
+                                Herramientas:
+                                Sierras      manuales,        martillos,
+                                formones,      cepillos,    escuadras,
+                                prensas, lijadoras, bancos de trabajo,
+                                herramientas de medición.
+                                Equipos y Maquinarias:
+                                Sierras           de             banco,
+                                caladora, ingletadora, lijadora, taladro
+Equipos / herramientas
+                                manual y de banco.
+                                Materiales Didácticos:
+                                Muestras de madera natural y
+                                derivados (MDF, contrachapado,
+                                OSB, aglomerado).
+                                Catálogos de productos y manuales
+                                de herramientas.
+                                Guías impresas o audiovisuales.
+                                Equipos de protección personal
+                                (EPP): gafas, guantes, protectores
+Materiales de seguridad         auditivos, mandiles, calzado de
+                                seguridad, mascarillas.
+                                Extintores y señalética.
+Referencias Bibliográficas
+Forest Stewardship Council. (2021). Certificación de cadena de custodia (FSC-STD-40-004
+       V3-1                                      ES).                             FSC.
+       https://es.fsc.org/es-es/trazabilidad/certificacion-cadena-de-custodia-fsc
+
+Gysling, J., Kahler, C., Soto, D., Mejías, W., Poblete, P., Álvarez, V., Bañados, J. C., Baeza,
+       D., & Pardo, E. (2021). Madera y construcción: Hacia una simbiosis estratégica.
+       Instituto                                                                      Forestal.
+       https://bibliotecadigital.infor.cl/bitstream/handle/20.500.12220/31291/31291.pdf
+
+Hernández, G., & Pinilla, J. C. (2010). Compendio de las propiedades de las maderas
+      nativas         y        exóticas          de      Chile.     Instituto    Forestal.
+      https://bibliotecadigital.infor.cl/bitstream/handle/20.500.12220/18505/18505.pdf
+
+Kahler González, C., Gysling Caselli, J., Soto Aguirre, D., Hernández Pineda, J., Bañados
+       Munita, J. C., & Baeza Rocha, D. (2024). Producción de madera aserrada
+       estructural en Chile 2024 (Boletín Estadístico N.º 201). Instituto Forestal.
+       https://bibliotecadigital.infor.cl/bitstream/handle/20.500.12220/32740/32740.pdf
+Ministerio del Trabajo del Ecuador. (2024). Norma técnica de seguridad e higiene del
+       trabajo.                 Gobierno                  del              Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-
+       de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Pérez Galaz, V. A. (1991). Manual de construcciones en madera (2.ª ed., Manual N.º 10).
+      Instituto                                                              Forestal.
+      https://bibliotecadigital.infor.cl/handle/20.500.12220/6646
+
+Tamborero del Pino, J. M., & Pla Figueroa, J. (2021). NTP 1157: Sierra circular de mesa
+     para obras (I). Elementos de seguridad. Instituto Nacional de Seguridad y Salud en
+     el                                                                         Trabajo.
+     https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+     prevencion/34-serie-ntp-numeros-1152-a-1168-ano-2021/notas-tecnicas-de-
+     prevencion-ntp-1157-sierra-circular-de-mesa-para-obras-i-.-elementos-de-
+     seguridad
+
+
+
+                    Módulo de Especialización Nro. 2
+Nombre del módulo:                     Manejo de Herramientas y Maquinarias
+Nivel:                                 1ro, 2do, 3ero
+Duración:                              600 periodos pedagógicos
+                                       UC2: Operar herramientas, equipos y maquinarias
+                                       en los procesos de transformación de la madera y
+                                       sus derivados, utilizándolas correctamente,
+Unidad de competencia asociada:
+                                       aplicando normas de seguridad e higiene con el fin
+                                       de garantizar un trabajo eficiente, seguro y
+                                       conforme a los estándares del taller.
+Objetivo del módulo: Desarrollar competencias en la operación de herramientas
+manuales, eléctricas y maquinaria estacionaria para la transformación de madera
+aplicando principios de ergonomía, seguridad industrial y mantenimiento preventivo
+asegurando un trabajo técnico adecuado y responsable.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Identificar herramientas, equipos y maquinarias de taller, reconociendo su
+función, partes y niveles de riesgo para seleccionar la opción adecuada según el
+tipo de producto en madera a realizar.
+CE1.1: Distingue partes, funciones y componentes de herramientas y maquinarias,
+demostrando comprensión de su uso adecuado en el taller.
+CE1.2: Organiza herramientas y equipos según su función técnica en el proceso
+maderero, evidenciando criterio para organizar y preparar el trabajo.
+CE1.3: Selecciona herramientas pertinentes al material y la operación requerida,
+justificando su elección según las características de la pieza y del procedimiento.
+CE1.4: Comprueba el estado operativo y las condiciones de seguridad antes del uso,
+asegurando un manejo responsable y la prevención de riesgos.
+RA 2: Aplicar procedimientos técnicos y normas de seguridad en el uso de
+herramientas manuales, eléctricas y maquinarias estacionarias, asegurando
+precisión y control en las operaciones del taller.
+CE2.1: Organiza el área de trabajo y dispone herramientas y maquinarias verificando
+protecciones, ajustes y calibraciones necesarias para una operación segura.
+CE2.2: Utiliza herramientas y maquinarias en prácticas o procesos de transformación
+aplicando parámetros técnicos y medidas de seguridad establecidas.
+CE2.3: Verifica la posición, fijación y estabilidad de las piezas durante la operación,
+evitando movimientos inseguros o desviaciones del proceso.
+CE2.4: Ejecuta los procedimientos de encendido, apagado y parada de emergencia
+conforme a las normas del taller y las indicaciones de seguridad.
+RA 3: Incorporar principios de ergonomía, higiene y seguridad industrial en la
+operación de herramientas y maquinaria, promoviendo un trabajo seguro, eficiente
+y físicamente adecuado en el taller.
+CE3.1: Demuestra posturas correctas y utiliza apoyos mecánicos o auxiliares en la
+manipulación de materiales pesados en el cuidado físico y prevención de lesiones.
+CE3.2: Emplea el equipo de protección personal de forma continua y adecuada según el
+riesgo de la actividad, evidenciando responsabilidad en el trabajo.
+CE3.3: Aplica principios ergonómicos en las tareas del taller, manteniendo estabilidad,
+precisión y eficiencia en la operación.
+CE3.4: Ejecuta acciones preventivas o correctivas frente a situaciones de riesgo,
+asegurando un entorno seguro durante la operación de herramientas y maquinaria.
+RA 4: Aplicar procedimientos de calibración y control de parámetros técnicos en
+maquinarias, asegurando precisión y calidad en los procesos de transformación.
+CE.4.1: Emplea procedimientos técnicos y normas de seguridad establecidas en la
+limpieza, lubricación y afilado de piezas cortantes, conservando la capacidad funcional de
+los equipos.
+CE.4.2: Registra observaciones de manera ordenada y conforme al protocolo del taller el
+estado de piezas móviles, sistemas eléctricos y mecanismos de protección,
+CE.4.3: Argumenta sobre fallas, daños o anomalías detectadas al responsable del taller,
+demostrando responsabilidad en el cuidado de equipos.
+CE.4.4: Propone acciones preventivas en el proceso de mantenimiento en herramientas
+y maquinarias, manteniéndolas en condiciones operativas estables.
+Contenidos
+Conceptuales                     Procedimentales                Actitudinales
+                                 • Reconocer las partes, • Mantener            orden     y
+• Tipología                  de
+                                      mecanismos             y    disciplina en el taller
+    herramientas manuales,
+                                      componentes           de    asegurando            un
+    eléctricas y maquinaria
+                                      herramientas manuales,      ambiente de trabajo
+    estacionaria utilizadas en
+                                      eléctricas y maquinaria     seguro.
+    corte, perforado, lijado y
+                                      estacionaria.            • Asumir responsabilidad
+    ensamblaje.
+                                 • Diferenciar                    en el uso seguro y
+• Partes, componentes y
+                                      herramientas y equipos      técnico de herramientas
+    principios               de
+                                      según      su    función    y maquinaria durante
+    funcionamiento de cada
+                                      técnica,      capacidad     todo el proceso.
+    tipo de herramienta y              operativa y nivel de •        Demostrar aptitudes de
+    máquina.                           riesgo asociado.              trabajo en equipo con
+•   Selección                 de   •   Seleccionar              la   sus compañeros dentro
+    herramientas               y       herramienta o máquina         y fuera del taller.
+    parámetros de operación            adecuada según la •           Valorar la importancia
+    según       especie       de       operación de corte,           de la ergonomía como
+    madera,      densidad      y       perforado, lijado, rebaje     práctica para proteger la
+    humedad del material.              o             ensamblaje      salud y mejorar el
+•   Clasificación        técnica       requerido.                    desempeño.
+    según su función (corte,       •   Organizar el área de •        Demostrar compromiso
+    perforación,          unión,       trabajo                       con el mantenimiento y
+    acabado) y nivel de                disponiendo apoyos,           conservación del equipo
+    riesgo.                            protecciones,                 utilizado.
+•   Procedimientos de ajuste,          herramientas y EPP •          Respetar los protocolos
+    calibración y verificación         necesarios.                   de seguridad y las
+    operativa       antes     de   •   Adoptar          posturas     indicaciones      técnicas
+    ejecutar procesos de               seguras para manipular        del taller.
+    transformación.                    materiales                y
+•   Parámetros técnicos de             herramientas, aplicando
+    operación para cortes,             normas de ergonomía.
+    perforaciones, lijados y       •   Aplicar medidas de
+    ensamblajes en madera.             orden,     limpieza       e
+•   Cortes rectos, cortes              higiene para mantener
+    transversales a inglete y          un entorno seguro y
+    bisel y cortes curvos en           prevenir accidentes.
+    sierra       de       mesa,    •   Ejecutar       encendido,
+    sierra ingletadora y sierra        apagado y parada de
+    de cinta.                          emergencia conforme a
+•   Técnicas de perforado              los protocolos del taller.
+    con taladro y barrena,         •   Ajustar herramientas y
+    selección de brocas y              maquinaria      aplicando
+    fresas según diámetro y            los procedimientos de
+    función,      y     sujeción       calibración inicial (topes,
+    adecuada de la madera              guías, profundidades).
+    para     una      operación    •   Realizar
+    precisa.                           configuraciones
+•   Rebaje de madera y uso             avanzadas               de
+    adecuado del formón,               maquinaria           (RPM,
+    gubias, escoplo y cepillo          profundidad de corte,
+    eléctrico.                         velocidad de avance,
+•   Principios de uso de la            parámetros           según
+    contrapunta y equilibrado          material).
+    de la pieza en el torno        •   Implementar       pruebas
+    para              garantizar       técnicas                de
+    estabilidad y precisión.           calibración post-
+•   Canteado,       lijado     y       mantenimiento (cortes
+    desbaste por medio de              de prueba, alineación,
+    cepillo         canteados,         precisión dimensional).
+    escofina, lija, lima y         •   Controlar la fijación y
+    lijadora.                          estabilidad              del
+•   Parámetros de calidad en           material durante           la
+    el corte y lijado. y               operación         evitando
+    defectos generados por             movimientos,
+    mala operación.                    vibraciones                 o
+•   Ensambles            básicos       desviaciones.
+    (machimbrado, unión a          •   Implementar sistemas
+    90°, espiga simple).               de     trazabilidad      del
+•   Protocolos de encendido,           material procesado y
+    apagado y parada de                registro técnico de las
+    emergencia aplicados a             operaciones.
+    herramientas               y   •   Realizar cortes rectos,
+    maquinaria.                        transversales, curvos y
+•   Parámetros industriales            angulares con precisión
+    de calidad en mecanizado           utilizando               las
+    (tolerancias,                      herramientas
+    perpendicularidad,                 apropiadas.
+    rugosidad superficial).        •   Manejar      el    taladro
+•   Principios de ergonomía            manual o estacionario
+    aplicados a la operación           para              ejecutar
+    de      herramientas       y       perforaciones limpias,
+    manipulación              de       perpendiculares y de
+    materiales        pesados.         profundidad controlada.
+    Riesgos         mecánicos,     •   Ejecutar          rebajes,
+    eléctricos,    físicos     y       desbastes y canteados
+    posturales presentes en            utilizando herramientas
+    el taller de carpintería.          manuales, eléctricas o
+    Normas de seguridad e              máquinas
+    higiene del taller: EPP,           estacionarias.
+    orden,      señalética     y   •   Aplicar técnicas de
+    prevención                de       prevención de desgarre,
+    accidentes.                        sobrecalentamiento
+•   Procedimientos básicos             y kickback durante
+    de          mantenimiento          operaciones               de
+    preventivo:        limpieza,       mecanizado.
+    lubricación, afilado y         •   Operar maquinaria semi
+    revisión      de      partes       industrial                  o
+    móviles.                           especializada         (tupí,
+•   Sistemas de protección,            lijadora    de      banda
+    resguardos                 y       industrial, pantógrafo o
+    mecanismos de                      CNC                básico)
+    seguridad                en    siguiendo protocolos
+    herramientas              y    técnicos       y        de
+    maquinaria.                    seguridad.
+•   Fallas          mecánicas •    Realizar           control
+    avanzadas y desgaste           dimensional             del
+    por fricción del material      producto      o     pieza
+    en         cortes         y    mecanizada utilizando
+    perforaciones.                 instrumentos técnicos
+•   Registro técnico de fallas,    (escuadra de precisión,
+    anomalías y acciones           calibre,          galgas,
+    correctivas            para    medidores digitales).
+    garantizar una operación •     Ejecutar         técnicas
+    continua y segura.             avanzadas               de
+•   Normativas técnicas y          ensamblaje aplicando
+    estándares del sector          estándares de refuerzo,
+    maderero (INEN, ASTM,          plantillas y uniones
+    ISO, FSC, PEFC).               mecánicas precisas.
+•   Protocolos de gestión de •     Limpiar, lubricar, afilar y
+    riesgos     eléctricos    y    almacenar herramientas
+    sistemas de bloqueo y          y máquinas, registrando
+    etiquetado (LOTO).             fallas    o    anomalías
+                                   detectadas durante su
+                                   uso.
+Perfil del o la docente:
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+    Forestal, Tecnología en Madera o Procesos de Transformación de la Madera, Diseño
+    Industrial con énfasis en materiales, Construcción Civil.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                 Detalle de especificaciones técnicas Cantidad
+Infraestructura/espacio      Entorno de aprendizaje (aula)       1
+                             Computadoras con acceso a internet
+Laboratorio                                                      1
+                             Proyector
+                             Taller de carpintería con zonas
+Taller                       diferenciadas,     ventilación    e 1
+                             iluminación adecuada.
+                               Herramientas:
+                               Sierras      manuales,        martillos,
+                               formones,      cepillos,    escuadras,
+                               prensas, lijadoras, bancos de trabajo,
+                               herramientas de medición.
+                               Equipos y Maquinarias:
+                               Sierras           de             banco,
+                               caladora, ingletadora, lijadora, taladro
+Equipos / herramientas
+                               manual y de banco.
+                               Materiales Didácticos:
+                               Muestras de madera natural y
+                               derivados (MDF, contrachapado,
+                               OSB, aglomerado).
+                               Catálogos de productos y manuales
+                               de herramientas.
+                               Guías impresas o audiovisuales.
+                               Equipos de protección personal
+                               (EPP): gafas, guantes, protectores
+Materiales de seguridad        auditivos, mandiles, calzado de
+                               seguridad, mascarillas.
+                               Extintores y señalética.
+Referencias Bibliográficas
+ Instituto de Seguridad y Salud Laboral de Galicia. (2022). No te cortes: Riesgos en
+          carpinterías         de          madera.          Xunta        de        Galicia.
+          https://issga.xunta.gal/sites/default/files/campanas/documentos/issga22-
+          carpinterias-cuadriptico-es-v12-tw.pdf
+
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2021). Guía técnica para la
+          evaluación y prevención de los riesgos relativos a la utilización de los equipos de
+          trabajo   (3.ª    ed.).  Ministerio   de     Trabajo       y   Economía      Social.
+          https://www.insst.es/documentacion/catalogo-de-publicaciones/guia-tecnica-
+          para-la-evaluacion-y-prevencion-de-los-riesgos-relativos-a-la-utilizacion-de-los-
+          equipos-de-trabajo
+
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2024). Guía técnica para la
+          evaluación y prevención de los riesgos derivados de la manipulación manual de
+          cargas.      Ministerio     de      Trabajo        y     Economía        Social.
+          https://www.insst.es/documentacion/material-normativo/guia-tecnica-para-la-
+          evaluacion-y-prevencion-de-los-riesgos-relativos-a-la-manipulacion-manual-de-
+          cargas
+
+ Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del
+        trabajo.                 Gobierno                 del                Ecuador.
+        https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-
+        Tecnica-de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el
+       Trabajo     (Decreto   Ejecutivo   N.º    255).   Gobierno  del   Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-
+       EJECUTIVO-255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-
+       TRABAJADORES.pdf
+
+Piqué Ardanuy, T. (2003). NTP 645: Tupí: accesorios para la mejora de la seguridad.
+      Instituto  Nacional     de    Seguridad    e    Higiene    en    el    Trabajo.
+      https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+      prevencion/18-serie-ntp-numeros-611-a-645-ano-2003/ntp-645.-tupi-accesorios-
+      para-la-mejora-de-la-seguridad
+
+Tamborero del Pino, J. M., & Pla Figueroa, J. (2021a). NTP 1157: Sierra circular de mesa
+     para obras (I). Elementos de seguridad. Instituto Nacional de Seguridad y Salud
+     en                                     el                                   Trabajo.
+     https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+     prevencion/34-serie-ntp-numeros-1152-a-1168-ano-2021/notas-tecnicas-de-
+     prevencion-ntp-1157-sierra-circular-de-mesa-para-obras-i-.-elementos-de-
+     seguridad
+
+Tamborero del Pino, J. M., & Pla Figueroa, J. (2021b). NTP 1158: Sierra circular de mesa
+     para obras (II). Principales riesgos laborales y medidas preventivas. Instituto
+     Nacional        de       Seguridad        y     Salud     en        el      Trabajo.
+     https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+     prevencion/34-serie-ntp-numeros-1152-a-1168-ano-2021/ntp-1158-sierra-
+     circular-de-mesa-para-obras-ii-.-principales-riesgos-laborales-y-medidas-
+     preventivas
+
+                           Módulo de Especialización Nro. 3
+Nombre del módulo:                      Técnicas de Fabricación
+Nivel:                                  1ro, 2do,3ro
+Duración:                               760 periodos pedagógicos
+                                       UC 3: Elaborar productos de madera y sus
+                                       derivados aplicando técnicas de corte, modelado,
+ Unidad de competencia asociada: ensamblaje,            acabado     y    mantenimiento,
+                                       garantizando la calidad, funcionalidad y estética
+                                       de los productos.
+Objetivo del módulo: Construir piezas y productos de madera y sus derivados a partir
+de planos, croquis o modelos digitales, aplicando técnicas de corte, modelado, unión,
+lijado y acabado, para obtener resultados funcionales, seguros y estéticamente logrados,
+de acuerdo con las tolerancias y estándares de calidad del taller.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Interpretar planos, croquis y modelos digitales para determinar las piezas,
+procesos y secuencias necesarias en la fabricación de productos en madera.
+CE.1.1: Reconoce vistas, medidas, cortes, tolerancias y tipos de unión en planos
+técnicos, evidenciando comprensión de la información representada.
+CE.1.2: Emplea simbología, escalas y convenciones gráficas adecuadas durante la
+representación o análisis de piezas y productos en madera.
+CE.1.3: Demuestra el proceso constructivo de un producto a partir del despiece y los
+materiales especificados en la documentación técnica.
+CE.1.4: Utiliza herramientas digitales estándares para visualizar o representar
+piezas, cortes y modelos tridimensionales según los requerimientos del producto.
+RA 2: Emplear técnicas de corte y modelado de piezas en madera, seleccionando
+materiales y herramientas adecuadas y asegurando precisión conforme a los
+parámetros técnicos del taller.
+CE.2.1: Selecciona el tipo de madera y las herramientas considerando la resistencia
+estructural, estabilidad dimensional y función del componente a fabricar, justificando su
+elección según el plano o prototipo
+CE.2.2: Aplica técnicas de corte en piezas siguiendo secuencias productivas y referencias
+del producto, controlando desviaciones que afectarían el armado del mueble o estructura.
+CE.2.3: Utiliza máquinas y herramientas calibradas para generar espesores, ángulos,
+encastres o perfiles específicos requeridos en el diseño del componente, manteniendo
+coherencia dimensional entre piezas repetidas.
+CE.2.4: Verifica dimensiones críticas del componente; escuadra, paralelismo, espesor,
+asiento de uniones, comprobando que permiten el ajuste funcional dentro del producto a
+fabricar.
+RA 3: Construir estructuras y módulos de madera mediante técnicas de unión
+tradicionales e industriales, integrando los componentes fabricados, ajustando
+alineaciones y garantizando estabilidad y funcionalidad del producto según el
+diseño.
+CE.3.1: Describe los puntos de unión en los componentes (rebajes, ranuras, encastres o
+superficies de asiento), garantizando compatibilidad dimensional y continuidad estructural
+según el plano.
+CE.3.2: Selecciona técnica de fijación; adhesivos, tornillos, clavos, pernos o herrajes, de
+acuerdo con la función estructural del módulo (carga, estabilidad, movimiento),
+demostrando criterio técnico.
+CE.3.3: Ejecuta uniones y ensambles tradicionales o industriales (espiga y mortaja, cola
+de milano, machihembrado, uniones atornilladas o metálicas), manteniendo escuadra,
+alineación y continuidad entre piezas para garantizar estabilidad del módulo.
+CE.3.4: Verifica estabilidad, perpendicularidad, nivelación y resistencia inicial del módulo
+ensamblado, realizando ajustes antes del montaje final o instalación.
+RA 4: Aplicar procesos de lijado, preparación de superficie y acabado en productos
+de madera, seleccionando materiales y técnicas según el uso, la exposición y el
+producto, logrando terminaciones uniformes, duraderas y acordes a los estándares
+del taller.
+CE.4.1: Demuestra que la superficie del producto mantenga uniformidad, apertura de
+poro y condiciones óptimas para recibir el acabado, mediante el lijado progresivo y
+corrección de imperfecciones.
+CE.4.2: Selecciona técnicas de acabado; selladores, tintes, lacas, aceites o ceras,
+considerando tipo de madera, uso final, exposición y efecto estético deseado,
+demostrando criterio técnico en la elección.
+CE.4.3: Aplica técnicas de secado, ventilación y número de capas para asegurar
+adherencia, limpieza y durabilidad del acabado, evitando defectos comunes como
+burbujas, marcas o manchas.
+CE.4.4: Valora la estética, uniformidad, tacto, resistencia y correspondencia del acabado
+final con el diseño del producto, realizando correcciones necesarias antes de su entrega
+o instalación.
+ Contenidos
+Conceptuales                         Procedimentales               Actitudinales
+• Vistas, cortes, tolerancias y • Realizar vistas, cortes, • Mantener disciplina
+    uniones en planos técnicos.         medidas y tolerancias        operativa en normas
+    Simbología,        escalas     y    presentes en planos y        de seguridad.
+    convenciones gráficas.              croquis.                  • Valorar la precisión
+• Despiece,               secuencia • Interpretar simbología,        en cada fase del
+    constructiva y planificación        escalas, cotas, ejes,        proceso.
+    técnica del producto de forma       simetrías               y • Demostrar
+    manual y digital.                   convenciones gráficas        responsabilidad       y
+• Interpretación de planos              del diseño.                  compromiso en el
+    constructivos propios de • Visualizar                modelos     orden                 y
+    mobiliario    y      estructuras    digitales            para    mantenimiento       del
+    ligeras, considerando cotas         comprender                   taller, promoviendo
+    críticas, uniones previstas y       geometrías, uniones y        un ambiente seguro y
+    dimensiones de ensamble.            cortes simples.              colaborativo.
+• Componentes estructurales y • Descomponer                    el • Demostrar aptitudes
+    funcionales de productos de         producto en piezas a         de trabajo en equipo
+    madera: patas, largueros,           partir del despiece y de     con sus compañeros
+    bastidores,         travesaños,     la especificación de         dentro y fuera del
+    tableros, marcos y piezas           materiales.                  taller.
+    modulares usadas              en • Seleccionar la madera y • Valorar la precisión
+    mobiliario,      tarimas       y    derivados apropiados         técnica y la calidad en
+    estructuras efímeras.               según          funciones,    cada      etapa     del
+• Elección del tipo de madera           cargas, manipulación y       proceso              de
+    según uso final del producto        exposición.                  fabricación.
+    (carga,          manipulación, • Definir medidas finales • Demostrar
+    transporte,            desarme,     de cada componente           responsabilidad en el
+    exposición        interior     o    según         espesores,     manejo               de
+    exterior).                          ángulos y referencias        herramientas,
+• Cotas, ejes, referencias de           del plano.                   máquinas              y
+    simetría, espesores, ángulos • Aplicar trazos de líneas          materiales.
+    y líneas guía que permiten          guía, puntos de control • Asumir compromiso
+    producir piezas que encajen         y ejes de referencia         con     la    estética,
+    en un ensamble real.                para orientar cortes y       funcionalidad         y
+    Cortes          longitudinales,     modelados.
+    transversales,      curvos     y   •   Aplicar    guías      para    durabilidad      del
+    angulares, y su relación con           calados y encastres           producto final.
+    la forma final del componente          necesarios para las •         Respetar          los
+    y con su ubicación dentro del          uniones y el ensamble.        procedimientos
+    mueble, tarima o módulo.           •   Ejecutar           cortes     técnicos      y   los
+•   Geometrías aplicadas a la              longitudinales,               estándares         de
+    fabricación      de       piezas       transversales, curvos y       calidad establecidos
+    funcionales: perfiles, rebajes,        angulares empleando           en el taller.
+    ángulos       y      espesores         guías y topes.
+    requeridos para ensamblar          •   Modelar           perfiles,
+    muebles y           estructuras        rebajes, encastres y
+    desmontables.                          espesores       mediante
+•   Desviaciones         tolerables,       herramientas manuales
+    efecto de errores en el                o máquinas calibradas.
+    ensamblaje, puntos críticos        •   Medir y verificar puntos
+    de medición y relevancia de            críticos del componente
+    la precisión para la integridad        (escuadra, paralelismo,
+    del producto final.                    profundidad, holguras).
+•   Comportamiento                de   •   Ajustar cortes, perfiles o
+    adhesivos,       uniones       y       medidas para corregir
+    herrajes bajo carga y fatiga.          desviaciones           que
+    Tipos       de       acabados:         afecten estabilidad o
+    selladores, tintes, lacas,             encaje.
+    aceites,         ceras         y   •   Seleccionar               y
+    tratamientos protectivos esp           aplicar adhesivos,
+    ecializados (anti-humedad,             tornillos,    clavos      y
+    UV, retardantes).                      herrajes según el tipo
+•   Tolerancias dimensionales              de ensamblaje.
+    avanzadas y estándares de          •   Elaborar       ensambles
+    control     para      productos        tradicionales            e
+    terminados.                            industriales
+•   Propiedades        estructurales       garantizando       ajuste,
+    del producto final según uso           resistencia y limpieza
+    (carga, humedad, desgaste,             técnica.
+    uso exterior).                     •   Preparar       superficies
+•   Especificaciones        técnicas       mediante            lijado
+    para instalación y montaje             progresivo para corregir
+    final (nivelación, fijación a          imperfecciones y abrir
+    muro, transporte).                     el poro.
+•   Metrología           avanzada:     •   Seleccionar y aplicar
+    galgas,         comparadores,          sistemas de acabado
+    tolerancias       ISO       para       (selladores,       tintes,
+    carpintería.                           lacas, aceites o ceras)
+•   Normativas              técnicas       según el diseño.
+    aplicadas al producto final
+   (INEN, ISO de mobiliario, •        Controlar condiciones
+   seguridad de uso).                 de aplicación y secado
+                                      (capas, tiempos de
+                                      espera, ventilación y
+                                      limpieza).
+                                  •   Evaluar el acabado final
+                                      verificando uniformidad,
+                                      tacto, resistencia y
+                                      coherencia estética.
+                                  •   Realizar    el    control
+                                      dimensional y funcional
+                                      final (escuadra general,
+                                      nivelación, paralelismo,
+                                      holguras).
+                                  •   Integrar documentación
+                                      técnica, ajustes finales,
+                                      instalación/montaje
+                                      en contexto     real    y
+                                      mantenimiento básico
+                                      del producto.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+    Forestal, Tecnología en Madera o Procesos de Transformación de la Madera, Diseño
+    Industrial con énfasis en materiales, Construcción Civil.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructura, espacios y equipamientos.
+                                Detalle     de     especificaciones
+Denominación                                                            Cantidad
+                                técnicas
+Infraestructura/espacio         Entorno de aprendizaje (aula)           1
+                                Computadoras con acceso a internet
+Laboratorio                                                             1
+                                Proyector.
+                                Taller de carpintería con zonas
+Taller                          diferenciadas,     ventilación       e 1
+                                iluminación adecuada.
+                                Herramientas:
+Equipos / herramientas          Sierras manuales, martillos, formones,
+                                cepillos,    escuadras,        prensas,
+                                    lijadoras,   bancos       de    trabajo,
+                                    herramientas de medición.
+                                    Equipos y Maquinarias:
+                                    Sierras           de             banco,
+                                    caladora, ingletadora, lijadora, taladro
+                                    manual y de banco.
+                                    Materiales Didácticos:
+                                    Muestras de madera natural y
+                                    derivados (MDF, contrachapado,
+                                    OSB, aglomerado).
+                                    Catálogos de productos y manuales
+                                    de herramientas.
+                                    Guías impresas o audiovisuales.
+Referencias Bibliográficas
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2016). Barnizado de la madera en
+          carpinterías y ebanisterías: Exposición a compuestos orgánicos volátiles.
+          Ministerio         de        Trabajo         y         Economía          Social.
+          https://www.insst.es/stp/basequim/021-barnizado-de-la-madera-en-carpinterias-
+          y-ebanisterias-exposicion-a-compuestos-organicos-volatiles-2016
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2021). Guía técnica para la
+         evaluación y prevención de los riesgos relativos a la utilización de los equipos de
+         trabajo   (3.ª    ed.).  Ministerio   de     Trabajo       y   Economía      Social.
+         https://www.insst.es/documentacion/catalogo-de-publicaciones/guia-tecnica-
+         para-la-evaluacion-y-prevencion-de-los-riesgos-relativos-a-la-utilizacion-de-los-
+         equipos-de-trabajo
+
+Ministerio del Trabajo del Ecuador. (2024). Norma técnica de seguridad e higiene del
+       trabajo.                 Gobierno                del                Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-
+       Tecnica-de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Pérez Galaz, V. A. (1991). Manual de construcciones en madera (2.ª ed., Manual N.º 10).
+       Instituto                                                             Forestal.
+       https://bibliotecadigital.infor.cl/handle/20.500.12220/6646
+
+Pérez Galaz, V. A. (1990). Uniones en la madera estructural: Pernos y conectores.
+      Instituto Forestal y Corporación de Fomento de la Producción.
+      https://bibliotecadigital.infor.cl/handle/20.500.12220/2519
+
+Secretaría de Gestión de Riesgos. (2017). Guía práctica para el diseño de estructuras de
+       madera.                  Gobierno                  del                  Ecuador.
+       https://www.gestionderiesgos.gob.ec/wp-
+       content/uploads/downloads/2017/04/GUIA-4-MADERA.pdf
+ Tamborero del Pino, J. M., & Pla Figueroa, J. (2021a). NTP 1157: Sierra circular de mesa
+      para obras (I). Elementos de seguridad. Instituto Nacional de Seguridad y Salud
+      en                                     el                                   Trabajo.
+      https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+      prevencion/34-serie-ntp-numeros-1152-a-1168-ano-2021/notas-tecnicas-de-
+      prevencion-ntp-1157-sierra-circular-de-mesa-para-obras-i-.-elementos-de-
+      seguridad
+
+ Tamborero del Pino, J. M., & Pla Figueroa, J. (2021b). NTP 1158: Sierra circular de mesa
+      para obras (II). Principales riesgos laborales y medidas preventivas. Instituto
+      Nacional        de       Seguridad        y     Salud     en        el      Trabajo.
+      https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+      prevencion/34-serie-ntp-numeros-1152-a-1168-ano-2021/ntp-1158-sierra-
+      circular-de-mesa-para-obras-ii-.-principales-riesgos-laborales-y-medidas-
+      preventivas
+
+
+
+                             Módulo de Especialización Nro.4
+ Nombre del módulo:                       Innovación, Comercialización y Logística
+ Nivel:                                   3ro
+ Duración:                                120 periodos pedagógicos
+ Unidad de competencia asociada:           UC4: Gestionar iniciativas de emprendimiento y
+                                           comercialización en el sector de la madera,
+                                           integrando principios técnicos, administrativos y
+                                           éticos, utilizando herramientas digitales de apoyo
+                                           al diseño, producir, ofrecer productos sostenibles
+                                           y competitivos e innovadores.
+ Objetivo del módulo: Fortalecer las capacidades para identificar, planificar y aplicar
+ procesos de emprendimiento y comercialización en el sector de la madera, integrando
+ principios técnicos, tributarios, organizativos y éticos, con el apoyo de herramientas
+ digitales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Identificar oportunidades de comercialización y emprendimiento vinculadas
+ a productos y servicios en madera dentro del entorno local, a partir del análisis de
+ necesidades, tendencias, criterios de diseño, viabilidad técnica y sostenibilidad.
+ CE.1.1: Elabora una propuesta de emprendimiento en productos o servicios de madera,
+ analizando la demanda local, definiendo su función, usuario, precio referencial y
+ características técnicas, como base para la concepción del producto y la identificación de
+ oportunidades de negocio.
+ CE.1.2: Reconoce y analiza los principales espacios o canales de comercialización local
+ de productos en madera, relacionando sus condiciones de acceso con el tipo de producto,
+ cliente y propuesta de valor.
+CE.1.3: Organiza y compara información básica de productos y servicios en madera
+(precio, materiales, acabados, usos), para sustentar decisiones de referencia,
+diferenciación y presentación comercial.
+CE.1.4: Expone una propuesta de comercialización de un producto o servicio en madera
+que responda a una necesidad local, integrando criterios de sostenibilidad, mejora
+funcional e innovación aplicada al contexto productivo.
+RA 2: Elaborar cotizaciones y presupuestos para productos o servicios en madera,
+considerando materiales, tiempos y costos directos, con criterios de registro
+económico aplicables al contexto productivo local.
+CE.2.1: Clasifica materiales, insumos y herrajes necesarios para la fabricación,
+verificando sus costos en proveedores locales o catálogos actualizados, diferenciando
+costos     unitarios   y   totales     para    su    correcta    estimación     económica.
+CE.2.2: Calcula los costos iniciales del producto o servicio mediante tablas o herramientas
+digitales, considerando mano de obra, tiempos de producción y referencias tributarias
+básicas aplicables al precio final.
+CE.2.3: Registra costos y cantidades de materiales en una plantilla de inventario,
+utilizando unidades y formatos adecuados para apoyar la organización y
+control (costo ganancia) de la actividad productiva.
+CE.2.4: Presenta la cotización elaborada de manera clara, ordenada y comprensible,
+aplicando principios de honestidad, transparencia y responsabilidad profesional.
+RA 3: Participar en actividades de promoción, venta y atención al cliente en el
+sector de la madera, utilizando comunicación respetuosa y estrategias básicas de
+presentación acordes al producto y al contexto de venta.
+CE.3.1: Apoya la exhibición o presentación de productos en ferias o espacios de venta,
+respetando normas de seguridad, orden y criterios de presentación comercial.
+CE.3.2: Explica de forma precisa las características técnicas y cuidados del producto
+utilizando un lenguaje claro, cordial y respetuoso.
+CE.3.3: Atiende solicitudes o consultas del cliente demostrando disposición, puntualidad
+y cortesía.
+CE.3.4: Colabora en el registro de ventas o pedidos manteniendo la información
+organizada y aplicando criterios éticos en todas las operaciones.
+RA 4: Apoyar en la gestión de pedidos, entrega y seguimiento de productos en
+madera, asegurando la calidad del servicio y la satisfacción del cliente.
+CE.4.1: Registra pedidos, datos del cliente y fechas de entrega usando formatos
+manuales o digitales.
+CE.4.2: Revisa el estado del producto antes de la entrega, verificando limpieza, embalaje
+y cumplimiento de procedimientos logísticos.
+CE.4.3: Participa en la entrega o instalación del producto aplicando normas técnicas de
+instalación y seguridad, puntualidad y cuidado del material (control de calidad)
+CE.4.4: Recoge observaciones del cliente y las comunica al responsable del taller o área
+de ventas para mejorar el servicio.
+ Contenidos
+Conceptuales                    Procedimentales              Actitudinales
+•   Introducción            al •    Comprender           el •    Asumir responsabilidad
+    emprendimiento                  emprendimiento               en el cumplimiento de
+    productivo en el contexto            productivo      en     el       tareas,      tiempos        y
+    local y su relación con la           contexto local y su             compromisos asociados
+    identificación             de        relación      con      la       a la producción y gestión
+    innovación, necesidades,             identificación        de        de productos o servicios
+    soluciones                   y       necesidades,                    en madera.
+    oportunidades vinculadas             soluciones              y   •   Desarrollar disciplina en
+    al trabajo en madera.                oportunidades                   la    organización       del
+•   Análisis      del    entorno         vinculadas al trabajo           trabajo, el registro de
+    productivo               local       en madera.                      información         y      el
+    relacionado con productos        •   Analizar el entorno             seguimiento de procesos
+    y servicios en madera,               productivo         local        productivos                 y
+    considerando         actores,        relacionado         con         comerciales.
+    oficios,        demandas y           productos y servicios       •   Valorar la importancia del
+    dinámicas                  de        en             madera,          orden, la limpieza y el
+    comercialización.                    considerando actores,           cuidado         de       los
+•   Clasificación de productos           oficios,     demandas           materiales, productos y
+    y servicios en madera                y dinámicas           de        espacios de trabajo.
+    según su función, uso y              comercialización.               Actuar con honestidad y
+    tipo de usuario final.           •   Clasificar productos y          transparencia       en     la
+•   Principios de concepción             servicios en madera             elaboración               de
+    del producto en madera,              según su función, uso           propuestas,
+    considerando         función,        y tipo de usuario final.        cotizaciones, registros y
+    forma, materialidad y            •   Reconocer principios            comunicaciones          con
+    viabilidad técnica.                  de concepción del               clientes y equipo de
+•   Elementos fundamentales              producto en madera,             trabajo.
+    de una propuesta de                  considerando función,       •   Demostrar       disposición
+    emprendimiento               y       forma, materialidad y           para     el     aprendizaje
+    comercialización           de        viabilidad técnica.             continuo y la mejora de
+    productos o servicios en         •   Identificar          los        los procesos técnicos,
+    madera,           integrando         elementos                       organizativos       y     de
+    criterios de sostenibilidad          fundamentales de una            servicio.
+    y diferenciación.                    propuesta             de    •   Mantener una actitud
+•   Costos,      materiales      y       emprendimiento          y       respetuosa                  y
+    presupuestos.                        comercialización de             colaborativa       en      la
+•   La      cotización     y    el       productos o servicios           comunicación            con
+    presupuesto             como         en             madera,          clientes, compañeros y
+    herramientas básicas de              integrando criterios de         responsables del taller.
+    planificación y toma de              sostenibilidad          y   •   Ejercer compromiso con
+    decisiones         en       la       diferenciación.                 la calidad del producto y
+    producción de bienes y           •   Clasificar materiales,          del                servicio,
+    servicios en madera.                 insumos y herrajes              reconociendo               la
+•   Componentes del costo de             necesarios para la              importancia de cumplir
+    un producto o servicio en            fabricación           de        con lo ofrecido.
+    madera:           materiales,        productos o servicios       •   Aplicar     criterios     de
+    insumos, herrajes, mano              en madera mediante              cuidado                     y
+    de obra y tiempos de                 la      revisión     de      responsabilidad en el
+    producción.                          proveedores locales o        manejo de productos,
+•   Diferencia entre costos              catálogos.                   herramientas              e
+    unitarios y costos totales y     •   Calcular         costos      información.
+    su incidencia en el precio           unitarios y costos •         Mostrar apertura para
+    final del producto.                  totales de productos o       recibir observaciones y
+•   Principios de registro               servicios en madera          retroalimentación como
+    económico aplicados al               utilizando tablas o          parte del proceso de
+    control de materiales,               herramientas digitales       mejora continua.
+    costos y producción en               básicas.                 •   Reconocer                la
+    contextos       productivos      •   Estimar costos de            importancia del trabajo
+    locales.                             mano de obra y               en equipo y de la
+•   Uso       de    tablas       y       tiempos              de      coordinación          entre
+    herramientas        digitales        producción a partir de       distintas     áreas     del
+    simples para el cálculo y            procesos simples de          proceso productivo.
+    organización de costos.              fabricación.             •   Mostrar      apertura     y
+    Nociones básicas del                 Registrar costos y           disposición para integrar
+    marco tributario y legal             cantidades           de      herramientas digitales en
+    aplicable                   al       materiales           en      los              procesos
+    emprendimiento                       plantillas básicas de        tradicionales     de     la
+    productivo, relacionadas             inventario utilizando        carpintería.
+    con                 precios,         unidades y formatos
+    comprobantes                 y       adecuados.
+    responsabilidades                •   Aplicar        nociones
+    elementales.                         tributarias básicas en
+•   Principios de promoción,             la definición del precio
+    venta y atención al                  final     y    en     la
+    cliente:                             elaboración          de
+    Promoción y venta como               cotizaciones.
+    parte       del     proceso      •   Elaborar y presentar
+    productivo en el sector de           una cotización clara,
+    la madera y del ciclo del            ordenada               y
+    producto.                            comprensible,
+•   Principios de organización           aplicando principios
+    visual     de    productos:          de          honestidad,
+    orden,            jerarquía,         transparencia          y
+    accesibilidad y cuidado del          responsabilidad
+    objeto.                              profesional.
+•   Nociones elementales de          •   Organizar             la
+    ergonomía aplicadas a la             exhibición básica de
+    exhibición de productos en           productos en madera
+    madera (altura, alcance,             aplicando principios
+    seguridad                    y       elementales de orden
+    manipulación).                       visual y cuidado del
+                                         producto.
+•   Características técnicas y       •   Disponer                los
+    cuidados de productos en             productos        en       el
+    madera según material,               espacio considerando
+    uso y contexto.                      criterios                de
+•   Fundamentos                de        ergonomía, seguridad
+    comunicación                         y       facilidad        de
+    interpersonal en contextos           observación.
+    de atención al cliente:          •   Explicar                las
+    claridad,      escucha       y       características
+    respeto.                             técnicas,      usos        y
+•   Importancia del registro de          cuidados                 de
+    ventas o pedidos como                productos en madera
+    herramienta                de        utilizando un lenguaje
+    organización, seguimiento            claro y adecuado al
+    y ética profesional.                 cliente.
+•   Gestión      de     pedidos,     •   Aplicar          técnicas
+    entrega y seguimiento del            básicas                  de
+    servicio:                            comunicación
+    Diferencia entre producto            interpersonal durante
+    y servicio en el sector de la        la atención al cliente,
+    madera y su implicación              demostrando escucha
+    en la gestión de pedidos,            y claridad en la
+    entrega e instalación.               respuesta.
+•   La      logística      básica    •   Atender consultas y
+    aplicada a productos en              solicitudes
+    madera: flujo del pedido,            relacionadas           con
+    preparación,        traslado,        pedidos, tiempos de
+    entrega y cierre del                 entrega                    o
+    servicio.                            adaptaciones simples
+•   Conceptos de importación             del producto.
+    y       exportación        de    •   Registrar ventas o
+    productos       e    insumos         pedidos en formatos,
+    relacionados       con      la       manteniendo
+    fabricación de productos             la información
+    de madera.                           organizada                 y
+•   Criterios de verificación            completa.
+    del producto previo a la         •   Registrar pedidos y
+    entrega: correspondencia             datos      del     cliente
+    con el pedido, estado                identificando si se
+    general y condiciones de             trata de un producto,
+    presentación.                        un servicio o un
+•   Principios generales de              producto               con
+    instalación de productos             instalación asociada.
+    en       madera         como     •   Organizar                 la
+    referencia        para      la       información             del
+   coordinación y el control            pedido considerando
+   del        servicio.      (sin       especificaciones del
+   profundizar en técnicas              producto, plazos y
+   constructivas).                      condiciones            de
+• Importancia                 del       entrega.
+   seguimiento del pedido y         •   Verificar el estado
+   de la retroalimentación del          general del producto
+   cliente como parte de la             antes de la entrega en
+   calidad      del servicio    y       relación con el pedido,
+   mejora        del     proceso        la limpieza y la
+   productivo.                          presentación.
+• Marketing digital para el         •   Apoyar                  la
+   sector        artesanal      y       coordinación de la
+   fundamentos de presencia             entrega o instalación
+   digital:     identidad     de        del             producto
+   marca,        canales      de        aplicando criterios de
+   comunicación           directa       logística, seguridad y
+   (WhatsApp Business) y                cuidado del material.
+   catálogos virtuales.             •   Reconocer productos
+• Estrategias                 de        de      madera        con
+   diferenciación               e       potencial              de
+   innovación: Conceptos de             importación              o
+   valor       agregado       en        exportación,
+   madera: acabados eco-                considerando criterios
+   amigables,                           de calidad y valor
+   personalización funcional            agregado.
+   y diseño orientado a la          •   Recoger
+   experiencia del usuario              observaciones          del
+   local.                               cliente posteriores a la
+• Visualización digital del             entrega o instalación y
+   producto: Introducción a             comunicarlas            al
+   herramientas de dibujo o             responsable del taller
+   modelado               básico        o                    área
+   (aplicaciones móviles o              correspondiente.
+   software       libre)   como     •   Crear presentaciones
+   apoyo a la preventa y                visuales de productos
+   validación del diseño con            en madera (fotos,
+   el cliente.                          descripción técnica y
+• Plataformas de comercio               precios)       utilizando
+   local: Funcionamiento                herramientas           de
+   de Marketplaces locales y            diseño      simplificado
+   redes      sociales     como         (como Canva o
+   vitrinas de exhibición               plantillas digitales).
+   permanente.
+Perfil del o la docente
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+    Forestal, Tecnología en Madera o Procesos de Transformación de la Madera, Diseño
+    Industrial con énfasis en materiales, Construcción Civil.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•    Aprendizaje Basado en Proyectos (ABP)
+•    Aprendizaje en Contextos Reales.
+•    Role-playing: simulaciones de atención al cliente, negociación y venta.
+•    Metodología STEAM: integración de diseño, tecnología y matemáticas para el cálculo
+     de costos y procesos.
+ • Enfoque de sostenibilidad: priorizar materiales locales, economía circular y gestión
+     ética.
+Requisitos básicos de infraestructura, espacios y equipamientos.
+Denominación                    Detalle       de      especificaciones Cantidad
+                                técnicas
+Infraestructura/espacio         Entorno de aprendizaje (aula)            1
+                                Taller de carpintería.
+Laboratorio                     Computadoras        con      acceso    a 1
+                                internet
+                                Proyector
+Equipos/herramientas            Material didáctico:
+                                Plantillas físicas y digitales de
+                                cotización       y       presupuestos.
+                                Catálogos digitales y físicos de
+                                materiales, herrajes y proveedores
+                                Materiales simples de embalaje
+                                (papel kraft,      plástico,     cartón,
+                                cuerdas)
+                                Formularios impresos para registro
+                                de costos, ventas y pedidos
+                                Carpetas o portafolios para organizar
+                                información
+                                Contenedores          ligeros       para
+                                almacenamiento          temporal      de
+                                muestras
+                                Espacio destinado a simulación de
+                                atención al cliente
+Referencias Bibliográficas:
+
+Asamblea Nacional del Ecuador. (2020). Ley Orgánica de Emprendimiento e Innovación.
+     Registro Oficial, Suplemento N.º 151, 28 de febrero de 2020.
+     https://www.registroficial.gob.ec/suplemento-al-registro-oficial-no-151/
+Díaz de Astarloa, B. (2024). Comercio electrónico transfronterizo en América Latina y el
+       Caribe: Análisis a partir de las visitas a plataformas en línea de comercio entre
+       empresas y consumidores. Comisión Económica para América Latina y el Caribe.
+       https://repositorio.cepal.org/handle/11362/80759
+
+Gayá, R. (2024). Estrategias para el éxito de mipymes lideradas por mujeres en el comercio
+       electrónico transfronterizo. Comisión Económica para América Latina y el Caribe.
+       https://repositorio.cepal.org/handle/11362/80655
+
+Gysling Caselli, J., Kahler González, C., Soto Aguirre, D., Mejías Caballero, W., Poblete
+       Hernández, P., Álvarez González, V., Bañados M., J. C., Baeza Rocha, D., & Pardo
+       V., E. (2021). Madera y construcción: Hacia una simbiosis estratégica. Instituto
+       Forestal.
+       https://bibliotecadigital.infor.cl/handle/20.500.12220/31291
+
+Kahler González, C., Soto Aguirre, D., Catelicán Vera, L., & Bañados M., J. C. (2024).
+       Comercialización de la madera aserrada en Chile. Instituto Forestal.
+       https://doi.org/10.52904/20.500.12220/32762
+       https://bibliotecadigital.infor.cl/handle/20.500.12220/32762
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2021). Libro Blanco de
+       Economía        Circular    de      Ecuador.       Gobierno     del       Ecuador.
+       https://www.produccion.gob.ec/wp-content/uploads/2021/05/Libro-Blanco-final-
+       web_mayo102021.pdf
+
+Organización Internacional del Trabajo. (2016a). Mejore su negocio: Comercialización.
+       Oficina                   Internacional                del              Trabajo.
+       https://www.ilo.org/sites/default/files/wcmsp5/groups/public/%40ed_emp/%40emp
+       _ent/%40ifp_seed/documents/instructionalmaterial/wcms_553921.pdf
+
+Organización Internacional del Trabajo. (2016b). Mejore su negocio: Compras y control de
+       existencias.           Oficina            Internacional       del       Trabajo.
+       https://www.ilo.org/sites/default/files/wcmsp5/groups/public/%40ed_emp/%40emp
+       _ent/%40ifp_seed/documents/instructionalmaterial/wcms_553922.pdf
+
+Organización Internacional del Trabajo. (2016c). Mejore su negocio: Costeo. Oficina
+       Internacional                               del                         Trabajo.
+       https://www.ilo.org/sites/default/files/wcmsp5/groups/public/%40ed_emp/%40emp
+       _ent/%40ifp_seed/documents/instructionalmaterial/wcms_553923.pdf
+
+Organización Internacional del Trabajo. (2022). Enverdeciendo mi negocio verde: Manual
+       del        participante.        Oficina       Internacional     del      Trabajo.
+       https://researchrepository.ilo.org/esploro/outputs/manual/Enverdeciendo-mi-
+       negocio-verde-manual-del/995658648102676
+   5. Módulo Práctico Experimental
+
+Permite fortalecer la formación de las y los estudiantes a través de situaciones reales de
+aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras de observación,
+articulación con el sector productivo, proyectos interdisciplinarios y metodologías basadas
+en proyectos. Todas estas actividades tienen como finalidad consolidar los conocimientos
+y aplicación de competencias en contextos reales. Asimismo, promueven el desarrollo de
+habilidades blandas, tales como el trabajo en equipo, la comunicación asertiva, la
+resolución de problemas y la adaptación a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver situaciones
+reales, al tiempo que refuerza sus capacidades técnicas y fomenta el desarrollo de
+competencias conceptuales, procedimentales y actitudinales, tanto de los módulos
+genéricos como de los de especialización.
+
+                             Módulo Practico Experimental
+ Nombre del módulo:                Práctico Experimental
+ Nivel:                            1ro, 2do, 3ro
+ Duración:                         320 periodos pedagógicos.
+ Unidad    de       competencia UC1.Preparar materiales de madera y sus
+ asociada:                         derivados, maquinaria y herramienta, aplicando
+                                   normas de seguridad, higiene y criterios de calidad,
+                                   con el fin de dejarlos listos y adecuados en los
+                                   procesos de transformación y ensamblaje en el
+                                   taller.
+                                   UC2.Operar herramientas, equipos y maquinarias
+                                   en los procesos de transformación de la madera y
+                                   sus derivados, utilizándolas correctamente,
+                                   aplicando normas de seguridad e higiene con el fin
+                                   de garantizar un trabajo eficiente, seguro y
+                                   conforme a los estándares del taller.
+                                   UC3.Elaborar productos de madera y sus derivados
+                                   aplicando técnicas de corte, modelado, ensamblaje,
+                                   acabado y mantenimiento, garantizando la calidad,
+                                   funcionalidad y estética de los productos.
+                                   UC4.Gestionar iniciativas de emprendimiento y
+                                   comercialización en el sector de la madera,
+                                   integrando principios técnicos, administrativos y
+                                   éticos, utilizando herramientas digitales de apoyo al
+                                   diseño, producir, ofrecer productos sostenibles y
+                                   competitivos e innovadores.
+ Objetivo del módulo: Desarrollar competencias técnicas y operativas necesarias
+ para participar de manera segura, responsable y eficiente en los procesos integrales
+ de fabricación en madera, mediante la preparación adecuada de materiales, el manejo
+ correcto de herramientas, equipos y maquinaria, y la elaboración de productos
+ aplicando técnicas de corte, modelado, ensamblaje y acabado conforme a normas de
+ seguridad, higiene y criterios de calidad del taller.
+Resultados             de Criterios de Evaluación (CE) Actividades        Prácticas
+Aprendizaje (RA)                                       Experimentales
+ RA1: Organizar         el   CE1.1: Aplica normas básicas    Identificar áreas seguras,
+ espacio, herramientas       de seguridad, higiene y uso     zonas de riesgo y rutas de
+ y materiales del taller     del EPP, organizando el área    evacuación.
+ aplicando      normas       de trabajo, herramientas y      Reconocer la señalización y
+ básicas de seguridad        materiales     con    orden,    zonificación del taller.
+ industrial,    criterios    limpieza      y     criterios   Clasificar herramientas en el
+ ambientales             y   ambientales.                    taller, siguiendo principios
+ procedimientos        de                                    de orden y seguridad.
+ orden técnico.                                              Practicar      guiada       de
+                                                             colocación y uso del equipo
+                                                             de protección personal.
+ RA2: Ejecutar               CE2.1: Realiza mediciones,      Elaborar croquis técnicos
+ prácticas de medición,      croquis, dibujos técnicos       básicos del componente en
+ dibujo        aplicado,     básicos y trazados simples      alzado y planta.
+ trazado y marcación         utilizando instrumentos de      Realizar medición utilizando
+ del material siguiendo      precisión    con   exactitud    flexómetro, escuadra, regla
+ tolerancias técnicas y      aceptable.                      metálica y calibre simple.
+ procedimientos                                              Trazar líneas guía, ejes y
+ iniciales           de                                      referencias sobre material
+ transformación.                                             aplicando          tolerancias
+                                                             iniciales.
+ RA3: Preparar       los     CE3.1: Clasifica, verifica y    Clasificar materiales según
+ materiales de madera y      acondiciona materiales según    especie, humedad, defectos
+ derivados      mediante     especie,           humedad,     y dimensiones.
+ técnicas de secado,         estabilidad dimensional y
+                                                             Verificar contenidos de
+ clasificación,              destino de uso, registrando
+                                                             humedad, rectitud, escuadra
+ aislamiento,                parámetros    iniciales   de
+                                                             y estabilidad dimensional
+ verificación         de     control.
+                                                             del material por medio de
+ humedad               y
+                                                             herramientas.
+ acondicionamiento de
+ almacenaje.                                                 Registrar     técnicas    de
+                                                             revisión inicial en formatos
+                                                             de control.
+ RA4: Operar          las    CE4.1: Opera herramientas       Operar          herramientas
+ herramientas                manuales     y    eléctricas    manuales y eléctricas para
+ manuales y eléctricas       realizando cortes rectos,       la preparación del material.
+ en actividades iniciales    perforaciones y desbastes
+                                                             Ejecutar   cortes técnicos
+ de corte, desbaste y        iniciales,        aplicando
+                                                             rectos,        perforaciones
+ perforado, aplicando        procedimientos seguros y de
+                                                             simples     y     desbastes
+ normas de seguridad,        mantenimiento.
+calibración              y                                      controlados sobre piezas de
+mantenimiento                                                   práctica.
+preventivo.
+                                                                Limpiar y da mantenimiento
+                                                                preventivo de herramientas
+                                                                utilizadas en la sesión.
+RA5: Operar equipos y         CE5.1: Aplica Normas de           Implementar protocolos de
+maquinaria del taller de      seguridad,      higiene       y   seguridad,      higiene        y
+manera supervisada,           organización del taller durante   organización      del     taller
+ajustando parámetros          los procesos de preparación y     durante procesos reales de
+básicos      según       el   transformación de la madera.      preparación                    y
+material, el proceso y el                                       transformación        de      la
+producto a elaborar.                                            madera.
+RA6:            Elaborar      CE6.1: Usa equipos y              Ejecutar operaciones de
+productos de madera           maquinaria del taller bajo        corte, perforado, lijado o
+de complejidad media          parámetros de operación           rebaje            controlando
+a partir de planos,           conforme al material y al         estabilidad,     fijación      y
+croquis o modelos             proceso requerido.                seguridad de la pieza.
+definidos, integrando
+procesos de corte,
+ensamblaje                y
+acabado.
+RA7:            Ejecutar      CE7.1: Realiza procesos de        Fabricar un producto de
+procesos productivos          fabricación de productos en       madera de complejidad
+en      madera          en    madera verificando medidas,       media a partir de un plano o
+contextos reales o            ensamblajes y acabados            modelo definido.
+simulación en taller,         según      criterios técnicos
+integrando       criterios    definidos.                        Identificar y corrige fallas
+técnicos, tiempos de                                            técnicas menores en el
+ejecución, uso eficiente                                        producto elaborado antes de
+de     materiales         y                                     su finalización.
+estándares de calidad.
+RA8:              Aplicar     CE8.1: Utiliza técnica de         Realizar visitas guiadas a
+procedimientos          de    producto    para    identificar   talleres de carpintería de
+acabados y control de         fallas,    desviaciones       o   distintas escalas (pequeña,
+calidad      y    mejora      aspectos susceptibles de          mediana y grande) para
+técnica     durante       y   mejora durante el proceso         observar y analizar la
+después del proceso           productivo.                       organización del puesto de
+productivo en madera.                                           trabajo, la planificación de
+                                                                tareas y la gestión de
+                                                                herramientas y materiales.
+RA9: Elaborar una             CE9.1: Elabora propuestas         Participar     en     talleres
+propuesta           de        de    emprendimiento      de      demostrativos       en      la
+emprendimiento                productos     o    servicios      institución con profesionales
+innovador en productos        innovadores    en    madera       vinculados       al    sector
+o servicios en madera         considerando función, costos      maderero, para conocer
+ considerando función,       directos, sostenibilidad   e    técnicas de terminación,
+ usuario,       viabilidad   innovación    aplicada     al   criterios estéticos, selección
+ técnica, costos directos    contexto productivo.            de materiales y estándares
+ y      criterios       de                                   de calidad aplicados a
+ sostenibilidad          e                                   productos de madera.
+ innovación aplicada.
+                                                             Realizar     un    proyecto
+ .
+                                                             productivo              en
+                                                             emprendimiento            e
+                                                             innovación de productos y
+                                                             servicios de madera.
+ RA10: Gestionar             CE10.1:            Gestiona     Usar materiales y tiempos
+ actividades           de    actividades de promoción,       de producción aplicando
+ comercialización      de    presentación y atención al      criterios de eficiencia y
+ productos o servicios       cliente            utilizando   orden del proceso.
+ en madera, incluyendo       comunicación técnica, clara y
+                                                             Preparar     productos     de
+ presentación, atención      respetuosa.
+                                                             madera para almacenaje,
+ al cliente y registro de
+                                                             exhibición y venta.
+ pedidos
+                                                             Atiende consultas del cliente
+                                                             explicando características
+                                                             técnicas, uso y cuidados del
+                                                             producto.
+
+Nota: La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares
+y ajustarlos a las necesidades y características de cada figura profesional, proponer e
+incluir las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

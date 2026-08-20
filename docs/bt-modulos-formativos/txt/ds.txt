@@ -1,0 +1,2707 @@
+   MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “DESARROLLO DE
+                           SOFTWARE”
+
+       1. Objetivo general
+
+Desarrollar soluciones informáticas mediante el análisis, diseño, codificación, pruebas,
+mantenimiento y documentación, aplicando metodologías de desarrollo, conexión a bases
+de datos, marcos de trabajo y herramientas colaborativas, conforme a la normativa vigente
+según el enfoque de la aplicación, con comunicación, trabajo en equipo, pensamiento
+crítico, responsabilidad y adaptabilidad frente a entornos tecnológicos cambiantes.
+
+       2. Plan de estudios
+
+                                                                     1ro      2do     3ro
+Total periodos pedagógicos tronco común
+                                                                     19        19     19
+                      Fundamentos de las Tecnologías de la            3        2
+Módulos Genéricos     Información y la Comunicación
+de la Familia         Pensamiento Computacional y                     3        3
+Profesional           Resolución de Problemas
+                      Ética, Legislación y Ciudadanía Digital         2
+                      Programación Estructurada                       6
+                    Programación Orientada a Objetos                           5       5
+Módulos
+Especialización     Base de Datos                                     2        3       4
+                    Aplicaciones de Escritorio                        3        3       3
+                    Aplicaciones Web y Móviles                                 3       6
+Módulo Práctico Experimental                                          2        2       3
+Total de períodos pedagógicos de formación técnica                    21      21       21
+
+
+       3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Profesional Tecnologías. Gracias a las
+características de los módulos trabajados en esta etapa, adquieren herramientas que le
+permiten construir una opinión más informada y tomar decisiones con mayor fundamento.
+Esto favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa, insertarse
+en el mundo laboral o emprender un proyecto propio.
+
+   Se estructuran los siguientes módulos genéricos:
+
+   •   Fundamentos de las Tecnologías de la Información y la Comunicación
+   •   Pensamiento Computacional y Resolución de Problemas
+   •   Ética, Legislación y Ciudadanía Digital
+                              Módulo Genérico Nro. 1
+                                      Fundamentos de las Tecnologías de la Información y
+Nombre del módulo:
+                                      la Comunicación
+Nivel:                                1ro, 2do
+Duración:                             200 periodos pedagógicos
+                                      UC1: Aplicar fundamentos de tecnologías de la
+                                      información y la comunicación mediante el análisis de
+                                      su evolución, la identificación de la arquitectura de
+Unidad       de      competencia
+                                      hardware, software y principios básicos de electricidad
+asociada:
+                                      y electrónica, la operación básica de redes y sistemas
+                                      operativos y, la gestión de información digital, con el fin
+                                      de resolver requerimientos tecnológicos.
+Objetivo del módulo: Desarrollar en el estudiante competencias que analice la evolución
+de las tecnologías de la información y la comunicación, identifique la arquitectura, el
+funcionamiento de hardware y software, manipule sistemas de redes y sistemas operativos,
+organice la información digital, con el fin de resolver de manera efectiva requerimientos en
+distintos entornos tecnológicos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar la evolución de las tecnologías de la información y la comunicación
+reconociendo sus hitos históricos, transformaciones tecnológicas y su impacto en
+los entornos productivos, educativos y sociales.
+CE1.1: Distingue la evolución de las TIC con base en líneas de tiempo o esquemas
+cronológicos.
+CE1.2: Emplea los avances tecnológicos con sus aplicaciones en distintos sectores de la
+sociedad.
+CE1.3: Define las generaciones de computadoras y dispositivos en función de su
+capacidad y arquitectura.
+CE1.4: Argumenta el impacto social, económico y cultural del uso de las TIC, mediante
+análisis de casos actuales o discusiones dirigidas.
+RA 2: Examinar la arquitectura de sistemas informáticos, identificando componentes
+de hardware, software y su funcionamiento integrado en distintos entornos
+tecnológicos.
+CE2.1: Inspecciona los componentes físicos de un sistema informático, clasificándolos
+según su función principal (entrada, procesamiento, almacenamiento, salida y
+comunicación).
+CE2.2: Distingue entre software de sistema, de aplicación y de desarrollo, explicando su
+propósito funcional con ejemplos representativos.
+CE2.3: Elabora esquemas de arquitectura de computadoras donde ubicar los
+componentes funcionales y describe el flujo básico de información entre ellos.
+CE2.4: Determina el tipo de sistema informático (doméstico, industrial, educativo, entre
+otros) a partir de su estructura y características técnicas, según el contexto de uso.
+RA 3: Emplear sistemas operativos y entornos digitales gestionando recursos,
+configuración inicial y funciones elementales en la administración del sistema.
+CE3.1: Ejecuta tareas básicas de administración de archivos y carpetas, diferenciando
+procedimientos entre sistemas operativos gráficos y basados en línea de comandos.
+CE3.2: Identifica parámetros esenciales del sistema operativo como nombre de usuario,
+configuración de red y capacidad de almacenamiento, utilizando herramientas del entorno.
+CE3.3: Aplica funciones básicas de herramientas de mantenimiento del sistema operativo
+para optimizar su funcionamiento.
+CE3.4: Emplea instrucciones en los entornos gráficos o de línea de comandos según el
+tipo de operación administrativa requerida, justificando su elección.
+RA 4: Utilizar los fundamentos básicos de electricidad y electrónica digital para la
+construcción de circuitos simples.
+CE4.1: Examina los principios básicos de electricidad y su relación con el funcionamiento
+de dispositivos electrónicos utilizados en computación.
+CE4.2: Analiza componentes electrónicos digitales y su aplicación en sistemas
+informáticos.
+CE4.3: Establece conocimientos de lógica en la resolución de problemas digitales.
+CE4.4: Diseña esquemas y diagramas electrónicos básicos para comprender la estructura
+de circuitos eléctricos simples.
+RA 5: Diseñar redes informáticas comprendiendo su estructura, tipos, dispositivos,
+protocolos de comunicación y funciones esenciales.
+CE5.1: Clasifica elementos físicos y lógicos de una red informática según su función en el
+sistema.
+CE5.2: Diferencia tipos de redes (LAN, WAN, WLAN) en función de su alcance, propósito
+y características.
+CE5.3: Representa dispositivos de red en esquemas funcionales según su rol en la
+infraestructura.
+CE5.4: Elabora cuadros técnicos sobre el funcionamiento de protocolos de comunicación
+en la transmisión de datos.
+RA 6: Gestionar información digital utilizando herramientas tecnológicas mediante
+la organización, almacenamiento, protección y compartición de datos.
+CE6.1: Analiza información digital considerando su tipo, relevancia y nivel de
+confidencialidad en contextos educativos o profesionales.
+CE6.2: Organiza carpetas y archivos con nombres coherentes en soportes físicos y
+virtuales con base en criterios de estructuración lógica.
+CE6.3: Implementa medidas básicas de protección de datos mediante contraseñas,
+permisos de acceso o cifrado en entornos digitales.
+CE6.4: Transfiere información en plataformas colaborativas o servicios en la nube
+respetando estándares de seguridad y compatibilidad.
+Contenidos
+Conceptuales                     Procedimentales                Actitudinales
+Evolución histórica de las Analizar líneas de tiempo y Mostrar responsabilidad y
+Tecnologías         de     la esquemas          cronológicos ética en el manejo y
+Información         y      la para identificar hitos y protección de la información
+Comunicación (TIC).              evolución de las TIC.          digital.
+Hitos    tecnológicos      y    Clasificar dispositivos de
+                                                                Valorar la importancia de la
+generaciones              de    hardware y software según
+                                                                evolución tecnológica y su
+computadoras.                   su función y tipo.
+                                                                impacto en la sociedad.
+Impaycto social, económico      Organizar esquemas y
+                                                                Desarrollar    una    actitud
+y cultural de las TIC.          diagramas de arquitectura
+                                                                crítica y reflexiva ante los
+                                de sistemas informáticos.
+Software libre y software                                       cambios y avances en las
+propietario, licenciamiento y   Identificar el flujo de         TIC.
+pagos.                          información         entre
+                                                                Fomentar el interés por el
+                                componentes de hardware
+Arquitectura de sistemas                                        aprendizaje    continuo    y
+                                y software.
+informáticos: componentes                                       actualización en tecnologías
+de    hardware    y   sus       Manipular         sistemas      emergentes.
+funciones.                      operativos para gestionar
+                                                                Promover      el     trabajo
+                                archivos,    carpetas    y
+Tipos de software: de                                           colaborativo      y       la
+                                configuraciones básicas.
+sistema, de aplicación y de                                     comunicación efectiva en
+desarrollo,     según    su     Configurar parámetros de        ambientes tecnológicos.
+contexto,     funciones   y     usuario,       red     y
+                                                                Adoptar     prácticas    de
+características.                almacenamiento        en
+                                                                seguridad      digital para
+                                sistemas operativos.
+Estructura funcional de                                         proteger datos personales y
+computadoras y flujo de         Aplicar funciones básicas       profesionales.
+información         entre       de    mantenimiento   del
+                                                                Reconocer la importancia del
+componentes.                    sistema operativo.
+                                                                respeto a la privacidad y la
+Clasificación de sistemas       Utilizar entornos gráficos y    confidencialidad en el uso de
+informáticos   según   su       línea de comandos para          tecnologías.
+contexto de uso.                tareas de administración.
+                                                                Desarrollar autonomía en la
+Redes          informáticas,    Catalogar y diferenciar         gestión y solución de
+elementos físicos y lógicos.    elementos físicos y lógicos     problemas       tecnológicos
+                                de redes informáticas.          básicos.
+Tipos de redes (LAN, WAN,
+WLAN)           y         sus   Describir tipos de redes y      Mantener       una      postura
+características principales.    sus           características   abierta y flexible ante nuevas
+                                mediante           ejemplos     metodologías y herramientas
+Dispositivos de red y sus
+                                prácticos.                      tecnológicas.
+funciones (switch, router,
+módem, punto de acceso,         Configurar dispositivos de      Impulsar la conciencia sobre
+repetidor).                     red y simular funciones de      el impacto ambiental y social
+                                protocolos              de      del uso responsable de las
+Protocolos             de
+                                comunicación.                   TIC.
+comunicación en redes.
+                                Organizar, almacenar y          Mantener       una      actitud
+Conceptos de gestión,
+                                proteger información digital    positiva y resiliente ante
+organización,
+                                mediante      herramientas      fallos y errores técnicos.
+almacenamiento, normas y
+                                tecnológicas.
+buenas      prácticas en
+                               Implementar     medidas        Fomentar el trabajo en
+seguridad informática y
+                               básicas de seguridad en        equipo con comunicación
+protección de datos.
+                               entornos        digitales      abierta,     respeto  y
+Herramientas tecnológicas      (contraseñas,  permisos,       cooperación.
+para compartir información     cifrado).
+                                                              Priorizar la gestión adecuada
+en entornos digitales.
+                               Compartir información en       del tiempo y recursos para
+Fundamentos de trabajo         plataformas colaborativas y    cumplir objetivos.
+colaborativo           y       servicios en la nube,
+comunicación efectiva en       respetando normas de           Demostrar responsabilidad
+entornos tecnológicos.         seguridad y formatos.          en el manejo seguro de
+                                                              herramientas e
+Organización, planificación    Probar                nuevas
+                                                              instrumentos eléctricos y
+y gestión de proyectos         herramientas tecnológicas
+                                                              electrónicos.
+tecnológicos.                  y entornos digitales.
+Unidades de medidas de la      Diagnosticar y resolver
+información.                   problemas técnicos con
+                               actitud     analítica y
+Fundamentos eléctricos y
+                               perseverante.
+electrónicos: conceptos
+básicos y práctica con         Documentar procesos y
+circuitos.                     resultados técnicos de
+                               manera clara y ordenada.
+Protección     eléctrica   y
+puesta a tierra.               Utilizar        plataformas
+                               colaborativas     para   la
+Componentes eléctricos y
+                               gestión del     trabajo en
+electrónicos.
+                               equipo.
+Esquemas, diagramas        y
+                               Identificar  componentes
+circuitos electrónicos
+                               eléctricos y electrónicos
+Lógica digital.                básicos visualmente y por
+                               código.
+                               Construir circuitos
+                               eléctricos básicos en
+                               protoboard y simuladores
+                               digitales.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación              Especificaciones técnicas               Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)                1
+                          Computadoras con acceso a internet
+Laboratorio                                                          1
+                          Proyector
+Referencias Bibliográficas
+ Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+        Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de
+        2021. https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-
+        ley-organica-de-proteccion-de-datos
+
+ Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+         Una guía de aproximación para el empresario. INCIBE.
+         https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_glosario_ciber
+         seguridad_2021.pdf
+
+ Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La
+         ciberseguridad al alcance de todos. INCIBE.
+         https://www.incibe.es/sites/default/files/docs/senior/guia_ciberseguridad_para_to
+         dos.pdf
+
+ Instituto Nacional de Ciberseguridad. (2024). Gestión de crisis de ciberseguridad en
+         empresas. INCIBE.
+         https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_gestion_de_c
+         risis.pdf
+
+ Lema, W. R., & Chérrez, P. F. (2023). Estudio diagnóstico del uso de la infraestructura
+       TIC básica (hardware, software e Internet) en instituciones educativas de
+       educación básica, cantón Azogues-Ecuador. LATAM Revista Latinoamericana
+       de Ciencias Sociales y Humanidades, 4(1), 24–39.
+       https://doi.org/10.56712/latam.v4i1.221
+
+ Ministerio de Educación de Bolivia. (2024). Tecnología de la información digital: Guía
+        de trabajo. Nivel técnico básico. Dirección General de Educación Alternativa.
+        https://www.minedu.gob.bo/files/publicaciones/veaye/dgea/16_GUIA_DE_TRAB
+        AJO_-_TECNOLOGA_DE_LA_INFROMACIN_DIGITAL.pdf
+
+ Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura.
+       (2023). Resumen del Informe de seguimiento de la educación en el mundo
+        2023: Tecnología en la educación. UNESCO. https://www.unesco.org/gem-
+        report/sites/default/files/medias/fichiers/2023/07/7952%20UNESCO%20GEM%2
+        02023%20Summary_ES_Web.pdf
+
+ Santiago-Trujillo, Y. D., & Garvich-Ormeño, R. M. (2024). Competencias digitales e
+        integración de las TIC en el proceso de enseñanza-aprendizaje. Revista
+        Tecnológica-Educativa Docentes 2.0, 17(1).
+        https://doi.org/10.37843/rted.v17i1.405
+
+ Stallman, R. M. (2004). Software libre para una sociedad libre. Traficantes de Sueños.
+        https://www.gnu.org/philosophy/fsfs/free_software.es.pdf
+
+ Vuorikari, R., Kluzer, S., & Punie, Y. (2022). DigComp 2.2: Marco de competencias
+        digitales para la ciudadanía. Con nuevos ejemplos de conocimientos,
+        habilidades y actitudes. Oficina de Publicaciones de la Unión Europea.
+        https://somos-digital.org/wp-content/uploads/2022/04/digcomp2.2_castellano.pdf
+
+
+
+
+                            Módulo Genérico Nro.2
+                                    Pensamiento Computacional y Resolución de
+Nombre del módulo:
+                                    Problemas
+Nivel:                              1ro, 2do
+Duración:                           240 periodos pedagógicos
+                                    UC2:     Proponer      soluciones   informáticas    y
+                                    computacionales mediante el análisis lógico-
+Unidad      de     competencia      matemático, manejo de sistemas numéricos, lógica de
+asociada:                           conjuntos, formulación algorítmica con diagramas y
+                                    pseudocódigo, aplicación de programación básica,
+                                    levantando documentación técnica, como fundamento
+                                    del desempeño profesional en tecnologías de la
+                                    información y comunicación.
+Objetivo del módulo: Fortalecer en el estudiante competencias técnicas en la formulación
+y representación algorítmica, programación básica, aplicando metodologías de desarrollo,
+conceptos lógicos matemáticos y sistemas numéricos para la resolución de problemas
+computacionales.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar conceptos de lógica matemática, conjuntos y sistemas numéricos en
+la resolución de problemas computacionales.
+CE1.1: Distingue proposiciones y operaciones lógicas utilizando tablas de verdad y leyes
+del álgebra booleana.
+CE1.2: Representa operaciones de conjuntos en problemas computacionales mediante
+diagramas y notación formal.
+CE1.3: Transforma valores entre sistemas numéricos binario, decimal, hexadecimal y octal
+como base para el tratamiento de datos.
+CE1.4: Resuelve problemas que combinan lógica proposicional y sistemas numéricos en
+contextos computacionales específicos.
+RA 2: Resolver algoritmos de aplicaciones informáticas, representarlos mediante
+diagramas de flujo y pseudocódigo.
+CE2.1: Descompone problemas en pasos secuenciales mediante la elaboración de
+diagramas de flujo estructurados.
+CE2.2: Traduce diagramas de flujo a pseudocódigo utilizando sintaxis estructurada y lógica
+funcional.
+CE2.3: Verifica algoritmos mediante pruebas y simulaciones, identificando errores de lógica
+y eficiencia.
+CE2.4: Contrasta resultados esperados y obtenidos para evaluar el comportamiento
+funcional del algoritmo.
+ RA 3: Utilizar programación en la construcción de soluciones computacionales.
+CE3.1: Emplea estructuras secuenciales, condicionales y repetitivas al desarrollar
+programas en un lenguaje de programación resolviendo problemas computacionales
+básicos.
+CE3.2: Construye clases, atributos y métodos aplicando principios de encapsulamiento,
+herencia y polimorfismo en un lenguaje orientado a objetos.
+CE3.3: Elabora estructuras de datos simples como vectores, listas y matrices para la gestión
+de información en aplicaciones básicas.
+CE3.4: Codifica programas simples verificando la funcionalidad conforme a los
+requerimientos establecidos y resultados esperados.
+CE3.5: Documenta mediante comentarios técnicos explicando la lógica, estructura y
+funcionamiento del código fuente.
+ RA 4: Diseñar interfaces básicas facilitando la interacción con usuarios en
+ aplicaciones de consola y GUI.
+CE4.1: Aplica elementos visuales, etiquetas y campos adecuados al tipo de aplicación
+(consola o GUI) para representar la funcionalidad esperada.
+CE4.2: Integra principios de usabilidad y accesibilidad en el diseño de interfaces,
+considerando la disposición, navegación y comprensión visual
+CE4.3: Programa eventos y validaciones que responden correctamente a las acciones del
+usuario, previniendo errores en tiempo de ejecución.
+CE4.4: Realiza pruebas para identificar mejoras en la interacción y funcionalidad de la
+interfaz desarrollada.
+ RA 5: Implementar metodologías de desarrollo de software en función del tipo de
+ proyecto, integrando tiempos de entrega y colaboración en equipo.
+CE5.1: Selecciona adecuadamente la metodología de desarrollo (ágil, tradicional, híbrida)
+según los requerimientos del proyecto.
+CE5.2: Realiza las tareas de desarrollo de acuerdo con la metodología seleccionada,
+cumpliendo entregables y estándares.
+CE5.3: Coordina la colaboración en equipo utilizando herramientas digitales que facilitan la
+comunicación y el seguimiento de actividades.
+CE5.4: Documenta el proceso de desarrollo mediante registros técnicos que evidencian el
+avance y la gestión del proyecto.
+Contenidos
+Conceptuales                   Procedimentales               Actitudinales
+Principios del pensamiento Descomponer problemas Emplear el pensamiento
+computacional.                 complejos                 en analítico en la resolución de
+                               subproblemas manejables problemas.
+Componentes        de     un
+                               mediante estrategias de
+problema computacional.                                      Mostrar disposición para
+                               pensamiento lógico.
+                                                             explorar         situaciones
+Criterios de optimización en
+                               Identificar        patrones problemáticas             desde
+soluciones
+                               comunes     en     distintos múltiples perspectivas antes
+computacionales.
+                               problemas para proponer de proponer soluciones.
+Metodología       para     la soluciones generalizables.
+                                                             Asumir responsabilidad en la
+resolución de problemas
+                               Representar procesos a coherencia lógica de los
+computacionales.
+                               través de diagramas de diseños                 propuestos,
+Identificación de patrones y flujo, pseudocódigo u otras considerando el contexto del
+relaciones.                    formas de modelado lógico. problema.
+Algoritmos, definición    y    Formular         algoritmos    Mostrar flexibilidad para
+características.               eficientes    considerando     ajustar    los     modelos
+Tipos de datos, variables,     secuencia,        selección,   diseñados    ante   nuevas
+constantes y expresiones.      iteración y modularidad.       condiciones o sugerencias.
+
+Lenguajes             de       Simular    algoritmos     en   Aplicar buenas prácticas en
+pseudocódigo y diagramas       entornos digitales o físicos   la elaboración de algoritmos
+de flujo.                      para      comprobar       su   organizados,     claros    y
+                               funcionalidad.                 eficientes.
+Estructuras  de     control
+secuencial, condicional y      Evaluar    soluciones    en    Reflexionar     sobre     los
+repetitiva.                    función de su eficiencia,      resultados obtenidos como
+                               claridad y capacidad de        una     oportunidad     para
+Tipos       de      errores,   resolución del problema.       mejorar     las   soluciones
+sintácticos, lógicos y de                                     propuestas.
+ejecución.                     Aplicar heurísticas para
+                               resolver problemas donde       Aceptar con apertura la
+Buenas prácticas en la         no existe un camino único o    retroalimentación de otros
+resolución de problemas        completamente definido.        como parte fundamental del
+computacionales                                               proceso de aprendizaje.
+                               Construir      soluciones
+Heurísticas para la toma de    computacionales básicas        Mostrar        comunicación
+decisiones.                    empleando    herramientas      asertiva en la resolución de
+Operadores lógicos y tablas    de programación.               problemas computacionales,
+de verdad.
+Funciones             de       Revisar errores lógicos o      Colaborar activamente con
+modelamiento de bases de       sintácticos en algoritmos o    sus pares para enriquecer
+datos.                         programas         mediante     ideas y construir soluciones
+                               procesos de depuración.        colectivas.
+Fundamentos de lógica y
+matemáticas     aplicadas,     Integrar estrategias de        Valorar la importancia de la
+operadores         lógicos,    mejora continua en la          lógica matemática en la
+proposiciones, tablas de       solución de problemas          resolución de problemas.
+verdad, operaciones entre      computacionales.
+                                                             Adoptar      una       actitud
+conjuntos,       sistemas
+                                                             perseverante       en        la
+numéricos y conversiones.      Verificar sistemáticamente la
+                                                             resolución de problemas con
+                               funcionalidad lógica de las
+Tipos      de       lógica,                                  algoritmos      claros        y
+                               soluciones      antes     de
+proposicional, booleana y                                    eficientes.
+                               validarlas.
+matemática.
+                                                              Demostrar empatía hacia el
+Interfaz gráfica de usuario    Aplicar operadores lógicos
+                                                              usuario final en el diseño de
+GUI,       usabilidad     y    en    la   resolución   de
+                                                              interfaces.
+accesibilidad.                 problemas
+ Metodologías de desarrollo,   computacionales.               Fomentar la colaboración de
+ herramientas colaborativas                                   trabajo en equipo
+ y documentación técnica y     Transformar       números
+ de usuario.                   entres distintos sistemas
+                               numéricos, entendiendo los
+                               procesos computacionales.
+
+                               Diseñar interfaces graficas
+                               con elementos interactivos
+                               aplicando principios de
+                               usabilidad y accesibilidad
+                               con enfoque al usuario.
+
+                               Utilizar      herramientas
+                               colaborativas    para   el
+                               trabajo en equipo.
+
+                               Elaborar   documentación
+                               técnica y de usuario del
+                               software.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                  Especificaciones técnicas                       Cantidad
+Infraestructura/espacio       Entorno de aprendizaje (aula)             1
+                              Computadoras con acceso a internet
+Laboratorio
+                              Proyector                                 1
+Referencias Bibliográficas
+Borchardt, M., & Roggi, I. (2017). Ciencias de la computación en los sistemas educativos
+        de América Latina. Instituto Internacional de Planeamiento de la Educación de la
+        UNESCO & Organización de Estados Iberoamericanos para la Educación, la
+        Ciencia y la Cultura.
+
+Brennan, K., Balch, C., & Chung, M. (2014). Informática creativa: Una introducción al
+      pensamiento computacional con Scratch. Harvard Graduate School of Education.
+
+Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado. (2022).
+        Pensamiento computacional, programación y robótica educativa en el currículo
+        LOMLOE. Ministerio de Educación y Formación Profesional de España.
+
+Marañón Marañón, Ó., & González-García, H. (2021). Una revisión narrativa sobre el
+      pensamiento computacional en Educación Secundaria Obligatoria. Contextos
+      Educativos. Revista de Educación, (27), 169–182.
+      https://doi.org/10.18172/con.4644
+
+Méndez Hernández, S. O., & Bermúdez, J. F. (2023). El pensamiento computacional
+     como competencia para el siglo XXI. Ciencia Latina Revista Científica
+     Multidisciplinar, 7(4), 2258–2279. https://doi.org/10.37811/cl_rcm.v7i4.7044
+
+Ministerio de Educación Nacional de Colombia. (2022). Orientaciones curriculares para el
+       área de tecnología e informática en la educación básica y media. Ministerio de
+       Educación Nacional.
+
+Ministerio de Tecnologías de la Información y las Comunicaciones, Ministerio de
+       Educación Nacional, & British Council. (2022). ¿Por qué y para qué el
+       pensamiento computacional y las habilidades digitales? Gobierno de Colombia.
+
+Morales Caumel, R. (2023). PSeInt: Programando en pseudocódigo. Observatorio de
+       Tecnología Educativa, (103). Instituto Nacional de Tecnologías Educativas y de
+       Formación del Profesorado. https://doi.org/10.4438/2695-
+       4176_OTEpdf103_2020_847-19-134-33
+
+Polanco Padrón, N., Ferrer Planchart, S., & Fernández Reina, M. (2021). Aproximación a
+      una definición de pensamiento computacional. RIED. Revista Iberoamericana de
+      Educación a Distancia, 24(1), 55–76. https://doi.org/10.5944/ried.24.1.27419
+
+Python Software Foundation. (2026). El tutorial de Python: Documentación de Python
+      3.14. Python Software Foundation.
+
+Schwaber, K., & Sutherland, J. (2020). La guía de Scrum: La guía definitiva de Scrum.
+     Las reglas del juego. Scrum.org.
+
+       World Wide Web Consortium. (2025). Sumario de las Pautas de Accesibilidad
+       para el Contenido Web (WCAG) 2. Web Accessibility Initiative.
+
+
+
+                                Módulo Genérico Nro.3
+Nombre del módulo:                    Ética, Legislación y Ciudadanía Digital
+Nivel:                                1ro
+Duración:                             80 periodos pedagógicos
+                                      UC3: Integrar principios éticos y legales en el uso de
+                                      tecnologías, protección de datos, propiedad intelectual
+Unidad       de     competencia
+                                      y responsabilidad digital con el fin de asumir
+asociada:
+                                      desempeño consciente y responsable en entornos
+                                      digitales.
+Objetivo del módulo: Fomentar la comprensión y aplicación de principios éticos,
+normativas legales y prácticas responsables en el uso de las tecnologías digitales,
+fortaleciendo una ciudadanía digital crítica, respetuosa, segura y consciente de los derechos
+y deberes en entorno virtuales.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar los principios éticos relacionados con el uso responsable de las
+tecnologías digitales.
+CE1.1: Analiza casos o situaciones que evidencias conflictos éticos en el uso de
+tecnologías digitales.
+CE1.2: Relaciona el uso de herramientas digitales con posibles impactos éticos y sociales
+en distintos contextos.
+CE1.3: Muestra respeto a los derechos de propiedad intelectual en entornos digitales.
+CE1.4: Reflexiona críticamente sobre sus prácticas digitales cotidianas en el uso ético y
+responsable de la tecnología en actividades personales, académicas, culturales o
+profesionales.
+RA 2: Diferenciar el uso lícito e ilícito de recursos digitales, software y contenidos
+en línea.
+CE2.1: Clasifica recursos digitales según su tipo de licencia y condiciones de uso.
+CE2.2: Discrimina prácticas ilícitas como el uso de software pirata, descargas ilegales,
+reproducción sin autorización o plagio digital.
+CE2.3: Aplica criterios de legalidad y responsabilidad en la selección, uso y difusión de
+recursos digitales en contextos educativos o institucionales.
+CE2.4: Evalúa las consecuencias legales y éticas del uso indebido de software y
+contenidos protegidos por derechos de autor.
+RA 3: Aplicar normas legales relacionadas con la protección de datos personales y
+privacidad digital.
+CE3.1: Distingue el tipo de información que se considera dato personal y sensible según
+la normativa vigente.
+CE3.2: Analiza situaciones de vulneración de privacidad en entornos digitales y sus
+implicaciones legales y éticas.
+CE3.3: Aplica buenas prácticas en la recolección, almacenamiento y uso responsable de
+datos personales en contextos laborales, académicos o comunitarios.
+CE3.4: Verifica que las plataformas, formularios o recursos digitales utilizados respeten
+principios de confidencialidad, seguridad y protección de datos.
+RA 4.: Promover comportamientos responsables y seguros en el uso de tecnologías
+y redes digitales.
+CE4.1: Distingue situaciones de riesgo digital derivadas de vulnerabilidades de hardware
+y software, y propone formas de prevención.
+CE4.2: Emplea normas básicas de conducta digital (netiqueta) promoviendo valores como
+el respeto, la responsabilidad, la empatía y la honestidad en entornos laborales, educativos
+y sociales, haciendo un uso ético y consciente de las tecnologías.
+CE4.3: Participa de manera crítica, ética y responsable en entornos digitales, promoviendo
+el uso de la tecnología y contribuyendo a una cultura digital inclusiva y respetuosa.
+CE4.4: Propone actividades que promuevan la ciudadanía digital, el respeto a los demás y
+el cuidado del entono virtual.
+ Contenidos
+Conceptuales                     Procedimentales                 Actitudinales
+Ética y moral en entornos Analizar casos reales o Mantener compromiso con el
+digitales:                       simulados de dilemas éticos uso responsable de las
+• Definición de ética y moral. digitales.                        tecnologías.
+• Diferencias entre ética
+personal, profesional y digital Evaluar el cumplimiento de Respetar la privacidad y la
+• Dilemas éticos en el principios éticos en el uso de identidad digital propia y
+entorno tecnológico              plataformas tecnológicas.       ajena.
+Principios éticos aplicados
+a la tecnología:                  Aplicar criterios éticos en la Promover el uso ético de las
+• Responsabilidad                toma de decisiones digitales TIC evitando acoso digital,
+• Integridad                     (uso    de     información, difusión de contenido falso,
+• Justicia y equidad             comunicación, privacidad).  piratería.
+• Respeto a la privacidad
+• Transparencia                  Elaborar    códigos      de    Manifestar actitud crítica y
+Legislación Digital:             conducta   o   guías     de    reflexiva   frente   a     la
+• Marco legal                    comportamiento digital para    información y a la conducta
+• Derechos y deberes             contextos  educativos     o    digital.
+• Delitos cibernéticos           laborales.
+• Importancia                                                      Demostrar      empatía    y
+Ciudadanía Digital:              Participar en debates o foros responsabilidad         en   la
+• Definición                     sobre       temas         éticos interacción virtual.
+• Componentes                    relacionados        con        la
+• Habilidades                    tecnología.                       Mantener     disposición  a
+• Participación                                                    actuar con integridad y
+• Ética                          Participar en campañas honestidad en entornos
+• Seguridad                      sociales digitales o en digitales.
+Diferencias culturales y         espacios      de      discusión
+legales                          respetuosa.
+Tendencias futuras en            Configurar la privacidad en
+ética digital                    redes sociales.
+Ejemplos de ética digital        Realizar      prácticas       de
+• Privacidad de datos            recolección de datos no
+• Bias algorítmico               éticas.
+• Ciberseguridad                 Usar contraseñas seguras,
+• Brecha digital                 reconocer               correos
+Uso responsable de las           fraudulentos o evitar el
+tecnologías digitales            acceso      a    sitios     web
+• Comportamiento ético en        peligrosos.
+redes sociales y plataformas
+digitales.
+• Derechos y deberes de los
+usuarios digitales
+• Netiqueta y ciudadanía
+digital
+Consecuencias del uso no
+ético de la tecnología:
+• Ciberacoso, suplantación
+de                  identidad,
+desinformación.
+• Impactos sociales, legales
+y personales del mal uso de
+las TIC
+Ética profesional en el
+ámbito tecnológico
+Sociedad digital
+Datos y seguridad.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Role-Playing y Simulaciones
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                             Detalle de especificaciones
+Denominación                                                       Cantidad
+                             técnicas
+                             Entorno de aprendizaje
+Infraestructura/espacio                                                     1
+                             Laboratorio informático
+                             Computadoras con acceso a internet
+Laboratorio                                                                 1
+                             Proyector
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2014). Código Orgánico Integral Penal. Registro
+        Oficial, Suplemento N.º 180, 10 de febrero de 2014.
+
+Asamblea Nacional del Ecuador. (2016). Código Orgánico de la Economía Social de los
+     Conocimientos, Creatividad e Innovación. Registro Oficial, Suplemento N.º 899, 9
+     de diciembre de 2016.
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+     Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021.
+
+Congreso Nacional del Ecuador. (2002). Ley de Comercio Electrónico, Firmas
+      Electrónicas y Mensajes de Datos. Registro Oficial, Suplemento N.º 557, 17 de
+      abril de 2002.
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+        Una guía de aproximación para el empresario. INCIBE.
+
+Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La ciberseguridad
+        al alcance de todos. INCIBE.
+ López Jacobo, D. R., Angulo Armenta, J., Torres Gastelú, C. A., & López Herrera, M.
+       (2024). La ciudadanía digital: Metaanálisis sobre investigaciones en México.
+       Apertura, 16(1), 162–175. https://doi.org/10.32870/ap.v16n1.2477
+
+ Morduchowicz, R. (2020). La ciudadanía digital como política pública en educación en
+       América Latina. Oficina Regional de Ciencias de la UNESCO para América Latina
+       y el Caribe.
+
+ Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+        de Protección de Datos Personales. Decreto Ejecutivo N.º 904. Registro Oficial,
+        Suplemento N.º 435, 13 de noviembre de 2023.
+
+ Rosado García, T. L., Alcívar Vera, T. P., Cobeña Cedeño, A. A., Chancay Chancay, M.
+       M., García Espinoza, M. I., & Bernal Mendieta, C. J. (2025). Desarrollo de valores
+       éticos en la educación digital. Universidad, Ciencia y Tecnología, 29(Especial),
+       114–123. https://doi.org/10.47460/uct.v29iSpecial.885
+
+ Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2021).
+       Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+
+
+
+       4. Módulos de Especialización
+
+Las y los estudiantes del Bachillerato Técnico en Desarrollo de Software se caracterizarán
+por contar con una sólida formación en el análisis, diseño, programación, implementación
+y mantenimiento de aplicaciones y sistemas informáticos, garantizando el desarrollo de
+soluciones tecnológicas eficientes y de calidad.
+
+Se estructuran los siguientes módulos de especialización:
+
+   •   Programación Estructurada.
+   •   Programación Orientada a Objetos.
+   •   Base de Datos.
+   •   Aplicaciones de Escritorio.
+   •   Aplicaciones Web y Móviles.
+
+                            Módulo de Especialización Nro. 1
+ Nombre del módulo:                 Programación Estructurada
+ Nivel:                             1ro
+ Duración:                          240 periodos pedagógicos
+                                      UC1: Aplicar programación estructurada en la
+                                      resolución de problemas computacionales, mediante el
+                                      análisis de requerimientos, el diseño de algoritmos y
+Unidad       de     competencia
+                                      flujogramas, uso de lenguajes estructurados en la
+asociada:
+                                      construcción de soluciones funcionales, empleando
+                                      buenas prácticas de codificación y lógica
+                                      computacional.
+Objetivo del módulo: Aplicar programación estructurada en la resolución de problemas
+computacionales, mediante el análisis de requerimientos, diseño de algoritmos, codificación
+en lenguajes estructurados y aplicación de buenas prácticas de lógica y codificación.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Formular problemas computacionales mediante el análisis de requerimientos,
+identificando entradas, procesos y salidas, a partir de situaciones contextualizadas y
+especificaciones funcionales básicas.
+CE1.1: Reconoce las necesidades del usuario mediante la interpretación de descripciones
+orales o escritas del problema, en contextos definidos.
+CE1.2: Identifica los elementos clave del problema utilizando tablas de entrada/salida o
+diagramas simples, según los datos proporcionados.
+CE1.3: Determina las entradas, procesos y salidas necesarias que permiten plantear
+soluciones funcionales, considerando las restricciones del problema.
+CE1.4: Define el propósito de la solución esperada a partir del análisis del contexto y los
+objetivos planteados.
+RA 2: Diseñar soluciones algorítmicas utilizando flujogramas y pseudocódigos,
+aplicando análisis estructurado y secuencia lógica de instrucciones, en función de
+los requerimientos establecidos.
+CE2.1: Elabora flujogramas con simbología técnica y secuencia lógica, de acuerdo con la
+estructura del algoritmo.
+CE2.2: Convierte flujogramas en pseudocódigos estructurados utilizando un lenguaje
+técnico y estructuras de control apropiadas.
+CE2.3: Contrasta la validez de flujogramas y pseudocódigos ante diferentes condiciones de
+entrada, según los escenarios planteados.
+CE2.4: Evalúa la coherencia entre flujograma y pseudocódigo, verificando la secuencia y
+correspondencia lógica de instrucciones.
+RA 3: Codificar algoritmos utilizando un lenguaje de programación estructurado,
+garantizando la funcionalidad, claridad y mantenibilidad del código.
+CE3.1: Construye programas aplicando la sintaxis y semántica del lenguaje de
+programación estructurado seleccionado.
+CE3.2: Integra estructuras condicionales y repetitivas para modelar correctamente el flujo
+lógico del algoritmo.
+CE3.3: Verifica el comportamiento funcional del código mediante pruebas que simulen
+diferentes entradas y condiciones.
+CE3.4: Justifica la elección de estructuras y operadores utilizados en función de su
+pertinencia técnica dentro del algoritmo.
+RA 4: Validar el comportamiento funcional de programas estructurados mediante la
+ejecución de pruebas, identificación y corrección de errores, optimizando su
+rendimiento bajo condiciones definidas.
+CE4.1 Ejecuta programas con datos de prueba representativos verificando su funcionalidad
+conforme a los requerimientos.
+CE4.2: Analiza errores sintácticos, semánticos y lógicos aplicando técnicas de depuración
+manual o automatizada.
+CE4.3: Corrige el código fuente ajustando fallas e inconsistencias de acuerdo con el
+comportamiento esperado.
+CE4.4: Optimiza el rendimiento del programa implementando mejoras que faciliten su
+ejecución y comprensión.
+RA 5: Documentar programas estructurados mediante el uso de comentarios
+explicativos, convenciones de codificación y organización lógica, para facilitar la
+comprensión, mantenibilidad y revisión del código bajo criterios técnicos
+establecidos.
+CE5.1: Examina puntos clave del flujo del programa que requieren explicación mediante
+comentarios técnicos.
+CE5.2: Inserta comentarios descriptivos en líneas y bloques de código explicando
+estructuras y procesos implementados.
+CE5.3: Aplica convenciones de estilo organizando el código con indentación, nomenclatura
+significativa y secciones lógicas.
+CE5.4: Evalúa la claridad de la documentación del código proponiendo mejoras conforme
+a estándares técnicos establecidos.
+Contenidos
+Conceptuales                    Procedimentales             Actitudinales
+Fundamentos         de     los Interpretar requerimientos Demostrar                 ética,
+lenguajes de programación funcionales a partir de responsabilidad y disciplina en
+y sistemas.                     enunciados técnicos o la formulación, diseño y
+                                situaciones problemáticas codificación de soluciones
+Definición y propósito de los del entorno.                  algorítmicas.
+lenguajes de programación.
+                                Identificar       entradas, Asumir con compromiso el
+Clasificación de lenguajes: procesos y salidas a partir análisis de requerimientos,
+Lenguaje             máquina, del       análisis   de    un respetando el rol que cumplen
+ensamblador (bajo nivel), problema informático.             las entradas, procesos y
+lenguajes de alto nivel.                                    salidas en una solución
+                                Descomponer              un computacional.
+Intérpretes, compiladores y problema                     en
+traductores.                    subproblemas aplicando Valorar el trabajo bien hecho,
+                                estrategias de análisis cuidando la precisión en la
+Lenguaje         estructurado: lógico.                      elaboración de flujogramas y
+sintaxis,          semántica,                               pseudocódigos como parte del
+estructura       básica      y Establecer        relaciones
+funciones del editor.           causa-efecto entre los
+                                  datos de entrada y los        proceso de       resolución    de
+Ciclo de vida de una              resultados esperados del      problemas.
+aplicación     informática:       sistema.
+análisis,           diseño,       Clasificar los tipos de       Mantener interés y disposición
+codificación,       prueba,       datos requeridos según su     para aprender nuevas formas
+mantenimiento             y       estructura y tratamiento en   de representar instrucciones
+documentación.                    el sistema.                   mediante             lenguajes
+                                                                estructurados.
+Tipos de documentación: Representar             procesos
+técnica, de usuario, interna lógicos utilizando símbolos        Trabajar con perseverancia y
+(comentarios), externa.      normalizados             en        autonomía en la depuración y
+                             diagramas de flujo.                validación  de    programas,
+Análisis   de     problemas                                     enfrentando errores como
+informáticos                 Elaborar pseudocódigos             oportunidades de mejora.
+                               estructurados empleando
+Naturaleza del problema lenguaje técnico y sintaxis             Participar activamente en la
+informático: definición, tipos adecuada.                        mejora continua del código,
+(concretos,      abstractos),                                   aplicando buenas prácticas y
+componentes.                   Aplicar       estructuras        estándares técnicos con actitud
+                               secuenciales,                    profesional.
+Requerimientos funcionales condicionales y repetitivas
+y       no       funcionales: en      pseudocódigos    y        Reconocer      el     valor   del
+interpretación técnica desde diagramas.                         pensamiento         lógico       y
+el contexto.                                                    secuencial en la construcción
+                                  Utilizar     técnicas      de de algoritmos, fomentando una
+Elementos        Entrada      /   modularización          para actitud reflexiva ante los
+Proceso / Salida (E/P/S):         organizar procesos en problemas.
+identificación, clasificación y   funciones y subrutinas.
+representación.                                                 Valorar el uso adecuado de las
+                                  Relacionar las etapas de estructuras            de       control
+Abstracción               en      diseño con el modelo (secuenciales, selectivas y
+programación: simplificación      lógico del programa y su repetitivas) como herramientas
+lógica del problema.              estructura jerárquica.        fundamentales en la solución
+                                                                de problemas.
+Técnicas      de     análisis:    Traducir pseudocódigos a
+esquemas         funcionales,     un lenguaje estructurado Mostrar interés por comprender
+tablas                  E/S,      utilizando sintaxis correcta. el entorno de desarrollo del
+representaciones previas al                                     lenguaje de programación y por
+diseño algorítmico.               Codificar         programas utilizarlo de forma efectiva.
+                                  empleando estructuras de
+Análisis       estructurado:      control       (secuenciales, Respetar las normas de
+descomposición funcional          selectivas y repetitivas).    seguridad digital, propiedad
+del problema para su                                            intelectual y uso ético de los
+solución paso a paso.             Utilizar tipos de datos,
+                                  operadores y expresiones
+                                 adecuadas en la solución recursos informáticos durante
+Algoritmos y estructuras de      de problemas.               todo el ciclo de desarrollo.
+control                          Implementar       módulos,
+Algoritmo:         definición,   funciones                 y
+características      (finitud,   procedimientos         para
+claridad, efectividad, orden     estructurar el código.
+lógico).
+                               Aplicar buenas prácticas
+Clasificación de algoritmos: de              codificación
+cualitativos vs cuantitativos. (indentación,
+                               nomenclatura, reutilización
+Diseño      de     algoritmos de código).
+mediante:
+                                 Diseñar y ejecutar casos
+Diagramas        de      flujo   de prueba para verificar el
+(flujogramas):      símbolos     comportamiento         del
+normalizados          (inicio,   programa.
+proceso,            decisión,
+entrada/salida, conectores).
+                           Comprobar     resultados
+                           esperados comparándolos
+Pseudocódigo estructurado: con salidas reales del
+reglas,    sintaxis      y programa.
+convenciones.
+                              Aplicar    técnicas      de
+Estructuras    de    control: depuración para identificar
+Secuencial:    instrucciones errores de lógica, sintaxis
+lineales.                     o ejecución.
+Condicional: simple (if), Ajustar el código para
+doble (if-else), anidada, mejorar la funcionalidad,
+múltiple (switch/case).      eficiencia y legibilidad del
+                             programa.
+Repetitiva: while, do-while,
+for; tipos de repetición Incluir            comentarios
+(manual vs automática).      descriptivos en el código
+                              que      expliquen    su
+Operadores                en
+                              funcionamiento.
+programación: aritméticos,
+relacionales    y    lógicos. Aplicar convenciones de
+Jerarquía de operadores.      nomenclatura        para
+                              variables, funciones y
+Funciones       matemáticas
+                              estructuras.
+básicas: uso, fórmulas y
+prioridad operativa.          Elaborar documentación
+                                 básica    del    programa
+                                 (resumen,        propósito,
+Variables, constantes y tipos    entradas, salidas, versión).
+de datos                         Utilizar formatos estándar
+Elementos básicos de un          para presentar la lógica de
+programa: definición y rol de    desarrollo       y        la
+los datos.                       funcionalidad del código.
+
+Variables y constantes:          Sistematizar          la
+definición,   declaración,       documentación   técnica
+ámbito, convenciones de          como      apoyo a     la
+nomenclatura.                    comprensión del código
+                                 por terceros.
+Tipos de datos primitivos:
+entero,   real,   carácter,
+cadena, booleano.
+
+Tipos         de        datos
+estructurados:       arreglos
+(vectores     y     matrices),
+estructuras, registros.
+
+Tipos de datos dinámicos:
+uso de punteros, pilas,
+colas, listas.
+
+Operaciones con punteros:
+creación y liberación de
+memoria dinámica (malloc,
+free).
+
+Representación y acceso a
+datos:      lectura      por
+filas/columnas, codificación
+ASCII.
+
+Modularidad y funciones.
+
+Módulos      y     funciones:
+definición,     ventajas    y
+organización del código en
+bloques reutilizables.
+
+Funciones                  y
+procedimientos: diferencias,
+estructura, invocación.
+Paso de parámetros: Por
+valor, Por referencia.
+Recursividad:      definición,
+funcionamiento, casos de
+aplicación.
+
+Arreglos  y       estructuras
+complejas
+
+Arreglos unidimensionales
+(vectores):       definición,
+declaración, recorrido.
+
+Arreglos      bidimensionales
+(matrices): representación
+por filas y columnas.
+
+Estructuras      repetitivas
+anidadas: uso en el manejo
+de arreglos y problemas
+tabulares.
+
+Tablas     de      decisión:
+representación lógica de
+condiciones múltiples.
+
+Métodos de ordenamiento:
+Burbuja,          inserción,
+selección, Shell.
+
+Métodos de búsqueda:
+Secuencial,         binaria,
+transformación de claves,
+manejo      de  colisiones,
+intercalación.
+
+Entrada, salida y estructura
+general del programa
+
+Entrada y salida de datos
+por consola: lectura de
+datos y presentación de
+resultados.
+Estructura general de un
+programa: declaración de
+variables,        funciones,
+instrucciones principales.
+
+Reglas     de    estilo y
+organización del código:
+indentación, comentarios,
+bloques estructurados.
+
+Uso de editores de texto y
+herramientas de desarrollo
+(IDE, compilador, consola).
+
+Validación,    pruebas      y
+depuración
+
+Tipos        de       errores:
+Sintácticos:    errores    de
+forma, identificados por el
+compilador.
+
+Semánticos: instrucciones
+válidas, pero con significado
+incorrecto.
+
+Lógicos: código correcto
+que no cumple el propósito.
+
+Ciclo de validación: diseño
+de casos de prueba,
+ejecución,    análisis   de
+resultados.
+
+Métodos de prueba: Caja
+negra: sin conocimiento del
+código.
+
+Caja blanca: con análisis
+interno del flujo lógico.
+
+Herramientas básicas de
+depuración: impresión de
+valores, seguimiento paso a
+ paso, uso de puntos de
+ interrupción.
+ Optimización básica del
+ código:     eliminación    de
+ redundancias, mejora de
+ condiciones,        eficiencia
+ operativa.
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+     de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+     Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                     Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                     1
+ Infraestructura/espacio        Aula taller                                       1
+                                Computadoras con acceso a internet
+                                Servidor
+ Laboratorio                                                                      1
+                                Proyector
+                                Red de computadoras
+                                Proyector o pizarra digital.
+ Herramientas/equipos           Acceso a internet y red local.
+                                USB o almacenamiento en la nube.
+                                Lenguajes: C, C++, Python (modo
+                                estructurado), Java básico.
+                                IDE/Entornos: Visual Studio Code, Thonny,
+                                Geany, Code::Blocks, Dev-C++.
+                                Simuladores / Diagramadores: Draw.io,
+                                Lucidchart, Pencil Project.
+ Recursos                       Herramientas de depuración: Debugger
+                                nativo de IDEs, GDB.
+                                Documentación: Manuales de lenguaje
+                                estructurado, diagramación de flujo y
+                                pseudocódigo.
+                                Guías de ejercicios con estructuras
+                                condicionales, ciclos y funciones.
+                               Videos explicativos de algoritmos y
+                               estructuras básicas (YouTube, Khan
+                               Academy).
+                               Repositorios de código ejemplo (GitHub
+                               Educativo).
+                               Plataformas:   W3Schools,   Programiz,
+                               Sololearn.
+Referencias Bibliográficas
+
+Arellano Pimentel, J. J., Solar González, R., & Armería Zavala, L. (2024). Estrategias y
+       recursos didácticos utilizados para aprender programación estructurada: Una
+       revisión sistemática. IE Revista de Investigación Educativa de la REDIECH, 15,
+       e1872. https://doi.org/10.33010/ie_rie_rediech.v15i0.1872
+
+García, P. A., Haberman, M. A., & Guerrero, F. N. (Coords.). (2021). Programación
+       E1201: Curso de grado. Editorial de la Universidad Nacional de La Plata.
+       https://sedici.unlp.edu.ar/handle/10915/124750
+
+Haberman, M. A. (2021). Fundamentos básicos de programación y algoritmos. En P. A.
+      García, M. A. Haberman, & F. N. Guerrero (Coords.), Programación E1201: Curso
+      de grado (pp. 46–80). Editorial de la Universidad Nacional de La Plata.
+      https://sedici.unlp.edu.ar/handle/10915/187543
+
+Morales Caumel, R. (2023). PSeInt: Programando en pseudocódigo. Observatorio de
+      Tecnología Educativa, Instituto Nacional de Tecnologías Educativas y de
+      Formación del Profesorado. https://intef.es/wp-
+      content/uploads/2023/05/118_22_RED_OTE_Pseint.pdf
+
+Python Software Foundation. (2026a). El tutorial de Python. Documentación de Python
+      3.14. https://docs.python.org/es/3/tutorial/
+
+Python Software Foundation. (2026b). Errores y excepciones. Documentación de Python
+      3.14. https://docs.python.org/es/3/tutorial/errors.html
+
+Python Software Foundation. (2026c). Más herramientas para control de flujo.
+      Documentación de Python 3.14.
+      https://docs.python.org/es/3/tutorial/controlflow.html
+
+Rosenfeld, R. (2024). Verificación de programas: Programas secuenciales y
+      concurrentes. Editorial de la Universidad Nacional de La Plata.
+      https://sedici.unlp.edu.ar/handle/10915/175620
+                           Módulo de Especialización Nro. 2
+Nombre del módulo:                   Programación Orientada a Objetos
+Nivel:                               2do, 3ro
+Duración:                            400 periodos pedagógicos
+                                     UC 2: Desarrollar aplicaciones informáticas aplicando
+                                     programación orientada a objetos, integrando clases,
+Unidad      de      competencia      objetos y relaciones entre componentes, incorporando
+asociada:                            diseño     modular,     encapsulamiento,    herencia,
+                                     polimorfismo y reutilización de código, con el uso de
+                                     buenas prácticas de codificación.
+Objetivo del módulo: Desarrollar aplicaciones informáticas empleando programación
+orientada a objetos, integrando clases, objetos y sus relaciones con diseño modular,
+encapsulamiento, herencia y polimorfismo y, utilizando buenas prácticas de codificación
+para construir soluciones de software reutilizables y mantenibles.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar un problema computacional generando un modelo conceptual que
+represente objetos, clases, responsabilidades y relaciones, a partir de un caso
+práctico definido según los principios de la programación orientada a objetos.
+CE1.1: Diferencia los objetos relevantes del problema considerando atributos y
+comportamientos observables en el caso planteado.
+CE1.2: Describe relaciones jerárquicas y de composición entre clases conforme a los
+requerimientos funcionales establecidos.
+CE1.3: Asocia responsabilidades a cada clase respetando el principio de responsabilidad
+única según la lógica del dominio.
+CE1.4: Representa el modelo orientado a objetos utilizando diagramas UML u otra notación
+técnica con claridad estructural.
+RA 2: Diseñar la arquitectura de una aplicación orientada a objetos estructurando
+módulos, clases y métodos alineados con principios de encapsulamiento, herencia y
+polimorfismo.
+CE2.1: Clasifica convenciones de diseño orientado a objetos de acuerdo con buenas
+prácticas técnicas y coherencia arquitectónica.
+CE2.2: Define atributos y métodos de las clases diferenciando niveles de acceso conforme
+a la funcionalidad requerida.
+CE2.3: Formula interfaces o clases abstractas que favorecen extensibilidad y reutilización
+según patrones de diseño.
+CE2.4: Organiza estructuras modulares del sistema distribuyendo el código en
+componentes reutilizables con separación de responsabilidades.
+RA 3: Implementar clases, objetos y relaciones en un entorno de desarrollo orientado
+a objetos integrando herencia, polimorfismo y encapsulamiento conforme al diseño
+establecido.
+CE3.1: Construye clases con constructores, atributos y métodos respetando la sintaxis y
+convenciones del lenguaje utilizado.
+CE3.2: Extiende funcionalidades del sistema aplicando herencia sin duplicación de código
+y con coherencia estructural.
+CE3.3: Ejecuta comportamientos polimórficos utilizando referencias genéricas o interfaces
+verificando la respuesta dinámica del sistema.
+CE3.4: Restringe el acceso a los datos empleando modificadores de visibilidad que
+protegen el estado interno de los objetos.
+RA 4: Verificar el comportamiento de una aplicación orientada a objetos
+comprobando su funcionamiento y mantenibilidad a través de pruebas de ejecución
+y revisión del código.
+CE4.1 Detecta errores lógicos y de sintaxis utilizando herramientas de depuración del
+entorno de desarrollo.
+CE4.2: Comprueba el funcionamiento de métodos y clases mediante pruebas funcionales
+en condiciones controladas.
+CE4.3: Registra los resultados de las pruebas en formatos estructurados que evidencian el
+comportamiento del sistema.
+CE4.4: Evalúa la implementación de principios de POO en el código fuente considerando
+encapsulamiento, herencia y polimorfismo.
+RA 5: Documentar aplicaciones orientadas a objetos elaborando información técnica
+clara y estructurada que describa su diseño y funcionamiento.
+CE5.1: Analiza la estructura del sistema describiendo clases, métodos, atributos y
+relaciones de forma técnica y ordenada.
+CE5.2: Aplica convenciones de estilo, nomenclatura y estándares de codificación que
+favorecen la legibilidad del código.
+CE5.3: Produce documentación técnica utilizando herramientas especializadas que detallan
+la funcionalidad de cada componente.
+CE5.4: Evalúa la coherencia y completitud de la documentación generada proponiendo
+mejoras colaborativas conforme a estándares de calidad.
+Contenidos
+Conceptuales                    Procedimentales            Actitudinales
+Fundamentos          de     la Resolver         problemas Valorar     la    programación
+Programación Orientada a informáticos          empleando orientada a objetos como
+Objetos.                        programación orientada a enfoque adecuado para la
+                                objetos.                   construcción de soluciones
+Paradigma de programación                                  informáticas organizadas y
+orientada a objetos.            Comparar         enfoques mantenibles.
+                                estructurados y orientados
+Diferencias entre enfoque a objetos a partir de casos Mostrar disposición al análisis
+estructurado y orientado a simples de programación. reflexivo            de    problemas
+objetos.                                                   computacionales antes de
+                                Representar objetos reales proponer soluciones técnicas.
+Abstracción como principio o          abstractos     como
+de modelado.                    entidades de software con Asumir una actitud crítica frente
+                                estado y comportamiento. a la definición de clases,
+Objeto como entidad con Abstraer         elementos         objetos y relaciones, buscando
+estado y comportamiento. esenciales de un problema         coherencia con el dominio del
+                         computacional desde una           problema.
+Clase como plantilla de perspectiva orientada a
+objetos.                 objetos.                          Reconocer la importancia del
+                                                           modelado conceptual como
+Relación   entre   clases   y Delimitar clases a partir de base     del   diseño    de
+objetos.                      objetos identificados en el aplicaciones   orientadas  a
+                              dominio del problema.        objetos.
+Ciclo de vida de un objeto.
+Modelado          conceptual Relacionar    objetos    y    Respetar los principios de
+orientado a objetos.         clases según su función       responsabilidad    única     y
+                             dentro de una solución        separación                  de
+Dominio del problema y informática.                        responsabilidades en el diseño
+dominio de la solución.                                    de software.
+Modelos conceptuales en Describir el ciclo de vida de
+desarrollo de software.      un objeto en un contexto      Manifestar orden y rigurosidad
+                             de ejecución controlado.      en la elaboración de modelos y
+Responsabilidades         de                               diagramas      orientados    a
+objetos.                     Analizar el dominio del       objetos.
+                             problema     distinguiendo
+Colaboración entre objetos. elementos relevantes del     Valorar el diseño modular como
+Relaciones entre clases.     dominio de la solución.     estrategia para facilitar la
+                                                         comprensión y evolución de las
+Asociación,      Agregación, Construir          modelos aplicaciones.
+Composición, Dependencia. conceptuales orientados a
+Relaciones jerárquicas.      objetos    a    partir   de Mostrar apertura al uso de
+                             requerimientos funcionales interfaces y clases abstractas
+Principio de responsabilidad dados.                      como        mecanismos         de
+única.                                                   extensibilidad y reutilización del
+                             Asignar responsabilidades software.
+Lenguaje de modelado a objetos respetando el
+orientado a objetos.         principio                de Asumir compromiso con la
+                             responsabilidad única.      aplicación      correcta       del
+Diagramas de clases                                      encapsulamiento, la herencia y
+Diagramas de objetos.        Establecer colaboraciones el polimorfismo.
+                             entre objetos según flujos
+Diagramas de interacción.    de interacción definidos.   Demostrar responsabilidad en
+                                                         la implementación del código
+Elementos básicos de UML Determinar           relaciones conforme         al        diseño
+Clases, Atributos, Métodos, entre clases considerando previamente establecido.
+Visibilidad, Relaciones.     asociación,    agregación,
+Notación   estándar       de composición                    y Mantener        una       actitud
+diagramas.                   dependencia.                     cuidadosa en la escritura del
+                                                              código,     favoreciendo        la
+Uso del modelado como           Jerarquizar            clases legibilidad   y     organización
+apoyo al diseño de software.    aplicando criterios de interna.
+Diseño orientado a objetos.     generalización              y
+Arquitectura   básica    de     especialización.              Respetar las convenciones de
+aplicaciones orientadas a                                     nomenclatura y estilo propias
+objetos.                        Elaborar diagramas de de la programación orientada a
+                                clases       representando objetos.
+Diseño modular.                 atributos,    métodos       y
+Separación                de    relaciones entre clases.      Asumir una actitud sistemática
+responsabilidades.                                            en      la   verificación     del
+                                Elaborar diagramas de funcionamiento de clases y
+Cohesión y acoplamiento.        objetos    a     partir    de métodos.
+Encapsulamiento,                instancias concretas del
+Interfaces,        Clases       modelo diseñado.              Reconocer la importancia de
+abstractas.                                                   las pruebas de ejecución y la
+                                Elaborar diagramas de revisión del código en la calidad
+Reutilización de código.        interacción representando del software.
+Extensibilidad del diseño.      mensajes entre objetos en
+Concepto                   de   escenarios definidos.         Manifestar perseverancia ante
+encapsulamiento.                                              la detección y corrección de
+                                Aplicar notación UML errores lógicos o estructurales.
+Encapsulamiento y control       estándar                   en
+de acceso.                      representaciones gráficas Valorar la mantenibilidad del
+                                del sistema.                  software como criterio esencial
+Modificadores de acceso                                       del desarrollo orientado a
+Público, Privado, Protegido.    Interpretar modelos UML objetos.
+Exposición controlada del       existentes como insumo
+estado.                         del diseño de software.       Reconocer la documentación
+                                                              técnica       como         parte
+Clases base       y   clases    Utilizar diagramas como fundamental del proceso de
+derivadas.                      soporte del proceso de desarrollo de software.
+                                diseño orientado a objetos.
+Especialización             y                                 Mostrar     disposición     para
+generalización.                 Diseñar la arquitectura elaborar documentación clara,
+Reutilización por herencia.     básica de una aplicación ordenada y actualizada del
+                                orientada      a     objetos sistema desarrollado.
+Sobrescritura de métodos.       considerando               su
+                                estructura general.           Valorar los diagramas y
+Polimorfismo por herencia.                                    comentarios técnicos como
+                                                              medios de comunicación del
+Polimorfismo por interfaces. Organizar        módulos del diseño y funcionamiento del
+Enlace estático y dinámico.  sistema             respetando software.
+                             principios        de     diseño
+Uso      de      referencias modular.                         Asumir responsabilidad en la
+genéricas.                                                    coherencia entre el código, el
+                                Distribuir                    diseño y la documentación
+Comportamiento     dinámico     responsabilidades       entre generada.
+de objetos.                     clases         promoviendo
+                                cohesión y reduciendo Mostrar interés por mejorar
+Implementación orientada a      acoplamiento.                 continuamente la calidad del
+objetos.                                                      diseño y del código orientado a
+                                Definir interfaces y clases objetos.
+Traducción del diseño a         abstractas            según
+código orientado a objetos.     necesidades               de Mantener          una       actitud
+                                extensibilidad del sistema. colaborativa en la revisión de
+Estructura de clases en                                       diseños,          código         y
+código fuente.                  Planificar mecanismos de documentación técnica.
+                                reutilización de código
+Constructores,     Métodos,     dentro       del      diseño Demostrar ética profesional en
+Atributos.                      propuesto.                    el uso y reutilización de código
+                                                              propio y de terceros.
+Organización del código en      Aplicar encapsulamiento
+unidades lógicas.               en el diseño de clases Asumir compromiso con el
+                                controlando el acceso a los aprendizaje         continuo      de
+Convenciones generales del      datos.                        buenas         prácticas        en
+lenguaje   orientado    a                                     programación       orientada     a
+objetos.                        Seleccionar modificadores objetos.
+                                de acceso adecuados
+Principios de legibilidad del   según el rol de cada
+código.                         atributo o método.
+
+Nomenclatura de clases, Proteger el estado interno
+métodos y atributos.    de los objetos mediante
+Organización interna de exposición controlada.
+clases.
+                        Construir jerarquías de
+Uso     responsable  de clases base y derivadas a
+herencia.               partir del modelo diseñado.
+
+Reutilización             y Aplicar herencia en la
+mantenimiento del código.   reutilización de atributos y
+                            comportamientos.
+Verificación y validación en Implementar sobrescritura
+aplicaciones orientadas a de métodos respetando
+objetos.                     coherencia funcional.
+
+Mantenibilidad del software Aplicar        polimorfismo
+Documentación             de utilizando referencias de
+aplicaciones.                clases base o interfaces.
+
+Importancia     de       la Emplear enlaces estáticos
+documentación técnica.      y dinámicos según el
+                            comportamiento requerido
+Comentarios técnicos.       del sistema.
+
+Documentación del código Validar       comportamiento
+fuente.                      dinámico de objetos en
+                             escenarios de ejecución.
+Descripción    de    clases,
+métodos y atributos.         Traducir          modelos
+                             orientados a objetos a
+Diagramas              como código fuente en un
+documentación.               lenguaje    orientado    a
+                             objetos.
+Herramientas             de
+documentación automática. Implementar clases con
+Estructuras dinámicas en atributos, constructores y
+programación orientada a métodos         conforme     al
+objetos.                     diseño definido.
+
+Pilas, Colas, Listas, Listas Organizar el código fuente
+circulares, árboles, grafos. en    unidades     lógicas
+                             coherentes.
+
+                             Aplicar      convenciones
+                             generales    del lenguaje
+                             orientado     a    objetos
+                             utilizado.
+
+                             Aplicar     principios   de
+                             legibilidad en la escritura
+                             del código fuente.
+Nombrar clases, métodos
+y   atributos    siguiendo
+estándares técnicos.
+
+Organizar     internamente
+las clases favoreciendo
+claridad estructural.
+
+Controlar el      uso de
+herencia           evitando
+dependencias
+innecesarias.
+
+Mantener       el      código
+orientado      a      objetos
+facilitando su reutilización.
+
+Ejecutar pruebas sobre
+clases y métodos en
+entornos controlados.
+
+Revisar el código fuente
+orientado      a objetos
+detectando
+inconsistencias
+estructurales.
+
+Analizar la mantenibilidad
+del software a partir de su
+diseño e implementación.
+
+Elaborar documentación
+técnica asociada al diseño
+orientado a objetos.
+
+Redactar    comentarios
+técnicos    claros    y
+coherentes en el código
+fuente.
+
+Describir clases, métodos
+y       atributos      en
+documentación técnica.
+                              Incorporar     diagramas
+                              como     parte   de    la
+                              documentación         del
+                              sistema.
+
+                              Utilizar herramientas de
+                              documentación
+                              automática disponibles en
+                              el entorno de desarrollo.
+
+                              Manipular      estructuras
+                              dinámicas orientadas a
+                              objetos como pilas, colas y
+                              listas.
+
+                              Implementar            listas
+                              circulares utilizando clases
+                              y objetos.
+
+                              Representar        árboles
+                              mediante       estructuras
+                              orientadas a objetos.
+
+                              Representar         grafos
+                              aplicando relaciones entre
+                              objetos.
+
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+     de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+     Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                     Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                     1
+ Infraestructura/espacio        Aula taller                                       1
+ Laboratorio                    Computadoras con acceso a internet                1
+                             Servidor
+                             Proyector
+                             Red de computadoras
+                             Proyector o pizarra digital.
+Herramientas/equipos         Acceso a internet y red local.
+                             USB o almacenamiento en la nube.
+Recursos
+Referencias Bibliográficas
+  Esparza Cruz, N. K. (2019). Programación orientada a objetos para principiantes.
+        Universidad Técnica de Babahoyo.
+        https://libros.utb.edu.ec/index.php/utb/catalog/book/12
+
+ Madrigal Chaves, W. (2020). Estructura de datos. Universidad San Marcos.
+       https://repositorio.usam.ac.cr/xmlui/handle/11506/2050
+
+ Mazón Olivo, B. E., Cartuche Calva, J. J., Chimarro Chipantiza, V. L., & Rivas Asanza,
+       W. (2015). Fundamentos de programación orientada a objetos en Java.
+       Universidad Técnica de Machala.
+       http://repositorio.utmachala.edu.ec/handle/48000/6746
+
+ Ortiz, M., & Plaza, A. (2013). Programación orientada a objetos con Java y UML.
+         Editorial Universitaria Abya-Yala.
+         https://dspace.ups.edu.ec/handle/123456789/18054
+
+ Salinas Copo, A. M., Vinueza Rodríguez, L. T., Valdiviezo Rodríguez, J. G., Villa López,
+        R. O., Guevara Aulestia, D. L., Urquizo Alvarez, C. E., Moya Ibarra, D. E., &
+        Espín Mendoza, I. V. (2025). Fundamentos de programación orientada a objetos
+        (POO). Editorial CIDE. https://doi.org/10.33996/cide.ecuador.DH2679260
+
+ Sánchez, G. (2023). Principios SOLID en la automatización de pruebas de software
+       para interfaces de usuario web con Selenium WebDriver y Java. Revista
+       Politécnica de Aguascalientes, 2(2), 1–8.
+       https://revistapolitecnicaags.upa.edu.mx/wp-content/uploads/2023/12/V2116-
+       .pdf
+
+ Vera Vera, J. B., & Vera Vera, J. R. (2023). El papel de la programación orientada a
+       objetos en el desarrollo de software sostenible y escalable. Universidad, Ciencia
+       y Tecnología, 27(121), 85–94. https://doi.org/10.47460/uct.v27i121.757
+                           Módulo de Especialización Nro. 3
+Nombre del módulo:                  Base de Datos
+Nivel:                               1ro, 2do, 3ro
+Duración:                            360 periodos pedagógicos
+                                     UC3: Gestionar bases de datos relacionales y no
+                                     relacionales enlazadas al desarrollo de aplicaciones
+                                     informáticas, mediante el modelado de datos, diseño
+                                     conceptual, lógico y físico, implementación de
+Unidad        de     competencia
+                                     estructuras relacionales y operaciones CRUD,
+asociada:
+                                     garantizando      la   integridad,    consistencia y
+                                     disponibilidad de la información, conforme a
+                                     estándares técnicos y buenas prácticas de
+                                     administración de datos.
+Objetivo del módulo: Gestionar bases de datos, mediante el modelado conceptual, diseño
+lógico y físico, y la implementación de operaciones CRUD sobre estructuras relacionales,
+para asegurar la integridad, consistencia y disponibilidad de la información.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Interpretar requerimientos funcionales mediante el análisis de entidades,
+atributos y relaciones del modelo de datos, utilizando simbología estándar y
+contrastando su completitud con las necesidades de la aplicación.
+CE1.1: Diferencia entidades, atributos y relaciones en función de especificaciones
+funcionales de una aplicación.
+CE1.2: Representa modelos entidad-relación empleando notación estándar conforme a
+los requerimientos técnicos.
+CE1.3: Determina claves primarias y foráneas considerando criterios de unicidad y
+coherencia entre entidades.
+CE1.4: Contrasta el modelo de datos frente a los requerimientos para verificar su
+completitud estructural y lógica.
+RA 2: Estructurar esquemas relacionales a través de la aplicación de reglas de
+normalización y vínculos referenciales, eliminando redundancias y garantizando la
+integridad lógica del diseño.
+CE2.1: Define tablas, campos, tipos de datos y restricciones conforme al modelo
+relacional.
+CE2.2: Aplica las formas normales (1FN, 2FN, 3FN) en el diseño de la base de datos
+eliminando duplicidades e inconsistencias.
+CE2.3: Establece relaciones entre tablas utilizando claves primarias y foráneas según el
+modelo lógico definido.
+CE2.4: Evalúa la integridad referencial mediante pruebas de inserción, consulta y análisis
+de dependencias.
+RA 3: Desarrollar bases de datos funcionales, aplicando operaciones CRUD con
+control de integridad y ejecución de consultas estructuradas.
+CE3.1: Crea bases de datos, tablas y restricciones utilizando sentencias DDL en un
+sistema gestor de bases de datos.
+CE3.2: Ejecuta operaciones de inserción, actualización y eliminación respetando las
+relaciones y reglas establecidas.
+CE3.3: Formula consultas SELECT integrando filtros, funciones, ordenamientos y
+agrupaciones según los requerimientos.
+CE3.4: Verifica la integridad de la información validando la ejecución correcta de las
+operaciones CRUD.
+RA 4: Comprobar la estabilidad y consistencia de la base de datos mediante pruebas
+de actualización, recuperación, copias de seguridad y documentación de
+incidencias.
+CE4.1 Revisa la consistencia de los datos ante operaciones de modificación y eliminación.
+CE4.2: Ejecuta consultas de recuperación validando exactitud y pertinencia de los
+resultados.
+CE4.3: Realiza copias de respaldo y restauración aplicando las herramientas del sistema
+gestor.
+CE4.4: Registra observaciones técnicas sobre incidencias, ajustes o mejoras durante el
+uso de la base de datos.
+Contenidos
+Conceptuales                    Procedimentales                     Actitudinales
+                                Identificar entidades, atributos y Asumir responsabilidad
+Fundamentos de bases de relaciones a partir del análisis de por el análisis, modelado
+datos                           requerimientos.                     y diseño de estructuras
+                                                                    de datos conforme a
+Definición y propósito de una Clasificar atributos según su tipo criterios técnicos y éticos.
+base de datos en sistemas (simples,                  compuestos,
+informáticos.                   derivados,  multivaluados).         Reconocer la importancia
+                                                                    del uso de metodologías
+Ventajas y desventajas del Definir claves primarias y sistemáticas para el
+uso de bases de datos frente relaciones entre entidades con análisis,            diseño       y
+a             almacenamiento    base   en reglas del negocio.       mantenimiento de bases
+tradicional.                                                        de datos.
+                                Aplicar la simbología estándar
+Roles:       usuario     final, para representar diagramas Trabajar con autonomía,
+desarrollador, administrador entidad-relación.                      disciplina y sentido de
+y gestor de base de datos                                           eficiencia en la ejecución
+(DBA).                          Utilizar herramientas   gráficas  o de tareas relacionadas
+                                CASE       para     modelar      la con el modelado y
+Arquitectura general de un estructura conceptual.                   administración de datos.
+sistema gestor de bases de
+datos (SGBD).                   Validar el modelo conceptual Adoptar            una     actitud
+                                conforme       a   criterios    de crítica y propositiva frente
+                                completitud, consistencia y       a los problemas técnicos,
+Tipos de modelos de datos: unicidad.                              aportando      soluciones
+jerárquico, de red, relacional,                                   creativas e innovadoras
+orientado a objetos.            Transformar el modelo entidad-    en     el    diseño     e
+                                relación en un modelo lógico      implementación de bases
+Modelo       entidad-relación relacional.                         de datos.
+(E/R): conceptos de entidad,
+atributo,             dominio, Determinar claves primarias y      Demostrar seguridad y
+identificadores.                foráneas    para    establecer    gusto por el trabajo bien
+                                relaciones     e     integridad   realizado       en      la
+Tipos de atributos: simples, referencial.                         estructuración,
+compuestos, multivaluados,                                        depuración               y
+derivados.                      Aplicar      procesos        de   optimización de datos.
+                                normalización (1FN, 2FN, 3FN)
+Relaciones entre entidades: para optimizar el diseño de           Mantener una actitud de
+cardinalidad (1:1, 1:N, N:M), tablas.                             mejora          continua
+opcionalidad y participación.                                     mediante               el
+                                Representar el esquema lógico     autoaprendizaje y la
+Notación gráfica del modelo de la base de datos con
+                                                                  actualización
+E/R (Chen, MinChen o UML herramientas            de      diseño   permanente         sobre
+simplificado).                  relacional.                       herramientas           y
+Diseño        lógico       y                                      estándares del sector.
+normalización    de    datos Utilizar un sistema gestor de
+(EC2)                        bases de datos (SGBD) para Valorar la integridad,
+                             crear el modelo lógico.          consistencia y eficiencia
+Principios del diseño lógico
+de bases de datos.                                            de     las    estructuras
+                             Verificar el cumplimiento de las
+                                                              relacionales como pilares
+                             dependencias funcionales en
+Transformación del modelo las estructuras diseñadas.          fundamentales del diseño
+E/R a modelo relacional.                                      de sistemas informáticos.
+                              Crear tablas en lenguaje SQL,
+Concepto y estructura de definiendo tipos de datos y              Demostrar flexibilización
+una relación: tablas, filas restricciones de integridad.          ante     cambios       de
+(tuplas)      y     columnas                                      requerimientos,
+(atributos).                  Establecer relaciones entre         herramientas o entornos
+                              tablas     mediante      claves     tecnológicos, adaptando
+Claves en relaciones: clave foráneas.                             los modelos y procesos
+primaria, clave ajena, claves                                     sin perder calidad ni
+alternativas y candidatas.    Insertar registros de prueba        coherencia técnica.
+                             para comprobar la estructura y
+Reglas    de     integridad: relaciones.                    Colaborar activamente
+entidad, referencial y de                                   en equipos de trabajo,
+dominio.                                                    respetando         roles,
+                                                            aportando en la toma de
+                                                                      decisiones y fomentando
+Introducción      a          la Utilizar herramientas CASE para       una comunicación clara y
+dependencia funcional.          generar el código de creación de      profesional.
+                                base de datos.
+Proceso de normalización:                                             Promover el aprendizaje
+1FN, 2FN, 3FN y 4FN.            Documentar la estructura física       continuo sobre nuevas
+                                de     la     base     de    datos    tecnologías y modelos de
+Impacto de la normalización implementada.                             bases de datos.
+en     la    reducción      de
+redundancia y mejora de Escribir y ejecutar sentencias                Mantener            ética
+integridad.                     SQL para operaciones de               profesional en el manejo
+                                inserción,                consulta,   y protección de la
+Diseño         físico         e actualización y eliminación.          información almacenada
+implementación (EC3)                                                  en una base de datos.
+                                Utilizar    filtros,    operadores
+Distinción    entre     diseño lógicos, funciones agregadas y         Incentivar         la
+lógico y diseño físico.         cláusulas de agrupación en            responsabilidad en la
+                                consultas.                            documentación       y
+Tipos de datos en SQL:
+                                                                      mantenimiento de las
+numéricos, cadenas, fechas Ejecutar consultas multitabla
+                                                                      bases de datos.
+y booleanos.                    utilizando           combinaciones
+                                 (JOIN).
+Sintaxis SQL para:
+                               Automatizar tareas de consulta
+Creación   de           tablas y reporte mediante vistas y
+(CREATE TABLE)                 subconsultas.
+Modificación de         tablas
+(ALTER TABLE)               Realizar copias de seguridad y
+                            restauración de datos utilizando
+Eliminación de tablas (DROP
+                            funciones del SGBD.
+TABLE)
+                          Documentar procedimientos de
+Definición    de   claves
+                          manipulación y mantenimiento
+primarias y ajenas en la
+                          de datos.
+estructura SQL.
+                            Instalar y configurar una base de
+Creación de vistas (CREATE
+                            datos no relacional.
+VIEW) y eliminación (DROP
+VIEW).                      Realizar de operaciones CRUD
+                            (crear, leer, actualizar, eliminar)
+Inserción, actualización y
+                            en bases de datos no
+eliminación     de    datos
+                            relacionales.
+(INSERT,           UPDATE,
+DELETE).
+Operaciones de control          Integrar bases de datos no
+condicional y estructurado      relacionales con aplicaciones de
+en el SGBD (triggers básicos    escritorio o web.
+o pseudocódigo si no se
+aborda PL/SQL).                 Respaldar y restaurar base de
+                                datos.
+Herramientas CASE para
+modelado: tipos, ejemplos y
+funcionalidades (UML, DB
+Designer, Draw.io).
+
+Consultas,   pruebas       y
+mantenimiento (EC4)
+
+Consultas SQL básicas
+(SELECT, WHERE, ORDER
+BY, GROUP BY, HAVING).
+
+Funciones de agregación:
+COUNT(), SUM(), AVG(),
+MAX(), MIN().
+
+Consultas          multitabla
+(JOINs): INNER JOIN, LEFT
+JOIN, RIGHT JOIN.
+Subconsultas y alias de
+tablas y columnas.
+
+Creación de respaldos de
+bases de datos (backups) y
+restauración básica.
+
+Validación de integridad de
+datos: reglas de validación,
+pruebas de inserción y
+consistencia.
+
+Métricas      básicas     de
+desempeño       (tiempo   de
+respuesta,    volumen     de
+datos, índices).
+Definición y características
+de bases de datos no
+relacionales (NoSQL).
+
+Tipos principales de bases
+de datos no relacionales:
+documentos,      clave-valor,
+columnares y grafos.
+
+Comparación entre bases de
+datos relacionales y no
+relacionales.
+
+Modelos     de    datos    y
+estructuras utilizadas    en
+bases     de    datos     no
+relacionales.
+
+Casos de uso y aplicaciones
+típicas de bases de datos
+NoSQL.
+
+ Consistencia, disponibilidad
+ y particionamiento (modelo
+ CAP).
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación             Detalle de especificaciones técnicas           Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)                          1
+
+Infraestructura/espacio    Aula taller                                            1
+Laboratorio                Computadoras con acceso a internet                     1
+                         Servidor
+                         Proyector
+                         Red de computadoras,
+                         Simuladores de Diseño de redes
+                         Conexión estable a internet para uso de clientes
+                         y servidores.
+Equipos/herramientas
+                         Servidor local (XAMPP, WAMP, PostgreSQL,
+                         SQLite).
+                         SGBD: MySQL, PostgreSQL, SQLite, SQL
+                         Server Express.
+                         Clientes de consulta: DBeaver, MySQL
+                         Workbench, pgAdmin.
+                         Herramientas de modelado: DBDesigner,
+                         DBDiagram.io, Lucidchart.
+                         Lenguajes de consulta: SQL (DDL, DML, DCL),
+                         SQLite queries.
+                         Conectores: JDBC (Java), ADO.NET (C#),
+                         sqlite3 (Python), ORM básicos (SQLAlchemy).
+Recursos
+                         Guías de ejercicios CRUD, relaciones,
+                         consultas JOIN.
+                         Manuales de normalización, integridad y
+                         relaciones entre tablas.
+                         Documentación oficial de SGBD utilizados.
+                         Cursos: Oracle Academy, Microsoft Learn,
+                         Khan Academy (SQL).
+                         Recursos legales: normativa ecuatoriana sobre
+                         protección de datos (Ley Orgánica de
+                         Protección de Datos Personales).
+Referencias Bibliográficas
+
+Esparza Cruz, N. K. (2019). Programación orientada a objetos para principiantes.
+      Universidad Técnica de Babahoyo.
+      https://libros.utb.edu.ec/index.php/utb/catalog/book/12
+
+Madrigal Chaves, W. (2020). Estructura de datos. Universidad San Marcos.
+      https://repositorio.usam.ac.cr/xmlui/handle/11506/2050
+
+Mazón Olivo, B. E., Cartuche Calva, J. J., Chimarro Chipantiza, V. L., & Rivas Asanza,
+      W. (2015). Fundamentos de programación orientada a objetos en Java.
+      Universidad Técnica de Machala.
+      http://repositorio.utmachala.edu.ec/handle/48000/6746
+
+Ortiz, M., & Plaza, A. (2013). Programación orientada a objetos con Java y UML. Editorial
+        Universitaria Abya-Yala. https://dspace.ups.edu.ec/handle/123456789/18054
+Salinas Copo, A. M., Vinueza Rodríguez, L. T., Valdiviezo Rodríguez, J. G., Villa López,
+       R. O., Guevara Aulestia, D. L., Urquizo Alvarez, C. E., Moya Ibarra, D. E., & Espín
+       Mendoza, I. V. (2025). Fundamentos de programación orientada a objetos (POO).
+       Editorial CIDE. https://doi.org/10.33996/cide.ecuador.DH2679260
+
+Sánchez, G. (2023). Principios SOLID en la automatización de pruebas de software para
+      interfaces de usuario web con Selenium WebDriver y Java. Revista Politécnica de
+      Aguascalientes, 2(2), 1–8. https://revistapolitecnicaags.upa.edu.mx/wp-
+      content/uploads/2023/12/V2116-.pdf
+
+Vera Vera, J. B., & Vera Vera, J. R. (2023). El papel de la programación orientada a
+      objetos en el desarrollo de software sostenible y escalable. Universidad, Ciencia y
+      Tecnología, 27(121), 85–94. https://doi.org/10.47460/uct.v27i121.757
+
+
+                             Módulo especialización Nro. 4
+Nombre del módulo:                  Aplicaciones de Escritorio
+Nivel:                               1ro, 2do y 3ro
+Duración:                            360 periodos pedagógicos
+                                     UC4: Implementar aplicaciones de escritorio
+                                     gestionando el ciclo de vida del software, desde el
+                                     análisis de requerimientos, diseño, codificación,
+Unidad      de     competencia       pruebas, mantenimiento y documentación, diseñando
+asociada:                            interfaces gráficas funcionales, integrando bases de
+                                     datos y empleando herramientas colaborativas, control
+                                     de versiones, así como metodologías de desarrollo
+                                     asegurando la calidad técnica y usabilidad.
+Objetivo del módulo: Implementar aplicaciones de escritorio gestionando el ciclo de vida
+del software, mediante el análisis de requerimientos, diseño de interfaces gráficas,
+codificación, pruebas, mantenimiento y documentación, para garantizar la funcionalidad,
+calidad técnica y usabilidad del producto final.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar requerimientos funcionales y no funcionales de una aplicación de
+escritorio mediante técnicas de recolección de información alineadas a objetivos del
+usuario y factibilidad técnica.
+CE1.1: Examina requerimientos a partir de entrevistas, encuestas o documentos técnicos
+según los objetivos a cumplir para el aplicativo.
+CE1.2: Clasifica requerimientos en funcionales y no funcionales considerando criterios
+técnicos, de negocio y experiencia de usuario.
+CE1.3: Representa los requerimientos utilizando modelos o herramientas como historias
+de usuario, casos de uso o diagramas estructurados.
+CE1.4: Contrasta los requerimientos establecidos con las condiciones de factibilidad
+técnica de implementación del aplicativo.
+RA 2: Diseñar la interfaz gráfica de una aplicación de escritorio considerando
+principios de usabilidad, diseño modular y patrones visuales orientados al usuario
+final.
+CE2.1: Organiza pantallas, formularios y componentes gráficos de acuerdo con el flujo
+lógico funcional de la aplicación empleando prototipos y diseños estandarizados.
+CE2.2: Aplica principios de jerarquía visual, consistencia y accesibilidad en la creación de
+interfaces gráficas enfocado en la usabilidad y accesibilidad.
+CE2.3: Delimita módulos de la aplicación integrando patrones de diseño adecuados al
+contexto del proyecto, justificando el empleo de diseños según las necesidades del usuario.
+CE2.4: Justifica decisiones de diseño mediante prototipos, wireframes o mockups
+estructurados según estándares técnicos.
+ RA 3: Desarrollar funcionalidades de una aplicación de escritorio integrando interfaz
+ gráfica, lógica de negocio y acceso a bases de datos, utilizando herramientas de
+ desarrollo y/o bibliotecas.
+CE3.1: Codifica módulos funcionales empleando estructuras de control, formularios
+interactivos y validaciones lógicas.
+CE3.2: Conecta la aplicación a una base de datos utilizando controladores, comandos SQL
+y objetos de acceso a datos.
+CE3.3: Integra componentes gráficos e interacción con el usuario según la lógica del
+negocio definida en los requerimientos.
+CE3.4: Verifica la funcionalidad del sistema comprobando la coherencia del flujo de datos
+entre la interfaz, la lógica y la base de datos.
+ RA 4: Evaluar la calidad funcional de la aplicación de escritorio mediante pruebas,
+ ajustes y documentación técnica garantizando estabilidad, mantenimiento y
+ comprensión del sistema.
+CE4.1 Ejecuta pruebas unitarias, funcionales e integradas siguiendo casos de prueba
+establecidos para cada módulo.
+CE4.2: Corrige errores lógicos, estructurales o visuales durante la fase de pruebas
+manteniendo la integridad del sistema.
+CE4.3: Optimiza el código mediante refactorización técnica orientada a mejorar rendimiento,
+legibilidad y escalabilidad.
+CE4.4: Elabora documentación técnica y de usuario describiendo instalación, estructura
+funcional y mantenimiento del sistema.
+CE4.5 Publica entregables técnicos utilizando herramientas colaborativas y sistemas de
+control de versiones con seguimiento estructurado.
+RA 5: Aplicar metodologías ágiles en el desarrollo de aplicaciones organizando
+tareas, gestionando control de versiones e integrando documentación técnica del
+proceso.
+CE5.1: Organiza tareas del proyecto en tableros digitales siguiendo los principios y ciclos
+establecidos en la metodología ágil seleccionada.
+CE5.2: Gestiona versiones del código fuente utilizando un sistema de control que emplea
+convenciones técnicas, mensajes claros y estandarizados.
+CE5.3: Integra control de versiones respetando la asignación de tareas y completando
+revisiones dentro de ciclos definidos.
+CE5.4: Documenta el proceso de desarrollo empleando formatos técnicos estandarizados
+que aseguran trazabilidad de cambios, decisiones técnicas y criterios de aceptación.
+Contenidos
+Conceptuales                  Procedimentales             Actitudinales
+Características de los Interpretar necesidades Valorar la importancia de
+requerimientos                del usuario a partir de comprender las necesidades
+funcionales      y       no fuentes diversas.             reales del usuario antes de
+funcionales.                                              proponer soluciones técnicas.
+                              Elaborar especificaciones
+Métodos de recolección de de             requerimientos Asumir con responsabilidad la
+información: entrevistas, funcionales         y      no recolección y validación de
+encuestas, observación, funcionales.                      requerimientos como base para
+análisis documental.                                      un desarrollo efectivo.
+                              Representar
+Técnicas de análisis de requerimientos utilizando Mostrar disposición al diálogo y
+requerimientos: casos de diagramas                    y la escucha activa al interactuar
+uso, historias de usuario, descripciones                  con usuarios o miembros del
+diagramas UML.                estructuradas.              equipo técnico.
+Criterios de validación de     Contrastar requerimientos     Reconocer con apertura las
+requerimientos       según     con escenarios de uso         limitaciones y ajustar las
+estándares de calidad del      previstos.                    expectativas frente a los
+software.                                                    requerimientos identificados.
+                               Construir wireframes     y
+Principios de diseño de        prototipos navegables.        Apreciar     la     estética  y
+interfaces         gráficas:                                 funcionalidad como elementos
+                               Aplicar     patrones     de
+consistencia, visibilidad,                                   complementarios         en   el
+                               diseño en la organización
+retroalimentación.                                           desarrollo de interfaces.
+                               lógica de la aplicación.
+Estándares de usabilidad y                                   Demostrar sensibilidad frente a
+                               Definir      estructuras
+accesibilidad.                                               las       necesidades        de
+                               modulares y navegación
+                                                             accesibilidad y diversidad de
+Patrones     de      diseño    entre    ventanas      o
+                                                             usuarios.
+orientados a la interfaz de    componentes.
+usuario (MVC, MVVM).                                         Mantener actitud crítica y
+                               Evaluar     el    diseño
+                                                             autocrítica   frente  a   las
+Estructura modular       de    mediante         pruebas
+                                                             decisiones de diseño tomadas
+aplicaciones:                  heurísticas    o      de
+                                                             en el proceso.
+componentes,                   usabilidad.
+controladores, vistas.                                       Actuar     con  disciplina    y
+                               Programar        eventos,
+                                                             responsabilidad     en       la
+Características          de    validaciones y flujos de
+                                                             codificación         siguiendo
+lenguajes                de    interacción.
+                                                             estándares y buenas prácticas.
+programación orientados a
+                                Integrar      operaciones    Mantener perseverancia y
+escritorio (ej. Java, C#).
+                                CRUD con bases de datos      organización ante la solución
+Librerías    gráficas   y       relacionales.                de errores o dificultades
+controladores de eventos.                                    técnicas.
+                                Utilizar   entornos    de
+Conexión a bases de             desarrollo y herramientas    Colaborar  activamente   en
+datos: drivers, consultas,      de depuración.               equipos    de     desarrollo
+transacciones.                                               respetando ideas y roles
+                                Aplicar buenas prácticas
+                                                             definidos.
+Principios               de     de codificación, manejo
+encapsulamiento,                de errores y seguridad.      Fomentar la ética profesional
+modularidad y reutilización                                  evitando      prácticas  que
+                                Planificar    y  ejecutar
+de código.                                                   comprometan la seguridad o
+                                pruebas      con   casos
+                                                             calidad del software.
+Pruebas funcionales        y    definidos.
+unitarias.                                                   Asumir con compromiso la
+                                Analizar resultados     y
+                                                             revisión crítica del propio
+Estrategias             de      diagnosticar errores    o
+                                                             trabajo para garantizar la
+mantenimiento: correctivo,      inconsistencias.
+                                                             calidad del producto.
+adaptativo, perfectivo.
+                                Documentar
+                                                             Ser       receptivo        ante
+Tipología y estructura de la    funcionalidades,
+                                                             observaciones o sugerencias
+documentación técnica y         estructura del sistema y
+                                                             técnicas que mejoren el
+de usuario.                     manuales de usuario.
+                                                             rendimiento de la aplicación.
+Indicadores de calidad del      Implementar       mejoras
+                                                             Mostrar      rigor  en     la
+software         (fiabilidad,   sobre    la    base    de
+                                                             documentación como evidencia
+eficiencia, mantenibilidad).    resultados obtenidos.
+                                                             de responsabilidad técnica y
+Metodologías           de       Configura un entorno de      profesional.
+desarrollo de software          desarrollo            para
+                                                             Valorar la importancia del
+(tradicionales,    ágiles,      aplicaciones de escritorio
+                                                             mantenimiento     y    mejora
+hibridas)                       (IDE,      dependencias,
+                                                             continua del software después
+Herramientas de control         gestor de versiones).
+                                                             de su implementación.
+de versiones: Git.
+                                Aplicar una metodología
+GitHub/GitLab/Bitbucket.
+                                de desarrollo de software    Promover la mejora continua
+                                según el proyecto en         del producto y del proceso de
+                                entregas funcionales.        trabajo.
+                                Gestionar repositorios de
+                                                             Asumir con responsabilidad la
+                                código mediante Git,
+                                                             planificación y cumplimiento de
+                                siguiendo una estrategia
+                                                             tareas asignadas dentro del
+                                de ramas.
+                                                             equipo.
+                                Realizar commits con
+                                mensajes descriptivos y
+                                estandarizados.
+                              Colaborar    en     equipo
+                              utilizando pull requests,
+                              revisión de código y
+                              resolución de conflictos.
+
+                              Asegurar trazabilidad entre
+                              requerimientos,     tareas,
+                              código    y    entregables
+                              documentados.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                           Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)                           1
+                            Computadoras con acceso a internet
+                            Servidor
+Laboratorio                                                                        1
+                            Proyector
+                            Red de computadoras
+                            Acceso a internet y red para pruebas
+                            colaborativas.
+Equipos/herramientas
+                            Servidor local (si se requiere acceso a bases
+                            de datos).
+                            Lenguajes: Java (Swing, JavaFX), C# (WinForms,
+                            WPF), Python (Tkinter, PyQt5).
+Recursos
+                            IDE/Entornos: Visual Studio, NetBeans, Eclipse,
+                            PyCharm. Intellij Idea, entre otros
+Referencias Bibliográficas
+Alfonso Ramirez, Y. (2022). Aplicación de escritorio del Sistema de Gestión Académica
+       XAUCE AKADEMOS para el MINED [Trabajo de diploma, Universidad de las
+       Ciencias Informáticas]. Repositorio Institucional de la Universidad de las Ciencias
+       Informáticas.
+       https://repositorio.uci.cu/bitstream/123456789/10637/1/TD_09927_22.pdf
+Campos Vidal, L. (2022). Modelo basado en el estándar ISO/IEC 29110 aplicado a la
+     implementación de un sistema de emisión de comprobantes de pago electrónicos
+     en la empresa Telmark Supply SAC [Tesis de maestría, Universidad Nacional del
+     Santa]. Repositorio Institucional.
+     https://repositorio.uns.edu.pe/bitstream/handle/20.500.14278/4038/52525.pdf
+
+Chacon, S., & Straub, B. (2014). Pro Git (2.ª ed.). Apress. https://git-scm.com/book/es/v2
+
+Chocho Guandinango, D. M. (2024). Desarrollo de una aplicación de escritorio que
+      automatice el respaldo de grabaciones de la programación radial utilizando C# y
+      búsqueda de información en el audio mediante técnicas de inteligencia artificial
+      [Trabajo de grado, Universidad Técnica del Norte]. Repositorio Digital
+      Institucional.
+      https://repositorio.utn.edu.ec/bitstream/123456789/16672/2/04%20SOF%20070%
+      20TRABAJO%20DE%20GRADO.pdf
+
+Microsoft. (2025). Qué es Windows Forms. Microsoft Learn.
+       https://learn.microsoft.com/es-es/dotnet/desktop/winforms/overview/
+
+Ortiz, M., & Plaza, A. (2013). Programación orientada a objetos con Java y UML.
+        Editorial Universitaria Abya-Yala.
+        https://dspace.ups.edu.ec/handle/123456789/18054
+
+Pailiacho Mena, V. M., Garcés Freire, E. X., & Balseca Manzano, J. M. (2022).
+        Usabilidad del software: Una revisión sobre su evolución conceptual y parámetros
+        de evaluación. Publicaciones en Ciencias y Tecnología, 16(2), 121–134.
+        https://doi.org/10.5281/zenodo.7131510
+
+Santana, S. R., Antonelli, R. L., & Thomas, P. J. (2021). Evaluación de metodologías
+      para la validación de requerimientos. En Memorias del XXVII Congreso Argentino
+      de Ciencias de la Computación (CACIC 2021) (pp. 419–428). Red de
+      Universidades con Carreras en Informática.
+      https://sedici.unlp.edu.ar/handle/10915/130429
+
+Schwaber, K., & Sutherland, J. (2020). La Guía de Scrum: La guía definitiva de Scrum.
+     Las reglas del juego. Scrum Guides.
+     https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-
+     Latin-South-American.pdf
+
+World Wide Web Consortium. (2023). Pautas de Accesibilidad para el Contenido Web
+      (WCAG) 2.2. Web Accessibility Initiative. https://www.w3.org/WAI/standards-
+      guidelines/wcag/es
+                            Módulo de Especialización Nro. 5
+Nombre del módulo:                   Aplicaciones Web y Móviles
+Nivel:                               2do, 3ro
+Duración:                            360 periodos pedagógicos
+                                     UC 5: Crear aplicaciones para entornos web y móvil
+                                     utilizando tecnologías, marcos de trabajo actuales, a
+Unidad       de     competencia      través del diseño de interfaces adaptables, uso de
+asociada:                            lenguajes de marcado y de programación, integración
+                                     de librerías, bases de datos modularizando el
+                                     desarrollo del frontend y backend.
+Objetivo del módulo: Crear aplicaciones para entornos web y móviles con el uso de
+tecnologías actuales, lenguajes de marcado y programación, marcos de trabajo, diseño de
+interfaces adaptables e integración de bases de datos, organizando el desarrollo en el
+frontend y en el backend, para implementar soluciones funcionales, escalables y acordes a
+los requerimientos del entorno digital actual.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar interfaces gráficas adaptables en aplicaciones web y móviles
+integrando estructuras visuales, scripts de interactividad y principios de usabilidad
+en un entorno de desarrollo definido.
+CE1.1: Incorpora estructuras visuales y eventos dinámicos utilizando librerías y estándares
+web alineados con el diseño centrado en el usuario.
+CE1.2: Distribuye los elementos de la interfaz respetando convenciones de estilo y
+organización modular.
+CE1.3: Integra frameworks o herramientas de diseño que fortalecen la experiencia de
+usuario de la aplicación.
+CE1.4: Ajusta el diseño de la interfaz a distintos tipo y tamaños de pantalla comprobando
+su comportamiento en navegadores y dispositivos diversos.
+RA 2: Implementar lógica de negocio y gestión de datos de una aplicación web o móvil
+desarrollando componentes de frontend y backend con lenguajes de programación
+de servidor, frameworks y entornos adecuados.
+CE2.1: Distingue las responsabilidades de los componentes del sistema aplicando
+principios y patrones de arquitectura acordes al tipo de aplicación.
+CE2.2: Desarrolla funcionalidades del backend que responden correctamente a solicitudes
+provenientes del frontend.
+CE2.3: Configura la conexión con la base de datos asegurando la ejecución correcta de
+operaciones de creación, consulta, actualización y eliminación.
+CE2.4: Estructura el frontend utilizando librerías o frameworks que organizan la
+presentación y la interacción.
+CE2.5: Comprueba el comportamiento del sistema a través de pruebas funcionales y
+validaciones técnicas.
+RA 3: Diseñar aplicaciones web o móviles en entornos de prueba o producción
+empleando plataformas, herramientas y servicios acordes a los requerimientos
+técnicos del proyecto.
+CE3.1: Analiza las características del entorno de despliegue seleccionando configuraciones
+compatibles con la aplicación desarrollada.
+CE3.2: Publica los archivos de la aplicación en servidores locales o en la nube utilizando
+plataformas o herramientas específicas.
+CE3.3: Evalúa el funcionamiento general de la aplicación en el entorno de producción
+confirmando su operatividad.
+CE3.4: Documenta el proceso de despliegue especificando herramientas utilizadas,
+configuración aplicada y pasos seguidos.
+RA 4: Desarrollar aplicaciones web y móviles ajustando el código fuente conforme a
+estándares de codificación, principios básicos de seguridad y criterios de
+mantenimiento.
+CE4.1 Implementa funcionalidades mediante un lenguaje de programación aplicando
+convenciones de nomenclatura, indentación y organización propia del lenguaje o
+framework.
+CE4.2: Incorpora mecanismos básicos de seguridad como sanitización de datos,
+autenticación y manejo seguro de contraseñas.
+CE4.3: Documenta las funciones y estructuras del código utilizando comentarios técnicos
+claros y coherentes.
+Contenidos
+Conceptuales                    Procedimentales             Actitudinales
+Fundamentos                de Reconoce características Valorar la importancia del
+aplicaciones web y móviles. de         aplicaciones    web, desarrollo de aplicaciones web
+Diferencias             entre móviles e híbridas a partir y móviles como soluciones
+aplicaciones web, móviles e de ejemplos funcionales.        tecnológicas     orientadas   a
+híbridas.                                                   necesidades reales de los
+                                Compara                     usuarios.
+Navegadores        web      y comportamientos            de
+entornos de ejecución.          aplicaciones según el Reconocer la relevancia de las
+Plataformas     móviles     y entorno       de    ejecución interfaces gráficas adaptables
+entornos de ejecución.          utilizado.                  para garantizar una experiencia
+Arquitectura         cliente–                               de usuario adecuada en
+servidor.                       Explora navegadores web distintos dispositivos.
+                                evaluando diferencias de
+Flujo de comunicación entre ejecución y visualización.      Respetar los principios de
+frontend y backend.                                         usabilidad y experiencia de
+Tecnologías base para el Explora                plataformas usuario durante el diseño de
+desarrollo web.                 móviles          simulando interfaces web y móviles.
+Lenguajes de marcado.          entornos de ejecución          Valorar la accesibilidad digital
+Lenguajes de hojas de básicos.                                como un componente esencial
+estilo.                                                       del diseño de aplicaciones
+                               Representa el esquema          inclusivas.
+Lenguajes de scripting del cliente–servidor              en
+lado del cliente.              situaciones               de   Reconocer la diversidad de
+                               comunicación básica.           usuarios al diseñar interfaces
+Estándares web actuales                                       considerando      capacidades,
+Compatibilidad           entre Reconoce el rol del            contextos y dispositivos de uso.
+navegadores                    servidor dentro de una
+Estructura básica de una aplicación web o móvil.              Mostrar sensibilidad hacia la
+aplicación web                                                claridad visual y la coherencia
+Diseño       de     interfaces Diagrama el flujo de           gráfica en las interfaces
+gráficas web, móviles e comunicación                  entre   desarrolladas.
+hibridas.                      frontend y backend en
+                               escenarios controlados.        Valorar la aplicación de buenas
+Principios de usabilidad.                                     prácticas de diseño centrado
+Experiencia de usuario (UX) Construye estructuras de          en el usuario durante el
+Accesibilidad               en documentos              web    desarrollo del frontend.
+aplicaciones web y móviles. utilizando lenguajes de
+Diseño centrado en el marcado.                                Respetar    los    estándares
+usuario.                       Aplica hojas de estilo         visuales y de interacción
+                               incorporando          reglas   propios de plataformas web y
+Jerarquía       visual      de visuales progresivas.          móviles.
+componentes.
+                               Incorpora scripts del lado     Reconocer la importancia de
+Tipografía digital.            del cliente generando          mantener     una    estructura
+                               interactividad básica.         organizada y coherente en los
+Paletas de color.                                             proyectos de desarrollo.
+                               Verifica compatibilidad de
+Iconografía.                   interfaces en distintos        Valorar la modularización del
+                               navegadores.                   frontend y backend como
+Diseño       responsivo      y                                estrategia para mejorar la
+adaptativo.                    Organiza archivos de una       mantenibilidad del software.
+                               aplicación web respetando
+Resoluciones y tamaños de una estructura estándar.            Responsabilizarse del correcto
+pantalla.                                                     uso de frameworks y librerías
+                               Diseña interfaces gráficas     conforme a las necesidades del
+Dispositivos          móviles, considerando principios de     proyecto.
+tabletas y escritorio.         usabilidad.
+                               Analiza la experiencia de      Mostrar  disposición para
+Sistemas de rejillas           usuario     a   partir    de   aprender y adoptar nuevas
+Diseño fluido.                 prototipos funcionales.
+                                                               herramientas y tecnologías de
+Media queries.                 Incorpora     criterios de desarrollo web y móvil.
+                               accesibilidad en interfaces
+Pruebas de visualización web y móviles.                        Reconocer el rol del backend
+multiplataforma.                                               como                 componente
+                               Distribuye componentes fundamental                   para        el
+Frameworks y librerías para visuales            respetando funcionamiento lógico de la
+interfaces (frontend).         jerarquía visual.               aplicación.
+Componentes reutilizables
+de interfaz.                   Selecciona         tipografías Valorar         la         correcta
+                               digitales     acordes        al implementación de la lógica de
+Interactividad basada en contexto de la aplicación.            negocio para asegurar el
+eventos.                                                       cumplimiento          de       los
+                               Aplica paletas de color requerimientos funcionales.
+Integración de librerías coherentes               con       la
+externas.                      identidad visual propuesta. Respetar la separación entre la
+                                                               lógica de negocio y la
+Modularización       de     la Integra           iconografía presentación        visual     como
+interfaz.                      funcional en interfaces principio de diseño profesional.
+                               gráficas.
+Componentización.              Ajusta diseños según Reconocer la importancia de la
+                               principios y centrado en el gestión adecuada de datos
+Flujo de datos en el frontend usuario.                         para la confiabilidad de las
+Gestión del estado de la                                       aplicaciones.
+interfaz.                      Configura      resoluciones
+                               para dispositivos móviles, Mostrar compromiso con la
+Fundamentos del backend        tabletas y escritorio.          protección de la información
+Rol     del    servidor    en                                  sensible      gestionada       por
+aplicaciones web y móviles. Adapta         interfaces        a aplicaciones web y móviles.
+                               distintos    tamaños        de
+Lenguajes de programación pantalla.                            Respetar los principios básicos
+del lado del servidor.                                         de    seguridad        informática
+                               Aplica sistemas de rejillas durante el desarrollo del
+Entornos de ejecución del en la organización de frontend y backend.
+servidor.                      interfaces.
+                                                               Valorar     la    validación      y
+Frameworks de backend.         Construye diseños fluidos sanitización de datos como
+Estructura     general     de ajustables al entorno de mecanismos de prevención de
+proyectos web y móviles        visualización.                  vulnerabilidades.
+Organización del código
+fuente.                        Implementa media queries Reconocer la importancia de la
+                               ajustando el diseño visual. autenticación y gestión de
+Separación                  de Comprueba visualización sesiones para el control de
+responsabilidades      en el multiplataforma               en acceso a las aplicaciones.
+proyecto.                      distintos dispositivos.
+                                                               Asumir responsabilidad en el
+Ciclo de vida de una Prototipa                    interfaces manejo ético de la información
+solicitud.                     móviles        considerando de los usuarios.
+                               patrones de interacción
+Manejo de rutas.               táctil.                         Valorar      la    comunicación
+Procesamiento               de                                 efectiva entre frontend y
+solicitudes y respuestas.      Simula navegación y flujos backend para el correcto
+                               de usuario en aplicaciones funcionamiento del sistema.
+Lógica de negocio.             móviles.
+                                                               Reconocer la importancia del
+Separación entre lógica de Incorpora frameworks de manejo adecuado de errores
+negocio y presentación.        frontend en proyectos web en la comunicación cliente–
+                               o móviles.                      servidor.
+Reglas de negocio.
+                               Utiliza        componentes Valorar la incorporación de
+Validaciones de datos.         reutilizables      en        la servicios web como medio para
+                               construcción de interfaces. la          interoperabilidad        de
+Flujo de control del sistema. Programa        interacciones aplicaciones.
+Arquitecturas comunes de basadas en eventos del Mostrar apertura hacia el uso
+aplicaciones web.              usuario en dispositivos de                 tecnologías           de
+                               móviles.                        comunicación en tiempo real en
+Integración        frontend–                                   aplicaciones web y móviles.
+backend                        Integra librerías externas
+Comunicación          cliente– ampliando funcionalidades Reconocer el impacto de las
+servidor                       visuales.                       aplicaciones en tiempo real en
+Peticiones y respuestas                                        la experiencia del usuario.
+Formatos de intercambio de Modulariza la interfaz
+datos.                         separando componentes Valorar                  la       integración
+                               funcionales.                    responsable de agentes de
+Consumo de servicios.                                          inteligencia      artificial     en
+Notificaciones              en Componentiza            vistas aplicaciones web y móviles.
+aplicaciones web y móviles siguiendo estructuras del
+Manejo de errores en la framework utilizado.                   Reflexionar        sobre        las
+comunicación frontend y                                        implicaciones éticas del uso de
+backend.                       Gestiona el flujo de datos inteligencia artificial en el
+                               dentro del frontend.            desarrollo de software.
+Gestión de datos en
+aplicaciones web y móviles. Controla el estado de la Reconocer la importancia de
+Concepto de persistencia de interfaz         durante        la los entornos de desarrollo,
+datos.                         interacción del usuario.
+Operaciones básicas de                                      prueba y producción para la
+gestión de datos. (CRUD).       Configura          entornos calidad del software.
+Flujo de datos entre interfaz   básicos de backend.
+y servidor                                                  Valorar      la      realización
+Integridad de la información    Desarrolla funcionalidades sistemática       de    pruebas
+Empleo de ORM’s en el           empleando lenguajes del funcionales e integrales antes
+backend para conexión a         lado del servidor.          del despliegue de aplicaciones.
+base de datos.
+                             Configura entornos de Responsabilizarse                    del
+Sincronización de datos en ejecución del servidor.        cumplimiento         de        los
+tiempo real.                                              requerimientos           técnicos
+                             Organiza la estructura durante el diseño y despliegue
+Aplicación y gestión de base general de proyectos web de aplicaciones.
+de datos en entornos y móviles.
+móviles.                                                  Reconocer la importancia del
+                             Integra frameworks de mantenimiento continuo de
+Configuración de entornos backend en proyectos de aplicaciones web y móviles.
+de desarrollo.               desarrollo.
+                             Diagrama el ciclo de vida Valorar        la      actualización
+Uso de entornos locales de de una solicitud en el periódica de las aplicaciones
+prueba.                      servidor.                    para mejorar su funcionalidad y
+Pruebas y validación de                                   seguridad.
+aplicaciones.                Define rutas para la Reconocer la escalabilidad
+                             atención de solicitudes.     como un criterio relevante en el
+Concepto       de     prueba                              diseño de aplicaciones.
+funcional.                   Procesa     solicitudes    y
+                             genera respuestas desde Respetar los estándares de
+Pruebas de interfaz.         el backend.                  codificación como base de la
+                                                          calidad y sostenibilidad del
+Pruebas de funcionalidad.    Implementa lógica de software.
+                             negocio en componentes
+Pruebas de integración.      del servidor.                Reconocer la importancia de
+                                                          documentar       el     frontend,
+Validación                de Separa lógica de negocio backend y procesos de
+requerimientos.              de la presentación visual.   despliegue.
+
+Configuración básica de Aplica reglas de negocio            Valorar    la   documentación
+servidores web.         según       requerimientos          técnica como soporte para el
+                        funcionales.                        mantenimiento y evolución de
+Entornos de desarrollo,                                     las aplicaciones.
+prueba y producción.    Incorpora validaciones de
+                        datos en el backend.
+Despliegue de aplicaciones Controla el flujo de             Asumir compromiso con el
+en    servidores    locales, ejecución del sistema.         trabajo colaborativo en equipos
+remotos y/o en la nube.                                     de desarrollo web y móvil.
+                             Aplica        arquitecturas
+Publicación de aplicaciones comunes en aplicaciones     Valorar el aprendizaje continuo
+web.                         web.                       como parte del desarrollo
+                                                        profesional en el área de
+Publicación de aplicaciones Conecta      frontend     y aplicaciones web y móviles.
+móviles.                    backend en aplicaciones
+                            funcionales.
+Mantenimiento            de
+aplicaciones web y móviles, Gestiona     comunicación
+escalabilidad básica.       cliente–servidor a través
+                            de peticiones.
+Estándares de codificación.
+Convenciones de estilo.     Utiliza    formatos      de
+                            intercambio de datos en la
+Organización del código en comunicación.
+aplicaciones web y móviles. Interpreta respuestas del
+Legibilidad del código.     servidor en el frontend.
+
+Buenas      prácticas       de Consume servicios desde
+desarrollo web y móvil.        interfaces web o móviles.
+
+Seguridad     básica      en Gestiona     errores     de
+aplicaciones web y móviles. comunicación            entre
+                             frontend y backend.
+Conceptos     básicos     de
+seguridad        informática Gestiona        solicitudes
+aplicada a la programación sincronicas y asincrónicas
+web y móvil.                 en aplicaciones móviles.
+
+Seguridad en el frontend.       Implementa notificaciones
+                                básicas en aplicaciones
+Seguridad en el backend.        móviles.
+
+Validación y sanitización de Implementa mecanismos
+datos.                       de persistencia de datos
+                             en aplicaciones móviles.
+Gestión de sesiones.
+                             Ejecuta       operaciones
+Autenticación básica.        básicas de gestión de
+                             datos.
+Protección de información
+sensible.                    Controla el flujo de datos
+                             entre la interfaz y el
+Prototipado de interfaces servidor.
+móviles.
+                             Implementa comunicación
+Interacción con funciones en tiempo real utilizando
+del       dispositivo    en WebSockets.
+aplicaciones móviles.
+                             Sincroniza datos en tiempo
+Aplicaciones en tiempo real. real     entre     múltiples
+                             clientes.
+Documentación técnica de
+aplicaciones web y móviles. Ejecuta              pruebas
+                             funcionales           sobre
+Documentación            del interfaces desarrolladas.
+frontend.                    Prepara aplicaciones para
+                             su despliegue en distintos
+Documentación            del entornos.
+backend.
+                             Configura entornos de
+Comentarios técnicos en el producción.
+código.
+                             Configura       parámetros
+Documentación de procesos básicos de servidores web.
+de despliegue.               Publica aplicaciones web
+                             en servidores locales o
+Uso de herramientas de remotos.
+documentación.
+                             Publica        aplicaciones
+Agentes      de      IA  en móviles en entornos de
+aplicaciones web y móviles. prueba o producción.
+Automatizaciones de flujos
+de trabajo.                  Actualiza aplicaciones web
+                             o móviles incorporando
+                             mejoras funcionales.
+
+                              Corrige errores detectados
+                              durante el uso de la
+                              aplicación.
+
+                              Aplica     principios   de
+                              escalabilidad           en
+aplicaciones    web     o
+móviles mediante patrones
+de     diseño    y     de
+programación.
+
+Aplica    estándares     de
+codificación      en      el
+desarrollo del proyecto.
+
+Respeta convenciones de
+estilo propias del entorno
+utilizado.
+
+Aplica principios básicos
+de       seguridad     en
+aplicaciones     web    y
+móviles.
+
+Incorpora medidas de
+seguridad en el frontend.
+
+Incorpora medidas de
+seguridad en el backend.
+
+Valida y sanitiza datos
+recibidos desde la interfaz.
+Gestiona sesiones de
+usuario      de       forma
+controlada.
+
+Implementa mecanismos
+básicos de autenticación.
+
+Protege        información
+sensible gestionada por la
+aplicación.
+
+Integra servicios basados
+en agentes de inteligencia
+artificial.
+                              Automatiza      flujos    de
+                              trabajo utilizando servicios
+                              inteligentes.
+
+                              Elabora     documentación
+                              técnica del frontend.
+
+                              Elabora     documentación
+                              técnica del backend.
+
+                              Incorpora  comentarios
+                              técnicos en el código
+                              fuente.
+
+                              Documenta procesos de
+                              despliegue realizados.
+                              Utiliza herramientas de
+                              documentación durante el
+                              desarrollo.
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+     de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+     Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                     Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                     1
+ Infraestructura/espacio        Aula taller                                       1
+                                Computadoras con acceso a internet
+                                Servidor
+ Laboratorio                                                                      1
+                                Proyector
+                                Red de computadoras
+                                Proyector o pizarra digital.
+ Herramientas/equipos           Acceso a internet y red local.
+                                USB o almacenamiento en la nube.
+ Recursos
+Referencias Bibliográficas
+
+Alamilla Hernández, L. M., Pérez Romero, V. A., Sosa González, S. A., & Valentín
+        Rodríguez, J. A. (2021). Arquitectura REST para el desarrollo de aplicaciones
+        web empresariales. Revista Electrónica sobre Tecnología, Educación y Sociedad,
+        8(15).
+        https://mail.ctes.org.mx/index.php/ctes/article/view/748
+
+Android Developers. (2025). Cómo comenzar a usar Jetpack Compose. Google.
+       https://developer.android.com/develop/ui/compose/documentation?hl=es-419
+
+Bautista-Villegas, E. (2022). Metodologías ágiles XP y Scrum, empleadas para el
+       desarrollo de páginas web, bajo MVC, con lenguaje PHP y framework Laravel.
+       Revista Amazonía Digital, 1(1), e168.
+       https://doi.org/10.55873/rad.v1i1.168
+
+Chimarro Amaguaña, J. D., Aguirre Inga, R. G., Luzón Maldonado, J. M., Acosta
+      Jaramillo, C. A., & Márquez Coca, W. A. (2023). Desarrollo de aplicaciones
+      móviles usando las APIs de Google Cloud Platform. Religación Press.
+      https://doi.org/10.46652/ReligacionPress.130
+      https://press.religacion.com/index.php/press/catalog/book/130
+
+Mateu, C. (2010). Desarrollo de aplicaciones web. Fundació per a la Universitat Oberta
+       de Catalunya.
+       https://openaccess.uoc.edu/bitstream/10609/224/1/Desarrollo%20de%20aplicacio
+       nes%20web.pdf
+
+Mozilla Contributors. (2026). Aprende desarrollo web. MDN Web Docs.
+       https://developer.mozilla.org/es/docs/Learn_web_development
+
+Open Worldwide Application Security Project. (2021). OWASP Top 10: Los diez riesgos
+      de seguridad más críticos en aplicaciones web. OWASP Foundation.
+      https://owasp.org/Top10/2021/es/
+
+Puetate, G., & Ibarra, J. L. (2020). Aplicaciones móviles híbridas. Centro de
+       Publicaciones de la Pontificia Universidad Católica del Ecuador, Sede Ibarra.
+       https://www.pucesi.edu.ec/webs2/libros-docentes/2020/Aplicaciones-Moviles-
+       Hibridas-2020.pdf
+
+Vera Lucas, G., & Vera Vera, J. (2025). Desarrollo de aplicaciones web con un enfoque
+      inclusivo: Una revisión sistemática de literatura. Revista de Investigaciones en
+      Energía, Medio Ambiente y Tecnología, 10(2), 45–58.
+      https://doi.org/10.33936/riemat.v10i2.7691
+      https://revistas.utm.edu.ec/index.php/Riemat/article/view/7691
+       5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación
+a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+                        Módulo Práctico Experimental
+ Nombre del módulo:                   Práctico Experimental
+ Nivel:                               1ro, 2do, 3ro
+ Duración:                            280 periodos pedagógicos
+ Unidad de competencia asociada:      UC1: Aplicar programación estructurada en
+                                      la        resolución       de      problemas
+                                      computacionales, mediante el análisis de
+                                      requerimientos, el diseño de algoritmos y
+                                      flujogramas, uso de lenguajes estructurados
+                                      en     la     construcción    de   soluciones
+                                      funcionales, empleando buenas prácticas
+                                      de codificación y lógica computacional.
+                                      UC4: Implementar aplicaciones de escritorio
+                                      gestionando el ciclo de vida del software,
+                                      desde el análisis de requerimientos, diseño,
+                                      codificación, pruebas, mantenimiento y
+                                      documentación,        diseñando     interfaces
+                                      gráficas funcionales, integrando bases de
+                                      datos       y    empleando       herramientas
+                                      colaborativas, control de versiones, así
+                                      como        metodologías      de    desarrollo
+                                      asegurando la calidad técnica y usabilidad.
+                                      UC5: Crear aplicaciones para entornos web
+                                      y móvil utilizando tecnologías y marcos de
+                                      trabajo actuales, a través del diseño de
+                                      interfaces adaptables, uso de lenguajes de
+                                              marcado y de programación, integración de
+                                              librerías, bases de datos modularizando el
+                                              desarrollo del frontend y backend.
+
+Objetivo del módulo: Desarrollar en el estudiantado competencias para analizar
+requerimientos, diseñar algoritmos y aplicar programación en la creación de soluciones
+tecnológicas, mediante la codificación en lenguajes estructurados, de objeto o
+funcionales, el diseño y desarrollo de aplicaciones de consola, escritorio, web con HTML,
+responsivas y orientadas a dispositivos móviles, que permitan automatizar procesos
+básicos de las organización, incorporando buenas prácticas de programación y
+normativa legal según el enfoque de la aplicación.
+Resultados                 de  Criterios de evaluación Actividades Prácticas
+aprendizaje (RA)               (CE)                          Experimentales
+RA1: Diseñar soluciones        CE1.1:               Elabora Crea      la   estructura     del
+algorítmicas       utilizando  flujogramas              con programa desarrollando un
+flujogramas                  y simbología     técnica      y algoritmo robusto para el
+pseudocódigos aplicando        secuencias lógicas de correcto funcionamiento.
+análisis estructurado y        acuerdo con la estructura
+secuencia       lógica     de  del algoritmo.
+instrucciones.
+                               CE1.2:            Convierte
+                               flujogramas               en
+                               pseudocódigo estructural
+                               utilizando un lenguaje
+                               técnico.
+RA2: Codificar algoritmos      CE2.1:           Construye Construye programas en un
+utilizando un lenguaje de      programas aplicando la lenguaje de programación
+programación                   sintaxis y la semántica aplicando            una     correcta
+garantizando                la del      lenguaje         de escritura de instrucciones,
+funcionalidad, claridad y      programación.                 garantizando que el código
+mantenibilidad del código.                                   cumpla su propósito funcional,
+                                                             con claridad, precisión lógica y
+                               CE2.2:       Verifica      el calidad en los resultados.
+                               comportamiento
+                               funcional     del     código
+                               mediante pruebas que
+                               simule            diferentes
+                               entradas, procesos y
+                               salidas.
+RA3: Diseñar la interfaz       CE3.1:      Organiza       la Diseña una GUI para una
+gráfica de usuario para        estructura básica GUI aplicación moderna aplicado
+una       aplicación       de  con menús botones y al mundo real, utilizando
+escritorio         aplicando                                 herramientas como java,
+ principios de usabilidad.      formularios adecuados al swing o pyqt, .Net, Delphi,
+                                flujo de la aplicación.  entre otros.
+
+                                CE3.2: Aplica principios    Evalúa y mejorar el diseño
+                                de diseño visual para       visual de la GUI creada,
+                                garantizar            una   aplicando feedback de usuario
+                                experiencia de usuario de   o rubrica de usabilidad.
+                                adecuada.
+ RA4:       Planificar     el   CE4.1: Identifica los       Diseña el prototipo en papel o
+ desarrollo     de      una     componentes básicos de      una herramienta digital la
+ aplicación            web,     una     aplicación    web   construcción       de     una
+ responsiva, orientada a        estructura,        diseño   aplicación web.
+ dispositivos       móviles,    funciones
+ empleando marcos de                                       Diagrama casos de uso,
+ trabajo      y      gestión    CE4.2: Codifica, aplica pruebas y depuración.
+ colaborativa en equipo,        diseño y funcionalidad de
+ aplicada al mundo real.        la aplicación.             Ejecuta pruebas funcionales
+                                                           de la aplicación web.
+                                CE4.3:      Publica    los
+                                archivos de la aplicación
+                                web, realizando pruebas
+                                de usuario y de carga.
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

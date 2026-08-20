@@ -1,0 +1,2325 @@
+        MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “REDES Y
+                       TELECOMUNICACIONES”
+
+   1. Objetivo general
+
+Desarrollar soluciones de conectividad a través de la instalación, configuración,
+administración, mantenimiento de sistemas de comunicación de datos aplicando
+estándares técnicos, normativos de seguridad para garantizar el funcionamiento eficiente
+de la infraestructura de redes, servicios de telecomunicaciones, actuando con
+responsabilidad, ética profesional, trabajo en equipo y compromiso con el uso sostenible
+de los recursos tecnológicos.
+
+   2. Plan de estudios
+
+                                                                     1ro      2do     3ro
+Total periodos pedagógicos tronco común
+                                                                     19        19     19
+                      Fundamentos de las Tecnologías de la            3        2
+                      Información y la Comunicación
+Módulos Genéricos
+                      Pensamiento Computacional y                     3        3
+de la Familia
+                      Resolución de Problemas
+Profesional
+                      Ética, Legislación y Ciudadanía Digital         2
+
+                      Redes y Comunicación de Datos                   3        3
+                      Instalación y Configuración de Redes                     4       5
+Módulos             Administración de Redes                                            6
+Especialización     Diseño y Planificación de Infraestructura         4        3       2
+                    de Redes
+                    Sistemas Digitales y Telecomunicaciones           3        3       4
+Módulo Práctico Experimental                                          3        3       4
+Total de periodos pedagógicos de formación técnica                    21      21       21
+
+
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Profesional Tecnologías. Gracias a las
+características de los módulos trabajados en esta etapa, adquieren herramientas que le
+permiten construir una opinión más informada y tomar decisiones con mayor fundamento.
+Esto favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa, insertarse
+en el mundo laboral o emprender un proyecto propio.
+
+Se estructuran los siguientes módulos genéricos:
+
+   •   Fundamentos de las Tecnologías de la Información y la Comunicación
+   •   Pensamiento Computacional y Resolución de Problemas
+  •   Ética, Legislación y Ciudadanía Digital
+
+                              Módulo Genérico Nro. 1
+                                      Fundamentos de las Tecnologías de la Información y
+Nombre del módulo:
+                                      la Comunicación
+Nivel:                                1ro, 2do
+Duración:                             200 periodos pedagógicos
+                                      UC1: Aplicar fundamentos de tecnologías de la
+                                      información y la comunicación mediante el análisis de
+                                      su evolución, la identificación de la arquitectura de
+Unidad       de      competencia
+                                      hardware, software y principios básicos de electricidad
+asociada:
+                                      y electrónica, la operación básica de redes y sistemas
+                                      operativos y, la gestión de información digital, con el fin
+                                      de resolver requerimientos tecnológicos.
+Objetivo del módulo: Desarrollar en el estudiante competencias que analice la evolución
+de las tecnologías de la información y la comunicación, identifique la arquitectura, el
+funcionamiento de hardware y software, manipule sistemas de redes y sistemas operativos,
+organice la información digital, con el fin de resolver de manera efectiva requerimientos en
+distintos entornos tecnológicos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar la evolución de las tecnologías de la información y la comunicación
+reconociendo sus hitos históricos, transformaciones tecnológicas y su impacto en
+los entornos productivos, educativos y sociales.
+CE1.1: Distingue la evolución de las TIC con base en líneas de tiempo o esquemas
+cronológicos.
+CE1.2: Emplea los avances tecnológicos con sus aplicaciones en distintos sectores de la
+sociedad.
+CE1.3: Define las generaciones de computadoras y dispositivos en función de su
+capacidad y arquitectura.
+CE1.4: Argumenta el impacto social, económico y cultural del uso de las TIC, mediante
+análisis de casos actuales o discusiones dirigidas.
+RA 2: Examinar la arquitectura de sistemas informáticos, identificando componentes
+de hardware, software y su funcionamiento integrado en distintos entornos
+tecnológicos.
+CE2.1: Inspecciona los componentes físicos de un sistema informático, clasificándolos
+según su función principal (entrada, procesamiento, almacenamiento, salida y
+comunicación).
+CE2.2: Distingue entre software de sistema, de aplicación y de desarrollo, explicando su
+propósito funcional con ejemplos representativos.
+CE2.3: Elabora esquemas de arquitectura de computadoras donde ubicar los
+componentes funcionales y describe el flujo básico de información entre ellos.
+CE2.4: Determina el tipo de sistema informático (doméstico, industrial, educativo, entre
+otros) a partir de su estructura y características técnicas, según el contexto de uso.
+RA 3: Emplear sistemas operativos y entornos digitales gestionando recursos,
+configuración inicial y funciones elementales en la administración del sistema.
+CE3.1: Ejecuta tareas básicas de administración de archivos y carpetas, diferenciando
+procedimientos entre sistemas operativos gráficos y basados en línea de comandos.
+CE3.2: Identifica parámetros esenciales del sistema operativo como nombre de usuario,
+configuración de red y capacidad de almacenamiento, utilizando herramientas del entorno.
+CE3.3: Aplica funciones básicas de herramientas de mantenimiento del sistema operativo
+para optimizar su funcionamiento.
+CE3.4: Emplea instrucciones en los entornos gráficos o de línea de comandos según el
+tipo de operación administrativa requerida, justificando su elección.
+RA 4: Utilizar los fundamentos básicos de electricidad y electrónica digital para la
+construcción de circuitos simples.
+CE4.1: Examina los principios básicos de electricidad y su relación con el funcionamiento
+de dispositivos electrónicos utilizados en computación.
+CE4.2: Analiza componentes electrónicos digitales y su aplicación en sistemas
+informáticos.
+CE4.3: Establece conocimientos de lógica en la resolución de problemas digitales.
+CE4.4: Diseña esquemas y diagramas electrónicos básicos para comprender la estructura
+de circuitos eléctricos simples.
+RA 5: Diseñar redes informáticas comprendiendo su estructura, tipos, dispositivos,
+protocolos de comunicación y funciones esenciales.
+CE5.1: Clasifica elementos físicos y lógicos de una red informática según su función en el
+sistema.
+CE5.2: Diferencia tipos de redes (LAN, WAN, WLAN) en función de su alcance, propósito
+y características.
+CE5.3: Representa dispositivos de red en esquemas funcionales según su rol en la
+infraestructura.
+CE5.4: Elabora cuadros técnicos sobre el funcionamiento de protocolos de comunicación
+en la transmisión de datos.
+RA 6: Gestionar información digital utilizando herramientas tecnológicas mediante
+la organización, almacenamiento, protección y compartición de datos.
+CE6.1: Analiza información digital considerando su tipo, relevancia y nivel de
+confidencialidad en contextos educativos o profesionales.
+CE6.2: Organiza carpetas y archivos con nombres coherentes en soportes físicos y
+virtuales con base en criterios de estructuración lógica.
+CE6.3: Implementa medidas básicas de protección de datos mediante contraseñas,
+permisos de acceso o cifrado en entornos digitales.
+CE6.4: Transfiere información en plataformas colaborativas o servicios en la nube
+respetando estándares de seguridad y compatibilidad.
+Contenidos
+Conceptuales                     Procedimentales                Actitudinales
+Evolución histórica de las Analizar líneas de tiempo y Mostrar responsabilidad y
+Tecnologías         de     la esquemas          cronológicos ética en el manejo y
+Información         y      la para identificar hitos y protección de la información
+Comunicación (TIC).              evolución de las TIC.          digital.
+Hitos    tecnológicos      y    Clasificar dispositivos de
+                                                                Valorar la importancia de la
+generaciones              de    hardware y software según
+                                                                evolución tecnológica y su
+computadoras.                   su función y tipo.
+                                                                impacto en la sociedad.
+Impacto social, económico       Organizar esquemas y
+                                                                Desarrollar    una    actitud
+y cultural de las TIC.          diagramas de arquitectura
+                                                                crítica y reflexiva ante los
+                                de sistemas informáticos.
+Software libre y software                                       cambios y avances en las
+propietario, licenciamiento y   Identificar el flujo de         TIC.
+pagos.                          información         entre
+                                                                Fomentar el interés por el
+                                componentes de hardware
+Arquitectura de sistemas                                        aprendizaje    continuo    y
+                                y software.
+informáticos: componentes                                       actualización en tecnologías
+de    hardware    y   sus       Manipular         sistemas      emergentes.
+funciones.                      operativos para gestionar
+                                                                Promover      el     trabajo
+                                archivos,    carpetas    y
+Tipos de software: de                                           colaborativo      y       la
+                                configuraciones básicas.
+sistema, de aplicación y de                                     comunicación efectiva en
+desarrollo,     según    su     Configurar parámetros de        ambientes tecnológicos.
+contexto,     funciones   y     usuario,       red     y
+                                                                Adoptar     prácticas    de
+características.                almacenamiento        en
+                                                                seguridad      digital para
+                                sistemas operativos.
+Estructura funcional de                                         proteger datos personales y
+computadoras y flujo de         Aplicar funciones básicas       profesionales.
+información         entre       de    mantenimiento   del
+                                                                Reconocer la importancia del
+componentes.                    sistema operativo.
+                                                                respeto a la privacidad y la
+Clasificación de sistemas       Utilizar entornos gráficos y    confidencialidad en el uso de
+informáticos   según   su       línea de comandos para          tecnologías.
+contexto de uso.                tareas de administración.
+                                                                Desarrollar autonomía en la
+Redes          informáticas,    Catalogar y diferenciar         gestión y solución de
+elementos físicos y lógicos.    elementos físicos y lógicos     problemas       tecnológicos
+                                de redes informáticas.          básicos.
+Tipos de redes (LAN, WAN,
+WLAN)           y         sus   Describir tipos de redes y      Mantener       una      postura
+características principales.    sus           características   abierta y flexible ante nuevas
+                                mediante           ejemplos     metodologías y herramientas
+Dispositivos de red y sus
+                                prácticos.                      tecnológicas.
+funciones (switch, router,
+módem, punto de acceso,         Configurar dispositivos de      Impulsar la conciencia sobre
+repetidor).                     red y simular funciones de      el impacto ambiental y social
+                                protocolos              de      del uso responsable de las
+Protocolos             de
+                                comunicación.                   TIC.
+comunicación en redes.
+                                Organizar, almacenar y          Mantener       una      actitud
+Conceptos de gestión,
+                                proteger información digital    positiva y resiliente ante
+organización,
+                                mediante      herramientas      fallos y errores técnicos.
+almacenamiento, normas y
+                                tecnológicas.
+buenas     prácticas  en                                        Fomentar el trabajo en
+                                                                equipo con comunicación
+seguridad informática      y                                  abierta,     respeto          y
+                               Implementar     medidas
+protección de datos.                                          cooperación.
+                               básicas de seguridad en
+Herramientas tecnológicas      entornos        digitales      Priorizar la gestión adecuada
+para compartir información     (contraseñas,  permisos,       del tiempo y recursos para
+en entornos digitales.         cifrado).                      cumplir objetivos.
+Fundamentos de trabajo         Compartir información en
+                                                              Demostrar responsabilidad
+colaborativo           y       plataformas colaborativas y
+                                                              en el manejo seguro de
+comunicación efectiva en       servicios en la nube,
+                                                              herramientas e
+entornos tecnológicos.         respetando normas de
+                                                              instrumentos eléctricos y
+                               seguridad y formatos.
+Organización, planificación                                   electrónicos.
+y gestión de proyectos         Probar                nuevas
+tecnológicos.                  herramientas tecnológicas
+                               y entornos digitales.
+Unidades de medidas de la
+información.                   Diagnosticar y resolver
+                               problemas técnicos con
+Fundamentos eléctricos y
+                               actitud     analítica y
+electrónicos: conceptos
+                               perseverante.
+básicos y práctica con
+circuitos.                     Documentar procesos y
+                               resultados técnicos de
+Protección     eléctrica   y
+                               manera clara y ordenada.
+puesta a tierra.
+                               Utilizar        plataformas
+Componentes eléctricos y
+                               colaborativas     para   la
+electrónicos.
+                               gestión del     trabajo en
+Esquemas, diagramas        y   equipo.
+circuitos electrónicos
+                               Identificar  componentes
+Lógica digital.                eléctricos y electrónicos
+                               básicos visualmente y por
+                               código.
+                               Construir circuitos
+                               eléctricos básicos en
+                               protoboard y simuladores
+                               digitales.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación              Especificaciones técnicas               Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)                1
+                         Computadoras con acceso a internet
+Laboratorio                                                         1
+                         Proyector
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+      Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021.
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+        Una guía de aproximación para el empresario. INCIBE.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_glosario_cibers
+        eguridad_2021.pdf
+
+Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La ciberseguridad
+        al alcance de todos. INCIBE.
+        https://www.incibe.es/sites/default/files/docs/senior/guia_ciberseguridad_para_tod
+        os.pdf
+
+Instituto Nacional de Ciberseguridad. (2024). Gestión de crisis de ciberseguridad en
+        empresas. INCIBE.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_gestion_de_cri
+        sis.pdf
+
+Lema, W. R., & Chérrez, P. F. (2023). Estudio diagnóstico del uso de la infraestructura
+      TIC básica (hardware, software e Internet) en instituciones educativas de
+      educación básica, cantón Azogues-Ecuador. LATAM Revista Latinoamericana de
+      Ciencias Sociales y Humanidades, 4(1), 24–39.
+      https://doi.org/10.56712/latam.v4i1.221
+
+Ministerio de Educación de Bolivia. (2024). Tecnología de la información digital: Guía de
+       trabajo. Nivel técnico básico. Dirección General de Educación Alternativa.
+       https://www.minedu.gob.bo/files/publicaciones/veaye/dgea/16_GUIA_DE_TRABA
+       JO_-_TECNOLOGA_DE_LA_INFROMACIN_DIGITAL.pdf
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2023).
+      Resumen del Informe de seguimiento de la educación en el mundo 2023:
+      Tecnología en la educación. UNESCO. https://www.unesco.org/gem-
+      report/sites/default/files/medias/fichiers/2023/07/7952%20UNESCO%20GEM%20
+      2023%20Summary_ES_Web.pdf
+Santiago-Trujillo, Y. D., & Garvich-Ormeño, R. M. (2024). Competencias digitales e
+       integración de las TIC en el proceso de enseñanza-aprendizaje. Revista
+       Tecnológica-Educativa Docentes 2.0, 17(1).
+       https://doi.org/10.37843/rted.v17i1.405
+
+Stallman, R. M. (2004). Software libre para una sociedad libre. Traficantes de Sueños.
+       https://www.gnu.org/philosophy/fsfs/free_software.es.pdf
+
+Vuorikari, R., Kluzer, S., & Punie, Y. (2022). DigComp 2.2: Marco de competencias
+       digitales para la ciudadanía. Con nuevos ejemplos de conocimientos, habilidades
+       y actitudes. Oficina de Publicaciones de la Unión Europea. https://somos-
+       digital.org/wp-content/uploads/2022/04/digcomp2.2_castellano.pdf
+
+
+
+
+                            Módulo Genérico Nro.2
+                                    Pensamiento Computacional y Resolución de
+Nombre del módulo:
+                                    Problemas
+Nivel:                              1ro, 2do
+Duración:                           240 periodos pedagógicos
+                                    UC2:     Proponer      soluciones   informáticas    y
+                                    computacionales mediante el análisis lógico-
+Unidad      de     competencia      matemático, manejo de sistemas numéricos, lógica de
+asociada:                           conjuntos, formulación algorítmica con diagramas y
+                                    pseudocódigo, aplicación de programación básica,
+                                    levantando documentación técnica, como fundamento
+                                    del desempeño profesional en tecnologías de la
+                                    información y comunicación.
+Objetivo del módulo: Fortalecer en el estudiante competencias técnicas en la formulación
+y representación algorítmica, programación básica, aplicando metodologías de desarrollo,
+conceptos lógicos matemáticos y sistemas numéricos para la resolución de problemas
+computacionales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar conceptos de lógica matemática, conjuntos y sistemas numéricos en
+la resolución de problemas computacionales.
+CE1.1: Distingue proposiciones y operaciones lógicas utilizando tablas de verdad y leyes
+del álgebra booleana.
+CE1.2: Representa operaciones de conjuntos en problemas computacionales mediante
+diagramas y notación formal.
+CE1.3: Transforma valores entre sistemas numéricos binario, decimal, hexadecimal y octal
+como base para el tratamiento de datos.
+CE1.4: Resuelve problemas que combinan lógica proposicional y sistemas numéricos en
+contextos computacionales específicos.
+RA 2: Resolver algoritmos de aplicaciones informáticas, representarlos mediante
+diagramas de flujo y pseudocódigo.
+CE2.1: Descompone problemas en pasos secuenciales mediante la elaboración de
+diagramas de flujo estructurados.
+CE2.2: Traduce diagramas de flujo a pseudocódigo utilizando sintaxis estructurada y lógica
+funcional.
+CE2.3: Verifica algoritmos mediante pruebas y simulaciones, identificando errores de lógica
+y eficiencia.
+CE2.4: Contrasta resultados esperados y obtenidos para evaluar el comportamiento
+funcional del algoritmo.
+ RA 3: Utilizar programación en la construcción de soluciones computacionales.
+CE3.1: Emplea estructuras secuenciales, condicionales y repetitivas al desarrollar
+programas en un lenguaje de programación resolviendo problemas computacionales
+básicos.
+CE3.2: Construye clases, atributos y métodos aplicando principios de encapsulamiento,
+herencia y polimorfismo en un lenguaje orientado a objetos.
+CE3.3: Elabora estructuras de datos simples como vectores, listas y matrices para la gestión
+de información en aplicaciones básicas.
+CE3.4: Codifica programas simples verificando la funcionalidad conforme a los
+requerimientos establecidos y resultados esperados.
+CE3.5: Documenta mediante comentarios técnicos explicando la lógica, estructura y
+funcionamiento del código fuente.
+ RA 4: Diseñar interfaces básicas facilitando la interacción con usuarios en
+ aplicaciones de consola y GUI.
+CE4.1: Aplica elementos visuales, etiquetas y campos adecuados al tipo de aplicación
+(consola o GUI) para representar la funcionalidad esperada.
+CE4.2: Integra principios de usabilidad y accesibilidad en el diseño de interfaces,
+considerando la disposición, navegación y comprensión visual
+CE4.3: Programa eventos y validaciones que responden correctamente a las acciones del
+usuario, previniendo errores en tiempo de ejecución.
+CE4.4: Realiza pruebas para identificar mejoras en la interacción y funcionalidad de la
+interfaz desarrollada.
+ RA 5: Implementar metodologías de desarrollo de software en función del tipo de
+ proyecto, integrando tiempos de entrega y colaboración en equipo.
+CE5.1: Selecciona adecuadamente la metodología de desarrollo (ágil, tradicional, híbrida)
+según los requerimientos del proyecto.
+CE5.2: Realiza las tareas de desarrollo de acuerdo con la metodología seleccionada,
+cumpliendo entregables y estándares.
+CE5.3: Coordina la colaboración en equipo utilizando herramientas digitales que facilitan la
+comunicación y el seguimiento de actividades.
+CE5.4: Documenta el proceso de desarrollo mediante registros técnicos que evidencian el
+avance y la gestión del proyecto.
+Contenidos
+Conceptuales                   Procedimentales                Actitudinales
+Principios del pensamiento     Descomponer problemas          Emplear el pensamiento
+computacional.                 complejos            en        analítico en la resolución de
+                               subproblemas manejables        problemas.
+Componentes     de      un
+                               mediante estrategias de
+problema computacional.                                       Mostrar disposición para
+                               pensamiento lógico.
+                                                              explorar         situaciones
+Criterios de optimización en
+                               Identificar       patrones     problemáticas         desde
+soluciones
+                               comunes     en     distintos   múltiples perspectivas antes
+computacionales.
+                               problemas para proponer        de proponer soluciones.
+Metodología    para   la       soluciones generalizables.
+                                                              Asumir responsabilidad en la
+resolución de problemas
+                               Representar procesos a         coherencia lógica de los
+computacionales.
+                               través de diagramas de         diseños         propuestos,
+Identificación de patrones y   flujo, pseudocódigo u otras    considerando el contexto del
+relaciones.                    formas de modelado lógico.     problema.
+Algoritmos, definición    y    Formular         algoritmos    Mostrar flexibilidad para
+características.               eficientes    considerando     ajustar    los     modelos
+Tipos de datos, variables,     secuencia,        selección,   diseñados    ante   nuevas
+constantes y expresiones.      iteración y modularidad.       condiciones o sugerencias.
+
+Lenguajes             de       Simular    algoritmos     en   Aplicar buenas prácticas en
+pseudocódigo y diagramas       entornos digitales o físicos   la elaboración de algoritmos
+de flujo.                      para      comprobar       su   organizados,     claros    y
+                               funcionalidad.                 eficientes.
+Estructuras  de     control
+secuencial, condicional y      Evaluar    soluciones    en    Reflexionar     sobre     los
+repetitiva.                    función de su eficiencia,      resultados obtenidos como
+                               claridad y capacidad de        una     oportunidad     para
+Tipos       de      errores,   resolución del problema.       mejorar     las   soluciones
+sintácticos, lógicos y de                                     propuestas.
+ejecución.                     Aplicar heurísticas para
+                               resolver problemas donde       Aceptar con apertura la
+Buenas prácticas en la         no existe un camino único o    retroalimentación de otros
+resolución de problemas        completamente definido.        como parte fundamental del
+computacionales                                               proceso de aprendizaje.
+                               Construir      soluciones
+Heurísticas para la toma de    computacionales básicas        Mostrar        comunicación
+decisiones.                    empleando    herramientas      asertiva en la resolución de
+Operadores lógicos y tablas    de programación.               problemas computacionales,
+de verdad.                     Revisar errores lógicos o      Colaborar activamente con
+Funciones             de       sintácticos en algoritmos o    sus pares para enriquecer
+modelamiento de bases de       programas         mediante     ideas y construir soluciones
+datos.                         procesos de depuración.        colectivas.
+Fundamentos de lógica y        Integrar estrategias de        Valorar la importancia de la
+matemáticas     aplicadas,     mejora continua en la          lógica matemática en la
+operadores        lógicos,     solución de problemas          resolución de problemas.
+proposiciones, tablas de       computacionales.
+verdad, operaciones entre
+                                                             Adoptar      una       actitud
+conjuntos,       sistemas      Verificar sistemáticamente la
+                                                             perseverante       en        la
+numéricos y conversiones.      funcionalidad lógica de las
+                                                             resolución de problemas con
+                               soluciones      antes     de
+Tipos      de       lógica,                                  algoritmos      claros        y
+                               validarlas.
+proposicional, booleana y                                    eficientes.
+matemática.
+                               Aplicar operadores lógicos
+                                                              Demostrar empatía hacia el
+Interfaz gráfica de usuario    en    la   resolución   de
+                                                              usuario final en el diseño de
+GUI,       usabilidad     y    problemas
+                                                              interfaces.
+accesibilidad.                 computacionales.
+ Metodologías de desarrollo,                                  Fomentar la colaboración de
+ herramientas colaborativas    Transformar       números      trabajo en equipo
+ y documentación técnica y     entres distintos sistemas
+ de usuario.                   numéricos, entendiendo los
+                               procesos computacionales.
+
+                               Diseñar interfaces graficas
+                               con elementos interactivos
+                               aplicando principios de
+                               usabilidad y accesibilidad
+                               con enfoque al usuario.
+
+                               Utilizar      herramientas
+                               colaborativas    para   el
+                               trabajo en equipo.
+
+                               Elaborar   documentación
+                               técnica y de usuario del
+                               software.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación               Especificaciones técnicas                     Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)          1
+Laboratorio                Computadoras con acceso a internet
+                            Proyector                                 1
+Referencias Bibliográficas
+Borchardt, M., & Roggi, I. (2017). Ciencias de la computación en los sistemas educativos
+      de América Latina. Instituto Internacional de Planeamiento de la Educación de la
+      UNESCO & Organización de Estados Iberoamericanos para la Educación, la
+      Ciencia y la Cultura.
+
+Brennan, K., Balch, C., & Chung, M. (2014). Informática creativa: Una introducción al
+      pensamiento computacional con Scratch. Harvard Graduate School of Education.
+
+Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado. (2022).
+        Pensamiento computacional, programación y robótica educativa en el currículo
+        LOMLOE. Ministerio de Educación y Formación Profesional de España.
+
+Marañón Marañón, Ó., & González-García, H. (2021). Una revisión narrativa sobre el
+      pensamiento computacional en Educación Secundaria Obligatoria. Contextos
+      Educativos. Revista de Educación, (27), 169–182.
+      https://doi.org/10.18172/con.4644
+
+Méndez Hernández, S. O., & Bermúdez, J. F. (2023). El pensamiento computacional
+     como competencia para el siglo XXI. Ciencia Latina Revista Científica
+     Multidisciplinar, 7(4), 2258–2279. https://doi.org/10.37811/cl_rcm.v7i4.7044
+
+Ministerio de Educación Nacional de Colombia. (2022). Orientaciones curriculares para el
+       área de tecnología e informática en la educación básica y media. Ministerio de
+       Educación Nacional.
+
+Ministerio de Tecnologías de la Información y las Comunicaciones, Ministerio de
+       Educación Nacional, & British Council. (2022). ¿Por qué y para qué el
+       pensamiento computacional y las habilidades digitales? Gobierno de Colombia.
+
+Morales Caumel, R. (2023). PSeInt: Programando en pseudocódigo. Observatorio de
+      Tecnología Educativa, (103). Instituto Nacional de Tecnologías Educativas y de
+      Formación del Profesorado. https://doi.org/10.4438/2695-
+      4176_OTEpdf103_2020_847-19-134-33
+
+Polanco Padrón, N., Ferrer Planchart, S., & Fernández Reina, M. (2021). Aproximación a
+      una definición de pensamiento computacional. RIED. Revista Iberoamericana de
+      Educación a Distancia, 24(1), 55–76. https://doi.org/10.5944/ried.24.1.27419
+
+Python Software Foundation. (2026). El tutorial de Python: Documentación de Python
+      3.14. Python Software Foundation.
+
+Schwaber, K., & Sutherland, J. (2020). La guía de Scrum: La guía definitiva de Scrum.
+       Las reglas del juego. Scrum.org.
+
+World Wide Web Consortium. (2025). Sumario de las Pautas de Accesibilidad para el
+      Contenido Web (WCAG) 2. Web Accessibility Initiative.
+
+
+
+                                 Módulo Genérico Nro.3
+Nombre del módulo:                    Ética, Legislación y Ciudadanía Digital
+Nivel:                                1ro
+Duración:                             80 periodos pedagógicos
+                                      UC3: Integrar principios éticos y legales en el uso de
+                                      tecnologías, protección de datos, propiedad intelectual
+Unidad       de     competencia
+                                      y responsabilidad digital con el fin de asumir
+asociada:
+                                      desempeño consciente y responsable en entornos
+                                      digitales.
+Objetivo del módulo: Fomentar la comprensión y aplicación de principios éticos,
+normativas legales y prácticas responsables en el uso de las tecnologías digitales,
+fortaleciendo una ciudadanía digital crítica, respetuosa, segura y consciente de los derechos
+y deberes en entorno virtuales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar los principios éticos relacionados con el uso responsable de las
+tecnologías digitales.
+CE1.1: Analiza casos o situaciones que evidencias conflictos éticos en el uso de
+tecnologías digitales.
+CE1.2: Relaciona el uso de herramientas digitales con posibles impactos éticos y sociales
+en distintos contextos.
+CE1.3: Muestra respeto a los derechos de propiedad intelectual en entornos digitales.
+CE1.4: Reflexiona críticamente sobre sus prácticas digitales cotidianas en el uso ético y
+responsable de la tecnología en actividades personales, académicas, culturales o
+profesionales.
+RA 2: Diferenciar el uso lícito e ilícito de recursos digitales, software y contenidos
+en línea.
+CE2.1: Clasifica recursos digitales según su tipo de licencia y condiciones de uso.
+CE2.2: Discrimina prácticas ilícitas como el uso de software pirata, descargas ilegales,
+reproducción sin autorización o plagio digital.
+CE2.3: Aplica criterios de legalidad y responsabilidad en la selección, uso y difusión de
+recursos digitales en contextos educativos o institucionales.
+CE2.4: Evalúa las consecuencias legales y éticas del uso indebido de software y
+contenidos protegidos por derechos de autor.
+RA 3: Aplicar normas legales relacionadas con la protección de datos personales y
+privacidad digital.
+CE3.1: Distingue el tipo de información que se considera dato personal y sensible según
+la normativa vigente.
+CE3.2: Analiza situaciones de vulneración de privacidad en entornos digitales y sus
+implicaciones legales y éticas.
+CE3.3: Aplica buenas prácticas en la recolección, almacenamiento y uso responsable de
+datos personales en contextos laborales, académicos o comunitarios.
+CE3.4: Verifica que las plataformas, formularios o recursos digitales utilizados respeten
+principios de confidencialidad, seguridad y protección de datos.
+RA 4.: Promover comportamientos responsables y seguros en el uso de tecnologías
+y redes digitales.
+CE4.1: Distingue situaciones de riesgo digital derivadas de vulnerabilidades de hardware
+y software, y propone formas de prevención.
+CE4.2: Emplea normas básicas de conducta digital (netiqueta) promoviendo valores como
+el respeto, la responsabilidad, la empatía y la honestidad en entornos laborales, educativos
+y sociales, haciendo un uso ético y consciente de las tecnologías.
+CE4.3: Participa de manera crítica, ética y responsable en entornos digitales, promoviendo
+el uso de la tecnología y contribuyendo a una cultura digital inclusiva y respetuosa.
+CE4.4: Propone actividades que promuevan la ciudadanía digital, el respeto a los demás y
+el cuidado del entono virtual.
+ Contenidos
+Conceptuales                     Procedimentales                  Actitudinales
+Ética y moral en entornos Analizar casos reales o Mantener compromiso con el
+digitales:                       simulados de dilemas éticos uso responsable de las
+• Definición de ética y moral. digitales.                         tecnologías.
+• Diferencias entre ética
+personal, profesional y digital Evaluar el cumplimiento de Respetar la privacidad y la
+• Dilemas éticos en el principios éticos en el uso de identidad digital propia y
+entorno tecnológico              plataformas tecnológicas.        ajena.
+Principios éticos aplicados
+a la tecnología:                  Aplicar criterios éticos en la Promover el uso ético de las
+• Responsabilidad                toma de decisiones digitales TIC evitando acoso digital,
+• Integridad                     (uso      de      información, difusión de contenido falso,
+• Justicia y equidad             comunicación, privacidad).       piratería.
+• Respeto a la privacidad
+• Transparencia                  Elaborar        códigos      de Manifestar actitud crítica y
+Legislación Digital:             conducta       o   guías     de reflexiva     frente    a  la
+• Marco legal                    comportamiento digital para información y a la conducta
+• Derechos y deberes             contextos      educativos      o digital.
+• Delitos cibernéticos           laborales.
+• Importancia                                                     Demostrar       empatía    y
+Ciudadanía Digital:              Participar en debates o foros responsabilidad         en   la
+• Definición                     sobre        temas       éticos interacción virtual.
+• Componentes                    relacionados        con       la
+• Habilidades                    tecnología.                      Mantener      disposición  a
+• Participación                                                   actuar con integridad y
+• Ética
+• Seguridad                    Participar en campañas honestidad en entornos
+Diferencias culturales y sociales digitales o en digitales.
+legales                        espacios     de      discusión
+Tendencias futuras en respetuosa.
+ética digital                  Configurar la privacidad en
+Ejemplos de ética digital      redes sociales.
+• Privacidad de datos          Realizar     prácticas      de
+• Bias algorítmico             recolección de datos no
+• Ciberseguridad               éticas.
+• Brecha digital               Usar contraseñas seguras,
+Uso responsable de las reconocer                      correos
+tecnologías digitales          fraudulentos o evitar el
+• Comportamiento ético en acceso          a    sitios    web
+redes sociales y plataformas peligrosos.
+digitales.
+• Derechos y deberes de los
+usuarios digitales
+• Netiqueta y ciudadanía
+digital
+Consecuencias del uso no
+ético de la tecnología:
+• Ciberacoso, suplantación
+de                  identidad,
+desinformación.
+• Impactos sociales, legales
+y personales del mal uso de
+las TIC
+Ética profesional en el
+ámbito tecnológico
+Sociedad digital
+Datos y seguridad.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Role-Playing y Simulaciones
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Detalle de especificaciones               Cantidad
+                            técnicas
+                            Entorno de aprendizaje
+Infraestructura/espacio                                                        1
+                            Laboratorio informático
+                            Computadoras con acceso a internet
+Laboratorio                                                                    1
+                            Proyector
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2014). Código Orgánico Integral Penal. Registro
+      Oficial, Suplemento N.º 180, 10 de febrero de 2014.
+
+Asamblea Nacional del Ecuador. (2016). Código Orgánico de la Economía Social de los
+     Conocimientos, Creatividad e Innovación. Registro Oficial, Suplemento N.º 899, 9
+     de diciembre de 2016.
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+     Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021.
+
+Congreso Nacional del Ecuador. (2002). Ley de Comercio Electrónico, Firmas
+      Electrónicas y Mensajes de Datos. Registro Oficial, Suplemento N.º 557, 17 de
+      abril de 2002.
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+        Una guía de aproximación para el empresario. INCIBE.
+
+Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La ciberseguridad
+        al alcance de todos. INCIBE.
+
+López Jacobo, D. R., Angulo Armenta, J., Torres Gastelú, C. A., & López Herrera, M.
+      (2024). La ciudadanía digital: Metaanálisis sobre investigaciones en México.
+      Apertura, 16(1), 162–175. https://doi.org/10.32870/ap.v16n1.2477
+
+Morduchowicz, R. (2020). La ciudadanía digital como política pública en educación en
+      América Latina. Oficina Regional de Ciencias de la UNESCO para América Latina
+      y el Caribe.
+
+Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+       de Protección de Datos Personales. Decreto Ejecutivo N.º 904. Registro Oficial,
+       Suplemento N.º 435, 13 de noviembre de 2023.
+
+Rosado García, T. L., Alcívar Vera, T. P., Cobeña Cedeño, A. A., Chancay Chancay, M.
+      M., García Espinoza, M. I., & Bernal Mendieta, C. J. (2025). Desarrollo de valores
+      éticos en la educación digital. Universidad, Ciencia y Tecnología, 29(Especial),
+      114–123. https://doi.org/10.47460/uct.v29iSpecial.885
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2021).
+        Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+
+   4. Módulos de Especialización
+
+Las y los estudiantes del Bachillerato Técnico en Redes y Telecomunicaciones se
+caracterizarán por tener una sólida formación en soluciones de conectividad, instalación,
+configuración, administración de redes y sistemas de telecomunicaciones, garantizando
+que todo funcione de manera eficiente.
+
+Se estructuran los siguientes módulos de especialización:
+
+   •   Redes y Comunicación de Datos.
+   •   Instalación y Configuración de Redes.
+   •   Administración de Redes.
+   •   Diseño y Planificación de Infraestructura de Redes.
+   •   Sistemas Digitales y Telecomunicaciones.
+
+                              Módulo de Especialización Nro. 1
+ Nombre del módulo:                   Redes y Comunicación de Datos.
+ Nivel:                               1ro, 2do
+ Duración:                            240 periodos pedagógicos
+                                      UC 1: Emplear conocimientos técnicos esenciales y
+ Unidad       de      competencia     comprensión de los protocolos de red, considerando
+ asociada:                            topologías, medios de transmisión, dispositivos y
+                                      estándares de conectividad.
+ Objetivo del módulo: Aplicar fundamentos técnicos y conceptuales de redes de datos,
+ mediante el análisis de topologías, dispositivos de red, medios de transmisión y protocolos
+ de comunicación, con el fin de comprender el funcionamiento de las tecnologías de
+ conectividad y su implementación básica en entornos reales.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Analizar los requerimientos técnicos y operativos de conectividad, a partir del
+ entorno físico, las especificaciones técnicas de los dispositivos y la documentación
+ del sistema de red, considerando estándares normativos aplicables.
+ CE1.1: Identifica necesidades de comunicación y conectividad, tomando en cuenta
+ condiciones del entorno, restricciones técnicas y recursos disponibles.
+ CE1.2: Interpreta planos, diagramas y especificaciones técnicas de red, reconociendo
+ dispositivos, medios de transmisión y enlaces.
+ CE1.3: Clasifica requerimientos funcionales y no funcionales, de acuerdo con la función del
+ sistema de red y telecomunicaciones.
+ CE1.4: Relaciona requerimientos técnicos con estándares y normativas vigentes,
+ justificando su aplicabilidad.
+ CE1.5: Evalúa la factibilidad técnica de la solución planteada, contrastando requerimientos
+ con capacidades tecnológicas disponibles.
+RA 2: Seleccionar dispositivos de red, elementos de conectividad y topologías
+apropiadas, conforme a los requerimientos técnicos, características del entorno
+físico y estándares de red aplicables.
+CE2.1: Analiza las condiciones físicas del entorno de instalación, identificando restricciones
+y compatibilidades con los equipos.
+CE2.2: Selecciona elementos de conectividad adecuados, considerando eficiencia,
+compatibilidad y normativas de instalación.
+CE2.3: Determina la topología de red más adecuada, en función de escalabilidad,
+redundancia, mantenimiento y desempeño esperado.
+CE2.4: Aplica estándares técnicos en la elección de dispositivos, protocolos y tecnologías,
+justificando su pertinencia en función del diseño planteado.
+RA 3: Elaborar esquemas de diseño físico y lógico de redes y telecomunicaciones,
+integrando simbología técnica, protocolos, dispositivos y topologías, conforme a
+normativas técnicas y condiciones del entorno.
+CE3.1: Esboza diagramas de red físicos y lógicos, empleando simbología técnica y
+herramientas digitales.
+CE3.2: Organiza dispositivos, medios y servicios de red en los esquemas, según jerarquía
+funcional y tipo de red.
+CE3.3: Integra protocolos, medios de transmisión y equipos en el diseño, justificando su
+uso técnico y funcional.
+CE3.4: Diseña considerando restricciones del entorno físico y técnico, cumpliendo normas
+de seguridad y conectividad.
+CE3.5: Valida coherencia entre el diseño físico y lógico propuesto, asegurando
+escalabilidad, funcionalidad y eficiencia de la red.
+Contenidos
+Conceptuales                  Procedimentales                Actitudinales
+Principios fundamentales Analizar los requerimientos Valorar el análisis técnico
+de las redes de datos y técnicos, operativos y de previo como fundamento para
+telecomunicaciones.           conectividad de una red en una red eficiente, escalable y
+                              base      al     entorno    y segura.
+Clasificación de redes necesidades del usuario.
+según su alcance: LAN,                                       Mostrar rigurosidad en la
+MAN, WAN.                     Identificar       condiciones identificación y selección de
+                              físicas del espacio donde se dispositivos          de        red,
+Arquitecturas     de     red: instalará       una       red garantizando compatibilidad y
+cliente-servidor, peer-to- (temperatura,           espacio, rendimiento.
+peer.                         interferencias, seguridad).
+                                                             Reconocer la importancia de
+Estándares y normas Clasificar              y     comparar respetar          las       normas
+técnicas de conectividad dispositivos de red en internacionales                   y    buenas
+(ISO/OSI,             IEEE, función de su funcionalidad, prácticas en el diseño e
+ANSI/TIA/EIA, ITU).           capacidad y compatibilidad. instalación de redes.
+
+                              Evaluar    medios     de Manifestar responsabilidad en
+                              transmisión considerando la documentación técnica,
+                               velocidad,     distancia     y   entendiendo su utilidad en la
+Topologías de red: física condiciones del entorno.              operación y mantenimiento.
+(estrella, bus, anillo, malla)
+y lógica.                      Interpretar           planos,    Asumir con compromiso el uso
+                               diagramas y documentación        de simbología normalizada,
+Medios de transmisión: par técnica de infraestructura de        comprendiendo su impacto en
+trenzado, coaxial, fibra red.                                   la claridad del diseño técnico.
+óptica, inalámbricos.
+                               Determinar la topología más      Promover el orden y limpieza
+Dispositivos de red: hubs, adecuada           conforme      a   en    la    organización    de
+switches,             routers, criterios     técnicos       y   elementos de red, favoreciendo
+módems, access points, operativos.                              la funcionalidad y estética del
+transceptores.                                                  sistema.
+                               Seleccionar        elementos
+Elementos pasivos de pasivos                  y      activos    Reconocer la relevancia de
+conectividad: paneles de considerando                normas     adaptar el diseño de red al
+parcheo,                racks, técnicas y escalabilidad.        entorno físico y a las
+conectores,        canaletas,                                   condiciones técnicas reales.
+bandejas.                      Elaborar esquemas lógicos
+                               y físicos de red con             Valorar     la    planificación
+Parámetros técnicos de simbología normalizada.                  detallada     como      medida
+conectividad:      velocidad,                                   preventiva ante errores de
+latencia, jitter, pérdida de Configurar          parámetros     instalación    o   fallos    de
+paquetes, throughput.          básicos en simuladores de        funcionamiento.
+                               red (como direccionamiento
+Análisis del entorno físico y IP, subredes, tablas de           Fomentar la actitud proactiva
+técnico                   para ruteo).                          en la identificación de mejoras
+implementación de redes.                                        y propuestas técnicas dentro
+                               Representar gráficamente         del diseño de red.
+Requerimientos de ancho los diseños de red utilizando
+de banda, escalabilidad y software especializado.               Respetar     los tiempos     y
+tolerancia a fallos.                                            procesos establecidos en el
+                               Aplicar normas de cableado       desarrollo de esquemas de red,
+Interpretación              de estructurado durante el          demostrando         disciplina
+documentación         técnica: diseño de redes físicas.         profesional.
+planos, diagramas de red, Integrar         dispositivos     y
+fichas técnicas.               componentes en función del       Desarrollar    sentido   crítico
+                               flujo de datos, eficiencia y     frente a diseños ineficientes o
+Simbología técnica para redundancia.                            riesgos técnicos detectados.
+representación              de
+componentes de red.            Documentar                 las
+                                                        Cultivar el interés en aprender
+                          características técnicas y de continuamente sobre nuevas
+Diseño lógico y físico de diseño       en      informes tecnologías,     estándares   y
+redes:     segmentación, estructurados.                 dispositivos emergentes en el
+direccionamiento,                                       ámbito de redes.
+agrupación por subredes.
+Protocolos de red: TCP/IP,                                 Actuar con ética en la selección
+DHCP, DNS, ARP, ICMP,                                      y       documentación         de
+entre otros                                                componentes,            evitando
+                                                           prácticas    inadecuadas       o
+Tipos de direccionamiento:                                 deshonestas.
+IP estática, dinámica, IPv4,
+IPv6.
+
+Seguridad      básica   en
+redes:      segmentación,
+zonas de seguridad, reglas
+básicas de firewall.
+
+ Tipología de servicios en
+ red:       servicios     de
+ infraestructura       (DNS,
+ DHCP),         acceso     y
+ compartición de recursos.
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+     de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+     Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                  Especificaciones técnicas                      Cantidad
+ Infraestructura/espacio       Entorno de aprendizaje (aula)                      1
+ Infraestructura/espacio       Aula taller                                        1
+                               Computadoras con acceso a internet
+                               Servidor
+ Laboratorio                   Proyector                                          1
+                               Red de computadoras,
+                               Simuladores de Diseño de redes
+ Referencias Bibliográficas
+
+Alcócer García, A. C. (2000). Redes de computadoras. Infolink.
+      https://repositorio.pucp.edu.pe/items/5b13f719-812b-430e-bd83-0cd4e8ae55e7
+
+Asamblea Nacional del Ecuador. (2015). Ley Orgánica de Telecomunicaciones (Tercer
+       Suplemento del Registro Oficial N.º 439, 18 de febrero de 2015).
+       https://www.telecomunicaciones.gob.ec/wp-
+       content/uploads/downloads/2016/05/Ley-Org%C3%A1nica-de-
+       Telecomunicaciones.pdf
+
+Asamblea Nacional del Ecuador. (2025). Ley Orgánica Reformatoria a la Ley Orgánica
+     de Telecomunicaciones (Quinto Suplemento del Registro Oficial N.º 59, 13 de
+     junio de 2025). https://www.registroficial.gob.ec/quinto-suplemento-no-59/
+
+Asamblea Nacional del Ecuador. (2026). Ley Orgánica para el Fortalecimiento de la
+     Ciberseguridad (Quinto Suplemento del Registro Oficial N.º 290, 22 de mayo de
+     2026). https://www.registroficial.gob.ec/quinto-suplemento-no-290/
+
+Cisco Systems, Inc. (2023). Configuración de direcciones IP y subredes únicas para
+      usuarios nuevos. https://www.cisco.com/c/es_mx/support/docs/ip/routing-
+      information-protocol-rip/13788-3.html
+
+Cotúa, J. G. (2021). Tutorial de operación de redes IPv6: IPv6 Only y mecanismo de
+      transición SIIT-DC. Registro de Direcciones de Internet de América Latina y
+      Caribe. https://www.lacnic.net/innovaportal/file/5576/1/lacnic36-jgc---tutorial-oper-
+      red-ipv6-siit-dc-11-oct-2021.pdf
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_glosario_cibers
+        eguridad_2021.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2024). Plan
+       Nacional de Telecomunicaciones 2024–2025. Gobierno del Ecuador.
+       https://www.telecomunicaciones.gob.ec/wp-
+       content/uploads/2024/09/Plan_nacional_de_telecomunicaciones_2024_2025.pdf
+
+Polanco Sarmiento, O. (2017). Laboratorio de redes y comunicaciones. Programa
+      Editorial Universidad del Valle. https://doi.org/10.25100/peu.53
+
+Unión Internacional de Telecomunicaciones. (1994). Tecnología de la información—
+       Interconexión de sistemas abiertos—Modelo de referencia básico: El modelo
+       básico (Recomendación UIT-T X.200). https://www.itu.int/rec/T-REC-X.200-
+       199407-I/es
+
+Unión Internacional de Telecomunicaciones. (2001). Categorías de calidad de servicio
+       para los usuarios de extremo de servicios multimedios (Recomendación UIT-T
+       G.1010). https://www.itu.int/rec/T-REC-G.1010-200111-I/es
+
+Unión Internacional de Telecomunicaciones. (2005). Manual sobre redes basadas en el
+       Protocolo Internet (IP) y asuntos conexos. https://www.itu.int/pub/D-HDB-IP-
+       2005/es
+
+Unión Internacional de Telecomunicaciones. (2024). Características de las fibras y
+       cables ópticos monomodo (Recomendación UIT-T G.652).
+       https://www.itu.int/rec/T-REC-G.652-202408-I/es
+
+Universidad Técnica Federico Santa María. (2025). Manual estándar de cableado
+      estructurado y networking. Dirección de Tecnologías de la Información.
+      https://dti.usm.cl/wp-content/uploads/sites/16/2025/03/Estandar-Cableado-
+      estructurado-DTI-Vol1.pdf
+
+
+                           Módulo de Especialización Nro. 2
+Nombre del módulo:                  Instalación y Configuración de Redes
+Nivel:                              2do, 3ro
+Duración:                           360 periodos pedagógicos
+                                    UC 2: Instalar infraestructuras físicas y lógicas de
+Unidad    de       competencia
+                                    redes, aplicando normas técnicas y procedimientos
+asociada:
+                                    seguros, según los requerimientos del diseño de red.
+Objetivo del módulo: Instalar infraestructuras físicas y lógicas de redes aplicando normas
+técnicas, estándares y procedimientos de seguridad, para garantizar la conectividad y
+funcionalidad de servicios según los requerimientos del diseño de red.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar los requerimientos funcionales de la red evaluando el entorno, los
+recursos disponibles y los estándares técnicos y generando un diagnóstico que
+sustente decisiones técnicas.
+CE1.1: Clasifica las funciones operativas de la red considerando necesidades del entorno
+y evidenciando correspondencia con los requerimientos funcionales.
+CE1.2: Distingue los servicios de red a ser utilizados en la implementación (DNS, DHCP,
+FTP, VoIP, VPN, entre otros), estableciendo su relación con el diseño lógico.
+CE1.3: Elabora un diagnóstico técnico fundamentado que integra el espacio físico, los
+usuarios, los dispositivos, las condiciones de operación y, las tecnologías y topologías de
+red.
+RA 2: Instalar cableado estructurado y los dispositivos físicos de red conforme a
+normas técnicas, desarrollando una infraestructura funcional y documentada.
+CE2.1: Prepara el entorno físico mediante la adecuación del espacio, herramientas y
+materiales, asegurando condiciones apropiadas para la instalación.
+CE2.2: Aplica procedimientos técnicos en la instalación de dispositivos de red y cableado
+siguiendo estándares y protocolos técnicos.
+CE2.3: Verifica la conectividad entre los dispositivos instalados mediante pruebas con
+certificadores, multímetros, probadores y herramientas de diagnóstico, demostrando
+continuidad y enlace operativo.
+CE2.4: Documenta la instalación utilizando formatos técnicos, integrando planos,
+esquemas, rutas de cableado, nomenclaturas y registros de pruebas realizadas.
+RA 3: Configurar los servicios de red aplicando protocolos y especificaciones
+técnicas, garantizando la operatividad y disponibilidad de servicios.
+CE3.1: Instala los servicios de red según el diseño lógico, asegurando disponibilidad y
+funcionalidad en los dispositivos conectados con una adecuada configuración.
+CE3.2: Ajusta parámetros de configuración (direcciones IP, reservas, rangos, reglas, rutas,
+prioridades, políticas, entre otros) conforme a especificaciones técnicas.
+CE3.3: Verifica la operatividad de los servicios implementados mediante pruebas,
+simulaciones y herramientas de diagnóstico, evitando conflictos y garantizando
+disponibilidad.
+CE3.4: Usa herramientas de monitoreo e interpreta métricas como latencia, pérdida de
+paquetes y disponibilidad, detectando anomalías o degradaciones en la calidad del
+servicio.
+RA 4: Optimizar el desempeño de la red y de las comunicaciones asegurando
+estabilidad operativa en los servicios.
+CE4.1: Identifica cuellos de botella, pérdidas de rendimiento o fallos recurrentes mediante
+revisión de métricas, pruebas y análisis de logs.
+CE4.2: Modifica configuraciones, asignaciones de recursos o prioridades de tráfico
+utilizando herramientas y parámetros avanzados que mejoren el servicio.
+CE4.3: Implementa mejoras técnicas orientadas a la estabilidad, velocidad, disponibilidad
+y seguridad, integrando buenas prácticas y estándares de la industria.
+CE4.4: Evalúa los resultados de las acciones correctivas comparando indicadores de
+desempeño antes y después de la intervención, evidenciando mejoras cuantificables.
+Contenidos
+Conceptuales                   Procedimentales                    Actitudinales
+Requerimientos funcionales Interpretar              necesidades   Valorar la importancia del
+de la red.                      funcionales de conectividad a     análisis como base de
+                                partir de la información del      una instalación eficiente y
+Compatibilidad           entre
+                                entorno.                          segura.
+recursos      disponibles     y
+necesidades funcionales.        Examinar recursos tecnológicos    Mostrar       disposición
+                                disponibles y compararlos con     constante    al   trabajo
+Criterios de evaluación de
+                                las exigencias del diseño         ordenado y meticuloso
+disponibilidad y estabilidad
+                                técnico.                          durante cada fase del
+del servicio.
+                                                                  proceso de instalación.
+                                Analizar áreas físicas donde se
+Componentes          de      la
+                                instalará la red considerando     Respetar rigurosamente
+infraestructura física de red.
+                                espacios,      obstáculos     y   las normas técnicas
+Componentes          de      la condiciones ambientales.          aplicables a instalaciones
+infraestructura lógica de red.                                    físicas y configuración de
+                                Revisar compatibilidades entre
+Medios de transmisión y sus dispositivos existentes y la          servicios.
+requerimientos              de infraestructura proyectada.        Mantener  compromiso
+instalación.                                                      con el uso seguro de
+Interpretación            de Identificar componentes de la herramientas                    y
+documentación        técnica infraestructura física y lógica materiales
+(diagramas, planos, croquis). requeridos en una instalación. especializados.
+Elementos de terminación y Diferenciar tipos de dispositivos      Mostrar rigurosidad en la
+conexión.                      y su función dentro del sistema    interpretación          de
+                               de conectividad.                   indicadores técnicos para
+Canalizaciones, soportes y
+                                                                  evitar errores de análisis.
+estructuras de distribución.   Reconocer        equipos      de
+                               distribución,    acometida     y   Asumir responsabilidad
+Equipamiento de distribución
+                               subsistemas      asociados     a   en el cumplimiento de
+y acometida.
+                               estructuras internas de red.       estándares técnicos.
+Componentes de Puesta a
+                               Leer diagramas físicos y lógicos   Reconocer la relevancia
+Tierra y Protección Eléctrica.
+                               de red siguiendo simbología y      de la documentación
+Sistema      de      cableado estándares comunes.                 técnica como evidencia
+estructurado.                                                     del trabajo realizado.
+                               Seleccionar cables adecuados
+Tipos de cable específicos según distancia, categoría, tipo       Demostrar iniciativa ante
+(UTP      categorías,    fibra de     medio    y    condiciones   situaciones imprevistas
+monomodo/multimodo).           ambientales.                       proponiendo soluciones
+Elementos y subsistemas de Preparar cables para su                viables.
+distribución interna.        terminación mediante corte, Manifestar disciplina en
+Tendido aéreo, soterrado y pelado y alineado de hilos.         la              instalación,
+en canaletas.                                                  configuración               y
+                             Instalar conectores, rosetas,
+                                                               verificación      de       la
+Montaje físico correcto en paneles de parcheo y puntos de infraestructura de red.
+racks.                       terminación            siguiendo
+                             estándares.                       Valorar la importancia de
+Reglas técnicas para rutas y                                   la estabilidad operativa
+distancias.                  Montar canalizaciones, ductos,
+                                                               de los servicios de red.
+                             bandejas         y      soportes
+Parámetros de integridad garantizando              estabilidad Promover una actitud de
+mecánica y manipulación del estructural.                       mejora             continua
+cableado.                                                      mediante la revisión
+                             Ejecutar      tendido     aéreo,
+Criterios de tolerancia y soterrado o en canaletas constante                    de      las
+especificaciones de montaje. teniendo en cuenta rutas instalaciones y de los
+                                                               servicios.
+Unidades de interconexión seguras.
+básicas.                                                       Promover un ambiente
+                             Montar racks verificando su
+                                                               de trabajo ordenado,
+Esquemas de conectividad alineación, fijación, nivelación y
+                                                               limpio y seguro durante
+entre dispositivos.          accesibilidad.
+                                                               las         intervenciones
+Configuración inicial de Ordenar paneles, bandejas, técnicas.
+dispositivos.                organizadores y unidades de
+                                                               Mostrar disposición al
+                             interconexión dentro del rack.
+Requisitos de instalación,                                     trabajo        colaborativo
+ventilación y accesibilidad. Etiquetar correctamente cada manteniendo
+                             segmento        del    cableado
+Elementos de alimentación y siguiendo            criterios      de comunicación clara con
+continuidad eléctrica.      trazabilidad.                          el equipo.
+Pruebas y verificación de la Verificar        disponibilidad     de   Tener ética profesional
+infraestructura.                 puntos de puesta a tierra según      evitando decisiones que
+                                 normativa del fabricante.            comprometan           la
+Herramientas de verificación
+                                                                      integridad       de   la
+y diagnóstico físico.            Instalar barras, cables y
+                                                                      infraestructura.
+                                 elementos de derivación que
+Pruebas de continuidad y
+                                 aseguren continuidad eléctrica.      Mostrar interés en la
+enlace.
+                                                                      actualización constante
+                                 Integrar equipos de acometida y
+Indicadores      de      fallos                                       respecto     a    nuevas
+                                 distribución interna conforme a
+comunes en instalaciones.                                             técnicas de instalación y
+                                 los estándares de cableado
+Direccionamiento      en      la estructurado.                        configuración.
+infraestructura de red.                                               Valorar el impacto de la
+                                 Clasificar dispositivos según su
+Fundamentos         de        la rol dentro de la infraestructura     disponibilidad de los
+Conectividad Inalámbrica en de conectividad.                          servicios de red.
+la Instalación.                                                    Adoptar    una    actitud
+                                 Fijar routers, switches y puntos
+Puntos de Acceso (AP) para de                                      responsable         ante
+                                         acceso       en     racks
+cobertura óptima.                                                  cualquier actividad que
+                                 garantizando           estabilidad
+                                                                   pueda comprometer la
+Servicios de red.                mecánica.
+                                                                   integridad de equipos o
+Clasificación del hardware      Distribuir alimentación eléctrica personas.
+según función.                  mediante PDUs o tomas
+                                                                   Promover la cultura de
+                                reguladas.
+Firmware.                                                          seguridad dentro del
+                                Acceder a la consola de equipo                de    trabajo,
+Configuraciones iniciales por   administración mediante interfaz evitando          prácticas
+tipo de dispositivo.            serial, web o SSH según el improvisadas.
+Configuración de servicios      equipo.
+                                                                   Fomentar una actitud
+de red.                         Actualizar     firmware    inicial honesta y confiable al
+Parámetros esenciales de        verificando compatibilidad con el gestionar     datos     de
+funcionamiento      de     los  hardware.                          acceso de terceros.
+servicios.                     Asignar parámetros básicos             Valorar la importancia de
+Control    de    tráfico    en como dirección IP, máscara,            preservar               la
+servicios.                     gateway o SSID en equipos              confidencialidad,
+                               inalámbricos.                          integridad               y
+Registro y respaldo de
+configuraciones técnicas.      Establecer contraseñas básicas         disponibilidad    de    la
+                               o métodos de acceso inicial para       información.
+Disponibilidad y operatividad
+                               resguardar el equipo.                  Valorar la importancia de
+de servicios.
+                               Ajustar parámetros esenciales          registrar cambios en
+Indicadores de estabilidad y                                          accesos y permisos para
+                               de servicios mínimos necesarios
+funcionamiento.                                                       garantizar trazabilidad.
+                               para activar la red.
+Factores que afectan la Determinar la ubicación óptima
+respuesta de los servicios.    de puntos de acceso según
+                               cobertura y barreras físicas.
+Validación de operatividad
+posterior a la configuración. Instalar físicamente los AP en
+                               techos,         paredes       o
+Optimización del desempeño
+                               canalizaciones adecuadas.
+de la red.
+                               Configurar parámetros iniciales
+Factores      asociados      a
+                               del AP: nombre de red, canal,
+degradación y congestión.
+                               potencia de emisión.
+Métodos para evaluar la
+                               Ejecutar mediciones de enlace y
+mejora en el rendimiento.
+                               pérdida según tipo de medio
+Ajustes      derivados     de (cobre o fibra).
+variaciones en la demanda.
+                               Comparar valores obtenidos en
+Tipos de registros en las pruebas con las tolerancias
+instalaciones físicas.         técnico-normativas.
+Procedimientos             de Registrar parámetros, pruebas,
+seguimiento y trazabilidad.   rutas     de      cableado   y
+Informes   de     instalación configuración inicial.
+estructurados.                 Elaborar esquemas “as-built”
+                               actualizando la disposición real
+                               de la instalación.
+                               Redactar      informes       de
+                               instalación   con    estructura
+                               técnica estandarizada.
+
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación             Detalle de especificaciones técnicas           Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)                          1
+                           Computadoras con acceso a internet
+Laboratorio                                                                       1
+                           Servidor
+                            Proyector
+                            Red de computadoras,
+                            Simuladores de infraestructura de redes
+                            Fichas técnicas de hardware y software
+                            Manuales de usuario
+Equipos/herramientas
+                            Listado de requerimientos mínimos y
+                            recomendados de software
+                            Guantes dieléctricos, gafas de seguridad,
+Materiales de seguridad     mascarilla, mandil, ropa de trabajo, overol,
+                            entre otros.
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2015). Ley Orgánica de Telecomunicaciones (Registro
+       Oficial N.º 439, Tercer Suplemento, 18 de febrero de 2015).
+       https://www.arcotel.gob.ec/wp-
+       content/uploads/2022/04/ley_organica_de_telecomunicaciones_18-02-2015.pdf
+
+Barceló Ordinas, J. M., Íñigo Griera, J., Martí Escalé, R., Peig Olivé, E., & Perramon
+       Tornil, X. (2004). Redes de computadores. Universitat Oberta de Catalunya.
+       http://openaccess.uoc.edu/webapps/o2/bitstream/10609/197/1/Redes%20de%20
+       computadores.pdf
+
+Cisco Systems, Inc. (2024a). Configuración del ruteo inter-VLAN con switches Catalyst.
+       https://www.cisco.com/c/es_mx/support/docs/lan-switching/inter-vlan-
+       routing/41260-189.html
+
+Cisco Systems, Inc. (2024b). Resolución de problemas de DHCP en switches Catalyst
+       9000. https://www.cisco.com/c/es_mx/support/docs/switches/catalyst-9300-
+       switch/221717-troubleshoot-dhcp-on-catalyst-9000-switc.html
+
+Instituto Nacional de Ciberseguridad. (2020). Tu router, tu castillo: Guía para configurar
+        el router wifi. https://www.incibe.es/sites/default/files/docs/guia_router/osi-guia-tu-
+        router-tu-castillo.pdf
+
+Instituto Tecnológico Quito. (2024). Guía general de redes y comunicación de datos.
+        https://itq.edu.ec/wp-content/uploads/2025/02/ITQ-24-GP1-DS-04-Guia-general-
+        de-redes-y-comunicacion-de-datos.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2023). Política
+       Pública de Telecomunicaciones 2023–2025 (Acuerdo N.º MINTEL-MINTEL-2023-
+       0010). https://www.telecomunicaciones.gob.ec/wp-
+       content/uploads/2024/09/Politica-Publica-de-Telecomunicaciones-2023-2025.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2024). Plan
+       Nacional de Telecomunicaciones 2024–2025.
+       https://www.telecomunicaciones.gob.ec/wp-
+       content/uploads/2024/09/Plan_nacional_de_telecomunicaciones_2024_2025.pdf
+
+Registro de Direcciones de Internet de América Latina y Caribe. (2021). Tutorial de
+       operación de redes IPv6. https://www.lacnic.net/5232/1/lacnic/tutorial-operacion-
+       de-redes-ipv6
+
+Unión Internacional de Telecomunicaciones. (2019). Servicio de comunicación de datos
+       con protocolo Internet: Parámetros de calidad de funcionamiento relativos a la
+       disponibilidad y la transferencia de paquetes del protocolo Internet
+       (Recomendación UIT-T Y.1540). https://www.itu.int/rec/T-REC-Y.1540/es
+
+Unión Internacional de Telecomunicaciones. (2024a). Características de las fibras y los
+       cables ópticos monomodo (Recomendación UIT-T G.652).
+       https://www.itu.int/rec/T-REC-G.652-202408-I/es
+
+Unión Internacional de Telecomunicaciones. (2024b). Características de las fibras y los
+       cables ópticos monomodo insensibles a la pérdida por flexión (Recomendación
+       UIT-T G.657). https://www.itu.int/rec/T-REC-G.657-202408-I/es
+
+Universidad Católica de la Santísima Concepción. (2018). Manual de lineamientos
+       técnicos para la instalación de cableado estructurado (versión 4.0).
+       https://sitios.ucsc.cl/dsi/wp-content/uploads/sites/63/2020/03/lineamientos-
+       t%C3%A9cnicos-insatalaci%C3%B3n-de-cableado-estructurado-v_4.pdf
+
+Universidad Técnica Federico Santa María. (2025). Manual estándar de cableado
+       estructurado y networking. Dirección de Tecnologías de la Información.
+       https://dti.usm.cl/wp-content/uploads/sites/16/2025/03/Estandar-Cableado-
+       estructurado-DTI-Vol1.pdf
+
+
+                           Módulo de Especialización Nro. 3
+Nombre del módulo:                  Administración de Redes
+Nivel:                               3ro
+Duración:                            240 periodos pedagógicos
+                                     UC 3: Administrar servidores, redes de datos y equipo
+                                     de comunicaciones, que permita la operatividad,
+Unidad       de    competencia       mantenimiento, disponibilidad, seguridad frente a
+asociada:                            amenazas, vulnerabilidades y accesos no autorizados,
+                                     aplicando procedimientos técnicos y herramientas
+                                     especializadas.
+Objetivo del módulo: Administrar servidores, redes de datos y equipos de comunicaciones
+utilizando procedimientos técnicos, herramientas especializadas y monitoreo continuo, para
+asegurar la disponibilidad de servicios frente a amenazas, vulnerabilidades y accesos no
+autorizados.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar el estado operativo de los componentes de la red a través de
+indicadores técnicos y uso de herramientas de diagnóstico y monitoreo.
+CE1.1: Examina fallas en los componentes de la red analizando indicadores técnicos
+(pérdida de paquetes, latencia, desconexiones, errores de configuración entre otros).
+CE1.2: Distingue patrones extraños de funcionamiento que afectan la estabilidad o el
+rendimiento de la red y de comunicaciones, basándose en registros y métricas capturadas.
+CE1.3: Monitorea el estado de los dispositivos utilizando comandos y herramientas de
+diagnóstico, aplicando criterios técnicos y estándares de conexión.
+CE1.4: Documenta las causas de fallo en la red considerando hardware, configuración,
+software o conflictos internos del sistema.
+RA 2: Realizar mantenimiento físico y lógico en la infraestructura de red con análisis
+técnico, acciones correctivas y, asegurando la continuidad operativa de los
+servicios.
+CE2.1: Utiliza herramientas de diagnóstico técnico examinando resultados que permitan
+precisar la acción correctiva.
+CE2.2: Detecta conflictos de software o incompatibilidades en controladores y sistemas
+operativos que afectan la normal ejecución de los servicios de red.
+CE2.3: Ejecuta acciones correctivas acorde al tipo de error presentado, garantizando
+restablecimiento funcional y continuidad del servicio.
+RA 3: Implementar normas y protocolos de seguridad en la infraestructura de red
+mediante prácticas preventivas, técnicas de protección y configuraciones
+necesarias, fortaleciendo la integridad de sistemas y equipos.
+CE3.1: Aplica procedimientos de seguridad siguiendo normas y protocolos establecidos
+en la infraestructura de red y telecomunicaciones.
+CE3.2: Ejecuta acciones preventivas ante riesgos eléctricos o electromagnéticos,
+cumpliendo estándares de seguridad física.
+CE3.3: Utiliza herramientas manuales y eléctricas según los procedimientos técnicos
+recomendados, evitando daños personales o al equipamiento.
+CE3.4: Configura mecanismos de seguridad informática (contraseñas, firewalls, antivirus)
+protegiendo la integridad de la información y los servicios.
+RA 4: Gestionar identidades digitales y accesos a entornos tecnológicos aplicando
+métodos de autenticación, políticas de permisos y realizando pruebas de acceso,
+garantizando control eficiente de recursos y niveles adecuados de seguridad.
+CE4.1: Examina medidas de seguridad considerando roles y permisos asociados a
+requerimientos mínimos del servicio o sistema.
+CE4.2: Configura métodos de autenticación y control de acceso en dispositivos de redes
+y plataformas digitales, cumpliendo lineamientos y protección de datos.
+CE4.3: Ejecuta pruebas de acceso local y remoto evaluando riesgos y niveles de
+cumplimiento establecidos en el sistema.
+CE4.4: Aplica políticas de seguridad y organización de la información, administrando
+recursos digitales y tecnológicos, además de proponer mejoras en la gestión del servicio
+de la infraestructura.
+Contenidos
+Conceptuales                    Procedimentales                       Actitudinales
+Fundamentos del monitoreo Identificar                  parámetros     Valorar la importancia del
+de redes, herramientas y fundamentales del monitoreo de               monitoreo       constante
+métodos.                        redes usando herramientas             como práctica esencial
+                                básicas y avanzadas.                  para      mantener      la
+Tipos de herramientas de
+                                                                      estabilidad de la red.
+monitoreo.                      Reconocer       indicadores     de
+                                rendimiento tales como latencia,      Mostrar disposición al
+Software de red, sistemas de
+                                pérdida de paquetes, utilización      uso      responsable    y
+gestión de red.
+                                de ancho de banda y tiempos de        riguroso de herramientas
+Latencia,      pérdida       de respuesta.                            de diagnóstico y análisis
+paquetes, utilización de                                              de tráfico.
+                                Ejecutar       comandos         de
+ancho de banda, tiempos de
+                                diagnóstico (ping, traceroute,        Demostrar paciencia y
+respuesta.
+                                dig, nslookup, entre otros)           persistencia frente a
+Procedimientos               de según el tipo de análisis             situaciones de fallas
+diagnóstico, traceroute, ping, requerido.                             intermitentes o síntomas
+dig, nslookup, análisis de                                            complejos de red.
+                                Analizar tráfico de red mediante
+tráfico de red, entre otros.
+                                herramientas       de     software    Mantener una actitud
+Análisis de fallos comunes especializadas.                            crítica y reflexiva ante
+en la red, desconexiones,                                             anomalías detectadas,
+                                Detectar patrones de uso,
+latencia excesiva, caídas de                                          evitando    conclusiones
+                                cuellos      de       botella     y
+servicio,    problemas       de                                       apresuradas.
+                                comportamientos anómalos en
+configuración.
+                                la red.                               Valorar la precisión en el
+Análisis de tráfico y patrones                                        registro    de    eventos,
+                                Interpretar alertas generadas
+de uso, cuellos de botella,                                           métricas y resultados de
+                                por sistemas de gestión de red y
+congestión y sobrecarga.                                              monitoreo como apoyo
+                                plataformas de monitoreo.
+Herramientas de monitoreo                                             para     la    toma    de
+                                Registrar eventos relevantes          decisiones.
+de servidores y dispositivos
+                                obtenidos en el monitoreo
+de red, monitorización de                                             Respetar              las
+                                continuo de CPU, memoria,
+CPU,      memoria,      discos,                                       recomendaciones
+                                almacenamiento e interfaces de
+interfaces de red, entre                                              técnicas establecidas por
+                                red en servidores y dispositivos.
+otros.                                                                fabricantes y organismos
+                                Inspeccionar el estado operativo      normativos durante las
+Procedimientos             para
+                                del hardware de red verificando       tareas de mantenimiento.
+actualizar hardware de red
+                                funcionalidad,      desgaste      y
+(tarjetas de red, routers,                                            Mostrar responsabilidad
+                                temperatura.
+switches, servidores, entre                                           al manipular dispositivos
+otros).                         Sustituir            componentes      de red y servidores,
+                                defectuosos        en      routers,   asegurando su integridad
+Mantenimiento                de
+                                switches, tarjetas de red y
+dispositivos       de      red,
+restablecimiento           de   servidores                según y               correcto
+configuraciones,                especificaciones técnicas.      funcionamiento.
+actualizaciones de firmware,
+                                Ejecutar actualizaciones de Reconocer la importancia
+sustitución    de      partes
+                                firmware en dispositivos de red de         aplicar    medidas
+defectuosas.
+                                siguiendo protocolos definidos.    preventivas antes de
+Herramientas y métodos                                             realizar intervenciones en
+                                Restablecer      configuraciones
+para mantenimiento físico,                                         la infraestructura.
+                                dañadas o corruptas mediante
+uso de multímetros, testers
+                                copias      de    seguridad      o Valorar la documentación
+de cableado, limpieza de
+                                procedimientos                  de detallada        de     las
+equipos.
+                                recuperación.                      actividades              de
+Protocolos y estándares de                                         mantenimiento         como
+                                Utilizar multímetros, testers de
+mantenimiento           de                                         parte esencial del trabajo
+                                cableado y herramientas de
+infraestructuras:   RFCs,                                          profesional.
+                                limpieza     en     rutinas     de
+normas ISO.
+                                mantenimiento físico.              Asumir con compromiso
+Principios fundamentales de                                        la       necesidad       de
+                                Aplicar normas y estándares de
+seguridad en redes.                                                garantizar la continuidad
+                                mantenimiento emitidos por
+                                                                   operativa del servicio
+Modelos de seguridad en         organismos        internacionales
+                                                                   durante y después de las
+redes:      Confidencialidad,   (RFC, ISO).
+                                                                   acciones técnicas.
+integridad, disponibilidad.
+                                Evaluar estabilidad del servicio
+                                                                   Valorar la aplicación
+Autenticación y autorización:   posterior a una intervención
+                                                                   estricta de protocolos de
+Métodos de autenticación        técnica mediante pruebas de
+                                                                   seguridad       como    eje
+(contraseñas,      biometría,   validación operativa.
+                                                                   fundamental        de     la
+autenticación multifactor).
+                                Identificar               riesgos, protección de la red.
+Protocolos de seguridad de      vulnerabilidades      y     puntos
+                                                                   Mantener una actitud
+red    (SSL/TLS,     IPSec,     críticos      en       servidores,
+                                                                   preventiva             ante
+HTTPS, SSH, SFTP).              dispositivos y segmentos de red.
+                                                                   configuraciones, accesos
+Diseño y aplicación de          Configurar       métodos        de y prácticas que puedan
+firewalls, Configuración de     autenticación según las políticas comprometer                la
+reglas de acceso, tipos de      de     seguridad     establecidas integridad         de      la
+firewalls         (hardware,    (contraseñas, biometría, MFA). infraestructura.
+software,     de     próxima
+                              Implementar protocolos de             Fomentar                la
+generación).
+                              seguridad como SSL/TLS, SSH,          responsabilidad personal
+Herramientas de prevención IPsec        o    HTTPS      según       y    colectiva   en     el
+de ataques, Cortafuegos, necesidades del servicio.                  cumplimiento de políticas
+IDS/IPS (Intrusion Detection                                        y     estándares       de
+                              Construir reglas de acceso en
+Systems       /     Intrusion                                       ciberseguridad.
+                              firewalls          considerando
+Prevention Systems).
+                              direcciones, puertos, protocolos      Mostrar     interés    en
+Conceptos de gestión de y políticas internas.                       investigar         nuevas
+identidades y acceso (IAM),                                         tecnologías,
+                              Integrar soluciones IDS/IPS en
+roles, permisos, políticas de                                       herramientas o métodos
+                              la infraestructura detectando
+seguridad.
+Herramientas de gestión de comportamientos sospechosos              de protección frente a
+acceso, Active Directory, o intentos de intrusión.                  amenazas emergentes.
+LDAP,      Kerberos,       SSO
+                                 Ejecutar pruebas de análisis de    Demostrar rigor en la
+(Single Sign-On).
+                                 vulnerabilidades          usando   asignación y verificación
+Control de acceso basado en herramientas de evaluación              de roles, permisos y
+roles (RBAC) y control de automatizadas.                            privilegios.
+acceso basado en atributos
+                                 Documentar        incidentes   y   Respetar los principios
+(ABAC).
+                                 medidas aplicadas en la            de privacidad y manejo
+Política     de     privilegios mitigación de riesgos.              ético de las credenciales
+mínimos.                                                            y datos de acceso.
+                                 Crear usuarios, grupos y roles
+Segmentación de redes y siguiendo              lineamientos    de   Manifestar apertura a la
+sistemas.                        control de acceso y políticas      actualización       sobre
+                                 organizacionales.                  tecnologías            de
+Implementación               de
+                                                                    autenticación, federación
+protocolos de seguridad en Configurar herramientas de
+                                                                    de      identidades     y
+dispositivos físicos (Routers, gestión de identidades como
+                                                                    mecanismos             de
+switches,             firewalls, Active      Directory,     LDAP,
+                                                                    autorización modernos.
+servidores).                     Kerberos o SSO.
+                                                                    Valorar     el    trabajo
+Segmentación de la red: Asignar permisos y privilegios
+                                                                    colaborativo     en    la
+VLANs, subredes, DMZ.         utilizando modelos RBAC y
+                                                                    resolución de problemas
+                              ABAC según el nivel de
+Seguridad       en      redes                                       y    administración   de
+                              responsabilidad.
+inalámbricas(WPA3, gestión                                          servicios.
+de     SSID,    autenticación Aplicar políticas de privilegios
+                                                                    Respetar las políticas
+RADIUS).                      mínimos      en     sistemas     y
+                                                                    institucionales          y
+                              servicios.
+Protocolos de seguridad en                                          normativas      nacionales
+el acceso remoto (VPN (Red Registrar eventos de acceso              relacionadas con redes,
+Privada Virtual), seguridad utilizando      herramientas      de    datos y seguridad digital.
+en conexiones VPN, redes auditoría y trazabilidad digital.
+privadas y públicas).
+                              Verificar     autenticación      y
+Prácticas seguras en la autorización            en     servicios
+administración de redes.      internos y externos mediante
+                              pruebas controladas.
+Políticas de actualización y
+parches,     respaldo      de Configurar      protocolos      de
+configuraciones, control de seguridad        en     dispositivos
+acceso físico a equipos.      físicos, incluyendo routers,
+                              switches, firewalls y servidores.
+Estrategias de redundancia.
+                              Implementar        segmentación
+Diseño y planificación para
+                              mediante VLANs, subredes o
+crecimiento de capacidad,
+                              DMZ según requerimientos de
+arquitectura      de      red
+                              aislamiento.
+escalable.
+Herramientas de control de      Ajustar     parámetros       de
+versiones,    creación    de    seguridad en redes inalámbricas
+repositorios   centralizados    utilizando WPA3, ocultación de
+para configuraciones.           SSID y autenticación RADIUS.
+Administración de sistemas Establecer conexiones remotas
+operativos de red: Windows seguras mediante túneles VPN
+Server, Linux, y sistemas y mecanismos de cifrado.
+híbridos.
+                             Aplicar prácticas seguras de
+Servidores    de     correo, administración      incluyendo
+servidores web, servidores manejo        de    contraseñas,
+DNS, servidores de archivos, políticas de actualización y
+bases de datos.              parches.
+Configuración de servidores:    Resguardar       configuraciones
+Instalación, configuración de   críticas de dispositivos mediante
+servicios (Apache, Nginx,       copias seguras y control de
+DNS, DHCP).                     acceso.
+Herramientas             de     Crear copias de respaldo de
+administración remota: SSH,     configuraciones de dispositivos
+RDP,      herramientas   de     y servidores siguiendo políticas
+control remoto y gestión        establecidas.
+centralizada.
+                                Instalar sistemas operativos de
+                                red en servidores físicos o
+                                virtuales según requerimientos
+                                técnicos.
+                                Configurar   servicios como
+                                servidores DNS, DHCP, Web,
+                                correo y archivos siguiendo
+                                estándares operativos.
+                                Supervisar servicios mediante
+                                herramientas de administración
+                                remota como SSH, RDP o
+                                consolas web.
+
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación             Detalle de especificaciones técnicas           Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)                           1
+                          Computadoras con acceso a internet
+                          Servidor
+Laboratorio               Proyector                                            1
+                          Red de computadoras,
+                          Simuladores de infraestructura de redes
+                          Fichas técnicas de hardware y software
+                          Manuales de usuario
+Equipos/herramientas
+                          Listado de requerimientos mínimos y
+                          recomendados de software
+Referencias Bibliográficas
+ Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+       Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+       https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+       organica-de-proteccion-de-datos
+
+Barceló Ordinas, J. M., Íñigo Griera, J., Martí Escalé, R., Peig Olivé, E., & Perramon
+       Tornil, X. (2004). Redes de computadores. Fundació per a la Universitat Oberta
+       de Catalunya. https://openaccess.uoc.edu/server/api/core/bitstreams/40f465e7-
+       9cc4-4169-a86e-acc16768b752/content
+
+Centro Criptológico Nacional. (2020). CCN-STIC 817: Gestión de ciberincidentes. CCN-
+       CERT. https://www.ccn-cert.cni.es/es/pdf/guias/series-ccn-stic/800-guia-
+       esquema-nacional-de-seguridad?format=html&limit=20&limitstart=20
+
+Centro Criptológico Nacional. (2022). CCN-STIC 836: Seguridad en redes privadas
+       virtuales. CCN-CERT. https://www.ccn-cert.cni.es/es/series-ccn-stic/guias/series-
+       ccn-stic/800-guia-esquema-nacional-de-seguridad/2299-ccn-stic-836-seguridad-
+       en-vpn-en-el-marco-del-ens/file.html
+
+Instituto Nacional de Ciberseguridad. (2020). Guía nacional de notificación y gestión de
+        ciberincidentes. INCIBE-CERT. https://www.incibe.es/incibe-cert/guias-y-
+        estudios/guias/guia-nacional-de-notificacion-y-gestion-de-ciberincidentes
+
+Jorba i Esteve, J., & Suppi Boldrito, R. (2014). Administración de sistemas GNU/Linux
+        (2.ª ed.). Universitat Oberta de Catalunya.
+        https://openaccess.uoc.edu/handle/10609/61287
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2021). Política de
+       Ciberseguridad (Acuerdo Ministerial N.º 006-2021).
+       https://www.telecomunicaciones.gob.ec/wp-content/uploads/2021/06/Acuerdo-
+       No.-006-2021-Politica-de-Ciberseguridad.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2022). Estrategia
+       Nacional de Ciberseguridad del Ecuador 2022–2025. Gobierno del Ecuador.
+       https://asobanca.org.ec/wp-content/uploads/2022/08/ESTRATEGIA-NACIONAL-
+       DE-CIBERSEGURIDAD-DEL-ECUADOR-2022481.pdf
+
+Red Hat, Inc. (2021a). Configuración de los ajustes básicos del sistema: Red Hat
+      Enterprise Linux 8.
+      https://docs.redhat.com/es/documentation/red_hat_enterprise_linux/8/pdf/configur
+      ing_basic_system_settings/configuracin-de-los-ajustes-bsicos-del-sistema.pdf
+
+Red Hat, Inc. (2021b). Configurar y gestionar la gestión de identidades: Red Hat
+      Enterprise Linux 8.
+      https://docs.redhat.com/es/documentation/red_hat_enterprise_linux/8/pdf/configur
+      ing_and_managing_identity_management/configurar-y-gestionar-la-gestin-de-
+      identidades.pdf
+
+Superintendencia de Protección de Datos Personales. (2025). Guía de gestión de
+       riesgos y evaluación de impacto del tratamiento de datos personales (Resolución
+       N.º SPDP-SPD-2025-0003-R). https://spdp.gob.ec/wp-
+       content/uploads/2025/05/Guia-de-gestion-de-riesgos.pdf
+
+Unión Internacional de Telecomunicaciones. (2000). Funciones de gestión de la red de
+       gestión de las telecomunicaciones (Recomendación UIT-T M.3400).
+       https://www.itu.int/rec/T-REC-M.3400-200002-I/es
+
+Unión Internacional de Telecomunicaciones. (2003). Arquitectura de seguridad para
+       sistemas de comunicaciones extremo a extremo (Recomendación UIT-T X.805).
+       https://www.itu.int/rec/T-REC-X.805-200310-I/es
+
+Unión Internacional de Telecomunicaciones. (2019). Servicio de comunicación de datos
+       con protocolo Internet: Parámetros de calidad de funcionamiento relativos a la
+       disponibilidad y la transferencia de paquetes del protocolo Internet
+       (Recomendación UIT-T Y.1540). https://www.itu.int/rec/T-REC-Y.1540-201912-
+       I/es
+                           Módulo de Especialización Nro. 4
+Nombre del módulo:                  Diseño y Planificación de Infraestructura de Redes
+Nivel:                              1ro, 2do, 3ro
+Duración:                           360 periodos pedagógicos
+                                    UC4: Diseñar la infraestructura de red, garantizando el
+Unidad      de    competencia       funcionamiento eficiente, confiable y seguro del
+asociada:                           hardware y software, que permita la continuidad y
+                                    calidad del servicio.
+Objetivo del módulo: Diseñar soluciones de infraestructura de red cableada e inalámbrica,
+utilizando herramientas de modelado, criterios técnicos, dispositivos especializados y
+normativa, para asegurar el rendimiento, escalabilidad y seguridad en la implementación de
+sistemas de comunicación de datos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar requerimientos técnicos, dispositivos y software a través del
+levantamiento de información del entorno operativo, utilizando formatos técnicos
+normalizados bajo estándares de red vigentes.
+CE1.1: Identifica necesidades del sistema de red, considerando entorno físico, tipo de
+usuario y condiciones operativas.
+CE1.2: Registra recursos tecnológicos disponibles, contemplando limitaciones técnicas,
+operativas y presupuestarias.
+CE1.3: Organiza datos técnicos recolectados, utilizando herramientas y formatos
+establecidos por normativa vigente.
+CE1.4: Contrasta los requerimientos funcionales con estándares de red, justificando su
+alineación con el tipo de servicio requerido.
+RA 2: Diseñar la topología y componentes de red a partir del análisis de
+requerimientos y entorno estructural, empleando simbología técnica estandarizada
+y criterios de escalabilidad y seguridad.
+CE2.1: Selecciona la topología más adecuada del sistema, conforme al número de
+usuarios, crecimiento previsto y tipo de red.
+CE2.2: Determina los dispositivos activos y pasivos necesarios, evaluando su
+compatibilidad con el diseño físico y lógico.
+CE2.3: Distribuye elementos de red en planos técnicos, aplicando simbología estándar y
+considerando condiciones estructurales.
+CE2.4: Justifica la elección de componentes y conexiones, con base en eficiencia
+operativa, seguridad y facilidad de mantenimiento.
+RA 3: Dimensionar recursos tecnológicos de red mediante el análisis del tráfico
+estimado, tipo de servicios y redundancia requerida, alineando capacidades de
+hardware y software con la infraestructura propuesta.
+CE3.1: Estima el ancho de banda necesario, considerando tipo de tráfico, concurrencia y
+calidad del servicio esperada.
+CE3.2: Selecciona hardware adecuado de red, atendiendo criterios de capacidad,
+rendimiento, compatibilidad y protocolos.
+CE3.3: Determina software de gestión y monitoreo, con base en su integración con los
+dispositivos y características del sistema.
+CE3.4: Ajusta el número y tipo de dispositivos, según escalabilidad del sistema y
+requerimientos de tolerancia a fallos.
+RA 4: Evaluar la infraestructura de red diseñada mediante pruebas de simulación,
+análisis de carga, comprobación de seguridad y continuidad operativa, frente a
+distintos escenarios de funcionamiento y riesgo.
+CE4.1: Simula el rendimiento de la red propuesta, utilizando herramientas digitales que
+analicen tráfico, latencia y pérdidas.
+CE4.2: Verifica el balanceo de carga entre dispositivos, asegurando su distribución
+conforme a políticas establecidas.
+CE4.3: Evalúa los mecanismos de seguridad integrados, mediante escenarios simulados
+de ataques o vulnerabilidades.
+CE4.4: Comprueba la continuidad del servicio, simulando fallos de dispositivos o enlaces
+principales, verificando recuperación y redundancia.
+Contenidos
+Conceptuales                      Procedimentales                   Actitudinales
+Principios de diseño de           Analizar requerimientos de       Reconocer la importancia
+infraestructura de redes:         conectividad,      servicios y   de la aplicación de
+confiabilidad, escalabilidad,     dispositivos según condiciones   normas y estándares
+disponibilidad y seguridad.       físicas y operativas.            técnicos como base para
+                                                                   garantizar redes seguras,
+Recolección y análisis de         Levantar información técnica del eficientes y sostenibles.
+requerimientos       técnicos:    entorno y necesidades del
+usuarios,         dispositivos,   cliente    mediante     formatos Valorar      el   análisis
+aplicaciones,      protocolos,    estructurados.                   exhaustivo              de
+entorno físico y funcional.                                        requerimientos       como
+                                  Identificar restricciones del etapa        clave en       el
+Clasificación de redes según      entorno físico y técnico que desarrollo de diseños
+sus necesidades: campus,          afecten el diseño de la red.     coherentes y funcionales.
+empresarial, industrial, de
+misión crítica, backbone.     Establecer criterios de selección     Mostrar compromiso con
+                              de componentes activos y              la            planificación
+Componentes activos y pasivos alineados al contexto de              responsable               y
+pasivos de la infraestructura uso.                                  documentada              de
+de red: switches, routers,                                          infraestructuras,
+firewalls,          cableado Determinar topología de red            considerando impactos
+estructurado,                 adecuada aplicando principios         operativos y futuros.
+canalizaciones,        racks, de redundancia y escalabilidad.
+bandejas, UPS.                                                Ser meticuloso en la
+                               Representar gráficamente el elaboración de planos,
+Estándares de       diseño y diseño físico y lógico mediante diagramas             y
+normativas           técnicas: software        especializado, documentación técnica,
+ANSI/TIA-568,       ANSI/TIA-                                 comprendiendo       su
+569, ANSI/TIA-606, ISO/IEC utilizando                   simbología    función      en       la
+14763, IEEE 802.3 y 802.11, normalizada.                              implementación         y
+normativas eléctricas y de                                            mantenimiento posterior.
+seguridad.                       Asignar direccionamiento IP
+                                 según      planes       de     red   Asumir                 con
+Topologías físicas y lógicas jerarquizados y segmentación             responsabilidad          la
+aplicadas       a     distintos lógica.                               selección de equipos
+contextos       (redundancia,                                         tecnológicos, priorizando
+tolerancia a fallos, balanceo Calcular tráfico estimado y             la         compatibilidad,
+de carga).                       dimensionar el ancho de banda        sostenibilidad            y
+                                 necesario     según      servicios   escalabilidad    de      la
+Principios                   de proyectados.                          solución.
+direccionamiento       IP      y
+segmentación        de      red Comparar         opciones        de   Respetar las normas de
+(VLANs,             subredes,    hardware  y software  conforme   a   seguridad eléctrica y
+planificación jerárquica).       requerimientos           técnicos,   estructural en el diseño
+                                 presupuestarios y de soporte.        de espacios destinados a
+Escalabilidad y capacidad de                                          infraestructura de red.
+crecimiento        de         la Organizar recursos tecnológicos
+infraestructura:                 de redes y telecomunicaciones        Mostrar      una     actitud
+dimensionamiento presente en función de disponibilidad,               crítica frente a soluciones
+y proyección a futuro.           redundancia y tolerancia a           poco       eficientes      o
+                                 fallos.                              técnicamente
+Dimensionamiento             de                                       cuestionables,
+recursos         tecnológicos: Evaluar diseños propuestos             proponiendo alternativas
+cálculo de ancho de banda, mediante pruebas de carga,                 fundamentadas.
+capacidad                    de simulación de tráfico y detección
+procesamiento,                   de cuellos de botella.             Actuar con honestidad en
+almacenamiento, número de                                           el análisis de costos y
+puertos        y      servicios Incorporar mecanismos de propuestas técnicas.
+concurrentes.                   seguridad en la infraestructura
+                                propuesta según normativa Mantener una actitud
+Criterios     técnicos    para vigente.                             reflexiva    al  evaluar
+selección de hardware y                                             diseños,    reconociendo
+software:         rendimiento,  Documentar     el  diseño   de  red errores y oportunidades
+compatibilidad,          costo- mediante planos, diagramas, de mejora.
+beneficio, soporte técnico.     tablas    y     fichas    técnicas
+                                normalizadas.                       Demostrar proactividad
+Diagramación                  y                                     en la búsqueda y
+documentación          técnica: Simular     la      infraestructura aplicación de nuevas
+simbología        normalizada, diseñada en entornos virtuales, herramientas               de
+codificación de cables y        verificando    funcionalidad      y simulación y diseño que
+puertos, leyendas, planos eficiencia.                               optimicen     el  trabajo
+físicos y lógicos.              Verificar    cumplimiento        de técnico.
+                                estándares y normas técnicas
+                                en la propuesta final de diseño.
+Estrategias de continuidad       Redactar informes técnicos          Fomentar     el  trabajo
+operativa: redundancia de        justificando  las     decisiones    colaborativo durante el
+enlaces, alta disponibilidad,    tomadas en la planificación de la   proceso     de   diseño,
+balanceo de carga, planes        red.                                respetando         roles,
+de recuperación.                                                     aportando conocimientos
+                                                                     y comunicándose con
+Fundamentos de seguridad                                             claridad.
+en el diseño: zonas seguras,
+control de acceso físico y                                           Ser riguroso en la
+lógico, monitoreo, políticas                                         validación      de      la
+de segmentación y firewalls.                                         infraestructura mediante
+                                                                     simulaciones y pruebas
+Evaluación y validación de                                           de     carga,    evitando
+diseño mediante simulación                                           decisiones apresuradas o
+y herramientas CAD/red:                                              empíricas.
+Packet Tracer, GNS3, EVE-
+NG, NetSim, entre otros.                                             Valorar el rol de la
+                                                                     infraestructura de red en
+Consideraciones                                                      el desempeño global de
+ambientales y energéticas                                            una     organización    o
+en      el     diseño      de                                        entorno productivo.
+infraestructura: ventilación,
+distribución        eléctrica,                                       Desarrollar hábitos de
+eficiencia energética.                                               mejora          continua,
+                                                                     actualización tecnológica
+Gestión     documental y                                             y     autogestión     del
+elaboración de informes                                              aprendizaje en el área de
+técnicos de diseño.                                                  diseño de redes.
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación             Detalle de especificaciones técnicas           Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula)                             1
+Laboratorio                 Computadoras con acceso a internet                        1
+                            Servidor
+                            Proyector
+                            Red de computadoras,
+                            Simuladores de Diseño de redes
+                            Fichas técnicas de hardware y software
+                            Manuales de usuario
+Equipos/herramientas
+                            Listado de requerimientos mínimos               y
+                            recomendados de software
+Materiales de seguridad     Guantes, mandiles, gafas de protección.
+Referencias Bibliográficas
+Alcócer García, A. C. (2000). Redes de computadoras. Infolink.
+       https://repositorio.pucp.edu.pe/items/5b13f719-812b-430e-bd83-0cd4e8ae55e7
+
+Asamblea Nacional del Ecuador. (2015). Ley Orgánica de Telecomunicaciones (Tercer
+     Suplemento del Registro Oficial N.º 439, 18 de febrero de 2015).
+     https://www.telecomunicaciones.gob.ec/wp-
+     content/uploads/downloads/2016/05/Ley-Org%C3%A1nica-de-
+     Telecomunicaciones.pdf
+
+Asamblea Nacional del Ecuador. (2025). Ley Orgánica Reformatoria a la Ley Orgánica de
+     Telecomunicaciones (Quinto Suplemento del Registro Oficial N.º 59, 13 de junio de
+     2025). https://www.registroficial.gob.ec/quinto-suplemento-no-59/
+
+Asamblea Nacional del Ecuador. (2026). Ley Orgánica para el Fortalecimiento de la
+     Ciberseguridad (Quinto Suplemento del Registro Oficial N.º 290, 22 de mayo de
+     2026). https://www.registroficial.gob.ec/quinto-suplemento-no-290/
+
+Cisco Systems, Inc. (2023). Configuración de direcciones IP y subredes únicas para
+       usuarios nuevos. https://www.cisco.com/c/es_mx/support/docs/ip/routing-
+       information-protocol-rip/13788-3.html
+
+Cotúa, J. G. (2021). Tutorial de operación de redes IPv6: IPv6 Only y mecanismo de
+       transición SIIT-DC. Registro de Direcciones de Internet de América Latina y
+       Caribe. https://www.lacnic.net/innovaportal/file/5576/1/lacnic36-jgc---tutorial-oper-
+       red-ipv6-siit-dc-11-oct-2021.pdf
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_glosario_ciberse
+        guridad_2021.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2024). Plan
+       Nacional de Telecomunicaciones 2024–2025. Gobierno del Ecuador.
+       https://www.telecomunicaciones.gob.ec/wp-
+       content/uploads/2024/09/Plan_nacional_de_telecomunicaciones_2024_2025.pdf
+
+Polanco Sarmiento, O. (2017). Laboratorio de redes y comunicaciones. Programa Editorial
+      Universidad del Valle. https://doi.org/10.25100/peu.53
+Unión Internacional de Telecomunicaciones. (1994). Tecnología de la información—
+       Interconexión de sistemas abiertos—Modelo de referencia básico: El modelo
+       básico (Recomendación UIT-T X.200). https://www.itu.int/rec/T-REC-X.200-
+       199407-I/es
+
+Unión Internacional de Telecomunicaciones. (2001). Categorías de calidad de servicio
+       para los usuarios de extremo de servicios multimedios (Recomendación UIT-T
+       G.1010). https://www.itu.int/rec/T-REC-G.1010-200111-I/es
+
+Unión Internacional de Telecomunicaciones. (2005). Manual sobre redes basadas en el
+       Protocolo Internet (IP) y asuntos conexos. https://www.itu.int/pub/D-HDB-IP-
+       2005/es
+
+Unión Internacional de Telecomunicaciones. (2024). Características de las fibras y cables
+       ópticos monomodo (Recomendación UIT-T G.652). https://www.itu.int/rec/T-REC-
+       G.652-202408-I/es
+
+Universidad Técnica Federico Santa María. (2025). Manual estándar de cableado
+       estructurado y networking. Dirección de Tecnologías de la Información.
+       https://dti.usm.cl/wp-content/uploads/sites/16/2025/03/Estandar-Cableado-
+       estructurado-DTI-Vol1.pdf
+
+
+
+
+                             Módulo Especialización Nro.5
+Nombre del módulo:                  Sistemas Digitales y Telecomunicaciones
+Nivel:                              1ro, 2do y 3ro
+Duración:                           400 periodos pedagógicos
+                                    UC 5: Plantear sistemas digitales y servicios de
+                                    telecomunicaciones, mediante la configuración de
+Unidad       de    competencia
+                                    dispositivos, transmisión de señales, protocolos de
+asociada:
+                                    comunicación, garantizando la interoperabilidad,
+                                    calidad de servicio y cumplimiento de normas técnicas.
+Objetivo del módulo: Configurar sistemas digitales y servicios de telecomunicaciones, a
+través de la programación y ajuste de dispositivos, transmisión de señales y aplicación de
+protocolos de comunicación, con el propósito de garantizar la interoperabilidad, calidad del
+servicio y cumplimiento de estándares técnicos en entornos tecnológicos actuales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar esquemas eléctricos y electrónicos reconociendo componentes,
+señales y conexiones, utilizando simbología técnica y diagramas estructurados, en
+función del comportamiento del sistema digital.
+CE1.1: Distingue componentes eléctricos y electrónicos en planos técnicos empleando
+simbología normalizada.
+CE1.2: Explica señales digitales y analógicas según su representación gráfica y función
+dentro del sistema.
+CE1.3: Relaciona el flujo eléctrico con la arquitectura funcional, utilizando diagramas
+unifilares o multifilares.
+CE1.4: Determina tipo de conexión y alimentación eléctrica, según distribución energética
+y necesidades funcionales del sistema.
+RA 2: Configurar dispositivos electrónicos de comunicación digital ajustando
+parámetros de red, direccionamiento y sincronización de señales, garantizando el
+funcionamiento adecuado conforme a protocolos establecidos y estándares
+técnicos.
+CE2.1: Establece parámetros de configuración en equipos de red según la topología y
+protocolo seleccionados.
+CE2.2: Asigna direcciones lógicas y físicas, respetando estándares de direccionamiento y
+esquema de red.
+CE2.3: Sincroniza señales de entrada y salida en módulos de comunicación digital,
+aplicando principios técnicos.
+CE2.4: Verifica funcionamiento del dispositivo, mediante pruebas y herramientas de
+diagnóstico en entorno controlado.
+RA 3: Simular la transmisión de señales en entornos digitales considerando tipo de
+medio, interferencias, estándares y compatibilidad de protocolos, evaluando el
+comportamiento de los sistemas de telecomunicación bajo condiciones específicas.
+CE3.1: Define características de señales digitales, según estándar de comunicación y
+medio seleccionado.
+CE3.2: Establece trayectorias de señal en simuladores, contemplando interferencias,
+obstáculos y pérdidas.
+CE3.3: Evaluar estabilidad de transmisión, según métricas de rendimiento y condiciones del
+entorno virtual.
+CE3.4: Verificar compatibilidad entre dispositivos y protocolos, utilizando bancos de prueba
+y simulaciones.
+RA 4: Evaluar la interoperabilidad y calidad de servicio en sistemas de
+telecomunicaciones mediante pruebas controladas, identificando conflictos de
+compatibilidad y proponiendo mejoras con base en estándares técnicos.
+CE4.1: Mide la calidad del servicio, como latencia, throughput y pérdida de paquetes.
+CE4.2: Cataloga conflictos de interoperabilidad, utilizando bitácoras de eventos y análisis
+del comportamiento de la red.
+CE4.3: Analiza fallas de compatibilidad entre dispositivos, revisando registros de error y
+respuesta funcional.
+CE4.4: Establece recomendaciones de mejora considerando estándares técnicos como
+ISO/OSI, ITU, IEEE.
+Contenidos
+Conceptuales                   Procedimentales               Actitudinales
+Fundamentos de sistemas Identificar componentes y Respetar las especificaciones
+digitales: lógica digital, conexiones en esquemas del fabricante al trabajar con
+niveles      de       voltaje, electrónicos      utilizando dispositivos electrónicos y
+codificación          binaria,                               sistemas de comunicación
+señales    discretas     y    simbología             técnica digital, valorando la precisión
+continuas.                    normalizada.                     técnica y la durabilidad de los
+                                                               equipos.
+Componentes electrónicos      Analizar diagramas de
+en sistemas digitales:        sistemas              digitales Reconocer la importancia del
+resistencias, capacitores,    interpretando el flujo de uso de elementos de protección
+transistores, integrados,     señal,       polaridad,       y eléctrica y aislamiento en la
+puertas           lógicas,    comportamiento de los manipulación                  de     circuitos
+multiplexores,  registros,    circuitos.                       digitales y dispositivos de
+contadores               y                                     telecomunicación.
+microcontroladores.           Configurar       dispositivos
+                              electrónicos                 de Valorar       el      cumplimiento
+Esquemas eléctricos y         comunicación             digital riguroso     de     normas       de
+electrónicos:                 ajustando parámetros de seguridad                 industrial        y
+interpretación de planos,     transmisión y recepción.         protocolos técnicos en el
+símbolos     normalizados,                                     trabajo con sistemas de
+rutas       de       señal,   Establecer        conexiones telecomunicaciones.
+alimentación y conexión a     físicas entre dispositivos
+tierra.                       considerando        topología, Mostrar actitud investigativa y
+                              tipo    de     cableado       y disposición      al    aprendizaje
+Protocolos             de     estándares eléctricos.           continuo frente a nuevas
+comunicación      digital:                                     tecnologías de comunicación,
+UART, SPI, I2C, Ethernet,     Seleccionar protocolos de protocolos             emergentes         y
+TCP/IP, LTE, Bluetooth,       comunicación adecuados herramientas de simulación.
+ZigBee, LoRa, Wi-Fi y sus     según       requisitos       de
+características.              distancia, velocidad, ruido Asumir con responsabilidad el
+                              e interoperabilidad.             diagnóstico y solución de
+Normas       técnicas     y                                    problemas        en      sistemas
+estándares              en    Aplicar direccionamiento digitales, procurando eficiencia
+telecomunicaciones: ITU-      lógico en sistemas de y                confiabilidad     en      las
+T, IEEE, ANSI, ETSI, ISO,     comunicación            digital, decisiones técnicas.
+y normativas nacionales e     asignando parámetros de
+internacionales en redes.     red y sincronización.            Ser      meticuloso      en       la
+                                                               configuración y verificación de
+Arquitecturas de redes de     Simular esquemas de dispositivos, comprendiendo la
+telecomunicaciones: OSI,      transmisión de señales en repercusión que puede tener un
+TCP/IP, estructura de red     herramientas          digitales error      mínimo        en        la
+de    acceso,     red    de   evaluando comportamiento comunicación digital.
+transporte y red núcleo.      de la señal y errores.
+                              Evaluar el comportamiento Valorar            la    documentación
+Principios de modulación y    de sistemas digitales bajo técnica como recurso esencial
+codificación de señales       distintas condiciones de para              el      mantenimiento,
+digitales (ASK, FSK, PSK,     carga,     interferencia      y replicación y escalamiento de
+QAM).                         medio físico.                    sistemas      digitales    y     de
+                                                               telecomunicación.
+Parámetros técnicos en         Medir parámetros técnicos     Demostrar iniciativa en la
+telecomunicaciones:            en         redes        de    propuesta de mejoras o ajustes
+ancho de banda, latencia,      telecomunicaciones            cuando       se     identifiquen
+jitter, pérdida de paquetes,   utilizando herramientas de    limitaciones        en         la
+tasa de error de bits          prueba y simulación.          interoperabilidad o desempeño
+(BER).                                                       de los sistemas.
+                               Diagnosticar conflictos de
+Tipos de medios de             interoperabilidad       entre Colaborar      activamente      en
+transmisión: par trenzado,     dispositivos de diferentes equipos de trabajo técnico,
+fibra    óptica,   coaxial,    fabricantes o tecnologías.      comunicando           hallazgos,
+microondas,                                                    problemas o recomendaciones
+radiofrecuencia, infrarrojo    Contrastar        resultados con claridad y respeto.
+y enlaces ópticos.             obtenidos en simulaciones
+                               con     valores     teóricos Adoptar una actitud crítica
+Interferencia, atenuación,     esperados, ajustando la frente            a    configuraciones
+diafonía y fenómenos           configuración cuando sea improvisadas            o     prácticas
+físicos en la transmisión de   necesario.                      riesgosas,         proponiendo
+señales.                                                       soluciones     que      integren
+                               Validar la calidad de seguridad,              normatividad     y
+Herramientas y entornos        servicio mediante pruebas eficiencia.
+de simulación digital de       controladas,     analizando
+telecomunicaciones:            métricas     como       jitter, Cumplir con los estándares de
+Proteus, Packet Tracer,        retardo y pérdida de calidad               de     servicio    en
+GNS3, LTSpice, MATLAB          paquetes.                       telecomunicaciones,
+Simulink, LabVIEW.                                             comprendiendo su impacto en
+                               Documentar resultados de la satisfacción del cliente y el
+Métodos de prueba y            simulaciones, pruebas y funcionamiento de servicios
+evaluación de calidad de       configuraciones técnicas críticos.
+servicio en sistemas de        en informes detallados.
+telecomunicaciones: QoS,                                     Valorar la formación técnica
+SLA, KPI, monitoreo con        Aplicar normativas técnicas   como una vía para desarrollar
+SNMP, Wireshark, iPerf.        vigentes en la instalación,   servicios                 propios,
+                               configuración y pruebas de    emprendimientos o asistencia
+Criterios             de       sistemas                 de   especializada en tecnologías
+interoperabilidad:             telecomunicación.             de comunicación digital.
+compatibilidad        de                                     Reconocer la importancia de
+dispositivos, niveles de       Configurar dispositivos de
+                                                             planificar y verificar cada etapa
+red, encapsulamiento de        protección y filtrado de
+                                                             del        trabajo        técnico,
+datos y negociación de         señal para mejorar la
+                                                             promoviendo la prevención de
+parámetros.                    integridad     de        la
+                                                             fallas y el uso racional de
+                               transmisión.
+                                                             recursos.
+Requisitos de instalación y
+configuración           de     Verificar la operatividad de
+                                                            Promover una cultura de
+dispositivos            de     la           red          de
+                                                            respeto por el entorno de
+comunicación:                  telecomunicaciones bajo
+                                                            trabajo, el uso responsable de
+direccionamiento,             escenarios de contingencia materiales y la conservación de
+sincronización de señales,    y carga máxima.            equipos.
+protocolos de enlace.
+
+Seguridad en sistemas de
+comunicación       digital:
+autenticación,    cifrado,
+gestión      de   claves,
+protección         contra
+intrusiones.
+
+Documentación técnica en
+telecomunicaciones:
+fichas técnicas, hojas de
+datos,     manuales     de
+instalación, informes de
+validación.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+   o Aprendizaje Basado en Proyectos (ABP)
+   o Aprendizaje en Contextos Reales
+   o Role-Playing y Simulaciones
+   o Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                          Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)                          1
+                         Computadoras con acceso a internet
+                         Servidor
+Laboratorio              Proyector                                               1
+                         Red de computadoras,
+                         Simuladores de Diseño de redes
+                         Fichas técnicas de hardware y software
+                         Manuales de usuario
+Equipos/herramientas     Listado de requerimientos mínimos y
+                         recomendados de software
+                         Software de diagnóstico
+Referencias Bibliográficas
+Artés Rodríguez, A., Pérez González, F., Cid Sueiro, J., López Valcarce, R., Mosquera
+       Nartallo, C., & Pérez Cruz, F. (2012). Comunicaciones digitales. Los autores.
+       https://www.tsc.uc3m.es/~antonio/libro_comunicaciones/El_libro_files/comdig_art
+       es_perez.pdf
+
+Asamblea Nacional del Ecuador. (2015). Ley Orgánica de Telecomunicaciones (Tercer
+     Suplemento del Registro Oficial N.º 439, 18 de febrero de 2015).
+     https://www.arcotel.gob.ec/wp-
+     content/uploads/2022/04/ley_organica_de_telecomunicaciones_18-02-2015.pdf
+
+Cotúa, J. G. (2021). Tutorial de operación de redes IPv6: IPv6 Only y mecanismo de
+       transición SIIT-DC. Registro de Direcciones de Internet de América Latina y
+       Caribe. https://www.lacnic.net/innovaportal/file/5576/1/lacnic36-jgc---tutorial-oper-
+       red-ipv6-siit-dc-11-oct-2021.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2024). Plan
+       Nacional de Telecomunicaciones 2024–2025. Gobierno del Ecuador.
+       https://www.telecomunicaciones.gob.ec/wp-
+       content/uploads/2024/09/Plan_nacional_de_telecomunicaciones_2024_2025.pdf
+
+Moreira Arteaga, K. L., Medranda Cobeña, G. I., & Zambrano Zambrano, D. M. (2026).
+       Prospectiva de las telecomunicaciones hacia redes 5G en la ciudad de
+       Portoviejo. InGenio Journal, 9(2), 1–20.
+       https://doi.org/10.18779/ingenio.v9i2.1215
+
+Novillo Montero, C. (2008). Sistemas digitales. Escuela Politécnica Nacional.
+        https://bibdigital.epn.edu.ec/handle/15000/4829
+
+Pacheco, D. S. (2022). Seguridad en redes de comunicaciones: Perspectivas y desafíos.
+      Ingeniare. Revista Chilena de Ingeniería, 30(2), 215–217.
+      https://doi.org/10.4067/S0718-33052022000200215
+
+Ulloa-Vásquez, F., García-Santander, L., & Carrizo, D. (2022). Simulación de
+       comunicación inalámbrica WAN para internet de las cosas: Un estudio de caso.
+       Ingeniare. Revista Chilena de Ingeniería, 30(2), 218–228.
+       https://doi.org/10.4067/S0718-33052022000200218
+
+Unión Internacional de Telecomunicaciones. (1994). Tecnología de la información:
+       Interconexión de sistemas abiertos. Modelo de referencia básico: El modelo
+       básico (Recomendación UIT-T X.200). https://www.itu.int/rec/T-REC-X.200-
+       199407-I/es
+
+Unión Internacional de Telecomunicaciones. (2001). Categorías de calidad de servicio
+       para los usuarios de extremo de servicios multimedios (Recomendación UIT-T
+       G.1010). https://www.itu.int/rec/T-REC-G.1010-200111-I/es
+Unión Internacional de Telecomunicaciones. (2002). Parámetros y objetivos de
+       característica de error para trayectos digitales internacionales de velocidad
+       binaria constante que funcionan a la velocidad primaria o a velocidades
+       superiores (Recomendación UIT-T G.826).
+       https://www.itu.int/rec/dologin_pub.asp?id=T-REC-G.826-200212-I%21%21PDF-
+       S&lang=e&type=items
+
+Unión Internacional de Telecomunicaciones. (2003). Arquitectura de seguridad para
+       sistemas de comunicaciones extremo a extremo (Recomendación UIT-T X.805).
+       https://www.itu.int/rec/T-REC-X.805-200310-I/es
+
+Unión Internacional de Telecomunicaciones. (2019). Servicio de comunicación de datos
+       con protocolo Internet: Parámetros de calidad de funcionamiento relativos a la
+       disponibilidad y transferencia de paquetes del protocolo Internet (Recomendación
+       UIT-T Y.1540). https://www.itu.int/rec/T-REC-Y.1540/es
+
+Unión Internacional de Telecomunicaciones. (2024). Características de las fibras y
+       cables ópticos monomodo (Recomendación UIT-T G.652).
+       https://www.itu.int/rec/T-REC-G.652-202408-I/es
+
+Vera Peralta, T. A., Alcívar Cedeño, A. K., & Cobeña Macías, T. E. (2022). Revisión de
+      los mecanismos de QoS en las instituciones públicas del Ecuador. Informática y
+      Sistemas: Revista de Tecnologías de la Informática y las Comunicaciones, 6(1),
+      24–30. https://doi.org/10.33936/isrtic.v6i1.4565
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación
+a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+                             Módulo Práctico Experimental
+ Nombre del módulo:               Práctico Experimental
+ Nivel:                           1ro, 2do, 3ro
+ Duración:                        400 periodos pedagógicos
+ Unidad de competencia            UC1: Emplear conocimientos técnicos esenciales y
+ asociada:                        comprensión de los protocolos, considerando
+                                  topologías, medios de transmisión, dispositivos y
+                                  estándares de conectividad.
+                                  UC2: Instalar infraestructuras físicas y lógicas de redes,
+                                  aplicando normas técnicas y procedimientos seguros,
+                                  según los requerimientos del diseño de red.
+                                  UC3: Administrar servidores, redes de datos y equipo
+                                  de comunicaciones, que permita la operatividad,
+                                  mantenimiento, disponibilidad, seguridad frente a
+                                  amenazas, vulnerabilidades y accesos no autorizados,
+                                  aplicando procedimientos técnicos y herramientas
+                                  especializadas.
+                                  UC5: Plantear sistemas digitales y servicios de
+                                  telecomunicaciones, mediante la configuración de
+                                  dispositivos, transmisión de señales, protocolos de
+                                  comunicación, garantizando la interoperabilidad, calidad
+                                  de servicio y cumplimiento de normas técnicas.
+ Objetivo del módulo: Consolidar las competencias adquiridas mediante la aplicación
+ práctica y experimental de conocimientos en redes y telecomunicaciones, desarrollando
+ proyectos integradores que involucren instalación, configuración, administración y
+ validación de infraestructuras de red y servicios de telecomunicaciones, promoviendo la
+ autonomía técnica, el análisis crítico, la resolución de problemas reales, el cumplimiento
+ normativo y la vinculación con el entorno tecnológico actual.
+Resultados               de    Criterios de Evaluación        Actividades Prácticas
+Aprendizaje (RA)               (CE)                           Experimentales
+RA1: Ejecutar proyectos        CE1.1:      Verifica      el   Instalación física de una red
+de        instalación      y   cumplimiento del diseño        LAN con equipos reales
+configuración             de   técnico        en         la   (routers, switches, puntos de
+infraestructuras de red        implementación de la red       acceso,       patch       panel,
+física y lógica, integrando    considerando normas de         canalización, etc.).
+conocimientos             de   cableado, topología y          Configuración práctica de
+cableado       estructurado,   documentación                  direccionamiento IP estático y
+direccionamiento,              estructurada.                  dinámico
+protocolos                de   CE1.2:               Ajusta    Prueba de conectividad y
+comunicación,        normas    parámetros               de    rendimiento           mediante
+técnicas y seguridad.          configuración            de    herramientas como ping,
+                               dispositivos de red para       traceroute, iPerf, Wireshark.
+                               garantizar conectividad,       Visita técnica a proveedor de
+                               direccionamiento               servicios de red local o ISP.
+                               correcto                   y
+                               funcionamiento           de
+                               protocolos.
+RA2: Desarrollar prácticas     CE2.1:               Aplica    Simulación de una red
+de         administración,     procedimientos           de    multiservicio               con
+monitoreo, mantenimiento       diagnóstico, monitoreo y       administración de ancho de
+y validación de redes y        solución de problemas en       banda, control de acceso y
+servicios               de     redes     cableadas        e   segmentación VLAN.
+telecomunicaciones      en     inalámbricas,                  Implementación               de
+entornos     reales      o     considerando                   herramientas de monitoreo
+simulados,      utilizando     herramientas y técnicas        como PRTG, Nagios o SNMP.
+herramientas                   actuales.                      Evaluación de QoS, latencia,
+especializadas           y     CE2.2: Evalúa la calidad       jitter y pérdida de paquetes.
+protocolos de gestión.         del    servicio     y     la   Visita técnica a institución
+                               interoperabilidad de los       educativa,      universidad   o
+                               sistemas         mediante      centro      de     datos    con
+                               pruebas           técnicas,    infraestructura      de     red
+                               documentando                   operativa.
+                               resultados y proponiendo
+                               mejoras.
+RA3:       Validar        la   CE3.1:           Configura     Simula interoperabilidad entre
+interoperabilidad y calidad    servicios                de    redes IPv4 e IPv6 en Packet
+de los servicios de            comunicación         digital   Tracer o GNS3.
+telecomunicaciones             garantizando                   Visita técnica a un centro de
+mediante           pruebas     interoperabilidad          y   datos o institución con
+funcionales en entornos        calidad de servicio en         infraestructura            de
+simulados y reales.            ambientes      reales      o   telecomunicaciones         en
+                               simulados.                     operación.
+ RA4: Administrar redes de     CE4.1: Aplica técnicas de    Instalar un servidor Linux con
+ datos,    equipos       de    diagnóstico     mediante     servicios     web      básicos,
+ comunicaciones           y    herramientas                 analizando y documentado
+ servicios         internos    especializadas         en    logs.
+ mediante herramientas de      ambientes     reales    o    Implementación de políticas
+ gestión,      monitoreo,      simulados.                   de seguridad, listas de control
+ seguridad                y                                 de acceso.
+ mantenimiento avanzado.                                    Analiza con Wireshark el
+                                                            tráfico en la red (ARP, TCP,
+                                                            UDP, ICMP, STP, entre otros).
+                                                            Implementar un proyecto de
+                                                            Telecomunicaciones         con
+                                                            simuladores para compartir,
+                                                            datos y voz.
+ RA5:              Diseñar     CE5.1: Elabora estudios      Implementa      un    proyecto
+ infraestructuras de red       de         requerimientos,   técnico de infraestructura con
+ seguras, escalables y         cálculos de materiales y     presupuesto,          equipos,
+ sostenibles     aplicando     presupuestos de red.         cableado, racks, energía,
+ criterios de operatividad     CE5.2: Integra sistemas      accesorios, entre otros.
+ normativas y planificación    digitales,            IoT,   Implementación de una red
+ profesional.                  automatización básica o      IoT básica.
+                               sensores en redes de
+                               comunicación.
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

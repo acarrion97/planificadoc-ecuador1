@@ -1,0 +1,1799 @@
+       MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “GESTIÓN
+                   ADMINISTRATIVA Y LOGÍSTICA”
+
+
+    1. Objetivo general
+Desarrollar en los y las estudiantes la capacidad de ejecutar procesos administrativos,
+comerciales y de logística nacional e internacional, aplicando la normativa legal vigente,
+utilizando herramientas tecnológicas e idiomas, con enfoque en la innovación, la
+efectividad, la responsabilidad socioemocional y ambiental, para su desempeño en
+contextos laborales, profesionales y emprendedores.
+    2. Plan de estudios
+                                                                    1ro      2do     3ro
+Total periodos pedagógicos de tronco común                           19       19      19
+                             Herramientas           Informáticas     3        2
+                             Empresariales
+Módulos Genéricos de la Gestión Contable y Administración            5        4
+Familia Profesional     Financiera
+                             Inglés Técnico Aplicado a los           3        2
+                             Negocios
+                             Compras y Logística                     3        4        6
+                             Gestión      Comercial             y    2        4        6
+Módulos Especialización      Comunicación
+                             Gestión        de         Procesos      3        3        6
+                             Administrativos
+Módulo Práctico Experimental                                         2        2        3
+Total periodos pedagógicos de formación técnica                      21       21      21
+
+
+    3. Módulos Genéricos de la Familia Profesional
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Administrativa y Financiera. Gracias a
+las características de los módulos trabajados en esta etapa, adquieren herramientas
+que le permiten construir una opinión más informada y tomar decisiones con mayor
+fundamento. Esto favorece su capacidad para, en caso de que lo desee, transitar entre
+distintas figuras profesionales dentro de la misma familia, continuar con su trayectoria
+educativa, insertarse en el mundo laboral o emprender un proyecto propio.
+Se estructuran los siguientes módulos genéricos:
+
+
+     •    Herramientas Informáticas Empresariales
+     •    Gestión Contable y Administración Financiera
+     •    Inglés Técnico Aplicado a los Negocios
+
+
+                             Módulo Genérico Nro. 1
+ Nombre del módulo                   Herramientas Informáticas Empresariales:
+
+ Nivel:                              1ro, 2do
+
+ Duración:                           200 periodos pedagógicos
+                                     UC 1: Utilizar las herramientas informáticas
+ Unidad    de       competencia
+                                     empresariales      aplicadas     a    las    actividades
+ asociada:
+                                     estudiantiles, personales, familiares, y laborales
+ Objetivo del módulo: Emplear herramientas informáticas empresariales en entornos
+ estudiantiles, personales, familiares y laborales, para optimizar tareas administrativas,
+ financieras y de gestión, con criterios de eficiencia y seguridad
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Utilizar herramientas informáticas empresariales para registrar transacciones
+ financieras, elaborar reportes y gestionar datos, siguiendo protocolos establecidos.
+ CE1.1: Describe las funcionalidades básicas de las herramientas informáticas
+ empresariales y los protocolos establecidos para el registro de información financiera
+ CE1.2: Registra transacciones financieras utilizando herramientas             informáticas
+ empresariales, cumpliendo con los formatos y procedimientos definidos.
+ CE1.3: Genera reportes y gestiona datos financieros con precisión, aplicando funciones y
+ comandos adecuados dentro del entorno digital, respetando los protocolos de seguridad y
+ confidencialidad.
+ RA 2: Aplicar funciones avanzadas de hojas de cálculo y sistemas de gestión de
+ datos para resolver situaciones administrativas o financieras, asegurando precisión
+ en el procesamiento de la información y cumplimiento de normas de seguridad
+ digital.
+ CE2.1: Explica el propósito y funcionamiento de funciones avanzadas en hojas de cálculo
+ y sistemas de gestión de datos, así como la importancia de las normas de seguridad digital
+ en el manejo de información administrativa y financiera.
+ CE2.2: Utiliza funciones avanzadas de hojas de cálculo para procesar datos
+ administrativos o financieros, aplicando fórmulas, tablas dinámicas y herramientas de
+ análisis para obtener resultados precisos.
+CE2.3: Aplica normas y protocolos de seguridad digital durante la gestión y procesamiento
+de datos en sistemas informáticos, garantizando la integridad y confidencialidad de la
+información.
+RA 3: Analizar información financiera y administrativa mediante tablas dinámicas,
+gráficos y comparativos, identificando discrepancias o tendencias relevantes para
+la toma de decisiones.
+CE3.1: Describe la función y utilidad de las tablas dinámicas, gráficos y comparativos en
+el análisis de información financiera y administrativa.
+CE3.2: Construye tablas dinámicas, gráficos y comparativos a partir de datos financieros y
+administrativos para organizar y visualizar información relevante.
+CE3.3: Identifica discrepancias y tendencias significativas en los análisis realizados y
+explica su impacto en la toma de decisiones administrativas o financieras.
+Contenidos
+Conceptuales                     Procedimentales                  Actitudinales
+Registro                de       Registrar asientos contables Valorar la importancia de la
+Transacciones:                   en software.                    precisión, responsabilidad y
+Financieras Fundamentos                                          ética en el registro, análisis y
+                                 Crear     tablas,     gráficos,
+de contabilidad financiera-                                      gestión     de     información
+                                 interpretación de datos.
+informática                                                      financiera y administrativa.
+                                 Elaborar reportes de flujo de
+Tipos de transacciones:                                          Mantener una actitud de
+                                 caja     y     conciliaciones
+(ingresos,     egresos,                                          confidencialidad y respeto
+                                 bancarias.
+créditos).                                                       por los protocolos de
+                                 Aplicar              formatos seguridad digital en el
+Funciones avanzadas de
+                                 preestablecidos           para manejo de datos.
+Excel   (BUSCARV,   SI,
+                                 documentos financieros.
+TABLAS DINÁMICAS).                                               Demostrar orden, disciplina y
+                                 Automatizar           cálculos atención al detalle en el uso
+Introducción a sistemas
+                                 financieros        (intereses, de herramientas informáticas
+ERP (ej: módulos de
+                                 depreciaciones)            con y funciones avanzadas de
+facturación y inventario.
+                                 fórmulas.                       análisis.
+Indicadores      financieros
+                                 Diseñar bases de datos Fomentar la proactividad,
+clave               (liquidez,
+                                 simples en Excel para iniciativa y disposición al
+rentabilidad).
+                                 gestión de clientes.        aprendizaje autónomo frente
+Métodos de visualización
+                                 Crear tablas dinámicas para a nuevas tecnologías y
+de    datos    (gráficos,
+                                 comparar presupuestos vs. entornos digitales.
+dashboards).
+                                 ejecutado.                    Promover la          objetividad,
+Identificación de tendencias
+                                 Generar gráficos interactivos pensamiento          crítico    y
+y anomalías en datos
+                                 (ej: tendencias de ventas transparencia              en      la
+Microsoft 365                    mensuales).                   interpretación                  y
+Microsoft Word                 Redactar informes ejecutivos comunicación de resultados
+                               con        hallazgos         y financieros.
+                               recomendaciones.
+Principios  básicos      de                                   Mostrar       colaboración,
+                               Microsoft Word
+procesamiento de textos.                                      apertura y compromiso en el
+                               Redactar            informes trabajo en equipo para la
+Estructura y formato de
+                               financieros, actas, oficios, y resolución de situaciones
+documentos
+                               documentos administrativos. administrativas y financieras.
+administrativos       y
+financieros.                   Crear      plantillas para
+                               contratos,    órdenes   de
+Herramientas        para
+                               compra o solicitudes.
+elaboración de informes,
+cartas, memorandos y           Aplicar formato profesional a
+actas.                         documentos.
+Microsoft Excel:               Microsoft Excel:
+Conceptos de hoja de           Crear presupuestos, flujos
+cálculo: filas, columnas,      de caja, registros contables y
+celdas,      fórmulas   y      reportes logísticos.
+funciones.
+                               Elaborar     gráficos    para
+Tipos de datos y formatos.     visualizar datos de gestión.
+Funciones   básicas   y        Aplicar   fórmulas     para
+financieras      (SUMA,        calcular costos, precios,
+PROMEDIO,            SI,       márgenes y tendencias.
+BUSCARV, TIR, VAN).
+                               Usar     filtros  y   tablas
+Gráficos y tablas dinámicas.   dinámicas para análisis de
+                               inventarios o ventas.
+Principios de análisis de
+datos.                         Simular        escenarios
+                               financieros con funciones
+Microsoft PowerPoint:
+                               avanzadas.
+Fundamentos de diseño y
+                               Microsoft PowerPoint:
+presentación         de
+información.                   Diseñar presentaciones de
+                               proyectos    logísticos o
+Estructura               de
+                               financieros.
+presentaciones efectivas.
+                               Exponer propuestas de
+Uso de elementos visuales
+                               mejora     o    análisis   de
+para la comunicación de
+                               resultados             usando
+resultados y propuestas.
+                               diapositivas dinámicas.
+Microsoft Outlook:
+                               Microsoft Outlook
+Conceptos    básicos de
+comunicación electrónica.
+Organización de correos,        Redactar              correos
+calendarios y tareas.           profesionales.
+                                Coordinar          reuniones
+                                virtuales    y      gestionar
+Etiqueta profesional en la
+                                agendas.
+comunicación digital.
+                                Organizar comunicaciones
+Microsoft    Teams      y
+                                por     departamentos  o
+OneDrive (integración con
+                                clientes.
+Office 365)
+                                Microsoft Teams / OneDrive
+Colaboración en línea.
+                                Gestionar      documentos
+Compartición segura de          compartidos entre áreas de
+archivos      y      trabajo    trabajo.
+colaborativo en la nube.
+                                Participar en reuniones
+                                virtuales y coordinar tareas
+                                de forma colaborativa.
+Perfil del o la docente
+ Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados
+  reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+  Administración, Finanzas, Ingeniería Comercial o carreras técnicas afines.
+ Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•    Aprendizaje Basado en Proyectos (ABP)
+•    Aprendizaje en Contextos Reales
+•    Role-Playing y Simulaciones
+•    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                 Especificaciones técnicas                  Cantidad
+                             Entorno de aprendizaje
+Infraestructura/espacio                                                 1
+                             (aula)
+                             Computadoras con acceso a internet
+Laboratorio                                                             1
+                         Proyector
+Referencias Bibliográficas
+    Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+        Personales.     Quinto   Suplemento    del   Registro   Oficial  N.º   459.
+        https://www.finanzaspopulares.gob.ec/wp-
+        content/uploads/2021/07/ley_organica_de_proteccion_de_datos_personales.pdf
+    Ayala-Guevara, K. J., Maraví-Cabrera, A. J., Núñez-Sinche, J. D., & García-Buendía, H.
+      (2026). Tecnologías digitales y rendimiento académico: Factores asociados en
+      estudiantes de una universidad privada de Huancayo, Perú. Revista Espacios,
+      47(3), 167–179. https://doi.org/10.48082/espacios-a26v47n03i15
+Banco Central del Ecuador. (2023). Informe estadístico de inclusión financiera.
+     https://contenido.bce.fin.ec/documentos/Estadisticas/SectorMonFin/InclusionFina
+     nciera/InfEst_IF_092023.pdf
+Bonilla Jurado, D. M. (2024). Las tecnologías de la información y la comunicación en los
+       sistemas de planificación de recursos empresariales aplicados a la gestión
+       empresarial: Un análisis bibliométrico. Ciencias Administrativas, (25), e147.
+       https://doi.org/10.24215/23143738e147
+Díaz-Restrepo, C. A., Hoyos, O. H., Arismendy-Quintero, D. E., & Duque, P. L. (2023).
+      Educación financiera en la población joven: Una revisión y análisis bibliométrico.
+      Revista         Colombiana       de      Educación,         (89),        148–180.
+      https://doi.org/10.17227/rce.num89-14201
+Fundación IFRS. (2025). Actualización de la Norma de Contabilidad NIIF para las
+     PYMES: Marzo de 2025. https://www.ifrs.org/content/dam/ifrs/supporting-
+     implementation/smes/newsletters/es-ifrs-smes-march-2025-update.pdf
+Hoffmann, G. E. (2023). Planificación de recursos empresariales, saberes administrativos
+     y profesionales en ciencias económicas. Revista Academia & Negocios, 9(2), 141–
+     154. https://doi.org/10.29393/RAN9-12ERGH10012
+Infantes Loo, J. F., & Moquillaza Henríquez, S. D. (2021). Implementación de un sistema
+      integrado de planificación de recursos empresariales para mejorar la productividad
+      en las recaudaciones por caja de una importante clínica de la ciudad de Lima.
+      Industrial Data, 24(2), 29–52. https://doi.org/10.15381/idata.v24i2.19565
+Instituto Nacional de Ciberseguridad. (2023). Cómo crear una copia de seguridad.
+       https://www.incibe.es/ciudadania/formacion/guias/como-crear-una-copia-de-
+       seguridad
+Instituto Nacional de Ciberseguridad. (2024). Gestión de crisis de ciberseguridad en
+       empresas.            https://www.incibe.es/empresas/guias/gestion-de-crisis-de-
+       ciberseguridad-en-empresas
+Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+      de Protección de Datos Personales (Decreto Ejecutivo N.º 904). Registro Oficial,
+      Suplemento            N.º           435.         https://www.cosede.gob.ec/wp-
+      content/uploads/2023/12/REGLAMENTO-GENERAL-A-LA-LEY-
+      ORG%C3%81NICA-DE-PROTECCION-DE-DATOS-
+      PERSONALES_compressed-1.pdf
+Servicio de Rentas Internas. (2024). Ficha técnica de comprobantes electrónicos:
+      Esquema fuera de línea (versión 2.26). https://www.sri.gob.ec/o/sri-portlet-
+      biblioteca-alfresco-internet/descargar/ed555352-46c7-4917-9f61-
+      011b6a9f4600/FICHA%20TE%CC%81CNICA%20COMPROBANTES%20ELECT
+       RO%CC%81NICOS%20ESQUEMA%20OFFLINE%20Versio%CC%81n%202.26.
+       pdf
+ Viera Molina, G. Y. (2025). La educación financiera como herramienta de
+      empoderamiento social: Análisis de programas implementados en Ecuador y su
+      impacto en la inclusión económica (2018–2024). ASCE Magazine, 4(2), 1346–
+      1361. https://doi.org/10.70577/ASCE/1346.1361/2025
+
+
+                            Módulo Genérico Nro.2
+
+Nombre del módulo:                   Gestión Contable y Administración Financiera
+
+Nivel: Bachillerato                  1ro y 2do
+
+Duración:                            360 periodos pedagógicos
+                                     UC 2: Integrar la gestión contable y la administración
+                                     financiera, evaluando condiciones y colaborando con
+Unidad      de        competencia    el equipo para mantener relaciones laborales,
+asociada:                            familiares y personales, incorporando prácticas de
+                                     economía circular que optimicen el uso de recursos y
+                                     reduzcan el impacto ambiental.
+Objetivo del módulo: Aplicar conocimientos de gestión contable y administración
+financiera para evaluar condiciones financieras y colaborar activamente con el equipo de
+trabajo, y utilizando principios de economía circular para optimizar recursos, reducir el
+impacto ambiental y mantener relaciones laborales, familiares y personales equilibradas
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Aplicar fundamentos de administración en el diseño de estructuras
+organizacionales y procesos, bajo normativas laborales y principios éticos y criterios
+de economía circular
+CE1.1: Explica los elementos básicos de una estructura organizacional (jerarquías,
+departamentos) y normativas laborales ecuatorianas, aplicándolos en casos simulados
+CE1.2: Aplica procedimientos administrativos en casos reales o simulados, identificando
+aspectos que contribuyen a la eficiencia y proponiendo mejoras sencillas basadas en
+principios de calidad y ética profesional.
+CE1.3: Incorpora criterios éticos y de economía circular en la propuesta de mejoras a
+procesos administrativos, promoviendo la sostenibilidad organizacional.
+RA2: Registrar operaciones contables en libros diarios y mayores según PCGE,
+asegurando el cumplimiento de normativas tributarias y considerando criterios de
+sostenibilidad y uso eficiente de recursos en el contexto de la economía circular.
+CE2.1: Identifica las cuentas contables según el Plan Contable General Ecuatoriano
+(PCGE) para registrar transacciones básicas
+CE2.2: Recopila operaciones contables en libros diario y mayor, aplicando principios de
+partida doble y normativas tributarias básicas (IVA, retenciones).
+CE2.3: Aplica criterios de sostenibilidad y uso eficiente de recursos al momento de registrar
+y analizar las operaciones contables
+CE2.4: Elabora un ciclo contable completo para una PYME simulada, integrando registros,
+ajustes básicos y cumplimiento de obligaciones tributarias
+RA 3: Calcular costos de producción, servicios o comercio, determinando puntos de
+equilibrio y elaborando presupuestos con enfoque en economía circular.
+CE3.1: Analiza costos fijos, variables y totales en actividades de producción, comercio o
+servicios, identificando oportunidades para reducir el uso de recursos y reutilizar materiales,
+de acuerdo con los principios de economía circular.
+CE3.2: Determina el punto de equilibrio en diferentes tipos de proyectos o emprendimientos,
+evaluando su viabilidad económica y su contribución a la reducción de residuos y
+aprovechamiento de insumos.
+CE3.3: Compara presupuestos operativos y financieros básicos con los resultados reales o
+proyectados, identificando desviaciones y analizando el impacto económico y ambiental de
+las decisiones tomadas.
+CE3.4: Diseña un plan de costos y presupuesto para un emprendimiento productivo o
+comercial (real o simulado), integrando el análisis de equilibrio y estrategias de economía
+circular, como la reutilización de insumos, el reciclaje o la mejora en la eficiencia energética.
+RA 4: Aplicar técnicas de análisis financiero para interpretar estados financieros
+ (Balance General, Estado de Resultados) y flujos de caja, evaluando la situación
+ económica de una organización e identificando oportunidades de mejora con base
+ en principios de economía circular.
+CE4.1: Describe los componentes clave del Balance General, Estado de Resultados y Flujo
+de Caja, explicando su interrelación.
+CE4.2: Calcula ratios financieros (liquidez, endeudamiento, rentabilidad) para diagnosticar
+la situación económica de una organización.
+CE4.3: Emplea técnicas básicas para revisar estados financieros y flujos de caja,
+identificando posibles incongruencias o riesgos financieros.
+CE4.4 Incorpora criterios de economía circular para identificar prácticas que mejoren la
+eficiencia y sostenibilidad financiera dentro del análisis financiero.
+RA 5: Evaluar alternativas de inversión y financiamiento (créditos, préstamos),
+ considerando costos, riesgos y beneficios y su contribución al uso eficiente de
+ recursos y la sostenibilidad económica y ambiental.
+CE5.1: Describe las características principales de diferentes alternativas de inversión y
+financiamiento, incluyendo créditos y préstamos.
+CE5.2: Utiliza métodos para valorar alternativas de inversión y financiamiento considerando
+costos, riesgos y beneficios.
+CE5.3: Aplica criterios de sostenibilidad y economía circular para valorar la contribución de
+las alternativas a la eficiencia y sustentabilidad.
+CE5.4: Analiza diferentes alternativas de inversión y financiamiento, proponiendo la opción
+más adecuada que optimice recursos y minimice impactos.
+RA 6: Emplear procesos de control interno para verificar el cumplimiento normativo,
+mejorar la eficiencia operativa y promover prácticas sostenibles que optimicen el uso
+de recursos y minimicen impactos ambientales, en concordancia con los principios
+de economía circular.
+CE6.1: Identifica los elementos y objetivos del control interno en contextos administrativos
+y contables.
+CE6.2: Aplica procedimientos básicos de control interno en actividades simuladas o reales,
+como manejo de inventarios, caja chica o archivos.
+CE6.3 Utiliza prácticas sostenibles dentro de los procesos de control interno para optimizar
+el uso de recursos y reducir impactos ambientales.
+CE6.4: Propone mejoras a partir del análisis de los resultados del control interno para
+identificar oportunidades de mejora que integren eficiencia operativa y sostenibilidad
+ambiental.
+Contenidos
+Conceptuales                   Procedimentales                Actitudinales
+Estructura                     Aplicar normativas laborales Valorar la responsabilidad,
+organizacional:                ecuatorianas      en     casos ética        profesional     y
+                               prácticos o simulados.          compromiso         con     la
+Concepto      y      tipos                                     sostenibilidad en la gestión
+(jerarquías,                   Diseñar              procesos administrativa, contable y
+departamentos, funciones).     administrativos     eficientes, financiera.
+                               integrando principios éticos.
+Diseño       organizacional:                                   Mantener una actitud de
+formal e informal.             Proponer       mejoras      en honestidad, transparencia y
+                               procesos      administrativos, confidencialidad      en    el
+Principios    básicos   de     incorporando criterios de       manejo    de   información  y
+administración aplicados a     economía      circular    para toma de decisiones.
+estructuras y procesos.        optimizar recursos y reducir Fomentar       la    precisión,
+                               desperdicios.                  disciplina y atención al
+Normativas        laborales
+                                                              detalle, garantizando el
+ecuatorianas:                  Elaborar     informes     que cumplimiento normativo y la
+                               reflejen la aplicación de confiabilidad de los registros
+Leyes laborales relevantes     normativas y propuestas de y análisis.
+(contratos,      jornadas,     sostenibilidad en la gestión
+derechos y deberes).           administrativa.                Demostrar       proactividad,
+                                                              iniciativa y apertura al
+Seguridad y salud en el        Registrar operaciones en aprendizaje              continuo,
+trabajo.                       libros diarios y mayores adaptándose al uso de
+                               aplicando partida doble.       herramientas digitales y
+Ética profesional:
+                                                              nuevas              prácticas
+                               Realizar ajustes básicos en
+Principios éticos    en   la                                  organizacionales.
+                               los registros contables.
+administración.                                               Promover el pensamiento
+                               Aplicar normativas tributarias crítico y reflexivo en la
+Responsabilidad       social   básicas al registro de interpretación           de    datos
+empresarial.                                                  financieros    y    en      la
+                                  operaciones             (IVA, evaluación de alternativas de
+Economía circular aplicada
+                                  retenciones).                 inversión y financiamiento.
+a administración:
+                                                               Impulsar la colaboración y
+                                  Incorporar criterios de uso
+Concepto y principios de                                       trabajo en equipo para la
+                                  eficiente de recursos y
+economía circular.                                             mejora      de     procesos,
+                                  sostenibilidad     en    los
+                                                               asegurando         eficiencia
+Aplicación en       procesos      registros contables.
+                                                               operativa y contribución a la
+administrativos         para
+                                  Elaborar un ciclo contable economía circular.
+sostenibilidad.
+                                  completo para una PYME
+                                                              Adoptar una actitud de
+Mejora continua, reducción        simulada,        asegurando
+                                                              innovación y responsabilidad
+de desperdicios y uso             cumplimiento normativo.
+                                                              ambiental,        buscando
+eficiente de recursos en la
+                                  Identificar   oportunidades siempre el uso eficiente de
+gestión.
+                                  para reducir, reutilizar y recursos, la reducción de
+Contabilidad:                     reciclar insumos en el impactos y la mejora de la
+                                  cálculo de costos.          sostenibilidad
+Definición,      campos      e                                organizacional.
+importancia                       Determinar el punto de
+                                  equilibrio en proyectos o
+Plan Contable General             emprendimientos con casos
+Ecuatoriano (PCGE):               prácticos.
+
+Clasificación y naturaleza        Elaborar      presupuestos
+de cuentas.                       operativos y financieros
+                                  básicos para casos reales o
+Principios        contables       simulados.
+básicos y partidas dobles.
+                                  Comparar presupuestos con
+Libros contables:                 resultados          reales,
+                                  analizando desviaciones y
+Libro Diario y Libro Mayor:       proponiendo        mejoras
+función y registros.              sostenibles.
+
+Registro de operaciones           Diseñar planes de costos y
+comunes (ventas, compras,         presupuestos que integren
+gastos).                          estrategias de economía
+                                  circular.
+Normativas          tributarias
+básicas:                          Calcular         indicadores
+                                  financieros básicos (liquidez,
+IVA,            retenciones,
+                                  rentabilidad,
+obligaciones fiscales.
+                                  endeudamiento).
+Sostenibilidad       en      la
+                                  Analizar estados financieros
+contabilidad:
+                                  y flujos de caja para
+                                 identificar    riesgos      y
+Registro de operaciones
+                                 oportunidades.
+considerando eficiencia en
+recursos.
+                                 Integrar      criterios de
+                                 sostenibilidad y economía
+Impacto    ambiental y
+                                 circular en el análisis
+económico en registros
+                                 financiero.
+contables.
+                                 Elaborar reportes financieros
+Costos:
+                                 que                  incluyan
+Definición                       recomendaciones          para
+                                 mejorar      eficiencia     y
+Clasificación:          fijos,   sostenibilidad.
+variables,     directos     e
+indirectos.                      Aplicar     métodos   para
+                                 evaluar costos, riesgos y
+Costos de producción,            beneficios de alternativas
+servicios y comercio.            financieras.
+
+Punto de equilibrio:             Incorporar     criterios   de
+                                 economía      circular   para
+Concepto y cálculo.              valorar la sostenibilidad de
+                                 alternativas.
+Interpretación y aplicación
+en proyectos.                    Analizar     y    comparar
+                                 opciones de inversión o
+Presupuestos:                    financiamiento        para
+                                 seleccionar    la     más
+Tipos            (operativos,
+                                 adecuada.
+financieros).
+                                 Justificar  la    selección
+Elaboración     y      control
+                                 basada en eficiencia de
+presupuestario.
+                                 recursos y minimización de
+Economía     circular  en        impactos ambientales.
+costos y presupuestos:
+                                 Aplicar       procedimientos
+Estrategias para reducción       básicos de control interno en
+y reutilización de recursos.     inventarios,    caja    chica,
+                                 archivo, etc.
+Presupuestos orientados a
+la sostenibilidad y eficiencia   Implementar         prácticas
+energética.                      sostenibles dentro de los
+                                 procesos de control para
+Estados financieros:             optimizar recursos.
+Balance            Situación    Analizar     resultados   del
+Financiera, Estado de           control interno para detectar
+Pérdidas y Ganancias,           desviaciones y riesgos.
+Flujo de Efectivo y Cambios
+en el Patrimonio Neto:          Proponer y documentar
+estructura y componentes.       mejoras      que     integren
+                                eficiencia    operativa     y
+Ratios financieras:             sostenibilidad ambiental.
+
+Liquidez, endeudamiento,
+rentabilidad    y  otros
+indicadores clave.
+
+Técnicas      básicas     de
+análisis financiero:
+
+Interpretación             y
+diagnóstico.
+
+Identificación de riesgos
+financieros.
+
+Economía       circular   en
+análisis financiero:
+
+Identificación             de
+oportunidades para mejorar
+sostenibilidad financiera.
+
+Alternativas de inversión y
+financiamiento:
+
+Tipos: créditos, préstamos,
+aportes, leasing.
+
+Características, costos y
+condiciones.
+
+Evaluación financiera:
+
+Criterios   para     valorar
+costos,      riesgos       y
+beneficios.
+
+Métodos     básicos     de
+evaluación (análisis costo-
+beneficio,    retorno     de
+inversión).
+
+Economía       circular  en
+inversión y financiamiento:
+
+Contribución a la eficiencia
+de recursos y sostenibilidad
+ambiental.
+
+Control interno:
+
+Concepto,    objetivos     y
+elementos clave.
+
+Áreas de aplicación en
+administración       y
+contabilidad.
+
+Procedimientos de control
+interno:
+
+Control de inventarios, caja
+chica, archivo documental.
+
+Técnicas y herramientas
+básicas.
+
+Sostenibilidad en control
+interno:
+
+Prácticas para optimizar
+recursos   y    minimizar
+impactos ambientales.
+
+Propuestas   de    mejora
+basadas en resultados del
+control.
+
+Perfil del o la docente
+   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+    Administración, Finanzas, Ingeniería Comercial o carreras técnicas afines
+   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+•    Aprendizaje Basado en Proyectos (ABP)
+•    Aprendizaje en Contextos Reales
+•    Role-Playing y Simulaciones
+•    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                        Cantidad
+                              Entorno de aprendizaje
+Infraestructura/espacio                                                         1
+                              (aula)
+                              Computadoras con acceso a internet
+Laboratorio
+                                                                                1
+                              Proyector
+Referencias Bibliográficas
+
+    Asamblea Nacional del Ecuador. (2021a, 6 de julio). Ley Orgánica de Economía Circular
+          Inclusiva.    Registro     Oficial   No.        488,    Cuarto     Suplemento.
+          https://www.asambleanacional.gob.ec/es/multimedios-legislativos/60811-ley-
+          organica-de-economia-circular
+
+    Asamblea Nacional del Ecuador. (2021b, 26 de mayo). Ley Orgánica de Protección de
+          Datos Personales. Registro Oficial No. 459, Quinto Suplemento.
+          https://www.registroficial.gob.ec/quinto-suplemento-al-registro-oficial-no-459/
+
+    Banco Central del Ecuador. (2025, 30 de noviembre). Información estadística mensual
+          No.                                                                     2085.
+          https://contenido.bce.fin.ec/documentos/PublicacionesNotas/Catalogo/IEMensu
+          al/m2085/IEM2085.pdf
+
+    Candelas Ramírez, E., García Chavero, M. P., García González, M., García Ortiz, M. E.,
+          Hernández Mendoza, F., & Montero Montiel, G. (2012). Fundamentos de
+          administración.    Universidad       Nacional   Autónoma       de      México.
+          https://rua.unam.mx/portal/recursos/ficha/4519
+
+    Chagerben Salinas, L., Rojas Vera, V. de los Á., López Franco, E. R., & Fiallos
+          Veintimilla, H. (2025). El análisis económico-financiero en los emprendedores y
+          su relación con el Régimen Impositivo RIMPE en el sector G45 en la provincia
+          del        Guayas.       X-Pedientes        Económicos,         9(22),    6–18.
+          https://ojs.supercias.gob.ec/index.php/X-pedientes_Economicos/article/view/219
+
+    Chiriboga Leon, C. (2023). Cultura contable financiera y su relación con el Régimen
+           RIMPE.           X-Pedientes          Económicos,        7(17),          53–68.
+           https://ojs.supercias.gob.ec/index.php/X-pedientes_Economicos/article/view/142
+ Guamán Calvopiña, M. M. (2024). Mapa histórico normativo de la contabilidad societaria
+      ecuatoriana (1974–2024). X-Pedientes Económicos, 8(19), 92–114.
+      https://ojs.supercias.gob.ec/index.php/X-pedientes_Economicos/article/view/162
+
+ Ministerio de Educación del Ecuador. (2024). Inserción curricular: Educación para el
+        desarrollo         sostenible.          https://recursos.educacion.gob.ec/wp-
+        content/uploads/2024/09/INSERCIO%CC%81N-CURRICULAR-DE-
+        EDUCACIO%CC%81N-PARA-EL-DESARROLLO-SOSTENIBLE.pdf
+
+ Servicio de Rentas Internas. (2025, octubre). Ficha técnica: Manual de usuario, catálogo
+        y especificaciones técnicas para la emisión de comprobantes electrónicos
+        mediante el método de automatización off-line (Versión 2.32).
+        https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-
+        internet/descargar/29562323-2e76-42f5-abb6-
+        cb7ac542c3c6/FICHA%20TE%CC%81CNICA%20COMPROBANTES%20ELEC
+        TRO%CC%81NICOS%20ESQUEMA%20OFFLINE%20Versio%CC%81n%202.
+        32.pdf
+
+ Superintendencia de Compañías, Valores y Seguros. (2011, 12 de enero). Resolución
+        No. SC.Q.ICI.CPAIFRS.11.01: Reglamento para la aplicación de las Normas
+        Internacionales de Información Financiera completas y de la Norma Internacional
+        de Información Financiera para Pequeñas y Medianas Entidades.
+        https://www.supercias.gob.ec/bd_supercias/descargas/ss/20130207082132.pdf
+
+
+                               Módulo Genérico Nro.3
+
+Nombre del módulo:                 Inglés Técnico Aplicado a los Negocios.
+
+Nivel:                             1ro y 2do
+
+Duración:                          200 periodos pedagógicos
+                                   UC 3: Aplicar el inglés técnico en los negocios,
+Unidad    de      competencia
+                                   desarrollando habilidades de comunicación oral y
+asociada:
+                                   escrita.
+Objetivo del módulo:
+Desarrollar competencias comunicativas en inglés técnico que permitan al estudiante
+comprender y utilizar el idioma en contextos administrativos, contables y financieros,
+facilitando la inserción en entornos laborales y académicos.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Comprender vocabulario técnico y estructuras gramaticales básicas del inglés
+utilizadas en contextos administrativos, contables y financieros.
+CE1.1: Explica el significado de términos y expresiones técnicas básicas en inglés
+relacionadas con la gestión administrativa y contable.
+CE1.2: Utiliza vocabulario técnico para describir funciones laborales y jerarquías en
+situaciones simuladas.
+CE1.3: Relaciona estructuras gramaticales básicas con términos técnicos para construir
+oraciones coherentes en contextos administrativos.
+RA 2: Interpretar documentos técnicos en inglés relacionados con la gestión
+contable, presupuestaria y financiera.
+CE2.1: Describe información relevante en documentos técnicos en inglés, como facturas y
+reportes financieros.
+CE2.2: Analiza la información de estados financieros y presupuestos simples en inglés para
+responder preguntas específicas.
+CE2.3: Utiliza datos claves de documentos contables o administrativos en inglés, utilizando
+terminología técnica adecuada.
+RA 3: Producir textos escritos básicos en inglés técnico para la comunicación
+profesional en contextos administrativos y financieros.
+CE3.1: Explica la estructura y el propósito de textos administrativos y contables en inglés,
+como correos y cotizaciones.
+CE3.2 Elabora correos electrónicos y documentos breves aplicando vocabulario técnico y
+estructura adecuada.
+CE3.3: Utiliza formularios y comprobantes simples en inglés, asegurando precisión
+terminológica y formalidad.
+RA 4: Comunicar oralmente en inglés situaciones laborales simuladas, utilizando
+expresiones y vocabulario propio del entorno contable-administrativo.
+CE4.1: Reconoce y explica expresiones comunes utilizadas en conversaciones laborales
+relacionadas con administración y finanzas.
+CE4.2: Practica con diálogos simulados sobre funciones administrativas y estados
+financieros usando vocabulario técnico.
+CE4.3: Presenta oralmente información financiera básica y procedimientos administrativos
+de manera clara y coherente.
+Contenidos
+Conceptuales                   Procedimentales                 Actitudinales
+Vocabulario          técnico Identificar y definir términos    Mostrar     disposición     y
+básico:             términos técnicos en textos y audios.      apertura hacia el aprendizaje
+administrativos, contables y                                   de un idioma extranjero
+financieros             (e.g.,                                 como herramienta para el
+department,          invoice,                                  desarrollo profesional.
+balance, cost, pasado simple                                     Valorar la importancia de la
+                               Interpretar organigramas y
+y Will or be going to).                                          precisión y claridad en la
+                               describir funciones usando
+                                                                 comunicación escrita y oral
+                               vocabulario específico.
+Estructuras gramaticales                                         en inglés en contextos
+simples: presente simple, Construir oraciones simples            administrativos, contables y
+tiempos verbales básicos, utilizando términos técnicos           financieros.
+oraciones         afirmativas, y estructuras gramaticales
+                                                                 Demostrar      perseverancia,
+negativas e interrogativas.    básicas.                          disciplina y responsabilidad
+Jerarquías organizacionales
+                                                                 en la práctica del vocabulario
+y funciones laborales en Leer y localizar información
+                                                                 técnico      y     estructuras
+inglés.                        clave     en     documentos       gramaticales.
+                               técnicos.
+Tipos de documentos                                              Fomentar una actitud de
+técnicos: facturas, reportes Analizar estados financieros        seguridad,    confianza   y
+financieros, presupuestos, básicos para identificar datos        respeto intercultural en la
+estados financieros básicos. relevantes.                         interacción y comunicación
+Elementos de los estados                                         en inglés.
+financieros      en     inglés Resumir           información
+(Balance Sheet, Income financiera y presupuestaria           Desarrollar proactividad y
+Statement).                    en inglés técnico.            colaboración en actividades
+                                                             de lectura, escritura y
+                                Redactar             correos comunicación           oral,
+Vocabulario relacionado con
+                                electrónicos y cartas breves apoyando el trabajo en
+cifras, fechas, montos y
+                                usando vocabulario técnico. equipo y el aprendizaje
+términos contables.
+Formatos y estructura de                                     compartido.
+                                Completar formularios y
+textos profesionales: correos   documentos administrativos
+electrónicos,         informes  en inglés.
+breves,          cotizaciones,
+formularios.                    Elaborar cotizaciones y
+                                reportes      sencillos    con
+Vocabulario y expresiones estructura clara y coherente.
+para redacción formal.
+                                Participar     en     diálogos
+Normas        básicas        de simulados de atención al
+redacción: en inglés (uso de cliente,         reuniones      o
+saludos,     cierre     formal, entrevistas.
+lenguaje técnico).
+Expresiones       y      frases Presentar         información
+comunes en reuniones,           financiera   y  administrativa
+atención     al    cliente    y con apoyo visual sencillo.
+presentación de información
+técnica.                    Formular    y     responder
+                            preguntas relacionadas con
+Vocabulario de funciones procesos          contables       y
+laborales,    procedimientos administrativos.
+contables y financieros.
+Estrategias básicas para la
+comunicación oral efectiva
+(claridad, formalidad, uso de
+preguntas).
+
+Perfil del o la docente
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Licenciatura
+    Lenguas Extranjeras o carrera afín, o carreras afines.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+•   Formación complementaria en enseñanza de inglés técnico o inglés para fines
+    específicos
+
+Orientaciones Metodológicas
+
+       Aprendizaje Basado en Proyectos (ABP)
+       Aprendizaje en Contextos Reales
+       Role-Playing y Simulaciones
+       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                 Detalle de especificaciones técnicas       Cantidad
+Infraestructura/espacio      Entorno de aprendizaje (aula)              1
+                             Computadoras con acceso a internet
+Laboratorio                                                             1
+                             Proyector
+Referencias Bibliográficas
+Avcı, N., & Engin-Demir, C. (2021). Promoting the vocational English language
+       competences of students in an English for specific purposes context: A needs
+       assessment. Psycho-Educational Research Reviews, 10(3), 125–139.
+       https://doi.org/10.52963/PERR_Biruni_V10.N3.08
+
+Consejo de Europa. (2020). Marco común europeo de referencia para las lenguas:
+      Aprendizaje, enseñanza, evaluación. Volumen complementario. Servicio de
+      Publicaciones del Consejo de Europa. https://rm.coe.int/marco-comun-europeo-de-
+      referencia-para-las-lenguas-aprendizaje-ensenan/1680a52d53
+
+Giang, H. T. (2022). Some effective methods to help students to be much more confident
+       when using Business English. Pegem Journal of Education and Instruction, 12(2),
+       246–250. https://doi.org/10.47750/pegegog.12.02.24
+
+Hao, L., Tian, K., Leng, C. H., Salleh, U. K. M., Ge, S., & Cheng, X. (2024). The effect of
+       project-based learning and project-based flipped classroom on critical thinking and
+        creativity for Business English course at higher vocational colleges. Malaysian
+        Journal of Learning and Instruction, 21(1), 159–189.
+        https://doi.org/10.32890/mjli2024.21.1.6
+
+ Kaya, S. (2021). From needs analysis to development of a vocational English language
+        curriculum: A practical guide for practitioners. Journal of Pedagogical Research,
+        5(1), 154–171. https://doi.org/10.33902/JPR.2021167471
+
+ Lucas, K., Rawlins, J. D., & Haugen, J. (2023). Business communication: Five core
+        competencies. SAALCK. https://saalck.pressbooks.pub/businesscommunication/
+
+ Ministerio de Educación del Ecuador. (2016). English as a foreign language.
+        https://educacion.gob.ec/wp-content/uploads/downloads/2016/08/0-EFL_v2.pdf
+
+ Nasihin, A., & Oktarini. (2022). The impact of using English curriculum design based on
+        industry needs in English teaching on vocational school to improve students’
+        English skill for industry-standard working communication. Education Quarterly
+        Reviews, 5(1), 138–144. https://doi.org/10.31014/aior.1993.05.01.425
+
+ Pan, Y.-C. (2024). A work-based approach for improving students’ performance in the
+        college general English class. English Language Teaching Educational Journal,
+        7(2), 65–78. https://doi.org/10.12928/eltej.v7i2.11017
+
+ Sudana, P. A. P., Ratminingsih, N. M., Padmadewi, N. N., & Adnyani, N. L. P. S. (2024).
+       Industry-driven task needs and syllabus recommendation for Business English
+       materials. International Journal of Language Education, 8(4), 734–748.
+       https://doi.org/10.26858/ijole.v8i4.70001
+
+ Thuan, P. D. (2024). Developing English for specific purposes programs: A literature
+        review. Journal for Research Scholars and Professionals of English Language
+        Teaching, 8(41), 1–7. https://doi.org/10.54850/jrspelt.8.41.002
+
+ Trace, J., Hudson, T., & Brown, J. D. (2015). An overview of language for specific
+        purposes. En J. Trace, T. Hudson y J. D. Brown (Eds.), Developing courses in
+        languages for specific purposes (pp. 1–23). National Foreign Language Resource
+        Center, University of Hawai‘i at Mānoa. http://hdl.handle.net/10125/14573
+
+ Trujeque-Moreno, E. E., Romero-Fernández, A., Esparragoza-Barragán, A., & Villa-
+        Jaimes, C. J. (2021). Needs analysis in the English for Specific Purposes
+        approach: The case of the Benemérita Universidad Autónoma de Puebla.
+        MEXTESOL Journal, 45(2), 1–24. https://files.eric.ed.gov/fulltext/EJ1295036.pdf
+
+
+
+
+4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Gestión Administrativa y
+Logística se caracterizarán por tener una sólida formación en procesos administrativos,
+gestión documental, control de recursos, planificación logística y atención a clientes
+internos y externos.
+
+Se estructuran los siguientes módulos de especialización:
+
+   •      Compras y Logística
+   •      Gestión Comercial y Comunicación para Servicio al Cliente
+   •      Gestión de Procesos Administrativos.
+
+
+                             Módulo de Especialización Nro. 1
+ Nombre del módulo:                     Compras y Logística
+
+ Nivel:                                 1ro, 2do, 3ro
+
+ Duración:                              520 periodos pedagógicos
+                                        UC 1: Aplicar procesos de compras y logística
+ Unidad         de     competencia      asegurando la eficiencia y el cumplimiento de la
+ asociada:                              normativa legal vigente a nivel nacional e
+                                        internacional con responsabilidad social.
+ Objetivo del módulo:
+ Aplicar procedimientos y estrategias para la gestión de procesos de compras y logística,
+ garantizando la eficiencia operativa y el cumplimiento de la normativa legal vigente a nivel
+ nacional e internacional, con responsabilidad social
+
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Comprender los conceptos, documentos y normativas básicas vinculadas a los
+ procesos de compras y logística en contextos administrativos reales o simulados.
+ CE1.1: Explica los conceptos fundamentales relacionados con compras y logística,
+ demostrando comprensión de su aplicación en entornos administrativos.
+ CE1.2: Utiliza correctamente documentos básicos (órdenes de compra, guías de remisión,
+ facturas) en simulaciones de procesos logísticos y de compras.
+ CE1.3: Aplica la normativa legal básica en el análisis de casos prácticos relacionados con
+ procesos de compras y logística.
+ CE1.4: Analiza la relación entre los conceptos, documentos y normativas utilizadas en
+ contextos administrativos, identificando su función e impacto en el proceso logístico.
+ RA 2: Emplear procesos de compras y logística a nivel nacional e internacional.
+ CE2.1: Describe las características generales de los procesos de compras y logística en
+ contextos nacionales e internacionales.
+CE2.2: Clasifica los procesos logísticos según su alcance (nacional o internacional)
+utilizando ejemplos reales o simulados.
+CE2.3: Utiliza herramientas o diagramas para representar el flujo de procesos de compras
+y logística en distintos niveles geográficos.
+CE2.4: Compara procesos de compras y logística nacionales e internacionales,
+identificando similitudes, diferencias y condiciones regulatorias.
+RA 3: Ejecutar operaciones de compras y logística a nivel nacional e internacional.
+CE3.1: Describe los pasos y requerimientos para ejecutar operaciones de compras y
+logística en contextos nacionales e internacionales.
+CE3.2: Aplica procedimientos establecidos para realizar operaciones de compras,
+gestionando documentos como órdenes de compra, cotizaciones y facturas.
+CE3.3: Realiza actividades logísticas (recepción, almacenamiento, distribución) de acuerdo
+con normas nacionales e internacionales en entornos reales o simulados.
+CE3.4: Propone mejoras en la ejecución de operaciones logísticas, a partir de la
+identificación de errores o desviaciones en el cumplimiento de tiempos, uso de recursos y
+normativa aplicable.
+RA 4: Analizar la eficiencia de los procesos de compras y logística proponiendo
+mejoras para optimizar recursos y asegurar el cumplimiento de normas y
+procedimientos institucionales.
+CE4.1: Explica los conceptos de eficiencia, optimización de recursos y cumplimiento
+normativo en el contexto de compras y logística.
+CE4.2: Aplica instrumentos o indicadores básicos para medir la eficiencia de los procesos
+logísticos y de compras en casos reales o simulados.
+CE4.3: Utiliza técnicas de análisis de datos y registros para identificar desviaciones, errores
+o deficiencias en procesos administrativos logísticos, proponiendo ajustes que mejoren la
+eficiencia y calidad del procedimiento.
+CE4.4: Propone mejoras fundamentadas para optimizar recursos y garantizar el
+cumplimiento de normas y procedimientos en procesos logísticos y de compras.
+Contenidos
+Conceptuales                   Procedimentales                    Actitudinales
+Conceptos fundamentales Interpretar los documentos Asumir compromiso en la
+de compras:               comerciales y logísticos.   correcta ejecución de los
+                                                      procesos de compras y
+Tipos y funciones de la Identificar las etapas de un
+                                                      logística, asegurando el
+documentación             proceso de compras.
+                                                      cumplimiento de normas,
+administrativa.
+                          Clasificar   documentos   y procedimientos y plazos
+Procesos de adquisiciones normativa aplicable.        establecidos.
+de compras.
+Control de inventarios         Representar de forma gráfica Mantener                integridad,
+                               del ciclo logístico y de compras. honestidad                     y
+Tipos    de   inventarios:
+                                                                   confidencialidad en el
+materias primas, productos     Buscar y lectura comprensiva
+                                                                   manejo de documentos,
+terminados, mercadería.        de normas y regulaciones
+                                                                   registros y normativas
+                               pertinentes.
+Métodos de control de                                              relacionadas      con      los
+inventarios: PEPS, UEPS,       Clasificar procesos logísticos procesos logísticos y de
+promedio ponderado.            según su ámbito (nacional o compras.
+                               internacional).
+Uso del Kardex: entradas,                                          Reconocer la importancia
+salidas, saldos.               Mapear procesos de compras y de              los     conceptos,
+                               logística.                          normativas y documentos
+Herramientas digitales para
+control de inventarios.        Analizar procesos en diferentes en la eficiencia de los
+                               contextos geográficos.              procesos, aplicándolos con
+Gestión de operaciones                                             criterio y responsabilidad.
+logísticas:                    Leer e interpretar ejemplos de
+                               casos logísticos reales o Demostrar                  disposición
+Conceptos fundamentales                                            para               identificar
+                               simulados.
+de operaciones logísticas;                                         desviaciones,       proponer
+planeación de la cadena de     Usar herramientas gráficas mejoras                y     optimizar
+suministros; adquisiciones e   para representar procesos recursos en la gestión
+inventarios; recepción de      (diagramas de flujo, mapas de logística y de compras.
+mercancías;                    procesos).
+aprovisionamiento;                                                 Evalúar       y    comparar
+                               Elaborar documentos para procesos                      logísticos
+empaque,      embalaje     y
+                               compras y logística.                nacionales                   e
+etiquetado; almacenamiento
+y gestión del transporte y     Simular procesos de compra, internacionales, valorando
+seguros.                       recepción y distribución.           sus similitudes, diferencias
+                                                                   y condiciones regulatorias,
+Normativas legales que         Utilizar             herramientas
+                                                                   y      generando       juicios
+regulan las operaciones        tecnológicas en la ejecución de
+                                                                   fundamentados para la
+comerciales y logísticas       operaciones logísticas.
+                                                                   toma de decisiones.
+nacional e internacional.      Ejecutar        controles        de
+                                                                   Valorar la optimización de
+Gestión de calidad:            inventario.
+                                                                   recursos, la puntualidad y
+Indicadores de eficiencia      Realizar el seguimiento de la calidad en la ejecución
+administrativa: rotación de    órdenes y entregas con de operaciones logísticas y
+inventarios, ciclo de pago,    criterios de        eficiencia    y de compras, promoviendo
+cumplimiento de plazos.        normativa.                          la mejora continua de los
+Análisis    de      procesos:  Aplicar      indicadores       para procesos.
+tiempos, errores, costos, evaluar procesos logísticos.    Participar activamente en
+cuellos de botella.                                       equipos     de     trabajo,
+                                                          valorando las aportaciones
+Técnicas       de     mejora Analizar casos para detectar
+                                                          de      los    demás      y
+continua: ciclo PHVA, 5S, ineficiencias o cuellos de
+                                                          fomentando               la
+simplificación de procesos.  botella.                     coordinación              y
+Principios de optimización Elaborar propuestas de mejora        cooperación para alcanzar
+de recursos y mejora en la sustentadas en evidencias.           objetivos compartidos.
+gestión administrativa
+                           Simular     escenarios     de     Mostrar disposición para
+                           optimización de recursos.         aportar ideas creativas y
+                                                             soluciones que optimicen y
+                              Redactar informes técnicos con
+                                                             mejoren los procesos
+                              propuestas de mejora.
+                                                             logísticos               y
+                                                             administrativos.
+                                                                Aplicar           prácticas
+                                                                responsables y sostenibles
+                                                                en el uso de recursos
+                                                                logísticos                 y
+                                                                administrativos,
+                                                                promoviendo      eficiencia,
+                                                                cumplimiento normativo y
+                                                                respeto por el entorno.
+
+Perfil del o la docente
+ Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+  reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+  Finanzas, Economía, Administración de Empresas, o carreras afines.
+ Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+   Aprendizaje Basado en Proyectos (ABP)
+   Aprendizaje en Contextos Reales
+   Role-Playing y Simulaciones
+   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                       1
+                              Computadoras con acceso a internet
+Laboratorio                   Proyector multimedia y sistema de audio             1
+                              para presentaciones didácticas.
+                              Hojas Kardex impresas o cuadernos
+                              especializados.
+Herramientas/equipos          Formatos estandarizados para registro
+                              manual de compras y cuentas por pagar.
+                              Calculadoras financieras o científicas.
+                              Material    de    papelería:      carpetas,
+                              archivadores, marcadores, etc.
+
+
+
+Referencias Bibliográficas
+
+Álvarez, D., & Sánchez, R. (2022). Sistemas logísticos flexibles: Cadenas de suministro
+       inteligentes en América Latina. Comisión Económica para América Latina y el
+       Caribe. https://www.cepal.org/es/publicaciones/48515-sistemas-logisticos-flexibles-
+       cadenas-suministro-inteligentes-america-latina
+
+Asamblea Nacional del Ecuador. (2010). Código Orgánico de la Producción, Comercio e
+      Inversiones. Registro Oficial, Suplemento N.º 351, 29 de diciembre de 2010.
+      https://www.gob.ec/sites/default/files/regulations/2020-
+      04/CODIGO%20ORGANICO%20DE%20LA%20PRODUCCION%2C%20COMER
+      CIO%20E%20INVERSIONES%20COPCI.pdf
+
+Asamblea Nacional del Ecuador. (2019). Código de Comercio. Registro Oficial, Suplemento
+      N.º           497,         29         de         mayo          de            2019.
+      https://www.asambleanacional.gob.ec/es/system/files/ro_codigo_de_comercio.pdf
+Avendaño-Delgado, E. M., & Alva Palacios-Gómez, L. E. (2025). Optimización de recursos
+      para reducir costos en producción de una empresa de calzado. Gestio et Productio.
+      Revista       Electrónica    de     Ciencias   Gerenciales,      7(1),      59–75.
+      https://doi.org/10.35381/gep.v7i1.237
+
+Bonin Campos, E. V., Gómez Sánchez, C. S., & Benitez Pincay, L. J. (2023). Diseño
+      logístico para optimizar los tiempos de respuesta y el espacio en almacenes
+      temporales. Prohominum. Revista de Ciencias Sociales y Humanas, 5(4), 183–194.
+      https://doi.org/10.47606/ACVEN/PH0217
+
+Borbor-Alvarado, A., & López-Vera, J. (2024). Estrategias de control de inventario de
+       suministros para la mejora de la rentabilidad de una compañía agrícola-minera.
+       Revista InveCom, 4(2), e040285. https://doi.org/10.5281/zenodo.10841323
+
+Calatayud, A., & Montes, L. (2021). Logística en América Latina y el Caribe: Oportunidades,
+       desafíos y líneas de acción. Banco Interamericano de Desarrollo.
+       https://doi.org/10.18235/0003278
+
+Organización Mundial del Comercio. (2017). Acuerdo sobre Facilitación del Comercio.
+       https://www.wto.org/spanish/docs_s/legal_s/tfa-nov14_s.htm
+
+ONU Comercio y Desarrollo. (2022). Informe sobre el transporte marítimo 2022: Panorama
+     general.      Naciones          Unidas.       https://unctad.org/system/files/official-
+     document/rmt2022overview_es.pdf
+Servicio de Rentas Internas. (2024). Ficha técnica: Manual de usuario, catálogo y
+       especificaciones técnicas para la emisión de comprobantes electrónicos, método de
+       automatización fuera de línea (versión 2.26). https://www.sri.gob.ec/o/sri-portlet-
+       biblioteca-alfresco-internet/descargar/ed555352-46c7-4917-9f61-
+       011b6a9f4600/FICHA%20TE%CC%81CNICA%20COMPROBANTES%20ELECT
+       RO%CC%81NICOS%20ESQUEMA%20OFFLINE%20Versio%CC%81n%202.26.p
+       df
+
+Servicio Nacional de Aduana del Ecuador. (2024a). Manual específico para el régimen de
+       importación de depósitos aduaneros (SENAE-MEE-2-2-016, versión 3).
+       https://www.aduana.gob.ec/gacnorm/data/2024/02/09/9/SENAE-MEE-2-2-016-
+       V3_proyecto_a_socializar.pdf
+
+Servicio Nacional de Aduana del Ecuador. (2024b). Manual específico para el régimen de
+       importación de transformación bajo control aduanero (SENAE-MEE-2-2-014,
+       versión 3). https://www.aduana.gob.ec/gacnorm/data/2024/09/04/11/SENAE-MEE-
+       2-2-014-V3.pdf
+
+Valencia Jarama, J. L., Gutierrez Canchasto, G. A., & Flores Marchán, V. M. (2025). Lean
+       Manufacturing en el mejoramiento continuo de la productividad. Revista InveCom,
+       5(2), e502105. https://doi.org/10.5281/zenodo.14002915
+
+Valenzuela Velasco, C., Benalcázar Dalfo, G., & Delgado Saeteros, Z. (2024). Gestión de
+      inventarios en organizaciones de emprendimiento: Una aproximación teórica.
+      Prohominum. Revista de Ciencias Sociales y Humanas, 6(2), 193–204.
+      https://doi.org/10.47606/ACVEN/PH0242
+
+
+
+
+                           Módulo de Especialización Nro. 2
+
+Nombre del módulo:                      Gestión Comercial y Comunicación
+
+Nivel:                                  1ro, 2do, 3ro
+
+Duración:                               480 periodos pedagógicos
+                                        UC 2: Gestionar procesos comerciales y
+                                        estrategias comunicacionales con enfoque en
+Unidad de competencia asociada:         segmentos de mercado y normativa vigente, a
+                                        través de la eficiencia operativa y la satisfacción
+                                        del cliente.
+Objetivo del módulo:
+Aplicar estrategias comerciales, técnicas de comunicación y gestión de cobranza,
+segmentando mercados y cumpliendo normativas legales vigentes, para optimizar
+resultados financieros y relaciones con clientes.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Interpretar los fundamentos del marketing, segmentos de mercado y
+estrategias de comunicación comercial, relacionándolos con el entorno
+organizacional y los objetivos empresariales.
+CE1.1: Explica los conceptos de marketing, segmentación de mercado y comunicación
+comercial utilizando vocabulario técnico básico y ejemplos contextualizados del entorno
+empresarial.
+CE1.2: Organiza clientes reales o simulados en segmentos de mercado aplicando criterios
+de clasificación (edad, ingresos, ubicación o comportamiento de compra) con coherencia
+y precisión.
+CE1.3: Implementa estrategias de comunicación comercial simples (mensajes, medios,
+promociones) dirigidas a un público objetivo en casos prácticos o simulaciones,
+asegurando claridad y pertinencia.
+CE1.4: Argumenta la selección de estrategias de marketing y comunicación en función del
+entorno comercial y las características del cliente, valorando su impacto en los resultados.
+RA 2: Aplicar técnicas de comunicación comercial adaptadas a diferentes
+segmentos de clientes, seleccionando canales efectivos y respetando normas éticas
+y legales
+CE2.1: Explica los principios éticos y legales aplicables a la comunicación comercial en
+distintos contextos.
+CE2.2: Define canales de comunicación comercial adecuados según el tipo de cliente y el
+objetivo del mensaje.
+CE2.3: Aplica técnicas de comunicación comercial coherentes con las características del
+segmento de clientes y el mensaje institucional.
+CE2.4: Propone estrategias de comunicación comercial que respeten las normativas
+vigentes y se adapten a distintos perfiles de clientes, justificando su elección con base en
+criterios de efectividad y ética.
+RA 3: Ejecutar procesos de cobranza y seguimiento de cartera vencida, cumpliendo
+políticas internas y normativas legales (ej.: Ley de Protección al Consumidor).
+CE3.1: Reconoce los conceptos básicos de cobranza, tipos de cartera y principios legales
+asociados a la gestión de cobros.
+CE3.2: Registra el seguimiento de cuentas vencidas utilizando formatos o herramientas de
+control, asegurando trazabilidad y cumplimiento.
+CE3.3: Ejecuta procedimientos de cobranza según las políticas internas de la
+organización.
+CE3.4: Propone medidas correctivas o mejoras en el proceso de cobranza, considerando
+la normativa vigente y la relación con el cliente.
+RA 4: Evaluar la eficacia de las estrategias comerciales y de cobranza
+implementadas, detectando áreas de mejora y proponiendo acciones correctivas
+para optimizar resultados
+CE4.1: Describe los indicadores básicos utilizados para medir la eficacia de estrategias
+comerciales y de cobranza.
+CE4.2: Analiza los resultados obtenidos de las estrategias aplicadas en relación con los
+objetivos comerciales establecidos.
+CE4.3: Examina las áreas críticas o deficiencias en los procesos de cobranza o
+comerciales con base en evidencia cuantitativa o cualitativa.
+CE4.4: Propone acciones correctivas fundamentadas que permitan mejorar la eficacia de
+las estrategias comerciales y de cobranza, alineadas con los objetivos organizacionales.
+Contenidos
+Conceptuales                    Procedimentales                    Actitudinales
+Gestión de Marketing            Identificar características y Asumir compromiso con
+                                necesidades       de     distintos la correcta interpretación
+Fundamentos del Marketing
+                                segmentos de clientes.             y aplicación de los
+Conceptos      básicos    del                                      fundamentos de
+                                Clasificar mercados meta en
+marketing.                                                         marketing, segmentación
+                                función        de       variables
+Entornos de marketing                                              de mercado y estrategias
+                                demográficas, geográficas y
+                                                                   de comunicación,
+Distribución                    conductuales.
+                                                                   valorando su impacto en
+Acuerdos de cooperación         Relacionar productos o servicios los objetivos
+                                con segmentos de mercado empresariales.
+Objetivos del marketing en la   adecuados.
+empresa.                                                           Mantener conducta ética
+                                Seleccionar canales adecuados y          respetar     normas
+Segmentación de mercado:        de comunicación comercial legales                 en        la
+criterios y tipos.              según el público objetivo.         comunicación comercial,
+Posicionamiento y propuesta     Aplicar        técnicas         de el manejo de información
+de valor.                       comunicación escrita, verbal y de clientes y la gestión de
+Comunicación:                   digital en contextos comerciales. cobranzas.
+Definición                Elaborar mensajes comerciales Reconocer la importancia
+                          claros y persuasivos.         de comprender el perfil
+Elementos      de      la                               de los clientes y el
+comunicación en contextos                               entorno organizacional,
+comerciales.                                            valorando la pertinencia
+Canales de comunicación Adecuar               el        contenido    de    las    estrategias
+tradicionales y digitales.     comunicacional a principios           comerciales adoptadas.
+                               éticos y normativos.
+Técnicas de comunicación                                             Demostrar     disposición
+persuasiva y efectiva.         Ejecutar procedimientos de            para           identificar
+                               cobranza                preventiva,   oportunidades de mejora
+Comunicación orientada al
+                               administrativa y judicial.            en procesos comerciales
+cliente y ética publicitaria.
+                                                                     y      de      cobranza,
+                               Registrar     operaciones       de
+Normativas legales sobre                                             proponiendo     acciones
+                               seguimiento a cartera vencida
+publicidad y comunicación                                            correctivas y estrategias
+                               utilizando plantillas o software.
+comercial (Ley de Protección                                         más eficaces.
+al Consumidor en Ecuador). Gestionar             llamadas        y
+                                                                     Evaluar los resultados de
+                               comunicaciones de cobranza
+Tipos      de      estrategias                                       las           estrategias
+                               con enfoque respetuoso y legal.
+comerciales      (penetración,                                       implementadas y los
+desarrollo     de    mercado, Utilizar              herramientas     procesos de cobranza
+fidelización, entre otras).    tecnológicas para organizar y         con           objetividad,
+                               monitorear la cartera.                detectando áreas críticas
+Relación entre objetivos
+empresariales y estrategias Aplicar instrumentos para medir          y    oportunidades      de
+de mercado.                    la eficacia de las estrategias        mejora.
+                               comerciales y de cobranza.            Valorar la eficacia de las
+Toma        de      decisiones
+comerciales basadas en Analizar resultados comerciales               acciones comerciales y
+datos e indicadores.           y financieros relacionados con        de              cobranza,
+                               los procesos de cobranza.             enfocándose en el logro
+Tipos        de      cobranza                                        de               objetivos
+(preventiva, administrativa y Detectar áreas de mejora en las        organizacionales y la
+judicial).                     estrategias implementadas.            optimización de recursos.
+Ciclo de la cuenta por cobrar. Diseñar propuestas de mejora          Participar activamente en
+                               fundamentadas en datos y              equipos     de      trabajo,
+Procedimientos              de
+                               objetivos organizacionales            respetando y valorando
+seguimiento     de     cartera
+vencida.                                                             las aportaciones de otros
+                                                                     para mejorar la toma de
+Documentos y registros de
+                                                                     decisiones y la ejecución
+cobranza.
+                                                                     de              estrategias
+Normas y políticas internas                                          comerciales.
+aplicables.
+                                                                     Mantener      disposición
+Marco     legal:   Ley    de                                         para    actualizar    sus
+Protección al Consumidor,                                            conocimientos      sobre
+normas      del    SRI,    y                                         técnicas de marketing,
+regulaciones crediticias.                                            comunicación comercial
+Comerciales y de Cobranza                                            y gestión de cartera,
+                                                                     adaptándose a nuevas
+                                                                     herramientas, normativas
+                                                                     y contextos.
+Indicadores     de    gestión                                      Reconocer la importancia
+comercial        (conversión,                                      de la satisfacción del
+retención, rentabilidad).                                          cliente y la relación ética
+                                                                   con       los     mismos,
+Técnicas de análisis de
+                                                                   asegurando       que    las
+eficacia: interpretación de
+                                                                   acciones       comerciales
+resultados,    brechas    y
+                                                                   contribuyan al bienestar
+mejoras.
+                                                                   organizacional y social.
+Propuesta      de   acciones
+correctivas   fundamentadas
+en datos.
+
+Perfil del o la docente
+   •   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados
+       y reconocidos por el órgano rector del Sistema de Educación Superior en:
+       Contabilidad, Finanzas, Economía, Administración de Empresas, o carreras afines.
+   •   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+      Aprendizaje Basado en Proyectos (ABP)
+      Aprendizaje en Contextos Reales
+      Role-Playing y Simulaciones
+      Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación               Detalle de especificaciones técnicas                Cantidad
+
+Infraestructura/espacio    Entorno de aprendizaje (aula)                       1
+                           Computadoras con acceso a internet
+Laboratorio                                                                    1
+                           Proyector multimedia y sistema de audio para
+                           presentaciones didácticas.
+                           Formatos impresos para:
+                           Registro de compras y ventas
+                           Control de cartera y seguimiento de cobranza
+                           Hojas Kardex o inventarios manuales
+Equipos/herramientas
+                           Documentos normativos y guías:
+                           Ley de Protección al Consumidor
+                           Manuales internos de procedimientos
+                           Material didáctico:
+                           Casos prácticos, estudios        de    mercado,
+                           ejercicios simulados
+                           Calculadoras financieras o científicas para
+                           cálculos manuales.
+
+Referencias Bibliográficas
+
+Asamblea Nacional del Ecuador. (2000). Ley Orgánica de Defensa del Consumidor
+      (Registro Oficial, Suplemento N.º 116, 10 de julio de 2000; última modificación 13
+      de        octubre        de       2011).        https://www.produccion.gob.ec/wp-
+      content/uploads/2019/08/A2-LEY-ORGANICA-DE-DEFENSA-DEL-
+      CONSUMIDOR.pdf
+
+Asamblea Nacional del Ecuador. (2019). Código de Comercio (Registro Oficial, Suplemento
+      N.º         497,          29         de        mayo            de           2019).
+      https://www.supercias.gob.ec/bd_supercias/descargas/lotaip/a2/2019/JUNIO/C%C
+      3%B3digo_de_Comercio.pdf
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos Personales
+      (Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021).
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+
+Congreso Nacional del Ecuador. (2002). Ley de Comercio Electrónico, Firmas Electrónicas
+      y Mensajes de Datos (Registro Oficial, Suplemento N.º 557, 17 de abril de 2002).
+      https://www.telecomunicaciones.gob.ec/wp-
+      content/uploads/downloads/2012/11/Ley-de-Comercio-Electronico-Firmas-y-
+      Mensajes-de-Datos.pdf
+
+Cuesta Calderón, M. M., & Castillo Sojos, E. P. (2024). Estrategias de marketing para el
+      crecimiento de microempresas de muebles. Revista Scientific, 9(32), 361–381.
+      https://doi.org/10.29394/scientific.issn.2542-2987.2024.9.32.17.361-381
+
+Gómez, R., Sánchez, D., López, W., & Gómez, D. (2024). Aplicación de estrategias de
+     marketing digital para fortalecer las ventas. Universidad, Ciencia y Tecnología,
+     28(123), 52–61. https://doi.org/10.47460/uct.v28i123.801
+
+León-Vega, L. S., & Espinoza-Alcívar, E. I. (2023). Análisis de los factores que intervienen
+      en el crecimiento de cartera vencida de empresas de servicios financieros. INNOVA
+      Research Journal, 8(3.1). https://doi.org/10.33890/innova.v8.n3.1.2023.2342
+
+Mogollón Gómez, J. (2021). Gestión de cobranza y su impacto en la gerencia financiera de
+       la empresa PP S. A.: Periodo 2014–2016. Puriq, 3(1), 126–137.
+       https://doi.org/10.37073/puriq.3.1.121
+Monferrer Tirado, D. (2013). Fundamentos de marketing. Universitat Jaume I.
+      https://doi.org/10.6035/Sapientia74
+
+Montenegro-Chasquibol, B., Labajos-Portocarrero, H., Terrones-Suarez, O., Minga-
+      Sarmiento, R., & Fasanando-Garcia, S. (2024). Gestión de cobranzas y su influencia
+      en la liquidez de una empresa inmobiliaria. Revista Amazónica de Ciencias
+      Económicas, 3(2), e741. https://doi.org/10.51252/race.v3i2.741
+
+Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+       de Protección de Datos Personales (Decreto Ejecutivo N.º 904; Suplemento del
+       Registro Oficial N.º 435, 13 de noviembre de 2023). https://www.cosede.gob.ec/wp-
+       content/uploads/2023/12/REGLAMENTO-GENERAL-A-LA-LEY-
+       ORG%C3%81NICA-DE-PROTECCION-DE-DATOS-PERSONALES_compressed-
+       1.pdf
+
+Servicio de Rentas Internas. (2024). Ficha técnica de comprobantes electrónicos: Esquema
+       fuera de línea (versión 2.26). https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-
+       internet/descargar/ed555352-46c7-4917-9f61-
+       011b6a9f4600/FICHA%20TE%CC%81CNICA%20COMPROBANTES%20ELECTR
+       O%CC%81NICOS%20ESQUEMA%20OFFLINE%20Versio%CC%81n%202.26.pdf
+
+
+
+
+                            Módulo de Especialización Nro.3
+Nombre del módulo formativo:            Gestión de Procesos Administrativos
+Nivel: Bachillerato                     1ro, 2do, 3ro
+
+Duración:                               480 periodos pedagógicos
+                                        UC 3: Ejecutar procesos administrativos y de talento
+Unidad       de       competencia       humano, mediante la aplicación de técnicas de
+asociada:                               mejora continua, procurando la calidad y
+                                        productividad en el ámbito laboral y empresarial.
+Objetivo del módulo:
+Desarrollar procesos administrativos y de gestión del talento humano aplicando técnicas de
+mejora continua, con el fin de optimizar la calidad y la productividad en contextos laborales
+y empresariales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Explicar los procesos administrativos y de gestión de recursos humanos,
+identificando funciones y procedimientos básicos en el contexto empresarial.
+CE1.1: Describe con claridad los procesos administrativos y de gestión de recursos
+humanos, identificando correctamente sus funciones básicas en un contexto empresarial.
+CE1.2: Diferencia y ejemplifica los procedimientos básicos en la gestión administrativa y
+de recursos humanos en situaciones empresariales reales o simuladas.
+CE1.3: Organiza y relaciona los diferentes procesos administrativos y de gestión de
+recursos humanos, demostrando su integración y funcionamiento en la empresa.
+CE1.4: Analiza la importancia de cada proceso administrativo y de recursos humanos para
+el éxito organizacional, proponiendo mejoras o recomendaciones para su optimización.
+RA 2: Realizar actividades de apoyo administrativo y coordinar equipos de trabajo
+conforme a las competencias y requerimientos de la empresa.
+CE2.1: Identifica las actividades básicas de apoyo administrativo y los roles dentro de un
+equipo de trabajo en el contexto empresarial.
+CE2.2: Ejecuta tareas de apoyo administrativo siguiendo procedimientos establecidos y
+normas de la empresa.
+CE2.3: Coordina actividades y distribuye funciones entre los miembros de un equipo de
+trabajo, asegurando el cumplimiento de las competencias requeridas
+CE2.4: Evalúa el desempeño del equipo de trabajo y propone estrategias para mejorar la
+coordinación y eficiencia en función de los objetivos empresariales.
+RA 3: Aplicar planes de mejora continua en los procesos administrativos, integrando
+acciones que optimicen la calidad y productividad.
+CE3.1: Explica los conceptos y fases de la mejora continua en los procesos administrativos
+CE3.2: Emplea técnicas y herramientas básicas de mejora continua en la ejecución de
+procesos administrativos
+CE3.3: Implementa acciones específicas de mejora continua para optimizar la calidad y
+productividad en procesos administrativos definidos.
+CE3.4: Analiza los resultados obtenidos tras la implementación de planes de mejora
+continua y propone ajustes para maximizar la eficiencia organizacional.
+RA 4: Evaluar la eficiencia y efectividad de los procesos administrativos y de
+recursos humanos, proponiendo mejoras fundamentadas para optimizar el
+desempeño organizacional.
+CE4.1: Describe los indicadores básicos para medir la eficiencia y efectividad en procesos
+administrativos y de recursos humanos.
+CE4.2: Aplica métodos para recolectar y analizar datos relacionados con la eficiencia y
+efectividad de dichos procesos.
+CE4.3: Utiliza herramientas de evaluación para identificar fortalezas y debilidades en los
+procesos administrativos y de recursos humanos.
+CE4.4: Analiza los resultados de la evaluación y formula propuestas de mejora
+fundamentadas para optimizar el desempeño organizacional.
+Contenidos
+
+Conceptuales                  Procedimentales                    Actitudinales
+Administración                  Reconocer y describir las          Asumir compromiso con
+                                etapas del ciclo administrativo.   la correcta ejecución y
+Definición, importancia                                            supervisión de procesos
+                                Identificar    funciones      y    administrativos y de
+ y    funciones      básicas:   responsabilidades en la gestión    recursos       humanos,
+planificación, organización,    de recursos humanos.               asegurando
+dirección y control.                                               cumplimiento de normas,
+                                Documentar       procedimientos    procedimientos        y
+Ciclo administrativo.
+                                básicos         de      gestión    objetivos
+Procedimientos                  administrativa.                    organizacionales.
+administrativos básicos en                                         Mantener una conducta
+la empresa.                     Realizar tareas administrativas
+                                                                   ética en la gestión de
+                                (registro   de    información,
+                                                                   personal     y    en   la
+Concepto y objetivos de la      archivo,      manejo         de
+                                                                   administración        de
+gestión del talento humano.     correspondencia).
+                                                                   recursos, respetando la
+                                                                   confidencialidad,    los
+Roles y funciones del área      Utilizar herramientas digitales
+                                                                   derechos       de    los
+de recursos humanos.            básicas        para       apoyo
+                                                                   colaboradores     y  las
+                                administrativo (procesadores
+Reclutamiento, selección,                                          normativas vigentes.
+                                de texto, hojas de cálculo).
+capacitación y evaluación                                          Reconocer la importancia
+del personal.                   Coordinar la distribución de       de       comprender       y
+                                tareas dentro de un equipo de      organizar los procesos
+Etiqueta y protocolo                                               administrativos y de
+                                trabajo.
+                                                                   recursos         humanos,
+Definición y principios de la
+                                Aplicar técnicas como PDCA,        valorando su impacto en
+mejora continua.
+                                5S o Kaizen en procesos            la eficiencia y éxito de la
+                                administrativos.                   empresa.
+Aplicación en procesos
+administrativos        para                                        Mostrar disposición para
+optimizar      calidad    y     Formular y ejecutar acciones       proponer        mejoras,
+productividad.                  de mejora en calidad y             implementar planes de
+                                productividad.                     optimización y sugerir
+Conceptos de calidad                                               acciones             que
+total y productividad.          Registrar   y    monitorear        incrementen la calidad y
+                                resultados de las mejoras          productividad de los
+Indicadores básicos de          implementadas.                     procesos.
+calidad y productividad.
+                                Recolectar y analizar datos de     Evaluar con objetividad
+Impacto         en         la   indicadores de eficiencia y        los       procesos      y
+competitividad                  efectividad.                       procedimientos
+organizacional.                                                    administrativos,
+                                Utilizar  herramientas     para    identificando fortalezas,
+Métodos y herramientas                                             debilidades             y
+                                diagnosticar    fortalezas    y
+para   evaluación   de                                             oportunidades de mejora
+                                debilidades    en      procesos
+procesos administrativos       administrativos   y   recursos    fundamentadas            en
+y de recursos humanos.         humanos.                          evidencia.
+                                                                 Valorar      la     mejora
+Indicadores de eficiencia y    Elaborar     informes    con
+                                                                 continua, la eficiencia y la
+efectividad.                   propuestas de mejora basadas
+                                                                 efectividad      en     los
+                               en análisis.
+Técnicas        para      la                                     procesos administrativos
+identificación de problemas                                      y de recursos humanos,
+                               Organizar y asignar tareas en
+y propuestas de mejora.                                          buscando optimizar el
+                               función de las competencias de
+                                                                 desempeño
+                               los miembros del equipo.
+Dinámica y roles          en                                     organizacional.
+equipos de trabajo.                                           Participar activamente en
+                               Facilitar la comunicación y
+                               resolución de conflictos dentroequipos     de    trabajo,
+Comunicación y liderazgo.
+                               del equipo.                    coordinando actividades,
+Técnicas de coordinación y                                    distribuyendo funciones y
+motivación.                    Supervisar   y    evaluar   el valorando              las
+                               desempeño      del     equipo, aportaciones de todos los
+                               proponiendo mejoras.           miembros para alcanzar
+                                                              objetivos comunes.
+                                                                 Mantener      disposición
+                                                                 para    actualizar    sus
+                                                                 conocimientos       sobre
+                                                                 técnicas administrativas,
+                                                                 normativas laborales y
+                                                                 estrategias de gestión de
+                                                                 recursos        humanos,
+                                                                 adaptándose a nuevos
+                                                                 contextos empresariales.
+
+                                                                 Reconocer              la
+                                                                 importancia           de
+                                                                 promover un ambiente
+                                                                 laboral     justo       y
+                                                                 equitativo,
+                                                                 contribuyendo          al
+                                                                 bienestar     de     los
+                                                                 colaboradores y al éxito
+                                                                 sostenido      de      la
+                                                                 organización.
+Perfil del o la docente
+   •   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados
+       y reconocidos por el órgano rector del Sistema de Educación Superior en:
+       Administración de Empresas, Recursos Humanos, Ingeniería Industrial, Gestión
+       Empresarial, o carreras afines.
+   •   Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+   o   Aprendizaje Basado en Proyectos (ABP)
+   o   Aprendizaje en Contextos Reales
+   o   Role-Playing y Simulaciones
+   o   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación              Especificaciones técnicas                          Cantidad
+
+Infraestructura/espacio   Entorno de aprendizaje (aula)                      1
+                          Computadoras con acceso a internet
+                          Proyector
+Laboratorio                                                                  1
+                          Calculadoras financieras o científicas para
+                          cálculos manuales.
+                          Manuales y guías prácticas sobre procesos
+                          administrativos y gestión de recursos
+                          humanos.
+                          Plantillas y formatos para documentación de
+                          procesos y seguimiento de mejoras.
+Equipos/herramientas
+                          Herramientas para aplicar técnicas de mejora
+                          continua (ejemplo: carteles para 5S, diagramas
+                          de flujo impresos).
+                          Simuladores o software que permitan la
+                          práctica de coordinación y gestión de equipos.
+Materiales
+Referencias Bibliográficas
+ Armijo, M. (2011). Planificación estratégica e indicadores de desempeño en el sector
+        público. Comisión Económica para América Latina y el Caribe.
+        https://repositorio.cepal.org/handle/11362/5509
+ Congreso Nacional del Ecuador. (2005). Código del Trabajo (Codificación N.º 2005-017,
+       Registro Oficial Suplemento N.º 167, 16 de diciembre de 2005). Ministerio del
+       Trabajo.                                        https://www.trabajo.gob.ec/wp-
+       content/uploads/downloads/2024/01/CODIGO_DEL_TRABAJO.pdf
+Hernández Quiroga, M. C., & López Gómez, L. F. (2024). La gestión del talento humano
+      como herramienta para la gestión de las organizaciones. Revista Perspectiva
+      Empresarial, 11(1), 59–69. https://doi.org/10.16967/23898186.739
+Huaraca-Carhuaricra, C. (2023). Modelos de gestión del talento humano en el contexto
+      internacional.    Política, Globalidad  y    Ciudadanía,    9(18),   175–198.
+      https://doi.org/10.29105/pgc9.18-10
+Lay-De-León, R. N., Acevedo-Urquiaga, A. J., & Acevedo-Suárez, J. A. (2022). Guía para
+      la aplicación de una estrategia de mejora continua. Ingeniería Industrial, 43(3), 30–
+      48.                   http://scielo.sld.cu/scielo.php?script=sci_arttext&pid=S1815-
+      59362022000300030
+Ministerio del Trabajo del Ecuador. (2023). Acuerdo Ministerial N.º MDT-2023-140:
+       Normas generales aplicables al control de las obligaciones del empleador y los
+       procedimientos       de       inspección.        https://www.trabajo.gob.ec/wp-
+       content/uploads/2024/01/MDT-2023-140-AM-Obligaciones-empleador-y-
+       procedimientos-de-inspeccion-14-11-23-signed.pdf
+Organización Internacional del Trabajo. (2021). Estrategia de recursos humanos de la OIT
+       2022-2025.            Oficina         Internacional           del        Trabajo.
+       https://www.ilo.org/es/media/233341/download
+Presidencia de la República del Ecuador. (2024). Reglamento de Seguridad y Salud en el
+       Trabajo     (Decreto    Ejecutivo    N.º   255).   Ministerio   del   Trabajo.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-
+       255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+Rincón Rodríguez, O. O., & Aldana Bautista, L. (2021). Cultura organizacional y su
+      relación con los sistemas de gestión: Una revisión bibliográfica. SIGNOS,
+      Investigación       en    Sistemas     de   Gestión,     13(2),     179–200.
+      https://doi.org/10.15332/24631140.6675
+Romero-Nava, M. A. (2024). Plan estratégico de mejoras para los procesos
+     administrativos y operativos de las empresas públicas. Ingenium et Potentia.
+     Revista Electrónica Multidisciplinaria de Ciencias Básicas, Ingeniería y
+     Arquitectura, 6(10), 54–77. https://doi.org/10.35381/i.p.v6i10.3856
+Vera Solórzano, L. D., Rivera Badillo, P. L., & Reyes Vargas, M. V. (2022). Gestión del
+      talento humano para la mejora de los servicios turísticos. Avances, 24(1), 61–76.
+      https://www.redalyc.org/articulo.oa?id=637869301006
+          5. Módulo Práctico Experimental
+Permite fortalecer la formación del estudiantado a través de situaciones reales de
+aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras de observación,
+articulación con el sector productivo, proyectos interdisciplinarios y metodologías
+basadas en proyectos. Todas estas actividades tienen como finalidad consolidar los
+conocimientos y aplicación de competencias en contextos reales. Asimismo,
+promueven el desarrollo de habilidades blandas, tales como el trabajo en equipo, la
+comunicación asertiva, la resolución de problemas y la adaptación a entornos
+cambiantes.
+ En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en
+los módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+
+                            Módulo Práctico Experimental
+
+ Nombre del módulo:          Practico Experimental
+
+ Nivel:                      1ro, 2do, 3ro
+
+ Duración:                   280 periodos pedagógicos
+
+ Unidad                de    UC 1: Aplicar procesos de compras y logística
+ competencia                 asegurando la eficiencia y el cumplimiento de la normativa
+ asociada:                   legal vigente a nivel nacional e internacional con
+                             responsabilidad social.
+                             UC 2: Gestionar procesos comerciales y estrategias
+                             comunicacionales con enfoque en segmentos de mercado
+                             y normativa vigente, a través de la eficiencia operativa y
+                             la satisfacción del cliente.
+                             UC 3: Ejecutar procesos administrativos y de talento
+                             humano, mediante la aplicación de técnicas de mejora
+                             continua, procurando la calidad y productividad en el
+                             ámbito laboral y empresarial.
+ Objetivo del módulo: Formar técnicos capaces de gestionar procesos
+ administrativos, comerciales y logísticos, incluyendo compras, administración de
+ inventarios, cuentas por pagar, estrategias comerciales, comunicación, cobranza y
+ gestión de recursos humanos, aplicando normas vigentes y técnicas de mejora
+ continua para garantizar la eficiencia, calidad y productividad en entornos
+ empresariales.
+Resultados            de    Criterios de evaluación Actividades             Prácticas
+Aprendizaje (RA)            (CE)                    Experimentales
+
+RA1:             Ejecutar   CE1.1:             Aplica    Elaborar órdenes de compra
+operaciones de compras      procedimientos               y cotizaciones utilizando un
+y logística a nivel         establecidos         para    formato          predefinido,
+nacional e internacional.   realizar operaciones de      asegurando que contengan
+                            compras, gestionando         todos los datos requeridos
+                            documentos          como     (proveedor,        productos,
+                            órdenes de compra,           cantidades, precios).
+                            cotizaciones y facturas.
+                                                         Registrar facturas recibidas
+                            CE1.2:            Realiza    en un sistema o plantilla de
+                            actividades     logísticas   control,   verificando     que
+                            (recepción,                  coincidan con las órdenes de
+                            almacenamiento,              compra      y     cotizaciones
+                            distribución) de acuerdo     previas.
+                            con normas nacionales e
+                                                         Simular la recepción de
+                            internacionales         en
+                                                         productos,       verificando
+                            entornos      reales     o
+                                                         cantidades, condiciones y
+                            simulados.
+                                                         comparando con la guía de
+                                                         remisión      o       factura
+                                                         correspondiente.
+                                                         Organizar y ubicar productos
+                                                         en áreas de almacenamiento
+                                                         siguiendo criterios de orden,
+                                                         seguridad y accesibilidad,
+                                                         registrando los movimientos
+                                                         en un inventario o plantilla.
+
+RA2: Ejecutar procesos      CE2.1:       Registra el     Completar un registro de
+de        cobranza      y   seguimiento de cuentas       cuentas por cobrar vencidas
+seguimiento de cartera      vencidas       utilizando    en una plantilla o sistema
+vencida,       cumpliendo   formatos o herramientas      sencillo, indicando cliente,
+políticas    internas   y   de control, asegurando       monto, fecha de vencimiento
+normativas legales (ej.:    trazabilidad            y    y estado de seguimiento.
+Ley de Protección al        cumplimiento.
+                                                         Elaborar un informe de
+Consumidor).                CE2.2:            Ejecuta    control de cuentas vencidas
+                            procedimientos        de     mostrando las acciones
+                            cobranza según las           realizadas y pendientes para
+                            políticas internas de la     cada cliente, asegurando que
+                            organización.                la información sea clara y
+                                                         rastreable.
+                                                       Realizar llamadas y/o envía
+                                                       correos de cobranza a
+                                                       clientes de acuerdo con un
+                                                       guion       o      protocolo
+                                                       establecido, registrando la
+                                                       respuesta y el seguimiento
+                                                       necesario.
+
+                                                       Preparar avisos de pago o
+                                                       recordatorios formales según
+                                                       las políticas de la empresa,
+                                                       asegurando que los datos y
+                                                       plazos sean correctos.
+                            CE3.1: Aplica técnicas yIdentificar y documentar
+                            herramientas básicas de posibles mejoras en un
+RA3: Aplicar planes de
+                            mejora continua en la   proceso         administrativo
+mejora continua en los
+                            ejecución de procesos   simple (por ejemplo, registro
+procesos administrativos,
+                            administrativos         de documentos o control de
+integrando acciones que
+                                                    asistencia) utilizando un
+optimicen la calidad y      CE3.2:       Implementa
+                                                    formato o plantilla de análisis.
+productividad.              acciones específicas de
+                            mejora continua para Utilizar herramientas básicas
+                            optimizar la calidad y de mejora continua (como
+                            productividad        en listas de verificación o
+                            procesos                diagramas de flujo simples)
+                            administrativos         para analizar la eficiencia y
+                            definidos.              detectar errores en los
+                                                    procesos administrativos.
+                                                       Proponer y aplicar ajustes en
+                                                       un proceso administrativo
+                                                       simulado      (por   ejemplo,
+                                                       reorganización de archivos o
+                                                       simplificación     de      un
+                                                       formulario) y registrar los
+                                                       resultados obtenidos.
+                                                       Elaborar un informe de las
+                                                       acciones        de     mejora
+                                                       realizadas, indicando los
+                                                       beneficios observados en
+                                                       términos de calidad, tiempo y
+                                                       eficiencia del proceso.
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e
+incluir las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje
+significativo, sin que este reemplace su paso por la Formación Estudiantil en Centros
+Educativos y de Trabajo.
+

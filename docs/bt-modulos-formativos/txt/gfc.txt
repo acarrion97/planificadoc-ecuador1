@@ -1,0 +1,2475 @@
+       MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “GESTIÓN
+                     FINANCIERA Y CONTABLE”
+
+    1. Objetivo general
+
+Desarrollar competencias en la administración ética, eficiente y socialmente
+responsable de recursos financieros, promoviendo el uso adecuado del dinero, la
+aplicación de la legislación tributaria y la gestión de estados financieros para la toma de
+decisiones fundamentadas, integrando el pensamiento crítico y el uso de plataformas
+financieras y contables, aplicándolas en contextos personales, familiares, laborales y de
+emprendimiento.
+
+    2. Plan de estudios
+
+                                                                       1ro    2do     3ro
+
+Total periodos pedagógicos tronco común                                19      19      19
+
+                              Herramientas              Informáticas   3       2
+                              Empresariales
+
+Módulos Genéricos de la Gestión Contable y Administración              5       4
+Familia Profesional     Financiera
+
+                              Inglés Técnico Aplicado a los            3       2
+                              Negocios
+
+                              Gestión y Control Financiero             4       4        5
+
+                              Financiamiento e Inversión                       3        3
+
+                              Legislación Tributaria Aplicada          2       2        3
+Módulos Especialización
+                              Planificación         y       Control    2       2        2
+                              Presupuestario
+
+                              Análisis Financiero                                       5
+
+Módulo Práctico Experimental                                           2       2        3
+
+Total de periodos pedagógicos formación técnica                        21      21      21
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la Familia Administrativa y Financiera. Gracias a
+las características de los módulos trabajados en esta etapa, adquieren herramientas
+que le permiten construir una opinión más informada y tomar decisiones con mayor
+fundamento. Esto favorece su capacidad para, en caso de que lo desee, transitar entre
+distintas figuras profesionales dentro de la misma familia, continuar con su trayectoria
+educativa, insertarse en el mundo laboral o emprender un proyecto propio.
+
+Se estructuran los siguientes módulos genéricos:
+
+     •    Herramientas Informáticas Empresariales
+     •    Gestión Contable y Administración Financiera
+     •    Inglés Técnico Aplicado a los Negocios
+
+                             Módulo Genérico Nro. 1
+ Nombre del módulo                   Herramientas Informáticas Empresariales:
+
+ Nivel:                              1ro, 2do
+
+ Duración:                           200 periodos pedagógicos
+                                     UC 1: Utilizar las herramientas informáticas
+ Unidad    de       competencia
+                                     empresariales      aplicadas     a    las    actividades
+ asociada:
+                                     estudiantiles, personales, familiares, y laborales
+ Objetivo del módulo: Emplear herramientas informáticas empresariales en entornos
+ estudiantiles, personales, familiares y laborales, para optimizar tareas administrativas,
+ financieras y de gestión, con criterios de eficiencia y seguridad
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Utilizar herramientas informáticas empresariales para registrar transacciones
+ financieras, elaborar reportes y gestionar datos, siguiendo protocolos establecidos.
+ CE1.1: Describe las funcionalidades básicas de las herramientas informáticas
+ empresariales y los protocolos establecidos para el registro de información financiera
+ CE1.2: Registra transacciones financieras utilizando herramientas             informáticas
+ empresariales, cumpliendo con los formatos y procedimientos definidos.
+ CE1.3: Genera reportes y gestiona datos financieros con precisión, aplicando funciones y
+ comandos adecuados dentro del entorno digital, respetando los protocolos de seguridad y
+ confidencialidad.
+ RA 2: Aplicar funciones avanzadas de hojas de cálculo y sistemas de gestión de
+ datos para resolver situaciones administrativas o financieras, asegurando precisión
+en el procesamiento de la información y cumplimiento de normas de seguridad
+digital.
+CE2.1: Explica el propósito y funcionamiento de funciones avanzadas en hojas de cálculo
+y sistemas de gestión de datos, así como la importancia de las normas de seguridad digital
+en el manejo de información administrativa y financiera.
+CE2.2: Utiliza funciones avanzadas de hojas de cálculo para procesar datos
+administrativos o financieros, aplicando fórmulas, tablas dinámicas y herramientas de
+análisis para obtener resultados precisos.
+CE2.3: Aplica normas y protocolos de seguridad digital durante la gestión y procesamiento
+de datos en sistemas informáticos, garantizando la integridad y confidencialidad de la
+información.
+RA 3: Analizar información financiera y administrativa mediante tablas dinámicas,
+gráficos y comparativos, identificando discrepancias o tendencias relevantes para
+la toma de decisiones.
+CE3.1: Describe la función y utilidad de las tablas dinámicas, gráficos y comparativos en
+el análisis de información financiera y administrativa.
+CE3.2: Construye tablas dinámicas, gráficos y comparativos a partir de datos financieros y
+administrativos para organizar y visualizar información relevante.
+CE3.3: Identifica discrepancias y tendencias significativas en los análisis realizados y
+explica su impacto en la toma de decisiones administrativas o financieras.
+Contenidos
+Conceptuales                   Procedimentales                  Actitudinales
+Registro                de                                     Valorar la importancia de la
+Transacciones:                 Registrar asientos contables precisión, responsabilidad y
+Financieras Fundamentos        en software.                    ética en el registro, análisis y
+de contabilidad financiera-                                    gestión     de     información
+                               Crear     tablas,     gráficos,
+informática                                                    financiera y administrativa.
+                               interpretación de datos.
+Tipos de transacciones:                                        Mantener una actitud de
+                               Elaborar reportes de flujo de
+(ingresos,     egresos,                                        confidencialidad y respeto
+                               caja     y     conciliaciones
+créditos).                                                     por los protocolos de
+                               bancarias.
+                                                               seguridad digital en el
+Funciones avanzadas de
+                               Aplicar              formatos manejo de datos.
+Excel   (BUSCARV,   SI,
+                               preestablecidos           para
+TABLAS DINÁMICAS).                                             Demostrar orden, disciplina y
+                               documentos financieros.
+                                                               atención al detalle en el uso
+Introducción a sistemas
+                               Automatizar           cálculos de herramientas informáticas
+ERP (ej: módulos de
+                               financieros        (intereses, y funciones avanzadas de
+facturación y inventario.
+                               depreciaciones)            con análisis.
+                               fórmulas.
+                                                               Fomentar la proactividad,
+                                                               iniciativa y disposición al
+Indicadores      financieros     Diseñar bases de datos aprendizaje autónomo frente
+clave               (liquidez,   simples en Excel para a nuevas tecnologías y
+rentabilidad).                   gestión de clientes.   entornos digitales.
+Métodos de visualización         Crear tablas dinámicas para Promover la objetividad,
+de    datos    (gráficos,        comparar presupuestos vs. pensamiento        crítico    y
+dashboards).                     ejecutado.                    transparencia    en      la
+                                                               interpretación            y
+Identificación de tendencias     Generar gráficos interactivos
+                                                               comunicación de resultados
+y anomalías en datos             (ej: tendencias de ventas
+                                                               financieros.
+                                 mensuales).
+Microsoft 365
+                                 Redactar informes ejecutivos Mostrar           colaboración,
+Microsoft Word
+                                 con        hallazgos         y apertura y compromiso en el
+                                 recomendaciones.               trabajo en equipo para la
+Principios  básicos      de                                     resolución de situaciones
+                                 Microsoft Word
+procesamiento de textos.                                        administrativas y financieras.
+                                 Redactar            informes
+Estructura y formato de          financieros, actas, oficios, y
+documentos                       documentos administrativos.
+administrativos       y
+                                 Crear      plantillas para
+financieros.
+                                 contratos,    órdenes   de
+Herramientas        para         compra o solicitudes.
+elaboración de informes,
+                                 Aplicar formato profesional a
+cartas, memorandos y
+                                 documentos.
+actas.
+                                 Microsoft Excel:
+Microsoft Excel:
+                                 Crear presupuestos, flujos
+Conceptos de hoja de
+                                 de caja, registros contables y
+cálculo: filas, columnas,
+                                 reportes logísticos.
+celdas,      fórmulas   y
+funciones.                       Elaborar     gráficos    para
+                                 visualizar datos de gestión.
+Tipos de datos y formatos.
+                                 Aplicar   fórmulas     para
+Funciones   básicas   y
+                                 calcular costos, precios,
+financieras      (SUMA,
+                                 márgenes y tendencias.
+PROMEDIO,            SI,
+BUSCARV, TIR, VAN).              Usar     filtros  y   tablas
+                                 dinámicas para análisis de
+Gráficos y tablas dinámicas.
+                                 inventarios o ventas.
+Principios de análisis de
+                                 Simular        escenarios
+datos.
+                                 financieros con funciones
+Microsoft PowerPoint:            avanzadas.
+                                 Microsoft PowerPoint:
+Fundamentos de diseño y        Diseñar presentaciones de
+presentación         de        proyectos    logísticos o
+información.                   financieros.
+Estructura               de    Exponer propuestas de
+presentaciones efectivas.      mejora     o    análisis   de
+                               resultados             usando
+Uso de elementos visuales
+                               diapositivas dinámicas.
+para la comunicación de
+resultados y propuestas.       Microsoft Outlook
+Microsoft Outlook:             Redactar              correos
+                               profesionales.
+Conceptos    básicos de
+comunicación electrónica.      Coordinar           reuniones
+                               virtuales    y       gestionar
+Organización de correos,
+                               agendas.
+calendarios y tareas.
+                               Organizar comunicaciones
+                               por     departamentos  o
+Etiqueta profesional en la     clientes.
+comunicación digital.
+                               Microsoft Teams / OneDrive
+Microsoft    Teams      y
+                               Gestionar      documentos
+OneDrive (integración con
+                               compartidos entre áreas de
+Office 365)
+                               trabajo.
+Colaboración en línea.
+                               Participar en reuniones
+Compartición segura de         virtuales y coordinar tareas
+archivos      y      trabajo   de forma colaborativa.
+colaborativo en la nube.
+Perfil del o la docente
+ Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados
+  reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+  Administración, Finanzas, Ingeniería Comercial o carreras técnicas afines.
+ Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Role-Playing y Simulaciones
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación               Especificaciones técnicas                 Cantidad
+                           Entorno de aprendizaje
+Infraestructura/espacio                                               1
+                           (aula)
+                           Computadoras con acceso a internet
+Laboratorio                                                           1
+                         Proyector
+Referencias Bibliográficas
+ Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+     Personales.     Quinto   Suplemento    del   Registro   Oficial  N.º   459.
+     https://www.finanzaspopulares.gob.ec/wp-
+     content/uploads/2021/07/ley_organica_de_proteccion_de_datos_personales.pdf
+ Ayala-Guevara, K. J., Maraví-Cabrera, A. J., Núñez-Sinche, J. D., & García-Buendía, H.
+       (2026). Tecnologías digitales y rendimiento académico: Factores asociados en
+       estudiantes de una universidad privada de Huancayo, Perú. Revista Espacios,
+       47(3), 167–179. https://doi.org/10.48082/espacios-a26v47n03i15
+ Banco Central del Ecuador. (2023). Informe estadístico de inclusión financiera.
+      https://contenido.bce.fin.ec/documentos/Estadisticas/SectorMonFin/InclusionFina
+      nciera/InfEst_IF_092023.pdf
+ Bonilla Jurado, D. M. (2024). Las tecnologías de la información y la comunicación en los
+        sistemas de planificación de recursos empresariales aplicados a la gestión
+        empresarial: Un análisis bibliométrico. Ciencias Administrativas, (25), e147.
+        https://doi.org/10.24215/23143738e147
+ Díaz-Restrepo, C. A., Hoyos, O. H., Arismendy-Quintero, D. E., & Duque, P. L. (2023).
+       Educación financiera en la población joven: Una revisión y análisis bibliométrico.
+       Revista         Colombiana       de      Educación,         (89),        148–180.
+       https://doi.org/10.17227/rce.num89-14201
+ Fundación IFRS. (2025). Actualización de la Norma de Contabilidad NIIF para las
+      PYMES: Marzo de 2025. https://www.ifrs.org/content/dam/ifrs/supporting-
+      implementation/smes/newsletters/es-ifrs-smes-march-2025-update.pdf
+ Hoffmann, G. E. (2023). Planificación de recursos empresariales, saberes administrativos
+      y profesionales en ciencias económicas. Revista Academia & Negocios, 9(2), 141–
+      154. https://doi.org/10.29393/RAN9-12ERGH10012
+ Infantes Loo, J. F., & Moquillaza Henríquez, S. D. (2021). Implementación de un sistema
+       integrado de planificación de recursos empresariales para mejorar la productividad
+       en las recaudaciones por caja de una importante clínica de la ciudad de Lima.
+       Industrial Data, 24(2), 29–52. https://doi.org/10.15381/idata.v24i2.19565
+ Instituto Nacional de Ciberseguridad. (2023). Cómo crear una copia de seguridad.
+        https://www.incibe.es/ciudadania/formacion/guias/como-crear-una-copia-de-
+        seguridad
+ Instituto Nacional de Ciberseguridad. (2024). Gestión de crisis de ciberseguridad en
+        empresas.            https://www.incibe.es/empresas/guias/gestion-de-crisis-de-
+       ciberseguridad-en-empresas
+ Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+       de Protección de Datos Personales (Decreto Ejecutivo N.º 904). Registro Oficial,
+       Suplemento            N.º           435.         https://www.cosede.gob.ec/wp-
+       content/uploads/2023/12/REGLAMENTO-GENERAL-A-LA-LEY-
+       ORG%C3%81NICA-DE-PROTECCION-DE-DATOS-
+       PERSONALES_compressed-1.pdf
+ Servicio de Rentas Internas. (2024). Ficha técnica de comprobantes electrónicos:
+       Esquema fuera de línea (versión 2.26). https://www.sri.gob.ec/o/sri-portlet-
+       biblioteca-alfresco-internet/descargar/ed555352-46c7-4917-9f61-
+       011b6a9f4600/FICHA%20TE%CC%81CNICA%20COMPROBANTES%20ELECT
+       RO%CC%81NICOS%20ESQUEMA%20OFFLINE%20Versio%CC%81n%202.26.
+       pdf
+ Viera Molina, G. Y. (2025). La educación financiera como herramienta de
+      empoderamiento social: Análisis de programas implementados en Ecuador y su
+      impacto en la inclusión económica (2018–2024). ASCE Magazine, 4(2), 1346–
+      1361. https://doi.org/10.70577/ASCE/1346.1361/2025
+
+
+
+                            Módulo Genérico Nro.2
+
+Nombre del módulo:                   Gestión Contable y Administración Financiera
+
+Nivel: Bachillerato                  1ro y 2do
+
+Duración:                            360 periodos pedagógicos
+                                     UC 2: Integrar la gestión contable y la administración
+                                     financiera, evaluando condiciones y colaborando con
+Unidad      de        competencia    el equipo para mantener relaciones laborales,
+asociada:                            familiares y personales, incorporando prácticas de
+                                     economía circular que optimicen el uso de recursos y
+                                     reduzcan el impacto ambiental.
+Objetivo del módulo: Aplicar conocimientos de gestión contable y administración
+financiera para evaluar condiciones financieras y colaborar activamente con el equipo de
+trabajo, y utilizando principios de economía circular para optimizar recursos, reducir el
+impacto ambiental y mantener relaciones laborales, familiares y personales equilibradas
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Aplicar fundamentos de administración en el diseño de estructuras
+organizacionales y procesos, bajo normativas laborales y principios éticos y criterios
+de economía circular
+CE1.1: Explica los elementos básicos de una estructura organizacional (jerarquías,
+departamentos) y normativas laborales ecuatorianas, aplicándolos en casos simulados
+CE1.2: Aplica procedimientos administrativos en casos reales o simulados, identificando
+aspectos que contribuyen a la eficiencia y proponiendo mejoras sencillas basadas en
+principios de calidad y ética profesional.
+CE1.3: Incorpora criterios éticos y de economía circular en la propuesta de mejoras a
+procesos administrativos, promoviendo la sostenibilidad organizacional.
+RA2: Registrar operaciones contables en libros diarios y mayores según PCGE,
+ asegurando el cumplimiento de normativas tributarias y considerando criterios de
+ sostenibilidad y uso eficiente de recursos en el contexto de la economía circular.
+CE2.1: Identifica las cuentas contables según el Plan Contable General Ecuatoriano
+(PCGE) para registrar transacciones básicas
+CE2.2: Recopila operaciones contables en libros diario y mayor, aplicando principios de
+partida doble y normativas tributarias básicas (IVA, retenciones).
+CE2.3: Aplica criterios de sostenibilidad y uso eficiente de recursos al momento de registrar
+y analizar las operaciones contables
+CE2.4: Elabora un ciclo contable completo para una PYME simulada, integrando registros,
+ajustes básicos y cumplimiento de obligaciones tributarias
+RA 3: Calcular costos de producción, servicios o comercio, determinando puntos de
+equilibrio y elaborando presupuestos con enfoque en economía circular.
+CE3.1: Analiza costos fijos, variables y totales en actividades de producción, comercio o
+servicios, identificando oportunidades para reducir el uso de recursos y reutilizar materiales,
+de acuerdo con los principios de economía circular.
+CE3.2: Determina el punto de equilibrio en diferentes tipos de proyectos o emprendimientos,
+evaluando su viabilidad económica y su contribución a la reducción de residuos y
+aprovechamiento de insumos.
+CE3.3: Compara presupuestos operativos y financieros básicos con los resultados reales o
+proyectados, identificando desviaciones y analizando el impacto económico y ambiental de
+las decisiones tomadas.
+CE3.4: Diseña un plan de costos y presupuesto para un emprendimiento productivo o
+comercial (real o simulado), integrando el análisis de equilibrio y estrategias de economía
+circular, como la reutilización de insumos, el reciclaje o la mejora en la eficiencia energética.
+RA 4: Aplicar técnicas de análisis financiero para interpretar estados financieros
+ (Balance General, Estado de Resultados) y flujos de caja, evaluando la situación
+ económica de una organización e identificando oportunidades de mejora con base
+ en principios de economía circular.
+CE4.1: Describe los componentes clave del Balance General, Estado de Resultados y Flujo
+de Caja, explicando su interrelación.
+CE4.2: Calcula ratios financieros (liquidez, endeudamiento, rentabilidad) para diagnosticar
+la situación económica de una organización.
+CE4.3: Emplea técnicas básicas para revisar estados financieros y flujos de caja,
+identificando posibles incongruencias o riesgos financieros.
+CE4.4 Incorpora criterios de economía circular para identificar prácticas que mejoren la
+eficiencia y sostenibilidad financiera dentro del análisis financiero.
+RA 5: Evaluar alternativas de inversión y financiamiento (créditos, préstamos),
+ considerando costos, riesgos y beneficios y su contribución al uso eficiente de
+ recursos y la sostenibilidad económica y ambiental.
+CE5.1: Describe las características principales de diferentes alternativas de inversión y
+financiamiento, incluyendo créditos y préstamos.
+CE5.2: Utiliza métodos para valorar alternativas de inversión y financiamiento considerando
+costos, riesgos y beneficios.
+CE5.3: Aplica criterios de sostenibilidad y economía circular para valorar la contribución de
+las alternativas a la eficiencia y sustentabilidad.
+CE5.4: Analiza diferentes alternativas de inversión y financiamiento, proponiendo la opción
+más adecuada que optimice recursos y minimice impactos.
+RA 6: Emplear procesos de control interno para verificar el cumplimiento normativo,
+mejorar la eficiencia operativa y promover prácticas sostenibles que optimicen el uso
+de recursos y minimicen impactos ambientales, en concordancia con los principios
+de economía circular.
+CE6.1: Identifica los elementos y objetivos del control interno en contextos administrativos
+y contables.
+CE6.2: Aplica procedimientos básicos de control interno en actividades simuladas o reales,
+como manejo de inventarios, caja chica o archivos.
+CE6.3 Utiliza prácticas sostenibles dentro de los procesos de control interno para optimizar
+el uso de recursos y reducir impactos ambientales.
+CE6.4: Propone mejoras a partir del análisis de los resultados del control interno para
+identificar oportunidades de mejora que integren eficiencia operativa y sostenibilidad
+ambiental.
+Contenidos
+Conceptuales                   Procedimentales                 Actitudinales
+Estructura                     Aplicar normativas laborales Valorar la responsabilidad,
+organizacional:                ecuatorianas      en     casos ética        profesional     y
+                               prácticos o simulados.          compromiso         con     la
+Concepto      y      tipos                                     sostenibilidad en la gestión
+(jerarquías,                   Diseñar              procesos administrativa, contable y
+departamentos, funciones).     administrativos     eficientes, financiera.
+                               integrando principios éticos.
+Diseño       organizacional:                                   Mantener una actitud de
+formal e informal.             Proponer       mejoras      en honestidad, transparencia y
+                               procesos      administrativos, confidencialidad      en    el
+Principios    básicos   de     incorporando criterios de manejo de información y
+administración aplicados a     economía      circular    para toma de decisiones.
+estructuras y procesos.        optimizar recursos y reducir Fomentar    la   precisión,
+                               desperdicios.                disciplina y atención al
+Normativas        laborales
+                                                            detalle, garantizando el
+ecuatorianas:                  Elaborar    informes    que cumplimiento normativo y la
+                               reflejen la aplicación de
+                               normativas y propuestas de
+                                sostenibilidad en la gestión confiabilidad de los registros
+Leyes laborales relevantes
+                                administrativa.              y análisis.
+(contratos,      jornadas,
+derechos y deberes).            Registrar operaciones en Demostrar              proactividad,
+                                libros diarios y mayores iniciativa y apertura al
+Seguridad y salud en el         aplicando partida doble.        aprendizaje        continuo,
+trabajo.                                                        adaptándose al uso de
+                                Realizar ajustes básicos en herramientas digitales y
+Ética profesional:              los registros contables.        nuevas              prácticas
+                                                                organizacionales.
+Principios éticos     en   la   Aplicar normativas tributarias
+administración.                 básicas al registro de Promover el pensamiento
+                                operaciones              (IVA, crítico y reflexivo en la
+Responsabilidad       social    retenciones).                   interpretación   de    datos
+empresarial.                                                    financieros    y    en      la
+                                Incorporar criterios de uso evaluación de alternativas de
+Economía circular aplicada      eficiente de recursos y inversión y financiamiento.
+a administración:               sostenibilidad     en       los Impulsar la colaboración y
+                                registros contables.            trabajo en equipo para la
+Concepto y principios de
+economía circular.                                         mejora      de     procesos,
+                                Elaborar un ciclo contable
+                                                           asegurando         eficiencia
+                                completo para una PYME
+Aplicación en       procesos                               operativa y contribución a la
+                                simulada,       asegurando
+administrativos         para                               economía circular.
+                                cumplimiento normativo.
+sostenibilidad.
+                                                            Adoptar una actitud de
+                                Identificar   oportunidades
+Mejora continua, reducción                                  innovación y responsabilidad
+                                para reducir, reutilizar y
+de desperdicios y uso                                       ambiental,        buscando
+                                reciclar insumos en el
+eficiente de recursos en la                                 siempre el uso eficiente de
+                                cálculo de costos.
+gestión.                                                    recursos, la reducción de
+                                Determinar el punto de impactos y la mejora de la
+Contabilidad:
+                                equilibrio en proyectos o sostenibilidad
+Definición,     campos     e    emprendimientos con casos organizacional.
+importancia                     prácticos.
+
+Plan Contable General           Elaborar      presupuestos
+Ecuatoriano (PCGE):             operativos y financieros
+                                básicos para casos reales o
+Clasificación y naturaleza      simulados.
+de cuentas.
+                                Comparar presupuestos con
+Principios        contables     resultados          reales,
+básicos y partidas dobles.      analizando desviaciones y
+                                proponiendo        mejoras
+Libros contables:               sostenibles.
+Libro Diario y Libro Mayor:      Diseñar planes de costos y
+función y registros.             presupuestos que integren
+                                 estrategias de economía
+Registro de operaciones          circular.
+comunes (ventas, compras,
+gastos).                         Calcular         indicadores
+                                 financieros básicos (liquidez,
+Normativas         tributarias   rentabilidad,
+básicas:                         endeudamiento).
+
+IVA,            retenciones,     Analizar estados financieros
+obligaciones fiscales.           y flujos de caja para
+                                 identificar    riesgos     y
+Sostenibilidad      en      la   oportunidades.
+contabilidad:
+                                 Integrar      criterios de
+Registro de operaciones          sostenibilidad y economía
+considerando eficiencia en       circular en el análisis
+recursos.                        financiero.
+Impacto    ambiental y           Elaborar reportes financieros
+económico en registros           que                  incluyan
+contables.                       recomendaciones          para
+                                 mejorar      eficiencia     y
+Costos:
+                                 sostenibilidad.
+Definición
+                                 Aplicar     métodos   para
+Clasificación:          fijos,   evaluar costos, riesgos y
+variables,     directos     e    beneficios de alternativas
+indirectos.                      financieras.
+
+Costos de producción,            Incorporar     criterios   de
+servicios y comercio.            economía      circular   para
+                                 valorar la sostenibilidad de
+Punto de equilibrio:             alternativas.
+
+Concepto y cálculo.              Analizar     y    comparar
+                                 opciones de inversión o
+Interpretación y aplicación      financiamiento        para
+en proyectos.                    seleccionar    la     más
+                                 adecuada.
+Presupuestos:
+                                 Justificar la   selección
+Tipos            (operativos,    basada en eficiencia de
+financieros).
+                                 recursos y minimización de
+Elaboración     y     control
+                                 impactos ambientales.
+presupuestario.
+                                 Aplicar       procedimientos
+Economía     circular  en
+                                 básicos de control interno en
+costos y presupuestos:
+                                 inventarios,    caja    chica,
+Estrategias para reducción       archivo, etc.
+y reutilización de recursos.
+                                 Implementar         prácticas
+Presupuestos orientados a        sostenibles dentro de los
+la sostenibilidad y eficiencia   procesos de control para
+energética.                      optimizar recursos.
+
+Estados financieros:             Analizar     resultados   del
+                                 control interno para detectar
+Balance            Situación     desviaciones y riesgos.
+Financiera, Estado de
+Pérdidas y Ganancias,            Proponer y documentar
+Flujo de Efectivo y Cambios      mejoras      que     integren
+en el Patrimonio Neto:           eficiencia    operativa     y
+estructura y componentes.        sostenibilidad ambiental.
+
+Ratios financieras:
+
+Liquidez, endeudamiento,
+rentabilidad    y  otros
+indicadores clave.
+
+Técnicas      básicas      de
+análisis financiero:
+
+Interpretación              y
+diagnóstico.
+
+Identificación de riesgos
+financieros.
+
+Economía       circular    en
+análisis financiero:
+
+Identificación             de
+oportunidades para mejorar
+sostenibilidad financiera.
+
+Alternativas de inversión y
+financiamiento:
+Tipos: créditos, préstamos,
+aportes, leasing.
+
+Características, costos y
+condiciones.
+
+Evaluación financiera:
+
+Criterios   para     valorar
+costos,      riesgos       y
+beneficios.
+
+Métodos     básicos     de
+evaluación (análisis costo-
+beneficio,   retorno    de
+inversión).
+
+Economía       circular  en
+inversión y financiamiento:
+
+Contribución a la eficiencia
+de recursos y sostenibilidad
+ambiental.
+
+Control interno:
+
+Concepto,    objetivos    y
+elementos clave.
+
+Áreas de aplicación en
+administración       y
+contabilidad.
+
+Procedimientos de control
+interno:
+
+Control de inventarios, caja
+chica, archivo documental.
+
+Técnicas y herramientas
+básicas.
+
+Sostenibilidad en control
+interno:
+Prácticas para optimizar
+recursos   y    minimizar
+impactos ambientales.
+
+Propuestas   de    mejora
+basadas en resultados del
+control.
+
+Perfil del o la docente
+    Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+     Administración, Finanzas, Ingeniería Comercial o carreras técnicas afines
+    Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+•    Aprendizaje Basado en Proyectos (ABP)
+•    Aprendizaje en Contextos Reales
+•    Role-Playing y Simulaciones
+•    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                         Cantidad
+                              Entorno de aprendizaje
+Infraestructura/espacio                                                           1
+                              (aula)
+                              Computadoras con acceso a internet
+Laboratorio
+                                                                                  1
+                              Proyector
+Referencias Bibliográficas
+
+    Asamblea Nacional del Ecuador. (2021a, 6 de julio). Ley Orgánica de Economía Circular
+          Inclusiva.    Registro     Oficial   No.        488,    Cuarto     Suplemento.
+          https://www.asambleanacional.gob.ec/es/multimedios-legislativos/60811-ley-
+          organica-de-economia-circular
+
+    Asamblea Nacional del Ecuador. (2021b, 26 de mayo). Ley Orgánica de Protección de
+          Datos Personales. Registro Oficial No. 459, Quinto Suplemento.
+          https://www.registroficial.gob.ec/quinto-suplemento-al-registro-oficial-no-459/
+
+    Banco Central del Ecuador. (2025, 30 de noviembre). Información estadística mensual
+          No.                                                                     2085.
+          https://contenido.bce.fin.ec/documentos/PublicacionesNotas/Catalogo/IEMensu
+          al/m2085/IEM2085.pdf
+Candelas Ramírez, E., García Chavero, M. P., García González, M., García Ortiz, M. E.,
+      Hernández Mendoza, F., & Montero Montiel, G. (2012). Fundamentos de
+      administración.    Universidad       Nacional   Autónoma       de      México.
+      https://rua.unam.mx/portal/recursos/ficha/4519
+
+Chagerben Salinas, L., Rojas Vera, V. de los Á., López Franco, E. R., & Fiallos
+      Veintimilla, H. (2025). El análisis económico-financiero en los emprendedores y
+      su relación con el Régimen Impositivo RIMPE en el sector G45 en la provincia
+      del        Guayas.       X-Pedientes        Económicos,         9(22),    6–18.
+      https://ojs.supercias.gob.ec/index.php/X-pedientes_Economicos/article/view/219
+
+Chiriboga Leon, C. (2023). Cultura contable financiera y su relación con el Régimen
+       RIMPE.           X-Pedientes          Económicos,        7(17),          53–68.
+       https://ojs.supercias.gob.ec/index.php/X-pedientes_Economicos/article/view/142
+
+Guamán Calvopiña, M. M. (2024). Mapa histórico normativo de la contabilidad societaria
+     ecuatoriana (1974–2024). X-Pedientes Económicos, 8(19), 92–114.
+     https://ojs.supercias.gob.ec/index.php/X-pedientes_Economicos/article/view/162
+
+Ministerio de Educación del Ecuador. (2024). Inserción curricular: Educación para el
+       desarrollo         sostenible.          https://recursos.educacion.gob.ec/wp-
+       content/uploads/2024/09/INSERCIO%CC%81N-CURRICULAR-DE-
+       EDUCACIO%CC%81N-PARA-EL-DESARROLLO-SOSTENIBLE.pdf
+
+Servicio de Rentas Internas. (2025, octubre). Ficha técnica: Manual de usuario, catálogo
+       y especificaciones técnicas para la emisión de comprobantes electrónicos
+       mediante el método de automatización off-line (Versión 2.32).
+       https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-
+       internet/descargar/29562323-2e76-42f5-abb6-
+       cb7ac542c3c6/FICHA%20TE%CC%81CNICA%20COMPROBANTES%20ELEC
+       TRO%CC%81NICOS%20ESQUEMA%20OFFLINE%20Versio%CC%81n%202.
+       32.pdf
+
+Superintendencia de Compañías, Valores y Seguros. (2011, 12 de enero). Resolución
+       No. SC.Q.ICI.CPAIFRS.11.01: Reglamento para la aplicación de las Normas
+       Internacionales de Información Financiera completas y de la Norma Internacional
+       de Información Financiera para Pequeñas y Medianas Entidades.
+       https://www.supercias.gob.ec/bd_supercias/descargas/ss/20130207082132.pdf
+                                Módulo Genérico Nro.3
+
+Nombre del módulo:                  Inglés Técnico Aplicado a los Negocios.
+
+Nivel:                              1ro y 2do
+
+Duración:                           200 periodos pedagógicos
+                                    UC 3: Aplicar el inglés técnico en los negocios,
+Unidad    de       competencia
+                                    desarrollando habilidades de comunicación oral y
+asociada:
+                                    escrita.
+Objetivo del módulo:
+Desarrollar competencias comunicativas en inglés técnico que permitan al estudiante
+comprender y utilizar el idioma en contextos administrativos, contables y financieros,
+facilitando la inserción en entornos laborales y académicos.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Comprender vocabulario técnico y estructuras gramaticales básicas del inglés
+utilizadas en contextos administrativos, contables y financieros.
+CE1.1: Explica el significado de términos y expresiones técnicas básicas en inglés
+relacionadas con la gestión administrativa y contable.
+CE1.2: Utiliza vocabulario técnico para describir funciones laborales y jerarquías en
+situaciones simuladas.
+CE1.3: Relaciona estructuras gramaticales básicas con términos técnicos para construir
+oraciones coherentes en contextos administrativos.
+RA 2: Interpretar documentos técnicos en inglés relacionados con la gestión
+contable, presupuestaria y financiera.
+CE2.1: Describe información relevante en documentos técnicos en inglés, como facturas y
+reportes financieros.
+CE2.2: Analiza la información de estados financieros y presupuestos simples en inglés para
+responder preguntas específicas.
+CE2.3: Utiliza datos claves de documentos contables o administrativos en inglés, utilizando
+terminología técnica adecuada.
+RA 3: Producir textos escritos básicos en inglés técnico para la comunicación
+profesional en contextos administrativos y financieros.
+CE3.1: Explica la estructura y el propósito de textos administrativos y contables en inglés,
+como correos y cotizaciones.
+CE3.2 Elabora correos electrónicos y documentos breves aplicando vocabulario técnico y
+estructura adecuada.
+CE3.3: Utiliza formularios y comprobantes simples en inglés, asegurando precisión
+terminológica y formalidad.
+RA 4: Comunicar oralmente en inglés situaciones laborales simuladas, utilizando
+expresiones y vocabulario propio del entorno contable-administrativo.
+CE4.1: Reconoce y explica expresiones comunes utilizadas en conversaciones laborales
+relacionadas con administración y finanzas.
+CE4.2: Practica con diálogos simulados sobre funciones administrativas y estados
+financieros usando vocabulario técnico.
+CE4.3: Presenta oralmente información financiera básica y procedimientos administrativos
+de manera clara y coherente.
+Contenidos
+Conceptuales                       Procedimentales                Actitudinales
+Vocabulario            técnico     Identificar y definir términos Mostrar      disposición     y
+básico:              términos      técnicos en textos y audios. apertura hacia el aprendizaje
+administrativos, contables y                                      de un idioma extranjero
+financieros               (e.g.,   Interpretar organigramas y como herramienta para el
+department,            invoice,    describir funciones usando desarrollo profesional.
+balance, cost, pasado simple       vocabulario específico.
+                                                                  Valorar la importancia de la
+y Will or be going to).
+                                   Construir oraciones simples precisión y claridad en la
+Estructuras gramaticales           utilizando términos técnicos comunicación escrita y oral
+simples: presente simple,          y estructuras gramaticales en inglés en contextos
+                                   básicas.                       administrativos, contables y
+tiempos verbales básicos,
+                                                                  financieros.
+oraciones         afirmativas,
+                                   Leer y localizar información Demostrar        perseverancia,
+negativas e interrogativas.
+                                   clave      en     documentos disciplina y responsabilidad
+Jerarquías organizacionales
+                                   técnicos.                      en la práctica del vocabulario
+y funciones laborales en
+inglés.                                                           técnico    y      estructuras
+                               Analizar estados financieros
+                                                                  gramaticales.
+                               básicos para identificar datos
+Tipos de documentos relevantes.                                   Fomentar una actitud de
+técnicos: facturas, reportes                                      seguridad,    confianza   y
+financieros, presupuestos, Resumir              información       respeto intercultural en la
+estados financieros básicos. financiera y presupuestaria          interacción y comunicación
+Elementos de los estados en inglés técnico.                       en inglés.
+financieros     en      inglés
+(Balance Sheet, Income Redactar                      correos      Desarrollar proactividad y
+Statement).                    electrónicos y cartas breves       colaboración en actividades
+                               usando vocabulario técnico.        de lectura, escritura y
+Vocabulario relacionado con                                       comunicación           oral,
+cifras, fechas, montos y                                          apoyando el trabajo en
+términos contables.
+Formatos y estructura de                                   equipo y el          aprendizaje
+                                Completar formularios y
+textos profesionales: correos                              compartido.
+                                documentos administrativos
+electrónicos,        informes
+                                en inglés.
+breves,         cotizaciones,
+formularios.                   Elaborar cotizaciones y
+                               reportes     sencillos     con
+Vocabulario y expresiones estructura clara y coherente.
+para redacción formal.
+                               Participar    en      diálogos
+Normas       básicas        de simulados de atención al
+redacción: en inglés (uso de cliente,       reuniones       o
+saludos,    cierre     formal, entrevistas.
+lenguaje técnico).
+                               Presentar        información
+Expresiones      y      frases financiera y administrativa
+comunes en reuniones, con apoyo visual sencillo.
+atención    al    cliente    y
+presentación de información Formular         y     responder
+técnica.                       preguntas relacionadas con
+                               procesos      contables      y
+Vocabulario de funciones       administrativos.
+laborales,    procedimientos
+contables y financieros.
+
+Estrategias básicas para la
+comunicación oral efectiva
+(claridad, formalidad, uso de
+preguntas).
+
+Perfil del o la docente
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Licenciatura
+    Lenguas Extranjeras o carrera afín, o carreras afines.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+•   Formación complementaria en enseñanza de inglés técnico o inglés para fines
+    específicos
+
+Orientaciones Metodológicas
+
+       Aprendizaje Basado en Proyectos (ABP)
+       Aprendizaje en Contextos Reales
+       Role-Playing y Simulaciones
+       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                 Detalle de especificaciones técnicas       Cantidad
+Infraestructura/espacio      Entorno de aprendizaje (aula)              1
+                             Computadoras con acceso a internet
+Laboratorio                                                             1
+                             Proyector
+Referencias Bibliográficas
+Avcı, N., & Engin-Demir, C. (2021). Promoting the vocational English language
+       competences of students in an English for specific purposes context: A needs
+       assessment. Psycho-Educational Research Reviews, 10(3), 125–139.
+       https://doi.org/10.52963/PERR_Biruni_V10.N3.08
+
+Consejo de Europa. (2020). Marco común europeo de referencia para las lenguas:
+      Aprendizaje, enseñanza, evaluación. Volumen complementario. Servicio de
+      Publicaciones del Consejo de Europa. https://rm.coe.int/marco-comun-europeo-de-
+      referencia-para-las-lenguas-aprendizaje-ensenan/1680a52d53
+
+Giang, H. T. (2022). Some effective methods to help students to be much more confident
+       when using Business English. Pegem Journal of Education and Instruction, 12(2),
+       246–250. https://doi.org/10.47750/pegegog.12.02.24
+
+Hao, L., Tian, K., Leng, C. H., Salleh, U. K. M., Ge, S., & Cheng, X. (2024). The effect of
+       project-based learning and project-based flipped classroom on critical thinking and
+       creativity for Business English course at higher vocational colleges. Malaysian
+       Journal of Learning and Instruction, 21(1), 159–189.
+       https://doi.org/10.32890/mjli2024.21.1.6
+
+Kaya, S. (2021). From needs analysis to development of a vocational English language
+       curriculum: A practical guide for practitioners. Journal of Pedagogical Research,
+       5(1), 154–171. https://doi.org/10.33902/JPR.2021167471
+
+Lucas, K., Rawlins, J. D., & Haugen, J. (2023). Business communication: Five core
+       competencies. SAALCK. https://saalck.pressbooks.pub/businesscommunication/
+
+Ministerio de Educación del Ecuador. (2016). English as a foreign language.
+       https://educacion.gob.ec/wp-content/uploads/downloads/2016/08/0-EFL_v2.pdf
+
+Nasihin, A., & Oktarini. (2022). The impact of using English curriculum design based on
+       industry needs in English teaching on vocational school to improve students’
+       English skill for industry-standard working communication. Education Quarterly
+       Reviews, 5(1), 138–144. https://doi.org/10.31014/aior.1993.05.01.425
+
+Pan, Y.-C. (2024). A work-based approach for improving students’ performance in the
+       college general English class. English Language Teaching Educational Journal,
+       7(2), 65–78. https://doi.org/10.12928/eltej.v7i2.11017
+
+Sudana, P. A. P., Ratminingsih, N. M., Padmadewi, N. N., & Adnyani, N. L. P. S. (2024).
+      Industry-driven task needs and syllabus recommendation for Business English
+        materials. International Journal of Language Education, 8(4), 734–748.
+        https://doi.org/10.26858/ijole.v8i4.70001
+
+ Thuan, P. D. (2024). Developing English for specific purposes programs: A literature
+        review. Journal for Research Scholars and Professionals of English Language
+        Teaching, 8(41), 1–7. https://doi.org/10.54850/jrspelt.8.41.002
+
+ Trace, J., Hudson, T., & Brown, J. D. (2015). An overview of language for specific
+        purposes. En J. Trace, T. Hudson y J. D. Brown (Eds.), Developing courses in
+        languages for specific purposes (pp. 1–23). National Foreign Language Resource
+        Center, University of Hawai‘i at Mānoa. http://hdl.handle.net/10125/14573
+
+ Trujeque-Moreno, E. E., Romero-Fernández, A., Esparragoza-Barragán, A., & Villa-
+        Jaimes, C. J. (2021). Needs analysis in the English for Specific Purposes
+        approach: The case of the Benemérita Universidad Autónoma de Puebla.
+        MEXTESOL Journal, 45(2), 1–24. https://files.eric.ed.gov/fulltext/EJ1295036.pdf
+
+
+
+
+   4. Módulos de Especialización
+
+Las y los jóvenes que cursen el Bachillerato Técnico en Gestión Financiera y Contable
+se caracterizarán por contar con una sólida formación en procesos contables y
+financieros, administración de recursos, planificación y control presupuestario, gestión
+tributaria y atención a clientes internos y externos.
+
+Se estructuran los siguientes módulos de especialización para primero, segundo y
+tercero de bachillerato:
+
+   •   Gestión y Control Financiero
+   •   Financiamiento e Inversión
+   •   Legislación Tributaria Aplicada
+   •   Planificación y Control Presupuestario
+   •   Análisis Financiero
+
+                            Módulo de Especialización Nro. 1
+
+ Nombre del módulo formativo:          Gestión y Control Financiero
+
+                                       1ro, 2do, 3ro
+ Nivel: Bachillerato
+                                       520 periodos pedagógicos
+ Duración:
+                                      UC1: Ejecutar los procesos de control y
+Unidad      de      competencia       administración del flujo de efectivo que garantice la
+asociada:                             disponibilidad y uso adecuado del dinero en la
+                                      organización.
+
+Objetivo del módulo:
+
+Desarrollar competencias para administrar y controlar el flujo de efectivo en una
+organización, asegurando su disponibilidad y uso óptimo mediante técnicas de planificación,
+registro y análisis financiero, bajo principios de responsabilidad y cumplimiento normativo.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Identificar los conceptos y componentes del flujo de efectivo y explica su
+utilidad en la gestión financiera básica de una organización, aplicándolos en
+situaciones prácticas y simulaciones contables.
+
+CE1.1: Explica los conceptos y componentes del flujo de efectivo con lenguaje claro y
+adecuado, demostrando comprensión de su importancia en la gestión financiera.
+
+CE1.2: Aplica correctamente los conceptos del flujo de efectivo en ejercicios prácticos y
+simulaciones que reflejan la gestión financiera básica.
+
+CE1.3: Utiliza herramientas básicas para registrar y organizar información relacionada con
+el flujo de efectivo en casos prácticos.
+
+CE1.4: Propone situaciones financieras simuladas para identificar el impacto del flujo de
+efectivo en la operación de una organización y propone recomendaciones simples.
+
+RA 2: Registrar movimientos de efectivo empleando herramientas y técnicas
+adecuadas, asegurando la precisión y confiabilidad de la información financiera.
+
+CE2.1: Describe las herramientas y técnicas utilizadas para el registro de movimientos de
+efectivo, explicando su función y utilidad.
+
+CE2.2: Registra movimientos de efectivo correctamente en formatos o sistemas contables,
+aplicando técnicas que garanticen la precisión de la información.
+
+CE2.3: Utiliza procedimientos adecuados para verificar la exactitud y coherencia de los
+registros financieros relacionados con el flujo de efectivo.
+
+CE2.4: Analiza registros de movimientos de efectivo para identificar posibles errores o
+inconsistencias y propone acciones correctivas basadas en el análisis.
+RA 3: Aplicar técnicas financieras básicas para procesar reportes de flujo de efectivo,
+identificar variaciones significativas y reportar observaciones relevantes bajo
+supervisión.
+
+CE3.1: Clasifica los componentes del flujo de efectivo en reportes financieros preelaborados
+utilizando herramientas digitales básicas.
+
+CE3.2: Emplea fórmulas y métodos preestablecidos para procesar datos de flujo de efectivo
+e identificar variaciones significativas.
+
+CE3.3: Demuestra la relación entre las variaciones del flujo de efectivo y sus posibles
+causas, aplicando criterios proporcionados en situaciones concretas.
+
+CE3.4: Elabora reportes ejecutivos básicos con observaciones relevantes y propuestas de
+acción.
+
+RA 4: Proponer estrategias para mejorar la administración del flujo de efectivo,
+optimizando la disponibilidad y el uso de los recursos financieros, basándose en el
+análisis de la información financiera.
+
+CE4.1: Describe los principios básicos para la administración eficiente del flujo de efectivo
+y su impacto en la organización.
+
+CE4.2: Aplica técnicas para identificar áreas de oportunidad en la administración del flujo
+de efectivo mediante el análisis de datos financieros.
+
+CE4.3: Implementa estrategias básicas en ejercicios o simulaciones que contribuyan a
+optimizar la disponibilidad y uso de recursos financieros.
+
+CE4.4: Analiza la información financiera disponible para diseñar propuestas fundamentadas
+que mejoren la administración del flujo de efectivo en una organización.
+
+Contenidos
+
+Conceptuales                   Procedimentales            Actitudinales
+Introducción a la gestión
+financiera                                                 Integrar la ética profesional
+                             Comprender y explicar
+                                                           mediante la aplicación de casos
+                             los conceptos básicos
+Definición y objetivos de la                               de negocios y los alumnos
+                             de gestión financiera.
+gestión financiera.                                        comprendan la responsabilidad de
+                                Definir y explicar qué es sus acciones y decisiones.
+Importancia de la gestión
+                                la gestión financiera y
+financiera     en       la                                 Respetar los derechos humanos,
+                                su importancia.
+organización.                                              sin distinción racial, de género,
+                                Identificar y clasificar cultura, estilos de aprendizaje,
+Relación de la gestión
+                                ingresos y egresos en necesidades             generales      o
+financiera con otras áreas                                 específicas   de   aprendizaje,   al
+                                ejemplos concretos.
+(administración,                                           administrar el dinero.
+contabilidad, producción).      Registrar ingresos y
+                                egresos                    Colaborar con el equipo y
+Conceptos      básicos    de                               coordinar la aplicación de la
+finanzas                        Elaborar         registros educación financiera para generar
+                                diarios      de       caja acciones eficientes que sean de
+Dinero: definición y función                               beneficio personal, familiar y
+                                (manuales o digitales).
+dentro de la empresa.                                      social.
+                                Clasificar
+Ingresos y egresos: tipos,
+                                correctamente          los Asumir con responsabilidad el
+ejemplos y clasificación.                                  cumplimiento de plazos en el
+                                movimientos
+                                financieros según su ámbito de la gestión financiera.
+Ahorro e inversión: nociones
+                                naturaleza.
+básicas y su relación con el                               Valorar la elaboración y gestión de
+flujo de efectivo.
+                                Elaborar y controlar un estados financieros, flujos de
+                                presupuesto de efectivo efectivo,        financiamiento      o
+Flujo de efectivo (cash flow)
+                                                           inversión.
+                                Preparar                un
+Definición y su papel en la
+                                presupuesto de caja Emplear diferentes fuentes de
+gestión financiera.
+                                básico usando datos información y discernir con sentido
+Diferencias entre flujo de      reales o simulados.        crítico sus contenidos.
+efectivo y estado de
+                             Comparar              el
+resultados.
+                             presupuesto con el flujo
+Importancia para la liquidez real     y    detectar
+de la empresa.               desviaciones.
+
+Capital de trabajo y liquidezAjustar el presupuesto
+                             para    mantener    la
+Componentes del capital de liquidez.
+trabajo (caja, cuentas por
+cobrar, inventarios, cuentas
+por pagar).
+                                 Gestionar la liquidez y el
+                                 capital de trabajo
+Liquidez: concepto y su
+relevancia para la operación Analizar el estado de la
+diaria.                      liquidez      de      la
+                             organización.
+Presupuesto de efectivo.
+                             Proponer acciones para
+Concepto y objetivos del garantizar
+presupuesto de caja.         disponibilidad       de
+                             efectivo    (pago    de
+Tipos y periodicidad del proveedores, cobro a
+presupuesto        (mensual, clientes, manejo de
+trimestral).                 inventarios).
+Control financiero      Utilizar    herramientas
+                        básicas para el control
+Registro de movimientos
+                        del flujo de efectivo
+financieros (ingresos y
+egresos).               Manejar plantillas en
+                             Excel        u     otras
+Herramientas para el control
+                             aplicaciones       para
+del   flujo  de     efectivo
+                             registrar y controlar el
+(manuales y digitales).
+                             flujo de efectivo.
+Ética y      responsabilidad
+                                 Interpretar     informes
+financiera
+                                 generados.
+Importancia de la ética en la
+                              Aplicar principios éticos
+administración del dinero.
+                              en la administración del
+Consecuencias de una mala dinero.
+gestión del flujo de efectivo.
+                                 Identificar decisiones
+                                 financieras
+                                 responsables   y    no
+                                 responsables.
+
+                                 Reflexionar sobre el
+                                 impacto de la ética en la
+                                 gestión financiera.
+
+
+
+Perfil del o la docente
+
+   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+    Finanzas, Economía, Administración de Empresas, o carreras afines.
+   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+   Aprendizaje Basado en Proyectos (ABP)
+   Aprendizaje en Contextos Reales
+   Role-Playing y Simulaciones
+   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                                                                           Cantidad
+Denominación                  Especificaciones técnicas
+                                                                           1
+Infraestructura/espacio       Entorno de aprendizaje (aula)
+                              Computadoras con acceso a internet
+
+                              Calculadoras financieras o científicas para
+Laboratorio                   cálculos manuales.                          1
+
+                              Proyector multimedia y sistema de audio
+                              para presentaciones didácticas.
+
+                              Herramientas Tecnológicas (Software y
+                              Aplicaciones)
+
+                              Microsoft Excel (o equivalente LibreOffice
+                              Calc, Google Sheets)
+
+                              Para      elaboración   y   control    de
+Herramientas/equipos
+                              presupuestos, registros de caja y análisis
+                              de flujo de efectivo.
+
+                              Uso de plantillas prediseñadas o creación
+                              de hojas de cálculo personalizadas.
+
+                              Software contable básico)
+
+Referencias Bibliográficas
+Fajardo Ortiz, M., & Soto González, C. (Coords.). (2018). Gestión financiera empresarial.
+       Ediciones UTMACH. https://repositorio.utmachala.edu.ec/bitstreams/6d508871-
+       f9a3-4d2e-9340-19b394465b84/download
+
+Fundación IFRS. (2025). Norma de Contabilidad NIIF para las PYMES (3.ª ed.). Fundación
+      IFRS.                    https://www.ifrs.org/content/dam/ifrs/publications/ifrs-for-
+      smes/spanish/2025/ifrs-for-smes-es.pdf
+
+Instituto de Contabilidad y Auditoría de Cuentas. (2025). NIC 7: Estado de flujos de
+         efectivo. Ministerio de Economía, Comercio y Empresa de España.
+         https://www.icac.gob.es/sites/default/files/2025-07/NIC%207.julio%2025.pdf
+
+Iza-López, K. J., & Erazo-Álvarez, J. C. (2021). Gestión del flujo de efectivo en
+       organizaciones del sector no financiero popular y solidario. CIENCIAMATRIA, 7(2),
+       307–336. https://doi.org/10.35381/cm.v7i2.512
+
+Meza Riquelme, M. (2023). Finanzas empresariales para la pequeña y microempresa.
+      Comunicación Científica. https://doi.org/10.52501/cc.125
+
+Párraga Franco, S. M., Pinargote Vázquez, N. F., García Álava, C. M., & Zamora Sornoza,
+      J. C. (2021). Indicadores de gestión financiera en pequeñas y medianas empresas
+      en Iberoamérica: Una revisión sistemática. Dilemas Contemporáneos: Educación,
+      Política y Valores, 8, artículo 26. https://doi.org/10.46377/dilemas.v8i.2610
+
+Pérez-Patiño, M., Sepúlveda-Sepúlveda, Y., & Correa-García, J. A. (2022). Perfil del
+      estado de flujos de efectivo de las empresas colombianas bajo NIIF. Revista
+      Facultad de Ciencias Económicas: Investigación y Reflexión, 30(2), 115–137.
+      https://doi.org/10.18359/rfce.6435
+
+Puente Riofrío, M. I., Carrillo Hernández, J. I., Calero Cazorla, E. A., & Gavilánez Álvarez,
+      O. D. (2022). Fundamentos de gestión financiera. Editorial Universidad Nacional
+      de                                                                         Chimborazo.
+      https://obsinvestigacion.unach.edu.ec/obsrepositorio/libros/108/fundamentos_de_
+      gestion_financiera.pdf
+
+Salas-Muentes, N. D., & Zambrano-Zambrano, E. J. (2025). Gestión financiera y su
+       incidencia en la rentabilidad de microempresas comerciales manabitas. Ecuador.
+       Gestio et Productio. Revista Electrónica de Ciencias Gerenciales, 7(12).
+       https://doi.org/10.35381/gep.v7i12.202
+
+Sánchez-Pacheco, M. E., Bermúdez-Fajardo, P. N., Zea-Franco, R. D., & Zambrano-
+      Farías, F. J. (2022). Liquidez, endeudamiento y rentabilidad de las mipymes en
+      Ecuador: Un análisis comparativo. INNOVA Research Journal, 7(3.2), 36–50.
+      https://doi.org/10.33890/innova.v7.n3.2.2022.2209
+ Servicio de Rentas Internas. (2024). Ficha técnica: Manual de usuario, catálogo y
+        especificaciones técnicas. Emisión de comprobantes electrónicos: Método de
+        automatización fuera de línea (versión 2.26). https://www.sri.gob.ec/o/sri-portlet-
+        biblioteca-alfresco-internet/descargar/ed555352-46c7-4917-9f61-
+        011b6a9f4600/FICHA%20TE%CC%81CNICA%20COMPROBANTES%20ELECT
+        RO%CC%81NICOS%20ESQUEMA%20OFFLINE%20Versio%CC%81n%202.26.
+        pdf
+
+ Tipán Masaquiza, A., & Abril Flores, J. F. (2024). Modelo de gestión financiera para toma
+        de decisiones en microempresas de Ambato-Tungurahua. RES NON VERBA
+        Revista Científica, 14(2), 34–55. https://doi.org/10.21855/resnonverba.v14i2.919
+
+
+
+
+                           Módulo de Especialización Nro. 2
+
+Nombre del módulo:                      Financiamiento e Inversión
+
+Nivel:                                  2do, 3ro
+
+                                        240 periodos pedagógicos
+Duración:
+                                        UC2: Emplear criterios financieros en la
+                                        evaluación de opciones de financiamiento e
+                                        inversión, diferenciando términos, condiciones y
+Unidad de competencia asociada:
+                                        plazos, con el propósito de seleccionar alternativas
+                                        que respondan a las necesidades económicas de
+                                        la organización.
+
+Objetivo del módulo:
+
+Aplicar criterios financieros para evaluar opciones de financiamiento e inversión,
+identificando y diferenciando términos, condiciones y plazos, con el fin de seleccionar
+alternativas que satisfagan las necesidades económicas de una organización.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Describir los conceptos básicos de inversión y financiamiento, así como los
+términos, condiciones y plazos asociados a cada opción, aplicándolos en contextos
+financieros básicos.
+
+CE1.1: Explica los conceptos fundamentales de inversión y financiamiento, diferenciando
+entre sus características principales.
+
+CE1.2: Relaciona los distintos tipos de inversión y financiamiento con sus respectivos
+términos, condiciones y plazos
+
+CE1.3: Aplica los conceptos de inversión y financiamiento para seleccionar opciones
+adecuadas en situaciones financieras simuladas
+
+CE1.4: Elabora ejemplos prácticos que muestren la aplicación de plazos, condiciones y
+términos en decisiones básicas de inversión o financiamiento.
+
+RA 2: Aplicar criterios financieros básicos para evaluar diferentes opciones de
+inversión y financiamiento en situaciones prácticas, tomando decisiones
+fundamentadas que respondan a las necesidades económicas de la organización.
+
+CE1.1: Describe los criterios financieros básicos (rentabilidad, riesgo, liquidez, plazo, entre
+otros) utilizados para evaluar inversiones y financiamiento.
+
+CE1.2: Relaciona las características de distintas opciones de inversión y financiamiento
+con los criterios financieros básicos, en función de los objetivos económicos de una
+organización.
+
+CE1.3: Utiliza herramientas financieras básicas (como tablas de amortización, tasas de
+interés simple y compuesta, valor presente neto) para evaluar opciones de financiamiento
+e inversión.
+
+CE1.4: Propone alternativas de inversión o financiamiento más convenientes según un
+análisis de criterios financieros y necesidades específicas de una organización simulada.
+
+RA 3: Comparar alternativas de inversión y financiamiento, analizando sus ventajas,
+desventajas y el impacto en la gestión financiera de la organización para apoyar la
+toma de decisiones.
+
+CE3.1: Explica los principales tipos de inversión y financiamiento, incluyendo sus
+características, ventajas y desventajas.
+
+CE3.2: Relaciona los conceptos de riesgo, rentabilidad, liquidez y plazo con las distintas
+alternativas de inversión y financiamiento.
+
+CE3.3: Utiliza herramientas de análisis financiero (como matrices comparativas, flujos de
+caja, tasas de retorno) para evaluar diversas alternativas.
+
+CE3.4: Selecciona la opción de inversión o financiamiento más adecuada en función de
+los objetivos financieros y las condiciones de la organización.
+
+RA 4: Analizar la conveniencia de opciones de inversión y financiamiento, tomando
+decisiones fundamentadas que optimicen los recursos financieros disponibles en
+la organización.
+
+CE4.1: Define los principios básicos de optimización de recursos financieros en relación
+con decisiones de inversión y financiamiento.
+
+CE4.2: Relaciona las características de distintas opciones financieras con los objetivos de
+eficiencia y rentabilidad de la organización.
+
+CE4.3: Aplica procedimientos de análisis financiero (por ejemplo, ROI, TIR, VPN, relación
+costo-beneficio) para determinar la viabilidad de las opciones propuestas.
+
+CE4.4: Propone decisiones de inversión y financiamiento mediante la interpretación de
+datos cuantitativos y cualitativos que evidencien el uso eficiente de los recursos
+disponibles.
+
+Contenidos
+
+Conceptuales                   Procedimentales                    Actitudinales
+
+Conceptos     básicos      de Identificar información financiera Asumir               con
+inversión                                                        responsabilidad en la
+                              Recoger datos relevantes sobre toma         de   decisiones
+Definición y finalidad de la opciones        de   inversión    y financieras.
+inversión.                    financiamiento.
+                                                                 Asumir con seriedad las
+Tipos       de      inversión Interpretar términos financieros implicaciones de sus
+(financiera, productiva, a como tasas de interés, plazos y decisiones sobre el uso
+corto/largo plazo).           condiciones.                       de recursos económicos.
+
+Riesgo,      rentabilidad    y Clasificar las opciones según Ejercitar el pensamiento
+liquidez en las inversiones.   criterios financieros básicos. crítico y reflexivo.
+
+Horizonte temporal de la Aplicar criterios financieros para Evaluar             diversas
+inversión.                   la evaluación.                    alternativas con una
+                                                               actitud         analítica,
+Conceptos fundamentales Comparar            alternativas    de argumentando          sus
+de financiamiento            inversión    y     financiamiento elecciones.
+                             utilizando               matrices
+Fuentes de financiamiento comparativas.                        Valorar el uso eficiente y
+(internas y externas).                                         sostenible     de      los
+                             Calcular indicadores como el recursos financieros de la
+Financiamiento a corto, ROI, TIR, VPN, entre otros.
+                                                               organización.
+mediano y largo plazo.
+                             Evaluar riesgos y beneficios
+Costo del dinero (intereses, asociados a cada opción.
+comisiones, garantías).
+Endeudamiento y capacidad Simular            en       escenarios Demostrar honestidad y
+de pago.                  financieros                             ética profesional en el
+                                                                  ámbito financiero.
+Criterios financieros básicos Elaborar       flujos   de     caja
+para la toma de decisiones     proyectados       para   distintas Actuar con integridad en
+                               alternativas.                      el manejo de información
+Rentabilidad (ROI, ROE).                                          y toma de decisiones
+                               Simular el comportamiento financieras.
+Valor presente neto (VPN) y financiero de una organización
+tasa interna de retorno (TIR). ante         decisiones         de Trabajar
+                               inversión/financiamiento.          colaborativamente.
+Relación costo-beneficio.
+                              Utilizar software o plantillas Participar activamente en
+Riesgo financiero y análisis digitales básicas para el análisis equipos para analizar y
+de sensibilidad.              financiero.                        resolver       situaciones
+                                                                 financieras    reales    o
+Herramientas               de Seleccionar        opciones     de simuladas.
+evaluación financiera         inversión y financiamiento que
+                              optimicen         los     recursos Demostrar      disposición
+Tablas de amortización.
+                              disponibles.                       frente al aprendizaje
+Flujo de caja proyectado.                                        continuo.
+                              Justificar      las     decisiones
+Análisis comparativo de financieras mediante datos, Mostrar                  interés    por
+alternativas    (matriz    de análisis y criterios técnicos.     actualizar             sus
+decisiones).                                                     conocimientos
+                              Redactar informes financieros financieros y adaptarse a
+Interpretación de indicadores breves       con       argumentos nuevos contextos.
+financieros.                  fundamentados.
+
+Gestión    financiera    y Evaluar del impacto            en   la
+optimización de recursos   gestión financiera.
+
+                           Analizar los efectos de cada
+                           decisión sobre el presupuesto,
+Objetivos de la gestión liquidez y sostenibilidad de la
+financiera organizacional. organización.
+
+Presupuesto financiero       y Contrastar             resultados
+control de gastos.             esperados       con      objetivos
+                               financieros institucionales.
+Estrategias para el uso
+eficiente de recursos.         Reflexionar sobre los efectos de
+                               la toma de decisiones en el corto
+Impacto     de     decisiones y mediano plazo.
+financieras       en        la
+sostenibilidad     de      la Demostrar Rigor y precisión en
+organización.                 el análisis financiero.
+
+Toma    de    decisiones
+fundamentadas
+
+Proceso     de    toma    de
+decisiones financieras.
+
+Evaluación           de
+consecuencias a corto y
+largo plazo.
+
+Ética y responsabilidad en
+las decisiones económicas.
+
+Perfil del o la docente
+
+   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+    Finanzas, Economía, Administración de Empresas, o carreras afines.
+   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+   Aprendizaje Basado en Proyectos (ABP)
+   Aprendizaje en Contextos Reales
+   Role-Playing y Simulaciones
+   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                                                                              Cantidad
+Denominación                Detalle de especificaciones técnicas
+
+Infraestructura/espacio     Entorno de aprendizaje (aula)                     1
+
+                            Computadoras con acceso a internet
+
+                            Calculadoras financieras o científicas para
+Laboratorio                                                             1
+                            cálculos manuales.
+
+                            Proyector multimedia y sistema de audio para
+                            presentaciones didácticas.
+Equipos/herramientas        Software y herramientas digitales:
+                           Hojas de cálculo con funciones financieras.
+
+                           Simuladores financieros básicos o plantillas de
+                           flujo de caja, análisis comparativo, VPN, ROI,
+                           etc.
+
+                           Acceso a recursos digitales (bibliografía, casos
+                           prácticos, informes económicos).
+
+                           Manuales y guías de análisis financiero
+                           adaptadas al nivel técnico.
+
+                           Casos de estudio reales o simulados.
+Materiales                 Material impreso o digital con definiciones,
+                           ejemplos, ejercicios y gráficos financieros.
+
+                           Plantillas para la toma de decisiones (matrices,
+                           informes, cuadros comparativos).
+
+Referencias Bibliográficas
+
+ Correa Jiménez, S. E., & López Vera, J. (2025). Incidencia del financiamiento en el
+       rendimiento financiero de las pymes bananeras: Un estudio empírico para la
+       provincia        de       El     Oro.      Revista       InveCom,        5(1).
+       https://doi.org/10.5281/zenodo.10854350
+
+ Fajardo Ortiz, M., & Soto González, C. (Coords.). (2018). Gestión financiera empresarial.
+        Editorial UTMACH. https://repositorio.utmachala.edu.ec/bitstreams/6d508871-
+        f9a3-4d2e-9340-19b394465b84/download
+
+ López Mayher, C., Azar, K., & Andrade, S. G. (2022). Mejores prácticas para el
+       financiamiento de mipyme de mujeres en América Latina y el Caribe:
+       Recomendaciones para bancos nacionales de desarrollo. Banco Interamericano
+       de                                                                   Desarrollo.
+       https://publications.iadb.org/publications/spanish/document/Mejores-practicas-
+       para-el-financiamiento-de-mipymes-de-mujeres-en-America-Latina-y-el-
+       Caribe.pdf
+
+ Meza Riquelme, M. (2023). Finanzas empresariales para la pequeña y microempresa.
+       Comunicación Científica. https://doi.org/10.52501/cc.125
+
+ Ortegón, E., Pacheco, J. F., & Prieto, A. (2005). Metodología del marco lógico para la
+       planificación, el seguimiento y la evaluación de proyectos y programas. Comisión
+       Económica           para      América         Latina      y       el     Caribe.
+         https://repositorio.cepal.org/handle/11362/5607
+
+ Puente Riofrío, M. I., Carrillo Hernández, J. I., Calero Cazorla, E. A., & Gavilánez Álvarez,
+       O. D. (2022). Fundamentos de gestión financiera. Editorial Universidad Nacional
+       de                                                                         Chimborazo.
+       https://obsinvestigacion.unach.edu.ec/obsrepositorio/libros/108/fundamentos_de
+       _gestion_financiera.pdf
+
+ Sánchez-Pacheco, M. E., Bermúdez-Fajardo, P. N., Zea-Franco, R. D., & Zambrano-
+       Farías, F. J. (2022). Liquidez, endeudamiento y rentabilidad de las mipymes en
+       Ecuador: Un análisis comparativo. INNOVA Research Journal, 7(3.2), 36–50.
+       https://doi.org/10.33890/innova.v7.n3.2.2022.2209
+
+ Tipán Masaquiza, A., & Abril Flores, J. F. (2024). Modelo de gestión financiera para toma
+        de decisiones en microempresas de Ambato-Tungurahua. RES NON VERBA
+        Revista Científica, 14(2), 34–55. https://doi.org/10.21855/resnonverba.v14i2.919
+
+
+
+
+                            Módulo de Especialización Nro.3
+
+Nombre del módulo:                      Legislación Tributaria Aplicada
+
+Nivel:                                  1ro, 2do, 3ro
+
+                                        280 periodos pedagógicos
+Duración:
+                                        UC 3: Aplicar normativas tributarias vigentes en la
+                                        gestión integral de impuestos, mediante procesos
+Unidad       de       competencia       de declaración, planificación y control, utilizando
+asociada:                               herramientas     tecnológicas     para    optimizar
+                                        obligaciones fiscales en contextos personales y
+                                        empresariales.
+
+Objetivo del módulo: Aplicar normativas tributarias vigentes en la gestión de obligaciones
+fiscales personales y empresariales, mediante procesos de declaración, planificación y
+control, utilizando herramientas tecnológicas que optimicen el cumplimiento tributario en
+diversos contextos.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Describir las principales normativas tributarias vigentes en el Ecuador,
+identificando su aplicación en impuestos personales y empresariales.
+CE1.1: Explica los conceptos básicos del sistema tributario ecuatoriano, incluyendo los
+tipos de impuestos, sujetos pasivos y principios generales, utilizando vocabulario técnico
+apropiado.
+CE1.2: Identifica la normativa tributaria correspondiente según el tipo de contribuyente
+(persona natural o jurídica) y el tipo de impuesto.
+CE1.3: Aplica ejemplos concretos para demostrar cómo se determinan las obligaciones
+tributarias básicas según la legislación vigente.
+CE1.4: Compara las implicaciones legales y económicas de diferentes tipos de impuestos
+en personas naturales y jurídicas, reconociendo los criterios que determinan su aplicación.
+RA 2: Implementar correctamente procedimientos, formularios y formatos oficiales
+para la declaración de impuestos, de acuerdo con las normativas tributarias
+vigentes.
+CE2.1: Define los pasos generales del proceso de declaración tributaria y el propósito de
+los formularios oficiales (como el 102, 103, 104 o anexos del SRI).
+CE2.2: Practica correctamente en formularios tributarios básicos, ingresando información
+simulada conforme a los requisitos establecidos por el SRI.
+CE2.3: Utiliza la normativa vigente para calcular montos de impuestos a declarar en casos
+prácticos, aplicando los procedimientos establecidos.
+CE2.4: Analiza una declaración tributaria simulada para identificar posibles errores u
+omisiones, justificando las correcciones con base en la legislación vigente.
+RA 3: Utilizar herramientas tecnológicas (como plataformas del SRI, hojas de cálculo
+u otros sistemas) para planificar, elaborar y declarar obligaciones tributarias,
+considerando los plazos legales y los montos correspondientes.
+CE3.1: Explica la función y utilidad de herramientas tecnológicas (como el sistema del SRI,
+hojas de cálculo o software contable) en la gestión tributaria.
+CE3.2: Usa hojas de cálculo u otras aplicaciones para organizar información tributaria
+básica (ingresos, gastos, retenciones), aplicando fórmulas y formatos adecuados.
+CE3.3: Emplea el portal del SRI u otra plataforma digital para simular el proceso de
+declaración de impuestos, respetando plazos establecidos y condiciones legales.
+CE3.4: Analiza los resultados obtenidos mediante el uso de herramientas tecnológicas,
+proponiendo ajustes para mejorar el control de las obligaciones fiscales.
+RA 4: Proponer mejoras viables para optimizar los procesos de declaración y
+cumplimiento tributario, fundamentando sus decisiones en criterios de eficiencia,
+legalidad y gestión responsable.
+CE4.1: Explica los factores que influyen en la eficiencia del proceso de declaración
+tributaria, como el cumplimiento de plazos, la exactitud de la información y el uso adecuado
+de formularios.
+CE4.2: Identifica situaciones o prácticas que generan errores, retrasos o ineficiencias en
+simulaciones de procesos de declaración fiscal.
+CE4.3: Elabora propuestas sencillas para mejorar tiempos, precisión y cumplimiento de
+obligaciones fiscales utilizando formatos y recursos disponibles.
+CE4.4: Justifica las propuestas de mejora presentadas, explicando cómo contribuyen a
+optimizar la eficiencia y cumplimiento en la gestión fiscal.
+Contenidos
+
+                                                              Actitudinales
+Conceptuales                     Procedimentales
+Sistema             Tributario                                Ejercer con ética y legalidad en
+Ecuatoriano                      Identificar normativa.       la   presentación      de    sus
+                                                              trabajos.
+Principios,      tipos de        Interpretar      conceptos
+impuestos (IVA, Renta,           clave de la legislación      Valorar el cumplimiento de la
+ICE, ISD, etc.).                 tributaria vigente.          ley tributaria como principio
+                                                              profesional.
+Normativa vigente (COT,          Clasificar       impuestos
+resoluciones del SRI).           según su tipo, aplicación    Rechazar              prácticas
+                                 y sujeto tributario.         fraudulentas o evasivas.
+Sujetos    tributarios      y
+obligaciones legales.            Elaborar declaraciones       Demostrar disposición abierta
+                                 tributarias.                 frente      al    aprendizaje
+Gestión y Declaración de                                      tecnológico.
+Impuestos                        Llenar     correctamente
+                                 formularios oficiales del    Mantener un criterio abierto al
+Formularios oficiales (102,      SRI (simulados).             uso de herramientas digitales
+103, 104, 107, etc.).                                         en la gestión tributaria.
+                                 Aplicar  procedimientos
+Procedimientos             de    legales para declarar        Aprender a adaptarse a
+declaración.                     impuestos personales y       plataformas y procedimientos
+                                 empresariales.               digitales   con   autonomía
+Plazos, vencimientos        y                                 creciente.
+sanciones.                       Registrar datos contables
+                                 y tributarios básicos.       Colaborar y mejorar con el
+Herramientas                                                  equipo de trabajo.
+Tecnológicas para           la   Usar         herramientas
+Gestión Fiscal                   digitales.                   Participar   activamente    en
+                                                              trabajos grupales relacionados
+Plataforma    del    SRI   en    Ingresar información en
+                                                              con casos fiscales.
+línea.                           hojas de cálculo para el
+                                 cálculo     y     control    Proponer mejoras con actitud
+Uso de hojas de cálculo.         tributario.                  crítica y constructiva frente a
+                                                              procesos administrativos.
+Organización     de      datos   Simular declaraciones en
+tributarios.                     el portal web del SRI.
+
+Seguridad y verificación de      Validar datos y realizar
+información.                     ajustes    básicos    en
+                                 sistemas digitales.
+Optimización y Mejora de
+Procesos Tributarios.            Analizar y mejorar de
+Identificación de errores      procesos.
+comunes.
+                               Detectar           errores
+Criterios de eficiencia y      comunes                 en
+cumplimiento.                  simulaciones            de
+                               declaración tributaria.
+Buenas       prácticas   y
+propuestas de mejora en la     Comparar
+gestión fiscal.                procedimientos     para
+                               identificar formas más
+                               eficientes           de
+                               cumplimiento.
+
+                               Reconocer y analizar las
+                               responsabilidades fiscales.
+
+                               Formular        propuestas
+                               sencillas para mejorar la
+                               gestión      fiscal     en
+                               escenarios simulados.
+
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+    Finanzas, Economía, Administración de Empresas o carreras afines.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+    o   Aprendizaje Basado en Proyectos (ABP)
+    o   Aprendizaje en Contextos Reales
+    o   Role-Playing y Simulaciones
+    o   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                                                                            Cantidad
+Denominación               Especificaciones técnicas
+                                                                            1
+Infraestructura/espacio    Entorno de aprendizaje (aula)
+                           Computadoras con acceso a internet
+Laboratorio                                                                 1
+                           Proyector
+                          Calculadoras financieras o científicas para
+                          cálculos manuales.
+
+                          Navegadores compatibles con el portal del SRI
+                          y simuladores tributarios.
+
+                          Acceso al portal del Servicio de Rentas
+                          Internas (SRI) para prácticas simuladas.
+Equipos/herramientas
+                          Simuladores de declaraciones tributarias (si
+                          están disponibles en la institución)
+
+                         desarrollados internamente o proporcionados
+                         por organismos oficiales/ministerio de
+                         educación.
+                         Buscadores jurídicos y boletines oficiales
+Materiales
+                         (como Registro Oficial o SRI Noticias)
+Referencias Bibliográficas
+
+ Congreso Nacional del Ecuador. (2004). Ley de Régimen Tributario Interno (Codificación
+       N.º 2004-026; texto actualizado al 20 de junio de 2023). Servicio de Rentas
+       Internas.
+
+ Congreso Nacional del Ecuador. (2005). Código Tributario (Codificación N.º 2005-009;
+       texto actualizado al 20 de junio de 2023). Servicio de Rentas Internas.
+
+ Diez Farhat, S. V., & Encalada Medranda, L. K. (2023). Análisis de la cultura tributaria de
+        las organizaciones del sector agropecuario. Universidad, Ciencia y Tecnología,
+        27(120). https://doi.org/10.47460/uct.v27i120.737
+
+ Mogrovejo Jaramillo, J. C. (2010). El poder tributario municipal en el Ecuador.
+       Universidad Andina Simón Bolívar, Sede Ecuador, Ediciones Abya-Yala y
+       Corporación Editora Nacional.
+
+ Presidencia de la República del Ecuador. (2010). Reglamento para la Aplicación de la
+        Ley de Régimen Tributario Interno (Decreto Ejecutivo N.º 374; texto actualizado
+        al 24 de noviembre de 2023). Servicio de Rentas Internas.
+
+ Servicio de Rentas Internas. (2018). Guía para contribuyentes de IVA: Elaboración y
+        envío de la declaración del Impuesto al Valor Agregado. Servicio de Rentas
+        Internas.
+
+ Servicio de Rentas Internas. (2022). Guía para el llenado del formulario de declaración
+        del Impuesto a la Renta de personas naturales y sucesiones indivisas. Servicio
+        de Rentas Internas.
+ Servicio de Rentas Internas. (2024). Ficha técnica: Manual de usuario, catálogo y
+        especificaciones técnicas. Emisión de comprobantes electrónicos: Método de
+        automatización fuera de línea (versión 2.26). Servicio de Rentas Internas.
+
+ Soledispa Toro, J. M. (2022). ¿Qué sistema tributario para el buen vivir? [Tesis de
+        maestría, Universidad Andina Simón Bolívar, Sede Ecuador]. Repositorio
+        Institucional UASB-Digital.
+
+ Zambrano-Zambrano, E. J., Carreño-Arteaga, N. P., Velásquez-Gutiérrez, M. T., &
+       Mendoza-Fernández, V. M. (2024). Las reformas tributarias y su incidencia en la
+       recaudación de impuestos en Manabí, Ecuador. Gestio et Productio. Revista
+       Electrónica de Ciencias Gerenciales, 6(11).
+       https://doi.org/10.35381/gep.v6i11.170
+
+
+
+
+                           Módulo de Especialización Nro.4
+
+Nombre del módulo:                     Planificación y Control Presupuestario
+
+Nivel:                                 1ro, 2do, 3ro
+
+                                       240 periodos pedagógicos
+Duración:
+                                       UC4: Implementar técnicas de planificación y
+                                       control presupuestario en contextos personales,
+Unidad       de      competencia
+                                       empresariales y por proyecto, elaborando
+asociada:
+                                       presupuestos e interpretando desviaciones, para
+                                       contribuir a la toma de decisiones financieras.
+
+Objetivo del módulo: Aplicar técnicas básicas de planificación y control presupuestario en
+contextos personales, empresariales y por proyecto, elaborando presupuestos simples e
+interpretando desviaciones para contribuir a la toma de decisiones financieras.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Identificar los diferentes tipos de presupuestos y sus componentes
+principales, explicando su propósito y aplicación en diversos contextos
+CE1.1: Clasifica los tipos de presupuestos (personal, empresarial, por proyecto) según su
+finalidad y aplicación.
+CE1.2: Aplica ejemplos reales o simulados para demostrar el uso de diferentes tipos de
+presupuestos en contextos cotidianos o técnicos.
+CE1.3: Utiliza conceptos y terminología técnica para explicar los componentes básicos de
+un presupuesto (ingresos, egresos, saldo, etc.).
+CE1.4: Diferencia los elementos que componen distintos tipos de presupuestos,
+argumentando su función dentro de la planificación financiera.
+RA 2: Elaborar presupuestos financieros aplicando procedimientos de planificación
+presupuestaria, considerando los ingresos, egresos, y metas financieras en
+contextos personales, empresariales y por proyecto.
+CE2.1: Explica los pasos del proceso de planificación presupuestaria y su importancia para
+la gestión financiera.
+CE2.2: Clasifica datos financieros (ingresos, egresos, metas) de manera estructurada para
+la elaboración del presupuesto.
+CE2.3: Elabora presupuestos financieros básicos para contextos personales,
+empresariales y/o por proyecto, aplicando procedimientos establecidos.
+CE2.4: Propone ajustes o recomendaciones al presupuesto elaborado, con base en la
+relación entre los ingresos, egresos y objetivos financieros establecidos.
+RA 3: Aplicar técnicas de control presupuestario para realizar el seguimiento y
+comparación entre el presupuesto planificado y el ejecutado, utilizando
+herramientas básicas de control financiero.
+CE3.1: Utiliza las técnicas básicas de control presupuestario y su función dentro del
+proceso de seguimiento financiero.
+CE3.2: Emplea herramientas básicas (como hojas de cálculo o registros financieros) para
+hacer seguimiento del presupuesto ejecutado.
+CE3.3: Compara el presupuesto planificado con los datos reales o simulados, identificando
+diferencias relevantes.
+CE3.4: Propone medidas de ajuste o acciones correctivas a partir del análisis de las
+diferencias entre lo planificado y lo ejecutado.
+RA 4: Proponer estrategias para identificar posibles desviaciones presupuestarias
+e interpretar sus causas, fundamentando alternativas que apoyen la toma de
+decisiones financieras en contextos empresariales o por proyecto.
+CE4.1: Explica qué son las desviaciones presupuestarias y cómo se manifiestan en la
+comparación entre lo planificado y lo ejecutado.
+CE4.2: Reconoce desviaciones presupuestarias en distintos contextos mediante la
+revisión de datos financieros.
+CE4.3: Interpreta las causas principales de desviaciones presupuestarias en escenarios
+simulados, relacionando factores internos y externos que afectan el cumplimiento del
+presupuesto.
+CE4.4: Recomendar medidas correctivas viables, fundamentadas en el análisis de
+desviaciones, para apoyar la toma de decisiones financieras.
+
+Contenidos
+
+                                                             Actitudinales
+Conceptuales                  Procedimentales
+Conceptos Básicos de          Identificar y     clasificar   Asumir      compromiso      y
+Presupuesto                   presupuestos.                  responsabilidad en la gestión
+                                                             eficiente de los recursos
+                              Reconocer     y   clasificar
+Definición y objetivos del    diferentes     tipos  de     financieros,     desarrollando
+presupuesto.                  presupuestos según su        conciencia sobre la importancia
+                              finalidad y contexto.        de su actuación en el contexto
+Tipos de presupuestos:                                     organizacional.
+personal, empresarial, por    Describir           los
+proyecto.                     componentes principales      Mantener una conducta ética y
+                              de un presupuesto.           rigor en la planificación, control
+Componentes principales                                    y análisis de la información
+del presupuesto: ingresos,    Elaborar     presupuestos    financiera,    respetando       la
+egresos, saldo, reservas.     financieros.                 confidencialidad y veracidad de
+                                                           los datos.
+Terminología       técnica    Recolectar y organizar
+básica en presupuestación.    información  financiera      Valorar    y    respetar     las
+                              (ingresos,     egresos,      obligaciones fiscales, plazos y
+Planificación                 metas).                      normativas             vigentes,
+Presupuestaria                                             reconociendo su impacto social
+                              Aplicar procedimientos y     y organizacional.
+Procedimientos para la        técnicas para elaborar
+elaboración         de        presupuestos          en     Demostrar            disposición
+presupuestos.                 contextos    personales,     proactiva frente a problemas y
+                              empresariales    y   por     desviaciones        financieras,
+Recolección y organización    proyecto.                    buscando              soluciones
+de    datos    financieros:
+                                                           preventivas y oportunas.
+ingresos, gastos y metas.     Utilizar     herramientas
+                              básicas (hojas de cálculo,   Mantener una actitud crítica y
+Técnicas para estructurar     plantillas)    para     la   reflexiva frente a los resultados
+presupuestos en diferentes    estructuración        del    financieros y las decisiones
+contextos.                    presupuesto.                 administrativas, promoviendo
+Herramientas básicas para                                  la mejora continua.
+                              Aplicar     control     y
+la      elaboración      de   seguimiento                  Mostrar      disposición     y
+presupuestos (ej.: hojas de   presupuestario.              compromiso para colaborar
+cálculo).
+                                                           eficazmente en equipos de
+                              Aplicar técnicas para        trabajo      en      contextos
+Control Presupuestario        registrar y monitorear la    financieros y administrativos,
+                              ejecución             del    favoreciendo la consecución de
+Técnicas de seguimiento y
+                              presupuesto.                 objetivos comunes.
+control del presupuesto.
+                              Utilizar herramientas para   Demostrar disposición para
+Herramientas        para
+                              comparar el presupuesto      aprender y adaptarse a
+comparar     presupuesto
+                              planificado con el real.     herramientas   digitales    y
+planificado       versus
+ejecutado.                                                 plataformas     tecnológicas
+                              Identificar y registrar
+                                                           utilizadas  en  la    gestión
+                              desviaciones
+                                                           financiera.
+                              presupuestarias
+Registro y monitoreo de        relevantes.                  Valorar      la    información
+gastos e ingresos.                                          financiera y administrativa con
+                               Analizar   desviaciones      sentido crítico, reconociendo
+Uso      de     indicadores    presupuestarias.             su relevancia y pertinencia
+financieros básicos para el                                 para la toma de decisiones.
+control.                       Analizar causas internas
+                               y   externas    de    las    Promover                 prácticas
+Análisis de Desviaciones       desviaciones detectadas.     responsables y sostenibles en
+Presupuestarias                                             el uso de recursos económicos
+                               Interpretar resultados del   y     financieros,     integrando
+Concepto y tipos          de   análisis para determinar     criterios   de     eficiencia    y
+desviaciones                   el impacto financiero.       responsabilidad ambiental.
+presupuestarias.
+                               Proponer        medidas
+Toma     de   Decisiones       correctivas y| toma de
+Financieras Basadas en         decisiones.
+Presupuesto
+                               Formular propuestas de
+Propuestas de      medidas     ajustes presupuestarios
+correctivas           ante     basados en el análisis de
+desviaciones.                  desviaciones.
+
+Evaluación y justificación     Justificar las medidas
+de ajustes presupuestarios.    correctivas considerando
+                               su viabilidad y efecto en
+Impacto de las decisiones      la gestión financiera.
+financieras en la gestión
+presupuestaria.                Comunicar      resultados,
+                               propuestas               y
+Comunicación              de   recomendaciones para la
+resultados                 y   mejora continua.
+recomendaciones
+financieras.
+
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+    Finanzas, Economía, Administración de Empresas o carreras afines.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+   o   Aprendizaje Basado en Proyectos (ABP)
+   o   Aprendizaje en Contextos Reales
+   o   Role-Playing y Simulaciones
+   o   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                                                                            Cantidad
+Denominación              Especificaciones técnicas
+                                                                            1
+Infraestructura/espacio   Entorno de aprendizaje (aula)
+                          Computadoras con acceso a internet
+
+                          Proyector
+Laboratorio                                                                 1
+                          Calculadoras financieras o científicas para
+                          cálculos manuales.
+
+                          Aplicaciones y plantillas presupuestarias
+
+                          Plantillas predefinidas para presupuestos
+Equipos/herramientas      personales, empresariales y por proyecto
+                          (disponibles en Excel o Google Sheets).
+
+                         Aplicaciones móviles simples para control de
+                         gastos e ingresos (ejemplo: Mint, Wallet, etc.).
+Referencias Bibliográficas
+
+
+ Alzamora Carrión, J. H., Luperdi Castañeda, J. A., & Velasco Tapie, M. A. (2024).
+       Presupuesto y toma de decisiones en las organizaciones 2019–2024: Revisión
+       bibliográfica. Polo del Conocimiento, 9(5), 1092–1110.
+       https://doi.org/10.23857/pc.v9i5.7184
+
+ Caminos Manjarrez, W. G., Guashca Saguay, L. F., & Tierra Navarrete, L. E. (2024). El
+       presupuesto como instrumento de control financiero del Ecuador. Polo del
+       Conocimiento, 9(4), 419–439. https://doi.org/10.23857/pc.v9i4.6941
+
+ Fajardo Ortiz, M., & Soto González, C. (Coords.). (2018). Gestión financiera empresarial.
+        Editorial UTMACH. https://repositorio.utmachala.edu.ec/items/a121acee-b5db-
+        4174-a9d0-9536abb2a419
+
+ Meza Riquelme, M. (2023). Finanzas empresariales para la pequeña y microempresa.
+       Comunicación Científica. https://doi.org/10.52501/cc.125
+ Ministerio de Economía y Finanzas del Ecuador. (2024). Normativa del Sistema Nacional
+        de las Finanzas Públicas. https://www.finanzas.gob.ec/wp-
+        content/uploads/downloads/2024/12/Normativa-te%CC%81cnica-SINFIP-
+        diciembre2024.pdf
+
+ Parra Trelles, L. R., & Navarrete Morán, J. L. (2023). El presupuesto como herramienta
+        de gestión financiera para la toma de decisiones en el Instituto Superior
+        Universitario Almirante Illingworth. ECA Sinergia, 14(3), 105–113.
+        https://doi.org/10.33936/ecasinergia.v14i3.5852
+
+ Puente Riofrío, M. I., Carrillo Hernández, J. I., Calero Cazorla, E. A., & Gavilánez
+       Álvarez, O. D. (2022). Fundamentos de gestión financiera. Editorial Universidad
+       Nacional de Chimborazo.
+       https://obsinvestigacion.unach.edu.ec/obsrepositorio/libros/108/fundamentos_de_
+       gestion_financiera.pdf
+
+ Rodríguez-Bravo, A. G., & Ponce-Cedeño, O. S. (2025). El presupuesto como
+       herramienta de gestión financiera para la toma de decisiones empresarial.
+       Revista Científica Arbitrada de Investigación en Comunicación, Marketing y
+       Empresa REICOMUNICAR.
+       https://reicomunicar.org/index.php/reicomunicar/article/view/407
+
+ Sánchez-Pacheco, M. E., Bermúdez-Fajardo, P. N., Zea-Franco, R. D., & Zambrano-
+       Farías, F. J. (2022). Liquidez, endeudamiento y rentabilidad de las mipymes en
+       Ecuador: Un análisis comparativo. INNOVA Research Journal, 7(3.2), 36–50.
+       https://doi.org/10.33890/innova.v7.n3.2.2022.2209
+
+ Tipán Masaquiza, A., & Abril Flores, J. F. (2024). Modelo de gestión financiera para toma
+        de decisiones en microempresas de Ambato-Tungurahua. RES NON VERBA
+        Revista Científica, 14(2), 34–55. https://doi.org/10.21855/resnonverba.v14i2.919
+
+
+
+
+                           Módulo de Especialización Nro.5
+
+Nombre del módulo:                    Análisis Financiero
+
+Nivel:                                3ro
+
+                                      200 periodos pedagógicos
+Duración:
+
+Unidad      de       competencia      UC5: Utilizar técnicas básicas para interpretar
+asociada:                             indicadores financieros y desarrollar proyecciones
+                                      presupuestarias, simulando escenarios que
+                                        contribuyan a la toma de decisiones financieras en
+                                        la organización.
+
+Objetivo del módulo: Aplicar técnicas básicas para interpretar indicadores financieros y
+elaborar proyecciones presupuestarias simples, mediante la simulación de escenarios que
+contribuyan al desarrollo de capacidades para apoyar la toma de decisiones financieras en
+la organización.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Identificar los principales tipos de indicadores financieros (liquidez,
+rentabilidad y endeudamiento), reconociendo sus fórmulas básicas y su utilidad en
+la gestión financiera
+
+CE1.1: Diferencia y emplea los indicadores de liquidez, rentabilidad y endeudamiento en
+los contextos que se utilizan.
+
+CE1.2: Clasifica ejemplos de indicadores financieros según su tipo (liquidez, rentabilidad
+o endeudamiento) y asocia cada uno con su fórmula correspondiente.
+
+CE1.3: Aplica correctamente las fórmulas básicas de indicadores financieros a partir de
+datos contables simples.
+
+CE1.4: Analiza la función que cumple cada tipo de indicador financiero en la toma de
+decisiones empresariales, diferenciando su impacto en la gestión organizacional.
+
+RA 2: Calcular indicadores financieros clave como la razón corriente, el ROA y el
+nivel de endeudamiento, utilizando datos contables reales o simulados.
+
+CE2.1: Explica con claridad la función y estructura de las ratios financieras (liquidez,
+rentabilidad, endeudamiento).
+
+CE2.2: Aplica fórmulas en el cálculo de: Razón corriente (Activo circulante / Pasivo
+circulante), ROA (Utilidad neta / Activos totales).
+
+CE2.3: Utiliza herramientas tecnológicas (Excel, software contable, calculadoras
+financieras) y calcula, analiza e interpreta ratios financieras en casos prácticos con datos
+reales o simulados, transformando los resultados numéricos en información accionable
+para la toma de decisiones financieras.
+
+CE2.4: Propone estrategias efectivas para mejorar indicadores financieros (liquidez,
+rentabilidad, endeudamiento), sustentadas en un análisis integral de múltiples ratios,
+variables clave y contexto empresarial, demostrando capacidad para la toma de decisiones
+financieras.
+
+RA 3: Analizar los resultados obtenidos al comparar los indicadores financieros con
+estándares del sector, para detectar fortalezas y riesgos en la situación económica
+de una organización.
+
+CE3.1: Explica con claridad y precisión los conceptos básicos y los componentes
+esenciales que intervienen en la elaboración de proyecciones presupuestarias simples.
+
+CE3.2: Aplica técnicas básicas para construir una proyección presupuestaria simple en
+un contexto guiado o simulado.
+
+CE3.3: Compara al menos dos escenarios financieros diferentes usando la proyección
+elaborada, ajustando variables conforme a los datos o indicaciones recibidas.
+
+CE3.4: Evalúa los resultados de las simulaciones y propone recomendaciones
+fundamentadas para mejorar la precisión y utilidad de las proyecciones presupuestarias.
+
+RA 4: Proponer alternativas fundamentadas, basadas en el análisis de indicadores
+financieros y simulaciones, que contribuyan a mejorar la toma de decisiones
+financieras en la organización.
+
+CE4.1: Relaciona los principales indicadores financieros con su relevancia para la
+organización.
+
+CE4.2: Aplica técnicas básicas para interpretar resultados de simulaciones financieras y
+analizar su impacto.
+
+CE4.3: Relaciona las desviaciones detectadas con posibles causas financieras o de
+gestión interna.
+
+CE4.4: Elabora alternativas fundamentadas para mejorar la toma de decisiones
+financieras, basándose en el análisis de indicadores y simulaciones.
+
+Contenidos
+
+                                                             Actitudinales
+Conceptuales                  Procedimentales
+Concepto y utilidad de        Identificar y clasificar los   Asumir la relevancia del
+los         indicadores       indicadores financieros.       análisis financiero para la salud
+financieros                                                  económica           de        las
+                              Reconocer     tipos     de     organizaciones,
+Finalidad   del    análisis   indicadores según su           comprendiendo su impacto en
+financiero en la toma de      función          (liquidez,    la toma de decisiones y en la
+decisiones.                   rentabilidad,                  sostenibilidad empresarial.
+                              endeudamiento).
+Relación entre indicadores                                   Mantener un comportamiento
+y situación financiera.       Asociar cada indicador         íntegro en el manejo de la
+                              con    su  fórmula   y         información      financiera,
+Clasificación    de     los    propósito.                    garantizando                  la
+indicadores financieros                                      confidencialidad y la veracidad
+                               Recolectar e interpretar      de los datos.
+Liquidez: capacidad      de    datos contables.
+pago a corto plazo:                                          Valorar las aportaciones de
+                               Extraer       información     otros miembros del equipo en
+Rentabilidad: eficiencia en    relevante desde estados       la    toma    de     decisiones
+el uso de recursos para        financieros básicos.          financieras, promoviendo la
+generar utilidad.                                            cooperación, el respeto y la
+                               Organizar los datos en        coordinación     efectiva    en
+Endeudamiento: nivel de        cuadros o plantillas de       entornos de trabajo.
+compromiso financiero con      análisis.
+terceros.                                                    Reconocer la relevancia del
+                               Calcular             ratios   análisis financiero para la
+Indicadores financieros        financieras.                  sostenibilidad organizacional,
+clave y sus fórmulas                                         desarrollando capacidad de
+                               Aplicar    correctamente
+                                                             reflexión y juicio crítico ante los
+Razón corriente.               fórmulas como:
+                                                             resultados        y      procesos
+Prueba ácida.                  Razón corriente = Activo      administrativos.
+                               corriente   /    Pasivo
+Rentabilidad sobre activos     corriente
+(ROA).
+                               ROA = Utilidad neta /
+Rentabilidad           sobre   Activos totales
+patrimonio (ROE).
+                               Endeudamiento = Pasivo
+Nivel de endeudamiento:        total / Activo total
+
+Apalancamiento financiero      Utilizar    herramientas
+                               tecnológicas      básicas
+(conceptos básicos).           (calculadora, Excel).
+Interpretación    de     los   Comparar              con
+indicadores financieros.       estándares del sector.
+Significado     de       los   Investigar     promedios
+resultados.                    financieros sectoriales o
+                               referencias del SRI.
+Límites    aceptables      y
+desviaciones.
+
+Relación entre diferentes      Analizar la distancia entre
+indicadores.                   los resultados propios y
+                               los    parámetros       de
+                               referencia.
+Estándares financieros de      Identificar desviaciones
+referencia.                    significativas.
+
+Comparación con datos          Evaluar el impacto de
+promedio   del  sector         estas desviaciones en la
+económico.                     gestión financiera.
+
+Análisis de desviaciones       Propuesta de acciones
+y toma de decisiones           correctivas:
+
+Causas posibles                Formular
+                               recomendaciones para
+Propuestas de mejora y         optimizar liquidez, reducir
+acciones correctivas           endeudamiento o mejorar
+                               rentabilidad.
+Ética y responsabilidad en
+la interpretación financiera   Justificar las propuestas
+                               con base en el análisis de
+Uso transparente de datos      indicadores.
+Responsabilidad                Presentar        informes
+profesional en la toma de      técnicos básicos.
+decisiones basadas en
+indicadores.                   Organizar hallazgos en
+                               cuadros o reportes.
+
+                               Comunicar los resultados y
+                               sugerencias de manera
+                               clara y profesional.
+
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Contabilidad,
+    Finanzas, Economía, Administración de Empresas
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+    o   Aprendizaje Basado en Proyectos (ABP)
+    o   Aprendizaje en Contextos Reales
+    o   Role-Playing y Simulaciones
+    o   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                                                                            Cantidad
+Denominación              Especificaciones técnicas
+                                                                            1
+Infraestructura/espacio   Entorno de aprendizaje (aula)
+                          Computadoras con acceso a internet
+
+                          Proyector
+Laboratorio                                                                 1
+                          Calculadoras financieras o científicas para
+                          cálculos manuales.
+
+                          Manuales y guías de análisis financiero-
+                          adaptados a los conocimientos técnicos.
+
+Equipos/herramientas      Ejemplos y casos prácticos basados en
+                          contextos reales o simulados.
+
+                         Acceso a bases de datos económicas y
+                         financieras del sector público o privado.
+Referencias Bibliográficas
+
+ Instituto de Contabilidad y Auditoría de Cuentas. (2025). Normas Internacionales de
+          Información Financiera: Actualización completa a junio de 2025. Ministerio de
+          Economía, Comercio y Empresa de España.
+          https://www.icac.gob.es/publicaciones-niif
+
+ Narea Chumbi, P. F., & Guamán Tenezaca, G. A. (2021). Aplicación de indicadores
+       financieros e inductores de valor como herramienta de optimización en las
+       decisiones estratégicas empresariales. Revista Economía y Política, (34), 94–
+       111. https://doi.org/10.25097/rep.n34.2021.06
+
+ Proaño Rivera, W. B. (2023). Análisis financiero. Casa Editora Universidad del Azuay.
+       https://publicaciones.uazuay.edu.ec/flip/books/libro/uazuay-libro-303.pdf
+
+ Puente Riofrío, M. I., Carrillo Hernández, J. I., Calero Cazorla, E. A., & Gavilánez
+       Álvarez, O. D. (2022). Fundamentos de gestión financiera. Editorial Universidad
+       Nacional de Chimborazo.
+       https://obsinvestigacion.unach.edu.ec/obsrepositorio/libros/108/fundamentos_de_
+       gestion_financiera.pdf
+
+ Rojas-Díaz, P. J., Gómez-Mora, E. I., & Gil-Marín, M. J. (2023). Indicadores financieros
+        para el control de gestión en organizaciones. Revista Arbitrada Interdisciplinaria
+        Koinonía, 8(1), 135–149. https://doi.org/10.35381/r.k.v8i1.2613
+
+ Sánchez-Pacheco, M. E., Bermúdez-Fajardo, P. N., Zea-Franco, R. D., & Zambrano-
+       Farías, F. J. (2022). Liquidez, endeudamiento y rentabilidad de las mipymes en
+          Ecuador: Un análisis comparativo. INNOVA Research Journal, 7(3.2), 36–50.
+          https://doi.org/10.33890/innova.v7.n3.2.2022.2209
+
+   Superintendencia de Compañías, Valores y Seguros. (2025). Ranking de compañías
+          2024. https://appscvsmovil.supercias.gob.ec/ranking/reporte.html
+
+   Tipán Masaquiza, A., & Abril Flores, J. F. (2024). Modelo de gestión financiera para
+          toma de decisiones en microempresas de Ambato-Tungurahua. RES NON
+          VERBA Revista Científica, 14(2), 34–55.
+          https://doi.org/10.21855/resnonverba.v14i2.919
+
+   Zambrano-Farías, F. J., Sánchez-Pacheco, M. E., & Correa-Soto, S. R. (2021). Análisis
+         de rentabilidad, endeudamiento y liquidez de microempresas en Ecuador.
+         RETOS. Revista de Ciencias de la Administración y Economía, 11(22), 235–249.
+         https://www.redalyc.org/articulo.oa?id=504568573003
+
+
+
+
+   5. Módulo Práctico Experimental
+
+Permite fortalecer la formación del estudiantado a través de situaciones reales de
+aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras de observación,
+articulación con el sector productivo, proyectos interdisciplinarios y metodologías
+basadas en proyectos. Todas estas actividades tienen como finalidad consolidar los
+conocimientos y aplicación de competencias en contextos reales. Asimismo,
+promueven el desarrollo de habilidades blandas, tales como el trabajo en equipo, la
+comunicación asertiva, la resolución de problemas y la adaptación a entornos
+cambiantes.
+
+ En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en
+los módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+                           Módulo Práctico Experimental
+
+ Nombre del módulo:          Práctico Experimental
+
+ Nivel:                      1ro, 2do, 3ro
+
+ Duración:                   280 periodos pedagógicos
+Unidad               de     UC 1: Ejecutar los procesos de control y administración
+competencia                 del flujo de efectivo que garantice la disponibilidad y uso
+asociada:                   adecuado del dinero en la organización.
+
+                            UC 3: Aplicar normativas tributarias vigentes en la gestión
+                            integral de impuestos, mediante procesos de declaración,
+                            planificación   y   control,    utilizando   herramientas
+                            tecnológicas para optimizar obligaciones fiscales en
+                            contextos personales y empresariales.
+
+                            UC4: Implementar técnicas de planificación y control
+                            presupuestario en contextos personales, empresariales y
+                            por proyecto, elaborando presupuestos e interpretando
+                            desviaciones, para contribuir a la toma de decisiones
+                            financieras.
+
+Objetivo del módulo:
+
+Formar técnicos capaces de gestionar procesos administrativos, comerciales y
+logísticos, incluyendo compras, administración de inventarios, cuentas por pagar,
+estrategias comerciales, comunicación, cobranza y gestión de recursos humanos,
+aplicando normas vigentes y técnicas de mejora continua para garantizar la eficiencia,
+calidad y productividad en entornos empresariales.
+
+Resultados de                Criterios de evaluación Actividades             Prácticas
+Aprendizaje (RA)             (CE)                    Experimentales
+
+RA1: Distinguir entre        CE1.1:         Identifica   Los      estudiantes    traen
+ingresos y egresos en        correctamente ingresos      información de ingresos y
+ejemplos      cotidianos,    y egresos en casos          gastos de su hogar o de un
+explicando             su    personales o familiares,    caso      simulado.    Deben
+importancia en el control    explicando con claridad     clasificar cada concepto
+del dinero personal y        su función en el control    como ingreso o egreso y
+familiar.                    del dinero.                 explicar su función en el flujo
+                                                         de dinero.
+
+                                                         Se simula una pequeña caja
+RA2: Elaborar registros      CE2.1: Registra de          de efectivo en el aula. Los
+elementales de flujo de      manera         ordenada     estudiantes         registran
+efectivo    personal    o    ingresos, egresos y         entradas y salidas de dinero
+familiar     en    tablas    saldo disponible en         en papel o pizarra según
+manuales u hojas de          tablas manuales u hojas     diferentes       situaciones
+cálculo          básicas,    de     cálculo  básicas,    planteadas    (compra      de
+clasificando                 clasificando
+correctamente ingresos,
+egresos       y     saldo    correctamente       cada materiales,     cobro      de
+disponible.                  rubro.                   servicios, gastos cotidianos).
+
+RA3: Revisar y comparar      CE3.1: Analiza registros    Se presentan fichas con
+registros simples de flujo   de flujo de efectivo en     distintos            escenarios
+de caja personal en          distintos      períodos,    financieros personales o
+diferentes      períodos,    señalando variaciones       familiares. Los estudiantes
+identificando variaciones    en ingresos y gastos, y     deben       identificar    qué
+en gastos e ingresos, y      propone al menos una        operaciones        representan
+proponiendo acciones de      acción    concreta    de    ingresos y cuáles egresos, y
+mejora      para      una    mejora       en        la   justificar cómo afectan la
+adecuada        disciplina   administración       del    disponibilidad de dinero.
+financiera.                  dinero.
+                                                         Cada estudiante lleva un
+                                                         registro durante una semana
+                                                         de todos los ingresos (dinero
+                                                         recibido) y egresos (dinero
+                                                         gastado), utilizando una tabla
+                                                         manual o una hoja de cálculo
+
+                                                          En grupos, los estudiantes
+                                                         reciben un “caso simulado”
+                                                         de un pequeño proyecto o
+                                                         negocio escolar con ingresos
+                                                         y gastos predefinidos. Deben
+                                                         elaborar un registro del flujo
+                                                         de     efectivo,    sumando
+                                                         entradas, restando salidas y
+                                                         calculando       el     saldo
+                                                         disponible.
+
+                                                         Se entregan registros de flujo
+                                                         de efectivo incompletos o con
+                                                         errores intencionales. Los
+                                                         estudiantes             deben
+                                                         identificarlos, corregirlos y
+                                                         reorganizar la información en
+                                                         una tabla clara.
+
+                                                         Los estudiantes comparan
+                                                         sus registros de ingresos y
+                                                         egresos de dos semanas
+                                                         consecutivas, identificando
+                                                         diferencias,         gastos
+                                                          recurrentes y patrones de
+                                                          ingreso.
+
+                                                          Se presenta un flujo de caja
+                                                          de un caso simulado con
+                                                          ingresos      y       gastos
+                                                          planificados          versus
+                                                          ejecutados. Los estudiantes
+                                                          deben              identificar
+                                                          desviaciones     y    discutir
+                                                          posibles causas.
+
+                                                          Basándose           en       la
+                                                          comparación de registros, los
+                                                          estudiantes           elaboran
+                                                          recomendaciones           para
+                                                          optimizar el flujo de efectivo,
+                                                          como      reducir       gastos
+                                                          innecesarios o reorganizar
+                                                          prioridades de ingreso y
+                                                          egreso.
+
+RA4:       Elaborar     un    CE4.1:          Registra     Cada estudiante registra sus
+presupuesto personal o        correctamente ingresos,     ingresos y gastos personales
+familiar           básico,    gastos y ahorro previsto    de una semana (o un caso
+registrando      ingresos,    en tablas manuales u        simulado) en una tabla
+gastos y ahorro previsto,     hojas     de     cálculo,   manual o hoja de cálculo
+utilizando          tablas    aplicando        buenas     básica,    incluyendo     una
+manuales o hojas de           prácticas             de    columna       para    ahorro
+cálculo           simples,    organización financiera.    previsto.
+aplicando          buenas
+prácticas de organización                                 En grupos, los estudiantes
+financiera.                                               reciben un caso simulado de
+                                                          una familia con diferentes
+RA5:      Comparar       el                               ingresos y gastos. Deben
+                              CE5.1:    Identifica    y   elaborar un presupuesto
+presupuesto     estimado
+                              analiza    desviaciones     semanal      o     mensual,
+con los gastos e ingresos
+                              entre       presupuesto     clasificando correctamente
+reales durante un período
+                              estimado      y      real,  cada ingreso y egreso, e
+determinado,
+                              proponiendo       ajustes   indicando ahorro previsto.
+identificando
+                              simples para mejorar la
+desviaciones simples y
+                              administración         del Cada estudiante compara su
+proponiendo        ajustes
+                              dinero                     presupuesto         personal
+básicos para mejorar la
+administración         del                               elaborado previamente con
+dinero.    Diseña     una                                los gastos e ingresos reales
+campaña educativa para                                 registrados    durante       el
+promover        prácticas                              período.            Identifica
+seguras en el uso de                                   desviaciones     simples      y
+tecnologías y protección                               analiza posibles causas.
+de la información.
+                                                       En grupos, los estudiantes
+                                                       reciben     un    presupuesto
+                                                       familiar     simulado     con
+                                                       ingresos        y      gastos
+                                                       proyectados y reales. Deben
+                                                       identificar     desviaciones,
+                                                       analizar su impacto y
+                                                       proponer ajustes simples
+                                                       para         mejorar        la
+                                                       administración del dinero.
+
+RA6: Aplicar planes de      CE6.1: Aplica técnicas  Identificar y documentar
+mejora continua en los      y herramientas básicas  posibles mejoras en un
+procesos administrativos,   de mejora continua en laproceso         administrativo
+integrando acciones que     ejecución de procesos   simple (por ejemplo, registro
+optimicen la calidad y      administrativos         de documentos o control de
+productividad.                                      asistencia) utilizando un
+                            CE6.2:       Implementa formato o plantilla de análisis.
+                            acciones específicas de
+                            mejora continua para Utilizar herramientas básicas
+                            optimizar la calidad y de mejora continua (como
+                            productividad        en listas de verificación o
+                            procesos                diagramas de flujo simples)
+                            administrativos         para analizar la eficiencia y
+                            definidos.              detectar errores en los
+                                                    procesos administrativos.
+
+                                                       Proponer y aplicar ajustes en
+                                                       un proceso administrativo
+                                                       simulado      (por   ejemplo,
+                                                       reorganización de archivos o
+                                                       simplificación     de      un
+                                                       formulario) y registrar los
+                                                       resultados obtenidos.
+
+                                                       Elaborar un informe de las
+                                                       acciones     de     mejora
+                                                       realizadas, indicando los
+                                                       beneficios observados en
+                                                           términos de calidad, tiempo y
+                                                           eficiencia del proceso.
+
+RA7:        Registrar    y     CE7.1:      Registra    y   Cada estudiante elabora una
+clasificar    obligaciones     clasifica correctamente     tabla (manual o digital) donde
+tributarias básicas de una     las          obligaciones   registra    los      impuestos
+persona natural (IVA,          tributarias    de     una   básicos que afectan a una
+Impuesto a la Renta            persona      natural   en   persona       natural      (IVA,
+simplificado, impuestos        tablas     manuales     o   Impuesto      a    la     Renta
+municipales), utilizando       digitales,      aplicando   simplificado,        impuestos
+tablas      manuales     o     buenas      prácticas   y   municipales),         indicando
+digitales,       aplicando     mostrando                   monto,      periodicidad       y
+buenas       prácticas   y     responsabilidad en el       responsable del pago.
+responsabilidad en el          cumplimiento fiscal.
+cumplimiento fiscal.                                       A partir de casos simulados,
+                               CE6.1:     Realiza    de    los estudiantes identifican y
+RA6:              Simular      manera     correcta    la   clasifican los impuestos
+procedimientos simples         simulación            de    según su tipo (directos e
+de declaración y pago de       procedimientos        de    indirectos), explicando su
+impuestos     personales,      declaración y pago de       importancia en la vida
+identificando los pasos y      impuestos, identificando    personal      y    proyectos
+documentos requeridos,         pasos y documentos          escolares.
+y       destacando        la   requeridos,             y
+importancia            del     demostrando                 En grupos, los estudiantes
+cumplimiento ético y           comprensión      de    la   reciben un caso simulado de
+oportuno       de       las    importancia           del   una persona natural con
+obligaciones tributarias.      cumplimiento ético y        ingresos y gastos. Deben
+                               oportuno.                   llenar formularios o registros
+                                                           de declaración de impuestos
+                                                           siguiendo       los     pasos
+                                                           correctos.
+
+                                                           Utilizando la información del
+                                                           caso       simulado,        los
+                                                           estudiantes registran el pago
+                                                           de impuestos y generan un
+                                                           comprobante           ficticio,
+                                                           demostrando la secuencia
+                                                           completa        desde         la
+                                                           declaración hasta el pago.
+Nota:
+
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e
+incluir las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje
+significativo, sin que este reemplace su paso por la Formación Estudiantil en Centros
+Educativos y de Trabajo.
+
