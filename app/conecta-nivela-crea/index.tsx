@@ -1548,6 +1548,14 @@ export default function ConectaNivelaCreaScreen() {
               </Pressable>
             </View>
 
+            <Pressable
+              onPress={() => router.push(`/ver-cnc/${plan.id}` as any)}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#0F766E", borderRadius: 12, paddingVertical: 14, marginBottom: 20 }}
+            >
+              <Text style={{ fontSize: 16 }}>👁️</Text>
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>Ver plan guardado</Text>
+            </Pressable>
+
             {/* ── Imprimir prueba diagnóstica (Lengua y Matemática) ── */}
             <Pressable
               onPress={() => setMostrarImpresion((v) => !v)}
