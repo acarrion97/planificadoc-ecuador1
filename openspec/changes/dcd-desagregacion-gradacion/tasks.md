@@ -27,9 +27,9 @@
 
 ## 5. UI: panel de desagregación
 
-- [ ] 5.1 Crear `DcdDesagregacionPanel` (panel hermano del selector): dado `codigoDCD` y `gradoContexto`, resuelve la fila existente o muestra la acción "Desagregar por grado"
-- [ ] 5.2 Mostrar el ladder completo de la IA por grado en formato de matriz (columnas por grado) para revisión, con la versión del grado de contexto preseleccionada
-- [ ] 5.3 Permitir editar `dcdGraduada` e `indicadorGraduado` por fila y guardar (`PATCH`)
+- [x] 5.1 Crear `DcdDesagregacionPanel` (panel hermano del selector): dado `codigoDCD` y `gradoContexto`, resuelve la fila existente o muestra la acción "Desagregar por grado"
+- [x] 5.2 Mostrar el ladder completo de la IA por grado en formato de matriz (columnas por grado) para revisión, con la versión del grado de contexto preseleccionada
+- [x] 5.3 Permitir editar `dcdGraduada` e `indicadorGraduado` por fila y guardar (`PATCH`)
 - [ ] 5.4 Agregar acción "aprobar" por fila que persiste `estado=aprobado`
 - [ ] 5.5 Cuando ya existe una fila para la DCD+grado, mostrar la guardada sin invocar a la IA (reutilización)
 - [ ] 5.6 Agregar la acción "Usar esta versión" que devuelve la versión graduada elegida al selector
