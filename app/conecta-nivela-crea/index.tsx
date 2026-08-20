@@ -384,9 +384,15 @@ export default function ConectaNivelaCreaScreen() {
   const [pruebaConClave, setPruebaConClave] = useState(false);
   const [imprimiendoPruebaId, setImprimiendoPruebaId] = useState<string | null>(null);
 
+  // ── Semana activa para agregar destrezas de nivelación (Semanas 2-3) ──
+  const [semanaNivelacionActiva, setSemanaNivelacionActiva] = useState<2 | 3>(2);
+  // Última sugerencia IA del proyecto (Semanas 4-5) para revisión previa
+  const [sugerenciaProyecto, setSugerenciaProyecto] = useState<ConectaNivelaCreaAiResult["proyectoSugerido"] | null>(null);
+
   const generateMutation = trpc.cnc.generate.useMutation();
   const sugerirReflexionMutation = trpc.cnc.sugerirReflexionDece.useMutation();
   const sugerirConivelacionMutation = trpc.cnc.sugerirConivelacion.useMutation();
+  const sugerirProyectoMutation = trpc.cnc.sugerirProyecto.useMutation();
 
   const esBT = plan.modalidad === "bt";
   const subnivelCurso = subnivelDesdeGrado(plan.grado);
@@ -542,16 +548,32 @@ export default function ConectaNivelaCreaScreen() {
         ? plan.semana1.tecnicasReflexion
         : res.aiResult.tecnicaDiagnosticoSugerida;
 
-      const actividadesNivelacion = plan.semana2y3.actividadesNivelacion.length
-        ? plan.semana2y3.actividadesNivelacion.map((a) => {
-            if (a.descripcionActividad) return a;
-            const sugerida = res.aiResult.actividadesNivelacionSugeridas.find((s) => s.destrezaCodigo === a.destrezaCodigo);
-            return sugerida ? { ...a, descripcionActividad: sugerida.descripcionActividad } : a;
-          })
-        : res.aiResult.actividadesNivelacionSugeridas.map((s) => ({
-            destrezaCodigo: s.destrezaCodigo, destrezaDescripcion: s.destrezaDescripcion,
-            area: s.area, descripcionActividad: s.descripcionActividad, semana: s.semana,
-          }));
+      const actividadesNivelacion = (() => {
+      const existentes = plan.semana2y3.actividadesNivelacion;
+      const sugeridas = res.aiResult.actividadesNivelacionSugeridas ?? [];
+      if (!existentes.length) {
+        return sugeridas.map((s) => ({
+          destrezaCodigo: s.destrezaCodigo, destrezaDescripcion: s.destrezaDescripcion,
+          area: s.area, descripcionActividad: s.descripcionActividad, semana: s.semana,
+        }));
+      }
+      // Conserva lo que el docente eligió (Semana 2 y/o 3), rellenando la
+      // descripción pendiente con la IA; y completa con sugerencias IA las
+      // semanas que quedaron sin actividades (p. ej. la Semana 3).
+      return [
+        ...existentes.map((a) => {
+          if (a.descripcionActividad) return a;
+          const sugerida = sugeridas.find((s) => s.destrezaCodigo === a.destrezaCodigo && s.semana === a.semana);
+          return sugerida ? { ...a, descripcionActividad: sugerida.descripcionActividad } : a;
+        }),
+        ...sugeridas.filter(
+          (s) => !existentes.some((a) => a.semana === s.semana)
+        ).map((s) => ({
+          destrezaCodigo: s.destrezaCodigo, destrezaDescripcion: s.destrezaDescripcion,
+          area: s.area, descripcionActividad: s.descripcionActividad, semana: s.semana,
+        })),
+      ];
+    })();
 
       const semana1BTCompletado = plan.semana1BT ? {
         reconocimientoEspacios: plan.semana1BT.reconocimientoEspacios.filter(Boolean).length
@@ -700,6 +722,94 @@ export default function ConectaNivelaCreaScreen() {
   function addActividadNivelacion(codigo: string, desc: string, area: "LL" | "M", semana: 2 | 3) {
     const nueva: ActividadNivelacionCNC = { destrezaCodigo: codigo, destrezaDescripcion: desc, area, descripcionActividad: "", semana };
     setPlan((p) => ({ ...p, semana2y3: { ...p.semana2y3, actividadesNivelacion: [...p.semana2y3.actividadesNivelacion, nueva] } }));
+  }
+
+  function quitarActividadNivelacion(index: number) {
+    setPlan((p) => ({
+      ...p,
+      semana2y3: {
+        ...p.semana2y3,
+        actividadesNivelacion: p.semana2y3.actividadesNivelacion.filter((_, i) => i !== index),
+      },
+    }));
+  }
+
+  async function handleSugerirProyecto() {
+    setSugerenciaProyecto(null);
+    try {
+      const res = await sugerirProyectoMutation.mutateAsync({
+        modalidad: plan.modalidad,
+        grado: plan.grado,
+        figuraProfesionalId: plan.figuraProfesionalId,
+        moduloId: plan.moduloId,
+        diagnosticoAcademico: plan.semana1.diagnosticoAcademico,
+        actividadesNivelacion: plan.semana2y3.actividadesNivelacion,
+        semana4y5: {
+          titulo: plan.semana4y5.proyecto.titulo,
+          descripcion: plan.semana4y5.proyecto.descripcion,
+          areasIntegradas: plan.semana4y5.proyecto.areasIntegradas,
+          productoFinal: plan.semana4y5.proyecto.productoFinal,
+          actividadesSemana4: plan.semana4y5.proyecto.actividadesSemana4,
+          actividadesSemana5: plan.semana4y5.proyecto.actividadesSemana5,
+        },
+      });
+
+      const proy = (res as any)?.proyectoSugerido;
+      if (proy) {
+        // Rellena SOLO los campos vacíos — nunca sobrescribe lo del docente.
+        setPlan((p) => ({
+          ...p,
+          semana4y5: {
+            proyecto: {
+              ...p.semana4y5.proyecto,
+              titulo: p.semana4y5.proyecto.titulo || proy.titulo || "",
+              descripcion: p.semana4y5.proyecto.descripcion || proy.descripcion || "",
+              areasIntegradas: p.semana4y5.proyecto.areasIntegradas.length
+                ? p.semana4y5.proyecto.areasIntegradas
+                : (proy.areasIntegradas ?? []),
+              productoFinal: p.semana4y5.proyecto.productoFinal || proy.productoFinal || "",
+              actividadesSemana4: p.semana4y5.proyecto.actividadesSemana4.length
+                ? p.semana4y5.proyecto.actividadesSemana4
+                : (proy.actividadesSemana4 ?? []),
+              actividadesSemana5: p.semana4y5.proyecto.actividadesSemana5.length
+                ? p.semana4y5.proyecto.actividadesSemana5
+                : (proy.actividadesSemana5 ?? []),
+              destrezasReforzadas: proy.destrezasReforzadas ?? p.semana4y5.proyecto.destrezasReforzadas,
+              evidenciasCognitivas: proy.evidenciasCognitivas ?? p.semana4y5.proyecto.evidenciasCognitivas,
+              evidenciasActitudinales: proy.evidenciasActitudinales ?? p.semana4y5.proyecto.evidenciasActitudinales,
+              esEvaluacionFormativaOficial: true,
+            },
+          },
+        }));
+        setSugerenciaProyecto(proy);
+      }
+
+      const prodBT = (res as any)?.productoAcreditableSugerido;
+      if (prodBT && plan.modalidad === "bt") {
+        setPlan((p) => ({
+          ...p,
+          semana4y5BT: {
+            productoAcreditable: {
+              tipo: p.semana4y5BT?.productoAcreditable.tipo || prodBT.tipo || "maqueta",
+              descripcion: p.semana4y5BT?.productoAcreditable.descripcion || prodBT.descripcion || "",
+              actividadesSemana4: p.semana4y5BT?.productoAcreditable.actividadesSemana4?.length
+                ? p.semana4y5BT.productoAcreditable.actividadesSemana4
+                : (prodBT.actividadesSemana4 ?? []),
+              actividadesSemana5: p.semana4y5BT?.productoAcreditable.actividadesSemana5?.length
+                ? p.semana4y5BT.productoAcreditable.actividadesSemana5
+                : (prodBT.actividadesSemana5 ?? []),
+            },
+          },
+        }));
+        setSugerenciaProyecto(proy ?? null);
+      }
+
+      if (!proy && !prodBT) {
+        Alert.alert("Sin resultado", "La IA no devolvió una sugerencia de proyecto. Intenta de nuevo.");
+      }
+    } catch (err: any) {
+      Alert.alert("Error al sugerir", err?.data?.message || err?.message || "No se pudo generar la sugerencia.");
+    }
   }
 
   function addPareja() {
@@ -1162,14 +1272,56 @@ export default function ConectaNivelaCreaScreen() {
               Refuerzo focalizado en Lengua y Matemática, con "conivelación" (tutoría entre pares).
             </Text>
 
-            <DestrezaBuscadorCNC area="LL" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", 2)} colors={colors} />
-            <DestrezaBuscadorCNC area="M" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "M", 2)} colors={colors} />
-            {plan.semana2y3.actividadesNivelacion.map((a, i) => (
-              <View key={i} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
-                <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{a.area}] {a.destrezaCodigo} — semana {a.semana}</Text>
-                <Text style={{ fontSize: 11, color: colors.text }} numberOfLines={2}>{a.destrezaDescripcion}</Text>
-              </View>
-            ))}
+            <Label text="Semana en la que se agregarán las destrezas" colors={colors} />
+            <View style={{ flexDirection: "row", gap: 8, marginBottom: 12 }}>
+              {([2, 3] as const).map((s) => (
+                <Pressable
+                  key={s}
+                  onPress={() => setSemanaNivelacionActiva(s)}
+                  style={{
+                    flex: 1,
+                    paddingVertical: 9,
+                    borderRadius: 8,
+                    alignItems: "center",
+                    borderWidth: 1,
+                    backgroundColor: semanaNivelacionActiva === s ? colors.primary : colors.surface,
+                    borderColor: semanaNivelacionActiva === s ? colors.primary : colors.border,
+                  }}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: semanaNivelacionActiva === s ? "#fff" : colors.text }}>
+                    {s === 2 ? "Semana 2 — base" : "Semana 3 — consolidación"}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+
+            <DestrezaBuscadorCNC area="LL" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", semanaNivelacionActiva)} colors={colors} />
+            <DestrezaBuscadorCNC area="M" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "M", semanaNivelacionActiva)} colors={colors} />
+            {[2, 3].map((sem) => {
+              const activas = plan.semana2y3.actividadesNivelacion.filter((a) => a.semana === sem);
+              if (!activas.length) return null;
+              return (
+                <View key={sem} style={{ marginBottom: 10 }}>
+                  <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginBottom: 4 }}>
+                    Semana {sem} — {sem === 2 ? "base" : "consolidación"} ({activas.length})
+                  </Text>
+                  {activas.map((a) => {
+                    const idx = plan.semana2y3.actividadesNivelacion.findIndex((x) => x === a);
+                    return (
+                      <View key={a.destrezaCodigo + "-" + idx} style={{ flexDirection: "row", alignItems: "flex-start", backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
+                        <View style={{ flex: 1 }}>
+                          <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{a.area}] {a.destrezaCodigo}</Text>
+                          <Text style={{ fontSize: 11, color: colors.text }} numberOfLines={2}>{a.destrezaDescripcion}</Text>
+                        </View>
+                        <Pressable onPress={() => quitarActividadNivelacion(idx)} hitSlop={8} style={{ marginLeft: 8, paddingHorizontal: 6, paddingVertical: 2 }}>
+                          <Text style={{ fontSize: 15, color: "#EF4444", fontWeight: "700" }}>✕</Text>
+                        </Pressable>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+            })}
 
             {esBT && moduloSeleccionado?.resultadosAprendizaje?.length ? (
               <>
@@ -1242,6 +1394,33 @@ export default function ConectaNivelaCreaScreen() {
                 Este proyecto interdisciplinario corresponde a la evaluación sumativa del trimestre — se aplica al finalizar cada período académico y evidencia aprendizajes cognitivos, procedimentales y actitudinales.
               </Text>
             </View>
+
+            <Pressable
+              onPress={handleSugerirProyecto}
+              disabled={sugerirProyectoMutation.isPending}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: colors.primary + "20", borderRadius: 10, borderWidth: 1, borderColor: colors.primary, paddingVertical: 12, marginBottom: 12 }}
+            >
+              {sugerirProyectoMutation.isPending ? (
+                <ActivityIndicator color={colors.primary} size="small" />
+              ) : (
+                <Text style={{ fontSize: 14 }}>✨</Text>
+              )}
+              <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary }}>
+                {sugerirProyectoMutation.isPending ? "Generando sugerencia..." : `✨ Sugerir ${esBT ? "producto acreditable" : "proyecto"} con IA`}
+              </Text>
+            </Pressable>
+
+            {sugerenciaProyecto && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#22C55E", marginBottom: 12 }}>
+                <Text style={{ fontSize: 11, fontWeight: "700", color: "#166534", marginBottom: 4 }}>
+                  ✨ Sugerencia IA aplicada — revisa y ajusta los campos (solo se rellenó lo que estaba vacío)
+                </Text>
+                <Text style={{ fontSize: 11, color: "#166534" }}>{sugerenciaProyecto.titulo}</Text>
+                <Text style={{ fontSize: 10, color: "#15803D", marginTop: 2 }}>
+                  {sugerenciaProyecto.descripcion}
+                </Text>
+              </View>
+            )}
 
             {!esBT && (
               <>
