@@ -5,7 +5,7 @@ import {
   gradosDeSubnivel,
   resolverDcdConIndicador,
 } from "../data/index";
-import { invokeLLM, repairJson, OutputSchema } from "./_core/llm";
+import { invokeLLM, repairJson } from "./_core/llm";
 
 /**
  * Motor de desagregación/gradación de DCD e indicadores de evaluación por grado.
@@ -37,33 +37,6 @@ export function procesoCognitivoParaPosicion(posicion: number, totalGrados: numb
     .slice(0, 6)
     .join(", ")}`;
 }
-
-/** 3.1 Esquema JSON estricto de la respuesta de desagregación (grados intermedios). */
-export const desagregacionOutputSchema: OutputSchema = {
-  name: "desagregacion_dcd",
-  schema: {
-    type: "object",
-    properties: {
-      grados: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            grado: { type: "number" },
-            dcdGraduada: { type: "string" },
-            indicadorGraduado: { type: "string" },
-            procesoCognitivo: { type: "string" },
-          },
-          required: ["grado", "dcdGraduada", "indicadorGraduado"],
-          additionalProperties: false,
-        },
-      },
-    },
-    required: ["grados"],
-    additionalProperties: false,
-  },
-  strict: true,
-};
 
 /** 3.2 Prompt con restricciones pedagógicas: no introducir contenido ajeno a la DCD original. */
 export function construirPromptDesagregacion(
@@ -216,7 +189,7 @@ export async function generarDesagregacionDCD(codigoDCD: string): Promise<Desagr
         },
         { role: "user", content: construirPromptDesagregacion(inputs, grados) },
       ],
-      outputSchema: desagregacionOutputSchema,
+      responseFormat: { type: "json_object" },
     });
 
     const content = result.choices[0]?.message?.content;

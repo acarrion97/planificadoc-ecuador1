@@ -385,14 +385,20 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
 
     const errorText = await response.text();
 
-    if (RETRYABLE_STATUS.has(response.status) && attempt < MAX_RETRIES) {
-      console.warn(`[LLM] ${response.status} en intento ${attempt + 1}, reintentando...`);
+    if (RETRYABLE_STATUS.has(response.status)) {
+      console.warn(`[LLM] ${response.status} en intento ${attempt + 1}: ${errorText}`);
       lastError = new Error(`LLM ${response.status}: ${errorText}`);
-      continue;
+      if (attempt < MAX_RETRIES) continue;
+      // Se agotaron los reintentos de un error que sí era transitorio (429/5xx).
+      throw new Error("El servicio de IA está ocupado. Por favor intenta de nuevo en unos segundos.");
     }
 
-    // No retryable or ran out of retries
-    throw new Error(`El servicio de IA está ocupado. Por favor intenta de nuevo en unos segundos.`);
+    // Error NO reintentable (400/401/403/404...) — no es que "esté ocupado", es un
+    // error real (payload inválido, credenciales, endpoint). Se loguea completo en
+    // el servidor para poder depurarlo; al usuario se le da un mensaje genérico
+    // pero distinto para no confundirlo con sobrecarga transitoria.
+    console.error(`[LLM] Error no reintentable ${response.status}: ${errorText}`);
+    throw new Error("No se pudo generar la respuesta con IA. Intenta de nuevo; si persiste, contacta soporte.");
   }
 
   throw lastError ?? new Error("El servicio de IA no está disponible. Intenta más tarde.");
