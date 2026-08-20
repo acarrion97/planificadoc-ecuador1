@@ -12,10 +12,10 @@
 
 ## 3. Generación con IA
 
-- [ ] 3.1 Construir el `outputSchema` JSON estricto de la respuesta de desagregación (array de filas por grado intermedio: `{ grado, dcdGraduada, indicadorGraduado, procesoCognitivo }`)
-- [ ] 3.2 Construir el prompt de generación: DCD original, indicador original, grados del subnivel, grado destino, proceso cognitivo esperado (verbos de `taxonomia-marzano.ts`) y restricción explícita de no introducir conocimiento fuera de la DCD original
-- [ ] 3.3 Implementar en el servidor la llamada `invokeLLM` con `response_format` JSON estricto y `repairJson` como respaldo
-- [ ] 3.4 Post-proceso: llenar el último grado con la copia exacta del texto oficial (sin pasar por la IA) y validar que los grados intermedios no excedan la longitud del original ni introduzcan términos ausentes (advertencia no bloqueante)
+- [x] 3.1 Construir el `outputSchema` JSON estricto de la respuesta de desagregación (array de filas por grado intermedio: `{ grado, dcdGraduada, indicadorGraduado, procesoCognitivo }`)
+- [x] 3.2 Construir el prompt de generación: DCD original, indicador original, grados del subnivel, grado destino, proceso cognitivo esperado (verbos de `taxonomia-marzano.ts`) y restricción explícita de no introducir conocimiento fuera de la DCD original
+- [x] 3.3 Implementar en el servidor la llamada `invokeLLM` con `response_format` JSON estricto y `repairJson` como respaldo
+- [x] 3.4 Post-proceso: llenar el último grado con la copia exacta del texto oficial (sin pasar por la IA) y validar que los grados intermedios no excedan la longitud del original ni introduzcan términos ausentes (advertencia no bloqueante)
 
 ## 4. Router y endpoints
 
