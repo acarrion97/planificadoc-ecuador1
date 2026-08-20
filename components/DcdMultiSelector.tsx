@@ -9,8 +9,12 @@ import {
   Platform,
 } from "react-native";
 import { useColors } from "@/hooks/use-colors";
-import { Destreza } from "@/data/types";
-import { obtenerNombreSubnivel, buscarPorCodigo } from "@/data";
+import { Destreza, DcdSeleccionada } from "@/data/types";
+import { obtenerNombreSubnivel, buscarPorCodigo, gradosDeSubnivel, resolverDcdConIndicador } from "@/data";
+import { DcdDesagregacionPanel } from "@/components/DcdDesagregacionPanel";
+
+/** El selector devuelve el tipo canónico de `data/types` (incluye `origen` y `grado`). */
+export type { DcdSeleccionada };
 
 /**
  * Subnivel de una DCD ya seleccionada. Los chips solo guardan código y
@@ -22,9 +26,15 @@ function subnivelDeCodigo(codigo: string): string | null {
   return d ? obtenerNombreSubnivel(d.subnivel) : null;
 }
 
-export interface DcdSeleccionada {
-  codigo: string;
-  enunciado: string;
+/**
+ * Una DCD es desagregable si su subnivel tiene grados y tiene indicador de
+ * evaluación principal. Sin estas condiciones no se ofrece la ruta.
+ */
+function esDesagregable(codigo: string): boolean {
+  const d = buscarPorCodigo(codigo);
+  if (!d) return false;
+  if (!gradosDeSubnivel(d.subnivel)) return false;
+  return resolverDcdConIndicador(codigo) != null;
 }
 
 interface Props {
@@ -39,11 +49,19 @@ interface Props {
    * planificación pasan un único subnivel y no deben ver la etiqueta.
    */
   mostrarSubnivel?: boolean;
+  /**
+   * Grado de la planificación. Solo los flujos de planificación la pasan:
+   * activa la ruta de desagregación ("Desagregar para N.º EGB") sin cambiar
+   * el comportamiento actual cuando está ausente (CNC, Evaluación).
+   */
+  gradoContexto?: number;
 }
 
-export function DcdMultiSelector({ destrezas, value, onChange, placeholder, mostrarSubnivel }: Props) {
+export function DcdMultiSelector({ destrezas, value, onChange, placeholder, mostrarSubnivel, gradoContexto }: Props) {
   const colors = useColors();
   const [query, setQuery] = useState("");
+  /** Código de la DCD cuyo panel de desagregación está abierto (null = cerrado). */
+  const [panelCodigo, setPanelCodigo] = useState<string | null>(null);
 
   // Filtrado en memoria — instantáneo, sin red
   const filtered = useMemo(() => {
@@ -62,7 +80,7 @@ export function DcdMultiSelector({ destrezas, value, onChange, placeholder, most
     if (selectedCodes.has(d.codigo)) {
       onChange(value.filter(s => s.codigo !== d.codigo));
     } else {
-      onChange([...value, { codigo: d.codigo, enunciado: d.descripcion }]);
+      onChange([...value, { codigo: d.codigo, enunciado: d.descripcion, origen: "oficial" }]);
     }
   }, [value, onChange, selectedCodes]);
 
@@ -70,29 +88,102 @@ export function DcdMultiSelector({ destrezas, value, onChange, placeholder, most
     onChange(value.filter(s => s.codigo !== codigo));
   }, [value, onChange]);
 
+  /** Ruta oficial: la DCD oficial del catálogo (reversa de una versión desagregada). */
+  const seleccionarOficial = useCallback((codigo: string) => {
+    const d = buscarPorCodigo(codigo);
+    if (!d) return;
+    onChange(value.map(s =>
+      s.codigo === codigo ? { codigo, enunciado: d.descripcion, origen: "oficial" } : s
+    ));
+  }, [value, onChange]);
+
+  /** Ruta desagregada: aplica la versión graduada elegida en el panel. */
+  const aplicarDesagregada = useCallback((codigo: string, enunciado: string, grado: number) => {
+    onChange(value.map(s =>
+      s.codigo === codigo ? { codigo, enunciado, origen: "desagregada", grado } : s
+    ));
+  }, [value, onChange]);
+
   return (
     <View>
       {/* Chips de seleccionadas */}
       {value.length > 0 && (
         <View style={styles.chipsWrap}>
-          {value.map(d => (
-            <View
-              key={d.codigo}
-              style={[styles.chip, { backgroundColor: "#EEEDFE", borderColor: "#7C3AED" }]}
-            >
-              <Text style={[styles.chipText, { color: "#4C1D95" }]}>
-                {d.codigo}
-                {mostrarSubnivel && subnivelDeCodigo(d.codigo)
-                  ? ` · ${subnivelDeCodigo(d.codigo)}`
-                  : ""}
-              </Text>
-              <Pressable onPress={() => remove(d.codigo)} hitSlop={6} style={styles.chipX}>
-                <Text style={{ color: "#7C3AED", fontSize: 13, fontWeight: "700" }}>×</Text>
-              </Pressable>
-            </View>
-          ))}
+          {value.map(d => {
+            const desagregable = gradoContexto != null && esDesagregable(d.codigo);
+            return (
+              <View
+                key={d.codigo}
+                style={[
+                  styles.chip,
+                  { backgroundColor: "#EEEDFE", borderColor: "#7C3AED" },
+                  d.origen === "desagregada" && styles.chipDesagregada,
+                ]}
+              >
+                <View style={{ flex: 1, flexDirection: "row", alignItems: "center", gap: 4 }}>
+                  <Text style={[styles.chipText, { color: "#4C1D95" }]}>
+                    {d.codigo}
+                    {mostrarSubnivel && subnivelDeCodigo(d.codigo)
+                      ? ` · ${subnivelDeCodigo(d.codigo)}`
+                      : ""}
+                  </Text>
+                  {d.origen === "desagregada" ? (
+                    <Text style={[styles.gradoTag, { color: "#7C3AED" }]}>
+                      {d.grado}°
+                    </Text>
+                  ) : null}
+                  <Pressable onPress={() => remove(d.codigo)} hitSlop={6} style={styles.chipX}>
+                    <Text style={{ color: "#7C3AED", fontSize: 13, fontWeight: "700" }}>×</Text>
+                  </Pressable>
+                </View>
+
+                {/* 6.2/6.3: dos rutas tras seleccionar una DCD (solo planificación) */}
+                {desagregable ? (
+                  <View style={styles.rutas}>
+                    <Pressable
+                      onPress={() => setPanelCodigo(d.codigo)}
+                      style={({ pressed }) => [styles.rutaBtn, { backgroundColor: "#7C3AED", opacity: pressed ? 0.8 : 1 }]}
+                    >
+                      <Text style={styles.rutaBtnText}>⚡ Desagregar para {gradoContexto}.º EGB</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => seleccionarOficial(d.codigo)}
+                      style={({ pressed }) => [styles.rutaOficial, { borderColor: "#7C3AED", opacity: pressed ? 0.7 : 1 }]}
+                    >
+                      <Text style={[styles.rutaOficialText, { color: "#7C3AED" }]}>
+                        {d.origen === "desagregada" ? "↩ Volver a DCD oficial" : "Seleccionar DCD oficial"}
+                      </Text>
+                    </Pressable>
+                  </View>
+                ) : d.origen === "desagregada" ? (
+                  <View style={styles.rutas}>
+                    <Pressable
+                      onPress={() => setPanelCodigo(d.codigo)}
+                      style={({ pressed }) => [styles.rutaBtn, { backgroundColor: "#7C3AED", opacity: pressed ? 0.8 : 1 }]}
+                    >
+                      <Text style={styles.rutaBtnText}>⚡ Desagregar por grado</Text>
+                    </Pressable>
+                  </View>
+                ) : null}
+              </View>
+            );
+          })}
         </View>
       )}
+
+      {/* 6.2: panel hermano de desagregación */}
+      {panelCodigo ? (
+        <DcdDesagregacionPanel
+          codigoDCD={panelCodigo}
+          gradoContexto={gradoContexto}
+          visible={!!panelCodigo}
+          onClose={() => setPanelCodigo(null)}
+          onSeleccionar={(fila) => {
+            aplicarDesagregada(fila.codigoDCD, fila.dcdGraduada, fila.grado);
+            setPanelCodigo(null);
+          }}
+        />
+      ) : null}
 
       {/* Buscador */}
       <TextInput
@@ -187,9 +278,49 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: 4,
   },
+  chipDesagregada: {
+    borderColor: "#7C3AED",
+    borderStyle: "dashed",
+  },
   chipText: {
     fontSize: 12,
     fontWeight: "700",
+  },
+  gradoTag: {
+    fontSize: 10,
+    fontWeight: "900",
+    backgroundColor: "#EDE9FE",
+    borderRadius: 6,
+    paddingHorizontal: 4,
+    paddingVertical: 1,
+    overflow: "hidden",
+  },
+  rutas: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    flexWrap: "wrap",
+    marginTop: 4,
+  },
+  rutaBtn: {
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  rutaBtnText: {
+    color: "#fff",
+    fontSize: 11,
+    fontWeight: "700",
+  },
+  rutaOficial: {
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  rutaOficialText: {
+    fontSize: 11,
+    fontWeight: "600",
   },
   chipX: {
     paddingLeft: 2,

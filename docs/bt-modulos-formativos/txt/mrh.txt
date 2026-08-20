@@ -1,0 +1,2323 @@
+MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “MANEJO DE RECURSOS
+                       HIDROBIOLÓGICOS”
+
+   1. Objetivo general
+
+Aplicar conocimientos científicos, técnicos y tecnológicos en el cultivo, procesamiento y
+aprovechamiento sostenible de especies hidrobiológicas; garantizando la calidad,
+inocuidad y sostenibilidad ambiental de los procesos productivos, mediante la
+implementación de buenas prácticas, innovación y emprendimiento, en respuesta a las
+demandas del sector acuícola y pesquero local, nacional e internacional.
+
+   2. Plan de estudios
+
+                                                           1ro       2do        3ro
+Total, periodos pedagógicos tronco común
+                                                           19        19         19
+Módulos         Investigación                    2                   2
+Genéricos de la Manejo de Recursos hídricos      2                   2
+Familia         Tecnologías
+Profesional                                      3                   2
+                Preparación de Insumos y Equipos
+                                                 4                   3          2
+                Hidrobiológicos
+                    Cultivo y Captura de Especies
+                                                    4                4          5
+                    hidrobiológicas
+Módulos             Procesamiento      de Productos
+Especialización                                     4                3          3
+                    Hidrobiológicos
+                    Control de Calidad                                          4
+                  Innovación y Emprendimiento en
+                                                                     3          3
+                  Productos Hidrobiológicos
+Módulo Práctico Experimental                     2                   2          4
+Total, de periodos pedagógicos formación técnica           21        21         21
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la familia Agropecuaria. Gracias a las características
+de los módulos trabajados en esta etapa, adquieren herramientas que le permiten construir
+una opinión más informada y tomar decisiones con mayor fundamento. Esto favorece su
+capacidad para, en caso de que lo desee, transitar entre distintas figuras profesionales
+dentro de la misma familia, continuar con su trayectoria educativa, insertarse en el mundo
+laboral o emprender un proyecto propio.
+
+Se estructuran los siguientes módulos genéricos:
+
+   •   Investigación
+   •   Manejo de Recursos Hídricos
+   •   Tecnologías
+                                Módulo Genérico Nro. 1
+Nombre del módulo                    Investigación
+Nivel: Bachillerato                  1ro y 2do
+Duración:                            160 periodos pedagógicos
+                                     UC 1: Investigar la producción y manejo de recursos
+Unidad        de      competencia agropecuarios        e      hidrobiológicos     generando
+asociada:                            información técnica que apoye la ejecución de
+                                     actividades productivas.
+Objetivo del módulo: Desarrollar competencias para investigar la producción y manejo de
+recursos agropecuarios e hidrobiológicos mediante la recolección, análisis y sistematización
+de información técnica, con el fin de apoyar la planificación y ejecución de actividades
+productivas en contextos sostenibles y pertinentes al sector.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Reconocer técnicas e instrumentos de investigación aplicables a la producción
+y manejo de recursos agropecuarios e hidrobiológicos, identificando su función y
+relevancia para recolectar información confiable en contextos productivos.
+CE1.1: Describe técnicas, instrumentos e insumos de recolección de datos aplicables a la
+producción y manejo de recursos agropecuarios e hidrobiológicos en contextos
+productivos.
+CE1.2: Selecciona técnicas, instrumentos e insumos necesarios para recolectar
+información confiable en el contexto productivo.
+CE1.3: Prepara las técnicas, instrumentos e insumos requeridos para el levantamiento de
+información técnica en campo o laboratorio.
+CE1.4: Incorpora normas de seguridad, bioseguridad y sanidad en el manejo de las
+técnicas e instrumentos de investigación.
+RA2: Ejecutar técnicas e instrumentos de recolección de datos en actividades
+productivas agropecuarias e hidrobiológicas, asegurando precisión, orden y
+confiabilidad de la información.
+CE 2.1: Aplica procedimientos de muestreo y recopilación de datos siguiendo protocolos
+establecidos, asegurando validez, confiabilidad y relevancia de la información.
+CE 2.2: Analiza la información recopilada, detectando tendencias, anomalías y variaciones
+relevantes en los procesos productivos agropecuarios e hidrobiológicos.
+CE 2.3: Verifica la consistencia y coherencia de los datos recopilados, identificando y
+corrigiendo errores o inconsistencias.
+CE 2.4: Formula recomendaciones técnicas que fortalezcan las prácticas agropecuarias e
+hidrobiológicas, promoviendo el uso sostenible de los recursos y la eficiencia de los
+procesos productivos.
+RA3: Presentar la información recolectada mediante registros técnicos, tablas,
+gráficos y diagramas, asegurando su comprensión y facilitando el análisis.
+CE 3.1: Organiza la información recolectada según criterios técnicos y relevancia para la
+actividad productiva.
+CE 3.2: Representa la información mediante tablas, diagramas o gráficos básicos,
+asegurando claridad y orden.
+CE 3.3: Resume los hallazgos de la investigación de manera coherente, utilizando formatos
+escritos o gráficos para su adecuada visualización.
+CE 3.4: Interpreta tendencias, patrones o problemas detectados en los sistemas productivos
+a partir de la información organizada.
+RA4: Analizar los resultados de investigación para relacionarlos con los procesos
+productivos y el manejo de recursos agropecuarios e hidrobiológicos, proponiendo
+acciones que apoyen la ejecución de actividades productivas.
+CE 4.1: Explica la relación entre los resultados de investigación y los procesos productivos
+o de manejo de recursos agropecuarios e hidrobiológicos, identificando su incidencia en la
+eficiencia y sostenibilidad de las actividades.
+CE 4.2: Analiza los resultados de investigación para identificar tendencias, problemáticas,
+oportunidades o innovaciones que aporten a la mejora de los procesos productivos.
+CE 4.3: Presenta los resultados obtenidos, evidenciando tendencias, problemáticas,
+oportunidades de mejora e innovaciones en los procesos de producción y manejo de
+recursos.
+CE 4.4: Aplica los resultados de investigación en el diseño o ajustes de prácticas
+productivas, incorporando innovaciones y estrategias que mejoren la sostenibilidad,
+rentabilidad y calidad de los proceso agropecuarios e hidrobiológicos.
+Contenidos
+Conceptuales                     Procedimentales                Actitudinales
+Concepto y clasificación de Identificar              especies Demostrar responsabilidad
+recursos agropecuarios e agropecuarias                       e en la recolección, registro y
+hidrobiológicos.                 hidrobiológicas y sus ciclos análisis de datos.
+                                 de vida.
+Sistemas de producción:                                         Fomentar hábitos de higiene,
+extensivo, intensivo y semi- Clasificar        sistemas     de seguridad y bioseguridad en
+intensivo.                       producción según su tipo y entornos productivos.
+                                 características.
+Ciclos       biológicos       de                                Valorar la sostenibilidad y
+especies cultivadas (peces, Aplicar            normas       de conservación de los recursos
+camarones, aves, ganado, seguridad, bioseguridad y agropecuarios                            e
+moluscos).                       sanidad en el manejo de hidrobiológicos.
+                                 especies.
+Principios de sostenibilidad                                    Mantener una actitud ética
+en la producción y manejo de Analizar la sostenibilidad de en la utilización de la
+recursos.                        las prácticas de producción información técnica y en la
+                                 y manejo.                      interacción con el entorno
+Normativas            técnicas,
+                                                                productivo.
+sanitarias y de bioseguridad
+                                 Seleccionar instrumentos y
+aplicables.                                                     Colaborar      de     manera
+                                 materiales adecuados para
+                                                                efectiva con compañeros y
+Métodos de muestreo en la recolección de datos.
+                                                                supervisores en actividades
+agropecuaria                  e
+                                                                productivas       y        de
+hidrobiología.                   Recolectar             datos
+                                                                investigación.
+                                 cuantitativos y cualitativos
+Instrumentos e insumos
+                                 siguiendo procedimientos Respetar las normas y
+básicos para la recolección
+                                 técnicos.                      procedimientos      técnicos
+de      datos       (balanzas,
+                                                                establecidos en el manejo
+medidores         de        pH,
+                                 Registrar información en de especies y sistemas
+termómetros,          registros
+                                 formatos físicos o digitales productivos.
+digitales y físicos).
+Parámetros,          físicos   de    manera      clara   y    Mostrar      iniciativa   y
+químicos y biológicos.         organizada.                    compromiso         en    el
+                                                              desarrollo de proyectos de
+Protocolos de seguridad y
+                               Verificar la precisión y       investigación.
+manejo de muestras.
+                               consistencia de los datos
+                                                              Demostrar perseverancia y
+Tipos de datos: cualitativos   recolectados.
+                                                              responsabilidad durante la
+y cuantitativos.
+                               Organizar datos en tablas y    ejecución de actividades de
+Herramientas       gráficas:                                  campo.
+                               formatos estándar.
+tablas, gráficos de barras,
+                                                              Respetar la ética en el
+circulares y diagramas de      Representar información        manejo de datos, la autoría
+flujo.                         mediante        gráficos,      de la información y el
+Formatos     de    registro    diagramas y esquemas           trabajo colaborativo.
+técnico: hojas de cálculo,     técnicos.
+software básico, cuadernos
+de campo.                      Clasificar la información
+                               según criterios técnicos y
+Principios de clasificación,   relevancia.
+codificación               y
+jerarquización            de   Interpretar la información
+información.                   para facilitar su análisis y
+Normas de presentación de      comprensión.
+información             para
+                               Analizar información para
+interpretación técnica.
+                               identificar     tendencias,
+Interpretación de datos para   problemas y patrones en los
+identificación de patrones,    sistemas productivos.
+tendencias y anomalías.
+                               Relacionar    datos     con
+Evaluación de condiciones
+                               condiciones, oportunidades
+de            producción,
+                               y limitaciones del sistema
+oportunidades           y
+                               productivo.
+limitaciones.
+Toma de decisiones basada      Evaluar la información
+en la información obtenida.    organizada para la toma de
+                               decisiones técnicas.
+Conceptos de eficiencia y
+mejora      en   sistemas      Sugerir acciones simples de
+agropecuarios           e      mejora basadas en la
+hidrobiológicos.               interpretación de los datos
+Diseño       básico   de
+investigación:                 Formular preguntas de
+planteamiento         del      investigación y objetivos
+problema, formulación de       claros a partir de una
+objetivos y selección de       problemática agropecuaria.
+metodología.
+                               Seleccionar métodos de
+                               investigación (observación,
+Tipos de investigación         muestreo,          ensayo
+aplicables     al   contexto   experimental) según el
+agropecuario: exploratoria,    problema planteado.
+descriptiva y experimental a
+pequeña escala.                Planificar y ejecutar una
+                               pequeña investigación de
+Variables y control de
+                               campo,         registrando
+factores   en  estudios
+                               procesos y datos con rigor
+agropecuarios.
+                               técnico.
+Planificación        de
+cronogramas y recursos         Analizar    y    sintetizar
+para investigaciones de        resultados,   proponiendo
+campo.                         conclusiones y mejoras
+                               basadas en evidencias.
+Comunicación           de
+resultados:     informes,      Presentar los resultados en
+presentaciones y difusión      informes           técnicos,
+en la comunidad educativa      promoviendo               la
+o productiva.                  socialización de hallazgos.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en Acuicultura,
+    Agricultura, Agropecuaria, o carreras afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+  • Aprendizaje Basado en Proyectos (ABP)
+  • Aprendizaje en Contextos Reales
+  • Role-Playing y Simulaciones
+  • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación                  Especificaciones técnicas                     Cantidad
+                              Entorno de aprendizaje
+Infraestructura/espacio                                                     1
+                              (aula)
+                              Computadoras con acceso a internet
+Laboratorio                                                                 1
+                              Proyector
+Referencias Bibliográficas
+• Bellon-Maurel, V., Brossard, L., Garcia, F., Mitton, N., & Termier, A. (2022). Agricultura
+    y tecnología digital: Cómo aprovechar al máximo la tecnología digital para contribuir a
+    la transición hacia la agricultura y sistemas sostenibles(1Edición).Inria.
+    https://www.inria.cl/sites/default/files/2022-12/libro-blanco-agricultura-es.pdf
+• Corporación Colombiana de Investigación Agropecuaria (AGROSAVIA). (s. f.). Ciencia
+    y Tecnología Agropecuaria. https://revistacta.agrosavia.co/index.php/revista
+• Mera Guzmán, P. E., Artieda Rojas, J. R., Naranjo Lozada, S. G., & Carranza Guerrero,
+    M. N. (2023). Modelos y sistemas de administración agropecuaria. Arandu UTIC,
+    Revista Científica Internacional, 12(1). https://doi.org/10.69639/arandu.v12i1.646
+•   Sánchez, V. H., & Zambrano Mendoza, J. L. (2019). Adopción e impacto de las
+    tecnologías agropecuarias generadas en el Ecuador. La Granja: Revista de Ciencias de
+    la Vida, 30(2), 16–39. https://doi.org/10.17163/lgr.n30.2019.03
+
+
+
+
+                                 Módulo Genérico No. 2
+Nombre del módulo:                     Manejo de Recursos Hídricos
+
+Nivel:                                   1ro, 2do
+
+Duración:                                160 periodos pedagógicos
+
+Unidad de competencia asociada:           UC 2: Emplear de manera eficiente y sostenible los
+                                          recursos hídricos en actividades agropecuarias e
+                                          hidrobiológicas,      promoviendo        prácticas
+                                          responsables que contribuyan a la conservación
+                                          del agua y la optimización de su uso en cada
+                                          sector.
+Objetivo del módulo: Implementar prácticas eficientes y sostenibles de manejo de los
+recursos hídricos en actividades del sector agrícola, ganadero e hidrobiológico promoviendo
+la conservación del agua y optimizando su uso para garantizar la sustentabilidad y
+productividad de estos sectores productivos.
+Resultados de Aprendizaje (RA) – Criterios de Evaluación (CE)
+RA1: Reconocer fuentes de agua disponibles para actividades productivas,
+considerando su calidad y cantidad.
+CE1.1: Distingue fuentes naturales y artificiales de agua en el entorno productivo y las
+relaciona      con       las    actividades      agropecuarias       e     hidrobiológicas.
+CE1.2: Describe las características físicas, químicas y biológicas del agua utilizada en los
+procesos                                                                        productivos.
+CE1.3: Clasifica las fuentes de agua según disponibilidad, calidad y uso apropiado en las
+diferentes actividades productivas.
+CE1.4: Analiza la calidad y cantidad de agua disponible para determinar su idoneidad en
+las actividades agropecuarias e hidrobiológicas, considerando criterios técnicos y
+ambientales.
+RA2: Aplicar técnicas de distribución y aprovechamiento del agua en actividades
+agropecuarias e hidrobiológicas, asegurando un uso eficiente y controlado del
+recurso.
+CE.2.1: Examina sistemas y métodos de riego disponibles en el entorno productivo y los
+relaciona con las actividades agropecuarias e hidrobiológicas.
+CE2.2: Selecciona técnicas de distribución de agua adecuadas según características de las
+especies y sistemas de producción.
+CE2.3: Emplea métodos de riego y manejo del agua de manera eficiente, cumpliendo
+normas de seguridad, higiene y sostenibilidad.
+CE2.4: Valora los resultados del uso del agua en las actividades productivas e identifica
+oportunidades de mejora para optimizar el recurso.
+RA3: Implementar prácticas sostenibles en el manejo del agua durante procesos
+productivos agropecuarios e hidrobiológicos, minimizando impactos ambientales y
+promoviendo la conservación del recurso.
+CE3.1: Reconoce prácticas sostenibles de manejo del agua aplicables a los sistemas
+productivos agropecuarios e hidrobiológicos.
+CE.3.2: Selecciona prácticas sostenibles adecuadas según el tipo de producción y
+características del entorno.
+CE.3.3: Usa técnicas de manejo sostenible del agua durante las actividades productivas,
+cumpliendo normas de seguridad, higiene y conservación.
+CE.3.4: Evalúa los resultados de las prácticas implementadas e identifica ajustes que
+reduzcan impactos ambientales y mejoren la eficiencia del recurso.
+RA4: Proponer ajustes y mejoras simples en el uso del agua, utilizando recursos y
+procedimientos que optimicen su aprovechamiento en actividades productivas.
+CE.4.1: Describe recursos y procedimientos disponibles para el manejo del agua en los
+sistemas productivos.
+CE.4.2: Analiza la eficiencia de los métodos de manejo del agua e identifica oportunidades
+simples de mejora.
+CE.4.3: Aplica ajustes para optimizar el uso del agua, respetando normas de seguridad y
+sostenibilidad.
+CE.4.4: Evalúa la viabilidad de las mejoras propuestas y argumenta su impacto esperado
+en el aprovechamiento sostenible de los recursos agropecuarios e hidrobiológicos.
+CONTENIDOS
+Conceptuales                     Procedimentales                     Actitudinales
+Definición, tipos de recursos     Identificar y evaluar fuentes de Participar en campañas
+hídricos (superficiales y        agua:         localización      y de     sensibilización     y
+subterráneos), distribución      caracterización de fuentes de     educación        ambiental,
+geográfica y su importancia      agua         superficiales      y difusión    de      buenas
+para el desarrollo humano y      subterráneas.                     prácticas para el uso
+ecosistemas.                                                       racional    del     recurso
+                                  Realizar un análisis de calidad
+                                                                   hídrico
+Ciclo del agua: evaporación,     del agua: muestreo, uso de
+condensación, precipitación,     instrumentos      básicos    (pH, Promover el uso de
+infiltración, escurrimiento y    conductividad, oxígeno disuelto) tecnologías eficientes y
+su       impacto     en     la   y registro de resultados.         conservación en las
+disponibilidad hídrica.                                            actividades       agrícolas,
+                                  Implementar       técnicas    de
+                                                                   pecuarias                  e
+Fuentes de contaminación         conservación del agua: instalar
+                                                                   hidrobiológicas.
+del      agua:       residuos    sistemas de captación de agua
+domésticos,      industriales,   de lluvia, prácticas de ahorro en Demostrar compromiso
+agrícolas y urbanos; efectos     hogares y comunidades.            y     respeto      por    la
+sobre la calidad del agua.                                         conservación de los
+                                  Aplicar métodos de tratamiento
+                                                                   recursos hídricos y los
+Normativa     y    legislación   de agua: filtración, cloración y
+                                                                   ecosistemas acuáticos.
+vigente: leyes y regulaciones
+relacionadas con la gestión y otros procesos básicos para Promover prácticas que
+protección del agua.             mejorar la calidad del agua.        aseguren el uso racional
+                                                                     y responsable del agua
+Métodos de análisis de la Elaborar proyectos de manejo
+                                                                     en            actividades
+calidad del agua: parámetros de recursos hídricos: creación
+                                                                     agropecuarias            e
+físicos,       químicos        y de propuestas para el uso
+                                                                     hidrobiológicas.
+biológicos.                      racional y conservación del
+                                 agua.                               Actuar con integridad y
+Técnicas de conservación y
+                                                                     ética profesional en el
+uso eficiente del agua: Monitorear               y    realizar    el
+                                                                     manejo y protección de
+reutilización,          manejo seguimiento de la calidad y
+                                                                     los recursos naturales.
+sustentable, tecnologías de cantidad de recursos hídricos en
+ahorro hídrico.                  la    localidad    mediante      la Fomentar la cooperación
+                                 elaboración de informes y y el trabajo en equipo
+Sistemas        de       gestión
+                                 registros.                          para la conservación y
+integrada       de     recursos
+                                                                     gestión sostenible del
+hídricos:           conceptos, Participar en campañas de
+                                                                     agua y los recursos
+principios y herramientas sensibilización y educación
+                                                                     hidrobiológicos.
+para el manejo sostenible.       ambiental: difusión de buenas
+                                 prácticas para el uso racional del Participar activamente en
+Impactos        del      cambio
+                                 recurso hídrico.                    acciones y proyectos que
+climático en los recursos
+                                                                     contribuyan      a      la
+hídricos:          variabilidad, Inspeccionar y registrar las
+                                                                     protección del medio
+sequías, inundaciones y condiciones                de       hábitats
+                                                                     ambiente acuático.
+adaptación.                      acuáticos, identificando posibles
+                                 impactos       o      alteraciones Valorar la importancia de
+Uso responsable del agua en
+                                 causadas       por     actividades los           ecosistemas
+actividades de acuicultura y
+                                 humanas         o      fenómenos acuáticos         para     la
+pesca:      prevención de la
+                                 naturales.                          biodiversidad     y     el
+contaminación por residuos,
+                                                                     bienestar humano.
+productos        químicos      y Conocer técnicas sostenibles,
+desechos industriales, así como la creación de zonas de
+como la regulación del uso protección, restauración de
+de recursos hídricos para hábitats y establecimiento de
+evitar su sobreexplotación.      áreas de reserva para proteger
+                                 los recursos hidrobiológicos.
+Conservación de zonas
+naturales, la restauración de Realizar visitas a granjas
+hábitats degradados y la camaroneras               o    de otras
+implementación de políticas especies para observar el
+que aseguren un manejo manejo de los recursos hídricos.
+sostenible del agua.
+                                 Proponer y ejecutar planes para
+Técnicas para mantener la reducir, tratar y disponer
+calidad del agua en sistemas adecuadamente                 residuos
+acuícolas.                       orgánicos, químicos y sólidos
+                                 provenientes de actividades
+Prácticas sostenibles para la
+                                 acuícolas o pesqueras.
+conservación                  de
+ecosistemas acuáticos        y Comprender el uso del recurso
+recursos hidrobiológicos.      hídrico mediante permisos,
+                               cuotas y límites que aseguren la
+Estrategias para reducir el
+                               sostenibilidad y eviten la
+impacto      ambiental      en
+                               sobreexplotación.
+cuerpos de agua utilizados
+para              actividades Distinguir       sistemas        de
+hidrobiológicas.               recirculación,     filtración    y
+                               tratamiento del agua para
+Fomento       de     prácticas
+                               mantener la calidad en sistemas
+sostenibles y responsables
+                               de acuicultura y pesca.
+en la industria camaronera
+para minimizar su impacto Promover la formación continua
+en        los        recursos en buenas prácticas de manejo
+hidrobiológicos y los hábitats del     agua       y      recursos
+marinos.                       hidrobiológicos, fomentando la
+                               responsabilidad ambiental.
+
+                                Mantener registros precisos de
+                                las actividades de manejo,
+                                monitoreo y control del recurso
+                                hídrico    y     los   recursos
+                                hidrobiológicos asociados en su
+                                localidad.
+Perfil del o la docente:
+Formación Académica:
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en Acuicultura,
+   Agricultura, Agropecuaria, o carreras afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación            Detalle de especificaciones técnicas          Cantidad
+
+Infraestructura/espacio     Entorno de aprendizaje (aula)                   1
+
+Laboratorio                 •  Computadoras con acceso a internet         1
+                            •  Proyector
+Equipos/herramientas        •  Plataformas de gestión agrícola y pecuaria
+                               y sistemas de análisis de datos.
+Materiales de seguridad     Equipos de protección
+                          •   Overol o ropa de trabajo resistente y
+                              adecuada.
+                          •   Guantes de protección para manipular
+                              químicos, plantas o animales.
+                          •   Botas de caucho o resistentes para trabajos
+                              en campo y laboratorios.
+Referencias Bibliográficas:
+Libros:
+• Intriago, R., & Gortaire Amézcua, R. (2018). Agroecología en el Ecuador. Proceso
+   histórico,      logros     y       desafíos.      Agroecología,  11(2),     95–103.
+   https://revistas.um.es/agroecologia/article/view/330131
+• Ministerio del Ambiente, Agua y Transición Ecológica del Ecuador. (2016). Manual de
+   manejo ambiental para actividades agrícolas y ganaderas. Quito: MAATE.
+• Sánchez, V. H., & Zambrano Mendoza, J. L. (2019). Adopción e impacto de las
+   tecnologías agropecuarias generadas en el Ecuador. La Granja: Revista de Ciencias de
+   la Vida, 30(2), 16–39. https://doi.org/10.17163/lgr.n30.2019.03
+
+Referencias WEB:
+• Agencia de Regulación y Control del Agua (ARCA)Secretaría del Agua (SENAGUA)
+https://www.regulacionagua.gob.ec/nacional/
+• Buenas Prácticas Agropecuarias – BPA AGROCALIDAD
+https://www.agrocalidad.gob.ec/wp-content/uploads/2020/05/material1.pdf
+• Guía de Buenas Prácticas Agropecuarias en Cultivos de grano Beneficiado
+https://www.agrocalidad.gob.ec/wp-content/uploads/2023/03/BPA-GIZ-grano-
+beneficiado.pdf
+• Ley de Recursos Hídricos - Ministerio del Ambiente
+https://www.regulacionagua.gob.ec/wp-content/uploads/downloads/2016/03/Ley-
+Org%C3%A1nica-de-Recursos-H%C3%ADdricos-Usos-y-Aprovechamiento-del-Agua.pdf
+• Manual de Riego Parcelario - Ministerio de Agricultura
+https://balcon.mag.gob.ec/mag01/magapaldia/HOMBRO%20A%20HOMBRO/manuales/M
+anual%20de%20riego%20parcelario.pdf
+
+Normativa Ecuatoriana:
+• Ley de Gestión Ambiental (Ley No. 37, 1999)
+• Reglamento de Evaluación de Impacto Ambiental (RD 2392, 2001)
+• Ley de Recursos Hídricos, Usos y Aprovechamiento del Agua (Ley No. 57, 2014).
+                                  Módulo Genérico Nro.3
+Nombre del módulo:                    Tecnologías
+Nivel:                                1ro y 2do
+Duración:                             200 periodos pedagógicos
+                                      UC 3: Utilizar herramientas digitales en el registro y
+Unidad       de      competencia      análisis de información técnica de la producción y
+asociada:                             manejo de recursos agropecuarios e hidrobiológicos
+                                      en la ejecución de actividades productivas.
+Objetivo del módulo: Desarrollar competencias en el uso de herramientas digitales para el
+registro y análisis de información técnica sobre la producción y manejo de recursos
+agropecuarios e hidrobiológicos, con el propósito de ejecutar actividades productivas de
+manera eficiente, segura y conforme a la normativa vigente.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Reconocer herramientas digitales para el registro de información técnica en la
+producción y manejo de recursos agropecuarios e hidrobiológicos.
+CE1.1: Distingue los diferentes tipos de herramientas digitales empleadas en el registro de
+información técnica sobre la producción y manejo de recursos agropecuarios e
+hidrobiológicos.
+CE1.2: Explica la función y la aplicación de herramientas digitales utilizadas en la
+recolección y organización de datos técnicos durante actividades productivas agropecuarias
+e hidrobiológicas.
+CE1.3: Clasifica herramientas digitales según su utilidad en el registro y análisis de
+información técnica durante actividades productivas agropecuarias e hidrobiológicas.
+RA2: Registrar información técnica de actividades productivas agropecuarias e
+hidrobiológicas mediante herramientas digitales.
+CE2.1 Introduce datos técnicos en herramientas digitales siguiendo procedimientos
+establecidos y asegurando exactitud.
+CE2.2: Clasifica y etiqueta los registros digitales según el tipo de dato o parámetro técnico
+registrado.
+CE2.3: Comprueba la consistencia de los datos introducidos y corrige errores simples en
+los registros digitales, garantizando la exactitud y coherencia de la información técnica en
+las herramientas digitales utilizada.
+CE2.4: Organiza, guarda y respalda la información registrada de manera ordenada y
+accesible para su uso en actividades productivas.
+RA3: Procesar información técnica utilizando funciones básicas de herramientas
+digitales aplicadas a contextos agropecuarios e hidrobiológicos.
+CE3.1: Selecciona datos técnicos relevantes para su análisis considerando criterios de
+producción y manejo de recursos agropecuarios e hidrobiológicos.
+CE3.2 Aplica funciones básicas de cálculo (sumas, promedios, conteos) para organizar
+información técnica digital.
+CE3.3: Representa la información técnica organizada mediante tablas, gráficos o diagramas
+que faciliten su interpretación en actividades productivas.
+CE3.4: Analiza la información para identificar tendencias, patrones o inconsistencias que
+apoyen la toma de decisiones en la gestión de recursos agropecuarios e hidrobiológicos.
+RA4: Formular acciones para mejorar procesos productivos agropecuarios e
+hidrobiológicos utilizando información técnica digital, considerando eficiencia,
+sostenibilidad y aprovechamiento responsable de los recursos.
+CE4.1: Identifica oportunidades de mejora en actividades productivas agropecuarias e
+hidrobiológicas a partir de registros técnicos y datos digitales disponibles.
+CE4.2: Relaciona los datos digitales con criterios de eficiencia, sostenibilidad y
+aprovechamiento responsable de recursos en los procesos productivos.
+CE4.3: Propone ajustes prácticos en los procesos productivos utilizando información técnica
+digital y criterios de sostenibilidad.
+CE4.4: Describe los efectos esperados de los ajustes propuestos en la eficiencia,
+sostenibilidad y seguridad durante las actividades productivas agropecuarias e
+hidrobiológicas.
+Contenidos
+Conceptuales                       Procedimentales                 Actitudinales
+Concepto de herramienta Identificar                 herramientas Valorar la importancia del
+digital.                           digitales básicas aplicables uso          responsable       de
+                                   al registro técnico.            herramientas digitales en los
+Clasificación                  de                                  procesos productivos.
+                                   Comparar tipos y usos de
+herramientas            digitales
+                                   herramientas digitales en Respetar las normas de
+básicas (ofimáticas, hojas de
+                                   actividades productivas.        seguridad y bioseguridad en
+cálculo,           aplicaciones
+                                                                   actividades agropecuarias e
+móviles, sistemas de registro Explorar                  funciones
+                                                                   hidrobiológicas.
+técnico).                          esenciales de programas
+Funcionalidad         de      las digitales      para    registros Asumir responsabilidad en el
+herramientas digitales en la       técnicos.                       registro, análisis y uso de la
+gestión      de     información Evaluar                            información técnica.
+                                                  ventajas       y
+técnica.                           limitaciones       de       las Demostrar orden, disciplina y
+                                   herramientas digitales en el compromiso en la gestión
+Importancia del registro contexto agropecuario e digital de datos.
+digital       en       procesos hidrobiológico.
+agropecuarios                   e                                  Promover la cooperación y el
+hidrobiológicos.                   Seguir         procedimientos   trabajo en equipo en el
+                                   básicos para el registro manejo              de       recursos
+Ventajas y limitaciones de digital de datos técnicos.              productivos.
+las herramientas digitales en Ingresar información técnica        Fomentar     la   ética,   la
+la producción.                 en formatos digitales bajo         transparencia y la veracidad
+                               condiciones definidas.             en el tratamiento de la
+Procedimientos      para    el                                    información técnica.
+                               Organizar datos técnicos en
+registro      digital      de
+                               hojas     de     cálculo  o
+                                                         Adoptar una actitud crítica y
+información técnica.
+                               aplicaciones digitales.   reflexiva   frente    a    los
+                                                         resultados          obtenidos
+Tipos de datos técnicos en Verificar      precisión    y
+                                                         mediante        herramientas
+actividades agropecuarias e coherencia de la información
+                                                         digitales.
+hidrobiológicas (productivos, registrada.
+sanitarios, ambientales).                                Comprometerse        con    la
+                                                         mejora     continua    y     la
+Formatos digitales para la Aplicar funciones básicas de innovación en los procesos
+captura y organización de análisis en hojas de cálculo o productivos.
+información.               software digital.
+                               Calcular           parámetros
+Normas básicas de calidad y
+                               técnicos         (rendimiento,
+confiabilidad en los registros
+                               tiempos,           cantidades)
+digitales.
+                               mediante         herramientas
+                               digitales.
+Manejar     la    información
+generada de manera segura; Representar                  datos
+datos en la nube.              procesados      en   tablas  y
+                               gráficos digitales.
+Criterios de precisión y Interpretar             resultados
+utilidad de la información obtenidos para la gestión
+registrada.                    técnica    de    actividades
+                               productivas.
+Funciones      básicas     de
+análisis en hojas de cálculo y Reconocer     factores    de
+software especializado.        riesgo que afectan la
+                               bioseguridad en sistemas
+Parámetros técnicos en la productivos.
+producción agropecuaria e Relacionar                acciones
+hidrobiológica (rendimiento, correctivas con factores de
+eficiencia, tiempo, cantidad). riesgo identificados.
+                                  Diseñar      propuestas    de
+Organización                  y
+                                  mejora en bioseguridad a
+representación de datos en
+                                  partir de información técnica.
+tablas y gráficos digitales.
+Interpretación de resultados      Comunicar          acciones
+obtenidos a partir del análisis   concretas de bioseguridad
+digital.                          en actividades productivas.
+
+Acciones             básicas
+preventivas y correctivas en
+bioseguridad.
+
+Relación entre riesgos y
+medidas de control.
+
+Estrategias y propuestas de
+mejora para fortalecer la
+bioseguridad en sistemas
+productivos.
+
+Seguridad y bioseguridad en
+el manejo de datos digitales
+Buenas       prácticas   para
+proteger la integridad y
+respaldo de la información
+digital (copias de seguridad,
+contraseñas, manejo de
+dispositivos)
+Perfil del o la docente
+•       Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+        reconocidos por el órgano rector del Sistema de Educación Superior en Producción
+        Agropecuaria, Acuicultura, Ciencias Agropecuarias, Agroindustria, o carreras afines.
+•       Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+        Aprendizaje Basado en Proyectos (ABP)
+        Aprendizaje en Contextos Reales
+        Role-Playing y Simulaciones
+        Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Materiales y recursos
+Denominación                      Detalle de especificaciones técnicas         Cantidad
+Infraestructura/espacio           Entorno de aprendizaje (aula)                1
+                                  Computadoras con acceso a internet
+Laboratorio                                                                    1
+                                  Proyector
+Referencias Bibliográficas
+Libros:
+• Hernández Sampieri, R., Fernández Collado, C., & Baptista Lucio, M. P. (2014).
+   Metodología       de   la   investigación    (6.ª  ed.).  McGraw-Hill     Education.
+   https://books.google.com/books?id=Pcu0AQAACAAJ
+• Muñoz Espinoza, M., Mera Andrade, R., Artieda Rojas, J., & Vega Falcón, V. (2017).
+   Tecnologías de la información y comunicación en la agricultura. Revista Uniandes
+   Episteme, 4(1), 105–116.
+   https://revista.uniandes.edu.ec/ojs/index.php/EPISTEME/article/view/516
+
+        Referencias web:
+•       Instituto Interamericano de Cooperación para la Agricultura (IICA). Promoviendo la
+        digitalización en la agricultura: 7 iniciativas de políticas que impulsan la transformación
+        en América Latina y el Caribe. 2025: https://blog.iica.int/blog/promoviendo-
+        digitalizacion-en-agricultura-7-iniciativas-politicas-que-impulsan-transformacion.
+•       Ministerio de Agricultura, Pesca y Alimentación. (2013). Bioseguridad en acuicultura.
+        Gobierno de España.
+        https://www.mapa.gob.es/dam/mapa/contenido/ganaderia/temas/sanidad-animal-e-
+        higiene-ganadera/sanidad-animal/formacion/bioseguridad/11-a-
+        bioseguridad_acuicultura.pdf
+   4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Manejo de Recursos
+Hidrobiológicos se caracterizarán por una formación sólida en conocimientos técnicos,
+prácticos y actitudinales orientados al desarrollo responsable y sostenible de actividades
+de preparación, cultivo, captura, procesamiento, control de calidad, innovación y
+emprendimiento de especies hidrobiológicas.
+
+Se estructuran los siguientes módulos de especialización para primero, segundo y tercero
+de bachillerato:
+
+   •   Preparación de Insumos y Equipos Hidrobiológicos
+   •   Cultivo y Captura de Especies Hidrobiológicas
+   •   Procesamiento de Productos Hidrobiológicos
+   •   Control de Calidad
+   •   Innovación y Emprendimiento en Productos Hidrobiológicos
+
+                            Módulo de Especialización Nro. 1
+ Nombre del módulo:                     Preparación de Insumos y Equipos Hidrobiológicos
+ Nivel:                                 1ro, 2do, 3ro
+ Duración:                              360 periodos pedagógicos
+                                        UC1: Preparar insumos, materiales y equipos en la
+                                        ejecución de actividades de cultivo, pesca y
+ Unidad       de      competencia
+                                        procesamiento      de     especies hidrobiológicas,
+ asociada:
+                                        garantizando su disponibilidad, funcionalidad y
+                                        condiciones de bioseguridad.
+ Objetivo del módulo: Preparar insumos, materiales y equipos empleados en actividades
+ de cultivo, pesca y procesamiento de especies hidrobiológicas, mediante la aplicación de
+ procedimientos técnicos básicos y normas de bioseguridad, con el fin de garantizar su
+ disponibilidad, funcionamiento adecuado y condiciones sanitarias durante el proceso
+ productivo.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA1: Verificar el funcionamiento y calibración de los equipos e instrumentos
+ empleados en actividades hidrobiológicas, cumpliendo instrucciones técnicas y
+ protocolos de bioseguridad establecidos.
+ CE1.1: Inspecciona el estado físico y operativo de los equipos e instrumentos, conforme a
+ las especificaciones técnicas del fabricante y los protocolos vigentes.
+ CE1.2: Evalúa el funcionamiento de los equipos e instrumentos previos al uso, aplicando
+ estándares de calidad y requisitos de bioseguridad del área de trabajo.
+ CE1.3: Registra los resultados de la verificación y calibración en los formatos
+ estandarizados, asegurando trazabilidad y exactitud en los datos.
+ CE1.4: Reporta las fallas o desviaciones detectadas durante la verificación, siguiendo los
+ procedimientos establecidos por el responsable técnico.
+RA2: Organizar los insumos y materiales requeridos para actividades
+hidrobiológicas, siguiendo criterios de clasificación, almacenamiento seguro y
+disponibilidad operativa.
+CE2.1: Verifica las condiciones de los insumos y materiales, comprobando que cumplan
+con los estándares de calidad exigidos para el proceso hidrobiológico.
+CE2.2: Clasifica los insumos y materiales según especie, método de cultivo o etapa del
+proceso, garantizando orden, higiene y disponibilidad operativa.
+CE2.3: Utiliza los insumos de forma racional y responsable, promoviendo el uso eficiente
+de recursos durante el proceso productivo.
+RA3: Aplicar normas de bioseguridad y buenas prácticas acuícolas en la preparación
+y manipulación de insumos, materiales y equipos, conforme a los procedimientos
+sanitarios del área de trabajo.
+CE3.1: Utiliza el equipo de protección personal (EPP) de forma correcta durante las
+actividades de preparación y manipulación.
+CE3.2: Desinfecta insumos, equipos y superficies de trabajo antes y después de su uso,
+aplicando productos y concentraciones adecuadas.
+CE3.3: Cumple las normas de bioseguridad establecidas para ingreso, manipulación y
+salida de materiales.
+CE3.4: Gestiona los residuos sólidos y líquidos generados, conforme a los procedimientos
+ambientales y sanitarios establecidos.
+CE3.5: Emplea buenas prácticas acuícolas en la manipulación de organismos, preservando
+su bienestar y minimizando riesgos de contaminación.
+Contenidos
+Conceptuales                    Procedimentales          Actitudinales
+Principios de la acuicultura y Identificar equipos e Valorar la importancia del orden y
+actividades hidrobiológicas. instrumentos              y la organización en la preparación
+                                reconocer su función.    de insumos y equipos.
+Tipos       de       insumos,
+materiales      y      equipos Verificar visualmente el Asumir responsabilidad en el uso
+utilizados en cultivos, pesca estado físico de los y cuidado de instrumentos.
+y procesamiento.                equipos         (golpes,
+                                corrosión, ensamble).    Mostrar       disposición       al
+Partes y funciones de los                                cumplimiento de normas de
+equipos hidrobiológicos.        Realizar pruebas de bioseguridad.
+                                encendido              y
+Tipos de instrumentos de funcionamiento              de Mantener una actitud de respeto
+medición, termómetro, pH- equipos e instrumentos. hacia la integridad de los
+metro, medidor de oxígeno,                               organismos manipulados.
+refractómetro.                  Calibrar instrumentos
+                                siguiendo instrucciones Demostrar compromiso con el
+Calibración,        propósito, del docente o instructor. manejo adecuado de insumos y
+importancia y momentos de                                materiales sensibles.
+aplicación.                     Clasificar     insumos
+                                según tipo, tamaño, uso Actuar con rigurosidad en los
+Procedimientos elementales y etapa del proceso.          procedimientos            técnicos
+de verificación del estado                               asignados.
+físico-operativo     de     los Aplicar procedimientos
+equipos.                        de limpieza del área de
+                                trabajo.
+Clasificación de insumos                                       Mantener una postura ética en el
+alimentarios, estructurales, Colocarse                         registro de datos con exactitud y
+sanitarios y operativos.     correctamente el EPP.             honestidad.
+
+Bioseguridad y riesgos en Desinfectar superficies              Desarrollar     iniciativa para
+actividades hidrobiológicas. con                soluciones     identificar riesgos y prevenir
+                                 descritas en laboratorio.     incidentes.
+Importancia       del     orden,
+limpieza y almacenamiento Registrar                            Practicar comunicación efectiva
+seguro.                          observaciones técnicas        con      compañeros    durante
+                                 en               formatos     actividades técnicas.
+Protocolos de desinfección y prediseñados.
+manejo de superficies.                                         Asumir liderazgo responsable en
+                                 Ordenar materiales e          la organización del área de
+Tipología avanzada de insumos en estanterías                   trabajo.
+equipos        hidrobiológicos, identificadas.
+filtración,           aireación,                               Gestionar con criterio técnico
+recirculación, captura y Realizar calibraciones                situaciones imprevistas o fallas de
+procesamiento.                   con instrumentos de           equipos.
+                                 medición (pH, oxígeno,
+Parámetros          operativos, salinidad).                    Promover el cumplimiento de
+interpretación de manuales                                     normas de bioseguridad en el
+técnicos del fabricante.         Identificar puntos de         equipo de trabajo.
+                                 falla en equipos y
+Métodos de calibración reportarlos                             Valorar la sostenibilidad y el uso
+según             instrumento, adecuadamente.                  racional de insumos como práctica
+procedimientos y márgenes                                      profesional.
+aceptables.                      Aplicar           criterios
+                                 técnicos para evaluar el      Demostrar       autonomía       y
+Sistemas de gestión de estado operativo de                     pensamiento crítico en la toma de
+inventario      de     insumos filtros, bombas, mallas,        decisiones técnicas.
+(rotación, clasificación por bandejas.
+uso, vida útil, condiciones de
+almacenamiento).                 Preparar       kits      de
+                                 insumos para tareas
+Tipología de insumos según específicas.
+especie y etapa del proceso
+productivo.                      Ejecutar protocolos de
+                                 desinfección           con
+Condiciones físico-químicas productos adecuados y
+para la conservación de diluciones correctas.
+insumos.
+                                 Registrar    datos de
+Protocolos estandarizados calibración                      y
+de      bioseguridad      (EPP, verificación aplicando
+zonas       limpias,      zonas trazabilidad.
+sucias).
+                                 Realizar      inventarios
+Procedimientos                de técnicos de insumos y
+desinfección,       tipos     de materiales.
+agentes, diluciones, tiempos
+de exposición.
+Procedimientos de manejo Organizar      insumos
+ambiental para residuos según parámetros de
+sólidos y líquidos.      conservación y riesgo.
+
+Normas            nacionales   Controlar el ingreso y
+relacionadas            con    salida de materiales del
+bioseguridad e inocuidad       área de trabajo.
+hidrobiológica (introducción   Manejar y trasladar
+a INEN aplicables).            organismos siguiendo
+                               buenas         prácticas
+Relación entre equipos, acuícolas.
+insumos       y     procesos
+productivos (cultivo, pesca y Elaborar diagnósticos
+procesamiento).                técnicos sobre el estado
+                               de               equipos
+Interpretación técnica de hidrobiológicos.
+especificaciones            de
+calibración en equipos de Ejecutar planes de
+precisión.                     mantenimiento
+                               preventivo.
+Diseño de planes de
+mantenimiento preventivo.      Implementar sistemas
+                               de control de inventario
+Evaluación       de     fallas y reposición.
+recurrentes en equipos y
+análisis      de      causas Supervisar la aplicación
+probables.                     correcta de normas de
+                               bioseguridad en el
+Procedimientos avanzados equipo de trabajo.
+de trazabilidad de datos y
+registros técnicos.            Evaluar          riesgos
+                               asociados       a      la
+Estándares         nacionales manipulación           de
+avanzados, INEN aplicados insumos y equipos.
+a productos hidrobiológicos
+y equipos.                     Documentar
+                               procedimientos
+Integración de normas de técnicos          con     nivel
+bioseguridad en procesos avanzado de precisión.
+productivos completos.
+                               Verificar              el
+Buenas prácticas acuícolas cumplimiento              de
+aplicadas a la manipulación estándares operativos y
+de organismos vivos.           normativos.
+
+Estándares           de Gestionar              residuos
+almacenamiento        y aplicando               criterios
+conservación de insumos ambientales                     y
+críticos.               sanitarios.
+
+Gestión de riesgos y análisis Coordinar        la
+de puntos críticos en la preparación integral del
+preparación de insumos y área de trabajo en
+equipos.                 actividades productivas.
+
+                              Realizar
+                              procedimientos      de
+                              preparación    técnica
+                              para actividades de
+                              cultivo              o
+                              procesamiento.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Biólogos,
+    Ingeniero/a en Acuicultura, Ingeniero/a Pesquero, Ingeniero/a en Recursos Naturales
+    Renovables, Ingeniero/a Ambiental, Maestrías en Acuicultura, Maestrías en Recursos
+    Hidrobiológicos, Maestrías en Producción Acuícola y Pesquera, Maestrías en Sanidad
+    Acuícola, o carreras afines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                    Especificaciones técnicas                     Cantidad
+Infraestructura/espacio         Entorno de aprendizaje (aula, taller)              1
+Infraestructura/espacio         Mesones resistentes a humedad y                    1
+                                químicos.
+                                Estanterías para almacenamiento seguro.
+                                Área definida para calibración y pruebas.
+                                Computadoras con acceso a internet.
+                                Proyector.
+                                Contenedores plásticos y recipientes
+                                estériles.
+                                Bandejas, mallas, cubetas.
+                                Bombas de agua
+                                Aireadores
+                                Filtros mecánicos o biológicos
+                                Microscopio básico
+                                pH-metro
+                                Oxímetro
+                                Termómetro
+                                Salinómetro o refractómetro
+                                Balanzas y cronómetros
+Materiales/recursos
+                                Manuales técnicos digitales o impresos.
+                                Etiquetas y marcadores permanentes.
+                                Equipos de protección personal -EPP
+                                Kits de desinfección.
+                                Botiquín de primeros auxilios.
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Agencia de Regulación y Control del Agua. (s. f.). Portal institucional.
+      https://www.regulacionagua.gob.ec/nacional/
+   • Agrocalidad. (2023). Manual de aplicación de las Buenas Prácticas Agropecuarias
+      dirigido a la Agricultura Familiar Campesina.
+      https://www.agrocalidad.gob.ec/wp-content/uploads/2023/01/manual_completo-
+      V2.pdf
+   • Cámara Nacional de Pesquería. (2020). Código de Conducta para la Pesca
+      Responsable: Análisis aplicado al Ecuador [PDF].
+      https://camaradepesqueria.ec/wp-
+      content/uploads/2020/05/Codigodepescaresponsable-pagvf_compressed-1.pdf
+   • Ley Orgánica de Recursos Hídricos, Usos y Aprovechamiento del Agua. (2014).
+      Ministerio del Ambiente del Ecuador.
+      https://www.regulacionagua.gob.ec/wp-content/uploads/downloads/2016/03/Ley-
+      Organica-de-Recursos-Hidricos-Usos-y-Aprovechamiento-del-Agua.pdf
+   • Ley Orgánica para el Desarrollo de la Acuicultura y Pesca. (2020). Registro Oficial
+      Suplemento N.º 187.
+      https://www.gob.ec/sites/default/files/regulations/2022-05/Documento_Ley-
+      Organica-para-Desarrollo-Acuicultura-y-Pesca.pdf
+   • Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2022).
+      Reglamento General a la Ley Orgánica para el Desarrollo de la Acuicultura y
+      Pesca.
+      https://www.produccion.gob.ec/wp-
+      content/uploads/downloads/2024/01/REGLAMENTO-GENERAL-A-LA-LEY-
+      ORGANICA-PARA-EL-DESARROLLO-DE-LA-ACUICULTURA-Y-PESCA.pdf
+   • Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 1831: Pescado
+      fresco refrigerado o congelado. Requisitos.
+      https://es.scribd.com/document/553276593/nte-inen-183-1-enm
+   • Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 456:
+      Camarones o langostinos congelados. Requisitos.
+      https://www.produccion.gob.ec/wp-content/uploads/2024/07/NTE-INEN-456-
+      CAMARONES-O-LANGOSTINOS-CONGELADOS-REQUISITOS.pdf
+
+Sitios Web:
+    • FAO. (2022). Buenas prácticas en acuicultura sostenible.
+       https://www.fao.org
+    • FAO. (2023). Sistemas de inocuidad alimentaria: HACCP.
+       https://www.fao.org/food-safety/en/
+    • MPCEIP. (2023). Boletines de mercado pesquero y acuícola del Ecuador.
+       https://www.produccion.gob.ec
+
+Libros
+   •   Berger, C. (2020). La acuicultura y sus oportunidades para lograr el desarrollo
+       sostenible en el Perú. South Sustainability, 1(1). https://doi.org/10.21142/SS-0101-
+       2020-003
+   •   Feldmann, C. (2019). Control de calidad en la industria alimentaria: métodos físico-
+       químicos y microbiológicos. Ediciones Díaz de Santos.
+   •   Márquez, J. (2018). Tecnología de los productos pesqueros. McGraw-Hill.
+   •   Stickney, R. R. (2016). Acuicultura: Texto introductorio. Editorial Acribia.
+       https://www.editorialacribia.com/libro/acuicultura-texto-introductorio_54344
+
+
+
+                            Módulo de Especialización Nro. 2
+Nombre del módulo:                    Cultivo y Captura de Especies Hidrobiológicas
+Nivel:                                1ro, 2do, 3ro
+Duración:                             520 periodos pedagógicos
+                                      UC2: Ejecutar técnicas de cultivo y captura de
+                                      especies hidrobiológicas, aplicando procedimientos
+Unidad       de      competencia
+                                      técnicos, parámetros y medidas de bioseguridad para
+asociada:
+                                      garantizar la eficiencia productiva y la sostenibilidad
+                                      ambiental.
+Objetivo del módulo: Ejecutar técnicas de cultivo y captura de especies hidrobiológicas
+mediante la aplicación de procedimientos técnicos estandarizados, parámetros productivos
+y medidas de bioseguridad, con la finalidad de garantizar la eficiencia productiva y la
+sostenibilidad ambiental en los procesos acuícolas y pesqueros.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Preparar las estructuras y áreas de cultivo de especies hidrobiológicas,
+aplicando requerimientos técnicos y normas de seguridad ambiental establecidas
+para el sistema productivo.
+CE1.1: Limpia tanques, estanques o estructuras del sistema de cultivo, siguiendo las
+normas de bioseguridad y mantenimiento preventivo establecidas.
+CE1.2: Instala los sistemas de aireación, filtración o recirculación, garantizando su
+funcionamiento óptimo conforme a criterios técnicos.
+CE1.3: Aplica los protocolos de seguridad y protección ambiental durante la preparación
+del área de cultivo, asegurando condiciones adecuadas.
+RA2: Aplicar procedimientos técnicos de cultivo y manejo de especies
+hidrobiológicas en condiciones controladas, manteniendo parámetros productivos
+dentro de rangos óptimos establecidos.
+CE2.1: Monitorea los parámetros del agua (pH, temperatura, oxígeno disuelto, salinidad),
+manteniéndolos dentro de los rangos óptimos establecidos para cada especie.
+CE2.2: Gestiona el alimento y regula la frecuencia de alimentación, considerando la etapa
+de desarrollo de la especie.
+CE2.3: Registra las observaciones diarias de crecimiento, comportamiento y mortalidad
+en los formatos establecidos.
+CE2.4: Cumple las medidas de bioseguridad y control sanitario para prevenir
+enfermedades y pérdidas en el cultivo.
+RA3: Realizar técnicas de captura, manipulación y transporte de especies
+hidrobiológicas, siguiendo métodos selectivos y criterios de bienestar y calidad del
+organismo.
+CE3.1: Selecciona métodos de captura apropiados según especie y ambiente, siguiendo
+criterios de sostenibilidad.
+CE3.2: Opera artes y equipos de pesca con precisión, evitando daños a los organismos y
+al entorno.
+CE3.3: Clasifica los organismos capturados según talla, peso o estado, registrando los
+datos establecidos.
+Contenidos
+Conceptuales                    Procedimentales                 Actitudinales
+Cultivo hidrobiológico y su Reconocer estructuras de            Valorar la importancia del
+importancia en la producción cultivo y sus funciones.           cuidado de los organismos
+sostenible.                                                     durante la captura y cultivo.
+                                 Limpiar áreas de cultivo
+Clasificación general de siguiendo                      pasos   Asumir        una        actitud
+especies       hidrobiológicas elementales                  y   responsable       frente       al
+según      su     hábitat      y supervisados.                  mantenimiento diario de las
+requerimientos productivos.                                     áreas de cultivo.
+                                 Instalar componentes del
+Tipos de estructuras de sistema (mallas, bandejas,              Mostrar disposición para
+cultivos           (estanques, soportes).                       seguir instrucciones técnicas
+tanques, bandejas).                                             con rigurosidad.
+                                 Medir parámetros del agua
+Características esenciales con           instrucciones    del   Demostrar respeto hacia el
+del agua para cultivo (pH, docente.                             ambiente y los recursos
+temperatura,            oxígeno                                 hidrobiológicos.
+disuelto,    salinidad,     con Registrar datos diarios de
+enfoque biológico.               observación                y   Mantener actitud colaborativa
+                                 comportamiento            de   con el equipo en actividades
+Introducción        al     ciclo organismos.                    supervisadas.
+biológico     de       especies
+utilizadas en cultivos.          Realizar        alimentación   Desarrollar compromiso con
+                                 según      orientación   del   la precisión en las actividades
+Bienestar       animal       en docente.                        de medición y manejo.
+organismos acuáticos.
+                                 Aplicar métodos de captura     Fomentar la actitud proactiva
+Métodos elementales de sin dañar al organismo.                  ante problemas en el cultivo.
+captura (manuales, redes
+simples, trampas).               Manipular organismos con       Demostrar ética en el registro
+                                 precaución para reducir        y comunicación de datos
+Importancia del manejo estrés.                                  productivos.
+responsable en la extracción
+de organismos.                   Preparar       contenedores    Asumir responsabilidad por el
+                                 para transporte corto.         trato     humanitario      y
+Impacto ambiental de malas                                      responsable    hacia     los
+prácticas de cultivo y Cumplir               protocolos    de   organismos.
+captura.                         seguridad ambiental.
+Selectividad en la captura.    Preparar       de       forma Construir criterio técnico para
+                               autónoma las estructuras tomar                     decisiones
+Diseño funcional de áreas de del sistema según especie. fundamentadas durante el
+cultivo según especie y                                       cultivo.
+sistema de producción.         Ajustar parámetros físico-
+                               químicos aplicando criterios Promover                prácticas
+Sistemas intermedios de técnicos.                             sostenibles    y     selectivas
+cultivo: semi-intensivo e                                     dentro del equipo de trabajo.
+intensivo (principios).        Realizar protocolos de
+                               alimentación con base en Mostrar                   autonomía
+Interacción entre parámetros etapas de desarrollo.            profesional     al     resolver
+físico-químicos y salud del                                   situaciones imprevistas.
+organismo.                     Ejecutar rutinas de manejo
+                               de biomasa y controles de Valorar el impacto social y
+Tipos de alimentación en densidad.                            ambiental del cultivo y captura
+cultivo: natural, artificial y                                responsable.
+balanceada.                    Aplicar técnicas selectivas
+                               de     captura     intermedia Mantener disciplina técnica
+Requerimientos                 garantizando el bienestar en todas las etapas del
+nutricionales según etapa de hidrobiológico.                  proceso productivo.
+desarrollo de los organismos
+hidrobiológicos.               Clasificar organismos por
+                               talla y peso utilizando
+Enfermedades comunes en instrumentos adecuados.
+organismos hidrobiológicos y
+factores predisponentes.       Realizar             registros
+                               productivos               con
+Técnicas de manejo de trazabilidad.
+biomasa,            densidad,
+crecimiento,      tasa      de Implementar medidas de
+conversión.                    bioseguridad durante el
+                               cultivo y captura.
+Métodos intermedios de
+captura, redes selectivas, Detectar anomalías en el
+trasmallos ligeros, trampas comportamiento de las
+específicas.                   especies.
+
+Condiciones      adecuadas Preparar      condiciones
+para el transporte breve de adecuadas para transporte
+organismos.                 moderado.
+
+Bioseguridad aplicada al Diseñar la preparación
+manejo y captura en campo. integral del área de cultivo
+                               según sistema productivo.
+Modelos de sistemas de
+cultivo (recirculación, RAS; Controlar         parámetros
+policultivo;          cultivos productivos ajustándolos a
+integrados).                   rangos técnico-biológicos.
+
+Evaluación    técnica    del Implementar mejoras en el
+rendimiento productivo y manejo de alimentación y
+relación entre variables de biomasa.
+cultivo.
+                              Diagnosticar condiciones
+Técnicas de identificación de de estrés y proponer
+estrés      fisiológico    en acciones correctivas.
+organismos.
+                              Ejecutar           capturas
+Gestión de contingencias, avanzadas         con      artes
+mortalidad, enfermedades, selectivas                según
+fallas de equipos.            normativas.
+
+Sistemas avanzados de          Planificar    y    realizar
+manejo de alimentación         transporte prolongado con
+(automáticos, dosificadores,   técnicas                 de
+raciones ajustadas).           acondicionamiento.
+
+Métodos avanzados         de Supervisar el cumplimiento
+captura     selectiva      y de protocolos de seguridad
+sostenible.                  y bienestar animal.
+
+Protocolos de transporte Evaluar                dinámicas
+prolongado,                  productivas para determinar
+acondicionamiento,           ajustes en el cultivo.
+empaques y oxigenación.
+                             Implementar prácticas de
+Principios de sostenibilidad sostenibilidad            en
+ambiental    aplicados     a actividades productivas.
+sistemas de cultivo y
+captura.                     Elaborar reportes técnicos
+                             completos de cultivo y
+Normativa nacional actual captura.
+sobre captura responsable y
+manejo productivo.
+
+Evaluación      de    impacto
+ambiental en actividades de
+cultivo y captura.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Biólogos,
+    Ingeniero/a en Acuicultura, Ingeniero/a Pesquero, Ingeniero/a en Recursos Naturales
+    Renovables, Ingeniero/a Ambiental, Maestrías en Acuicultura, Maestrías en Recursos
+    Hidrobiológicos, Maestrías en Producción Acuícola y Pesquera, Maestrías en Sanidad
+    Acuícola, o carreras afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación               Detalle de especificaciones técnicas              Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula, taller)                 1
+Infraestructura/espacio      Estanques, tanques o jaulas según especie.          1
+                             Sistemas de aireación o recirculación
+                             funcionales.
+                             Suministro continuo de agua tratada.
+                             Espacio señalizado para biometría y
+                             observación.
+                             Área segura para uso de artes de pesca
+                             menores.
+                             Mesas de clasificación de organismos.
+                             Espacio para transporte corto y organización
+                             de equipos.
+                             Señalización preventiva de seguridad.
+Materiales/recursos          Redes de captura selectiva.
+                             Contenedores de transporte con oxigenación.
+                             Alimento balanceado según especie.
+                             Equipos para biometría (balanza portátil).
+                             Guías visuales de tallas mínimas y parámetros
+                             productivos.
+                             Registro impreso o digital de datos productivos
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Agencia de Regulación y Control del Agua. (s. f.). Portal institucional.
+       https://www.regulacionagua.gob.ec/nacional/
+   • Agrocalidad. (2023). Manual de aplicación de las Buenas Prácticas Agropecuarias
+       dirigido a la Agricultura Familiar Campesina.
+       https://www.agrocalidad.gob.ec/wp-content/uploads/2023/01/manual_completo-
+       V2.pdf
+   • Cámara Nacional de Pesquería. (2020). Código de Conducta para la Pesca
+       Responsable: Análisis aplicado al Ecuador [PDF].
+       https://camaradepesqueria.ec/wp-
+       content/uploads/2020/05/Codigodepescaresponsable-pagvf_compressed-1.pdf
+   • Ley Orgánica de Recursos Hídricos, Usos y Aprovechamiento del Agua. (2014).
+       Ministerio del Ambiente del Ecuador.
+       https://www.regulacionagua.gob.ec/wp-content/uploads/downloads/2016/03/Ley-
+       Organica-de-Recursos-Hidricos-Usos-y-Aprovechamiento-del-Agua.pdf
+   • Ley Orgánica para el Desarrollo de la Acuicultura y Pesca. (2020). Registro Oficial
+       Suplemento N.º 187.
+       https://www.gob.ec/sites/default/files/regulations/2022-05/Documento_Ley-
+       Organica-para-Desarrollo-Acuicultura-y-Pesca.pdf
+   • Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2022).
+       Reglamento General a la Ley Orgánica para el Desarrollo de la Acuicultura y
+       Pesca.
+       https://www.produccion.gob.ec/wp-
+       content/uploads/downloads/2024/01/REGLAMENTO-GENERAL-A-LA-LEY-
+       ORGANICA-PARA-EL-DESARROLLO-DE-LA-ACUICULTURA-Y-PESCA.pdf
+   •     Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 1831: Pescado
+         fresco refrigerado o congelado. Requisitos.
+         https://es.scribd.com/document/553276593/nte-inen-183-1-enm
+   •     Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 456:
+         Camarones o langostinos congelados. Requisitos.
+         https://www.produccion.gob.ec/wp-content/uploads/2024/07/NTE-INEN-456-
+         CAMARONES-O-LANGOSTINOS-CONGELADOS-REQUISITOS.pdf
+
+Sitios Web:
+    • FAO. (2022). Buenas prácticas en acuicultura sostenible.
+       https://www.fao.org
+    • FAO. (2023). Sistemas de inocuidad alimentaria: HACCP.
+       https://www.fao.org/food-safety/en/
+    • MPCEIP. (2023). Boletines de mercado pesquero y acuícola del Ecuador.
+       https://www.produccion.gob.ec
+
+Libros
+   •     Arias, A., & Bernal, C. (2020). Acuicultura sostenible: producción y gestión
+         ambiental. Editorial Trillas.
+   •     Barreto, A., & Rodríguez, P. (2021). Procesos de conservación y valor agregado de
+         productos hidrobiológicos. Editorial Académica Española.
+   •     Feldmann, C. (2019). Control de calidad en la industria alimentaria: métodos físico-
+         químicos y microbiológicos. Ediciones Díaz de Santos.
+   •     Márquez, J. (2018). Tecnología de los productos pesqueros. McGraw-Hill.
+   •     Torres, R., & Medina, L. (2022). Emprendimiento e innovación en sistemas
+         pesqueros: modelos productivos sostenibles. Alfaomega.
+
+
+                               Módulo Especialización Nro.3
+Nombre del módulo:                       Procesamiento de Productos Hidrobiológicos.
+Nivel:                                1ro, 2do, 3ro
+Duración:                             400 periodos pedagógicos
+                                      UC3: Transformar especies hidrobiológicas
+Unidad        de     competencia      mediante procesos de conservación y valor
+asociada:                             agregado, aplicando normas de calidad, inocuidad y
+                                      sostenibilidad ambiental.
+Objetivo del módulo: Transformar especies hidrobiológicas mediante procesos de
+conservación y valor agregado, aplicando normas de calidad, inocuidad alimentaria y
+sostenibilidad ambiental, con el propósito de obtener productos seguros, competitivos y
+adecuados para su comercialización responsable.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Efectuar procesos de limpieza, eviscerado y clasificación de especies
+hidrobiológicas, cumpliendo condiciones higiénico–sanitarias y requisitos de
+inocuidad establecidos.
+CE1.1: Selecciona las especies para limpieza y eviscerado, verificando su integridad y
+condiciones sanitarias.
+CE1.2: Aplica procedimientos higiénicos durante la manipulación, evitando contaminación
+cruzada.
+CE1.3: Clasifica las piezas obtenidas según criterios técnicos establecidos para su
+presentación o proceso posterior.
+RA2: Aplicar métodos de conservación física o química en productos
+hidrobiológicos, controlando parámetros operativos conforme a la normativa vigente.
+CE2.1: Selecciona el método de conservación adecuado según las características del
+producto.
+CE2.2: Controla temperatura, tiempo y condiciones del proceso usando instrumentos
+calibrados según normativa técnica.
+CE2.3: Registra parámetros del proceso en fichas técnicas, garantizando trazabilidad.
+CE2.4: Verifica el cumplimiento de los parámetros de calidad e inocuidad del producto
+conservado.
+RA3: Ejecutar procesos de transformación y valor agregado de productos
+hidrobiológicos, utilizando equipos y parámetros técnicos que aseguren calidad y
+eficiencia productiva.
+CE3.1: Opera equipos y utensilios respetando condiciones de seguridad y eficiencia
+productiva.
+CE3.2: Regula temperatura, humedad y tiempo durante la transformación, conforme al
+método aplicado.
+CE3.3: Aplica técnicas de empaque, sellado y rotulado según especificaciones de
+conservación.
+RA4: Implementar medidas de control de calidad e inocuidad en las etapas de
+conservación y transformación, verificando puntos críticos y registrando resultados
+según procedimientos establecidos.
+CE4.1: Monitorea los puntos críticos de control del proceso productivo según el sistema
+HACCP y normativa de inocuidad.
+CE4.2: Registra valores físico-químicos y microbiológicos siguiendo protocolos
+establecidos.
+CE4.3: Evalúa la conformidad de los resultados de control de calidad respecto a valores
+normativos.
+CE4.4: Propone acciones correctivas ante desviaciones, sustentadas en criterios técnicos.
+Contenidos
+Conceptuales                 Procedimentales              Actitudinales
+Procesamiento                Realizar          limpieza Adoptar hábitos de higiene
+hidrobiológico     y     su superficial de organismos personal antes de manipular
+importancia en la cadena antes del eviscerado.            alimentos hidrobiológicos.
+de valor.
+                             Separar partes comestibles Asumir responsabilidad frente
+Calidad e inocuidad en y no comestibles con al                 manejo      delicado    de
+alimentos      de    origen herramientas técnicas.        organismos.
+acuático.
+                                  Eviscerar siguiendo pasos Mostrar disposición para seguir
+Anatomía externa e interna higiénicos.                        instrucciones sanitarias y de
+de peces, crustáceos y                                        inocuidad.
+moluscos (con enfoque Clasificar especies por
+para eviscerado).                 tamaño, peso o estado Valorar la importancia de la
+                                  general.                    pulcritud y el orden durante el
+Tipos de contaminación                                        procesamiento.
+alimentaria          (biológica, Aplicar higiene personal y
+química, física).                 del área antes, durante y Exhibir respeto hacia el trabajo
+                                  después de la práctica.     en equipo en actividades
+Principios       de      higiene                              prácticas.
+personal y del manipulador Preparar recipientes y
+de alimentos.                     superficies para manejo Desarrollar compromiso con la
+                                  sanitario.                  aplicación rigurosa de BPM y
+Técnicas elementales de                                       POES.
+limpieza y manipulación de Registrar           observaciones
+especies.                         iniciales   en     formatos Valorar la importancia del
+                                  estandarizados.             registro veraz y exacto de
+Eviscerado            y       su                              parámetros.
+importancia         para       la Ordenar           productos
+inocuidad.                        obtenidos para su posterior Asumir responsabilidad en la
+                                  conservación.               prevención de la contaminación
+Principios de clasificación                                   cruzada.
+por tamaño, peso y estado. Seleccionar métodos de
+                                  conservación según tipo de Apreciar el impacto del buen
+Métodos de conservación, producto.                            procesamiento en la salud del
+frío, sal, humo.                                              consumidor.
+                                  Controlar temperaturas de
+Requisitos mínimos de un refrigeración y congelación Demostrar ética en la toma de
+área           limpia         de usando         instrumentos decisiones técnicas.
+procesamiento.                    calibrados.
+                                                              Promover       prácticas    de
+Cinética del deterioro en Preparar                salmueras, sostenibilidad en el uso de
+productos hidrobiológicos.        mezclas u otros agentes de materiales y equipos.
+                                  conservación química.
+Parámetros físico-químicos                                    Mantener conducta proactiva
+relevantes en conservación Realizar fileteado básico y ante problemas o desviaciones
+(actividad de agua, pH, avanzado según especie.               del proceso.
+temperatura).
+                                  Registrar parámetros de Valorar la importancia del
+Revisión técnica de equipos conservación en fichas cumplimiento normativo en
+de         frío,       cámaras, técnicas.                     cada etapa productiva.
+congeladores,
+refrigeradores.                   Verificar textura, color y
+                                  olor del producto como
+Tipos de conservación indicadores iniciales de
+física,           refrigeración, calidad.
+congelación,
+deshidratación parcial.           Implementar
+                                  procedimientos de BPM en
+Métodos químicos, salado, cada etapa.
+marinado, acidificación.
+Microbiología aplicada a Organizar              productos
+productos hidrobiológicos conservados              según
+(microorganismos              método aplicado.
+alterantes).
+                              Controlar    tiempos     de
+Transformación primaria, exposición           en    cada
+fileteado,          despiece, proceso.
+despinado.
+                              Operar      equipos      de
+Buenas       prácticas    de transformación:      hornos,
+manufactura            (BPM) ahumadores,
+orientadas al área de deshidratadores,
+procesamiento.                selladoras.
+
+Trazabilidad en productos Ajustar          temperaturas,
+hidrobiológicos.              humedad y tiempo de
+                              transformación.
+Control de mermas y
+rendimiento industrial.       Realizar    empaque       y
+                              sellado según método de
+Procesos industriales de conservación.
+transformación (ahumado,
+cocción, deshidratado).       Elaborar prototipos de
+                              productos     con     valor
+Tecnología aplicada a la agregado.
+conservación       avanzada
+(IQF,       túneles        de Implementar         puntos
+congelación, vacío).          críticos    de      control
+                              (HACCP) en el proceso
+Parámetros         operativos productivo.
+críticos en transformación
+(temperatura–tiempo–          Registrar valores físico–
+humedad).                     químicos y microbiológicos
+                              en formatos avanzados.
+Valor agregado y desarrollo
+de nuevos productos.          Evaluar conformidad del
+                              producto final frente a
+Sistemas de control de normas establecidas.
+calidad, HACCP, POES,
+BPM en fase avanzada.         Aplicar           acciones
+                              correctivas           ante
+Indicadores de calidad desviaciones detectadas.
+sensorial y físico-química.
+                              Generar informes técnicos
+Normativa       nacional    e del proceso productivo.
+internacional            para
+productos hidrobiológicos
+procesados.
+
+Diseño de empaques y
+rotulado    conforme a
+estándares técnicos.
+Gestión de residuos del
+procesamiento con enfoque
+ambiental.
+
+Evaluación   técnica     de
+procesos industrializados.
+
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Biólogos,
+   Ingeniero/a en Acuicultura, Ingeniero/a Pesquero, Ingeniero/a en Recursos Naturales
+   Renovables, Ingeniero/a Ambiental, Maestrías en Acuicultura, Maestrías en Recursos
+   Hidrobiológicos, Maestrías en Producción Acuícola y Pesquera, Maestrías en Sanidad
+   Acuícola, o carreas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                          Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula, taller)                  1
+                             Mesas de acero inoxidable.
+                             Lavamanos con accionamiento no manual.
+                             Desagüe adecuado y pisos antideslizantes.
+                             Iluminación y ventilación aptas para industria
+Infraestructura/espacio      alimentaria.
+                             Cámara de refrigeración y/o congelación.
+                             Estantes plásticos o de acero para
+                             almacenamiento seguro.
+                             Contenedores para hielo en escamas.               1
+                             Cuchillos de fileteado y tablas grado
+                             alimenticio.
+                             Básculas para pesaje de producto y
+                             porciones.
+Materiales/recursos          Selladora y material de empaque grado
+                             alimenticio.
+                             Termómetros digitales para control de
+                             temperatura.
+                             Guías de rotulado y formatos de trazabilidad.
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+    • Agencia de Regulación y Control del Agua. (s. f.). Portal institucional.
+        https://www.regulacionagua.gob.ec/nacional/
+    • Agrocalidad. (2023). Manual de aplicación de las Buenas Prácticas Agropecuarias
+        dirigido a la Agricultura Familiar Campesina.
+       https://www.agrocalidad.gob.ec/wp-content/uploads/2023/01/manual_completo-
+       V2.pdf
+    • Cámara Nacional de Pesquería. (2020). Código de Conducta para la Pesca
+       Responsable: Análisis aplicado al Ecuador [PDF].
+       https://camaradepesqueria.ec/wp-
+       content/uploads/2020/05/Codigodepescaresponsable-pagvf_compressed-1.pdf
+    • Ley Orgánica de Recursos Hídricos, Usos y Aprovechamiento del Agua. (2014).
+       Ministerio del Ambiente del Ecuador.
+       https://www.regulacionagua.gob.ec/wp-content/uploads/downloads/2016/03/Ley-
+       Organica-de-Recursos-Hidricos-Usos-y-Aprovechamiento-del-Agua.pdf
+    • Ley Orgánica para el Desarrollo de la Acuicultura y Pesca. (2020). Registro Oficial
+       Suplemento N.º 187.
+       https://www.gob.ec/sites/default/files/regulations/2022-05/Documento_Ley-
+       Organica-para-Desarrollo-Acuicultura-y-Pesca.pdf
+    • Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2022).
+       Reglamento General a la Ley Orgánica para el Desarrollo de la Acuicultura y
+       Pesca.
+       https://www.produccion.gob.ec/wp-
+       content/uploads/downloads/2024/01/REGLAMENTO-GENERAL-A-LA-LEY-
+       ORGANICA-PARA-EL-DESARROLLO-DE-LA-ACUICULTURA-Y-PESCA.pdf
+    • Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 1831: Pescado
+       fresco refrigerado o congelado. Requisitos.
+       https://es.scribd.com/document/553276593/nte-inen-183-1-enm
+    • Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 456:
+       Camarones o langostinos congelados. Requisitos.
+       https://www.produccion.gob.ec/wp-content/uploads/2024/07/NTE-INEN-456-
+       CAMARONES-O-LANGOSTINOS-CONGELADOS-REQUISITOS.pdf
+Sitios Web:
+    • FAO. (2022). Buenas prácticas en acuicultura sostenible.
+       https://www.fao.org
+    • FAO. (2023). Sistemas de inocuidad alimentaria: HACCP.
+       https://www.fao.org/food-safety/en/
+    • MPCEIP. (2023). Boletines de mercado pesquero y acuícola del Ecuador.
+       https://www.produccion.gob.ec
+Libros
+   •   Arias, A., & Bernal, C. (2020). Acuicultura sostenible: producción y gestión
+       ambiental. Editorial Trillas.
+   •   Barreto, A., & Rodríguez, P. (2021). Procesos de conservación y valor agregado de
+       productos hidrobiológicos. Editorial Académica Española.
+   •   Ordóñez Pereda, J. A., García de Fernando Minguillón, G., & Cambero Rodríguez,
+       M. I. (2019). Tecnologías alimentarias. Volumen 2: Procesos de conservación.
+       Editorial Síntesis. https://www.sintesis.com/libro/tecnologias-alimentarias-volumen-
+       2
+   •   Feldmann, C. (2019). Control de calidad en la industria alimentaria: métodos físico-
+       químicos y microbiológicos. Ediciones Díaz de Santos.
+   •   Márquez, J. (2018). Tecnología de los productos pesqueros. McGraw-Hill.
+
+
+
+
+                             Módulo Especialización Nro.4
+Nombre del módulo:                     Control de Calidad
+Nivel:                                   3ro
+Duración:                                160 periodos pedagógicos
+                                         UC4: Controlar la calidad de procesos y productos
+                                         hidrobiológicos, aplicando técnicas de análisis
+Unidad        de      competencia
+                                         físico-químico y microbiológico, conforme a las
+asociada:
+                                         normas de inocuidad, bioseguridad y sostenibilidad
+                                         ambiental.
+Objetivo del módulo: Realizar el control de calidad de procesos y productos
+hidrobiológicos aplicando técnicas de análisis físico-químico y microbiológico, cumpliendo
+las normas de inocuidad, bioseguridad y sostenibilidad ambiental, con el propósito de
+cumplir con los estándares establecidos para su consumo y comercialización.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Realizar la toma de muestras de agua, tejidos y productos hidrobiológicos,
+aplicando técnicas de muestreo y normas de bioseguridad establecidas.
+CE1.1: Prepara los materiales y equipos requeridos para la toma de muestras, verificando
+su operatividad y cumpliendo las normas de bioseguridad vigentes.
+CE1.2: Recolecta muestras representativas de agua, tejidos y productos hidrobiológicos,
+aplicando técnicas de muestreo bajo condiciones controladas que garanticen su integridad.
+CE1.3: Etiqueta cada muestra recolectada, registrando de manera correcta la información
+técnica requerida conforme a los procedimientos establecidos.
+RA2: Ejecutar análisis físico–químicos y microbiológicos de agua y productos
+hidrobiológicos, siguiendo métodos normalizados y condiciones de laboratorio
+controladas.
+CE2.1: Determina los parámetros físico-químicos de las muestras, aplicando
+procedimientos normalizados y utilizando equipos calibrados.
+CE2.2: Realiza pruebas microbiológicas, operando en condiciones estériles y respetando
+los protocolos de seguridad del laboratorio.
+CE2.3: Aplica normas técnicas nacionales e internacionales durante los procesos de
+análisis, asegurando la confiabilidad y validez de los resultados obtenidos.
+RA3: Analizar los resultados obtenidos en los controles de calidad, comparándolos
+con los valores normativos establecidos para determinar su conformidad.
+CE3.1: Compara los valores obtenidos en los análisis con los rangos establecidos en la
+normativa vigente, identificando su conformidad o no conformidad.
+CE3.2: Identifica desviaciones o anomalías en los parámetros evaluados, registrando sus
+posibles causas mediante el análisis de los resultados.
+CE3.3: Interpreta los resultados analíticos, utilizando herramientas informáticas y criterios
+técnicos definidos.
+CE3.4: Elabora reportes técnicos de control de calidad, sustentando conclusiones analíticas
+conforme a los resultados obtenidos.
+RA4: Aplicar acciones correctivas y preventivas ante desviaciones detectadas en el
+control de calidad, sustentando decisiones conforme a estándares técnicos y
+sanitarios.
+CE4.1: Examina las causas de las desviaciones detectadas, mediante la revisión de
+registros, resultados y procesos de control.
+CE4.2: Propone acciones correctivas y preventivas, alineadas a normas de inocuidad,
+buenas prácticas y estándares técnicos vigentes.
+CE4.3: Implementa las acciones correctivas aprobadas, asegurando la mejora continua del
+proceso productivo.
+CE4.4: Verifica la eficacia de las acciones implementadas, comparando los nuevos
+resultados con los valores previamente obtenidos.
+Contenidos
+Conceptuales                  Procedimentales                Actitudinales
+Control de calidad en la      Preparar materiales,           Asumir rigurosidad en el
+industria hidrobiológica.     equipos y EPP conforme a cumplimiento de normas de
+                              normas de bioseguridad.        bioseguridad.
+Procesos críticos en la
+cadena productiva             Desinfectar superficies y      Valorar la importancia de
+acuícola.                     utensilios previos al          obtener muestras
+                              muestreo.                      representativas y confiables.
+Puntos de riesgo y control.
+                              Seleccionar puntos de          Demostrar conciencia de que
+Tipos de defectos en          muestreo siguiendo el          un error de muestreo
+productos hidrobiológicos     protocolo técnico.             compromete la calidad del
+(sensoriales,                                                producto final.
+microbiológicos y físico-     Recolectar muestras de
+químicos).                    agua, tejidos u organismos Mantener disciplina y enfoque
+                              enteros según la finalidad     en procedimientos técnicos de
+Relación entre calidad,       del análisis.                  laboratorio.
+inocuidad y trazabilidad.
+                              Aplicar técnicas estériles     Evidenciar ética en el registro
+Marco normativo aplicable, para evitar contaminación         exacto de los datos, evitando
+INEN, Codex Alimentarius, cruzada.                           alteraciones.
+HACCP y BPM en
+productos hidrobiológicos.    Rotular recipientes con        Mostrar compromiso con la
+                              información obligatoria:       limpieza, esterilidad y orden
+Principios de muestreo        código, fecha, hora, lote,     del área de trabajo.
+estadístico y                 responsable.
+representatividad.                                           Adoptar pensamiento crítico
+                              Almacenar y transportar        frente a los resultados
+Tipos de muestreo,            las muestras bajo              obtenidos.
+puntual, compuesto,           condiciones controladas.
+sistemático y por lote.                                      Asumir responsabilidad al
+                              Encender, calibrar y           determinar desviaciones y
+                              verificar equipos de           posibles causas.
+                              medición.
+Fundamentos de                                               Valorar la importancia de la
+esterilidad en el muestreo     Medir parámetros físico–      objetividad técnica en la toma
+microbiológico.                químicos siguiendo            de decisiones.
+                               métodos normalizados.
+Conservación y transporte                                    Mostrar iniciativa para
+de muestras según tipo         Registrar lecturas en         proponer mejoras basadas en
+(agua, tejidos, productos      fichas oficiales              evidencia.
+procesados).                   asegurando exactitud.
+                                                             Demostrar apertura al diálogo
+Materiales y recipientes       Preparar reactivos y          técnico con el equipo de
+certificados según norma       soluciones según el           trabajo.
+técnica.                       protocolo.
+                                                             Actuar con responsabilidad al
+Parámetros clave, pH,          Comparar lecturas con         ejecutar medidas que afectan
+temperatura, oxígeno           rangos normativos             la calidad del producto.
+disuelto, salinidad,           establecidos.
+turbidez, actividad de agua.                                 Reconocer que la seguridad
+                               Preparar material estéril y   del consumidor depende del
+Reacciones químicas            medios de cultivo.            control de calidad realizado.
+relevantes en deterioro de
+alimentos hidrobiológicos.     Realizar diluciones
+                               seriadas para
+Equipos de laboratorio,        cuantificación microbiana.
+potenciómetro, oxímetro,
+refractómetro,                 Ejecutar siembras en
+espectrofotómetro.             placas mediante técnicas
+                               reconocidas.
+Calibración y curvas de
+referencia en laboratorio.     Incubar muestras en
+                               cámaras controladas.
+Rangos normativos según
+tipo de producto y proceso.    Contar unidades
+                               formadoras de colonias
+Microorganismos                (UFC) e interpretar
+indicadores de calidad y       resultados.
+seguridad (mesófilos,
+coliformes, Salmonella,        Registrar valores
+Vibrio, Staphylococcus,        microbiológicos siguiendo
+hongos y levaduras).           formatos oficiales.
+
+Medios de cultivo              Organizar datos obtenidos
+selectivos, diferenciales y    en tablas comparativas.
+de enriquecimiento.
+                               Identificar desviaciones
+Técnicas de siembra,           respecto a las normas
+estriado, vertido, dilución    aplicables.
+seriada.
+                               Determinar posible origen
+Métodos de cuantificación      de anomalías mediante
+microbiana, UFC, NMP,          análisis técnico.
+turbidez, detección rápida.
+                               Elaborar informes de
+                               resultados con
+Fuentes de contaminación       conclusiones y
+microbiana y su                recomendaciones.
+prevención.
+                               Presentar reportes ante el
+Lectura de informes físico-    docente o comité técnico.
+químicos y microbiológicos.
+                               Revisar procesos
+Comparación de valores         operativos para identificar
+obtenidos con normas           fuentes de error.
+nacionales e
+internacionales.               Elaborar propuestas de
+                               acción correctiva basadas
+Identificación de              en datos técnicos.
+desviaciones, patrones y
+tendencias.                    Implementar medidas
+                               preventivas para evitar
+Análisis de causas,            recurrencias.
+métodos de Ishikawa,
+análisis de fallas.            Verificar la efectividad
+                               comparando análisis
+Acción correctiva vs.          antiguos y nuevos.
+preventiva.
+                               Registrar acciones y
+Medidas de contención          resultados en reportes
+inmediata y medidas            oficiales de control.
+permanentes.
+
+Verificación de efectividad,
+mediciones, re–muestreo y
+registros comparados.
+
+Ajustes técnicos al proceso
+productivo.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Biólogos,
+   Ingeniero/a en Acuicultura, Ingeniero/a Pesquero, Ingeniero/a en Recursos Naturales
+   Renovables, Ingeniero/a Ambiental, Maestrías en Acuicultura, Maestrías en Recursos
+   Hidrobiológicos, Maestrías en Producción Acuícola y Pesquera, Maestrías en Sanidad
+   Acuícola, o carreras afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación               Especificaciones técnicas                         Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula, taller)                 1
+                          Mesones de trabajo con superficie lavable y
+                          resistente a químicos.
+                          Lavamanos con sistema de accionamiento no
+                          manual.
+                          Zona de siembra aislada destinada a prácticas
+                          de microbiología.
+                          Sistema de ventilación y extracción con filtros
+                          básicos.
+Infraestructura/espacio   Iluminación adecuada para inspección visual y     1
+                          trabajo de laboratorio.
+                          Mobiliario destinado al almacenamiento
+                          seguro de reactivos.
+                          Refrigerador exclusivo para la conservación
+                          temporal de muestras.
+                          Área destinada para la disposición y
+                          segregación de residuos.
+
+                          Kits para muestreo: envases estériles,
+                          jeringas, pipetas.
+                          pH-metro.
+                          Oxímetro.
+                          Turbidímetro.
+                          Termómetros calibrados.
+                          Cronómetros.
+Recursos                  Medios de cultivo.
+                          Placas Petri.
+                          Hisopos estériles.
+                          Autoclave o esterilizador para desinfección de
+                          material.
+                          Formatos de registro físico y digital.
+                          Software básico para el ingreso y
+                          procesamiento de datos.
+
+
+
+
+                          Mandiles de laboratorio.
+                          Mascarillas (quirúrgicas o de protección).
+                          Guantes de látex, nitrilo u otro material
+                          adecuado.
+Materiales de             Contenedores diferenciados para residuos
+seguridad                 biológicos.
+                          Contenedores diferenciados para residuos
+                          químicos.
+                          Señalética básica de seguridad y
+                          bioseguridad.
+
+
+
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Agencia de Regulación y Control del Agua. (s. f.). Portal institucional.
+     https://www.regulacionagua.gob.ec/nacional/
+   • Agrocalidad. (2023). Manual de aplicación de las Buenas Prácticas Agropecuarias
+     dirigido a la Agricultura Familiar Campesina.
+     https://www.agrocalidad.gob.ec/wp-content/uploads/2023/01/manual_completo-
+     V2.pdf
+   • Cámara Nacional de Pesquería. (2020). Código de Conducta para la Pesca
+     Responsable: Análisis aplicado al Ecuador [PDF].
+     https://camaradepesqueria.ec/wp-
+     content/uploads/2020/05/Codigodepescaresponsable-pagvf_compressed-1.pdf
+   • Ley Orgánica de Recursos Hídricos, Usos y Aprovechamiento del Agua. (2014).
+     Ministerio del Ambiente del Ecuador.
+     https://www.regulacionagua.gob.ec/wp-content/uploads/downloads/2016/03/Ley-
+     Organica-de-Recursos-Hidricos-Usos-y-Aprovechamiento-del-Agua.pdf
+   • Ley Orgánica para el Desarrollo de la Acuicultura y Pesca. (2020). Registro Oficial
+     Suplemento N.º 187.
+     https://www.gob.ec/sites/default/files/regulations/2022-05/Documento_Ley-
+     Organica-para-Desarrollo-Acuicultura-y-Pesca.pdf
+   • Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2022).
+     Reglamento General a la Ley Orgánica para el Desarrollo de la Acuicultura y
+     Pesca.
+     https://www.produccion.gob.ec/wp-
+     content/uploads/downloads/2024/01/REGLAMENTO-GENERAL-A-LA-LEY-
+     ORGANICA-PARA-EL-DESARROLLO-DE-LA-ACUICULTURA-Y-PESCA.pdf
+   • Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 1831: Pescado
+     fresco refrigerado o congelado. Requisitos.
+     https://es.scribd.com/document/553276593/nte-inen-183-1-enm
+   • Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 456:
+     Camarones o langostinos congelados. Requisitos.
+     https://www.produccion.gob.ec/wp-content/uploads/2024/07/NTE-INEN-456-
+     CAMARONES-O-LANGOSTINOS-CONGELADOS-REQUISITOS.pdf
+
+Sitios Web:
+    • FAO. (2022). Buenas prácticas en acuicultura sostenible.
+       https://www.fao.org
+    • FAO. (2023). Sistemas de inocuidad alimentaria: HACCP.
+       https://www.fao.org/food-safety/en/
+    • MPCEIP. (2023). Boletines de mercado pesquero y acuícola del Ecuador.
+       https://www.produccion.gob.ec
+
+Libros
+   •     Arias, A., & Bernal, C. (2020). Acuicultura sostenible: producción y gestión
+         ambiental. Editorial Trillas.
+   •   Barreto, A., & Rodríguez, P. (2021). Procesos de conservación y valor agregado de
+       productos hidrobiológicos. Editorial Académica Española.
+   •   Feldmann, C. (2019). Control de calidad en la industria alimentaria: métodos físico-
+       químicos y microbiológicos. Ediciones Díaz de Santos.
+   •   Ordóñez Pereda, J. A., García de Fernando Minguillón, G., & Cambero Rodríguez,
+       M. I. (2019). Tecnologías alimentarias. Volumen 2: Procesos de conservación.
+       Editorial Síntesis. Editorial Síntesis – Tecnologías alimentarias. Volumen 2
+   •   Márquez, J. (2018). Tecnología de los productos pesqueros. McGraw-Hill.
+   •   Zbrun, M. V., & Signorini Porchietto, M. L. (2018). Utilización de pescados y
+       mariscos: tecnología e innovación (2 vols.). Editorial Académica Española.
+       https://www.eae-publishing.com/catalog/details/store/pt/book/978-620-2-15215-0/u.
+
+
+
+
+                              Módulo Especialización Nro.5
+                                          Innovación y Emprendimiento en Productos
+Nombre del módulo:
+                                          Hidrobiológicos.
+Nivel:                                    2do, 3ro
+Duración:                                 240 periodos pedagógicos
+                                          UC5: Proponer innovación y emprendimiento en
+Unidad          de       competencia      productos hidrobiológicos, aplicando principios de
+asociada:                                 sostenibilidad, valor agregado y aprovechamiento
+                                          responsable de los recursos.
+Objetivo del módulo: Proponer innovación y emprendimiento en productos hidrobiológicos,
+aplicando principios de sostenibilidad, valor agregado y aprovechamiento responsable de
+los recursos, con el fin de impulsar soluciones productivas que fortalezcan la competitividad,
+diversifiquen la oferta y promuevan el desarrollo socioeconómico del sector hidrobiológico.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Analizar oportunidades de aprovechamiento sostenible de subproductos
+hidrobiológicos, evaluando su factibilidad técnica, sanitaria y comercial.
+CE1.1: Examina subproductos hidrobiológicos disponibles, evaluando su potencial de
+transformación técnica y comercial conforme a criterios sanitarios.
+CE1.2: Selecciona subproductos con mejores condiciones de aprovechamiento,
+considerando criterios técnicos, sanitarios y de sostenibilidad.
+CE1.3: Evalúa la viabilidad técnica y económica del aprovechamiento de subproductos,
+utilizando indicadores de factibilidad productiva.
+RA2: Elaborar prototipos de productos derivados de subproductos hidrobiológicos,
+aplicando técnicas de transformación bajo condiciones de higiene y seguridad.
+CE2.1: Clasifica las materias primas, los insumos y los reactivos necesarios, de acuerdo
+con las características del prototipo a desarrollar.
+CE2.2: Aplica procedimientos técnicos de transformación, cumpliendo condiciones de
+higiene, seguridad y buenas prácticas de manufactura.
+CE2.3: Evalúa las características físicas y sensoriales del prototipo elaborado, según su
+finalidad y criterios técnicos definidos.
+CE2.4: Documenta el proceso de elaboración del prototipo, mediante fichas técnicas y
+registros de producción.
+RA3: Formular propuestas de innovación y emprendimiento hidrobiológico,
+integrando criterios técnicos, ambientales y económicos mediante herramientas de
+diseño y modelado.
+CE3.1: Analiza ideas de productos innovadores, a partir de subproductos hidrobiológicos
+identificados previamente.
+CE3.2: Integra criterios de sostenibilidad ambiental y social, en el diseño de la propuesta
+de innovación.
+CE3.3: Utiliza herramientas digitales, para modelar o simular procesos productivos
+asociados a la propuesta.
+CE3.4: Elabora propuestas de innovación, sustentadas en fundamentos técnicos,
+ambientales y económicos.
+RA4: Evaluar el impacto técnico, económico y ambiental de las propuestas de
+innovación hidrobiológica, utilizando indicadores de sostenibilidad y eficiencia.
+CE4.1: Analiza los costos de producción y los beneficios potenciales, considerando la
+viabilidad económica de la propuesta.
+CE4.2: Distingue los impactos ambientales asociados, al uso de materiales y técnicas
+productivas aplicadas.
+CE4.3: Aplica indicadores de sostenibilidad y eficiencia, para evaluar el impacto integral de
+la propuesta.
+CE4.4: Propone mejoras al proceso o producto, orientadas a optimizar el uso de recursos y
+reducir la generación de residuos.
+RA5: Presentar proyectos de desarrollo hidrobiológico con enfoque innovador y
+sostenible, estructurando documentos y exposiciones técnicas conforme a los
+estándares académicos y productivos.
+CE5.1: Selecciona información técnica y económica relevante, para la elaboración del
+proyecto de desarrollo hidrobiológico.
+CE5.2: Justifica la viabilidad técnica, ambiental y económica del proyecto, mediante análisis
+sustentados y verificables.
+CE5.3: Estructura el proyecto en un documento técnico, empleando herramientas digitales
+de comunicación y presentación.
+CE5.4: Presenta el proyecto de manera oral o escrita, utilizando lenguaje técnico y
+argumentos fundamentados ante instancias académicas o productivas.
+Contenidos
+Conceptuales                     Procedimentales             Actitudinales
+Subproducto hidrobiológico Recolectar subproductos           Mostrar curiosidad ante nuevos
+y diferencias con desecho. en campo o laboratorio.           usos de subproductos.
+
+Tipos de subproductos         Registrar características     Asumir responsabilidad ética
+generados en acuicultura y    físicas y sanitarias          en la evaluación del impacto
+pesca (vísceras, escamas,     iniciales.                    ambiental.
+cabezas, agua de
+proceso).                     Clasificar subproductos       Reconocer la importancia del
+                              por potencial de              análisis objetivo para evitar
+                              transformación.               decisiones apresuradas.
+Principios de sostenibilidad   Aplicar matrices de            Valorar la necesidad de
+aplicados al uso de            evaluación técnica,            trabajar con higiene y orden
+subproductos.                  económica y sanitaria.         rigurosos.
+
+Introducción al valor          Diseñar diagnósticos           Demostrar constancia y
+agregado en el sector          comparativos de                precisión al ajustar parámetros
+hidrobiológico.                oportunidades de               técnicos.
+                               innovación.
+Potenciales usos de                                           Mantener apertura para
+harinas, gelatinas,            Elaborar informes de           mejorar el prototipo según
+biopolímeros, snacks,          viabilidad del                 resultados.
+aceites, biofertilizantes.     aprovechamiento.
+                                                              Mostrar disposición a proponer
+Estándares sanitarios y        Seleccionar materias           ideas originales sin temor a
+normativas que regulan su      primas aptas para              equivocarse.
+aprovechamiento.               transformación.
+                                                              Valorar la importancia de
+Bioconversión y                Preparar condiciones           integrar sostenibilidad en cada
+biotecnología en               higiénicas del área de         decisión técnica.
+subproductos.                  trabajo.
+                                                              Respetar el trabajo
+Identificación de              Ejecutar procesos técnicos     colaborativo en el desarrollo
+oportunidades de mercado       (triturado, lavado, cocción    del proyecto.
+basadas en economía            inicial).
+circular.                                                     Demostrar compromiso frente
+                               Documentar el proceso en       al uso responsable de los
+Análisis técnico–              fichas de elaboración.         recursos naturales.
+económico para productos
+derivados.                     Ejecutar técnicas              Mostrar transparencia al
+                               avanzadas de                   registrar costos, impactos y
+Tecnologías emergentes         transformación según el        beneficios.
+para revalorización            prototipo.
+hidrobiológica.                                               Valorar el análisis crítico como
+                               Controlar variables críticas   herramienta para mejorar los
+Modelos innovadores de         del proceso.                   procesos.
+aprovechamiento
+sostenible (bioempaques,       Realizar análisis físico-      Mantener seguridad y claridad
+nutracéuticos,                 sensorial del prototipo.       al comunicar ideas técnicas.
+biocosméticos).
+                               Comparar resultados con        Escuchar observaciones con
+Gestión de riesgos             estándares del mercado.        apertura y disposición al
+sanitarios y regulatorios.                                    cambio.
+                               Generar ideas a partir de
+Principios de diseño de        los subproductos               Asumir responsabilidad sobre
+prototipos.                    identificados.                 el contenido técnico
+                                                              presentado.
+Propiedades físico–            Elaborar propuestas
+sensibles relevantes           simples vinculando
+(textura, color, olor,         sostenibilidad y utilidad.
+humedad).
+                               Usar herramientas
+                               digitales para modelado.
+Equipos y utensilios           Formular proyectos con
+necesarios para                análisis técnico, ambiental
+transformación primaria.       y económico.
+
+Buenas prácticas de            Simular procesos con
+higiene en procesos de         software especializado.
+elaboración.                   Integrar estrategias de
+                               sostenibilidad en cada
+Fichas técnicas, estructura,   fase del diseño.
+función y registro.
+                               Identificar costos y estimar
+Diseño avanzado de             beneficios.
+prototipos funcionales y
+comerciales.                   Reconocer impactos
+                               ambientales directos.
+Técnicas específicas,
+hidrólisis, extracción,        Aplicar indicadores de
+concentración, secado,         sostenibilidad para evaluar
+estabilización.                la propuesta.
+
+Parámetros operativos          Analizar costos detallados,
+(temperatura,                  flujos de caja y retorno de
+concentración, presión,        inversión.
+relación masa–volumen).
+                               Diseñar estrategias de
+Caracterización sensorial y    mejora ambiental y
+análisis comparativo de        productiva.
+prototipos.
+                               Elaborar una presentación
+Validación técnica y           estructurada del prototipo.
+sanitaria del producto.
+                               Exponer de forma clara las
+Innovación aplicada a          características del
+recursos hidrobiológicos.      producto.
+
+Identificación de problemas    Desarrollar un documento
+del entorno productivo.        técnico completo.
+
+Creatividad y pensamiento      Presentar el proyecto con
+divergente para soluciones     lenguaje técnico y
+productivas.                   fundamentos.
+
+Introducción al diseño de      Defender el proyecto ante
+modelos de negocio             evaluadores académicos o
+simples (Canva).               productivos.
+
+Tendencias de consumo
+de productos sostenibles.
+
+Innovación disruptiva y
+tecnologías habilitadoras.
+Diseño y simulación de
+procesos productivos con
+software especializado.
+
+Análisis de viabilidad
+técnica, ambiental y
+económica.
+
+Propiedad intelectual en
+productos de base
+biológica.
+
+Estructuración profesional
+de propuestas de
+emprendimiento.
+
+Costeo de producción
+(materias primas, mano de
+obra, insumos).
+
+Indicadores de rendimiento
+y eficiencia.
+
+Conceptos de impacto
+ambiental y huella
+ecológica.
+
+Evaluación de ciclo de vida
+(ECV) de productos
+hidrobiológicos.
+
+Indicadores de
+sostenibilidad, eficiencia
+energética, huella hídrica,
+impacto residual.
+
+Análisis costo–beneficio,
+punto de equilibrio y
+margen de contribución.
+
+Diseño de estrategias para
+reducción de residuos y
+optimización de procesos.
+
+Estructura de un
+anteproyecto técnico.
+
+Elaboración de un proyecto
+profesional completo.
+
+Uso de herramientas
+digitales avanzadas para
+presentaciones (3D,
+simuladores, dashboards).
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Biólogos,
+   Ingeniero/a en Acuicultura, Ingeniero/a Pesquero, Ingeniero/a en Recursos Naturales
+   Renovables, Ingeniero/a Ambiental, Maestrías en Acuicultura, Maestrías en Recursos
+   Hidrobiológicos, Maestrías en Producción Acuícola y Pesquera, Maestrías en Sanidad
+   Acuícola, o carreas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                          Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula, taller)                  1
+                          Mesas modulares para trabajo colaborativo.
+                          Pizarra y área para diseño de ideas.
+                          Computadoras con acceso a internet y red
+                          eléctrica segura.
+                          Iluminación adecuada para prototipado,
+                          diseño y pruebas.
+Infraestructura/espacio   Área limpia para manipulación inicial de               1
+                          productos.
+                          Zona para evaluación sensorial básica.
+                          Pantalla o proyector para presentaciones.
+                          Exhibidores para muestras o materiales de
+                          diseño.
+                          Computadoras con software para diseño,
+                          costos y presentación (Word, Excel, Canva u
+                          otros).
+                          Herramientas básicas para prototipado
+                          (utensilios de manipulación, envases para
+                          pruebas).
+Recursos                  Materiales gráficos para mercadeo: cartulinas,
+                          marcadores, impresiones.
+                          Formatos para plan de negocio, evaluación
+                          sensorial y sustentación.
+                          Accesorios para presentación de proyectos:
+                          micrófono, trípode, puntero.
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Agencia de Regulación y Control del Agua. (s. f.). Portal institucional.
+      https://www.regulacionagua.gob.ec/nacional/
+   • Agrocalidad. (2023). Manual de aplicación de las Buenas Prácticas Agropecuarias
+         dirigido a la Agricultura Familiar Campesina.
+         https://www.agrocalidad.gob.ec/wp-content/uploads/2023/01/manual_completo-
+         V2.pdf
+   •     Cámara Nacional de Pesquería. (2020). Código de Conducta para la Pesca
+         Responsable: Análisis aplicado al Ecuador [PDF].
+         https://camaradepesqueria.ec/wp-
+         content/uploads/2020/05/Codigodepescaresponsable-pagvf_compressed-1.pdf
+   •     Ley Orgánica de Recursos Hídricos, Usos y Aprovechamiento del Agua. (2014).
+         Ministerio del Ambiente del Ecuador.
+         https://www.regulacionagua.gob.ec/wp-content/uploads/downloads/2016/03/Ley-
+         Organica-de-Recursos-Hidricos-Usos-y-Aprovechamiento-del-Agua.pdf
+   •     Ley Orgánica para el Desarrollo de la Acuicultura y Pesca. (2020). Registro Oficial
+         Suplemento N.º 187.
+         https://www.gob.ec/sites/default/files/regulations/2022-05/Documento_Ley-
+         Organica-para-Desarrollo-Acuicultura-y-Pesca.pdf
+   •     Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2022).
+         Reglamento General a la Ley Orgánica para el Desarrollo de la Acuicultura y
+         Pesca.
+         https://www.produccion.gob.ec/wp-
+         content/uploads/downloads/2024/01/REGLAMENTO-GENERAL-A-LA-LEY-
+         ORGANICA-PARA-EL-DESARROLLO-DE-LA-ACUICULTURA-Y-PESCA.pdf
+   •     Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 1831: Pescado
+         fresco refrigerado o congelado. Requisitos.
+         https://es.scribd.com/document/553276593/nte-inen-183-1-enm
+   •     Servicio Ecuatoriano de Normalización – INEN. (2013). NTE INEN 456:
+         Camarones o langostinos congelados. Requisitos.
+         https://www.produccion.gob.ec/wp-content/uploads/2024/07/NTE-INEN-456-
+         CAMARONES-O-LANGOSTINOS-CONGELADOS-REQUISITOS.pdf
+
+Sitios Web:
+    • FAO. (2023). Sistemas de inocuidad alimentaria: HACCP.
+       https://www.fao.org/food-safety/en/
+    • MPCEIP. (2023). Boletines de mercado pesquero y acuícola del Ecuador.
+       https://www.produccion.gob.ec
+
+Libros
+   •     García Segovia, P., Javier Pisco, P., & Pagán Moreno, M. J. (2025). Guía para el
+         desarrollo de nuevos productos acuícolas. Recursos Educativos en Abierto
+         EdUPV. https://doi.org/10.4995/9788413963884edUPV
+   •     Durazo Beltrán, E. (1991). Tecnología de los productos pesqueros. Universidad
+         Autónoma de Baja California.
+         https://books.google.com/books/about/Tecnolog%C3%ADa_de_los_productos_pes
+         queros.html?id=kFIQAQAAIAAJ
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación
+a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+                             Módulo Práctico Experimental
+ Nombre del módulo:               Práctico Experimental
+ Nivel:                           1ro, 2do, 3ro
+ Duración:                        320 periodos pedagógicos
+ Unidad de competencia            UC1: Preparar insumos, materiales y equipos en la
+ asociada:                        ejecución de actividades de cultivo, pesca y
+                                  procesamiento        de      especies      hidrobiológicas,
+                                  garantizando su disponibilidad, funcionalidad y
+                                  condiciones de bioseguridad.
+                                  UC2: Ejecutar técnicas de cultivo y captura de especies
+                                  hidrobiológicas, aplicando procedimientos técnicos,
+                                  parámetros y medidas de bioseguridad para garantizar
+                                  la eficiencia productiva y la sostenibilidad ambiental.
+                                  UC3: Transformar especies hidrobiológicas mediante
+                                  procesos de conservación y valor agregado, aplicando
+                                  normas de calidad, inocuidad y sostenibilidad ambiental.
+                                  UC4: Controlar la calidad de procesos y productos
+                                  hidrobiológicos, aplicando técnicas de análisis físico-
+                                  químico y microbiológico, conforme a las normas de
+                                  inocuidad, bioseguridad y sostenibilidad ambiental.
+                                  UC5: Proponer innovación y emprendimiento en
+                                  productos hidrobiológicos, aplicando principios de
+                                  sostenibilidad, valor agregado y aprovechamiento
+                                  responsable de los recursos.
+ Objetivo del módulo: Desarrollar competencias practicas, mediante la ejecución de
+ actividades reales y simuladas relacionadas con la preparación de insumos y equipos,
+ el cultivo y captura de especies hidrobiológicas, el procesamiento y control de calidad de
+ productos, y la formulación de propuestas innovadoras y sostenibles; con el fin de
+fortalecer el desempeño técnico del estudiantado, promover el aprendizaje basado en la
+experiencia y consolidar capacidades para desenvolverse en contextos productivos,
+científicos y emprendedores del sector hidrobiológico.
+Resultados               de   Criterios de evaluación Actividades Prácticas
+Aprendizaje (RA)              (CE)                          Experimentales
+RA1: Preparar insumos, CE1.1:              Verifica       y Realizar      la      inspección
+materiales      y    equipos organiza los insumos, operativa                 de       equipos
+requeridos en actividades materiales y equipos (aeradores,                           bombas,
+hidrobiológicas,              requeridos,       aplicando oxigenómetros) usando listas
+cumpliendo procedimientos listas de control, criterios de verificación.
+técnicos estandarizados y de                clasificación,
+normas de bioseguridad procedimientos técnicos
+                                                            Clasificar       y      organizar
+vigentes.                     estandarizados y normas
+                              de bioseguridad vigentes      materiales  e  insumos    para un
+                              para      asegurar        su kit de cultivo o procesamiento.
+                              disponibilidad              y
+                              funcionamiento                Aplicar un protocolo completo
+                              adecuado.                     de bioseguridad, incluyendo
+                                                            desinfección, uso de EPP y
+                              CE1.3: Aplica normas de control de residuos.
+                              bioseguridad durante la
+                              manipulación de insumos
+                              y equipos, siguiendo
+                              procedimientos sanitarios
+                              obligatorios.
+RA2:                 Ejecutar CE2.1:      Prepara      las Montar un sistema de cultivo
+procedimientos técnicos de estructuras y áreas de (jaulas, bandejas, tanques)
+cultivo y captura de cultivo,                cumpliendo siguiendo una guía técnica.
+especies hidrobiológicas, requerimientos técnicos y
+manteniendo parámetros normas ambientales del
+productivos      dentro   de sistema productivo.            Realizar     mediciones        de
+rangos óptimos y aplicando                                  parámetros de agua (pH,
+medidas de bioseguridad CE2.2:                 Monitorea oxígeno,               temperatura,
+ambiental.                    parámetros de calidad salinidad) con instrumentos de
+                              del agua, registrando campo.
+                              valores dentro de los
+                              rangos              óptimos
+                                                            Ejecutar        una       captura
+                              establecidos.
+                                                            experimental          controlada,
+                              CE2.3: Aplica métodos         aplicando   métodos    selectivos
+                              de captura selectiva, (redes, mallas, colectores).
+                              manipulando organismos
+                              sin afectar su bienestar o Realizar visita técnica a una
+                              la    sostenibilidad     del camaronera para observar la
+                              entorno.
+                                                            preparación de estanques,
+                                                            limpieza, llenado y pre-
+                                                            siembra      y     control     de
+                                                            parámetros.
+RA3: Realizar procesos        CE3.1:       Efectúa       la Realizar una práctica de
+de            conservación,   limpieza, eviscerado y eviscerado y clasificación,
+transformación y valor       clasificación de especies, registrando pesos, tallas y
+agregado de productos        cumpliendo       requisitos condición del organismo.
+hidrobiológicos, aplicando   higiénicos y sanitarios.
+especificaciones técnicas                                Aplicar       métodos          de
+y normas de inocuidad        CE3.2: Aplica métodos conservación                   (salado,
+alimentaria.                 de conservación física o congelado,            refrigeración)
+                             química,       controlando midiendo       temperatura       y
+                             parámetros      operativos tiempo.
+                             conforme a la normativa.
+                                                         Desarrollar un producto con
+                             CE3.3: Ejecuta procesos valor agregado (ahumados,
+                             de     transformación     y filetes, productos listos para
+                             empaque,       asegurando cocinar) y empacar/rotular.
+                             calidad, presentación y
+                             trazabilidad del producto. Realizar visita técnica a una
+                                                         planta              procesadora
+                                                         hidrobiológica para observar
+                                                         líneas de eviscerado, áreas de
+                                                         conservación, empaque y
+                                                         rotulado,      sistemas        de
+                                                         trazabilidad
+
+RA4: Ejecutar controles      CE4.1: Realiza la toma       Ejecutar     una   toma     de
+de calidad físico–químicos   de muestras de agua,         muestras      (agua,   filetes,
+y    microbiológicos    en   tejidos    o  productos,     tejidos) utilizando material
+procesos y productos         siguiendo protocolos de      esterilizado.
+hidrobiológicos,             bioseguridad           y
+registrando resultados y     trazabilidad.               Realizar    análisis    físico–
+aplicando procedimientos                                 químicos (pH, OD, turbidez,
+correctivos          según   CE4.2: Aplica análisis salinidad) y microbiológicos
+normativa técnica.           físico–químicos           y (siembra, recuento).
+                             microbiológicos        en
+                             condiciones            de Realizar visita técnica a
+                             laboratorio controladas.    laboratorios de control de
+                                                         calidad     o      laboratorios
+                             CE4.3:          Interpreta larvarios,    para     observar
+                             resultados                  manejo        de       cultivos
+                             comparándolos         con microbiológicos, control de
+                             criterios normativos para parámetros         de      agua,
+                             determinar               la procedimientos               de
+                             conformidad            del bioseguridad de evaluación
+                             producto.                   sanitaria
+
+RA5:            Formular     CE5.1:          Analiza Diseñar     y  elaborar   un
+propuestas de innovación     oportunidades        de prototipo innovador (harinas,
+                             aprovechamiento
+ y emprendimiento en el          sostenible             de snacks      proteicos,    geles,
+ ámbito      hidrobiológico,     subproductos, evaluando colágeno, biofertilizantes).
+ orientadas al desarrollo de     su factibilidad técnica y
+ productos y procesos con        comercial.                 Realizar una salida de campo
+ valor    agregado,        que                              a una camaronera, centro de
+ integren     criterios     de   CE5.2:          Desarrolla acopio o laboratorio larvario
+ sostenibilidad, eficiencia      prototipos de productos para identificar problemas no
+ técnica     y      viabilidad   innovadores, aplicando resueltos          (pérdida     de
+ económica y ambiental,          técnicas               de subproductos, ineficiencia en
+ en correspondencia con          transformación segura y procesos,                residuos,
+ las     necesidades         y   eficiente.                 oportunidades de ahorro,
+ demandas del sector                                        entre otros).
+ productivo.                     CE5.3:           Presenta
+                                 proyectos hidrobiológicos
+                                 sustentados en criterios
+                                 técnicos, económicos y
+                                 ambientales.
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

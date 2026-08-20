@@ -1,0 +1,1892 @@
+MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “ELECTROMECÁNICA
+                         INDUSTRIAL”
+
+           1. Objetivo general
+
+
+Realizar procesos de diagnóstico, mantenimiento, instalación y montaje de equipos y
+maquinaria, así como analizar circuitos y magnitudes eléctricas, ejecutar trabajos de
+soldadura y desarrollar instalaciones eléctricas de baja y media tensión, aplicando
+soluciones técnicas innovadoras que respondan a las necesidades del sector industrial.
+Todo ello en concordancia con las normas de calidad, seguridad, salud ocupacional y
+protección ambiental vigentes, promoviendo la eficiencia operativa y contribuyendo al
+fortalecimiento de la matriz productiva, en alineación con las demandas del sector y la
+sostenibilidad de los procesos.
+
+           2. Plan de estudios
+
+
+                                                                  1ro     2do     3ro
+ Total periodos pedagógicos tronco común
+                                                                  19       19     19
+                     Seguridad Industrial                          2        2
+ Módulos Genéricos
+ de     la   Familia Procesos Industriales Sostenibles             2        2
+ Profesional
+                     Dibujo Técnico Aplicado                       2        2
+                          Mantenimiento         y    Máquinas
+                                                                   3        3      5
+                          Eléctricas
+ Módulos de               Soldadura Eléctrica                               5      7
+ Especialización          Sistemas Eléctricos e Instalaciones
+                                                                   4        5      6
+                          Eléctricas
+                          Electricidad Básica                      4
+ Módulo Práctico Experimental                                      4        2      3
+ Total de periodos pedagógicos de formación técnica               21       21      21
+
+
+
+           3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la familia Industrial. Gracias a las características
+de los módulos trabajados en esta etapa, adquieren herramientas que le permiten
+construir una opinión más informada y tomar decisiones con mayor fundamento. Esto
+favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa,
+insertarse en el mundo laboral o emprender un proyecto propio.
+
+ Se estructuran los siguientes módulos genéricos:
+
+   •      Seguridad industrial
+   •      Procesos Industriales Sostenibles
+   •      Dibujo Técnico Aplicado
+
+                                       Módulo Genérico Nro. 1
+
+ Nombre del módulo                     Seguridad Industrial
+
+ Nivel:                                1ro y 2do
+
+ Duración:                             160 periodos pedagógicos
+
+                                      UC 1: Aplicar normas, procedimientos, planes de
+                                      seguridad e higiene en talleres, laboratorios y procesos
+ Unidad       de       competencia industriales, en la prevención de riesgos, mediante el
+ asociada:                            uso adecuado de herramientas, equipos y máquinas,
+                                      demostrando responsabilidad, disciplina y ética
+                                      profesional.
+ Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+ procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+ laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+ máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+ fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+ RA 1: Aplicar normas de seguridad e higiene en actividades industriales utilizando
+ equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+ seguras de trabajo.
+ CE1.1: Identifica señales de seguridad en talleres y laboratorios verificando su ubicación
+ y legibilidad en las áreas de trabajo según normativa vigente.
+ CE1.2: Revisa el estado de los equipos de protección personal asegurando su operatividad
+ antes de cada actividad.
+ CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+ protocolos establecidos para mantener el orden y la limpieza.
+ CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+ riesgos residuales.
+ RA 2: Ejecutar procedimientos de identificación, análisis y prevención de riesgos en
+ entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE 2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE 2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE 2.3: Establece medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE 2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA 3: Aplicar planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE 3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE 3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE 3.3: Ejecuta la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE 3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de
+la integridad de personas y bienes.
+ RA 4: Integrar prácticas de seguridad, higiene y sostenibilidad en actividades
+ industriales promoviendo disciplina, ética profesional y mejora continua.
+CE 4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE 4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE 4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE 4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y
+compromiso con la mejora continua.
+Contenidos
+Conceptuales                     Procedimentales               Actitudinales
+Fundamentos          de       la Identificar riesgos presentes Demostrar disciplina en el
+seguridad            industrial, en el entorno laboral cumplimiento de normas de
+principios,     objetivos      y utilizando herramientas de seguridad e higiene.
+beneficios.                      observación y registro.
+                                                               Mostrar interés en la
+Legislación y normativa Analizar               diagramas    de identificación y control de
+vigente en seguridad, salud procesos industriales para riesgos industriales.
+ocupacional      e     higiene localizar posibles focos de
+                                                               Cumplir      con   el   uso
+laboral      (nacional       e peligro.
+                                                               permanente y correcto de
+internacional).
+                                 Seleccionar equipos de equipos             de   protección
+                                 protección personal según personal.
+Derechos y obligaciones en      tipo de actividad y riesgo Valorar la importancia del
+prevención   de     riesgos     identificado.                    orden y la limpieza en la
+laborales.                                                       seguridad del trabajo.
+                                Utilizar        correctamente
+Normas      generales     de    equipos      de     protección Respetar la señalización de
+seguridad     en    talleres,   personal          garantizando seguridad instalada.
+laboratorios    y    plantas    seguridad y comodidad.
+                                                                 Demostrar responsabilidad
+industriales.
+                                Instalar       y       verificar en la ejecución de protocolos
+Tipos        de     riesgos     señalización de seguridad en de emergencia.
+industriales:       físicos,    talleres       y        plantas
+                                                                 Asumir       una       actitud
+químicos,       biológicos,     industriales.
+                                                                 preventiva frente a los
+ergonómicos,    eléctricos,
+                                Aplicar rutinas de orden y riesgos laborales.
+mecánicos y psicosociales.
+                                limpieza siguiendo el método
+                                                                 Mantener disposición activa
+Equipos de protección           5S.
+                                                                 en simulacros de evacuación
+personal           (EPP):
+                                Ejecutar procedimientos de y control de incendios.
+clasificación,
+                                análisis de riesgos aplicando
+características, uso   y                                         Mostrar compromiso con la
+                                matrices de evaluación.
+mantenimiento.                                                   protección     del      medio
+                                Elaborar informes técnicos ambiente y la sostenibilidad
+Señalización de seguridad
+                                de riesgos con base en en procesos industriales.
+industrial:  códigos   de
+                                observaciones, análisis y
+colores,      pictogramas,                                       Evidenciar ética profesional
+                                normativa vigente.
+ubicación     y    normas                                        en la toma de decisiones
+técnicas.                       Implementar           medidas relacionadas con seguridad
+                                preventivas y correctivas y salud.
+Procedimientos de limpieza
+                                ajustadas        a      riesgos
+y orden en el trabajo, 5S y                                      Demostrar liderazgo en la
+                                detectados.
+buenas     prácticas     de                                      organización de grupos
+higiene.                        Desarrollar      planes       de frente a situaciones de
+                                evacuación simulados en riesgo.
+Metodologías             de
+                                talleres,    laboratorios      y
+identificación y evaluación                                      Fomentar       el      trabajo
+                                espacios industriales.
+de riesgos, análisis de                                          colaborativo en la mejora de
+trabajo     seguro   (ATS),     Actuar en simulacros de las               condiciones        de
+matriz de riesgos, método       emergencia           aplicando seguridad.
+del árbol de causas.            protocolos de comunicación
+                                                                 Mantener actitud reflexiva
+                                y evacuación.
+Medidas preventivas y                                            frente a incidentes para
+correctivas aplicadas a         Utilizar extintores, hidrantes promover la mejora continua.
+riesgos específicos en          y otros equipos contra
+                                                                 Asumir respeto por la vida,
+talleres de electrónica,        incendios      conforme        a
+                                                                 la salud y el bienestar
+mecatrónica,                    normas técnicas.
+                                                                 colectivo como valores
+electromecánica, madera,                                         fundamentales.
+alimentos y calzado.
+Planes de emergencia,           Aplicar técnicas básicas de
+objetivos,      estructura,     primeros auxilios en casos
+responsables              y     de accidentes simulados.
+procedimientos.
+                                Evaluar        condiciones
+Protocolos de evacuación,       ergonómicas de los puestos
+primeros auxilios, control de   de trabajo y proponer
+incendios y comunicación        mejoras.
+en emergencias.
+                                Documentar y comunicar
+Manejo        seguro    de      incidentes, accidentes y
+herramientas      manuales,     medidas correctivas.
+eléctricas y de máquinas
+                                Participar en actividades
+industriales.
+                                colaborativas de mejora
+Ergonomía    aplicada    a      continua en seguridad e
+puestos     de     trabajo,     higiene industrial.
+posturas, manipulación de
+cargas,   prevención    de
+lesiones.
+Cultura de seguridad y
+mejora           continua,
+responsabilidad,     ética,
+disciplina y sostenibilidad
+en el trabajo.
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+    riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+    con seguridad industrial.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                Especificaciones técnicas                   Cantidad
+
+Infraestructura/espacio     Entorno de aprendizaje                      1
+                            (aula)
+Laboratorio              Computadoras con acceso a internet                1
+                         Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+                              Módulo Genérico Nro.2
+
+Nombre del módulo:                     Procesos Industriales Sostenibles
+
+Nivel:                                 1ro y 2do
+
+Duración:                              160 periodos pedagógicos
+
+                                       UC 2: Emplear prácticas de sostenibilidad y control
+Unidad de competencia                  de calidad en actividades industriales mediante el uso
+asociada:                              de tecnologías limpias, criterios de eficiencia
+                                       energética, minimización de residuos, garantizando la
+                                        reducción de impactos ambientales y la optimización
+                                        de estos en beneficio del entorno local, integrando
+                                        fundamentos de formación y orientación laboral y
+                                        salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA 3: Gestionar el uso de materias primas y energía en procesos industriales
+garantizando reducción de costos operativos y aprovechamiento responsable de los
+recursos.
+CE3.1: Identifica puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Identifica normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3: Practica acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Identifica productos y materiales según parámetros establecidos en normas
+técnicas y procedimientos internos.
+CE6.2:      Ejecuta pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+Conceptuales                   Procedimentales               Actitudinales
+Principios de sostenibilidad                                 Mostrar interés en la
+en procesos industriales, Identificar         fuentes    de aplicación      de    prácticas
+definición, importancia y consumo            energético   y sostenibles en procesos
+aplicación.                    materiales en procesos industriales.
+                               industriales.
+Conceptos       básicos    de                                Cumplir         con         los
+eficiencia         energética,                               procedimientos               de
+consumo,            pérdidas, Medir y registrar consumos          reducción, reutilización    y
+rendimiento, ahorro.          eléctricos,   térmicos    e         reciclaje de materiales.
+                              hidráulicos.
+Energías          renovables                                      Valorar la importancia del
+aplicadas a la industria, Analizar               impactos         ahorro energético y del
+solar,    eólica,   biomasa, ambientales de actividades           aprovechamiento
+hidráulica.                   productivas.                        responsable de recursos.
+Impactos ambientales de los Aplicar técnicas básicas de           Mostrar orden, precisión y
+procesos          industriales, reducción, reutilización y        método en las actividades de
+contaminación       del    aire, reciclaje.                       medición, registro y análisis.
+agua, suelo y ruido.
+                                 Elaborar       reportes     de   Asumir una actitud reflexiva
+Estrategias de consumo consumo y residuos en                      frente al impacto ambiental
+responsable de materias procesos experimentales.                  de los procesos industriales.
+primas y energía.
+                                 Implementar estrategias de       Evidenciar iniciativa en la
+Introducción a la economía optimización del consumo               búsqueda de soluciones
+circular,           reducción, eléctrico en equipos.              tecnológicas limpias.
+reutilización y reciclaje.
+                                 Comparar el rendimiento de       Demostrar eficiencia en la
+Marco normativo ambiental energías convencionales y               aplicación de conocimientos
+básico        nacional         e renovables.                      para la mejora de procesos.
+internacional      relacionado
+                                 Aplicar       técnicas      de   Mantener     una   actitud
+con sostenibilidad.
+                                 minimización de residuos         positiva frente al trabajo
+Tecnologías             limpias sólidos, líquidos y gaseosos.     colaborativo y proyectos
+aplicadas      a      procesos                                    colectivos.
+                                 Diseñar         planes      de
+industriales.
+                                 aprovechamiento             de   Respetar          normativas
+Técnicas de optimización del residuos valorizables.               ambientales     vigentes   y
+consumo        eléctrico     en                                   aplicarlas     de      forma
+                                 Documentar procedimientos
+equipos y sistemas.                                               consciente.
+                                 de sostenibilidad aplicados
+Procedimientos               de en procesos experimentales.       Tomar conciencia de la
+minimización de residuos y                                        importancia de innovar en el
+                                 Integrar      sistemas      de
+emisiones contaminantes.                                          uso de energías renovables
+                                 automatización que mejoren
+                                                                  y tecnologías limpias.
+Modelos        de       gestión la eficiencia energética.
+energética y de recursos en                                       Manifestar compromiso con
+                                 Evaluar     indicadores     de
+entornos industriales.                                            el cuidado del entorno social,
+                                 sostenibilidad en procesos
+                                                                  económico y ambiental.
+Sistemas de tratamiento y simulados y reales.
+valorización de residuos
+                                 Incorporar            energías
+industriales.
+                                 renovables en prototipos o
+Relación entre eficiencia procesos de laboratorio.
+energética y reducción de
+                                 Diseñar      propuestas     de
+costos operativos.
+                                 mejora       de      procesos
+Automatización y control industriales con base en
+industrial    orientados a tecnologías limpias.
+sostenibilidad.
+                           Validar la reducción de
+Integración de energías costos operativos mediante
+renovables en procesos la optimización de recursos
+productivos.
+Innovación y tendencias en
+tecnologías sostenibles.
+Indicadores                de
+sostenibilidad, huella de
+carbono, huella hídrica,
+eficiencia global de recursos.
+Normas internacionales de
+sostenibilidad industrial (ISO
+14001, ISO 50001).
+Diseño y mejora de procesos
+industriales con enfoque
+ambiental.
+Proyectos integrales de
+sostenibilidad en procesos
+industriales,      análisis,
+implementación y evaluación
+de resultados.
+
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+    Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+    sector industrial sostenible.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                     Especificaciones técnicas                     Cantidad
+Infraestructura/espacio       Entorno de aprendizaje                       1
+                              (aula)
+
+Laboratorio                   Computadoras con acceso a internet
+                              Proyector                                    1
+
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+
+                                  Módulo Genérico Nro.3
+
+Nombre del módulo:                    Dibujo Técnico Aplicado
+
+Nivel:                                1ro y 2do
+
+Duración:                             160 periodos pedagógicos
+                                      UC 3: Elaborar representaciones gráficas técnicas
+                                      aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia                 herramientas digitales como CAD, CAE y modelado
+asociada:                             3D, generando planos, modelos y prototipos con
+                                      precisión, creatividad, responsabilidad y compromiso
+                                      con la calidad en contextos industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Identifica símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Elabora planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2 Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+ Contenidos
+Conceptuales                     Procedimentales                Actitudinales
+Principios básicos del dibujo Trazar líneas, vistas y Mostrar interés en la lectura,
+técnico: líneas, tipos de escalas en bocetos y planos. interpretación y elaboración
+vistas y escalas.                                               de planos técnicos.
+                                 Utilizar instrumentos de
+                                 dibujo técnico con precisión. Cumplir con las normas de
+Normas internacionales y
+                                                                calidad en representaciones
+nacionales de dibujo técnico Identificar       simbología    y
+                                                                gráficas.
+(ISO, DIN, INEN).                aplicar normas básicas en
+                                 representaciones gráficas.     Valorar la precisión y
+Principios fundamentales de Interpretar                         exactitud en los dibujos
+                                                        planos
+geometría       aplicados    al bidimensionales simples.        como garantía de seguridad
+dibujo técnico.                                                 y confiabilidad.
+                                 Representar           figuras
+                                                                Demostrar              orden,
+Sistemas de proyección geométricas aplicadas a responsabilidad y método en
+ortogonal,     isométrica     y piezas básicas.                 el uso de herramientas
+oblicua.                         Elaborar planos con cortes, manuales y digitales.
+                                 secciones y detalles.
+Lectura e interpretación de                                     Asumir actitud reflexiva y
+                                 Dibujar ensamblajes simples analítica al interpretar planos
+planos y esquemas técnicos.
+                                 aplicando      normas      de y diagramas técnicos.
+Conceptos de acotación,
+                                 rotulación y acotación.
+tolerancias y ajustes en                                        Mostrar iniciativa en la
+representaciones gráficas.       Usar software CAD en la búsqueda de soluciones
+Rotulación y simbología creación                            de gráficas ante problemas de
+básica en planos técnicos.       representaciones  2D.          representación.
+Representación de cortes, Representar diagramas y Demostrar liderazgo en
+secciones    y   detalles esquemas funcionales de actividades colaborativas de
+técnicos.                 sistemas técnicos.      diseño gráfico técnico.
+                            Comprobar exactitud de              Aplicar     criterios    de
+Principios de normalización
+                            planos mediante cotejo con          creatividad e innovación en
+en planos de piezas y
+                            piezas o modelos reales.            el desarrollo de planos y
+ensamblajes.
+                                                                modelos.
+                            Generar     modelos      3D
+Escalas de reducción y mediante herramientas CAD.               Respetar las normas de
+ampliación aplicadas a la                                       seguridad en el uso de
+                                  Simular funcionamiento y
+industria.                                                      equipos e instalaciones de
+                                  ensamblajes en software
+                                                                laboratorio de CAD.
+                                  CAD/CAE.
+Geometría           descriptiva                                 Demostrar responsabilidad
+aplicada       a     sistemas     Crear prototipos digitales y
+                                                                en la entrega oportuna y con
+complejos.                        planos        listos     para
+                                                                calidad de trabajos gráficos.
+                                  fabricación.
+Introducción a herramientas                                     Mostrar disposición positiva
+                                  Optimizar representaciones
+CAD en 2D, funciones                                            y activa en actividades
+                                  gráficas             mediante
+básicas      y    comandos                                      individuales y grupales.
+                                  automatización             de
+esenciales.                       comandos y macros en CAD. Usar con cuidado los
+Elaboración    de    planos                                     materiales,     equipos     y
+                                  Presentar proyectos de
+constructivos y diagramas                                       software de representación
+                                  diseño gráfico técnico con
+funcionales.                                                    gráfica.
+                                  enfoque       innovador     y
+                                  colaborativo.                 Valorar la importancia del
+Principios de representación
+                                                                dibujo técnico como
+gráfica en componentes
+                                                                lenguaje universal en la
+mecánicos, electrónicos y
+                                                                industria.
+estructurales.
+
+Modelado tridimensional en
+software CAD y generación
+de prototipos digitales.
+
+Ensamblajes y simulación de
+funcionamiento          con
+herramientas CAD/CAE.
+Generación     de     vistas
+explotadas y despieces
+técnicos.
+
+Renderizado         básico  y
+presentación       de modelos
+3D.
+Optimización de planos
+digitales para manufactura y
+fabricación    asistida  por
+computadora (CAM).
+
+Innovación y creatividad en
+el diseño gráfico aplicado a
+procesos industriales.
+
+Integración del dibujo técnico
+en                   proyectos
+interdisciplinarios de diseño,
+producción y mantenimiento.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+   Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+   al área de representación gráfica y diseño técnico.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+       Aprendizaje Basado en Proyectos (ABP)
+       Aprendizaje en Contextos Reales
+       Role-Playing y Simulaciones
+       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                                 Detalle de especificaciones               Cantidad
+Denominación
+                                 técnicas
+Infraestructura/espacio          Entorno de aprendizaje (aula)             1
+
+Laboratorio                      Computadoras con acceso a internet        1
+                                 Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+ Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+      seguridad y salud ocupacional para la prevención de accidentes laborales en
+      empresas mineras. Llamkasun, 3(1), 112–118.
+
+ Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+         industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+         https://doi.org/10.37135/ns.01.09.09
+
+ Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+       Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+       España. Publicación oficial
+
+ Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+       gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+       uso. ISO 45001:2018
+
+ Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+        de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+        Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+         evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+         riesgos laborales
+
+           4. Módulos de Especialización
+
+Los módulos de especialización permiten al estudiantado profundizar en áreas técnicas
+específicas, desarrollando competencias mediante la combinación de conocimientos
+teóricos y experiencias prácticas. Estos módulos fomentan el análisis, la resolución de
+problemas y la toma de decisiones, a la vez que facilitan la articulación con el sector
+productivo, la adopción de metodologías innovadoras y la adaptabilidad a los cambios
+del entorno laboral.
+
+Se estructuran los siguientes módulos de especialización para primero, segundo y
+tercero de bachillerato:
+
+   •   Mantenimiento y Máquinas Eléctricas
+   •   Soldadura Eléctrica
+   •   Sistemas Eléctricos e Instalaciones Eléctricas
+   •   Electricidad Básica
+                           Módulo de Especialización Nro. 1
+
+Nombre del módulo:                    Mantenimiento y Máquinas Eléctricas
+
+Nivel:                                1ro, 2do y 3ro
+
+Duración:                             440 periodos pedagógicos
+
+Unidad      de      competencia        UC1. Aplicar el mantenimiento preventivo, predictivo
+asociada:                              y     correctivo    de   máquinas     y     equipos
+                                       electromecánicos, garantizando su funcionamiento y
+                                       prolongando su vida útil, de acuerdo con los
+                                       manuales técnicos y las normas de seguridad e
+                                       higiene industrial.
+Objetivo del módulo: Desarrollar el mantenimiento preventivo, predictivo y correctivo en
+máquinas y equipos electromecánicos mediante la aplicación de procedimientos técnicos y
+el uso de manuales especializados, con el fin de garantizar su óptimo desempeño y
+extender su vida útil dentro de condiciones seguras de operación industrial.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Identificar fallas en equipos electromecánicos mediante el análisis de
+mediciones comparadas con valores de referencia del fabricante, en condiciones de
+diagnóstico con herramientas especializadas.
+CE1.1: Reconoce resultados de mediciones utilizando herramientas de diagnóstico bajo
+condiciones de operación establecidas.
+CE1.2: Clasifica causas de fallas en sistemas electromecánicos a partir de los datos
+obtenidos en el diagnóstico con relación a los componentes afectados.
+CE1.3: Interpreta mediciones obtenidas con las especificaciones del fabricante identificando
+áreas críticas que requieren intervención técnica.
+CE1.4: Elabora informe técnico con el análisis de fallas detectadas y acciones correctivas
+propuestas bajo formato normalizado.
+RA 2: Realizar mantenimiento preventivo en equipos electromecánicos aplicando
+procedimientos de limpieza, lubricación y ajuste de componentes según manuales
+técnicos y normas de seguridad industrial
+CE2.1: Organiza procedimientos de limpieza, lubricación y ajuste en componentes
+electromecánicos verificando su efectividad de acuerdo con el fabricante.
+CE2.2: Aplica técnicas de mantenimiento preventivo ajustando parámetros operativos
+conforme a especificaciones técnicas y normativas de seguridad.
+CE2.3:      Ajusta componentes electromecánicos determinando la necesidad de
+mantenimiento adicional en función de su desgaste
+CE2.4: Elabora un informe de actividades de mantenimiento preventivo documentando el
+rendimiento del equipo en condiciones de operación segura.
+RA 3: Ejecutar mantenimiento predictivo en equipos y máquinas industriales
+aplicando metodologías de evaluación de funcionamiento conforme a
+especificaciones técnicas y condiciones operativas establecidas.
+CE3.1: Diferencia información técnica de manuales y registros determinando actividades de
+mantenimiento predictivo según lineamientos del fabricante.
+CE3.2: Selecciona el plan de mantenimiento predictivo organizando tareas y recursos en
+función de parámetros de funcionamiento de los equipos.
+CE3.3: Aplica procedimientos de mantenimiento predictivo verificando condiciones
+operativas de equipos y máquinas industriales.
+CE3.4: Documenta resultados del mantenimiento predictivo elaborando informe técnico con
+evidencias y conclusiones según formato normativo.
+RA 4: Sustituir piezas defectuosas y realizar reparaciones en equipos electromecánicos
+asegurando la instalación correcta y el cumplimiento de las especificaciones técnicas del
+fabricante en condiciones de operación controlada.
+CE4.1: Evalúa piezas defectuosas determinando la idoneidad de los repuestos de acuerdo
+con requisitos técnicos del fabricante.
+CE4.2: Reemplaza piezas defectuosas instalando los nuevos componentes bajo
+especificaciones de montaje y operación.
+CE4.3: Verifica reparaciones realizadas verificando que el equipo opere según estándares
+técnicos establecidos.
+CE4.4: Elabora un informe de procedimientos de reparación y sustitución de piezas con
+propuestas de mejora para futuras intervenciones.
+Contenidos
+Conceptuales                   Procedimentales            Actitudinales
+Principios                 de                             Valorar    la    importancia   del
+                               Identificar        fallas
+funcionamiento de equipos y                               mantenimiento electromecánico
+                               mediante el análisis de
+máquinas                                                  para prolongar la vida útil de los
+                               resultados             de
+electromecánicas.                                         equipos.
+                               diagnóstico
+Tipos de fallas en sistemas comparados              con Respetar las especificaciones
+electromecánicos:              especificaciones del técnicas          del    fabricante   en
+mecánicas, eléctricas y fabricante.                       diagnósticos,        ajustes     y
+mixtas.                                                   reparaciones.
+                               Clasificar causas de
+Herramientas               de fallas según el tipo de Reconocer la relevancia de aplicar
+diagnóstico y medición: anomalía               y       el normas de seguridad e higiene
+multímetros,           pinzas componente afectado.        industrial     en     todas    las
+amperimétricas,                                           intervenciones.
+                               Interpretar mediciones
+analizadores de vibración,
+                               obtenidas            con Valorar la precisión en el uso de
+termografía.
+                               instrumentos               herramientas de diagnóstico y
+Valores de referencia y especializados.                   medición.
+especificaciones técnicas de
+                               Elaborar       informes Respetar         la   secuencia    de
+fabricantes.
+                               técnicos               de procedimientos establecidos en
+Fundamentos                de diagnóstico               y manuales técnicos.
+mantenimiento preventivo, propuestas                  de
+                                                          Reconocer la importancia de la
+predictivo y correctivo.       acciones correctivas.
+                                                          organización y planificación del
+Procedimientos de limpieza,                               mantenimiento     para   optimizar
+                              Organizar y ejecutar
+lubricación y ajuste de                                   recursos.
+                              procedimientos       de
+componentes.
+                              limpieza, lubricación y     Valorar    la     documentación
+Parámetros de desgaste y ajuste en equipos                sistemática de actividades de
+vida útil de piezas y electromecánicos.                   mantenimiento como herramienta
+componentes.                                              de mejora continua.
+                              Ajustar componentes
+Técnicas de sustitución y electromecánicos                Asumir responsabilidad en la
+reparación      de     piezas considerando                correcta selección y sustitución de
+electromecánicas.             condiciones          de     piezas críticas para la operación
+                              desgaste.                   de los equipos.
+Normas       de    seguridad
+industrial      e     higiene Aplicar técnicas de         Fomentar la actitud proactiva en la
+aplicadas al mantenimiento mantenimiento                  detección temprana de fallas y en
+eléctrico y electromecánico. preventivo y predictivo      la prevención de riesgos.
+                              garantizando
+Protocolos                 de                             Respetar el trabajo colaborativo y
+                              continuidad operativa.
+documentación        técnica:                             la comunicación efectiva dentro
+informes de diagnóstico, Seleccionar y planificar         del equipo de mantenimiento.
+bitácoras de mantenimiento actividades             de
+y reportes de reparación.     mantenimiento
+                              predictivo de acuerdo
+                              con parámetros de
+                              funcionamiento.
+                               Ejecutar sustitución de
+                               piezas    defectuosas
+                               aplicando normas de
+                               montaje y verificación
+                               de rendimiento.
+                               Documentar
+                               resultados           del
+                               mantenimiento
+                               preventivo, predictivo y
+                               correctivo en formatos
+                               normalizados.
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en:
+    electromecánica, mecánico o carreras afines relacionadas con el sector
+    electromecánica industrial.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                 Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio      Entorno de aprendizaje (aula)                        1
+
+Infraestructura/espacio      Aula taller                                          1
+
+Laboratorio                  Computadoras con acceso a internet                   1
+                             Servidor
+                             Proyector
+Herramientas/equipos         Multímetros, pinzas amperimétricas,                  1
+                             manómetros, medidores de vibración,
+                             tacómetros digitales, termómetros
+                             infrarrojos.
+                             Destornilladores, extractores, prensas,
+                             gatos hidráulicos, compresores de
+                             aire, soldadoras, bancos de trabajo.
+                             Kits de lubricación, engrasadoras,
+                             limpiadores ultrasónicos, pistolas de
+                             aire, equipos de limpieza industrial,
+                             productos        desengrasantes           y
+                             lubricantes.
+                             Rodamientos,         correas,       sellos,
+                             engranajes,       sensores,       fusibles,
+                             conectores,       motores       eléctricos
+                             pequeños para prácticas.
+                             Equipos y máquinas de aprendizaje:
+                             motores      eléctricos    trifásicos     y
+                             monofásicos, reductores de velocidad,
+                             bombas,      compresores,        sistemas
+                             neumáticos e hidráulicos, tableros de
+                             control eléctrico.
+Referencias Bibliográficas
+
+Libros:
+   o Ayala Trujillo, S. (2024). Libro de texto de control industrial. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/34
+   o     Freire Martínez, L. O., Castillo Fiallos, J. N., Flores Asimbaya, L. A., & Amores
+         Moreno, A. G. (2024). Control de motores eléctricos. Instituto Superior Universitario
+         Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/16
+   o     Llango Pullotásig, M. E. (2024). Libro de texto de electrotecnia. Instituto Superior
+         Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/36
+   o     López Rivas, C. M., Sánchez Gamboa, F. I., & Santafé Choto, A. (2024). Redes
+         eléctricas.          Instituto        Superior          Universitario        Cotopaxi.
+         https://libros.isuc.edu.ec/index.php/omp/catalog/book/31
+   o     Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+         Instrumentación y automatización industrial. Instituto Superior Universitario
+         Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o     Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+         Superior                              Universitario                          Cotopaxi.
+         https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+   o     Sánchez Gamboa, F. I., Chacha Murillo, P. M., Lisintuña Ronquillo, G., & López
+         Rivas, C. M. (2024). Motor universal. Instituto Superior Universitario Cotopaxi.
+         https://libros.isuc.edu.ec/index.php/omp/catalog/book/30
+   o     Villamarín Reinoso, J. V. (2024). Libro de texto de automatización y control industrial.
+         Instituto                 Superior                Universitario              Cotopaxi.
+         https://libros.isuc.edu.ec/index.php/omp/catalog/book/45
+
+
+                             Módulo de Especialización Nro. 2
+
+Nombre del módulo:                       Soldadura Eléctrica
+
+Nivel:                                   2do y 3ro
+
+Duración:                                480 periodos pedagógicos
+
+Unidad        de      competencia     UC2. Ejecutar procesos de soldadura eléctrica en los
+asociada:                             componentes metálicos, asegurando uniones fuertes
+                                      y funcionales, conforme a las especificaciones
+                                      técnicas, utilizando las herramientas adecuadas y
+                                      cumpliendo con las normas de seguridad industrial.
+Objetivo del módulo: Ejecutar procesos de soldadura eléctrica en componentes metálicos,
+mediante la aplicación de técnicas, equipos y herramientas normalizadas, para garantizar
+uniones resistentes, funcionales y seguras que cumplan con las especificaciones técnicas
+y las normas de seguridad industrial, calidad y protección ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA.1. Analizar instrucciones técnicas, normas de seguridad, materiales y tipos de
+uniones de soldadura eléctrica, evidenciando coherencia entre símbolos,
+propiedades de los materiales y parámetros operativos, en contextos de taller y
+prácticas controladas.
+CE1.1: Diferencia planos, croquis e instrucciones técnicas de soldadura eléctrica,
+reconociendo símbolos normalizados y especificaciones técnicas conforme a la
+documentación del proyecto.
+CE1.2: Clasifica tipos de uniones y posiciones de soldadura eléctrica, considerando las
+exigencias técnicas y funcionales del trabajo asignado.
+CE1.3: Examina propiedades físicas y mecánicas de materiales metálicos, estableciendo
+su compatibilidad con el proceso de soldadura eléctrica seleccionado.
+CE1.4: Relaciona normas técnicas y de seguridad industrial con los parámetros operativos
+del equipo de soldadura y las condiciones del entorno de trabajo.
+RA.2. Preparar equipos, herramientas y materiales metálicos de soldadura eléctrica,
+asegurando condiciones operativas adecuadas, calibración correcta y disposición
+funcional en el área de trabajo.
+CE2.1: Verifica el estado operativo del equipo de soldadura eléctrica, comprobando
+conexiones, accesorios y condiciones técnicas conforme a protocolos de taller.
+CE2.2: Selecciona materiales metálicos acordes a las especificaciones técnicas del
+proyecto, garantizando su correcta disposición y acondicionamiento previo.
+CE2.3: Configura parámetros de corriente y voltaje del equipo de soldadura eléctrica,
+ajustándolos a las recomendaciones técnicas del fabricante y al tipo de material.
+CE2.4: Comprueba el funcionamiento integral de equipos y herramientas de soldadura,
+asegurando continuidad operativa durante la práctica.
+RA.3. Ejecutar procesos de soldadura eléctrica en componentes metálicos, logrando
+uniones estables y funcionales, con control técnico de parámetros, técnica aplicada
+y condiciones operativas del proceso.
+CE3.1: Ajusta los parámetros operativos de la máquina de soldar, manteniendo estabilidad
+de corriente y voltaje conforme a los requisitos técnicos del trabajo.
+CE3.2: Realiza cordones de soldadura eléctrica controlando temperatura y velocidad de
+avance, asegurando fusión adecuada de los componentes metálicos.
+CE3.3: Aplica técnicas de soldadura eléctrica evaluando el comportamiento del arco y la
+calidad de la fusión durante la ejecución del proceso.
+CE3.4: Constata uniformidad del cordón de soldadura, verificando penetración, continuidad
+y acabado conforme a las especificaciones técnicas.
+RA.4. Evaluar la calidad de uniones soldadas eléctricamente, considerando criterios
+de resistencia, funcionalidad y cumplimiento de estándares técnicos, a partir de
+inspecciones y pruebas aplicadas.
+CE4.1: Inspecciona visualmente la soldadura ejecutada, valorando apariencia del cordón,
+uniformidad y ausencia de defectos superficiales visibles.
+CE4.2: Aplica pruebas de resistencia y funcionalidad en uniones soldadas, utilizando
+instrumentos y métodos técnicos acordes al tipo de componente.
+CE4.3: Contrasta resultados de inspección y pruebas con estándares de calidad y
+especificaciones técnicas, determinando desviaciones existentes.
+CE4.4: Elabora un informe técnico de la soldadura evaluada, registrando resultados
+obtenidos y recomendaciones de ajuste conforme a criterios técnicos.
+Contenidos
+Conceptuales                   Procedimentales           Actitudinales
+Concepto de soldadura                                    Valorar     el     cumplimiento
+                               Reconocer
+eléctrica y su aplicación en                             permanente de las normas de
+                               aplicaciones
+la          electromecánica                              seguridad industrial en los
+                               industriales   de    la
+industrial.                                              procesos de soldadura eléctrica.
+                               soldadura eléctrica.
+Fenómenos térmicos en la                                 Asumir responsabilidad frente a
+                               Diferenciar procesos
+soldadura:         generación,                           los riesgos propios y colectivos
+                               SMAW, MIG/MAG y
+transferencia y disipación                               asociados a la soldadura eléctrica.
+                               TIG según principios
+del calor.
+                               operativos.               Respetar instrucciones técnicas,
+Metalurgia básica aplicada a                             simbología y especificaciones
+                               Seleccionar procesos
+la soldadura (sin análisis                               establecidas   en    planos    y
+                               de soldadura eléctrica
+metalográfico profundo).                                 documentos de soldadura.
+                               según        aplicación
+Clasificación       de     los básica.                   Demostrar orden, limpieza y
+procesos de soldadura                                    disciplina en la preparación del
+                               Analizar
+eléctrica.                                               área de trabajo.
+                               comportamiento
+Soldadura por arco con térmico de materiales             Valorar la correcta disposición y
+electrodo revestido (SMAW) metálicos durante la          calibración   de    equipos     y
+                               soldadura.                herramientas de soldadura.
+Soldadura            MIG/MAG
+(GMAW).                        Identificar      aceros   Cuidar y conservar los equipos,
+                               estructurales comunes     herramientas    y     materiales
+Soldadura TIG (GTAW).
+                               en        componentes     asignados    al   proceso     de
+Aplicaciones industriales de electromecánicos.           soldadura.
+cada proceso de soldadura
+                               Relacionar     material   Actuar       con       precisión,
+eléctrica.
+                               base con material de      concentración    y   autocontrol
+Clasificación de materiales aporte                       durante la ejecución de los
+metálicos     utilizados    en                           procesos de soldadura eléctrica.
+                               Reconocer tipos de
+soldadura eléctrica.
+                               máquinas             de   Comprometerse con la calidad
+Aceros           estructurales soldadura eléctrica.      técnica de las uniones soldadas
+comunes en la industria.                                 conforme    a    parámetros   y
+                               Interpretar
+Comportamiento de los características                    estándares establecidos.
+materiales metálicos frente técnicas y ciclo de          Reconocer la importancia del
+al calor de soldadura.         trabajo de equipos de     control técnico y la correcta
+Influencia del material de soldadura.                    aplicación de la técnica de
+aporte en la calidad de la Identificar polaridad y       soldadura.
+unión.                     sistemas de regulación        Valorar la inspección y verificación
+Máquinas de soldadura de parámetros.                     de las uniones soldadas como
+eléctrica: transformadores,                              parte esencial del proceso
+rectificadores e inversores.                             productivo.
+Características técnicas de                            Aceptar observaciones técnicas y
+                              Verificar      estado
+las máquinas de soldadura.                             correcciones como oportunidades
+                              operativo de equipos y
+                                                       de mejora del desempeño.
+Ciclo de trabajo (duty cycle) accesorios.
+                                                       Actuar con honestidad y ética
+Polaridad en soldadura Identificar parámetros
+                                                       técnica al identificar defectos o
+eléctrica y su efecto en el operativos del proceso
+                                                       fallas en la soldadura.
+cordón.                     de soldadura.
+                                                       Reconocer la importancia del
+Sistemas de regulación de Ajustar         corriente,
+                                                       cumplimiento de criterios de
+parámetros de soldadura.    voltaje y velocidad de
+                                                       aceptación y normas técnicas de
+                            avance.
+Accesorios y periféricos de                            calidad.
+los equipos de soldadura.   Seleccionar electrodo
+                                                       Mostrar disposición para la mejora
+                            o    alambre     según
+Parámetros operativos del                              continua de las competencias
+                            espesor del material.
+proceso de soldadura.                                  técnicas en soldadura eléctrica.
+                            Relacionar parámetros
+Intensidad de corriente en                             Fomentar hábitos de trabajo
+                            con calidad del cordón
+soldadura eléctrica                                    seguro,      responsable    y
+                            de soldadura.
+Voltaje del arco                                       colaborativo en el entorno de
+                            Identificar tipos de       taller.
+Velocidad de avance.        uniones soldadas y
+                                                       Valorar el rol del soldador técnico
+Diámetro del electrodo o posiciones básicas.           en los procesos industriales y de
+alambre.                   Preparar       bordes,      mantenimiento electromecánico.
+Relación entre parámetros biseles y chaflanes
+operativos y calidad de la según tipo de unión.
+soldadura.                 Interpretar planos y
+Tipos    de    uniones    y simbología           de
+posiciones de soldadura     soldadura.
+
+Tipos de biseles y chaflanes Relacionar
+                             especificaciones
+Interpretación de planos de técnicas con tipo de
+soldadura.                   unión y parámetros
+Identificación de cordones, Identificar riesgos del
+tipos de unión y acabados proceso de soldadura
+en planos.                   eléctrica.
+Especificaciones técnicas Seleccionar equipos
+de soldadura (WPS – de protección personal
+enfoque conceptual)
+                            Aplicar normas de
+Relación entre simbología, seguridad industrial en
+parámetros y tipo de unión. el área de trabajo.
+Riesgos específicos del
+                               Ejecutar cordones de
+proceso     de      soldadura
+                               soldadura eléctrica en
+eléctrica.
+                               posiciones básicas.
+Radiación,     proyecciones,
+                               Controlar técnica de
+humos metálicos y riesgos
+                               encendido               y
+térmicos.
+                               estabilidad del arco.
+Normas      de      seguridad
+                               Corregir desviaciones
+industrial   en     soldadura
+                               durante la ejecución
+eléctrica.
+                               del proceso.
+Defectos       y       causas
+                               Identificar defectos de
+superficiales y internos de la
+                               soldadura.
+soldadura.
+                               Evaluar calidad del
+Relación entre parámetros
+                               cordón        mediante
+operativos y aparición de
+                               inspección visual.
+defectos.
+                               Aplicar         criterios
+Criterios    generales     de
+                               básicos de aceptación
+aceptación y rechazo de
+                               y rechazo.
+soldaduras.
+Inspección      visual     de
+soldaduras.
+Pruebas       básicas     de
+resistencia y funcionalidad.
+
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en:
+    electromecánica, mecánico o carreras afines relacionadas con el sector de
+    electromecánica industrial.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                    Especificaciones técnicas               Cantidad
+
+Infraestructura/espacio         Entorno de aprendizaje (aula)                    1
+Infraestructura/espacio       Aula taller                                      1
+
+Laboratorio                   Computadoras con acceso a internet               1
+                              Servidor
+                              Proyector
+Herramientas/equipos          Máquina de soldadura eléctrica tipo              1
+                              inversor multiproceso (SMAW / MIG /
+                              TIG básico), Alambre sólido MIG/MAG,
+                              Varillas de aporte TIG, Gas de
+                              protección (Argón–CO₂ o CO₂),
+                              Martillo picador de escoria
+                              Cepillo de alambre manual, Esmeril
+                              angular,     Prensas     o    sargentos
+                              metálicos,     Regla      metálica    o
+                              flexómetro,     Escuadra       metálica,
+                              Calibrador (pie de rey), Galgas básicas
+                              de inspección visual, Multímetro
+                              básico, Careta de soldar, Mandil o
+                              chaqueta ignífuga, Mascarilla o
+                              respirador para humos, Botas de
+                              seguridad,     Mesa      metálica    de
+                              soldadura,     Sistema     básico    de
+                              ventilación o extracción de humos,
+                              Instalación     eléctrica    protegida,
+                              Extintor tipo ABC, Planchas de acero al
+                              carbono, Perfiles metálicos para
+                              práctica.
+Referencias Bibliográficas
+
+Recursos Digitales:
+   o Ayala Trujillo, S. (2024). Libro de texto de control industrial. Instituto Superior
+      Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/34
+   o Freire Martínez, L. O., Castillo Fiallos, J. N., Flores Asimbaya, L. A., & Amores
+      Moreno, A. G. (2024). Control de motores eléctricos. Instituto Superior Universitario
+      Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/16
+   o Llango Pullotásig, M. E. (2024). Libro de texto de electrotecnia. Instituto Superior
+      Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/36
+   o López Rivas, C. M., Sánchez Gamboa, F. I., & Santafé Choto, A. (2024). Redes
+      eléctricas.          Instituto        Superior         Universitario       Cotopaxi.
+      https://libros.isuc.edu.ec/index.php/omp/catalog/book/31
+   o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+      Instrumentación y automatización industrial. Instituto Superior Universitario
+      Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o   Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+       Superior                             Universitario                           Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+   o   Sánchez Gamboa, F. I., Chacha Murillo, P. M., Lisintuña Ronquillo, G., & López
+       Rivas, C. M. (2024). Motor universal. Instituto Superior Universitario Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/30
+   o   Villamarín Reinoso, J. V. (2024). Libro de texto de automatización y control industrial.
+       Instituto                Superior                Universitario               Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/45
+
+
+
+
+                           Módulo de Especialización Nro. 3
+
+Nombre del módulo formativo:           Sistemas Eléctricos e Instalaciones Eléctricas
+
+Nivel: Bachillerato                    1ro, 2do y 3ro
+
+Duración:                              600 periodos pedagógicos
+
+Unidad      de        competencia     UC.3. Instalar sistemas eléctricos de baja y media
+asociada:                             tensión, garantizando su correcto funcionamiento y
+                                      seguridad, conforme a las normas técnicas vigentes
+                                      y las indicaciones del fabricante.
+Objetivo del módulo: Instalar sistemas eléctricos de baja y media tensión empleando
+técnicas de montaje y conexión conforme a normativas vigentes y a las indicaciones del
+fabricante, con el propósito de garantizar la seguridad, confiabilidad y eficiencia en el
+funcionamiento de las instalaciones eléctricas.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar instrucciones técnicas y normas de seguridad en el proceso de
+soldadura eléctrica, asegurando la correcta identificación de materiales, uniones y
+parámetros requeridos en condiciones de trabajo supervisado.
+CE1.1: Evalúa planos, croquis e instrucciones técnicas, reconociendo símbolos y
+especificaciones propias de la soldadura eléctrica.
+CE1.2: Clasifica los diferentes tipos de uniones y posiciones de soldadura de acuerdo con
+los requerimientos técnicos del proyecto.
+CE1.3: Aplica las propiedades de los materiales metálicos a utilizar, determinando su
+compatibilidad con el proceso de soldadura eléctrica.
+CE1.4: Determina normas técnicas y de seguridad aplicables al proceso de soldadura
+eléctrica, relacionándolas con los parámetros de operación y las condiciones del equipo.
+RA 2: Diferenciar materiales y equipos eléctricos de baja y media tensión
+contrastando sus características con las especificaciones técnicas del fabricante y
+las normativas aplicables en condiciones de inspección previa a la instalación.
+CE2.1: Explica estado de materiales eléctricos confirmando que cumplen con requisitos
+técnicos del proyecto.
+CE2.2: Clasifica materiales y equipos eléctricos seleccionando los que se ajustan a las
+especificaciones del fabricante y normativas
+CE2.3: Contrasta equipos de medición y herramientas de instalación asegurando que estén
+calibrados y listos para su uso.
+CE2.4: Determina información técnica de materiales y equipos verificando conformidad con
+estándares y normas de seguridad industrial.
+RA 3: Instalar sistemas eléctricos de baja y media tensión siguiendo procedimientos
+técnicos establecidos y verificando parámetros de conexión conforme a diagramas
+eléctricos y recomendaciones del fabricante en condiciones de montaje controlado.
+CE3.1: Ejecuta instalación de cables y componentes eléctricos verificando su ubicación y
+conexión con diagramas eléctricos.
+CE3.2: Conecta dispositivos eléctricos cumpliendo especificaciones técnicas y estándares
+de operación.
+CE3.3: Evalúa parámetros eléctricos de la instalación como voltaje y corriente asegurando
+correcto funcionamiento del sistema.
+CE3.4: Verifica conexiones eléctricas y aislamiento de cables comparando resultados con
+normativas de seguridad y especificaciones técnicas.
+RA 4: Evaluar el rendimiento de sistemas eléctricos instalados contrastando
+parámetros de funcionamiento con especificaciones técnicas y normativas de
+seguridad en condiciones de prueba operativa.
+CE4.1: Inspecciona los parámetros de funcionamiento de sistemas eléctricos instalados
+comparando corriente, voltaje y resistencia con valores de referencia
+CE4.2: Prepara pruebas de funcionamiento en condiciones operativas comprobando
+respuesta de dispositivos instalados.
+CE4.3: Compara resultados de pruebas con normativas de seguridad industrial asegurando
+que no existan riesgos de operación.
+CE4.4: Documenta resultados de evaluaciones identificando ajustes necesarios y
+proponiendo mejoras en el sistema eléctrico.
+Contenidos
+Conceptuales                   Procedimentales           Actitudinales
+Principios de seguridad en                               Valorar la importancia de cumplir
+                               Analizar riesgos en
+instalaciones eléctricas de                              con normas de seguridad en
+                               entornos de instalación
+baja y media tensión.                                    trabajos eléctricos.
+                               eléctrica    aplicando
+Tipos de riesgos eléctricos: normas de seguridad.        Respetar las especificaciones
+contacto directo, indirecto,                             técnicas del fabricante en la
+                               Inspeccionar
+cortocircuitos, sobrecargas,                             selección    e    instalación de
+                               materiales y equipos
+arco eléctrico.                                          materiales y equipos.
+                               eléctricos verificando
+                               su conformidad con
+                               especificaciones
+                               técnicas.
+Equipos      de    protección                              Reconocer la relevancia del uso
+                               Seleccionar
+personal (EPP) y colectiva                                 adecuado de EPP y equipos de
+                               herramientas            y
+en trabajos eléctricos.                                    seguridad.
+                               equipos de medición
+Tipos       de     materiales asegurando                   Fomentar la responsabilidad en la
+eléctricos:            cables, calibración             y   prevención y reporte de riesgos
+interruptores,       tableros, condiciones de uso.         eléctricos.
+protecciones,
+                               Planificar la instalación   Valorar la precisión en el uso de
+canalizaciones.
+                               eléctrica de baja y         herramientas de medición y
+Características técnicas de media                tensión   control.
+materiales      y     equipos siguiendo diagramas y
+                                                           Respetar la secuencia técnica de
+eléctricos              según manuales               del
+                                                           procedimientos de instalación
+especificaciones           del fabricante.
+                                                           eléctrica.
+fabricante.
+                               Ejecutar instalación de
+                                                           Registrar la importancia de la
+Herramientas y equipos de cables, dispositivos y
+                                                           documentación como evidencia
+medición:        multímetros, protecciones
+                                                           de cumplimiento y trazabilidad.
+telurómetros, megóhmetros, verificando          correcta
+pinzas amperimétricas.         conexión y alineación.      Mantener actitud proactiva en la
+                                                           identificación temprana de fallas o
+Procedimientos         de       Ajustar     parámetros
+                                                           riesgos durante la instalación.
+instalación de sistemas         eléctricos de sistemas
+eléctricos de baja y media      instalados     (voltaje,   Promover el trabajo en equipo y la
+tensión.                        corriente, resistencia)    comunicación       efectiva    en
+                                según                      actividades de instalación.
+Diagramas           eléctricos,
+                                especificaciones.          Apreciar la mejora continua en el
+simbología y planos de
+instalación.                    Verificar conexiones       desempeño profesional y el
+                                eléctricas             y   aprendizaje     permanente    en
+Parámetros          eléctricos
+                                aislamiento          de    instalaciones eléctricas.
+fundamentales:         voltaje,
+                                conductores aplicando
+corriente,           potencia,
+                                pruebas de seguridad.
+resistencia, continuidad.
+                                Realizar pruebas de
+Métodos de pruebas y
+                                funcionamiento       en
+ensayos      eléctricos     en
+                                sistemas     instalados
+sistemas instalados.
+                                comparando
+Protocolos                  de resultados           con
+documentación         técnica: parámetros            de
+bitácoras,      fichas      de referencia.
+verificación, informes de
+                                Documentar
+pruebas.
+                                resultados     de     la
+                                instalación y pruebas
+                                en informes técnicos
+                                estandarizados.
+Perfil del o la docente
+
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: electricidad,
+   electrónica o electromecánico o carreras afines relacionadas con el sector
+   electromecánica industrial.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+     Aprendizaje Basado en Proyectos (ABP)
+     Aprendizaje en Contextos Reales
+     Role-Playing y Simulaciones
+     Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                   Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                      1
+
+Infraestructura/espacio       Taller                                             1
+
+Laboratorio                   Computadoras con acceso a internet                 1
+                              Servidor
+                              Proyector
+Herramientas/equipos          Cables de diferentes calibres (cobre,              1
+                              aluminio) adecuados para baja y media
+                              tensión.
+                              Conductores, canalizaciones, tuberías,
+                              ductos, bandejas porta cables.
+                              Tableros eléctricos, paneles de
+                              distribución,         transformadores,
+                              seccionadores,             interruptores
+                              automáticos, fusibles, protecciones
+                              contra sobrecorriente y fallas a tierra.
+                              Conectores,      bornes,       aislantes,
+                              empalmes, materiales de soporte
+                              mecánico.
+                              Equipos de protección personal.
+                              Multímetros,             amperímetros,
+                              voltímetros, medidores de aislamiento.
+                              Pinzas,       llaves,        pelacables,
+                              herramientas de crimpado.
+                              Equipos para pruebas funcionales:
+                              carga de prueba, banco de carga.
+Referencias Bibliográficas
+
+Libros:
+   o Ayala Trujillo, S. (2024). Libro de texto de control industrial. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/34
+   o Freire Martínez, L. O., Castillo Fiallos, J. N., Flores Asimbaya, L. A., & Amores
+       Moreno, A. G. (2024). Control de motores eléctricos. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/16
+   o Llango Pullotásig, M. E. (2024). Libro de texto de electrotecnia. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/36
+   o López Rivas, C. M., Sánchez Gamboa, F. I., & Santafé Choto, A. (2024). Redes
+       eléctricas.          Instituto        Superior          Universitario      Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/31
+   o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+       Instrumentación y automatización industrial. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+       Superior                              Universitario                        Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+   o Sánchez Gamboa, F. I., Chacha Murillo, P. M., Lisintuña Ronquillo, G., & López
+       Rivas, C. M. (2024). Motor universal. Instituto Superior Universitario Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/30
+   o Villamarín Reinoso, J. V. (2024). Libro de texto de automatización y control industrial.
+       Instituto                 Superior                Universitario            Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/45
+
+
+                           Módulo de Especialización Nro. 4
+
+Nombre del módulo formativo:          Electricidad Básica
+
+Nivel: Bachillerato                   1ro
+
+Duración:                             160 periodos pedagógicos
+
+Unidad       de       competencia    UC4. Aplicar los fundamentos y principios de la
+asociada:                            electricidad para interpretar circuitos y magnitudes
+                                     eléctricas, asegurando su cumplimiento con los
+                                     estándares técnicos y aplicando normas ambientales
+                                     y de seguridad.
+Objetivo del módulo: Aplicar los fundamentos y principios de la electricidad en el análisis
+e interpretación de circuitos y magnitudes eléctricas mediante el uso de fórmulas,
+instrumentos de medición y simbología técnica normalizada, para asegurar la correcta
+comprensión de los sistemas eléctricos y su adecuación a estándares técnicos, ambientales
+y de seguridad.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Categorizar principios fundamentales de la electricidad explicando su relación
+con magnitudes eléctricas en contextos industriales bajo criterios técnicos
+normalizados.
+CE1.1: Evalúa leyes eléctricas presentando ejemplos prácticos de su aplicación en
+sistemas de baja tensión.
+CE1.2: Diferencia magnitudes eléctricas registrando unidades de medida, instrumentos de
+control y condiciones de operación.
+CE1.3: Clasifica relaciones entre magnitudes eléctricas en esquemas comparativos
+aplicando parámetros técnicos vigentes.
+CE1.4: Interpreta principios eléctricos con situaciones reales de la industria fundamentando
+la interpretación en estándares técnicos.
+RA 2: Distinguir configuraciones de circuitos eléctricos básicos y combinados
+representándolos gráficamente con simbología normalizada en función de normas
+internacionales.
+CE2.1: Selecciona diagramas de circuitos eléctricos empleando simbología establecida en
+normas internacionales.
+CE2.2: Verifica conexiones de circuitos contrastando esquemas gráficos con la disposición
+real de los componentes.
+CE2.3: Compara las configuraciones de circuitos serie, paralelo y mixtos analizando
+diagramas eléctricos en condiciones definidas
+CE2.4: Explica flujo de corriente en representaciones gráficas describiendo la trayectoria de
+acuerdo con parámetros de seguridad.
+RA 3: Comprobar magnitudes eléctricas en circuitos utilizando instrumentos de
+medición calibrados según procedimientos técnicos y normas de seguridad.
+CE3.1: Opera instrumentos de medición verificando su calibración bajo especificaciones
+técnicas de fabricante.
+CE3.2: Registra valores de voltaje, corriente y resistencia en condiciones de funcionamiento
+controlado siguiendo normas de seguridad.
+CE3.3: Contrasta resultados de mediciones eléctricas comparándolos con valores teóricos
+establecidos en tablas técnicas bajo condiciones determinadas.
+CE3.4: Evalúa la precisión de instrumentos de medición analizando desviaciones en función
+de márgenes de error aceptados.
+RA 4: Resolver problemas eléctricos aplicando cálculos de magnitudes y principios
+de circuitos mediante el uso de fórmulas y procedimientos técnicos normalizados.
+CE4.1: Calcula valores de corriente, voltaje y resistencia en circuitos empleando fórmulas
+eléctricas bajo condiciones dadas.
+CE4.2: Estima potencia eléctrica de circuitos simples y combinados contrastando los
+resultados con datos de referencia técnica.
+CE4.3: Verifica coherencia de cálculos eléctricos comparando resultados con valores
+medidos en el circuito.
+CE4.4: Representa soluciones de problemas eléctricos en esquemas y tablas aplicando
+convenciones técnicas establecidas.
+
+Contenidos
+Conceptuales                     Procedimentales           Actitudinales
+Principios fundamentales de      Identificar y explicar    Aplicar normas de seguridad y
+la     electricidad:   carga     leyes eléctricas con      prevención de riesgos eléctricos.
+eléctrica, corriente, voltaje,   ejemplos prácticos en
+                                                           Registrar, interpretar y analizar
+resistencia.                     sistemas     de  baja
+                                                           rigurosamente los resultados de
+                                 tensión.
+Leyes      básicas    de     la                            medición.
+electricidad: Ley de Ohm, Clasificar magnitudes
+                                                           Presentar datos y resolver
+Ley de Watt, Leyes de eléctricas registrando
+                                                           problemas       eléctricos con
+Kirchhoff.                      sus     unidades     de
+                                                           honestidad intelectual.
+                                medida e instrumentos
+Magnitudes          eléctricas
+                                correspondientes.          Organizar el manejo de equipos,
+fundamentales y derivadas
+                                                           herramientas    y    materiales
+(voltaje,           corriente, Representar
+                                                           eléctricos.
+resistencia,        potencia, gráficamente
+energía.                        relaciones         entre   Trabajar de manera colaborativa
+                                magnitudes           en    en la ejecución de prácticas de
+Unidades de medida y
+                                esquemas                   taller o laboratorio.
+sistemas      de     medición
+                                comparativos.              Contrastar resultados prácticos
+eléctrica (SI).
+                                Dibujar      diagramas     con valores teóricos de manera
+Instrumentos de medición:
+                                eléctricos    aplicando    crítica.
+multímetro,     amperímetro,
+                                simbología                 Respetar las normas ambientales
+voltímetro,          óhmetro,
+                                normalizada       según    en el manejo de materiales y
+medidor de aislamiento.
+                                normas                     residuos eléctricos.
+Simbología normalizada en internacionales.
+diagramas           eléctricos                             Buscar soluciones ante problemas
+                                Verificar conexiones       eléctricos en situaciones reales
+(normas IEC, ANSI, ISO).
+                                reales contrastándolas     con iniciativa y proactividad.
+Tipos de circuitos eléctricos: con           esquemas
+serie, paralelo, mixto.         representados.
+Procedimientos de cálculo Diferenciar      circuitos
+en circuitos de corriente serie, paralelo y mixtos
+continua (CC).              a partir del análisis
+Interpretación de diagramas gráfico y experimental.
+y   esquemas       eléctricos Explicar el flujo de
+normalizados.                 corriente en diagramas
+                              atendiendo normas de
+                              seguridad.
+Procedimientos      técnicos
+                              Operar    y     calibrar
+normalizados      para     la
+                              instrumentos         de
+medición y cálculo eléctrico.
+                              medición     siguiendo
+Normas      de     seguridad manuales técnicos.
+eléctrica y medioambiental
+                              Registrar valores de
+en trabajos de baja tensión.
+                              voltaje, corriente y
+Errores de medición y resistencia                  en
+análisis de precisión en condiciones
+instrumentos.                 controladas.
+                               Comparar resultados
+                               de          mediciones
+                               eléctricas con valores
+                               teóricos de tablas
+                               técnicas.
+                               Evaluar precisión de
+                               instrumentos
+                               analizando márgenes
+                               de error.
+                               Calcular         voltaje,
+                               corriente, resistencia y
+                               potencia en circuitos
+                               aplicando      fórmulas
+                               establecidas.
+                               Estimar      potencia
+                               eléctrica de circuitos
+                               simples y combinados
+                               contrastando
+                               resultados con datos
+                               técnicos.
+                               Representar
+                               soluciones        de
+                               problemas eléctricos
+                               en tablas y esquemas
+                               aplicando
+                               convenciones
+                               técnicas.
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Electricidad,
+    Electrónico, Electromecánico o en carreras afines relacionadas con el sector
+    electromecánico industrial.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Aprendizajes basados en problemas.
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                Especificaciones técnicas                   Cantidad
+
+Infraestructura/espacio     Entorno de aprendizaje (aula)                      1
+
+Infraestructura/espacio     Taller                                             1
+
+Laboratorio                 Computadoras con acceso a internet                 1
+                            Servidor
+                            Proyector
+Herramientas/equipos        Cables de diferentes calibres (cobre,              1
+                            aluminio) adecuados para baja y media
+                            tensión.
+                            Conductores, canalizaciones, tuberías,
+                            ductos, bandejas porta cables.
+                            Tableros eléctricos, paneles de
+                            distribución,         transformadores,
+                            seccionadores,             interruptores
+                            automáticos, fusibles, protecciones
+                            contra sobrecorriente y fallas a tierra.
+                            Conectores,      bornes,       aislantes,
+                            empalmes, materiales de soporte
+                            mecánico.
+                            Equipos de protección personal.
+                            Multímetros,             amperímetros,
+                            voltímetros, medidores de aislamiento.
+                            Pinzas,       llaves,        pelacables,
+                            herramientas de crimpado.
+                            Equipos para pruebas funcionales:
+                            carga de prueba, banco de carga.
+                            Manuales técnicos y de instalación
+                            eléctrica,      guías        normativas
+                            nacionales/internacionales.
+                               Planos      eléctricos,  diagramas,
+                               esquemas de instalación.
+                               Ejemplos de fichas técnicas de
+                               materiales y equipos.
+                               Formatos de informe técnico, registro
+                               de pruebas, actas de puesta en
+                               servicio.
+Referencias Bibliográficas
+
+Libros:
+   o Ayala Trujillo, S. (2024). Libro de texto de control industrial. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/34
+   o Freire Martínez, L. O., Castillo Fiallos, J. N., Flores Asimbaya, L. A., & Amores
+       Moreno, A. G. (2024). Control de motores eléctricos. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/16
+   o Llango Pullotásig, M. E. (2024). Libro de texto de electrotecnia. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/36
+   o López Rivas, C. M., Sánchez Gamboa, F. I., & Santafé Choto, A. (2024). Redes
+       eléctricas.          Instituto        Superior          Universitario      Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/31
+   o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+       Instrumentación y automatización industrial. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+       Superior                              Universitario                        Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+   o Sánchez Gamboa, F. I., Chacha Murillo, P. M., Lisintuña Ronquillo, G., & López
+       Rivas, C. M. (2024). Motor universal. Instituto Superior Universitario Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/30
+   o Villamarín Reinoso, J. V. (2024). Libro de texto de automatización y control industrial.
+       Instituto                 Superior                Universitario            Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/45
+
+
+      5. Módulo Práctico Experimental
+
+  Este módulo fortalece la formación del estudiantado mediante su participación en
+  situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de
+  trabajo, giras de observación, articulación con el sector productivo, proyectos
+  interdisciplinarios y metodologías basadas en proyectos. Todas estas actividades
+  tienen como finalidad consolidar los conocimientos teóricos y favorecer la
+  aplicación de competencias en contextos reales. Asimismo, promueven el
+  desarrollo de habilidades blandas, tales como el trabajo en equipo, la comunicación
+  asertiva, la resolución de problemas y la adaptación a entornos cambiantes.
+  En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido
+  en los módulos previos, permitiendo al estudiantado experimentar, analizar y
+  resolver situaciones reales, al tiempo que refuerza sus capacidades técnicas y
+  fomenta el desarrollo de competencias conceptuales, procedimentales y
+  actitudinales, tanto de los módulos genéricos como de los de especialización.
+
+                           Módulo Práctico Experimental
+
+Nombre del módulo:          Practico Experimental
+
+Nivel:                      1ro, 2do, 3ro
+
+Duración:                   360 periodos pedagógicos
+
+Unidad                de    UC1: Realizar el mantenimiento preventivo, predictivo y
+competencia                 correctivo de máquinas y equipos electromecánicos,
+asociada:                   garantizando su funcionamiento y prolongando su vida
+                            útil, de acuerdo con los manuales técnicos y las normas
+                            de seguridad e higiene industria.
+                            UC2: Ejecutar procesos de soldadura eléctrica en los
+                            componentes metálicos, asegurando uniones fuertes y
+                            funcionales, conforme a las especificaciones técnicas,
+                            utilizando las herramientas adecuadas y cumpliendo con
+                            las normas de seguridad industrial.
+                            UC3: Instalar sistemas eléctricos de baja y media tensión,
+                            garantizando su correcto funcionamiento y seguridad,
+                            conforme a las normas técnicas vigentes y las
+                            indicaciones del fabricante.
+                            UC4:      Aplicar los fundamentos y principios de la
+                            electricidad para interpretar circuitos y magnitudes
+                            eléctricas, asegurando su cumplimiento con los
+                            estándares técnicos y aplicando normas ambientales y de
+                            seguridad.
+Objetivo del módulo:
+Desarrollar competencias en el diagnóstico, mantenimiento y reparación de sistemas
+electromecánicos, procesos de soldadura, instalación de sistemas eléctricos y
+aplicación de principios de electricidad, mediante la ejecución de actividades prácticas
+experimentales que incluyan mediciones, ajustes, reparaciones, soldaduras y
+montajes, con el fin de garantizar el correcto funcionamiento de los equipos y
+sistemas, asegurando su seguridad, confiabilidad y cumplimiento de normas técnicas
+y ambientales.
+Resultados             de    Criterios             de Actividades Prácticas
+Aprendizaje (RA)             Evaluación (CE)          Experimentales
+
+RA1:      Diagnosticar y     CE1.1: Identifica fallas    Realizar       pruebas          de
+ejecutar mantenimiento       en motores y equipos        diagnóstico en un motor
+preventivo, predictivo y     mediante mediciones y       eléctrico trifásico, midiendo
+correctivo en equipos        comparación          con    cuidadosamente            voltaje,
+electromecánicos             valores de referencia del   corriente y resistencia de
+asegurando            su     fabricante.                 aislamiento            utilizando
+funcionamiento           y                               instrumentos         calibrados.
+prolongando su vida útil.    CE1.2:            Aplica    Analizar el comportamiento
+                             procedimientos        de    de los rodamientos mediante
+                             mantenimiento               técnicas de medición de
+                             ajustando, lubricando y     vibraciones y detección de
+                             reparando componentes       ruidos                anómalos,
+                             conforme a manuales         identificando posibles fallas o
+                             técnicos y normas de        desgaste. Con base en los
+                             seguridad.                  resultados            obtenidos,
+                                                         elaborarán       un      informe
+                                                         técnico detallado que incluya
+                                                         las anomalías detectadas, el
+                                                         análisis       de        causas,
+                                                         recomendaciones                 de
+                                                         mantenimiento correctivo y
+                                                         preventivo, y propuestas de
+                                                         acciones para optimizar el
+                                                         rendimiento y prolongar la
+                                                         vida      útil    del      motor,
+                                                         cumpliendo con las normas
+                                                         de seguridad industrial y
+                                                         procedimientos establecidos
+RA2: Ejecutar uniones        CE2.1:       Selecciona     Ejecutar       prácticas        de
+metálicas       mediante     materiales y equipos de     preparación        de       juntas
+soldadura        eléctrica   soldadura adecuados al      metálicas,      evaluando        y
+garantizando resistencia     tipo de metal y al          seleccionando los electrodos
+y funcionalidad según        procedimiento técnico.      adecuados según el tipo de
+especificaciones técnicas                                metal a unir, considerando
+y normas de seguridad.       CE2.2:           Realiza    sus propiedades mecánicas
+                             soldaduras cumpliendo       y       de       conductividad.
+                             con          parámetros     Prepararán las superficies
+                             eléctricos correctos y      asegurando        limpieza       y
+                             asegurando la calidad       correcta alineación de las
+                             de la unión.                piezas, aplicando técnicas de
+                                                      sujeción y posicionamiento
+                                                      apropiadas. Durante todo el
+                                                      proceso,                seguirán
+                                                      estrictamente los protocolos
+                                                      de     seguridad      industrial,
+                                                      utilizando      equipos        de
+                                                      protección             personal,
+                                                      señalización de área y
+                                                      medidas preventivas para
+                                                      evitar riesgos eléctricos,
+                                                      térmicos y de proyecciones.
+                                                      Finalmente, verificarán la
+                                                      correcta preparación de las
+                                                      juntas antes de proceder con
+                                                      la soldadura, asegurando un
+                                                      trabajo seguro y conforme a
+                                                      las especificaciones técnicas
+RA3: Instalar sistemas     CE3.1:            Monta    Realizar circuitos eléctricos
+eléctricos de baja y       conductores, tableros y    en configuraciones serie y
+media            tensión   protecciones conforme a    paralelo              utilizando
+asegurando la correcta     planos                y    protoboard, siguiendo los
+operación y cumplimiento   especificaciones    del    diagramas          previamente
+de normas técnicas y de    fabricante.                diseñados con simbología
+seguridad.                                            normalizada. Durante el
+                           CE3.2:     Verifica   el   montaje, aplicarán técnicas
+                           correcto funcionamiento    de conexión segura y
+                           del sistema mediante       utilizarán un multímetro para
+                           mediciones           de    medir voltaje, corriente y
+                           continuidad, voltaje y     resistencia     en      distintos
+                           aislamiento.               puntos        del        circuito.
+                                                      Posteriormente, compararán
+                                                      los resultados obtenidos con
+                                                      los       valores        teóricos
+                                                      calculados, analizando las
+                                                      posibles            diferencias,
+                                                      identificando     errores      de
+                                                      montaje o medición, y
+                                                      proponiendo       correcciones
+                                                      que garanticen la precisión
+                                                      de las mediciones, la
+                                                      correcta      operación       del
+                                                      circuito y el cumplimiento de
+                                                             normas de seguridad y
+                                                             estándares técnicos.
+ RA4:       Aplicar      los    CE4.1: Calcula y mide        Elaborar una propuesta de
+ principios y leyes de la       voltaje,   corriente   y     instalaciones eléctricas en
+ electricidad         para      resistencia en circuitos     configuraciones          serie,
+ interpretar circuitos y        básicos     y     mixtos     paralelo y mixto, diseñando
+ magnitudes      eléctricas     verificando coherencia       los                diagramas
+ garantizando              el   con valores teóricos.        correspondientes           con
+ cumplimiento             de                                 simbología       normalizada.
+ estándares técnicos y          CE4.2:       Representa      Posteriormente, procederán
+ normas de seguridad.           diagramas       eléctricos   al montaje de los circuitos en
+                                utilizando    simbología     el laboratorio, aplicando
+                                normalizada y compara        técnicas de conexión segura,
+                                con montajes prácticos       verificando la continuidad,
+                                para               validar   voltaje y corriente en cada
+                                interpretación técnica.      tramo. Finalmente, evaluarán
+                                                             la coherencia entre el
+                                                             diagrama eléctrico y el
+                                                             montaje              práctico,
+                                                             identificando         posibles
+                                                             inconsistencias               y
+                                                             proponiendo ajustes que
+                                                             aseguren      el      correcto
+                                                             funcionamiento del circuito,
+                                                             la seguridad operativa y el
+                                                             cumplimiento de las normas
+                                                             técnicas vigentes
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e
+incluir las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje
+significativo, sin que este reemplace su paso por la Formación Estudiantil en Centros
+Educativos y de Trabajo.
+

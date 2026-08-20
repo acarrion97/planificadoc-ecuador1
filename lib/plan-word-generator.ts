@@ -12,6 +12,7 @@ import type { Planificacion, AdaptacionCurricular } from "../data/types";
 import { AREAS_INFO, SUBNIVEL_NAMES, TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO, type TipoNEE, type GradoAdaptacion } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
+import { iconosDcdRuns } from "./dcd-iconos";
 
 // ── Colores (mismo esquema que el PDF) ────────────────────────────────────────
 const ROSA      = "D4A5C7";  // encabezados sección (morado/rosa)
@@ -689,7 +690,11 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
         tc([
           p(plan.destreza?.codigo || "—", { bold: true, size: 8 }),
           p(""),
-          p(plan.destreza?.descripcion || "—", { size: 8 }),
+          p(plan.descripcionEfectiva ?? plan.destreza?.descripcion ?? "—", { size: 8 }),
+          ...(() => {
+            const runs = iconosDcdRuns(plan.destreza?.codigo);
+            return runs.length ? [new Paragraph({ children: runs })] : [];
+          })(),
         ], M1),
         // Indicadores
         tc([

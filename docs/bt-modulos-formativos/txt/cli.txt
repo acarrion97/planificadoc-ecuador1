@@ -1,0 +1,1955 @@
+   MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “CLIMATIZACIÓN”
+
+       1. Objetivo general
+
+Ejecutar operaciones de montaje, instalación, mantenimiento, reparación y mejora de
+sistemas de climatización, refrigeración, calefacción, redes de agua y gases, en
+edificaciones residenciales, comerciales, industriales y unidades móviles con
+requerimientos térmicos, aplicando normativas técnicas, ambientales y de seguridad,
+promoviendo la eficiencia energética, el uso responsable de los recursos y el desarrollo
+de iniciativas de emprendimiento técnico que respondan a las necesidades del entorno
+productivo.
+
+       2. Plan de estudios
+
+                                                                 1ro      2do     3ro
+Total periodos pedagógicos tronco común
+                                                                 19       19      19
+
+                             Seguridad Industrial                   2        2
+Módulos Genéricos de la
+                             Procesos Industriales Sostenibles      2        2
+Familia Profesional
+                             Dibujo Técnico Aplicado                4        2
+
+                           Instalación de Sistemas de
+                                                                    4        3       3
+                           Climatización y Refrigeración
+                           Montaje de Sistemas                      3        3       3
+                           Mantenimiento Técnico de
+Módulos Especialización                                             4        3       3
+                           Sistemas Térmicos
+                           Ahorro Energético                                 2       4
+                           Proyectos de Climatización y
+                                                                             2       4
+                           Refrigeración
+Módulo Práctico Experimental                                        2        2       4
+Total periodos pedagógicos formación técnica                       21       21      21
+
+
+       3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la Familia Industrial. Gracias a las características
+de los módulos trabajados en esta etapa, adquieren herramientas que le permiten
+construir una opinión más informada y tomar decisiones con mayor fundamento. Esto
+favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa,
+insertarse en el mundo laboral o emprender un proyecto propio.
+
+  Se estructuran los siguientes módulos genéricos:
+    • Seguridad industrial
+    • Procesos industriales sostenibles
+  •      Dibujo Técnico Aplicado
+
+                                     Módulo Genérico Nro. 1
+Nombre del módulo                    Seguridad Industrial
+
+Nivel:                               1ro y 2do
+
+Duración:                            160 periodos pedagógicos
+
+                                     UC 1: Aplicar normas, procedimientos, planes de
+                                     seguridad e higiene en talleres, laboratorios y procesos
+Unidad       de       competencia industriales, en la prevención de riesgos, mediante el
+asociada:                            uso adecuado de herramientas, equipos y máquinas,
+                                     demostrando responsabilidad, disciplina y ética
+                                     profesional.
+Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Emplear normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Identifica señales de seguridad en talleres y laboratorios verificando su ubicación
+y legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Revisa el estado de los equipos de protección personal asegurando su operatividad
+antes de cada actividad.
+CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA 2: Establecer procedimientos de identificación, análisis y prevención de riesgos
+en entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE2.3: Ejecuta medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA 3: Ejecutar planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE3.3: Emplea la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de la
+integridad de personas y bienes.
+ RA 4: Integrar prácticas de seguridad, higiene y sostenibilidad en actividades
+ industriales promoviendo disciplina, ética profesional y mejora continua.
+CE4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y compromiso
+con la mejora continua.
+Contenidos
+Conceptuales                     Procedimentales                   Actitudinales
+• Fundamentos          de     la • Identificar            riesgos • Demostrar disciplina en el
+    seguridad        industrial,    presentes en el entorno          cumplimiento de normas
+    principios, objetivos y         laboral            utilizando    de seguridad e higiene.
+    beneficios.                     herramientas                de • Mostrar interés en la
+• Legislación y normativa           observación y registro.          identificación y control de
+    vigente en seguridad, • Analizar diagramas de                    riesgos industriales.
+    salud ocupacional e             procesos         industriales • Cumplir con el uso
+    higiene laboral (nacional       para localizar posibles          permanente y correcto de
+    e internacional).               focos de peligro.                equipos de protección
+• Derechos y obligaciones • Seleccionar equipos de                   personal.
+    en      prevención      de      protección          personal • Valorar la importancia del
+    riesgos laborales.              según tipo de actividad y        orden y la limpieza en la
+• Normas generales de               riesgo  identificado.            seguridad del trabajo.
+    seguridad en talleres, • Utilizar           correctamente • Respetar la señalización
+    laboratorios y plantas          equipos de protección            de seguridad instalada.
+    industriales.                   personal       garantizando • Demostrar
+• Tipos        de      riesgos      seguridad y comodidad.           responsabilidad en la
+    industriales:      físicos, • Instalar        y      verificar   ejecución de protocolos
+    químicos,      biológicos,      señalización                de   de emergencia.
+    ergonómicos, eléctricos,        seguridad en talleres y • Asumir             una     actitud
+    mecánicos                 y     plantas industriales.            preventiva frente a los
+    psicosociales.               • Aplicar rutinas de orden y        riesgos laborales.
+• Equipos de protección             limpieza siguiendo el • Mantener                 disposición
+    personal            (EPP):      método 5S.                       activa en simulacros de
+    clasificación,               • Ejecutar procedimientos           evacuación y control de
+    características, uso y          de análisis de riesgos           incendios.
+    mantenimiento.                  aplicando matrices de • Mostrar compromiso con
+• Señalización              de      evaluación.                      la protección del medio
+    seguridad       industrial:                                      ambiente          y       la
+    códigos de colores,           •   Elaborar          informes         sostenibilidad            en
+    pictogramas, ubicación            técnicos de riesgos con            procesos industriales.
+    y normas técnicas.                base en observaciones,         •   Evidenciar             ética
+•   Procedimientos          de        análisis    y   normativa          profesional en la toma de
+    limpieza y orden en el            vigente.                           decisiones relacionadas
+    trabajo, 5S y buenas          •   Implementar       medidas          con seguridad y salud.
+    prácticas de higiene.             preventivas y correctivas      •   Demostrar liderazgo en la
+•   Metodologías            de        ajustadas     a     riesgos        organización de grupos
+    identificación            y       detectados.                        frente a situaciones de
+    evaluación de riesgos,        •   Desarrollar planes de              riesgo.
+    análisis     de     trabajo       evacuación simulados en        •   Fomentar      el    trabajo
+    seguro (ATS), matriz de           talleres, laboratorios y           colaborativo en la mejora
+    riesgos, método del               espacios industriales.             de las condiciones de
+    árbol de causas.              •   Actuar en simulacros de            seguridad.
+•   Medidas preventivas y             emergencia       aplicando     •   Mantener actitud reflexiva
+    correctivas aplicadas a           protocolos                de       frente a incidentes para
+    riesgos específicos en            comunicación               y       promover      la    mejora
+    talleres de electrónica,          evacuación.                        continua.
+    mecatrónica,                  •   Utilizar        extintores,    •   Asumir respeto por la
+    electromecánica,                  hidrantes y otros equipos          vida, la salud y el
+    madera, alimentos y               contra           incendios         bienestar        colectivo
+    calzado.                          conforme      a     normas         como              valores
+•   Planes de emergencia,             técnicas.                          fundamentales.
+    objetivos,      estructura,   •   Aplicar técnicas básicas
+    responsables              y       de primeros auxilios en
+    procedimientos.                   casos de accidentes
+•   Protocolos              de        simulados.
+    evacuación,       primeros    •   Evaluar       condiciones
+    auxilios,    control    de        ergonómicas       de     los
+    incendios                 y       puestos de trabajo y
+    comunicación            en        proponer mejoras.
+    emergencias.                  •   Documentar y comunicar
+•   Manejo       seguro     de        incidentes, accidentes y
+    herramientas manuales,            medidas correctivas.
+    eléctricas y de máquinas      •   Participar en actividades
+    industriales.                     colaborativas de mejora
+•   Ergonomía aplicada a              continua en seguridad e
+    puestos de trabajo,               higiene industrial.
+    posturas, manipulación
+    de cargas, prevención
+    de lesiones.
+•   Cultura de seguridad y
+    mejora           continua,
+    responsabilidad, ética,
+    disciplina                y
+    sostenibilidad   en    el
+    trabajo.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+   riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+   con seguridad industrial.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                 Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio  Entorno de aprendizaje                            1
+                         (aula)
+Laboratorio              Computadoras con acceso a internet                1
+                         Proyector
+Referencias Bibliográficas
+
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+
+
+                             Módulo Genérico Nro.2
+
+Nombre del módulo:                     Procesos Industriales Sostenibles
+
+Nivel:                                 1ro y 2do
+
+Duración:                              160 periodos pedagógicos
+
+                                        UC 2: Emplear prácticas de sostenibilidad y control
+                                        de calidad en actividades industriales mediante el uso
+                                        de tecnologías limpias, criterios de eficiencia
+Unidad de competencia                   energética, minimización de residuos, garantizando la
+asociada:                               reducción de impactos ambientales y la optimización
+                                        de estos en beneficio del entorno local, integrando
+                                        fundamentos de formación y orientación laboral y
+                                        salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA 3: Gestionar el uso de materias primas y energía en procesos industriales
+garantizando reducción de costos operativos y aprovechamiento responsable de los
+recursos.
+CE3.1: Identifica puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Identifica normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3: Practica acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Identifica productos y materiales según parámetros establecidos en normas
+técnicas y procedimientos internos.
+CE6.2:     Emplea pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+Conceptuales                       Procedimentales                Actitudinales
+                                                                  Mostrar interés en la
+                                   •   Identificar fuentes de
+•   Principios               de                                   aplicación    de   prácticas
+                                       consumo energético y
+    sostenibilidad           en                                   sostenibles en procesos
+                                       materiales en procesos
+    procesos       industriales,                                  industriales.
+                                       industriales.
+    definición, importancia y
+                                   •   Medir       y    registrar Cumplir        con        los
+    aplicación.
+                                       consumos       eléctricos, procedimientos             de
+•   Conceptos básicos de                                          reducción, reutilización y
+                                       térmicos e hidráulicos.
+    eficiencia      energética,
+                                   •   Analizar        impactos reciclaje de materiales.
+    consumo,          pérdidas,
+                                       ambientales               de   Valorar la importancia del
+    rendimiento, ahorro.
+                                       actividades productivas.       ahorro energético y del
+•   Energías        renovables
+                                   •   Aplicar técnicas básicas       aprovechamiento
+    aplicadas a la industria,
+                                       de               reducción,    responsable de recursos.
+    solar, eólica, biomasa,
+                                       reutilización y reciclaje.
+    hidráulica.                                                       Mostrar orden, precisión y
+                                   •   Elaborar reportes de
+•   Impactos ambientales de                                           método en las actividades de
+                                       consumo y residuos en
+    los procesos industriales,                                        medición, registro y análisis.
+                                       procesos
+    contaminación del aire,
+                                       experimentales.                Asumir una actitud reflexiva
+    agua, suelo y ruido.
+                                   •   Implementar estrategias        frente al impacto ambiental
+•   Estrategias de consumo
+                                       de      optimización     del   de los procesos industriales.
+    responsable de materias
+                                       consumo eléctrico en           Evidenciar iniciativa en la
+    primas y energía.
+                                       equipos.                       búsqueda de soluciones
+•   Introducción       a      la
+                                   •   Comparar el rendimiento        tecnológicas limpias.
+    economía           circular,
+                                       de                 energías
+    reducción, reutilización y                                        Demostrar eficiencia en la
+                                       convencionales             y
+    reciclaje.                                                        aplicación de conocimientos
+                                       renovables.
+•   Marco            normativo                                        para la mejora de procesos.
+                                   •   Aplicar     técnicas      de
+    ambiental            básico
+                                       minimización de residuos       Mantener     una   actitud
+    nacional e internacional
+                                       sólidos,      líquidos     y   positiva frente al trabajo
+    relacionado             con
+                                       gaseosos.                      colaborativo y proyectos
+    sostenibilidad.
+                                   •   Diseñar       planes      de   colectivos.
+•   Tecnologías         limpias
+                                       aprovechamiento           de
+    aplicadas a procesos                                              Respetar          normativas
+                                       residuos valorizables.         ambientales     vigentes   y
+    industriales.
+                                   •   Documentar                     aplicarlas     de      forma
+•   Técnicas de optimización
+                                       procedimientos            de   consciente.
+    del consumo eléctrico en
+                                       sostenibilidad aplicados
+    equipos y sistemas.                                               Tomar conciencia de la
+                                       en                 procesos
+•   Procedimientos           de                                       importancia de innovar en el
+                                       experimentales.
+    minimización de residuos                                          uso de energías renovables
+                                   •   Integrar sistemas de
+    y                emisiones                                        y tecnologías limpias.
+                                       automatización          que
+    contaminantes.
+                                       mejoren la eficiencia          Manifestar compromiso con
+•   Modelos       de    gestión
+                                       energética.                    el cuidado del entorno social,
+    energética y de recursos
+                                   •   Evaluar indicadores de         económico y ambiental.
+    en entornos industriales.
+                                       sostenibilidad            en
+•  Sistemas de tratamiento         procesos simulados y
+   y valorización de residuos      reales.
+   industriales.               •   Incorporar       energías
+• Relación entre eficiencia        renovables en prototipos
+   energética y reducción de       o       procesos       de
+   costos operativos.              laboratorio.
+• Automatización y control •       Diseñar propuestas de
+   industrial orientados a         mejora     de   procesos
+   sostenibilidad.                 industriales con base en
+• Integración de energías          tecnologías limpias.
+   renovables en procesos •        Validar la reducción de
+   productivos.                    costos         operativos
+• Innovación y tendencias          mediante la optimización
+   en             tecnologías      de recursos
+   sostenibles.
+• Indicadores               de
+   sostenibilidad, huella de
+   carbono, huella hídrica,
+   eficiencia    global     de
+   recursos.
+• Normas internacionales
+   de           sostenibilidad
+   industrial (ISO 14001,
+   ISO 50001).
+• Diseño y mejora de
+   procesos industriales con
+   enfoque ambiental.
+• Proyectos integrales de
+   sostenibilidad           en
+   procesos      industriales,
+   análisis, implementación
+   y       evaluación       de
+   resultados.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+   Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+   sector industrial sostenible.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Role-Playing y Simulaciones
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                 Especificaciones técnicas                        Cantidad
+
+Infraestructura/espacio      Entorno de aprendizaje                     1
+                             (aula)
+
+Laboratorio                  Computadoras con acceso a internet
+                             Proyector                                  1
+
+Referencias Bibliográficas
+
+Besterfield, D. H. (2009). Control de calidad (8.ª ed.). Pearson Educación.
+       https://maaz.ihmc.us/rid%3D1Y2G0F7VH-1RQJ94G-
+       CVP/Control%20de%20Calidad%20H.%20Besterfield.pdf
+
+Comisión Económica para América Latina y el Caribe. (2021). Economía circular en
+      América Latina y el Caribe: Oportunidades para una recuperación transformadora.
+      https://repositorio.cepal.org/handle/11362/47309
+
+Comisión para la Seguridad de los Productos de Consumo de los Estados Unidos. (2006).
+      Manual para la fabricación de productos de consumo seguros: Control de calidad.
+      https://www.cpsc.gov/s3fs-public/pdfs/blk_pdf_handbookspanishjul06.pdf
+
+Falcón, P. C. G. (2022). Mejora del desempeño ambiental, de seguridad y salud
+       ocupacional: Caso de una empresa peruana de agroquímicos. Industrial Data,
+       25(2). https://revistasinvestigacion.unmsm.edu.pe/index.php/idata
+
+Gutiérrez Pulido, H. (2013). Control estadístico de la calidad y Seis Sigma (2.ª ed.).
+       McGraw-Hill Education. https://www.uv.mx/personal/ermeneses/files/2018/05/6-
+       control-estadistico-de-la-calidad-y-seis-sigma-gutierrez-2da.pdf
+
+Organización de las Naciones Unidas para la Alimentación y la Agricultura. (2018).
+      Manuales para el control de calidad en laboratorios de alimentos.
+      https://openknowledge.fao.org/server/api/core/bitstreams/6768c081-bda7-455b-
+      a14e-3cf9f6498bea/content
+
+Organización Internacional de Normalización. (2015). ISO 14001:2015. Sistemas de
+      gestión ambiental—Requisitos con orientación para su uso.
+      https://www.iso.org/standard/60857.html
+
+Organización Internacional de Normalización. (2018). ISO 50001:2018. Sistemas de
+      gestión de la energía—Requisitos con orientación para su uso.
+      https://www.iso.org/standard/69426.html
+
+
+                                Módulo Genérico Nro.3
+
+Nombre del módulo:                  Dibujo Técnico Aplicado
+
+Nivel:                              1ro y 2do
+
+Duración:                           240 periodos pedagógicos
+                                      UC 3: Elaborar representaciones gráficas técnicas
+                                      aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia                 herramientas digitales como CAD, CAE y modelado
+asociada:                             3D, generando planos, modelos y prototipos con
+                                      precisión, creatividad, responsabilidad y compromiso
+                                      con la calidad en contextos industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Identifica símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Realiza planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2: Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+ Contenidos
+Conceptuales                     Procedimentales                 Actitudinales
+                                 • Trazar líneas, vistas y • Mostrar interés en la
+• Principios básicos del             escalas en bocetos y           lectura, interpretación y
+    dibujo técnico: líneas,          planos.                        elaboración de planos
+    tipos de vistas y escalas. • Utilizar instrumentos de           técnicos.
+• Normas internacionales y           dibujo     técnico      con • Cumplir con las normas
+    nacionales de dibujo             precisión.                     de        calidad        en
+    técnico (ISO, DIN, INEN). • Identificar simbología y            representaciones
+• Principios fundamentales           aplicar normas básicas         gráficas.
+    de geometría aplicados al        en       representaciones • Valorar la precisión y
+    dibujo técnico.                  gráficas.                      exactitud en los dibujos
+• Sistemas de proyección • Interpretar                   planos     como       garantía      de
+    ortogonal, isométrica y          bidimensionales simples.       seguridad y confiabilidad.
+    oblicua.                     • Representar           figuras • Demostrar              orden,
+• Lectura e interpretación           geométricas aplicadas a        responsabilidad y método
+    de planos y esquemas             piezas básicas.                en el uso de herramientas
+    técnicos.                    • Elaborar planos con              manuales y digitales.
+• Conceptos de acotación,            cortes,    secciones      y • Asumir actitud reflexiva y
+    tolerancias y ajustes en         detalles.                      analítica al interpretar
+    representaciones             • Dibujar         ensamblajes      planos     y     diagramas
+    gráficas.                        simples          aplicando     técnicos.
+• Rotulación y simbología            normas de rotulación y      •  Mostrar iniciativa en la
+    básica       en     planos       acotación.                     búsqueda de soluciones
+    técnicos.                    • Usar software CAD en la          gráficas ante problemas
+• Representación            de       creación                 de    de representación.
+    cortes,     secciones     y      representaciones 2D.        • Demostrar liderazgo en
+    detalles técnicos.           • Representar diagramas y          actividades colaborativas
+• Principios                de       esquemas funcionales de        de diseño gráfico técnico.
+    normalización en planos          sistemas técnicos.          • Aplicar      criterios    de
+    de piezas y ensamblajes. • Comprobar exactitud de               creatividad e innovación
+• Escalas de reducción y             planos mediante cotejo         en el desarrollo de planos
+    ampliación aplicadas a la        con piezas o modelos           y modelos.
+    industria.                       reales.                     • Respetar las normas de
+                                                                    seguridad en el uso de
+•  Geometría        descriptiva   •   Generar modelos 3D               equipos e instalaciones
+   aplicada      a    sistemas        mediante herramientas            de laboratorio de CAD.
+   complejos.                         CAD.                         •   Demostrar
+• Introducción                a   •   Simular funcionamiento y         responsabilidad en la
+   herramientas CAD en 2D,            ensamblajes en software          entrega oportuna y con
+   funciones       básicas    y       CAD/CAE.                         calidad     de    trabajos
+   comandos esenciales.           •   Crear prototipos digitales       gráficos.
+• Elaboración de planos               y planos listos para         •   Mostrar        disposición
+   constructivos              y       fabricación.                     positiva y activa en
+   diagramas funcionales.         •   Optimizar                        actividades individuales y
+• Principios                 de       representaciones                 grupales.
+   representación gráfica en          gráficas        mediante     •   Usar con cuidado los
+   componentes mecánicos,             automatización          de       materiales, equipos y
+   electrónicos               y       comandos y macros en             software                de
+   estructurales.                     CAD.                             representación gráfica.
+• Modelado tridimensional         •   Presentar proyectos de       •   Valorar la importancia
+   en software CAD y                  diseño gráfico técnico           del dibujo técnico como
+   generación de prototipos           con enfoque innovador y          lenguaje universal en la
+   digitales.                         colaborativo.                    industria.
+• Ensamblajes                 y
+   simulación                de
+   funcionamiento           con
+   herramientas CAD/CAE.
+• Generación de vistas
+   explotadas y despieces
+   técnicos.
+• Renderizado básico y
+   presentación de modelos
+   3D.
+• Optimización de planos
+   digitales               para
+   manufactura                y
+   fabricación asistida por
+   computadora (CAM).
+• Innovación y creatividad
+   en el diseño gráfico
+   aplicado a procesos
+   industriales.
+• Integración del dibujo
+   técnico en proyectos
+   interdisciplinarios       de
+   diseño, producción y
+   mantenimiento.
+Perfil del o la docente
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+   Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+   al área de representación gráfica y diseño técnico.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+       Aprendizaje Basado en Proyectos (ABP)
+       Aprendizaje en Contextos Reales
+       Role-Playing y Simulaciones
+       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                              Detalle de especificaciones              Cantidad
+Denominación
+                              técnicas
+Infraestructura/espacio       Entorno de aprendizaje (aula)            1
+
+Laboratorio                   Computadoras con acceso a internet       1
+                              Proyector
+Referencias Bibliográficas
+
+
+Fernández-Bravo, P. U. (2009). Mecanizado básico. Paraninfo.
+          https://www.paraninfo.es/catalogo/9788497326933/mecanizado-basico
+
+Fernández Saavedra, D. (2019). Material docente: Dibujo Industrial I. Diseño asistido por
+          ordenador (CAD). Universidad Politécnica de Madrid. https://oa.upm.es/57277/
+
+Gómez González, S. (2018). Interpretación gráfica. Paraninfo.
+        https://www.paraninfo.es/catalogo/9788428339773/interpretacion-grafica
+
+Organización Internacional de Normalización. (2017). ISO 128-1:2017. Technical
+          drawings—General principles of presentation—Part 1: Introduction and index.
+          https://www.iso.org/standard/65023.html
+
+Organización Internacional de Normalización. (2020). ISO 129-1:2018. Technical product
+          documentation (TPD)—Presentation of dimensions and tolerances.
+          https://www.iso.org/standard/70657.html
+
+Razo-Arteaga, V. A. (2022). El diseño, la manufactura y análisis asistido por computadora
+          (CAD/CAM/CAE) en el desarrollo de productos en América Latina. Información
+          Tecnológica, 33(2), 297–308.
+          https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-
+          07642022000200297
+
+Revatta Espinoza, J. (2016). Dibujo para diseño de ingeniería I. Universidad Continental.
+          https://repositorio.continental.edu.pe/handle/20.500.12394/2210
+
+SOLIDWORKS. (2025). 3D ContentCentral®. Biblioteca gratuita de modelos CAD 2D y
+       3D. https://www.3dcontentcentral.com/
+       4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Climatización desarrollan
+las competencias necesarias para realizar operaciones de montaje, instalación,
+mantenimiento, reparación y mejora de sistemas de climatización.
+
+Se estructuran los siguientes módulos de especialización:
+
+   •   Instalación de Sistemas de Climatización y Refrigeración
+   •   Montaje de Sistemas
+   •   Mantenimiento Técnico de Sistemas Térmicos
+   •   Ahorro Energético
+   •   Proyectos de Climatización y Refrigeración
+                             Módulo de Especialización Nro.1
+
+Nombre del módulo:                       Instalación de    Sistemas    de   Climatización   y
+                                         Refrigeración
+
+Nivel:                                   1ro, 2do, 3ro
+
+Duración:                                400 periodos pedagógicos
+
+Unidad de competencia asociada:          UC1: Instalar sistemas de climatización y
+                                         refrigeración en edificaciones residenciales,
+                                         comerciales o industriales, aplicando criterios de
+                                         eficiencia energética, sostenibilidad ambiental y
+                                         oportunidades de emprendimiento técnico.
+Objetivo del módulo: Aplicar procedimientos técnicos para la instalación de sistemas de
+climatización y refrigeración en edificaciones residenciales, comerciales o industriales,
+considerando criterios de eficiencia energética, sostenibilidad ambiental y oportunidades de
+emprendimiento técnico, de acuerdo con planos, normativas vigentes y las demandas del
+entorno productivo.
+Resultados de Aprendizaje (RA) – Criterios de Evaluación (CE)
+RA 1: Interpretar planos técnicos, esquemas y manuales de instalación de sistemas
+térmicos, reconociendo componentes, conexiones y condiciones técnicas que
+influyen en la eficiencia energética y la sostenibilidad del sistema.
+CE1.1: Distingue los símbolos, componentes y conexiones representados en planos
+técnicos, esquemas y manuales básicos de sistemas térmicos.
+CE1.2: Relaciona la información contenida en planos y manuales con los procesos técnicos
+necesarios para la instalación eficiente de sistemas térmicos.
+CE1.3: Analiza las condiciones técnicas descritas en los documentos y planos para prever
+posibles interferencias o requisitos específicos durante la instalación.
+CE1.4: Propone ajustes o recomendaciones sobre la interpretación de los planos y
+manuales, con base en criterios de sostenibilidad, eficiencia energética y el contexto de uso.
+RA 2: Seleccionar herramientas, materiales y equipos eficientes y compatibles con
+prácticas sostenibles, considerando el tipo de edificación, las condiciones de uso y
+el cumplimiento normativo.
+CE2.1: Diferencia las funciones y características básicas de herramientas, materiales y
+equipos utilizados en sistemas térmicos.
+CE2.2: Aplica adecuadamente herramientas y materiales en función del tipo de instalación,
+edificación y condiciones operativas.
+CE2.3: Verifica la compatibilidad de los equipos seleccionados con normativas técnicas y
+criterios de sostenibilidad ambiental.
+CE2.4: Plantea alternativas de selección más eficientes o sostenibles en herramientas o
+equipos, justificando técnica y ambientalmente su elección.
+RA 3: Aplicar sistemas de climatización y refrigeración, aplicando buenas prácticas
+técnicas, ambientales y de seguridad que aseguren el óptimo funcionamiento, bajo
+consumo energético y reducción del impacto ambiental.
+CE3.1: Describe los procedimientos básicos para la instalación segura y eficiente de
+sistemas de climatización y refrigeración.
+CE3.2: Ejecuta la instalación de sistemas térmicos siguiendo las especificaciones técnicas,
+normas de seguridad y criterios ambientales establecidos.
+CE3.3: Realiza medidas preventivas para minimizar el consumo energético y el impacto
+ambiental durante la instalación.
+CE3.4: Presenta mejoras en los procesos de instalación que contribuyan a optimizar el
+rendimiento energético y la sostenibilidad del sistema instalado.
+RA4: Proponer mejoras en la configuración, ubicación o selección de componentes
+para optimizar el desempeño energético del sistema, reducir costos de operación y
+abrir posibilidades para servicios técnicos sostenibles y emprendimientos propios.
+CE4.1: Distingue factores técnicos, energéticos y económicos que influyen en el desempeño
+de los sistemas térmicos.
+CE4.2: Selecciona prácticas y configuraciones que favorecen la eficiencia energética y
+reducen el impacto ambiental en la instalación de sistemas de climatización.
+CE4.3: Aplica técnicas de ajuste (calibración, ubicación de sensores, aislamiento de
+tuberías) para optimizar el rendimiento del sistema y reducir pérdidas energéticas.
+CE4.4: Plantea mejoras técnicas o de diseño que potencien el ahorro energético, la vida útil
+del sistema o la creación de servicios técnicos diferenciados como parte de una iniciativa de
+emprendimiento sostenible.
+Contenidos
+Conceptuales                         Procedimentales                    Actitudinales
+
+•   Tipos de planos técnicos •         Interpretar       planos       y •   Mostrar rigurosidad en
+    y simbología empleada              esquemas de instalación.             la        lectura        e
+    en sistemas térmicos.        •     Identificar       componentes        interpretación          de
+•   Esquemas de conexión               técnicos y su función.               planos, esquemas o
+    para         climatización, •      Analizar condiciones técnicas        manuales técnicos.
+    refrigeración              y       específicas       para      una •    Ordenar y cuidar las
+    calefacción.                       instalación      eficiente     y     herramientas             y
+•   Manuales          técnicos:        sostenible.                          materiales.
+    lectura,    estructura     y •     Relacionar la información •          Atender con precisión
+    aplicación.                        técnica          con         los     los detalles en la
+•   Componentes              de        requerimientos de instalación.       identificación           y
+    sistemas           térmicos •      Seleccionar        herramientas      selección               de
+    (unidades internas y               según la actividad técnica y         componentes.
+    externas,          válvulas,       condiciones del entorno.         •   Emplear la normativa y
+    sensores, ductos, entre •          Comparar materiales según            especificaciones
+    otras).                            eficiencia,     durabilidad    e     técnicas que apoyen en
+•   Principios de eficiencia           impacto ambiental.                   la eficiencia energética
+    energética                 y •     Aplicar criterios normativos en      y sostenibilidad.
+    sostenibilidad           en        la elección de insumos.          •   Cumplir      de     forma
+    instalaciones térmicas.      •     Evaluar la compatibilidad            estricta las normas de
+•   Herramientas y equipos             técnica entre equipos y              seguridad       industrial,
+    para          instalaciones        edificaciones.                       salud ocupacional y
+    térmicas: tipos y usos.      •     Realizar el proceso de               protección ambiental.
+•   Materiales sostenibles y           instalación paso a paso.  •          Demostrar
+    eficientes               en                                             responsabilidad y ética
+   instalaciones            de •    Aplicar normas de seguridad         en el uso de recursos
+   climatización              y     y uso correcto del EPP.             naturales                 y
+   refrigeración.               •   Revisar      y    ajustar   los     tecnológicos.
+• Normativa nacional e              parámetros de operación de •        Actuar proactivamente
+   internacional         sobre      equipos térmicos.                   frente a la prevención
+   eficiencia energética y •        Diagnosticar errores comunes        de riesgos y la mejora
+   sostenibilidad      (INEC,       en la instalación y su              de procesos técnicos.
+   ISO, RETIE, entre otras).        corrección.                     •   Cuidar el entorno y uso
+• Tipologías                de •    Analizar      el    desempeño       racional de energía y
+   edificaciones     y     sus      energético y funcional de           materiales.
+   requerimientos térmicos.         instalaciones térmicas.         •   Resolver problemas y
+• Principios                de •    Identificar las oportunidades       proponer      soluciones
+   funcionamiento           de      de mejora a partir de               técnicas sostenibles.
+   sistemas de climatización        observación y datos.            •   Demostrar       iniciativa
+   y refrigeración.             •   Justificar técnicamente el plan     personal             para
+• Buenas prácticas en               de mejora de una instalación.       emprender y mejorar
+   instalaciones     térmicas •     Elaborar propuestas técnicas        procesos en el contexto
+   (alineación,       sellado,      sostenibles y viables.              productivo.
+   calibración, entre otras).                                       •   Sensibilizar     a     los
+• Normas de seguridad                                                   usuarios de sistemas de
+   industrial,           salud                                          climatización     en     la
+   ocupacional y protección                                             necesidad del ahorro
+   ambiental.                                                           energético.
+• Técnicas de instalación                                          •    Colaborar con el equipo
+   eficiente y sostenible.                                              de      trabajo      para
+• Factores que influyen en                                              desarrollar    proyectos
+   el desempeño energético                                              viables                 de
+   de sistemas térmicos.                                                emprendimiento.
+• Criterios técnicos para
+   proponer          mejoras:
+   eficiencia, sostenibilidad,
+   costo-beneficio.
+• Diseño de soluciones
+   sostenibles en contextos
+   reales.
+• Fundamentos               de
+   emprendimiento técnico
+   sostenible.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica,
+   Mecánica Industrial, Climatización, Instalaciones Térmicas, Electrónica, Electricidad,
+   Construcción Sostenible o carreras afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación              Detalle de especificaciones técnicas                 Cantidad
+
+Infraestructura/espacio   Entorno de aprendizaje (aula)                         1
+
+Infraestructura/espacio   Espacio adecuado para trabajo individual y            1
+                          grupal, con buena iluminación y ventilación.
+Laboratorio               Computadoras con acceso a internet                    1
+                          Proyector
+
+
+Equipos/herramientas      Herramientas:
+                          Aire acondicionado tipo split y central.
+                          Cámaras frigoríficas pequeñas o simuladores.
+                          Sistemas de calefacción y bombas de calor.
+                          Redes de distribución de agua y gas.
+                          Bancos de prueba o paneles de prácticas
+                          térmicas.
+                          Llaves ajustables, destornilladores, alicates,
+                          pinzas de presión.
+                          Cortatubos, dobladoras de tubo, expansores.
+                          Taladros, sierras eléctricas, multímetros y
+                          manómetros.
+                          Equipos de Medición y Control:
+                          Termómetros de contacto e infrarrojo.
+                          Medidores de presión y vacío.
+                          Medidores de flujo, consumo energético y
+                          fugas.
+                          Balanzas, termohigrómetros.
+                          Equipo de Protección Personal (EPP):
+                          Cascos, gafas       de   seguridad,     guantes
+                          dieléctricos.
+                          Ropa de trabajo y calzado con punta de acero.
+                          Mascarillas   o    respiradores,    protectores
+                          auditivos.
+                          Recursos Didácticos
+                           Manuales técnicos actualizados (en formato
+                           físico o digital).
+                          Software para diseño o simulación de sistemas
+                          térmicos (básico/intermedio).
+                          Acceso a recursos audiovisuales y OVA sobre
+                          climatización y sostenibilidad.
+Referencias Bibliográficas
+
+ Álava Vélez, C. E., Gonzales Vega, A. A., Ortiz Caicedo, P. L., & Chica Tambaco, A. J.
+        (2024). Eficiencia energética en sistemas de calefacción y refrigeración. Polo del
+        Conocimiento,                                                                9(4).
+        https://polodelconocimiento.com/ojs/index.php/es/article/view/6934
+
+ Chatellier-Lorentzen, D., Díaz-González, A., McNeil, M., & de la Rue du Can, S. (2024).
+         Nueva norma de eficiencia energética mínima para aparatos de aire acondicionado
+         en       el    Ecuador.        Lawrence         Berkeley       National Laboratory.
+         https://eta-publications.lbl.gov/sites/default/files/spanish_-
+         _meps_for_ac_in_ecuador_final.pdf
+
+ Echeverría Reina, A. J., García Arredondo, J. C., & Panesso Tascón, J. (2022).
+       Implementación de medidas de eficiencia energética para la construcción factible
+       de un refrigerador comercial con suministro de energía solar fotovoltaica. Ciencia e
+       Ingeniería                Neogranadina,               32(2),                 61–84.
+       https://doi.org/10.18359/rcin.5783
+       https://www.scielo.org.co/scielo.php?pid=S0124-
+       81702022000200061&script=sci_arttext
+
+ Fundación BUN-CA. (2011). Manual técnico de refrigeración comercial. Fundación Red de
+       Energía     BUN-CA       y     Universidad     Tecnológica      de     Panamá.
+       https://www.bun-ca.org/wp-content/uploads/2019/02/Refrigeracion.pdf
+
+ Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2021). Buenas
+        prácticas en los procesos de instalación y mantenimiento de sistemas de
+        refrigeración    y    aire    acondicionado.     Gobierno    del      Ecuador.
+        https://www.produccion.gob.ec/wp-content/uploads/2021/06/Manual-refrigeracion-
+        y-aire-acondicionado.pdf
+
+ Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del
+        trabajo.                 Gobierno                 del                Ecuador.
+        https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-
+        de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+ Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el
+        Trabajo     (Decreto    Ejecutivo   N.º    255).   Gobierno  del   Ecuador.
+        https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-
+        255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+
+ Ministerio para la Transición Ecológica y el Reto Demográfico. (2021). Reglamento de
+      Instalaciones Térmicas en los Edificios (RITE): Real Decreto 178/2021, de 23 de
+      marzo.                  Gobierno                      de                España.
+      https://www.miteco.gob.es/es/energia/eficiencia/rite.html
+
+Programa de las Naciones Unidas para el Medio Ambiente. (2023). Compromiso Mundial
+      por                  el                 Enfriamiento.                PNUMA.
+      https://www.unep.org/es/resources/informe/compromiso-mundial-por-el-
+      enfriamiento
+                               Módulo de Especialización Nro.2
+
+Nombre del módulo de:                    Montaje de Sistemas
+
+Nivel:                                   1ro, 2do, 3ro
+
+Duración:                                360 periodos pedagógicos
+
+Unidad de competencia asociada:           UC2: Implementar redes de distribución de agua, gases
+                                          y combustibles asociadas a sistemas térmicos,
+                                          aplicando     criterios   de     eficiencia   energética,
+                                          sostenibilidad ambiental y seguridad, según el tipo de
+                                          edificación, normativa técnica y condiciones del entorno
+                                          productivo.
+Objetivo del módulo: Aplicar procedimientos técnicos y normativas vigentes para la instalación
+de redes de distribución de agua, gases y combustibles asociadas a sistemas térmicos,
+considerando criterios de eficiencia energética, sostenibilidad ambiental y condiciones del entorno
+productivo, con el fin de garantizar la seguridad, el cumplimiento técnico y la adaptación al tipo
+de edificación.
+Resultados de Aprendizaje (RA) – Criterios de Evaluación (CE)
+RA1: Interpretar planos, diagramas y fichas técnicas de redes hidráulicas, de gas y
+combustibles, identificando trayectorias, puntos críticos de instalación y condiciones
+técnicas y de seguridad.
+CE1.1: Distingue símbolos, tipos de líneas, escalas y convenciones gráficas en planos y
+esquemas de redes térmicas, comprendiendo su significado técnico.
+CE1.2: Ubica correctamente en los planos los puntos de conexión, derivación y paso de tuberías
+de agua, gas y combustibles, reconociendo las condiciones específicas de montaje.
+CE1.3: Relaciona la información de los planos con las condiciones reales del entorno (tipo de
+edificación, acceso, espacio físico), anticipando posibles dificultades de instalación.
+CE1.4: Propone ajustes o recomendaciones sobre trayectorias o ubicación de elementos de red,
+considerando eficiencia en el uso del espacio, seguridad operativa y criterios sostenibles que
+podrían integrarse en un servicio técnico o emprendimiento.
+RA2: Seleccionar materiales, equipos y accesorios adecuados para el tendido y conexión
+de redes térmicas, considerando eficiencia, normativas y sostenibilidad.
+CE2.1: Clasifica materiales y componentes de uso común en redes de agua, gases y
+combustibles, reconociendo sus propiedades técnicas, eficiencia y compatibilidad con
+normativas.
+CE2.2: Utiliza materiales y equipos de instalación (tuberías, válvulas, uniones, herramientas) de
+acuerdo con el tipo de fluido, presión de trabajo, condiciones ambientales y seguridad.
+CE2.3: Aplica criterios técnicos y ambientales para elegir alternativas que optimicen el consumo
+de recursos y reduzcan el impacto ambiental, priorizando eficiencia energética y durabilidad.
+CE2.4: Presenta alternativas sostenibles y técnicamente viables ante limitaciones de materiales
+o recursos disponibles en obra, considerando su posible aplicación en servicios autónomos o
+iniciativas de emprendimiento local.
+RA3: Integrar redes de distribución de agua, gases o combustibles de manera segura,
+eficiente y ambientalmente responsable.
+CE3.1: Reconoce los pasos básicos del procedimiento de instalación para redes de distribución
+de agua, gases o combustibles, destacando los riesgos y precauciones necesarios.
+CE3.2: Ejecuta el tendido e interconexión de tuberías y accesorios según planos y normas
+técnicas, asegurando estanqueidad, alineación y fijación adecuada.
+CE3.3: Aplica medidas de seguridad personal, ambiental y operativa durante la instalación,
+evitando fugas, pérdidas o impactos negativos al entorno.
+CE3.4: Formula ajustes técnicos o de procedimiento durante la instalación de redes ante
+condiciones imprevistas (espacio limitado, interferencias, cambios de diseño), manteniendo la
+funcionalidad, seguridad y eficiencia del sistema
+RA4: Proponer soluciones técnicas para adaptar instalaciones a condiciones reales de
+obra, integrando criterios de ahorro energético, seguridad y emprendimiento.
+CE4.1: Diferencia los factores del entorno de instalación (limitaciones físicas, condiciones de
+seguridad, accesibilidad, normativas locales) que pueden afectar la ejecución de la red.
+CE4.2: Analiza posibles interferencias o restricciones en el sitio de instalación y plantea
+alternativas viables para su ejecución sin comprometer la funcionalidad del sistema.
+CE4.3: Aplica criterios de eficiencia energética y sostenibilidad al proponer cambios en la
+disposición, materiales o métodos de instalación.
+CE4.4: Expone soluciones técnicas contextualizadas que mejoren el diseño o ejecución de redes
+térmicas, considerando su replicabilidad como parte de un servicio técnico o una iniciativa de
+emprendimiento local.
+Contenidos
+Conceptuales                     Procedimentales                      Actitudinales
+•   Tipos de planos de redes     •   Interpretar planos técnicos.     •   Cumplir               normas,
+    térmicas (agua, gas,         •   Identificar las trayectorias,        procedimientos y verificar
+    combustibles).                   puntos críticos y conexiones         con precisión cada etapa
+•   Simbología técnica y             en esquemas.                         del trabajo.
+    convencional (válvulas,      •   Analizar           condiciones   •   Aplicar      criterios     de
+    uniones, trayectorias).          técnicas          (pendientes,       sostenibilidad, uso eficiente
+•   Principios básicos de            ventilación, distancias).            de recursos y minimización
+    presión,     caudal      y   •   Evaluar riesgos en zonas de          de impactos.
+    temperatura.                     instalación.                     •   Demostrar proactividad en
+•   Normativa técnica vigente    •   Comparar y seleccionar               la resolución de problemas.
+    sobre redes térmicas.            materiales según tipo de         •   Identificar    y     proponer
+•   Criterios de eficiencia          fluido y uso.                        soluciones técnicas ante
+    energética               y   •   Elaborar fichas técnicas.            situaciones      reales    de
+    sostenibilidad          en   •   Evaluar la eficiencia y              instalación.
+    instalaciones.                   compatibilidad de equipos y      •   Manifestar                 un
+•   Tipos de tuberías y              accesorios.                          comportamiento ético y
+    materiales: PVC, PEX,        •   Justificar técnicamente la           honesto en el ámbito
+    cobre, acero galvanizado,        selección de insumos.                educativo
+    entre otras.                 •   Ejecutar el trazado y tendido    •   Actuar con integridad y
+•   Accesorios y válvulas            de redes en maquetas o               reportar errores o riesgos
+    para redes hidráulicas y         talleres.                            con responsabilidad.
+    de gas.
+•  Equipos        de    corte,    •   Usar herramientas y equipos          •   Colaborar y comunicar al
+   medición y unión.                  de forma segura.                         equipo     la    necesidades
+• Normativa de materiales         •   Instalar    válvulas,     filtros,       personales y técnicas.
+   y compatibilidad química.          conexiones y sistemas de             •   Participar activamente en el
+• Criterios de sostenibilidad         anclaje.                                 trabajo     en    equipo    y
+   en la selección de             •   Aplicar pruebas de presión o             mantener                 una
+   materiales.                        estanqueidad.                            comunicación efectiva.
+• Procedimientos técnicos         •   Registrar       procesos         y   •   Cuidar los recursos y
+   de instalación de redes.           resultados.                              ordenar el trabajo.
+• Seguridad en trabajos           •   Analizar las condiciones             •   Usar         adecuadamente
+   con gases, agua caliente           reales en simulaciones o                 herramientas, materiales y
+   y combustibles.                    prácticas de campo.                      mantiene limpio el entorno.
+• Buenas             prácticas    •   Formular alternativas de             •   Mostrar una actitud de
+   ambientales       en      la       instalación y comparación                aprendizaje.
+   instalación.                       técnica.                             •   Aceptar                    la
+• Tipos de uniones y              •   Presentar           propuestas           retroalimentación, para la
+   conexiones         seguras         justificadas           (croquis,         mejora de su desempeño y
+   (roscas,       termofusión,        memoria técnica).                        mantener una apertura
+   soldadura).                    •   Aplicar criterios de viabilidad,         frente    al    conocimiento
+• Principios                de        ahorro y sostenibilidad.                 técnico.
+   mantenimiento
+   preventivo               en
+   instalaciones.
+• Fundamentos de diseño
+   adaptativo y soluciones in
+   situ.
+• Variables del entorno que
+   afectan una instalación
+   (espacio,            clima,
+   normativa).
+• Criterios para evaluar
+   soluciones eficientes y
+   seguras.
+• Principios básicos de
+   optimización energética y
+   económica.
+ Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica, Mecánica
+   Industrial, Climatización, Instalaciones Térmicas, Electrónica, Electricidad, Construcción
+   Sostenible o carreras afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación               Detalle de especificaciones técnicas                    Cantidad
+
+Infraestructura/espacio    Entorno de aprendizaje (aula)                             1
+Laboratorio                Computadoras con acceso a internet                        1
+                           Proyector
+
+Equipos/herramientas       Equipamiento general:
+                           Sistemas de redes hidráulicas y de gas
+                           simuladas, armables y desarmables, para
+                           prácticas reales y controladas.
+                           Banco de prácticas térmicas con componentes
+                           reales de instalaciones (válvulas, medidores,
+                           conexiones, accesorios).
+                           Estación de soldadura blanda y fuerte, con
+                           extractores de humo.
+                           Paneles de entrenamiento para conexiones con
+                           diferentes tipos de tubería (PVC, PPR, cobre,
+                           acero galvanizado, entre otras).
+                           Kit de ensayo de estanqueidad y presión.
+                           Herramientas y materiales:
+                           Llaves de boca, ajustables, grifa, prensa tubo,
+                           cortadores de tubo, expansores.
+                           Taladros eléctricos, niveladores, flexómetros,
+                           cintas métricas.
+                           Kit de seguridad (guantes dieléctricos, gafas,
+                           tapones auditivos, cascos, botas con puntera).
+                           Extintores tipo ABC disponibles y accesibles.
+                           Material didáctico: planos, fichas técnicas,
+                           manuales, catálogos de fabricantes.
+Referencias Bibliográficas
+
+ Chatellier-Lorentzen, D., Díaz-González, A., McNeil, M., & de la Rue du Can, S. (2024). Nueva
+         norma de eficiencia energética mínima para aparatos de aire acondicionado en el
+         Ecuador.             Lawrence            Berkeley            National      Laboratory.
+         https://eta-publications.lbl.gov/sites/default/files/spanish_-
+         _meps_for_ac_in_ecuador_final.pdf
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2021). Buenas prácticas
+       en los procesos de instalación y mantenimiento de sistemas de refrigeración y aire
+       acondicionado.                Gobierno                  del               Ecuador.
+       https://www.produccion.gob.ec/wp-content/uploads/2021/06/Manual-refrigeracion-y-
+       aire-acondicionado.pdf
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2023). Guía para la gestión
+       integral de equipos de refrigeración y aire acondicionado durante su tiempo de vida y
+       disposición             final.           Gobierno             del             Ecuador.
+       https://ozonoecuador.produccion.gob.ec/wp-content/uploads/2023/07/Guia-para-la-
+       gestion-integral-de-equipos-de-refrigeracion-y-aire-acondicionado-durante-su-tiempo-
+       de-vida-y-disposicion-final_compressed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del trabajo.
+       Gobierno                                  del                                Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-de-
+       Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el Trabajo
+       (Decreto        Ejecutivo      N.º      255).     Gobierno       del      Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-255-
+       REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+
+Ministerio para la Transición Ecológica y el Reto Demográfico. (2021). Reglamento de
+       Instalaciones Térmicas en los Edificios (RITE): Modificación mediante Real Decreto
+       178/2021,       de     23      de        marzo.        Gobierno    de      España.
+       https://www.miteco.gob.es/es/energia/eficiencia/rite.html
+
+Organismo Supervisor de la Inversión en Energía y Minería. (2022). Procedimiento para la
+       habilitación y mantenimiento de las instalaciones internas de gas natural de
+       consumidores directos y usuarios de GNC o GNL (Resolución de Consejo Directivo N.º
+       090-2022-OS/CD). Osinergmin.
+
+Organismo Supervisor de la Inversión en Energía y Minería. (2024). Informe Técnico N.º 339-
+       2024-GRT: Costos y especificaciones técnicas relacionadas con instalaciones internas
+       de                    gas                   natural.                    Osinergmin.
+       https://www.osinergmin.gob.pe/Resoluciones/pdf/2024/Informe-Tecnico-339-2024-
+       GRT.pdf
+
+Vázquez Arenas, G. (2011). Manual de instalaciones de fontanería, evacuación y saneamiento
+      y energía solar en edificación. Universidad Politécnica de Cartagena.
+      https://repositorio.upct.es/entities/publication/59547241-45cb-408a-999b-
+      6704b6583eb1
+                               Módulo de Especialización Nro.3
+
+Nombre del módulo de:                    Mantenimiento Técnico Sistemas Térmicos
+
+Nivel:                                   1ro, 2do, 3ro
+
+Duración:                                400 periodos pedagógicos
+
+Unidad de competencia asociada:            UC3: Ejecutar mantenimiento preventivo y correctivo en
+                                           sistemas térmicos, asegurando su operatividad,
+                                           prolongación de vida útil y reducción del impacto
+                                           ambiental mediante buenas prácticas técnicas.
+Objetivo del módulo: Desarrollar mantenimiento preventivo y correctivo en sistemas térmicos,
+garantizando su operatividad y prolongación de vida útil. Los estudiantes aprenderán a
+diagnosticar fallas, realizar ajustes y reemplazos de componentes, y aplicar prácticas sostenibles
+y de bajo impacto ambiental en los procesos de mantenimiento de sistemas térmicos de
+climatización y refrigeración.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Diferenciar componentes, funciones y señales de falla en sistemas térmicos,
+interpretando manuales técnicos, esquemas de operación y evidencias de deterioro en
+condiciones reales de uso.
+CE1.1: Distingue los componentes principales de sistemas térmicos (unidades de condensación,
+evaporadores, termostatos, filtros, válvulas, entre otras) y describe su función básica a partir de
+manuales técnicos o planos.
+CE1.2: Inspecciona visualmente y mediante pruebas simples el estado de los componentes,
+detectando señales de desgaste, ruidos anómalos, fugas o acumulación de residuos.
+CE1.3: Registra los síntomas o indicadores de fallas observados, relacionándolos con posibles
+causas técnicas conforme a protocolos de diagnóstico preventivo.
+CE1.4: Plantea una hipótesis de falla basada en la información recogida, considerando su impacto
+en la eficiencia energética, seguridad del sistema y posibles soluciones técnicas aplicables.
+RA 2: Realizar mantenimiento preventivo en equipos térmicos, aplicando procedimientos
+técnicos establecidos que aseguren eficiencia energética, operación segura y
+continuidad del servicio.
+CE2.1: Selecciona las tareas y frecuencias recomendadas para el mantenimiento preventivo de
+sistemas térmicos, según manuales técnicos, tipo de equipo y condiciones de uso.
+CE2.2: Aplica rutinas de mantenimiento preventivo (limpieza de filtros, revisión de conexiones,
+verificación de presiones, lubricación, entre otros) utilizando herramientas adecuadas y siguiendo
+protocolos técnicos.
+CE2.3: Emplea medidas de seguridad personal y ambiental durante el mantenimiento,
+minimizando riesgos y el uso innecesario de recursos energéticos o materiales.
+CE2.4: Formula ajustes al plan de mantenimiento preventivo considerando el entorno de uso, la
+carga de trabajo del equipo y estrategias para optimizar el consumo energético y prolongar la vida
+útil del sistema.
+RA 3: Aplicar acciones correctivas básicas en sistemas térmicos (ajustes, sustitución
+de partes, limpieza, sellado), aplicando criterios técnicos y buenas prácticas para la
+sostenibilidad y reducción de residuos.
+CE3.1: Selecciona los procedimientos básicos para corregir fallas comunes en sistemas térmicos,
+de acuerdo con la naturaleza del equipo y el tipo de avería.
+CE3.2: Emplea ajustes, reparaciones o reemplazo de componentes defectuosos (válvulas,
+sensores, cables, tubos, entre otras) utilizando herramientas, materiales y técnicas adecuadas.
+CE3.3: Utiliza prácticas de mantenimiento correctivo que reduzcan residuos y eviten el reemplazo
+innecesario de piezas, promoviendo el uso racional de recursos.
+CE3.4: Propone mejoras en los procedimientos correctivos que aumenten la eficiencia del
+sistema, reduzcan el tiempo de intervención y puedan ser implementadas en contextos de
+servicios técnicos o emprendimientos personales.
+RA 4: Proponer soluciones técnicas preliminares para fallas identificadas en sistemas
+térmicos, fundamentadas en el análisis de manuales del fabricante, evidencias
+funcionales y criterios de eficiencia energética.
+CE4.1: Distingue oportunidades de mejora en el sistema térmico evaluado, a partir de
+observaciones realizadas durante el mantenimiento o diagnóstico.
+CE4.2: Realiza recomendaciones técnicas que mejoren la eficiencia energética o funcionalidad
+del sistema (cambios en configuración, uso de termostatos, ventilación, entre otras).
+CE4.3: Emplea principios de sostenibilidad y responsabilidad ambiental en prácticas de
+mantenimiento, selección de componentes o reducción de consumo energético.
+CE4.4: Desarrolla un servicio técnico para contextos locales, considerando necesidades del
+cliente, viabilidad económica y criterios de emprendimiento técnico.
+Contenidos
+Conceptuales                      Procedimentales                         Actitudinales
+•   Tipología de sistemas         •   Interpretar manuales y fichas       •   Demostrar responsabilidad
+    térmicos: climatización,          técnicas.                               y compromiso con la
+    refrigeración, calefacción.   •   Inspeccionar visualmente la             seguridad personal, de
+•   Componentes                       funcionalidad del sistema.              terceros y del entorno
+    fundamentales:                •   Identificar síntomas de fallas          durante la ejecución de
+    compresores,                      comunes.                                tareas técnicas.
+    condensadores,                •   Registrar de observaciones          •   Minimizar           impactos
+    evaporadores,                     técnicas.                               negativos, promoviendo el
+    termostatos, válvulas.        •   Analizar las causas de fallos.          uso eficiente y responsable
+•   Principios              de    •   Aplicar procedimientos de               de los recursos.
+    funcionamiento térmico.           limpieza, ajuste y lubricación.     •   Demostrar integridad y
+•   Señales de fallas: ruidos,    •   Verificar las de conexiones             honestidad        en       el
+    vibraciones,         fugas,       eléctricas y de fluidos.                diagnóstico, mantenimiento
+    variaciones             de    •   Sustituir filtros, empaques,            y    las    propuestas    de
+    temperatura o presión.            correas, entre otras                    soluciones técnicas.
+•   Manuales y simbología         •   Usar las de herramientas y          •   Actuar con proactividad y
+    técnicos.                         EPP durante las operaciones             disposición para identificar
+•   Criterios de eficiencia           de trabajo.                             problemas       y     buscar
+    energética                y   •   Elaborar       registros       de       soluciones innovadoras o
+    funcionamiento óptimo.            mantenimiento.                          mejoras continuas.
+•   Concepto y tipos de           •   Diagnosticar       las     fallas   •   Cuidar los equipos y
+    mantenimiento:                    mediante                pruebas         materiales, preservando su
+    preventivo, predictivo y          funcionales.                            funcionalidad y prolongando
+    correctivo.                   •   Reemplazar        las    piezas         su vida útil.
+•   Normativas de seguridad           defectuosas           (válvulas,    •   Trabajar colaborativamente
+    técnica y ambiental.              sensores, termostatos, entre            y        comunicar       las
+                                      otras).                                 necesidades personales y
+•  Parámetros de operación         •   Ajustar     los     parámetros       de trabajo de forma efectiva
+   eficiente.                          técnicos del sistema.                con compañeros, clientes y
+• Planificación de rutinas         •   Realizar        Pruebas      de      responsables técnicos.
+   de mantenimiento.                   verificación post-reparación. •      Aprender continuamente.
+• Importancia               del    •   Gestionar       los    residuos •    Mostrar     receptividad     a
+   mantenimiento en la vida            generados                    en      nuevas              técnicas,
+   útil del equipo.                    mantenimiento.                       normativas y tecnologías
+• Diferencias            entre     •   Analizar         datos       del     del sector.
+   mantenimiento                       diagnóstico técnico.             •   Organizar      y    observar
+   preventivo y correctivo.        •   Elaborar      propuestas     de      puntualidad        en        el
+• Tipología       de     fallas        mejora         (cambio       de      cumplimiento       de      las
+   frecuentes en sistemas              componentes, reubicación,            actividades     y    registros
+   térmicos.                           ajustes).                            técnicos.
+• Principios                 de    •   Argumentar técnicamente las
+   sostenibilidad            en        recomendaciones.
+   mantenimiento:                  •   Presentar de forma oral o
+   reducción de residuos y             escrita al cliente/responsable
+   consumo energético.                 el     funcionamiento        del
+• Normas             técnicas          sistema.
+   aplicables                 al   •   Diseñar de forma básica
+   mantenimiento                       servicios de mantenimiento
+   correctivo.                         autónomo.
+• Procedimientos             de
+   seguridad en intervención
+   técnica.
+• Fundamentos                de
+   eficiencia energética en
+   sistemas térmicos.
+• Estrategias                de
+   optimización técnica y
+   energética.
+• Criterios de sostenibilidad
+   en        operación         y
+   mantenimiento.
+• Principios básicos del
+   emprendimiento técnico.
+• Comunicación         técnica
+   con clientes o usuarios.
+ Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica, Mecánica
+   Industrial, Climatización, Instalaciones Térmicas, Electrónica, Electricidad, Construcción
+   Sostenible o carreras afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación             Detalle de especificaciones técnicas                  Cantidad
+
+Infraestructura          Entorno de aprendizaje (aula)                          1
+
+Laboratorio/ espacio     Computadoras con acceso a internet                     1
+                         Proyector
+                         Taller o laboratorio técnico especializado, con
+                         área suficiente para realizar prácticas de
+                         mantenimiento y reparación en sistemas
+                         térmicos.
+                         Zonas delimitadas para almacenamiento de
+                         herramientas, materiales, repuestos y equipos
+                         de protección personal (EPP).
+                         Áreas para uso de equipos de medición y
+                         prueba, con mesas de trabajo resistentes y
+                         superficies adecuadas.
+                         Instalaciones eléctricas y de agua conforme a
+                         normativas     de      seguridad    para   el
+                         funcionamiento de equipos y pruebas.
+
+Equipos/herramientas     Equipamiento Básico
+                         Herramientas manuales: destornilladores,
+                         llaves,   alicates,     cortadores, martillos,
+                         calibradores, entre otros.
+                         Equipos de medición: termómetros digitales,
+                         manómetros, multímetros, detectores de fugas,
+                         medidores de presión y flujo.
+                         Equipos para mantenimiento: aspiradoras
+                         industriales, bombas de vacío, equipos para
+                         recarga de refrigerantes, kits de sellado y
+                         limpieza.
+                         Materiales y repuestos básicos: empaques,
+                         filtros, juntas, tuberías, válvulas, sensores y
+                         piezas de repuesto comunes.
+
+                         Equipos de protección personal (EPP): guantes
+                         aislantes, gafas de seguridad, cascos,
+                           protección auditiva,    ropa   antiestática   y
+                           mascarillas.
+                         Sistemas de seguridad: extintores, señalización
+                         adecuada, botiquín de primeros auxilios y
+                         protocolos de emergencia visibles.
+Referencias Bibliográficas
+
+Acevedo, O. (2023). Manual para usuarios finales de sistemas de refrigeración y aire
+      acondicionado: Guía para la implementación del programa “Cero Fugas”. Ministerio de
+      Producción, Comercio Exterior, Inversiones y Pesca & Organización de las Naciones
+      Unidas             para              el            Desarrollo            Industrial.
+      https://ozonoecuador.produccion.gob.ec/wp-content/uploads/2025/03/CERO-FUGAS-
+      COMPRIMIDO.pdf
+
+Conforme-Sánchez, X. E., Veliz-Cedeño, J. J., & Vélez-Moreira, V. H. (2025). Análisis de
+      alternativas para optimizar el consumo energético de un sistema de ventilación posterior
+      al            mantenimiento.           MQRInvestigar,            9(2),            e718.
+      https://doi.org/10.56048/MQR20225.9.2.2025.e718
+
+Fundación Red de Energía BUN-CA. (2011). Manual técnico de refrigeración comercial. BUN-
+      CA.
+      https://www.bun-ca.org/wp-content/uploads/2019/02/Refrigeracion.pdf
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2021). Buenas prácticas en
+       los procesos de instalación y mantenimiento de sistemas de refrigeración y aire
+       acondicionado.                 Gobierno                   del                Ecuador.
+       https://www.produccion.gob.ec/wp-content/uploads/2021/06/Manual-refrigeracion-y-
+       aire-acondicionado.pdf
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2023). Guía para la gestión
+       integral de equipos de refrigeración y aire acondicionado durante su tiempo de vida y
+       disposición              final.           Gobierno             del             Ecuador.
+       https://ozonoecuador.produccion.gob.ec/wp-content/uploads/2023/07/Guia-para-la-
+       gestion-integral-de-equipos-de-refrigeracion-y-aire-acondicionado-durante-su-tiempo-
+       de-vida-y-disposicion-final_compressed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del trabajo.
+       Gobierno                                  del                                Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-de-
+       Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el Trabajo
+       (Decreto        Ejecutivo      N.º      255).      Gobierno         del   Ecuador.
+       https://www.trabajo.gob.ec/reglamento-de-seguridad-y-salud-en-el-trabajo/
+                               Módulo de Especialización Nro. 4
+
+Nombre del módulo:                        Ahorro Energético
+Nivel:                                    2do, 3ro
+
+Duración:                                 240 periodos pedagógicos
+
+Unidad de competencia asociada:           UC4: Optimizar el rendimiento de sistemas térmicos,
+                                          incrementando su eficiencia energética y funcional
+                                          mediante la implementación de mejoras basadas en
+                                          criterios técnicos, sostenibilidad ambiental y condiciones
+                                          del entorno productivo.
+Objetivo del módulo: Aplicar propuestas de mejora en sistemas térmicos para optimizar su
+eficiencia energética y funcionalidad, considerando criterios técnicos, principios de sostenibilidad
+ambiental y las condiciones del entorno productivo.
+Resultados de Aprendizaje (RA) – Criterios de Evaluación (CE)
+RA1: Reconocer oportunidades de mejora en sistemas térmicos a partir de su evaluación
+funcional, consumo energético y condiciones de operación.
+CE1.1: Distingue los parámetros clave que afectan el rendimiento de un sistema térmico
+(consumo eléctrico, pérdida de refrigerante, ciclos de trabajo, temperatura de retorno, entre otras).
+CE1.2: Analiza el funcionamiento del sistema en operación, comparando lecturas reales con
+valores recomendados para detectar posibles ineficiencias.
+CE1.3: Registra evidencias del comportamiento térmico y energético del sistema, utilizando
+herramientas de medición y observación directa.
+CE1.4: Deduce aspectos del sistema que podrían ser mejorados (aislamiento térmico, ubicación
+de equipos, configuración de control), justificando técnicamente su impacto positivo en
+eficiencia, sostenibilidad o funcionalidad
+RA2: Aplicar procedimientos técnicos de ajuste, configuración o modernización en
+sistemas térmicos, priorizando la mejora del rendimiento energético.
+CE2.1: Distingue los procedimientos técnicos básicos para mejorar la eficiencia de un sistema
+térmico (calibración de termostatos, limpieza de intercambiadores, optimización de flujo de aire,
+entre otros.).
+CE2.2: Ejecuta ajustes o configuraciones (presiones, temperaturas, velocidades de ventilación)
+según recomendaciones técnicas para optimizar el desempeño energético.
+CE2.3: Sustituye o reubica componentes cuando sea necesario (sensores, ductos, difusores,
+entre otros.), verificando la mejora en la operación del sistema.
+CE2.4: Formula ajustes adicionales o mejoras complementarias en función del análisis técnico,
+el entorno de uso y las condiciones específicas del equipo.
+RA3: Incorporar tecnologías, materiales o componentes que reduzcan el impacto
+ambiental y aumenten la eficiencia del sistema, según su viabilidad técnica y normativa.
+CE3.1: Selecciona tecnologías, materiales y dispositivos que contribuyen a la eficiencia
+energética y reducción del impacto ambiental (refrigerantes ecológicos, aislamiento eficiente,
+controladores inteligentes, entre otras).
+CE3.2: Plantea soluciones tecnológicas viables de acuerdo con el tipo de sistema térmico,
+condiciones del entorno y normativa vigente.
+CE3.3: Integra materiales o componentes en la instalación (reemplazo de piezas, mejoras en
+aislamiento, incorporación de controles automáticos), validando su correcto funcionamiento.
+CE3.4: Establece mejoras o sustituciones tecnológicas con base en criterios de sostenibilidad,
+eficiencia energética y costos razonables, considerando su aplicación en el entorno local o como
+oferta de valor en servicios técnicos.
+RA4: Proponer soluciones técnicas viables e innovadoras adaptadas a contextos reales,
+que respondan a necesidades del entorno y puedan desarrollarse como servicios técnicos
+o emprendimientos sostenibles.
+CE4.1: Diferencia necesidades o problemas técnicos frecuentes en sistemas térmicos del entorno
+productivo local (sobrecostos, ineficiencia, fallas repetitivas, uso inadecuado del equipo).
+CE4.2: Analiza alternativas de solución basadas en criterios técnicos, económicos y ambientales
+que puedan responder a esas necesidades específicas.
+CE4.3: Elabora propuestas de mejora o rediseño de sistemas que respondan a un contexto real,
+considerando materiales disponibles y condiciones del entorno.
+CE4.4: Desarrolla un servicio técnico o emprendimiento que incorpore las mejoras planteadas,
+destacando su valor agregado en eficiencia, sostenibilidad y aplicabilidad práctica en la
+comunidad o sector productivo.
+Contenidos
+Conceptuales                      Procedimentales                          Actitudinales
+•   Principios               de   •   Recolectar       datos     sobre     •   Demostrar responsabilidad
+    funcionamiento           de       desempeño          y    consumo          y compromiso con la
+    sistemas térmicos.                energético.                              seguridad personal, de
+•   Indicadores de eficiencia     •   Interpretar los indicadores              terceros y del entorno
+    energética en sistemas            técnicos.                                durante la ejecución de
+    térmicos.                     •   Detectar       ineficiencias     y       tareas técnicas.
+•   Criterios de diagnóstico          puntos críticos de mejora.           •   Minimizar          impactos
+    técnico y evaluación          •   Usar      instrumentos para              negativos, promoviendo el
+    funcional.                        evaluación funcional.                    uso eficiente y responsable
+•   Factores que afectan el       •   Ejecutar          ajustes        y       de los recursos.
+    rendimiento térmico.              regulaciones técnicas.               •   Demostrar integridad y
+•   Técnicas de ajuste y          •   Configurar equipos según                 honestidad        en       el
+    configuración            de       manuales del fabricante.                 diagnóstico, mantenimiento
+    sistemas térmicos.            •   Reemplazar componentes                   y    las    propuestas    de
+•   Parámetros               de       obsoletos o ineficientes.                soluciones técnicas.
+    calibración y regulación      •   Documentar procedimientos            •   Actuar con proactividad y
+    térmica.                          técnicos aplicados.                      disposición para identificar
+•   Concepto                 de   •   Investigar           alternativas        problemas       y     buscar
+    modernización                     tecnológicas y materiales.               soluciones innovadoras o
+    tecnológica.                  •   Evaluar          de        forma         mejoras continuas.
+•   Normativas         técnicas       comparativa la eficiencia y          •   Cuidar los equipos y
+    asociadas a mejoras de            sostenibilidad         de      las       materiales, preservando su
+    eficiencia.                       soluciones técnicas.                     funcionalidad y prolongando
+•   Tecnologías emergentes        •   Sustituir     elementos       por        su vida útil.
+    en      climatización     y       opciones más eficientes.             •   Trabajar colaborativamente.
+    eficiencia energética.
+•  Materiales sostenibles y      •   Verificar el cumplimiento          •   Comunicar las necesidades
+   de        bajo     impacto        normativo          tras       la       personales y de trabajo de
+   ambiental.                        implementación.                        forma       efectiva      con
+• Compatibilidad técnica y       •   Identificar oportunidades de           compañeros, clientes y
+   eficiencia de nuevos              mejora o negocio.                      responsables técnicos.
+   componentes.                  •   Diseñar              soluciones    •   Aprender continuamente.
+• Criterios de selección             adaptadas al contexto local.       •   Mostrar     receptividad     a
+   tecnológica            bajo   •   Elaborar propuestas técnicas           nuevas               técnicas,
+   normativa vigente.                con         criterios        de        normativas y tecnologías
+• Innovación y mejora                sostenibilidad.                        del sector.
+   continua en sistemas          •   Presentar y argumentar             •   Organizar      y     observar
+   térmicos.                         ideas      de      mejora      o       puntualidad        en        el
+• Metodología       para    el       emprendimiento.                        cumplimiento       de      las
+   desarrollo de propuestas                                                 actividades     y    registros
+   técnicas.                                                                técnicos.
+• Viabilidad      técnica    y
+   económica de proyectos.
+• Emprendimiento
+   sostenible en el sector
+   técnico.
+ Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica, Mecánica
+   Industrial, Climatización, Instalaciones Térmicas, Electrónica, Electricidad, Construcción
+   Sostenible, Energías Renovables, Mantenimiento Industrial o áreas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                Detalle de especificaciones técnicas                            Cantidad
+
+Infraestructura/espacio     Entorno de aprendizaje (aula)                                     1
+
+Laboratorio                 Computadoras con acceso a internet                                1
+                            Proyector
+                            Taller de sistemas térmicos con ventilación
+                            adecuada, iluminación técnica y medidas de
+                            seguridad.
+                            Espacio con tomas eléctricas, líneas de agua
+                            y gas para prácticas seguras.
+                            Área para almacenamiento seguro de
+                          equipos, herramientas y materiales.
+Equipos/herramientas      Equipamiento técnico mínimo:
+                          Sistemas térmicos desmontables o funcionales
+                          para prácticas de mantenimiento, diagnóstico y
+                          mejora.
+                          Herramientas      manuales      y    eléctricas:
+                          multímetros,        manómetros,           pinzas
+                          amperimétricas,      detectores    de     fugas,
+                          cortatubos, llaves especializadas, entre otras
+                          Equipos de protección personal (EPP): guantes
+                          dieléctricos,   gafas,    tapones   auditivos,
+                          mascarillas, ropa de trabajo.
+                          Kits de sensores para medición de temperatura,
+                          humedad, consumo energético y emisiones.
+                          Sistemas de seguridad: extintores, señalización
+                          adecuada, botiquín de primeros auxilios y
+                          protocolos de emergencia visibles.
+                          Recursos digitales y didácticos:
+                          Software de simulación térmica y eficiencia
+                          energética (p. ej. CoolPack, EnergyPlus,
+                          RETScreen u otros gratuitos).
+                          Fichas técnicas, manuales de fabricantes y
+                          normas técnicas actualizadas (ASHRAE, ISO,
+                          NTE INEN).
+Referencias Bibliográficas
+ Acevedo, O. (2023). Manual para usuarios finales de sistemas de refrigeración y aire
+        acondicionado: Guía para la implementación del programa “Cero Fugas”. Ministerio de
+        Producción, Comercio Exterior, Inversiones y Pesca & Organización de las Naciones
+        Unidas              para             el            Desarrollo            Industrial.
+        https://ozonoecuador.produccion.gob.ec/wp-content/uploads/2025/03/CERO-FUGAS-
+        COMPRIMIDO.pdf
+
+ Asamblea Nacional del Ecuador. (2019). Ley Orgánica de Eficiencia Energética. Registro
+       Oficial,     Suplemento     N.º    449,      19       de      marzo     de     2019.
+       https://www.asambleanacional.gob.ec/sites/default/files/private/asambleanacional/files
+       asambleanacionalnameuid-29/Leyes%202013-2017/558-efi-energ-ealbornoz-06-03-
+       2018/ro-efi-ro-sup-449-19-03-2019.pdf
+
+ Ávila Bareño, M. N., & Gómez, Z. (2024). Exergoeconomía y sus implicaciones con la
+        termodinámica. RIEMAT. Revista de Investigaciones en Energía, Medio Ambiente y
+        Tecnología,                               9(1),                        34–42.
+        https://doi.org/10.33936/riemat.v9i1.6791
+Chatellier-Lorentzen, D., Díaz-González, A., McNeil, M., & de la Rue du Can, S. (2024). Nueva
+        norma de eficiencia energética mínima para aparatos de aire acondicionado en el
+        Ecuador.             Lawrence            Berkeley            National      Laboratory.
+        https://eta-publications.lbl.gov/sites/default/files/spanish_-
+        _meps_for_ac_in_ecuador_final.pdf
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2021a). Buenas prácticas
+       en los procesos de instalación y mantenimiento de sistemas de refrigeración y aire
+       acondicionado.                Gobierno                  del                Ecuador.
+       https://www.produccion.gob.ec/wp-content/uploads/2021/06/Manual-refrigeracion-y-
+       aire-acondicionado.pdf
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2021b). Libro Blanco de
+       Economía        Circular    de       Ecuador.       Gobierno      del      Ecuador.
+       https://www.produccion.gob.ec/wp-content/uploads/2021/05/Libro-Blanco-final-
+       web_mayo102021.pdf
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2023a). Guía para la
+       gestión integral de equipos de refrigeración y aire acondicionado durante su tiempo de
+       vida        y        disposición       final.       Gobierno       del        Ecuador.
+       https://ozonoecuador.produccion.gob.ec/wp-content/uploads/2023/07/Guia-para-la-
+       gestion-integral-de-equipos-de-refrigeracion-y-aire-acondicionado-durante-su-tiempo-
+       de-vida-y-disposicion-final_compressed.pdf
+
+Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2023b). Hoja de ruta hacia
+       Kigali.                  Gobierno                     del                    Ecuador.
+       https://ozonoecuador.produccion.gob.ec/wp-
+       content/uploads/2023/07/HojadeRutaEcuadorbajares-final17022023_compressed.pdf
+                                Módulo de Especialización Nro. 5
+
+Nombre del módulo:                        Proyectos de Climatización y Refrigeración
+
+Nivel:                                    2do, 3ro
+
+Duración:                                 240 periodos pedagógicos
+
+Unidad de competencia asociada:          UC5: Desarrollar iniciativas de emprendimiento en el
+                                         sector de climatización, considerando el entorno
+                                         productivo local, la viabilidad técnica, los criterios de
+                                         sostenibilidad y las necesidades del mercado.
+Objetivo del módulo: Realizar propuestas de emprendimiento técnico en climatización,
+integrando el análisis del entorno productivo local, viabilidad técnica, criterios de sostenibilidad y
+demandas del mercado.
+Resultados de Aprendizaje (RA) – Criterios de Evaluación (CE)
+RA1: Reconocer oportunidades de negocio en el sector de climatización, a partir de
+problemáticas o necesidades técnicas del entorno.
+CE1.1: Diferencia problemáticas o necesidades no cubiertas en servicios de climatización del
+entorno local (fallas recurrentes, falta de mantenimiento, baja eficiencia, entre otras).
+CE1.2: Investiga las condiciones del entorno (clima, tipo de edificaciones, nivel socioeconómico,
+normativas, entre otras) que inciden en la demanda de productos o servicios en climatización.
+CE1.3: Analiza posibles soluciones técnicas que podrían generar valor, teniendo en cuenta los
+recursos, herramientas y conocimientos disponibles en su contexto.
+CE1.4: Experimenta ideas de negocio viables relacionadas con instalación, mantenimiento,
+mejora o asesoría en sistemas térmicos, que respondan a una necesidad local y aporten
+eficiencia, sostenibilidad o accesibilidad.
+RA 2: Diseñar una propuesta técnica de producto o servicio en climatización, considerando
+recursos disponibles, conocimientos adquiridos y principios de eficiencia y sostenibilidad.
+CE2.1: Selecciona los elementos básicos que debe incluir una propuesta técnica de
+emprendimiento en climatización (objetivo, servicio o producto, materiales, equipo, destinatarios,
+entre otras).
+CE2.2: Elabora el diseño técnico preliminar de un producto o servicio (por ejemplo, mantenimiento
+domiciliario, instalación eficiente, consultoría en ahorro energético), ajustado a las capacidades
+técnicas del estudiante.
+CE2.3: Incorpora principios de eficiencia energética, uso racional de recursos y sostenibilidad
+ambiental en la propuesta, justificando su pertinencia.
+CE2.4: Propone un enfoque diferenciador o valor agregado de la propuesta (servicio ecológico,
+bajo costo, innovación técnica o adaptación local) con base en su contexto social y económico.
+RA 3: Organizar los recursos humanos, materiales y técnicos necesarios para la puesta en
+marcha del emprendimiento, incluyendo la planificación básica de operaciones y costos.
+CE3.1: Emplea los recursos humanos, materiales, tecnológicos y financieros necesarios para
+iniciar el producto o servicio propuesto en climatización.
+CE3.2: Analiza un plan básico de actividades técnicas (instalación, mantenimiento, asesoría,
+distribución, entre otros.), con cronograma y responsables definidos.
+CE3.3: Calcula de forma inicial los costos operativos y precios referenciales, considerando
+materiales, tiempo de trabajo y herramientas requeridas.
+CE3.4: Formula estrategias para optimizar el uso de recursos y minimizar gastos, incluyendo
+alternativas sostenibles (materiales reutilizables, herramientas compartidas, alianzas locales,
+entre otros.).
+RA4: Proponer un modelo de negocio o servicio técnico innovador y viable, fundamentado
+en un análisis del entorno, que responda a necesidades locales y promueva el desarrollo
+sostenible.
+CE4.1: Distingue diferentes tipos de modelos de negocio aplicables al sector de climatización
+(servicio técnico, venta de repuestos, asesoría, instalación eficiente, entre otras).
+CE4.2: Desarrolla el funcionamiento general del modelo de negocio propuesto, incluyendo cliente
+objetivo, propuesta de valor, canales de atención y fuentes de ingreso.
+CE4.3: Presenta una propuesta de marca o identidad del servicio (nombre, logo, mensaje
+diferenciador), orientada al entorno local y con enfoque técnico.
+CE4.4: Aplica un modelo de negocio técnicamente viable, con enfoque sostenible e innovador,
+que responda a las condiciones del entorno productivo y contribuya a la mejora económica, social
+o ambiental de su comunidad.
+Contenidos
+Conceptuales                       Procedimentales                      Actitudinales
+•   Principales servicios y        •   Identificar         problemas    •   Mostrar       iniciativa      y
+    productos del sector de            técnicos     o   necesidades         proactividad para detectar
+    climatización.                     insatisfechas.                       oportunidades de mejora o
+•   Necesidades              del   •   Recolectar información de            negocio en el entorno
+    mercado        local       y       campo         o      mediante        técnico.
+    tendencias del entorno             encuestas.                       •   Tomar responsabilidad en la
+    productivo.                    •   Analizar el entorno local            planificación y ejecución de
+•   Tipos de problemáticas             desde       una    perspectiva       propuestas             técnicas
+    técnicas comunes en                técnica-productiva.                  orientadas a la eficiencia y
+    instalaciones térmicas.        •   Formular ideas de negocio            sostenibilidad.
+•   Introducción al concepto           en base a necesidades            •   Perseverar        frente      a
+    de      oportunidad      de        observadas.                          obstáculos            técnicos,
+    negocio y nicho de             •   Seleccionar           recursos       económicos o de gestión
+    mercado.                           disponibles      para      una       durante el desarrollo de un
+•   Componentes de una                 instalación.                         emprendimiento.
+    propuesta técnica básica.      •   Diseñar un producto o            •   Pensar de manera crítica y
+•   Recursos          técnicos,        servicio técnico viable.             creativa al generar ideas
+    materiales y humanos en        •   Aplicar los principios de            viables,    innovadoras       y
+    climatización.                     eficiencia y sostenibilidad en       sostenibles                  en
+•   Criterios de sostenibilidad        las instalaciones.                   climatización.
+    y eficiencia energética.       •   Evaluar la pertinencia técnica   •   Mantener compromiso ético
+•   Normativa            básica        de la idea de negocio.               con el bienestar del cliente,
+    relacionada      con      la   •   Elaborar listas de recursos y        el entorno y la calidad del
+    prestación de servicios            materiales necesarios.               servicio técnico prestado.
+    técnicos.                                                           •   Comunicar        de       forma
+                                                                            efectiva sus opiniones en la
+                                                                            organización de recursos,
+•  Gestión        básica      de   •   Planificar las tareas técnicas       tareas y presentaciones del
+   recursos       técnicos     y       en     la    distribución   de       emprendimiento.
+   humanos.                            funciones.                       •   Actuar con autonomía y
+• Cálculo estimado de              •   Estimar los costos iniciales y       liderazgo en la toma de
+   costos       en     servicios       para realizar una proyección         decisiones      relacionadas
+   técnicos.                           básica de ingresos/gastos.           con el desarrollo de un
+• Planificación operativa de       •   Organizar y secuenciar las           servicio técnico.
+   un          emprendimiento          actividades para la puesta en    •   Valorar la sostenibilidad y
+   (cronogramas, procesos).            marcha.                              del impacto positivo que un
+• Herramientas          simples    •   Redactar una propuesta de            emprendimiento
+   para organización de                modelo de negocio simple             responsable puede generar
+   recursos        (hojas     de       (tipo canvas).                       en la comunidad.
+   cálculo, esquemas).             •   Integrar criterios técnicos,     •   Demostrar capacidad de
+• Estructura básica de un              sostenibles y de impacto             adaptación ante cambios en
+   modelo        de     negocio        local.                               el    entorno     productivo,
+   (propuesta       de    valor,   •   Evaluar comparativamente             tecnológico o de mercado.
+   cliente, recursos clave).           las ideas de negocio.            •   Orientar al cliente y mostrar
+• Criterios de viabilidad          •   Defender la propuesta ante           sensibilidad frente a sus
+   técnica y económica.                docentes o simulación de             necesidades reales en
+• Elementos de innovación              clientes.                            contextos locales.
+   y      sostenibilidad      en
+   modelos de negocio
+   técnicos.
+• Principios de desarrollo
+   local y economía circular.
+ Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica, Mecánica
+   Industrial, Climatización, Instalaciones Térmicas, Electrónica, Electricidad, Construcción
+   Sostenible, Energías Renovables, Mantenimiento Industrial o áreas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Detalle de especificaciones técnicas                         Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                         1
+
+Laboratorio/ espacio de       Computadoras con acceso a internet                    1
+trabajo                       Proyector
+                           Material didáctico sobre modelos de negocio,
+                           marketing, sostenibilidad y gestión empresarial.
+                           Acceso a plataformas digitales de simulación o
+                           elaboración de planes de negocio (Canvas,
+                           Lean Startup, entre otras).
+Equipos/herramientas       Equipamiento técnico mínimo:
+                           Sistemas térmicos desmontables o funcionales
+                           para prácticas de mantenimiento, diagnóstico y
+                           mejora.
+                           Herramientas      manuales      y     eléctricas:
+                           multímetros,        manómetros,           pinzas
+                           amperimétricas,      detectores    de     fugas,
+                           cortatubos, llaves especializadas, entre otras
+                           Equipos de protección personal (EPP): guantes
+                           dieléctricos,   gafas,    tapones   auditivos,
+                           mascarillas, ropa de trabajo.
+                           Kits de sensores para medición de temperatura,
+                           humedad, consumo energético y emisiones.
+                         Sistemas de seguridad: extintores, señalización
+                         adecuada, botiquín de primeros auxilios y
+                         protocolos de emergencia visibles.
+Referencias Bibliográficas
+
+ Acevedo, O. (2023). Manual para usuarios finales de sistemas de refrigeración y aire
+       acondicionado: Guía para la implementación del programa “Cero Fugas”. Ministerio de
+       Producción, Comercio Exterior, Inversiones y Pesca & Organización de las Naciones
+       Unidas             para              el            Desarrollo            Industrial.
+       https://ozonoecuador.produccion.gob.ec/wp-content/uploads/2025/03/CERO-FUGAS-
+       COMPRIMIDO.pdf
+
+ Asamblea Nacional del Ecuador. (2019). Ley Orgánica de Eficiencia Energética. Registro
+       Oficial, Suplemento N.º 449, 19 de marzo de 2019.
+
+ Asamblea Nacional del Ecuador. (2020). Ley Orgánica de Emprendimiento e Innovación.
+       Registro   Oficial,    Suplemento      N.º  151,     28     de     febrero de 2020.
+       https://www.registroficial.gob.ec/suplemento-al-registro-oficial-no-151/
+
+ Chatellier-Lorentzen, D., Díaz-González, A., McNeil, M., & de la Rue du Can, S. (2024). Nueva
+         norma de eficiencia energética mínima para aparatos de aire acondicionado en el
+         Ecuador.             Lawrence            Berkeley            National      Laboratory.
+         https://eta-publications.lbl.gov/sites/default/files/spanish_-
+         _meps_for_ac_in_ecuador_final.pdf
+
+ Mageste, S., Plottier, C., Rocha, C., & Saporito, N. (2024). Empresas emergentes (start-ups)
+         en América Latina y el Caribe: Una primera aproximación a su identificación y
+         características. Comisión Económica para América Latina y el Caribe.
+         https://repositorio.cepal.org/server/api/core/bitstreams/278c3c03-ec4a-4cea-a33c-
+         20c08a30b4ef/content
+
+ Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2021). Buenas prácticas
+        en los procesos de instalación y mantenimiento de sistemas de refrigeración y aire
+        acondicionado.                Gobierno                  del               Ecuador.
+        https://www.produccion.gob.ec/wp-content/uploads/2021/06/Manual-refrigeracion-y-
+        aire-acondicionado.pdf
+
+ Ministerio de Producción, Comercio Exterior, Inversiones y Pesca. (2023). Hoja de ruta hacia
+        Kigali.                  Gobierno                     del                   Ecuador.
+        https://ozonoecuador.produccion.gob.ec/wp-
+        content/uploads/2023/07/HojadeRutaEcuadorbajares-final17022023_compressed.pdf
+
+ Ministerio de Producción, Comercio Exterior, Inversiones y Pesca, & Deutsche Gesellschaft für
+        Internationale Zusammenarbeit. (2021). Libro Blanco de Economía Circular de
+        Ecuador.                   Gobierno                    del                  Ecuador.
+        https://www.produccion.gob.ec/wp-content/uploads/2021/05/Libro-Blanco-final-
+        web_mayo102021.pdf
+
+
+
+            5. Módulo Práctico Experimental
+
+    Este módulo fortalece la formación del estudiantado mediante su participación en
+    situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+    giras de observación, articulación con el sector productivo, proyectos interdisciplinarios
+    y metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+    consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+    contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales
+    como el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la
+    adaptación a entornos cambiantes.
+
+    En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en
+    los módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+    situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+    desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+    módulos genéricos como de los de especialización.
+
+                                Módulo Práctico Experimental
+
+Nombre del módulo:               Practico Experimental
+
+Nivel:                           1ro, 2do, 3ro
+
+Duración:                        320 periodos pedagógicos
+Unidad de competencia            UC1: Instalar sistemas de climatización y refrigeración en
+asociada:                        edificaciones residenciales, comerciales o industriales,
+                                 aplicando criterios de eficiencia energética, sostenibilidad
+                                 ambiental y oportunidades de emprendimiento técnico.
+                                 UC2: Implementar redes de distribución de agua, gases y
+                                 combustibles asociadas a sistemas térmicos, aplicando criterios
+                                 de eficiencia energética, sostenibilidad ambiental y seguridad,
+                                 según el tipo de edificación, normativa técnica y condiciones del
+                                 entorno productivo.
+                                 UC3: Ejecutar mantenimiento preventivo y correctivo en
+                                 sistemas térmicos, asegurando su operatividad, prolongación
+                                 de vida útil y reducción del impacto ambiental mediante buenas
+                                 prácticas técnicas.
+                                 UC4: Optimizar el rendimiento de sistemas térmicos,
+                                 incrementando su eficiencia energética y funcional mediante la
+                                 implementación de mejoras basadas en criterios técnicos,
+                                 sostenibilidad ambiental y condiciones del entorno productivo.
+Objetivo del módulo: Fortalecer las competencias técnicas y las habilidades socioemocionales
+en la ejecución de un proyecto para demostrar las habilidades aprendidas en la aplicación de
+normas, instalar sistemas de climatización y refrigeración.
+Resultados de aprendizaje          Criterios de                Actividades Prácticas
+(RA)                               evaluación (CE)             Experimentales
+
+RA1: Elaborar una estructura       CE1.1: Indaga opciones         Elaborar un esquema para la
+básica     de   un    proyecto     para la elaboración de         elaboración de un proyecto
+educativo eligiendo diversas       un proyecto educativo          educativo para demostrar los
+opciones de instalación de         en Climatización.              conocimientos     adquiridos en
+sistemas       básicos     de      CE1.2:      Aplica    los      instalación    de  sistemas  de
+climatización.                     conocimientos                  climatización.
+                                   adquiridos en instalación
+                                                                  Nombre del emprendimiento
+                                   de      sistemas       de
+                                   climatización en un            Servicios ofrecidos
+                                   proyecto educativo.            Ubicación
+                                                                  Objetivo principal
+
+RA2. Ejecutar un proyecto          CE2.1:      Elabora      un    Simular un Análisis del mercado:
+educativo de climatización de      análisis de mercado:
+                                                                  Demanda en la zona
+acuerdo         con        las     demanda, competencia
+especificaciones técnicas y        directa, precios.              Temporadas de         alta demanda
+normativa      vigente      de     CE2.2:      Identifica    la   (verano/invierno)
+instalación de sistemas de         normativa          vigente:    Competencia directa e indirecta
+climatización.                     certificaciones,
+                                   permisos,      normativas      Precios de mercado
+                                   locales de eficiencia          Aspectos técnicos y legales
+                                   energética.
+                                                                  Certificaciones requeridas
+                                   CE2.3:      Emplea      los
+                                   conocimientos
+                                  adquiridos en instalación       Permisos y licencias
+                                  de        sistemas        de
+                                                                  Normativas locales de refrigeración
+                                  climatización       en     el
+                                                                  y eficiencia energética
+                                  proyecto educativo.
+                                  CE2.4:       Presenta      el   Elaborar un proyecto educativo
+                                  proyecto de educativo y         para demostrar los conocimientos
+                                  demuestra                los    adquiridos para presentar en la
+                                  conocimientos                   comunidad educativa.
+                                  adquiridos.
+RA3. Emplear procesos de          CE3.1: Interpreta plano,        Interpretación   de    planos      y
+montaje e instalación de          diagramas, esquemas,            diagramas técnicos; montaje de
+sistemas de climatización,        fichas       técnicas       y   sistemas de aire acondicionado,
+refrigeración    y       redes    manuales,                       refrigeración y redes asociadas;
+asociadas,      interpretando     estableciendo                   ejecución de pruebas de presión,
+documentación         técnica,    componentes,                    vacío y estanqueidad; visita técnica
+seleccionando   recursos     y    trayectorias, conexiones        a empresas públicas o privadas del
+aplicando procedimientos de       y      condiciones        de    sector.
+seguridad,          eficiencia    montaje
+energética    y    protección     CE3.2:          Selecciona
+ambiental                         herramientas, equipos,
+                                  materiales,       tuberías,
+                                  accesorios y elementos
+                                  de protección personal
+                                  según las características
+                                  del sistema, el tipo de
+                                  edificación        y       la
+                                  normativa aplicable.
+                                  CE3.3: Ejecuta y verifica
+                                  el montaje de equipos,
+                                  tuberías,            ductos,
+                                  válvulas y dispositivos
+                                  de control mediante
+                                  pruebas de presión,
+                                  vacío, estanqueidad y
+                                  funcionamiento.
+RA4. Diagnosticar el estado       CE34.1:            Examina      Inspección    de     compresores,
+operativo de sistemas térmicos    componentes                     condensadores,      evaporadores,
+mediante          inspecciones,   mecánicos, eléctricos,          válvulas, sensores y conexiones;
+mediciones       y     pruebas    electrónicos                y   medición      de        parámetros
+funcionales,      determinando    frigoríficos.                   operativos; simulación de fallas;
+fallas, causas probables y        CE4.2: Mide parámetros          elaboración    de     fichas    de
+necesidades                 de    de temperatura, presión,        diagnóstico.
+mantenimiento.                    consumo eléctrico, flujo
+                                  de aire, humedad y
+                                  continuidad, utilizando
+                                  instrumentos adecuados
+                                     y        procedimientos
+                                     seguros
+                                     CE4.3:    Formula      un
+                                     diagnóstico       técnico
+                                     preliminar relacionando
+                                     síntomas, mediciones,
+                                     posibles         causas,
+                                     componentes afectados
+                                     y              acciones
+                                     recomendadas.
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir las
+actividades prácticas que considere necesarias, de acuerdo con los intereses formativos para
+cada año de bachillerato técnico, promoviendo un aprendizaje significativo, sin que este
+reemplace su paso por la Formación Estudiantil en Centros Educativos y de Trabajo.
+

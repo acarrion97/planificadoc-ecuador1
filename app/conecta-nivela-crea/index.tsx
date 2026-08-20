@@ -9,10 +9,10 @@ import { shareAsync } from "expo-sharing";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel } from "@/data";
+import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel, AREAS_INFO } from "@/data";
 import type { Subnivel } from "@/data/types";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
-import { FIGURAS_PROFESIONALES, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
+import { FIGURAS_PROFESIONALES, obtenerFigurasActivas, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
 import type {
   PlanConectaNivelaCrea, ConectaNivelaCreaAiResult,
   DiagnosticoAcademicoCNC, DiagnosticoSocioemocionalCNC,
@@ -20,11 +20,12 @@ import type {
 } from "@/data/types-cnc";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
-import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado } from "@/lib/evaluacion-utils";
-import { resolverPrerrequisito } from "@/lib/curriculo-prerrequisitos";
+import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado, subnivelDelGradoAnterior } from "@/lib/evaluacion-utils";
+import { resolverPrerrequisitoPorGrado } from "@/lib/curriculo-prerrequisitos";
 import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado, rubricaProyectoDesdeDestrezas } from "@/lib/cnc-diagnostico";
 import { NIVELES_DESEMPENO_RUBRICA } from "@/data/types-cnc";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
+import { generarHTMLPruebaImprimible } from "@/lib/evaluacion-pdf-generator";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
@@ -203,9 +204,11 @@ function SectionHeading({ text, colors }: { text: string; colors: any }) {
 }
 
 function DestrezaBuscadorCNC({
-  area, subnivelCurso, onSelect, colors,
+  area, grado, subnivelCurso, onSelect, colors,
 }: {
   area: "LL" | "M";
+  /** Grado del curso (texto); el prerrequisito se resuelve desde el grado anterior */
+  grado: string;
   /** Subnivel del curso (derivado del grado); null si no se pudo inferir */
   subnivelCurso: Subnivel | null;
   onSelect: (codigo: string, desc: string) => void;
@@ -237,7 +240,14 @@ function DestrezaBuscadorCNC({
   // Diagnóstica (design.md D10 de ese módulo, lib/curriculo-prerrequisitos.ts).
   // Sin esto, el prerrequisito solo aparecía si el docente ya sabía el código
   // exacto para escribirlo: la búsqueda no tenía ningún filtro de subnivel.
-  const prerreq = subnivelCurso !== null ? resolverPrerrequisito(area, subnivelCurso) : null;
+  const prerreq = grado.trim() ? resolverPrerrequisitoPorGrado(area, grado) : null;
+  // null porque el grado anterior comparte subnivel con el curso: se diagnostica
+  // con las destrezas del subnivel actual (mismo criterio que Evaluación
+  // Diagnóstica, spec "Mensajes diferenciados").
+  const gradoAnteriorEnMismoSubnivel =
+    prerreq === null &&
+    subnivelCurso !== null &&
+    subnivelDelGradoAnterior(grado) === subnivelCurso;
   // El modelo de diagnóstico académico de CNC solo admite LL/M (no CAI), así
   // que si el prerrequisito real es Preparatoria (currículo integrado) no hay
   // nada que sugerir aquí — se informa en vez de mostrar destrezas de otra área.
@@ -317,7 +327,9 @@ function DestrezaBuscadorCNC({
                 <Text style={{ fontSize: 11, color: colors.muted, padding: 8, fontStyle: "italic" }}>
                   {prerreq
                     ? `El nivel prerrequisito (${obtenerNombreSubnivel(prerreq.subnivel)}) no tiene destrezas de ${nombreArea} — ese subnivel usa currículo integrado. Usa el buscador si necesitas otra destreza.`
-                    : "Este grado no tiene un nivel prerrequisito definido. Usa el buscador para encontrar destrezas."}
+                    : gradoAnteriorEnMismoSubnivel
+                      ? `El grado anterior pertenece al mismo subnivel que este curso, así que se diagnostican las destrezas del subnivel actual. Usa el buscador para encontrar destrezas.`
+                      : "Este grado no tiene un nivel prerrequisito definido. Usa el buscador para encontrar destrezas."}
                 </Text>
               )}
 
@@ -372,9 +384,20 @@ export default function ConectaNivelaCreaScreen() {
   const [saved, setSaved] = useState(false);
   const [evaluacionVinculadaId, setEvaluacionVinculadaId] = useState<string | null>(null);
 
+  // ── Impresión de pruebas diagnósticas (Lengua y Matemática) ──
+  const [mostrarImpresion, setMostrarImpresion] = useState(false);
+  const [pruebaConClave, setPruebaConClave] = useState(false);
+  const [imprimiendoPruebaId, setImprimiendoPruebaId] = useState<string | null>(null);
+
+  // ── Semana activa para agregar destrezas de nivelación (Semanas 2-3) ──
+  const [semanaNivelacionActiva, setSemanaNivelacionActiva] = useState<2 | 3>(2);
+  // Última sugerencia IA del proyecto (Semanas 4-5) para revisión previa
+  const [sugerenciaProyecto, setSugerenciaProyecto] = useState<ConectaNivelaCreaAiResult["proyectoSugerido"] | null>(null);
+
   const generateMutation = trpc.cnc.generate.useMutation();
   const sugerirReflexionMutation = trpc.cnc.sugerirReflexionDece.useMutation();
   const sugerirConivelacionMutation = trpc.cnc.sugerirConivelacion.useMutation();
+  const sugerirProyectoMutation = trpc.cnc.sugerirProyecto.useMutation();
 
   const esBT = plan.modalidad === "bt";
   const subnivelCurso = subnivelDesdeGrado(plan.grado);
@@ -403,6 +426,22 @@ export default function ConectaNivelaCreaScreen() {
     [evaluaciones]
   );
 
+  // Evaluaciones de LL/M agrupadas por materia para imprimir pruebas.
+  const evaluacionesPorArea = useMemo(
+    () =>
+      (["LL", "M"] as const)
+        .map((area) => ({
+          area,
+          nombre: AREAS_INFO[area]?.name ?? area,
+          emoji: AREAS_INFO[area]?.emoji ?? "📘",
+          items: evaluaciones
+            .filter((e) => e.area === area)
+            .map((ev) => ({ ev, aplicados: estudiantesEvaluados(ev).length })),
+        }))
+        .filter((g) => g.items.length > 0),
+    [evaluaciones]
+  );
+
   const evaluacionesIdsRef = useRef<string[]>([]);
   const pendingAutoLinkRef = useRef(false);
 
@@ -412,16 +451,19 @@ export default function ConectaNivelaCreaScreen() {
       const nueva = evaluaciones.find((e) => !evaluacionesIdsRef.current.includes(e.id));
       if (nueva) {
         pendingAutoLinkRef.current = false;
-        if (nueva.area === "LL" || nueva.area === "M") vincularEvaluacion(nueva.id);
+        if (nueva.area === "LL" || nueva.area === "M") vincularEvaluacion(nueva.id, true);
       }
     }
     evaluacionesIdsRef.current = ids;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [evaluaciones]);
 
-  function vincularEvaluacion(evId: string) {
+  function vincularEvaluacion(evId: string, silencioso = false) {
     const entry = evaluacionesCNC.find((x) => x.ev.id === evId);
     if (!entry || entry.aplicados === 0) {
-      Alert.alert("Evaluación sin aplicar", "Debe ser aplicada primero para poder vincular sus resultados.");
+      // Auto-vinculación en segundo plano: una evaluación recién creada aún no
+      // tiene resultados, así que no hay nada que vincular todavía (silencioso).
+      if (!silencioso) Alert.alert("Evaluación sin aplicar", "Debe ser aplicada primero para poder vincular sus resultados.");
       return;
     }
     const importar = () => {
@@ -527,16 +569,32 @@ export default function ConectaNivelaCreaScreen() {
         ? plan.semana1.tecnicasReflexion
         : res.aiResult.tecnicaDiagnosticoSugerida;
 
-      const actividadesNivelacion = plan.semana2y3.actividadesNivelacion.length
-        ? plan.semana2y3.actividadesNivelacion.map((a) => {
-            if (a.descripcionActividad) return a;
-            const sugerida = res.aiResult.actividadesNivelacionSugeridas.find((s) => s.destrezaCodigo === a.destrezaCodigo);
-            return sugerida ? { ...a, descripcionActividad: sugerida.descripcionActividad } : a;
-          })
-        : res.aiResult.actividadesNivelacionSugeridas.map((s) => ({
-            destrezaCodigo: s.destrezaCodigo, destrezaDescripcion: s.destrezaDescripcion,
-            area: s.area, descripcionActividad: s.descripcionActividad, semana: s.semana,
-          }));
+      const actividadesNivelacion = (() => {
+      const existentes = plan.semana2y3.actividadesNivelacion;
+      const sugeridas = res.aiResult.actividadesNivelacionSugeridas ?? [];
+      if (!existentes.length) {
+        return sugeridas.map((s) => ({
+          destrezaCodigo: s.destrezaCodigo, destrezaDescripcion: s.destrezaDescripcion,
+          area: s.area, descripcionActividad: s.descripcionActividad, semana: s.semana,
+        }));
+      }
+      // Conserva lo que el docente eligió (Semana 2 y/o 3), rellenando la
+      // descripción pendiente con la IA; y completa con sugerencias IA las
+      // semanas que quedaron sin actividades (p. ej. la Semana 3).
+      return [
+        ...existentes.map((a) => {
+          if (a.descripcionActividad) return a;
+          const sugerida = sugeridas.find((s) => s.destrezaCodigo === a.destrezaCodigo && s.semana === a.semana);
+          return sugerida ? { ...a, descripcionActividad: sugerida.descripcionActividad } : a;
+        }),
+        ...sugeridas.filter(
+          (s) => !existentes.some((a) => a.semana === s.semana)
+        ).map((s) => ({
+          destrezaCodigo: s.destrezaCodigo, destrezaDescripcion: s.destrezaDescripcion,
+          area: s.area, descripcionActividad: s.descripcionActividad, semana: s.semana,
+        })),
+      ];
+    })();
 
       const semana1BTCompletado = plan.semana1BT ? {
         reconocimientoEspacios: plan.semana1BT.reconocimientoEspacios.filter(Boolean).length
@@ -661,6 +719,27 @@ export default function ConectaNivelaCreaScreen() {
     }
   }
 
+  async function imprimirPrueba(evId: string) {
+    const entry = evaluaciones.find((e) => e.id === evId);
+    if (!entry) return;
+    setImprimiendoPruebaId(evId);
+    try {
+      const html = generarHTMLPruebaImprimible(entry, { conClave: pruebaConClave });
+      if (Platform.OS === "web") {
+        const w = window.open("", "_blank");
+        if (w) { w.document.write(html); w.document.close(); w.focus(); w.print(); }
+      } else {
+        const { printToFileAsync } = await import("expo-print");
+        const { uri } = await printToFileAsync({ html });
+        await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf", dialogTitle: "Prueba Diagnóstica" });
+      }
+    } catch (err: any) {
+      Alert.alert("Error al imprimir", err?.message ?? "No se pudo generar la prueba.");
+    } finally {
+      setImprimiendoPruebaId(null);
+    }
+  }
+
   function addDiagnosticoAcademico(codigo: string, desc: string, area: "LL" | "M") {
     const nuevo: DiagnosticoAcademicoCNC = { destrezaCodigo: codigo, destrezaDescripcion: desc, area, observaciones: "", nivelDetectado: "en_proceso" };
     setPlan((p) => ({ ...p, semana1: { ...p.semana1, diagnosticoAcademico: [...p.semana1.diagnosticoAcademico, nuevo] } }));
@@ -679,6 +758,94 @@ export default function ConectaNivelaCreaScreen() {
   function addActividadNivelacion(codigo: string, desc: string, area: "LL" | "M", semana: 2 | 3) {
     const nueva: ActividadNivelacionCNC = { destrezaCodigo: codigo, destrezaDescripcion: desc, area, descripcionActividad: "", semana };
     setPlan((p) => ({ ...p, semana2y3: { ...p.semana2y3, actividadesNivelacion: [...p.semana2y3.actividadesNivelacion, nueva] } }));
+  }
+
+  function quitarActividadNivelacion(index: number) {
+    setPlan((p) => ({
+      ...p,
+      semana2y3: {
+        ...p.semana2y3,
+        actividadesNivelacion: p.semana2y3.actividadesNivelacion.filter((_, i) => i !== index),
+      },
+    }));
+  }
+
+  async function handleSugerirProyecto() {
+    setSugerenciaProyecto(null);
+    try {
+      const res = await sugerirProyectoMutation.mutateAsync({
+        modalidad: plan.modalidad,
+        grado: plan.grado,
+        figuraProfesionalId: plan.figuraProfesionalId,
+        moduloId: plan.moduloId,
+        diagnosticoAcademico: plan.semana1.diagnosticoAcademico,
+        actividadesNivelacion: plan.semana2y3.actividadesNivelacion,
+        semana4y5: {
+          titulo: plan.semana4y5.proyecto.titulo,
+          descripcion: plan.semana4y5.proyecto.descripcion,
+          areasIntegradas: plan.semana4y5.proyecto.areasIntegradas,
+          productoFinal: plan.semana4y5.proyecto.productoFinal,
+          actividadesSemana4: plan.semana4y5.proyecto.actividadesSemana4,
+          actividadesSemana5: plan.semana4y5.proyecto.actividadesSemana5,
+        },
+      });
+
+      const proy = (res as any)?.proyectoSugerido;
+      if (proy) {
+        // Rellena SOLO los campos vacíos — nunca sobrescribe lo del docente.
+        setPlan((p) => ({
+          ...p,
+          semana4y5: {
+            proyecto: {
+              ...p.semana4y5.proyecto,
+              titulo: p.semana4y5.proyecto.titulo || proy.titulo || "",
+              descripcion: p.semana4y5.proyecto.descripcion || proy.descripcion || "",
+              areasIntegradas: p.semana4y5.proyecto.areasIntegradas.length
+                ? p.semana4y5.proyecto.areasIntegradas
+                : (proy.areasIntegradas ?? []),
+              productoFinal: p.semana4y5.proyecto.productoFinal || proy.productoFinal || "",
+              actividadesSemana4: p.semana4y5.proyecto.actividadesSemana4.length
+                ? p.semana4y5.proyecto.actividadesSemana4
+                : (proy.actividadesSemana4 ?? []),
+              actividadesSemana5: p.semana4y5.proyecto.actividadesSemana5.length
+                ? p.semana4y5.proyecto.actividadesSemana5
+                : (proy.actividadesSemana5 ?? []),
+              destrezasReforzadas: proy.destrezasReforzadas ?? p.semana4y5.proyecto.destrezasReforzadas,
+              evidenciasCognitivas: proy.evidenciasCognitivas ?? p.semana4y5.proyecto.evidenciasCognitivas,
+              evidenciasActitudinales: proy.evidenciasActitudinales ?? p.semana4y5.proyecto.evidenciasActitudinales,
+              esEvaluacionFormativaOficial: true,
+            },
+          },
+        }));
+        setSugerenciaProyecto(proy);
+      }
+
+      const prodBT = (res as any)?.productoAcreditableSugerido;
+      if (prodBT && plan.modalidad === "bt") {
+        setPlan((p) => ({
+          ...p,
+          semana4y5BT: {
+            productoAcreditable: {
+              tipo: p.semana4y5BT?.productoAcreditable.tipo || prodBT.tipo || "maqueta",
+              descripcion: p.semana4y5BT?.productoAcreditable.descripcion || prodBT.descripcion || "",
+              actividadesSemana4: p.semana4y5BT?.productoAcreditable.actividadesSemana4?.length
+                ? p.semana4y5BT.productoAcreditable.actividadesSemana4
+                : (prodBT.actividadesSemana4 ?? []),
+              actividadesSemana5: p.semana4y5BT?.productoAcreditable.actividadesSemana5?.length
+                ? p.semana4y5BT.productoAcreditable.actividadesSemana5
+                : (prodBT.actividadesSemana5 ?? []),
+            },
+          },
+        }));
+        setSugerenciaProyecto(proy ?? null);
+      }
+
+      if (!proy && !prodBT) {
+        Alert.alert("Sin resultado", "La IA no devolvió una sugerencia de proyecto. Intenta de nuevo.");
+      }
+    } catch (err: any) {
+      Alert.alert("Error al sugerir", err?.data?.message || err?.message || "No se pudo generar la sugerencia.");
+    }
   }
 
   function addPareja() {
@@ -809,7 +976,7 @@ export default function ConectaNivelaCreaScreen() {
               <>
                 <Label text="Figura Profesional" colors={colors} />
                 <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
-                  {FIGURAS_PROFESIONALES.map((f) => (
+                  {obtenerFigurasActivas().map((f) => (
                     <Pressable
                       key={f.id}
                       onPress={() => setPlan((p) => ({ ...p, figuraProfesionalId: f.id, moduloId: undefined }))}
@@ -955,6 +1122,65 @@ export default function ConectaNivelaCreaScreen() {
                 );
               })
             )}
+
+            {/* ── Imprimir prueba (Lengua y Matemática) ── */}
+            <Pressable
+              onPress={() => setMostrarImpresion((v) => !v)}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#1D4ED8", borderRadius: 12, paddingVertical: 14, marginTop: 16 }}
+            >
+              <Text style={{ fontSize: 16 }}>🖨️</Text>
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>
+                {mostrarImpresion ? "Ocultar impresión de pruebas" : "Imprimir prueba"}
+              </Text>
+            </Pressable>
+
+            {mostrarImpresion && (
+              <View style={{ marginTop: 12, borderRadius: 12, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface, padding: 12 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: colors.foreground, flex: 1 }}>
+                    Pruebas para imprimir (Lengua y Matemática)
+                  </Text>
+                  <Pressable onPress={() => setPruebaConClave((v) => !v)}
+                    style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, backgroundColor: pruebaConClave ? colors.primary : colors.background, borderWidth: 1, borderColor: pruebaConClave ? colors.primary : colors.border }}>
+                    <Text style={{ fontSize: 11, color: pruebaConClave ? "#fff" : colors.text, fontWeight: "600" }}>
+                      {pruebaConClave ? "✔ Clave de respuestas" : "Clave de respuestas"}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {evaluacionesPorArea.length === 0 ? (
+                  <Text style={{ fontSize: 12, color: colors.muted, textAlign: "center", paddingVertical: 12 }}>
+                    No hay evaluaciones de Lengua y Literatura o Matemática para imprimir. Crea una primero.
+                  </Text>
+                ) : (
+                  evaluacionesPorArea.map((grupo) => (
+                    <View key={grupo.area} style={{ marginBottom: 10 }}>
+                      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                        <Text style={{ fontSize: 14 }}>{grupo.emoji}</Text>
+                        <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{grupo.nombre}</Text>
+                        <Text style={{ fontSize: 11, color: colors.muted }}>({grupo.items.length})</Text>
+                      </View>
+                      {grupo.items.map(({ ev, aplicados }) => (
+                        <View key={ev.id} style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, marginBottom: 6 }}>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)} style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 12, fontWeight: "600", color: colors.text }} numberOfLines={1}>{ev.nombre}</Text>
+                            <Text style={{ fontSize: 10, color: colors.muted }}>{ev.grado} {ev.paralelo ? `· ${ev.paralelo}` : ""} · {aplicados} aplicado(s)</Text>
+                          </Pressable>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)}
+                            style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }}>
+                            <Text style={{ fontSize: 11, color: colors.text, fontWeight: "600" }}>Ver</Text>
+                          </Pressable>
+                          <Pressable onPress={() => imprimirPrueba(ev.id)} disabled={imprimiendoPruebaId === ev.id}
+                            style={{ padding: 8, borderRadius: 8, backgroundColor: "#1D4ED8", opacity: imprimiendoPruebaId === ev.id ? 0.5 : 1 }}>
+                            {imprimiendoPruebaId === ev.id ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ fontSize: 14 }}>🖨️</Text>}
+                          </Pressable>
+                        </View>
+                      ))}
+                    </View>
+                  ))
+                )}
+              </View>
+            )}
           </View>
         )}
 
@@ -977,8 +1203,8 @@ export default function ConectaNivelaCreaScreen() {
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Diagnóstico académico (Lengua y Matemática)" colors={colors} />
-            <DestrezaBuscadorCNC area="LL" subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "LL")} colors={colors} />
-            <DestrezaBuscadorCNC area="M" subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "M")} colors={colors} />
+            <DestrezaBuscadorCNC area="LL" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "LL")} colors={colors} />
+            <DestrezaBuscadorCNC area="M" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "M")} colors={colors} />
             {plan.semana1.diagnosticoAcademico.map((d, i) => (
               <View key={i} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
                 <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{d.area}] {d.destrezaCodigo}</Text>
@@ -1082,14 +1308,56 @@ export default function ConectaNivelaCreaScreen() {
               Refuerzo focalizado en Lengua y Matemática, con "co-nivelación" (tutoría entre pares).
             </Text>
 
-            <DestrezaBuscadorCNC area="LL" subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", 2)} colors={colors} />
-            <DestrezaBuscadorCNC area="M" subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "M", 2)} colors={colors} />
-            {plan.semana2y3.actividadesNivelacion.map((a, i) => (
-              <View key={i} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
-                <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{a.area}] {a.destrezaCodigo} — semana {a.semana}</Text>
-                <Text style={{ fontSize: 11, color: colors.text }} numberOfLines={2}>{a.destrezaDescripcion}</Text>
-              </View>
-            ))}
+            <Label text="Semana en la que se agregarán las destrezas" colors={colors} />
+            <View style={{ flexDirection: "row", gap: 8, marginBottom: 12 }}>
+              {([2, 3] as const).map((s) => (
+                <Pressable
+                  key={s}
+                  onPress={() => setSemanaNivelacionActiva(s)}
+                  style={{
+                    flex: 1,
+                    paddingVertical: 9,
+                    borderRadius: 8,
+                    alignItems: "center",
+                    borderWidth: 1,
+                    backgroundColor: semanaNivelacionActiva === s ? colors.primary : colors.surface,
+                    borderColor: semanaNivelacionActiva === s ? colors.primary : colors.border,
+                  }}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: semanaNivelacionActiva === s ? "#fff" : colors.text }}>
+                    {s === 2 ? "Semana 2 — base" : "Semana 3 — consolidación"}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+
+            <DestrezaBuscadorCNC area="LL" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", semanaNivelacionActiva)} colors={colors} />
+            <DestrezaBuscadorCNC area="M" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "M", semanaNivelacionActiva)} colors={colors} />
+            {[2, 3].map((sem) => {
+              const activas = plan.semana2y3.actividadesNivelacion.filter((a) => a.semana === sem);
+              if (!activas.length) return null;
+              return (
+                <View key={sem} style={{ marginBottom: 10 }}>
+                  <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginBottom: 4 }}>
+                    Semana {sem} — {sem === 2 ? "base" : "consolidación"} ({activas.length})
+                  </Text>
+                  {activas.map((a) => {
+                    const idx = plan.semana2y3.actividadesNivelacion.findIndex((x) => x === a);
+                    return (
+                      <View key={a.destrezaCodigo + "-" + idx} style={{ flexDirection: "row", alignItems: "flex-start", backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
+                        <View style={{ flex: 1 }}>
+                          <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{a.area}] {a.destrezaCodigo}</Text>
+                          <Text style={{ fontSize: 11, color: colors.text }} numberOfLines={2}>{a.destrezaDescripcion}</Text>
+                        </View>
+                        <Pressable onPress={() => quitarActividadNivelacion(idx)} hitSlop={8} style={{ marginLeft: 8, paddingHorizontal: 6, paddingVertical: 2 }}>
+                          <Text style={{ fontSize: 15, color: "#EF4444", fontWeight: "700" }}>✕</Text>
+                        </Pressable>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+            })}
 
             {esBT && moduloSeleccionado?.resultadosAprendizaje?.length ? (
               <>
@@ -1162,6 +1430,33 @@ export default function ConectaNivelaCreaScreen() {
                 Este proyecto constituye formalmente una evaluación cualitativa y formativa oficial — no es una actividad de cierre opcional.
               </Text>
             </View>
+
+            <Pressable
+              onPress={handleSugerirProyecto}
+              disabled={sugerirProyectoMutation.isPending}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: colors.primary + "20", borderRadius: 10, borderWidth: 1, borderColor: colors.primary, paddingVertical: 12, marginBottom: 12 }}
+            >
+              {sugerirProyectoMutation.isPending ? (
+                <ActivityIndicator color={colors.primary} size="small" />
+              ) : (
+                <Text style={{ fontSize: 14 }}>✨</Text>
+              )}
+              <Text style={{ fontSize: 12, fontWeight: "700", color: colors.primary }}>
+                {sugerirProyectoMutation.isPending ? "Generando sugerencia..." : `✨ Sugerir ${esBT ? "producto acreditable" : "proyecto"} con IA`}
+              </Text>
+            </Pressable>
+
+            {sugerenciaProyecto && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#22C55E", marginBottom: 12 }}>
+                <Text style={{ fontSize: 11, fontWeight: "700", color: "#166534", marginBottom: 4 }}>
+                  ✨ Sugerencia IA aplicada — revisa y ajusta los campos (solo se rellenó lo que estaba vacío)
+                </Text>
+                <Text style={{ fontSize: 11, color: "#166534" }}>{sugerenciaProyecto.titulo}</Text>
+                <Text style={{ fontSize: 10, color: "#15803D", marginTop: 2 }}>
+                  {sugerenciaProyecto.descripcion}
+                </Text>
+              </View>
+            )}
 
             {!esBT && (
               <>
@@ -1407,6 +1702,73 @@ export default function ConectaNivelaCreaScreen() {
                 <Text style={{ color: "#fff", fontWeight: "700", fontSize: 12 }}>PDF</Text>
               </Pressable>
             </View>
+
+            <Pressable
+              onPress={() => router.push(`/ver-cnc/${plan.id}` as any)}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#0F766E", borderRadius: 12, paddingVertical: 14, marginBottom: 20 }}
+            >
+              <Text style={{ fontSize: 16 }}>👁️</Text>
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>Ver plan guardado</Text>
+            </Pressable>
+
+            {/* ── Imprimir prueba diagnóstica (Lengua y Matemática) ── */}
+            <Pressable
+              onPress={() => setMostrarImpresion((v) => !v)}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#1D4ED8", borderRadius: 12, paddingVertical: 14, marginBottom: mostrarImpresion ? 12 : 20 }}
+            >
+              <Text style={{ fontSize: 16 }}>🖨️</Text>
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>
+                {mostrarImpresion ? "Ocultar impresión de pruebas" : "Imprimir prueba diagnóstica"}
+              </Text>
+            </Pressable>
+
+            {mostrarImpresion && (
+              <View style={{ borderRadius: 12, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface, padding: 12, marginBottom: 20 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: colors.foreground, flex: 1 }}>
+                    Pruebas para imprimir (Lengua y Matemática)
+                  </Text>
+                  <Pressable onPress={() => setPruebaConClave((v) => !v)}
+                    style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, backgroundColor: pruebaConClave ? colors.primary : colors.background, borderWidth: 1, borderColor: pruebaConClave ? colors.primary : colors.border }}>
+                    <Text style={{ fontSize: 11, color: pruebaConClave ? "#fff" : colors.text, fontWeight: "600" }}>
+                      {pruebaConClave ? "✔ Clave de respuestas" : "Clave de respuestas"}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {evaluacionesPorArea.length === 0 ? (
+                  <Text style={{ fontSize: 12, color: colors.muted, textAlign: "center", paddingVertical: 12 }}>
+                    No hay evaluaciones de Lengua y Literatura o Matemática para imprimir. Crea una primero.
+                  </Text>
+                ) : (
+                  evaluacionesPorArea.map((grupo) => (
+                    <View key={grupo.area} style={{ marginBottom: 10 }}>
+                      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                        <Text style={{ fontSize: 14 }}>{grupo.emoji}</Text>
+                        <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{grupo.nombre}</Text>
+                        <Text style={{ fontSize: 11, color: colors.muted }}>({grupo.items.length})</Text>
+                      </View>
+                      {grupo.items.map(({ ev, aplicados }) => (
+                        <View key={ev.id} style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, marginBottom: 6 }}>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)} style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 12, fontWeight: "600", color: colors.text }} numberOfLines={1}>{ev.nombre}</Text>
+                            <Text style={{ fontSize: 10, color: colors.muted }}>{ev.grado} {ev.paralelo ? `· ${ev.paralelo}` : ""} · {aplicados} aplicado(s)</Text>
+                          </Pressable>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)}
+                            style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }}>
+                            <Text style={{ fontSize: 11, color: colors.text, fontWeight: "600" }}>Ver</Text>
+                          </Pressable>
+                          <Pressable onPress={() => imprimirPrueba(ev.id)} disabled={imprimiendoPruebaId === ev.id}
+                            style={{ padding: 8, borderRadius: 8, backgroundColor: "#1D4ED8", opacity: imprimiendoPruebaId === ev.id ? 0.5 : 1 }}>
+                            {imprimiendoPruebaId === ev.id ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ fontSize: 14 }}>🖨️</Text>}
+                          </Pressable>
+                        </View>
+                      ))}
+                    </View>
+                  ))
+                )}
+              </View>
+            )}
 
             <ResultSection title="Cronograma de las 5 semanas" emoji="🗓️" color={colors.primary}>
               <Text style={{ fontSize: 12, color: colors.text }}>{aiResult.cronogramaSemanal}</Text>

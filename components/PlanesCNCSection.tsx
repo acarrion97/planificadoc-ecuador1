@@ -67,6 +67,10 @@ export function PlanesCNCSection() {
                     {plan.docente || "Sin docente"} · {plan.status === "generado" ? "Generado" : "Borrador"}
                   </Text>
                 </View>
+                <Pressable onPress={() => router.push(`/ver-cnc/${plan.id}` as any)}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, marginRight: 8 })}>
+                  <Text style={{ fontSize: 12, color: colors.text, fontWeight: "600" }}>Ver</Text>
+                </Pressable>
                 <Pressable onPress={() => handleDelete(plan.id)} style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1, padding: 4 })}>
                   <Text style={{ fontSize: 18 }}>🗑️</Text>
                 </Pressable>

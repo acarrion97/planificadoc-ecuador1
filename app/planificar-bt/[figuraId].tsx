@@ -19,7 +19,7 @@ import type {
 import { generarWordPlanBT } from "@/lib/bt-word-generator";
 import { generarHTMLPlanBT } from "@/lib/pdf-generator";
 
-const STEP_LABELS = ["Módulo", "Catálogo", "Competencia", "Unidad", "Generar", "Resultado"];
+const STEP_LABELS = ["Módulo", "Competencia", "Unidad", "Generar", "Resultado"];
 
 // ─── Sub-componentes (mismo patrón visual que adaptacion-curricular) ───────
 
@@ -97,7 +97,7 @@ export default function PlanificarBTScreen() {
   const router = useRouter();
   const scrollRef = useRef<ScrollView>(null);
 
-  const { addPlanBT, guardarCatalogoUsuarioBT, obtenerCatalogoModulo, moduloTieneCatalogoCompleto } = usePlanificacionesBT();
+  const { addPlanBT, obtenerCatalogoModulo } = usePlanificacionesBT();
 
   const figura = useMemo(() => obtenerFiguraPorId(figuraId), [figuraId]);
   const modulosEstaticos = useMemo(() => obtenerTodosLosModulos(figuraId), [figuraId]);
@@ -107,13 +107,6 @@ export default function PlanificarBTScreen() {
   const moduloCombinado: ModuloBTCombinado | undefined = selectedModuloCodigo
     ? obtenerCatalogoModulo(figuraId, selectedModuloCodigo)
     : undefined;
-  const catalogoCompleto = selectedModuloCodigo ? moduloTieneCatalogoCompleto(figuraId, selectedModuloCodigo) : false;
-
-  // Paso "Completar catálogo" — mini-formulario cuando el módulo no tiene UC/RA
-  const [catObjetivoModulo, setCatObjetivoModulo] = useState("");
-  const [catUCTexto, setCatUCTexto] = useState("");
-  const [catRATexto, setCatRATexto] = useState("");
-  const [catCETexto, setCatCETexto] = useState(""); // una por línea
 
   // Selección de UC/RA para esta Unidad de Trabajo
   const [ucSeleccionadas, setUcSeleccionadas] = useState<string[]>([]);
@@ -161,34 +154,6 @@ export default function PlanificarBTScreen() {
     setList(list.includes(id) ? list.filter((x) => x !== id) : [...list, id]);
   }
 
-  async function handleGuardarCatalogo() {
-    if (!selectedModuloCodigo) return;
-    if (!catUCTexto.trim() || !catRATexto.trim() || !catCETexto.trim()) {
-      Alert.alert("Faltan datos", "Ingresa al menos el texto de la Unidad de Competencia, un Resultado de Aprendizaje y sus Criterios de Evaluación.");
-      return;
-    }
-    const nuevaUC: UnidadCompetencia = {
-      id: `USR-UC-${Date.now()}`,
-      texto: catUCTexto.trim(),
-    };
-    const nuevoRA: ResultadoAprendizaje = {
-      id: `USR-RA-${Date.now()}`,
-      texto: catRATexto.trim(),
-      criteriosEvaluacion: catCETexto
-        .split("\n")
-        .map((l) => l.trim())
-        .filter(Boolean)
-        .map((texto, i) => ({ id: `USR-CE-${Date.now()}-${i}`, texto })),
-    };
-    await guardarCatalogoUsuarioBT(
-      figuraId,
-      selectedModuloCodigo,
-      { objetivoModulo: catObjetivoModulo.trim() || undefined, resultadosAprendizaje: [nuevoRA] },
-      nuevaUC
-    );
-    goTo(2);
-  }
-
   async function handleGenerate() {
     if (!moduloCombinado || criteriosDisponibles.length === 0) {
       setGenerateError("Selecciona al menos una Unidad de Competencia o Resultado de Aprendizaje con criterios.");
@@ -225,7 +190,7 @@ export default function PlanificarBTScreen() {
         estrategiasMetodologicas: res.estrategiasMetodologicas,
       }));
       setProcedimientoCriterioEvaluacion(res.procedimientoCriterioEvaluacion);
-      goTo(5);
+      goTo(4);
     } catch (err: any) {
       setGenerateError(err?.data?.message || err?.message || "Error de conexión. Intenta de nuevo.");
     }
@@ -357,7 +322,7 @@ export default function PlanificarBTScreen() {
           </View>
         </View>
 
-        <StepBar current={step} total={6} colors={colors} />
+        <StepBar current={step} total={5} colors={colors} />
 
         {/* ── PASO 0: Módulo ── */}
         {step === 0 && (
@@ -383,40 +348,8 @@ export default function PlanificarBTScreen() {
           </View>
         )}
 
-        {/* ── PASO 1: Catálogo (condicional) ── */}
-        {step === 1 && (
-          catalogoCompleto ? (
-            <View>
-              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#16A34A" }}>
-                <Text style={{ fontSize: 12, color: "#15803D" }}>✅ Este módulo ya tiene catálogo (Unidad de Competencia / Resultados de Aprendizaje). Puedes continuar.</Text>
-              </View>
-            </View>
-          ) : (
-            <View>
-              <SectionHeading text="Completa el catálogo de este módulo" colors={colors} />
-              <View style={{ backgroundColor: "#FEF3C7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginBottom: 12 }}>
-                <Text style={{ fontSize: 11, color: "#92400E" }}>
-                  Aún no hay catálogo oficial cargado para este módulo. Ingresa (o pega desde el currículo oficial de tu figura)
-                  la Unidad de Competencia, un Resultado de Aprendizaje y sus Criterios de Evaluación. Esto se guarda en tu
-                  dispositivo y no vuelve a pedirse para este módulo.
-                </Text>
-              </View>
-              <Field label="Objetivo del módulo (opcional)" value={catObjetivoModulo} onChangeText={setCatObjetivoModulo} colors={colors} multiline />
-              <Field label="Unidad de Competencia" value={catUCTexto} onChangeText={setCatUCTexto} colors={colors} multiline placeholder="Ej: UC1: Aplicar..." />
-              <Field label="Resultado de Aprendizaje" value={catRATexto} onChangeText={setCatRATexto} colors={colors} multiline placeholder="Ej: RA.1. Analizar..." />
-              <Field label="Criterios de Evaluación (uno por línea)" value={catCETexto} onChangeText={setCatCETexto} colors={colors} multiline placeholder={"CE1.1: ...\nCE1.2: ..."} />
-              <Pressable
-                onPress={handleGuardarCatalogo}
-                style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, alignItems: "center", marginTop: 4 }}
-              >
-                <Text style={{ color: "#fff", fontWeight: "700" }}>Guardar catálogo y continuar</Text>
-              </Pressable>
-            </View>
-          )
-        )}
-
-        {/* ── PASO 2: Competencia (selección UC/RA) ── */}
-        {step === 2 && moduloCombinado && (
+        {/* ── PASO 1: Competencia (selección UC/RA) ── */}
+        {step === 1 && moduloCombinado && (
           <View>
             <SectionHeading text="Unidad(es) de Competencia" colors={colors} />
             {moduloCombinado.unidadesCompetencia.length === 0 && (
@@ -471,8 +404,8 @@ export default function PlanificarBTScreen() {
           </View>
         )}
 
-        {/* ── PASO 3: Unidad de Trabajo ── */}
-        {step === 3 && (
+        {/* ── PASO 2: Unidad de Trabajo ── */}
+        {step === 2 && (
           <View>
             <SectionHeading text="Datos institucionales" colors={colors} />
             <Field label="Institución educativa" value={institucion} onChangeText={setInstitucion} colors={colors} />
@@ -487,8 +420,8 @@ export default function PlanificarBTScreen() {
           </View>
         )}
 
-        {/* ── PASO 4: Generar ── */}
-        {step === 4 && (
+        {/* ── PASO 3: Generar ── */}
+        {step === 3 && (
           <View>
             <SectionHeading text="Resumen" colors={colors} />
             <View style={{ backgroundColor: colors.surface, borderRadius: 12, padding: 14, borderWidth: 1, borderColor: colors.border, marginBottom: 16 }}>
@@ -530,8 +463,8 @@ export default function PlanificarBTScreen() {
           </View>
         )}
 
-        {/* ── PASO 5: Resultado ── */}
-        {step === 5 && (
+        {/* ── PASO 4: Resultado ── */}
+        {step === 4 && (
           <View>
             {ut.procedimientos.length === 0 ? (
               <Text style={{ fontSize: 12, color: colors.muted }}>No hay resultado aún. Vuelve al paso anterior.</Text>
@@ -613,7 +546,7 @@ export default function PlanificarBTScreen() {
         )}
 
         {/* Navegación */}
-        {step < 5 && (
+        {step < 4 && (
           <View style={{ flexDirection: "row", gap: 12, marginTop: 20, marginBottom: 8 }}>
             {step > 0 && (
               <Pressable
@@ -623,18 +556,18 @@ export default function PlanificarBTScreen() {
                 <Text style={{ color: colors.text, fontWeight: "600" }}>← Anterior</Text>
               </Pressable>
             )}
-            {step !== 4 && !(step === 1 && !catalogoCompleto) && (
+            {step !== 3 && (
               <Pressable
                 onPress={() => {
                   if (step === 0 && !selectedModuloCodigo) {
                     Alert.alert("Selecciona un módulo", "Elige un módulo formativo para continuar.");
                     return;
                   }
-                  if (step === 2 && criteriosDisponibles.length === 0) {
+                  if (step === 1 && criteriosDisponibles.length === 0) {
                     Alert.alert("Selecciona competencia", "Elige al menos una Unidad de Competencia o Resultado de Aprendizaje.");
                     return;
                   }
-                  if (step === 3 && !ut.nombre.trim()) {
+                  if (step === 2 && !ut.nombre.trim()) {
                     Alert.alert("Falta el nombre", "Ingresa el nombre de la Unidad de Trabajo.");
                     return;
                   }

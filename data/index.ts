@@ -40,6 +40,7 @@ export {
   FIGURAS_PROFESIONALES,
   obtenerFamiliasPorArea,
   obtenerFigurasPorFamilia,
+  obtenerFigurasActivas,
   obtenerFiguraPorId,
   obtenerModulosPorAnio,
   obtenerTodosLosModulos,
@@ -137,4 +138,43 @@ export function obtenerNombreBloque(area: Area, bloque: number): string {
 
 export function obtenerNombreSubnivel(subnivel: Subnivel): string {
   return SUBNIVEL_NAMES[subnivel] ?? `Subnivel ${subnivel}`;
+}
+
+// ============================================================
+// DESAGREGACIÓN / GRADACIÓN DE DCD POR GRADO
+// ============================================================
+
+/**
+ * Grados que aplican a la desagregación según el subnivel de la DCD.
+ * Devuelve `null` para Preparatoria (subnivel 1) e Inicial (-1, 0): constan
+ * de un solo grado y no se desagregan.
+ */
+export function gradosDeSubnivel(subnivel: Subnivel): number[] | null {
+  switch (subnivel) {
+    case 2:
+      return [2, 3, 4];
+    case 3:
+      return [5, 6, 7];
+    case 4:
+      return [8, 9, 10];
+    case 5:
+      return [1, 2, 3];
+    default:
+      return null;
+  }
+}
+
+/**
+ * Resuelve la DCD oficial por código y su indicador de evaluación principal
+ * (el primero de `indicadoresEvaluacion`). Devuelve `null` si la DCD no existe
+ * en el catálogo o no tiene indicador (no se puede desagregar).
+ */
+export function resolverDcdConIndicador(
+  codigo: string
+): { dcd: Destreza; indicador: string } | null {
+  const dcd = buscarPorCodigo(codigo);
+  if (!dcd) return null;
+  const indicador = dcd.indicadoresEvaluacion?.[0];
+  if (!indicador) return null;
+  return { dcd, indicador };
 }

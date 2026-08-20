@@ -77,6 +77,46 @@ export function subnivelDesdeGrado(grado: string): Subnivel | null {
   return 5;
 }
 
+/**
+ * Subnivel del **grado anterior** al recibido (ej: 6.° EGB → subnivel de 5.° EGB).
+ *
+ * No es `subnivelDesdeGrado(grado) - 1`: varios grados comparten subnivel, así que
+ * el prerrequisito del diagnóstico se calcula desde el grado, no restando uno al
+ * subnivel. Devuelve null cuando no existe un grado anterior dentro del alcance
+ * (1.° EGB / Inicial) o cuando el grado no es reconocible.
+ */
+export function subnivelDelGradoAnterior(grado: string): Subnivel | null {
+  const g = normalizarGrado(grado);
+  if (!g) return null;
+  // Bachillerato Técnico es modalidad, no grado: el 1.° BT proviene de Básica
+  // Superior (subnivel 4); 2.° y 3.° BT provienen del BT anterior (subnivel 5).
+  if (esBachilleratoTecnico(g)) {
+    const n = extraerNumeroGrado(g);
+    if (n === null) return null;
+    return n <= 1 ? 4 : 5;
+  }
+  if (g.includes("inicial")) return null;
+  // BGU: el 1.° BGU proviene de 10.° EGB (subnivel 4); 2.° y 3.° de BGU (5).
+  if (g.includes("bgu") || g.includes("bachillerato")) {
+    const n = extraerNumeroGrado(g);
+    if (n === null) return null;
+    return n <= 1 ? 4 : 5;
+  }
+  const n = extraerNumeroGrado(g);
+  if (n === null) return null;
+  // 1.° EGB (Preparatoria) no tiene grado anterior dentro del alcance del módulo.
+  if (n <= 1) return null;
+  return subnivelDesdeGrado(String(n - 1));
+}
+
+function extraerNumeroGrado(g: string): number | null {
+  const match = g.match(/(\d+)/);
+  if (!match) return null;
+  const n = Number(match[1]);
+  if (Number.isNaN(n)) return null;
+  return n;
+}
+
 /** Clasifica un % de logro según umbrales configurables */
 export function clasificarAprendizaje(
   porcentajeLogro: number,

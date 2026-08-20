@@ -5,10 +5,11 @@
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
-  VerticalAlign, HeadingLevel, PageOrientation,
+  VerticalAlign, HeadingLevel, PageOrientation, TableLayoutType,
 } from "docx";
 import type { CurricularAdaptation, AdaptacionAiResult, AdaptacionPedagogicaSugerida, AdaptacionDiaPlan } from "../data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
+import { iconosDcdRuns } from "./dcd-iconos";
 
 // ─── Paleta ──────────────────────────────────────────────────────────────────
 const BG_TITLE   = "003366";
@@ -164,6 +165,7 @@ function adaptacionTable(
 
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
     columnWidths: [2500, 4000, 4500],
     rows: [headerRow, ...dataRows],
   });
@@ -254,6 +256,7 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
   // ── Adaptación de acceso (fila completa) ───────────────────────────────────
   result.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
     columnWidths: [2800, 8200],
     rows: [new TableRow({ children: [
       simpleCell("ACCESO", { bold: true, size: 11, color: WHITE, bg: bgColor }),
@@ -347,6 +350,7 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
   // Tabla principal 3 columnas — columnWidths totalizan ~11000 DXA
   result.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
     columnWidths: [5600, 2700, 2700],
     rows: [
       // Fila de gran encabezado (colspan=3)
@@ -427,6 +431,7 @@ export async function generarWordAdaptacion(
   sections.push(
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
+      layout: TableLayoutType.FIXED,
       columnWidths: [3500, 4000, 3500, 4000],
       rows: [
         new TableRow({ children: [
@@ -538,7 +543,23 @@ export async function generarWordAdaptacion(
       rows: [
         new TableRow({ children: [
           simpleCell("Destreza ORIGINAL:", { bold: true, size: 11, bg: "F1F5F9" }),
-          simpleCell(`[${form.codigoDestreza}] ${form.descripcionDestreza}`, { size: 11, italic: true }),
+          new TableCell({
+            borders: BORDER_DEF,
+            verticalAlign: VerticalAlign.TOP,
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `[${form.codigoDestreza}] ${form.descripcionDestreza}`,
+                    italics: true,
+                    size: 22,
+                    color: DARK,
+                  }),
+                  ...iconosDcdRuns(form.codigoDestreza),
+                ],
+              }),
+            ],
+          }),
         ]}),
         ...(ai?.destrezaAdaptada ? [
           new TableRow({ children: [
@@ -614,6 +635,7 @@ export async function generarWordAdaptacion(
     sections.push(
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
+        layout: TableLayoutType.FIXED,
         columnWidths: [2800, 8200],
         rows: [
           new TableRow({
@@ -684,6 +706,7 @@ export async function generarWordAdaptacion(
     sections.push(
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
+        layout: TableLayoutType.FIXED,
         columnWidths: [3000, 8000],
         rows: [
           new TableRow({
@@ -752,7 +775,8 @@ export async function generarWordAdaptacion(
     sections.push(
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
-        columnWidths: [2500, 2300, 2300, 2300, 1600],
+        layout: TableLayoutType.FIXED,
+        columnWidths: [2500, 2075, 2075, 2075, 2075],
         rows: [rubricaHeaderRow, ...rubricaDataRows],
       })
     );

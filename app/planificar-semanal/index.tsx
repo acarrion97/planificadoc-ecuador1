@@ -6,15 +6,17 @@ import {
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { DestrezaIconos } from "@/components/DestrezaIconos";
+import { DcdDesagregacionPanel } from "@/components/DcdDesagregacionPanel";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import {
   buscarDestrezas, TODAS_LAS_DESTREZAS, AREAS_INFO, SUBNIVEL_NAMES, SUBNIVEL_GRADOS,
-  obtenerInsercionesPorAsignatura, COMPETENCIAS, METODOLOGIAS_ACTIVAS,
+  obtenerInsercionesPorAsignatura, METODOLOGIAS_ACTIVAS,
   TECNICAS_EVALUACION, HABILIDADES_SOCIOEMOCIONALES, obtenerNombreBloque,
   NOMBRES_BLOQUES_CAI, CRITERIOS_CAI, OBJETIVO_NIVEL_CAI,
+  buscarPorCodigo, gradosDeSubnivel, resolverDcdConIndicador,
 } from "@/data";
-import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad } from "@/data/types";
+import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad, DcdDesagregacion } from "@/data/types";
 import { trpc } from "@/lib/trpc";
 
 // ─── Colores DUA fijos ───────────────────────────────────────
@@ -92,6 +94,20 @@ function makeHora(): HoraSemanal {
 
 function makeDia(activo = true): ConfiguracionDia {
   return { activo, cantidadHoras: 1, horas: [makeHora()] };
+}
+
+/** Una DCD es desagregable si su subnivel tiene grados y tiene indicador de evaluación. */
+function esDesagregable(codigo: string): boolean {
+  const d = buscarPorCodigo(codigo);
+  if (!d) return false;
+  if (!gradosDeSubnivel(d.subnivel)) return false;
+  return resolverDcdConIndicador(codigo) != null;
+}
+
+/** Extrae el número del grado desde la etiqueta ("3ro EGB" → 3, "2do BGU" → 2). */
+function gradoNumerico(grado: string): number | null {
+  const m = grado.match(/\d+/);
+  return m ? parseInt(m[0], 10) : null;
 }
 
 type Paso = "configuracion" | "generando" | "resultado";
@@ -712,6 +728,7 @@ export default function PlanificarSemanalScreen() {
             isLast={diaIdx === DIAS_SEMANA.length - 1}
             areaCode={selectedAreaCode}
             subnivel={subnivel}
+            gradoContexto={gradoNumerico(grado)}
             bloqueCAI={bloqueCAI}
             onToggleActivo={() => updateDia(dia, { activo: !dias[dia].activo })}
             onSetCantidadHoras={(n) => setCantidadHoras(dia, n)}
@@ -742,7 +759,7 @@ export default function PlanificarSemanalScreen() {
 // ─── Subcomponente: bloque de configuración de un día ────────
 
 function DiaConfigBlock({
-  dia, config, colors, isLast, areaCode, subnivel, bloqueCAI,
+  dia, config, colors, isLast, areaCode, subnivel, gradoContexto, bloqueCAI,
   onToggleActivo, onSetCantidadHoras, onUpdateHora, onSugerirTemas,
   loadingHoraId, onToggleChipHora, onToggleBoolHora, onCopiarAlSiguiente,
 }: {
@@ -752,6 +769,7 @@ function DiaConfigBlock({
   isLast: boolean;
   areaCode: string;
   subnivel: number | null;
+  gradoContexto: number | null;
   bloqueCAI: number | null;
   onToggleActivo: () => void;
   onSetCantidadHoras: (n: 1 | 2 | 3) => void;
@@ -791,7 +809,7 @@ function DiaConfigBlock({
           {/* Horas */}
           {config.horas.map((hora, horaIdx) => (
             <HoraBlock key={hora.id} hora={hora} horaIdx={horaIdx} colors={colors}
-              areaCode={areaCode} subnivel={subnivel} bloqueCAI={bloqueCAI}
+              areaCode={areaCode} subnivel={subnivel} gradoContexto={gradoContexto} bloqueCAI={bloqueCAI}
               isLoadingIA={loadingHoraId === hora.id}
               onUpdate={(update) => onUpdateHora(hora.id, update)}
               onSugerirTemas={() => onSugerirTemas(hora.id)}
@@ -822,13 +840,14 @@ function DiaConfigBlock({
 // ─── Subcomponente: una hora dentro de un día ────────────────
 
 function HoraBlock({
-  hora, horaIdx, colors, areaCode, subnivel, bloqueCAI, isLoadingIA, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
+  hora, horaIdx, colors, areaCode, subnivel, gradoContexto, bloqueCAI, isLoadingIA, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
 }: {
   hora: HoraSemanal;
   horaIdx: number;
   colors: any;
   areaCode: string;
   subnivel: number | null;
+  gradoContexto: number | null;
   bloqueCAI: number | null;
   isLoadingIA: boolean;
   onUpdate: (update: Partial<HoraSemanal>) => void;
@@ -840,6 +859,8 @@ function HoraBlock({
   const [resultados, setResultados] = useState<Destreza[]>([]);
   const [buscando, setBuscando] = useState(false);
   const [showDCDModal, setShowDCDModal] = useState(false);
+  /** Código de la DCD cuyo panel de desagregación está abierto (null = cerrado). */
+  const [desagregacionCodigo, setDesagregacionCodigo] = useState<string | null>(null);
   // Pool de destrezas: filtra por área + subnivel; para CAI también por bloque si está seleccionado
   const buildPool = () => TODAS_LAS_DESTREZAS.filter(d => {
     if (d.area !== areaCode) return false;
@@ -910,6 +931,8 @@ function HoraBlock({
   };
 
   const areaInfo = hora.destreza ? AREAS_INFO[hora.destreza.area] : null;
+  const desagregable = hora.destreza != null && gradoContexto != null && esDesagregable(hora.destreza.codigo);
+  const sufijoGrado = subnivel === 5 ? "BGU" : "EGB";
 
   return (
     <View style={[styles.horaBlock, { borderColor: colors.border }]}>
@@ -998,6 +1021,63 @@ function HoraBlock({
           </Pressable>
         </Pressable>
       </Modal>
+
+      {/* Desagregación por grado (ruta opcional tras seleccionar una DCD) */}
+      {desagregable && (
+        <View style={{ marginTop: 8 }}>
+          <Pressable
+            onPress={() => setDesagregacionCodigo(hora.destreza!.codigo)}
+            style={({ pressed }) => ({
+              backgroundColor: "#7C3AED",
+              borderRadius: 8,
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 6,
+              opacity: pressed ? 0.8 : 1,
+            })}
+          >
+            <Text style={{ fontSize: 13 }}>⚡</Text>
+            <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700", flex: 1 }}>
+              {hora.descripcionEfectiva
+                ? `Cambiar versión desagregada (${hora.destreza!.codigo})`
+                : `Desagregar para ${gradoContexto}.º ${sufijoGrado}`}
+            </Text>
+          </Pressable>
+          {hora.descripcionEfectiva && (
+            <Pressable
+              onPress={() => onUpdate({ descripcionEfectiva: undefined })}
+              style={({ pressed }) => ({
+                borderWidth: 1,
+                borderColor: "#7C3AED",
+                borderRadius: 8,
+                paddingHorizontal: 12,
+                paddingVertical: 8,
+                marginTop: 6,
+                opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              <Text style={{ color: "#7C3AED", fontSize: 11, fontWeight: "600" }}>
+                ↩ Volver a DCD oficial
+              </Text>
+            </Pressable>
+          )}
+        </View>
+      )}
+
+      {desagregacionCodigo ? (
+        <DcdDesagregacionPanel
+          codigoDCD={desagregacionCodigo}
+          gradoContexto={gradoContexto ?? undefined}
+          visible={!!desagregacionCodigo}
+          onClose={() => setDesagregacionCodigo(null)}
+          onSeleccionar={(fila: DcdDesagregacion) => {
+            onUpdate({ descripcionEfectiva: fila.dcdGraduada });
+            setDesagregacionCodigo(null);
+          }}
+        />
+      ) : null}
 
       {/* Deporte (solo EF) */}
       {hora.destreza?.area === "EF" && (
@@ -1108,22 +1188,6 @@ function HoraBlock({
                 onPress={() => onToggleChip("insercionesCurriculares", id)} colors={colors} />
             );
           })}
-        </View>
-      )}
-
-      {/* Competencias */}
-      <View style={styles.toggleRow}>
-        <Text style={[styles.subSectionTitle, { color: colors.foreground, flex: 1 }]}>Competencias</Text>
-        <Switch value={hora.usaCompetencias} onValueChange={() => onToggleBool("usaCompetencias")}
-          trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
-      </View>
-      {hora.usaCompetencias && (
-        <View style={styles.chipsWrap}>
-          {COMPETENCIAS.map(c => (
-            <ChipBtn key={c.id} label={c.nombre}
-              selected={hora.competencias.includes(c.id)}
-              onPress={() => onToggleChip("competencias", c.id)} colors={colors} />
-          ))}
         </View>
       )}
 
@@ -1505,3 +1569,5 @@ const styles = StyleSheet.create({
   duaLegendTxt: { fontSize: 10, color: "#666" },
   btnRegenerar: { flexDirection: "row", alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: 8, padding: 8 },
 });
+// probe
+// MARKER

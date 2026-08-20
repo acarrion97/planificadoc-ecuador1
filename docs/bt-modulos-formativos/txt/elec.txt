@@ -1,0 +1,2209 @@
+   MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “ELECTRÓNICA”
+
+       1.     Objetivo general
+
+Formar técnicos en Electrónica capaces de diseñar, programar, instalar y mantener
+sistemas eléctricos, electrónicos, de telecomunicaciones y control inteligente, aplicando
+conocimientos en electricidad, electrónica, automatización, control y comunicación, bajo
+normas de seguridad y calidad, para mejorar procesos, generar soluciones innovadoras
+con trabajo colaborativo en entornos domésticos, comerciales, industriales y tecnológicos.
+
+       2.     Plan de estudios
+
+                                                                   1ro       2do     3ro
+Total periodos pedagógicos tronco común
+                                                                   19         19     19
+
+                        Seguridad Industrial                         2        2
+Módulos Genéricos
+de la Familia
+                        Procesos Industriales Sostenibles            2        2
+Profesional
+                      Dibujo Técnico Aplicado                        2        2
+                      Instalaciones Eléctricas y Electrónicas
+                                                                     6
+                      Básicas
+                      Electrónica Analógica, Digital y de
+                                                                     4        4       4
+                      Potencia
+Módulos
+                      Mantenimiento de Equipos Electrónicos                           4
+Especialización
+                      Automatización        de      Sistemas
+                                                                              4       5
+                      Embebidos
+                      Equipos       y       Sistemas       de
+                                                                     2        4       5
+                      Telecomunicaciones
+Módulo Práctico Experimental                                         3        3       3
+Total de periodos pedagógicos de formación técnica                  21        21      21
+
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Industrial. Gracias a las características de
+los módulos trabajados en esta etapa, adquieren herramientas que les permiten construir
+una opinión más informada y tomar decisiones con mayor fundamento. Esto favorece su
+capacidad para, en caso de que lo desee, transitar entre distintas figuras profesionales
+dentro de la misma familia, continuar con su trayectoria educativa, insertarse en el mundo
+laboral o emprender un proyecto propio.
+
+Se estructuran los siguientes módulos genéricos:
+
+   •   Seguridad Industrial
+   •   Procesos Industriales sostenibles
+   •   Dibujo Técnico Aplicado
+                                       Módulo Genérico Nro. 1
+Nombre del módulo                      Seguridad Industrial
+Nivel:                                 1ro y 2do
+Duración:                              160 periodos pedagógicos
+                                       UC 1: Aplicar normas, procedimientos, planes de
+                                       seguridad e higiene en talleres, laboratorios y procesos
+Unidad         de       competencia industriales, en la prevención de riesgos, mediante el
+asociada:                              uso adecuado de herramientas, equipos y máquinas,
+                                       demostrando responsabilidad, disciplina y ética
+                                       profesional.
+Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Emplear normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Identifica señales de seguridad en talleres y laboratorios verificando su ubicación y
+legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Revisa el estado de los equipos de protección personal asegurando su operatividad
+antes de cada actividad.
+CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA 2: Establecer procedimientos de identificación, análisis y prevención de riesgos
+en entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE2.3: Ejecuta medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA 3: Ejecutar planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE3.3: Emplea la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de la
+integridad de personas y bienes.
+ RA 4: Integrar prácticas de seguridad, higiene y sostenibilidad en actividades
+ industriales promoviendo disciplina, ética profesional y mejora continua.
+CE4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y compromiso
+con la mejora continua.
+Contenidos
+Conceptuales                     Procedimentales                  Actitudinales
+• Fundamentos          de     la • Identificar           riesgos • Demostrar disciplina en el
+    seguridad        industrial,    presentes en el entorno         cumplimiento de normas
+    principios, objetivos y         laboral           utilizando    de seguridad e higiene.
+    beneficios.                     herramientas               de • Mostrar interés en la
+• Legislación y normativa           observación y registro.         identificación y control de
+    vigente en seguridad, • Analizar diagramas de                   riesgos industriales.
+    salud ocupacional e             procesos        industriales • Cumplir con el uso
+    higiene laboral (nacional       para localizar posibles         permanente y correcto de
+    e internacional).               focos de peligro.               equipos de protección
+• Derechos y obligaciones • Seleccionar equipos de                  personal.
+    en      prevención      de      protección         personal • Valorar la importancia del
+    riesgos laborales.              según tipo de actividad y       orden y la limpieza en la
+• Normas generales de               riesgo identificado.            seguridad del trabajo.
+    seguridad en talleres, • Utilizar          correctamente • Respetar la señalización
+    laboratorios y plantas          equipos de protección           de seguridad instalada.
+    industriales.                   personal      garantizando • Demostrar
+• Tipos        de      riesgos      seguridad  y comodidad.         responsabilidad en la
+    industriales:      físicos, • Instalar       y      verificar   ejecución de protocolos
+    químicos,      biológicos,      señalización               de   de emergencia.
+    ergonómicos, eléctricos,        seguridad en talleres y • Asumir            una     actitud
+    mecánicos                 y     plantas industriales.           preventiva frente a los
+    psicosociales.               • Aplicar rutinas de orden y       riesgos laborales.
+• Equipos de protección             limpieza siguiendo el • Mantener                disposición
+    personal            (EPP):      método 5S.                      activa en simulacros de
+    clasificación,               • Ejecutar procedimientos          evacuación y control de
+    características, uso y          de análisis de riesgos          incendios.
+    mantenimiento.                  aplicando matrices de • Mostrar compromiso con
+• Señalización              de      evaluación.                     la protección del medio
+    seguridad       industrial:                                     ambiente          y       la
+    códigos de colores,           •   Elaborar          informes         sostenibilidad            en
+    pictogramas, ubicación y          técnicos de riesgos con            procesos industriales.
+    normas técnicas.                  base en observaciones,         •   Evidenciar             ética
+•   Procedimientos          de        análisis    y   normativa          profesional en la toma de
+    limpieza y orden en el            vigente.                           decisiones relacionadas
+    trabajo, 5S y buenas          •   Implementar       medidas          con seguridad y salud.
+    prácticas de higiene.             preventivas y correctivas      •   Demostrar liderazgo en la
+•   Metodologías            de        ajustadas     a     riesgos        organización de grupos
+    identificación            y       detectados.                        frente a situaciones de
+    evaluación de riesgos,        •   Desarrollar planes de              riesgo.
+    análisis     de     trabajo       evacuación simulados en        •   Fomentar      el    trabajo
+    seguro (ATS), matriz de           talleres, laboratorios y           colaborativo en la mejora
+    riesgos, método del               espacios industriales.             de las condiciones de
+    árbol de causas.              •   Actuar en simulacros de            seguridad.
+•   Medidas preventivas y             emergencia       aplicando     •   Mantener actitud reflexiva
+    correctivas aplicadas a           protocolos                de       frente a incidentes para
+    riesgos específicos en            comunicación               y       promover      la    mejora
+    talleres de electrónica,          evacuación.                        continua.
+    mecatrónica,                  •   Utilizar        extintores,    •   Asumir respeto por la
+    electromecánica,                  hidrantes y otros equipos          vida, la salud y el
+    madera, alimentos y               contra           incendios         bienestar colectivo como
+    calzado.                          conforme      a     normas         valores fundamentales.
+•   Planes de emergencia,             técnicas.
+    objetivos,      estructura,   •   Aplicar técnicas básicas
+    responsables              y       de primeros auxilios en
+    procedimientos.                   casos de accidentes
+•   Protocolos              de        simulados.
+    evacuación,       primeros    •   Evaluar       condiciones
+    auxilios,    control    de        ergonómicas       de     los
+    incendios                 y       puestos de trabajo y
+    comunicación            en        proponer mejoras.
+    emergencias.                  •   Documentar y comunicar
+•   Manejo       seguro     de        incidentes, accidentes y
+    herramientas manuales,            medidas correctivas.
+    eléctricas y de máquinas      •   Participar en actividades
+    industriales.                     colaborativas de mejora
+•   Ergonomía aplicada a              continua en seguridad e
+    puestos de trabajo,               higiene industrial.
+    posturas, manipulación
+    de cargas, prevención
+    de lesiones.
+•   Cultura de seguridad y
+    mejora           continua,
+    responsabilidad, ética,
+    disciplina               y
+    sostenibilidad en el
+    trabajo.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+     riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+     con seguridad industrial.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+  • Aprendizaje Basado en Proyectos (ABP)
+  • Aprendizaje en Contextos Reales
+  • Role-Playing y Simulaciones
+  • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación                  Especificaciones técnicas                   Cantidad
+                              Entorno de aprendizaje
+Infraestructura/espacio                                                   1
+                              (aula)
+                              Computadoras con acceso a internet
+Laboratorio                                                               1
+                              Proyector
+Referencias Bibliográficas
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+
+
+
+                               Módulo Genérico Nro.2
+Nombre del módulo:                      Procesos Industriales Sostenibles
+Nivel:                                  1ro y 2do
+Duración:                               160 periodos pedagógicos
+                                        UC 2: Emplear prácticas de sostenibilidad y control
+                                        de calidad en actividades industriales mediante el uso
+                                        de tecnologías limpias, criterios de eficiencia
+Unidad de competencia                   energética, minimización de residuos, garantizando la
+asociada:                               reducción de impactos ambientales y la optimización
+                                        de estos en beneficio del entorno local, integrando
+                                        fundamentos de formación y orientación laboral y
+                                        salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA 3: Gestionar el uso de materias primas y energía en procesos industriales
+garantizando reducción de costos operativos y aprovechamiento responsable de los
+recursos.
+CE3.1: Identifica puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Identifica normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3: Practica acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Identifica productos y materiales según parámetros establecidos en normas
+técnicas y procedimientos internos.
+CE6.2:     Emplea pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+Conceptuales                   Procedimentales           Actitudinales
+• Principios               de • Identificar fuentes de Mostrar interés en la
+   sostenibilidad          en     consumo energético y aplicación      de  prácticas
+   procesos      industriales,    materiales en procesos sostenibles en procesos
+   definición, importancia y      industriales.          industriales.
+    aplicación.                    •   Medir        y       registrar   Cumplir        con       los
+•   Conceptos básicos de               consumos           eléctricos,   procedimientos            de
+    eficiencia      energética,        térmicos e hidráulicos.          reducción, reutilización y
+    consumo,          pérdidas,    •   Analizar            impactos     reciclaje de materiales.
+    rendimiento, ahorro.               ambientales                de
+                                                                        Valorar la importancia del
+•   Energías        renovables         actividades productivas.
+                                                                        ahorro energético y del
+    aplicadas a la industria,      •   Aplicar técnicas básicas
+                                                                        aprovechamiento
+    solar, eólica, biomasa,            de                reducción,
+                                                                        responsable de recursos.
+    hidráulica.                        reutilización y reciclaje.
+•   Impactos ambientales de        •   Elaborar reportes de             Mostrar orden, precisión y
+    los procesos industriales,         consumo y residuos en            método en las actividades de
+    contaminación del aire,            procesos                         medición, registro y análisis.
+    agua, suelo y ruido.               experimentales.                  Asumir una actitud reflexiva
+•   Estrategias de consumo         •   Implementar estrategias          frente al impacto ambiental
+    responsable de materias            de      optimización       del   de los procesos industriales.
+    primas y energía.                  consumo eléctrico en
+•   Introducción       a      la       equipos.                         Evidenciar iniciativa en la
+                                                                        búsqueda de soluciones
+    economía           circular,   •   Comparar el rendimiento
+    reducción, reutilización y                                          tecnológicas limpias.
+                                       de                   energías
+    reciclaje.                         convencionales               y   Demostrar eficiencia en la
+•   Marco            normativo         renovables.                      aplicación de conocimientos
+    ambiental            básico    •   Aplicar     técnicas       de    para la mejora de procesos.
+    nacional e internacional           minimización de residuos         Mantener     una   actitud
+    relacionado             con        sólidos,       líquidos      y   positiva frente al trabajo
+    sostenibilidad.                    gaseosos.                        colaborativo y proyectos
+•   Tecnologías         limpias    •   Diseñar        planes      de    colectivos.
+    aplicadas a procesos               aprovechamiento            de
+    industriales.                      residuos valorizables.           Respetar          normativas
+•   Técnicas de optimización       •   Documentar                       ambientales     vigentes   y
+    del consumo eléctrico en           procedimientos             de    aplicarlas     de      forma
+    equipos y sistemas.                sostenibilidad aplicados         consciente.
+•   Procedimientos           de        en                  procesos     Tomar conciencia de la
+    minimización de residuos           experimentales.                  importancia de innovar en el
+   y                 emisiones • Integrar sistemas de uso de energías renovables
+   contaminantes.                  automatización        que y tecnologías limpias.
+• Modelos        de    gestión     mejoren la eficiencia Manifestar compromiso con
+   energética y de recursos        energética.                el cuidado del entorno social,
+   en entornos industriales. • Evaluar indicadores de económico y ambiental.
+• Sistemas de tratamiento          sostenibilidad          en
+   y valorización de residuos      procesos simulados y
+   industriales.                   reales.
+• Relación entre eficiencia • Incorporar             energías
+   energética y reducción de       renovables en prototipos
+   costos operativos.              o       procesos        de
+• Automatización y control         laboratorio.
+   industrial orientados a • Diseñar propuestas de
+   sostenibilidad.                 mejora     de    procesos
+• Integración de energías          industriales con base en
+   renovables en procesos          tecnologías limpias.
+   productivos.                 • Validar la reducción de
+• Innovación y tendencias          costos         operativos
+   en              tecnologías     mediante la optimización
+   sostenibles.                    de recursos
+• Indicadores               de
+   sostenibilidad, huella de
+   carbono, huella hídrica,
+   eficiencia     global    de
+   recursos.
+• Normas internacionales
+   de           sostenibilidad
+   industrial (ISO 14001,
+   ISO 50001).
+• Diseño y mejora de
+   procesos industriales con
+   enfoque ambiental.
+• Proyectos integrales de
+   sostenibilidad           en
+   procesos       industriales,
+   análisis, implementación
+   y       evaluación       de
+   resultados.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+    Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+    sector industrial sostenible.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                  Especificaciones técnicas                     Cantidad
+                              Entorno de aprendizaje
+Infraestructura/espacio                                                  1
+                              (aula)
+                              Computadoras con acceso a internet
+Laboratorio
+                              Proyector                                  1
+Referencias Bibliográficas
+Besterfield, D. H. (2009). Control de calidad (8.ª ed.). Pearson Educación.
+        https://maaz.ihmc.us/rid%3D1Y2G0F7VH-1RQJ94G-
+        CVP/Control%20de%20Calidad%20H.%20Besterfield.pdf
+
+Comisión Económica para América Latina y el Caribe. (2021). Economía circular en
+      América Latina y el Caribe: Oportunidades para una recuperación transformadora.
+      https://repositorio.cepal.org/handle/11362/47309
+
+Comisión para la Seguridad de los Productos de Consumo de los Estados Unidos. (2006).
+      Manual para la fabricación de productos de consumo seguros: Control de calidad.
+      https://www.cpsc.gov/s3fs-public/pdfs/blk_pdf_handbookspanishjul06.pdf
+
+Falcón, P. C. G. (2022). Mejora del desempeño ambiental, de seguridad y salud
+       ocupacional: Caso de una empresa peruana de agroquímicos. Industrial Data,
+       25(2). https://revistasinvestigacion.unmsm.edu.pe/index.php/idata
+
+Gutiérrez Pulido, H. (2013). Control estadístico de la calidad y Seis Sigma (2.ª ed.).
+       McGraw-Hill Education. https://www.uv.mx/personal/ermeneses/files/2018/05/6-
+       control-estadistico-de-la-calidad-y-seis-sigma-gutierrez-2da.pdf
+
+Organización de las Naciones Unidas para la Alimentación y la Agricultura. (2018).
+      Manuales para el control de calidad en laboratorios de alimentos.
+      https://openknowledge.fao.org/server/api/core/bitstreams/6768c081-bda7-455b-
+      a14e-3cf9f6498bea/content
+
+Organización Internacional de Normalización. (2015). ISO 14001:2015. Sistemas de
+      gestión ambiental—Requisitos con orientación para su uso.
+      https://www.iso.org/standard/60857.html
+
+Organización Internacional de Normalización. (2018). ISO 50001:2018. Sistemas de
+      gestión de la energía—Requisitos con orientación para su uso.
+      https://www.iso.org/standard/69426.html
+                                  Módulo Genérico Nro.3
+Nombre del módulo:                    Dibujo Técnico Aplicado
+Nivel:                                1ro y 2do
+Duración:                             240 periodos pedagógicos
+                                      UC 3: Elaborar representaciones gráficas técnicas
+                                      aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia                 herramientas digitales como CAD, CAE y modelado
+asociada:                             3D, generando planos, modelos y prototipos con
+                                      precisión, creatividad, responsabilidad y compromiso
+                                      con la calidad en contextos industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Identifica símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Realiza planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2: Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+ Contenidos
+Conceptuales                     Procedimentales                 Actitudinales
+• Principios básicos del • Trazar líneas, vistas y • Mostrar interés en la
+    dibujo técnico: líneas,          escalas en bocetos y           lectura, interpretación y
+    tipos de vistas y escalas.       planos.                        elaboración de planos
+• Normas internacionales y • Utilizar instrumentos de               técnicos.
+    nacionales de dibujo             dibujo     técnico      con • Cumplir con las normas
+    técnico (ISO, DIN, INEN).        precisión.                     de        calidad       en
+• Principios fundamentales • Identificar simbología y               representaciones
+    de geometría aplicados al        aplicar normas básicas         gráficas.
+    dibujo técnico.                  en       representaciones • Valorar la precisión y
+• Sistemas de proyección             gráficas.                      exactitud en los dibujos
+    ortogonal, isométrica y • Interpretar                planos     como       garantía     de
+    oblicua.                         bidimensionales simples.       seguridad y confiabilidad.
+• Lectura e interpretación • Representar                 figuras •  Demostrar           orden,
+    de planos y esquemas             geométricas aplicadas a        responsabilidad y método
+    técnicos.                        piezas básicas.                en el uso de herramientas
+• Conceptos de acotación, • Elaborar planos con                     manuales y digitales.
+    tolerancias y ajustes en         cortes,    secciones      y • Asumir actitud reflexiva y
+    representaciones                 detalles.                      analítica al interpretar
+    gráficas.                    • Dibujar         ensamblajes      planos     y    diagramas
+• Rotulación y simbología            simples          aplicando     técnicos.
+    básica       en     planos       normas de rotulación y • Mostrar iniciativa en la
+    técnicos.                        acotación.                     búsqueda de soluciones
+• Representación            de • Usar software CAD en la            gráficas ante problemas
+    cortes,     secciones     y      creación                 de    de representación.
+    detalles técnicos.               representaciones 2D.
+•   Principios               de   •   Representar diagramas y      •   Demostrar liderazgo en
+    normalización en planos           esquemas funcionales de          actividades colaborativas
+    de piezas y ensamblajes.          sistemas técnicos.               de diseño gráfico técnico.
+•   Escalas de reducción y        •   Comprobar exactitud de       •   Aplicar     criterios     de
+    ampliación aplicadas a la         planos mediante cotejo           creatividad e innovación
+    industria.                        con piezas o modelos             en el desarrollo de planos
+•   Geometría       descriptiva       reales.                          y modelos.
+    aplicada     a    sistemas    •   Generar modelos 3D           •   Respetar las normas de
+    complejos.                        mediante herramientas            seguridad en el uso de
+•   Introducción              a       CAD.                             equipos e instalaciones
+    herramientas CAD en 2D,       •   Simular funcionamiento y         de laboratorio de CAD.
+    funciones      básicas    y       ensamblajes en software      •   Demostrar
+    comandos esenciales.              CAD/CAE.                         responsabilidad en la
+•   Elaboración de planos         •   Crear prototipos digitales       entrega oportuna y con
+    constructivos             y       y planos listos para             calidad     de      trabajos
+    diagramas funcionales.            fabricación.                     gráficos.
+•   Principios               de   •   Optimizar                    •   Mostrar         disposición
+    representación gráfica en         representaciones                 positiva y activa en
+    componentes mecánicos,            gráficas        mediante         actividades individuales y
+    electrónicos              y       automatización          de       grupales.
+    estructurales.                    comandos y macros en         •   Usar con cuidado los
+•   Modelado tridimensional           CAD.                             materiales, equipos y
+    en software CAD y             •   Presentar proyectos de           software                  de
+    generación de prototipos          diseño gráfico técnico           representación gráfica.
+    digitales.                        con enfoque innovador y      •   Valorar la importancia
+•   Ensamblajes               y       colaborativo.                    del dibujo técnico como
+    simulación               de                                        lenguaje universal en la
+    funcionamiento          con                                        industria.
+    herramientas CAD/CAE.
+•   Generación de vistas
+    explotadas y despieces
+    técnicos.
+•   Renderizado básico y
+    presentación de modelos
+    3D.
+•   Optimización de planos
+    digitales              para
+    manufactura               y
+    fabricación asistida por
+    computadora (CAM).
+•   Innovación y creatividad
+    en el diseño gráfico
+    aplicado a procesos
+    industriales.
+•  Integración del dibujo
+   técnico en proyectos
+   interdisciplinarios    de
+   diseño, producción y
+   mantenimiento.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+    Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+    al área de representación gráfica y diseño técnico.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+       Aprendizaje Basado en Proyectos (ABP)
+       Aprendizaje en Contextos Reales
+       Role-Playing y Simulaciones
+       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                           Detalle de especificaciones
+Denominación                                                    Cantidad
+                           técnicas
+Infraestructura/espacio    Entorno de aprendizaje (aula)        1
+                           Computadoras con acceso a internet
+Laboratorio                                                     1
+                           Proyector
+Referencias Bibliográficas
+
+Fernández-Bravo, P. U. (2009). Mecanizado básico. Paraninfo.
+          https://www.paraninfo.es/catalogo/9788497326933/mecanizado-basico
+
+Fernández Saavedra, D. (2019). Material docente: Dibujo Industrial I. Diseño asistido por
+          ordenador (CAD). Universidad Politécnica de Madrid. https://oa.upm.es/57277/
+
+Gómez González, S. (2018). Interpretación gráfica. Paraninfo.
+        https://www.paraninfo.es/catalogo/9788428339773/interpretacion-grafica
+
+Organización Internacional de Normalización. (2017). ISO 128-1:2017. Technical
+          drawings—General principles of presentation—Part 1: Introduction and index.
+          https://www.iso.org/standard/65023.html
+
+Organización Internacional de Normalización. (2020). ISO 129-1:2018. Technical product
+          documentation (TPD)—Presentation of dimensions and tolerances.
+          https://www.iso.org/standard/70657.html
+
+Razo-Arteaga, V. A. (2022). El diseño, la manufactura y análisis asistido por computadora
+          (CAD/CAM/CAE) en el desarrollo de productos en América Latina. Información
+          Tecnológica, 33(2), 297–308.
+          https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-
+          07642022000200297
+ Revatta Espinoza, J. (2016). Dibujo para diseño de ingeniería I. Universidad Continental.
+           https://repositorio.continental.edu.pe/handle/20.500.12394/2210
+
+ SOLIDWORKS. (2025). 3D ContentCentral®. Biblioteca gratuita de modelos CAD 2D y
+        3D. https://www.3dcontentcentral.com/
+
+   4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Electrónica se caracterizarán
+por tener competencias en diseño, instalación, mantenimiento y optimización de sistemas
+electrónicos y de telecomunicaciones, integrando electricidad, electrónica, automatización
+e instrumentación, bajo normas de seguridad, sostenibilidad y calidad, fomentando el
+pensamiento lógico, creativo y colaborativo.
+Se estructuran los siguientes módulos de especialización:
+   •   Instalaciones Eléctricas y Electrónicas Básicas
+   •   Electrónica Analógica, Digital y de Potencia
+   •   Mantenimiento de Equipos Electrónicos
+   •   Automatización de Sistemas Embebidos
+   •   Equipos y Sistemas de Telecomunicaciones
+
+                             Módulo de Especialización Nro. 1
+ Nombre del módulo:                     Instalaciones Eléctricas y Electrónicas Básicas
+ Nivel:                                 1ro
+ Duración:                              240 periodos pedagógicos
+                                        UC 1: Aplicar fundamentos de electricidad y
+                                        electrónica básica, mediante la interpretación de
+ Unidad        de      competencia
+                                        esquemas, planos eléctricos y simbología técnica
+ asociada:
+                                        para la solución de problemas en circuitos eléctricos
+                                        y electrónicos.
+ Objetivo del módulo: Desarrollar competencias en la aplicación de fundamentos de
+ electricidad y electrónica básica mediante la interpretación de esquemas, planos eléctricos
+ y simbología técnica, empleando instrumentos de medición y procedimientos
+ estandarizados, con el fin de diagnosticar, instalar y solucionar problemas en circuitos
+ eléctricos y electrónicos en contextos domésticos, comerciales, industriales y tecnológicos.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Interpretar simbología eléctrica y electrónica en esquemas y planos técnicos,
+ verificando la correspondencia con normas de representación y especificaciones de
+ fabricante bajo criterios estandarizados.
+ CE1.1: Distingue símbolos eléctricos y electrónicos en diagramas aplicando normas
+ internacionales.
+ CE1.2: Clasifica componentes por tipo y función empleando especificaciones técnicas del
+ fabricante.
+CE1.3: Compara símbolos de esquemas con componentes físicos considerando catálogos
+de fabricante.
+CE1.4: Comprueba la coherencia entre simbología y circuito en planos técnicos siguiendo
+normas de representación.
+RA 2: Analizar el funcionamiento de circuitos eléctricos, electrónicos mediante
+diagramas y principios de operación, manteniendo correspondencia entre la teoría y
+el desempeño esperado en condiciones nominales en entornos físicos o simulados.
+CE2.1: Reconoce la topología del circuito comparando el diagrama con la configuración
+real.
+CE2.2: Diferencia variables eléctricas presentes en circuitos eléctricos y electrónicos bajo
+condiciones nominales.
+CE2.3: Describe la función de cada etapa del circuito considerando la secuencia de señales
+en ambientes físicos o simulados.
+CE2.4: Verifica que la operación descrita en el diagrama coincida con la respuesta esperada
+en ambientes controlados.
+RA 3: Diagnosticar fallas básicas en circuitos eléctricos aplicando procedimientos de
+medición y comparación con parámetros nominales, asegurando condiciones
+seguras de operación en talleres y laboratorios.
+CE3.1: Realiza mediciones de tensión, corriente y resistencia utilizando instrumentos
+calibrados bajo condiciones seguras.
+CE3.2: Registra valores de medición en formatos técnicos aplicando protocolos
+establecidos.
+CE3.3: Contrasta las mediciones con los valores nominales especificados por el fabricante.
+CE3.4 Determina la causa probable de la falla con base en las mediciones obtenidas y el
+comportamiento observado del circuito.
+RA 4: Reparar circuitos eléctricos y electrónicos sustituyendo componentes y
+ajustando parámetros de acuerdo con especificaciones técnicas, verificando el
+correcto funcionamiento posterior a la intervención en condiciones controladas.
+CE4.1: Selecciona componentes defectuosos y reemplazarlos empleando repuestos
+compatibles y herramientas adecuadas.
+CE4.2: Ajusta valores de resistencias, potenciómetros o calibraciones siguiendo
+procedimientos técnicos normalizados.
+CE4.3: Comprueba el funcionamiento del circuito después de la reparación identificando
+resultados esperados.
+CE4.4: Documenta el proceso de reparación y los resultados finales en formatos técnicos
+establecidos.
+Contenidos
+Conceptuales                     Procedimentales              Actitudinales
+• Principios                 de • Identificar componentes • Valorar la importancia de
+    electricidad,         carga     eléctricos y electrónicos    interpretar correctamente
+    eléctrica,        corriente,    en planos técnicos y en      planos      eléctricos     y
+    voltaje,        resistencia,    la práctica.                 electrónicos como base
+    potencia      y     energía • Representar simbología         para              garantizar
+    eléctrica.                      en esquemas simples
+•   Fenómenos eléctricos y            siguiendo         normas          instalaciones seguras y
+    electromagnéticos.                técnicas.                         funcionales.
+    Naturaleza       de      la   •   Medir         magnitudes      •   Respetar las normas de
+    electricidad. Principios          eléctricas      utilizando        seguridad           eléctrica
+    físicos.                          multímetros               y       durante las prácticas y
+•   Magnitudes eléctricas y           amperímetros.                     trabajos de laboratorio.
+    unidades de medida,           •   Armar circuitos eléctricos    •   Reconocer                   la
+    voltios,        amperios,         básicos en protoboard y           responsabilidad individual
+    ohmios y vatios.                  placas de prueba.                 en la prevención de
+•   Leyes       fundamentales     •   Conectar circuitos en             accidentes eléctricos.
+    corrientes y voltajes.            serie, paralelo y mixtos,     •   Mostrar disciplina en la
+•   Simbología eléctrica y            verificando             su        documentación              de
+    electrónica en normas             comportamiento.                   esquemas, pruebas y
+    internacionales      (IEC,    •   Seleccionar                       reparaciones.
+    ANSI, IEEE).                      herramientas y equipos        •   Valorar el uso correcto de
+•   Ley de Ohm, Ley de                de protección adecuados           instrumentos de medición
+    Joule, Ley de Watt, Ley           para cada actividad.              como        garantía       de
+    de Kirchhoff de               •   Aplicar procedimientos            precisión        en       los
+•   Representación gráfica            de seguridad en el uso            resultados.
+    de planos eléctricos              de corriente directa y        •   Reconocer la necesidad
+    básicos, unifilares y             alterna.                          de cuidar y mantener en
+    multifilares.                 •   Documentar esquemas y             buen         estado       las
+•   Tipología de materiales y         diagramas elaborados              herramientas y equipos de
+    componentes,                      durante las prácticas.            trabajo.
+    conductores, aislantes,       •   Interpretar    diagramas      •   Mostrar disposición para la
+    resistencias,                     eléctricos y electrónicos         colaboración               en
+    capacitores, inductores,          de complejidad media.             actividades        grupales,
+    fuentes de alimentación.      •   Analizar                 el       compartiendo
+•   Herramientas manuales             comportamiento          de        responsabilidades            y
+    y eléctricas para montaje         circuitos mediante la             resultados.
+    y mantenimiento de                comparación           entre   •   Valorar la búsqueda de
+    instalaciones básicas.            valores     teóricos      y       información          técnica
+•   Principios de seguridad           prácticos.                        complementaria          para
+    eléctrica en baja tensión.    •   Diagnosticar fallas en            mejorar la interpretación
+•   Identificación de riesgos         circuitos eléctricos y            de planos y esquemas.
+    eléctricos y uso de               electrónicos      simples     •   Reconocer la importancia
+    protecciones, fusibles,           utilizando instrumentos           de verificar los parámetros
+    disyuntores,                      de medición.                      nominales                  de
+    interruptores, entre otros.   •   Sustituir componentes             componentes antes de
+•   Principios básicos de             eléctricos defectuosos            instalarlos.
+    circuitos      analógicos,        siguiendo                     •   Mostrar compromiso con
+    señal continua y alterna.         especificaciones                  la calidad y seguridad en la
+•   Reconocimiento          de        técnicas.                         ejecución de prácticas
+    dispositivos            de                                          eléctricas y electrónicas.
+    conmutación y control         •   Ajustar parámetros de •      Mantener una actitud de
+    elemental, interruptores,         circuitos en función de      mejora continua en la
+    pulsadores, relevadores.          los     resultados     de    identificación de fallas y
+•   Análisis de circuitos             medición.                    reparación de circuitos.
+    eléctricos en corriente       •   Verificar continuidad y
+    continua      y     alterna       correcto aislamiento en
+    monofásica.                       conductores              y
+•   Características de los            conexiones.
+    materiales       eléctricos   •   Aplicar    normas      de
+    según       normas       de       seguridad       en      la
+    fabricante.                       ejecución              de
+•   Diagramas eléctricos de           instalaciones básicas.
+    potencia y control en         •   Elaborar         informes
+    instalaciones                     técnicos de las pruebas y
+    residenciales             y       reparaciones realizadas.
+    comerciales.
+•   Códigos de colores y
+    estándares               en
+    resistencias,
+    conductores               y
+    conexiones.
+•   Interpretación de planos
+    eléctricos y electrónicos
+    con             simbología
+    combinada.
+
+•   Métodos de diagnóstico
+    de fallas en instalaciones
+    eléctricas y circuitos
+    básicos.
+•   Fundamentos de puesta
+    a tierra y su importancia
+    en la seguridad.
+•   Procedimientos          de
+    reparación y sustitución
+    de           componentes
+    defectuosos en circuitos.
+•   Relación              entre
+    parámetros nominales y
+    desempeño real de los
+    componentes.
+•   Normativa         nacional
+    básica      aplicable     a
+   instalaciones eléctricas
+   de baja tensión.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Electrónica,
+    Electromecánica, Electricidad, Telecomunicaciones, Automatización, Control,
+    Mecatrónica, Sistemas Embebidos o afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                     Especificaciones técnicas                          Cantidad
+Infraestructura/espacio          Entorno de aprendizaje (aula, taller)                 1
+                                 Computadoras con acceso a internet
+                                 Servidor
+Laboratorio                                                                            1
+                                 Proyector
+                                 Red de computadoras
+                                 Juego de destornilladores (plano, estrella,
+                                 aislados).
+                                 Alicates de corte, punta fina y pelacables.
+                                 Llaves ajustables y de boca.
+                                 Taladro con brocas para concreto y metal.
+                                 Martillo, nivel y cinta métrica.
+                                 Multímetros digitales.
+                                 Tableros didácticos de instalaciones
+                                 eléctricas.
+                                 Interruptores, tomacorrientes, breakers,
+Herramientas/equipos
+                                 contactores, fusibles.
+                                 Canaletas, tubos PVC y accesorios para
+                                 canalización.
+                                 Bombillas       LED,       fluorescentes      y
+                                 portalámparas.Generadores de funciones
+                                 básicos.      Fuentes      de     alimentación
+                                 regulables. Protoboards y kits de
+                                 componentes          electrónicos      básicos
+                                 (resistencias,       capacitores,       diodos,
+                                 transistores, entre otros)
+Referencias Bibliográficas
+ Deorsola, M. F. P., & Morcelle del Valle, P. (2017). Circuitos eléctricos: Parte I. Editorial
+        de          la        Universidad           Nacional          de         La      Plata.
+        https://libros.unlp.edu.ar/index.php/unlp/catalog/book/788
+González, M. L. (2015). Dispositivos electrónicos. Editorial de la Universidad Nacional de
+      La                                                                            Plata.
+      https://libros.unlp.edu.ar/index.php/unlp/catalog/book/454
+
+González, M. L. (2018). LTspice: Análisis de circuitos y dispositivos electrónicos. Editorial
+      de          la        Universidad        Nacional          de         La        Plata.
+      https://libros.unlp.edu.ar/index.php/unlp/catalog/book/979
+
+Mantilla Quijano, G. (1993). El circuito eléctrico simple. Servicio Nacional de Aprendizaje.
+        https://repositorio.sena.edu.co/handle/11404/5677
+
+Ministerio de Desarrollo Urbano y Vivienda. (2018). Norma Ecuatoriana de la
+       Construcción: NEC-SB-IE. Instalaciones eléctricas. Gobierno del Ecuador.
+       https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/1.-NEC-SB-IE-
+       Instalaciones-Electricas.pdf
+
+Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del
+       trabajo.                 Gobierno                 del                Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-
+       de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el
+       Trabajo     (Decreto    Ejecutivo   N.º    255).   Gobierno  del   Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-
+       255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+
+Parra-Gil, J. O., Caro, E. O., & Jiménez-Builes, J. A. (2023). Revisión de estrategias de
+       enseñanza y aprendizaje de la electrónica básica orientada a neouniversitarios de
+       ingeniería.                DYNA,                  90(227),               176–184.
+       https://doi.org/10.15446/dyna.v90n227.109295
+
+
+
+
+                            Módulo de Especialización Nro. 2
+Nombre del módulo:                     Electrónica Analógica, Digital y de Potencia
+Nivel:                                 1ro, 2do, 3ro
+Duración:                              480 periodos pedagógicos
+                                       UC2: Realizar el diseño, montaje, conexión, prueba y
+                                       puesta en marcha de sistemas electrónicos y
+Unidad      de       competencia       eléctricos en contextos residenciales, comerciales,
+asociada:                              industriales   y/o     tecnológicos,     empleando
+                                       herramientas, normas de seguridad y procedimientos
+                                       técnicos adecuados.
+Objetivo del módulo: Ejecutar procesos de diseño, montaje, conexión, prueba y puesta en
+marcha de sistemas electrónicos analógicos, digitales y de potencia mediante el uso de
+herramientas especializadas, normas de seguridad y procedimientos técnicos, con el
+propósito de garantizar el funcionamiento confiable de dispositivos y equipos en entornos
+residenciales, comerciales, industriales y/o tecnológicos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Elaborar diagramas eléctricos y electrónicos con simbología estandarizada y
+especificaciones técnicas, considerando requerimientos funcionales y condiciones
+del entorno.
+CE1.1: Analiza las necesidades operativas del sistema en función de la aplicación
+residencial, comercial, industrial o tecnológica con base en los requerimientos del cliente.
+CE1.2: Muestra las características técnicas del sistema de acuerdo con las condiciones
+de operación y los parámetros establecidos en el diseño.
+CE1.3: Representa diagramas esquemáticos utilizando simbología normalizada conforme
+a normas técnicas.
+CE1.4: Verifica la funcionalidad del diseño con las especificaciones y restricciones
+mediante simuladores que cumplan con la documentación técnica.
+RA 2: Instalar componentes y módulos de sistemas electrónicos integrando
+dispositivos según criterios de accesibilidad y seguridad, garantizando
+correspondencia con el diseño.
+CE2.1: Selecciona los componentes y módulos adecuados en función de las
+especificaciones técnicas del diseño.
+CE2.2: Organiza los elementos en la estructura física atendiendo criterios de accesibilidad,
+seguridad y ventilación.
+CE2.3: Ensambla los componentes utilizando herramientas manuales y eléctricas
+siguiendo normas de seguridad laboral.
+CE2.4: Comprueba que la disposición física de los elementos sea acorde al diseño
+mediante inspección técnica del montaje para futuras conexiones.
+RA 3: Conectar sistemas electrónicos estableciendo enlaces eléctricos y de señal
+con conductores y dispositivos según normas de seguridad y estándares técnicos.
+CE3.1: Determina el tipo y calibre de conductores apropiados con base en la carga del
+sistema y el contexto de uso.
+CE3.2: Realiza uniones y terminaciones que aseguren continuidad eléctrica y resistencia
+mecánica bajo normas técnicas.
+CE3.3: Instala dispositivos de protección y seguridad garantizando el cumplimiento de
+normativas vigentes.
+CE3.4: Comprueba la integridad, polaridad y continuidad de las conexiones mediante
+pruebas de inspección antes de energizar el sistema.
+RA 4: Verificar el funcionamiento mediante pruebas y puesta en marcha de sistemas
+electrónicos con instrumentos físicos o simuladores, ajustando desviaciones y
+documentando resultados conforme a criterios técnicos.
+CE4.1: Configura los equipos de medición de acuerdo con el tipo de sistema instalado y
+parámetros a evaluar.
+CE4.2: Mide variables eléctricas y electrónicas, contrastando resultados con valores de
+referencia técnicos.
+CE4.3: Ajusta parámetros del sistema corrigiendo desviaciones detectadas durante la fase
+de pruebas.
+CE4.4: Documenta resultados de la puesta en marcha en formatos técnicos normalizados
+garantizando la trazabilidad del proceso.
+Contenidos
+Conceptuales                       Procedimentales                    Actitudinales
+•   Principios        de      la   •   Elaborar tablas de verdad
+                                                                      •   Valorar la importancia del
+    electrónica analógica y            y       diagramas         de
+                                                                          análisis en el diseño de
+    digital, señales, voltajes y       compuertas lógicas.
+                                                                          circuitos     electrónicos
+    corrientes en sistemas         •   Identificar y caracterizar
+                                                                          para             garantizar
+    electrónicos.                      componentes
+                                                                          seguridad y eficiencia.
+•   Tipos de componentes               electrónicos      mediante
+                                                                      •   Reconocer la relevancia
+    electrónicos, resistivos,          instrumentos              de
+                                                                          del orden y la limpieza en
+    capacitivos, inductivos,           medición.
+                                                                          el montaje de sistemas
+    semiconductores y sus          •   Representar esquemas
+                                                                          electrónicos como parte
+    características          de        electrónicos sencillos con
+                                                                          de la calidad técnica.
+    operación.                         simbología normalizada.
+                                                                      •   Respetar normas de
+•   Lógica digital, puertas        •   Montar circuitos básicos
+                                                                          seguridad en el uso de
+    básicas,      tablas     de        en             protoboards
+                                                                          dispositivos de potencia
+    verdad, álgebra booleana           garantizando conexiones
+                                                                          y equipos de medición.
+    y combinaciones simples.           seguras.
+                                                                      •   Mantener disposición al
+•   Normas       básicas     de    •   Diseñar         diagramas
+                                                                          trabajo colaborativo en
+    seguridad eléctrica en el          electrónicos            con
+                                                                          proyectos de montaje y
+    manejo de dispositivos             amplificadores
+                                                                          pruebas electrónicas.
+    electrónicos.                      operacionales y sistemas
+                                                                      •   Demostrar disciplina y
+•   Instrumentos de medición           lógicos secuenciales.
+                                                                          precisión        en       la
+    en              electrónica,   •   Integrar          módulos
+                                                                          elaboración              de
+    multímetro, generador de           electrónicos en tarjetas de
+                                                                          diagramas técnicos y
+    señales, osciloscopio.             prueba       y     verificar
+                                                                          registros de mediciones.
+•   Amplificadores                     continuidad      de      las
+                                                                      •   Mostrar actitud crítica y
+    operacionales,                     conexiones.
+                                                                          propositiva en la solución
+    configuración, análisis de     •   Configurar fuentes de
+                                                                          de fallas de sistemas
+    ganancia y aplicaciones            alimentación     ajustando
+                                                                          electrónicos.
+    prácticas.                         parámetros nominales.
+                                                                      •   Ser responsable en el
+•   Sistemas de conmutación        •   Aplicar procedimientos de
+                                                                          mantenimiento y puesta
+    digital y biestables, flip-        seguridad en el montaje y
+                                                                          en marcha de sistemas
+    flops,      registros      y       la conexión de sistemas
+                                                                          electrónicos,
+    contadores.                        electrónicos.
+                                                                          garantizando
+•   Reguladores de voltaje y       •   Seleccionar dispositivos
+                                                                          confiabilidad     en    los
+    fuentes de alimentación            de      potencia     según
+                                                                          resultados.
+    lineales.                          requerimientos técnicos.
+•   Especificaciones              •   Ensamblar         sistemas
+    técnicas de circuitos y su        electrónicos de control de •   Manifestar        apertura
+    representación           en       potencia       verificando     hacia nuevas tecnologías
+    diagramas esquemáticos            parámetros de salida.          aplicadas a la electrónica
+    y planos.                     •   Ejecutar           pruebas     de potencia y digital,
+•   Criterios de montaje de           funcionales              en    evaluando su pertinencia
+    módulos electrónicos en           convertidores y sistemas       en distintos contextos.
+    tarjetas y protoboards.           electrónicos         mixtos
+•   Estándares de conexión y          empleando osciloscopio y
+    seguridad en sistemas             multímetro.
+    electrónicos de baja y        •   Diagnosticar fallas en
+    media potencia.                   sistemas      electrónicos
+•   Electrónica de potencia,          mediante técnicas de
+    dispositivos         (SCR,        medición y comparación
+    TRIAC, IGBT, MOSFET)              con       especificaciones
+    y sus aplicaciones en             técnicas.
+    control de potencia.          •   Validar el funcionamiento
+•   Fuentes conmutadas y              de sistemas electrónicos
+    convertidores      DC-DC,         tras       ajustes        o
+    AC-DC, DC-AC.                     reparaciones,
+•   Sistemas             mixtos       documentando resultados
+    analógicos-digitales y su         y mejoras.
+    integración en equipos
+    electrónicos.
+•   Procedimientos           de
+    prueba, diagnóstico y
+    validación en sistemas
+    electrónicos complejos.
+•   Parámetros               de
+    desempeño                 y
+    confiabilidad en sistemas
+    electrónicos en contextos
+    residenciales,
+    comerciales               e
+    industriales.
+•   Simuladores              en
+    electrónica digital.
+•   Uso de señales digitales
+    en      la    codificación,
+    transmisión               y
+    decodificación.
+•   Puesta en marcha de
+    equipos        electrónicos
+    considerando protocolos
+   de       seguridad     y
+   normativas vigentes.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Electrónica,
+   Electromecánica, Electricidad, Telecomunicaciones, Automatización, Control,
+   Mecatrónica, Sistemas Embebidos o afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación             Detalle de especificaciones técnicas           Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula, taller)                    1
+                            Computadoras con acceso a internet
+                            Servidor
+Laboratorio                                                                        1
+                            Proyector
+                            Red de computadoras
+                            Multímetros digitales
+                            Osciloscopios digitales
+                            Generadores de señal y frecuencia
+                            Fuentes de alimentación DC regulables
+                            Protoboards
+                            Kits de componentes analógicos amplificadores
+                            operacionales,      transistores,  reguladores,
+                            tiristores
+Equipos/herramientas        Kits de componentes digitales
+                            Circuitos integrados de potencia y MOSFETs
+                            Módulos de conversión A/D y D/A
+                            Bancos de prueba didácticos de electrónica
+                            analógica y digital
+                            Cargadores y fuentes para pruebas de potencia
+                            Kits de práctica en electrónica de potencia
+                            (rectificadores,       inversores,       fuentes
+                            conmutadas, entre otros)
+Referencias Bibliográficas
+González, M. L. (2015). Dispositivos electrónicos. Editorial de la Universidad Nacional de
+       La                                                                           Plata.
+       https://doi.org/10.35537/10915/49424
+
+González, M. L. (2018). LTspice: Análisis de circuitos y dispositivos electrónicos. Editorial
+       de          la       Universidad     Nacional             de         La        Plata.
+       https://doi.org/10.35537/10915/69818
+
+González, S. A. (2025). Accionamientos eléctricos. Editorial de la Universidad Nacional de
+      La                                                                            Plata.
+      https://doi.org/10.35537/10915/178342
+
+Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del
+       trabajo.                 Gobierno                 del                Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-
+       de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el
+       Trabajo     (Decreto    Ejecutivo   N.º    255).   Gobierno  del   Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-
+       255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+
+Morcelle del Valle, P., & Deorsola, M. F. P. (2020). Circuitos eléctricos: Parte 2. Editorial
+       de          la       Universidad        Nacional          de         La        Plata.
+       https://doi.org/10.35537/10915/104115
+
+Osio, J. R., Aróztegui, W. J., & Rapallini, J. A. (2020). Sistemas digitales basados en
+       microcontroladores: Descripción, funcionalidades y aplicaciones de los
+       microcontroladores basadas en el CPU HCS08. Editorial de la Universidad
+       Nacional                     de                      La                    Plata.
+       https://doi.org/10.35537/10915/95305
+
+Servicio Nacional de Aprendizaje, & Fundación Alemana para el Desarrollo Internacional.
+       (1998). Control de potencia: Principios de electrónica industrial para el control de
+       potencia.            Servicio         Nacional           de            Aprendizaje.
+       https://repositorio.sena.edu.co/handle/11404/7933
+
+Tel-a-train. (1995). Electrónica digital: Guía de estudio. Servicio Nacional de Aprendizaje.
+        https://repositorio.sena.edu.co/handle/11404/757
+
+
+
+                              Módulo especialización Nro.3
+Nombre del módulo:                     Mantenimiento de Equipos Electrónicos
+Nivel:                                 3ro
+Duración:                              160 periodos pedagógicos
+                                       UC 3: Ejecutar el mantenimiento preventivo y
+Unidad      de       competencia
+                                       correctivo de equipos y sistemas electrónicos en
+asociada:
+                                       entornos residenciales, comerciales, industriales o
+                                       tecnológicos, identificando fallas y aplicando
+                                       procedimientos de reparación bajo estándares
+                                       técnicos y normativos.
+Objetivo del módulo: Ejecutar el mantenimiento preventivo y correctivo de equipos y
+sistemas electrónicos, mediante la aplicación de técnicas de diagnóstico, uso de
+instrumentos de medición, interpretación de manuales técnicos y procedimientos de
+reparación, para asegurar su funcionamiento seguro, eficiente y confiable, conforme a
+normas técnicas, de calidad y seguridad.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar el estado operativo de equipos y sistemas electrónicos a partir de la
+inspección física, pruebas funcionales y resultados de mediciones eléctricas, en
+condiciones de seguridad y conforme a especificaciones técnicas.
+CE1.1: Examina la integridad física de los componentes electrónicos verificando signos de
+desgaste, daño o deterioro en condiciones controladas de trabajo.
+CE1.2: Ejecuta pruebas funcionales registrando parámetros eléctricos y electrónicos con
+instrumentos de medición calibrados y normas de seguridad aplicables.
+CE1.3: Clasifica los valores obtenidos contrastándolos con rangos de referencia
+establecidos por el fabricante.
+CE1.4: Determina la naturaleza y localización de la falla considerando los síntomas
+observados y el historial de mantenimiento disponible.
+RA 2: Planificar intervenciones de mantenimiento preventivo de equipos y sistemas
+electrónicos considerando criticidad operativa, requerimientos técnicos y normativa
+vigente, en función de la continuidad del servicio.
+CE2.1: Organiza los equipos electrónicos según niveles de criticidad y periodicidad de
+servicio conforme a procedimientos técnicos establecidos.
+CE2.2: Selecciona herramientas, instrumentos y repuestos compatibles con el sistema
+considerando especificaciones técnicas.
+CE2.3: Estructura la secuencia de actividades del mantenimiento ajustando tiempos de
+intervención a la disponibilidad operativa del equipo.
+CE2.4: Registra el plan de mantenimiento en formatos técnicos cumpliendo requisitos
+documentales y normativos.
+RA 3: Aplicar procedimientos de mantenimiento preventivo y correctivo en equipos
+y sistemas electrónicos conforme a manuales técnicos, protocolos de seguridad y
+estándares de calidad.
+CE3.1: Desmonta los componentes intervenidos utilizando herramientas adecuadas y
+siguiendo instrucciones técnicas del fabricante.
+CE3.2: Sustituye piezas defectuosas verificando compatibilidad, fijación y correcta
+conexión eléctrica.
+CE3.3: Limpia conexiones, contactos y terminales respetando prácticas seguras de
+mantenimiento electrónico.
+CE3.4: Verifica el ensamblaje final del equipo comprobando estabilidad mecánica y
+continuidad eléctrica.
+RA 4: Evaluar el funcionamiento de equipos y sistemas electrónicos intervenidos
+contrastando su desempeño con especificaciones técnicas y condiciones
+normativas establecidas.
+CE4.1: Conecta el equipo a la fuente de alimentación comprobando polaridad,
+protecciones y condiciones de seguridad eléctrica.
+CE4.2: Realiza pruebas operativas registrando parámetros de funcionamiento en
+condiciones controladas.
+CE4.3: Contrasta el desempeño del sistema con especificaciones de fábrica y estándares
+técnicos vigentes.
+CE4.4: Documenta los resultados del mantenimiento técnico asegurando la entrega del
+equipo en condiciones operativas adecuadas.
+Contenidos
+Conceptuales                 Procedimentales               Actitudinales
+• Fundamentos            del                               • Valorar el análisis técnico y
+                             • Reconocer        el    rol,
+   mantenimiento                                              la observación sistemática
+                                alcance y tipos de
+   electrónico.                                               como base del diagnóstico
+                                mantenimiento
+                                                              confiable     de     equipos
+                                electrónico en distintos
+• Importancia           del                                   electrónicos.
+                                entornos de aplicación.
+   mantenimiento en la
+   confiabilidad          y                                • Respetar normas técnicas y
+                             • Clasificar    actividades
+   continuidad operativa.                                     de seguridad durante las
+                                de        mantenimiento
+                                                              actividades               de
+                                preventivo y correctivo
+• Alcance               del                                   mantenimiento   preventivo y
+                                según criterios técnicos
+   mantenimiento         en                                   correctivo.
+                                y           condiciones
+   sistemas electrónicos.
+                                operativas.
+                                                           • Asumir responsabilidad en
+• Mantenimiento                                               la planificación y ejecución
+                             • Interpretar la estructura
+   electrónico en entornos                                    del           mantenimiento
+                                funcional, arquitectura
+   residenciales,                                             garantizando     continuidad
+                                general e interconexión
+   comerciales,                                               operativa.
+                                de módulos en equipos
+   industriales           y                                • Mantener orden, limpieza y
+                                electrónicos.
+   tecnológicos.                                              cuidado en el uso de
+                                                              herramientas, instrumentos
+                             • Identificar componentes
+• Relación            entre                                   y equipos electrónicos.
+                                reemplazables y no
+   mantenimiento,
+                                reemplazables
+   seguridad y vida útil de                                • Demostrar       precisión    y
+                                considerando
+   los equipos.                                               disciplina en la realización
+                                accesibilidad y función.
+                                                              de mediciones, pruebas
+• Tipos y enfoques de                                         funcionales y verificaciones
+                             • Analizar condiciones de
+   mantenimiento.                                             finales.
+                                operación, tipología de
+                                fallas y efectos del
+• Mantenimiento                                            • Mostrar actitud crítica y
+                                envejecimiento y uso de
+   preventivo en sistemas                                     reflexiva frente a los
+                                componentes.
+   electrónicos.                                              resultados                del
+                                                              mantenimiento               y
+                             • Relacionar      síntomas,
+                                                              funcionamiento del equipo.
+                                causas y efectos de
+•   Mantenimiento                    fallas     electrónicas •    Valorar la documentación
+    correctivo en equipos            observables.                 técnica como soporte del
+    electrónicos.                                                 control,  trazabilidad   y
+                                 •   Aplicar técnicas de          mejora     continua    del
+•   Criterios técnicos para la       inspección       visual,     mantenimiento.
+    selección del tipo de            mediciones eléctricas y
+    mantenimiento.                   pruebas funcionales en •     Mantener disposición al
+                                     mantenimiento.               trabajo  colaborativo    y
+•   Limitaciones          del                                     comunicación       técnica
+    mantenimiento a nivel •          Comparar         valores     responsable.
+    bachillerato técnico.            medidos con rangos
+                                     operativos             y •   Actuar con ética profesional
+•   Estructura funcional de          especificaciones             en el reporte de fallas,
+    equipos     electrónicos         técnicas.                    intervenciones y resultados
+    desde el mantenimiento.                                       obtenidos.
+                                 •   Interpretar resultados
+•   Arquitectura general de          de     mediciones     y •    Reconocer    el   impacto
+    equipos electrónicos.            detectar        errores      ambiental              del
+                                     comunes en procesos          mantenimiento electrónico
+•   Interconexión      entre         de diagnóstico.              asumiendo        prácticas
+    módulos     electrónicos                                      responsables en la gestión
+    orientados             al •      Consultar e interpretar      de residuos.
+    mantenimiento.                   manuales      técnicos,
+                                     hojas     de     datos,
+•   Componentes                      diagramas y fichas
+    reemplazables     y    no        técnicas.
+    reemplazables.
+                                 •   Analizar la criticidad
+•   Fallas electrónicas y            operativa y establecer
+    condiciones        de            frecuencias básicas de
+    operación.                       mantenimiento
+                                     preventivo.
+•   Conceptos, Tipología de
+    fallas    en   equipos •         Organizar y programar
+    electrónicos.                    actividades        de
+                                     mantenimiento
+•   Efectos            del           preventivo de forma
+    envejecimiento, uso y            secuencial.
+    carga de componentes.
+                                 •   Ejecutar
+•   Técnicas de diagnóstico          procedimientos
+    electrónico      visual,         técnicos             de
+    mediciones eléctricas y          desmontaje,
+    funcional.                       sustitución, limpieza y
+                                 ensamblaje de equipos
+•   Relación entre síntoma,      electrónicos.
+    causa y efecto.
+                            •    Aplicar normas básicas
+•   Mediciones aplicadas al      de seguridad eléctrica,
+    mantenimiento     como       protección personal y
+    magnitudes, eléctricas,      control de descargas
+    rangos       operativos      electrostáticas.
+    mediante criterios de
+    comparación.            •    Ejecutar        pruebas
+                                 posteriores     a      la
+•   Errores comunes        en    intervención y verificar
+    mediciones             de    la estabilidad operativa
+    mantenimiento.               del equipo.
+
+•   Documentación técnica •      Validar              el
+    para      mantenimiento      mantenimiento
+    como manuales, hojas         realizado contrastando
+    de datos, diagramas,         resultados         con
+    fichas    técnicas    y      especificaciones
+    reportes.                    técnicas.
+
+•   Planificación        del •   Registrar         fallas,
+    mantenimiento                intervenciones          y
+    preventivo, (Concepto,       resultados en formatos
+    criticidad    operativa,     técnicos básicos.
+    frecuencia, priorización •   Gestionar      residuos
+    básica y Programación).      electrónicos
+                                 considerando
+•   Procedimientos técnicos      reutilización,
+    de        mantenimiento      disposición técnica e
+    contemplando                 impacto ambiental.
+    secuencia, sustitución,
+    limpieza y ensamblaje.
+
+•   Seguridad        en     el
+    mantenimiento
+    electrónico         sobre
+    riesgos        eléctricos,
+    seguridad     frente    a
+    descargas
+    electrostáticas.
+•   Normas básicas de
+    seguridad electrónica.
+
+•   Uso de equipos de
+    protección personal.
+
+•   Verificación posterior a
+    la           intervención
+    refiriéndose            a
+    condiciones de prueba,
+    estabilidad operativa y
+    cumplimiento           de
+    especificaciones.
+
+•   Validación             del
+    mantenimiento
+    realizado.
+
+•   Registro y trazabilidad
+    de fallas y reparaciones.
+
+•   Residuos electrónicos
+    generados          en
+    mantenimiento.
+
+•   Reutilización           y
+    disposición técnica.
+
+•  Impacto ambiental del
+   mantenimiento
+   electrónico.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Electrónica,
+    Electromecánica, Electricidad, Telecomunicaciones, Automatización, Control,
+    Mecatrónica, Sistemas Embebidos o afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación               Especificaciones técnicas                            Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula, taller)                     1
+                            Computadoras con acceso a internet
+                            Servidor
+Laboratorio                                                                    1
+                            Proyector
+                            Red de computadoras
+                            Equipos de medición y diagnostico electrónico
+                            como pinzas, probador de continuidad,
+                            medidor LCR, probador de competentes,
+                            Multímetro digital, entre otros.
+                            Herramientas para mantenimiento y
+                            reparación como estación de soldadura,
+                            soldador eléctrico, estación de aire caliente,
+                            desoldador, juego de destornilladores,
+Equipos/herramientas
+                            alicates, pinzas, cortador y pelador de cables,
+                            entre otros.
+                            Equipos electrónicos para prácticas de
+                            mantenimiento como fuentes de alimentación,
+                            módulos electrónicos, tarjetas, dispositivos
+                            electrónicos, entre otros.
+                            Equipos de protección y seguridad como
+                            guantes, gafas, calzado, entre otros.
+Referencias Bibliográficas
+Botero G., C. (1991). Manual de mantenimiento. Servicio Nacional de Aprendizaje.
+       https://repositorio.sena.edu.co/handle/11404/1553
+
+González, M. L. (2015). Dispositivos electrónicos. Editorial de la Universidad Nacional de
+      La Plata.
+      https://doi.org/10.35537/10915/49424
+
+
+González, M. L. (2018). LTspice: Análisis de circuitos y dispositivos electrónicos. Editorial
+      de la Universidad Nacional de La Plata.
+      https://doi.org/10.35537/10915/69818
+
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2020). Guía técnica para la
+        evaluación y prevención de los riesgos relacionados con la protección frente al
+        riesgo eléctrico (4.ª ed.).
+        https://www.insst.es/documentacion/catalogo-de-publicaciones/guia-tecnica-para-
+        la-evaluacion-y-prevencion-de-los-riesgos-relacionados-con-la-proteccion-frente-
+        al-riesgo-electrico
+
+Ministerio del Ambiente, Agua y Transición Ecológica. (2022). Instructivo para la
+       aplicación de la responsabilidad extendida en la gestión integral de residuos de
+       aparatos eléctricos y electrónicos de origen doméstico (Acuerdo Ministerial N.º
+       MAATE-2022-067).
+       https://sustanciasyresiduos.ambiente.gob.ec/producto/acuerdo-ministerial-maate-
+       2022-067/
+
+Ministerio del Ambiente, Agua y Transición Ecológica. (2024). Guía para la gestión de
+       residuos de aparatos eléctricos y electrónicos en Ecuador.
+       https://sustanciasyresiduos.ambiente.gob.ec/producto/guia-gestion-de-raee-en-
+       ecuador/
+
+Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del
+       trabajo. Gobierno del Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-
+       de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el
+       Trabajo (Decreto Ejecutivo N.º 255). Gobierno del Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-
+       255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+
+Montalvo Revé, G., & González Guevara, M. (2024). Sistemas de gestión de
+      mantenimiento: Dos miradas distintas de una misma realidad. Revista Scientific,
+      9(34), 197–218.
+      https://doi.org/10.29394/Scientific.issn.2542-2987.2024.9.34.9.197-218
+
+Turmo Sierra, E. (2000). NTP 567: Protección frente a cargas electrostáticas. Instituto
+      Nacional de Seguridad y Salud en el Trabajo.
+      https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+      prevencion/16-serie-ntp-numeros-541-a-575-ano-2001/ntp-567-proteccion-frente-
+      a-cargas-electrostaticas
+
+
+
+                              Módulo Especialización Nro.4
+Nombre del módulo:                     Automatización de Sistemas Embebidos
+Nivel:                                 2do, 3ro
+Duración:                              360 periodos pedagógicos
+                                       UC 4: Instalar sistemas de automatización e
+                                       instrumentación electrónica en ambientes de control
+Unidad        de      competencia      inteligente, aplicando principios de sensado, lógica de
+asociada:                              control y programación de tarjetas electrónicas de
+                                       código abierto, garantizando funcionalidad en los
+                                       procesos.
+Objetivo del módulo: Instalar sistemas de automatización e instrumentación electrónica,
+mediante la integración de sensores, actuadores, lógica de control y programación de
+tarjetas electrónicas de código abierto, para garantizar el control, monitoreo y optimización
+de procesos en entornos residenciales, comerciales, industriales y tecnológicos, bajo
+criterios de funcionalidad, seguridad y eficiencia.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA.1. Analizar los requerimientos técnicos de un sistema de automatización a partir
+de planos, diagramas, condiciones del entorno y características operativas, en
+escenarios de control inteligente definidos.
+CE1.1: Examina planos electrónicos, eléctricos y diagramas de control verificando
+coherencia con los requerimientos funcionales del sistema.
+CE1.2: Cataloga las condiciones físicas del entorno considerando factores ambientales,
+espaciales y de seguridad que inciden en la instalación.
+CE1.3: Selecciona sensores, actuadores y dispositivos de control compatibles con la
+arquitectura del sistema y sus requerimientos técnicos.
+CE1.4: Determina la capacidad eléctrica y de comunicación necesaria considerando carga
+total, tipo de señal y topología del sistema.
+RA.2. Configurar dispositivos de sensado y control ajustando parámetros
+operativos y comunicación del sistema conforme a especificaciones técnicas y
+condiciones iniciales de funcionamiento.
+CE2.1: Analiza parámetros de operación de los sensores verificando rangos, tolerancias y
+recomendaciones técnicas del fabricante.
+CE2.2: Asigna direcciones, canales y protocolos de comunicación asegurando el
+reconocimiento correcto de los dispositivos.
+CE2.3: Establece umbrales de operación y alarmas comprobando su respuesta ante
+condiciones simuladas.
+CE2.4: Documenta la configuración realizada registrando valores, estados iniciales y
+condiciones de operación del sistema.
+RA.3. Programar la secuencia lógica de control de un sistema de automatización
+utilizando herramientas de desarrollo y principios de programación estructurada en
+entornos de prueba.
+CE3.1: Define la estructura lógica del programa representando el flujo de control en
+diagramas funcionales.
+CE3.2: Selecciona el lenguaje de programación acorde a la arquitectura del sistema y la
+estructura lógica definida.
+CE3.3: Introduce instrucciones de control en el entorno de desarrollo verificando sintaxis,
+secuencia y coherencia funcional.
+CE3.4: Simula la ejecución del programa observando el comportamiento esperado del
+sistema en condiciones de prueba.
+CE3.5: Ajusta la programación corrigiendo errores detectados durante las pruebas
+funcionales.
+RA.4. Ejecutar la instalación física de un sistema de automatización integrando
+dispositivos, cableado y comunicación conforme a normas técnicas, de seguridad
+y operación establecidas.
+CE4.1: Instala sensores, actuadores y dispositivos de control asegurando fijación
+mecánica, alineación y accesibilidad técnica.
+CE4.2: Conecta cableado eléctrico y de comunicación respetando código de colores,
+calibre y normas de seguridad vigentes.
+CE4.3: Integra el sistema a la red de control existente verificando la comunicación efectiva
+entre los dispositivos.
+CE4.4: Realiza pruebas de funcionamiento integral validando parámetros operativos y
+cumplimiento normativo.
+Contenidos
+Conceptuales                   Procedimentales                 Actitudinales
+• Introducción        a    la • Reconocer               los • Valorar el análisis técnico
+    automatización          y     principios, niveles y          previo como base para la
+    control inteligente.          aplicaciones de la             correcta     definición    de
+                                  automatización y el            requerimientos             en
+• Automatización                  control inteligente con        sistemas                   de
+    electrónica y tipos de        sistemas embebidos.            automatización.
+    sistemas automáticos.
+                              • Diferenciar sistemas • Demostrar                        orden,
+• Entornos inteligentes y         embebidos educativos           responsabilidad y limpieza
+    niveles               de      y              sistemas        en la configuración e
+    automatización.               computacionales                instalación de dispositivos
+• Alcance y aplicaciones          generales          según       de sensado, control y
+    de la automatización          arquitectura, función y        actuadores.
+    con sistemas                  limitaciones
+    embebidos.                    operativas.                 • Respetar        normas      de
+                                                                 seguridad      industrial    y
+• Sistemas embebidos • Interpretar                        la     criterios técnicos durante la
+    aplicados       a      la     arquitectura     general       instalación y puesta en
+    automatización                del      sistema       de      funcionamiento             de
+    enfocados al concepto         automatización                 sistemas automatizados.
+    y características.            identificando unidad de
+                                  procesamiento,              • Mostrar        disciplina     y
+• Diferencias           entre     entradas, salidas e            precisión         en        la
+    sistemas embebidos y          interfaces.                    programación               de
+    sistemas                                                     secuencias lógicas de
+    computacionales           • Seleccionar                      control y en el uso de
+    generales.                    plataformas            de      entornos de desarrollo.
+                                  hardware de código
+• Aplicaciones y                  abierto considerando • Mantener actitud crítica y
+    limitaciones operativas       características                reflexiva       frente      al
+    de sistemas                   técnicas    y   contexto       comportamiento            del
+    embebidos educativos.         educativo.                     sistema automatizado y los
+                                                                 resultados obtenidos en
+• Arquitectura de un • Analizar sensores y                       pruebas funcionales.
+    sistema               de      actuadores         según
+    automatización                variable física, tipo de • Asumir compromiso con la
+    embebido.                     señal,            acción       funcionalidad, confiabilidad
+                                    generada               y        y estabilidad operativa de
+•   Estructura       general,       compatibilidad                  los sistemas embebidos
+    unidad                 de       operativa.                      implementados.
+    procesamiento,
+    dispositivos de entrada     •   Interpretar señales del     •   Mantener disposición al
+    y salida e interfaces.          sistema              e          trabajo colaborativo y a la
+                                    instrumentación                 comunicación        técnica
+•   Plataformas         de          electrónica                     durante actividades de
+    hardware de código              considerando                    integración y prueba del
+    abierto y tipos de              acondicionamiento y             sistema.
+    tarjetas programables.          compatibilidad      de
+                                    dispositivos.               •   Manifestar apertura al
+•   Características                                                 aprendizaje continuo y a la
+    técnicas              de    •   Analizar la lógica de           innovación tecnológica en
+    plataformas                     control del sistema             soluciones              de
+    educativas.                     mediante      estados,          automatización y control
+                                    transiciones,                   inteligente.
+•   Sensores en sistemas            temporización        y
+    de       automatización         diagramas de flujo.
+    mediante sensado de
+    sensores          según     •   Modelar       sistemas
+    variable          física,       básicos de control
+    analógicos y digitales.         considerando
+                                    entradas,    procesos,
+•   Actuadores           en         salidas y eventos.
+    sistemas
+    automatizados, tipos        •   Definir la estructura del
+    de actuadores, relación         programa de control
+    entre señal de control y        estableciendo
+    acción física.                  variables, constantes y
+                                    tipos de datos.
+•   Características
+    operativas          y       •   Aplicar programación
+    limitaciones      en            estructurada
+    sistemas embebidos.             secuencial,
+                                    condicional e iterativa
+•   Instrumentación                 incorporando
+    electrónica y señales           temporizadores.
+    del sistema.
+                                •   Utilizar entornos de
+•   Acondicionamiento de            desarrollo de sistemas
+    señales            y            embebidos educativos.
+    compatibilidad    de
+    dispositivos.
+                               •   Analizar             la
+•   Lógica de control y            comunicación interna
+    tipos    de     control,       del            sistema
+    estados, transiciones,         considerando
+    temporización         y        sincronización        y
+    diagramas de flujo             temporización       de
+    aplicados             a        procesos.
+    automatización.
+                               •   Establecer
+•   Modelado básico de             requerimientos
+    sistemas de control.           técnicos, funcionales y
+                                   restricciones       del
+•   Entradas,    procesos,         sistema             de
+    salidas y eventos de           automatización.
+    control.
+•   Condiciones de             •   Determinar
+    operación normal y             parámetros operativos
+    anómala.                       y compatibilidad entre
+                                   componentes        del
+•   Programación         de        sistema.
+    sistemas embebidos y
+    estructura         del     •   Integrar    sensores,
+    programa de control.           controlador          y
+                                   actuadores articulando
+•   Variables, constantes y        hardware y software.
+    tipos de datos.
+                               •   Ejecutar la instalación
+•   Programación                   física    del  sistema
+    estructurada       para        embebido
+    automatización                 considerando
+    (secuencial,                   disposición técnica de
+    condicional iterativa y        dispositivos.
+    uso                  de
+    temporizadores).           •   Ejecutar la puesta en
+                                   funcionamiento     del
+•   Entornos de desarrollo         sistema automatizado.
+    para         sistemas
+    embebidos.                 •   Evaluar            el
+                                   funcionamiento    del
+•   Comunicación interna           sistema contrastando
+    del     sistema   de           comportamiento
+    automatización,                esperado            y
+    señales de control,            condiciones anómalas.
+    sincronización     y
+    temporización         de    •   Ajustar    parámetros
+    procesos.                       operativos básicos a
+                                    partir de resultados
+•   Requerimientos                  funcionales.
+    técnicos del sistema de
+    automatización.             •   Valorar criterios   de
+                                    sostenibilidad       e
+•   Requerimientos                  innovación          en
+    funcionales             y       soluciones          de
+    restricciones técnicas.         automatización
+                                    educativa.
+•   Parámetros operativos
+    y compatibilidad de
+    componentes.
+
+•   Integración           de
+    dispositivos del sistema
+    (Relación       sensor–
+    controlador–actuador,
+    Interacción hardware–
+    software).
+
+•   Instalación física de
+    sistemas embebidos.
+
+•   Instalación técnica y
+    disposición        de
+    dispositivos.
+
+•   Puesta             en
+    funcionamiento     del
+    sistema automatizado.
+
+•   Evaluación      funcional
+    del sistema.
+
+•   Funcionamiento
+    esperado del sistema
+    automatizado.
+
+•  Sostenibilidad        e
+   innovación           en
+   automatización.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+  reconocidos por el órgano rector del Sistema de Educación Superior en: Electrónica,
+  Electromecánica, Electricidad, Telecomunicaciones, Automatización, Control,
+  Mecatrónica, Sistemas Embebidos o afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                           Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula, taller)                    1
+                         Computadoras con acceso a internet
+Laboratorio              Proyector                                                  1
+                         Red de computadoras
+                         Plataformas de control y sistemas embebidos
+                         como tarjetas electrónicas de código abierto
+                         (Arduino, ESP32 similares, módulos de
+                         expansión entre otros.
+                         Dispositivos de sensado como sensores de
+                         temperatura, humedad, proximidad de luz, de
+                         presión, de nivel, de movimiento, digitales
+                         entre otros.
+                         Dispositivos de actuación y control como relés
+                         electromecánicos, motores DC, motores de
+                         paso, servomotores, zumbadores entre otros.
+                         Equipos de medición y verificación como
+Equipos/herramientas
+                         multímetro digital, fuente de alimentación,
+                         probadores, analizadores entre otros.
+                         Herramientas para instalación y montaje como
+                         juego de destornilladores, alicates, pelador y
+                         cortador de cables, crimpadora entre otros.
+                         Equipos didácticos y de práctica como kits
+                         didácticos de automatización, módulos de
+                         entrenamiento de control, sistemas
+                         demostrativos de automatización, paneles
+                         didácticos de sensado y control entre otros.
+                         Equipos de protección y seguridad como
+                         guantes, gafas, calzado, entre otros.
+Referencias Bibliográficas
+Castro Vargas, C., & Cabana Cáceres, M. (2025). Sistemas embebidos y aprendizaje
+       activo: Conectando teoría y práctica en la enseñanza de electrónica digital. Revista
+       Tribunal,                              5(13),                           208–219.
+       https://doi.org/10.59659/revistatribunal.v5i13.265
+
+Herrera-Rubio, J. E., Soto-Vergel, A. J., & Cardozo-Sarmiento, D. O. (2022). Medición de
+       parámetros en líneas de transmisión con sistemas embebidos. Tecnura, 26(73),
+       98–114.
+       https://doi.org/10.14483/22487638.18131
+
+Ministerio del Trabajo del Ecuador. (2024a). Norma técnica de seguridad e higiene del
+       trabajo.                 Gobierno                 del                Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-
+       Tecnica-de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024b). Reglamento de Seguridad y Salud en el
+       Trabajo     (Decreto    Ejecutivo   N.º    255).   Gobierno  del   Ecuador.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-
+       255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+
+Osio, J. R., Aróztegui, W. J., & Rapallini, J. A. (2020). Sistemas digitales basados en
+       microcontroladores: Descripción, funcionalidades y aplicaciones de los
+       microcontroladores basadas en el CPU HCS08. Editorial de la Universidad
+       Nacional                     de                      La                    Plata.
+       https://doi.org/10.35537/10915/95305
+
+Pereira, R., de Souza, C., Patiño, D., & Lata, J. (2022). Plataforma de enseñanza a
+       distancia de microcontroladores e internet de las cosas. Ingenius. Revista de
+       Ciencia              y            Tecnología,           (28),          53–62.
+       https://doi.org/10.17163/ings.n28.2022.05
+
+Pérez Villa, J. F., Londoño Silva, I. M., & Moreno Serrano, J. E. (2016). Manual de
+      desarrollo de módulos electrónicos embebidos de un sistema domótico. Servicio
+      Nacional                              de                          Aprendizaje.
+      https://repositorio.sena.edu.co/handle/11404/3591
+
+Soria López, A., & Ojeda Misses, M. A. (2024). Desarrollo y aplicación de una tarjeta
+       embebida para el control de un sistema rueda-bola. Ingeniería, Investigación y
+       Tecnología,                             25(4),                           1–13.
+       https://doi.org/10.22201/fi.25940732e.2024.25.4.029
+
+Torres Guin, W., Sánchez Aquino, J., Bustos Gaibor, S., & Coronel Suárez, M. (2024).
+       Arquitectura de IoT para el monitoreo de emisiones de gases contaminantes de
+       vehículos y su validación a través de aprendizaje automático. Ingenius. Revista de
+       Ciencia              y             Tecnología,             (32),            9–17.
+       https://doi.org/10.17163/ings.n32.2024.01
+                             Módulo especialización Nro. 5
+Nombre del módulo:                   Equipos y Sistemas de Telecomunicaciones
+Nivel:                               1ro, 2do, 3ro
+Duración:                            440 periodos pedagógicos
+                                     UC 5: Implementar equipos y sistemas de
+                                     telecomunicación a partir de planos, protocolos,
+Unidad       de      competencia     normas y especificaciones técnicas necesarias en
+asociada:                            condiciones de calidad y estándares de seguridad,
+                                     aplicado a contextos residenciales, comerciales,
+                                     industriales y/o tecnológicos.
+Objetivo del módulo: Implementar señales y sistemas de telecomunicación mediante la
+configuración, integración y validación de equipos de transmisión, recepción y
+procesamiento de información, con el fin de asegurar la conectividad, el flujo eficiente de
+datos y la operatividad de redes en ámbitos domésticos, comerciales, industriales y/o
+tecnológicos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA.1. Aplicar materiales, dispositivos y medios de transmisión en sistemas de
+telecomunicaciones manteniendo compatibilidad técnica y normativa en función de
+parámetros técnicos y condiciones de aplicación.
+CE1.1: Distingue dispositivos de telecomunicaciones en función de características de
+señal y eléctricas requeridas.
+CE1.2: Clasifica medios de transmisión considerando ancho de banda y condiciones del
+entorno.
+CE1.3: Elige conectores y accesorios de red y telecomunicaciones verificando estándares
+y especificaciones del fabricante.
+RA.2. Instalar cableado, conexiones físicas, medios de transmisión y configuración
+inicial de equipos y sistemas de telecomunicaciones asegurando integridad de
+enlace y seguridad operativa.
+CE2.1: Construye cableado estructurado en función de la topología definida en el diseño
+técnico.
+CE2.2: Conecta dispositivos de red y telecomunicaciones aplicando normas
+internacionales de cableado y siguiendo la documentación técnica.
+CE2.3: Configura parámetros básicos de dispositivos de red mediante la interfaz de
+administración siguiendo manuales técnicos.
+CE2.4: Verifica continuidad de enlace utilizando herramientas de prueba en condiciones
+controladas.
+RA.3. Integrar equipos de transmisión, recepción y procesamiento de señales en
+sistemas de telecomunicaciones garantizando compatibilidad de hardware y
+protocolos de enlace.
+CE3.1: Interconecta equipos de transmisión y recepción siguiendo diagramas de conexión
+y normas de señalización.
+CE3.2: Establece comunicación entre módulos telecomunicación aplicando protocolos
+básicos de transferencia de datos.
+CE3.3: Comprueba integridad de señales transmitidas mediante mediciones con
+osciloscopio y multímetro.
+CE3.4: Corrige fallas de interconexión ajustando parámetros técnicos establecidos.
+RA.4. Implementar técnicas de modulación y multiplexación en sistemas de
+comunicación garantizando transmisión eficiente y aprovechamiento del espectro.
+CE4.1: Configura esquemas de modulación analógica o digital según tipo de señal a
+transmitir.
+CE4.2: Realiza multiplexación por tiempo o frecuencia de acuerdo con las condiciones del
+canal disponible.
+CE4.3: Evalúa calidad de la señal modulada mediante indicadores técnicos como relación
+señal/ruido.
+CE4.4: Ajusta parámetros de transmisión cuando se detecta distorsión o pérdidas en
+pruebas de señal.
+RA.5. Comprobar el funcionamiento de sistemas de telecomunicaciones y redes
+básicas a través de pruebas de diagnóstico y verificación en escenarios reales o
+simulados de operación.
+CE5.1: Ejecuta pruebas de transmisión y recepción verificando continuidad de enlace en
+entornos domésticos o comerciales y/o tecnológicos.
+CE5.2: Mide velocidad de transferencia de datos comparando resultados con valores de
+referencia de diseño establecidas.
+CE5.3: Detecta interferencias o pérdidas de señal empleando analizadores de red o
+software de monitoreo.
+CE5.4: Documenta resultados de pruebas aplicando normas de calidad y seguridad
+vigentes.
+RA.6. Gestionar equipos y sistemas de telecomunicaciones básicos integrados a
+sistemas electrónicos garantizando conectividad estable y cumplimiento de
+estándares técnicos.
+CE6.1: Opera dispositivos de telecomunicaciones verificando estabilidad de red,
+manteniendo conectividad y disponibilidad.
+CE6.2: Ajusta parámetros de configuración de equipos de comunicación cuando se
+identifican inconsistencias técnicas.
+CE6.3: Coordina la integración de sistemas electrónicos con redes básicas garantizando
+interoperabilidad.
+CE6.4: Optimiza el rendimiento de la red mediante la aplicación de protocolos de gestión y
+seguridad establecidos.
+Contenidos
+Conceptuales                   Procedimentales             Actitudinales
+• Tipos de medios de • Identificar
+                                                          • Valorar la importancia de la
+    transmisión,         par      características     de
+                                                              transmisión confiable de
+    trenzado, coaxial, fibra      señales eléctricas y
+                                                              información en entornos
+    óptica     y     medios       ópticas         usando
+                                                              domésticos,      comerciales,
+    inalámbricos.                 osciloscopios        y
+                                                              industriales y tecnológicos.
+                                  multímetros.
+•   Dispositivos          de                                  •   Respetar                    las
+    transmisión             y   •   Seleccionar    cables,        especificaciones técnicas y
+    recepción, repetidores,         conectores y materiales       normativas internacionales
+    transceptores           y       adecuados       según         en la selección de medios y
+    antenas.                        parámetros técnicos y         dispositivos                 de
+•   Parámetros eléctricos y         normativos.                   comunicación.
+    ópticos en transmisión                                  •     Reconocer la necesidad de
+    de datos, atenuación,       •   Elaborar esquemas de          aplicar       criterios      de
+    impedancia,      pérdida        conexión de sistemas          seguridad en instalaciones
+    por inserción, velocidad        de          transmisión       de telecomunicaciones y
+    de propagación.                 cableados             e       pruebas de equipos.
+•   Conceptos iniciales de          inalámbricos básicos.   •     Usar            correctamente
+    protocolos            de                                      documentación                de
+    comunicación y capas        •   Ejecutar pruebas de           conexiones,
+    físicas.                        continuidad           y       configuraciones y resultados
+•   Técnicas              de        verificación de enlace        de pruebas.
+    codificación de señal,          en instalaciones de •         Mostrar      disposición      a
+    NRZ, Manchester, AMI.           cableado simple.              investigar              nuevas
+•   Principios            de    •   Implementar                   tecnologías de transmisión y
+    modulación analógica y          conexiones físicas de         protocolos emergentes de
+    digital, AM, FM, ASK,           sistemas             de       comunicación.
+    FSK, PSK.                       comunicación utilizando •     Demostrar perseverancia en
+•   Introducción      a    la       herramientas         de       la resolución de problemas
+    multiplexación, FDM,            terminación           y       de       conectividad         y
+    TDM, WDM.                       certificación.                funcionamiento de equipos
+•   Dispositivos en redes,                                        de comunicación.
+    switches,      módems,      •   Configurar parámetros •       Colaborar en equipos de
+    routers, conversores de         básicos de módems,            trabajo manteniendo un
+    medios.                         switches y equipos de         enfoque ético, disciplinado y
+•   Interferencias y ruido          red.                          orientado a resultados.
+    en       sistemas     de    •   Aplicar técnicas de •         Usar ropa de trabajo y
+    comunicación, causas,           modulación           y        equipos      de      protección
+    efectos y métodos de            multiplexación      en        personal que cumplan con la
+    mitigación.                     simuladores y montajes        normativa vigente.
+•   Estándares              y       experimentales.        •      Usar protecciones en el uso
+    normativas básicas de                                         de máquinas y equipos.
+    telecomunicaciones          •   Realizar mediciones de •      Determinar los factores y
+    (ANSI/TIA, IEEE, ITU).          parámetros          de        situaciones de riesgo previo
+•   Integración           de        transmisión,                  a realizar trabajos.
+    sistemas              de        atenuación, pérdida de
+    transmisión, recepción          retorno, velocidad de
+    y procesamiento de              transferencia.
+    información.
+                                •   Integrar   equipos   de
+•   Protocolos básicos de             transmisión, recepción
+    enlace y comunicación             y        procesamiento
+    de datos, Ethernet, Wi-           asegurando
+    Fi, Bluetooth.                    compatibilidad      de
+•   Parámetros de calidad             hardware y protocolos.
+    de        servicio      en
+    comunicación, latencia,       •   Ejecutar pruebas de
+    jitter, tasa de error de          diagnóstico en sistemas
+    bits.                             de        comunicación
+•   Sistemas                de        mediante analizadores
+    transmisión.                      de red y espectro.
+•   Equipos y medios de
+    transmisión.                  •   Configurar protocolos
+•   Funcionamiento básico             básicos             de
+    del teléfono.                     comunicación        en
+•   Centrales               de        equipos de red y
+    conmutación.                      telecomunicaciones.
+•   Telefonía móvil, fija,
+    satelital.                    •   Gestionar          el
+•   Multiplexación                    funcionamiento    de
+    avanzada y técnicas de            sistemas          de
+    acceso            múltiple,       comunicación
+    FDMA, TDMA, CDMA,                 implementando planes
+    OFDM.                             de      prueba      y
+•   Diagnóstico y pruebas             procedimientos
+    en       sistemas       de        técnicos.
+    comunicación,
+    reflectometría,               •   Utilizar software de
+    medidores de potencia             diagnóstico y pruebas
+    óptica, analizadores de           de circuitos y equipos
+    espectro.                         electrónicos        de
+•   Gestión básica de                 comunicación.
+    redes de comunicación         •   Limpiar, pelar, cortar y
+    integradas a sistemas             preparar             los
+    electrónicos,                     ingredientes según las
+    monitoreo, control de             especificaciones de las
+    tráfico, configuración            recetas.
+    de equipos.                   •   Colocar los ingredientes
+•   Captadores de señal,              y utensilios en sus
+    equipos en la red de              lugares designados, de
+    telefonía interior.               manera accesible y
+                                      ordenada, siguiendo las
+                                      normas de higiene y
+                                      seguridad alimentaria.
+                             •   Cumplir con las normas
+                                 y      protocolos      de
+                                 organización            y
+                                 manipulación           de
+                                 recursos establecidos
+                                 por la unidad de
+                                 gastronomía.
+                             •   Mantener la higiene y
+                                 seguridad durante la
+                                 manipulación de los
+                                 ingredientes.
+                             •   Verificar la correcta
+                                 cocción, textura y sabor
+                                 de       los    alimentos
+                                 preparados.
+                             •   Cumplir con las normas
+                                 de higiene, seguridad y
+                                 calidad establecidas.
+                             •   Seguir las recetas y
+                                 especificaciones
+                                 establecidas para el
+                                 montaje de cada plato y
+                                 bebida.
+                             •   Utilizar         técnicas
+                                 correctas              de
+                                 presentación         para
+                                 garantizar la estética y
+                                 calidad visual.
+                             •   Incorporar
+                                 decoraciones            y
+                                 complementos según
+                                 los estándares.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Electrónica,
+   Electromecánica, Electricidad, Telecomunicaciones, Automatización, Control,
+   Mecatrónica, Sistemas Embebidos o afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                         Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula, taller)                 1
+                             Computadoras con acceso a internet
+                             Servidor
+Laboratorio                                                                   1
+                             Proyector
+                             Red de computadoras
+                             Analizadores de espectro (portátiles o de
+                             banco)
+                             Generadores de RF y moduladores
+                             Osciloscopios digitales con funciones FFT
+                             Medidores de potencia RF y atenuadores
+                             Routers, switches y puntos de acceso Wi-Fi.
+                             Kits de cableado estructurado (tester de
+                             redes, crimpadoras, ponchadoras, pelacables
+                             UTP).
+                             Cables UTP, STP y fibra óptica con
+                             conectores
+Equipos/herramientas         Radios de comunicación (VHF/UHF) para
+                             pruebas
+                             Kits de transmisión y recepción de señales
+                             analógicas y digitales
+                             Kits de prácticas de modulación/demodulación
+                             (AM, FM, ASK, FSK, QAM).
+                             Kits de multiplexación por división de
+                             frecuencia y tiempo (FDM/TDM).
+                             Simuladores de sistemas de comunicación
+                             (software como Multisim, Proteus,
+                             MATLAB/Simulink o equivalente libre).
+                             Bancos didácticos de telecomunicaciones
+Referencias Bibliográficas
+Castrillón Carmona, J. A. (2003). Características de la red de telecomunicaciones en
+        cobre.             Servicio            Nacional             de    Aprendizaje.
+        https://repositorio.sena.edu.co/handle/11404/6110
+
+Maza Amador, J. de J. (2019). Manual técnico de normatividad y estándares
+     internacionales aplicado al sistema de cableado estructurado (SCS) (2.ª ed.).
+     Servicio                  Nacional                de            Aprendizaje.
+     https://repositorio.sena.edu.co/handle/11404/5833
+
+Moreno, H., & Forero Galeano, J. A. (2003). Recursos físicos requeridos para el montaje,
+      instalación y conexión de servicios de telecomunicaciones por redes cableadas.
+      Servicio                  Nacional                 de                Aprendizaje.
+      https://repositorio.sena.edu.co/handle/11404/6204
+ Moreno Cardona, H., & Forero Galeano, J. A. (2004). Montaje de la red de
+       telecomunicaciones en fibra óptica. Servicio Nacional de Aprendizaje.
+       https://repositorio.sena.edu.co/handle/11404/6139
+
+ Niño Rondón, C. V., Contreras Gómez, W. A., Puerto López, K. C., & Guevara Ibarra, D.
+       (2023). Radio definida por software: Una mirada a las tendencias y aplicaciones.
+       Ingenierías                USBMed,                  14(1),               58–69.
+       https://doi.org/10.21500/20275846.6048
+
+ Peñaranda Villalba, V., Puerto López, K. C., & Ramírez Mateus, J. J. (2022). Sistemas de
+       radio sobre fibra y redes 5G: Perspectiva y aplicaciones. Ingeniare, (33).
+       https://doi.org/10.18041/1909-2458/ingeniare.33.9732
+
+ Sánchez Salazar, A. (2003). Configuración, programación y pruebas del servicio de
+       telecomunicaciones por la red de fibra óptica. Servicio Nacional de Aprendizaje.
+       https://repositorio.sena.edu.co/handle/11404/6112
+
+ Unión Internacional de Telecomunicaciones. (2003). Plan de transmisión (Recomendación
+        UIT-T                                                                  G.101).
+        https://handle.itu.int/11.1002/1000/7036
+
+ Unión Internacional de Telecomunicaciones. (2021). Manual sobre la implantación de
+        redes y sistemas de radiodifusión de televisión terrenal digital.
+        https://www.itu.int/pub/R-HDB-63-2021/es
+
+
+
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación
+a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+                             Módulo Práctico Experimental
+Nombre del módulo:            Práctico Experimental
+Nivel:                        1ro, 2do, 3ro
+Duración:                     360 periodos pedagógicos
+Unidad                  de    UC1: Aplicar fundamentos de electricidad y electrónica
+competencia asociada:         básica, mediante la interpretación de esquemas, planos
+                              eléctricos y simbología técnica para la solución de
+                              problemas en circuitos eléctricos y electrónicos.
+                              UC2: Realizar el diseño, montaje, conexión, prueba y
+                              puesta en marcha de sistemas electrónicos y eléctricos en
+                              contextos residenciales, comerciales, industriales y/o
+                              tecnológicos, empleando herramientas, normas de
+                              seguridad y procedimientos técnicos adecuados.
+                              UC3: Ejecutar el mantenimiento preventivo y correctivo de
+                              equipos y sistemas electrónicos en entornos residenciales,
+                              comerciales, industriales o tecnológicos, identificando fallas
+                              y aplicando procedimientos de reparación bajo estándares
+                              técnicos y normativos.
+                              UC4: Instalar sistemas de automatización e instrumentación
+                              electrónica en ambientes de control inteligente, aplicando
+                              principios de sensado, lógica de control y programación de
+                              tarjetas electrónicas de código abierto, garantizando
+                              funcionalidad en los procesos.
+Objetivo del módulo: Desarrollar competencias prácticas y experimentales en el área
+de la electrónica mediante el diseño, montaje, medición, prueba, mantenimiento e
+integración de sistemas eléctricos y electrónicos, incorporando fundamentos de
+programación, informática, comunicaciones, automatización e IoT, con visitas técnicas
+a empresas, universidades e institutos tecnológicos, fomentando el pensamiento crítico,
+la innovación y la aplicación de normas de seguridad.
+Resultados                de    Criterios de evaluación Actividades Prácticas
+aprendizaje (RA)                (CE)                         Experimentales
+RA1: Montar y analizar          CE1.1: Realiza montajes Ensamblaje           de     circuitos
+circuitos    eléctricos    y    de   circuitos  DC    y AC   eléctricos    básicos,    serie,
+electrónicos en corriente       aplicando       simbología paralelo, mixtos, en corriente
+continua      y      alterna    técnica       y      planos continua y alterna.
+aplicando fundamentos de        eléctricos.
+electricidad, magnetismo                                     Prácticas de medición con
+y mediciones eléctricas.        CE1.2:       Verifica     el multímetro, osciloscopio y
+                                funcionamiento de los generador de señales.
+                                circuitos       empleando
+                                instrumentos de medición Visita técnica a empresa
+                                y normas de seguridad.       eléctrica     o     laboratorio
+                                                             universitario de energía.
+ RA2: Diseñar y programar      CE2.1: Diseña circuitos      Simulación y diseño de
+ sistemas     digitales    y   lógicos     empleando        circuitos digitales en software
+ microcontroladores            compuertas, flip-flops y     especializado         (Proteus,
+ aplicando fundamentos de      circuitos    integrados      Multisim,           Tinkercad).
+ programación,        lógica   lineales.
+ digital y técnicas de                                     Programación                de
+ transmisión de datos.                                     microcontroladores          en
+                               CE2.2:           Programa
+                                                           Arduino para control de luces,
+                               microcontroladores       en
+                                                           motores       y      sensores.
+                               entornos     Arduino      o
+                               similares,      integrando
+                               sensores y actuadores.      Visita técnica a instituto
+                                                           tecnológico especializado en
+                                                           sistemas embebidos.
+ RA3:          Implementar      CE3.1: Integra sistemas Montaje de un sistema de
+ sistemas                de    de control con PLCs o control           automático     con
+ automatización, domótica      microcontroladores       en sensores, relés y actuadores.
+ e IoT aplicando principios    procesos básicos de Implementación de prototipos
+ de control automático,        automatización.             de domótica (control de luces,
+ comunicación             y                                riego, temperatura).
+ electrónica industrial.       CE3.2:           Configura
+                               dispositivos             de Proyecto con IoT (Arduino +
+                               comunicación e IoT para NodeMCU) para monitoreo
+                               la transmisión de datos remoto           de      variables.
+                               en redes locales o Visita técnica a empresa de
+                               inalámbricas.               automatización industrial o
+                                                           telecomunicaciones.
+ RA4:       Realizar      el   CE4.1: Identifica fallas en Prácticas de mantenimiento
+ mantenimiento preventivo      sistemas      electrónicos preventivo en fuentes de
+ y correctivo de sistemas      utilizando     diagramas, alimentación, equipos de
+ electrónicos     aplicando    equipos de diagnóstico y comunicación y sistemas
+ procedimientos técnicos,      software de análisis.       eléctricos.
+ normativos       y      de
+ seguridad.                    CE4.2:          Aplica       Reparación básica de placas
+                               procedimientos      de       electrónicas y dispositivos
+                               reparación           y       eléctricos.
+                               mantenimiento       de
+                               acuerdo con normas de        Visita técnica a laboratorios de
+                               seguridad.                   mantenimiento electrónico.
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

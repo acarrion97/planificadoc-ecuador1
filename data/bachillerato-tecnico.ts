@@ -19,6 +19,14 @@ export interface FiguraProfesional {
   area: "tecnica" | "deportes_salud" | "artistica";
   objetivoGeneral: string;
   modulos: ModuloFormativo[];
+  /** Código oficial MINEDUC de la figura (DS-xx / AR-xx / TC-xx-xx) */
+  codigo?: string;
+  /** Estado del catálogo. Ausente equivale a "activa". */
+  estado?: "activa" | "deprecada";
+  /** ID de la figura que la reemplaza (solo si estado === "deprecada") */
+  reemplazadaPor?: string;
+  /** Acuerdo ministerial que establece la vigencia de esta figura */
+  normativaVigente?: string;
 }
 
 export interface FamiliaProfesional {
@@ -27,6 +35,19 @@ export interface FamiliaProfesional {
   area: "tecnica" | "deportes_salud" | "artistica";
   figuras: string[]; // IDs de figuras profesionales
 }
+
+/**
+ * Módulos de la figura histórica `construcciones-metalicas` (00065-A),
+ * reutilizados por referencia en `mecanica-industrial` (00051-A) porque
+ * representan el currículo de mecanizado/soldadura de la Mecánica industrial.
+ * Se comparten para que la figura deprecada conserve sus módulos (planes
+ * históricos reproducibles) sin duplicar el catálogo.
+ */
+const MODULOS_MECANICA_INDUSTRIAL: ModuloFormativo[] = [
+  { codigo: "CM.1.1", nombre: "Metalmecánica Básica", descripcion: "Aplicar técnicas básicas de mecanizado, corte y conformado de metales.", anio: 1 },
+  { codigo: "CM.2.1", nombre: "Soldadura y Uniones Metálicas", descripcion: "Ejecutar procesos de soldadura (SMAW, GMAW, GTAW) en estructuras metálicas.", anio: 2 },
+  { codigo: "CM.3.1", nombre: "Fabricación de Estructuras", descripcion: "Fabricar y montar estructuras metálicas según planos y especificaciones técnicas.", anio: 3 },
+];
 
 export const AREAS_BT = [
   { id: "tecnica", nombre: "Técnica" },
@@ -39,15 +60,15 @@ export const FAMILIAS_PROFESIONALES: FamiliaProfesional[] = [
   { id: "administrativa", nombre: "Administrativa y Financiera", area: "tecnica", figuras: ["gestion-administrativa", "gestion-financiera"] },
   { id: "agropecuaria", nombre: "Agropecuaria", area: "tecnica", figuras: ["recursos-hidrobiologicos", "produccion-agropecuaria"] },
   { id: "ambiente", nombre: "Ambiente", area: "tecnica", figuras: ["areas-protegidas", "gestion-ambiental"] },
-  { id: "construccion", nombre: "Construcción Sostenible", area: "tecnica", figuras: ["climatizacion", "obra-civil", "construcciones-metalicas", "instalaciones-electricas"] },
-  { id: "industrial", nombre: "Industrial", area: "tecnica", figuras: ["electromecanica-industrial", "electromecanica-automotriz", "electronica", "fabricacion-madera", "mecatronica", "procesamiento-alimentos", "produccion-calzado"] },
+  { id: "construccion", nombre: "Construcción Sostenible", area: "tecnica", figuras: ["obra-civil"] },
+  { id: "industrial", nombre: "Industrial", area: "tecnica", figuras: ["electromecanica-industrial", "electromecanica-automotriz", "electronica", "fabricacion-madera", "mecatronica", "procesamiento-alimentos", "produccion-calzado", "mecanica-industrial", "instalaciones-electricas", "climatizacion"] },
   { id: "tecnologias", nombre: "Tecnologías", area: "tecnica", figuras: ["ciencia-datos", "desarrollo-software", "redes-telecomunicaciones", "seguridad-informatica", "soporte-informatico"] },
   { id: "turismo", nombre: "Turismo", area: "tecnica", figuras: ["gestion-turistica", "hosteleria-culinario"] },
   // Área Deportes y Salud
   { id: "deportes", nombre: "Deportes", area: "deportes_salud", figuras: ["actividad-fisica", "gestion-deportiva"] },
   { id: "salud-servicio", nombre: "Salud y Servicio", area: "deportes_salud", figuras: ["primera-infancia", "seguridad-ciudadana", "grupos-prioritarios"] },
   // Área Artística
-  { id: "artes", nombre: "Artes", area: "deportes_salud", figuras: ["artes-plasticas", "artes-escenicas", "musica"] },
+  { id: "artes", nombre: "Artes", area: "artistica", figuras: ["artes-plasticas", "artes-escenicas", "musica"] },
   { id: "diseno", nombre: "Diseño", area: "artistica", figuras: ["diseno-modas", "diseno-grafico"] },
 ];
 
@@ -69,9 +90,11 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
   },
   {
     id: "gestion-financiera",
-    nombre: "Gestión Financiera",
+    nombre: "Gestión financiera y contable",
     familia: "administrativa",
     area: "tecnica",
+    codigo: "TC-01-01",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
     objetivoGeneral: "Realizar operaciones inherentes al manejo del proceso contable en diferentes actividades económicas dando cumplimiento a las obligaciones tributarias mediante la gestión del talento humano con sujeción a las leyes, normas y principios contables.",
     modulos: [
       { codigo: "GF.1.1", nombre: "Contabilidad General", descripcion: "Desarrollar el proceso contable de empresas de servicios y comerciales con sujeción a normas contables, laborales y tributarias.", anio: 1 },
@@ -135,12 +158,14 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
       { codigo: "GA.3.1", nombre: "Gestión de Residuos y Energías Renovables", descripcion: "Implementar sistemas de gestión de residuos sólidos y aprovechamiento de energías renovables.", anio: 3 },
     ],
   },
-  // === CONSTRUCCIÓN SOSTENIBLE ===
+  // === INDUSTRIAL (Climatización: movida de Construcción sostenible por 00051-A) ===
   {
     id: "climatizacion",
     nombre: "Climatización",
-    familia: "construccion",
+    familia: "industrial",
     area: "tecnica",
+    codigo: "TC-05-10",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
     objetivoGeneral: "Instalar y mantener sistemas de climatización y refrigeración aplicando normativas técnicas y de seguridad vigentes.",
     modulos: [
       { codigo: "CL.1.1", nombre: "Fundamentos de Refrigeración", descripcion: "Comprender los principios termodinámicos aplicados a sistemas de refrigeración y climatización.", anio: 1 },
@@ -165,18 +190,19 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
     nombre: "Estructuras y Construcciones Metálicas",
     familia: "construccion",
     area: "tecnica",
+    estado: "deprecada",
+    reemplazadaPor: "mecanica-industrial",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
     objetivoGeneral: "Fabricar y montar estructuras metálicas aplicando técnicas de soldadura, corte y conformado de metales según normativas de seguridad.",
-    modulos: [
-      { codigo: "CM.1.1", nombre: "Metalmecánica Básica", descripcion: "Aplicar técnicas básicas de mecanizado, corte y conformado de metales.", anio: 1 },
-      { codigo: "CM.2.1", nombre: "Soldadura y Uniones Metálicas", descripcion: "Ejecutar procesos de soldadura (SMAW, GMAW, GTAW) en estructuras metálicas.", anio: 2 },
-      { codigo: "CM.3.1", nombre: "Fabricación de Estructuras", descripcion: "Fabricar y montar estructuras metálicas según planos y especificaciones técnicas.", anio: 3 },
-    ],
+    modulos: MODULOS_MECANICA_INDUSTRIAL,
   },
   {
     id: "instalaciones-electricas",
-    nombre: "Instalaciones Eléctricas",
-    familia: "construccion",
+    nombre: "Instalaciones eléctricas y automatización",
+    familia: "industrial",
     area: "tecnica",
+    codigo: "TC-05-09",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
     objetivoGeneral: "Diseñar, instalar y mantener instalaciones eléctricas residenciales e industriales aplicando normativas de seguridad y calidad vigentes.",
     modulos: [
       { codigo: "IE.1.1", nombre: "Electricidad Básica", descripcion: "Comprender los fundamentos de electricidad, circuitos y mediciones eléctricas.", anio: 1 },
@@ -268,6 +294,17 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
       { codigo: "PC.2.1", nombre: "Procesos de Fabricación de Calzado", descripcion: "Ejecutar procesos de corte, aparado, montaje y acabado de calzado.", anio: 2 },
       { codigo: "PC.3.1", nombre: "Control de Calidad y Producción", descripcion: "Gestionar la producción de calzado aplicando control de calidad y optimización de recursos.", anio: 3 },
     ],
+  },
+  {
+    id: "mecanica-industrial",
+    nombre: "Mecánica industrial",
+    familia: "industrial",
+    area: "tecnica",
+    codigo: "TC-05-08",
+    estado: "activa",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
+    objetivoGeneral: "Ejecutar procesos de mecanizado, soldadura y fabricación de componentes y estructuras metálicas aplicando técnicas de manufactura y normas de seguridad.",
+    modulos: MODULOS_MECANICA_INDUSTRIAL,
   },
   // === TECNOLOGÍAS ===
   {
@@ -529,9 +566,11 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
   // === ARTES ===
   {
     id: "artes-plasticas",
-    nombre: "Gestión Cultural y Artes Plásticas",
+    nombre: "Artes plásticas y gestión cultural",
     familia: "artes",
     area: "artistica",
+    codigo: "AR-01-01",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
     objetivoGeneral: "Crear obras de artes plásticas y gestionar proyectos culturales aplicando técnicas artísticas y principios de gestión cultural.",
     modulos: [
       { codigo: "APL.1.1", nombre: "Fundamentos de Artes Plásticas", descripcion: "Aplicar técnicas de dibujo, pintura y escultura como medios de expresión artística.", anio: 1 },
@@ -541,9 +580,11 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
   },
   {
     id: "artes-escenicas",
-    nombre: "Gestión Cultural y Artes Escénicas",
+    nombre: "Artes escénicas y gestión cultural",
     familia: "artes",
     area: "artistica",
+    codigo: "AR-01-02",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
     objetivoGeneral: "Crear y producir obras de artes escénicas (teatro, danza) y gestionar proyectos culturales aplicando técnicas de interpretación y producción.",
     modulos: [
       { codigo: "AE.1.1", nombre: "Expresión Corporal y Teatral", descripcion: "Desarrollar habilidades de expresión corporal, vocal y teatral.", anio: 1 },
@@ -553,9 +594,11 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
   },
   {
     id: "musica",
-    nombre: "Gestión Cultural y Música",
+    nombre: "Música y gestión cultural",
     familia: "artes",
     area: "artistica",
+    codigo: "AR-01-03",
+    normativaVigente: "MINEDEC-MINEDEC-2025-00051-A",
     objetivoGeneral: "Interpretar y producir música aplicando técnicas instrumentales, vocales y de producción musical, y gestionar proyectos culturales musicales.",
     modulos: [
       { codigo: "MU.1.1", nombre: "Lenguaje Musical y Práctica Instrumental", descripcion: "Desarrollar habilidades de lectura musical e interpretación instrumental.", anio: 1 },
@@ -611,6 +654,15 @@ export function obtenerFigurasPorFamilia(familiaId: string): FiguraProfesional[]
  */
 export function obtenerFiguraPorId(figuraId: string): FiguraProfesional | undefined {
   return FIGURAS_PROFESIONALES.find((f) => f.id === figuraId);
+}
+
+/**
+ * Figuras profesionales vigentes (excluye las deprecadas). Se usan para los
+ * selectores de planes nuevos. La resolución por ID (obtenerFiguraPorId)
+ * sigue devolviendo deprecadas para reproducir planes históricos.
+ */
+export function obtenerFigurasActivas(): FiguraProfesional[] {
+  return FIGURAS_PROFESIONALES.filter((f) => f.estado !== "deprecada");
 }
 
 /**

@@ -198,6 +198,12 @@ SEMANAS 2-3 — NIVELA (refuerzo focalizado, secuencia diagnóstico → nivelaci
 Destrezas de nivelación seleccionadas (usa ÚNICAMENTE estas, no inventes otras):
 ${destrezasNivelacion}
 
+IMPORTANTE SOBRE LA DISTRIBUCIÓN EN DOS SEMANAS:
+- Distribuye las actividades de nivelación ENTRE las DOS semanas: la Semana 2 se enfoca en la base (activación de saberes, repaso estructurado, modelado guiado) y la Semana 3 en la consolidación y la transferencia (práctica independiente, aplicación, cierre).
+- Asigna a cada actividad sugerida "semana": 2 o "semana": 3 de modo que SIEMPRE queden actividades en AMBAS semanas (idealmente 2-3 por semana).
+- Si el docente ya seleccionó una destreza indicando la semana (p. ej. "semana 3"), respeta esa semana y no la cambies.
+- No dejes la Semana 3 vacía: si faltan destrezas para la Semana 3, reparte parte de las listadas hacia ella o propón actividades de consolidación para las mismas destrezas.
+
 Parejas de "co-nivelación" (tutoría entre pares — estudiante más consolidado apoya a un compañero):
 ${parejas}
 
@@ -236,7 +242,8 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   "actividadesAdaptacionSugeridas": ["string", "string", "string"],
   "tecnicaDiagnosticoSugerida": ["string", "string"],
   "actividadesNivelacionSugeridas": [
-    { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 2, "estrategiaConivelacion": "string" }
+    { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 2, "estrategiaConivelacion": "string" },
+    { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 3, "estrategiaConivelacion": "string" }
   ],
   "proyectoSugerido": {
     "titulo": "string",
@@ -433,6 +440,90 @@ Responde ÚNICAMENTE con JSON: { "parejasSugeridas": [ { "destrezaFocoCodigo": "
         return JSON.parse(rawContent) as { parejasSugeridas: { destrezaFocoCodigo: string; destrezaFocoDescripcion: string; sugerenciaEnfoque: string }[] };
       } catch {
         return JSON.parse(repairJson(rawContent)) as { parejasSugeridas: { destrezaFocoCodigo: string; destrezaFocoDescripcion: string; sugerenciaEnfoque: string }[] };
+      }
+    }),
+
+  /** Sugiere el proyecto/producto de Semanas 4-5 (última fase) con IA antes de generar el plan completo */
+  sugerirProyecto: publicProcedure
+    .input(z.object({
+      modalidad: z.enum(["general", "bt"]),
+      grado: z.string(),
+      figuraProfesionalId: z.string().optional(),
+      moduloId: z.string().optional(),
+      diagnosticoAcademico: z.array(DiagnosticoAcademicoSchema),
+      actividadesNivelacion: z.array(ActividadNivelacionSchema),
+      semana4y5: Semana4y5Schema.optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const esBT = input.modalidad === "bt";
+
+      const destrezasDiag = input.diagnosticoAcademico
+        .map((d) => `- [${d.area}] ${d.destrezaCodigo}: "${d.destrezaDescripcion}"`)
+        .join("\n") || "(sin diagnóstico académico aún)";
+      const destrezasNivelacion = input.actividadesNivelacion
+        .map((a) => `- [${a.area}] ${a.destrezaCodigo}: "${a.destrezaDescripcion}" (semana ${a.semana})`)
+        .join("\n") || "(sin destrezas de nivelación aún)";
+
+      let contextoBT = "";
+      if (esBT && input.figuraProfesionalId && input.moduloId) {
+        const figura = obtenerFiguraPorId(input.figuraProfesionalId);
+        const modulo = figura?.modulos.find((m) => m.codigo === input.moduloId);
+        contextoBT = `- Figura Profesional: "${figura?.nombre ?? input.figuraProfesionalId}" — Módulo: "${modulo?.nombre ?? input.moduloId}". El producto acreditable debe ser técnico-práctico y coherente con la figura: industrial/técnica → maqueta, software básico, plan de negocio inicial o mantenimiento de equipo; de servicio/cuidado/cultura → servicio_programa, evento_presentacion o material_protocolo. Nunca un ensayo o cartel genérico.`;
+      }
+
+      const semana = input.semana4y5;
+      const prompt = `Eres un experto en el programa "Conecta, Nivela y Crea" del MinEduc Ecuador (Semanas 4-5 — CREA). El proyecto interdisciplinario constituye formalmente una evaluación cualitativa y formativa oficial; debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar las destrezas de nivelación.
+
+Grado/Curso: ${input.grado}
+${contextoBT}
+
+Destrezas diagnosticadas en Semana 1 (Lengua/Matemática):
+${destrezasDiag}
+
+Destrezas de nivelación de Semanas 2-3:
+${destrezasNivelacion}
+
+Lo que el docente ya escribió (devuélvelo EXACTAMENTE si no está vacío; solo sugiere cuando el campo está vacío):
+- Título: ${semana?.titulo || "(vacío — sugiere uno)"}
+- Descripción: ${semana?.descripcion || "(vacío — sugiere 3-4 oraciones)"}
+- Áreas integradas: ${semana?.areasIntegradas?.join(", ") || "(vacío — sugiere áreas coherentes con el diagnóstico, ej. CN, CS, ECA)"}
+- Producto final: ${semana?.productoFinal || "(vacío — sugiere un producto final concreto en 1 oración)"}
+- Actividades Semana 4: ${semana?.actividadesSemana4?.filter(Boolean).length ? semana!.actividadesSemana4.join("; ") : "(vacío — sugiere 3-5 actividades: planificación, organización de equipos, investigación, elaboración, revisión)"}
+- Actividades Semana 5: ${semana?.actividadesSemana5?.filter(Boolean).length ? semana!.actividadesSemana5.join("; ") : "(vacío — sugiere 3-5 actividades: finalización, socialización, presentación, reflexión)"}
+
+Responde ÚNICAMENTE con JSON válido:
+${esBT
+  ? `{ "productoAcreditableSugerido": { "tipo": "maqueta|software_basico|plan_negocio|mantenimiento_equipo|servicio_programa|evento_presentacion|material_protocolo|otro", "descripcion": "string", "actividadesSemana4": ["string (3-5 actividades de elaboración)"], "actividadesSemana5": ["string (3-5 actividades de presentación/evaluación)"] } }`
+  : `{ "proyectoSugerido": {
+  "titulo": "string",
+  "descripcion": "string (3-4 oraciones)",
+  "areasIntegradas": ["string", "string"],
+  "productoFinal": "string (1 oración concreta)",
+  "actividadesSemana4": ["string (3-5 actividades)"],
+  "actividadesSemana5": ["string (3-5 actividades)"],
+  "destrezasReforzadas": ["string (códigos del diagnóstico)"],
+  "evidenciasCognitivas": ["string", "string", "string"],
+  "evidenciasActitudinales": ["string", "string", "string"],
+  "esEvaluacionFormativaOficial": true
+} }`}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          { role: "system", content: "Eres un experto en el programa Conecta, Nivela y Crea del sistema educativo ecuatoriano. Responde siempre con JSON válido." },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 3000,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+      try {
+        return JSON.parse(rawContent);
+      } catch {
+        return JSON.parse(repairJson(rawContent));
       }
     }),
 

@@ -158,7 +158,16 @@ export interface ProyectoInterdisciplinarioCNC {
   compromisos: string;
   /** Preguntas de autoevaluación/metacognición para el estudiantado */
   autoevaluacion: string[];
-  /** Flag fija — requisito MinEduc, no editable por el docente */
+  /**
+   * Flag fija, no editable por el docente — el proyecto interdisciplinario
+   * es formalmente una evaluación cualitativa formativa oficial (Lineamientos
+   * Pedagógicos Costa-Galápagos 2026-2027, Sección 2.1, pág. 15: "La
+   * evaluación del proyecto interdisciplinar será cualitativa y se
+   * considerará como una de las evaluaciones formativas del año lectivo en
+   * curso"). No confundir con la evaluación sumativa trimestral del piloto
+   * de Currículo por Competencias de Sierra-Amazonía Zona 6, que es un
+   * programa distinto.
+   */
   esEvaluacionFormativaOficial: true;
 }
 
