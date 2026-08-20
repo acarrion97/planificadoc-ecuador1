@@ -41,6 +41,61 @@ export interface Destreza {
   habilidadesSocioemocionales?: string[];
 }
 
+// ============================================================
+// DESAGREGACIÓN / GRADACIÓN DE DCD POR GRADO
+// ============================================================
+
+/** Estado de una fila de desagregación: generada por IA, editada o aprobada por el docente */
+export type EstadoDesagregacion = "generado" | "editado" | "aprobado";
+
+/**
+ * Fila de desagregación/gradación de una DCD para un grado del subnivel.
+ * Es una DERIVACIÓN editable que referencia a la DCD oficial por código:
+ * el catálogo (data/destrezas-*.ts) nunca se modifica. El último grado del
+ * subnivel conserva la DCD e indicador completos (texto oficial).
+ */
+export interface DcdDesagregacion {
+  /** Código de la DCD oficial del catálogo */
+  codigoDCD: string;
+  /** Subnivel al que pertenece la DCD */
+  subnivel: Subnivel;
+  /** Grado destino de esta versión graduada (p. ej. 3) */
+  grado: number;
+  /** Último grado del subnivel — recibe la versión completa */
+  gradoMaximo: number;
+  /** Snapshot del texto oficial de la DCD */
+  descripcionDCD: string;
+  /** Texto oficial del indicador de evaluación asociado */
+  indicadorOriginal: string;
+  /** Texto graduado de la DCD para este grado */
+  dcdGraduada: string;
+  /** Texto graduado del indicador para este grado */
+  indicadorGraduado: string;
+  /** Proceso cognitivo esperado para el grado (referencia Marzano) */
+  procesoCognitivo?: string;
+  /** Estado de la fila */
+  estado: EstadoDesagregacion;
+  /** Número de versión: se incrementa en cada regeneración */
+  version: number;
+}
+
+/** Insumo por grado para generar una desagregación (sin estado ni versión, que asigna el servidor) */
+export interface DcdDesagregacionInput {
+  /** Código de la DCD oficial del catálogo */
+  codigoDCD: string;
+  subnivel: Subnivel;
+  /** Grado destino de esta versión graduada */
+  grado: number;
+  /** Último grado del subnivel */
+  gradoMaximo: number;
+  /** Texto oficial de la DCD */
+  descripcionDCD: string;
+  /** Texto oficial del indicador */
+  indicadorOriginal: string;
+  /** Proceso cognitivo esperado para el grado (verbos Marzano) */
+  procesoCognitivo?: string;
+}
+
 /**
  * Indicadores DUA por actividad: 3 principios representados como cuadrados de colores.
  * - implicacion (verde): Múltiples formas de Implicación

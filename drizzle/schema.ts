@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, uniqueIndex } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -299,6 +299,52 @@ export const curricularAdaptations = mysqlTable("curricular_adaptations", {
 
 export type CurricularAdaptationRow = typeof curricularAdaptations.$inferSelect;
 export type InsertCurricularAdaptation = typeof curricularAdaptations.$inferInsert;
+
+/**
+ * Desagregación/gradación de DCD por grado — respaldo best-effort en la nube,
+ * igual que curricular_adaptations. La fuente de verdad es la selección en la
+ * planificación; la app funciona sin esta tabla si falla. Una fila por
+ * (sessionId, codigoDCD, grado): la UNIQUE habilita la reutilización sin regenerar.
+ */
+export const dcdDesagregaciones = mysqlTable(
+  "dcd_desagregaciones",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    /** Email del docente o deviceId como fallback */
+    sessionId: varchar("sessionId", { length: 320 }).notNull(),
+    /** Código de la DCD oficial del catálogo (nunca se modifica) */
+    codigoDCD: varchar("codigoDCD", { length: 64 }).notNull(),
+    subnivel: int("subnivel").notNull(),
+    /** Grado destino de esta versión graduada (p. ej. 3) */
+    grado: int("grado").notNull(),
+    /** Último grado del subnivel — recibe la versión completa */
+    gradoMaximo: int("gradoMaximo").notNull(),
+    /** Snapshot del texto oficial de la DCD */
+    descripcionDCD: text("descripcionDCD").notNull(),
+    /** Texto oficial del indicador de evaluación asociado */
+    indicadorOriginal: text("indicadorOriginal").notNull(),
+    /** Texto graduado de la DCD para este grado */
+    dcdGraduada: text("dcdGraduada").notNull(),
+    /** Texto graduado del indicador para este grado */
+    indicadorGraduado: text("indicadorGraduado").notNull(),
+    /** Proceso cognitivo esperado para el grado (referencia Marzano) */
+    procesoCognitivo: varchar("procesoCognitivo", { length: 128 }),
+    /** Estado de la fila */
+    estado: mysqlEnum("estado", ["generado", "editado", "aprobado"])
+      .default("generado")
+      .notNull(),
+    /** Número de versión: se incrementa en cada regeneración */
+    version: int("version").default(1).notNull(),
+    /** JSON crudo de la respuesta de la IA */
+    aiResult: text("aiResult"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  (t) => [uniqueIndex("uq_dcd_session_grado").on(t.sessionId, t.codigoDCD, t.grado)]
+);
+
+export type DcdDesagregacionRow = typeof dcdDesagregaciones.$inferSelect;
+export type InsertDcdDesagregacion = typeof dcdDesagregaciones.$inferInsert;
 
 /**
  * Conecta, Nivela y Crea (CNC) — planes generados con IA para las 5 semanas

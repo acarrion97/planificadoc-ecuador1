@@ -16,11 +16,13 @@ Ver proposal.md — Why para la motivación y specs para el contrato de comporta
 - El último grado del subnivel se copia exacto del catálogo, sin pasar por la IA.
 - Resolución automática del grado por contexto; reutilización de filas ya guardadas; edición docente con `estado`.
 - Integración ligera en `DcdMultiSelector` (resolver versión por grado) sin cargar al componente de lógica pedagógica.
+- Consumo de la descripción efectiva (graduada u oficial) en PCA, PCT, semanal y plan de unidad.
 
 **Non-Goals:**
-- Consumir la desagregación en PCA/PCT/semanal (trabajo posterior).
+- Ofrecer desagregación en el flujo CNC (se mantiene intacto, sin botón ni resolución por grado).
 - Convertir `DcdMultiSelector` en el dueño de la pedagogía de gradación (se agrega un panel hermano).
 - Mezclar desagregación con adaptación curricular (`curricular_adaptations` / `DcdAdaptada` se mantienen separados).
+- Rediseñar los generadores Word/PDF: solo consumen la descripción efectiva ya poblada en el plan.
 
 ## Decisions
 
@@ -51,12 +53,43 @@ El prompt recibe: DCD original, indicador original, lista de grados del subnivel
 Endpoints: `GET /api/dcd-desagregaciones?codigo=&grado=` (resolver existente), `POST /api/dcd-desagregaciones/generar` (llamada IA + persistencia), `PATCH /api/dcd-desagregaciones/:id` (edición docente → `estado=editado`), `POST /api/dcd-desagregaciones/:id/aprobar`. Autenticación por `sessionId` (mismo esquema que adaptaciones).
 - **Por qué**: separa la lógica pedagógica del servidor de la UI; `DcdMultiSelector` queda tonto.
 
-### 7. UI: panel hermano `DcdDesagregacionPanel`, selector sigue tonto
-`DcdMultiSelector` recibe un prop opcional `gradoContexto`; cuando está presente y hay desagregación para la DCD+grado, muestra la versión graduada como la DCD efectiva. La generación y edición viven en `DcdDesagregacionPanel` (a un lado del selector): elige DCD → resuelve `{codigoDCD, grado}` → si existe fila la muestra, si no ofrece "Desagregar por grados" → IA → revisa/edita → guarda.
-- **Por qué**: respeta la decisión del usuario de no sobrecargar el selector y de no pedir el grado si el contexto ya lo conoce.
+### 7. UI: botón opcional en el selector (solo planificación), panel hermano `DcdDesagregacionPanel`
+`DcdMultiSelector` sigue responsable de seleccionar, mostrar la opción de desagregar y devolver la selección; no genera ni edita. Al seleccionar una DCD muestra dos rutas: "Desagregar por grado" y "Seleccionar DCD oficial". La generación, revisión, edición, guardado y elección de versión viven en `DcdDesagregacionPanel` (panel hermano): resuelve `{codigoDCD, grado}` → si existe fila la muestra, si no genera el ladder completo → revisa/edita → guarda → "Usar esta versión".
+- **Grado por contexto**: prop `gradoContexto` en el selector; si la planificación conoce el grado, el botón se etiqueta "Desagregar para N.º EGB" y la versión de ese grado queda preseleccionada en el ladder, pero la generación siempre produce el ladder completo.
+- **Selector tonto**: el panel devuelve la versión elegida y el selector solo persiste la selección con su origen.
+- **CNC excluido**: la acción de desagregar se activa solo cuando el selector se usa en un flujo de planificación (via prop/flag). En los flujos CNC el selector conserva exactamente el comportamiento actual, sin botón ni resolución por grado.
+- **Por qué**: respeta las decisiones del usuario de no sobrecargar el selector, no pedir el grado si el contexto lo conoce, y mantener CNC intacto.
 
-### 8. Tipos en `data/types.ts`
+### 8. La selección distingue el origen en el modelo de datos
+`DcdSeleccionada` (el tipo devuelto por `DcdMultiSelector`) se amplía con `origen: "oficial" | "desagregada"` y `grado?: number`. Sin desagregación: `{ codigo, enunciado, origen: "oficial" }`. Con versión graduada: `{ codigo, enunciado: <texto graduado>, origen: "desagregada", grado }`.
+- **Por qué**: una planificación puede usar la DCD oficial aunque exista desagregación, y los consumidores posteriores (PCA/PCT/semanal) deben saber qué versión se usó.
+- **Compatibilidad**: `origen` es opcional con default `"oficial"`, de modo que las selecciones existentes (p. ej. CNC) no cambian.
+
+### 9. Tipos en `data/types.ts`
 `DcdDesagregacion` (fila persistida), `EstadoDesagregacion = "generado" | "editado" | "aprobado"`, `GradosDesagregacion` y `gradosDeSubnivel(subnivel): number[] | null`. No se reutiliza `GradoAdaptacion` ni `DcdAdaptada`.
+
+### 10. Consumo en los generadores: descripción efectiva con fallback
+El consumo no rehace los generadores; solo les entrega la descripción efectiva ya poblada en el plan:
+- **PCA/PCT** (`pca-word-generator.ts`, `pca-trimestral-word-generator.ts`): renderizan `dcdsSeleccionadas` como `codigo: enunciado`. Como `DcdSeleccionada` ya guarda el texto, al confirmar una versión graduada el selector guarda ese texto como `enunciado`; los generadores no cambian.
+- **Semanal y plan de unidad** (`semanal-word-generator.ts:852`, `plan-word-generator.ts:693`): renderizan `destreza?.descripcion` del objeto oficial. Se añade `descripcionEfectiva` (o `enunciado`) a `HoraSemanal` y al plan de unidad, poblada desde la selección; el generador la prefiere y hace fallback a `destreza?.descripcion`.
+- **CNC excluido**: conserva el objeto `Destreza` oficial sin campo efectivo.
+- **Por qué**: los consumidores que ya guardan texto (PCA/PCT) no requieren cambios, y los que guardan el objeto oficial solo ganan un campo con fallback, minimizando el riesgo en los generadores Word/PDF.
+
+#### Regla de fallback explícita
+```ts
+const descripcionEfectiva = destreza.descripcionEfectiva ?? destreza.descripcion;
+```
+
+| Situación                                   | Resultado    |
+| ------------------------------------------- | ------------ |
+| DCD oficial                                 | DCD oficial  |
+| DCD desagregada                             | DCD graduada |
+| No existe desagregación                     | DCD oficial  |
+| Desagregación guardada pero no seleccionada | DCD oficial  |
+| Selección graduada                          | DCD graduada |
+
+#### `descripcionEfectiva` no es fuente de verdad
+`descripcionEfectiva` SHALL tratarse como el **resultado materializado para el contexto de planificación**, no como una segunda fuente de verdad permanente. La fuente de verdad SHALL ser la triada: DCD oficial + selección curricular + desagregación guardada. Al editar la desagregación, las planificaciones existentes siguen mostrando la versión materializada que el docente confirmó; regenerar o corregir no reescribe retroactivamente los planes ya guardados.
 
 ## Risks / Trade-offs
 
