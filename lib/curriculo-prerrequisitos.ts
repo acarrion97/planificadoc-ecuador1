@@ -1,5 +1,10 @@
 import { TODAS_LAS_DESTREZAS } from "@/data";
 import type { Area, Subnivel } from "@/data/types";
+import {
+  esBachilleratoTecnico,
+  subnivelDelGradoAnterior,
+  subnivelDesdeGrado,
+} from "@/lib/evaluacion-utils";
 
 /**
  * Resolución del "subnivel prerrequisito" para el módulo de Evaluación
@@ -102,4 +107,68 @@ function candidatoPrerrequisito(
   if (madre) return { area: madre, subnivel: anterior };
 
   return { area, subnivel: anterior };
+}
+
+/**
+ * Resuelve el subnivel prerrequisito de un curso a partir del **grado** (no del
+ * subnivel), para que el diagnóstico mida lo que el estudiante cursó el año
+ * anterior (ej: 6.° EGB diagnostica destrezas de 5.° EGB, no `subnivel - 1`).
+ *
+ * Solo devuelve un par distinto del subnivel actual del curso (invariante): si
+ * el grado anterior comparte subnivel con el curso, devuelve `null` y el
+ * diagnóstico se apoya en las destrezas del subnivel del curso. Devuelve `null`
+ * también cuando no existe un grado anterior dentro del alcance o cuando el área
+ * no tiene predecesor en el catálogo (se informa, no se sustituye).
+ */
+export function resolverPrerrequisitoPorGrado(
+  area: Area,
+  grado: string
+): PrerrequisitoCurricular | null {
+  // La modalidad BT se diagnostica por módulos técnicos (fuera del alcance de
+  // esta resolución): se conserva el comportamiento de resolverPrerrequisito.
+  if (esBachilleratoTecnico(grado)) {
+    return resolverPrerrequisito(area, 5);
+  }
+
+  const subnivelCurso = subnivelDesdeGrado(grado);
+  if (subnivelCurso === null) return null;
+  // Inicial y Preparatoria no tienen un nivel previo dentro del alcance.
+  if (subnivelCurso <= SUBNIVEL_PREPARATORIA) return null;
+
+  const subnivelAnterior = subnivelDelGradoAnterior(grado);
+  if (subnivelAnterior === null) return null;
+
+  // Invariante: nunca devolver el mismo par que el subnivel del curso. Cuando el
+  // grado anterior comparte subnivel, el diagnóstico usa el subnivel del curso.
+  if (subnivelAnterior === subnivelCurso) return null;
+
+  const candidato = candidatoPrerrequisitoPorSubnivel(area, subnivelAnterior);
+  if (!candidato) return null;
+
+  return existeAreaSubnivel(candidato.area, candidato.subnivel)
+    ? candidato
+    : null;
+}
+
+/**
+ * Resuelve el área a usar en un subnivel objetivo ya calculado (el del grado
+ * anterior). A diferencia de `candidatoPrerrequisito` (que recibe el subnivel
+ * del curso y baja uno), aquí el subnivel es el destino final: Preparatoria se
+ * detecta cuando el objetivo es el subnivel 1, y las áreas derivadas bajan a su
+ * madre en ese mismo subnivel.
+ */
+function candidatoPrerrequisitoPorSubnivel(
+  area: Area,
+  subnivelObjetivo: Subnivel
+): PrerrequisitoCurricular | null {
+  // Preparatoria es currículo integrado: cualquier área arrastra de CAI.
+  if (subnivelObjetivo === SUBNIVEL_PREPARATORIA) {
+    return { area: AREA_PREPARATORIA, subnivel: SUBNIVEL_PREPARATORIA };
+  }
+
+  // Áreas derivadas de Bachillerato: bajan al área madre en el mismo subnivel.
+  const madre = areaMadre(area);
+  if (madre) return { area: madre, subnivel: subnivelObjetivo };
+
+  return { area, subnivel: subnivelObjetivo };
 }

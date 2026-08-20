@@ -24,7 +24,7 @@ comparten subnivel con su grado anterior.
 ## Goals / Non-Goals
 
 **Goals:**
-- Un único punto de verdad: los tres flujos consumen `resolverPrerequisitoPorGrado(area, grado)`
+- Un único punto de verdad: los tres flujos consumen `resolverPrerrequisitoPorGrado(area, grado)`
   y ninguno reimplementa `subnivel - 1` localmente.
 - Mantener las reglas especiales (CAI de Preparatoria, área madre de Bachillerato)
   aplicando sobre el subnivel del grado anterior, no sobre `subnivel - 1`.
@@ -37,7 +37,7 @@ comparten subnivel con su grado anterior.
 
 ## Decisions
 
-### D1. Nueva firma `resolverPrerequisitoPorGrado(area, grado)`
+### D1. Nueva firma `resolverPrerrequisitoPorGrado(area, grado)`
 `lib/curriculo-prerrequisitos.ts` gana un resolver que toma el **grado en texto**
 (igual que los demás flujos) y devuelve `PrerequisitoCurricular | null`:
 
@@ -69,7 +69,7 @@ para que el único lugar que conoce la resta por grado sea `evaluacion-utils.ts`
 (mismo patrón que `esBachilleratoTecnico`).
 
 ### D3. Un único punto de verdad en la UI
-Los tres flujos migran a `resolverPrerequisitoPorGrado(area, grado)`:
+Los tres flujos migran a `resolverPrerrequisitoPorGrado(area, grado)`:
 
 - `app/evaluacion-diagnostica/index.tsx:216-218` → `useMemo` con `grado` en deps.
 - `app/evaluacion-diagnostica/index.tsx:257` (`preseleccionarDcdsDeWizard`) → mismo resolver.
@@ -108,7 +108,7 @@ Los tests del resolver (`__tests__/curriculo-prerrequisitos.test.ts`) se escribe
   de la UI (spec "Mensajes diferenciados") y el change se lanza como corrección, no como
   feature opcional.
 - [Dos resolvers conviviendo] Mantener `resolverPrerequisito` (subnivel) y añadir
-  `resolverPrerequisitoPorGrado` puede confundir sobre cuál usar. → Comentario en el
+  `resolverPrerrequisitoPorGrado` puede confundir sobre cuál usar. → Comentario en el
   header del archivo y en cada llamada; los tests del resolver antiguo evitan que se
   rompa en silencio.
 - [Grados sin número parseable] Si `subnivelDesdeGrado` devuelve `null` (grado no
@@ -118,7 +118,7 @@ Los tests del resolver (`__tests__/curriculo-prerrequisitos.test.ts`) se escribe
 ## Migration Plan
 
 1. Añadir `subnivelDelGradoAnterior` en `lib/evaluacion-utils.ts` (nueva utilidad pura).
-2. Añadir `resolverPrerequisitoPorGrado` en `lib/curriculo-prerrequisitos.ts`,
+2. Añadir `resolverPrerrequisitoPorGrado` en `lib/curriculo-prerrequisitos.ts`,
    reutilizando `subnivelDelGradoAnterior` y `existeAreaSubnivel`. No se toca el
    resolver antiguo.
 3. Escribir/ajustar tests del resolver (red de seguridad).

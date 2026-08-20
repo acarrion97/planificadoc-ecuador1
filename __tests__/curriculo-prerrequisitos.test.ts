@@ -1,8 +1,10 @@
 import { describe, it, expect } from "vitest";
 import {
   resolverPrerrequisito,
+  resolverPrerrequisitoPorGrado,
   existeAreaSubnivel,
 } from "../lib/curriculo-prerrequisitos";
+import { subnivelDelGradoAnterior } from "../lib/evaluacion-utils";
 import { TODAS_LAS_DESTREZAS } from "../data";
 import type { Area, Subnivel } from "../data/types";
 
@@ -116,6 +118,118 @@ describe("resolverPrerrequisito — contrato contra la cobertura real del catál
         `${area}@${subnivel}`
       );
     }
+  });
+});
+
+describe("subnivelDelGradoAnterior", () => {
+  it("1.° EGB no tiene grado anterior dentro del alcance", () => {
+    expect(subnivelDelGradoAnterior("1.° EGB")).toBeNull();
+    expect(subnivelDelGradoAnterior("Inicial 1")).toBeNull();
+  });
+
+  it("2.° EGB arrastra de Preparatoria (subnivel 1)", () => {
+    expect(subnivelDelGradoAnterior("2.° EGB")).toBe(1);
+  });
+
+  it("3.° y 4.° EGB arrastran de Básica Elemental (subnivel 2)", () => {
+    expect(subnivelDelGradoAnterior("3.° EGB")).toBe(2);
+    expect(subnivelDelGradoAnterior("4.° EGB")).toBe(2);
+  });
+
+  it("5.° EGB arrastra de Básica Elemental (subnivel 2)", () => {
+    expect(subnivelDelGradoAnterior("5.° EGB")).toBe(2);
+  });
+
+  it("6.° y 7.° EGB arrastran de Básica Media (subnivel 3)", () => {
+    expect(subnivelDelGradoAnterior("6.° EGB")).toBe(3);
+    expect(subnivelDelGradoAnterior("7.° EGB")).toBe(3);
+  });
+
+  it("8.° EGB arrastra de Básica Media (subnivel 3)", () => {
+    expect(subnivelDelGradoAnterior("8.° EGB")).toBe(3);
+  });
+
+  it("9.° y 10.° EGB arrastran de Básica Superior (subnivel 4)", () => {
+    expect(subnivelDelGradoAnterior("9.° EGB")).toBe(4);
+    expect(subnivelDelGradoAnterior("10.° EGB")).toBe(4);
+  });
+
+  it("1.° BGU arrastra de 10.° EGB (subnivel 4)", () => {
+    expect(subnivelDelGradoAnterior("1.° BGU")).toBe(4);
+  });
+
+  it("2.° y 3.° BGU arrastran de BGU (subnivel 5)", () => {
+    expect(subnivelDelGradoAnterior("2.° BGU")).toBe(5);
+    expect(subnivelDelGradoAnterior("3.° BGU")).toBe(5);
+  });
+});
+
+describe("resolverPrerrequisitoPorGrado — grado anterior en subnivel distinto", () => {
+  it("2.° EGB arrastra de CAI@1 (Preparatoria)", () => {
+    expect(resolverPrerrequisitoPorGrado("LL", "2.° EGB")).toEqual({
+      area: "CAI",
+      subnivel: 1,
+    });
+  });
+
+  it("5.° EGB arrastra de LL@2", () => {
+    expect(resolverPrerrequisitoPorGrado("LL", "5.° EGB")).toEqual({
+      area: "LL",
+      subnivel: 2,
+    });
+  });
+
+  it("8.° EGB arrastra de LL@3", () => {
+    expect(resolverPrerrequisitoPorGrado("LL", "8.° EGB")).toEqual({
+      area: "LL",
+      subnivel: 3,
+    });
+  });
+
+  it("1.° BGU arrastra de LL@4", () => {
+    expect(resolverPrerrequisitoPorGrado("LL", "1.° BGU")).toEqual({
+      area: "LL",
+      subnivel: 4,
+    });
+  });
+
+  it("1.° BGU en CN.F arrastra de CN@4 (área madre)", () => {
+    expect(resolverPrerrequisitoPorGrado("CN.F", "1.° BGU")).toEqual({
+      area: "CN",
+      subnivel: 4,
+    });
+  });
+});
+
+describe("resolverPrerrequisitoPorGrado — grado anterior en el mismo subnivel", () => {
+  it.each(["3.° EGB", "4.° EGB"])("%s → null (mismo subnivel 2)", (grado) => {
+    expect(resolverPrerrequisitoPorGrado("LL", grado)).toBeNull();
+  });
+
+  it.each(["6.° EGB", "7.° EGB"])("%s → null (mismo subnivel 3)", (grado) => {
+    expect(resolverPrerrequisitoPorGrado("M", grado)).toBeNull();
+  });
+
+  it.each(["9.° EGB", "10.° EGB"])("%s → null (mismo subnivel 4)", (grado) => {
+    expect(resolverPrerrequisitoPorGrado("LL", grado)).toBeNull();
+  });
+
+  it.each(["2.° BGU", "3.° BGU"])("%s → null (mismo subnivel 5)", (grado) => {
+    expect(resolverPrerrequisitoPorGrado("LL", grado)).toBeNull();
+  });
+});
+
+describe("resolverPrerrequisitoPorGrado — sin predecesor", () => {
+  it("EG en 1.° BGU devuelve null: no existe en subnivel 4", () => {
+    expect(resolverPrerrequisitoPorGrado("EG", "1.° BGU")).toBeNull();
+  });
+
+  it("1.° EGB (Preparatoria) devuelve null", () => {
+    expect(resolverPrerrequisitoPorGrado("LL", "1.° EGB")).toBeNull();
+  });
+
+  it("Inicial devuelve null", () => {
+    expect(resolverPrerrequisitoPorGrado("LL", "Inicial 1")).toBeNull();
   });
 });
 

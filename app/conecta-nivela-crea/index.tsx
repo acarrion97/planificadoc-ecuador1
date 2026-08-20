@@ -20,8 +20,8 @@ import type {
 } from "@/data/types-cnc";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
-import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado } from "@/lib/evaluacion-utils";
-import { resolverPrerrequisito } from "@/lib/curriculo-prerrequisitos";
+import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado, subnivelDelGradoAnterior } from "@/lib/evaluacion-utils";
+import { resolverPrerrequisitoPorGrado } from "@/lib/curriculo-prerrequisitos";
 import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado } from "@/lib/cnc-diagnostico";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 
@@ -198,9 +198,11 @@ function SectionHeading({ text, colors }: { text: string; colors: any }) {
 }
 
 function DestrezaBuscadorCNC({
-  area, subnivelCurso, onSelect, colors,
+  area, grado, subnivelCurso, onSelect, colors,
 }: {
   area: "LL" | "M";
+  /** Grado del curso (texto); el prerrequisito se resuelve desde el grado anterior */
+  grado: string;
   /** Subnivel del curso (derivado del grado); null si no se pudo inferir */
   subnivelCurso: Subnivel | null;
   onSelect: (codigo: string, desc: string) => void;
@@ -232,7 +234,14 @@ function DestrezaBuscadorCNC({
   // Diagnóstica (design.md D10 de ese módulo, lib/curriculo-prerrequisitos.ts).
   // Sin esto, el prerrequisito solo aparecía si el docente ya sabía el código
   // exacto para escribirlo: la búsqueda no tenía ningún filtro de subnivel.
-  const prerreq = subnivelCurso !== null ? resolverPrerrequisito(area, subnivelCurso) : null;
+  const prerreq = grado.trim() ? resolverPrerrequisitoPorGrado(area, grado) : null;
+  // null porque el grado anterior comparte subnivel con el curso: se diagnostica
+  // con las destrezas del subnivel actual (mismo criterio que Evaluación
+  // Diagnóstica, spec "Mensajes diferenciados").
+  const gradoAnteriorEnMismoSubnivel =
+    prerreq === null &&
+    subnivelCurso !== null &&
+    subnivelDelGradoAnterior(grado) === subnivelCurso;
   // El modelo de diagnóstico académico de CNC solo admite LL/M (no CAI), así
   // que si el prerrequisito real es Preparatoria (currículo integrado) no hay
   // nada que sugerir aquí — se informa en vez de mostrar destrezas de otra área.
@@ -312,7 +321,9 @@ function DestrezaBuscadorCNC({
                 <Text style={{ fontSize: 11, color: colors.muted, padding: 8, fontStyle: "italic" }}>
                   {prerreq
                     ? `El nivel prerrequisito (${obtenerNombreSubnivel(prerreq.subnivel)}) no tiene destrezas de ${nombreArea} — ese subnivel usa currículo integrado. Usa el buscador si necesitas otra destreza.`
-                    : "Este grado no tiene un nivel prerrequisito definido. Usa el buscador para encontrar destrezas."}
+                    : gradoAnteriorEnMismoSubnivel
+                      ? `El grado anterior pertenece al mismo subnivel que este curso, así que se diagnostican las destrezas del subnivel actual. Usa el buscador para encontrar destrezas.`
+                      : "Este grado no tiene un nivel prerrequisito definido. Usa el buscador para encontrar destrezas."}
                 </Text>
               )}
 
@@ -941,8 +952,8 @@ export default function ConectaNivelaCreaScreen() {
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Diagnóstico académico (Lengua y Matemática)" colors={colors} />
-            <DestrezaBuscadorCNC area="LL" subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "LL")} colors={colors} />
-            <DestrezaBuscadorCNC area="M" subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "M")} colors={colors} />
+            <DestrezaBuscadorCNC area="LL" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "LL")} colors={colors} />
+            <DestrezaBuscadorCNC area="M" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "M")} colors={colors} />
             {plan.semana1.diagnosticoAcademico.map((d, i) => (
               <View key={i} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
                 <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{d.area}] {d.destrezaCodigo}</Text>
@@ -1046,8 +1057,8 @@ export default function ConectaNivelaCreaScreen() {
               Refuerzo focalizado en Lengua y Matemática, con "conivelación" (tutoría entre pares).
             </Text>
 
-            <DestrezaBuscadorCNC area="LL" subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", 2)} colors={colors} />
-            <DestrezaBuscadorCNC area="M" subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "M", 2)} colors={colors} />
+            <DestrezaBuscadorCNC area="LL" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", 2)} colors={colors} />
+            <DestrezaBuscadorCNC area="M" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "M", 2)} colors={colors} />
             {plan.semana2y3.actividadesNivelacion.map((a, i) => (
               <View key={i} style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: colors.border }}>
                 <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{a.area}] {a.destrezaCodigo} — semana {a.semana}</Text>

@@ -29,7 +29,7 @@ import {
   Area,
 } from "@/data";
 import type { Destreza } from "@/data/types";
-import { resolverPrerrequisito } from "@/lib/curriculo-prerrequisitos";
+import { resolverPrerrequisitoPorGrado } from "@/lib/curriculo-prerrequisitos";
 import {
   TIPO_PREGUNTA_INFO,
   DIFICULTAD_INFO,
@@ -41,7 +41,7 @@ import {
   EstatusEvaluacion,
 } from "@/data/types-evaluacion";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
-import { UMBRALES_DEFECTO, subnivelDesdeGrado, esBachilleratoTecnico } from "@/lib/evaluacion-utils";
+import { UMBRALES_DEFECTO, subnivelDesdeGrado, subnivelDelGradoAnterior, esBachilleratoTecnico } from "@/lib/evaluacion-utils";
 import { trpc } from "@/lib/trpc";
 
 const hoy = new Date();
@@ -210,13 +210,20 @@ export default function EvaluacionDiagnosticaScreen() {
 
   // ── Subnivel a diagnosticar ──
   // Un diagnóstico mide aprendizajes previos, así que por defecto se ofrecen
-  // las DCD del subnivel prerrequisito; el subnivel del curso queda disponible
-  // para que el docente lo agregue (imprescindible en grados que comparten
-  // subnivel, como 5.° y 6.° EGB). Ver design.md D10.
+  // las DCD del subnivel prerrequisito (del grado anterior); el subnivel del
+  // curso queda disponible para que el docente lo agregue (imprescindible en
+  // grados que comparten subnivel con su anterior, como 5.° y 6.° EGB). Ver
+  // design.md D10.
   const prerrequisito = useMemo(
-    () => (area && subnivel !== null ? resolverPrerrequisito(area, subnivel) : null),
-    [area, subnivel]
+    () => (area && grado.trim() ? resolverPrerrequisitoPorGrado(area, grado) : null),
+    [area, grado]
   );
+  // null porque el grado anterior comparte subnivel con el curso (no es "área
+  // sin predecesor"): el diagnóstico se apoya en el subnivel del curso.
+  const gradoAnteriorEnMismoSubnivel =
+    prerrequisito === null &&
+    subnivel !== null &&
+    subnivelDelGradoAnterior(grado) === subnivel;
   const [incluirPrerrequisito, setIncluirPrerrequisito] = useState(true);
   const [incluirActual, setIncluirActual] = useState(false);
 
@@ -254,7 +261,7 @@ export default function EvaluacionDiagnosticaScreen() {
     // DCD de arrastre, y filtrarlas por el subnivel del curso las descartaría
     // en silencio. Se calcula desde `v` porque el estado `area` aún no se
     // actualizó cuando esta función corre. Ver design.md D10.
-    const prerreqDeWizard = resolverPrerrequisito(v, subnivel);
+    const prerreqDeWizard = resolverPrerrequisitoPorGrado(v, grado);
     const admisibles = dcdsDeWizard
       .map((codigo) => buscarPorCodigo(codigo))
       .filter((d): d is NonNullable<typeof d> => {
@@ -743,9 +750,9 @@ export default function EvaluacionDiagnosticaScreen() {
 
                 {!prerrequisito ? (
                   <Text style={{ fontSize: 11, color: colors.muted, marginTop: 8 }}>
-                    ℹ️ {AREAS_INFO[area]?.name ?? area} no tiene un nivel prerrequisito definido en el
-                    catálogo curricular, así que solo se ofrecen las destrezas del nivel actual. No se
-                    proponen áreas sustitutas.
+                    {gradoAnteriorEnMismoSubnivel
+                      ? `ℹ️ El grado anterior (${grado}) pertenece al mismo subnivel que este curso, así que se diagnostican las destrezas del nivel actual.`
+                      : `ℹ️ ${AREAS_INFO[area]?.name ?? area} no tiene un nivel prerrequisito definido en el catálogo curricular, así que solo se ofrecen las destrezas del nivel actual. No se proponen áreas sustitutas.`}
                   </Text>
                 ) : (
                   <Text style={{ fontSize: 11, color: colors.muted, marginTop: 8 }}>
