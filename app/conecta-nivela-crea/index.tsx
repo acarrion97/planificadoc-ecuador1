@@ -9,7 +9,7 @@ import { shareAsync } from "expo-sharing";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel } from "@/data";
+import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel, AREAS_INFO } from "@/data";
 import type { Subnivel } from "@/data/types";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
 import { FIGURAS_PROFESIONALES, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
@@ -24,6 +24,7 @@ import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado, subnive
 import { resolverPrerrequisitoPorGrado } from "@/lib/curriculo-prerrequisitos";
 import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado } from "@/lib/cnc-diagnostico";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
+import { generarHTMLPruebaImprimible } from "@/lib/evaluacion-pdf-generator";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
@@ -378,6 +379,11 @@ export default function ConectaNivelaCreaScreen() {
   const [saved, setSaved] = useState(false);
   const [evaluacionVinculadaId, setEvaluacionVinculadaId] = useState<string | null>(null);
 
+  // ── Impresión de pruebas diagnósticas (Lengua y Matemática) ──
+  const [mostrarImpresion, setMostrarImpresion] = useState(false);
+  const [pruebaConClave, setPruebaConClave] = useState(false);
+  const [imprimiendoPruebaId, setImprimiendoPruebaId] = useState<string | null>(null);
+
   const generateMutation = trpc.cnc.generate.useMutation();
   const sugerirReflexionMutation = trpc.cnc.sugerirReflexionDece.useMutation();
   const sugerirConivelacionMutation = trpc.cnc.sugerirConivelacion.useMutation();
@@ -400,6 +406,22 @@ export default function ConectaNivelaCreaScreen() {
     [evaluaciones]
   );
 
+  // Evaluaciones de LL/M agrupadas por materia para imprimir pruebas.
+  const evaluacionesPorArea = useMemo(
+    () =>
+      (["LL", "M"] as const)
+        .map((area) => ({
+          area,
+          nombre: AREAS_INFO[area]?.name ?? area,
+          emoji: AREAS_INFO[area]?.emoji ?? "📘",
+          items: evaluaciones
+            .filter((e) => e.area === area)
+            .map((ev) => ({ ev, aplicados: estudiantesEvaluados(ev).length })),
+        }))
+        .filter((g) => g.items.length > 0),
+    [evaluaciones]
+  );
+
   const evaluacionesIdsRef = useRef<string[]>([]);
   const pendingAutoLinkRef = useRef(false);
 
@@ -409,16 +431,19 @@ export default function ConectaNivelaCreaScreen() {
       const nueva = evaluaciones.find((e) => !evaluacionesIdsRef.current.includes(e.id));
       if (nueva) {
         pendingAutoLinkRef.current = false;
-        if (nueva.area === "LL" || nueva.area === "M") vincularEvaluacion(nueva.id);
+        if (nueva.area === "LL" || nueva.area === "M") vincularEvaluacion(nueva.id, true);
       }
     }
     evaluacionesIdsRef.current = ids;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [evaluaciones]);
 
-  function vincularEvaluacion(evId: string) {
+  function vincularEvaluacion(evId: string, silencioso = false) {
     const entry = evaluacionesCNC.find((x) => x.ev.id === evId);
     if (!entry || entry.aplicados === 0) {
-      Alert.alert("Evaluación sin aplicar", "Debe ser aplicada primero para poder vincular sus resultados.");
+      // Auto-vinculación en segundo plano: una evaluación recién creada aún no
+      // tiene resultados, así que no hay nada que vincular todavía (silencioso).
+      if (!silencioso) Alert.alert("Evaluación sin aplicar", "Debe ser aplicada primero para poder vincular sus resultados.");
       return;
     }
     const importar = () => {
@@ -633,6 +658,27 @@ export default function ConectaNivelaCreaScreen() {
       Alert.alert("Error al exportar", err?.message ?? "No se pudo generar el documento.");
     } finally {
       setExporting(null);
+    }
+  }
+
+  async function imprimirPrueba(evId: string) {
+    const entry = evaluaciones.find((e) => e.id === evId);
+    if (!entry) return;
+    setImprimiendoPruebaId(evId);
+    try {
+      const html = generarHTMLPruebaImprimible(entry, { conClave: pruebaConClave });
+      if (Platform.OS === "web") {
+        const w = window.open("", "_blank");
+        if (w) { w.document.write(html); w.document.close(); w.focus(); w.print(); }
+      } else {
+        const { printToFileAsync } = await import("expo-print");
+        const { uri } = await printToFileAsync({ html });
+        await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf", dialogTitle: "Prueba Diagnóstica" });
+      }
+    } catch (err: any) {
+      Alert.alert("Error al imprimir", err?.message ?? "No se pudo generar la prueba.");
+    } finally {
+      setImprimiendoPruebaId(null);
     }
   }
 
@@ -929,6 +975,65 @@ export default function ConectaNivelaCreaScreen() {
                   </View>
                 );
               })
+            )}
+
+            {/* ── Imprimir prueba (Lengua y Matemática) ── */}
+            <Pressable
+              onPress={() => setMostrarImpresion((v) => !v)}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "#1D4ED8", borderRadius: 12, paddingVertical: 14, marginTop: 16 }}
+            >
+              <Text style={{ fontSize: 16 }}>🖨️</Text>
+              <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>
+                {mostrarImpresion ? "Ocultar impresión de pruebas" : "Imprimir prueba"}
+              </Text>
+            </Pressable>
+
+            {mostrarImpresion && (
+              <View style={{ marginTop: 12, borderRadius: 12, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface, padding: 12 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                  <Text style={{ fontSize: 12, fontWeight: "700", color: colors.foreground, flex: 1 }}>
+                    Pruebas para imprimir (Lengua y Matemática)
+                  </Text>
+                  <Pressable onPress={() => setPruebaConClave((v) => !v)}
+                    style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, backgroundColor: pruebaConClave ? colors.primary : colors.background, borderWidth: 1, borderColor: pruebaConClave ? colors.primary : colors.border }}>
+                    <Text style={{ fontSize: 11, color: pruebaConClave ? "#fff" : colors.text, fontWeight: "600" }}>
+                      {pruebaConClave ? "✔ Clave de respuestas" : "Clave de respuestas"}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {evaluacionesPorArea.length === 0 ? (
+                  <Text style={{ fontSize: 12, color: colors.muted, textAlign: "center", paddingVertical: 12 }}>
+                    No hay evaluaciones de Lengua y Literatura o Matemática para imprimir. Crea una primero.
+                  </Text>
+                ) : (
+                  evaluacionesPorArea.map((grupo) => (
+                    <View key={grupo.area} style={{ marginBottom: 10 }}>
+                      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                        <Text style={{ fontSize: 14 }}>{grupo.emoji}</Text>
+                        <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{grupo.nombre}</Text>
+                        <Text style={{ fontSize: 11, color: colors.muted }}>({grupo.items.length})</Text>
+                      </View>
+                      {grupo.items.map(({ ev, aplicados }) => (
+                        <View key={ev.id} style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, marginBottom: 6 }}>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)} style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 12, fontWeight: "600", color: colors.text }} numberOfLines={1}>{ev.nombre}</Text>
+                            <Text style={{ fontSize: 10, color: colors.muted }}>{ev.grado} {ev.paralelo ? `· ${ev.paralelo}` : ""} · {aplicados} aplicado(s)</Text>
+                          </Pressable>
+                          <Pressable onPress={() => router.push(`/ver-evaluacion/${ev.id}` as any)}
+                            style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }}>
+                            <Text style={{ fontSize: 11, color: colors.text, fontWeight: "600" }}>Ver</Text>
+                          </Pressable>
+                          <Pressable onPress={() => imprimirPrueba(ev.id)} disabled={imprimiendoPruebaId === ev.id}
+                            style={{ padding: 8, borderRadius: 8, backgroundColor: "#1D4ED8", opacity: imprimiendoPruebaId === ev.id ? 0.5 : 1 }}>
+                            {imprimiendoPruebaId === ev.id ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ fontSize: 14 }}>🖨️</Text>}
+                          </Pressable>
+                        </View>
+                      ))}
+                    </View>
+                  ))
+                )}
+              </View>
             )}
           </View>
         )}

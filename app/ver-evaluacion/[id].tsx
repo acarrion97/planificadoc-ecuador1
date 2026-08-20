@@ -150,6 +150,8 @@ export default function VerEvaluacionScreen() {
   const [exportando, setExportando] = useState<"word" | "pdf" | "cnc" | null>(null);
   const [imprimiendoPrueba, setImprimiendoPrueba] = useState(false);
   const [pruebaConClave, setPruebaConClave] = useState(false);
+  const [mostrarMaterias, setMostrarMaterias] = useState(false);
+  const [imprimiendoPruebaDeId, setImprimiendoPruebaDeId] = useState<string | null>(null);
 
   useEffect(() => {
     if (ev) { setUmbralDominado(String(ev.umbrales.dominadoMin)); setUmbralRefuerzo(String(ev.umbrales.refuerzoMax)); }
@@ -169,6 +171,21 @@ export default function VerEvaluacionScreen() {
     }
     return { promedio: Math.round(prom), dominado: d, enProceso: p, refuerzo: rf, total: conR.length };
   }, [ev]);
+
+  // Evaluaciones de Lengua y Matemática agrupadas para imprimir pruebas desde
+  // el selector de materias (mismo panel que el wizard CNC).
+  const evaluacionesPorArea = useMemo(
+    () =>
+      (["LL", "M"] as const)
+        .map((area) => ({
+          area,
+          nombre: AREAS_INFO[area]?.name ?? area,
+          emoji: AREAS_INFO[area]?.emoji ?? "📘",
+          items: evaluaciones.filter((e) => e.area === area),
+        }))
+        .filter((g) => g.items.length > 0),
+    [evaluaciones]
+  );
 
   if (!ev) {
     return (
@@ -366,24 +383,39 @@ export default function VerEvaluacionScreen() {
     }
   }
 
+  async function imprimirHTMLPrueba(ev: EvaluacionDiagnostica) {
+    const html = generarHTMLPruebaImprimible(ev, { conClave: pruebaConClave });
+    if (Platform.OS === "web") {
+      const w = window.open("", "_blank");
+      if (w) { w.document.write(html); w.document.close(); w.focus(); w.print(); }
+    } else {
+      const { printToFileAsync } = await import("expo-print");
+      const { uri } = await printToFileAsync({ html });
+      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf", dialogTitle: "Prueba Diagnóstica" });
+    }
+  }
+
   async function imprimirPrueba() {
     const e = evRef.current;
     if (!e) return;
     setImprimiendoPrueba(true);
     try {
-      const html = generarHTMLPruebaImprimible(e, { conClave: pruebaConClave });
-      if (Platform.OS === "web") {
-        const w = window.open("", "_blank");
-        if (w) { w.document.write(html); w.document.close(); w.focus(); w.print(); }
-      } else {
-        const { printToFileAsync } = await import("expo-print");
-        const { uri } = await printToFileAsync({ html });
-        await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf", dialogTitle: "Prueba Diagnóstica" });
-      }
+      await imprimirHTMLPrueba(e);
     } catch (err: any) {
       Alert.alert("Error al imprimir", err?.message ?? "No se pudo generar la prueba.");
     } finally {
       setImprimiendoPrueba(false);
+    }
+  }
+
+  async function imprimirPruebaDe(ev: EvaluacionDiagnostica) {
+    setImprimiendoPruebaDeId(ev.id);
+    try {
+      await imprimirHTMLPrueba(ev);
+    } catch (err: any) {
+      Alert.alert("Error al imprimir", err?.message ?? "No se pudo generar la prueba.");
+    } finally {
+      setImprimiendoPruebaDeId(null);
     }
   }
 
@@ -469,6 +501,12 @@ export default function VerEvaluacionScreen() {
             style={[styles.chipBtn, { backgroundColor: "#1D4ED8", opacity: imprimiendoPrueba ? 0.5 : 1 }]}>
             <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>{imprimiendoPrueba ? "..." : "🖨️ Imprimir prueba"}</Text>
           </Pressable>
+          <Pressable onPress={() => setMostrarMaterias((v) => !v)}
+            style={[styles.chipBtn, { backgroundColor: mostrarMaterias ? "#1D4ED8" : colors.surface, borderWidth: 1, borderColor: "#1D4ED8" }]}>
+            <Text style={{ color: mostrarMaterias ? "#fff" : "#1D4ED8", fontSize: 12, fontWeight: "700" }}>
+              {mostrarMaterias ? "Ocultar materias" : "🖨️ Pruebas Lengua/Matemática"}
+            </Text>
+          </Pressable>
           <Pressable onPress={() => setPruebaConClave((v) => !v)}
             style={[styles.chipBtn, { backgroundColor: pruebaConClave ? colors.primary : colors.surface, borderWidth: 1, borderColor: pruebaConClave ? colors.primary : colors.border }]}>
             <Text style={{ color: pruebaConClave ? "#fff" : colors.text, fontSize: 12, fontWeight: "600" }}>
@@ -493,6 +531,58 @@ export default function VerEvaluacionScreen() {
         ) : evaluados.length === 0 ? (
           <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 8 }}>Registra respuestas para poder exportar el diagnóstico a un plan CNC.</Text>
         ) : null)}
+
+        {/* Selector de pruebas por materia (Lengua y Matemática) */}
+        {mostrarMaterias && (
+          <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+              <Text style={[styles.sectionTitle, { color: colors.foreground, flex: 1, marginBottom: 0 }]}>
+                Pruebas para imprimir (Lengua y Matemática)
+              </Text>
+              <Pressable onPress={() => setPruebaConClave((v) => !v)}
+                style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, backgroundColor: pruebaConClave ? colors.primary : colors.background, borderWidth: 1, borderColor: pruebaConClave ? colors.primary : colors.border }}>
+                <Text style={{ fontSize: 11, color: pruebaConClave ? "#fff" : colors.text, fontWeight: "600" }}>
+                  {pruebaConClave ? "✔ Clave de respuestas" : "Clave de respuestas"}
+                </Text>
+              </Pressable>
+            </View>
+
+            {evaluacionesPorArea.length === 0 ? (
+              <Text style={{ fontSize: 12, color: colors.muted, textAlign: "center", paddingVertical: 12 }}>
+                No hay evaluaciones de Lengua y Literatura o Matemática. Crea una desde el wizard CNC.
+              </Text>
+            ) : (
+              evaluacionesPorArea.map((grupo) => (
+                <View key={grupo.area} style={{ marginBottom: 10 }}>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                    <Text style={{ fontSize: 14 }}>{grupo.emoji}</Text>
+                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{grupo.nombre}</Text>
+                    <Text style={{ fontSize: 11, color: colors.muted }}>({grupo.items.length})</Text>
+                  </View>
+                  {grupo.items.map((item) => {
+                    const aplicadosItem = estudiantesEvaluados(item).length;
+                    return (
+                      <View key={item.id} style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, marginBottom: 6 }}>
+                        <Pressable onPress={() => router.replace(`/ver-evaluacion/${item.id}` as any)} style={{ flex: 1 }}>
+                          <Text style={{ fontSize: 12, fontWeight: "600", color: colors.text }} numberOfLines={1}>{item.nombre}</Text>
+                          <Text style={{ fontSize: 10, color: colors.muted }}>{item.grado} {item.paralelo ? `· ${item.paralelo}` : ""} · {aplicadosItem} aplicado(s)</Text>
+                        </Pressable>
+                        <Pressable onPress={() => router.replace(`/ver-evaluacion/${item.id}` as any)}
+                          style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }}>
+                          <Text style={{ fontSize: 11, color: colors.text, fontWeight: "600" }}>Ver</Text>
+                        </Pressable>
+                        <Pressable onPress={() => imprimirPruebaDe(item)} disabled={imprimiendoPruebaDeId === item.id}
+                          style={{ padding: 8, borderRadius: 8, backgroundColor: "#1D4ED8", opacity: imprimiendoPruebaDeId === item.id ? 0.5 : 1 }}>
+                          <Text style={{ fontSize: 14, color: "#fff" }}>{imprimiendoPruebaDeId === item.id ? "..." : "🖨️"}</Text>
+                        </Pressable>
+                      </View>
+                    );
+                  })}
+                </View>
+              ))
+            )}
+          </View>
+        )}
 
         {/* Dashboard */}
         {promedios && (

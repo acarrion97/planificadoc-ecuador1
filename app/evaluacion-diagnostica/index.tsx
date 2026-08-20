@@ -558,8 +558,10 @@ export default function EvaluacionDiagnosticaScreen() {
     try {
       const ev = construirEvaluacion("borrador");
       await persistirYGuardarBackup(ev);
-      if (desdeCNC) router.back();
-      else router.replace(`/ver-evaluacion/${ev.id}` as any);
+      // Al venir del wizard CNC, en vez de volver en silencio al wizard se abre
+      // el detalle de la evaluación para que el docente vea resultados,
+      // aplique la prueba e imprima. El wizard queda debajo en el stack.
+      router.replace(`/ver-evaluacion/${ev.id}` as any);
     } finally {
       setSaving(false);
     }
@@ -576,8 +578,7 @@ export default function EvaluacionDiagnosticaScreen() {
     try {
       const ev = construirEvaluacion("publicada");
       await persistirYGuardarBackup(ev);
-      if (desdeCNC) router.back();
-      else router.replace(`/ver-evaluacion/${ev.id}` as any);
+      router.replace(`/ver-evaluacion/${ev.id}` as any);
     } finally {
       setSaving(false);
     }
