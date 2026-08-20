@@ -353,7 +353,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         shading: shade(BG_EVAL_OFICIAL),
         borders: BORDER_DEF,
         children: [new Paragraph({
-          children: [new TextRun({ text: "ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL", bold: true, size: FS * 2, color: WHITE, font: "Arial" })],
+          children: [new TextRun({ text: "ESTE PROYECTO INTERDISCIPLINARIO CORRESPONDE A LA EVALUACIÓN SUMATIVA DEL TRIMESTRE", bold: true, size: FS * 2, color: WHITE, font: "Arial" })],
         })],
       }),
     ],
@@ -381,7 +381,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell([]),
         semanaContentCell(p.actividadesSemana5?.filter(Boolean).length ? p.actividadesSemana5.filter(Boolean) : ["Presentación del producto acreditable"]),
         semanaContentCell(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? []),
-        semanaContentCell(["Evaluación cualitativa formativa oficial"]),
+        semanaContentCell(["Evaluación sumativa del trimestre"]),
       ],
     }));
   } else {
@@ -408,7 +408,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell(p.evidenciasActitudinales),
         semanaContentCell(p.actividadesSemana5?.filter(Boolean).length ? p.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"]),
         semanaContentCell(p.areasIntegradas),
-        semanaContentCell(["Evaluación cualitativa formativa oficial"]),
+        semanaContentCell(["Evaluación sumativa del trimestre"]),
       ],
     }));
   }

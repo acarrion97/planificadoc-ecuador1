@@ -1551,7 +1551,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${conivelacionHTML}
 
     ${seccion("SEMANAS 4-5 — CREA")}
-    <tr><td colspan="6" class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</td></tr>
+    <tr><td colspan="6" class="banner-oficial">ESTE PROYECTO INTERDISCIPLINARIO CORRESPONDE A LA EVALUACIÓN SUMATIVA DEL TRIMESTRE</td></tr>
     ${esBT && plan.semana4y5BT
       ? `${labelValue("Tipo de producto acreditable:", plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " "))}
          ${labelValue("Descripción:", plan.semana4y5BT.productoAcreditable.descripcion)}
@@ -1570,7 +1570,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
            ${contentCellHTML([])}
            ${contentCellHTML(plan.semana4y5BT.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean) : ["Presentación del producto acreditable"])}
            ${contentCellHTML(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [])}
-           ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
+           ${contentCellHTML(["Evaluación sumativa del trimestre"])}
          </tr>`
       : `${labelValue("Título:", plan.semana4y5.proyecto.titulo)}
          ${labelValue("Áreas integradas:", plan.semana4y5.proyecto.areasIntegradas.join(", "))}
@@ -1591,7 +1591,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
            ${contentCellHTML(plan.semana4y5.proyecto.evidenciasActitudinales)}
            ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"])}
            ${contentCellHTML(plan.semana4y5.proyecto.areasIntegradas)}
-           ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
+           ${contentCellHTML(["Evaluación sumativa del trimestre"])}
          </tr>`}
   </table>
 </body>

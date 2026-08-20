@@ -194,7 +194,7 @@ ${destrezasNivelacion}
 Parejas de "conivelación" (tutoría entre pares — estudiante más consolidado apoya a un compañero):
 ${parejas}
 
-SEMANAS 4-5 — CREA (proyecto interdisciplinario que constituye FORMALMENTE una evaluación cualitativa y formativa oficial, no una actividad de cierre opcional):
+SEMANAS 4-5 — CREA (proyecto interdisciplinario que se aplica al finalizar el trimestre y corresponde a la evaluación sumativa, no una actividad de cierre opcional):
 Título propuesto por el docente: ${input.semana4y5.titulo || "(el docente no propuso título — sugiere uno)"}
 Descripción/notas del docente: ${input.semana4y5.descripcion || "(sin notas)"}
 Áreas a integrar sugeridas por el docente: ${input.semana4y5.areasIntegradas.join(", ") || "(ninguna — sugiere áreas coherentes con el diagnóstico)"}
@@ -204,11 +204,11 @@ Actividades de la Semana 5 propuestas por el docente: ${input.semana4y5.activida
 
 INSTRUCCIONES IMPORTANTES:
 - NO inventes destrezas, códigos curriculares ni criterios técnicos que no estén listados arriba — usa únicamente los proporcionados por el docente${esBT ? " o el catálogo técnico del módulo" : ""}.
-- El proyecto/producto de Semanas 4-5 debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
+- El proyecto/producto de Semanas 4-5 se aplica al finalizar el trimestre y corresponde a la evaluación sumativa; debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
 - "productoFinal" del proyecto y "actividadesSemana4"/"actividadesSemana5": derívalos de las DCD diagnosticadas en Semana 1, las destrezas a reforzar, las áreas integradas y el contexto. Si el docente ya escribió un campo (productoFinal, actividadesSemana4 o actividadesSemana5), devuélvelo EXACTAMENTE como está; solo sugiere contenido cuando el campo está vacío.
 - Para cada actividad de nivelación sugerida, incluye "estrategiaConivelacion": una sugerencia concreta de cómo aprovechar tutoría entre pares para esa destreza específica.
-- El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — es un requisito formal del MinEduc, no una opción.
-- "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
+- El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — el proyecto interdisciplinario corresponde a la evaluación sumativa del trimestre, no es una opción.
+- "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 se aplica al finalizar el trimestre y corresponde a la evaluación sumativa.
 - "recursosSemana1Sugeridos": 3-5 recursos didácticos concretos (materiales, textos, fichas, recursos digitales) apropiados para las actividades de adaptación y el diagnóstico de la Semana 1.
 - "actividadesEvaluativasNivelacionSugeridas": 2-3 actividades evaluativas concretas (técnica + instrumento, ej. "Observación directa con lista de cotejo") para dar seguimiento al progreso durante las Semanas 2-3.
 - Lenguaje pedagógico, concreto y aplicable en el aula ecuatoriana.

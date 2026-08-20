@@ -7,8 +7,8 @@
  * Semana 1 "Conecta": adaptación + diagnóstico dual (académico + socioemocional,
  * coordinado con DECE). Semanas 2-3 "Nivela": refuerzo de Lengua/Matemática con
  * "conivelación" (tutoría entre pares). Semanas 4-5 "Crea": proyecto
- * interdisciplinario que cuenta formalmente como evaluación cualitativa
- * formativa oficial.
+ * interdisciplinario que se aplica al finalizar el trimestre y corresponde a la
+ * evaluación sumativa.
  *
  * En modalidad "bt" se agregan campos técnicos (prerrequisitos de la Figura
  * Profesional, nivelación procedimental, producto acreditable) anclados al
@@ -116,7 +116,7 @@ export interface ProyectoInterdisciplinarioCNC {
   destrezasReforzadas: string[];
   evidenciasCognitivas: string[];
   evidenciasActitudinales: string[];
-  /** Flag fija — requisito MinEduc, no editable por el docente */
+  /** Flag fija — el proyecto interdisciplinario corresponde a la evaluación sumativa del trimestre (lineamientos MinEduc 2026-2027) */
   esEvaluacionFormativaOficial: true;
 }
 

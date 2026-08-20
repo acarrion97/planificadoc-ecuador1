@@ -1123,7 +1123,7 @@ export default function ConectaNivelaCreaScreen() {
             <SectionHeading text="Semanas 4-5 — Crea" colors={colors} />
             <View style={{ backgroundColor: "#FEF3C7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginBottom: 14 }}>
               <Text style={{ fontSize: 11, color: "#92400E" }}>
-                Este proyecto constituye formalmente una evaluación cualitativa y formativa oficial — no es una actividad de cierre opcional.
+                Este proyecto interdisciplinario corresponde a la evaluación sumativa del trimestre — se aplica al finalizar cada período académico y evidencia aprendizajes cognitivos, procedimentales y actitudinales.
               </Text>
             </View>
 
@@ -1196,7 +1196,7 @@ export default function ConectaNivelaCreaScreen() {
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5BT: { productoAcreditable: { tipo: p.semana4y5BT?.productoAcreditable.tipo ?? "maqueta", descripcion: p.semana4y5BT?.productoAcreditable.descripcion ?? "", actividadesSemana4: p.semana4y5BT?.productoAcreditable.actividadesSemana4 ?? [], actividadesSemana5: v.split("\n") } } }))}
                   colors={colors}
                   multiline
-                  placeholder={"Ej: Presentación del producto...\nEvaluación cualitativa formativa..."}
+                  placeholder={"Ej: Presentación del producto...\nEvaluación sumativa del trimestre..."}
                 />
               </>
             )}
@@ -1281,7 +1281,7 @@ export default function ConectaNivelaCreaScreen() {
               </View>
               <View style={{ padding: 14 }}>
                 <View style={{ backgroundColor: "#FEE2E2", borderRadius: 8, padding: 8, marginBottom: 10 }}>
-                  <Text style={{ fontSize: 10, fontWeight: "700", color: "#991B1B" }}>EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</Text>
+                  <Text style={{ fontSize: 10, fontWeight: "700", color: "#991B1B" }}>EVALUACIÓN SUMATIVA DEL TRIMESTRE</Text>
                 </View>
                 {!esBT ? (
                   <>
