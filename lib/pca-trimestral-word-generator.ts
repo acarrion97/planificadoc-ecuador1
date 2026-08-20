@@ -16,7 +16,6 @@ import {
 } from "docx";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
-import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 import { iconosDcdRuns } from "./dcd-iconos";
 
 // ─── Utilidad ─────────────────────────────────────────────────────────────────
@@ -37,9 +36,6 @@ const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
 );
 const TECNICA_LABEL: Record<string, string> = Object.fromEntries(
   TECNICAS_EVALUACION.map((t) => [t.id, t.nombre])
-);
-const EJE_LABEL: Record<string, string> = Object.fromEntries(
-  EJES_TRANSVERSALES_PCA.map((e) => [e.id, e.nombre])
 );
 
 const SZ16 = 32; // 16pt
@@ -234,9 +230,6 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   const semanasClase  = (formData.semanasTotal || 0) - (formData.semanasEvaluacion || 0);
   const totalPeriodos = semanasClase * (formData.cargaHorariaSemanal || 0);
 
-  const ejesTexto    = formData.usaEjesTransversales && formData.ejesTransversales?.length > 0
-    ? formData.ejesTransversales.map((e: string) => EJE_LABEL[e] || e).join(", ")
-    : "No aplica";
   const metodoTexto  = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
   const tecnicaTexto = (formData.tecnicasEvaluacion  || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
   const modeloTexto  = formData.modeloPedagogico === "ACC"
@@ -424,10 +417,6 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
           new Paragraph({
             spacing: { before: 20, after: 0 },
             children: [run("Modelo pedagógico: ", true, SZ7), run(modeloTexto, false, SZ7)],
-          }),
-          new Paragraph({
-            spacing: { before: 20, after: 0 },
-            children: [run("Ejes transversales: ", true, SZ7), run(ejesTexto, false, SZ7)],
           }),
           new Paragraph({
             spacing: { before: 20, after: 0 },

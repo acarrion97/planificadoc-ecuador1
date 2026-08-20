@@ -554,18 +554,6 @@ export default function PcaTrimestralPreviewScreen() {
           )}
         </View>
 
-        {/* ── 4. Ejes transversales ── */}
-        {formData.usaEjesTransversales && formData.ejesTransversales?.length > 0 && (
-          <>
-            <SectionLabel text="4. Ejes Transversales" colors={colors} />
-            <View style={[s.card, { borderColor: colors.border }]}>
-              {formData.ejesTransversales.map((eje: string) => (
-                <Text key={eje} style={[s.ejeItem, { color: colors.foreground }]}>• {eje}</Text>
-              ))}
-            </View>
-          </>
-        )}
-
         {/* ── 5. Unidades ── */}
         <SectionLabel text="5. Unidades de Planificación" colors={colors} />
         <View style={{ paddingHorizontal: 16 }}>

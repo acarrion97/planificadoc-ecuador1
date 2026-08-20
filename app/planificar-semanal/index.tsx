@@ -1167,30 +1167,6 @@ function HoraBlock({
         ))}
       </View>
 
-      {/* Ejes Transversales */}
-      <View style={styles.toggleRow}>
-        <Text style={[styles.subSectionTitle, { color: colors.foreground, flex: 1 }]}>Ejes Transversales</Text>
-        <Switch value={hora.usaEjesTransversales} onValueChange={() => onToggleBool("usaEjesTransversales")}
-          trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
-      </View>
-      {hora.usaEjesTransversales && (
-        <View style={styles.chipsWrap}>
-          {["financiera","socioemocional","seguridad_vial","interculturalidad","participacion","gestion_riesgos","educacion_sexual"].map(id => {
-            const labels: Record<string,string> = {
-              financiera:"Educación Financiera", socioemocional:"Socioemocional",
-              seguridad_vial:"Seguridad Vial", interculturalidad:"Interculturalidad",
-              participacion:"Participación ciudadana", gestion_riesgos:"Gestión de riesgos",
-              educacion_sexual:"Educación sexual",
-            };
-            return (
-              <ChipBtn key={id} label={labels[id] || id}
-                selected={hora.insercionesCurriculares.includes(id)}
-                onPress={() => onToggleChip("insercionesCurriculares", id)} colors={colors} />
-            );
-          })}
-        </View>
-      )}
-
       {/* Metodologías Activas */}
       <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Metodologías Activas</Text>
       <View style={styles.chipsWrap}>

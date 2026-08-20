@@ -1,6 +1,5 @@
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
-import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 import { iconosDestrezaHTML } from "./dcd-iconos";
 
 // ─── Mapas legibles ───────────────────────────────────────────────────────────
@@ -9,9 +8,6 @@ const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
 );
 const TECNICA_LABEL: Record<string, string> = Object.fromEntries(
   TECNICAS_EVALUACION.map(t => [t.id, t.nombre])
-);
-const EJE_LABEL: Record<string, string> = Object.fromEntries(
-  EJES_TRANSVERSALES_PCA.map(e => [e.id, e.nombre])
 );
 
 function toStr(val: any): string {
@@ -102,9 +98,6 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
   const totalPeriodos = semanasClase * (formData.cargaHorariaSemanal || 0);
   const trimestre     = formData.trimestre || "—";
 
-  const ejesTexto    = formData.usaEjesTransversales && formData.ejesTransversales?.length > 0
-    ? formData.ejesTransversales.map((e: string) => EJE_LABEL[e] || e).join(", ")
-    : "No aplica";
   const metodoTexto  = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
   const tecnicaTexto = (formData.tecnicasEvaluacion  || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
 
@@ -238,7 +231,6 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
   <tr>
     <td colspan="7" style="${TD}font-size:7.5px;line-height:1.8;">
       <b>Modelo pedagógico:</b> ${formData.modeloPedagogico === "ACC" ? "ACC (Anticipación – Construcción – Consolidación)" : "ERCA (Experiencia – Reflexión – Conceptualización – Aplicación)"}<br>
-      <b>Ejes transversales:</b> ${ejesTexto}<br>
       <b>Metodologías activas:</b> ${metodoTexto}<br>
       <b>Técnicas de evaluación:</b> ${tecnicaTexto}
     </td>

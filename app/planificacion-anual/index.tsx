@@ -25,7 +25,6 @@ import {
   Subnivel,
 } from "@/data";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "@/data/secciones-planificacion";
-import { EJES_TRANSVERSALES_PCA } from "@/data/pca-ejes-transversales";
 import { DcdMultiSelector, DcdSeleccionada } from "@/components/DcdMultiSelector";
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
@@ -576,25 +575,6 @@ export default function PlanificacionAnualScreen() {
               <Text style={styles.totalValue}>{totalPeriodos}</Text>
             </View>
           </View>
-        </View>
-
-        {/* ── SECCIÓN 4: Ejes transversales ── */}
-        <SectionTitle numero="4" titulo="Ejes transversales" colors={colors} />
-        <View style={styles.section}>
-          <View style={styles.toggleRow}>
-            <Text style={[styles.toggleLabel, { color: colors.foreground }]}>
-              ¿Trabajar con ejes transversales?
-            </Text>
-            <Switch value={usaEjes} onValueChange={setUsaEjes} trackColor={{ true: "#003366" }} />
-          </View>
-          {usaEjes && (
-            <ChipSelector
-              items={EJES_TRANSVERSALES_PCA.map(e => ({ id: e.id, nombre: e.nombre, emoji: e.emoji }))}
-              selected={ejesSeleccionados}
-              onToggle={id => toggleChip(id, ejesSeleccionados, setEjesSeleccionados)}
-              colors={colors}
-            />
-          )}
         </View>
 
         {/* ── SECCIÓN 5: Unidades ── */}
