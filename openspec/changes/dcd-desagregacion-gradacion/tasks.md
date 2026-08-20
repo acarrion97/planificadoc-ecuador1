@@ -19,11 +19,11 @@
 
 ## 4. Router y endpoints
 
-- [ ] 4.1 Crear `server/dcd-desagregacion-router.ts` con `GET /api/dcd-desagregaciones?codigo=&grado=` que resuelve la fila existente (reutilización)
-- [ ] 4.2 Agregar `POST /api/dcd-desagregaciones/generar` que recibe `{ codigoDCD, sessionId }`, genera el ladder completo (una sola llamada IA), persiste todas las filas y devuelve el resultado
-- [ ] 4.3 Agregar `PATCH /api/dcd-desagregaciones/:id` para edición docente (persiste cambios y pasa `estado` a `editado`)
-- [ ] 4.4 Agregar `POST /api/dcd-desagregaciones/:id/aprobar` (marca `estado=aprobado`)
-- [ ] 4.5 Registrar el router en `server/routers.ts` y validar por `sessionId` con el mismo esquema de `adaptaciones-router`
+- [x] 4.1 Crear `server/dcd-desagregacion-router.ts` con `GET /api/dcd-desagregaciones?codigo=&grado=` que resuelve la fila existente (reutilización)
+- [x] 4.2 Agregar `POST /api/dcd-desagregaciones/generar` que recibe `{ codigoDCD, sessionId }`, genera el ladder completo (una sola llamada IA), persiste todas las filas y devuelve el resultado
+- [x] 4.3 Agregar `PATCH /api/dcd-desagregaciones/:id` para edición docente (persiste cambios y pasa `estado` a `editado`)
+- [x] 4.4 Agregar `POST /api/dcd-desagregaciones/:id/aprobar` (marca `estado=aprobado`)
+- [x] 4.5 Registrar el router en `server/routers.ts` y validar por `sessionId` con el mismo esquema de `adaptaciones-router`
 
 ## 5. UI: panel de desagregación
 
