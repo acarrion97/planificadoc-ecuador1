@@ -213,6 +213,13 @@ export interface Planificacion {
   /** Porcentajes de estilos de aprendizaje del grupo */
   estilosAprendizajePorcentaje?: EstilosAprendizajePorcentaje;
   destreza: Destreza;
+  /**
+   * Descripción efectiva de la DCD usada en esta planificación: la versión
+   * graduada (desagregación) cuando fue seleccionada, o vacío para usar la
+   * `descripcion` oficial del catálogo. Es un resultado MATERIALIZADO en el
+   * plan (snapshot): editar o regenerar la desagregación después no lo cambia.
+   */
+  descripcionEfectiva?: string;
   objetivoAprendizaje: string;
   temaSeleccionado?: TemaSugerido;
   actividades: string;
@@ -262,6 +269,14 @@ export interface EjeTransversalPCA {
 export interface DcdSeleccionada {
   codigo: string;
   enunciado: string;
+  /**
+   * Procedencia de la versión: "oficial" (catálogo) o "desagregada" (graduada
+   * por grado). Opcional con default "oficial" para compatibilidad con
+   * selecciones existentes (p. ej. CNC).
+   */
+  origen?: "oficial" | "desagregada";
+  /** Grado de la versión desagregada (solo cuando origen === "desagregada"). */
+  grado?: number;
 }
 
 /** Una unidad de planificación dentro de la PCA */
@@ -370,6 +385,13 @@ export interface HoraSemanal {
   id: string;
   codigoDestreza: string;
   destreza: Destreza | null;
+  /**
+   * Descripción efectiva de la DCD de esta hora: la versión graduada
+   * (desagregación) cuando fue seleccionada, o vacío para usar la `descripcion`
+   * oficial. Resultado MATERIALIZADO (snapshot): no se re-resuelve contra la
+   * desagregación al generar el documento.
+   */
+  descripcionEfectiva?: string;
   tema: string;
   temasAlternativos: TemaSugerido[];
   temaSeleccionado: TemaSugerido | null;

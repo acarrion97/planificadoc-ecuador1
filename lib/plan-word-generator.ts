@@ -690,7 +690,7 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
         tc([
           p(plan.destreza?.codigo || "—", { bold: true, size: 8 }),
           p(""),
-          p(plan.destreza?.descripcion || "—", { size: 8 }),
+          p(plan.descripcionEfectiva ?? plan.destreza?.descripcion ?? "—", { size: 8 }),
           ...(() => {
             const runs = iconosDcdRuns(plan.destreza?.codigo);
             return runs.length ? [new Paragraph({ children: runs })] : [];

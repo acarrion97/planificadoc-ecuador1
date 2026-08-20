@@ -670,7 +670,7 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
           ${iconosDestrezaHTML(plan.destreza.codigo)}
           ${competenciasBadgesHTML ? `<div style="margin-top:3px;">${competenciasBadgesHTML}</div>` : ""}
           <br/>
-          ${plan.destreza.descripcion}
+          ${plan.descripcionEfectiva ?? plan.destreza.descripcion}
         </td>
         <td>
           ${habHTML !== (isEFL ? "Not specified" : "No especificadas") ? `
@@ -1019,7 +1019,7 @@ export function generarHTMLSemanal(
       // ── Columna 2: DCD ──
       const dcdHTML = `
         <strong style="color:#003366;font-size:9px;">${hora.codigoDestreza}</strong><br/>
-        <span style="font-size:9px;">${hora.destreza?.descripcion || ""}</span>
+        <span style="font-size:9px;">${hora.descripcionEfectiva ?? hora.destreza?.descripcion ?? ""}</span>
         ${iconosDestrezaHTML(hora.codigoDestreza)}
         ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:9px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${plan.objetivoClase}</div>` : ""}`;
 

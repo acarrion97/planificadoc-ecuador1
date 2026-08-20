@@ -9,9 +9,12 @@ import {
   Platform,
 } from "react-native";
 import { useColors } from "@/hooks/use-colors";
-import { Destreza } from "@/data/types";
+import { Destreza, DcdSeleccionada } from "@/data/types";
 import { obtenerNombreSubnivel, buscarPorCodigo, gradosDeSubnivel, resolverDcdConIndicador } from "@/data";
 import { DcdDesagregacionPanel } from "@/components/DcdDesagregacionPanel";
+
+/** El selector devuelve el tipo canónico de `data/types` (incluye `origen` y `grado`). */
+export type { DcdSeleccionada };
 
 /**
  * Subnivel de una DCD ya seleccionada. Los chips solo guardan código y
@@ -32,19 +35,6 @@ function esDesagregable(codigo: string): boolean {
   if (!d) return false;
   if (!gradosDeSubnivel(d.subnivel)) return false;
   return resolverDcdConIndicador(codigo) != null;
-}
-
-export interface DcdSeleccionada {
-  codigo: string;
-  enunciado: string;
-  /**
-   * Procedencia de la versión: "oficial" (catálogo) o "desagregada" (graduada
-   * por grado). Opcional con default "oficial" para compatibilidad con
-   * selecciones existentes (p. ej. CNC).
-   */
-  origen?: "oficial" | "desagregada";
-  /** Grado de la versión desagregada (solo cuando origen === "desagregada"). */
-  grado?: number;
 }
 
 interface Props {

@@ -849,7 +849,7 @@ export async function generarWordSemanal(
         }),
         new Paragraph({
           children: [new TextRun({
-            text: destreza?.descripcion || "",
+            text: hora.descripcionEfectiva ?? destreza?.descripcion ?? "",
             size: 18, font: "Arial", color: "222222",
           })],
           spacing: { after: chipsRuns.length ? 40 : 0 },

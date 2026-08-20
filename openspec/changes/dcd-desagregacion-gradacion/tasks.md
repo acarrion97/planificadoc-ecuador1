@@ -54,9 +54,9 @@
 
 ## 8. Consumo en PCA/PCT/semanal
 
-- [ ] 8.1 Verificar que `pca-word-generator.ts` y `pca-trimestral-word-generator.ts` renderizan `dcdsSeleccionadas` como `codigo: enunciado` (sin cambios si ya es así) y confirmar que una selección `origen: "desagregada"` guarda el texto graduado como `enunciado`
-- [ ] 8.2 Agregar `descripcionEfectiva` (descripción efectiva de la DCD) a `HoraSemanal` en `data/types.ts`, poblada desde la selección, con valor `null`/vacío como default
-- [ ] 8.3 Actualizar `semanal-word-generator.ts` para preferir `descripcionEfectiva` y hacer fallback a `destreza?.descripcion`
-- [ ] 8.4 Agregar el mismo campo de descripción efectiva al plan de unidad y actualizar `plan-word-generator.ts` con el mismo fallback
-- [ ] 8.5 Asegurar que el flujo CNC conserva el objeto `Destreza` oficial sin campo efectivo (no consume versiones graduadas)
-- [ ] 8.6 Escribir pruebas de consumo: un plan con selección `origen: "desagregada"` refleja el texto graduado en el documento, y un plan con selección oficial o sin desagregación refleja la `descripcion` oficial
+- [x] 8.1 Verificar que `pca-word-generator.ts` y `pca-trimestral-word-generator.ts` renderizan `dcdsSeleccionadas` como `codigo: enunciado` (sin cambios si ya es así) y confirmar que una selección `origen: "desagregada"` guarda el texto graduado como `enunciado`
+- [x] 8.2 Agregar `descripcionEfectiva` (descripción efectiva de la DCD) a `HoraSemanal` en `data/types.ts`, poblada desde la selección, con valor `null`/vacío como default
+- [x] 8.3 Actualizar `semanal-word-generator.ts` para preferir `descripcionEfectiva` y hacer fallback a `destreza?.descripcion`
+- [x] 8.4 Agregar el mismo campo de descripción efectiva al plan de unidad y actualizar `plan-word-generator.ts` con el mismo fallback
+- [x] 8.5 Asegurar que el flujo CNC conserva el objeto `Destreza` oficial sin campo efectivo (no consume versiones graduadas)
+- [x] 8.6 Escribir pruebas de consumo: un plan con selección `origen: "desagregada"` refleja el texto graduado en el documento, y un plan con selección oficial o sin desagregación refleja la `descripcion` oficial
