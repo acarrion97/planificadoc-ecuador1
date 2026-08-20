@@ -12,10 +12,12 @@ import {
   ShadingType,
   VerticalAlign,
   PageOrientation,
+  TableLayoutType,
 } from "docx";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
+import { iconosDcdRuns } from "./dcd-iconos";
 
 // ─── Utilidad ─────────────────────────────────────────────────────────────────
 function toStr(val: any): string {
@@ -360,7 +362,9 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   ];
 
   const tiempoInnerTable = new Table({
-    width: { size: COL_TOTAL, type: WidthType.DXA },
+    width: { size: TIEMPO_COL * 5, type: WidthType.DXA },
+    layout: TableLayoutType.FIXED,
+    columnWidths: Array(5).fill(TIEMPO_COL),
     rows: [
       new TableRow({
         children: tiempoLabels_headers.map((h) =>
@@ -461,7 +465,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
           new Paragraph({
             spacing: { before: 10, after: 10 },
-            children: [run(d.codigo, true, SZ6), run(": " + d.enunciado, false, SZ6)],
+            children: [run(d.codigo, true, SZ6), run(": " + d.enunciado, false, SZ6), ...iconosDcdRuns(d.codigo)],
           })
         )
       : [textPara("—", false, SZ7)];
@@ -522,23 +526,29 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
     { rol: "APROBADO",  cargo: "DIRECTOR:",    nombre: formData.firmaAprobadoPor  || "", fecha: formData.firmaAprobadoFecha  || "" },
   ];
 
-  function sigCell(paragraphs: Paragraph[]): TableCell {
+  // 3 columnas iguales — deben sumar COL_TOTAL (mismo ancho que mainTable,
+  // donde esta tabla queda anidada) para no desbordar el borde derecho.
+  const SIG_COL_W = [4800, 4799, 4799] as const;
+
+  function sigCell(paragraphs: Paragraph[], colIdx: number): TableCell {
     return new TableCell({
       children: paragraphs,
-      width: { size: 5280, type: WidthType.DXA }, // 15840/3
+      width: { size: SIG_COL_W[colIdx], type: WidthType.DXA },
       verticalAlign: VerticalAlign.CENTER,
       borders: stdBorders,
     });
   }
 
   const firmasInnerTable = new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
+    width: { size: COL_TOTAL, type: WidthType.DXA },
+    layout: TableLayoutType.FIXED,
+    columnWidths: [...SIG_COL_W],
     rows: [
-      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)])) }),
-      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.cargo, true, SZ7)])) }),
-      new TableRow({ children: firmas.map((f) => sigCell([textPara(f.nombre || "_________________________", false, SZ7)])) }),
-      new TableRow({ children: firmas.map(() => sigCell([textPara("Firma: _________________________", false, SZ7)])) }),
-      new TableRow({ children: firmas.map((f) => sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)])) }),
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.rol, true, SZ7, AlignmentType.CENTER)], i)) }),
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.cargo, true, SZ7)], i)) }),
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara(f.nombre || "_________________________", false, SZ7)], i)) }),
+      new TableRow({ children: firmas.map((_, i) => sigCell([textPara("Firma: _________________________", false, SZ7)], i)) }),
+      new TableRow({ children: firmas.map((f, i) => sigCell([textPara("Fecha: " + (f.fecha || "___________"), false, SZ7)], i)) }),
     ],
   });
 
@@ -550,7 +560,9 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
 
   // ── TABLA PRINCIPAL ──
   const mainTable = new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
+    width: { size: COL_TOTAL, type: WidthType.DXA },
+    layout: TableLayoutType.FIXED,
+    columnWidths: [...COL_W],
     rows: [
       headerRow0,
       headerRow1,
