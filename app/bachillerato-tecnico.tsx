@@ -94,7 +94,7 @@ export default function BachilleratoTecnicoScreen() {
 
         {/* Familia list \u2014 ScrollView avoids FlatList virtualization removeChild conflicts */}
         {familiasFiltradas.map((familia) => {
-          const figuras = obtenerFigurasPorFamilia(familia.id);
+          const figuras = obtenerFigurasPorFamilia(familia.id).filter((f) => f.estado !== "deprecada");
           const isExpanded = expandedFamilia === familia.id;
 
           return (

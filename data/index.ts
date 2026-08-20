@@ -40,6 +40,7 @@ export {
   FIGURAS_PROFESIONALES,
   obtenerFamiliasPorArea,
   obtenerFigurasPorFamilia,
+  obtenerFigurasActivas,
   obtenerFiguraPorId,
   obtenerModulosPorAnio,
   obtenerTodosLosModulos,

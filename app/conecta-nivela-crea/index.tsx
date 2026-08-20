@@ -12,7 +12,7 @@ import { trpc } from "@/lib/trpc";
 import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel, AREAS_INFO } from "@/data";
 import type { Subnivel } from "@/data/types";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
-import { FIGURAS_PROFESIONALES, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
+import { FIGURAS_PROFESIONALES, obtenerFigurasActivas, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
 import type {
   PlanConectaNivelaCrea, ConectaNivelaCreaAiResult,
   DiagnosticoAcademicoCNC, DiagnosticoSocioemocionalCNC,
@@ -940,7 +940,7 @@ export default function ConectaNivelaCreaScreen() {
               <>
                 <Label text="Figura Profesional" colors={colors} />
                 <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
-                  {FIGURAS_PROFESIONALES.map((f) => (
+                  {obtenerFigurasActivas().map((f) => (
                     <Pressable
                       key={f.id}
                       onPress={() => setPlan((p) => ({ ...p, figuraProfesionalId: f.id, moduloId: undefined }))}
