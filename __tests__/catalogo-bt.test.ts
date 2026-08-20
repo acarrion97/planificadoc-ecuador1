@@ -81,6 +81,13 @@ describe("Catálogo de Bachillerato Técnico (00051-A)", () => {
     expect(activasConstruccion.map((f) => f.id)).toEqual(["obra-civil"]);
   });
 
+  it("las figuras movidas por 00051-A son miembros de la familia Industrial", () => {
+    const industrial = obtenerFigurasPorFamilia("industrial").map((f) => f.id);
+    expect(industrial).toContain("mecanica-industrial");
+    expect(industrial).toContain("instalaciones-electricas");
+    expect(industrial).toContain("climatizacion");
+  });
+
   it("corrige el área de la familia Artes a Artística", () => {
     const artes = FAMILIAS_PROFESIONALES.find((f) => f.id === "artes");
     expect(artes?.area).toBe("artistica");
