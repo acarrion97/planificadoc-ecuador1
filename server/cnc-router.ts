@@ -198,7 +198,7 @@ SEMANAS 2-3 — NIVELA (refuerzo focalizado, secuencia diagnóstico → nivelaci
 Destrezas de nivelación seleccionadas (usa ÚNICAMENTE estas, no inventes otras):
 ${destrezasNivelacion}
 
-Parejas de "conivelación" (tutoría entre pares — estudiante más consolidado apoya a un compañero):
+Parejas de "co-nivelación" (tutoría entre pares — estudiante más consolidado apoya a un compañero):
 ${parejas}
 
 SEMANAS 4-5 — CREA (proyecto interdisciplinario que constituye FORMALMENTE una evaluación cualitativa y formativa oficial, no una actividad de cierre opcional):
@@ -407,12 +407,12 @@ Responde ÚNICAMENTE con JSON: { "tecnicasReflexion": ["string", "string", "stri
         .map((a) => `- [${a.area}] ${a.destrezaCodigo}: "${a.destrezaDescripcion}"`)
         .join("\n");
 
-      const prompt = `Eres un experto en "conivelación" (tutoría entre pares) del programa "Conecta, Nivela y Crea" del MinEduc Ecuador.
+      const prompt = `Eres un experto en "co-nivelación" (tutoría entre pares) del programa "Conecta, Nivela y Crea" del MinEduc Ecuador.
 
 Destrezas de nivelación seleccionadas por el docente (usa ÚNICAMENTE estas, no inventes otras):
 ${destrezas}
 
-Para CADA destreza, sugiere una pareja de conivelación: no inventes nombres de estudiantes (el docente los completará), solo sugiere el enfoque de la tutoría entre pares para esa destreza específica.
+Para CADA destreza, sugiere una pareja de co-nivelación: no inventes nombres de estudiantes (el docente los completará), solo sugiere el enfoque de la tutoría entre pares para esa destreza específica.
 
 Responde ÚNICAMENTE con JSON: { "parejasSugeridas": [ { "destrezaFocoCodigo": "string", "destrezaFocoDescripcion": "string", "sugerenciaEnfoque": "string (1 oración concreta de cómo el estudiante más consolidado puede apoyar al compañero en esta destreza)" } ] }`;
 

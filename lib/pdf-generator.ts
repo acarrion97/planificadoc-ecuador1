@@ -1492,7 +1492,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
         ${contentCellHTML(actividadesSemana.map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`))}
         ${contentCellHTML(cncIndicadoresParaDestrezas(actividadesSemana))}
         ${contentCellHTML(actividadesSemana.map((a) => a.descripcionActividad || "—"))}
-        ${contentCellHTML(parejasSemana.map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
+        ${contentCellHTML(parejasSemana.map((p) => `Co-nivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
         ${contentCellHTML(plan.aiResult?.actividadesEvaluativasNivelacionSugeridas ?? [])}
       </tr>`;
   }).join("");
@@ -1559,7 +1559,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     <tr><th colspan="2">Criterio técnico</th><th colspan="2">Actividad</th><th colspan="2">Articulación con Matemática</th></tr>
     ${plan.semana2y3BT.actividadesNivelacionTecnica.map((a) => `<tr><td colspan="2">${esc(a.criterioTexto)}</td><td colspan="2">${esc(a.descripcionActividad || "—")}</td><td colspan="2">${esc(a.articulacionMatematica || "—")}</td></tr>`).join("")}
     ` : ""}
-    ${subheading("Parejas de conivelación (tutoría entre pares)")}
+    ${subheading("Parejas de co-nivelación (tutoría entre pares)")}
     ${plan.semana2y3.parejasConivelacion.length ? `<tr><th colspan="2">Apoya</th><th colspan="2">Apoyado</th><th colspan="2">Destreza foco</th></tr>` : ""}
     ${conivelacionHTML}
 

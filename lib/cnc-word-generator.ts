@@ -292,7 +292,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell(actividadesSemana.map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`)),
         semanaContentCell(indicadoresParaDestrezas(actividadesSemana)),
         semanaContentCell(actividadesSemana.map((a) => a.descripcionActividad || "—")),
-        semanaContentCell(parejasSemana.map((p) => `Conivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`)),
+        semanaContentCell(parejasSemana.map((p) => `Co-nivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`)),
         semanaContentCell(plan.aiResult?.actividadesEvaluativasNivelacionSugeridas ?? []),
       ],
     }));
@@ -319,7 +319,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     }
   }
 
-  rows.push(subHeadingRow("Parejas de conivelación (tutoría entre pares)"));
+  rows.push(subHeadingRow("Parejas de co-nivelación (tutoría entre pares)"));
   if (plan.semana2y3.parejasConivelacion.length) {
     rows.push(new TableRow({
       tableHeader: true,

@@ -6,7 +6,7 @@
  *
  * Semana 1 "Conecta": adaptación + diagnóstico dual (académico + socioemocional,
  * coordinado con DECE). Semanas 2-3 "Nivela": refuerzo de Lengua/Matemática con
- * "conivelación" (tutoría entre pares). Semanas 4-5 "Crea": proyecto
+ * "co-nivelación" (tutoría entre pares). Semanas 4-5 "Crea": proyecto
  * interdisciplinario que cuenta formalmente como evaluación cualitativa
  * formativa oficial.
  *
@@ -62,7 +62,7 @@ export interface Semana1CNCExtraBT {
 
 // ─── Semanas 2-3 — Nivela ────────────────────────────────────────────────────
 
-/** Pareja de "conivelación" — tutoría entre pares, estrategia nombrada explícitamente */
+/** Pareja de "co-nivelación" — tutoría entre pares, estrategia nombrada explícitamente en el documento oficial (Lineamientos Costa-Galápagos 2026-2027). El nombre del tipo (`ParejaConivelacion`) se mantiene sin guion por compatibilidad con datos ya persistidos. */
 export interface ParejaConivelacion {
   id: string;
   estudianteApoyoNombre: string;

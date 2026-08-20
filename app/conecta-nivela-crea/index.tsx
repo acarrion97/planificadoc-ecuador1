@@ -707,7 +707,7 @@ export default function ConectaNivelaCreaScreen() {
 
   async function handleSugerirConivelacion() {
     if (!plan.semana2y3.actividadesNivelacion.length) {
-      Alert.alert("Agrega destrezas primero", "Selecciona al menos una destreza de nivelación para sugerir parejas de conivelación.");
+      Alert.alert("Agrega destrezas primero", "Selecciona al menos una destreza de nivelación para sugerir parejas de co-nivelación.");
       return;
     }
     try {
@@ -1079,7 +1079,7 @@ export default function ConectaNivelaCreaScreen() {
           <View>
             <SectionHeading text="Semanas 2-3 — Nivela" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
-              Refuerzo focalizado en Lengua y Matemática, con "conivelación" (tutoría entre pares).
+              Refuerzo focalizado en Lengua y Matemática, con "co-nivelación" (tutoría entre pares).
             </Text>
 
             <DestrezaBuscadorCNC area="LL" subnivelCurso={subnivelCurso} onSelect={(c, d) => addActividadNivelacion(c, d, "LL", 2)} colors={colors} />
@@ -1119,7 +1119,7 @@ export default function ConectaNivelaCreaScreen() {
             ) : null}
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
-            <SectionHeading text="Parejas de conivelación" colors={colors} />
+            <SectionHeading text="Parejas de co-nivelación" colors={colors} />
             <Pressable
               onPress={handleSugerirConivelacion}
               disabled={sugerirConivelacionMutation.isPending}
@@ -1148,7 +1148,7 @@ export default function ConectaNivelaCreaScreen() {
               </View>
             ))}
             <Pressable onPress={addPareja} style={{ paddingVertical: 10, alignItems: "center", borderWidth: 1, borderColor: colors.border, borderRadius: 8, borderStyle: "dashed" }}>
-              <Text style={{ fontSize: 12, color: colors.primary, fontWeight: "600" }}>+ Agregar pareja de conivelación</Text>
+              <Text style={{ fontSize: 12, color: colors.primary, fontWeight: "600" }}>+ Agregar pareja de co-nivelación</Text>
             </Pressable>
           </View>
         )}
@@ -1424,7 +1424,7 @@ export default function ConectaNivelaCreaScreen() {
                   <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>[{a.area}] {a.destrezaCodigo}</Text>
                   <Text style={{ fontSize: 12, color: colors.text }}>{a.descripcionActividad}</Text>
                   {a.estrategiaConivelacion && (
-                    <Text style={{ fontSize: 11, color: "#7C3AED", marginTop: 2 }}>🤝 Conivelación: {a.estrategiaConivelacion}</Text>
+                    <Text style={{ fontSize: 11, color: "#7C3AED", marginTop: 2 }}>🤝 Co-nivelación: {a.estrategiaConivelacion}</Text>
                   )}
                 </View>
               ))}
