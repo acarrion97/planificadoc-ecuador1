@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createTRPCClient } from "@/lib/trpc";
 import { useColors } from "@/hooks/use-colors";
 import { DcdDesagregacion, EstadoDesagregacion } from "@/data/types";
+import { buscarPorCodigo, gradosDeSubnivel } from "@/data";
 import type { DcdDesagregacionRow } from "@/drizzle/schema";
 
 /**
@@ -34,8 +35,12 @@ const ESTADO_COLOR: Record<EstadoDesagregacion, string> = {
 
 interface Props {
   codigoDCD: string;
-  /** Grado actual de la planificación — su versión queda preseleccionada */
-  gradoContexto: number;
+  /**
+   * Grado actual de la planificación — su versión queda preseleccionada.
+   * Opcional: si el contexto no conoce el grado, se permite elegirlo antes de
+   * generar (el ladder siempre se genera completo).
+   */
+  gradoContexto?: number;
   visible: boolean;
   onClose: () => void;
   /**
@@ -71,6 +76,13 @@ export function DcdDesagregacionPanel({
   const [guardandoId, setGuardandoId] = useState<number | null>(null);
   const [aprobandoId, setAprobandoId] = useState<number | null>(null);
 
+  /** Grado elegido como destino (5.7: se usa cuando el contexto no conoce el grado). */
+  const [gradoElegido, setGradoElegido] = useState<number | null>(null);
+
+  const dcd = codigoDCD ? buscarPorCodigo(codigoDCD) : undefined;
+  const gradosDisponibles = dcd ? gradosDeSubnivel(dcd.subnivel) : undefined;
+  const gradoObjetivo = gradoContexto ?? gradoElegido;
+
   /** Resuelve el sessionId del dispositivo (mismo esquema que adaptaciones). */
   const resolveSessionId = useCallback(async (): Promise<string> => {
     let sid = await AsyncStorage.getItem("@planificadoc_device_id");
@@ -91,6 +103,9 @@ export function DcdDesagregacionPanel({
     setEditandoId(null);
     setBorrador(null);
     setSeleccionadoId(null);
+    if (gradoContexto == null && gradosDisponibles?.length) {
+      setGradoElegido(gradosDisponibles[gradosDisponibles.length - 1]);
+    }
 
     (async () => {
       const sid = await resolveSessionId();
@@ -104,7 +119,8 @@ export function DcdDesagregacionPanel({
         });
         if (!activo) return;
         setFilas(rows);
-        const pre = rows.find((r) => r.grado === gradoContexto) ?? rows[rows.length - 1];
+        const objetivo = gradoContexto ?? gradoElegido;
+        const pre = rows.find((r) => r.grado === objetivo) ?? rows[rows.length - 1];
         if (pre) setSeleccionadoId(pre.id);
       } catch {
         if (activo) setError("No se pudo consultar la desagregación guardada.");
@@ -116,6 +132,7 @@ export function DcdDesagregacionPanel({
     return () => {
       activo = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, codigoDCD, gradoContexto, resolveSessionId]);
 
   /** Genera el ladder completo por IA y lo persiste. */
@@ -137,14 +154,14 @@ export function DcdDesagregacionPanel({
         rows = res.filas.map((f, i) => ({ ...f, id: -(i + 1) })) as typeof rows;
       }
       setFilas(rows);
-      const pre = rows.find((r) => r.grado === gradoContexto) ?? rows[rows.length - 1];
+      const pre = rows.find((r) => r.grado === gradoObjetivo) ?? rows[rows.length - 1];
       if (pre) setSeleccionadoId(pre.id);
     } catch (e: any) {
       setError(e?.message || "La IA no pudo desagregar esta DCD.");
     } finally {
       setGenerando(false);
     }
-  }, [sessionId, codigoDCD, gradoContexto]);
+  }, [sessionId, codigoDCD, gradoObjetivo]);
 
   /** Inicia la edición docente de una fila. */
   const iniciarEdicion = useCallback((fila: FilaDesagregacion) => {
@@ -256,6 +273,40 @@ export function DcdDesagregacionPanel({
                     La IA genera la misma destreza ajustada a la complejidad de cada grado del
                     subnivel. El último grado conserva el texto oficial completo.
                   </Text>
+
+                  {/* 5.7: si el contexto no conoce el grado, elegir el destino antes de generar */}
+                  {gradoContexto == null && gradosDisponibles ? (
+                    <View style={styles.gradoPicker}>
+                      <Text style={[styles.gradoPickerLabel, { color: colors.muted }]}>
+                        Elegir grado destino:
+                      </Text>
+                      <View style={styles.gradoChips}>
+                        {gradosDisponibles.map((g) => {
+                          const activo = gradoElegido === g;
+                          return (
+                            <Pressable
+                              key={g}
+                              onPress={() => setGradoElegido(g)}
+                              style={[
+                                styles.gradoChip,
+                                activo && styles.gradoChipActivo,
+                              ]}
+                            >
+                              <Text
+                                style={[
+                                  styles.gradoChipText,
+                                  activo ? { color: "#fff" } : { color: "#7C3AED" },
+                                ]}
+                              >
+                                {g}°
+                              </Text>
+                            </Pressable>
+                          );
+                        })}
+                      </View>
+                    </View>
+                  ) : null}
+
                   <Pressable
                     onPress={handleGenerar}
                     disabled={generando}
@@ -382,7 +433,7 @@ export function DcdDesagregacionPanel({
                             <Text style={[styles.filaGrado, { color: colors.foreground }]}>
                               Grado {f.grado}
                             </Text>
-                            {f.grado === gradoContexto ? (
+                            {gradoContexto != null && f.grado === gradoContexto ? (
                               <Text style={styles.tuGradoTag}>tu grado</Text>
                             ) : null}
                             <View
@@ -596,6 +647,36 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 18,
     textAlign: "center",
+  },
+  gradoPicker: {
+    alignSelf: "stretch",
+    marginTop: 10,
+  },
+  gradoPickerLabel: {
+    fontSize: 12,
+    fontWeight: "700",
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  gradoChips: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 8,
+  },
+  gradoChip: {
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#7C3AED",
+    backgroundColor: "transparent",
+  },
+  gradoChipActivo: {
+    backgroundColor: "#7C3AED",
+  },
+  gradoChipText: {
+    fontSize: 13,
+    fontWeight: "800",
   },
   primaryBtn: {
     flexDirection: "row",

@@ -30,19 +30,19 @@
 - [x] 5.1 Crear `DcdDesagregacionPanel` (panel hermano del selector): dado `codigoDCD` y `gradoContexto`, resuelve la fila existente o muestra la acción "Desagregar por grado"
 - [x] 5.2 Mostrar el ladder completo de la IA por grado en formato de matriz (columnas por grado) para revisión, con la versión del grado de contexto preseleccionada
 - [x] 5.3 Permitir editar `dcdGraduada` e `indicadorGraduado` por fila y guardar (`PATCH`)
-- [ ] 5.4 Agregar acción "aprobar" por fila que persiste `estado=aprobado`
-- [ ] 5.5 Cuando ya existe una fila para la DCD+grado, mostrar la guardada sin invocar a la IA (reutilización)
-- [ ] 5.6 Agregar la acción "Usar esta versión" que devuelve la versión graduada elegida al selector
-- [ ] 5.7 Cuando el contexto no conoce el grado, permitir elegir el grado destino antes de generar (el ladder siempre se genera completo)
+- [x] 5.4 Agregar acción "aprobar" por fila que persiste `estado=aprobado`
+- [x] 5.5 Cuando ya existe una fila para la DCD+grado, mostrar la guardada sin invocar a la IA (reutilización)
+- [x] 5.6 Agregar la acción "Usar esta versión" que devuelve la versión graduada elegida al selector
+- [x] 5.7 Cuando el contexto no conoce el grado, permitir elegir el grado destino antes de generar (el ladder siempre se genera completo)
 
 ## 6. Integración en el selector
 
-- [ ] 6.1 Ampliar el tipo de selección devuelto por `DcdMultiSelector` con `origen: "oficial" | "desagregada"` y `grado?: number` (default `oficial`, compatible con selecciones existentes)
-- [ ] 6.2 Agregar prop opcional `gradoContexto` a `DcdMultiSelector` y mostrar, tras seleccionar una DCD, las dos rutas "Desagregar por grado" y "Seleccionar DCD oficial", sin cambiar el comportamiento actual cuando la prop no se pasa
-- [ ] 6.3 Etiquetar el botón según contexto ("Desagregar para N.º EGB") cuando `gradoContexto` está presente; la generación produce igualmente el ladder completo
-- [ ] 6.4 Asegurar que el flujo CNC no activa la desagregación: el selector se usa sin la prop de planificación y conserva el comportamiento actual (DCD oficial, sin botón ni resolución por grado)
-- [ ] 6.5 Verificar que la DCD oficial del catálogo permanece intacta en todos los flujos (no se modifica `data/destrezas-*.ts` ni la `descripcion` guardada)
-- [ ] 6.6 Asegurar que la desagregación no colisiona con `curricular_adaptations` / `DcdAdaptada` (modelos separados)
+- [x] 6.1 Ampliar el tipo de selección devuelto por `DcdMultiSelector` con `origen: "oficial" | "desagregada"` y `grado?: number` (default `oficial`, compatible con selecciones existentes)
+- [x] 6.2 Agregar prop opcional `gradoContexto` a `DcdMultiSelector` y mostrar, tras seleccionar una DCD, las dos rutas "Desagregar por grado" y "Seleccionar DCD oficial", sin cambiar el comportamiento actual cuando la prop no se pasa
+- [x] 6.3 Etiquetar el botón según contexto ("Desagregar para N.º EGB") cuando `gradoContexto` está presente; la generación produce igualmente el ladder completo
+- [x] 6.4 Asegurar que el flujo CNC no activa la desagregación: el selector se usa sin la prop de planificación y conserva el comportamiento actual (DCD oficial, sin botón ni resolución por grado)
+- [x] 6.5 Verificar que la DCD oficial del catálogo permanece intacta en todos los flujos (no se modifica `data/destrezas-*.ts` ni la `descripcion` guardada)
+- [x] 6.6 Asegurar que la desagregación no colisiona con `curricular_adaptations` / `DcdAdaptada` (modelos separados)
 
 ## 7. Verificación
 
