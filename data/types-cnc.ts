@@ -5,10 +5,11 @@
  * 2026-2027), incluido Bachillerato Técnico (modalidad "bt").
  *
  * Semana 1 "Conecta": adaptación + diagnóstico dual (académico + socioemocional,
- * coordinado con DECE). Semanas 2-3 "Nivela": refuerzo de Lengua/Matemática con
- * "co-nivelación" (tutoría entre pares). Semanas 4-5 "Crea": proyecto
- * interdisciplinario que cuenta formalmente como evaluación cualitativa
- * formativa oficial.
+ * coordinado con DECE), con metodología declarada (calibrada por subnivel vía
+ * `lib/curriculo-prerrequisitos.ts`) y principios DUA por actividad. Semanas
+ * 2-3 "Nivela": refuerzo de Lengua/Matemática con "co-nivelación" (tutoría
+ * entre pares). Semanas 4-5 "Crea": proyecto interdisciplinario que cuenta
+ * formalmente como evaluación cualitativa formativa oficial.
  *
  * En modalidad "bt" se agregan campos técnicos (prerrequisitos de la Figura
  * Profesional, nivelación procedimental, producto acreditable) anclados al
@@ -16,8 +17,11 @@
  * (solo lectura — este archivo, junto con lib/planificaciones-cnc-context.tsx y
  * server/cnc-router.ts, es intencionalmente independiente del contexto/router/
  * persistencia de EGB-BGU (data/types.ts) y de BT (data/types-bt.ts) para no
- * arriesgar ninguno de los flujos existentes).
+ * arriesgar ninguno de los flujos existentes; se importa únicamente el tipo
+ * `DUAActividad` de data/types.ts, sin ningún acoplamiento de runtime).
  */
+
+import type { DUAActividad } from "./types";
 
 // ─── Semana 1 — Conecta ──────────────────────────────────────────────────────
 
@@ -36,7 +40,16 @@ export interface DiagnosticoSocioemocionalCNC {
 }
 
 export interface Semana1CNC {
+  /**
+   * Estrategia/metodología pedagógica declarada para la semana (p. ej. "círculo
+   * de lectura", "juego-trabajo"), coherente con el subnivel y el propósito —
+   * ver `estrategiasMetodologicasPorSubnivel()` en lib/curriculo-prerrequisitos.ts
+   * para los ejemplos oficiales que orientan (no limitan) esta declaración.
+   */
+  metodologiaDeclarada: string;
   actividadesAdaptacion: string[];
+  /** Indicadores DUA por cada actividad de adaptación (mismo índice que actividadesAdaptacion[]) */
+  duaActividadesAdaptacion?: DUAActividad[];
   diagnosticoAcademico: DiagnosticoAcademicoCNC[];
   diagnosticoSocioemocional: DiagnosticoSocioemocionalCNC[];
   /** Nota libre de coordinación con el equipo DECE — sin sobre-modelar */
@@ -206,8 +219,14 @@ export interface Semana4y5CNCExtraBT {
 // ─── Resultado de IA ─────────────────────────────────────────────────────────
 
 export interface ConectaNivelaCreaAiResult {
+  /** Estrategia/metodología sugerida para Semana 1 — ver Semana1CNC.metodologiaDeclarada */
+  metodologiaDeclaradaSugerida?: string;
   actividadesAdaptacionSugeridas: string[];
+  /** Indicadores DUA por cada actividad sugerida (mismo índice que actividadesAdaptacionSugeridas[]) */
+  duaActividadesAdaptacionSugeridas?: DUAActividad[];
   tecnicaDiagnosticoSugerida: string[];
+  /** Indicadores DUA por cada técnica/instrumento sugerido (mismo índice que tecnicaDiagnosticoSugerida[]) */
+  duaTecnicaDiagnosticoSugerida?: DUAActividad[];
   actividadesNivelacionSugeridas: (ActividadNivelacionCNC & { estrategiaConivelacion?: string })[];
   proyectoSugerido: ProyectoInterdisciplinarioCNC;
   /** Resumen narrativo de las 5 semanas, para el encabezado del documento */

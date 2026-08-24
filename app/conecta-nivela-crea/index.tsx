@@ -10,7 +10,7 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
 import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel, AREAS_INFO } from "@/data";
-import type { Subnivel } from "@/data/types";
+import type { Subnivel, DUAActividad } from "@/data/types";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
 import { FIGURAS_PROFESIONALES, obtenerFigurasActivas, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
 import type {
@@ -72,6 +72,7 @@ function planVacio(): PlanConectaNivelaCrea {
     grado: "", paralelo: "", subnivel: "", fechaInicio: "",
     modalidad: "general",
     semana1: {
+      metodologiaDeclarada: "",
       actividadesAdaptacion: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
       coordinacionDece: "", tecnicasReflexion: [],
     },
@@ -115,6 +116,33 @@ function StepBar({ current, total, colors }: { current: number; total: number; c
 
 function Label({ text, colors }: { text: string; colors: any }) {
   return <Text style={{ fontSize: 12, fontWeight: "600", color: colors.muted, marginBottom: 4 }}>{text}</Text>;
+}
+
+// Cuadrados DUA — misma paleta que app/ver-plan/[id].tsx (Representación/Acción y Expresión/Implicación),
+// para que el docente reconozca la misma leyenda de color en cualquier pantalla de la app.
+function DuaSquares({ dua }: { dua?: DUAActividad }) {
+  const d = dua ?? { representacion: false, accionExpresion: false, implicacion: false };
+  return (
+    <View style={{ flexDirection: "row", gap: 3 }}>
+      <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: d.representacion ? "#EC4899" : "#EC489930" }} />
+      <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: d.accionExpresion ? "#1E3A5F" : "#1E3A5F30" }} />
+      <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: d.implicacion ? "#22C55E" : "#22C55E30" }} />
+    </View>
+  );
+}
+
+function DuaLeyenda({ colors }: { colors: any }) {
+  const items: [string, string][] = [["#EC4899", "Representación"], ["#1E3A5F", "Acción y Expresión"], ["#22C55E", "Implicación"]];
+  return (
+    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 4, marginBottom: 8 }}>
+      {items.map(([color, label]) => (
+        <View key={label} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+          <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: color }} />
+          <Text style={{ fontSize: 10, color: colors.muted }}>{label}</Text>
+        </View>
+      ))}
+    </View>
+  );
 }
 
 function Field({
@@ -562,9 +590,18 @@ export default function ConectaNivelaCreaScreen() {
 
       // Completa con sugerencias de la IA solo los campos que el docente dejó vacíos —
       // lo que el docente ya escribió nunca se sobreescribe.
-      const actividadesAdaptacion = plan.semana1.actividadesAdaptacion.filter(Boolean).length
+      const huboActividadesPropias = plan.semana1.actividadesAdaptacion.filter(Boolean).length > 0;
+      const actividadesAdaptacion = huboActividadesPropias
         ? plan.semana1.actividadesAdaptacion
         : res.aiResult.actividadesAdaptacionSugeridas;
+      // El DUA está indexado en paralelo a actividadesAdaptacion: solo se adopta junto con las
+      // actividades sugeridas por la IA, nunca si el docente ya escribió las suyas (los índices no corresponderían).
+      const duaActividadesAdaptacion = huboActividadesPropias
+        ? plan.semana1.duaActividadesAdaptacion
+        : res.aiResult.duaActividadesAdaptacionSugeridas;
+      const metodologiaDeclarada = plan.semana1.metodologiaDeclarada.trim()
+        ? plan.semana1.metodologiaDeclarada
+        : (res.aiResult.metodologiaDeclaradaSugerida || "");
       const tecnicasReflexion = plan.semana1.tecnicasReflexion.filter(Boolean).length
         ? plan.semana1.tecnicasReflexion
         : res.aiResult.tecnicaDiagnosticoSugerida;
@@ -612,7 +649,7 @@ export default function ConectaNivelaCreaScreen() {
 
       const actualizado: PlanConectaNivelaCrea = {
         ...plan,
-        semana1: { ...plan.semana1, actividadesAdaptacion, tecnicasReflexion },
+        semana1: { ...plan.semana1, metodologiaDeclarada, actividadesAdaptacion, duaActividadesAdaptacion, tecnicasReflexion },
         semana1BT: semana1BTCompletado,
         semana2y3: { ...plan.semana2y3, actividadesNivelacion },
         semana2y3BT: semana2y3BTCompletado,
@@ -1193,6 +1230,29 @@ export default function ConectaNivelaCreaScreen() {
             </Text>
 
             <Field
+              label="Metodología declarada"
+              value={plan.semana1.metodologiaDeclarada}
+              onChangeText={(v) => setPlan((p) => ({ ...p, semana1: { ...p.semana1, metodologiaDeclarada: v } }))}
+              colors={colors}
+              multiline
+              placeholder="Ej: Círculo de lectura y teatro de cuentos, adaptado al diagnóstico de este grupo..."
+            />
+            <Text style={{ fontSize: 11, color: colors.muted, marginTop: -8, marginBottom: 10 }}>
+              Puedes redactar o ajustar libremente esta metodología. Al generar con IA, la sugerencia se calibra según
+              los Lineamientos Pedagógicos vigentes para el subnivel del curso — editarla no borra esa base curricular,
+              solo la reemplaza por tu propia decisión pedagógica.
+            </Text>
+            {aiResult?.metodologiaDeclaradaSugerida && aiResult.metodologiaDeclaradaSugerida !== plan.semana1.metodologiaDeclarada && (
+              <Pressable
+                onPress={() => setPlan((p) => ({ ...p, semana1: { ...p.semana1, metodologiaDeclarada: aiResult.metodologiaDeclaradaSugerida! } }))}
+                style={{ backgroundColor: colors.primary + "15", borderWidth: 1, borderColor: colors.primary, borderRadius: 8, padding: 10, marginBottom: 12 }}
+              >
+                <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>Sugerencia de la IA (toca para usarla)</Text>
+                <Text style={{ fontSize: 12, color: colors.text, marginTop: 2 }}>{aiResult.metodologiaDeclaradaSugerida}</Text>
+              </Pressable>
+            )}
+
+            <Field
               label="Actividades de adaptación (una por línea)"
               value={plan.semana1.actividadesAdaptacion.join("\n")}
               onChangeText={(v) => setPlan((p) => ({ ...p, semana1: { ...p.semana1, actividadesAdaptacion: v.split("\n") } }))}
@@ -1200,6 +1260,18 @@ export default function ConectaNivelaCreaScreen() {
               multiline
               placeholder="Ej: Dinámica de bienvenida...&#10;Construcción de normas de convivencia..."
             />
+            {plan.semana1.actividadesAdaptacion.filter(Boolean).length > 0 && !!plan.semana1.duaActividadesAdaptacion?.length && (
+              <View style={{ marginTop: -6, marginBottom: 12 }}>
+                <Label text="Indicadores DUA por actividad" colors={colors} />
+                {plan.semana1.actividadesAdaptacion.filter(Boolean).map((act, i) => (
+                  <View key={i} style={{ flexDirection: "row", alignItems: "center", marginBottom: 4, gap: 8 }}>
+                    <Text style={{ fontSize: 11, color: colors.text, flex: 1 }} numberOfLines={2}>{act}</Text>
+                    <DuaSquares dua={plan.semana1.duaActividadesAdaptacion?.[i]} />
+                  </View>
+                ))}
+                <DuaLeyenda colors={colors} />
+              </View>
+            )}
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Diagnóstico académico (Lengua y Matemática)" colors={colors} />
@@ -1775,9 +1847,21 @@ export default function ConectaNivelaCreaScreen() {
             </ResultSection>
 
             <ResultSection title="Semana 1 — Adaptación sugerida" emoji="🤝" color={colors.primary}>
+              {!!aiResult.metodologiaDeclaradaSugerida && (
+                <View style={{ marginBottom: 8, backgroundColor: colors.background, borderRadius: 8, padding: 8, borderWidth: 1, borderColor: colors.border }}>
+                  <Text style={{ fontSize: 11, fontWeight: "700", color: colors.primary }}>Metodología sugerida</Text>
+                  <Text style={{ fontSize: 12, color: colors.text, marginTop: 2 }}>{aiResult.metodologiaDeclaradaSugerida}</Text>
+                </View>
+              )}
               {aiResult.actividadesAdaptacionSugeridas.map((a, i) => (
-                <Text key={i} style={{ fontSize: 12, color: colors.text, marginBottom: 2 }}>• {a}</Text>
+                <View key={i} style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                  <Text style={{ fontSize: 12, color: colors.text, flex: 1 }}>• {a}</Text>
+                  {!!aiResult.duaActividadesAdaptacionSugeridas?.[i] && (
+                    <DuaSquares dua={aiResult.duaActividadesAdaptacionSugeridas[i]} />
+                  )}
+                </View>
               ))}
+              {!!aiResult.duaActividadesAdaptacionSugeridas?.length && <DuaLeyenda colors={colors} />}
             </ResultSection>
 
             <ResultSection title="Semanas 2-3 — Nivelación sugerida" emoji="📈" color="#B45309">

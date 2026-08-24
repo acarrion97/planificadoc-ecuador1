@@ -15,6 +15,7 @@ function planGeneral(overrides?: Partial<PlanConectaNivelaCrea>): PlanConectaNiv
     fechaInicio: "2026-09-01",
     modalidad: "general",
     semana1: {
+      metodologiaDeclarada: "",
       actividadesAdaptacion: [],
       diagnosticoAcademico: [],
       diagnosticoSocioemocional: [],
@@ -133,5 +134,28 @@ describe("generarWordPlanCNC — Crea phase", () => {
   it("genera un documento BT con actividades del producto acreditable", async () => {
     const blob = await generarWordPlanCNC(planBT());
     expect(blob.size).toBeGreaterThan(0);
+  });
+});
+
+describe("Compatibilidad con planes persistidos sin metodologiaDeclarada/DUA (creados antes de este cambio)", () => {
+  function planLegacySinMetodologiaNiDua(): PlanConectaNivelaCrea {
+    const plan = planGeneral();
+    // Simula un plan guardado antes de que existieran estos campos: ni siquiera están presentes en el objeto
+    // (no es solo un string vacío), como ocurriría al deserializar JSON persistido de una versión anterior.
+    const legacy: any = { ...plan, semana1: { ...plan.semana1 } };
+    delete legacy.semana1.metodologiaDeclarada;
+    delete legacy.semana1.duaActividadesAdaptacion;
+    return legacy as PlanConectaNivelaCrea;
+  }
+
+  it("generarWordPlanCNC no falla y produce un documento válido sin metodologiaDeclarada ni DUA", async () => {
+    const blob = await generarWordPlanCNC(planLegacySinMetodologiaNiDua());
+    expect(blob.size).toBeGreaterThan(0);
+  });
+
+  it("generarHTMLPlanCNC no falla y cae a '—' para la metodología ausente", () => {
+    const html = generarHTMLPlanCNC(planLegacySinMetodologiaNiDua());
+    expect(html).toContain("Metodología declarada:");
+    expect(html.length).toBeGreaterThan(0);
   });
 });

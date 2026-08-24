@@ -7,6 +7,9 @@ import { connectaNivelaCrea } from "../drizzle/schema";
 import { obtenerFiguraPorId } from "../data/bachillerato-tecnico";
 import { obtenerUnidadesCompetenciaDeModulo } from "../data/bachillerato-tecnico-uc";
 import type { ConectaNivelaCreaAiResult } from "../data/types-cnc";
+import type { DUAActividad } from "../data/types";
+import { subnivelDesdeGrado } from "../lib/evaluacion-utils";
+import { textoCalibracionInstrumento, estrategiasMetodologicasPorSubnivel } from "../lib/curriculo-prerrequisitos";
 
 // ─── Zod schemas ──────────────────────────────────────────────────────────────
 
@@ -24,6 +27,7 @@ const DiagnosticoSocioemocionalSchema = z.object({
 });
 
 const Semana1Schema = z.object({
+  metodologiaDeclarada: z.string().default(""),
   actividadesAdaptacion: z.array(z.string()),
   diagnosticoAcademico: z.array(DiagnosticoAcademicoSchema),
   diagnosticoSocioemocional: z.array(DiagnosticoSocioemocionalSchema),
@@ -118,6 +122,40 @@ const FormSchema = z.object({
   semana4y5BT: Semana4y5BTSchema.optional(),
 });
 
+/**
+ * Instrucción de fusión interdisciplinaria para el proyecto de Semanas 4-5
+ * (Crea) — usada TAL CUAL en los dos puntos de generación de esta fase
+ * (`generate` y `sugerirProyecto`, el endpoint dedicado a regenerar solo
+ * Crea) para que no diverjan y uno no reintroduzca el bug de áreas
+ * paralelas después de arreglar el otro. Ver spec.md "Semanas 4-5 project
+ * has authentic cross-area articulation, not parallel tracks".
+ */
+const INSTRUCCION_FUSION_AREAS = `Cuando "areasIntegradas" tenga más de un área (p. ej. Lengua y Literatura + Matemática): el proyecto debe tener una articulación auténtica entre las áreas — "titulo", "descripcion" y "productoFinal" deben describir UNA experiencia/producto compartido en el que ambas áreas se necesiten mutuamente, no un área con la otra apenas mencionada. Esto NO significa que cada actividad individual de "actividadesSemana4"/"actividadesSemana5" tenga que evaluar ambas áreas a la vez — puede haber actividades específicas de un área siempre que visiblemente alimenten el mismo producto/objetivo común. Solo produce pistas totalmente independientes por área (título/producto separados) si el docente lo pide explícitamente.`;
+
+/**
+ * Normaliza el DUA por ítem que devuelve la IA (formato compacto {I,R,A})
+ * al tipo `DUAActividad` del catálogo, y garantiza que los 3 principios
+ * queden cubiertos al menos una vez en el conjunto — mismo mecanismo que
+ * `server/topics-router.ts` usa para la planificación de clase (ver spec
+ * "DUA is a mandatory principle in Semana 1 activities and instruments").
+ * `count` es la longitud del array de texto correspondiente (fuente de
+ * verdad de los índices), no la del array `dua` crudo de la IA.
+ */
+function normalizarDua(raw: unknown, count: number): DUAActividad[] {
+  const arr = Array.isArray(raw) ? raw : [];
+  const duaActividades: DUAActividad[] = Array.from({ length: count }, (_, i) => {
+    const d = (arr[i] as any) || {};
+    return { implicacion: !!d.I, representacion: !!d.R, accionExpresion: !!d.A };
+  });
+  if (duaActividades.length > 0) {
+    const last = duaActividades[duaActividades.length - 1];
+    if (!duaActividades.some((d) => d.implicacion)) last.implicacion = true;
+    if (!duaActividades.some((d) => d.representacion)) last.representacion = true;
+    if (!duaActividades.some((d) => d.accionExpresion)) last.accionExpresion = true;
+  }
+  return duaActividades;
+}
+
 // ─── Prompt builder ───────────────────────────────────────────────────────────
 
 function buildPrompt(input: z.infer<typeof FormSchema>): string {
@@ -157,6 +195,21 @@ REGLAS BT:
 `;
   }
 
+  // Calibración curricular de Semana 1 por subnivel REAL (no por texto de grado
+  // ni por edad) — no aplica a BT, que se calibra exclusivamente por contextoBT
+  // (Figura Profesional/módulo) arriba. Ver lib/curriculo-prerrequisitos.ts.
+  const subnivelCurso = esBT ? null : subnivelDesdeGrado(input.grado);
+  const estrategias = subnivelCurso !== null ? estrategiasMetodologicasPorSubnivel(subnivelCurso) : null;
+  const calibracionInstrumento = subnivelCurso !== null ? textoCalibracionInstrumento(subnivelCurso) : null;
+
+  const calibracionSemana1 = !esBT && (estrategias || calibracionInstrumento) ? `
+CALIBRACIÓN CURRICULAR PARA ESTE SUBNIVEL (Semana 1):
+${estrategias ? `Estrategias metodológicas respaldadas por los Lineamientos Pedagógicos 2026-2027 para este subnivel (EJEMPLOS orientativos, no una lista cerrada ni obligatoria — puedes proponer otra estrategia coherente con el propósito, el área, la destreza y las características del grupo):
+${estrategias.ejemplos.map((e) => `- ${e}`).join("\n")}
+(Fuente: ${estrategias.fuente})` : ""}
+${calibracionInstrumento ? `\nCalibración del instrumento/evidencia diagnóstica para este subnivel:\n${calibracionInstrumento}` : ""}
+` : "";
+
   const destrezasAcademicas = input.semana1.diagnosticoAcademico
     .map((d) => `- [${d.area}] ${d.destrezaCodigo}: "${d.destrezaDescripcion}" (nivel detectado: ${d.nivelDetectado}) — obs: ${d.observaciones || "(sin observaciones)"}`)
     .join("\n") || "(sin destrezas diagnosticadas aún)";
@@ -184,6 +237,8 @@ CONTEXTO DEL DOCUMENTO:
 - Modalidad: ${esBT ? "Bachillerato Técnico" : "General (EGB/BGU)"}
 ${contextoBT}
 SEMANA 1 — CONECTA (adaptación + diagnóstico dual académico y socioemocional, coordinado con DECE):
+${calibracionSemana1}
+Metodología/estrategia pedagógica ya declarada por el docente: ${input.semana1.metodologiaDeclarada || "(vacío — declara una, coherente con el propósito de adaptación e integración al entorno escolar y con la calibración de arriba si existe)"}
 Actividades de adaptación ya definidas por el docente: ${input.semana1.actividadesAdaptacion.join(" | ") || "(ninguna aún)"}
 Nota de coordinación DECE: ${input.semana1.coordinacionDece || "(sin nota)"}
 Técnicas de reflexión: ${input.semana1.tecnicasReflexion.join(" | ") || "(ninguna aún)"}
@@ -224,7 +279,10 @@ Preguntas de autoevaluación propuestas por el docente: ${input.semana4y5.autoev
 
 INSTRUCCIONES IMPORTANTES:
 - NO inventes destrezas, códigos curriculares ni criterios técnicos que no estén listados arriba — usa únicamente los proporcionados por el docente${esBT ? " o el catálogo técnico del módulo" : ""}.
+- Semana 1 — distingue claramente cuatro cosas distintas, no las mezcles: (1) "metodologiaDeclarada" es la ESTRATEGIA/enfoque pedagógico general (usa como referencia los ejemplos de la calibración curricular de arriba, si existen para este subnivel); (2) "actividadesAdaptacionSugeridas" son las ACTIVIDADES concretas que aplican esa estrategia; (3) "tecnicaDiagnosticoSugerida" es el INSTRUMENTO/evidencia para diagnosticar (calibrado por subnivel arriba, si hay calibración); (4) el array "dua" de cada ítem son los PRINCIPIOS DUA que cubre. "Usar apoyos visuales/pictogramas" NUNCA es una metodología por sí sola — es, cuando corresponda, parte de CÓMO se aplica el principio DUA de Representación dentro de una actividad o instrumento.
+- Si el subnivel tiene una calibración curricular (arriba), las estrategias listadas ahí son EJEMPLOS respaldados oficialmente — selecciona la(s) más pertinente(s) según el propósito, el área, la destreza diagnosticada y las características del grupo, o propón otra igualmente coherente con el subnivel; NO las apliques todas ni las trates como una receta fija obligatoria.
 - El proyecto/producto de Semanas 4-5 debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
+- ${INSTRUCCION_FUSION_AREAS}
 - "productoIntermedio" (entregable de Semana 4) y "productoFinal" (entregable de Semana 5) son DISTINTOS: el intermedio es un avance parcial (borrador, primera versión), el final es el proyecto terminado. No los confundas ni repitas el mismo texto en ambos.
 - "objetivoAprendizaje" es único y rector de todo el proyecto; "objetivoSemana4"/"objetivoSemana5" son los logros parciales que aportan a ese objetivo general al término de cada semana — más específicos y acotados que el objetivo de aprendizaje.
 - "productoFinal", "productoIntermedio" y las actividades de cada semana: derívalos de las DCD diagnosticadas en Semana 1, las destrezas a reforzar, las áreas integradas y el contexto. Si el docente ya escribió un campo, devuélvelo EXACTAMENTE como está; solo sugiere contenido cuando el campo está vacío.
@@ -235,12 +293,16 @@ INSTRUCCIONES IMPORTANTES:
 - "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
 - "recursosSemana1Sugeridos": 3-5 recursos didácticos concretos (materiales, textos, fichas, recursos digitales) apropiados para las actividades de adaptación y el diagnóstico de la Semana 1.
 - "actividadesEvaluativasNivelacionSugeridas": 2-3 actividades evaluativas concretas (técnica + instrumento, ej. "Observación directa con lista de cotejo") para dar seguimiento al progreso durante las Semanas 2-3.
+- DUA (Diseño Universal para el Aprendizaje) en Semana 1: para CADA actividad de "actividadesAdaptacionSugeridas" y CADA instrumento de "tecnicaDiagnosticoSugerida", indica en el array paralelo "dua" (mismo índice) qué principios cubre: "I" = Implicación (motiva/involucra), "R" = Representación (presenta la información de múltiples formas — aquí es donde corresponde mencionar apoyo visual/pictográfico si aplica), "A" = Acción y Expresión (permite demostrar el aprendizaje de formas distintas). GARANTIZA que, entre el conjunto de actividades de adaptación, los 3 principios queden cubiertos al menos una vez. CRÍTICO: no incluyas los indicadores DUA dentro del texto de la actividad — van solo en el array "dua" separado.
 - Lenguaje pedagógico, concreto y aplicable en el aula ecuatoriana.
 
 Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
 {
+  "metodologiaDeclaradaSugerida": "string (estrategia/enfoque pedagógico de Semana 1, distinta de las actividades)",
   "actividadesAdaptacionSugeridas": ["string", "string", "string"],
+  "duaActividadesAdaptacionSugeridas": [{"I": true, "R": false, "A": true}, {"I": false, "R": true, "A": false}, {"I": true, "R": true, "A": false}],
   "tecnicaDiagnosticoSugerida": ["string", "string"],
+  "duaTecnicaDiagnosticoSugerida": [{"I": false, "R": true, "A": true}, {"I": true, "R": false, "A": false}],
   "actividadesNivelacionSugeridas": [
     { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 2, "estrategiaConivelacion": "string" },
     { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 3, "estrategiaConivelacion": "string" }
@@ -304,16 +366,28 @@ export const cncRouter = router({
         throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
       }
 
-      let aiResult: ConectaNivelaCreaAiResult;
+      let parsed: any;
       try {
-        aiResult = JSON.parse(rawContent);
+        parsed = JSON.parse(rawContent);
       } catch {
         try {
-          aiResult = JSON.parse(repairJson(rawContent));
+          parsed = JSON.parse(repairJson(rawContent));
         } catch {
           throw new Error("La IA devolvio una respuesta incompleta. Intenta de nuevo.");
         }
       }
+
+      const aiResult: ConectaNivelaCreaAiResult = {
+        ...parsed,
+        duaActividadesAdaptacionSugeridas: normalizarDua(
+          parsed.duaActividadesAdaptacionSugeridas,
+          Array.isArray(parsed.actividadesAdaptacionSugeridas) ? parsed.actividadesAdaptacionSugeridas.length : 0
+        ),
+        duaTecnicaDiagnosticoSugerida: normalizarDua(
+          parsed.duaTecnicaDiagnosticoSugerida,
+          Array.isArray(parsed.tecnicaDiagnosticoSugerida) ? parsed.tecnicaDiagnosticoSugerida.length : 0
+        ),
+      };
 
       // Intentar guardar en BD (no crítico si falla)
       try {
@@ -490,6 +564,8 @@ Lo que el docente ya escribió (devuélvelo EXACTAMENTE si no está vacío; solo
 - Producto final: ${semana?.productoFinal || "(vacío — sugiere un producto final concreto en 1 oración)"}
 - Actividades Semana 4: ${semana?.actividadesSemana4?.filter(Boolean).length ? semana!.actividadesSemana4.join("; ") : "(vacío — sugiere 3-5 actividades: planificación, organización de equipos, investigación, elaboración, revisión)"}
 - Actividades Semana 5: ${semana?.actividadesSemana5?.filter(Boolean).length ? semana!.actividadesSemana5.join("; ") : "(vacío — sugiere 3-5 actividades: finalización, socialización, presentación, reflexión)"}
+
+${esBT ? "" : INSTRUCCION_FUSION_AREAS}
 
 Responde ÚNICAMENTE con JSON válido:
 ${esBT
