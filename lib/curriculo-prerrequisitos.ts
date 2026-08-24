@@ -172,3 +172,196 @@ function candidatoPrerrequisitoPorSubnivel(
 
   return { area, subnivel: subnivelObjetivo };
 }
+
+/**
+ * Calibración de técnicas/instrumentos de evaluación diagnóstica por subnivel
+ * curricular real (no por grado individual: 2°, 3° y 4° EGB comparten
+ * subnivel Elemental y la misma calibración).
+ *
+ * Fuente: "Caja de herramientas para evaluación diagnóstica" (Ministerio de
+ * Educación del Ecuador, DINCU/DNEE, 2020) — Tabla 3 (lectura por subnivel,
+ * pág. 16), Tabla 4 (escritura por subnivel, pág. 18), Tablas 5-7
+ * (matemática por subnivel, págs. 23-25), y sección "Proceso de evaluación
+ * en Educación Inicial y Preparatoria" (pág. 29-31, fichas de
+ * entrevista/anecdotario/lista de cotejo para los subniveles más tempranos).
+ *
+ * Deliberadamente NO cubre Bachillerato Técnico: ese caso se calibra por
+ * Figura Profesional/módulo real (ver `contextoBT` en `server/cnc-router.ts`),
+ * nunca por esta tabla ni por una heurística de edad/grado de EGB.
+ */
+export interface CalibracionInstrumentoCNC {
+  subnivel: Subnivel;
+  /** Técnicas sugeridas por el MinEduc para este subnivel (observación, entrevista, prueba escrita...) */
+  tecnicas: string[];
+  /** Instrumentos sugeridos (lista de cotejo, rúbrica, escala, cuestionario...) */
+  instrumentos: string[];
+  /** Cuándo/cómo aplican apoyos visuales (pictogramas, imágenes) en este subnivel — null si la fuente no los distingue para ese nivel */
+  apoyoVisual: string | null;
+  fuente: string;
+}
+
+const FUENTE_CAJA_HERRAMIENTAS = "Caja de herramientas para evaluación diagnóstica (MinEduc, DINCU/DNEE, 2020)";
+
+const CALIBRACION_INSTRUMENTO_POR_SUBNIVEL: Partial<Record<Subnivel, CalibracionInstrumentoCNC>> = {
+  [-1]: {
+    subnivel: -1,
+    tecnicas: ["observación directa", "entrevista a la familia (ficha de entrevista)"],
+    instrumentos: ["anecdotario", "lista de cotejo"],
+    apoyoVisual: "instrumentos eminentemente observacionales/orales, no escritos — cualquier apoyo es visual/manipulativo por defecto",
+    fuente: `${FUENTE_CAJA_HERRAMIENTAS}, sección "Proceso de evaluación en Educación Inicial y Preparatoria" (pág. 29-31)`,
+  },
+  1: {
+    subnivel: 1,
+    tecnicas: ["observación directa", "entrevista a la familia (ficha de entrevista)"],
+    instrumentos: ["anecdotario", "lista de cotejo"],
+    apoyoVisual: "instrumentos eminentemente observacionales/orales, no escritos — cualquier apoyo es visual/manipulativo por defecto",
+    fuente: `${FUENTE_CAJA_HERRAMIENTAS}, sección "Proceso de evaluación en Educación Inicial y Preparatoria" (pág. 29-31)`,
+  },
+  2: {
+    subnivel: 2,
+    tecnicas: [
+      "observación (p. ej. dramatizaciones)",
+      "entrevistas (p. ej. parafraseo)",
+      "prueba escrita breve: lectura de imágenes",
+      "identificación de elementos explícitos (personajes, escenarios, acciones, objetos)",
+      "prueba de expresión corta (p. ej. escribir una tarjeta de invitación, un mensaje corto)",
+    ],
+    instrumentos: ["lista de cotejo", "registro anecdótico", "escalas numéricas/gráficas/descriptivas", "rúbrica", "cuestionarios"],
+    apoyoVisual: "en Matemática, la formación de conceptos se evalúa \"utilizando pictogramas y gráficos\" (Tabla 5) — usar apoyo visual/pictográfico cuando la destreza lo permita, no solo texto",
+    fuente: `${FUENTE_CAJA_HERRAMIENTAS}, Tabla 3 (lectura, pág. 16), Tabla 4 (escritura, pág. 18), Tabla 5 (matemática, pág. 23)`,
+  },
+  3: {
+    subnivel: 3,
+    tecnicas: [
+      "observación durante lectura exegética/comentada",
+      "entrevistas sobre el tema de una lectura",
+      "prueba escrita: análisis de paratextos, la palabra clave, preguntas intercaladas",
+      "escritura de textos breves con propósito (carta, receta, cuento, fábula, poema)",
+    ],
+    instrumentos: ["cuestionarios", "lista de cotejo", "registro anecdótico", "escalas", "rúbrica", "gamificación"],
+    apoyoVisual: null,
+    fuente: `${FUENTE_CAJA_HERRAMIENTAS}, Tabla 3 (lectura, pág. 16), Tabla 4 (escritura, pág. 18), Tabla 6 (matemática, pág. 24)`,
+  },
+  4: {
+    subnivel: 4,
+    tecnicas: [
+      "observación, entrevista",
+      "prueba escrita: subrayado, notas al margen, resúmenes, esquemas, mapas conceptuales",
+      "escritura de resumen/noticia/crónica/carta al editor",
+    ],
+    instrumentos: ["cuestionarios", "lista de cotejo", "registro anecdótico", "escalas", "rúbrica", "gamificación"],
+    apoyoVisual: null,
+    fuente: `${FUENTE_CAJA_HERRAMIENTAS}, Tabla 3 (lectura, pág. 16), Tabla 4 (escritura, pág. 18), Tabla 7 (matemática, pág. 25)`,
+  },
+  5: {
+    subnivel: 5,
+    tecnicas: [
+      "observación, entrevista",
+      "prueba escrita: subrayado, notas al margen, resúmenes, esquemas, mapas conceptuales",
+      "reescritura de textos literarios, ensayo, informe, artículo de opinión",
+    ],
+    instrumentos: ["cuestionarios", "lista de cotejo", "registro anecdótico", "escalas", "rúbrica", "gamificación"],
+    apoyoVisual: null,
+    fuente: `${FUENTE_CAJA_HERRAMIENTAS}, Tabla 3 (lectura, pág. 16), Tabla 4 (escritura, pág. 18), Tabla 7 (matemática, pág. 25)`,
+  },
+};
+
+/**
+ * Devuelve la calibración curricular de técnicas/instrumentos apropiados para
+ * el subnivel dado, o `null` si el subnivel no está cubierto por la fuente
+ * (p. ej. subnivel 0, sin uso conocido en el catálogo).
+ *
+ * NO aplica a Bachillerato Técnico: ese caso usa `contextoBT` en
+ * `server/cnc-router.ts` (Figura Profesional/módulo real), nunca esta tabla.
+ */
+export function calibracionInstrumentoPorSubnivel(
+  subnivel: Subnivel
+): CalibracionInstrumentoCNC | null {
+  return CALIBRACION_INSTRUMENTO_POR_SUBNIVEL[subnivel] ?? null;
+}
+
+/**
+ * Arma el bloque de texto a inyectar en el prompt de IA con la calibración
+ * curricular de un subnivel, listo para pegar antes de pedirle a la IA que
+ * proponga actividades/instrumento de diagnóstico. Devuelve `null` si el
+ * subnivel no tiene calibración conocida (el prompt debe omitir la sección).
+ */
+export function textoCalibracionInstrumento(subnivel: Subnivel): string | null {
+  const c = calibracionInstrumentoPorSubnivel(subnivel);
+  if (!c) return null;
+  return [
+    `Técnicas apropiadas para este subnivel: ${c.tecnicas.join("; ")}.`,
+    `Instrumentos apropiados: ${c.instrumentos.join(", ")}.`,
+    c.apoyoVisual ? `Apoyo visual: ${c.apoyoVisual}.` : null,
+    `(Fuente: ${c.fuente})`,
+  ].filter(Boolean).join("\n");
+}
+
+/**
+ * Estrategias metodológicas lúdicas sugeridas por subnivel para la Semana 1
+ * "Conecta" de CNC, de modo que la metodología declarada no sea genérica sino
+ * anclada a ejemplos reales del documento oficial vigente.
+ *
+ * Fuente: Lineamientos Pedagógicos Costa-Galápagos 2026-2027 (Ministerio de
+ * Educación, Deporte y Cultura), sección 2 "Orientaciones pedagógicas y
+ * curriculares" — 2.3 Educación Inicial (pág. 16), 2.4 Preparatoria (pág. 17),
+ * 2.5 Elemental (pág. 17-18), 2.6 Media (pág. 18), 2.7 Superior (pág. 19),
+ * 2.8 Bachillerato (pág. 19). Es la MISMA fuente primaria que documenta la
+ * estrategia "Conecta, nivela y crea" (sección 2.1, pág. 12-15) que este
+ * módulo implementa — no una fuente distinta.
+ *
+ * Estas son EJEMPLOS que la fuente ofrece como sugerencia ("se proponen
+ * algunas estrategias"), no una lista cerrada: el docente conserva autonomía
+ * para declarar otra metodología coherente con el nivel y el propósito.
+ */
+export interface EstrategiasMetodologicasCNC {
+  subnivel: Subnivel;
+  ejemplos: string[];
+  fuente: string;
+}
+
+const FUENTE_LINEAMIENTOS_2026_2027 = "Lineamientos Pedagógicos Costa-Galápagos 2026-2027 (MinEduc)";
+
+const ESTRATEGIAS_METODOLOGICAS_POR_SUBNIVEL: Partial<Record<Subnivel, EstrategiasMetodologicasCNC>> = {
+  [-1]: {
+    subnivel: -1,
+    ejemplos: ["metodología de juego-trabajo", "experiencias de aprendizaje significativas y contextualizadas", "estrategias de juego, lectura, naturaleza y arte"],
+    fuente: `${FUENTE_LINEAMIENTOS_2026_2027}, sección 2.3 "Educación Inicial" (pág. 16)`,
+  },
+  1: {
+    subnivel: 1,
+    ejemplos: ["juegos de roles y dramatizaciones", "cuentos y lectura interactiva", "juegos de construcción", "actividades artísticas", "canciones y rimas", "juegos al aire libre", "exploración y experimentación"],
+    fuente: `${FUENTE_LINEAMIENTOS_2026_2027}, sección 2.4 "Preparatoria" (pág. 17)`,
+  },
+  2: {
+    subnivel: 2,
+    ejemplos: ["círculo de lectura", "teatro de cuentos", "caza de palabras", "club de libros", "lectura en pareja", "biblioteca de aula"],
+    fuente: `${FUENTE_LINEAMIENTOS_2026_2027}, sección 2.5 "Educación Básica, subnivel Elemental" (pág. 17-18)`,
+  },
+  3: {
+    subnivel: 3,
+    ejemplos: ["juegos matemáticos (bingo, rompecabezas)", "proyectos de medición", "matemáticas en la cocina", "creación de blogs", "juegos educativos en línea", "teatro de lectores", "club de lectura"],
+    fuente: `${FUENTE_LINEAMIENTOS_2026_2027}, sección 2.6 "Educación Básica, subnivel Media" (pág. 18)`,
+  },
+  4: {
+    subnivel: 4,
+    ejemplos: ["juegos de estrategia (ajedrez, damas, cartas)", "juegos de roles", "teatro de lectores", "actividades de cooperación", "club de lectura"],
+    fuente: `${FUENTE_LINEAMIENTOS_2026_2027}, sección 2.7 "Educación Básica, subnivel Superior" (pág. 19)`,
+  },
+  5: {
+    subnivel: 5,
+    ejemplos: ["enfoque dinámico e interdisciplinario centrado en competencias clave (comunicación efectiva, pensamiento lógico-matemático, herramientas digitales, habilidades socioemocionales)"],
+    fuente: `${FUENTE_LINEAMIENTOS_2026_2027}, sección 2.8 "Bachillerato" (pág. 19)`,
+  },
+};
+
+/**
+ * Devuelve ejemplos de estrategias metodológicas sugeridas por el MinEduc
+ * para el subnivel dado, o `null` si no está cubierto. NO aplica a
+ * Bachillerato Técnico (usa `contextoBT`, no esta tabla).
+ */
+export function estrategiasMetodologicasPorSubnivel(
+  subnivel: Subnivel
+): EstrategiasMetodologicasCNC | null {
+  return ESTRATEGIAS_METODOLOGICAS_POR_SUBNIVEL[subnivel] ?? null;
+}

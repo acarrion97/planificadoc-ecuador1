@@ -3,6 +3,7 @@ import {
   AdaptacionCurricular, TipoNEE, GradoAdaptacion,
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
 } from "../data/types";
+import type { DUAActividad } from "../data/types";
 import type { PlanUnidadTrabajoBT } from "../data/types-bt";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
 import { buscarPorCodigo as cncBuscarPorCodigo } from "../data";
@@ -1460,11 +1461,32 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
   const contentCellHTML = (lines: string[]) =>
     `<td>${lines.length ? lines.map((l) => `<div>${esc(l)}</div>`).join("") : "—"}</td>`;
 
+  // Cuadrado DUA — misma convención visual (color pleno si aplica, atenuado si no) que el resto de la app.
+  const duaSquareHTML = (activo: boolean, color: string) =>
+    `<span style="display:inline-block;width:6px;height:6px;background:${activo ? color : color + "38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>`;
+  const duaSquaresHTML = (dua?: DUAActividad) => {
+    const d = dua ?? { representacion: false, accionExpresion: false, implicacion: false };
+    return duaSquareHTML(d.representacion, "#EC4899") + duaSquareHTML(d.accionExpresion, "#1E3A5F") + duaSquareHTML(d.implicacion, "#22C55E");
+  };
+  /** Celda de actividades con indicadores DUA por línea — igual convención que el resto de la app (no JSON ni etiquetas sueltas) */
+  const actividadesConDuaCellHTML = (actividades: string[], dua?: DUAActividad[]) => {
+    const items = actividades.filter(Boolean);
+    if (!items.length) return `<td>—</td>`;
+    const leyenda = dua?.length
+      ? `<div style="font-size:7px;margin-bottom:2px;">
+          ${duaSquareHTML(true, "#EC4899")} Repr.&nbsp;
+          ${duaSquareHTML(true, "#1E3A5F")} Acc/Exp.&nbsp;
+          ${duaSquareHTML(true, "#22C55E")} Impl.
+        </div>`
+      : "";
+    return `<td>${leyenda}${items.map((act, idx) => `<div>${esc(act)}${dua?.length ? duaSquaresHTML(dua[idx]) : ""}</div>`).join("")}</td>`;
+  };
+
   const semana1HTML = `<tr>
       ${semanaCellHTML("SEMANA 1")}
       ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
       ${contentCellHTML(cncIndicadoresParaDestrezas(plan.semana1.diagnosticoAcademico))}
-      ${contentCellHTML(plan.semana1.actividadesAdaptacion.filter(Boolean))}
+      ${actividadesConDuaCellHTML(plan.semana1.actividadesAdaptacion, plan.semana1.duaActividadesAdaptacion)}
       ${contentCellHTML(plan.aiResult?.recursosSemana1Sugeridos ?? [])}
       ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
     </tr>`;
@@ -1524,6 +1546,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${dosLabelValue("Modalidad:", esBT ? "Bachillerato Técnico" : "General (EGB/BGU)", "Módulo:", esBT ? (plan.moduloId || "—") : "—")}
 
     ${seccion("SEMANA 1 — CONECTA")}
+    ${labelValue("Metodología declarada:", plan.semana1.metodologiaDeclarada)}
     ${header6(CNC_COLUMNAS_SEMANA)}
     ${semana1HTML}
     ${esBT && plan.semana1BT ? `

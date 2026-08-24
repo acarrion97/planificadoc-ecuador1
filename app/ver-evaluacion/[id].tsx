@@ -90,6 +90,7 @@ function planCNCVacio(): PlanConectaNivelaCrea {
     grado: "", paralelo: "", subnivel: "", fechaInicio: "",
     modalidad: "general",
     semana1: {
+      metodologiaDeclarada: "",
       actividadesAdaptacion: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
       coordinacionDece: "", tecnicasReflexion: [],
     },

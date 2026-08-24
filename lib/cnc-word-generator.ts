@@ -26,6 +26,7 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType, VerticalAlign,
 } from "docx";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import type { DUAActividad } from "../data/types";
 import { buscarPorCodigo } from "../data";
 
 /** Indicadores de evaluación reales del catálogo curricular para una destreza (igual que semanal-word-generator) */
@@ -52,6 +53,11 @@ const BG_COLHEAD = "1A3A5C";
 const BG_SECTION = "DDEFF1";
 const BG_SUBHEAD = "EAF4F6";
 const BG_EVAL_OFICIAL = "DC2626";
+// Colores de los indicadores DUA — mismos códigos que lib/plan-word-generator.ts, para que el
+// docente reconozca la misma leyenda de color en cualquier documento generado por la app.
+const DUA_REPRESENTACION = "EC4899";
+const DUA_ACCION_EXPRESION = "1E3A5F";
+const DUA_IMPLICACION = "22C55E";
 
 const NUM_COLS = 6;
 // Tamaño de letra único para todo el contenido de la tabla (en puntos)
@@ -198,6 +204,54 @@ function semanaContentCell(lines: string[]): TableCell {
   });
 }
 
+/**
+ * Celda de actividades con indicadores DUA por línea (cuadrados de color, mismo índice paralelo
+ * que `dua`) — misma convención visual que lib/plan-word-generator.ts, para que el docente lea
+ * el DUA como parte legible de cada actividad y no como una lista de etiquetas o JSON aparte.
+ */
+function actividadesConDuaCell(actividades: string[], dua?: DUAActividad[]): TableCell {
+  const items = actividades.filter(Boolean);
+  if (!items.length) return semanaContentCell([]);
+  return new TableCell({
+    verticalAlign: VerticalAlign.TOP,
+    borders: BORDER_DEF,
+    children: items.map((act, idx) => {
+      const d = dua?.[idx];
+      const runs: TextRun[] = [new TextRun({ text: act, size: FS * 2, color: BLACK, font: "Arial" })];
+      if (d?.representacion) runs.push(new TextRun({ text: " ▪", color: DUA_REPRESENTACION, size: FS * 2, font: "Arial" }));
+      if (d?.accionExpresion) runs.push(new TextRun({ text: "▪", color: DUA_ACCION_EXPRESION, size: FS * 2, font: "Arial" }));
+      if (d?.implicacion) runs.push(new TextRun({ text: "▪", color: DUA_IMPLICACION, size: FS * 2, font: "Arial" }));
+      return new Paragraph({ spacing: { after: 30 }, children: runs });
+    }),
+  });
+}
+
+/** Fila de leyenda DUA — cuadrados de color con su significado, ocupa todas las columnas */
+function leyendaDuaRow(): TableRow {
+  return new TableRow({
+    children: [
+      new TableCell({
+        columnSpan: NUM_COLS,
+        borders: BORDER_DEF,
+        children: [
+          new Paragraph({
+            spacing: { after: 20 },
+            children: [
+              new TextRun({ text: "Leyenda DUA: ", bold: true, size: FS * 2 - 2, color: BLACK, font: "Arial" }),
+              new TextRun({ text: "▪ ", color: DUA_REPRESENTACION, size: FS * 2 - 2, font: "Arial" }),
+              new TextRun({ text: "Representación   ", size: FS * 2 - 2, color: BLACK, font: "Arial" }),
+              new TextRun({ text: "▪ ", color: DUA_ACCION_EXPRESION, size: FS * 2 - 2, font: "Arial" }),
+              new TextRun({ text: "Acción y Expresión   ", size: FS * 2 - 2, color: BLACK, font: "Arial" }),
+              new TextRun({ text: "▪ ", color: DUA_IMPLICACION, size: FS * 2 - 2, font: "Arial" }),
+              new TextRun({ text: "Implicación", size: FS * 2 - 2, color: BLACK, font: "Arial" }),
+            ],
+          }),
+        ],
+      }),
+    ],
+  });
+}
+
 export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<Blob> {
   const esBT = plan.modalidad === "bt";
   const rows: TableRow[] = [];
@@ -244,17 +298,21 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   // SEMANA 1 — CONECTA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANA 1 — CONECTA"));
+  rows.push(labelValueRow("Metodología declarada:", plan.semana1.metodologiaDeclarada));
   rows.push(headerRow(COLUMNAS_SEMANA));
   rows.push(new TableRow({
     children: [
       semanaCell("SEMANA 1"),
       semanaContentCell(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`)),
       semanaContentCell(indicadoresParaDestrezas(plan.semana1.diagnosticoAcademico)),
-      semanaContentCell(plan.semana1.actividadesAdaptacion.filter(Boolean)),
+      actividadesConDuaCell(plan.semana1.actividadesAdaptacion, plan.semana1.duaActividadesAdaptacion),
       semanaContentCell(plan.aiResult?.recursosSemana1Sugeridos ?? []),
       semanaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
     ],
   }));
+  if (plan.semana1.duaActividadesAdaptacion?.length) {
+    rows.push(leyendaDuaRow());
+  }
 
   if (esBT && plan.semana1BT) {
     rows.push(subHeadingRow("Reconocimiento de espacios técnicos"));
