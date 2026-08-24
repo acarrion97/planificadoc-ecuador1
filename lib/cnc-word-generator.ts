@@ -28,10 +28,38 @@ import {
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
 import type { DUAActividad } from "../data/types";
 import { buscarPorCodigo } from "../data";
+import { obtenerFiguraPorId } from "../data/bachillerato-tecnico";
 
 /** Indicadores de evaluación reales del catálogo curricular para una destreza (igual que semanal-word-generator) */
 function indicadoresDe(codigo: string): string[] {
   return buscarPorCodigo(codigo)?.indicadoresEvaluacion ?? [];
+}
+
+/**
+ * Criterios de evaluación reales del módulo técnico seleccionado (catálogo
+ * FIP de Bachillerato Técnico) — equivalente BT de los indicadores de
+ * evaluación del currículo general, para la columna INDICADORES de las
+ * Semanas 4-5 cuando el proyecto es el producto acreditable.
+ */
+function criteriosTecnicosDeModulo(plan: PlanConectaNivelaCrea): string[] {
+  if (!plan.figuraProfesionalId || !plan.moduloId) return [];
+  const figura = obtenerFiguraPorId(plan.figuraProfesionalId);
+  const modulo = figura?.modulos.find((m) => m.codigo === plan.moduloId);
+  const out: string[] = [];
+  for (const ra of modulo?.resultadosAprendizaje ?? []) {
+    for (const ce of ra.criteriosEvaluacion ?? []) {
+      if (ce.texto && !out.includes(ce.texto)) out.push(ce.texto);
+    }
+  }
+  return out;
+}
+
+/** Recursos de las Semanas 4-5: los sugeridos por la IA; respaldo para planes generados antes del campo. */
+function recursosProyecto(plan: PlanConectaNivelaCrea): string[] {
+  const sugeridos = plan.aiResult?.recursosProyectoSugeridos?.filter(Boolean) ?? [];
+  if (sugeridos.length) return sugeridos;
+  if (plan.modalidad === "bt") return plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [];
+  return plan.semana4y5.proyecto.areasIntegradas.filter(Boolean);
 }
 
 /** Indicadores reales de una lista de destrezas — si una destreza no tiene indicadores en el catálogo, cae al nivel detectado */
@@ -419,6 +447,8 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
 
   if (esBT && plan.semana4y5BT) {
     const p = plan.semana4y5BT.productoAcreditable;
+    const criteriosTecnicos = criteriosTecnicosDeModulo(plan);
+    const recursos = recursosProyecto(plan);
     rows.push(labelValueRow("Tipo de producto acreditable:", p.tipo.replace(/_/g, " ")));
     rows.push(labelValueRow("Descripción:", p.descripcion));
     rows.push(headerRow(COLUMNAS_SEMANA));
@@ -426,9 +456,9 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       children: [
         semanaCell("SEMANA 4"),
         semanaContentCell([p.tipo.replace(/_/g, " ")]),
-        semanaContentCell([]),
+        semanaContentCell(criteriosTecnicos),
         semanaContentCell(p.actividadesSemana4?.filter(Boolean).length ? p.actividadesSemana4.filter(Boolean) : ["Diseño y elaboración del producto acreditable"]),
-        semanaContentCell(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? []),
+        semanaContentCell(recursos),
         semanaContentCell(["Seguimiento formativo del proceso de elaboración"]),
       ],
     }));
@@ -436,9 +466,9 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       children: [
         semanaCell("SEMANA 5"),
         semanaContentCell([p.tipo.replace(/_/g, " ")]),
-        semanaContentCell([]),
+        semanaContentCell(criteriosTecnicos),
         semanaContentCell(p.actividadesSemana5?.filter(Boolean).length ? p.actividadesSemana5.filter(Boolean) : ["Presentación del producto acreditable"]),
-        semanaContentCell(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? []),
+        semanaContentCell(recursos),
         semanaContentCell(["Evaluación cualitativa formativa oficial"]),
       ],
     }));
@@ -455,7 +485,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell(p.destrezasReforzadas),
         semanaContentCell(p.evidenciasCognitivas),
         semanaContentCell(p.actividadesSemana4?.filter(Boolean).length ? p.actividadesSemana4.filter(Boolean) : ["Diseño y desarrollo del proyecto interdisciplinario"]),
-        semanaContentCell(p.areasIntegradas),
+        semanaContentCell(recursosProyecto(plan)),
         semanaContentCell(["Seguimiento formativo del desarrollo del proyecto"]),
       ],
     }));
@@ -465,7 +495,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         semanaContentCell(p.destrezasReforzadas),
         semanaContentCell(p.evidenciasActitudinales),
         semanaContentCell(p.actividadesSemana5?.filter(Boolean).length ? p.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"]),
-        semanaContentCell(p.areasIntegradas),
+        semanaContentCell(recursosProyecto(plan)),
         semanaContentCell(["Evaluación cualitativa formativa oficial"]),
       ],
     }));

@@ -233,6 +233,8 @@ export interface ConectaNivelaCreaAiResult {
   cronogramaSemanal: string;
   /** Recursos didácticos sugeridos para la Semana 1 (columna RECURSOS del documento) */
   recursosSemana1Sugeridos: string[];
+  /** Recursos/materiales sugeridos para el proyecto o producto acreditable de las Semanas 4-5 (columna RECURSOS) */
+  recursosProyectoSugeridos?: string[];
   /** Actividades evaluativas sugeridas para las Semanas 2-3 (columna ACTIVIDADES EVALUATIVAS) */
   actividadesEvaluativasNivelacionSugeridas: string[];
   // presentes solo si modalidad === "bt"

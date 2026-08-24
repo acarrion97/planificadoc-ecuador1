@@ -292,6 +292,7 @@ INSTRUCCIONES IMPORTANTES:
 - El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — es un requisito formal del MinEduc, no una opción.
 - "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
 - "recursosSemana1Sugeridos": 3-5 recursos didácticos concretos (materiales, textos, fichas, recursos digitales) apropiados para las actividades de adaptación y el diagnóstico de la Semana 1.
+- "recursosProyectoSugeridos": 3-5 recursos/materiales/herramientas concretos y accesibles para un aula ecuatoriana, necesarios para elaborar el proyecto/producto acreditable de las Semanas 4-5${esBT ? " (para BT: insumos técnicos y equipos coherentes con la Figura Profesional y el módulo)" : ""}.
 - "actividadesEvaluativasNivelacionSugeridas": 2-3 actividades evaluativas concretas (técnica + instrumento, ej. "Observación directa con lista de cotejo") para dar seguimiento al progreso durante las Semanas 2-3.
 - DUA (Diseño Universal para el Aprendizaje) en Semana 1: para CADA actividad de "actividadesAdaptacionSugeridas" y CADA instrumento de "tecnicaDiagnosticoSugerida", indica en el array paralelo "dua" (mismo índice) qué principios cubre: "I" = Implicación (motiva/involucra), "R" = Representación (presenta la información de múltiples formas — aquí es donde corresponde mencionar apoyo visual/pictográfico si aplica), "A" = Acción y Expresión (permite demostrar el aprendizaje de formas distintas). GARANTIZA que, entre el conjunto de actividades de adaptación, los 3 principios queden cubiertos al menos una vez. CRÍTICO: no incluyas los indicadores DUA dentro del texto de la actividad — van solo en el array "dua" separado.
 - Lenguaje pedagógico, concreto y aplicable en el aula ecuatoriana.
@@ -327,6 +328,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   },
   "cronogramaSemanal": "string",
   "recursosSemana1Sugeridos": ["string", "string", "string"],
+  "recursosProyectoSugeridos": ["string (3-5 recursos/materiales/herramientas concretos para elaborar el proyecto o producto acreditable de las Semanas 4-5)", "string"],
   "actividadesEvaluativasNivelacionSugeridas": ["string", "string"]${esBT ? `,
   "diagnosticoTecnicoSugerido": [
     { "criterioId": "string (id real del catálogo)", "criterioTexto": "string (texto real del catálogo)", "observaciones": "string", "nivelDetectado": "iniciado" }

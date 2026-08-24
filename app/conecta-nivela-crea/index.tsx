@@ -641,11 +641,29 @@ export default function ConectaNivelaCreaScreen() {
           : (res.aiResult.diagnosticoTecnicoSugerido ?? []),
       } : plan.semana1BT;
 
-      const semana2y3BTCompletado = plan.semana2y3BT ? {
-        actividadesNivelacionTecnica: plan.semana2y3BT.actividadesNivelacionTecnica.length
-          ? plan.semana2y3BT.actividadesNivelacionTecnica
-          : (res.aiResult.actividadesNivelacionTecnicaSugeridas ?? []),
-      } : plan.semana2y3BT;
+      const semana2y3BTCompletado = plan.semana2y3BT ? (() => {
+        const existentes = plan.semana2y3BT.actividadesNivelacionTecnica;
+        const sugeridas = res.aiResult.actividadesNivelacionTecnicaSugeridas ?? [];
+        if (!existentes.length) {
+          return { actividadesNivelacionTecnica: sugeridas };
+        }
+        // Igual que en nivelación general: conserva los criterios que el docente
+        // eligió y rellena solo lo que quedó pendiente (actividad y articulación
+        // con Matemática) con la sugerencia IA del mismo criterio. No agrega
+        // criterios que el docente no seleccionó.
+        return {
+          actividadesNivelacionTecnica: existentes.map((a) => {
+            if (a.descripcionActividad && a.articulacionMatematica) return a;
+            const sugerida = sugeridas.find((s) => s.criterioId === a.criterioId);
+            if (!sugerida) return a;
+            return {
+              ...a,
+              descripcionActividad: a.descripcionActividad || sugerida.descripcionActividad || "",
+              articulacionMatematica: a.articulacionMatematica || sugerida.articulacionMatematica || "",
+            };
+          }),
+        };
+      })() : plan.semana2y3BT;
 
       const actualizado: PlanConectaNivelaCrea = {
         ...plan,
@@ -1457,7 +1475,62 @@ export default function ConectaNivelaCreaScreen() {
                 ))}
                 {(plan.semana2y3BT?.actividadesNivelacionTecnica ?? []).map((a, i) => (
                   <View key={i} style={{ backgroundColor: "#DBEAFE", borderRadius: 8, padding: 10, marginBottom: 6, borderWidth: 1, borderColor: "#2563EB" }}>
-                    <Text style={{ fontSize: 11, color: "#1E3A8A" }} numberOfLines={2}>{a.criterioTexto}</Text>
+                    <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                      <Text style={{ fontSize: 11, color: "#1E3A8A", flex: 1 }} numberOfLines={2}>{a.criterioTexto}</Text>
+                      <Pressable
+                        onPress={() => setPlan((p) => ({
+                          ...p,
+                          semana2y3BT: {
+                            actividadesNivelacionTecnica: (p.semana2y3BT?.actividadesNivelacionTecnica ?? []).filter((_, idx) => idx !== i),
+                          },
+                        }))}
+                        hitSlop={8}
+                      >
+                        <Text style={{ fontSize: 14, color: "#EF4444", fontWeight: "700" }}>✕</Text>
+                      </Pressable>
+                    </View>
+                    <View style={{ flexDirection: "row", gap: 6, marginTop: 6 }}>
+                      {[2, 3].map((sem) => (
+                        <Pressable
+                          key={sem}
+                          onPress={() => setPlan((p) => ({
+                            ...p,
+                            semana2y3BT: {
+                              actividadesNivelacionTecnica: (p.semana2y3BT?.actividadesNivelacionTecnica ?? []).map((x, idx) => (idx === i ? { ...x, semana: sem as 2 | 3 } : x)),
+                            },
+                          }))}
+                          style={{ paddingHorizontal: 10, paddingVertical: 3, borderRadius: 12, borderWidth: 1, borderColor: a.semana === sem ? "#2563EB" : "#93C5FD", backgroundColor: a.semana === sem ? "#2563EB" : "#EFF6FF" }}
+                        >
+                          <Text style={{ fontSize: 10, fontWeight: "700", color: a.semana === sem ? "#FFFFFF" : "#1E40AF" }}>Semana {sem}</Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                    <Field
+                      label="Actividad de nivelación técnica"
+                      value={a.descripcionActividad}
+                      onChangeText={(v) => setPlan((p) => ({
+                        ...p,
+                        semana2y3BT: {
+                          actividadesNivelacionTecnica: (p.semana2y3BT?.actividadesNivelacionTecnica ?? []).map((x, idx) => (idx === i ? { ...x, descripcionActividad: v } : x)),
+                        },
+                      }))}
+                      colors={colors}
+                      multiline
+                      placeholder="La IA la sugiere al generar; edítala si lo necesitas"
+                    />
+                    <Field
+                      label="Articulación con Matemática"
+                      value={a.articulacionMatematica || ""}
+                      onChangeText={(v) => setPlan((p) => ({
+                        ...p,
+                        semana2y3BT: {
+                          actividadesNivelacionTecnica: (p.semana2y3BT?.actividadesNivelacionTecnica ?? []).map((x, idx) => (idx === i ? { ...x, articulacionMatematica: v } : x)),
+                        },
+                      }))}
+                      colors={colors}
+                      multiline
+                      placeholder="Ej: cálculo de medidas y tolerancias del componente"
+                    />
                   </View>
                 ))}
               </>

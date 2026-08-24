@@ -7,6 +7,7 @@ import type { DUAActividad } from "../data/types";
 import type { PlanUnidadTrabajoBT } from "../data/types-bt";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
 import { buscarPorCodigo as cncBuscarPorCodigo } from "../data";
+import { obtenerFiguraPorId as obtenerFiguraPorIdBT } from "../data/bachillerato-tecnico";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
@@ -1443,6 +1444,32 @@ const CNC_COLUMNAS_SEMANA = [
   "ACTIVIDADES EVALUATIVAS",
 ];
 
+/**
+ * Criterios de evaluación reales del módulo técnico seleccionado (catálogo
+ * FIP) — equivalente BT de los indicadores del currículo general, para la
+ * columna INDICADORES de las Semanas 4-5 (producto acreditable).
+ */
+function criteriosTecnicosDeModuloCNC(plan: PlanConectaNivelaCrea): string[] {
+  if (!plan.figuraProfesionalId || !plan.moduloId) return [];
+  const figura = obtenerFiguraPorIdBT(plan.figuraProfesionalId);
+  const modulo = figura?.modulos.find((m) => m.codigo === plan.moduloId);
+  const out: string[] = [];
+  for (const ra of modulo?.resultadosAprendizaje ?? []) {
+    for (const ce of ra.criteriosEvaluacion ?? []) {
+      if (ce.texto && !out.includes(ce.texto)) out.push(ce.texto);
+    }
+  }
+  return out;
+}
+
+/** Recursos de las Semanas 4-5: sugeridos por la IA; respaldo para planes previos al campo. */
+function recursosProyectoCNC(plan: PlanConectaNivelaCrea): string[] {
+  const sugeridos = plan.aiResult?.recursosProyectoSugeridos?.filter(Boolean) ?? [];
+  if (sugeridos.length) return sugeridos;
+  if (plan.modalidad === "bt") return plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [];
+  return plan.semana4y5.proyecto.areasIntegradas.filter(Boolean);
+}
+
 export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
   const esBT = plan.modalidad === "bt";
 
@@ -1582,40 +1609,40 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
          <tr>
            ${semanaCellHTML("SEMANA 4")}
            ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
-           ${contentCellHTML([])}
+           ${contentCellHTML(criteriosTecnicosDeModuloCNC(plan))}
            ${contentCellHTML(plan.semana4y5BT.productoAcreditable.actividadesSemana4?.filter(Boolean).length ? plan.semana4y5BT.productoAcreditable.actividadesSemana4.filter(Boolean) : ["Diseño y elaboración del producto acreditable"])}
-           ${contentCellHTML(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [])}
+           ${contentCellHTML(recursosProyectoCNC(plan))}
            ${contentCellHTML(["Seguimiento formativo del proceso de elaboración"])}
          </tr>
          <tr>
            ${semanaCellHTML("SEMANA 5")}
            ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
-           ${contentCellHTML([])}
+           ${contentCellHTML(criteriosTecnicosDeModuloCNC(plan))}
            ${contentCellHTML(plan.semana4y5BT.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean) : ["Presentación del producto acreditable"])}
-           ${contentCellHTML(plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [])}
+           ${contentCellHTML(recursosProyectoCNC(plan))}
            ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
          </tr>`
-      : `${labelValue("Título:", plan.semana4y5.proyecto.titulo)}
-         ${labelValue("Áreas integradas:", plan.semana4y5.proyecto.areasIntegradas.join(", "))}
-         ${labelValue("Descripción:", plan.semana4y5.proyecto.descripcion)}
-         ${labelValue("Producto final:", plan.semana4y5.proyecto.productoFinal)}
-         ${header6(CNC_COLUMNAS_SEMANA)}
-         <tr>
-           ${semanaCellHTML("SEMANA 4")}
-           ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
-           ${contentCellHTML(plan.semana4y5.proyecto.evidenciasCognitivas)}
-           ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean) : ["Diseño y desarrollo del proyecto interdisciplinario"])}
-           ${contentCellHTML(plan.semana4y5.proyecto.areasIntegradas)}
-           ${contentCellHTML(["Seguimiento formativo del desarrollo del proyecto"])}
-         </tr>
-         <tr>
-           ${semanaCellHTML("SEMANA 5")}
-           ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
-           ${contentCellHTML(plan.semana4y5.proyecto.evidenciasActitudinales)}
-           ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"])}
-           ${contentCellHTML(plan.semana4y5.proyecto.areasIntegradas)}
-           ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
-         </tr>`}
+       : `${labelValue("Título:", plan.semana4y5.proyecto.titulo)}
+          ${labelValue("Áreas integradas:", plan.semana4y5.proyecto.areasIntegradas.join(", "))}
+          ${labelValue("Descripción:", plan.semana4y5.proyecto.descripcion)}
+          ${labelValue("Producto final:", plan.semana4y5.proyecto.productoFinal)}
+          ${header6(CNC_COLUMNAS_SEMANA)}
+          <tr>
+            ${semanaCellHTML("SEMANA 4")}
+            ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
+            ${contentCellHTML(plan.semana4y5.proyecto.evidenciasCognitivas)}
+            ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean) : ["Diseño y desarrollo del proyecto interdisciplinario"])}
+            ${contentCellHTML(recursosProyectoCNC(plan))}
+            ${contentCellHTML(["Seguimiento formativo del desarrollo del proyecto"])}
+          </tr>
+          <tr>
+            ${semanaCellHTML("SEMANA 5")}
+            ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
+            ${contentCellHTML(plan.semana4y5.proyecto.evidenciasActitudinales)}
+            ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"])}
+            ${contentCellHTML(recursosProyectoCNC(plan))}
+            ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
+          </tr>`}
   </table>
 </body>
 </html>`;

@@ -255,8 +255,11 @@ export default function EvaluacionDiagnosticaScreen() {
     return lista;
   }, [area, subnivel, prerrequisito, prerrequisitoActivo, actualActivo]);
 
-  function preseleccionarDcdsDeWizard(v: Area) {
-    if (seleccion.length > 0 || subnivel === null || dcdsDeWizard.length === 0) return;
+  function preseleccionarDcdsDeWizard(v: Area, forzar = false) {
+    // `forzar` permite re-preseleccionar tras un cambio manual de área: el
+    // estado `seleccion` del closure aún no refleja el reset que hizo quien
+    // invoca, así que el guard normal lo bloquearía.
+    if ((!forzar && seleccion.length > 0) || subnivel === null || dcdsDeWizard.length === 0) return;
     // Mismo resolvedor que la selección manual: un plan CNC puede referenciar
     // DCD de arrastre, y filtrarlas por el subnivel del curso las descartaría
     // en silencio. Se calcula desde `v` porque el estado `area` aún no se
@@ -666,13 +669,19 @@ export default function EvaluacionDiagnosticaScreen() {
               options={desdeCNC ? AREAS_CNC : AREAS_DIAGNOSTICO}
               selected={area ?? ("" as Area)}
               onSelect={(v) => {
+                // La selección de DCDs pertenece al contexto del área anterior:
+                // si no se limpia, "Sugerir preguntas con IA" seguiría usando las
+                // destrezas (y por ende el área) previas aunque el docente cambie
+                // el área aquí.
+                setSeleccion([]);
+                setDcdsAuto(0);
                 setArea(v);
                 // La asignatura es la materia específica que se diagnostica; el
                 // área ya la determina (LL → Lengua y Literatura, M →
                 // Matemática...), así que no hace falta pedirla por separado.
                 setAsignatura(AREAS_INFO[v].name);
                 if (!nombre.trim()) setNombre(`Diagnóstico inicial de ${AREAS_INFO[v].name}`);
-                preseleccionarDcdsDeWizard(v);
+                preseleccionarDcdsDeWizard(v, true);
               }}
               colors={colors}
               getLabel={(a) => `${AREAS_INFO[a].emoji} ${AREAS_INFO[a].name}`}
