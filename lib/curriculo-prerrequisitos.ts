@@ -1,10 +1,10 @@
-import { TODAS_LAS_DESTREZAS } from "@/data";
-import type { Area, Subnivel } from "@/data/types";
+import { TODAS_LAS_DESTREZAS } from "../data";
+import type { Area, Subnivel } from "../data/types";
 import {
   esBachilleratoTecnico,
   subnivelDelGradoAnterior,
   subnivelDesdeGrado,
-} from "@/lib/evaluacion-utils";
+} from "./evaluacion-utils";
 
 /**
  * Resolución del "subnivel prerrequisito" para el módulo de Evaluación

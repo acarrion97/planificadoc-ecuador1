@@ -17,9 +17,9 @@ import type {
   ResultadoCalculadoEstudiante,
   ResultadoEstudiante,
   UmbralesEvaluacion,
-} from "@/data/types-evaluacion";
-import type { Subnivel } from "@/data/types";
-import { buscarPorCodigo } from "@/data";
+} from "../data/types-evaluacion";
+import type { Subnivel } from "../data/types";
+import { buscarPorCodigo } from "../data";
 
 /** Umbrales por defecto: dominado ≥ 70, refuerzo < 40. Configurables por evaluación. */
 export const UMBRALES_DEFECTO: UmbralesEvaluacion = {
