@@ -709,7 +709,12 @@ export default function ConectaNivelaCreaScreen() {
       setSaved(true);
       nextStep();
     } catch (err: any) {
-      const msg = err?.data?.message || err?.message || "Error de conexión. Intenta de nuevo.";
+      const raw = err?.data?.message || err?.message || "";
+      // Un "JSON.parse..." crudo significa respuesta no-JSON del servidor (timeout/proxy);
+      // se traduce a un mensaje accionable en vez de mostrar el error técnico del navegador.
+      const msg = /JSON\.parse|unexpected character|Unexpected token/i.test(raw)
+        ? "El servidor tardó demasiado o devolvió una respuesta inválida. Intenta generar de nuevo."
+        : raw || "Error de conexión. Intenta de nuevo.";
       setGenerateError(msg);
     }
   }

@@ -380,7 +380,17 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     clearTimeout(timeoutId);
 
     if (response.ok) {
-      return (await response.json()) as InvokeResult;
+      // El gateway puede responder 200 con cuerpo vacío o HTML (proxy/timeout):
+      // parsear directo lanzaría un "JSON.parse" crudo hasta el cliente.
+      const okText = await response.text();
+      try {
+        return JSON.parse(okText) as InvokeResult;
+      } catch {
+        console.warn(`[LLM] 200 con cuerpo no-JSON en intento ${attempt + 1}: ${okText.slice(0, 300)}`);
+        lastError = new Error("La IA devolvió una respuesta inválida.");
+        if (attempt < MAX_RETRIES) continue;
+        throw new Error("La IA devolvió una respuesta inválida. Por favor intenta de nuevo.");
+      }
     }
 
     const errorText = await response.text();
