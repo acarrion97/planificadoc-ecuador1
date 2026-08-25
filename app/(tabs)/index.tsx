@@ -266,6 +266,36 @@ export default function HomeScreen() {
                   </View>
                 </View>
 
+                {/* Importar formato existente */}
+                <View className="px-5 mt-3">
+                  <Pressable
+                    onPress={() => router.push("/importar-formato" as any)}
+                    style={({ pressed }) => ({
+                      backgroundColor: colors.surface,
+                      borderRadius: 14,
+                      padding: 14,
+                      borderWidth: 1,
+                      borderColor: colors.border,
+                      borderStyle: "dashed",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 12,
+                      opacity: pressed ? 0.7 : 1,
+                    })}
+                  >
+                    <Text style={{ fontSize: 26 }}>📤</Text>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: colors.foreground, fontWeight: "700", fontSize: 14 }}>
+                        Importar formato existente
+                      </Text>
+                      <Text style={{ color: colors.muted, fontSize: 12, marginTop: 2 }}>
+                        Sube tu PCA en Word o PDF y complétala con IA
+                      </Text>
+                    </View>
+                    <Text style={{ color: colors.muted, fontSize: 20 }}>›</Text>
+                  </Pressable>
+                </View>
+
                 {/* Bachillerato Técnico — oculto hasta completar el módulo */}
                 {false && (
                   <View className="px-5 mt-4">

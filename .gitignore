@@ -68,6 +68,9 @@ Thumbs.db
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
 
+# Documentos de prueba generados por scripts/generar-doc-prueba-pca.ts
+scripts/output/
+
 # Local dev/test scripts and generated PCA artifacts
 _gen_*.cjs
 _gen_*.ts

@@ -403,6 +403,45 @@ export type EvaluacionDiagnosticaRow = typeof evaluacionesDiagnosticas.$inferSel
 export type InsertEvaluacionDiagnostica = typeof evaluacionesDiagnosticas.$inferInsert;
 
 /**
+ * Documentos importados — el docente sube un formato oficial MinEduc
+ * (.doc/.docx/.pdf) en blanco o parcialmente llenado; el sistema reconoce el
+ * tipo de planificación, extrae sus campos y los completa con IA. Registro
+ * best-effort en la nube, mismo patrón que curricularAdaptations: la app
+ * funciona sin esta tabla si falla. Ver openspec/changes/importar-formato-planificacion.
+ */
+export const importedFormatDocuments = mysqlTable("imported_format_documents", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente o deviceId como fallback */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  /** Nombre y tipo MIME del archivo tal como lo subió el docente */
+  fileName: varchar("fileName", { length: 255 }).notNull(),
+  mimeType: varchar("mimeType", { length: 128 }).notNull(),
+  /** Clave/URL en el storage proxy donde quedó el archivo original */
+  storageKey: varchar("storageKey", { length: 512 }),
+  /**
+   * Tipo de planificación detectado por el matcher de huellas — nulo hasta
+   * reconocerse, "no_reconocido" si no coincide con ningún formato soportado.
+   */
+  tipoDetectado: varchar("tipoDetectado", { length: 32 }),
+  /** JSON de los campos/estructura extraídos del documento (antes de IA) */
+  camposExtraidos: text("camposExtraidos"),
+  /** JSON del resultado combinado (extraído + completado por IA) */
+  resultado: text("resultado"),
+  /** Si el tipo detectado tiene tabla propia (ej. pca_documents), su id */
+  planificacionId: int("planificacionId"),
+  status: mysqlEnum("status", ["subido", "analizando", "completado", "error"])
+    .default("subido")
+    .notNull(),
+  /** Mensaje de error legible para el docente, si status = "error" */
+  errorMensaje: text("errorMensaje"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ImportedFormatDocumentRow = typeof importedFormatDocuments.$inferSelect;
+export type InsertImportedFormatDocument = typeof importedFormatDocuments.$inferInsert;
+
+/**
  * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.
  * Se recuperan en activate.ts para enviar el evento Purchase a Meta CAPI.
  */

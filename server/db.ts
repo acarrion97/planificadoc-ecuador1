@@ -7,10 +7,12 @@ import {
   paymentTransactions,
   cardTokens,
   pcaDocuments,
+  importedFormatDocuments,
   InsertSubscription,
   InsertPaymentTransaction,
   InsertCardToken,
   InsertPcaDocument,
+  InsertImportedFormatDocument,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
@@ -531,4 +533,156 @@ export async function getActiveAnnualSubscription(email: string) {
   if (new Date(sub.endDate) < now) return null;
 
   return sub;
+}
+
+/**
+ * Reemplaza formData y aiResult de una PCA existente y la marca "generated"
+ * — usado al completar una importación sobre una PCA ya guardada por el
+ * mismo docente (ver server/importar-formato-router.ts).
+ */
+export async function updatePcaFormDataAndAiResult(
+  id: number,
+  formData: string,
+  aiResult: string
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({ status: "generated", formData, aiResult })
+    .where(eq(pcaDocuments.id, id));
+}
+
+/**
+ * Defensive runtime creation for imported_format_documents — igual patrón que
+ * ensurePcaTable: si la migración 0009 no se aplicó aún en la BD desplegada,
+ * la tabla se crea sola en el primer uso.
+ */
+async function ensureImportedFormatDocumentsTable(): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    await (db as any).execute(`
+      CREATE TABLE IF NOT EXISTS \`imported_format_documents\` (
+        \`id\` int NOT NULL AUTO_INCREMENT,
+        \`sessionId\` varchar(320) NOT NULL,
+        \`fileName\` varchar(255) NOT NULL,
+        \`mimeType\` varchar(128) NOT NULL,
+        \`storageKey\` varchar(512) DEFAULT NULL,
+        \`tipoDetectado\` varchar(32) DEFAULT NULL,
+        \`camposExtraidos\` text,
+        \`resultado\` text,
+        \`planificacionId\` int DEFAULT NULL,
+        \`status\` enum('subido','analizando','completado','error') NOT NULL DEFAULT 'subido',
+        \`errorMensaje\` text,
+        \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (\`id\`),
+        KEY \`idx_imported_session\` (\`sessionId\`),
+        KEY \`idx_imported_status\` (\`status\`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    `);
+  } catch (err: any) {
+    if (!err?.message?.includes("already exists")) {
+      console.warn("[DB] ensureImportedFormatDocumentsTable warning:", err?.message);
+    }
+  }
+}
+
+/**
+ * Crea el registro inicial de una importación de formato (status "subido").
+ */
+export async function createImportedFormatDocument(data: {
+  sessionId: string;
+  fileName: string;
+  mimeType: string;
+  storageKey?: string | null;
+}): Promise<number> {
+  await ensureImportedFormatDocumentsTable();
+
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(importedFormatDocuments).values({
+    sessionId: data.sessionId,
+    fileName: data.fileName,
+    mimeType: data.mimeType,
+    storageKey: data.storageKey ?? null,
+    status: "subido",
+  } as InsertImportedFormatDocument);
+  return result[0].insertId;
+}
+
+/**
+ * Actualiza el estado/resultado de una importación en curso.
+ */
+export async function updateImportedFormatDocument(
+  id: number,
+  data: Partial<{
+    status: "subido" | "analizando" | "completado" | "error";
+    tipoDetectado: string | null;
+    camposExtraidos: string | null;
+    resultado: string | null;
+    planificacionId: number | null;
+    errorMensaje: string | null;
+  }>
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(importedFormatDocuments)
+    .set(data)
+    .where(eq(importedFormatDocuments.id, id));
+}
+
+/**
+ * Obtiene una importación por ID.
+ */
+export async function getImportedFormatDocument(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db
+    .select()
+    .from(importedFormatDocuments)
+    .where(eq(importedFormatDocuments.id, id))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+/**
+ * Busca planificaciones PCA existentes de una sesión que coincidan con el
+ * área/grado/año lectivo detectados en un documento importado — usadas como
+ * fuente de datos para completar campos vacíos (ver design.md, Decisión 6).
+ */
+export async function findMatchingPcaDocuments(data: {
+  sessionId: string;
+  area?: string;
+  grado?: string;
+  anioLectivo?: string;
+}) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const rows = await db
+    .select()
+    .from(pcaDocuments)
+    .where(eq(pcaDocuments.sessionId, data.sessionId))
+    .orderBy(desc(pcaDocuments.createdAt));
+
+  return rows.filter((row) => {
+    try {
+      const formData = JSON.parse(row.formData);
+      if (data.area && formData.area !== data.area) return false;
+      if (data.grado && formData.grado !== data.grado) return false;
+      if (data.anioLectivo && formData.anioLectivo !== data.anioLectivo) return false;
+      return true;
+    } catch {
+      return false;
+    }
+  });
 }
