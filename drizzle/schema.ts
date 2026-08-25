@@ -171,6 +171,8 @@ export const docenteAccounts = mysqlTable("docente_accounts", {
   nombre: varchar("nombre", { length: 255 }).notNull(),
   /** scrypt-hashed password (salt:hash format) */
   passwordHash: varchar("passwordHash", { length: 512 }).notNull(),
+  /** Timestamp of the most recent successful login (null if never logged in since tracking started) */
+  lastLoginAt: timestamp("lastLoginAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

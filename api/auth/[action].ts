@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handleCors } from "../_lib/admin-auth";
 import { getDb, getActiveSubscription } from "../_lib/db";
 import { docenteAccounts } from "../../drizzle/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql as drizzleSql } from "drizzle-orm";
 import { createHmac, randomBytes, scrypt, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
 
@@ -94,6 +94,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const account = accounts[0];
       const valid = await verifyPassword(password as string, account.passwordHash);
       if (!valid) return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+
+      try {
+        await db.execute(drizzleSql.raw(`ALTER TABLE docente_accounts ADD COLUMN IF NOT EXISTS lastLoginAt TIMESTAMP NULL`));
+      } catch (_) { /* ya existe */ }
+      await db.update(docenteAccounts).set({ lastLoginAt: new Date() }).where(eq(docenteAccounts.email, normalizedEmail));
 
       const sub = await getActiveSubscription(normalizedEmail);
       const token = signToken(normalizedEmail, account.nombre);
