@@ -14,7 +14,7 @@ import { destrezasEmprendimiento } from "./destrezas-emprendimiento";
 import { destrezasEducacionCiudadania as _rawEC } from "./destrezas-educacion-ciudadania";
 import { destrezasCAI } from "./destrezas-kai";
 export { NOMBRES_BLOQUES_CAI, CRITERIOS_CAI, OBJETIVO_NIVEL_CAI } from "./destrezas-kai";
-import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
+import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES, AMBITOS_PREPARATORIA } from "./types";
 
 const destrezasEducacionCiudadania: Destreza[] = _rawEC.map((d) => ({
   ...d,
@@ -134,6 +134,20 @@ export function contarDestrezasPorArea(): Record<Area, number> {
 
 export function obtenerNombreBloque(area: Area, bloque: number): string {
   return AREAS_INFO[area]?.bloques[bloque] ?? `Bloque ${bloque}`;
+}
+
+/**
+ * Nombre del bloque de una destreza, consciente de Preparatoria: para
+ * `subnivel: 1` el campo `bloque` es un ámbito de desarrollo y aprendizaje
+ * (ver AMBITOS_PREPARATORIA), no el bloque regular que la misma área usa en
+ * subniveles 2-5 — `obtenerNombreBloque` resolvería el nombre equivocado.
+ * Ver openspec/changes/preparatoria-area-integradora/design.md D7.
+ */
+export function obtenerNombreBloqueDestreza(destreza: Destreza): string {
+  if (destreza.subnivel === 1) {
+    return AMBITOS_PREPARATORIA[destreza.bloque] ?? `Ámbito ${destreza.bloque}`;
+  }
+  return obtenerNombreBloque(destreza.area, destreza.bloque);
 }
 
 export function obtenerNombreSubnivel(subnivel: Subnivel): string {

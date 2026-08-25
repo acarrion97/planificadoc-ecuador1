@@ -1,25 +1,32 @@
 import { useState, useCallback, useEffect } from "react";
 import {
   Text, View, ScrollView, TextInput, StyleSheet, Alert, Platform,
-  ActivityIndicator, Switch, Pressable, FlatList, Modal,
+  ActivityIndicator, Switch, Pressable, Modal,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { DestrezaIconos } from "@/components/DestrezaIconos";
-import { DcdDesagregacionPanel } from "@/components/DcdDesagregacionPanel";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import {
-  buscarDestrezas, TODAS_LAS_DESTREZAS, AREAS_INFO, SUBNIVEL_NAMES, SUBNIVEL_GRADOS,
-  obtenerInsercionesPorAsignatura, METODOLOGIAS_ACTIVAS,
-  TECNICAS_EVALUACION, HABILIDADES_SOCIOEMOCIONALES, obtenerNombreBloque,
-  NOMBRES_BLOQUES_CAI, CRITERIOS_CAI, OBJETIVO_NIVEL_CAI,
-  buscarPorCodigo, gradosDeSubnivel, resolverDcdConIndicador,
+  TODAS_LAS_DESTREZAS, AREAS_INFO, AMBITOS_PREPARATORIA,
+  METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, HABILIDADES_SOCIOEMOCIONALES,
 } from "@/data";
-import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad, DcdDesagregacion } from "@/data/types";
+import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad } from "@/data/types";
 import { trpc } from "@/lib/trpc";
 
-// ─── Colores DUA fijos ───────────────────────────────────────
+// Preparatoria (subnivel 1, 1.° EGB) se organiza por los 7 ámbitos del currículo
+// integrador, no por asignatura. Este flujo reutiliza el mismo backend y la misma
+// exportación (Word) que planificar-semanal — ver openspec/changes/
+// preparatoria-area-integradora/design.md D8. Lo único que cambia es cómo se
+// eligen las destrezas: por ámbito (agrupa varias áreas), no por una sola área.
+
+// ─── Constantes ────────────────────────────────────────────────
+const SUBNIVEL = 1;
+const GRADO_UNICO = "1.° EGB";
+const NIVEL = "EGB";
+const AMBITO_KEYS = Object.keys(AMBITOS_PREPARATORIA).map(Number).sort();
+
 const DUA_ROSADO = "#EC4899";
 const DUA_AZUL   = "#1E3A5F";
 const DUA_VERDE  = "#22C55E";
@@ -31,10 +38,6 @@ const DEPORTES_EF: { value: string; label: string }[] = [
   { value: "Atletismo",          label: "🏃 Atletismo" },
   { value: "Natación",           label: "🏊 Natación" },
   { value: "Gimnasia",           label: "🤸 Gimnasia" },
-  { value: "Balonmano",          label: "🤾 Balonmano" },
-  { value: "Béisbol / Softbol",  label: "⚾ Béisbol / Softbol" },
-  { value: "Tenis de mesa",      label: "🏓 Tenis de mesa" },
-  { value: "Ciclismo",           label: "🚴 Ciclismo" },
   { value: "Ajedrez",            label: "♟️ Ajedrez" },
 ];
 
@@ -96,41 +99,21 @@ function makeDia(activo = true): ConfiguracionDia {
   return { activo, cantidadHoras: 1, horas: [makeHora()] };
 }
 
-/** Una DCD es desagregable si su subnivel tiene grados y tiene indicador de evaluación. */
-function esDesagregable(codigo: string): boolean {
-  const d = buscarPorCodigo(codigo);
-  if (!d) return false;
-  if (!gradosDeSubnivel(d.subnivel)) return false;
-  return resolverDcdConIndicador(codigo) != null;
-}
-
-/** Extrae el número del grado desde la etiqueta ("3ro EGB" → 3, "2do BGU" → 2). */
-function gradoNumerico(grado: string): number | null {
-  const m = grado.match(/\d+/);
-  return m ? parseInt(m[0], 10) : null;
-}
-
 type Paso = "configuracion" | "generando" | "resultado";
-
 type DiasState = Record<DiaSemanaKey, ConfiguracionDia>;
 
 // ─── Componente principal ────────────────────────────────────
-export default function PlanificarSemanalScreen() {
+export default function PlanificarPreparatoriaScreen() {
   const colors = useColors();
   const router = useRouter();
   const { addSemana } = usePlanificaciones();
 
-  // ── Paso de flujo ──
   const [paso, setPaso] = useState<Paso>("configuracion");
 
   // ── Datos generales ──
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
-  const [subnivel, setSubnivel] = useState<number | null>(null); // 1-5
-  const [asignatura, setAsignatura] = useState("");              // nombre del área
-  const [selectedAreaCode, setSelectedAreaCode] = useState<string>("");
-  const [grado, setGrado] = useState("");
-  const [nivel, setNivel] = useState("");
+  const [ambitoSeleccionado, setAmbitoSeleccionado] = useState<number | null>(null);
   const [paralelo, setParalelo] = useState("");
   const [trimestre, setTrimestre] = useState("Primero");
   const [semanaInicio, setSemanaInicio] = useState(getLunesDeEstaSemana());
@@ -138,7 +121,6 @@ export default function PlanificarSemanalScreen() {
   const [numeroUnidad, setNumeroUnidad] = useState("");
   const [tituloUnidad, setTituloUnidad] = useState("");
   const [objetivosUnidad, setObjetivosUnidad] = useState("");
-  const [bloqueCAI, setBloqueCAI] = useState<number | null>(null);
 
   // ── Configuración por día ──
   const [dias, setDias] = useState<DiasState>({
@@ -154,12 +136,11 @@ export default function PlanificarSemanalScreen() {
   const [tabActivo, setTabActivo] = useState<DiaSemanaKey>("lunes");
   const [errorGeneral, setErrorGeneral] = useState<string | null>(null);
 
-  // ── tRPC ──
+  // ── tRPC (infraestructura genérica de EGB, no propia de Preparatoria) ──
   const generateWeekMutation = trpc.topics.generateWeekPlan.useMutation();
   const generateAiMutation = trpc.topics.generateAi.useMutation();
 
   // ─── Helpers para editar días/horas ───────────────────────
-
   const updateDia = useCallback((dia: DiaSemanaKey, update: Partial<ConfiguracionDia>) => {
     setDias(prev => ({ ...prev, [dia]: { ...prev[dia], ...update } }));
   }, []);
@@ -229,33 +210,14 @@ export default function PlanificarSemanalScreen() {
     }));
   }, []);
 
-  const toggleBoolHora = useCallback((
-    dia: DiaSemanaKey,
-    horaId: string,
-    field: "usaEjesTransversales" | "usaCompetencias"
-  ) => {
-    setDias(prev => ({
-      ...prev,
-      [dia]: {
-        ...prev[dia],
-        horas: prev[dia].horas.map(h =>
-          h.id === horaId ? { ...h, [field]: !h[field] } : h
-        ),
-      },
-    }));
+  // ─── Selección de ámbito ─────────────────────────────────
+  const handleSelectAmbito = useCallback((ambito: number) => {
+    setAmbitoSeleccionado(ambito);
+    setNumeroUnidad(String(ambito));
+    setTituloUnidad(AMBITOS_PREPARATORIA[ambito] ?? "");
   }, []);
 
-  // ─── Selección de bloque curricular CAI ─────────────────
-  const handleSelectBloqueCAI = useCallback((bloque: number) => {
-    setBloqueCAI(bloque);
-    setNumeroUnidad(String(bloque));
-    setTituloUnidad(NOMBRES_BLOQUES_CAI[bloque] ?? "");
-    const criterio = subnivel !== null ? (CRITERIOS_CAI[subnivel]?.[bloque] ?? "") : "";
-    setObjetivosUnidad(criterio);
-  }, [subnivel]);
-
   // ─── Sugerir temas para una hora ─────────────────────────
-
   const [loadingHoraId, setLoadingHoraId] = useState<string | null>(null);
 
   const sugerirTemas = useCallback(async (dia: DiaSemanaKey, horaId: string) => {
@@ -267,7 +229,7 @@ export default function PlanificarSemanalScreen() {
         codigoDestreza: hora.destreza.codigo,
         descripcionDestreza: hora.destreza.descripcion,
         area: hora.destreza.area,
-        bloque: obtenerNombreBloque(hora.destreza.area, hora.destreza.bloque),
+        bloque: AMBITOS_PREPARATORIA[hora.destreza.bloque] ?? `Bloque ${hora.destreza.bloque}`,
         subnivel: hora.destreza.subnivel,
         temaDocente: hora.tema.trim(),
         temasExistentes: [hora.tema.trim()],
@@ -283,7 +245,6 @@ export default function PlanificarSemanalScreen() {
   }, [dias, generateAiMutation, updateHora]);
 
   // ─── Generación semanal ───────────────────────────────────
-
   const handleGenerarSemana = async () => {
     if (!docente.trim()) {
       const msg = "Por favor ingresa el nombre del docente";
@@ -304,7 +265,7 @@ export default function PlanificarSemanalScreen() {
           codigoDestreza: h.destreza!.codigo,
           descripcionDestreza: h.destreza!.descripcion,
           area: h.destreza!.area,
-          bloque: obtenerNombreBloque(h.destreza!.area, h.destreza!.bloque),
+          bloque: AMBITOS_PREPARATORIA[h.destreza!.bloque] ?? `Bloque ${h.destreza!.bloque}`,
           subnivel: h.destreza!.subnivel,
           tema: h.temaSeleccionado?.titulo || h.tema,
           ejesTransversales: h.usaEjesTransversales ? h.insercionesCurriculares : [],
@@ -330,7 +291,6 @@ export default function PlanificarSemanalScreen() {
       const result = await generateWeekMutation.mutateAsync({ dias: inputDias });
       if (result.success) {
         setDiasConPlanes(result.diasConPlanes as any);
-        // Activar primer día activo
         const primerDiaActivo = DIAS_SEMANA.find(d => dias[d].activo && (result.diasConPlanes[d]?.length ?? 0) > 0);
         if (primerDiaActivo) setTabActivo(primerDiaActivo);
         setPaso("resultado");
@@ -357,7 +317,7 @@ export default function PlanificarSemanalScreen() {
             codigoDestreza: hora.destreza.codigo,
             descripcionDestreza: hora.destreza.descripcion,
             area: hora.destreza.area,
-            bloque: obtenerNombreBloque(hora.destreza.area, hora.destreza.bloque),
+            bloque: AMBITOS_PREPARATORIA[hora.destreza.bloque] ?? `Bloque ${hora.destreza.bloque}`,
             subnivel: hora.destreza.subnivel,
             tema: hora.temaSeleccionado?.titulo || hora.tema,
             ejesTransversales: hora.usaEjesTransversales ? hora.insercionesCurriculares : [],
@@ -409,10 +369,10 @@ export default function PlanificarSemanalScreen() {
       semanaFin,
       institucion,
       docente,
-      asignatura,
-      subnivel: subnivel !== null ? SUBNIVEL_NAMES[subnivel as keyof typeof SUBNIVEL_NAMES] : "",
-      grado,
-      nivel,
+      asignatura: "Currículo Integrador — Preparatoria",
+      subnivel: "Preparatoria",
+      grado: GRADO_UNICO,
+      nivel: NIVEL,
       paralelo,
       periodoPedagogico: "",
       trimestre,
@@ -420,7 +380,6 @@ export default function PlanificarSemanalScreen() {
       numeroUnidad,
       tituloUnidad,
       objetivosUnidad,
-      bloqueCAI: bloqueCAI ?? undefined,
       duaRepresentacion: "",
       duaAccionExpresion: "",
       duaImplicacion: "",
@@ -446,19 +405,12 @@ export default function PlanificarSemanalScreen() {
     router.replace(`/ver-semana/${semana.id}` as any);
   };
 
-  const handleGuardarParaAdaptacion = async () => {
-    const semana = buildSemana();
-    await addSemana(semana);
-    router.replace({ pathname: "/adaptacion-curricular", params: { semanaId: semana.id } });
-  };
-
   // ─── RENDER ───────────────────────────────────────────────
-
   if (paso === "generando") {
     return (
       <ScreenContainer edges={["top","bottom","left","right"]} className="flex-1">
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 32 }}>
-          <ActivityIndicator size="large" color="#003366" />
+          <ActivityIndicator size="large" color="#7C3AED" />
           <Text style={{ fontSize: 18, fontWeight: "700", color: colors.foreground, marginTop: 24, textAlign: "center" }}>
             Generando planificación semanal...
           </Text>
@@ -479,9 +431,7 @@ export default function PlanificarSemanalScreen() {
       setTabActivo={setTabActivo}
       onRegenerarHora={regenerarHora}
       onGuardar={handleGuardar}
-      onGuardarParaAdaptacion={handleGuardarParaAdaptacion}
       onVolver={() => setPaso("configuracion")}
-      isGuardando={false}
     />;
   }
 
@@ -495,8 +445,8 @@ export default function PlanificarSemanalScreen() {
             <Text style={{ fontSize: 18 }}>{"←"}</Text>
             <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>Atrás</Text>
           </Pressable>
-          <Text style={[styles.pageTitle, { color: colors.foreground }]}>Planificación Semanal</Text>
-          <Text style={{ color: colors.muted, fontSize: 13, marginTop: 2 }}>2026 - 2027 · 5 días de clase</Text>
+          <Text style={[styles.pageTitle, { color: colors.foreground }]}>Planificación Preparatoria</Text>
+          <Text style={{ color: colors.muted, fontSize: 13, marginTop: 2 }}>1.° EGB · Currículo Integrador · 7 ámbitos</Text>
         </View>
 
         {errorGeneral && (
@@ -518,85 +468,28 @@ export default function PlanificarSemanalScreen() {
             value={docente} onChangeText={setDocente} placeholder="Nombre completo"
             placeholderTextColor={colors.muted} />
 
-          {/* Subnivel */}
-          <FieldLabel label="Subnivel" colors={colors} />
+          {/* Ámbito — reemplaza al selector de asignatura de planificar-semanal */}
+          <FieldLabel label="Ámbito de desarrollo y aprendizaje" colors={colors} />
           <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
-            {([2, 3, 4, 5] as const).map(n => {
-              const name = SUBNIVEL_NAMES[n];
-              const active = subnivel === n;
+            {AMBITO_KEYS.map(k => {
+              const active = ambitoSeleccionado === k;
               return (
-                <Pressable key={n} onPress={() => {
-                  setSubnivel(n);
-                  setNivel(n <= 4 ? "EGB" : "BGU");
-                  setGrado("");
-                  setAsignatura("");
-                  setSelectedAreaCode("");
-                }}
+                <Pressable key={k} onPress={() => handleSelectAmbito(k)}
                   style={[styles.trimestreBtn, {
-                    borderColor: active ? "#003366" : colors.border,
-                    backgroundColor: active ? "#003366" : colors.surface,
+                    borderColor: active ? "#7C3AED" : colors.border,
+                    backgroundColor: active ? "#7C3AED20" : colors.surface,
+                    paddingHorizontal: 12,
                   }]}>
-                  <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 12, fontWeight: "600" }}>{name}</Text>
+                  <Text style={{ color: active ? "#7C3AED" : colors.foreground, fontSize: 12, fontWeight: active ? "700" : "500" }}>
+                    {k}. {AMBITOS_PREPARATORIA[k]}
+                  </Text>
                 </Pressable>
               );
             })}
           </View>
-
-          {/* Asignatura — chips según subnivel */}
-          {subnivel !== null && (
-            <>
-              <FieldLabel label="Asignatura" colors={colors} />
-              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
-                {(subnivel === 5
-                  ? (["CN.B","CN.Q","CN.F","CS.H","CS.F","CS.EC","EFL","EG","CAI"] as const)
-                  : (["M","LL","CN","CS","EF","ECA","EFL","CAI"] as const)
-                ).map(code => {
-                  const info = AREAS_INFO[code];
-                  const active = selectedAreaCode === code;
-                  return (
-                    <Pressable key={code} onPress={() => {
-                      if (active) { setAsignatura(""); setSelectedAreaCode(""); }
-                      else { setAsignatura(info.name); setSelectedAreaCode(code); }
-                    }}
-                      style={[styles.trimestreBtn, {
-                        borderColor: active ? info.color : colors.border,
-                        backgroundColor: active ? info.color + "20" : colors.surface,
-                        paddingHorizontal: 12,
-                      }]}>
-                      <Text style={{ color: active ? info.color : colors.foreground, fontSize: 12, fontWeight: active ? "700" : "500" }}>
-                        {info.emoji} {info.name}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </>
-          )}
-
-          {/* Grado — chips según subnivel */}
-          {subnivel !== null && (
-            <>
-              <FieldLabel label="Grado" colors={colors} />
-              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
-                {(subnivel === 2 ? ["2do EGB","3ro EGB","4to EGB"]
-                  : subnivel === 3 ? ["5to EGB","6to EGB","7mo EGB"]
-                  : subnivel === 4 ? ["8vo EGB","9no EGB","10mo EGB"]
-                  : ["1ro BGU","2do BGU","3ro BGU"]
-                ).map(g => {
-                  const active = grado === g;
-                  return (
-                    <Pressable key={g} onPress={() => setGrado(active ? "" : g)}
-                      style={[styles.trimestreBtn, {
-                        borderColor: active ? "#003366" : colors.border,
-                        backgroundColor: active ? "#003366" : colors.surface,
-                      }]}>
-                      <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 12, fontWeight: "600" }}>{g}</Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </>
-          )}
+          <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 4 }}>
+            Grado: {GRADO_UNICO} (subnivel único, sin desagregación por grado)
+          </Text>
 
           {/* Paralelo */}
           <FieldLabel label="Paralelo" colors={colors} />
@@ -606,8 +499,8 @@ export default function PlanificarSemanalScreen() {
               return (
                 <Pressable key={p} onPress={() => setParalelo(active ? "" : p)}
                   style={[styles.trimestreBtn, {
-                    borderColor: active ? "#003366" : colors.border,
-                    backgroundColor: active ? "#003366" : colors.surface,
+                    borderColor: active ? "#7C3AED" : colors.border,
+                    backgroundColor: active ? "#7C3AED" : colors.surface,
                     minWidth: 44,
                   }]}>
                   <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 13, fontWeight: "700", textAlign: "center" }}>{p}</Text>
@@ -620,7 +513,7 @@ export default function PlanificarSemanalScreen() {
           <View style={{ flexDirection: "row", gap: 8 }}>
             {["Primero", "Segundo", "Tercero"].map(t => (
               <Pressable key={t} onPress={() => setTrimestre(t)}
-                style={[styles.trimestreBtn, { borderColor: trimestre === t ? "#003366" : colors.border, backgroundColor: trimestre === t ? "#003366" : colors.surface }]}>
+                style={[styles.trimestreBtn, { borderColor: trimestre === t ? "#7C3AED" : colors.border, backgroundColor: trimestre === t ? "#7C3AED" : colors.surface }]}>
                 <Text style={{ color: trimestre === t ? "#fff" : colors.foreground, fontSize: 12, fontWeight: "600" }}>{t}</Text>
               </Pressable>
             ))}
@@ -641,79 +534,25 @@ export default function PlanificarSemanalScreen() {
             </View>
           </View>
 
-          {selectedAreaCode === "CAI" ? (
-            /* ── Bloque curricular CAI ── */
-            <>
-              {subnivel !== null && OBJETIVO_NIVEL_CAI[subnivel] ? (
-                <View style={{ backgroundColor: colors.surface, borderRadius: 8, padding: 10, marginBottom: 8, borderLeftWidth: 3, borderLeftColor: "#7C3AED" }}>
-                  <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED", marginBottom: 2 }}>OBJETIVO DEL NIVEL</Text>
-                  <Text style={{ fontSize: 12, color: colors.foreground, lineHeight: 17 }}>{OBJETIVO_NIVEL_CAI[subnivel]}</Text>
-                </View>
-              ) : null}
-              <FieldLabel label="Bloque curricular" colors={colors} />
-              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
-                {[1, 2, 3].map(n => {
-                  const active = bloqueCAI === n;
-                  return (
-                    <Pressable
-                      key={n}
-                      onPress={() => handleSelectBloqueCAI(n)}
-                      style={{
-                        paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8,
-                        borderWidth: 1.5,
-                        borderColor: active ? "#7C3AED" : colors.border,
-                        backgroundColor: active ? "#7C3AED18" : "transparent",
-                      }}
-                    >
-                      <Text style={{ fontWeight: "600", fontSize: 12, color: active ? "#7C3AED" : colors.muted }}>
-                        Bloque {n}
-                      </Text>
-                      <Text style={{ fontSize: 11, color: active ? "#7C3AED" : colors.muted, marginTop: 2 }}>
-                        {NOMBRES_BLOQUES_CAI[n]}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-              {bloqueCAI !== null && (
-                <>
-                  <FieldLabel label="Criterio de evaluación del bloque" colors={colors} />
-                  <TextInput
-                    style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
-                    value={objetivosUnidad}
-                    onChangeText={setObjetivosUnidad}
-                    placeholder="Criterio de evaluación del bloque..."
-                    placeholderTextColor={colors.muted}
-                    multiline
-                    numberOfLines={3}
-                  />
-                </>
-              )}
-            </>
-          ) : (
-            /* ── Unidad de planificación (otras asignaturas) ── */
-            <>
-              <View style={{ flexDirection: "row", gap: 8, marginTop: 4 }}>
-                <View style={{ width: 80 }}>
-                  <FieldLabel label="N.º Unidad" colors={colors} />
-                  <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
-                    value={numeroUnidad} onChangeText={setNumeroUnidad} placeholder="1"
-                    placeholderTextColor={colors.muted} keyboardType="number-pad" />
-                </View>
-                <View style={{ flex: 1 }}>
-                  <FieldLabel label="Título de unidad de planificación" colors={colors} />
-                  <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
-                    value={tituloUnidad} onChangeText={setTituloUnidad} placeholder="Nombre de la unidad"
-                    placeholderTextColor={colors.muted} />
-                </View>
-              </View>
-              <FieldLabel label="Objetivos específicos de la unidad de planificación" colors={colors} />
-              <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
-                value={objetivosUnidad} onChangeText={setObjetivosUnidad}
-                placeholder="Escribe los objetivos de la unidad..."
-                placeholderTextColor={colors.muted} multiline numberOfLines={3} />
-            </>
-          )}
+          <View style={{ flexDirection: "row", gap: 8, marginTop: 4 }}>
+            <View style={{ width: 80 }}>
+              <FieldLabel label="N.º Unidad" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={numeroUnidad} onChangeText={setNumeroUnidad} placeholder="1"
+                placeholderTextColor={colors.muted} keyboardType="number-pad" />
+            </View>
+            <View style={{ flex: 1 }}>
+              <FieldLabel label="Título de unidad de planificación" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={tituloUnidad} onChangeText={setTituloUnidad} placeholder="Nombre de la unidad"
+                placeholderTextColor={colors.muted} />
+            </View>
+          </View>
+          <FieldLabel label="Objetivos específicos de la unidad de planificación" colors={colors} />
+          <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
+            value={objetivosUnidad} onChangeText={setObjetivosUnidad}
+            placeholder="Escribe los objetivos de la unidad..."
+            placeholderTextColor={colors.muted} multiline numberOfLines={3} />
         </View>
 
         {/* ── SECCIÓN 2: Configuración por día ── */}
@@ -725,17 +564,13 @@ export default function PlanificarSemanalScreen() {
             config={dias[dia]}
             colors={colors}
             isLast={diaIdx === DIAS_SEMANA.length - 1}
-            areaCode={selectedAreaCode}
-            subnivel={subnivel}
-            gradoContexto={gradoNumerico(grado)}
-            bloqueCAI={bloqueCAI}
+            ambito={ambitoSeleccionado}
             onToggleActivo={() => updateDia(dia, { activo: !dias[dia].activo })}
             onSetCantidadHoras={(n) => setCantidadHoras(dia, n)}
             onUpdateHora={(horaId, update) => updateHora(dia, horaId, update)}
             onSugerirTemas={(horaId) => sugerirTemas(dia, horaId)}
             loadingHoraId={loadingHoraId}
             onToggleChipHora={(horaId, field, id) => toggleChipHora(dia, horaId, field, id)}
-            onToggleBoolHora={(horaId, field) => toggleBoolHora(dia, horaId, field)}
             onCopiarAlSiguiente={() => copiarAlSiguienteDia(dia)}
           />
         ))}
@@ -756,67 +591,57 @@ export default function PlanificarSemanalScreen() {
 }
 
 // ─── Subcomponente: bloque de configuración de un día ────────
-
 function DiaConfigBlock({
-  dia, config, colors, isLast, areaCode, subnivel, gradoContexto, bloqueCAI,
+  dia, config, colors, isLast, ambito,
   onToggleActivo, onSetCantidadHoras, onUpdateHora, onSugerirTemas,
-  loadingHoraId, onToggleChipHora, onToggleBoolHora, onCopiarAlSiguiente,
+  loadingHoraId, onToggleChipHora, onCopiarAlSiguiente,
 }: {
   dia: DiaSemanaKey;
   config: ConfiguracionDia;
   colors: any;
   isLast: boolean;
-  areaCode: string;
-  subnivel: number | null;
-  gradoContexto: number | null;
-  bloqueCAI: number | null;
+  ambito: number | null;
   onToggleActivo: () => void;
   onSetCantidadHoras: (n: 1 | 2 | 3) => void;
   onUpdateHora: (horaId: string, update: Partial<HoraSemanal>) => void;
   onSugerirTemas: (horaId: string) => void;
   loadingHoraId: string | null;
   onToggleChipHora: (horaId: string, field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
-  onToggleBoolHora: (horaId: string, field: "usaEjesTransversales" | "usaCompetencias") => void;
   onCopiarAlSiguiente: () => void;
 }) {
   const [expandido, setExpandido] = useState(true);
 
   return (
     <View style={[styles.diaBlock, { borderColor: colors.border, marginHorizontal: 20 }]}>
-      {/* Header del día */}
       <Pressable onPress={() => setExpandido(e => !e)} style={styles.diaHeader}>
         <Text style={{ fontSize: 18 }}>{DIA_EMOJI[dia]}</Text>
         <Text style={[styles.diaTitulo, { color: colors.foreground }]}>{DIA_LABEL[dia]}</Text>
         <Switch value={config.activo} onValueChange={onToggleActivo}
-          trackColor={{ false: "#ccc", true: "#003366" }} thumbColor="#fff" />
+          trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
         <Text style={{ color: colors.muted, marginLeft: 8 }}>{expandido ? "▲" : "▼"}</Text>
       </Pressable>
 
       {expandido && config.activo && (
         <View style={{ paddingHorizontal: 14, paddingBottom: 14 }}>
-          {/* Número de horas */}
           <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 6 }]}>Número de horas:</Text>
           <View style={{ flexDirection: "row", gap: 8, marginBottom: 14 }}>
             {([1, 2, 3] as const).map(n => (
               <Pressable key={n} onPress={() => onSetCantidadHoras(n)}
-                style={[styles.horaBtn, { borderColor: config.cantidadHoras === n ? "#003366" : colors.border, backgroundColor: config.cantidadHoras === n ? "#003366" : colors.surface }]}>
+                style={[styles.horaBtn, { borderColor: config.cantidadHoras === n ? "#7C3AED" : colors.border, backgroundColor: config.cantidadHoras === n ? "#7C3AED" : colors.surface }]}>
                 <Text style={{ color: config.cantidadHoras === n ? "#fff" : colors.foreground, fontWeight: "700" }}>{n}</Text>
               </Pressable>
             ))}
           </View>
 
-          {/* Horas */}
           {config.horas.map((hora, horaIdx) => (
             <HoraBlock key={hora.id} hora={hora} horaIdx={horaIdx} colors={colors}
-              areaCode={areaCode} subnivel={subnivel} gradoContexto={gradoContexto} bloqueCAI={bloqueCAI}
+              ambito={ambito}
               isLoadingIA={loadingHoraId === hora.id}
               onUpdate={(update) => onUpdateHora(hora.id, update)}
               onSugerirTemas={() => onSugerirTemas(hora.id)}
-              onToggleChip={(field, id) => onToggleChipHora(hora.id, field, id)}
-              onToggleBool={(field) => onToggleBoolHora(hora.id, field)} />
+              onToggleChip={(field, id) => onToggleChipHora(hora.id, field, id)} />
           ))}
 
-          {/* Copiar al siguiente */}
           {!isLast && (
             <Pressable onPress={onCopiarAlSiguiente}
               style={({ pressed }) => [styles.btnCopiar, { borderColor: colors.border, opacity: pressed ? 0.7 : 1 }]}>
@@ -837,40 +662,33 @@ function DiaConfigBlock({
 }
 
 // ─── Subcomponente: una hora dentro de un día ────────────────
-
 function HoraBlock({
-  hora, horaIdx, colors, areaCode, subnivel, gradoContexto, bloqueCAI, isLoadingIA, onUpdate, onSugerirTemas, onToggleChip, onToggleBool,
+  hora, horaIdx, colors, ambito, isLoadingIA, onUpdate, onSugerirTemas, onToggleChip,
 }: {
   hora: HoraSemanal;
   horaIdx: number;
   colors: any;
-  areaCode: string;
-  subnivel: number | null;
-  gradoContexto: number | null;
-  bloqueCAI: number | null;
+  ambito: number | null;
   isLoadingIA: boolean;
   onUpdate: (update: Partial<HoraSemanal>) => void;
   onSugerirTemas: () => void;
   onToggleChip: (field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
-  onToggleBool: (field: "usaEjesTransversales" | "usaCompetencias") => void;
 }) {
   const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState<Destreza[]>([]);
   const [buscando, setBuscando] = useState(false);
   const [showDCDModal, setShowDCDModal] = useState(false);
-  /** Código de la DCD cuyo panel de desagregación está abierto (null = cerrado). */
-  const [desagregacionCodigo, setDesagregacionCodigo] = useState<string | null>(null);
-  // Pool de destrezas: filtra por área + subnivel; para CAI también por bloque si está seleccionado
+
+  // Pool de destrezas: subnivel 1 + bloque === ámbito seleccionado, sin restringir área
+  // — un ámbito reúne destrezas de varias áreas (CN, CS, LL, M, EFL, EF, ECA).
   const buildPool = () => TODAS_LAS_DESTREZAS.filter(d => {
-    if (d.area !== areaCode) return false;
-    if (subnivel !== null && d.subnivel !== subnivel) return false;
-    if (areaCode === "CAI" && bloqueCAI !== null && d.bloque !== bloqueCAI) return false;
+    if (d.subnivel !== SUBNIVEL) return false;
+    if (ambito !== null && d.bloque !== ambito) return false;
     return true;
   });
 
-  // Cuando cambia el área/bloque/subnivel, pre-carga las primeras destrezas
   useEffect(() => {
-    if (areaCode) {
+    if (ambito !== null) {
       const pool = buildPool();
       setBusqueda("");
       setResultados(pool.slice(0, 10));
@@ -879,28 +697,21 @@ function HoraBlock({
       setResultados([]);
       setBuscando(false);
     }
-  }, [areaCode, subnivel, bloqueCAI]);
+  }, [ambito]);
 
   const handleBuscarDestreza = (q: string) => {
     setBusqueda(q);
-    if (areaCode) {
-      const pool = buildPool();
-      if (q.length < 2) {
-        setResultados(pool.slice(0, 10));
-        setBuscando(pool.length > 0);
-      } else {
-        const filtered = pool.filter(
-          d => d.codigo.toUpperCase().includes(q.toUpperCase()) ||
-               d.descripcion.toUpperCase().includes(q.toUpperCase())
-        ).slice(0, 10);
-        setResultados(filtered);
-        setBuscando(filtered.length > 0);
-      }
+    const pool = buildPool();
+    if (q.length < 2) {
+      setResultados(pool.slice(0, 10));
+      setBuscando(pool.length > 0);
     } else {
-      if (q.length < 2) { setResultados([]); setBuscando(false); return; }
-      const found = buscarDestrezas(q).slice(0, 10);
-      setResultados(found);
-      setBuscando(found.length > 0);
+      const filtered = pool.filter(
+        d => d.codigo.toUpperCase().includes(q.toUpperCase()) ||
+             d.descripcion.toUpperCase().includes(q.toUpperCase())
+      ).slice(0, 10);
+      setResultados(filtered);
+      setBuscando(filtered.length > 0);
     }
   };
 
@@ -918,56 +729,55 @@ function HoraBlock({
 
   const abrirDCDModal = () => {
     setBusqueda("");
-    if (areaCode) {
-      const pool = buildPool();
-      setResultados(pool.slice(0, 20));
-      setBuscando(pool.length > 0);
-    } else {
-      setResultados([]);
-      setBuscando(false);
-    }
+    const pool = buildPool();
+    setResultados(pool.slice(0, 30));
+    setBuscando(pool.length > 0);
     setShowDCDModal(true);
   };
 
   const areaInfo = hora.destreza ? AREAS_INFO[hora.destreza.area] : null;
-  const desagregable = hora.destreza != null && gradoContexto != null && esDesagregable(hora.destreza.codigo);
-  const sufijoGrado = subnivel === 5 ? "BGU" : "EGB";
 
   return (
     <View style={[styles.horaBlock, { borderColor: colors.border }]}>
       <Text style={[styles.horaTitulo, { color: colors.foreground }]}>— Hora {horaIdx + 1} —</Text>
 
-      {/* Búsqueda de destreza */}
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>DCD (Destreza con Criterio de Desempeño)</Text>
 
-      {/* Botón para abrir el picker */}
-      <Pressable
-        onPress={abrirDCDModal}
-        style={({ pressed }) => [{
-          borderWidth: 1,
-          borderRadius: 8,
-          padding: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          opacity: pressed ? 0.7 : 1,
-          borderColor: hora.destreza ? "#22C55E" : colors.border,
-          backgroundColor: hora.destreza ? "#22C55E10" : colors.surface,
-        }]}
-      >
-        {hora.destreza ? (
-          <View style={{ flex: 1 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-              <Text style={{ color: areaInfo?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>{hora.destreza.codigo}</Text>
-              <DestrezaIconos codigo={hora.destreza.codigo} size={15} />
+      {ambito === null ? (
+        <Text style={{ color: colors.muted, fontSize: 12, fontStyle: "italic", marginTop: 4 }}>
+          Selecciona un ámbito arriba para ver sus destrezas oficiales.
+        </Text>
+      ) : (
+        <Pressable
+          onPress={abrirDCDModal}
+          style={({ pressed }) => [{
+            borderWidth: 1,
+            borderRadius: 8,
+            padding: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            opacity: pressed ? 0.7 : 1,
+            borderColor: hora.destreza ? "#22C55E" : colors.border,
+            backgroundColor: hora.destreza ? "#22C55E10" : colors.surface,
+          }]}
+        >
+          {hora.destreza ? (
+            <View style={{ flex: 1 }}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                <Text style={{ color: areaInfo?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>
+                  {hora.destreza.codigo} · {areaInfo?.name}
+                </Text>
+                <DestrezaIconos codigo={hora.destreza.codigo} size={15} />
+              </View>
+              <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }} numberOfLines={2}>{hora.destreza.descripcion}</Text>
             </View>
-            <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }} numberOfLines={2}>{hora.destreza.descripcion}</Text>
-          </View>
-        ) : (
-          <Text style={{ color: colors.muted, fontSize: 13 }}>🔍 Seleccionar DCD...</Text>
-        )}
-        <Text style={{ color: colors.muted, fontSize: 16, marginLeft: 8 }}>▼</Text>
-      </Pressable>
+          ) : (
+            <Text style={{ color: colors.muted, fontSize: 13 }}>🔍 Seleccionar DCD del ámbito...</Text>
+          )}
+          <Text style={{ color: colors.muted, fontSize: 16, marginLeft: 8 }}>▼</Text>
+        </Pressable>
+      )}
 
       {/* Modal picker de DCDs */}
       <Modal visible={showDCDModal} transparent animationType="fade" onRequestClose={() => setShowDCDModal(false)}>
@@ -979,13 +789,15 @@ function HoraBlock({
             style={{ width: "90%", maxWidth: 520, backgroundColor: colors.background, borderRadius: 14, padding: 16, maxHeight: "80%" }}
             onPress={() => {}}
           >
-            <Text style={{ fontWeight: "700", fontSize: 14, color: colors.foreground, marginBottom: 10 }}>Seleccionar DCD</Text>
+            <Text style={{ fontWeight: "700", fontSize: 14, color: colors.foreground, marginBottom: 10 }}>
+              Seleccionar DCD — {ambito !== null ? AMBITOS_PREPARATORIA[ambito] : ""}
+            </Text>
             <TextInput
               autoFocus
               style={[styles.input, { color: colors.foreground, borderColor: colors.border, marginBottom: 8 }]}
               value={busqueda}
               onChangeText={handleBuscarDestreza}
-              placeholder="Busca por código o descripción... ej: M.4.1.1"
+              placeholder="Busca por código o descripción..."
               placeholderTextColor={colors.muted}
             />
             <ScrollView keyboardShouldPersistTaps="handled" style={{ maxHeight: 360 }}>
@@ -997,8 +809,9 @@ function HoraBlock({
                     onPress={() => handleSeleccionarDestreza(d)}
                     style={({ pressed }) => [styles.dropdownItem, { borderBottomColor: colors.border, opacity: pressed ? 0.7 : 1 }]}
                   >
-                    <View style={{ minWidth: 70 }}>
-                      <Text style={{ color: ai?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>{d.codigo}</Text>
+                    <View style={{ minWidth: 90 }}>
+                      <Text style={{ color: ai?.color || colors.primary, fontWeight: "700", fontSize: 11 }}>{d.codigo}</Text>
+                      <Text style={{ color: colors.muted, fontSize: 10 }}>{ai?.name}</Text>
                       <DestrezaIconos codigo={d.codigo} size={13} style={{ marginTop: 3 }} />
                     </View>
                     <Text style={{ color: colors.foreground, fontSize: 12, flex: 1, marginLeft: 8 }}>{d.descripcion}</Text>
@@ -1021,64 +834,7 @@ function HoraBlock({
         </Pressable>
       </Modal>
 
-      {/* Desagregación por grado (ruta opcional tras seleccionar una DCD) */}
-      {desagregable && (
-        <View style={{ marginTop: 8 }}>
-          <Pressable
-            onPress={() => setDesagregacionCodigo(hora.destreza!.codigo)}
-            style={({ pressed }) => ({
-              backgroundColor: "#7C3AED",
-              borderRadius: 8,
-              paddingHorizontal: 12,
-              paddingVertical: 8,
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 6,
-              opacity: pressed ? 0.8 : 1,
-            })}
-          >
-            <Text style={{ fontSize: 13 }}>⚡</Text>
-            <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700", flex: 1 }}>
-              {hora.descripcionEfectiva
-                ? `Cambiar versión desagregada (${hora.destreza!.codigo})`
-                : `Desagregar para ${gradoContexto}.º ${sufijoGrado}`}
-            </Text>
-          </Pressable>
-          {hora.descripcionEfectiva && (
-            <Pressable
-              onPress={() => onUpdate({ descripcionEfectiva: undefined })}
-              style={({ pressed }) => ({
-                borderWidth: 1,
-                borderColor: "#7C3AED",
-                borderRadius: 8,
-                paddingHorizontal: 12,
-                paddingVertical: 8,
-                marginTop: 6,
-                opacity: pressed ? 0.7 : 1,
-              })}
-            >
-              <Text style={{ color: "#7C3AED", fontSize: 11, fontWeight: "600" }}>
-                ↩ Volver a DCD oficial
-              </Text>
-            </Pressable>
-          )}
-        </View>
-      )}
-
-      {desagregacionCodigo ? (
-        <DcdDesagregacionPanel
-          codigoDCD={desagregacionCodigo}
-          gradoContexto={gradoContexto ?? undefined}
-          visible={!!desagregacionCodigo}
-          onClose={() => setDesagregacionCodigo(null)}
-          onSeleccionar={(fila: DcdDesagregacion) => {
-            onUpdate({ descripcionEfectiva: fila.dcdGraduada });
-            setDesagregacionCodigo(null);
-          }}
-        />
-      ) : null}
-
-      {/* Deporte (solo EF) */}
+      {/* Deporte (solo si la destreza elegida es de EF — ámbito 7) */}
       {hora.destreza?.area === "EF" && (
         <View style={{ marginTop: 10 }}>
           <Text style={[styles.fieldLabel, { color: colors.muted }]}>Deporte específico (opcional)</Text>
@@ -1091,8 +847,8 @@ function HoraBlock({
                     key={d.value}
                     onPress={() => onUpdate({ deporteEnfoque: sel ? "" : d.value })}
                     style={[styles.chip, {
-                      backgroundColor: sel ? "#003366" : colors.surface,
-                      borderColor: sel ? "#003366" : colors.border,
+                      backgroundColor: sel ? "#7C3AED" : colors.surface,
+                      borderColor: sel ? "#7C3AED" : colors.border,
                     }]}
                   >
                     <Text style={{ color: sel ? "#fff" : colors.foreground, fontSize: 12 }}>{d.label}</Text>
@@ -1114,7 +870,6 @@ function HoraBlock({
         placeholderTextColor={colors.muted}
       />
 
-      {/* Botón sugerir */}
       {hora.destreza && hora.tema.trim().length > 2 && (
         <>
           <Pressable onPress={onSugerirTemas} disabled={isLoadingIA}
@@ -1132,7 +887,6 @@ function HoraBlock({
         </>
       )}
 
-      {/* Alternativas sugeridas */}
       {hora.temasAlternativos.length > 0 && (
         <View style={{ marginTop: 8 }}>
           <Text style={[styles.fieldLabel, { color: colors.muted }]}>Elige una alternativa:</Text>
@@ -1141,8 +895,8 @@ function HoraBlock({
               style={({ pressed }) => [
                 styles.altCard,
                 {
-                  backgroundColor: hora.temaSeleccionado?.id === tema.id ? "#003366" + "15" : colors.surface,
-                  borderColor: hora.temaSeleccionado?.id === tema.id ? "#003366" : colors.border,
+                  backgroundColor: hora.temaSeleccionado?.id === tema.id ? "#7C3AED" + "15" : colors.surface,
+                  borderColor: hora.temaSeleccionado?.id === tema.id ? "#7C3AED" : colors.border,
                   opacity: pressed ? 0.8 : 1,
                 }
               ]}>
@@ -1190,10 +944,9 @@ function HoraBlock({
 }
 
 // ─── Vista de resultado ──────────────────────────────────────
-
 function ResultadoView({
   colors, dias, diasConPlanes, tabActivo, setTabActivo,
-  onRegenerarHora, onGuardar, onGuardarParaAdaptacion, onVolver, isGuardando,
+  onRegenerarHora, onGuardar, onVolver,
 }: {
   colors: any;
   dias: DiasState;
@@ -1202,97 +955,36 @@ function ResultadoView({
   setTabActivo: (d: DiaSemanaKey) => void;
   onRegenerarHora: (dia: DiaSemanaKey, horaIndex: number) => void;
   onGuardar: () => void;
-  onGuardarParaAdaptacion: () => void;
   onVolver: () => void;
-  isGuardando: boolean;
 }) {
   const diasActivos = DIAS_SEMANA.filter(d => dias[d].activo && (diasConPlanes[d]?.length ?? 0) > 0);
-  const [tabAdaptaciones, setTabAdaptaciones] = useState(false);
 
   return (
     <ScreenContainer edges={["top","bottom","left","right"]} className="flex-1">
       <View style={{ flex: 1 }}>
-        {/* Header */}
         <View style={[styles.resultHeader, { borderBottomColor: colors.border }]}>
           <Pressable onPress={onVolver} style={{ padding: 8 }}>
             <Text style={{ color: colors.primary, fontSize: 15 }}>{"← Editar"}</Text>
           </Pressable>
-          <Text style={[styles.resultTitle, { color: colors.foreground }]}>Planificación Semanal</Text>
+          <Text style={[styles.resultTitle, { color: colors.foreground }]}>Planificación Preparatoria</Text>
           <Pressable onPress={onGuardar}
-            style={({ pressed }) => [styles.btnGuardar, { opacity: pressed || isGuardando ? 0.7 : 1 }]}>
-            {isGuardando
-              ? <ActivityIndicator size="small" color="#fff" />
-              : <Text style={{ color: "#fff", fontSize: 13, fontWeight: "700" }}>💾 Guardar</Text>}
+            style={({ pressed }) => [styles.btnGuardar, { opacity: pressed ? 0.7 : 1 }]}>
+            <Text style={{ color: "#fff", fontSize: 13, fontWeight: "700" }}>💾 Guardar</Text>
           </Pressable>
         </View>
 
-        {/* Tabs por día */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[styles.tabsRow, { borderBottomColor: colors.border }]}>
           {diasActivos.map(d => (
-            <Pressable key={d} onPress={() => { setTabActivo(d); setTabAdaptaciones(false); }}
-              style={[styles.tab, { borderBottomColor: !tabAdaptaciones && tabActivo === d ? "#003366" : "transparent" }]}>
+            <Pressable key={d} onPress={() => setTabActivo(d)}
+              style={[styles.tab, { borderBottomColor: tabActivo === d ? "#7C3AED" : "transparent" }]}>
               <Text style={{ fontSize: 14 }}>{DIA_EMOJI[d]}</Text>
-              <Text style={[styles.tabLabel, { color: !tabAdaptaciones && tabActivo === d ? "#003366" : colors.muted }]}>
+              <Text style={[styles.tabLabel, { color: tabActivo === d ? "#7C3AED" : colors.muted }]}>
                 {DIA_LABEL[d]}
               </Text>
             </Pressable>
           ))}
-          <Pressable onPress={() => setTabAdaptaciones(true)}
-            style={[styles.tab, { borderBottomColor: tabAdaptaciones ? "#7B2D8B" : "transparent" }]}>
-            <Text style={{ fontSize: 14 }}>♿</Text>
-            <Text style={[styles.tabLabel, { color: tabAdaptaciones ? "#7B2D8B" : colors.muted }]}>ADAPT.</Text>
-          </Pressable>
         </ScrollView>
 
-        {/* Contenido adaptaciones */}
-        {tabAdaptaciones && (
-          <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 48, alignItems: "center" }}>
-            <View style={{ width: "100%", maxWidth: 520 }}>
-              <View style={{ backgroundColor: "#4A1942", borderRadius: 14, padding: 20, marginBottom: 20, alignItems: "center" }}>
-                <Text style={{ fontSize: 36, marginBottom: 8 }}>♿</Text>
-                <Text style={{ color: "#fff", fontSize: 16, fontWeight: "700", textAlign: "center", marginBottom: 6 }}>
-                  Adaptaciones Curriculares
-                </Text>
-                <Text style={{ color: "#E9D5FF", fontSize: 13, textAlign: "center" }}>
-                  Para agregar adaptaciones curriculares a esta planificación, primero guárdala. Los datos del contexto (institución, docente, grado) se pre-rellenarán automáticamente.
-                </Text>
-              </View>
-
-              <Pressable
-                onPress={onGuardarParaAdaptacion}
-                style={({ pressed }) => ({
-                  backgroundColor: pressed ? "#6B21A8" : "#7B2D8B",
-                  borderRadius: 12, paddingVertical: 16,
-                  alignItems: "center", marginBottom: 12,
-                  opacity: isGuardando ? 0.7 : 1,
-                })}
-              >
-                {isGuardando
-                  ? <ActivityIndicator color="#fff" size="small" />
-                  : <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
-                      💾 Guardar y agregar adaptación
-                    </Text>}
-              </Pressable>
-
-              <Pressable
-                onPress={onGuardar}
-                style={({ pressed }) => ({
-                  backgroundColor: colors.surface, borderRadius: 12,
-                  paddingVertical: 13, alignItems: "center",
-                  borderWidth: 1, borderColor: colors.border,
-                  opacity: pressed ? 0.7 : 1,
-                })}
-              >
-                <Text style={{ color: colors.foreground, fontWeight: "600", fontSize: 14 }}>
-                  💾 Solo guardar (sin adaptaciones)
-                </Text>
-              </Pressable>
-            </View>
-          </ScrollView>
-        )}
-
-        {/* Contenido del día activo */}
-        {!tabAdaptaciones && (
         <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
           {(diasConPlanes[tabActivo] || []).sort((a, b) => a.horaIndex - b.horaIndex).map((item) => {
             const { horaIndex, plan } = item as any;
@@ -1331,14 +1023,12 @@ function ResultadoView({
             </View>
           )}
         </ScrollView>
-        )}
       </View>
     </ScreenContainer>
   );
 }
 
 // ─── Card de una hora planificada ────────────────────────────
-
 function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
   horaIndex: number;
   hora: HoraSemanal | undefined;
@@ -1350,9 +1040,8 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
 
   return (
     <View style={[styles.horaPlanCard, { borderColor: colors.border, backgroundColor: colors.surface }]}>
-      {/* Header de la hora */}
-      <View style={[styles.horaPlanHeader, { backgroundColor: areaInfo?.color ? areaInfo.color + "12" : "#003366" + "10" }]}>
-        <Text style={[styles.horaPlanTitle, { color: areaInfo?.color || "#003366" }]}>
+      <View style={[styles.horaPlanHeader, { backgroundColor: areaInfo?.color ? areaInfo.color + "12" : "#7C3AED" + "10" }]}>
+        <Text style={[styles.horaPlanTitle, { color: areaInfo?.color || "#7C3AED" }]}>
           Hora {horaIndex + 1} — {hora?.destreza?.codigo || ""}
         </Text>
         <Text style={{ color: colors.muted, fontSize: 12 }} numberOfLines={1}>
@@ -1360,15 +1049,13 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
         </Text>
       </View>
 
-      {/* Objetivo */}
       {plan.objetivoClase && (
         <View style={{ padding: 12, borderBottomWidth: 1, borderBottomColor: colors.border }}>
-          <Text style={{ fontSize: 11, fontWeight: "700", color: "#003366", marginBottom: 3 }}>🎯 OBJETIVO DE APRENDIZAJE</Text>
+          <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED", marginBottom: 3 }}>🎯 OBJETIVO DE APRENDIZAJE</Text>
           <Text style={{ fontSize: 13, color: colors.foreground, lineHeight: 18 }}>{plan.objetivoClase}</Text>
         </View>
       )}
 
-      {/* ERCA */}
       {plan.estructura && (
         <View style={{ padding: 12 }}>
           {[
@@ -1408,7 +1095,6 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
         </View>
       )}
 
-      {/* Recursos */}
       {plan.recursos?.length > 0 && (
         <View style={[styles.planFooterSection, { borderTopColor: colors.border }]}>
           <Text style={styles.planFooterLabel}>📦 Recursos</Text>
@@ -1416,7 +1102,6 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
         </View>
       )}
 
-      {/* Evaluación */}
       {(plan as any).evaluacionEstructurada ? (
         <View style={[styles.planFooterSection, { borderTopColor: colors.border }]}>
           <Text style={styles.planFooterLabel}>📊 Evaluación formativa</Text>
@@ -1427,7 +1112,7 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
             ["Criterio", (plan as any).evaluacionEstructurada.criterio],
           ].map(([label, value]) => value ? (
             <View key={label as string} style={{ flexDirection: "row", marginTop: 4 }}>
-              <Text style={{ fontSize: 11, fontWeight: "700", color: "#003366", minWidth: 80 }}>{label as string}: </Text>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED", minWidth: 80 }}>{label as string}: </Text>
               <Text style={{ fontSize: 11, color: colors.foreground, flex: 1 }}>{value as string}</Text>
             </View>
           ) : null)}
@@ -1439,14 +1124,12 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
         </View>
       ) : null}
 
-      {/* DUA Legend */}
       <View style={[styles.duaLegend, { borderTopColor: colors.border }]}>
         <View style={styles.duaLegendItem}><View style={[styles.duaMini, { backgroundColor: DUA_ROSADO }]} /><Text style={styles.duaLegendTxt}>Representación</Text></View>
         <View style={styles.duaLegendItem}><View style={[styles.duaMini, { backgroundColor: DUA_AZUL }]} /><Text style={styles.duaLegendTxt}>Acción/Expresión</Text></View>
         <View style={styles.duaLegendItem}><View style={[styles.duaMini, { backgroundColor: DUA_VERDE }]} /><Text style={styles.duaLegendTxt}>Implicación</Text></View>
       </View>
 
-      {/* Regenerar */}
       <View style={{ paddingHorizontal: 12, paddingBottom: 12 }}>
         <Pressable onPress={onRegenerar}
           style={({ pressed }) => [styles.btnRegenerar, { borderColor: colors.border, opacity: pressed ? 0.7 : 1 }]}>
@@ -1459,7 +1142,6 @@ function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
 }
 
 // ─── Helpers UI ───────────────────────────────────────────────
-
 function SectionHeader({ title, emoji, colors }: { title: string; emoji: string; colors: any }) {
   return (
     <View style={[styles.sectionHeaderRow, { marginHorizontal: 20 }]}>
@@ -1478,14 +1160,13 @@ function ChipBtn({ label, selected, onPress, colors }: {
 }) {
   return (
     <Pressable onPress={onPress}
-      style={[styles.chip, { backgroundColor: selected ? "#003366" : colors.surface, borderColor: selected ? "#003366" : colors.border }]}>
+      style={[styles.chip, { backgroundColor: selected ? "#7C3AED" : colors.surface, borderColor: selected ? "#7C3AED" : colors.border }]}>
       <Text style={{ color: selected ? "#fff" : colors.foreground, fontSize: 12 }}>{label}</Text>
     </Pressable>
   );
 }
 
 // ─── Estilos ──────────────────────────────────────────────────
-
 const styles = StyleSheet.create({
   backBtn: { flexDirection: "row", alignItems: "center" },
   pageTitle: { fontSize: 22, fontWeight: "800", marginTop: 8 },
@@ -1497,33 +1178,24 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, marginBottom: 4 },
   inputSm: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, marginTop: 4 },
   trimestreBtn: { flex: 1, paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center" },
-  estiloRow: { flexDirection: "row", alignItems: "center", marginBottom: 8, gap: 6 },
-  estiloLabel: { fontSize: 12, fontWeight: "600", width: 100 },
-  estiloBarBg: { flex: 1, height: 10, borderRadius: 5, overflow: "hidden" },
-  estiloBarFill: { height: "100%", borderRadius: 5 },
-  pctInput: { width: 44, borderWidth: 1, borderRadius: 6, paddingHorizontal: 6, paddingVertical: 4, fontSize: 13, textAlign: "center" },
   diaBlock: { borderWidth: 1, borderRadius: 12, marginBottom: 12, overflow: "hidden" },
   diaHeader: { flexDirection: "row", alignItems: "center", padding: 14, gap: 8 },
   diaTitulo: { fontSize: 16, fontWeight: "700", flex: 1 },
   horaBtn: { width: 44, height: 36, borderRadius: 8, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   horaBlock: { borderWidth: 1, borderRadius: 10, padding: 12, marginBottom: 12 },
   horaTitulo: { fontSize: 13, fontWeight: "700", textAlign: "center", marginBottom: 10 },
-  dropdownList: { borderWidth: 1, borderRadius: 8, marginBottom: 4, maxHeight: 220 },
   dropdownItem: { flexDirection: "row", alignItems: "center", padding: 10, borderBottomWidth: 1 },
-  destrezaSelected: { borderWidth: 1, borderRadius: 8, padding: 10, marginTop: 6 },
   btnSugerir: { backgroundColor: "#7C3AED", flexDirection: "row", alignItems: "center", justifyContent: "center", padding: 10, borderRadius: 8, marginTop: 8 },
   altCard: { borderWidth: 1, borderRadius: 8, padding: 10, marginBottom: 6 },
   subSectionTitle: { fontSize: 13, fontWeight: "700", marginTop: 14, marginBottom: 6 },
   chipsWrap: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
   chip: { borderWidth: 1, borderRadius: 16, paddingHorizontal: 10, paddingVertical: 5 },
-  toggleRow: { flexDirection: "row", alignItems: "center", marginTop: 14, marginBottom: 6 },
   btnCopiar: { flexDirection: "row", alignItems: "center", borderWidth: 1, borderRadius: 8, padding: 10, marginTop: 14 },
-  btnGenerar: { backgroundColor: "#003366", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: 16, borderRadius: 12, gap: 10 },
+  btnGenerar: { backgroundColor: "#7C3AED", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: 16, borderRadius: 12, gap: 10 },
   btnGenerarText: { color: "#fff", fontSize: 16, fontWeight: "700" },
-  // Resultado
   resultHeader: { flexDirection: "row", alignItems: "center", paddingHorizontal: 16, paddingVertical: 10, borderBottomWidth: 1 },
   resultTitle: { flex: 1, fontSize: 16, fontWeight: "700", textAlign: "center" },
-  btnGuardar: { backgroundColor: "#003366", paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8 },
+  btnGuardar: { backgroundColor: "#7C3AED", paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8 },
   tabsRow: { borderBottomWidth: 1, height: 66, flexShrink: 0 },
   tab: { paddingHorizontal: 16, paddingVertical: 10, alignItems: "center", justifyContent: "center", borderBottomWidth: 2, height: 66 },
   tabLabel: { fontSize: 12, fontWeight: "600", marginTop: 2 },
@@ -1538,11 +1210,9 @@ const styles = StyleSheet.create({
   duaSquaresRow: { flexDirection: "row", gap: 3, marginLeft: 6 },
   duaMini: { width: 11, height: 11, borderRadius: 2 },
   planFooterSection: { padding: 12, borderTopWidth: 1 },
-  planFooterLabel: { fontSize: 11, fontWeight: "700", color: "#003366", marginBottom: 3 },
+  planFooterLabel: { fontSize: 11, fontWeight: "700", color: "#7C3AED", marginBottom: 3 },
   duaLegend: { flexDirection: "row", padding: 10, borderTopWidth: 1, gap: 12, flexWrap: "wrap" },
   duaLegendItem: { flexDirection: "row", alignItems: "center", gap: 4 },
   duaLegendTxt: { fontSize: 10, color: "#666" },
   btnRegenerar: { flexDirection: "row", alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: 8, padding: 8 },
 });
-// probe
-// MARKER

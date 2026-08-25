@@ -238,9 +238,21 @@ describe("existeAreaSubnivel", () => {
     expect(existeAreaSubnivel("LL", 2)).toBe(true);
     expect(existeAreaSubnivel("CAI", 1)).toBe(true);
     expect(existeAreaSubnivel("CN.F", 5)).toBe(true);
-    // Huecos reales: las áreas de Bachillerato no bajan, y LL no llega a Preparatoria.
+    // Huecos reales: las áreas de Bachillerato no bajan.
     expect(existeAreaSubnivel("CN.F", 4)).toBe(false);
     expect(existeAreaSubnivel("EG", 4)).toBe(false);
-    expect(existeAreaSubnivel("LL", 1)).toBe(false);
+    // Desde el currículo integrador de Preparatoria (subnivel 1): M, CN, CS,
+    // LL, EFL, EF y ECA sí tienen destrezas ahí (agrupadas por ámbito, no por
+    // bloque regular — ver openspec/changes/preparatoria-area-integradora).
+    // CN.B/CN.Q/CN.F/CS.H/CS.F/EG (exclusivas de BGU) no tienen subnivel 1.
+    expect(existeAreaSubnivel("LL", 1)).toBe(true);
+    expect(existeAreaSubnivel("M", 1)).toBe(true);
+    expect(existeAreaSubnivel("CN", 1)).toBe(true);
+    expect(existeAreaSubnivel("CS", 1)).toBe(true);
+    expect(existeAreaSubnivel("EF", 1)).toBe(true);
+    expect(existeAreaSubnivel("ECA", 1)).toBe(true);
+    expect(existeAreaSubnivel("EFL", 1)).toBe(true);
+    expect(existeAreaSubnivel("CN.F", 1)).toBe(false);
+    expect(existeAreaSubnivel("EG", 1)).toBe(false);
   });
 });

@@ -78,6 +78,17 @@ const SUBNIVELES_CAI: { value: Subnivel; label: string }[] = [
   { value: 5, label: "Bachillerato General Unificado" },
 ];
 
+// Áreas del currículo integrador de Preparatoria (subnivel 1) — ver
+// openspec/changes/preparatoria-area-integradora/design.md D6. A diferencia de
+// CAI (transversal 0-5), estas áreas solo tienen destrezas de Preparatoria
+// además de sus subniveles regulares de EGB/BGU — Inicial (0) no aplica.
+const AREAS_CON_PREPARATORIA: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"];
+
+const SUBNIVELES_CON_PREPARATORIA: { value: Subnivel; label: string }[] = [
+  { value: 1, label: "Preparatoria (1.° EGB)" },
+  ...SUBNIVELES,
+];
+
 const GRADOS_POR_SUBNIVEL: Record<number, string[]> = {
   0: ["Grupo 1 (3 años)", "Grupo 2 (4 años)"],
   1: ["1.° Grado EGB"],
@@ -481,7 +492,11 @@ export default function PlanificacionAnualScreen() {
           <View style={{ height: 10 }} />
           <FieldLabel label="Subnivel" colors={colors} />
           <SelectPicker
-            options={(area === "CAI" ? SUBNIVELES_CAI : SUBNIVELES).map(s => ({ value: String(s.value), label: s.label }))}
+            options={(
+              area === "CAI" ? SUBNIVELES_CAI
+              : AREAS_CON_PREPARATORIA.includes(area as Area) ? SUBNIVELES_CON_PREPARATORIA
+              : SUBNIVELES
+            ).map(s => ({ value: String(s.value), label: s.label }))}
             value={subnivel ? String(subnivel) : ""}
             onSelect={handleSubnivelChange}
             placeholder="Seleccionar subnivel..."

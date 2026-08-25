@@ -665,6 +665,20 @@ export const GRADO_ADAPTACION_INFO: Record<GradoAdaptacion, { nombre: string; de
   },
 };
 
+// Ámbitos de desarrollo y aprendizaje del currículo integrador de Preparatoria
+// (subnivel 1). No es un área curricular: agrupa destrezas de varias áreas
+// (M, CN, CS, LL, EFL, EF, ECA) cuyo `bloque` coincide con el número de ámbito.
+// Fuente: Currículo Priorizado 2025, Subnivel Preparatoria, secciones 8.1-8.7 (pp.20-38).
+export const AMBITOS_PREPARATORIA: Record<number, string> = {
+  1: "Identidad y Autonomía",
+  2: "Convivencia",
+  3: "Descubrimiento y comprensión del medio natural y cultural",
+  4: "Relaciones lógico-matemáticas",
+  5: "Comprensión y expresión oral y escrita",
+  6: "Comprensión y expresión artística",
+  7: "Expresión corporal",
+};
+
 export const AREAS_INFO: Record<Area, AreaInfo> = {
   M: {
     code: "M",

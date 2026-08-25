@@ -8,7 +8,7 @@ import {
   AREAS_INFO,
   SUBNIVEL_NAMES,
   SUBNIVEL_GRADOS,
-  obtenerNombreBloque,
+  obtenerNombreBloqueDestreza,
 } from "@/data";
 
 export default function DetalleDestrezaScreen() {
@@ -122,7 +122,7 @@ export default function DetalleDestrezaScreen() {
               emoji={"\uD83D\uDCE6"}
               label="Bloque Curricular"
               value={`Bloque ${destreza.bloque}`}
-              sublabel={obtenerNombreBloque(destreza.area, destreza.bloque)}
+              sublabel={obtenerNombreBloqueDestreza(destreza)}
               colors={colors}
             />
           </View>

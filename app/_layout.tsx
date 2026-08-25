@@ -78,6 +78,7 @@ function AppContent() {
             <Stack.Screen name="planificar-semanal/index" options={{ presentation: "card" }} />
             <Stack.Screen name="ver-semana/[id]" options={{ presentation: "card" }} />
             <Stack.Screen name="planificar-inicial/index" options={{ presentation: "card" }} />
+            <Stack.Screen name="planificar-preparatoria/index" options={{ presentation: "card" }} />
             <Stack.Screen name="bachillerato-tecnico" options={{ presentation: "card" }} />
             <Stack.Screen name="planificar-bt/[figuraId]" options={{ presentation: "card" }} />
             <Stack.Screen name="conecta-nivela-crea/index" options={{ presentation: "card" }} />

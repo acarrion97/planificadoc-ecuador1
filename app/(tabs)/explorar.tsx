@@ -23,7 +23,7 @@ const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "EFL", "EG"];
 const SECTIONS = [
   {
     title: "Educaci\u00f3n General B\u00e1sica",
-    subtitle: "Preparatoria \u00b7 Elemental \u00b7 Media \u00b7 Superior",
+    subtitle: "Elemental \u00b7 Media \u00b7 Superior",
     data: EGB_AREAS.map((code) => AREAS_INFO[code]),
   },
   {
@@ -43,15 +43,22 @@ export default function ExplorarScreen() {
   );
   const [selectedSubnivel, setSelectedSubnivel] = useState<Subnivel | null>(null);
 
+  // Subnivel 1 (Preparatoria) se excluye de este recorrido genérico por área:
+  // sus destrezas se organizan por ámbito (ver AMBITOS_PREPARATORIA), no por
+  // bloque de la asignatura, y tienen su propia pantalla dedicada
+  // (/planificar-preparatoria). Mostrarlas aquí resolvería el nombre del
+  // bloque con obtenerNombreBloque(area, bloque), que para subnivel 1 devuelve
+  // el nombre de bloque regular de la asignatura, no el del ámbito — ver
+  // openspec/changes/preparatoria-area-integradora/design.md D7.
   const subniveles = useMemo(
-    () => (selectedArea ? obtenerSubnivelesDeArea(selectedArea) : []),
+    () => (selectedArea ? obtenerSubnivelesDeArea(selectedArea).filter(s => s !== 1) : []),
     [selectedArea]
   );
 
   const destrezas = useMemo(() => {
     if (!selectedArea) return [];
     if (selectedSubnivel) return filtrarPorAreaYSubnivel(selectedArea, selectedSubnivel);
-    return filtrarPorArea(selectedArea);
+    return filtrarPorArea(selectedArea).filter(d => d.subnivel !== 1);
   }, [selectedArea, selectedSubnivel]);
 
   const bloques = useMemo(() => {
