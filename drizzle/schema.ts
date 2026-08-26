@@ -230,12 +230,51 @@ export const pcaDocuments = mysqlTable("pca_documents", {
   authorizationCode: varchar("authorizationCode", { length: 64 }),
   /** Monto pagado en centavos (siempre 1499 = $14.99) */
   amountPaid: int("amountPaid"),
+  /** FK → formato_plantillas.id — si tiene plantilla importada, exporta en ese formato */
+  formatoPlantillaId: int("formatoPlantillaId"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
 
 export type PcaDocumentRow = typeof pcaDocuments.$inferSelect;
 export type InsertPcaDocument = typeof pcaDocuments.$inferInsert;
+
+/**
+ * Formato Plantilla — recurso reutilizable derivado de un documento importado.
+ * Contiene el archivo original (storageKey), la estructura física analizada,
+ * y los bindings que mapean campos de planificación a ubicaciones en el documento.
+ * Se crea automáticamente durante la importación y se asocia a planificaciones
+ * para exportar en el mismo formato original.
+ */
+export const formatoPlantillas = mysqlTable("formato_plantillas", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente o deviceId como fallback */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  /** Nombre legible del formato (ej. "PCA Institucional 2026") */
+  nombre: varchar("nombre", { length: 255 }).notNull(),
+  /** Tipo de planificación al que corresponde */
+  tipoPlanificacion: varchar("tipoPlanificacion", { length: 32 }).notNull(),
+  /** Formato del archivo original: docx | doc | pdf */
+  formatoOrigen: varchar("formatoOrigen", { length: 16 }).notNull(),
+  mimeType: varchar("mimeType", { length: 128 }).notNull(),
+  /** Clave en storage del archivo original (mismo storageKey de importedFormatDocuments) */
+  storageKey: varchar("storageKey", { length: 512 }).notNull(),
+  /** Número de versión del análisis de estructura/bindings */
+  version: int("version").notNull().default(1),
+  /** JSON: PlantillaEstructura — mapa navegable del documento */
+  estructura: text("estructura").notNull(),
+  /** JSON: PlantillaBindings — campos y regiones repetibles */
+  bindings: text("bindings").notNull(),
+  /** JSON: PlantillaConfiguracion — reglas especiales de exportación */
+  configuracion: text("configuracion"),
+  /** Si está activo para uso en exportaciones */
+  activo: boolean("activo").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+
+export type FormatoPlantillaRow = typeof formatoPlantillas.$inferSelect;
+export type InsertFormatoPlantilla = typeof formatoPlantillas.$inferInsert;
 
 /**
  * Planificacion stats - lightweight counter synced from device each time a

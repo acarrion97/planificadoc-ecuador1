@@ -57,7 +57,7 @@ export function tipoImplementado(tipo: TipoPlanificacion): boolean {
  *   1. Validar que el tipo tenga handler
  *   2. Ejecutar handler.mapear(documento)
  *   3. Ejecutar handler.completar(campos, sessionId)
- *   4. Ejecutar handler.guardar(campos, resultadoIA, sessionId)
+ *   4. Ejecutar handler.guardar(campos, resultadoIA, sessionId, originalBuffer)
  *   5. Devolver ResultadoImportacion con destination
  *
  * Si cualquier paso falla, captura el error y devuelve
@@ -67,7 +67,8 @@ export async function importar(
   documento: DocumentoParseado,
   tipo: TipoPlanificacion,
   sessionId: string,
-  importId: number
+  importId: number,
+  originalBuffer?: Buffer
 ): Promise<ResultadoImportacion> {
   const handler = IMPORT_HANDLERS[tipo];
 
@@ -90,7 +91,8 @@ export async function importar(
     const resultadoGuardado: ResultadoGuardado = await handler.guardar(
       campos,
       resultadoIA,
-      sessionId
+      sessionId,
+      originalBuffer
     );
 
     return {

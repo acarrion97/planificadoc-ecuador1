@@ -8,11 +8,13 @@ import {
   cardTokens,
   pcaDocuments,
   importedFormatDocuments,
+  formatoPlantillas,
   InsertSubscription,
   InsertPaymentTransaction,
   InsertCardToken,
   InsertPcaDocument,
   InsertImportedFormatDocument,
+  InsertFormatoPlantilla,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
@@ -685,4 +687,82 @@ export async function findMatchingPcaDocuments(data: {
       return false;
     }
   });
+}
+
+// ─── Formato Plantillas ─────────────────────────────────────────────────────
+
+/**
+ * Crea una nueva plantilla de formato derivada de un documento importado.
+ */
+export async function createFormatoPlantilla(data: {
+  sessionId: string;
+  nombre: string;
+  tipoPlanificacion: string;
+  formatoOrigen: string;
+  mimeType: string;
+  storageKey: string;
+  estructura: string;
+  bindings: string;
+  configuracion?: string;
+}): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(formatoPlantillas).values({
+    sessionId: data.sessionId,
+    nombre: data.nombre,
+    tipoPlanificacion: data.tipoPlanificacion,
+    formatoOrigen: data.formatoOrigen,
+    mimeType: data.mimeType,
+    storageKey: data.storageKey,
+    estructura: data.estructura,
+    bindings: data.bindings,
+    configuracion: data.configuracion ?? null,
+    version: 1,
+    activo: true,
+  } as InsertFormatoPlantilla);
+
+  return result[0].insertId;
+}
+
+/**
+ * Obtiene una plantilla por ID.
+ */
+export async function getFormatoPlantilla(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db
+    .select()
+    .from(formatoPlantillas)
+    .where(eq(formatoPlantillas.id, id))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+/**
+ * Lista todas las plantillas activas de una sesión para un tipo dado.
+ */
+export async function listFormatoPlantillas(
+  sessionId: string,
+  tipoPlanificacion?: string
+) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const conditions = [
+    eq(formatoPlantillas.sessionId, sessionId),
+    eq(formatoPlantillas.activo, true),
+  ];
+
+  if (tipoPlanificacion) {
+    conditions.push(eq(formatoPlantillas.tipoPlanificacion, tipoPlanificacion));
+  }
+
+  return db
+    .select()
+    .from(formatoPlantillas)
+    .where(and(...conditions))
+    .orderBy(desc(formatoPlantillas.createdAt));
 }

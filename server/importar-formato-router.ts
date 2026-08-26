@@ -420,7 +420,8 @@ export const importarFormatoRouter = router({
           documentoParseado,
           tipo,
           input.sessionId,
-          importId
+          importId,
+          buffer  // ← buffer original para crear plantilla
         );
 
         if (resultado.success) {

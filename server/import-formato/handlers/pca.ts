@@ -2,10 +2,12 @@ import { randomUUID } from "crypto";
 import { DocumentoParseado, ImportHandler, PcaCamposExtraidos, ResultadoGuardado } from "../types";
 import { mapearCamposPca } from "../mapear-pca";
 import { completarPcaConIA, inferirCodigoArea, PlanificacionExistente } from "../completar-pca";
+import { construirPlantilla } from "../template-builder";
 import {
   findMatchingPcaDocuments,
   createPcaDocument,
   updatePcaFormDataAndAiResult,
+  createFormatoPlantilla,
 } from "../../db";
 
 /**
@@ -13,6 +15,9 @@ import {
  *
  * Migrado de importar-formato-router.ts para usar el nuevo contrato
  * ImportHandler<Campos, ResultadoIA>.
+ *
+ * Si se proporciona originalBuffer, crea una FormatoPlantilla para
+ * exportar en el mismo formato original.
  */
 export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<typeof completarPcaConIA>>> = {
   mapear(documento: DocumentoParseado): PcaCamposExtraidos {
@@ -49,7 +54,8 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
   async guardar(
     campos: PcaCamposExtraidos,
     resultadoIA: Awaited<ReturnType<typeof completarPcaConIA>>,
-    sessionId: string
+    sessionId: string,
+    originalBuffer?: Buffer
   ): Promise<ResultadoGuardado> {
     const { aiResult, subnivel } = resultadoIA;
     const areaCodigo = inferirCodigoArea(campos.area);
@@ -155,7 +161,35 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
     };
 
     let pcaId: number;
+    let formatoPlantillaId: number | null = null;
 
+    // ── Crear plantilla si se proporcionó buffer original ──────────
+    if (originalBuffer) {
+      try {
+        const plantilla = await construirPlantilla(originalBuffer, campos);
+
+        // Guardar el buffer del archivo original en storage si no existe
+        // (ya se hizo en el router, aquí solo creamos el registro)
+        formatoPlantillaId = await createFormatoPlantilla({
+          sessionId,
+          nombre: `PCA - ${campos.institucion || "Sin nombre"} - ${campos.anioLectivo || ""}`,
+          tipoPlanificacion: "pca",
+          formatoOrigen: "docx",
+          mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          storageKey: "", // Se actualizará después si es necesario
+          estructura: JSON.stringify(plantilla.estructura),
+          bindings: JSON.stringify(plantilla.bindings),
+          configuracion: JSON.stringify(plantilla.configuracion),
+        });
+
+        console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}`);
+      } catch (err) {
+        console.warn("[pca-handler] No se pudo crear plantilla:", err);
+        // No bloqueamos el flujo por esto
+      }
+    }
+
+    // ── Guardar PCA ───────────────────────────────────────────────
     if (existenteRow) {
       pcaId = existenteRow.id;
       await updatePcaFormDataAndAiResult(
