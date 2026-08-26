@@ -1,6 +1,5 @@
 import { parseDocx } from "./parse-docx";
 import { parseDoc } from "./parse-doc";
-import { parsePdf } from "./parse-pdf";
 import { ArchivoNoProcesableError, DocumentoParseado, ExtensionSoportada } from "./types";
 
 const EXTENSIONES_SOPORTADAS: ExtensionSoportada[] = ["doc", "docx", "pdf"];
@@ -28,6 +27,7 @@ export async function parseDocumento(buffer: Buffer, extension: ExtensionSoporta
     return { extension, textoPlano, tablas: [] };
   }
   if (extension === "pdf") {
+    const { parsePdf } = await import("./parse-pdf");
     const { textoPlano } = await parsePdf(buffer);
     return { extension, textoPlano, tablas: [] };
   }
