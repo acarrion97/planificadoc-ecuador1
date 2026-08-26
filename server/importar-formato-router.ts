@@ -15,6 +15,7 @@ import { reconocerTipo } from "./import-formato/matcher";
 import { mapearCamposPca } from "./import-formato/mapear-pca";
 import { completarPcaConIA, inferirCodigoArea, inferirSubnivel } from "./import-formato/completar-pca";
 import { ArchivoNoProcesableError, TIPOS_IMPLEMENTADOS } from "./import-formato/types";
+import { DocLegacyNoSoportadoError } from "./import-formato/parse-doc";
 
 const TAMANO_MAXIMO_BYTES = 15 * 1024 * 1024; // 15 MB — mismo orden de magnitud que el límite de audio en voiceTranscription.ts
 
@@ -187,10 +188,14 @@ export const importarFormatoRouter = router({
 
       return { success: true, importId, tipo: "pca", pcaId };
     } catch (err: any) {
-      const mensaje =
-        err instanceof ArchivoNoProcesableError
-          ? "El archivo no pudo procesarse. Verifica que no esté dañado."
-          : err?.message || "No se pudo completar la importación. Intenta de nuevo.";
+      let mensaje: string;
+      if (err instanceof DocLegacyNoSoportadoError) {
+        mensaje = "El archivo .doc no es compatible con este formato antiguo. Abre el archivo en Word y guárdalo como .docx, luego vuelve a intentar.";
+      } else if (err instanceof ArchivoNoProcesableError) {
+        mensaje = "El archivo no pudo procesarse. Verifica que no esté dañado.";
+      } else {
+        mensaje = err?.message || "No se pudo completar la importación. Intenta de nuevo.";
+      }
       await updateImportedFormatDocument(importId, { status: "error", errorMensaje: mensaje });
       return { success: false, importId, error: mensaje };
     }
