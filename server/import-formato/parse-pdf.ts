@@ -1,24 +1,31 @@
-import { PDFParse } from "pdf-parse";
+import PDFParser from "pdf2json";
 import { ArchivoNoProcesableError } from "./types";
 
 /**
- * Extrae el texto de un PDF (por página, concatenado). Un PDF generado a
- * partir de tablas no expone estructura de tabla nativa, así que solo se usa
- * texto plano + heurística de encabezados de sección (ver design.md,
- * Decisión 3) — menor precisión de campo-a-campo que `.docx`.
+ * Extrae el texto de un PDF (por página, concatenado) usando pdf2json
+ * (puro JS, sin dependencias nativas como @napi-rs/canvas).
  */
 export async function parsePdf(buffer: Buffer): Promise<{ textoPlano: string }> {
-  const parser = new PDFParse({ data: new Uint8Array(buffer) });
-  try {
-    const resultado = await parser.getText();
-    if (!resultado.text || resultado.text.trim().length === 0) {
-      throw new ArchivoNoProcesableError();
-    }
-    return { textoPlano: resultado.text };
-  } catch (err) {
-    if (err instanceof ArchivoNoProcesableError) throw err;
-    throw new ArchivoNoProcesableError();
-  } finally {
-    await parser.destroy().catch(() => {});
-  }
+  return new Promise((resolve, reject) => {
+    const parser = new PDFParser();
+
+    parser.on("pdfParser_dataError", () => {
+      reject(new ArchivoNoProcesableError());
+    });
+
+    parser.on("pdfParser_dataReady", (pdfData: any) => {
+      try {
+        const text = parser.getRawTextContent();
+        if (!text || text.trim().length === 0) {
+          reject(new ArchivoNoProcesableError());
+          return;
+        }
+        resolve({ textoPlano: text });
+      } catch {
+        reject(new ArchivoNoProcesableError());
+      }
+    });
+
+    parser.parseBuffer(buffer);
+  });
 }
