@@ -33,11 +33,21 @@ function extensionDe(nombre: string): string | null {
 /** Lee el contenido del archivo elegido como base64, sea web (asset.base64) o nativo (expo-file-system). */
 async function leerComoBase64(asset: DocumentPicker.DocumentPickerAsset): Promise<string> {
   if (asset.base64) return asset.base64;
-  // Mismo patrón que app/pca-preview/[id].tsx — los tipos instalados de
-  // expo-file-system no exponen `EncodingType` en su nivel superior todavía.
   const FileSystem: any = await import("expo-file-system");
   return FileSystem.readAsStringAsync(asset.uri, { encoding: FileSystem.EncodingType.Base64 });
 }
+
+/** Nombres legibles para cada tipo de planificación */
+const TIPO_LABELS: Record<string, string> = {
+  pca: "PCA — Planificación Curricular Anual",
+  pca_trimestral: "PCT — Plan Curricular Trimestral",
+  adaptacion_curricular: "Adaptación Curricular",
+  plan_semanal: "Planificación Semanal",
+  plan_inicial: "Planificación Inicial",
+  cnc: "CNC — Conecta, Nivela y Crea",
+  evaluacion_diagnostica: "Evaluación Diagnóstica",
+  bt: "BT — Bachillerato Técnico",
+};
 
 export default function ImportarFormatoScreen() {
   const colors = useColors();
@@ -48,6 +58,7 @@ export default function ImportarFormatoScreen() {
   const [archivo, setArchivo] = useState<DocumentPicker.DocumentPickerAsset | null>(null);
   const [procesando, setProcesando] = useState(false);
   const [estadoTexto, setEstadoTexto] = useState("");
+  const [candidatos, setCandidatos] = useState<Array<{ tipo: string; score: number }> | null>(null);
   const subir = trpc.importarFormato.subirYProcesar.useMutation();
 
   const handleSeleccionar = useCallback(async () => {
@@ -71,12 +82,15 @@ export default function ImportarFormatoScreen() {
     }
 
     setArchivo(asset);
+    setCandidatos(null);
   }, []);
 
   const handleImportar = useCallback(async () => {
     if (!archivo) return;
     setProcesando(true);
     setEstadoTexto("Subiendo documento...");
+    setCandidatos(null);
+
     try {
       const sessionId = await getSessionId();
       const fileBase64 = await leerComoBase64(archivo);
@@ -91,7 +105,15 @@ export default function ImportarFormatoScreen() {
       });
 
       if (resultado.success) {
-        router.replace(`/pca-preview/${resultado.pcaId}` as any);
+        // Navegar a la pantalla de preview/edición del tipo detectado
+        router.replace(resultado.destination as any);
+      } else if (resultado.candidatos && resultado.candidatos.length > 0) {
+        // Caso ambiguo: mostrar opciones al usuario
+        setCandidatos(resultado.candidatos);
+        Alert.alert(
+          "Formato ambiguo",
+          "No pudimos determinar con seguridad el tipo de planificación. Por favor, selecciona el tipo correcto."
+        );
       } else {
         Alert.alert("No se pudo importar", resultado.error);
       }
@@ -111,13 +133,16 @@ export default function ImportarFormatoScreen() {
         </Pressable>
         <View style={{ flex: 1 }}>
           <Text style={[styles.headerTitle, { color: colors.foreground }]}>Importar formato</Text>
-          <Text style={[styles.headerSub, { color: colors.muted }]}>Sube tu PCA en Word o PDF y complétala con IA</Text>
+          <Text style={[styles.headerSub, { color: colors.muted }]}>
+            Sube un formato oficial MinEduc y complétalo con IA
+          </Text>
         </View>
       </View>
 
       <View style={{ padding: 20, gap: 16 }}>
         <Text style={{ color: colors.muted, fontSize: 13, lineHeight: 19 }}>
-          Sube el formato oficial del Ministerio de Educación (PCA) en .doc, .docx o .pdf — en blanco o
+          Sube el formato oficial del Ministerio de Educación (PCA, PCT, Adaptación Curricular,
+          Planificación Semanal, CNC, Evaluación Diagnóstica, BT) en .doc, .docx o .pdf — en blanco o
           parcialmente llenado a mano. Reconoceremos su estructura y completaremos los campos vacíos con IA,
           usando tus planificaciones guardadas cuando correspondan.
         </Text>
@@ -134,8 +159,39 @@ export default function ImportarFormatoScreen() {
           <Text style={[styles.dropZoneText, { color: colors.foreground }]}>
             {archivo ? archivo.name : "Toca para elegir un archivo"}
           </Text>
-          <Text style={[styles.dropZoneSub, { color: colors.muted }]}>.doc · .docx · .pdf — máx. {TAMANO_MAXIMO_MB} MB</Text>
+          <Text style={[styles.dropZoneSub, { color: colors.muted }]}>
+            .doc · .docx · .pdf — máx. {TAMANO_MAXIMO_MB} MB
+          </Text>
         </Pressable>
+
+        {/* Selector de tipo cuando la detección es ambigua */}
+        {candidatos && candidatos.length > 0 && (
+          <View style={[styles.ambiguoContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={[styles.ambiguoTitle, { color: colors.foreground }]}>
+              Selecciona el tipo de planificación:
+            </Text>
+            {candidatos.map((c) => (
+              <Pressable
+                key={c.tipo}
+                onPress={() => {
+                  // TODO: Implementar selección manual y re-intentar con el tipo elegido
+                  Alert.alert("Próximamente", "La selección manual se implementará pronto.");
+                }}
+                style={({ pressed }) => [
+                  styles.ambiguoOption,
+                  { borderColor: colors.border, opacity: pressed ? 0.7 : 1 },
+                ]}
+              >
+                <Text style={{ color: colors.foreground, fontWeight: "600", fontSize: 14 }}>
+                  {TIPO_LABELS[c.tipo] || c.tipo}
+                </Text>
+                <Text style={{ color: colors.muted, fontSize: 12 }}>
+                  Confianza: {Math.round(c.score * 100)}%
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
 
         <Pressable
           onPress={handleImportar}
@@ -188,4 +244,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   importBtnText: { color: "#fff", fontWeight: "800", fontSize: 15 },
+  ambiguoContainer: {
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 16,
+    gap: 12,
+  },
+  ambiguoTitle: {
+    fontWeight: "700",
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  ambiguoOption: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 12,
+    gap: 4,
+  },
 });

@@ -1,11 +1,7 @@
 /**
- * Tipos de planificación soportados por el flujo de importación (ver
- * openspec/changes/importar-formato-planificacion/proposal.md). Solo "pca"
- * tiene huella, parser de campos y completado con IA implementados en esta
- * primera etapa (ver design.md, Open Questions y tasks.md) — los demás están
- * declarados para que el catálogo y el matcher ya los reconozcan como
- * "formato no soportado aún" en vez de "no reconocido en absoluto", y para no
- * tener que rediseñar el registro cuando se agreguen.
+ * Tipos de planificación soportados por el flujo de importación.
+ *
+ * Cada tipo tiene un handler que implementa: mapear → completar → guardar → destino.
  */
 export const TIPOS_PLANIFICACION = [
   "pca",
@@ -20,7 +16,7 @@ export const TIPOS_PLANIFICACION = [
 
 export type TipoPlanificacion = (typeof TIPOS_PLANIFICACION)[number];
 
-/** Tipos con pipeline de reconocimiento + IA completamente implementado. */
+/** Tipos con handler de importación completamente implementado. */
 export const TIPOS_IMPLEMENTADOS: TipoPlanificacion[] = ["pca"];
 
 export type ExtensionSoportada = "doc" | "docx" | "pdf";
@@ -40,6 +36,111 @@ export type DocumentoParseado = {
   tablas: FilaTabla[][];
 };
 
+// ─── Huellas ────────────────────────────────────────────────────────────────
+
+/**
+ * Huella de un tipo de planificación: encabezados esperados con peso y
+ * exclusividad para evitar falsos positivos entre tipos similares.
+ *
+ * - `obligatorias`: si alguna falta, el tipo no puede ser el correcto.
+ * - `opcionales`: suman score pero su ausencia no descarta.
+ * - `exclusivas`: si están presentes, otros tipos con las mismas
+ *   palabras clave deberían tener penalización.
+ * - `penalizadoras`: palabras que, si aparecen, reducen el score de este tipo
+ *   (ej. "TRIMESTRE" penaliza PCA anual).
+ */
+export type Huella = {
+  obligatorias: string[];
+  opcionales: string[];
+  exclusivas: string[];
+  penalizadoras: string[];
+};
+
+// ─── Reconocimiento ─────────────────────────────────────────────────────────
+
+export type ResultadoReconocimiento =
+  | {
+      estado: "reconocido";
+      tipo: TipoPlanificacion;
+      score: number;
+    }
+  | {
+      estado: "ambiguo";
+      candidatos: Array<{ tipo: TipoPlanificacion; score: number }>;
+    }
+  | {
+      estado: "no_reconocido";
+    };
+
+// ─── Campos extraídos (genérico) ────────────────────────────────────────────
+
+/**
+ * Campos extraídos por un mapeador específico del tipo.
+ * Cada tipo define su propia forma concreta que extiende esta base.
+ */
+export type CamposExtraidosBase = {
+  institucion?: string;
+  docente?: string;
+  area?: string;
+  grado?: string;
+  paralelo?: string;
+  anioLectivo?: string;
+};
+
+// ─── Resultado de guardado ──────────────────────────────────────────────────
+
+export type ResultadoGuardado = {
+  resourceId: number;
+  destination: string;
+};
+
+// ─── ImportHandler (contrato por tipo) ──────────────────────────────────────
+
+/**
+ * Contrato que cada tipo de planificación debe implementar para ser importado.
+ *
+ * El orquestador (`importer.ts`) llama en orden:
+ *   1. `mapear` — extrae campos del documento parseado
+ *   2. `completar` — usa IA para llenar campos vacíos
+ *   3. `guardar` — persiste en la tabla/DB del tipo y devuelve destino
+ */
+export type ImportHandler<Campos = CamposExtraidosBase, ResultadoIA = unknown> = {
+  /** Extrae campos del documento parseado (tablas + texto plano). */
+  mapear: (documento: DocumentoParseado) => Campos;
+
+  /** Completa campos vacíos con IA y/o planificación existente. */
+  completar: (
+    campos: Campos,
+    sessionId: string
+  ) => Promise<ResultadoIA>;
+
+  /** Guarda el resultado y devuelve la ruta de navegación. */
+  guardar: (
+    campos: Campos,
+    resultadoIA: ResultadoIA,
+    sessionId: string
+  ) => Promise<ResultadoGuardado>;
+};
+
+// ─── Resultado de importación (polimórfico) ─────────────────────────────────
+
+export type ResultadoImportacion =
+  | {
+      success: true;
+      importId: number;
+      tipo: TipoPlanificacion;
+      resourceId: number;
+      destination: string;
+    }
+  | {
+      success: false;
+      importId: number | null;
+      error: string;
+      candidatos?: Array<{ tipo: TipoPlanificacion; score: number }>;
+    };
+
+// ─── Errores ────────────────────────────────────────────────────────────────
+
 export class ArchivoNoProcesableError extends Error {
   constructor(message = "El archivo no pudo procesarse.") {
     super(message);
@@ -47,19 +148,10 @@ export class ArchivoNoProcesableError extends Error {
   }
 }
 
-export type ResultadoReconocimiento = {
-  tipo: TipoPlanificacion | "no_reconocido";
-  score: number;
-};
+// ─── Legacy (PCA) ───────────────────────────────────────────────────────────
+// Mantener temporalmente hasta migrar PCA al nuevo contrato.
 
-/** Campos de PCA que el matcher puede haber extraído del documento importado. */
-export type PcaCamposExtraidos = {
-  institucion?: string;
-  docente?: string;
-  area?: string;
-  grado?: string;
-  paralelo?: string;
-  anioLectivo?: string;
+export type PcaCamposExtraidos = CamposExtraidosBase & {
   cargaHorariaSemanal?: number;
   semanasTrabajoTotal?: number;
   semanasEvaluacion?: number;

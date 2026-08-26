@@ -1,4 +1,3 @@
-import { randomUUID } from "crypto";
 import { z } from "zod";
 import { publicProcedure, router } from "./_core/trpc";
 import { storagePut } from "./storage";
@@ -6,22 +5,21 @@ import {
   createImportedFormatDocument,
   updateImportedFormatDocument,
   getImportedFormatDocument,
-  findMatchingPcaDocuments,
-  createPcaDocument,
-  updatePcaFormDataAndAiResult,
 } from "./db";
 import { extensionDe, parseDocumento } from "./import-formato/parse";
 import { reconocerTipo } from "./import-formato/matcher";
-import { mapearCamposPca } from "./import-formato/mapear-pca";
-import {
-  completarPcaConIA,
-  inferirCodigoArea,
-} from "./import-formato/completar-pca";
+import { importar, tipoImplementado, registrarHandler } from "./import-formato/importer";
+import { pcaHandler } from "./import-formato/handlers/pca";
 import {
   ArchivoNoProcesableError,
-  TIPOS_IMPLEMENTADOS,
+  ResultadoImportacion,
 } from "./import-formato/types";
 import { DocLegacyNoSoportadoError } from "./import-formato/parse-doc";
+
+// ─── Registrar handlers ─────────────────────────────────────────────────────
+registrarHandler("pca", pcaHandler);
+
+// ─── Constantes ─────────────────────────────────────────────────────────────
 
 const TAMANO_MAXIMO_BYTES = 15 * 1024 * 1024; // 15 MB
 
@@ -42,24 +40,8 @@ const SubirInput = z.object({
   fileBase64: z.string().min(1),
 });
 
-type SubirResult =
-  | {
-      success: true;
-      importId: number;
-      tipo: "pca";
-      pcaId: number;
-    }
-  | {
-      success: false;
-      importId: number | null;
-      error: string;
-    };
+// ─── Formato físico ─────────────────────────────────────────────────────────
 
-/**
- * Formatos físicos que podemos identificar mediante "magic bytes".
- *
- * DOCX es internamente un ZIP, por eso empieza normalmente con PK.
- */
 type FormatoFisico =
   | "zip"
   | "pdf"
@@ -72,9 +54,7 @@ type FormatoFisico =
   | "unknown";
 
 function detectarFormatoFisico(buffer: Buffer): FormatoFisico {
-  if (buffer.length < 4) {
-    return "unknown";
-  }
+  if (buffer.length < 4) return "unknown";
 
   // ZIP / DOCX / XLSX / PPTX
   if (
@@ -105,16 +85,7 @@ function detectarFormatoFisico(buffer: Buffer): FormatoFisico {
   if (
     buffer.length >= 8 &&
     buffer.subarray(0, 8).equals(
-      Buffer.from([
-        0xd0,
-        0xcf,
-        0x11,
-        0xe0,
-        0xa1,
-        0xb1,
-        0x1a,
-        0xe1,
-      ])
+      Buffer.from([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1])
     )
   ) {
     return "doc";
@@ -131,20 +102,12 @@ function detectarFormatoFisico(buffer: Buffer): FormatoFisico {
     .toString("utf8")
     .trimStart();
 
-  if (
-    inicio.startsWith("<?xml") ||
-    inicio.startsWith("<html") ||
-    inicio.startsWith("<HTML")
-  ) {
+  if (inicio.startsWith("<?xml") || inicio.startsWith("<html") || inicio.startsWith("<HTML")) {
     return "xml";
   }
 
   // SVG
-  if (
-    inicio.startsWith("<svg") ||
-    inicio.startsWith("<SVG") ||
-    inicio.includes("<svg ")
-  ) {
+  if (inicio.startsWith("<svg") || inicio.startsWith("<SVG") || inicio.includes("<svg ")) {
     return "svg";
   }
 
@@ -152,16 +115,7 @@ function detectarFormatoFisico(buffer: Buffer): FormatoFisico {
   if (
     buffer.length >= 8 &&
     buffer.subarray(0, 8).equals(
-      Buffer.from([
-        0x89,
-        0x50,
-        0x4e,
-        0x47,
-        0x0d,
-        0x0a,
-        0x1a,
-        0x0a,
-      ])
+      Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
     )
   ) {
     return "png";
@@ -175,29 +129,21 @@ function detectarFormatoFisico(buffer: Buffer): FormatoFisico {
   return "unknown";
 }
 
-/**
- * Extrae y valida el contenido Base64.
- *
- * Acepta tanto Base64 puro como Data URL.
- */
+// ─── Decodificación Base64 ──────────────────────────────────────────────────
+
 function decodificarBase64(value: string): Buffer {
   let raw = value.trim();
 
-  // Data URL:
-  // data:application/...;base64,UEsDB...
+  // Data URL: data:application/...;base64,UEsDB...
   if (raw.startsWith("data:")) {
     const coma = raw.indexOf(",");
-
     if (coma === -1) {
       throw new Error("El Data URL del archivo está incompleto.");
     }
-
     const metadata = raw.slice(0, coma);
-
     if (!metadata.toLowerCase().includes(";base64")) {
       throw new Error("El archivo recibido no está codificado como Base64.");
     }
-
     raw = raw.slice(coma + 1);
   }
 
@@ -226,20 +172,8 @@ function decodificarBase64(value: string): Buffer {
   return buffer;
 }
 
-/**
- * Comprueba que la extensión declarada sea compatible con el contenido real.
- *
- * Esto evita situaciones como:
- *
- * archivo.docx
- *       ↓
- * contenido SVG
- *       ↓
- * parseDocumento()
- *
- * que fue precisamente lo que estaba ocurriendo con los primeros bytes:
- * 75ab5a6a9a6589c6
- */
+// ─── Validación extensión vs contenido ──────────────────────────────────────
+
 function validarExtensionContraContenido(
   extension: string,
   formatoFisico: FormatoFisico
@@ -254,70 +188,65 @@ function validarExtensionContraContenido(
         );
       }
       break;
-
     case "pdf":
       if (formatoFisico !== "pdf") {
-        return (
-          "El archivo tiene extensión .pdf, pero su contenido no corresponde " +
-          "a un PDF válido."
-        );
+        return "El archivo tiene extensión .pdf, pero su contenido no corresponde a un PDF válido.";
       }
       break;
-
     case "doc":
       if (formatoFisico !== "doc") {
-        return (
-          "El archivo tiene extensión .doc, pero su contenido no corresponde " +
-          "a un documento Word antiguo válido."
-        );
+        return "El archivo tiene extensión .doc, pero su contenido no corresponde a un documento Word antiguo válido.";
       }
       break;
-
     default:
       return null;
   }
-
   return null;
 }
+
+// ─── Router ─────────────────────────────────────────────────────────────────
 
 export const importarFormatoRouter = router({
   /**
    * Sube, analiza y completa un documento importado en una sola llamada.
    *
-   * Devuelve el id de la PCA resultante para navegar directamente a:
-   *
-   *   /pca-preview/{pcaId}
+   * Flujo:
+   *   1. Validar extensión y tamaño
+   *   2. Decodificar Base64
+   *   3. Detectar formato físico (magic bytes)
+   *   4. Validar extensión vs contenido
+   *   5. Guardar original en storage
+   *   6. Crear registro en DB
+   *   7. Parsear documento
+   *   8. Reconocer tipo (con manejo de ambigüedad)
+   *   9. Despachar a handler específico
+   *  10. Devolver resultado polimórfico con destination
    */
   subirYProcesar: publicProcedure
     .input(SubirInput)
-    .mutation(async ({ input }): Promise<SubirResult> => {
+    .mutation(async ({ input }): Promise<ResultadoImportacion> => {
+      // ── 1. Validar extensión ────────────────────────────────────────
       const extension = extensionDe(input.fileName);
 
       if (!extension) {
         return {
           success: false,
           importId: null,
-          error:
-            "Formato no soportado. Sube un archivo .doc, .docx o .pdf.",
+          error: "Formato no soportado. Sube un archivo .doc, .docx o .pdf.",
         };
       }
 
+      // ── 2. Decodificar Base64 ──────────────────────────────────────
       let buffer: Buffer;
 
       try {
         buffer = decodificarBase64(input.fileBase64);
       } catch (err: any) {
-        console.warn(
-          "[importar-formato] Error decodificando Base64:",
-          err?.message
-        );
-
+        console.warn("[importar-formato] Error decodificando Base64:", err?.message);
         return {
           success: false,
           importId: null,
-          error:
-            err?.message ||
-            "No se pudo leer el contenido del archivo.",
+          error: err?.message || "No se pudo leer el contenido del archivo.",
         };
       }
 
@@ -329,6 +258,7 @@ export const importarFormatoRouter = router({
         };
       }
 
+      // ── 3. Validar tamaño ──────────────────────────────────────────
       if (buffer.length > TAMANO_MAXIMO_BYTES) {
         return {
           success: false,
@@ -339,20 +269,9 @@ export const importarFormatoRouter = router({
         };
       }
 
-      /**
-       * Detectamos el formato físico ANTES de guardar el archivo.
-       *
-       * Esto es especialmente importante para el bug:
-       *
-       * extensionDeclarada: docx
-       * formatoReal: null
-       * primerosBytes: 75ab5a6a9a6589c6
-       */
+      // ── 4. Detectar formato físico ─────────────────────────────────
       const formatoFisico = detectarFormatoFisico(buffer);
-
-      const primerosBytes = buffer
-        .subarray(0, 16)
-        .toString("hex");
+      const primerosBytes = buffer.subarray(0, 16).toString("hex");
 
       console.log("[importar-formato] Archivo recibido:", {
         fileName: input.fileName,
@@ -364,22 +283,16 @@ export const importarFormatoRouter = router({
         primerosBytes,
       });
 
-      const errorFormato = validarExtensionContraContenido(
-        extension,
-        formatoFisico
-      );
+      // ── 5. Validar extensión vs contenido ──────────────────────────
+      const errorFormato = validarExtensionContraContenido(extension, formatoFisico);
 
       if (errorFormato) {
-        console.warn(
-          "[importar-formato] Archivo rechazado por incompatibilidad:",
-          {
-            fileName: input.fileName,
-            extension,
-            formatoFisico,
-            primerosBytes,
-          }
-        );
-
+        console.warn("[importar-formato] Archivo rechazado por incompatibilidad:", {
+          fileName: input.fileName,
+          extension,
+          formatoFisico,
+          primerosBytes,
+        });
         return {
           success: false,
           importId: null,
@@ -387,51 +300,33 @@ export const importarFormatoRouter = router({
         };
       }
 
-      /**
-       * Para DOCX verificamos además que sea realmente un ZIP.
-       *
-       * El formato .docx no es un archivo binario Word tradicional:
-       * internamente es un paquete ZIP con document.xml, etc.
-       */
+      // DOCX debe ser realmente un ZIP
       if (extension === "docx" && formatoFisico !== "zip") {
         return {
           success: false,
           importId: null,
-          error:
-            "El documento Word no tiene una estructura DOCX válida.",
+          error: "El documento Word no tiene una estructura DOCX válida.",
         };
       }
 
+      // ── 6. Guardar original en storage ─────────────────────────────
       let storageKey: string | null = null;
 
       try {
-        const safeSession = input.sessionId.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "_"
-        );
-
-        const safeFileName = input.fileName.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "_"
-        );
-
+        const safeSession = input.sessionId.replace(/[^a-zA-Z0-9._-]/g, "_");
+        const safeFileName = input.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
         const { key } = await storagePut(
           `importados/${safeSession}/${Date.now()}-${safeFileName}`,
           buffer,
           input.mimeType
         );
-
         storageKey = key;
       } catch (err: any) {
-        console.warn(
-          "[importar-formato] No se pudo respaldar el archivo en storage:",
-          err?.message
-        );
-
+        console.warn("[importar-formato] No se pudo respaldar el archivo en storage:", err?.message);
         // No bloqueamos el flujo por esto.
-        // El análisis puede continuar sin respaldo.
       }
 
+      // ── 7. Crear registro en DB ────────────────────────────────────
       const importId = await createImportedFormatDocument({
         sessionId: input.sessionId,
         fileName: input.fileName,
@@ -439,20 +334,11 @@ export const importarFormatoRouter = router({
         storageKey,
       });
 
-      await updateImportedFormatDocument(importId, {
-        status: "analizando",
-      });
+      await updateImportedFormatDocument(importId, { status: "analizando" });
 
+      // ── 8. Parsear documento ───────────────────────────────────────
       try {
-        /**
-         * Parseamos el documento.
-         *
-         * El parser recibe el Buffer ya validado.
-         */
-        const documentoParseado = await parseDocumento(
-          buffer,
-          extension
-        );
+        const documentoParseado = await parseDocumento(buffer, extension);
 
         console.log("[importar-formato] Documento parseado:", {
           importId,
@@ -460,9 +346,13 @@ export const importarFormatoRouter = router({
           formatoFisico,
         });
 
+        // ── 9. Reconocer tipo ────────────────────────────────────────
         const reconocimiento = reconocerTipo(documentoParseado);
 
-        if (reconocimiento.tipo === "no_reconocido") {
+        console.log("[importar-formato] Reconocimiento:", reconocimiento);
+
+        // ── Caso: no reconocido ──────────────────────────────────────
+        if (reconocimiento.estado === "no_reconocido") {
           const error =
             "No se pudo reconocer el formato del documento. " +
             "Verifica que sea un formato oficial MinEduc soportado.";
@@ -480,16 +370,38 @@ export const importarFormatoRouter = router({
           };
         }
 
-        if (!TIPOS_IMPLEMENTADOS.includes(reconocimiento.tipo)) {
+        // ── Caso: ambiguo ────────────────────────────────────────────
+        if (reconocimiento.estado === "ambiguo") {
           const error =
-            `Se reconoció el formato "${reconocimiento.tipo}", ` +
+            "No pudimos determinar con seguridad el tipo de planificación. " +
+            "Por favor, selecciona el tipo correcto.";
+
+          await updateImportedFormatDocument(importId, {
+            status: "ambiguo",
+            errorMensaje: error,
+          });
+
+          return {
+            success: false,
+            importId,
+            error,
+            candidatos: reconocimiento.candidatos,
+          };
+        }
+
+        // ── Caso: reconocido ─────────────────────────────────────────
+        const { tipo } = reconocimiento;
+
+        if (!tipoImplementado(tipo)) {
+          const error =
+            `Se reconoció el formato "${tipo}", ` +
             "pero el completado automático para este tipo todavía " +
             "no está disponible.";
 
           await updateImportedFormatDocument(importId, {
             status: "error",
             errorMensaje: error,
-            tipoDetectado: reconocimiento.tipo,
+            tipoDetectado: tipo,
           });
 
           return {
@@ -499,188 +411,31 @@ export const importarFormatoRouter = router({
           };
         }
 
-        // Única rama implementada en esta etapa: PCA.
-        const camposExtraidos = mapearCamposPca(
-          documentoParseado
-        );
-
+        // ── 10. Despachar a handler ──────────────────────────────────
         await updateImportedFormatDocument(importId, {
-          tipoDetectado: "pca",
-          camposExtraidos: JSON.stringify(camposExtraidos),
+          tipoDetectado: tipo,
         });
 
-        const areaCodigo = inferirCodigoArea(
-          camposExtraidos.area
+        const resultado = await importar(
+          documentoParseado,
+          tipo,
+          input.sessionId,
+          importId
         );
 
-        const candidatos = await findMatchingPcaDocuments({
-          sessionId: input.sessionId,
-          area: areaCodigo,
-          grado: camposExtraidos.grado,
-          anioLectivo: camposExtraidos.anioLectivo,
-        });
-
-        const existenteRow = candidatos[0] ?? null;
-
-        const existente = existenteRow
-          ? {
-              formData: JSON.parse(existenteRow.formData),
-              aiResult: existenteRow.aiResult
-                ? JSON.parse(existenteRow.aiResult)
-                : null,
-            }
-          : null;
-
-        const { aiResult, subnivel } =
-          await completarPcaConIA(
-            camposExtraidos,
-            existente
-          );
-
-        /**
-         * Prioridad:
-         *
-         * 1. Valores presentes en documento importado.
-         * 2. Valores de PCA existente.
-         * 3. Defaults neutrales.
-         */
-        const formData = {
-          ...(existente?.formData ?? {}),
-
-          institucion:
-            camposExtraidos.institucion ||
-            existente?.formData?.institucion ||
-            "",
-
-          docente:
-            camposExtraidos.docente ||
-            existente?.formData?.docente ||
-            "",
-
-          area: areaCodigo,
-
-          subnivel,
-
-          grado:
-            camposExtraidos.grado ||
-            existente?.formData?.grado ||
-            "",
-
-          anioLectivo:
-            camposExtraidos.anioLectivo ||
-            existente?.formData?.anioLectivo ||
-            "",
-
-          paralelo:
-            existente?.formData?.paralelo ||
-            "",
-
-          cargaHorariaSemanal:
-            camposExtraidos.cargaHorariaSemanal ??
-            existente?.formData?.cargaHorariaSemanal ??
-            5,
-
-          semanasTrabajoTotal:
-            camposExtraidos.semanasTrabajoTotal ??
-            existente?.formData?.semanasTrabajoTotal ??
-            40,
-
-          semanasEvaluacion:
-            camposExtraidos.semanasEvaluacion ??
-            existente?.formData?.semanasEvaluacion ??
-            8,
-
-          usaEjesTransversales:
-            existente?.formData?.usaEjesTransversales ??
-            false,
-
-          ejesTransversales:
-            existente?.formData?.ejesTransversales ??
-            [],
-
-          unidades:
-            camposExtraidos.unidades.length > 0
-              ? camposExtraidos.unidades.map((u) => ({
-                  id: randomUUID(),
-                  numero: u.numero,
-                  dcdsSeleccionadas: [],
-                  duracionSemanas:
-                    u.duracionSemanas ?? 4,
-                }))
-              : existente?.formData?.unidades ?? [],
-
-          metodologiasActivas:
-            existente?.formData?.metodologiasActivas ??
-            [],
-
-          tecnicasEvaluacion:
-            existente?.formData?.tecnicasEvaluacion ??
-            [],
-
-          bibliografiaDocente:
-            camposExtraidos.bibliografia ||
-            existente?.formData?.bibliografiaDocente ||
-            "",
-
-          firmaElaboradoPor:
-            existente?.formData?.firmaElaboradoPor ||
-            "",
-
-          firmaElaboradoFecha:
-            existente?.formData?.firmaElaboradoFecha ||
-            "",
-
-          firmaRevisadoPor:
-            existente?.formData?.firmaRevisadoPor ||
-            "",
-
-          firmaRevisadoFecha:
-            existente?.formData?.firmaRevisadoFecha ||
-            "",
-
-          firmaAprobadoPor:
-            existente?.formData?.firmaAprobadoPor ||
-            "",
-
-          firmaAprobadoFecha:
-            existente?.formData?.firmaAprobadoFecha ||
-            "",
-        };
-
-        let pcaId: number;
-
-        if (existenteRow) {
-          pcaId = existenteRow.id;
-
-          await updatePcaFormDataAndAiResult(
-            pcaId,
-            JSON.stringify(formData),
-            JSON.stringify(aiResult)
-          );
+        if (resultado.success) {
+          await updateImportedFormatDocument(importId, {
+            status: "completado",
+            planificacionId: resultado.resourceId,
+          });
         } else {
-          pcaId = await createPcaDocument({
-            sessionId: input.sessionId,
-            status: "generated",
-            formData: JSON.stringify(formData),
-            aiResult: JSON.stringify(aiResult),
+          await updateImportedFormatDocument(importId, {
+            status: "error",
+            errorMensaje: resultado.error,
           });
         }
 
-        await updateImportedFormatDocument(importId, {
-          status: "completado",
-          resultado: JSON.stringify({
-            formData,
-            aiResult,
-          }),
-          planificacionId: pcaId,
-        });
-
-        return {
-          success: true,
-          importId,
-          tipo: "pca",
-          pcaId,
-        };
+        return resultado;
       } catch (err: any) {
         let mensaje: string;
 
@@ -689,25 +444,19 @@ export const importarFormatoRouter = router({
             "El archivo .doc no es compatible con este formato antiguo. " +
             "Abre el archivo en Word y guárdalo como .docx, luego vuelve a intentar.";
         } else if (err instanceof ArchivoNoProcesableError) {
-          mensaje =
-            "El archivo no pudo procesarse. Verifica que no esté dañado.";
+          mensaje = "El archivo no pudo procesarse. Verifica que no esté dañado.";
         } else {
-          mensaje =
-            err?.message ||
-            "No se pudo completar la importación. Intenta de nuevo.";
+          mensaje = err?.message || "No se pudo completar la importación. Intenta de nuevo.";
         }
 
-        console.error(
-          "[importar-formato] Error procesando documento:",
-          {
-            importId,
-            fileName: input.fileName,
-            extension,
-            formatoFisico,
-            primerosBytes,
-            error: err,
-          }
-        );
+        console.error("[importar-formato] Error procesando documento:", {
+          importId,
+          fileName: input.fileName,
+          extension,
+          formatoFisico,
+          primerosBytes,
+          error: err,
+        });
 
         await updateImportedFormatDocument(importId, {
           status: "error",
@@ -731,9 +480,7 @@ export const importarFormatoRouter = router({
       const doc = await getImportedFormatDocument(input.id);
 
       if (!doc) {
-        return {
-          found: false as const,
-        };
+        return { found: false as const };
       }
 
       return {

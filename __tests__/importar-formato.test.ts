@@ -53,7 +53,7 @@ describe("importar-formato: reconocimiento — documento no reconocido", () => {
     const buffer = await docx.Packer.toBuffer(doc);
     const parsed = await parseDocumento(Buffer.from(buffer), "docx");
     const reco = reconocerTipo(parsed);
-    expect(reco.tipo).toBe("no_reconocido");
+    expect(reco.estado).toBe("no_reconocido");
   });
 });
 
@@ -62,8 +62,11 @@ describe("importar-formato: reconocimiento — formato oficial real (.doc)", () 
     const buffer = readFileSync(FIXTURE_DOC_OFICIAL);
     const parsed = await parseDocumento(buffer, "doc");
     const reco = reconocerTipo(parsed);
-    expect(reco.tipo).toBe("pca");
-    expect(reco.score).toBeGreaterThanOrEqual(0.6);
+    expect(reco.estado).toBe("reconocido");
+    if (reco.estado === "reconocido") {
+      expect(reco.tipo).toBe("pca");
+      expect(reco.score).toBeGreaterThanOrEqual(0.6);
+    }
   });
 });
 
@@ -87,7 +90,7 @@ describe("importar-formato: pipeline completo sobre un documento de prueba gener
 
     const parsed = await parseDocumento(buffer, "docx");
     const reco = reconocerTipo(parsed);
-    expect(reco).toEqual({ tipo: "pca", score: 1 });
+    expect(reco).toEqual({ estado: "reconocido", tipo: "pca", score: 1 });
 
     const campos = mapearCamposPca(parsed);
     expect(campos.institucion).toBe('Unidad Educativa "Simón Bolívar"');

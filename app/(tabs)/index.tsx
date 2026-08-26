@@ -289,7 +289,7 @@ export default function HomeScreen() {
                         Importar formato existente
                       </Text>
                       <Text style={{ color: colors.muted, fontSize: 12, marginTop: 2 }}>
-                        Sube tu PCA en Word o PDF y complétala con IA
+                        Sube un formato oficial MinEduc en Word o PDF y complétalo con IA
                       </Text>
                     </View>
                     <Text style={{ color: colors.muted, fontSize: 20 }}>›</Text>
