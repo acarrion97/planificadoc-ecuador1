@@ -6,6 +6,7 @@
  */
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import { ensureMigrations } from "../_lib/migrate";
 import { topicsRouter } from "../../server/topics-router";
 import { pcaRouter } from "../../server/pca-router";
 import { pcaTrimestralRouter } from "../../server/pca-trimestral-router";
@@ -41,6 +42,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
+
+  // Ejecutar migraciones pendientes en el primer request (una sola vez por cold start)
+  await ensureMigrations();
 
   try {
     // Convert Vercel's Node request to a Fetch API Request for @trpc/server/adapters/fetch
