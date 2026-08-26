@@ -19,6 +19,7 @@ export async function parseDoc(buffer: Buffer): Promise<{ textoPlano: string }> 
     return { textoPlano };
   } catch (err) {
     if (err instanceof ArchivoNoProcesableError) throw err;
+    console.error("[parse-doc] Error parseando .doc:", err);
     throw new ArchivoNoProcesableError();
   }
 }
