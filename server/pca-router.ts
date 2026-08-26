@@ -425,11 +425,13 @@ export const pcaRouter = router({
       }
 
       // Verificar si tiene plantilla asociada
-      if (!pca.formatoPlantillaId) {
+      // formatoPlantillaId puede no existir si la migración no se ha aplicado
+      const plantillaId = (pca as any).formatoPlantillaId;
+      if (!plantillaId) {
         return { success: false, useNative: true };
       }
 
-      const plantilla = await getFormatoPlantilla(pca.formatoPlantillaId);
+      const plantilla = await getFormatoPlantilla(plantillaId);
       if (!plantilla || !plantilla.templateBufferBase64) {
         return { success: false, useNative: true };
       }

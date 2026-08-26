@@ -422,7 +422,19 @@ export async function getPcaDocument(id: number) {
   if (!db) return null;
 
   const result = await db
-    .select()
+    .select({
+      id: pcaDocuments.id,
+      sessionId: pcaDocuments.sessionId,
+      status: pcaDocuments.status,
+      formData: pcaDocuments.formData,
+      aiResult: pcaDocuments.aiResult,
+      clientTransactionId: pcaDocuments.clientTransactionId,
+      payphoneTransactionId: pcaDocuments.payphoneTransactionId,
+      authorizationCode: pcaDocuments.authorizationCode,
+      amountPaid: pcaDocuments.amountPaid,
+      createdAt: pcaDocuments.createdAt,
+      updatedAt: pcaDocuments.updatedAt,
+    })
     .from(pcaDocuments)
     .where(eq(pcaDocuments.id, id))
     .limit(1);
@@ -671,7 +683,19 @@ export async function findMatchingPcaDocuments(data: {
   if (!db) return [];
 
   const rows = await db
-    .select()
+    .select({
+      id: pcaDocuments.id,
+      sessionId: pcaDocuments.sessionId,
+      status: pcaDocuments.status,
+      formData: pcaDocuments.formData,
+      aiResult: pcaDocuments.aiResult,
+      clientTransactionId: pcaDocuments.clientTransactionId,
+      payphoneTransactionId: pcaDocuments.payphoneTransactionId,
+      authorizationCode: pcaDocuments.authorizationCode,
+      amountPaid: pcaDocuments.amountPaid,
+      createdAt: pcaDocuments.createdAt,
+      updatedAt: pcaDocuments.updatedAt,
+    })
     .from(pcaDocuments)
     .where(eq(pcaDocuments.sessionId, data.sessionId))
     .orderBy(desc(pcaDocuments.createdAt));
