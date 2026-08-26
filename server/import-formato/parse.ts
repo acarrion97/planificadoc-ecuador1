@@ -11,6 +11,14 @@ export function extensionDe(fileName: string): ExtensionSoportada | null {
 }
 
 /**
+ * Detecta si el buffer es realmente un .docx (ZIP/ZIP2) aunque la extensión diga .doc.
+ * DOCX magic: PK (0x50 0x4B), DOC magic: D0 CF 11 E0 A1 B1 1A E1.
+ */
+function esDocx(buffer: Buffer): boolean {
+  return buffer.length >= 2 && buffer[0] === 0x50 && buffer[1] === 0x4b;
+}
+
+/**
  * Despacha al parser correspondiente según la extensión y normaliza el
  * resultado a `DocumentoParseado`. Lanza `ArchivoNoProcesableError` si el
  * archivo está dañado o no se puede leer (spec.md, Requirement:
@@ -23,6 +31,10 @@ export async function parseDocumento(buffer: Buffer, extension: ExtensionSoporta
     return { extension, textoPlano, tablas };
   }
   if (extension === "doc") {
+    if (esDocx(buffer)) {
+      const { textoPlano, tablas } = await parseDocx(buffer);
+      return { extension: "docx", textoPlano, tablas };
+    }
     const { textoPlano } = await parseDoc(buffer);
     return { extension, textoPlano, tablas: [] };
   }
