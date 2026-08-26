@@ -422,12 +422,31 @@ export default function PcaPreviewScreen() {
     }
   }, [doc, formData, aiResult]);
 
-  // Exportar Word
+  // Exportar Word — intenta con plantilla primero, luego generador nativo
   const handleExportWord = useCallback(async () => {
     if (!doc) return;
     setExportingWord(true);
     try {
-      const blob = await generarWordPca(formData, aiResult);
+      let blob: Blob;
+
+      // Intentar exportar con plantilla (DOCX fiel al original)
+      const plantillaResult = await trpc.pca.exportarConPlantilla.mutate({
+        pcaId: doc.id,
+      });
+
+      if (plantillaResult.success && plantillaResult.docxBase64) {
+        // Convertir base64 a Blob
+        const binaryString = atob(plantillaResult.docxBase64);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        blob = new Blob([bytes], { type: plantillaResult.mimeType });
+      } else {
+        // Fallback: generador nativo
+        blob = await generarWordPca(formData, aiResult);
+      }
+
       if (Platform.OS === "web") {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -439,7 +458,6 @@ export default function PcaPreviewScreen() {
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 5000);
       } else {
-        // Móvil: guardar temporalmente y compartir
         const ExpoFileSystem = await import("expo-file-system");
         const ExpoSharing = await import("expo-sharing");
         const base64 = await blobToBase64(blob);

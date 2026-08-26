@@ -176,10 +176,11 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
           tipoPlanificacion: "pca",
           formatoOrigen: "docx",
           mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          storageKey: "", // Se actualizará después si es necesario
+          storageKey: "",
           estructura: JSON.stringify(plantilla.estructura),
           bindings: JSON.stringify(plantilla.bindings),
           configuracion: JSON.stringify(plantilla.configuracion),
+          templateBufferBase64: originalBuffer.toString("base64"),
         });
 
         console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}`);

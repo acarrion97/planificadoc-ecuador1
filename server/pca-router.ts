@@ -399,4 +399,98 @@ export const pcaRouter = router({
         return { success: false, error: error.message || "Error al regenerar" };
       }
     }),
+
+  /**
+   * Exporta un PCA como DOCX usando la plantilla original importada.
+   * Si el PCA tiene formatoPlantillaId, usa el template renderer.
+   * Si no, devuelve null para que el frontend use el generador nativo.
+   */
+  exportarConPlantilla: publicProcedure
+    .input(z.object({ pcaId: z.number() }))
+    .mutation(async ({ input }) => {
+      const { getPcaDocument, getFormatoPlantilla } = await import("./db");
+      const { renderizarDocxPlantilla } = await import(
+        "./import-formato/template-docx-renderer"
+      );
+
+      const pca = await getPcaDocument(input.pcaId);
+      if (!pca) throw new Error("PCA no encontrado");
+
+      // Parsear formData para obtener los campos
+      let formData: Record<string, unknown>;
+      try {
+        formData = JSON.parse(pca.formData);
+      } catch {
+        throw new Error("formData corrupto");
+      }
+
+      // Verificar si tiene plantilla asociada
+      if (!pca.formatoPlantillaId) {
+        return { success: false, useNative: true };
+      }
+
+      const plantilla = await getFormatoPlantilla(pca.formatoPlantillaId);
+      if (!plantilla || !plantilla.templateBufferBase64) {
+        return { success: false, useNative: true };
+      }
+
+      // Decodificar buffer del template
+      const templateBuffer = Buffer.from(plantilla.templateBufferBase64, "base64");
+
+      // Preparar datos para el renderer
+      const unidades = (formData.unidades as any[]) || [];
+
+      // Calcular semanas acumuladas para cada unidad
+      let acumulado = 0;
+      const unidadesConSemanas = unidades.map((u: any) => {
+        const inicio = acumulado + 1;
+        acumulado += u.duracionSemanas || 4;
+        return {
+          numero: String(u.numero),
+          nombre: u.nombre || `Unidad ${u.numero}`,
+          semanaInicio: String(inicio),
+          semanaFin: String(acumulado),
+          duracion: String(u.duracionSemanas || 4),
+          dcds: (u.dcdsSeleccionadas || []).join(", "),
+        };
+      });
+
+      const datos: Record<string, string> = {
+        institucion: formData.institucion || "",
+        docente: formData.docente || "",
+        area: formData.area || "",
+        grado: formData.grado || "",
+        anioLectivo: formData.anioLectivo || "",
+        paralelo: formData.paralelo || "",
+        cargaHoraria: String(formData.cargaHorariaSemanal || ""),
+        semanasTrabajo: String(formData.semanasTrabajoTotal || ""),
+        semanasEvaluacion: String(formData.semanasEvaluacion || ""),
+        // Firmas
+        firmaElaboradoPor: formData.firmaElaboradoPor || "",
+        firmaElaboradoFecha: formData.firmaElaboradoFecha || "",
+        firmaRevisadoPor: formData.firmaRevisadoPor || "",
+        firmaRevisadoFecha: formData.firmaRevisadoFecha || "",
+        firmaAprobadoPor: formData.firmaAprobadoPor || "",
+        firmaAprobadoFecha: formData.firmaAprobadoFecha || "",
+      };
+
+      try {
+        const docxBuffer = await renderizarDocxPlantilla(
+          templateBuffer,
+          JSON.parse(plantilla.bindings),
+          datos,
+          unidadesConSemanas
+        );
+
+        return {
+          success: true,
+          docxBase64: docxBuffer.toString("base64"),
+          mimeType:
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        };
+      } catch (err: any) {
+        console.error("[pca-router] Error exportando con plantilla:", err);
+        return { success: false, useNative: true };
+      }
+    }),
 });

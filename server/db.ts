@@ -704,6 +704,7 @@ export async function createFormatoPlantilla(data: {
   estructura: string;
   bindings: string;
   configuracion?: string;
+  templateBufferBase64?: string;
 }): Promise<number> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -718,6 +719,7 @@ export async function createFormatoPlantilla(data: {
     estructura: data.estructura,
     bindings: data.bindings,
     configuracion: data.configuracion ?? null,
+    templateBufferBase64: data.templateBufferBase64 ?? null,
     version: 1,
     activo: true,
   } as InsertFormatoPlantilla);

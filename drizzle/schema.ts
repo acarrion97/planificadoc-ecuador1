@@ -259,6 +259,8 @@ export const formatoPlantillas = mysqlTable("formato_plantillas", {
   mimeType: varchar("mimeType", { length: 128 }).notNull(),
   /** Clave en storage del archivo original (mismo storageKey de importedFormatDocuments) */
   storageKey: varchar("storageKey", { length: 512 }).notNull(),
+  /** Buffer del template DOCX original en base64 (para rellenar y exportar) */
+  templateBufferBase64: text("templateBufferBase64"),
   /** Número de versión del análisis de estructura/bindings */
   version: int("version").notNull().default(1),
   /** JSON: PlantillaEstructura — mapa navegable del documento */
