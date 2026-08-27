@@ -681,17 +681,13 @@ async function ensureFormatoPlantillaTable(): Promise<void> {
     `);
 
     // Migrate existing TEXT column to LONGTEXT if needed (DOCX with images exceed 64KB)
-    const [colCheck]: any = await (db as any).execute(`
-      SELECT DATA_TYPE FROM information_schema.columns
-      WHERE table_schema = DATABASE()
-        AND table_name = 'formato_plantillas'
-        AND column_name = 'templateBufferBase64'
-    `);
-    if (colCheck?.[0]?.DATA_TYPE === "text") {
+    // Try ALTER directly — if column is already LONGTEXT, error is caught and ignored
+    try {
       await (db as any).execute(
         `ALTER TABLE \`formato_plantillas\` MODIFY COLUMN \`templateBufferBase64\` LONGTEXT`
       );
-      console.log("[DB] Migrated templateBufferBase64 from TEXT to LONGTEXT");
+    } catch (e: any) {
+      // Column might already be LONGTEXT or table might not exist yet — safe to ignore
     }
   } catch (err: any) {
     if (!err?.message?.includes("already exists")) {
