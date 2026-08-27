@@ -459,6 +459,7 @@ export async function getPcaDocument(id: number) {
       payphoneTransactionId: pcaDocuments.payphoneTransactionId,
       authorizationCode: pcaDocuments.authorizationCode,
       amountPaid: pcaDocuments.amountPaid,
+      formatoPlantillaId: pcaDocuments.formatoPlantillaId,
       createdAt: pcaDocuments.createdAt,
       updatedAt: pcaDocuments.updatedAt,
     })
@@ -784,6 +785,7 @@ export async function findMatchingPcaDocuments(data: {
       payphoneTransactionId: pcaDocuments.payphoneTransactionId,
       authorizationCode: pcaDocuments.authorizationCode,
       amountPaid: pcaDocuments.amountPaid,
+      formatoPlantillaId: pcaDocuments.formatoPlantillaId,
       createdAt: pcaDocuments.createdAt,
       updatedAt: pcaDocuments.updatedAt,
     })

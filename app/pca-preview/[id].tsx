@@ -330,9 +330,7 @@ export default function PcaPreviewScreen() {
   const [adminKey, setAdminKey] = useState("");
   const [adminUnlocking, setAdminUnlocking] = useState(false);
   const [adminMsg, setAdminMsg] = useState("");
-  const [cloning, setCloning] = useState(false);
   const regenerarMutation = trpc.pca.regenerarSeccion.useMutation();
-  const clonarMutation = trpc.pca.clonarPca.useMutation();
   const exportPlantillaMutation = trpc.pca.exportarConPlantilla.useMutation();
 
   const { data, isLoading, error, refetch } = trpc.pca.getPca.useQuery(
@@ -387,30 +385,6 @@ export default function PcaPreviewScreen() {
       Alert.alert("Error", err.message);
     }
   }, [pcaId, regenerarMutation, refetch]);
-
-  // Clonar PCA
-  const handleClonar = useCallback(async () => {
-    try {
-      const sessionId = await getSessionId();
-      setCloning(true);
-      const result = await clonarMutation.mutateAsync({
-        sourcePcaId: pcaId,
-        sessionId,
-      });
-      if (result.success && result.newPcaId) {
-        Alert.alert("PCA Clonada", "Se ha creado una copia de esta PCA. Puedes editarla libremente.", [
-          { text: "Ver copia", onPress: () => router.push(`/pca-preview/${result.newPcaId}`) },
-          { text: "Cerrar", style: "cancel" },
-        ]);
-      } else {
-        Alert.alert("Error", result.error || "No se pudo clonar la PCA");
-      }
-    } catch (err: any) {
-      Alert.alert("Error", err.message);
-    } finally {
-      setCloning(false);
-    }
-  }, [pcaId, clonarMutation, router]);
 
   // Exportar PDF
   const handleExportPdf = useCallback(async () => {
@@ -586,20 +560,6 @@ export default function PcaPreviewScreen() {
           </Pressable>
         </View>
       )}
-
-      {/* Botón clonar (siempre visible) */}
-      <View style={[s.downloadBar, { borderBottomColor: colors.border, backgroundColor: "#f0f9ff" }]}>
-        <Pressable
-          onPress={handleClonar}
-          disabled={cloning}
-          style={({ pressed }) => [s.dlBtn, { backgroundColor: "#0066cc", opacity: pressed || cloning ? 0.7 : 1, flex: 1 }]}
-        >
-          {cloning
-            ? <ActivityIndicator color="#fff" size="small" />
-            : <Text style={s.dlBtnText}>📋 Clonar esta PCA</Text>
-          }
-        </Pressable>
-      </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
         {/* ── Sección 1 + 2: Datos informativos + tiempo ── */}
