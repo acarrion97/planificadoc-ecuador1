@@ -386,18 +386,17 @@ async function ensurePcaTable(): Promise<void> {
     `);
 
     // Agregar columna formatoPlantillaId si no existe (migración para tablas existentes)
-    await (db as any).execute(`
-      SET @dbname = DATABASE();
-      SELECT COUNT(*) INTO @col_exists
-      FROM information_schema.columns
-      WHERE table_schema = @dbname
+    const [colCheck] = await (db as any).execute(`
+      SELECT COUNT(*) AS cnt FROM information_schema.columns
+      WHERE table_schema = DATABASE()
         AND table_name = 'pca_documents'
-        AND column_name = 'formatoPlantillaId';
-      SET @sql = IF(@col_exists = 0,
-        'ALTER TABLE \`pca_documents\` ADD COLUMN \`formatoPlantillaId\` INT AFTER \`amountPaid\`',
-        'SELECT "column already exists"');
-      PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+        AND column_name = 'formatoPlantillaId'
     `);
+    if (colCheck?.[0]?.cnt === 0) {
+      await (db as any).execute(
+        `ALTER TABLE \`pca_documents\` ADD COLUMN \`formatoPlantillaId\` INT AFTER \`amountPaid\``
+      );
+    }
   } catch (err: any) {
     // Si ya existe o hay otro error no crítico, continuar
     if (!err?.message?.includes("already exists")) {

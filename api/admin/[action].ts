@@ -1316,16 +1316,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 INDEX \`idx_plantilla_session\` (\`sessionId\`),
                 INDEX \`idx_plantilla_tipo\` (\`tipoPlanificacion\`)
               ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;`,
-              `SET @dbname = DATABASE();
-               SELECT COUNT(*) INTO @col_exists
-               FROM information_schema.columns
-               WHERE table_schema = @dbname
-                 AND table_name = 'pca_documents'
-                 AND column_name = 'formatoPlantillaId';`,
-              `SET @sql = IF(@col_exists = 0,
-                'ALTER TABLE \`pca_documents\` ADD COLUMN \`formatoPlantillaId\` INT AFTER \`amountPaid\`',
-                'SELECT "column already exists"');
-               PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;`,
             ],
           },
         ];
@@ -1334,6 +1324,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             const [row] = await conn.execute(sql);
             results.push({ migration: migration.name, result: row });
           }
+        }
+
+        // Agregar columna formatoPlantillaId si no existe
+        const [colCheck]: any = await conn.execute(
+          `SELECT COUNT(*) AS cnt FROM information_schema.columns
+           WHERE table_schema = DATABASE()
+             AND table_name = 'pca_documents'
+             AND column_name = 'formatoPlantillaId'`
+        );
+        if (colCheck?.[0]?.cnt === 0) {
+          await conn.execute(
+            `ALTER TABLE \`pca_documents\` ADD COLUMN \`formatoPlantillaId\` INT AFTER \`amountPaid\``
+          );
+          results.push({ migration: "0010_add_formato_plantilla_id_column", result: "column added" });
+        } else {
+          results.push({ migration: "0010_add_formato_plantilla_id_column", result: "column already exists" });
         }
         return res.status(200).json({ success: true, results });
       } catch (err: any) {
