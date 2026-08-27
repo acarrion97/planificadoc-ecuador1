@@ -31,7 +31,7 @@ export function registrarHandler<Campos, ResultadoIA>(
   tipo: TipoPlanificacion,
   handler: ImportHandler<Campos, ResultadoIA>
 ): void {
-  IMPORT_HANDLERS[tipo] = handler as ImportHandler;
+  IMPORT_HANDLERS[tipo] = handler as unknown as ImportHandler;
 }
 
 /**
