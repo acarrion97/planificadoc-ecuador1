@@ -457,31 +457,31 @@ export const pcaRouter = router({
         };
       });
 
-      const datos: Record<string, string> = {
-        institucion: formData.institucion || "",
-        docente: formData.docente || "",
-        area: formData.area || "",
-        grado: formData.grado || "",
-        anioLectivo: formData.anioLectivo || "",
-        paralelo: formData.paralelo || "",
+      const datos: Record<string, any> = {
+        institucion: String(formData.institucion || ""),
+        docente: String(formData.docente || ""),
+        area: String(formData.area || ""),
+        grado: String(formData.grado || ""),
+        anioLectivo: String(formData.anioLectivo || ""),
+        paralelo: String(formData.paralelo || ""),
         cargaHoraria: String(formData.cargaHorariaSemanal || ""),
         semanasTrabajo: String(formData.semanasTrabajoTotal || ""),
         semanasEvaluacion: String(formData.semanasEvaluacion || ""),
         // Firmas
-        firmaElaboradoPor: formData.firmaElaboradoPor || "",
-        firmaElaboradoFecha: formData.firmaElaboradoFecha || "",
-        firmaRevisadoPor: formData.firmaRevisadoPor || "",
-        firmaRevisadoFecha: formData.firmaRevisadoFecha || "",
-        firmaAprobadoPor: formData.firmaAprobadoPor || "",
-        firmaAprobadoFecha: formData.firmaAprobadoFecha || "",
+        firmaElaboradoPor: String(formData.firmaElaboradoPor || ""),
+        firmaElaboradoFecha: String(formData.firmaElaboradoFecha || ""),
+        firmaRevisadoPor: String(formData.firmaRevisadoPor || ""),
+        firmaRevisadoFecha: String(formData.firmaRevisadoFecha || ""),
+        firmaAprobadoPor: String(formData.firmaAprobadoPor || ""),
+        firmaAprobadoFecha: String(formData.firmaAprobadoFecha || ""),
+        unidades: unidadesConSemanas,
       };
 
       try {
         const docxBuffer = await renderizarDocxPlantilla(
           templateBuffer,
           JSON.parse(plantilla.bindings),
-          datos,
-          unidadesConSemanas
+          datos
         );
 
         return {

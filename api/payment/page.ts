@@ -60,12 +60,13 @@ function generateClientTxId(email: string): string {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(200).end();
+
   // POST — guarda atribución de Meta antes de redirigir a PayPhone
   if (req.method === "POST") {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    if (req.method === "OPTIONS") return res.status(200).end();
     const b = (req.body ?? {}) as Record<string, any>;
     if (!b.clientTxId || !b.eventId || b.value == null) {
       return res.status(400).json({ error: "clientTxId, eventId y value son requeridos" });
@@ -376,6 +377,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
   }
 
+  const fbpFromUrl = ((req.query.fbp as string) || "").trim() || null;
+  const fbcFromUrl = ((req.query.fbc as string) || "").trim() || null;
+
   // ──────────────── Trial Payment (3 días gratis, $1 verificación) ────────────────
   if (isTrial) {
     if (!documentId || !phoneNumber || !cardHolder) {
@@ -564,10 +568,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const enableRecurring = true; // always enable since fields are now required
-
-  // Leer fbp/fbc pasados como query params desde paywall.tsx (más confiable que cookies en la nueva pestaña)
-  const fbpFromUrl = ((req.query.fbp as string) || "").trim() || null;
-  const fbcFromUrl = ((req.query.fbc as string) || "").trim() || null;
 
   try {
     const pricing = getPriceForPlan(plan);

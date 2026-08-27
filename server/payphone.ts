@@ -369,10 +369,10 @@ export function registerPayPhoneRoutes(app: Express) {
   });
 
   /**
-   * GET /api/payment/status?email=xxx
+   * GET /api/subscription/status?email=xxx
    * Check subscription status for an email.
    */
-  app.get("/api/payment/status", async (req: Request, res: Response) => {
+  app.get("/api/subscription/status", async (req: Request, res: Response) => {
     const email = (req.query.email as string || "").trim().toLowerCase();
 
     if (!email) {
@@ -458,10 +458,10 @@ export function registerPayPhoneRoutes(app: Express) {
   });
 
   /**
-   * POST /api/payment/cancel-recurring
+   * POST /api/subscription/cancel-recurring
    * Cancel recurring billing for a user.
    */
-  app.post("/api/payment/cancel-recurring", async (req: Request, res: Response) => {
+  app.post("/api/subscription/cancel-recurring", async (req: Request, res: Response) => {
     const { email } = req.body;
     if (!email) {
       res.status(400).json({ error: "Email requerido" });

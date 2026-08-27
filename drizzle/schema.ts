@@ -470,7 +470,7 @@ export const importedFormatDocuments = mysqlTable("imported_format_documents", {
   resultado: text("resultado"),
   /** Si el tipo detectado tiene tabla propia (ej. pca_documents), su id */
   planificacionId: int("planificacionId"),
-  status: mysqlEnum("status", ["subido", "analizando", "completado", "error"])
+  status: mysqlEnum("status", ["subido", "analizando", "completado", "error", "ambiguo"])
     .default("subido")
     .notNull(),
   /** Mensaje de error legible para el docente, si status = "error" */

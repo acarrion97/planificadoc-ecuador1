@@ -93,5 +93,77 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
+  // GET /api/subscription/status?email=...
+  if (action === "status") {
+    const email = (req.query.email as string)?.trim().toLowerCase();
+    if (!email) return res.status(400).json({ error: "Email requerido" });
+
+    const now = new Date();
+    const subs = await db
+      .select()
+      .from(subscriptions)
+      .where(eq(subscriptions.email, email))
+      .orderBy(desc(subscriptions.endDate))
+      .limit(5);
+
+    const validSub = subs.find(
+      (s) => (s.status === "active" || s.status === ("trial" as any)) && new Date(s.endDate) > now
+    );
+
+    if (!validSub) {
+      return res.json({ active: false });
+    }
+
+    return res.json({
+      active: true,
+      plan: validSub.plan,
+      endDate: validSub.endDate,
+      isRecurring: validSub.isRecurring,
+      isTrial: (validSub as any).isTrial || false,
+      trialDaysLeft: (validSub as any).isTrial
+        ? Math.ceil((new Date(validSub.endDate).getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+        : null,
+    });
+  }
+
+  // POST /api/subscription/cancel  (cancel entire subscription/trial)
+  if (action === "cancel") {
+    if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: "Email requerido" });
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const allSubs = await db
+      .select()
+      .from(subscriptions)
+      .where(eq(subscriptions.email, normalizedEmail))
+      .limit(5);
+
+    const now = new Date();
+    const activeSub = allSubs.find(
+      (s) => (s.status === "active" || s.status === ("trial" as any)) && new Date(s.endDate) > now
+    );
+
+    if (!activeSub) {
+      return res.json({ success: false, message: "No hay suscripción activa" });
+    }
+
+    const isTrial = (activeSub as any).isTrial || activeSub.status === "trial";
+
+    await db
+      .update(subscriptions)
+      .set({ status: "cancelled" })
+      .where(eq(subscriptions.id, activeSub.id));
+
+    return res.json({
+      success: true,
+      cancelled: isTrial ? "trial" : "subscription",
+      message: isTrial
+        ? "Prueba gratuita cancelada. No se realizará ningún cobro adicional."
+        : "Renovación automática cancelada. Tu acceso continúa hasta " + activeSub.endDate,
+    });
+  }
+
   return res.status(404).json({ error: "Acción no encontrada" });
 }

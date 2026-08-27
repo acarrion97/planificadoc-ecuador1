@@ -589,7 +589,7 @@ async function ensureImportedFormatDocumentsTable(): Promise<void> {
         \`camposExtraidos\` text,
         \`resultado\` text,
         \`planificacionId\` int DEFAULT NULL,
-        \`status\` enum('subido','analizando','completado','error') NOT NULL DEFAULT 'subido',
+        \`status\` enum('subido','analizando','completado','error','ambiguo') NOT NULL DEFAULT 'subido',
         \`errorMensaje\` text,
         \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

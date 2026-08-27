@@ -52,7 +52,7 @@ describe("PayPhone Integration", () => {
     });
 
     it("should return inactive status for non-subscriber", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/status?email=noexiste@test.com`);
+      const res = await fetch(`${BASE_URL}/api/subscription/status?email=noexiste@test.com`);
       expect(res.status).toBe(200);
       const data = await res.json();
       expect(data.active).toBe(false);
@@ -62,7 +62,7 @@ describe("PayPhone Integration", () => {
     });
 
     it("should return error for missing email on status", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/status?email=`);
+      const res = await fetch(`${BASE_URL}/api/subscription/status?email=`);
       expect(res.status).toBe(200);
       const data = await res.json();
       expect(data.active).toBe(false);

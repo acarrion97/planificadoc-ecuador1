@@ -362,7 +362,7 @@ async function checkSubscriptionStatusAPI(email: string): Promise<{
 }> {
   try {
     const baseUrl = getApiBaseUrl();
-    const url = `${baseUrl}/api/payment/status?email=${encodeURIComponent(email)}`;
+    const url = `${baseUrl}/api/subscription/status?email=${encodeURIComponent(email)}`;
     const response = await fetch(url, { credentials: "include" });
     const data = await response.json();
     return { active: data.active === true, endDate: data.endDate, pricing: data.pricing };
