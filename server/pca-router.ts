@@ -281,6 +281,7 @@ export const pcaRouter = router({
           formData: doc.formData ? JSON.parse(doc.formData) : null,
           aiResult: doc.aiResult ? JSON.parse(doc.aiResult) : null,
           amountPaid: doc.amountPaid,
+          formatoPlantillaId: (doc as any).formatoPlantillaId ?? null,
           createdAt: doc.createdAt,
           updatedAt: doc.updatedAt,
         },
