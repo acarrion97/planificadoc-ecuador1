@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, uniqueIndex } from "drizzle-orm/mysql-core";
+import { int, longtext, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, uniqueIndex } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -260,7 +260,7 @@ export const formatoPlantillas = mysqlTable("formato_plantillas", {
   /** Clave en storage del archivo original (mismo storageKey de importedFormatDocuments) */
   storageKey: varchar("storageKey", { length: 512 }).notNull(),
   /** Buffer del template DOCX original en base64 (para rellenar y exportar) */
-  templateBufferBase64: text("templateBufferBase64"),
+  templateBufferBase64: longtext("templateBufferBase64"),
   /** Número de versión del análisis de estructura/bindings */
   version: int("version").notNull().default(1),
   /** JSON: PlantillaEstructura — mapa navegable del documento */
@@ -502,3 +502,154 @@ export const paymentAttribution = mysqlTable("payment_attribution", {
   sent:        boolean("sent").notNull().default(false),
   createdAt:   timestamp("created_at").defaultNow(),
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Bachillerato Técnico — Catálogo Curricular (Acuerdo 00065-A)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Áreas técnicas del Bachillerato Técnico.
+ * Ej: "Deportes y Salud", "Artística", "Técnica", "Tecnologías"
+ */
+export const btAreasTecnicas = mysqlTable("bt_areas_tecnicas", {
+  id: int("id").autoincrement().primaryKey(),
+  nombre: varchar("nombre", { length: 128 }).notNull(),
+  descripcion: text("descripcion"),
+});
+
+export type BtAreaTecnica = typeof btAreasTecnicas.$inferSelect;
+export type InsertBtAreaTecnica = typeof btAreasTecnicas.$inferInsert;
+
+/**
+ * Familias profesionales dentro de un área técnica.
+ * Ej: "Deporte", "Salud y Servicio", "Industrial", "Tecnologías"
+ */
+export const btFamiliasProfesionales = mysqlTable("bt_familias_profesionales", {
+  id: int("id").autoincrement().primaryKey(),
+  areaId: int("areaId").notNull(),
+  nombre: varchar("nombre", { length: 128 }).notNull(),
+  codigo: varchar("codigo", { length: 64 }).notNull().unique(),
+  descripcion: text("descripcion"),
+});
+
+export type BtFamiliaProfesional = typeof btFamiliasProfesionales.$inferSelect;
+export type InsertBtFamiliaProfesional = typeof btFamiliasProfesionales.$inferInsert;
+
+/**
+ * Figuras profesionales dentro de una familia.
+ * Ej: "Actividad Física, Deporte y Recreación", "Gestión Deportiva y Cultural"
+ */
+export const btFigurasProfesionales = mysqlTable("bt_figuras_profesionales", {
+  id: int("id").autoincrement().primaryKey(),
+  familiaId: int("familiaId").notNull(),
+  nombre: varchar("nombre", { length: 200 }).notNull(),
+  codigo: varchar("codigo", { length: 64 }).notNull().unique(),
+  perfilProfesional: text("perfilProfesional"),
+  activa: boolean("activa").notNull().default(true),
+  /** Figura que reemplaza a esta si está deprecada */
+  figuraReemplazoId: int("figuraReemplazoId"),
+});
+
+export type BtFiguraProfesional = typeof btFigurasProfesionales.$inferSelect;
+export type InsertBtFiguraProfesional = typeof btFigurasProfesionales.$inferInsert;
+
+/**
+ * Módulos formativos asociados a una figura profesional.
+ * Tipo: "generico" (transversal) o "especializacion" (específico de la figura)
+ */
+export const btModulosFormativos = mysqlTable("bt_modulos_formativos", {
+  id: int("id").autoincrement().primaryKey(),
+  figuraId: int("figuraId").notNull(),
+  nombre: varchar("nombre", { length: 200 }).notNull(),
+  codigo: varchar("codigo", { length: 64 }),
+  tipo: mysqlEnum("tipo", ["generico", "especializacion"]).notNull().default("especializacion"),
+});
+
+export type BtModuloFormativo = typeof btModulosFormativos.$inferSelect;
+export type InsertBtModuloFormativo = typeof btModulosFormativos.$inferInsert;
+
+/**
+ * Contenidos atómicos de un módulo.
+ * Cada contenido es un registro individual con tipo, descripción y orden.
+ */
+export const btContenidos = mysqlTable("bt_contenidos", {
+  id: int("id").autoincrement().primaryKey(),
+  moduloId: int("moduloId").notNull(),
+  tipo: mysqlEnum("tipo", ["conceptual", "procedimental", "actitudinal"]).notNull(),
+  descripcion: text("descripcion").notNull(),
+  orden: int("orden").notNull().default(0),
+});
+
+export type BtContenido = typeof btContenidos.$inferSelect;
+export type InsertBtContenido = typeof btContenidos.$inferInsert;
+
+/**
+ * Resultados de aprendizaje (RA) de un módulo.
+ */
+export const btResultadosAprendizaje = mysqlTable("bt_resultados_aprendizaje", {
+  id: int("id").autoincrement().primaryKey(),
+  moduloId: int("moduloId").notNull(),
+  codigo: varchar("codigo", { length: 32 }).notNull(),
+  descripcion: text("descripcion").notNull(),
+});
+
+export type BtResultadoAprendizaje = typeof btResultadosAprendizaje.$inferSelect;
+export type InsertBtResultadoAprendizaje = typeof btResultadosAprendizaje.$inferInsert;
+
+/**
+ * Criterios de evaluación (CE) asociados a un RA.
+ */
+export const btCriteriosEvaluacion = mysqlTable("bt_criterios_evaluacion", {
+  id: int("id").autoincrement().primaryKey(),
+  raId: int("raId").notNull(),
+  codigo: varchar("codigo", { length: 32 }).notNull(),
+  descripcion: text("descripcion").notNull(),
+});
+
+export type BtCriterioEvaluacion = typeof btCriteriosEvaluacion.$inferSelect;
+export type InsertBtCriterioEvaluacion = typeof btCriteriosEvaluacion.$inferInsert;
+
+/**
+ * Distribución de módulos por año BGU.
+ * Permite que un módulo esté en múltiples años con carga horaria diferente.
+ */
+export const btModuloPorAnio = mysqlTable("bt_modulo_por_anio", {
+  id: int("id").autoincrement().primaryKey(),
+  moduloId: int("moduloId").notNull(),
+  anioBGU: int("anioBGU").notNull(), // 1, 2, o 3
+  cargaHorariaSemanal: int("cargaHorariaSemanal").notNull(),
+});
+
+export type BtModuloPorAnio = typeof btModuloPorAnio.$inferSelect;
+export type InsertBtModuloPorAnio = typeof btModuloPorAnio.$inferInsert;
+
+/**
+ * Planificación BT: une una figura profesional con un año BGU y año lectivo.
+ */
+export const btPlanificaciones = mysqlTable("bt_planificaciones", {
+  id: int("id").autoincrement().primaryKey(),
+  sessionId: varchar("sessionId", { length: 128 }).notNull(),
+  figuraId: int("figuraId").notNull(),
+  anioBGU: int("anioBGU").notNull(),
+  anioLectivo: varchar("anioLectivo", { length: 16 }).notNull(),
+  nombre: varchar("nombre", { length: 200 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type BtPlanificacion = typeof btPlanificaciones.$inferSelect;
+export type InsertBtPlanificacion = typeof btPlanificaciones.$inferInsert;
+
+/**
+ * Distribución de contenidos/RA por trimestre dentro de una planificación.
+ */
+export const btDistribucionTrimestre = mysqlTable("bt_distribucion_trimestre", {
+  id: int("id").autoincrement().primaryKey(),
+  planificacionId: int("planificacionId").notNull(),
+  trimestre: int("trimestre").notNull(), // 1, 2, o 3
+  contenidoId: int("contenidoId"),
+  raId: int("raId"),
+});
+
+export type BtDistribucionTrimestre = typeof btDistribucionTrimestre.$inferSelect;
+export type InsertBtDistribucionTrimestre = typeof btDistribucionTrimestre.$inferInsert;

@@ -649,6 +649,58 @@ async function ensureImportedFormatDocumentsTable(): Promise<void> {
 }
 
 /**
+ * Ensure formato_plantillas table exists and templateBufferBase64 is LONGTEXT.
+ * Fixes the issue where TEXT column truncated DOCX files with embedded images.
+ */
+async function ensureFormatoPlantillaTable(): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    await (db as any).execute(`
+      CREATE TABLE IF NOT EXISTS \`formato_plantillas\` (
+        \`id\`                 INT           NOT NULL AUTO_INCREMENT,
+        \`sessionId\`          VARCHAR(320)  NOT NULL,
+        \`nombre\`             VARCHAR(255)  NOT NULL,
+        \`tipoPlanificacion\`  VARCHAR(32)   NOT NULL,
+        \`formatoOrigen\`      VARCHAR(16)   NOT NULL,
+        \`mimeType\`           VARCHAR(128)  NOT NULL,
+        \`storageKey\`         VARCHAR(512)  NOT NULL,
+        \`templateBufferBase64\` LONGTEXT,
+        \`version\`            INT           NOT NULL DEFAULT 1,
+        \`estructura\`         TEXT          NOT NULL,
+        \`bindings\`           TEXT          NOT NULL,
+        \`configuracion\`      TEXT,
+        \`activo\`             BOOLEAN       NOT NULL DEFAULT TRUE,
+        \`createdAt\`          TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        \`updatedAt\`          TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (\`id\`),
+        INDEX \`idx_plantilla_session\` (\`sessionId\`),
+        INDEX \`idx_plantilla_tipo\` (\`tipoPlanificacion\`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+
+    // Migrate existing TEXT column to LONGTEXT if needed (DOCX with images exceed 64KB)
+    const [colCheck]: any = await (db as any).execute(`
+      SELECT DATA_TYPE FROM information_schema.columns
+      WHERE table_schema = DATABASE()
+        AND table_name = 'formato_plantillas'
+        AND column_name = 'templateBufferBase64'
+    `);
+    if (colCheck?.[0]?.DATA_TYPE === "text") {
+      await (db as any).execute(
+        `ALTER TABLE \`formato_plantillas\` MODIFY COLUMN \`templateBufferBase64\` LONGTEXT`
+      );
+      console.log("[DB] Migrated templateBufferBase64 from TEXT to LONGTEXT");
+    }
+  } catch (err: any) {
+    if (!err?.message?.includes("already exists")) {
+      console.warn("[DB] ensureFormatoPlantillaTable warning:", err?.message);
+    }
+  }
+}
+
+/**
  * Crea el registro inicial de una importación de formato (status "subido").
  */
 export async function createImportedFormatDocument(data: {
@@ -773,6 +825,8 @@ export async function createFormatoPlantilla(data: {
   configuracion?: string;
   templateBufferBase64?: string;
 }): Promise<number> {
+  await ensureFormatoPlantillaTable();
+
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 

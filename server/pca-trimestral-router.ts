@@ -301,7 +301,7 @@ export const pcaTrimestralRouter = router({
                   orientaciones = orientRaw.filter(hasFases);
                   if (orientaciones.length === 0) orientaciones = orientRaw; // fallback: keep all
                 } else {
-                  orientaciones = orientRaw && typeof orientRaw === "object" ? orientRaw : toStr(orientRaw);
+              orientaciones = orientRaw && typeof orientRaw === "object" ? orientRaw : String(orientRaw ?? "");
                 }
                 return {
                   numero: u.numero || 1,
@@ -433,8 +433,11 @@ export const pcaTrimestralRouter = router({
         const unidadForm = formData.unidades.find((u: any) => u.numero === input.unidadNumero);
         if (!unidadForm) return { success: false, error: "Unidad no encontrada" };
         const dcdsTexto = unidadForm.dcdsSeleccionadas.map((d: any) => `- ${d.codigo}: "${d.enunciado}"`).join("\n");
-        prompt = `Regenera la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nIMPORTANTE: orientaciones_metodologicas sigue el modelo ${formData.modeloPedagogico === "ACC" ? "ACC (Anticipación, Construcción del conocimiento, Consolidación) — máximo 3 frases breves y generales" : "ERCA (Experiencia, Reflexión, Conceptualización, Aplicación) — máximo 4 frases breves y generales"} — no detallar actividades específicas de clase.
-Responde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientaciones_metodologicas":"","evaluacion":""}`;
+        const modelo = formData.modeloPedagogico || "ERCA";
+        const fasesDesc = modelo === "ACC"
+          ? `"fases": {"anticipacion": ["actividad 1 (Marzano N1)", "actividad 2"], "construccion": ["actividad 1 (Marzano N2-3)", "actividad 2"], "consolidacion": ["actividad 1 (Marzano N4)", "actividad 2"]}`
+          : `"fases": {"experiencia": ["actividad 1 (Marzano N1)", "actividad 2"], "reflexion": ["actividad 1 (Marzano N2-3)", "actividad 2"], "conceptualizacion": ["actividad 1 (Marzano N2)", "actividad 2"], "aplicacion": ["actividad 1 (Marzano N4)", "actividad 2"]}`;
+        prompt = `Regenera la Unidad ${input.unidadNumero} de la PCT de ${areaNombre} (${formData.trimestre}) con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nModelo pedagógico: ${modelo}\n\nIMPORTANTE: orientacionesMetodologicas DEBE ser un ARRAY de objetos, uno por cada DCD seleccionada, con la siguiente estructura:\n[{"dcd": "código DCD", ${fasesDesc}}]\nCada actividad debe iniciar con verbo en infinitivo (Marzano). Exactamente 2 actividades por fase.\nResponde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientacionesMetodologicas":[{"dcd":"código",${fasesDesc.replace(/"/g, '\\"')}],"evaluacion":""}`;
         responseKey = "unidad";
       } else if (input.seccion === "titulo_objetivos" && input.unidadNumero != null) {
         const unidadForm = formData.unidades.find((u: any) => u.numero === input.unidadNumero);
@@ -484,12 +487,26 @@ Responde SOLO con JSON: {"evaluacion": "Indicador 1... Indicador 2... Indicador 
         } else if (input.seccion === "unidad" && input.unidadNumero != null) {
           const idx = aiResult.unidades?.findIndex((u: any) => u.numero === input.unidadNumero);
           if (idx >= 0) {
+            // Normalizar orientacionesMetodologicas: preservar array, filtrar vacías
+            const orientRaw = parsed.orientaciones_metodologicas || parsed.orientacionesMetodologicas;
+            let orientaciones: any;
+            if (Array.isArray(orientRaw)) {
+              const hasFases = (item: any) => {
+                const f = item?.fases || {};
+                return Object.values(f).some((v: any) => Array.isArray(v) && v.length > 0);
+              };
+              orientaciones = orientRaw.filter(hasFases);
+              if (orientaciones.length === 0) orientaciones = orientRaw;
+            } else {
+              orientaciones = orientRaw && typeof orientRaw === "object" ? orientRaw : String(orientRaw ?? "");
+            }
+
             aiResult.unidades[idx] = {
               ...aiResult.unidades[idx],
               titulo: parsed.titulo || aiResult.unidades[idx].titulo,
               objetivosEspecificos: parsed.objetivos_especificos || aiResult.unidades[idx].objetivosEspecificos,
               contenidos: parsed.contenidos || aiResult.unidades[idx].contenidos,
-              orientacionesMetodologicas: parsed.orientaciones_metodologicas || aiResult.unidades[idx].orientacionesMetodologicas,
+              orientacionesMetodologicas: orientaciones,
               evaluacion: parsed.evaluacion || aiResult.unidades[idx].evaluacion,
             };
           }

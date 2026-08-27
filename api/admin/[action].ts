@@ -1304,7 +1304,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 \`formatoOrigen\`      VARCHAR(16)   NOT NULL,
                 \`mimeType\`           VARCHAR(128)  NOT NULL,
                 \`storageKey\`         VARCHAR(512)  NOT NULL,
-                \`templateBufferBase64\` TEXT,
+                \`templateBufferBase64\` LONGTEXT,
                 \`version\`            INT           NOT NULL DEFAULT 1,
                 \`estructura\`         TEXT          NOT NULL,
                 \`bindings\`           TEXT          NOT NULL,

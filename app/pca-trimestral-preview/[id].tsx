@@ -85,6 +85,76 @@ function InfoRow({ label, value, colors }: { label: string; value: string; color
   );
 }
 
+const FASE_COLORS: Record<string, string> = {
+  experiencia: "#C0504D",
+  reflexion: "#4472C4",
+  conceptualizacion: "#70AD47",
+  aplicacion: "#ED7D31",
+  anticipacion: "#C0504D",
+  construccion: "#4472C4",
+  consolidacion: "#70AD47",
+};
+
+const FASE_LABELS: Record<string, string> = {
+  experiencia: "EXPERIENCIA",
+  reflexion: "REFLEXIÓN",
+  conceptualizacion: "CONCEPTUALIZACIÓN",
+  aplicacion: "APLICACIÓN",
+  anticipacion: "ANTICIPACIÓN",
+  construccion: "CONSTRUCCIÓN DEL CONOCIMIENTO",
+  consolidacion: "CONSOLIDACIÓN",
+};
+
+function OrientacionesView({ raw, modeloPedagogico, colors }: { raw: any; modeloPedagogico?: string; colors: any }) {
+  if (!raw) return null;
+
+  const modelo = modeloPedagogico || "ERCA";
+  const orden = modelo === "ACC"
+    ? ["anticipacion", "construccion", "consolidacion"]
+    : ["experiencia", "reflexion", "conceptualizacion", "aplicacion"];
+
+  // Normalizar: aceptar array de DCDs o fallback
+  const items: any[] = Array.isArray(raw)
+    ? raw
+    : (typeof raw === "object" && raw !== null
+        ? [{ dcd: "", fases: raw }]
+        : [{ dcd: "", fases: { [orden[0]]: [String(raw || "")] } }]);
+
+  return (
+    <View style={{ gap: 8 }}>
+      {items.map((item: any, idx: number) => {
+        const fases = item.fases || item;
+        const dcdCodigo = item.dcd || "";
+        return (
+          <View key={idx} style={{ borderWidth: 1, borderColor: colors.border, borderRadius: 8, overflow: "hidden" }}>
+            {dcdCodigo ? (
+              <View style={{ backgroundColor: "#595959", paddingHorizontal: 10, paddingVertical: 5 }}>
+                <Text style={{ color: "#fff", fontSize: 11, fontWeight: "700" }}>DCD: {dcdCodigo}</Text>
+              </View>
+            ) : null}
+            {orden.map((fase) => {
+              const actividades = fases[fase];
+              if (!Array.isArray(actividades) || actividades.length === 0) return null;
+              const color = FASE_COLORS[fase] || "#666";
+              const label = FASE_LABELS[fase] || fase.toUpperCase();
+              return (
+                <View key={fase} style={{ paddingHorizontal: 10, paddingVertical: 6, borderBottomWidth: 1, borderBottomColor: colors.border }}>
+                  <Text style={{ color, fontSize: 11, fontWeight: "800", marginBottom: 4 }}>{label}</Text>
+                  {actividades.map((act: string, i: number) => (
+                    <Text key={i} style={{ color: colors.foreground, fontSize: 12, lineHeight: 18, marginBottom: 2 }}>
+                      {i + 1}. {act}
+                    </Text>
+                  ))}
+                </View>
+              );
+            })}
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
 function UnidadCard({
   unidad,
   aiUnidad,
@@ -93,6 +163,7 @@ function UnidadCard({
   colors,
   onRegenerar,
   isPaid,
+  modeloPedagogico,
 }: {
   unidad: any;
   aiUnidad: any;
@@ -101,6 +172,7 @@ function UnidadCard({
   colors: any;
   onRegenerar?: () => void;
   isPaid: boolean;
+  modeloPedagogico?: string;
 }) {
   const dcds = unidad?.dcdsSeleccionadas || [];
 
@@ -148,7 +220,11 @@ function UnidadCard({
           {aiUnidad?.orientacionesMetodologicas && (
             <View style={{ marginBottom: 8 }}>
               <Text style={[s.fieldLabel, { color: colors.muted }]}>Orientaciones metodológicas</Text>
-              <Text style={[s.fieldValue, { color: colors.foreground }]}>{toStr(aiUnidad.orientacionesMetodologicas)}</Text>
+              <OrientacionesView
+                raw={aiUnidad.orientacionesMetodologicas}
+                modeloPedagogico={modeloPedagogico}
+                colors={colors}
+              />
             </View>
           )}
 
@@ -569,6 +645,7 @@ export default function PcaTrimestralPreviewScreen() {
                 colors={colors}
                 isPaid={paid}
                 onRegenerar={paid ? () => handleRegenerar("unidad", u.numero) : undefined}
+                modeloPedagogico={formData?.modeloPedagogico}
               />
             );
           })}
@@ -582,6 +659,7 @@ export default function PcaTrimestralPreviewScreen() {
                 numero={unidades[1].numero}
                 colors={colors}
                 isPaid={false}
+                modeloPedagogico={formData?.modeloPedagogico}
               />
             </View>
           )}
