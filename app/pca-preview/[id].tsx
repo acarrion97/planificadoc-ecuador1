@@ -330,8 +330,10 @@ export default function PcaPreviewScreen() {
   const [adminKey, setAdminKey] = useState("");
   const [adminUnlocking, setAdminUnlocking] = useState(false);
   const [adminMsg, setAdminMsg] = useState("");
+  const [showPlantillas, setShowPlantillas] = useState(false);
   const regenerarMutation = trpc.pca.regenerarSeccion.useMutation();
   const exportPlantillaMutation = trpc.pca.exportarConPlantilla.useMutation();
+  const asociarPlantillaMutation = trpc.pca.asociarPlantilla.useMutation();
 
   const { data, isLoading, error, refetch } = trpc.pca.getPca.useQuery(
     { id: pcaId },
@@ -342,6 +344,13 @@ export default function PcaPreviewScreen() {
   const formData = doc?.formData as any;
   const aiResult = doc?.aiResult as any;
   const status = doc?.status;
+
+  // Plantillas disponibles del usuario
+  const sessionId = formData ? "" : ""; // se resolve below
+  const { data: plantillasData } = trpc.pca.listMisPlantillas.useQuery(
+    { sessionId: doc?.sessionId || "" },
+    { enabled: showPlantillas && !!doc?.sessionId }
+  );
 
   // Marcar como pagado cuando status cambia
   useEffect(() => {
@@ -370,6 +379,18 @@ export default function PcaPreviewScreen() {
       setAdminMsg(`❌ ${result.error || "Clave incorrecta"}`);
     }
   }, [adminKey, pcaId, refetch]);
+
+  // Seleccionar plantilla
+  const handleSelectPlantilla = useCallback(async (plantillaId: number) => {
+    try {
+      await asociarPlantillaMutation.mutateAsync({ pcaId, plantillaId });
+      setShowPlantillas(false);
+      refetch();
+      Alert.alert("Listo", "Plantilla asociada. Ahora al descargar Word se usará esa plantilla.");
+    } catch (err: any) {
+      Alert.alert("Error", err.message);
+    }
+  }, [pcaId, asociarPlantillaMutation, refetch]);
 
   // Regenerar sección
   const handleRegenerar = useCallback(async (seccion: string, unidadNumero?: number) => {
@@ -558,6 +579,61 @@ export default function PcaPreviewScreen() {
               : <Text style={s.dlBtnText}>⬇️ Descargar Word</Text>
             }
           </Pressable>
+        </View>
+      )}
+
+      {/* Botón seleccionar plantilla */}
+      <View style={[s.downloadBar, { borderBottomColor: colors.border }]}>
+        <Pressable
+          onPress={() => setShowPlantillas(true)}
+          style={({ pressed }) => [s.dlBtn, { backgroundColor: "#6B46C1", flex: 1, opacity: pressed ? 0.7 : 1 }]}
+        >
+          <Text style={s.dlBtnText}>📄 Seleccionar plantilla importada</Text>
+        </Pressable>
+      </View>
+
+      {/* Modal de selección de plantillas */}
+      {showPlantillas && (
+        <View style={s.modalOverlay}>
+          <View style={[s.modalContent, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={[s.modalTitle, { color: colors.foreground }]}>Seleccionar plantilla</Text>
+            <Text style={{ color: colors.muted, fontSize: 12, marginBottom: 12 }}>
+              Plantillas DOCX que importaste previamente
+            </Text>
+            {(!plantillasData || plantillasData.length === 0) ? (
+              <Text style={{ color: colors.muted, textAlign: "center", padding: 20 }}>
+                No hay plantillas importadas aún.{"\n"}Importa un formato DOCX primero.
+              </Text>
+            ) : (
+              plantillasData.map((p) => (
+                <Pressable
+                  key={p.id}
+                  onPress={() => handleSelectPlantilla(p.id)}
+                  style={({ pressed }) => [
+                    s.plantillaItem,
+                    { borderColor: colors.border, opacity: pressed ? 0.7 : 1 },
+                    doc?.formatoPlantillaId === p.id && { borderColor: "#6B46C1", backgroundColor: "#F3E8FF" },
+                  ]}
+                >
+                  <Text style={{ color: colors.foreground, fontWeight: "600", fontSize: 13 }}>
+                    {p.nombre}
+                  </Text>
+                  <Text style={{ color: colors.muted, fontSize: 11 }}>
+                    {p.formatoOrigen.toUpperCase()} · {new Date(p.createdAt).toLocaleDateString()}
+                  </Text>
+                  {doc?.formatoPlantillaId === p.id && (
+                    <Text style={{ color: "#6B46C1", fontSize: 11, fontWeight: "700" }}>✓ ACTUAL</Text>
+                  )}
+                </Pressable>
+              ))
+            )}
+            <Pressable
+              onPress={() => setShowPlantillas(false)}
+              style={[s.dlBtn, { backgroundColor: colors.muted, marginTop: 12 }]}
+            >
+              <Text style={s.dlBtnText}>Cerrar</Text>
+            </Pressable>
+          </View>
         </View>
       )}
 
@@ -928,6 +1004,31 @@ const s = StyleSheet.create({
     maxWidth: 360,
   },
   adminTitle: { fontSize: 13, fontWeight: "700" },
+  // Modal plantillas
+  modalOverlay: {
+    position: "absolute",
+    top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 100,
+  },
+  modalContent: {
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 20,
+    marginHorizontal: 24,
+    width: "90%",
+    maxWidth: 400,
+    maxHeight: "70%",
+  },
+  modalTitle: { fontSize: 17, fontWeight: "800", marginBottom: 4 },
+  plantillaItem: {
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 8,
+  },
   // Volver
   backBtnFull: {
     backgroundColor: "#003366",

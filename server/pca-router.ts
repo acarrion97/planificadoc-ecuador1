@@ -10,6 +10,8 @@ import {
   setPcaClientTxId,
   getPcaDocumentsBySession,
   clonePcaDocument,
+  listFormatoPlantillas,
+  setPcaFormatoPlantillaId,
 } from "./db";
 import { TODAS_LAS_DESTREZAS } from "../data/index";
 
@@ -508,6 +510,31 @@ export const pcaRouter = router({
         console.error("[pca-router] Error exportando con plantilla:", err);
         return { success: false, useNative: true };
       }
+    }),
+
+  /**
+   * Lista las plantillas importadas por el usuario para PCA.
+   */
+  listMisPlantillas: publicProcedure
+    .input(z.object({ sessionId: z.string() }))
+    .query(async ({ input }) => {
+      const plantillas = await listFormatoPlantillas(input.sessionId, "pca");
+      return plantillas.map((p) => ({
+        id: p.id,
+        nombre: p.nombre,
+        formatoOrigen: p.formatoOrigen,
+        createdAt: p.createdAt,
+      }));
+    }),
+
+  /**
+   * Asocia una plantilla importada a un PCA existente.
+   */
+  asociarPlantilla: publicProcedure
+    .input(z.object({ pcaId: z.number(), plantillaId: z.number() }))
+    .mutation(async ({ input }) => {
+      await setPcaFormatoPlantillaId(input.pcaId, input.plantillaId);
+      return { success: true };
     }),
 
   /**
