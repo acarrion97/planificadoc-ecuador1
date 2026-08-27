@@ -9,6 +9,7 @@ import {
   getActiveAnnualSubscription,
   setPcaClientTxId,
   getPcaDocumentsBySession,
+  clonePcaDocument,
 } from "./db";
 import { TODAS_LAS_DESTREZAS } from "../data/index";
 
@@ -493,6 +494,35 @@ export const pcaRouter = router({
       } catch (err: any) {
         console.error("[pca-router] Error exportando con plantilla:", err);
         return { success: false, useNative: true };
+      }
+    }),
+
+  /**
+   * Clona un PCA existente.
+   * Crea una copia con los mismos datos pero status "draft".
+   * Preserva formData, aiResult y formatoPlantillaId.
+   */
+  clonarPca: publicProcedure
+    .input(z.object({
+      sourcePcaId: z.number(),
+      sessionId: z.string(),
+    }))
+    .mutation(async ({ input }) => {
+      // Verificar que el PCA fuente existe y pertenece a la misma sesión
+      const source = await getPcaDocument(input.sourcePcaId);
+      if (!source) {
+        return { success: false, error: "PCA fuente no encontrado" };
+      }
+      if (source.sessionId !== input.sessionId) {
+        return { success: false, error: "No tienes permiso para clonar este PCA" };
+      }
+
+      try {
+        const newPcaId = await clonePcaDocument(input.sourcePcaId, input.sessionId);
+        return { success: true, newPcaId };
+      } catch (err: any) {
+        console.error("[pca-router] Error clonando PCA:", err);
+        return { success: false, error: err.message || "Error al clonar PCA" };
       }
     }),
 });

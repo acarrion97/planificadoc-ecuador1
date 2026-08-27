@@ -15,6 +15,17 @@ import {
   InsertPcaDocument,
   InsertImportedFormatDocument,
   InsertFormatoPlantilla,
+  // Bachillerato Técnico
+  btAreasTecnicas,
+  btFamiliasProfesionales,
+  btFigurasProfesionales,
+  btModulosFormativos,
+  btContenidos,
+  btResultadosAprendizaje,
+  btCriteriosEvaluacion,
+  btModuloPorAnio,
+  btPlanificaciones,
+  btDistribucionTrimestre,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
@@ -413,6 +424,7 @@ export async function createPcaDocument(data: {
   status: "draft" | "generated" | "paid";
   formData: string;
   aiResult?: string | null;
+  formatoPlantillaId?: number | null;
 }): Promise<number> {
   await ensurePcaTable();
 
@@ -424,7 +436,7 @@ export async function createPcaDocument(data: {
     status: data.status,
     formData: data.formData,
     aiResult: data.aiResult ?? null,
-    formatoPlantillaId: null,
+    formatoPlantillaId: data.formatoPlantillaId ?? null,
   } as InsertPcaDocument);
   return result[0].insertId;
 }
@@ -581,6 +593,22 @@ export async function updatePcaFormDataAndAiResult(
     .update(pcaDocuments)
     .set({ status: "generated", formData, aiResult })
     .where(eq(pcaDocuments.id, id));
+}
+
+/**
+ * Actualiza el formatoPlantillaId de un PCA existente.
+ */
+export async function setPcaFormatoPlantillaId(
+  pcaId: number,
+  formatoPlantillaId: number | null
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({ formatoPlantillaId })
+    .where(eq(pcaDocuments.id, pcaId));
 }
 
 /**
@@ -806,4 +834,620 @@ export async function listFormatoPlantillas(
     .from(formatoPlantillas)
     .where(and(...conditions))
     .orderBy(desc(formatoPlantillas.createdAt));
+}
+
+/**
+ * Clona un documento PCA existente.
+ * Crea una copia con los mismos datos pero status "draft" y nueva sesión.
+ * Preserva formData, aiResult y formatoPlantillaId.
+ */
+export async function clonePcaDocument(
+  sourceId: number,
+  newSessionId: string
+): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Obtener documento fuente
+  const source = await getPcaDocument(sourceId);
+  if (!source) throw new Error("Documento PCA fuente no encontrado");
+
+  // Crear nuevo documento con los mismos datos
+  const result = await db.insert(pcaDocuments).values({
+    sessionId: newSessionId,
+    status: "draft",
+    formData: source.formData,
+    aiResult: source.aiResult,
+    formatoPlantillaId: (source as any).formatoPlantillaId ?? null,
+  } as InsertPcaDocument);
+
+  return result[0].insertId;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Bachillerato Técnico — Funciones de acceso a datos
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ─── 5.1 Figuras Profesionales ───────────────────────────────────────────
+
+export type BtFiguraConFamiliaArea = typeof btFigurasProfesionales.$inferSelect & {
+  familia: typeof btFamiliasProfesionales.$inferSelect & {
+    area: typeof btAreasTecnicas.$inferSelect;
+  };
+};
+
+/**
+ * Lista figuras profesionales con filtro opcional por área, familia y estado.
+ */
+export async function listBtFiguras(opts?: {
+  areaId?: number;
+  familiaId?: number;
+  activa?: boolean;
+}): Promise<BtFiguraConFamiliaArea[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  const conditions: any[] = [];
+  if (opts?.activa !== undefined) {
+    conditions.push(eq(btFigurasProfesionales.activa, opts.activa));
+  }
+
+  const rows = await db
+    .select({
+      figura: btFigurasProfesionales,
+      familia: btFamiliasProfesionales,
+      area: btAreasTecnicas,
+    })
+    .from(btFigurasProfesionales)
+    .innerJoin(
+      btFamiliasProfesionales,
+      eq(btFigurasProfesionales.familiaId, btFamiliasProfesionales.id)
+    )
+    .innerJoin(
+      btAreasTecnicas,
+      eq(btFamiliasProfesionales.areaId, btAreasTecnicas.id)
+    )
+    .where(conditions.length > 0 ? and(...conditions) : undefined);
+
+  // Filtrar por área/familia post-join (Drizzle no permite alias de join fácilmente)
+  return rows
+    .filter((r) => {
+      if (opts?.areaId && r.familia.areaId !== opts.areaId) return false;
+      if (opts?.familiaId && r.figura.familiaId !== opts.familiaId) return false;
+      return true;
+    })
+    .map((r) => ({
+      ...r.figura,
+      familia: { ...r.familia, area: r.area },
+    }));
+}
+
+/**
+ * Obtiene una figura profesional por ID con su familia y área.
+ */
+export async function getBtFiguraById(
+  id: number
+): Promise<BtFiguraConFamiliaArea | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const [row] = await db
+    .select({
+      figura: btFigurasProfesionales,
+      familia: btFamiliasProfesionales,
+      area: btAreasTecnicas,
+    })
+    .from(btFigurasProfesionales)
+    .innerJoin(
+      btFamiliasProfesionales,
+      eq(btFigurasProfesionales.familiaId, btFamiliasProfesionales.id)
+    )
+    .innerJoin(
+      btAreasTecnicas,
+      eq(btFamiliasProfesionales.areaId, btAreasTecnicas.id)
+    )
+    .where(eq(btFigurasProfesionales.id, id))
+    .limit(1);
+
+  if (!row) return null;
+  return {
+    ...row.figura,
+    familia: { ...row.familia, area: row.area },
+  };
+}
+
+/**
+ * Obtiene una figura profesional por código.
+ */
+export async function getBtFiguraByCodigo(
+  codigo: string
+): Promise<BtFiguraConFamiliaArea | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const [row] = await db
+    .select({
+      figura: btFigurasProfesionales,
+      familia: btFamiliasProfesionales,
+      area: btAreasTecnicas,
+    })
+    .from(btFigurasProfesionales)
+    .innerJoin(
+      btFamiliasProfesionales,
+      eq(btFigurasProfesionales.familiaId, btFamiliasProfesionales.id)
+    )
+    .innerJoin(
+      btAreasTecnicas,
+      eq(btFamiliasProfesionales.areaId, btAreasTecnicas.id)
+    )
+    .where(eq(btFigurasProfesionales.codigo, codigo))
+    .limit(1);
+
+  if (!row) return null;
+  return {
+    ...row.figura,
+    familia: { ...row.familia, area: row.area },
+  };
+}
+
+// ─── 5.2 Áreas y Familias ────────────────────────────────────────────────
+
+/**
+ * Lista todas las áreas técnicas.
+ */
+export async function listBtAreas() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(btAreasTecnicas);
+}
+
+/**
+ * Lista familias profesionales de un área.
+ */
+export async function listBtFamiliasByArea(areaId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select()
+    .from(btFamiliasProfesionales)
+    .where(eq(btFamiliasProfesionales.areaId, areaId));
+}
+
+/**
+ * Navegación completa: Área → Familia → Figura.
+ */
+export async function getBtCatalogoCompleto() {
+  const db = await getDb();
+  if (!db) return [];
+
+  const areas = await db.select().from(btAreasTecnicas);
+  const familias = await db.select().from(btFamiliasProfesionales);
+  const figuras = await db
+    .select()
+    .from(btFigurasProfesionales)
+    .where(eq(btFigurasProfesionales.activa, true));
+
+  return areas.map((area) => ({
+    ...area,
+    familias: familias
+      .filter((f) => f.areaId === area.id)
+      .map((familia) => ({
+        ...familia,
+        figuras: figuras.filter((fig) => fig.familiaId === familia.id),
+      })),
+  }));
+}
+
+// ─── 5.3 Módulos Formativos ──────────────────────────────────────────────
+
+/**
+ * Módulos de una figura profesional con distribución por año.
+ */
+export async function getBtModulosPorFigura(figuraId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const modulos = await db
+    .select()
+    .from(btModulosFormativos)
+    .where(eq(btModulosFormativos.figuraId, figuraId));
+
+  const distribucion = modulos.length
+    ? await db
+        .select()
+        .from(btModuloPorAnio)
+        .where(
+          and(
+            ...modulos.map((m) => eq(btModuloPorAnio.moduloId, m.id))
+          )
+        )
+    : [];
+
+  return modulos.map((modulo) => ({
+    ...modulo,
+    distribucionAnual: distribucion.filter((d) => d.moduloId === modulo.id),
+  }));
+}
+
+/**
+ * Módulos por año BGU (1, 2, 3) con carga horaria.
+ */
+export async function getBtModulosPorAnio(
+  figuraId: number,
+  anioBGU: 1 | 2 | 3
+) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select({
+      modulo: btModulosFormativos,
+      cargaHoraria: btModuloPorAnio.cargaHorariaSemanal,
+    })
+    .from(btModulosFormativos)
+    .innerJoin(
+      btModuloPorAnio,
+      eq(btModulosFormativos.id, btModuloPorAnio.moduloId)
+    )
+    .where(
+      and(
+        eq(btModulosFormativos.figuraId, figuraId),
+        eq(btModuloPorAnio.anioBGU, anioBGU)
+      )
+    );
+}
+
+// ─── 5.4 Currículo del Módulo ────────────────────────────────────────────
+
+/**
+ * Currículo completo de un módulo: contenidos, RA y CE.
+ */
+export async function getBtCurriculumModulo(moduloId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const modulo = await db
+    .select()
+    .from(btModulosFormativos)
+    .where(eq(btModulosFormativos.id, moduloId))
+    .limit(1);
+
+  if (!modulo.length) return null;
+
+  const contenidos = await db
+    .select()
+    .from(btContenidos)
+    .where(eq(btContenidos.moduloId, moduloId))
+    .orderBy(btContenidos.orden);
+
+  const ra = await db
+    .select()
+    .from(btResultadosAprendizaje)
+    .where(eq(btResultadosAprendizaje.moduloId, moduloId));
+
+  const ce = ra.length
+    ? await db
+        .select()
+        .from(btCriteriosEvaluacion)
+        .where(
+          and(
+            ...ra.map((r) => eq(btCriteriosEvaluacion.raId, r.id))
+          )
+        )
+    : [];
+
+  const distribucion = await db
+    .select()
+    .from(btModuloPorAnio)
+    .where(eq(btModuloPorAnio.moduloId, moduloId));
+
+  return {
+    ...modulo[0],
+    contenidos,
+    resultadosAprendizaje: ra.map((r) => ({
+      ...r,
+      criteriosEvaluacion: ce.filter((c) => c.raId === r.id),
+    })),
+    distribucionAnual: distribucion,
+  };
+}
+
+/**
+ * Contenidos de un módulo filtrados por tipo (opcional).
+ */
+export async function getBtContenidosPorModulo(
+  moduloId: number,
+  tipo?: "conceptual" | "procedimental" | "actitudinal"
+) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const conditions = [eq(btContenidos.moduloId, moduloId)];
+  if (tipo) {
+    conditions.push(eq(btContenidos.tipo, tipo));
+  }
+
+  return db
+    .select()
+    .from(btContenidos)
+    .where(and(...conditions))
+    .orderBy(btContenidos.orden);
+}
+
+/**
+ * RA de un módulo con sus CE.
+ */
+export async function getBtRAPorModulo(moduloId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const ra = await db
+    .select()
+    .from(btResultadosAprendizaje)
+    .where(eq(btResultadosAprendizaje.moduloId, moduloId));
+
+  const ce = ra.length
+    ? await db
+        .select()
+        .from(btCriteriosEvaluacion)
+        .where(
+          and(
+            ...ra.map((r) => eq(btCriteriosEvaluacion.raId, r.id))
+          )
+        )
+    : [];
+
+  return ra.map((r) => ({
+    ...r,
+    criteriosEvaluacion: ce.filter((c) => c.raId === r.id),
+  }));
+}
+
+// ─── 5.5 Planificaciones ─────────────────────────────────────────────────
+
+/**
+ * Obtiene una planificación por ID con distribución completa.
+ */
+export async function getBtPlanificacion(planificacionId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const [plan] = await db
+    .select()
+    .from(btPlanificaciones)
+    .where(eq(btPlanificaciones.id, planificacionId))
+    .limit(1);
+
+  if (!plan) return null;
+
+  const distribucion = await db
+    .select()
+    .from(btDistribucionTrimestre)
+    .where(eq(btDistribucionTrimestre.planificacionId, planificacionId));
+
+  // Enriquecer con datos del catálogo
+  const distribucionEnriquecida = await Promise.all(
+    distribucion.map(async (d) => {
+      let contenido = null;
+      let ra = null;
+
+      if (d.contenidoId) {
+        const [c] = await db
+          .select()
+          .from(btContenidos)
+          .where(eq(btContenidos.id, d.contenidoId))
+          .limit(1);
+        contenido = c || null;
+      }
+
+      if (d.raId) {
+        const [r] = await db
+          .select()
+          .from(btResultadosAprendizaje)
+          .where(eq(btResultadosAprendizaje.id, d.raId))
+          .limit(1);
+        ra = r || null;
+      }
+
+      return { ...d, contenido, ra };
+    })
+  );
+
+  // Obtener figura completa
+  const figura = await getBtFiguraById(plan.figuraId);
+
+  return {
+    ...plan,
+    figura,
+    distribucion: distribucionEnriquecida,
+  };
+}
+
+/**
+ * Crea una nueva planificación BT.
+ */
+export async function createBtPlanificacion(data: {
+  sessionId: string;
+  figuraId: number;
+  anioBGU: 1 | 2 | 3;
+  anioLectivo: string;
+  nombre: string;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(btPlanificaciones).values({
+    sessionId: data.sessionId,
+    figuraId: data.figuraId,
+    anioBGU: data.anioBGU,
+    anioLectivo: data.anioLectivo,
+    nombre: data.nombre,
+  });
+
+  return result[0].insertId;
+}
+
+/**
+ * Actualiza una planificación BT.
+ */
+export async function updateBtPlanificacion(
+  planificacionId: number,
+  data: Partial<{
+    nombre: string;
+    figuraId: number;
+    anioBGU: 1 | 2 | 3;
+    anioLectivo: string;
+  }>
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(btPlanificaciones)
+    .set(data)
+    .where(eq(btPlanificaciones.id, planificacionId));
+}
+
+/**
+ * Elimina una planificación BT y su distribución.
+ */
+export async function deleteBtPlanificacion(planificacionId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Eliminar distribución primero (FK constraint)
+  await db
+    .delete(btDistribucionTrimestre)
+    .where(eq(btDistribucionTrimestre.planificacionId, planificacionId));
+
+  // Eliminar planificación
+  await db
+    .delete(btPlanificaciones)
+    .where(eq(btPlanificaciones.id, planificacionId));
+}
+
+/**
+ * Agrega un contenido a un trimestre de una planificación.
+ */
+export async function addBtDistribucionTrimestre(data: {
+  planificacionId: number;
+  trimestre: 1 | 2 | 3;
+  contenidoId?: number;
+  raId?: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(btDistribucionTrimestre).values({
+    planificacionId: data.planificacionId,
+    trimestre: data.trimestre,
+    contenidoId: data.contenidoId || null,
+    raId: data.raId || null,
+  });
+
+  return result[0].insertId;
+}
+
+/**
+ * Elimina una distribución trimestral.
+ */
+export async function removeBtDistribucionTrimestre(distribucionId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .delete(btDistribucionTrimestre)
+    .where(eq(btDistribucionTrimestre.id, distribucionId));
+}
+
+/**
+ * Resumen de carga horaria por trimestre para una planificación.
+ * Usa la carga horaria oficial de btModuloPorAnio, no cuenta filas.
+ */
+export async function getBtResumenCargaHoraria(planificacionId: number) {
+  const plan = await getBtPlanificacion(planificacionId);
+  if (!plan) return null;
+
+  const db = await getDb();
+  if (!db) return null;
+
+  // Obtener módulos únicos involucrados en la distribución
+  const moduloIds = new Set<number>();
+  for (const d of plan.distribucion) {
+    if (d.contenidoId) {
+      const [contenido] = await db
+        .select({ moduloId: btContenidos.moduloId })
+        .from(btContenidos)
+        .where(eq(btContenidos.id, d.contenidoId))
+        .limit(1);
+      if (contenido) moduloIds.add(contenido.moduloId);
+    }
+  }
+
+  // Para cada módulo, obtener su carga horaria oficial
+  let cargaHorariaTotal = 0;
+  const modulosConCarga: Array<{
+    moduloId: number;
+    cargaHorariaSemanal: number;
+    trimestres: number[];
+  }> = [];
+
+  for (const moduloId of moduloIds) {
+    const [modPorAnio] = await db
+      .select()
+      .from(btModuloPorAnio)
+      .where(
+        and(
+          eq(btModuloPorAnio.moduloId, moduloId),
+          eq(btModuloPorAnio.anioBGU, plan.anioBGU)
+        )
+      )
+      .limit(1);
+
+    if (modPorAnio) {
+      // Encontrar en qué trimestres está distribuido este módulo
+      const trimestresModulo = plan.distribucion
+        .filter((d) => {
+          if (!d.contenidoId) return false;
+          // Verificar si este contenido pertenece al módulo
+          return plan.distribucion.some(
+            (dd) => dd.id === d.id && dd.contenidoId === d.contenidoId
+          );
+        })
+        .map((d) => d.trimestre);
+
+      const trimestresUnicos = [...new Set(trimestresModulo)];
+
+      modulosConCarga.push({
+        moduloId,
+        cargaHorariaSemanal: modPorAnio.cargaHorariaSemanal,
+        trimestres: trimestresUnicos,
+      });
+
+      // Sumar carga horaria total (una vez por módulo, no por trimestre)
+      cargaHorariaTotal += modPorAnio.cargaHorariaSemanal;
+    }
+  }
+
+  // Calcular carga por trimestre basada en módulos asignados
+  const porTrimestre: Record<number, number> = { 1: 0, 2: 0, 3: 0 };
+  for (const mc of modulosConCarga) {
+    // Distribuir carga horaria equitativamente entre los trimestres del módulo
+    const cargaPorTrimestre = mc.cargaHorariaSemanal / mc.trimestres.length;
+    for (const t of mc.trimestres) {
+      porTrimestre[t] += cargaPorTrimestre;
+    }
+  }
+
+  return {
+    planificacionId,
+    anioBGU: plan.anioBGU,
+    trimestres: [
+      { trimestre: 1, cargaHoraria: Math.round(porTrimestre[1] * 10) / 10 },
+      { trimestre: 2, cargaHoraria: Math.round(porTrimestre[2] * 10) / 10 },
+      { trimestre: 3, cargaHoraria: Math.round(porTrimestre[3] * 10) / 10 },
+    ],
+    totalSemanal: Math.round((cargaHorariaTotal / 3) * 10) / 10,
+    modulosIncluidos: modulosConCarga,
+  };
 }

@@ -8,6 +8,7 @@ import {
   createPcaDocument,
   updatePcaFormDataAndAiResult,
   createFormatoPlantilla,
+  setPcaFormatoPlantillaId,
 } from "../../db";
 
 /**
@@ -198,12 +199,17 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
         JSON.stringify(formData),
         JSON.stringify(aiResult)
       );
+      // Asociar plantilla al PCA existente
+      if (formatoPlantillaId) {
+        await setPcaFormatoPlantillaId(pcaId, formatoPlantillaId);
+      }
     } else {
       pcaId = await createPcaDocument({
         sessionId,
         status: "generated",
         formData: JSON.stringify(formData),
         aiResult: JSON.stringify(aiResult),
+        formatoPlantillaId: formatoPlantillaId ?? null,
       });
     }
 
