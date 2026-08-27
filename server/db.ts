@@ -425,6 +425,7 @@ export async function createPcaDocument(data: {
     status: data.status,
     formData: data.formData,
     aiResult: data.aiResult ?? null,
+    formatoPlantillaId: null,
   } as InsertPcaDocument);
   return result[0].insertId;
 }
