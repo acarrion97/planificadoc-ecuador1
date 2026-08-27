@@ -635,7 +635,7 @@ export async function createImportedFormatDocument(data: {
 export async function updateImportedFormatDocument(
   id: number,
   data: Partial<{
-    status: "subido" | "analizando" | "completado" | "error";
+    status: "subido" | "analizando" | "completado" | "error" | "ambiguo";
     tipoDetectado: string | null;
     camposExtraidos: string | null;
     resultado: string | null;

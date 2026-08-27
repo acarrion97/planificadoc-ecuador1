@@ -361,6 +361,8 @@ export interface PcaDocument {
 }
 
 export const SUBNIVEL_NAMES: Record<Subnivel, string> = {
+  [-1]: "",
+  0: "",
   1: "Preparatoria",
   2: "Básica Elemental",
   3: "Básica Media",
@@ -369,6 +371,8 @@ export const SUBNIVEL_NAMES: Record<Subnivel, string> = {
 };
 
 export const SUBNIVEL_GRADOS: Record<Subnivel, string> = {
+  [-1]: "",
+  0: "",
   1: "1er grado EGB",
   2: "2do - 4to grado EGB",
   3: "5to - 7mo grado EGB",
