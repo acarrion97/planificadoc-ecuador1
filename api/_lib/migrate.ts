@@ -1,5 +1,5 @@
 import mysql from "mysql2/promise";
-import { seedBtCatalogo } from "./seed-bt";
+import { seedBtCatalogo, seedBtCurriculum } from "./seed-bt";
 
 /**
  * Migrador automático para Vercel (compatible con TiDB).
@@ -159,6 +159,42 @@ const MIGRATIONS = [
     ],
     columns: [],
   },
+  {
+    tag: "0012_bt_curriculum_extensions",
+    sql: [],
+    columns: [
+      {
+        table: "bt_modulos_formativos",
+        column: "nivel",
+        definition: "ADD COLUMN \`nivel\` VARCHAR(64) AFTER \`tipo\`",
+      },
+      {
+        table: "bt_modulos_formativos",
+        column: "duracionTotalPeriodos",
+        definition: "ADD COLUMN \`duracionTotalPeriodos\` INT AFTER \`nivel\`",
+      },
+      {
+        table: "bt_modulos_formativos",
+        column: "unidadCompetencia",
+        definition: "ADD COLUMN \`unidadCompetencia\` TEXT AFTER \`duracionTotalPeriodos\`",
+      },
+      {
+        table: "bt_modulos_formativos",
+        column: "objetivoModulo",
+        definition: "ADD COLUMN \`objetivoModulo\` TEXT AFTER \`unidadCompetencia\`",
+      },
+      {
+        table: "bt_modulos_formativos",
+        column: "perfilDocente",
+        definition: "ADD COLUMN \`perfilDocente\` TEXT AFTER \`objetivoModulo\`",
+      },
+      {
+        table: "bt_modulos_formativos",
+        column: "orientacionesMetodologicas",
+        definition: "ADD COLUMN \`orientacionesMetodologicas\` TEXT AFTER \`perfilDocente\`",
+      },
+    ],
+  },
 ];
 
 let _migrated = false;
@@ -244,6 +280,16 @@ export async function ensureMigrations(): Promise<void> {
         console.log("[migration] Running BT catalog seed...");
         const result = await seedBtCatalogo(conn);
         console.log(`[migration] BT seed complete:`, result);
+      }
+
+      // Seed del currículo BT
+      const [curriculumCheck] = await conn.query(
+        `SELECT COUNT(*) AS cnt FROM bt_modulos_formativos`
+      );
+      if ((curriculumCheck as any[])[0].cnt === 0) {
+        console.log("[migration] Running BT curriculum seed...");
+        const curriculumResult = await seedBtCurriculum(conn);
+        console.log(`[migration] BT curriculum seed complete:`, curriculumResult);
       }
     }
 

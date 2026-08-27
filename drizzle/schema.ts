@@ -562,7 +562,13 @@ export const btModulosFormativos = mysqlTable("bt_modulos_formativos", {
   figuraId: int("figuraId").notNull(),
   nombre: varchar("nombre", { length: 200 }).notNull(),
   codigo: varchar("codigo", { length: 64 }),
-  tipo: mysqlEnum("tipo", ["generico", "especializacion"]).notNull().default("especializacion"),
+  tipo: mysqlEnum("tipo", ["generico", "especializacion", "practico_experimental"]).notNull().default("especializacion"),
+  nivel: varchar("nivel", { length: 64 }),
+  duracionTotalPeriodos: int("duracionTotalPeriodos"),
+  unidadCompetencia: text("unidadCompetencia"),
+  objetivoModulo: text("objetivoModulo"),
+  perfilDocente: text("perfilDocente"),
+  orientacionesMetodologicas: text("orientacionesMetodologicas"),
 });
 
 export type BtModuloFormativo = typeof btModulosFormativos.$inferSelect;
