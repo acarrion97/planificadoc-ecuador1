@@ -1,347 +1,343 @@
 ---
 name: aulvian
-description: "Use this skill for educational management systems aligned with the Ministerio de Educación del Ecuador using Laravel + Inertia.js + React. Trigger whenever implementing enrollment, grading, attendance, academic reports, academic periods, teacher assignments, institutional structures, qualitative and quantitative grading, reinforcement workflows, or MINEDUC-compliant reports. Covers: multi-institution management, academic structures, grading formulas, educational levels, attendance, reports, academic reinforcement, representative access, Inertia forms, validation rules, academic workflows, and institutional permissions. Do not use for unrelated ERP, ecommerce, or generic CMS modules."
+description: "PlanificaDoc — generador de planificaciones docentes alineado al MINEDUC Ecuador. Usa este skill para implementar funcionalidades de planificación curricular (PCA, PCT, Adaptaciones Curriculares, BT, CNC), importación/exportación de formatos oficiales, generación con IA, exportación Word/PDF, suscripciones, y cualquier módulo del sistema. Trigger con: planificación, PCA, PCT, formato, importar, exportar, Word, PDF, IA, suscripción, PayPhone, adaptación, BT, CNC, evaluación, informe."
 license: MIT
 metadata:
-  author: Henry Simbaña Cruz
+  author: PlanificaDoc Team
 ---
 
-# Sistema Educativo Ecuador — Laravel + Inertia React
+# PlanificaDoc — Sistema de Planificación Docente MINEDUC Ecuador
 
 ## Stack Tecnológico
 
-- Laravel
-- Inertia.js
-- React
-- TailwindCSS
-- MySQL o PostgreSQL
+- **Frontend**: Expo SDK 54 + React Native + React Native Web
+- **Router**: Expo Router v6
+- **API**: tRPC v11 (server + client)
+- **Server**: Express.js (local dev) / Vercel Serverless Functions (producción)
+- **Base de datos**: MySQL (TiDB en PlanetScale) + Drizzle ORM
+- **IA**: LLM via Built-In Forge API
+- **Exportación**: docx (Word), HTML→PDF (nativo), plantillas DOCX (JSZip + fast-xml-parser)
+- **Pagos**: PayPhone (botón de pago + renovación automática)
+- **Deploy**: Vercel (serverless + crons)
 
 ---
 
-# Arquitectura
+# Arquitectura General
 
-## Principios Generales
-
-- NO usar API REST tradicional
-- Laravel controla:
-  - navegación
-  - autorización
-  - validaciones
-  - lógica académica
-  - renderizado Inertia
-- React únicamente renderiza vistas
-- Navegación usando Inertia.js
-- Formularios usando `useForm`
-- Validaciones críticas siempre en backend
-- No calcular notas finales únicamente en frontend
-
----
-
-# Dominio Académico
-
-## Estructura Académica
+## Estructura de Directorios
 
 ```txt
-Nivel
- └── Subnivel
-      └── Curso
-           └── Paralelo
+planificadoc-ecuador1/
+├── app/                    # Expo Router — pantallas
+│   ├── (tabs)/             # Navegación por tabs
+│   ├── pca-preview/        # Preview de PCA antes de exportar
+│   ├── importar-formato/   # Pantalla de importación
+│   └── ...
+├── server/                 # Lógica de negocio (tRPC routers + handlers)
+│   ├── _core/              # trpc.ts, llm.ts, env.ts
+│   ├── routers.ts          # Router principal que concatena todos los sub-routers
+│   ├── pca-router.ts       # PCA anual
+│   ├── pca-trimestral-router.ts  # PCA trimestral
+│   ├── import-formato/     # Sistema de importación (reconocimiento + handlers)
+│   └── ...
+├── api/                    # Vercel Serverless Functions
+│   ├── trpc/[trpc].ts     # Entry point tRPC en Vercel
+│   ├── payment/            # PayPhone (page.ts, confirm.ts, activate.ts)
+│   ├── admin/              # Admin endpoints
+│   └── _lib/               # Helpers compartidos (db.ts, migrate.ts)
+├── lib/                    # Generadores de documentos (client-side)
+│   ├── pca-word-generator.ts
+│   ├── pca-pdf-generator.ts
+│   └── ...
+├── drizzle/                # Schema + migraciones
+│   ├── schema.ts           # Definiciones de tablas
+│   ├── 0000_*.sql ... 0010_*.sql  # Migraciones SQL
+│   └── meta/               # Journal de Drizzle Kit
+├── data/                   # Datos estáticos (destrezas, áreas, etc.)
+├── hooks/                  # Custom hooks React
+└── __tests__/              # Tests (Vitest)
 ```
 
----
-
-## Relaciones Principales
-
-- Estudiantes matriculados por:
-  - institución
-  - periodo académico
-  - oferta educativa
-  - curso
-  - paralelo
-
-- Docentes asignados a:
-  - materias
-  - cursos
-  - paralelos
-
-- Representantes legales pueden visualizar:
-  - estudiantes asociados
-  - asistencia
-  - calificaciones
-  - observaciones
-  - informes
-
----
-
-# Reglas Académicas MINEDUC Ecuador
-
-## Inicial y Preparatoria
-
-### Reglas
-
-- NO usar calificaciones numéricas
-- NO generar promedios
-- SOLO evaluación cualitativa
-
-### Escala Permitida
-
-| Código | Descripción |
-|---|---|
-| A | Adquirido |
-| EP | En Proceso |
-| I | Iniciado |
-| NE | No Evaluado |
-
----
-
-## Educación General Básica Elemental
-
-### Reglas
-
-- Puede manejar:
-  - notas numéricas
-  - equivalencia cualitativa
-
-- Promedio simple de actividades y aportes
-
-### Equivalencias Sugeridas
-
-| Rango | Equivalencia |
-|---|---|
-| 9.00 - 10.00 | DA |
-| 7.00 - 8.99 | AA |
-| 4.01 - 6.99 | PA |
-| 0.00 - 4.00 | NA |
-
----
-
-## EGB Media, Superior y Bachillerato
-
-### Ponderación Oficial
-
-| Componente | Peso |
-|---|---:|
-| Formativa | 70% |
-| Sumativa | 30% |
-
-### Fórmula Oficial
+## Flujo de Datos
 
 ```txt
-Nota Final = (Formativa × 0.70) + (Sumativa × 0.30)
+Expo App (React Native/Web)
+    │
+    ▼
+tRPC Client (@trpc/react-query)
+    │
+    ▼
+tRPC Router (server/routers.ts)
+    │
+    ├──→ Express (dev local: server/_core/index.ts)
+    │
+    └──→ Vercel Serverless (producción: api/trpc/[trpc].ts)
+            │
+            ▼
+        Drizzle ORM → MySQL/TiDB
 ```
 
----
+## Reglas Clave
 
-## Metacognición
-
-### Reglas
-
-- Es parte del proceso pedagógico
-- NO debe registrarse como nota independiente
-- Puede almacenarse como:
-  - observación
-  - reflexión
-  - evidencia pedagógica
+- **tRPC es la capa de API** — No hay REST para lógica de negocio
+- **Server-side rendering**: La generación con IA y exportación corren en el server
+- **Client-side**: La app Expo renderiza UI, maneja navegación y estado local
+- **Vercel auto-migrates**: `api/_lib/migrate.ts` ejecuta migraciones pendientes en el primer request
+- **Pagos server-side**: PayPhone confirm/activate corre en Vercel, nunca en el cliente
 
 ---
 
-## Proyectos Interdisciplinarios
+# Módulos del Sistema
 
-### Reglas
+## 1. PCA — Planificación Curricular Anual
 
-- Obligatorios o recomendados según nivel
-- Pueden formar parte de:
-  - evaluación sumativa
-  - proyectos quimestrales
-  - evidencias integradoras
+### Archivos clave
+- `server/pca-router.ts` — tRPC router (generate, get, list, regenerarSeccion, exportarConPlantilla)
+- `server/import-formato/handlers/pca.ts` — Handler de importación
+- `server/import-formato/mapear-pca.ts` — Extracción de campos desde documento parseado
+- `server/import-formato/completar-pca.ts` — Completado con IA
+- `lib/pca-word-generator.ts` — Generador Word nativo (client-side)
+- `lib/pca-pdf-generator.ts` — Generador PDF/HTML nativo (client-side)
+- `app/pca-preview/[id].tsx` — Pantalla de preview + exportación
 
----
-
-# Backend Rules
-
-## Persistencia De Notas
-
-Guardar siempre por separado:
-
+### Modelo de datos (pcaDocuments)
 ```txt
-formativa_score
-sumativa_score
-final_score
-qualitative_grade
+id, sessionId, status, formData (JSON), aiResult (JSON),
+clientTransactionId, payphoneTransactionId, authorizationCode,
+amountPaid, formatoPlantillaId, createdAt, updatedAt
 ```
 
----
-
-## Cálculo Obligatorio
-
+### Flujo de generación
 ```txt
-final_score = (formativa_score * 0.70) + (sumativa_score * 0.30)
+Frontend → generatePca mutation
+    → LLM genera JSON (área, grado, unidades, etc.)
+    → Guarda en pcaDocuments
+    → Devuelve resourceId → navega a /pca-preview/[id]
 ```
 
----
-
-## Regla De Truncamiento
-
-- Truncar a 2 decimales antes de guardar
-- NO redondear automáticamente si la institución no lo permite
-
-Ejemplo:
-
+### Flujo de exportación
 ```txt
-8.999 → 8.99
+Botón "Descargar Word"
+    → exportarConPlantilla mutation
+    → ¿Tiene formatoPlantillaId?
+        SÍ → renderizarDocxPlantilla() (rellena template original)
+        NO → generarWordPca() (generador nativo)
+    → Descarga .docx
 ```
 
----
+## 2. Importación de Formatos Oficiales
 
-# Reglas De Validación
+### Archivos clave
+- `server/importar-formato-router.ts` — tRPC router principal
+- `server/import-formato/types.ts` — Tipos: ImportHandler, Huella, ResultadoReconocimiento
+- `server/import-formato/huellas.ts` — Huellas digitales de cada tipo (PCA, PCT, BT, etc.)
+- `server/import-formato/matcher.ts` — Score de similitud + detección de ambigüedad
+- `server/import-formato/importer.ts` — Orquestador: mapear → completar → guardar
+- `server/import-formato/parse.ts` — Dispatcher de parsing (DOCX/DOC/PDF)
+- `server/import-formato/parse-docx.ts` — Parser DOCX (JSZip + fast-xml-parser)
+- `server/import-formato/parse-doc.ts` — Parser DOC (word-extractor)
+- `server/import-formato/schemas.ts` — Zod schemas para validación de IA
 
-## Notas
-
-- No permitir:
-  - valores negativos
-  - valores mayores a 10
-  - NaN
-  - null en periodos cerrados
-
----
-
-## Estados Académicos
-
-Estados sugeridos:
-
+### Flujo de importación
 ```txt
-active
-inactive
-withdrawn
-graduated
-failed
-transferred
+Subir archivo → parseDocumento()
+    → Magic bytes detection (extensión real vs declarada)
+    → Parse DOCX/DOC/PDF → DocumentoParseado (tablas + texto)
+    → matcher: scoring contra huellas de cada tipo
+    → ¿Reconocido?
+        SÍ (score > 0.7) → importar(tipo, documento)
+        AMBIGUO (0.6-0.7) → devolver candidatos, frontend muestra opciones
+        NO → error "formato no reconocido"
+    → handler.mapear() → campos extraídos
+    → handler.completar() → IA llena vacíos
+    → handler.guardar() → persiste + crea FormatoPlantilla
+    → resultado con destination URL
 ```
 
----
+### Tipos soportados
+| Tipo | Estado | Huella |
+|------|--------|--------|
+| pca | ✅ Implementado | "Planificación Curricular Anual" |
+| pct | 📋 Pendiente | "Planificación Curricular Trimestral" |
+| bt | 📋 Pendiente | "Boleta de Trabajo" |
+| cnc | 📋 Pendiente | "Cuaderno de Control" |
+| adaptaciones | 📋 Pendiente | "Adaptaciones Curriculares" |
+| inicial | 📋 Pendiente | "Inicial / Preparatoria" |
+| refuerzo | 📋 Pendiente | "Refuerzo Académico" |
+| informe | 📋 Pendiente | "Informe" |
 
-# Periodos Académicos
+## 3. Sistema de Plantillas (Template-Based Export)
 
-## Debe Soportar
+### Archivos clave
+- `server/import-formato/types.ts` — PlantillaEstructura, FieldBinding, RepeatRegion
+- `server/import-formato/template-builder.ts` — Analiza DOCX, detecta bindings
+- `server/import-formato/template-docx-renderer.ts` — Rellena DOCX in-place
 
-- Año lectivo
-- Quimestre
-- Parcial
-- Unidad
-- Recuperación
-- Supletorio
-- Remedial
-- Gracia
-
----
-
-# Multiinstitución
-
-## Cada Registro Académico Debe Relacionarse Con
-
+### Conceptos
 ```txt
-institution_id
-academic_period_id
-tenant_id
+PlantillaEstructura
+  ├── celdas: DocxCellLocation[]     (ubicación física: tabla/fila/columna)
+  └── regiones: RepeatRegion[]       (filas dinámicas: unidades PCA)
+
+FieldBinding
+  ├── campo: string                  (nombre canónico: "institucion", "area")
+  ├── location: DocxCellLocation     (donde está en el DOCX)
+  └── confianza: number              (0-1, qué tan seguro está el heuristic)
+
+FormatoPlantilla (DB)
+  ├── estructura: JSON               (PlantillaEstructura)
+  ├── bindings: JSON                 (PlantillaBindings)
+  ├── configuracion: JSON            (PlantillaConfiguracion)
+  └── templateBufferBase64: TEXT     (buffer del DOCX original)
 ```
 
----
-
-# Seguridad
-
-## Reglas
-
-- Los docentes SOLO pueden modificar:
-  - materias asignadas
-  - cursos asignados
-
-- Representantes SOLO visualizan:
-  - estudiantes relacionados
-
-- Auditoría obligatoria:
-
+### Flujo
 ```txt
-created_by
-updated_by
-created_at
-updated_at
+Importar DOCX → template-builder analiza estructura
+    → Detecta headers, celdas vacías, regiones repetibles
+    → Mapea campos canónicos a celdas (heuristics + keywords)
+    → Guarda FormatoPlantilla con buffer original
+
+Exportar → template-docx-renderer
+    → Abre template con JSZip
+    → Rellena celdas simples (institución, área, etc.)
+    → Rellena regiones repetibles (unidades PCA)
+    → Devuelve Buffer DOCX completo
 ```
 
----
+## 4. Pagos (PayPhone)
 
-# Frontend Rules
+### Archivos clave
+- `api/payment/page.ts` — Inicia transacción PayPhone
+- `api/payment/confirm.ts` — Bridge HTML confirma con PayPhone API
+- `api/payment/activate.ts` — Activa suscripción tras pago exitoso
+- `server/pca-router.ts` — Precio PCA: $14.99
 
-## React + Inertia
+### Flujo
+```txt
+Frontend → page.ts (POST con email, monto, plan)
+    → PayPhone redirige a confirm.ts
+    → confirm.ts muestra HTML bridge
+    → Bridge llama PayPhone Confirm API (client-side JS)
+    → Bridge llama activate.ts (server-side)
+    → activate.ts activa suscripción en DB
+    → Muestra resultado al usuario
+```
 
-### Reglas
+## 5. Migraciones Automáticas
 
-- Usar:
-  - `useForm`
-  - `router`
-  - `Link`
-  - `Head`
+### Archivos clave
+- `api/_lib/migrate.ts` — Migrador ligero para Vercel
+- `api/trpc/[trpc].ts` — Ejecuta ensureMigrations() en primer request
 
-- Evitar:
-  - fetch manual innecesario
-  - axios para navegación
-  - manejo duplicado de estado servidor
+### Mecanismo
+```txt
+Primer request → ensureMigrations()
+    → ¿Existe __drizzle_migrations?
+        NO → CREATE TABLE
+    → ¿Tiene tag "0010_formato_plantillas"?
+        NO → ejecuta SQL, registra tag
+        SÍ → skip
+    → _migrated = true (no vuelve a ejecutar en este cold start)
+```
 
----
-
-# Reportes
-
-## El Sistema Debe Generar
-
-- Boletas
-- Reportes quimestrales
-- Reportes anuales
-- Cuadros de calificaciones
-- Reportes de asistencia
-- Reportes de refuerzo académico
-- Actas
-- Certificados
-
----
-
-# Consideraciones Técnicas
-
-## Base De Datos
-
-- Preferir UUID para entidades críticas
-- Usar foreign keys reales
-- SoftDeletes únicamente donde aplique
+### Para agregar nueva migración
+1. Agregar entrada al array `MIGRATIONS` en `api/_lib/migrate.ts`
+2. Incluir SQL de CREATE TABLE o ALTER TABLE
+3. Deploy a Vercel → se ejecuta automáticamente
 
 ---
 
-# Objetivo Final
+# Reglas de Desarrollo
 
-El sistema debe permitir administrar instituciones educativas ecuatorianas respetando:
+## Code Style
+- Sin comentarios en código除非 el usuario lo pida
+- Seguir convenciones existentes del archivo
+- Preferir edición de archivos existentes sobre creación de nuevos
+- Verificar TypeScript compile (`npx tsc --noEmit`) antes de commit
+- Tests con Vitest (`npx vitest run __tests__/importar-formato.test.ts`)
 
-- normativa MINEDUC
-- estructura académica oficial
-- procesos de evaluación
-- auditoría institucional
-- generación automática de reportes
-- trazabilidad académica
+## Git Workflow
+- `git fetch` antes de cada cambio (skill fetch-y-commit)
+- Commits concisos en inglés
+- Push a rama `feat/importar-formato-planificacion`
+- Vercel genera preview automáticamente por cada push
+
+## Base de Datos
+- Drizzle ORM con MySQL/TiDB
+- Schema en `drizzle/schema.ts`
+- Migraciones SQL en `drizzle/00XX_name.sql`
+- NO usar `drizzle-kit push` en producción
+- Usar `api/_lib/migrate.ts` para migraciones en Vercel
+
+## Exportación de Documentos
+- **Client-side generators** (lib/pca-word-generator.ts): Para documentos sin template importado
+- **Template renderer** (template-docx-renderer.ts): Para documentos importados con formato original
+- **PDF**: Generar HTML → convertir a PDF (expo-print en móvil, print en web)
+
+## IA (LLM)
+- Endpoint: Built-In Forge API (server/_core/llm.ts)
+- Input: prompt + contexto
+- Output: JSON validado con Zod schemas (server/import-formato/schemas.ts)
+- Nunca confiar en el output crudo → siempre parsear + validar
 
 ---
 
-# Fix Diagnostics
+# Formato Oficial MINEDUC (PCA)
 
-## Purpose
+## Estructura del documento
+```txt
+Encabezado
+  ├── Institución Educativa
+  ├── Docente
+  ├── Área
+  ├── Grado
+  ├── Paralelo
+  ├── Año Lectivo
+  └── Carga Horaria Semanal
 
-Fix issues found by the Chat Customizations Evaluations analyzer in prompt, agent, skill, and instruction files. The diagnostics include contradictions, ambiguities, persona conflicts, cognitive load issues, and coverage gaps.
+Tabla de Planificación
+  ├── Unidad 1-4
+  │   ├── Semanas
+  │   ├── DCDes (Destrezas con criterios de desempeño)
+  │   ├── Ejes Transversales
+  │   ├── Recursos
+  │   └── Estrategias Metodológicas
+  └── ...
 
-## Usage
+Firmas
+  ├── Elaborado por / Fecha
+  ├── Revisado por / Fecha
+  └── Aprobado por / Fecha
+```
 
-This skill is invoked automatically when the user clicks the "Fix Diagnostics" button in the editor title bar. It receives the diagnostics as context and rewrites the affected sections of the file to resolve them.
+## Reglas de Parsing
+- Detectar encabezados por keywords: "Institución", "Docente", "Área", "Grado"
+- Extraer valores de celdas adyacentes
+- Unidades detectadas por "Unidad N" o "Unidad N°"
+- Semanas acumuladas: 4 semanas por unidad por defecto
+- DCDes vacías → campos undefined (IA los completa)
 
-## Instructions
+---
 
-- You will receive a list of diagnostics from the Chat Customizations Evaluations extension. Each diagnostic includes a line number, code, message, and optionally a suggestion.
-- For each diagnostic, apply the fix directly to the file content. Use the suggestion if one is provided; otherwise, use your judgment to resolve the issue.
-- Preserve the overall structure, tone, and intent of the prompt file. Only change what is necessary to resolve the diagnostics.
-- If two diagnostics conflict with each other, prefer the fix that keeps the prompt clearer and more consistent.
-- Output the fixed file content as a code block so it can be applied as an edit.
-- Do NOT add new instructions or sections that were not in the original file.
-- Do NOT remove instructions unless a diagnostic specifically calls for it (e.g., contradictions).
+# Comandos Útiles
+
+```bash
+# Desarrollo local
+pnpm dev                    # Express + Expo simultaneously
+
+# Tests
+npx vitest run              # Todos los tests
+npx vitest run __tests__/importar-formato.test.ts  # Solo importación
+
+# Type check
+npx tsc --noEmit
+
+# Build
+pnpm build                  # esbuild → dist/
+
+# DB (requiere DATABASE_URL local)
+pnpm db:generate            # Generar migración desde schema
+pnpm db:migrate             # Aplicar migraciones
+pnpm db:dev                 # generate + migrate
+```
