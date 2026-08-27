@@ -192,7 +192,7 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
 
         console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}, storage: ${templateStorageKey}`);
       } catch (err) {
-        console.warn("[pca-handler] No se pudo crear plantilla:", err);
+        console.error("[pca-handler] ERROR creando plantilla:", err);
         // No bloqueamos el flujo por esto
       }
     }

@@ -519,7 +519,9 @@ export const pcaRouter = router({
   listMisPlantillas: publicProcedure
     .input(z.object({ sessionId: z.string() }))
     .query(async ({ input }) => {
+      console.log("[pca-router] listMisPlantillas sessionId:", input.sessionId);
       const plantillas = await listFormatoPlantillas(input.sessionId, "pca");
+      console.log("[pca-router] listMisPlantillas found:", plantillas.length);
       return plantillas.map((p) => ({
         id: p.id,
         nombre: p.nombre,

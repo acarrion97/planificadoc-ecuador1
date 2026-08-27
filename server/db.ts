@@ -850,6 +850,7 @@ export async function createFormatoPlantilla(data: {
  * Obtiene una plantilla por ID.
  */
 export async function getFormatoPlantilla(id: number) {
+  await ensureFormatoPlantillaTable();
   const db = await getDb();
   if (!db) return null;
 
@@ -869,6 +870,7 @@ export async function listFormatoPlantillas(
   sessionId: string,
   tipoPlanificacion?: string
 ) {
+  await ensureFormatoPlantillaTable();
   const db = await getDb();
   if (!db) return [];
 
