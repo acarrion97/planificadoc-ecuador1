@@ -1,5 +1,5 @@
 ---
-name: aulvian
+name: planificadoc
 description: "PlanificaDoc — generador de planificaciones docentes alineado al MINEDUC Ecuador. Usa este skill para implementar funcionalidades de planificación curricular (PCA, PCT, Adaptaciones Curriculares, BT, CNC), importación/exportación de formatos oficiales, generación con IA, exportación Word/PDF, suscripciones, y cualquier módulo del sistema. Trigger con: planificación, PCA, PCT, formato, importar, exportar, Word, PDF, IA, suscripción, PayPhone, adaptación, BT, CNC, evaluación, informe."
 license: MIT
 metadata:
