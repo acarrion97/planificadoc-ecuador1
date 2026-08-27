@@ -433,12 +433,25 @@ export const pcaRouter = router({
       }
 
       const plantilla = await getFormatoPlantilla(plantillaId);
-      if (!plantilla || !plantilla.templateBufferBase64) {
+      if (!plantilla) {
         return { success: false, useNative: true };
       }
 
-      // Decodificar buffer del template
-      const templateBuffer = Buffer.from(plantilla.templateBufferBase64, "base64");
+      // Cargar buffer desde storage (nuevo) o desde BD (legacy base64)
+      let templateBuffer: Buffer;
+      if (plantilla.storageKey) {
+        const { storageGet } = await import("./storage");
+        const { url } = await storageGet(plantilla.storageKey);
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error("No se pudo descargar el template desde storage");
+        const arrayBuf = await resp.arrayBuffer();
+        templateBuffer = Buffer.from(arrayBuf);
+      } else if (plantilla.templateBufferBase64) {
+        // Legacy: plantillas viejas que aún tienen base64 en BD
+        templateBuffer = Buffer.from(plantilla.templateBufferBase64, "base64");
+      } else {
+        return { success: false, useNative: true };
+      }
 
       // Preparar datos para el renderer
       const unidades = (formData.unidades as any[]) || [];

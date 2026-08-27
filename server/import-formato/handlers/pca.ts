@@ -3,6 +3,7 @@ import { DocumentoParseado, ImportHandler, PcaCamposExtraidos, ResultadoGuardado
 import { mapearCamposPca } from "../mapear-pca";
 import { completarPcaConIA, inferirCodigoArea, PlanificacionExistente } from "../completar-pca";
 import { construirPlantilla } from "../template-builder";
+import { storagePut } from "../../storage";
 import {
   findMatchingPcaDocuments,
   createPcaDocument,
@@ -169,22 +170,27 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
       try {
         const plantilla = await construirPlantilla(originalBuffer, campos);
 
-        // Guardar el buffer del archivo original en storage si no existe
-        // (ya se hizo en el router, aquí solo creamos el registro)
+        // Subir buffer original a storage (no guardar base64 en BD)
+        const storagePath = `plantillas/${sessionId}/${Date.now()}-pca.docx`;
+        const { key: templateStorageKey } = await storagePut(
+          storagePath,
+          originalBuffer,
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        );
+
         formatoPlantillaId = await createFormatoPlantilla({
           sessionId,
           nombre: `PCA - ${campos.institucion || "Sin nombre"} - ${campos.anioLectivo || ""}`,
           tipoPlanificacion: "pca",
           formatoOrigen: "docx",
           mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          storageKey: "",
+          storageKey: templateStorageKey,
           estructura: JSON.stringify(plantilla.estructura),
           bindings: JSON.stringify(plantilla.bindings),
           configuracion: JSON.stringify(plantilla.configuracion),
-          templateBufferBase64: originalBuffer.toString("base64"),
         });
 
-        console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}`);
+        console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}, storage: ${templateStorageKey}`);
       } catch (err) {
         console.warn("[pca-handler] No se pudo crear plantilla:", err);
         // No bloqueamos el flujo por esto
