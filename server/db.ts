@@ -376,12 +376,27 @@ async function ensurePcaTable(): Promise<void> {
         \`payphoneTransactionId\` int DEFAULT NULL,
         \`authorizationCode\` varchar(64) DEFAULT NULL,
         \`amountPaid\` int DEFAULT NULL,
+        \`formatoPlantillaId\` int DEFAULT NULL,
         \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         PRIMARY KEY (\`id\`),
         KEY \`idx_pca_sessionId\` (\`sessionId\`),
         KEY \`idx_pca_clientTxId\` (\`clientTransactionId\`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    `);
+
+    // Agregar columna formatoPlantillaId si no existe (migración para tablas existentes)
+    await (db as any).execute(`
+      SET @dbname = DATABASE();
+      SELECT COUNT(*) INTO @col_exists
+      FROM information_schema.columns
+      WHERE table_schema = @dbname
+        AND table_name = 'pca_documents'
+        AND column_name = 'formatoPlantillaId';
+      SET @sql = IF(@col_exists = 0,
+        'ALTER TABLE \`pca_documents\` ADD COLUMN \`formatoPlantillaId\` INT AFTER \`amountPaid\`',
+        'SELECT "column already exists"');
+      PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
     `);
   } catch (err: any) {
     // Si ya existe o hay otro error no crítico, continuar
