@@ -883,11 +883,16 @@ export async function listFormatoPlantillas(
     conditions.push(eq(formatoPlantillas.tipoPlanificacion, tipoPlanificacion));
   }
 
-  return db
-    .select()
-    .from(formatoPlantillas)
-    .where(and(...conditions))
-    .orderBy(desc(formatoPlantillas.createdAt));
+  try {
+    return await db
+      .select()
+      .from(formatoPlantillas)
+      .where(and(...conditions))
+      .orderBy(desc(formatoPlantillas.createdAt));
+  } catch (err) {
+    console.error("[DB] listFormatoPlantillas error:", err);
+    return [];
+  }
 }
 
 /**
