@@ -54,7 +54,7 @@ export async function ensureMigrations(): Promise<void> {
   const conn = await mysql.createConnection(url);
 
   try {
-    // Crear tabla de tracking si no existe
+    // Crear tabla de tracking si no existe (con campo tag)
     await conn.execute(`
       CREATE TABLE IF NOT EXISTS \`__drizzle_migrations\` (
         \`id\`          INT           NOT NULL AUTO_INCREMENT,
@@ -63,6 +63,20 @@ export async function ensureMigrations(): Promise<void> {
         PRIMARY KEY (\`id\`),
         UNIQUE INDEX \`idx_migration_tag\` (\`tag\`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `);
+
+    // Si la tabla ya existía sin la columna tag, agregarla
+    await conn.execute(`
+      SET @dbname = DATABASE();
+      SELECT COUNT(*) INTO @col_exists
+      FROM information_schema.columns
+      WHERE table_schema = @dbname
+        AND table_name = '__drizzle_migrations'
+        AND column_name = 'tag';
+      SET @sql = IF(@col_exists = 0,
+        'ALTER TABLE \`__drizzle_migrations\` ADD COLUMN \`tag\` VARCHAR(255) NOT NULL',
+        'SELECT "column already exists"');
+      PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
     `);
 
     // Obtener migraciones ya aplicadas
