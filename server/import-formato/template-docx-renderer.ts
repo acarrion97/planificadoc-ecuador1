@@ -64,18 +64,10 @@ function textoDeNodo(nodo: XmlNode[]): string {
  */
 function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
   const key = Object.keys(celda).find((k) => k !== ":@");
-  if (!key || key !== "w:tc") {
-    console.log(`[template-renderer] Nodo no es w:tc: ${key}`);
-    return;
-  }
+  if (!key || key !== "w:tc") return;
 
   const contenido = celda[key];
-  if (!Array.isArray(contenido)) {
-    console.log(`[template-renderer] Contenido de celda no es array:`, typeof contenido);
-    return;
-  }
-
-  console.log(`[template-renderer] Reemplazando texto en celda: '${nuevoTexto}' (nodos: ${contenido.length})`);
+  if (!Array.isArray(contenido)) return;
 
   // Buscar todos los nodos w:t y reemplazar su contenido
   let textoReemplazado = false;
@@ -102,10 +94,6 @@ function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
       }
     }
   }
-
-  if (!textoReemplazado) {
-    console.log(`[template-renderer] No se encontró nodo w:t en la celda`);
-  }
 }
 
 // ─── Renderizado de campos simples ──────────────────────────────────────────
@@ -119,47 +107,28 @@ function renderizarCampos(
   bindings: FieldBinding[],
   datos: Record<string, any>
 ): void {
-  console.log(`[template-renderer] Renderizando ${bindings.length} campos`);
-  console.log(`[template-renderer] Datos disponibles:`, Object.keys(datos));
-
   for (const binding of bindings) {
     const valor = datos[binding.campo];
-    if (valor === undefined || valor === null) {
-      console.log(`[template-renderer] Campo '${binding.campo}' no tiene valor en datos`);
-      continue;
-    }
+    if (valor === undefined || valor === null) continue;
 
     const loc = binding.ubicacion as DocxCellLocation;
-    if (loc.tipo !== "docx-cell") {
-      console.log(`[template-renderer] Binding '${binding.campo}' tiene ubicación tipo '${loc.tipo}', esperado 'docx-cell'`);
-      continue;
-    }
+    if (loc.tipo !== "docx-cell") continue;
 
     const tabla = tablas[loc.tabla];
-    if (!tabla) {
-      console.log(`[template-renderer] Tabla ${loc.tabla} no encontrada (total: ${tablas.length})`);
-      continue;
-    }
+    if (!tabla) continue;
 
     const filas = buscarNodos([tabla], "w:tr");
     const fila = filas[loc.fila];
-    if (!fila) {
-      console.log(`[template-renderer] Fila ${loc.fila} no encontrada en tabla ${loc.tabla} (total: ${filas.length})`);
-      continue;
-    }
+    if (!fila) continue;
 
     const celdas = buscarNodos([fila], "w:tc");
     const celda = celdas[loc.columna];
-    if (!celda) {
-      console.log(`[template-renderer] Columna ${loc.columna} no encontrada en fila ${loc.fila} (total: ${celdas.length})`);
-      continue;
-    }
+    if (!celda) continue;
 
     const textoValor = binding.tipo === "number"
       ? String(valor)
       : String(valor);
 
-    console.log(`[template-renderer] Reemplazando campo '${binding.campo}' = '${textoValor}' en [${loc.tabla},${loc.fila},${loc.columna}]`);
     reemplazarTextoEnCelda(celda, textoValor);
   }
 }
@@ -250,8 +219,6 @@ export async function renderizarDocxPlantilla(
   datos: Record<string, any>,
   archivosAdicionales?: Record<string, Buffer>
 ): Promise<Buffer> {
-  console.log(`[template-renderer] Iniciando renderizado (${templateBuffer.length} bytes)`);
-
   let zip: JSZip;
   try {
     zip = await JSZip.loadAsync(templateBuffer);
@@ -269,8 +236,6 @@ export async function renderizarDocxPlantilla(
 
   // Obtener todas las tablas
   const tablas = buscarNodos(arbol, "w:tbl");
-  console.log(`[template-renderer] Tablas encontradas: ${tablas.length}`);
-  console.log(`[template-renderer] Bindings: campos=${bindings.campos.length}, regiones=${bindings.regionesRepetibles.length}`);
 
   // 1. Renderizar campos simples
   renderizarCampos(tablas, bindings.campos, datos);
@@ -300,7 +265,5 @@ export async function renderizarDocxPlantilla(
   }
 
   // 6. Generar el buffer del DOCX final
-  const resultado = await zip.generateAsync({ type: "nodebuffer" });
-  console.log(`[template-renderer] Renderizado completado (${resultado.length} bytes)`);
-  return resultado;
+  return zip.generateAsync({ type: "nodebuffer" });
 }

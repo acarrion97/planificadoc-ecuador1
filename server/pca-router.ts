@@ -440,19 +440,17 @@ export const pcaRouter = router({
         return { success: false, useNative: true };
       }
 
-      // Cargar buffer desde storage (nuevo) o desde BD (base64)
+      // Cargar buffer: primero intentar BD (base64), luego storage
       let templateBuffer: Buffer;
-      if (plantilla.storageKey && plantilla.storageKey !== "local" && plantilla.templateBufferBase64 === null) {
-        // Solo intentar storage si no es local y no hay buffer en BD
+      if (plantilla.templateBufferBase64) {
+        templateBuffer = Buffer.from(plantilla.templateBufferBase64, "base64");
+      } else if (plantilla.storageKey && plantilla.storageKey !== "local") {
         const { storageGet } = await import("./storage");
         const { url } = await storageGet(plantilla.storageKey);
         const resp = await fetch(url);
         if (!resp.ok) throw new Error("No se pudo descargar el template desde storage");
         const arrayBuf = await resp.arrayBuffer();
         templateBuffer = Buffer.from(arrayBuf);
-      } else if (plantilla.templateBufferBase64) {
-        // Buffer guardado directamente en BD
-        templateBuffer = Buffer.from(plantilla.templateBufferBase64, "base64");
       } else {
         return { success: false, useNative: true };
       }
@@ -497,9 +495,6 @@ export const pcaRouter = router({
 
       try {
         const bindings = JSON.parse(plantilla.bindings);
-        console.log("[pca-router] Bindings parseados:", JSON.stringify(bindings, null, 2));
-        console.log("[pca-router] Datos a renderizar:", JSON.stringify(datos, null, 2));
-
         const docxBuffer = await renderizarDocxPlantilla(
           templateBuffer,
           bindings,
