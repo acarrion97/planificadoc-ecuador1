@@ -555,7 +555,7 @@ export const pcaRouter = router({
         semanasEvaluacion: String(semanasEvaluacion),
         totalSemanasClases: String(semanasClases),
         totalPeriodos: String(semanasClases * cargaHoraria),
-        ejesTransversales: String((formData.ejesTransversales || []).join(", ")),
+        ejesTransversales: String(((formData.ejesTransversales as string[]) || []).join(", ")),
         objetivosArea: String(aiResult.objetivosArea || ""),
         objetivosGrado: String(aiResult.objetivosGrado || ""),
         bibliografia: String(
