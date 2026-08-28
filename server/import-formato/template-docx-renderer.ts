@@ -203,11 +203,35 @@ function renderizarCampos(
     const celda = celdas[loc.columna];
     if (!celda) continue;
 
-    const textoValor = binding.tipo === "number"
-      ? valorParaDocx(valor)
-      : valorParaDocx(valor);
+    const textoValor = valorParaDocx(valor);
 
-    reemplazarTextoEnCelda(celda, textoValor);
+    // Manejar transformación append-after-label
+    if (binding.transformacion === "append-after-label") {
+      const key = Object.keys(celda).find((k) => k !== ":@");
+      if (key && key === "w:tc") {
+        const contenido = celda[key];
+        if (Array.isArray(contenido)) {
+          const textos = buscarNodos([contenido], "w:t");
+          let textoActual = "";
+          for (const nodo of textos) {
+            const nodoKey = Object.keys(nodo).find((k) => k !== ":@");
+            if (nodoKey === "w:t") {
+              if (Array.isArray(nodo["w:t"])) {
+                textoActual += nodo["w:t"][0]["#text"] ?? "";
+              } else {
+                textoActual += nodo["#text"] ?? "";
+              }
+            }
+          }
+          const textoFinal = `${textoActual.trim()} ${textoValor}`.trim();
+          reemplazarTextoEnCelda(celda, textoFinal);
+        } else {
+          reemplazarTextoEnCelda(celda, textoValor);
+        }
+      }
+    } else {
+      reemplazarTextoEnCelda(celda, textoValor);
+    }
   }
 }
 

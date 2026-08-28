@@ -333,6 +333,96 @@ function detectarBindingsPca(
     }
   }
 
+  // ── Tercer paso: detectar rúbricas de firmas ────────────────────────────────
+  // Estructura esperada:
+  // ELABORADO | REVISADO | APROBADO
+  // NOMBRE:    | NOMBRE:  | NOMBRE:
+  // Firma:     | Firma:   | Firma:
+  // Fecha:     | Fecha:   | Fecha:
+  const rolesFirma = [
+    {
+      patron: /^ELABORADO\s*$/i,
+      nombre: "firmaElaboradoPor",
+      fecha: "firmaElaboradoFecha",
+    },
+    {
+      patron: /^REVISADO\s*$/i,
+      nombre: "firmaRevisadoPor",
+      fecha: "firmaRevisadoFecha",
+    },
+    {
+      patron: /^APROBADO\s*$/i,
+      nombre: "firmaAprobadoPor",
+      fecha: "firmaAprobadoFecha",
+    },
+  ];
+
+  for (const tabla of estructura.tablas) {
+    for (let filaIdx = 0; filaIdx < tabla.rows.length; filaIdx++) {
+      const fila = tabla.rows[filaIdx];
+
+      for (let celdaIdx = 0; celdaIdx < fila.cells.length; celdaIdx++) {
+        const celda = fila.cells[celdaIdx];
+        const texto = celda.textoOriginal.trim();
+
+        const rol = rolesFirma.find((r) => r.patron.test(texto));
+        if (!rol) continue;
+
+        // Buscar NOMBRE: y FECHA: debajo del encabezado, en la misma columna
+        for (
+          let abajo = filaIdx + 1;
+          abajo < Math.min(tabla.rows.length, filaIdx + 6);
+          abajo++
+        ) {
+          const filaAbajo = tabla.rows[abajo];
+          const celdaAbajo = filaAbajo.cells[celdaIdx];
+          if (!celdaAbajo) continue;
+
+          const etiqueta = celdaAbajo.textoOriginal.trim();
+
+          if (/^NOMBRE\s*:/i.test(etiqueta)) {
+            // Verificar que no exista ya un binding para este campo
+            const yaExiste = bindings.some((b) => b.campo === rol.nombre);
+            if (!yaExiste) {
+              bindings.push({
+                id: rol.nombre,
+                campo: rol.nombre,
+                tipo: "text",
+                transformacion: "append-after-label",
+                ubicacion: {
+                  tipo: "docx-cell",
+                  tabla: tabla.index,
+                  fila: filaAbajo.index,
+                  columna: celdaAbajo.index,
+                },
+                obligatorio: false,
+              });
+            }
+          }
+
+          if (/^FECHA\s*:/i.test(etiqueta)) {
+            const yaExiste = bindings.some((b) => b.campo === rol.fecha);
+            if (!yaExiste) {
+              bindings.push({
+                id: rol.fecha,
+                campo: rol.fecha,
+                tipo: "text",
+                transformacion: "append-after-label",
+                ubicacion: {
+                  tipo: "docx-cell",
+                  tabla: tabla.index,
+                  fila: filaAbajo.index,
+                  columna: celdaAbajo.index,
+                },
+                obligatorio: false,
+              });
+            }
+          }
+        }
+      }
+    }
+  }
+
   return bindings;
 }
 

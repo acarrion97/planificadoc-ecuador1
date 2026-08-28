@@ -541,11 +541,15 @@ export const pcaRouter = router({
       const semanasClases = semanasTrabajo - semanasEvaluacion;
       const cargaHoraria = Number(formData.cargaHorariaSemanal || 0);
 
+      const areaNombre =
+        AREA_NAMES[String(formData.area || "")] ||
+        String(formData.area || "");
+
       const datos: Record<string, any> = {
         institucion: String(formData.institucion || ""),
         docente: String(formData.docente || ""),
-        area: String(formData.area || ""),
-        asignatura: String(formData.area || ""),
+        area: areaNombre,
+        asignatura: areaNombre,
         grado: String(formData.grado || ""),
         nivelEducativo: String(formData.subnivel || ""),
         anioLectivo: String(formData.anioLectivo || ""),
