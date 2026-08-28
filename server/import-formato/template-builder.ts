@@ -193,37 +193,33 @@ function detectarBindingsPca(
 ): FieldBinding[] {
   const bindings: FieldBinding[] = [];
 
-  // Patrones de búsqueda: texto de celda → campo canónico
-  // Solo campos tipo "etiqueta | valor" en la misma fila
+  // Patrones de búsqueda: texto de celda EXACTO → campo canónico
+  // Solo campos tipo "etiqueta | valor" en la misma fila.
+  // Usamos ^ y $ para evitar coincidir con encabezados de sección.
   const patrones: Array<{
     patron: RegExp;
     campo: string;
     tipo: FieldBinding["tipo"];
   }> = [
-    { patron: /NOMBRE.*INSTITUCI/i, campo: "institucion", tipo: "text" },
-    { patron: /DOCENTE/i, campo: "docente", tipo: "text" },
-    { patron: /ARE[AÁ]/i, campo: "area", tipo: "text" },
-    { patron: /ASIGNATURA/i, campo: "asignatura", tipo: "text" },
-    { patron: /GRADO/i, campo: "grado", tipo: "text" },
-    { patron: /NIVEL.*EDUCATIVO/i, campo: "nivelEducativo", tipo: "text" },
-    { patron: /PARALELO/i, campo: "paralelo", tipo: "text" },
-    { patron: /A[NÑ]O.*LECTIVO/i, campo: "anioLectivo", tipo: "text" },
-    { patron: /CARGA.*HORARIA/i, campo: "cargaHorariaSemanal", tipo: "number" },
-    { patron: /SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "number" },
-    { patron: /SEMANAS.*EVALUACI|EVALUACI.*SEMANAS/i, campo: "semanasEvaluacion", tipo: "number" },
-    { patron: /TOTAL.*PER[IÍ]ODOS/i, campo: "totalPeriodos", tipo: "number" },
-    { patron: /OBJETIVOS.*AREA/i, campo: "objetivosArea", tipo: "text" },
-    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
-    { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
-    { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
-    { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
+    { patron: /^NOMBRE DE LA INSTITUCI[ÓO]N\s*:?\s*$/i, campo: "institucion", tipo: "text" },
+    { patron: /^DOCENTE\(S\)\s*:?\s*$/i, campo: "docente", tipo: "text" },
+    { patron: /^ÁREA\s*:?\s*$/i, campo: "area", tipo: "text" },
+    { patron: /^ASIGNATURA\s*:?\s*$/i, campo: "asignatura", tipo: "text" },
+    { patron: /^GRADO\/CURSO\s*:?\s*$/i, campo: "grado", tipo: "text" },
+    { patron: /^NIVEL EDUCATIVO\s*:?\s*$/i, campo: "nivelEducativo", tipo: "text" },
+    { patron: /^PARALELO\s*:?\s*$/i, campo: "paralelo", tipo: "text" },
+    { patron: /^A[NÑ]O LECTIVO\s*:?\s*$/i, campo: "anioLectivo", tipo: "text" },
+    { patron: /^CARGA HORARIA\s*:?\s*$/i, campo: "cargaHorariaSemanal", tipo: "number" },
+    { patron: /^SEMANAS DE TRABAJO\s*:?\s*$/i, campo: "semanasTrabajoTotal", tipo: "number" },
+    { patron: /^SEMANAS DE EVALUACI[ÓO]N\s*:?\s*$/i, campo: "semanasEvaluacion", tipo: "number" },
+    { patron: /^TOTAL PER[IÍ]ODOS\s*:?\s*$/i, campo: "totalPeriodos", tipo: "number" },
     // Firmas
-    { patron: /ELABORADO.*POR/i, campo: "firmaElaboradoPor", tipo: "text" },
-    { patron: /FECHA.*ELABORACI/i, campo: "firmaElaboradoFecha", tipo: "text" },
-    { patron: /REVISADO.*POR/i, campo: "firmaRevisadoPor", tipo: "text" },
-    { patron: /FECHA.*REVISI/i, campo: "firmaRevisadoFecha", tipo: "text" },
-    { patron: /APROBADO.*POR/i, campo: "firmaAprobadoPor", tipo: "text" },
-    { patron: /FECHA.*APROBACI/i, campo: "firmaAprobadoFecha", tipo: "text" },
+    { patron: /^ELABORADO POR\s*:?\s*$/i, campo: "firmaElaboradoPor", tipo: "text" },
+    { patron: /^FECHA.*ELABORACI[ÓO]N\s*:?\s*$/i, campo: "firmaElaboradoFecha", tipo: "text" },
+    { patron: /^REVISADO POR\s*:?\s*$/i, campo: "firmaRevisadoPor", tipo: "text" },
+    { patron: /^FECHA.*REVISI[ÓO]N\s*:?\s*$/i, campo: "firmaRevisadoFecha", tipo: "text" },
+    { patron: /^APROBADO POR\s*:?\s*$/i, campo: "firmaAprobadoPor", tipo: "text" },
+    { patron: /^FECHA.*APROBACI[ÓO]N\s*:?\s*$/i, campo: "firmaAprobadoFecha", tipo: "text" },
   ];
 
   // Recorrer todas las tablas y filas buscando patrones
@@ -264,16 +260,17 @@ function detectarBindingsPca(
   // Para secciones donde el encabezado y el contenido están en filas consecutivas:
   //   Fila N:   [OBJETIVOS DEL ÁREA] [OBJETIVOS DEL GRADO]
   //   Fila N+1: [     VACÍA         ] [      VACÍA          ]
+  // Estos NUNCA deben buscar en la misma fila.
   const patronesFilaSiguiente: Array<{
     patron: RegExp;
     campo: string;
     tipo: FieldBinding["tipo"];
   }> = [
-    { patron: /OBJETIVOS.*AREA/i, campo: "objetivosArea", tipo: "text" },
-    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
-    { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
-    { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
-    { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
+    { patron: /^OBJETIVOS DEL [ÁA]REA\s*$/i, campo: "objetivosArea", tipo: "text" },
+    { patron: /^OBJETIVOS DEL GRADO\/CURSO\s*$/i, campo: "objetivosGrado", tipo: "text" },
+    { patron: /^BIBLIOGRAF[IÍ]A\/WEBGRAF[IÍ]A\s*$/i, campo: "bibliografia", tipo: "text" },
+    { patron: /^OBSERVACIONES\s*$/i, campo: "observaciones", tipo: "text" },
+    { patron: /^EJES TRANSVERSALES\s*:?\s*$/i, campo: "ejesTransversales", tipo: "text" },
   ];
 
   for (const tabla of estructura.tablas) {
@@ -339,14 +336,21 @@ function detectarRegionUnidadesPca(
           if (!filaEncabezados) continue;
 
           // Verificar que tenga encabezados como "N.°", "Título", etc.
+          // Exigir al menos 2 coincidencias para evitar falsos positivos
           const textos = filaEncabezados.cells.map((c) =>
             c.textoOriginal.trim().toUpperCase()
           );
-          const tieneEncabezadosUnidades =
-            textos.some((t) => /N[.°]/.test(t)) ||
-            textos.some((t) => /T[ÍI]TULO/.test(t)) ||
-            textos.some((t) => /OBJETIVOS.*ESP/.test(t)) ||
-            textos.some((t) => /CONTENIDOS/.test(t));
+          const coincidencias = [
+            textos.some((t) => /N[.°]/.test(t)),
+            textos.some((t) => /T[ÍI]TULO/.test(t)),
+            textos.some((t) => /OBJETIVOS.*ESP/.test(t)),
+            textos.some((t) => /CONTENIDOS/.test(t)),
+            textos.some((t) => /ORIENTACIONES/.test(t)),
+            textos.some((t) => /EVALUACI/.test(t)),
+            textos.some((t) => /DURACI|SEMANAS/.test(t)),
+          ].filter(Boolean).length;
+
+          const tieneEncabezadosUnidades = coincidencias >= 2;
 
           if (tieneEncabezadosUnidades) {
             // Mapear columnas usando gridIndex (posición lógica en la rejilla)
