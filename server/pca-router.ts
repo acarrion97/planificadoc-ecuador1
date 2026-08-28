@@ -440,9 +440,10 @@ export const pcaRouter = router({
         return { success: false, useNative: true };
       }
 
-      // Cargar buffer desde storage (nuevo) o desde BD (legacy base64)
+      // Cargar buffer desde storage (nuevo) o desde BD (base64)
       let templateBuffer: Buffer;
-      if (plantilla.storageKey) {
+      if (plantilla.storageKey && plantilla.storageKey !== "local" && plantilla.templateBufferBase64 === null) {
+        // Solo intentar storage si no es local y no hay buffer en BD
         const { storageGet } = await import("./storage");
         const { url } = await storageGet(plantilla.storageKey);
         const resp = await fetch(url);
@@ -450,7 +451,7 @@ export const pcaRouter = router({
         const arrayBuf = await resp.arrayBuffer();
         templateBuffer = Buffer.from(arrayBuf);
       } else if (plantilla.templateBufferBase64) {
-        // Legacy: plantillas viejas que aún tienen base64 en BD
+        // Buffer guardado directamente en BD
         templateBuffer = Buffer.from(plantilla.templateBufferBase64, "base64");
       } else {
         return { success: false, useNative: true };

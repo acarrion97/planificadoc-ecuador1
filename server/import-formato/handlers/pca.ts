@@ -179,13 +179,8 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
         try {
           const plantilla = await construirPlantilla(originalBuffer, campos);
 
-          // Subir buffer original a storage (no guardar base64 en BD)
-          const storagePath = `plantillas/${sessionId}/${Date.now()}-pca.docx`;
-          const { key: templateStorageKey } = await storagePut(
-            storagePath,
-            originalBuffer,
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          );
+          // Guardar buffer del template DOCX directamente en BD como base64
+          const templateBufferBase64 = originalBuffer.toString("base64");
 
           formatoPlantillaId = await createFormatoPlantilla({
             sessionId,
@@ -193,13 +188,14 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
             tipoPlanificacion: "pca",
             formatoOrigen: "docx",
             mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            storageKey: templateStorageKey,
+            storageKey: "local", // Sin storage externo
+            templateBufferBase64,
             estructura: JSON.stringify(plantilla.estructura),
             bindings: JSON.stringify(plantilla.bindings),
             configuracion: JSON.stringify(plantilla.configuracion),
           });
 
-          console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}, storage: ${templateStorageKey}`);
+          console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId} (buffer en BD)`);
         } catch (err) {
           console.error("[pca-handler] ERROR creando plantilla:", err);
           // No bloqueamos el flujo por esto

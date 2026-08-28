@@ -37,6 +37,11 @@ const MIGRATIONS = [
         column: "formatoPlantillaId",
         definition: "ADD COLUMN `formatoPlantillaId` INT AFTER `amountPaid`",
       },
+      {
+        table: "formato_plantillas",
+        column: "templateBufferBase64",
+        definition: "ADD COLUMN `templateBufferBase64` LONGTEXT AFTER `storageKey`",
+      },
     ],
   },
   {
@@ -262,11 +267,30 @@ export async function ensureMigrations(): Promise<void> {
         }
       }
 
-      // Registrar migración aplicada
-      await conn.execute(
-        `INSERT INTO __drizzle_migrations (tag) VALUES (?)`,
-        [migration.tag]
-      );
+      // Registrar migración aplicada (verificar si la columna tag existe)
+      const hasTagColumn = await columnExists(conn, "__drizzle_migrations", "tag");
+      if (hasTagColumn) {
+        await conn.execute(
+          `INSERT INTO __drizzle_migrations (tag) VALUES (?)`,
+          [migration.tag]
+        );
+      } else {
+        // Si no existe la columna tag, recrear la tabla
+        await conn.execute(`DROP TABLE IF EXISTS __drizzle_migrations`);
+        await conn.execute(`
+          CREATE TABLE IF NOT EXISTS __drizzle_migrations (
+            id          INT           NOT NULL AUTO_INCREMENT,
+            tag         VARCHAR(255)  NOT NULL,
+            applied_at  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE INDEX idx_migration_tag (tag)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+        `);
+        await conn.execute(
+          `INSERT INTO __drizzle_migrations (tag) VALUES (?)`,
+          [migration.tag]
+        );
+      }
       console.log(`[migration] Applied: ${migration.tag}`);
     }
 
