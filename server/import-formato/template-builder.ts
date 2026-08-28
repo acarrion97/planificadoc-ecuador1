@@ -152,7 +152,11 @@ export async function analizarEstructuraDocx(
 /**
  * Heurísticas para mapear celdas del PCA a campos canónicos.
  * Busca etiquetas en la primera celda de cada fila y asigna
- * el valor de la celda contigua.
+ * la celda contigua como destino del binding.
+ *
+ * IMPORTANTE: La celda destino puede estar vacía en la plantilla oficial,
+ * ya que es el sistema quien debe llenarla. Por eso no exigimos texto
+ * en la celda destino.
  */
 function detectarBindingsPca(
   estructura: PlantillaEstructura
@@ -168,15 +172,27 @@ function detectarBindingsPca(
     { patron: /NOMBRE.*INSTITUCI/i, campo: "institucion", tipo: "text" },
     { patron: /DOCENTE/i, campo: "docente", tipo: "text" },
     { patron: /ARE[AÁ]/i, campo: "area", tipo: "text" },
+    { patron: /ASIGNATURA/i, campo: "asignatura", tipo: "text" },
     { patron: /GRADO/i, campo: "grado", tipo: "text" },
+    { patron: /NIVEL.*EDUCATIVO/i, campo: "nivelEducativo", tipo: "text" },
+    { patron: /PARALELO/i, campo: "paralelo", tipo: "text" },
     { patron: /A[NÑ]O.*LECTIVO/i, campo: "anioLectivo", tipo: "text" },
-    { patron: /CARGA.*HORARIA/i, campo: "cargaHorariaSemanal", tipo: "number" },
-    { patron: /SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "number" },
-    { patron: /EVALUACI/i, campo: "semanasEvaluacion", tipo: "number" },
+    { patron: /CARGA.*HORARIA/i, campo: "cargaHorariaSemanal", tipo: "text" },
+    { patron: /SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "text" },
+    { patron: /EVALUACI/i, campo: "semanasEvaluacion", tipo: "text" },
+    { patron: /TOTAL.*PER[IÍ]ODOS/i, campo: "totalPeriodos", tipo: "text" },
     { patron: /OBJETIVOS.*AREA/i, campo: "objetivosArea", tipo: "text" },
     { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
+    { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
     { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
     { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
+    // Firmas
+    { patron: /ELABORADO.*POR/i, campo: "firmaElaboradoPor", tipo: "text" },
+    { patron: /FECHA.*ELABORACI/i, campo: "firmaElaboradoFecha", tipo: "text" },
+    { patron: /REVISADO.*POR/i, campo: "firmaRevisadoPor", tipo: "text" },
+    { patron: /FECHA.*REVISI/i, campo: "firmaRevisadoFecha", tipo: "text" },
+    { patron: /APROBADO.*POR/i, campo: "firmaAprobadoPor", tipo: "text" },
+    { patron: /FECHA.*APROBACI/i, campo: "firmaAprobadoFecha", tipo: "text" },
   ];
 
   // Recorrer todas las tablas y filas buscando patrones
@@ -190,7 +206,9 @@ function detectarBindingsPca(
           if (patron.test(texto)) {
             // La valor suele estar en la siguiente celda de la misma fila
             const siguienteCelda = fila.cells[celdaIdx + 1];
-            if (siguienteCelda && siguienteCelda.textoOriginal.trim()) {
+            if (siguienteCelda) {
+              // Crear binding aunque la celda destino esté vacía
+              // La posición física es suficiente para que el renderer sepa dónde escribir
               bindings.push({
                 id: campo,
                 campo,
@@ -216,8 +234,8 @@ function detectarBindingsPca(
 
 /**
  * Detecta la región repetible de unidades en el PCA.
- * Busca la fila con "DESARROLLO DE UNIDADES" y la siguiente fila
- * que contiene los encabezados de columna de las unidades.
+ * Busca la fila con "DESARROLLO DE UNIDADES" y la fila de encabezados
+ * de columnas (N.°, Título, etc.) que puede estar 1-3 filas después.
  */
 function detectarRegionUnidadesPca(
   estructura: PlantillaEstructura
@@ -230,46 +248,86 @@ function detectarRegionUnidadesPca(
         .toUpperCase();
 
       if (textoFila.includes("DESARROLLO DE UNIDADES")) {
-        // La fila de encabezados de unidades suele ser 2 filas después
-        const filaEncabezados = tabla.rows[fila.index + 2];
-        if (!filaEncabezados) continue;
+        // Buscar la fila de encabezados en las siguientes 1-5 filas
+        for (let offset = 1; offset <= 5; offset++) {
+          const filaEncabezados = tabla.rows[fila.index + offset];
+          if (!filaEncabezados) continue;
 
-        // Verificar que tenga encabezados como "N.°", "Título", etc.
-        const textos = filaEncabezados.cells.map((c) =>
-          c.textoOriginal.trim().toUpperCase()
-        );
-        const tieneEncabezadosUnidades =
-          textos.some((t) => /N[.°]/.test(t)) ||
-          textos.some((t) => /T[ÍI]TULO/.test(t)) ||
-          textos.some((t) => /OBJETIVOS.*ESP/.test(t));
+          // Verificar que tenga encabezados como "N.°", "Título", etc.
+          const textos = filaEncabezados.cells.map((c) =>
+            c.textoOriginal.trim().toUpperCase()
+          );
+          const tieneEncabezadosUnidades =
+            textos.some((t) => /N[.°]/.test(t)) ||
+            textos.some((t) => /T[ÍI]TULO/.test(t)) ||
+            textos.some((t) => /OBJETIVOS.*ESP/.test(t)) ||
+            textos.some((t) => /CONTENIDOS/.test(t));
 
-        if (tieneEncabezadosUnidades) {
-          return {
-            id: "unidades",
-            nombre: "Unidades de planificación",
-            origenDatos: "unidades",
-            ubicacion: {
-              tipo: "docx-table",
-              tabla: tabla.index,
-              filaInicio: filaEncabezados.index + 1,
-              filaPlantilla: filaEncabezados.index + 1,
-            },
-            columnas: [
-              { campo: "numero", columna: 0 },
-              { campo: "titulo", columna: 1 },
-              { campo: "objetivosEspecificos", columna: 2 },
-              { campo: "dcds", columna: 3 },
-              { campo: "orientacionesMetodologicas", columna: 4 },
-              { campo: "evaluacion", columna: 5 },
-              { campo: "duracionSemanas", columna: 6 },
-            ],
-          };
+          if (tieneEncabezadosUnidades) {
+            // Mapear columnas según los encabezados encontrados
+            const columnas = mapearColumnasUnidades(textos);
+
+            return {
+              id: "unidades",
+              nombre: "Unidades de planificación",
+              origenDatos: "unidades",
+              ubicacion: {
+                tipo: "docx-table",
+                tabla: tabla.index,
+                filaInicio: filaEncabezados.index + 1,
+                filaPlantilla: filaEncabezados.index + 1,
+              },
+              columnas,
+            };
+          }
         }
       }
     }
   }
 
   return null;
+}
+
+/**
+ * Mapea los encabezados de columna de unidades a campos canónicos.
+ */
+function mapearColumnasUnidades(
+  encabezados: string[]
+): Array<{ campo: string; columna: number }> {
+  const mapeo: Array<{ campo: string; columna: number }> = [];
+
+  for (let i = 0; i < encabezados.length; i++) {
+    const enc = encabezados[i];
+    if (/N[.°]/.test(enc)) {
+      mapeo.push({ campo: "numero", columna: i });
+    } else if (/T[ÍI]TULO/.test(enc)) {
+      mapeo.push({ campo: "titulo", columna: i });
+    } else if (/OBJETIVOS.*ESP/.test(enc)) {
+      mapeo.push({ campo: "objetivosEspecificos", columna: i });
+    } else if (/CONTENIDOS/.test(enc) || /DCD/.test(enc)) {
+      mapeo.push({ campo: "dcds", columna: i });
+    } else if (/ORIENTACIONES/.test(enc) || /METODOLOG/.test(enc)) {
+      mapeo.push({ campo: "orientacionesMetodologicas", columna: i });
+    } else if (/EVALUACI/.test(enc)) {
+      mapeo.push({ campo: "evaluacion", columna: i });
+    } else if (/DURACI/.test(enc) || /SEMANAS/.test(enc)) {
+      mapeo.push({ campo: "duracionSemanas", columna: i });
+    }
+  }
+
+  // Fallback: si no se pudo mapear, usar posiciones por defecto
+  if (mapeo.length === 0) {
+    return [
+      { campo: "numero", columna: 0 },
+      { campo: "titulo", columna: 1 },
+      { campo: "objetivosEspecificos", columna: 2 },
+      { campo: "dcds", columna: 3 },
+      { campo: "orientacionesMetodologicas", columna: 4 },
+      { campo: "evaluacion", columna: 5 },
+    ];
+  }
+
+  return mapeo;
 }
 
 // ─── Builder principal ──────────────────────────────────────────────────────

@@ -465,11 +465,15 @@ export const pcaRouter = router({
         acumulado += u.duracionSemanas || 4;
         return {
           numero: String(u.numero),
-          nombre: u.nombre || `Unidad ${u.numero}`,
+          titulo: String(u.nombre || `Unidad ${u.numero}`),
+          nombre: String(u.nombre || `Unidad ${u.numero}`),
+          objetivosEspecificos: String(u.objetivos || ""),
+          dcds: (u.dcdsSeleccionadas || []).join(", "),
+          orientacionesMetodologicas: String(u.orientaciones || ""),
+          evaluacion: String(u.evaluacion || ""),
+          duracionSemanas: String(u.duracionSemanas || 4),
           semanaInicio: String(inicio),
           semanaFin: String(acumulado),
-          duracion: String(u.duracionSemanas || 4),
-          dcds: (u.dcdsSeleccionadas || []).join(", "),
         };
       });
 
@@ -477,12 +481,18 @@ export const pcaRouter = router({
         institucion: String(formData.institucion || ""),
         docente: String(formData.docente || ""),
         area: String(formData.area || ""),
+        asignatura: String(formData.area || ""),
         grado: String(formData.grado || ""),
+        nivelEducativo: String(formData.subnivel || ""),
         anioLectivo: String(formData.anioLectivo || ""),
         paralelo: String(formData.paralelo || ""),
-        cargaHoraria: String(formData.cargaHorariaSemanal || ""),
-        semanasTrabajo: String(formData.semanasTrabajoTotal || ""),
+        cargaHorariaSemanal: String(formData.cargaHorariaSemanal || ""),
+        semanasTrabajoTotal: String(formData.semanasTrabajoTotal || ""),
         semanasEvaluacion: String(formData.semanasEvaluacion || ""),
+        totalPeriodos: String((formData.cargaHorariaSemanal || 0) * (formData.semanasTrabajoTotal || 0)),
+        ejesTransversales: String((formData.ejesTransversales || []).join(", ")),
+        bibliografia: String(formData.bibliografiaDocente || ""),
+        observaciones: "",
         // Firmas
         firmaElaboradoPor: String(formData.firmaElaboradoPor || ""),
         firmaElaboradoFecha: String(formData.firmaElaboradoFecha || ""),
