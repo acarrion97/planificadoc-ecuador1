@@ -496,9 +496,13 @@ export const pcaRouter = router({
       };
 
       try {
+        const bindings = JSON.parse(plantilla.bindings);
+        console.log("[pca-router] Bindings parseados:", JSON.stringify(bindings, null, 2));
+        console.log("[pca-router] Datos a renderizar:", JSON.stringify(datos, null, 2));
+
         const docxBuffer = await renderizarDocxPlantilla(
           templateBuffer,
-          JSON.parse(plantilla.bindings),
+          bindings,
           datos
         );
 

@@ -107,28 +107,47 @@ function renderizarCampos(
   bindings: FieldBinding[],
   datos: Record<string, any>
 ): void {
+  console.log(`[template-renderer] Renderizando ${bindings.length} campos`);
+  console.log(`[template-renderer] Datos disponibles:`, Object.keys(datos));
+
   for (const binding of bindings) {
     const valor = datos[binding.campo];
-    if (valor === undefined || valor === null) continue;
+    if (valor === undefined || valor === null) {
+      console.log(`[template-renderer] Campo '${binding.campo}' no tiene valor en datos`);
+      continue;
+    }
 
     const loc = binding.ubicacion as DocxCellLocation;
-    if (loc.tipo !== "docx-cell") continue;
+    if (loc.tipo !== "docx-cell") {
+      console.log(`[template-renderer] Binding '${binding.campo}' tiene ubicación tipo '${loc.tipo}', esperado 'docx-cell'`);
+      continue;
+    }
 
     const tabla = tablas[loc.tabla];
-    if (!tabla) continue;
+    if (!tabla) {
+      console.log(`[template-renderer] Tabla ${loc.tabla} no encontrada (total: ${tablas.length})`);
+      continue;
+    }
 
     const filas = buscarNodos([tabla], "w:tr");
     const fila = filas[loc.fila];
-    if (!fila) continue;
+    if (!fila) {
+      console.log(`[template-renderer] Fila ${loc.fila} no encontrada en tabla ${loc.tabla} (total: ${filas.length})`);
+      continue;
+    }
 
     const celdas = buscarNodos([fila], "w:tc");
     const celda = celdas[loc.columna];
-    if (!celda) continue;
+    if (!celda) {
+      console.log(`[template-renderer] Columna ${loc.columna} no encontrada en fila ${loc.fila} (total: ${celdas.length})`);
+      continue;
+    }
 
     const textoValor = binding.tipo === "number"
       ? String(valor)
       : String(valor);
 
+    console.log(`[template-renderer] Reemplazando campo '${binding.campo}' = '${textoValor}' en [${loc.tabla},${loc.fila},${loc.columna}]`);
     reemplazarTextoEnCelda(celda, textoValor);
   }
 }
