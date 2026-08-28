@@ -209,10 +209,6 @@ function detectarBindingsPca(
     { patron: /^NIVEL EDUCATIVO\s*:?\s*$/i, campo: "nivelEducativo", tipo: "text" },
     { patron: /^PARALELO\s*:?\s*$/i, campo: "paralelo", tipo: "text" },
     { patron: /^A[NÑ]O LECTIVO\s*:?\s*$/i, campo: "anioLectivo", tipo: "text" },
-    { patron: /^CARGA HORARIA\s*:?\s*$/i, campo: "cargaHorariaSemanal", tipo: "number" },
-    { patron: /^SEMANAS DE TRABAJO\s*:?\s*$/i, campo: "semanasTrabajoTotal", tipo: "number" },
-    { patron: /^SEMANAS DE EVALUACI[ÓO]N\s*:?\s*$/i, campo: "semanasEvaluacion", tipo: "number" },
-    { patron: /^TOTAL PER[IÍ]ODOS\s*:?\s*$/i, campo: "totalPeriodos", tipo: "number" },
     // Firmas
     { patron: /^ELABORADO POR\s*:?\s*$/i, campo: "firmaElaboradoPor", tipo: "text" },
     { patron: /^FECHA.*ELABORACI[ÓO]N\s*:?\s*$/i, campo: "firmaElaboradoFecha", tipo: "text" },
@@ -256,27 +252,67 @@ function detectarBindingsPca(
     }
   }
 
-  // ── Segundo paso: detectar bindings "encabezado → fila siguiente" ──────
+  // ── Segundo paso: detectar bindings "encabezado → fila siguiente utilizable" ──────
   // Para secciones donde el encabezado y el contenido están en filas consecutivas:
   //   Fila N:   [OBJETIVOS DEL ÁREA] [OBJETIVOS DEL GRADO]
   //   Fila N+1: [     VACÍA         ] [      VACÍA          ]
+  //   Fila N+2: [     contenido     ] [      contenido      ]  ← si hay fila intermedia
   // Estos NUNCA deben buscar en la misma fila.
+  // Buscamos hasta 4 filas debajo para encontrar una celda destino válida.
+  function agregarBindingDebajo(
+    tabla: TablaInfo,
+    filaIdx: number,
+    celdaIdx: number,
+    campo: string,
+    tipo: FieldBinding["tipo"]
+  ) {
+    for (
+      let siguienteIdx = filaIdx + 1;
+      siguienteIdx < Math.min(tabla.rows.length, filaIdx + 5);
+      siguienteIdx++
+    ) {
+      const filaDestino = tabla.rows[siguienteIdx];
+      const celdaDestino = filaDestino.cells[celdaIdx];
+      if (!celdaDestino) continue;
+
+      bindings.push({
+        id: campo,
+        campo,
+        tipo,
+        ubicacion: {
+          tipo: "docx-cell",
+          tabla: tabla.index,
+          fila: filaDestino.index,
+          columna: celdaDestino.index,
+        },
+        obligatorio: false,
+      });
+      return;
+    }
+  }
+
   const patronesFilaSiguiente: Array<{
     patron: RegExp;
     campo: string;
     tipo: FieldBinding["tipo"];
   }> = [
-    { patron: /^OBJETIVOS DEL [ÁA]REA\s*$/i, campo: "objetivosArea", tipo: "text" },
-    { patron: /^OBJETIVOS DEL GRADO\/CURSO\s*$/i, campo: "objetivosGrado", tipo: "text" },
-    { patron: /^BIBLIOGRAF[IÍ]A\/WEBGRAF[IÍ]A\s*$/i, campo: "bibliografia", tipo: "text" },
-    { patron: /^OBSERVACIONES\s*$/i, campo: "observaciones", tipo: "text" },
-    { patron: /^EJES TRANSVERSALES\s*:?\s*$/i, campo: "ejesTransversales", tipo: "text" },
+    { patron: /OBJETIVOS.*[ÁA]REA/i, campo: "objetivosArea", tipo: "text" },
+    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
+    // Tiempo: el valor está debajo del encabezado
+    { patron: /CARGA.*HORARIA/i, campo: "cargaHorariaSemanal", tipo: "number" },
+    { patron: /(NO\.?|N[ÚU]MERO).*SEMANAS.*TRABAJO|SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "number" },
+    { patron: /EVALUACI[ÓO]N.*APRENDIZAJE|APRENDIZAJE.*IMPREVISTOS|EVALUACI[ÓO]N\s*$/i, campo: "semanasEvaluacion", tipo: "number" },
+    { patron: /TOTAL.*SEMANAS.*CLASE/i, campo: "totalSemanasClases", tipo: "number" },
+    { patron: /TOTAL.*PER[IÍ]ODOS/i, campo: "totalPeriodos", tipo: "number" },
+    // Secciones de contenido
+    { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
+    { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
+    { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
   ];
 
   for (const tabla of estructura.tablas) {
     for (let filaIdx = 0; filaIdx < tabla.rows.length - 1; filaIdx++) {
       const fila = tabla.rows[filaIdx];
-      const filaSiguiente = tabla.rows[filaIdx + 1];
 
       for (let celdaIdx = 0; celdaIdx < fila.cells.length; celdaIdx++) {
         const celda = fila.cells[celdaIdx];
@@ -288,22 +324,8 @@ function detectarBindingsPca(
             const yaExiste = bindings.some((b) => b.campo === campo);
             if (yaExiste) break;
 
-            // La contenido debe estar en la MISMA columna pero fila siguiente
-            const celdaContenido = filaSiguiente.cells[celdaIdx];
-            if (celdaContenido) {
-              bindings.push({
-                id: campo,
-                campo,
-                tipo,
-                ubicacion: {
-                  tipo: "docx-cell",
-                  tabla: tabla.index,
-                  fila: filaSiguiente.index,
-                  columna: celdaContenido.index,
-                },
-                obligatorio: false,
-              });
-            }
+            // Buscar celda destino en las siguientes filas (no solo la inmediata)
+            agregarBindingDebajo(tabla, filaIdx, celdaIdx, campo, tipo);
             break;
           }
         }

@@ -536,6 +536,11 @@ export const pcaRouter = router({
         };
       });
 
+      const semanasTrabajo = Number(formData.semanasTrabajoTotal || 0);
+      const semanasEvaluacion = Number(formData.semanasEvaluacion || 0);
+      const semanasClases = semanasTrabajo - semanasEvaluacion;
+      const cargaHoraria = Number(formData.cargaHorariaSemanal || 0);
+
       const datos: Record<string, any> = {
         institucion: String(formData.institucion || ""),
         docente: String(formData.docente || ""),
@@ -545,10 +550,11 @@ export const pcaRouter = router({
         nivelEducativo: String(formData.subnivel || ""),
         anioLectivo: String(formData.anioLectivo || ""),
         paralelo: String(formData.paralelo || ""),
-        cargaHorariaSemanal: String(formData.cargaHorariaSemanal || ""),
-        semanasTrabajoTotal: String(formData.semanasTrabajoTotal || ""),
-        semanasEvaluacion: String(formData.semanasEvaluacion || ""),
-        totalPeriodos: String((formData.cargaHorariaSemanal || 0) * (formData.semanasTrabajoTotal || 0)),
+        cargaHorariaSemanal: String(cargaHoraria),
+        semanasTrabajoTotal: String(semanasTrabajo),
+        semanasEvaluacion: String(semanasEvaluacion),
+        totalSemanasClases: String(semanasClases),
+        totalPeriodos: String(semanasClases * cargaHoraria),
         ejesTransversales: String((formData.ejesTransversales || []).join(", ")),
         objetivosArea: String(aiResult.objetivosArea || ""),
         objetivosGrado: String(aiResult.objetivosGrado || ""),
