@@ -60,36 +60,38 @@ function textoDeNodo(nodo: XmlNode[]): string {
 
 /**
  * Reemplaza el texto de un nodo w:tc (celda) preservando los estilos.
- * Encuentra todos los w:t dentro de la celda y reemplaza su contenido.
+ * Busca recursivamente todos los w:t dentro de la celda y reemplaza su contenido.
  */
 function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
   const key = Object.keys(celda).find((k) => k !== ":@");
   if (!key || key !== "w:tc") return;
 
-  const contenido = celda[key];
-  if (!Array.isArray(contenido)) return;
+  // Buscar todos los w:t recursivamente en la celda
+  const textos = buscarNodos(celda[key] ?? [], "w:t");
+  if (textos.length === 0) return;
 
-  // Buscar todos los nodos w:t y reemplazar su contenido
-  let textoReemplazado = false;
-  for (const nodo of contenido) {
-    const nodoKey = Object.keys(nodo).find((k) => k !== ":@");
-    if (nodoKey === "w:t") {
-      // Mantener el primer w:t, eliminar los demás
-      if (!textoReemplazado) {
-        if (Array.isArray(nodo["w:t"])) {
-          // Si hay múltiples w:t, cambiar el primero y marcar para limpiar
-          nodo["w:t"][0]["#text"] = nuevoTexto;
-          textoReemplazado = true;
+  // Poner el nuevo texto en el primer w:t, vaciar el resto
+  let primero = true;
+  for (const nodoTexto of textos) {
+    if (primero) {
+      // Reemplazar el contenido del w:t
+      const valKey = Object.keys(nodoTexto).find((k) => k !== ":@");
+      if (valKey === "w:t") {
+        if (Array.isArray(nodoTexto["w:t"])) {
+          nodoTexto["w:t"][0]["#text"] = nuevoTexto;
         } else {
-          nodo["#text"] = nuevoTexto;
-          textoReemplazado = true;
+          nodoTexto["#text"] = nuevoTexto;
         }
-      } else {
-        // Marcar para eliminar (poner texto vacío)
-        if (Array.isArray(nodo["w:t"])) {
-          nodo["w:t"][0]["#text"] = "";
+      }
+      primero = false;
+    } else {
+      // Vaciar los w:t restantes
+      const valKey = Object.keys(nodoTexto).find((k) => k !== ":@");
+      if (valKey === "w:t") {
+        if (Array.isArray(nodoTexto["w:t"])) {
+          nodoTexto["w:t"][0]["#text"] = "";
         } else {
-          nodo["#text"] = "";
+          nodoTexto["#text"] = "";
         }
       }
     }
