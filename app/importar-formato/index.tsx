@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { View, Text, Pressable, StyleSheet, Alert, ActivityIndicator, Platform } from "react-native";
+import React, { useCallback, useState, useEffect } from "react";
+import { View, Text, Pressable, StyleSheet, Alert, ActivityIndicator, Platform, FlatList } from "react-native";
 import { useRouter } from "expo-router";
 import * as DocumentPicker from "expo-document-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -60,6 +60,17 @@ export default function ImportarFormatoScreen() {
   const [estadoTexto, setEstadoTexto] = useState("");
   const [candidatos, setCandidatos] = useState<Array<{ tipo: string; score: number }> | null>(null);
   const subir = trpc.importarFormato.subirYProcesar.useMutation();
+
+  // Consultar plantillas importadas
+  const [sessionId, setSessionId] = useState<string>("");
+  const { data: plantillas, isLoading: cargandoPlantillas } = trpc.importarFormato.listarPlantillas.useQuery(
+    { sessionId },
+    { enabled: !!sessionId }
+  );
+
+  useEffect(() => {
+    getSessionId().then(setSessionId);
+  }, []);
 
   const handleSeleccionar = useCallback(async () => {
     const resultado = await DocumentPicker.getDocumentAsync({
@@ -164,6 +175,42 @@ export default function ImportarFormatoScreen() {
           </Text>
         </Pressable>
 
+        {/* Listado de plantillas importadas */}
+        {sessionId && (
+          <View style={[styles.plantillasContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={[styles.plantillasTitle, { color: colors.foreground }]}>
+              Plantillas importadas
+            </Text>
+            {cargandoPlantillas ? (
+              <ActivityIndicator size="small" color={colors.foreground} />
+            ) : plantillas && plantillas.length > 0 ? (
+              <FlatList
+                data={plantillas}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                  <View style={[styles.plantillaItem, { borderColor: colors.border }]}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: colors.foreground, fontWeight: "600", fontSize: 14 }}>
+                        {item.nombre}
+                      </Text>
+                      <Text style={{ color: colors.muted, fontSize: 12 }}>
+                        {TIPO_LABELS[item.tipoPlanificacion] || item.tipoPlanificacion} · {item.formatoOrigen.toUpperCase()}
+                      </Text>
+                    </View>
+                    <Text style={{ color: colors.muted, fontSize: 11 }}>
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </Text>
+                  </View>
+                )}
+              />
+            ) : (
+              <Text style={{ color: colors.muted, fontSize: 13 }}>
+                No hay plantillas importadas aún
+              </Text>
+            )}
+          </View>
+        )}
+
         {/* Selector de tipo cuando la detección es ambigua */}
         {candidatos && candidatos.length > 0 && (
           <View style={[styles.ambiguoContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
@@ -260,5 +307,24 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     gap: 4,
+  },
+  plantillasContainer: {
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 16,
+    gap: 12,
+  },
+  plantillasTitle: {
+    fontWeight: "700",
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  plantillaItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 12,
+    gap: 8,
   },
 });

@@ -5,6 +5,7 @@ import {
   createImportedFormatDocument,
   updateImportedFormatDocument,
   getImportedFormatDocument,
+  listFormatoPlantillas,
 } from "./db";
 import { extensionDe, parseDocumento } from "./import-formato/parse";
 import { reconocerTipo } from "./import-formato/matcher";
@@ -491,5 +492,14 @@ export const importarFormatoRouter = router({
         errorMensaje: doc.errorMensaje,
         planificacionId: doc.planificacionId,
       };
+    }),
+
+  /**
+   * Lista todas las plantillas importadas de una sesión.
+   */
+  listarPlantillas: publicProcedure
+    .input(z.object({ sessionId: z.string().min(1), tipoPlanificacion: z.string().optional() }))
+    .query(async ({ input }) => {
+      return listFormatoPlantillas(input.sessionId, input.tipoPlanificacion);
     }),
 });
