@@ -307,6 +307,7 @@ function detectarBindingsPca(
     // Secciones de contenido
     { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
     { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
+    { patron: /INSERCIONES.*CURRICULARES/i, campo: "insercionesCurriculares", tipo: "text" },
     { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
   ];
 
@@ -523,10 +524,13 @@ function mapearColumnasUnidades(
       mapeo.push({ campo: "evaluacion", columna: col, celdaFisica: cell.index });
     } else if (/DURACI/.test(enc) || /SEMANAS/.test(enc)) {
       mapeo.push({ campo: "duracionSemanas", columna: col, celdaFisica: cell.index });
+    } else if (/DESTREZAS?|DCD|DESTREZA CON CRITERIO/i.test(enc)) {
+      mapeo.push({ campo: "dcds", columna: col, celdaFisica: cell.index });
     }
   }
 
   // Fallback: si no se pudo mapear, usar posiciones por defecto
+  // NOTA: El fallback no incluye "dcds" para no crear columna inexistente en plantillas sin ella
   if (mapeo.length === 0) {
     return [
       { campo: "numero", columna: 0, celdaFisica: 0 },
