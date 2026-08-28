@@ -167,33 +167,45 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
 
     // ── Crear plantilla si se proporcionó buffer original ──────────
     if (originalBuffer) {
-      try {
-        const plantilla = await construirPlantilla(originalBuffer, campos);
+      // Verificar si el buffer es un DOCX válido (ZIP con word/document.xml)
+      const isDocx =
+        originalBuffer.length >= 4 &&
+        originalBuffer[0] === 0x50 &&
+        originalBuffer[1] === 0x4b &&
+        originalBuffer[2] === 0x03 &&
+        originalBuffer[3] === 0x04;
 
-        // Subir buffer original a storage (no guardar base64 en BD)
-        const storagePath = `plantillas/${sessionId}/${Date.now()}-pca.docx`;
-        const { key: templateStorageKey } = await storagePut(
-          storagePath,
-          originalBuffer,
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        );
+      if (isDocx) {
+        try {
+          const plantilla = await construirPlantilla(originalBuffer, campos);
 
-        formatoPlantillaId = await createFormatoPlantilla({
-          sessionId,
-          nombre: `PCA - ${campos.institucion || "Sin nombre"} - ${campos.anioLectivo || ""}`,
-          tipoPlanificacion: "pca",
-          formatoOrigen: "docx",
-          mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          storageKey: templateStorageKey,
-          estructura: JSON.stringify(plantilla.estructura),
-          bindings: JSON.stringify(plantilla.bindings),
-          configuracion: JSON.stringify(plantilla.configuracion),
-        });
+          // Subir buffer original a storage (no guardar base64 en BD)
+          const storagePath = `plantillas/${sessionId}/${Date.now()}-pca.docx`;
+          const { key: templateStorageKey } = await storagePut(
+            storagePath,
+            originalBuffer,
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          );
 
-        console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}, storage: ${templateStorageKey}`);
-      } catch (err) {
-        console.error("[pca-handler] ERROR creando plantilla:", err);
-        // No bloqueamos el flujo por esto
+          formatoPlantillaId = await createFormatoPlantilla({
+            sessionId,
+            nombre: `PCA - ${campos.institucion || "Sin nombre"} - ${campos.anioLectivo || ""}`,
+            tipoPlanificacion: "pca",
+            formatoOrigen: "docx",
+            mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            storageKey: templateStorageKey,
+            estructura: JSON.stringify(plantilla.estructura),
+            bindings: JSON.stringify(plantilla.bindings),
+            configuracion: JSON.stringify(plantilla.configuracion),
+          });
+
+          console.log(`[pca-handler] Plantilla creada: ${formatoPlantillaId}, storage: ${templateStorageKey}`);
+        } catch (err) {
+          console.error("[pca-handler] ERROR creando plantilla:", err);
+          // No bloqueamos el flujo por esto
+        }
+      } else {
+        console.log("[pca-handler] Archivo no es DOCX, omitiendo creación de plantilla");
       }
     }
 
