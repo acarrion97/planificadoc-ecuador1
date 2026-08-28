@@ -208,13 +208,15 @@ function detectarBindingsPca(
     { patron: /NIVEL.*EDUCATIVO/i, campo: "nivelEducativo", tipo: "text" },
     { patron: /PARALELO/i, campo: "paralelo", tipo: "text" },
     { patron: /A[NÑ]O.*LECTIVO/i, campo: "anioLectivo", tipo: "text" },
-    { patron: /CARGA.*HORARIA/i, campo: "cargaHorariaSemanal", tipo: "text" },
-    { patron: /SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "text" },
-    { patron: /EVALUACI/i, campo: "semanasEvaluacion", tipo: "text" },
-    { patron: /TOTAL.*PER[IÍ]ODOS/i, campo: "totalPeriodos", tipo: "text" },
-    // NOTA: Objetivos, bibliografía, observaciones y ejes se detectan
-    // en el segundo paso (encabezado → fila siguiente) porque su
-    // estructura es: Fila N = encabezado, Fila N+1 = contenido.
+    { patron: /CARGA.*HORARIA/i, campo: "cargaHorariaSemanal", tipo: "number" },
+    { patron: /SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "number" },
+    { patron: /SEMANAS.*EVALUACI|EVALUACI.*SEMANAS/i, campo: "semanasEvaluacion", tipo: "number" },
+    { patron: /TOTAL.*PER[IÍ]ODOS/i, campo: "totalPeriodos", tipo: "number" },
+    { patron: /OBJETIVOS.*AREA/i, campo: "objetivosArea", tipo: "text" },
+    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
+    { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
+    { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
+    { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
     // Firmas
     { patron: /ELABORADO.*POR/i, campo: "firmaElaboradoPor", tipo: "text" },
     { patron: /FECHA.*ELABORACI/i, campo: "firmaElaboradoFecha", tipo: "text" },

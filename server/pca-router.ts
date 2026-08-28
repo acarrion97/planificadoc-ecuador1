@@ -458,23 +458,81 @@ export const pcaRouter = router({
       // Preparar datos para el renderer
       const unidades = (formData.unidades as any[]) || [];
 
-      // Calcular semanas acumuladas para cada unidad
+      // Cargar aiResult para usar contenido generado por IA
+      let aiResult: Record<string, any> = {};
+      try {
+        aiResult = pca.aiResult ? JSON.parse(pca.aiResult) : {};
+      } catch {
+        console.warn("[pca-router] aiResult corrupto; usando solo formData");
+      }
+
+      const unidadesIA = Array.isArray(aiResult.unidades) ? aiResult.unidades : [];
+
+      // Función auxiliar para formatear DCDs como texto legible
+      const textoDcds = (dcds: any[]): string =>
+        dcds
+          .map((d) => {
+            if (typeof d === "string") return d;
+            if (d && typeof d === "object") {
+              return d.codigo && d.enunciado
+                ? `${d.codigo}: ${d.enunciado}`
+                : d.enunciado || d.codigo || "";
+            }
+            return String(d);
+          })
+          .filter(Boolean)
+          .join("\n");
+
+      // Calcular semanas acumuladas para cada unidad, combinando formData + aiResult
       let acumulado = 0;
-      const unidadesConSemanas = unidades.map((u: any) => {
+      const unidadesConSemanas = unidades.map((unidadForm: any, index: number) => {
+        const unidadIA =
+          unidadesIA.find((u: any) => u.numero === unidadForm.numero) ||
+          unidadesIA[index] ||
+          {};
+
+        const duracion =
+          unidadIA.duracionSemanas ??
+          unidadForm.duracionSemanas ??
+          4;
+
         const inicio = acumulado + 1;
-        acumulado += u.duracionSemanas || 4;
+        acumulado += duracion;
+
         return {
-          numero: String(u.numero),
-          titulo: String(u.nombre || `Unidad ${u.numero}`),
-          nombre: String(u.nombre || `Unidad ${u.numero}`),
-          objetivosEspecificos: String(u.objetivos || ""),
-          contenidos: String(u.contenidos || (u.dcdsSeleccionadas || []).join(", ")),
-          dcds: (u.dcdsSeleccionadas || []).join(", "),
-          orientacionesMetodologicas: String(u.orientaciones || ""),
-          evaluacion: String(u.evaluacion || ""),
-          duracionSemanas: String(u.duracionSemanas || 4),
+          numero: String(unidadForm.numero ?? unidadIA.numero ?? index + 1),
+          titulo:
+            unidadIA.titulo ||
+            unidadForm.titulo ||
+            unidadForm.nombre ||
+            `Unidad ${index + 1}`,
+          nombre:
+            unidadIA.titulo ||
+            unidadForm.titulo ||
+            unidadForm.nombre ||
+            `Unidad ${index + 1}`,
+          objetivosEspecificos:
+            unidadIA.objetivosEspecificos ||
+            unidadForm.objetivosEspecificos ||
+            unidadForm.objetivos ||
+            "",
+          contenidos:
+            unidadIA.contenidos ||
+            unidadForm.contenidos ||
+            textoDcds(unidadForm.dcdsSeleccionadas || []),
+          orientacionesMetodologicas:
+            unidadIA.orientacionesMetodologicas ||
+            unidadForm.orientacionesMetodologicas ||
+            unidadForm.orientaciones ||
+            "",
+          evaluacion:
+            unidadIA.evaluacion ||
+            unidadForm.evaluacion ||
+            "",
+          duracionSemanas: String(duracion),
           semanaInicio: String(inicio),
           semanaFin: String(acumulado),
+          dcds: textoDcds(unidadForm.dcdsSeleccionadas || []),
         };
       });
 
@@ -492,8 +550,14 @@ export const pcaRouter = router({
         semanasEvaluacion: String(formData.semanasEvaluacion || ""),
         totalPeriodos: String((formData.cargaHorariaSemanal || 0) * (formData.semanasTrabajoTotal || 0)),
         ejesTransversales: String((formData.ejesTransversales || []).join(", ")),
-        bibliografia: String(formData.bibliografiaDocente || ""),
-        observaciones: "",
+        objetivosArea: String(aiResult.objetivosArea || ""),
+        objetivosGrado: String(aiResult.objetivosGrado || ""),
+        bibliografia: String(
+          formData.bibliografiaDocente ||
+          aiResult.bibliografiaSugerida ||
+          ""
+        ),
+        observaciones: String(aiResult.observaciones || ""),
         // Firmas
         firmaElaboradoPor: String(formData.firmaElaboradoPor || ""),
         firmaElaboradoFecha: String(formData.firmaElaboradoFecha || ""),
