@@ -127,6 +127,11 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
           ? campos.unidades.map((u) => ({
               id: randomUUID(),
               numero: u.numero,
+              titulo: u.titulo ?? "",
+              objetivosEspecificos: u.objetivosEspecificos ?? "",
+              contenidos: u.contenidos ?? "",
+              orientacionesMetodologicas: u.orientacionesMetodologicas ?? "",
+              evaluacion: u.evaluacion ?? "",
               dcdsSeleccionadas: [],
               duracionSemanas: u.duracionSemanas ?? 4,
             }))

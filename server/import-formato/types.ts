@@ -238,6 +238,7 @@ export type RepeatRegion = {
   columnas: Array<{
     campo: string;
     columna: number;
+    celdaFisica: number;
   }>;
 };
 

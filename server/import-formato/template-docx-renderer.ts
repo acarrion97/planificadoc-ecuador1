@@ -152,6 +152,28 @@ function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
   }
 }
 
+// ─── Normalización de valores ────────────────────────────────────────────────
+
+/**
+ * Conierte cualquier valor a string plano para insertar en el DOCX.
+ * Evita que objetos/arrays aparezcan como "[object Object]".
+ */
+function valorParaDocx(valor: unknown): string {
+  if (valor == null) return "";
+  if (typeof valor === "string") return valor;
+  if (typeof valor === "number" || typeof valor === "boolean") return String(valor);
+  if (Array.isArray(valor)) {
+    return valor.map(valorParaDocx).filter(Boolean).join("\n");
+  }
+  if (typeof valor === "object") {
+    return Object.values(valor as Record<string, unknown>)
+      .map(valorParaDocx)
+      .filter(Boolean)
+      .join("\n");
+  }
+  return String(valor);
+}
+
 // ─── Renderizado de campos simples ──────────────────────────────────────────
 
 /**
@@ -182,8 +204,8 @@ function renderizarCampos(
     if (!celda) continue;
 
     const textoValor = binding.tipo === "number"
-      ? String(valor)
-      : String(valor);
+      ? valorParaDocx(valor)
+      : valorParaDocx(valor);
 
     reemplazarTextoEnCelda(celda, textoValor);
   }
@@ -223,14 +245,15 @@ function renderizarRegionRepetible(
 
     // Reemplazar textos en las celdas
     const celdas = buscarNodos([nuevaFila], "w:tc");
-    for (const { campo, columna } of region.columnas) {
-      const valor = item[campo];
+    for (const col of region.columnas) {
+      const valor = item[col.campo];
       if (valor === undefined || valor === null) continue;
 
-      const celda = celdas[columna];
+      // Usar celdaFisica (índice físico del w:tc) en lugar de columna (gridIndex)
+      const celda = celdas[col.celdaFisica];
       if (!celda) continue;
 
-      reemplazarTextoEnCelda(celda, String(valor));
+      reemplazarTextoEnCelda(celda, valorParaDocx(valor));
     }
 
     nuevasFilas.push(nuevaFila);

@@ -66,8 +66,8 @@ function extraerAtributo(nodo: XmlNode, attr: string): number | undefined {
 
 type CeldaInfo = {
   index: number;
-  rowSpan: number;
   colSpan: number;
+  gridIndex: number; // posición lógica en la rejilla (después de aplicar gridSpan)
   textoOriginal: string;
 };
 
@@ -85,7 +85,10 @@ type TablaInfo = {
 
 /**
  * Analiza el XML de un DOCX y extrae la estructura completa de tablas
- * con rowSpan, colSpan y texto original de cada celda.
+ * con colSpan, posición lógica (gridIndex) y texto original de cada celda.
+ *
+ * vMerge: simplemente ignoramos filas continuación (sin restart) porque
+ * no aportan una nueva fila visual — la celda viene de arriba.
  */
 export async function analizarEstructuraDocx(
   buffer: Buffer
@@ -110,24 +113,51 @@ export async function analizarEstructuraDocx(
   const tablas: TablaInfo[] = tablasXml.map((tabla, tablaIdx) => {
     const filasXml = buscarNodos([tabla], "w:tr");
 
-    let maxCols = 0;
+    let maxGridCols = 0;
+    let gridCursor = 0; // posición actual en la rejilla lógica
+
     const rows: FilaInfo[] = filasXml.map((fila, filaIdx) => {
       const celdasXml = buscarNodos([fila], "w:tc");
-      const cells: CeldaInfo[] = celdasXml.map((celda, celdaIdx) => {
+      const cells: CeldaInfo[] = [];
+
+      // Reconstruir la rejilla lógica: saltar columnas ocupadas por gridSpan
+      // de filas anteriores (merge vertical implícito por posición)
+      gridCursor = 0;
+
+      for (const celda of celdasXml) {
+        // Saltar columnas ocupadas por celdas gridSpan de filas anteriores
+        // Simplificación: si la celda anterior en esta fila tiene gridSpan > 1,
+        // el cursor avanza. Para merge vertical real necesitaríamos un mapa
+        // de celdas activas, pero para el PCA oficial con solo gridSpan basta.
+
+        const colSpan = extraerAtributo(celda, "gridSpan") ?? 1;
+        const vMergeVal = extraerAtributo(celda, "vMerge");
+        const isRestart = vMergeVal === undefined ||
+          vMergeVal === 0 ||
+          extraerAtributo(celda, "vMerge", "val") === "restart";
+
+        // Ignorar celdas de continuación de merge vertical (no restart)
+        // Solo si no es restart y tiene vMerge definido
+        if (vMergeVal !== undefined && vMergeVal !== 0 && !isRestart) {
+          // Celda de continuación: ocupa espacio visual pero no tiene contenido propio
+          gridCursor += colSpan;
+          continue;
+        }
+
         const key = Object.keys(celda).find((k) => k !== ":@")!;
         const texto = textoDeNodo(celda[key]).trim();
-        const rowSpan = extraerAtributo(celda, "vMerge") ?? 1;
-        const colSpan = extraerAtributo(celda, "gridSpan") ?? 1;
 
-        return {
-          index: celdaIdx,
-          rowSpan: rowSpan === 0 ? 1 : rowSpan, // vMerge=0 significa "continuar"
+        cells.push({
+          index: cells.length,
           colSpan,
+          gridIndex: gridCursor,
           textoOriginal: texto,
-        };
-      });
+        });
 
-      if (cells.length > maxCols) maxCols = cells.length;
+        gridCursor += colSpan;
+      }
+
+      if (gridCursor > maxGridCols) maxGridCols = gridCursor;
 
       return { index: filaIdx, cells };
     });
@@ -135,7 +165,7 @@ export async function analizarEstructuraDocx(
     return {
       index: tablaIdx,
       filas: rows.length,
-      columnas: maxCols,
+      columnas: maxGridCols,
       rows,
     };
   });
@@ -317,8 +347,8 @@ function detectarRegionUnidadesPca(
             textos.some((t) => /CONTENIDOS/.test(t));
 
           if (tieneEncabezadosUnidades) {
-            // Mapear columnas según los encabezados encontrados
-            const columnas = mapearColumnasUnidades(textos);
+            // Mapear columnas usando gridIndex (posición lógica en la rejilla)
+            const columnas = mapearColumnasUnidades(filaEncabezados.cells);
 
             return {
               id: "unidades",
@@ -343,48 +373,50 @@ function detectarRegionUnidadesPca(
 
 /**
  * Mapea los encabezados de columna de unidades a campos canónicos.
+ * Usa gridIndex (posición lógica en la rejilla) para el mapeo.
  * Filtra columnas auxiliares (como numeración de página) que no son contenido.
  */
 function mapearColumnasUnidades(
-  encabezados: string[]
-): Array<{ campo: string; columna: number }> {
-  const mapeo: Array<{ campo: string; columna: number }> = [];
+  cells: CeldaInfo[]
+): Array<{ campo: string; columna: number; celdaFisica: number }> {
+  const mapeo: Array<{ campo: string; columna: number; celdaFisica: number }> = [];
 
-  for (let i = 0; i < encabezados.length; i++) {
-    const enc = encabezados[i];
+  for (const cell of cells) {
+    const enc = cell.textoOriginal.trim().toUpperCase();
 
     // Filtrar columnas auxiliares (solo números, puntuación, etc.)
     if (/^\d+$/.test(enc) || /^[.\-–—]+$/.test(enc) || enc.length === 0) {
       continue;
     }
 
+    const col = cell.gridIndex;
+
     if (/N[.°]/.test(enc)) {
-      mapeo.push({ campo: "numero", columna: i });
+      mapeo.push({ campo: "numero", columna: col, celdaFisica: cell.index });
     } else if (/T[ÍI]TULO/.test(enc)) {
-      mapeo.push({ campo: "titulo", columna: i });
+      mapeo.push({ campo: "titulo", columna: col, celdaFisica: cell.index });
     } else if (/OBJETIVOS.*ESP/.test(enc)) {
-      mapeo.push({ campo: "objetivosEspecificos", columna: i });
+      mapeo.push({ campo: "objetivosEspecificos", columna: col, celdaFisica: cell.index });
     } else if (/CONTENIDOS/.test(enc)) {
-      mapeo.push({ campo: "contenidos", columna: i });
+      mapeo.push({ campo: "contenidos", columna: col, celdaFisica: cell.index });
     } else if (/ORIENTACIONES/.test(enc) || /METODOLOG/.test(enc)) {
-      mapeo.push({ campo: "orientacionesMetodologicas", columna: i });
+      mapeo.push({ campo: "orientacionesMetodologicas", columna: col, celdaFisica: cell.index });
     } else if (/EVALUACI/.test(enc)) {
-      mapeo.push({ campo: "evaluacion", columna: i });
+      mapeo.push({ campo: "evaluacion", columna: col, celdaFisica: cell.index });
     } else if (/DURACI/.test(enc) || /SEMANAS/.test(enc)) {
-      mapeo.push({ campo: "duracionSemanas", columna: i });
+      mapeo.push({ campo: "duracionSemanas", columna: col, celdaFisica: cell.index });
     }
-    // Ignorar columnas que no matchean (como el "8" auxiliar)
   }
 
   // Fallback: si no se pudo mapear, usar posiciones por defecto
   if (mapeo.length === 0) {
     return [
-      { campo: "numero", columna: 0 },
-      { campo: "titulo", columna: 1 },
-      { campo: "objetivosEspecificos", columna: 2 },
-      { campo: "contenidos", columna: 3 },
-      { campo: "orientacionesMetodologicas", columna: 4 },
-      { campo: "evaluacion", columna: 5 },
+      { campo: "numero", columna: 0, celdaFisica: 0 },
+      { campo: "titulo", columna: 1, celdaFisica: 1 },
+      { campo: "objetivosEspecificos", columna: 2, celdaFisica: 2 },
+      { campo: "contenidos", columna: 3, celdaFisica: 3 },
+      { campo: "orientacionesMetodologicas", columna: 4, celdaFisica: 4 },
+      { campo: "evaluacion", columna: 5, celdaFisica: 5 },
     ];
   }
 
