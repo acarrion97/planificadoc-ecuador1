@@ -64,10 +64,18 @@ function textoDeNodo(nodo: XmlNode[]): string {
  */
 function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
   const key = Object.keys(celda).find((k) => k !== ":@");
-  if (!key || key !== "w:tc") return;
+  if (!key || key !== "w:tc") {
+    console.log(`[template-renderer] Nodo no es w:tc: ${key}`);
+    return;
+  }
 
   const contenido = celda[key];
-  if (!Array.isArray(contenido)) return;
+  if (!Array.isArray(contenido)) {
+    console.log(`[template-renderer] Contenido de celda no es array:`, typeof contenido);
+    return;
+  }
+
+  console.log(`[template-renderer] Reemplazando texto en celda: '${nuevoTexto}' (nodos: ${contenido.length})`);
 
   // Buscar todos los nodos w:t y reemplazar su contenido
   let textoReemplazado = false;
@@ -93,6 +101,10 @@ function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
         }
       }
     }
+  }
+
+  if (!textoReemplazado) {
+    console.log(`[template-renderer] No se encontró nodo w:t en la celda`);
   }
 }
 
@@ -238,6 +250,8 @@ export async function renderizarDocxPlantilla(
   datos: Record<string, any>,
   archivosAdicionales?: Record<string, Buffer>
 ): Promise<Buffer> {
+  console.log(`[template-renderer] Iniciando renderizado (${templateBuffer.length} bytes)`);
+
   let zip: JSZip;
   try {
     zip = await JSZip.loadAsync(templateBuffer);
@@ -255,6 +269,8 @@ export async function renderizarDocxPlantilla(
 
   // Obtener todas las tablas
   const tablas = buscarNodos(arbol, "w:tbl");
+  console.log(`[template-renderer] Tablas encontradas: ${tablas.length}`);
+  console.log(`[template-renderer] Bindings: campos=${bindings.campos.length}, regiones=${bindings.regionesRepetibles.length}`);
 
   // 1. Renderizar campos simples
   renderizarCampos(tablas, bindings.campos, datos);
@@ -284,5 +300,7 @@ export async function renderizarDocxPlantilla(
   }
 
   // 6. Generar el buffer del DOCX final
-  return zip.generateAsync({ type: "nodebuffer" });
+  const resultado = await zip.generateAsync({ type: "nodebuffer" });
+  console.log(`[template-renderer] Renderizado completado (${resultado.length} bytes)`);
+  return resultado;
 }

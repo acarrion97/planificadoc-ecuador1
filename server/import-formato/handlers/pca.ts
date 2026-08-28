@@ -182,6 +182,8 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
           // Guardar buffer del template DOCX directamente en BD como base64
           const templateBufferBase64 = originalBuffer.toString("base64");
 
+          console.log(`[pca-handler] Bindings detectados:`, JSON.stringify(plantilla.bindings.campos.map(b => b.campo)));
+
           formatoPlantillaId = await createFormatoPlantilla({
             sessionId,
             nombre: `PCA - ${campos.institucion || "Sin nombre"} - ${campos.anioLectivo || ""}`,
