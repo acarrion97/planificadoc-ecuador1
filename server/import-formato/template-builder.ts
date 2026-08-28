@@ -164,6 +164,7 @@ function detectarBindingsPca(
   const bindings: FieldBinding[] = [];
 
   // Patrones de búsqueda: texto de celda → campo canónico
+  // Solo campos tipo "etiqueta | valor" en la misma fila
   const patrones: Array<{
     patron: RegExp;
     campo: string;
@@ -181,11 +182,9 @@ function detectarBindingsPca(
     { patron: /SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "text" },
     { patron: /EVALUACI/i, campo: "semanasEvaluacion", tipo: "text" },
     { patron: /TOTAL.*PER[IÍ]ODOS/i, campo: "totalPeriodos", tipo: "text" },
-    { patron: /OBJETIVOS.*AREA/i, campo: "objetivosArea", tipo: "text" },
-    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
-    { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
-    { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
-    { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
+    // NOTA: Objetivos, bibliografía, observaciones y ejes se detectan
+    // en el segundo paso (encabezado → fila siguiente) porque su
+    // estructura es: Fila N = encabezado, Fila N+1 = contenido.
     // Firmas
     { patron: /ELABORADO.*POR/i, campo: "firmaElaboradoPor", tipo: "text" },
     { patron: /FECHA.*ELABORACI/i, campo: "firmaElaboradoFecha", tipo: "text" },
@@ -344,6 +343,7 @@ function detectarRegionUnidadesPca(
 
 /**
  * Mapea los encabezados de columna de unidades a campos canónicos.
+ * Filtra columnas auxiliares (como numeración de página) que no son contenido.
  */
 function mapearColumnasUnidades(
   encabezados: string[]
@@ -352,14 +352,20 @@ function mapearColumnasUnidades(
 
   for (let i = 0; i < encabezados.length; i++) {
     const enc = encabezados[i];
+
+    // Filtrar columnas auxiliares (solo números, puntuación, etc.)
+    if (/^\d+$/.test(enc) || /^[.\-–—]+$/.test(enc) || enc.length === 0) {
+      continue;
+    }
+
     if (/N[.°]/.test(enc)) {
       mapeo.push({ campo: "numero", columna: i });
     } else if (/T[ÍI]TULO/.test(enc)) {
       mapeo.push({ campo: "titulo", columna: i });
     } else if (/OBJETIVOS.*ESP/.test(enc)) {
       mapeo.push({ campo: "objetivosEspecificos", columna: i });
-    } else if (/CONTENIDOS/.test(enc) || /DCD/.test(enc)) {
-      mapeo.push({ campo: "dcds", columna: i });
+    } else if (/CONTENIDOS/.test(enc)) {
+      mapeo.push({ campo: "contenidos", columna: i });
     } else if (/ORIENTACIONES/.test(enc) || /METODOLOG/.test(enc)) {
       mapeo.push({ campo: "orientacionesMetodologicas", columna: i });
     } else if (/EVALUACI/.test(enc)) {
@@ -367,6 +373,7 @@ function mapearColumnasUnidades(
     } else if (/DURACI/.test(enc) || /SEMANAS/.test(enc)) {
       mapeo.push({ campo: "duracionSemanas", columna: i });
     }
+    // Ignorar columnas que no matchean (como el "8" auxiliar)
   }
 
   // Fallback: si no se pudo mapear, usar posiciones por defecto
@@ -375,7 +382,7 @@ function mapearColumnasUnidades(
       { campo: "numero", columna: 0 },
       { campo: "titulo", columna: 1 },
       { campo: "objetivosEspecificos", columna: 2 },
-      { campo: "dcds", columna: 3 },
+      { campo: "contenidos", columna: 3 },
       { campo: "orientacionesMetodologicas", columna: 4 },
       { campo: "evaluacion", columna: 5 },
     ];

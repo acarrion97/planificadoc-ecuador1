@@ -468,6 +468,7 @@ export const pcaRouter = router({
           titulo: String(u.nombre || `Unidad ${u.numero}`),
           nombre: String(u.nombre || `Unidad ${u.numero}`),
           objetivosEspecificos: String(u.objetivos || ""),
+          contenidos: String(u.contenidos || (u.dcdsSeleccionadas || []).join(", ")),
           dcds: (u.dcdsSeleccionadas || []).join(", "),
           orientacionesMetodologicas: String(u.orientaciones || ""),
           evaluacion: String(u.evaluacion || ""),
