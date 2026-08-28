@@ -260,12 +260,44 @@ function renderizarRegionRepetible(
   const filaPlantilla = filas[region.ubicacion.filaPlantilla];
   if (!filaPlantilla) return;
 
+  // Detectar si necesitamos agregar columna "dcds" que no existe en la plantilla
+  const tieneColumnaDcds = region.columnas.some((c) => c.campo === "dcds");
+  const itemsTienenDcds = items.some((item) => item.dcds && String(item.dcds).trim() !== "");
+  const necesitaAgregarDcds = itemsTienenDcds && !tieneColumnaDcds;
+
   // Para cada item, crear una nueva fila basada en la plantilla
   const nuevasFilas: XmlNode[] = [];
 
   for (const item of items) {
     // Clonar la fila plantilla (deep clone del nodo)
     const nuevaFila = JSON.parse(JSON.stringify(filaPlantilla));
+
+    // Si necesitamos agregar columna dcds, agregar una nueva celda al final de la fila
+    if (necesitaAgregarDcds) {
+      const celdas = buscarNodos([nuevaFila], "w:tc");
+      if (celdas.length > 0) {
+        // Clonar la última celda como base para mantener estilos
+        const ultimaCelda = celdas[celdas.length - 1];
+        const nuevaCelda = JSON.parse(JSON.stringify(ultimaCelda));
+        // Limpiar el contenido de la celda clonada
+        const textos = buscarNodos([nuevaCelda], "w:t");
+        for (const nodo of textos) {
+          const nodoKey = Object.keys(nodo).find((k) => k !== ":@");
+          if (nodoKey === "w:t") {
+            if (Array.isArray(nodo["w:t"])) {
+              nodo["w:t"][0]["#text"] = "";
+            } else {
+              nodo["#text"] = "";
+            }
+          }
+        }
+        // Insertar la nueva celda en la fila
+        const filaKey = Object.keys(nuevaFila).find((k) => k !== ":@");
+        if (filaKey && Array.isArray(nuevaFila[filaKey])) {
+          nuevaFila[filaKey].push(nuevaCelda);
+        }
+      }
+    }
 
     // Reemplazar textos en las celdas
     const celdas = buscarNodos([nuevaFila], "w:tc");
@@ -280,7 +312,54 @@ function renderizarRegionRepetible(
       reemplazarTextoEnCelda(celda, valorParaDocx(valor));
     }
 
+    // Si agregamos columna dcds, llenarla (estará al final)
+    if (necesitaAgregarDcds && item.dcds) {
+      const celdasActualizadas = buscarNodos([nuevaFila], "w:tc");
+      const ultimaCelda = celdasActualizadas[celdasActualizadas.length - 1];
+      if (ultimaCelda) {
+        reemplazarTextoEnCelda(ultimaCelda, valorParaDocx(item.dcds));
+      }
+    }
+
     nuevasFilas.push(nuevaFila);
+  }
+
+  // También agregar encabezado "Destrezas" en la fila de encabezados si hace falta
+  if (necesitaAgregarDcds) {
+    const filaEncabezados = filas[region.ubicacion.filaPlantilla - 1];
+    if (filaEncabezados) {
+      const celdasEncabezado = buscarNodos([filaEncabezados], "w:tc");
+      if (celdasEncabezado.length > 0) {
+        const ultimaCeldaEnc = celdasEncabezado[celdasEncabezado.length - 1];
+        const nuevaCeldaEnc = JSON.parse(JSON.stringify(ultimaCeldaEnc));
+        // Poner "Destrezas" en el encabezado
+        const textos = buscarNodos([nuevaCeldaEnc], "w:t");
+        let primero = true;
+        for (const nodo of textos) {
+          const nodoKey = Object.keys(nodo).find((k) => k !== ":@");
+          if (nodoKey === "w:t") {
+            if (primero) {
+              if (Array.isArray(nodo["w:t"])) {
+                nodo["w:t"][0]["#text"] = "Destrezas";
+              } else {
+                nodo["#text"] = "Destrezas";
+              }
+              primero = false;
+            } else {
+              if (Array.isArray(nodo["w:t"])) {
+                nodo["w:t"][0]["#text"] = "";
+              } else {
+                nodo["#text"] = "";
+              }
+            }
+          }
+        }
+        const filaEncKey = Object.keys(filaEncabezados).find((k) => k !== ":@");
+        if (filaEncKey && Array.isArray(filaEncabezados[filaEncKey])) {
+          filaEncabezados[filaEncKey].push(nuevaCeldaEnc);
+        }
+      }
+    }
   }
 
   // Insertar las nuevas filas DESPUÉS de la fila plantilla (no al final de la tabla)
