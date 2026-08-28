@@ -61,6 +61,7 @@ function textoDeNodo(nodo: XmlNode[]): string {
 /**
  * Reemplaza el texto de un nodo w:tc (celda) preservando los estilos.
  * Busca recursivamente todos los w:t dentro de la celda y reemplaza su contenido.
+ * Si la celda está vacía, crea la estructura w:p → w:r → w:t.
  */
 function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
   const key = Object.keys(celda).find((k) => k !== ":@");
@@ -68,13 +69,67 @@ function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
 
   // Buscar todos los w:t recursivamente en la celda
   const textos = buscarNodos(celda[key] ?? [], "w:t");
-  if (textos.length === 0) return;
 
-  // Poner el nuevo texto en el primer w:t, vaciar el resto
+  if (textos.length === 0) {
+    // Celda vacía: crear estructura w:p → w:r → w:t
+    const contenido = celda[key];
+    if (!Array.isArray(contenido)) return;
+
+    // Buscar un w:r existente para clonar estilo, o crear uno genérico
+    const runs = buscarNodos(contenido, "w:r");
+    let nuevoRun: XmlNode;
+    if (runs.length > 0) {
+      // Clonar el primer w:r preservando sus atributos/estilo
+      nuevoRun = JSON.parse(JSON.stringify(runs[0]));
+      // Reemplazar su w:t
+      const tNodes = buscarNodos([nuevoRun], "w:t");
+      for (const t of tNodes) {
+        const tKey = Object.keys(t).find((k) => k !== ":@");
+        if (tKey === "w:t") {
+          if (Array.isArray(t["w:t"])) {
+            t["w:t"][0]["#text"] = nuevoTexto;
+          } else {
+            t["#text"] = nuevoTexto;
+          }
+          return; // Ya tiene el texto
+        }
+      }
+      // Si no tenía w:t, agregarlo
+      const runChildren = nuevoRun["w:r"];
+      if (Array.isArray(runChildren)) {
+        runChildren.push({ "w:t": [{ "#text": nuevoTexto }] });
+      }
+    } else {
+      // No hay w:r existente, crear estructura completa
+      nuevoRun = {
+        "w:r": [
+          { "w:t": [{ "#text": nuevoTexto }] },
+        ],
+      };
+    }
+
+    // Insertar el nuevo w:r en el contenido de la celda
+    // Buscar dónde insertar (después de w:p si existe, o al final)
+    const pNodes = buscarNodos(contenido, "w:p");
+    if (pNodes.length > 0) {
+      // Insertar w:r dentro del último w:p
+      const ultimoP = pNodes[pNodes.length - 1];
+      const pKey = Object.keys(ultimoP).find((k) => k !== ":@");
+      if (pKey && Array.isArray(ultimoP[pKey])) {
+        ultimoP[pKey].push(nuevoRun);
+      }
+    } else {
+      // No hay w:p, crear uno envolviendo
+      const nuevoP: XmlNode = { "w:p": [nuevoRun] };
+      contenido.push(nuevoP);
+    }
+    return;
+  }
+
+  // Celda con contenido: reemplazar el primer w:t, vaciar el resto
   let primero = true;
   for (const nodoTexto of textos) {
     if (primero) {
-      // Reemplazar el contenido del w:t
       const valKey = Object.keys(nodoTexto).find((k) => k !== ":@");
       if (valKey === "w:t") {
         if (Array.isArray(nodoTexto["w:t"])) {
@@ -85,7 +140,6 @@ function reemplazarTextoEnCelda(celda: XmlNode, nuevoTexto: string): void {
       }
       primero = false;
     } else {
-      // Vaciar los w:t restantes
       const valKey = Object.keys(nodoTexto).find((k) => k !== ":@");
       if (valKey === "w:t") {
         if (Array.isArray(nodoTexto["w:t"])) {
@@ -164,7 +218,7 @@ function renderizarRegionRepetible(
   const nuevasFilas: XmlNode[] = [];
 
   for (const item of items) {
-    // Clonar la fila plantilla (shallow clone del nodo)
+    // Clonar la fila plantilla (deep clone del nodo)
     const nuevaFila = JSON.parse(JSON.stringify(filaPlantilla));
 
     // Reemplazar textos en las celdas
@@ -182,21 +236,21 @@ function renderizarRegionRepetible(
     nuevasFilas.push(nuevaFila);
   }
 
-  // Insertar las nuevas filas después de la última fila existente
+  // Insertar las nuevas filas DESPUÉS de la fila plantilla (no al final de la tabla)
   const contenidoTabla = tabla[Object.keys(tabla).find((k) => k !== ":@")!];
   if (Array.isArray(contenidoTabla)) {
-    // Encontrar el índice de la última fila
-    let ultimoIndiceFila = -1;
+    // Encontrar el índice de la fila plantilla
+    let indiceFilaPlantilla = -1;
     for (let i = 0; i < contenidoTabla.length; i++) {
-      const key = Object.keys(contenidoTabla[i]).find((k) => k !== ":@");
-      if (key === "w:tr") {
-        ultimoIndiceFila = i;
+      if (contenidoTabla[i] === filaPlantilla) {
+        indiceFilaPlantilla = i;
+        break;
       }
     }
 
-    // Insertar después de la última fila
-    if (ultimoIndiceFila >= 0) {
-      contenidoTabla.splice(ultimoIndiceFila + 1, 0, ...nuevasFilas);
+    if (indiceFilaPlantilla >= 0) {
+      // Insertar justo después de la fila plantilla
+      contenidoTabla.splice(indiceFilaPlantilla + 1, 0, ...nuevasFilas);
     }
   }
 }

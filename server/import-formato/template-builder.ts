@@ -229,6 +229,60 @@ function detectarBindingsPca(
     }
   }
 
+  // ── Segundo paso: detectar bindings "encabezado → fila siguiente" ──────
+  // Para secciones donde el encabezado y el contenido están en filas consecutivas:
+  //   Fila N:   [OBJETIVOS DEL ÁREA] [OBJETIVOS DEL GRADO]
+  //   Fila N+1: [     VACÍA         ] [      VACÍA          ]
+  const patronesFilaSiguiente: Array<{
+    patron: RegExp;
+    campo: string;
+    tipo: FieldBinding["tipo"];
+  }> = [
+    { patron: /OBJETIVOS.*AREA/i, campo: "objetivosArea", tipo: "text" },
+    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
+    { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
+    { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
+    { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
+  ];
+
+  for (const tabla of estructura.tablas) {
+    for (let filaIdx = 0; filaIdx < tabla.rows.length - 1; filaIdx++) {
+      const fila = tabla.rows[filaIdx];
+      const filaSiguiente = tabla.rows[filaIdx + 1];
+
+      for (let celdaIdx = 0; celdaIdx < fila.cells.length; celdaIdx++) {
+        const celda = fila.cells[celdaIdx];
+        const texto = celda.textoOriginal.trim();
+
+        for (const { patron, campo, tipo } of patronesFilaSiguiente) {
+          if (patron.test(texto)) {
+            // Verificar que no exista ya un binding para este campo
+            const yaExiste = bindings.some((b) => b.campo === campo);
+            if (yaExiste) break;
+
+            // La contenido debe estar en la MISMA columna pero fila siguiente
+            const celdaContenido = filaSiguiente.cells[celdaIdx];
+            if (celdaContenido) {
+              bindings.push({
+                id: campo,
+                campo,
+                tipo,
+                ubicacion: {
+                  tipo: "docx-cell",
+                  tabla: tabla.index,
+                  fila: filaSiguiente.index,
+                  columna: celdaContenido.index,
+                },
+                obligatorio: false,
+              });
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+
   return bindings;
 }
 
