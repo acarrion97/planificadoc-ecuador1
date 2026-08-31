@@ -52,12 +52,6 @@ function textoDeNodo(nodo: XmlNode[]): string {
   return out;
 }
 
-function extraerAtributo(nodo: XmlNode, attr: string): string | undefined {
-  const attrs = nodo[":@"];
-  if (!attrs) return undefined;
-  return attrs[`@_w:${attr}`] ?? attrs[`@_${attr}`];
-}
-
 function nodoKey(nodo: XmlNode): string | undefined {
   return Object.keys(nodo).find((k) => k !== ":@");
 }
@@ -69,275 +63,58 @@ function nodoChildren(nodo: XmlNode): XmlNode[] | undefined {
   return Array.isArray(val) ? val : undefined;
 }
 
-// ─── Table identification ───────────────────────────────────────────────────
+// ─── Garbage patterns ───────────────────────────────────────────────────────
 
-const PALABRAS_UNIDADES = [
-  /N[.°]/,
-  /T[ÍI]TULO/,
-  /OBJETIVOS.*ESP/,
-  /CONTENIDOS/,
-  /ORIENTACIONES/,
-  /METODOLOG/,
-  /EVALUACI/,
-  /DURACI/,
-  /SEMANAS/,
-  /DESTREZAS?/,
-  /DCD/,
+const PATRONES_BASURA = [
+  /^T[ÉE]RMINOS\s+DE\s+REFERENCIA/i,
+  /^SUBSECRETAR[ÍI]A\s+DE/i,
+  /^DIRECCI[ÓO]N\s+NACIONAL\s+DE\s+CURR[ÍI]CULO/i,
+  /^MINISTERIO\s+DE\s+EDUCACI[ÓO]N/i,
+  /^FICHA\s+T[ÉE]CNICA/i,
+  /^MEMOR[ÁA]NDUM/i,
+  /^CIRCULAR\s+N[ÚU]MERO/i,
+  /^RESOLUCI[ÓO]N/i,
+  /^ACTA\s+/i,
+  /^ACUERDO\s+/i,
+  /^CONTRATO\s+/i,
+  /^PROCESO\s+DE\s+CONTRATACI[ÓO]N/i,
+  /^INVITACI[ÓO]N\s+A\s+LA\s+OFERTA/i,
+  /^BASES\s+DE\s+LA\s+CONTRATACI[ÓO]N/i,
+  /^PRESUPUESTO\s+BASE/i,
+  /^OBJETO\s+DEL\s+CONTRATO/i,
+  /^PLAZO\s+DE\s+EJECUCI[ÓO]N/i,
+  /^FORMA\s+DE\s+PAGO/i,
+  /^COMPROMISO(\s+DEL|\s+DE|\s+PARA|\s*:)/i,
+  /^ATRIBUCIONES/i,
+  /^PLAN\s+DE\s+ACCI[ÓO]N/i,
+  /^FUENTES\s+DE\s+FINANCIAMIENTO/i,
+  /^CRONOGRAMA\s+DE\s+ACTIVIDADES/i,
+  /^SISTEMA\s+DE\s+SEGUIMIENTO/i,
+  /^SISTEMA\s+DE\s+CONTROL/i,
+  /^R[ÉE]GIMEN\s+DE\s+PENALIDADES/i,
+  /^OBLIGACIONES\s+DEL\s+PROVEEDOR/i,
+  /^CONSIDERACIONES\s+GENERALES/i,
+  /^DISPOSICIONES\s+GENERALES/i,
+  /^ANEXOS?(\s*:|\s+\d)/i,
+  /^FORMATOS?(\s*:|\s+\d)/i,
 ];
 
-const PALABRAS_FIRMAS = [
-  /^ELABORADO(\s+POR)?$/i,
-  /^REVISADO(\s+POR)?$/i,
-  /^APROBADO(\s+POR)?$/i,
-  /^DOCENTE\s*:/i,
-  /^VICERRECTOR\s*:/i,
-  /^DIRECTOR\s*:/i,
-];
-
-const PALABRAS_SECCION = [
-  /OBJETIVOS/,
-  /BIBLIOGRAF/,
-  /INSERCIONES/,
-  /EJES\s*TRANSVERSALES/,
-  /OBSERVACIONES/,
-  /DESARROLLO/,
-  /DATOS\s*INFORMATIVOS/,
-  /TIEMPO/,
-  /PLAN\s*CURRICULAR/,
-  /INSTITUCI/,
-];
-
-type TablaClasificacion = {
-  tipo: "unidades" | "firmas" | "desconocida";
-  indice: number;
-};
-
-function clasificarTabla(tabla: XmlNode): TablaClasificacion["tipo"] {
-  const filas = buscarNodos([tabla], "w:tr");
-  let scoreUnidades = 0;
-  let scoreFirmas = 0;
-
-  for (const fila of filas) {
-    const celdas = buscarNodos([fila], "w:tc");
-    for (const celda of celdas) {
-      const key = nodoKey(celda);
-      if (!key) continue;
-      const texto = textoDeNodo(celda[key] ?? []).trim().toUpperCase();
-
-      if (PALABRAS_UNIDADES.some((p) => p.test(texto))) scoreUnidades++;
-      if (PALABRAS_FIRMAS.some((p) => p.test(texto))) scoreFirmas++;
-    }
-  }
-
-  if (scoreUnidades >= 2) return "unidades";
-  if (scoreFirmas >= 1) return "firmas";
-  return "desconocida";
-}
-
-function clasificarTablas(arbol: XmlNode[]): {
-  tablaPrincipal: number | null;
-  tablaFirmas: number | null;
-  tablasExtra: number[];
-} {
-  const tablasXml = buscarNodos(arbol, "w:tbl");
-  let tablaPrincipal: number | null = null;
-  let tablaFirmas: number | null = null;
-  const tablasExtra: number[] = [];
-
-  for (let i = 0; i < tablasXml.length; i++) {
-    const tipo = clasificarTabla(tablasXml[i]);
-    switch (tipo) {
-      case "unidades":
-        if (tablaPrincipal === null) tablaPrincipal = i;
-        else tablasExtra.push(i);
-        break;
-      case "firmas":
-        if (tablaFirmas === null) tablaFirmas = i;
-        else tablasExtra.push(i);
-        break;
-      default:
-        tablasExtra.push(i);
-        break;
-    }
-  }
-
-  return { tablaPrincipal, tablaFirmas, tablasExtra };
-}
-
-// ─── Cleaning functions ─────────────────────────────────────────────────────
-
-function esParrafoSeccion(texto: string): boolean {
-  const upper = texto.trim().toUpperCase();
-  return upper.length > 0 && PALABRAS_SECCION.some((p) => p.test(upper));
-}
-
-function limpiarParrafosFueraDeTablas(body: XmlNode[]): XmlNode[] {
-  const tablaNodes = new Set(buscarNodos(body, "w:tbl"));
-
-  const hijos = body.filter((nodo) => {
-    const key = nodoKey(nodo);
-    if (!key) return true;
-
-    if (key === "w:tbl") return true;
-
-    if (key === "w:p") {
-      const children = nodoChildren(nodo) ?? [];
-      const texto = textoDeNodo(children).trim();
-
-      if (texto.length === 0) return false;
-
-      if (esParrafoSeccion(texto)) return true;
-
-      return false;
-    }
-
-    return true;
-  });
-
-  return hijos;
-}
-
-function esFilaVacia(fila: XmlNode): boolean {
-  const key = nodoKey(fila);
-  if (!key || key !== "w:tr") return false;
-
-  const celdas = buscarNodos([fila], "w:tc");
-  if (celdas.length === 0) return true;
-
-  for (const celda of celdas) {
-    const cKey = nodoKey(celda);
-    if (!cKey) continue;
-    const children = nodoChildren(celda) ?? [];
-    const texto = textoDeNodo(children).trim();
-    if (texto.length > 0) return false;
-  }
-
-  return true;
-}
-
-function limpiarFilasVacias(tabla: XmlNode): void {
-  const key = nodoKey(tabla);
-  if (!key || key !== "w:tbl") return;
-
-  const children = nodoChildren(tabla);
-  if (!children) return;
-
-  const nuevasHijos = children.filter((nodo) => {
-    const nKey = nodoKey(nodo);
-    if (nKey === "w:tr") {
-      return !esFilaVacia(nodo);
-    }
-    return true;
-  });
-
-  tabla[key] = nuevasHijos;
-}
-
-function tieneAlturaFila(fila: XmlNode): boolean {
-  const key = nodoKey(fila);
-  if (!key) return false;
-
-  const children = nodoChildren(fila) ?? [];
-  for (const hijo of children) {
-    const hKey = nodoKey(hijo);
-    if (hKey === "w:trPr") {
-      const trPrChildren = nodoChildren(hijo) ?? [];
-      for (const prop of trPrChildren) {
-        const pKey = nodoKey(prop);
-        if (pKey === "w:trHeight") return true;
-      }
-    }
-  }
-  return false;
-}
-
-function normalizarAlturaFilas(
-  tabla: XmlNode,
-  alturaMinima: number = 1500
-): void {
-  const filas = buscarNodos([tabla], "w:tr");
-
-  for (const fila of filas) {
-    if (tieneAlturaFila(fila)) continue;
-
-    const key = nodoKey(fila);
-    if (!key) continue;
-
-    const children = nodoChildren(fila) ?? [];
-
-    let trPr = children.find((h) => nodoKey(h) === "w:trPr");
-
-    if (!trPr) {
-      trPr = { "w:trPr": [] };
-      children.unshift(trPr);
-    }
-
-    const trPrChildren = nodoChildren(trPr) ?? [];
-    const yaTieneAltura = trPrChildren.some(
-      (p) => nodoKey(p) === "w:trHeight"
-    );
-
-    if (!yaTieneAltura) {
-      trPrChildren.push({
-        "w:trHeight": [],
-        ":@": {
-          "@_w:val": String(alturaMinima),
-          "@_w:hRule": "atLeast",
-        },
-      });
-      trPr["w:trPr"] = trPrChildren;
-    }
-  }
-}
-
-function eliminarFilasAntesDeEncabezadoUnidades(
-  tabla: XmlNode,
-  indiceTabla: number,
-  indicesPrincipales: { tablaPrincipal: number | null }
-): void {
-  if (indicesPrincipales.tablaPrincipal !== indiceTabla) return;
-
-  const filas = buscarNodos([tabla], "w:tr");
-
-  let indiceEncabezados = -1;
-  for (let i = 0; i < filas.length; i++) {
-    const celdas = buscarNodos([filas[i]], "w:tc");
-    const textos = celdas.map((c) => {
-      const key = nodoKey(c);
-      return key ? textoDeNodo(c[key] ?? []).trim().toUpperCase() : "";
-    });
-
-    const coincidencias = [
-      textos.some((t) => /N[.°]/.test(t)),
-      textos.some((t) => /T[ÍI]TULO/.test(t)),
-      textos.some((t) => /OBJETIVOS.*ESP/.test(t)),
-      textos.some((t) => /ORIENTACIONES/.test(t)),
-      textos.some((t) => /EVALUACI/.test(t)),
-    ].filter(Boolean).length;
-
-    if (coincidencias >= 2) {
-      indiceEncabezados = i;
-      break;
-    }
-  }
-
-  if (indiceEncabezados <= 0) return;
-
-  const key = nodoKey(tabla);
-  if (!key) return;
-
-  const children = nodoChildren(tabla) ?? [];
-  const filasXml = children.filter((n) => nodoKey(n) === "w:tr");
-  const noFilas = children.filter((n) => nodoKey(n) !== "w:tr");
-
-  const filasAEliminar = indiceEncabezados;
-  const filasRestantes = filasXml.slice(filasAEliminar);
-
-  tabla[key] = [...noFilas, ...filasRestantes];
+function esBasura(texto: string): boolean {
+  const limpio = texto.trim();
+  if (limpio.length === 0) return false;
+  return PATRONES_BASURA.some((p) => p.test(limpio));
 }
 
 // ─── Main normalizer ────────────────────────────────────────────────────────
 
+/**
+ * Normaliza un DOCX de PCA eliminando exclusivamente párrafos
+ * administrativos basura que aparecen fuera de las tablas.
+ *
+ * NO elimina tablas, NO elimina filas vacías, NO modifica alturas,
+ * NO toca merges, bordes ni formato. Conserva todo intacto para que
+ * template-builder pueda detectar la estructura correctamente.
+ */
 export async function normalizarDocxPca(buffer: Buffer): Promise<Buffer> {
   let zip: JSZip;
   try {
@@ -362,45 +139,39 @@ export async function normalizarDocxPca(buffer: Buffer): Promise<Buffer> {
   const bodyChildren = nodoChildren(bodyNode);
   if (!bodyChildren) return buffer;
 
-  const clasificacion = clasificarTablas(bodyChildren);
+  const tablaNodes = new Set(buscarNodos(bodyChildren, "w:tbl"));
 
-  console.log("[docx-normalizer] Clasificación de tablas:", clasificacion);
+  let removidos = 0;
+  const hijosFiltrados = bodyChildren.filter((nodo) => {
+    const key = nodoKey(nodo);
+    if (!key) return true;
 
-  const tablasXml = buscarNodos(bodyChildren, "w:tbl");
-  const indicesExtraSet = new Set(clasificacion.tablasExtra);
+    if (key === "w:tbl") return true;
 
-  for (let i = 0; i < tablasXml.length; i++) {
-    if (indicesExtraSet.has(i)) {
-      const idx = bodyChildren.indexOf(tablasXml[i]);
-      if (idx !== -1) bodyChildren.splice(idx, 1);
+    if (key === "w:p") {
+      const children = nodoChildren(nodo) ?? [];
+      const texto = textoDeNodo(children).trim();
+
+      if (texto.length === 0) return true;
+
+      if (esBasura(texto)) {
+        removidos++;
+        return false;
+      }
+
+      return true;
     }
+
+    return true;
+  });
+
+  if (removidos > 0) {
+    console.log(`[docx-normalizer] Párrafos basura eliminados: ${removidos}`);
+    bodyNode[bodyKey] = hijosFiltrados;
+
+    const xmlLimpio = builder.build(arbol);
+    zip.file("word/document.xml", xmlLimpio);
   }
-
-  const tablasRestantes = buscarNodos(bodyChildren, "w:tbl");
-  for (const tabla of tablasRestantes) {
-    limpiarFilasVacias(tabla);
-    normalizarAlturaFilas(tabla);
-  }
-
-  if (clasificacion.tablaPrincipal !== null) {
-    const tablaPrincipal = tablasRestantes.find((t) => {
-      const tipo = clasificarTabla(t);
-      return tipo === "unidades";
-    });
-    if (tablaPrincipal) {
-      eliminarFilasAntesDeEncabezadoUnidades(
-        tablaPrincipal,
-        clasificacion.tablaPrincipal,
-        { tablaPrincipal: clasificacion.tablaPrincipal }
-      );
-    }
-  }
-
-  const bodyLimpio = limpiarParrafosFueraDeTablas(bodyChildren);
-  bodyNode[bodyKey] = bodyLimpio;
-
-  const xmlLimpio = builder.build(arbol);
-  zip.file("word/document.xml", xmlLimpio);
 
   return zip.generateAsync({ type: "nodebuffer" });
 }

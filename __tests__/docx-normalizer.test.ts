@@ -40,10 +40,6 @@ function textoDeNodo(nodo: any[]): string {
   return out;
 }
 
-function nodoKey(nodo: any): string | undefined {
-  return Object.keys(nodo).find((k) => k !== ":@");
-}
-
 function celdaSimple(texto: string): string {
   return `<w:tc xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:p><w:r><w:t>${texto}</w:t></w:r></w:p></w:tc>`;
 }
@@ -60,27 +56,17 @@ function fila(...celdas: string[]): string {
   return `<w:tr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">${celdas.join("")}</w:tr>`;
 }
 
-function tablaUnidades(): string {
-  return `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-    <w:tblGrid><w:gridCol w:w="788"/><w:gridCol w:w="2364"/><w:gridCol w:w="2836"/><w:gridCol w:w="2836"/><w:gridCol w:w="3467"/><w:gridCol w:w="2679"/><w:gridCol w:w="788"/></w:tblGrid>
-    ${fila(celdaSimple("N.°"), celdaSimple("Título de la unidad"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones metodológicas"), celdaSimple("Evaluación"), celdaSimple("Duración en semanas"))}
-    ${fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))}
-    ${fila(celdaSimple("2."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))}
-  </w:tbl>`;
-}
-
-function tablaFirmas(): string {
-  return `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-    <w:tblGrid><w:gridCol w:w="5253"/><w:gridCol w:w="5253"/><w:gridCol w:w="5252"/></w:tblGrid>
-    ${fila(celdaSimple("ELABORADO"), celdaSimple("REVISADO"), celdaSimple("APROBADO"))}
-    ${fila(celdaSimple("DOCENTE(S):"), celdaSimple("NOMBRE:"), celdaSimple("NOMBRE:"))}
-  </w:tbl>`;
-}
-
-function tablaBasura(): string {
+function tablaGenerica(...filas: string[]): string {
   return `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
     <w:tblGrid><w:gridCol w:w="5000"/><w:gridCol w:w="5000"/></w:tblGrid>
-    ${fila(celdaSimple("Dato irrelevante 1"), celdaSimple("Dato irrelevante 2"))}
+    ${filas.join("")}
+  </w:tbl>`;
+}
+
+function tablaConEncabezadosPCA(...filas: string[]): string {
+  return `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+    <w:tblGrid><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/></w:tblGrid>
+    ${filas.join("")}
   </w:tbl>`;
 }
 
@@ -135,11 +121,7 @@ async function contarParrafosFueraDeTablas(buffer: Buffer): Promise<number> {
   let count = 0;
   for (const child of children) {
     const key = Object.keys(child).find((k) => k !== ":@");
-    if (key === "w:p") {
-      const kids = Array.isArray(child[key]) ? child[key] : [];
-      const texto = textoDeNodo(kids).trim();
-      if (texto.length > 0) count++;
-    }
+    if (key === "w:p") count++;
   }
   return count;
 }
@@ -154,60 +136,35 @@ async function contarTablas(buffer: Buffer): Promise<number> {
   return buscarNodos(arbol, "w:tbl").length;
 }
 
-async function contarFilasVacias(buffer: Buffer, tablaIndex: number): Promise<number> {
+async function conteudo(buffer: Buffer): Promise<string> {
   const zip = await JSZip.loadAsync(buffer);
   const docXml = zip.file("word/document.xml");
-  if (!docXml) return 0;
-
-  const content = await docXml.async("string");
-  const arbol = parser.parse(content);
-  const tablas = buscarNodos(arbol, "w:tbl");
-  const tabla = tablas[tablaIndex];
-  if (!tabla) return 0;
-
-  const key = Object.keys(tabla).find((k) => k !== ":@");
-  if (!key) return 0;
-
-  const children = Array.isArray(tabla[key]) ? tabla[key] : [];
-  let emptyCount = 0;
-  for (const child of children) {
-    const childKey = Object.keys(child).find((k) => k !== ":@");
-    if (childKey !== "w:tr") continue;
-
-    const celdas = buscarNodos([child], "w:tc");
-    let allEmpty = true;
-    for (const celda of celdas) {
-      const cKey = Object.keys(celda).find((k) => k !== ":@");
-      if (!cKey) continue;
-      const celdaChildren = Array.isArray(celda[cKey]) ? celda[cKey] : [];
-      const texto = textoDeNodo(celdaChildren).trim();
-      if (texto.length > 0) {
-        allEmpty = false;
-        break;
-      }
-    }
-    if (allEmpty) emptyCount++;
-  }
-  return emptyCount;
+  if (!docXml) return "";
+  return docXml.async("string");
 }
 
 describe("docx-normalizer", () => {
   it("preserva un buffer DOCX válido y lo puede re-abrir JSZip", async () => {
     const buffer = await construirDocx(
-      tablaUnidades() + tablaFirmas()
+      tablaConEncabezadosPCA(
+        fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")),
+        fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))
+      )
     );
     const resultado = await normalizarDocxPca(buffer);
     const zip = await JSZip.loadAsync(resultado);
-    const doc = zip.file("word/document.xml");
-    expect(doc).not.toBeNull();
+    expect(zip.file("word/document.xml")).not.toBeNull();
   });
 
-  it("elimina párrafos basura fuera de tablas", async () => {
+  it("elimina párrafos basura administrativos fuera de tablas", async () => {
     const buffer = await construirDocx(
       `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>TÉRMINOS DE REFERENCIA PARA LA CONTRATACIÓN</w:t></w:r></w:p>` +
       `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>SUBSECRETARÍA DE FUNDAMENTOS EDUCATIVOS</w:t></w:r></w:p>` +
-      tablaUnidades() +
-      tablaFirmas()
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>DIRECCIÓN NACIONAL DE CURRÍCULO</w:t></w:r></w:p>` +
+      tablaConEncabezadosPCA(
+        fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")),
+        fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))
+      )
     );
 
     const resultado = await normalizarDocxPca(buffer);
@@ -215,23 +172,63 @@ describe("docx-normalizer", () => {
     expect(parrafos).toBe(0);
   });
 
-  it("conserva párrafos de sección (OBJETIVOS, BIBLIOGRAFÍA, etc.)", async () => {
+  it("elimina patrones de basura adicionales (COMPROMISO, ATRIBUCIONES, etc.)", async () => {
+    const buffer = await construirDocx(
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>COMPROMISO DEL PROVEEDOR</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>ATRIBUCIONES</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>PLAN DE ACCIÓN</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>FUENTES DE FINANCIAMIENTO</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>CRONOGRAMA DE ACTIVIDADES</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>SISTEMA DE SEGUIMIENTO</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>SISTEMA DE CONTROL</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>RÉGIMEN DE PENALIDADES</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>OBLIGACIONES DEL PROVEEDOR</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>CONSIDERACIONES GENERALES</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>DISPOSICIONES GENERALES</w:t></w:r></w:p>` +
+      tablaConEncabezadosPCA(
+        fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")),
+        fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))
+      )
+    );
+
+    const resultado = await normalizarDocxPca(buffer);
+    const parrafos = await contarParrafosFueraDeTablas(resultado);
+    expect(parrafos).toBe(0);
+  });
+
+  it("conserva TODOS los párrafos que no son basura administrativa", async () => {
     const buffer = await construirDocx(
       `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>OBJETIVOS DEL ÁREA</w:t></w:r></w:p>` +
-      tablaUnidades() +
-      tablaFirmas()
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>BIBLIOGRAFÍA</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>OBSERVACIONES</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>INSERCIONES CURRICULARES</w:t></w:r></w:p>` +
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>EJES TRANSVERSALES</w:t></w:r></w:p>` +
+      tablaConEncabezadosPCA(
+        fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")),
+        fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))
+      )
     );
 
     const resultado = await normalizarDocxPca(buffer);
-    const zip = await JSZip.loadAsync(resultado);
-    const docXml = zip.file("word/document.xml");
-    const content = await docXml!.async("string");
+    const content = await conteudo(resultado);
     expect(content).toContain("OBJETIVOS DEL ÁREA");
+    expect(content).toContain("BIBLIOGRAFÍA");
+    expect(content).toContain("OBSERVACIONES");
+    expect(content).toContain("INSERCIONES CURRICULARES");
+    expect(content).toContain("EJES TRANSVERSALES");
   });
 
-  it("elimina tablas extra no reconocidas", async () => {
+  it("conserva TODAS las tablas (incluyendo las que no son PCA)", async () => {
+    const tablaBasura = tablaGenerica(
+      fila(celdaSimple("Dato irrelevante 1"), celdaSimple("Dato irrelevante 2"))
+    );
+
     const buffer = await construirDocx(
-      tablaBasura() + tablaUnidades() + tablaFirmas()
+      tablaBasura +
+      tablaConEncabezadosPCA(
+        fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")),
+        fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))
+      )
     );
 
     const resultado = await normalizarDocxPca(buffer);
@@ -239,24 +236,8 @@ describe("docx-normalizer", () => {
     expect(numTablas).toBe(2);
   });
 
-  it("conserva tabla de unidades y tabla de firmas", async () => {
-    const buffer = await construirDocx(
-      tablaUnidades() + tablaFirmas()
-    );
-
-    const resultado = await normalizarDocxPca(buffer);
-    const numTablas = await contarTablas(resultado);
-    expect(numTablas).toBe(2);
-
-    const zip = await JSZip.loadAsync(resultado);
-    const docXml = zip.file("word/document.xml");
-    const content = await docXml!.async("string");
-    expect(content).toContain("N.°");
-    expect(content).toContain("ELABORADO");
-  });
-
-  it("elimina filas completamente vacías", async () => {
-    const tablaConVacias =
+  it("conserva filas completamente vacías en tablas", async () => {
+    const tabla =
       `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">` +
       `<w:tblGrid><w:gridCol w:w="5000"/><w:gridCol w:w="5000"/></w:tblGrid>` +
       fila(celdaSimple("Dato real"), celdaSimple("Otro dato")) +
@@ -265,66 +246,60 @@ describe("docx-normalizer", () => {
       fila(celdaSimple("Más datos"), celdaSimple("Aquí")) +
       `</w:tbl>`;
 
-    const buffer = await construirDocx(tablaConVacias);
-    const resultado = await normalizarDocxPca(buffer);
-    const vacias = await contarFilasVacias(resultado, 0);
-    expect(vacias).toBe(0);
-  });
-
-  it("conserva filas con al menos una celda con contenido", async () => {
-    const tabla =
-      `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">` +
-      `<w:tblGrid><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/></w:tblGrid>` +
-      fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")) +
-      fila(celdaSimple("1."), celdaSimple("Contenido"), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6")) +
-      fila(celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("También contenido"), celdaVacia(), celdaVacia(), celdaVacia()) +
-      `</w:tbl>`;
-
     const buffer = await construirDocx(tabla);
     const resultado = await normalizarDocxPca(buffer);
+    const content = await conteudo(resultado);
+    expect(content).toContain("Dato real");
+    expect(content).toContain("Más datos");
 
     const zip = await JSZip.loadAsync(resultado);
     const docXml = zip.file("word/document.xml");
-    const content = await docXml!.async("string");
-    expect(content).toContain("Contenido");
-    expect(content).toContain("También contenido");
+    const docContent = await docXml!.async("string");
+    const arbol = parser.parse(docContent);
+    const tablas = buscarNodos(arbol, "w:tbl");
+    const filas = buscarNodos([tablas[0]], "w:tr");
+    expect(filas.length).toBe(4);
   });
 
   it("preserva atributos de merge (gridSpan)", async () => {
     const tabla =
       `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">` +
-      `<w:tblGrid><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/></w:tblGrid>` +
-      fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")) +
-      fila(celdaConMerge(2), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia()) +
+      `<w:tblGrid><w:gridCol w:w="5000"/><w:gridCol w:w="5000"/></w:tblGrid>` +
+      fila(celdaConMerge(2)) +
       `</w:tbl>`;
 
     const buffer = await construirDocx(tabla);
     const resultado = await normalizarDocxPca(buffer);
-
-    const zip = await JSZip.loadAsync(resultado);
-    const docXml = zip.file("word/document.xml");
-    const content = await docXml!.async("string");
+    const content = await conteudo(resultado);
     expect(content).toContain('w:gridSpan w:val="2"');
   });
 
   it("preserva bordes de celdas", async () => {
     const tablaConBordes =
       `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">` +
-      `<w:tblGrid><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/><w:gridCol w:w="2000"/></w:tblGrid>` +
-      `<w:tr><w:tc><w:tcPr><w:tcBorders><w:top w:val="single" w:sz="4" w:color="A9C3C8"/></w:tcBorders></w:tcPr><w:p><w:r><w:t>N.°</w:t></w:r></w:p></w:tc>` +
-      celdaSimple("Título") + celdaSimple("Objetivos específicos") + celdaSimple("Contenidos") + celdaSimple("Orientaciones") + celdaSimple("Evaluación") + celdaSimple("Duración") +
-      `</w:tr>` +
-      `<w:tr>${celdaSimple("1.")}${celdaVacia()}${celdaVacia()}${celdaVacia()}${celdaVacia()}${celdaVacia()}${celdaSimple("6")}</w:tr>` +
+      `<w:tblGrid><w:gridCol w:w="10000"/></w:tblGrid>` +
+      `<w:tr><w:tc><w:tcPr><w:tcBorders><w:top w:val="single" w:sz="4" w:color="A9C3C8"/></w:tcBorders></w:tcPr><w:p><w:r><w:t>test</w:t></w:r></w:p></w:tc></w:tr>` +
       `</w:tbl>`;
 
     const buffer = await construirDocx(tablaConBordes);
     const resultado = await normalizarDocxPca(buffer);
-
-    const zip = await JSZip.loadAsync(resultado);
-    const docXml = zip.file("word/document.xml");
-    const content = await docXml!.async("string");
+    const content = await conteudo(resultado);
     expect(content).toContain("tcBorders");
     expect(content).toContain("A9C3C8");
+  });
+
+  it("preserva alturas de filas existentes", async () => {
+    const tabla =
+      `<w:tbl xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">` +
+      `<w:tblGrid><w:gridCol w:w="10000"/></w:tblGrid>` +
+      `<w:tr><w:trPr><w:trHeight w:val="2000" w:hRule="atLeast"/></w:trPr><w:tc><w:p><w:r><w:t>test</w:t></w:r></w:p></w:tc></w:tr>` +
+      `</w:tbl>`;
+
+    const buffer = await construirDocx(tabla);
+    const resultado = await normalizarDocxPca(buffer);
+    const content = await conteudo(resultado);
+    expect(content).toContain("w:trHeight");
+    expect(content).toContain('w:val="2000"');
   });
 
   it("maneja buffer corrupto sin lanzar error", async () => {
@@ -341,10 +316,30 @@ describe("docx-normalizer", () => {
     expect(Buffer.isBuffer(resultado)).toBe(true);
   });
 
-  it("output tiene tamaño razonable (no se infla)", async () => {
-    const input = await construirDocx(tablaUnidades() + tablaFirmas());
+  it("output tiene tamaño razonable (no se infla ni colapsa)", async () => {
+    const input = await construirDocx(
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t>TÉRMINOS DE REFERENCIA</w:t></w:r></w:p>` +
+      tablaConEncabezadosPCA(
+        fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")),
+        fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))
+      )
+    );
     const resultado = await normalizarDocxPca(input);
-    expect(resultado.length).toBeLessThanOrEqual(input.length * 1.5);
     expect(resultado.length).toBeGreaterThan(100);
+    expect(resultado.length).toBeLessThanOrEqual(input.length * 1.5);
+  });
+
+  it("conserva párrafos vacíos entre secciones", async () => {
+    const buffer = await construirDocx(
+      `<w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:r><w:t xml:space="preserve"> </w:t></w:r></w:p>` +
+      tablaConEncabezadosPCA(
+        fila(celdaSimple("N.°"), celdaSimple("Título"), celdaSimple("Objetivos específicos"), celdaSimple("Contenidos"), celdaSimple("Orientaciones"), celdaSimple("Evaluación"), celdaSimple("Duración")),
+        fila(celdaSimple("1."), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaVacia(), celdaSimple("6"))
+      )
+    );
+
+    const resultado = await normalizarDocxPca(buffer);
+    const parrafos = await contarParrafosFueraDeTablas(resultado);
+    expect(parrafos).toBe(1);
   });
 });
