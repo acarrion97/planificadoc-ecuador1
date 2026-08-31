@@ -196,13 +196,21 @@ function detectarBindingsPca(
   // Patrones de búsqueda: texto de celda → campo canónico
   // Campos tipo "etiqueta | valor" en la misma fila.
   // Patrones flexibles: ^ y $ solo en patrones que no pueden confundir.
+  //
+  // NOTA: Los patrones de firmas (ELABORADO, REVISADO, APROBADO) se detectan
+  // exclusivamente en el tercer paso (detectar rúbricas) porque necesitan
+  // buscar en filas debajo, no en la siguiente celda.
   const patrones: Array<{
     patron: RegExp;
     campo: string;
     tipo: FieldBinding["tipo"];
+    /** Si true, el valor reemplaza la celda del label (no la siguiente) */
+    inPlace?: boolean;
   }> = [
-    // Cabecera PCA
-    { patron: /NOMBRE\s*(?:DE\s*LA\s*)?INSTITUCI[ÓO]N/i, campo: "institucion", tipo: "text" },
+    // Cabecera PCA — placeholders que deben reemplazarse en el mismo sitio
+    { patron: /^NOMBRE\s*(?:DE\s*LA\s*)?INSTITUCI[ÓO]N$/i, campo: "institucion", tipo: "text", inPlace: true },
+    { patron: /^A[NÑ]O\s*LECTIVO$/i, campo: "anioLectivo", tipo: "text", inPlace: true },
+    // Etiquetas con valor en la siguiente celda
     { patron: /^DOCENTE\(S\)\s*:?\s*$/i, campo: "docente", tipo: "text" },
     { patron: /^DOCENTE\s*:?\s*$/i, campo: "docente", tipo: "text" },
     { patron: /^ÁREA\s*:?\s*$/i, campo: "area", tipo: "text" },
@@ -210,14 +218,6 @@ function detectarBindingsPca(
     { patron: /^GRADO\/CURSO\s*:?\s*$/i, campo: "grado", tipo: "text" },
     { patron: /^NIVEL EDUCATIVO\s*:?\s*$/i, campo: "nivelEducativo", tipo: "text" },
     { patron: /^PARALELO\s*:?\s*$/i, campo: "paralelo", tipo: "text" },
-    { patron: /A[NÑ]O\s*LECTIVO/i, campo: "anioLectivo", tipo: "text" },
-    // Firmas (rúbricas)
-    { patron: /^ELABORADO\s*(?:POR)?\s*:?\s*$/i, campo: "firmaElaboradoPor", tipo: "text" },
-    { patron: /^FECHA.*ELABORACI[ÓO]N\s*:?\s*$/i, campo: "firmaElaboradoFecha", tipo: "text" },
-    { patron: /^REVISADO\s*(?:POR)?\s*:?\s*$/i, campo: "firmaRevisadoPor", tipo: "text" },
-    { patron: /^FECHA.*REVISI[ÓO]N\s*:?\s*$/i, campo: "firmaRevisadoFecha", tipo: "text" },
-    { patron: /^APROBADO\s*(?:POR)?\s*:?\s*$/i, campo: "firmaAprobadoPor", tipo: "text" },
-    { patron: /^FECHA.*APROBACI[ÓO]N\s*:?\s*$/i, campo: "firmaAprobadoFecha", tipo: "text" },
   ];
 
   // Recorrer todas las tablas y filas buscando patrones
@@ -227,11 +227,28 @@ function detectarBindingsPca(
         const celda = fila.cells[celdaIdx];
         const texto = celda.textoOriginal.trim();
 
-        for (const { patron, campo, tipo } of patrones) {
+        for (const { patron, campo, tipo, inPlace } of patrones) {
           if (patron.test(texto)) {
             // Verificar que no exista ya un binding para este campo
             const yaExiste = bindings.some((b) => b.campo === campo);
             if (yaExiste) break;
+
+            // Caso 0: inPlace — el valor reemplaza la celda del label (ej: "NOMBRE INSTITUCION")
+            if (inPlace) {
+              bindings.push({
+                id: campo,
+                campo,
+                tipo,
+                ubicacion: {
+                  tipo: "docx-cell",
+                  tabla: tabla.index,
+                  fila: fila.index,
+                  columna: celda.index,
+                },
+                obligatorio: ["institucion", "docente", "area", "grado"].includes(campo),
+              });
+              break;
+            }
 
             // Caso 1: valor en la siguiente celda de la misma fila
             const siguienteCelda = fila.cells[celdaIdx + 1];

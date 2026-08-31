@@ -39,6 +39,22 @@ function buscarNodos(arbol: XmlNode[], tag: string): XmlNode[] {
   return encontrados;
 }
 
+/**
+ * Busca hijos directos (no recursivos) de un nodo con el tag dado.
+ * Usa esto en lugar de buscarNodos para w:tr dentro de w:tbl y w:tc dentro de w:tr
+ * para evitar incluir filas/celdas de tablas anidadas.
+ */
+function hijosDirectos(nodo: XmlNode, tag: string): XmlNode[] {
+  const key = Object.keys(nodo).find((k) => k !== ":@");
+  if (!key) return [];
+  const contenido = nodo[key];
+  if (!Array.isArray(contenido)) return [];
+  return contenido.filter((hijo: XmlNode) => {
+    const hijoKey = Object.keys(hijo).find((k) => k !== ":@");
+    return hijoKey === tag;
+  });
+}
+
 function textoDeNodo(nodo: XmlNode[]): string {
   let out = "";
   for (const hijo of nodo) {
@@ -252,9 +268,9 @@ function recalcularAnchosTabla(
     factor = ANCHO_PAGINA_DXA / nuevoTotal;
   }
 
-  const todasLasFilas = buscarNodos([tabla], "w:tr");
+  const todasLasFilas = hijosDirectos(tabla, "w:tr");
   for (const fila of todasLasFilas) {
-    const celdas = buscarNodos([fila], "w:tc");
+    const celdas = hijosDirectos(fila, "w:tc");
     for (let i = 0; i < celdas.length; i++) {
       if (i < anchosOriginales.length) {
         setAnchoCelda(celdas[i], Math.round(anchosOriginales[i] * factor));
@@ -509,11 +525,11 @@ function renderizarCampos(
     const tabla = tablas[loc.tabla];
     if (!tabla) continue;
 
-    const filas = buscarNodos([tabla], "w:tr");
+    const filas = hijosDirectos(tabla, "w:tr");
     const fila = filas[loc.fila];
     if (!fila) continue;
 
-    const celdas = buscarNodos([fila], "w:tc");
+    const celdas = hijosDirectos(fila, "w:tc");
     const celda = celdas[loc.columna];
     if (!celda) continue;
 
@@ -560,7 +576,7 @@ function renderizarRegionRepetible(
 ): void {
   if (!items || items.length === 0) return;
 
-  const filas = buscarNodos([tabla], "w:tr");
+  const filas = hijosDirectos(tabla, "w:tr");
   const filaPlantilla = filas[region.ubicacion.filaPlantilla];
   if (!filaPlantilla) return;
 
@@ -568,11 +584,11 @@ function renderizarRegionRepetible(
   const itemsTienenDcds = items.some((item) => item.dcds && String(item.dcds).trim() !== "");
   const necesitaAgregarDcds = itemsTienenDcds && !tieneColumnaDcds;
 
-  const celdasPlantilla = buscarNodos([filaPlantilla], "w:tc");
+  const celdasPlantilla = hijosDirectos(filaPlantilla, "w:tc");
   const numColumnasOriginal = celdasPlantilla.length;
 
   function llenarFila(fila: XmlNode, item: any): void {
-    const celdas = buscarNodos([fila], "w:tc");
+    const celdas = hijosDirectos(fila, "w:tc");
     for (const col of region.columnas) {
       const valor = item[col.campo];
       if (valor === undefined || valor === null) continue;
@@ -587,7 +603,7 @@ function renderizarRegionRepetible(
   }
 
   function agregarColumnaDcds(fila: XmlNode): void {
-    const celdas = buscarNodos([fila], "w:tc");
+    const celdas = hijosDirectos(fila, "w:tc");
     if (celdas.length === 0) return;
     const ultimaCelda = celdas[celdas.length - 1];
     const nuevaCelda = JSON.parse(JSON.stringify(ultimaCelda));
@@ -631,7 +647,7 @@ function renderizarRegionRepetible(
   if (necesitaAgregarDcds) {
     const filaEncabezados = filas[region.ubicacion.filaPlantilla - 1];
     if (filaEncabezados) {
-      const celdasEncabezado = buscarNodos([filaEncabezados], "w:tc");
+      const celdasEncabezado = hijosDirectos(filaEncabezados, "w:tc");
       if (celdasEncabezado.length > 0) {
         const ultimaCeldaEnc = celdasEncabezado[celdasEncabezado.length - 1];
         const nuevaCeldaEnc = JSON.parse(JSON.stringify(ultimaCeldaEnc));
