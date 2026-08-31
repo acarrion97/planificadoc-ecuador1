@@ -357,8 +357,17 @@ function detectarBindingsPca(
     // Secciones de contenido
     { patron: /BIBLIOGRAF/i, campo: "bibliografia", tipo: "text" },
     { patron: /OBSERVACIONES/i, campo: "observaciones", tipo: "text" },
-    { patron: /INSERCIONES.*CURRICULARES/i, campo: "insercionesCurriculares", tipo: "text" },
     { patron: /EJES.*TRANSVERSALES/i, campo: "ejesTransversales", tipo: "text" },
+  ];
+
+  // Inserciones curriculares: el binding apunta a la FILA DEBAJO del encabezado,
+  // no al encabezado mismo, para no reemplazar "4. INSERCIONES CURRICULARES".
+  const patronesContenidoDebajo: Array<{
+    patron: RegExp;
+    campo: string;
+    tipo: FieldBinding["tipo"];
+  }> = [
+    { patron: /INSERCIONES.*CURRICULARES/i, campo: "insercionesCurriculares", tipo: "text" },
   ];
 
   for (const tabla of estructura.tablas) {
@@ -376,6 +385,19 @@ function detectarBindingsPca(
             if (yaExiste) break;
 
             // Buscar celda destino en las siguientes filas (no solo la inmediata)
+            agregarBindingDebajo(tabla, filaIdx, celdaIdx, campo, tipo);
+            break;
+          }
+        }
+
+        // Patrones de contenido debajo: el encabezado se preserva,
+        // el binding apunta a la celda de la fila siguiente.
+        for (const { patron, campo, tipo } of patronesContenidoDebajo) {
+          if (patron.test(texto)) {
+            const yaExiste = bindings.some((b) => b.campo === campo);
+            if (yaExiste) break;
+
+            // Buscar la siguiente fila que tenga contenido (no solo el encabezado)
             agregarBindingDebajo(tabla, filaIdx, celdaIdx, campo, tipo);
             break;
           }
