@@ -309,7 +309,7 @@ function asegurarNamespaces(arbol: XmlNode[]): void {
 
 /**
  * Genera el nodo XML <w:r> que contiene <w:drawing><wp:inline> con la imagen.
- * Sigue la estructura exacta del docx library.
+ * Estructura verificada contra la salida del library docx (ImageRun).
  */
 function crearRunConImagen(
   relId: string,
@@ -318,6 +318,7 @@ function crearRunConImagen(
   imageId: number
 ): XmlNode {
   const sz = String(sizeEmu);
+  const rid = `rId${relId}`;
   return {
     "w:r": [
       {
@@ -325,43 +326,31 @@ function crearRunConImagen(
           {
             "wp:inline": [
               { ":@": { "@_distT": "0", "@_distB": "0", "@_distL": "0", "@_distR": "0" } },
-              {
-                "wp:extent": [],
-                ":@": { "@_cx": sz, "@_cy": sz },
-              },
-              {
-                "wp:effectExtent": [],
-                ":@": { "@_l": "0", "@_t": "0", "@_r": "0", "@_b": "0" },
-              },
-              {
-                "wp:docPr": [],
-                ":@": { "@_id": String(imageId), "@_name": fileName, "@_descr": fileName },
-              },
+              { "wp:extent": [], ":@": { "@_cx": sz, "@_cy": sz } },
+              { "wp:effectExtent": [], ":@": { "@_t": "0", "@_r": "0", "@_b": "0", "@_l": "0" } },
+              { "wp:docPr": [], ":@": { "@_id": String(imageId), "@_name": "", "@_descr": "", "@_title": "" } },
               {
                 "wp:cNvGraphicFramePr": [
                   {
-                    ":@": { "@_xmlns:a": NS_A },
-                  },
-                  {
                     "a:graphicFrameLocks": [],
-                    ":@": { "@_noChangeAspect": "1" },
+                    ":@": { "@_xmlns:a": NS_A, "@_noChangeAspect": "1" },
                   },
                 ],
               },
               {
-                ":@": { "@_xmlns:a": NS_A },
                 "a:graphic": [
                   {
+                    ":@": { "@_xmlns:a": NS_A },
                     "a:graphicData": [
                       { ":@": { "@_uri": NS_PIC } },
                       {
-                        ":@": { "@_xmlns:pic": NS_PIC },
                         "pic:pic": [
                           {
+                            ":@": { "@_xmlns:pic": NS_PIC },
                             "pic:nvPicPr": [
                               {
                                 "pic:cNvPr": [],
-                                ":@": { "@_id": "0", "@_name": fileName, "@_descr": fileName },
+                                ":@": { "@_id": "0", "@_name": "", "@_descr": "" },
                               },
                               {
                                 "pic:cNvPicPr": [
@@ -377,7 +366,7 @@ function crearRunConImagen(
                             "pic:blipFill": [
                               {
                                 "a:blip": [],
-                                ":@": { "@_r:embed": `rId${relId}`, "@_cstate": "none" },
+                                ":@": { "@_r:embed": rid, "@_cstate": "none" },
                               },
                               { "a:srcRect": [] },
                               {
@@ -388,25 +377,21 @@ function crearRunConImagen(
                             ],
                           },
                           {
-                            ":@": { "@_bwMode": "auto" },
                             "pic:spPr": [
                               {
                                 "a:xfrm": [
-                                  {
-                                    "a:off": [],
-                                    ":@": { "@_x": "0", "@_y": "0" },
-                                  },
-                                  {
-                                    "a:ext": [],
-                                    ":@": { "@_cx": sz, "@_cy": sz },
-                                  },
+                                  { "a:off": [], ":@": { "@_x": "0", "@_y": "0" } },
+                                  { "a:ext": [], ":@": { "@_cx": sz, "@_cy": sz } },
                                 ],
                               },
                               {
-                                "a:prstGeom": [],
+                                "a:prstGeom": [
+                                  { "a:avLst": [] },
+                                ],
                                 ":@": { "@_prst": "rect" },
                               },
                             ],
+                            ":@": { "@_bwMode": "auto" },
                           },
                         ],
                       },
