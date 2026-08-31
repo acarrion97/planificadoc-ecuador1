@@ -413,7 +413,8 @@ function crearRunConImagen(
 function agregarContenidoDcdACelda(
   celda: XmlNode,
   dcds: any,
-  imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }>
+  imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }>,
+  baseRelId: number
 ): void {
   let lineas: Array<{ texto: string; codigo?: string }> = [];
   if (typeof dcds === "string") {
@@ -452,7 +453,7 @@ function agregarContenidoDcdACelda(
         const dataUri = ICONOS_DCD_BASE64[iconName];
         if (!dataUri) continue;
 
-        const relId = String(imagenes.length + 1);
+        const relId = String(baseRelId + imagenes.length + 1);
         const fileName = `${iconName}.png`;
         const buffer = dataUriToBuffer(dataUri);
 
@@ -554,7 +555,8 @@ function renderizarRegionRepetible(
   tabla: XmlNode,
   region: RepeatRegion,
   items: any[],
-  imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }>
+  imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }>,
+  baseRelId: number
 ): void {
   if (!items || items.length === 0) return;
 
@@ -577,7 +579,7 @@ function renderizarRegionRepetible(
       const celda = celdas[col.celdaFisica];
       if (!celda) continue;
       if (col.campo === "dcds") {
-        agregarContenidoDcdACelda(celda, valor, imagenes);
+        agregarContenidoDcdACelda(celda, valor, imagenes, baseRelId);
       } else {
         reemplazarTextoEnCelda(celda, valorParaDocx(valor));
       }
@@ -776,6 +778,9 @@ export async function renderizarDocxPlantilla(
 
   const imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }> = [];
 
+  // Calcular maxRelId ANTES del render para que los rId en DrawingML coincidan con los del ZIP
+  const maxRelId = await leerMaxRelId(zip);
+
   for (const region of bindings.regionesRepetibles) {
     const tabla = tablas[region.ubicacion.tabla];
     if (!tabla) continue;
@@ -783,7 +788,7 @@ export async function renderizarDocxPlantilla(
     const items = datos[region.origenDatos];
     if (!Array.isArray(items)) continue;
 
-    renderizarRegionRepetible(tabla, region, items, imagenes);
+    renderizarRegionRepetible(tabla, region, items, imagenes, maxRelId);
   }
 
   // Asegurar namespaces DrawingML en el root
@@ -796,21 +801,16 @@ export async function renderizarDocxPlantilla(
 
   // Agregar imágenes al ZIP y actualizar rels + content types
   if (imagenes.length > 0) {
-    const maxRelId = await leerMaxRelId(zip);
     const IMAGE_REL_TYPE =
       "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image";
 
     const relEntries: Array<{ relId: string; type: string; target: string }> = [];
 
-    for (let i = 0; i < imagenes.length; i++) {
-      const img = imagenes[i];
-      const relNum = maxRelId + i + 1;
-      const relId = `rId${relNum}`;
-
+    for (const img of imagenes) {
       zip.file(`word/media/${img.fileName}`, img.buffer);
 
       relEntries.push({
-        relId,
+        relId: img.relId,
         type: IMAGE_REL_TYPE,
         target: `media/${img.fileName}`,
       });
