@@ -414,7 +414,7 @@ function detectarBindingsPca(
 
           const etiqueta = celdaAbajo.textoOriginal.trim();
 
-          if (/^NOMBRE\s*:/i.test(etiqueta)) {
+          if (/^(?:NOMBRE|DOCENTE|DIRECTOR|VICERRECTOR|RECTOR)\s*:/i.test(etiqueta)) {
             // Verificar que no exista ya un binding para este campo
             const yaExiste = bindings.some((b) => b.campo === rol.nombre);
             if (!yaExiste) {
