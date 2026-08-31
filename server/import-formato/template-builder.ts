@@ -300,7 +300,12 @@ function detectarBindingsPca(
       siguienteIdx++
     ) {
       const filaDestino = tabla.rows[siguienteIdx];
-      const celdaDestino = filaDestino.cells[celdaIdx];
+      let celdaDestino = filaDestino.cells[celdaIdx];
+
+      // Si la celda en ese índice no existe (celda fusionada), usar la primera disponible
+      if (!celdaDestino && filaDestino.cells.length > 0) {
+        celdaDestino = filaDestino.cells[0];
+      }
       if (!celdaDestino) continue;
 
       bindings.push({

@@ -587,12 +587,15 @@ function renderizarRegionRepetible(
   function llenarFila(fila: XmlNode, item: any): void {
     const celdas = buscarNodos([fila], "w:tc");
     for (const col of region.columnas) {
-      if (col.campo === "dcds") continue;
       const valor = item[col.campo];
       if (valor === undefined || valor === null) continue;
       const celda = celdas[col.celdaFisica];
       if (!celda) continue;
-      reemplazarTextoEnCelda(celda, valorParaDocx(valor));
+      if (col.campo === "dcds") {
+        agregarContenidoDcdACelda(celda, valor, imagenes);
+      } else {
+        reemplazarTextoEnCelda(celda, valorParaDocx(valor));
+      }
     }
   }
 
@@ -623,14 +626,6 @@ function renderizarRegionRepetible(
   }
   llenarFila(filaPlantilla, items[0]);
 
-  if (necesitaAgregarDcds && items[0].dcds) {
-    const celdasActualizadas = buscarNodos([filaPlantilla], "w:tc");
-    const ultimaCelda = celdasActualizadas[celdasActualizadas.length - 1];
-    if (ultimaCelda) {
-      agregarContenidoDcdACelda(ultimaCelda, items[0].dcds, imagenes);
-    }
-  }
-
   const nuevasFilas: XmlNode[] = [];
 
   for (let i = 1; i < items.length; i++) {
@@ -642,14 +637,6 @@ function renderizarRegionRepetible(
     }
 
     llenarFila(nuevaFila, item);
-
-    if (necesitaAgregarDcds && item.dcds) {
-      const celdasActualizadas = buscarNodos([nuevaFila], "w:tc");
-      const ultimaCelda = celdasActualizadas[celdasActualizadas.length - 1];
-      if (ultimaCelda) {
-        agregarContenidoDcdACelda(ultimaCelda, item.dcds, imagenes);
-      }
-    }
 
     nuevasFilas.push(nuevaFila);
   }
