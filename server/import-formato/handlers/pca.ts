@@ -12,6 +12,62 @@ import {
   createFormatoPlantilla,
   setPcaFormatoPlantillaId,
 } from "../../db";
+import type { PcaAiResult } from "../schemas";
+
+/**
+ * Fusiona unidades importadas del documento con unidades generadas por IA.
+ * Prioridad: datos importados > datos IA > datos existentes.
+ */
+function fusionarUnidades(
+  unidadesImportadas: PcaCamposExtraidos["unidades"],
+  unidadesIA: PcaAiResult["unidades"],
+  existenteRow: any
+): any[] {
+  const unidadesExistentes = existenteRow
+    ? (JSON.parse(existenteRow.formData).unidades ?? [])
+    : [];
+
+  // Si hay unidades importadas, fusionar cada una con su correspondiente de IA
+  if (unidadesImportadas.length > 0) {
+    return unidadesImportadas.map((unidadImportada, index) => {
+      const unidadIA = unidadesIA.find((u) => u.numero === unidadImportada.numero) || unidadesIA[index];
+      const unidadExistente = unidadesExistentes.find((u: any) => u.numero === unidadImportada.numero);
+
+      return {
+        id: unidadExistente?.id || randomUUID(),
+        numero: unidadImportada.numero ?? unidadIA?.numero ?? index + 1,
+        titulo: unidadImportada.titulo || unidadIA?.titulo || "",
+        objetivosEspecificos: unidadImportada.objetivosEspecificos || unidadIA?.objetivosEspecificos || "",
+        contenidos: unidadImportada.contenidos || unidadIA?.contenidos || "",
+        orientacionesMetodologicas: unidadImportada.orientacionesMetodologicas || unidadIA?.orientacionesMetodologicas || "",
+        evaluacion: unidadImportada.evaluacion || unidadIA?.evaluacion || "",
+        dcdsSeleccionadas: unidadExistente?.dcdsSeleccionadas || [],
+        duracionSemanas: unidadImportada.duracionSemanas ?? unidadIA?.duracionSemanas ?? 4,
+      };
+    });
+  }
+
+  // Si no hay importadas pero sí IA, usar IA
+  if (unidadesIA.length > 0) {
+    return unidadesIA.map((u, index) => {
+      const unidadExistente = unidadesExistentes.find((e: any) => e.numero === u.numero);
+      return {
+        id: unidadExistente?.id || randomUUID(),
+        numero: u.numero ?? index + 1,
+        titulo: u.titulo ?? "",
+        objetivosEspecificos: u.objetivosEspecificos ?? "",
+        contenidos: u.contenidos ?? "",
+        orientacionesMetodologicas: u.orientacionesMetodologicas ?? "",
+        evaluacion: u.evaluacion ?? "",
+        dcdsSeleccionadas: unidadExistente?.dcdsSeleccionadas || [],
+        duracionSemanas: u.duracionSemanas ?? 4,
+      };
+    });
+  }
+
+  // Fallback: usar unidades existentes
+  return unidadesExistentes;
+}
 
 /**
  * Handler de importación para PCA (Planificación Curricular Anual).
@@ -100,7 +156,14 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
         "",
 
       paralelo:
-        (existenteRow ? JSON.parse(existenteRow.formData).paralelo : "") || "",
+        campos.paralelo ||
+        (existenteRow ? JSON.parse(existenteRow.formData).paralelo : "") ||
+        "",
+
+      nivelEducativo:
+        campos.nivelEducativo ||
+        (existenteRow ? JSON.parse(existenteRow.formData).nivelEducativo : "") ||
+        "",
 
       cargaHorariaSemanal:
         campos.cargaHorariaSemanal ??
@@ -117,26 +180,30 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
         (existenteRow ? JSON.parse(existenteRow.formData).semanasEvaluacion : null) ??
         8,
 
+      totalSemanasClases:
+        campos.totalSemanasClases ??
+        (campos.semanasTrabajoTotal && campos.semanasEvaluacion
+          ? campos.semanasTrabajoTotal - campos.semanasEvaluacion
+          : null) ??
+        (existenteRow ? JSON.parse(existenteRow.formData).totalSemanasClases : null) ??
+        32,
+
+      totalPeriodos:
+        campos.totalPeriodos ??
+        (campos.cargaHorariaSemanal && campos.totalSemanasClases
+          ? campos.cargaHorariaSemanal * campos.totalSemanasClases
+          : null) ??
+        (existenteRow ? JSON.parse(existenteRow.formData).totalPeriodos : null) ??
+        160,
+
       usaEjesTransversales:
         (existenteRow ? JSON.parse(existenteRow.formData).usaEjesTransversales : null) ?? false,
 
       ejesTransversales:
         (existenteRow ? JSON.parse(existenteRow.formData).ejesTransversales : null) ?? [],
 
-      unidades:
-        campos.unidades.length > 0
-          ? campos.unidades.map((u) => ({
-              id: randomUUID(),
-              numero: u.numero,
-              titulo: u.titulo ?? "",
-              objetivosEspecificos: u.objetivosEspecificos ?? "",
-              contenidos: u.contenidos ?? "",
-              orientacionesMetodologicas: u.orientacionesMetodologicas ?? "",
-              evaluacion: u.evaluacion ?? "",
-              dcdsSeleccionadas: [],
-              duracionSemanas: u.duracionSemanas ?? 4,
-            }))
-          : (existenteRow ? JSON.parse(existenteRow.formData).unidades : null) ?? [],
+      // Fusionar unidades importadas + unidades generadas por IA
+      unidades: fusionarUnidades(campos.unidades, aiResult.unidades, existenteRow),
 
       metodologiasActivas:
         (existenteRow ? JSON.parse(existenteRow.formData).metodologiasActivas : null) ?? [],
@@ -144,28 +211,63 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
       tecnicasEvaluacion:
         (existenteRow ? JSON.parse(existenteRow.formData).tecnicasEvaluacion : null) ?? [],
 
+      // Fusionar objetivos: importados primero, luego IA, luego existentes
+      objetivosArea:
+        campos.objetivosArea ||
+        aiResult.objetivosArea ||
+        (existenteRow ? JSON.parse(existenteRow.formData).objetivosArea : "") ||
+        "",
+
+      objetivosGrado:
+        campos.objetivosGrado ||
+        aiResult.objetivosGrado ||
+        (existenteRow ? JSON.parse(existenteRow.formData).objetivosGrado : "") ||
+        "",
+
+      // Fusionar bibliografía: importada primero, luego IA, luego existentes
       bibliografiaDocente:
         campos.bibliografia ||
+        aiResult.bibliografiaSugerida ||
         (existenteRow ? JSON.parse(existenteRow.formData).bibliografiaDocente : "") ||
         "",
 
+      // Fusionar observaciones: importadas primero, luego IA, luego existentes
+      observaciones:
+        campos.observaciones ||
+        aiResult.observaciones ||
+        (existenteRow ? JSON.parse(existenteRow.formData).observaciones : "") ||
+        "",
+
+      // Fusionar firmas: importadas primero, luego existentes
       firmaElaboradoPor:
-        (existenteRow ? JSON.parse(existenteRow.formData).firmaElaboradoPor : "") || "",
+        campos.firmaElaboradoPor ||
+        (existenteRow ? JSON.parse(existenteRow.formData).firmaElaboradoPor : "") ||
+        "",
 
       firmaElaboradoFecha:
-        (existenteRow ? JSON.parse(existenteRow.formData).firmaElaboradoFecha : "") || "",
+        campos.firmaElaboradoFecha ||
+        (existenteRow ? JSON.parse(existenteRow.formData).firmaElaboradoFecha : "") ||
+        "",
 
       firmaRevisadoPor:
-        (existenteRow ? JSON.parse(existenteRow.formData).firmaRevisadoPor : "") || "",
+        campos.firmaRevisadoPor ||
+        (existenteRow ? JSON.parse(existenteRow.formData).firmaRevisadoPor : "") ||
+        "",
 
       firmaRevisadoFecha:
-        (existenteRow ? JSON.parse(existenteRow.formData).firmaRevisadoFecha : "") || "",
+        campos.firmaRevisadoFecha ||
+        (existenteRow ? JSON.parse(existenteRow.formData).firmaRevisadoFecha : "") ||
+        "",
 
       firmaAprobadoPor:
-        (existenteRow ? JSON.parse(existenteRow.formData).firmaAprobadoPor : "") || "",
+        campos.firmaAprobadoPor ||
+        (existenteRow ? JSON.parse(existenteRow.formData).firmaAprobadoPor : "") ||
+        "",
 
       firmaAprobadoFecha:
-        (existenteRow ? JSON.parse(existenteRow.formData).firmaAprobadoFecha : "") || "",
+        campos.firmaAprobadoFecha ||
+        (existenteRow ? JSON.parse(existenteRow.formData).firmaAprobadoFecha : "") ||
+        "",
     };
 
     let pcaId: number;

@@ -280,10 +280,21 @@ export type PcaCamposExtraidos = CamposExtraidosBase & {
   cargaHorariaSemanal?: number;
   semanasTrabajoTotal?: number;
   semanasEvaluacion?: number;
+  totalSemanasClases?: number;
+  totalPeriodos?: number;
+  nivelEducativo?: string;
   objetivosArea?: string;
   objetivosGrado?: string;
   bibliografia?: string;
   observaciones?: string;
+  insercionesCurriculares?: string;
+  // Firmas extraídas del documento importado
+  firmaElaboradoPor?: string;
+  firmaElaboradoFecha?: string;
+  firmaRevisadoPor?: string;
+  firmaRevisadoFecha?: string;
+  firmaAprobadoPor?: string;
+  firmaAprobadoFecha?: string;
   unidades: Array<{
     numero: number;
     titulo?: string;
