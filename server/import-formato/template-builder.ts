@@ -84,6 +84,24 @@ type TablaInfo = {
 };
 
 /**
+ * Resuelve qué celda física (índice en cells[]) ocupa una columna lógica del grid.
+ * Considera gridSpan y vMerge para encontrar la celda correcta.
+ *
+ * @param fila - FilaInfo que contiene las celdas analizadas
+ * @param gridCol - Columna lógica del grid (0-indexed)
+ * @returns Índice en fila.cells[] o -1 si no se encontró
+ */
+function resolverCeldaPorColumnaGrid(fila: FilaInfo, gridCol: number): number {
+  for (let i = 0; i < fila.cells.length; i++) {
+    const celda = fila.cells[i];
+    if (gridCol >= celda.gridIndex && gridCol < celda.gridIndex + celda.colSpan) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+/**
  * Analiza el XML de un DOCX y extrae la estructura completa de tablas
  * con colSpan, posición lógica (gridIndex) y texto original de cada celda.
  *
@@ -223,6 +241,8 @@ function detectarBindingsPca(
   // Recorrer todas las tablas y filas buscando patrones
   for (const tabla of estructura.tablas) {
     for (const fila of tabla.rows) {
+      let gridCol = 0; // posición lógica actual en la rejilla
+
       for (let celdaIdx = 0; celdaIdx < fila.cells.length; celdaIdx++) {
         const celda = fila.cells[celdaIdx];
         const texto = celda.textoOriginal.trim();
@@ -251,8 +271,10 @@ function detectarBindingsPca(
             }
 
             // Caso 1: valor en la siguiente celda de la misma fila
-            const siguienteCelda = fila.cells[celdaIdx + 1];
-            if (siguienteCelda) {
+            // Usar gridCol para encontrar la siguiente columna lógica
+            const siguienteGridCol = gridCol + celda.colSpan;
+            const idxSiguiente = resolverCeldaPorColumnaGrid(fila, siguienteGridCol);
+            if (idxSiguiente >= 0) {
               bindings.push({
                 id: campo,
                 campo,
@@ -261,7 +283,7 @@ function detectarBindingsPca(
                   tipo: "docx-cell",
                   tabla: tabla.index,
                   fila: fila.index,
-                  columna: siguienteCelda.index,
+                  columna: fila.cells[idxSiguiente].index,
                 },
                 obligatorio: ["institucion", "docente", "area", "grado"].includes(campo),
               });
@@ -293,6 +315,8 @@ function detectarBindingsPca(
             break;
           }
         }
+
+        gridCol += celda.colSpan;
       }
     }
   }
@@ -307,7 +331,7 @@ function detectarBindingsPca(
   function agregarBindingDebajo(
     tabla: TablaInfo,
     filaIdx: number,
-    celdaIdx: number,
+    gridCol: number,
     campo: string,
     tipo: FieldBinding["tipo"]
   ) {
@@ -317,27 +341,41 @@ function detectarBindingsPca(
       siguienteIdx++
     ) {
       const filaDestino = tabla.rows[siguienteIdx];
-      let celdaDestino = filaDestino.cells[celdaIdx];
 
-      // Si la celda en ese índice no existe (celda fusionada), usar la primera disponible
-      if (!celdaDestino && filaDestino.cells.length > 0) {
-        celdaDestino = filaDestino.cells[0];
+      // Usar grid resolver para encontrar la celda en la misma columna del grid
+      const idxCelda = resolverCeldaPorColumnaGrid(filaDestino, gridCol);
+      if (idxCelda >= 0) {
+        bindings.push({
+          id: campo,
+          campo,
+          tipo,
+          ubicacion: {
+            tipo: "docx-cell",
+            tabla: tabla.index,
+            fila: filaDestino.index,
+            columna: filaDestino.cells[idxCelda].index,
+          },
+          obligatorio: false,
+        });
+        return;
       }
-      if (!celdaDestino) continue;
 
-      bindings.push({
-        id: campo,
-        campo,
-        tipo,
-        ubicacion: {
-          tipo: "docx-cell",
-          tabla: tabla.index,
-          fila: filaDestino.index,
-          columna: celdaDestino.index,
-        },
-        obligatorio: false,
-      });
-      return;
+      // Fallback: si no se encontró por grid, usar la primera celda disponible
+      if (filaDestino.cells.length > 0) {
+        bindings.push({
+          id: campo,
+          campo,
+          tipo,
+          ubicacion: {
+            tipo: "docx-cell",
+            tabla: tabla.index,
+            fila: filaDestino.index,
+            columna: filaDestino.cells[0].index,
+          },
+          obligatorio: false,
+        });
+        return;
+      }
     }
   }
 
@@ -373,35 +411,34 @@ function detectarBindingsPca(
   for (const tabla of estructura.tablas) {
     for (let filaIdx = 0; filaIdx < tabla.rows.length - 1; filaIdx++) {
       const fila = tabla.rows[filaIdx];
+      let gridCol = 0;
 
       for (let celdaIdx = 0; celdaIdx < fila.cells.length; celdaIdx++) {
         const celda = fila.cells[celdaIdx];
         const texto = celda.textoOriginal.trim();
+        const currentGridCol = gridCol;
 
         for (const { patron, campo, tipo } of patronesFilaSiguiente) {
           if (patron.test(texto)) {
-            // Verificar que no exista ya un binding para este campo
             const yaExiste = bindings.some((b) => b.campo === campo);
             if (yaExiste) break;
 
-            // Buscar celda destino en las siguientes filas (no solo la inmediata)
-            agregarBindingDebajo(tabla, filaIdx, celdaIdx, campo, tipo);
+            agregarBindingDebajo(tabla, filaIdx, currentGridCol, campo, tipo);
             break;
           }
         }
 
-        // Patrones de contenido debajo: el encabezado se preserva,
-        // el binding apunta a la celda de la fila siguiente.
         for (const { patron, campo, tipo } of patronesContenidoDebajo) {
           if (patron.test(texto)) {
             const yaExiste = bindings.some((b) => b.campo === campo);
             if (yaExiste) break;
 
-            // Buscar la siguiente fila que tenga contenido (no solo el encabezado)
-            agregarBindingDebajo(tabla, filaIdx, celdaIdx, campo, tipo);
+            agregarBindingDebajo(tabla, filaIdx, currentGridCol, campo, tipo);
             break;
           }
         }
+
+        gridCol += celda.colSpan;
       }
     }
   }
@@ -433,28 +470,35 @@ function detectarBindingsPca(
   for (const tabla of estructura.tablas) {
     for (let filaIdx = 0; filaIdx < tabla.rows.length; filaIdx++) {
       const fila = tabla.rows[filaIdx];
+      let gridCol = 0;
 
       for (let celdaIdx = 0; celdaIdx < fila.cells.length; celdaIdx++) {
         const celda = fila.cells[celdaIdx];
         const texto = celda.textoOriginal.trim();
+        const currentGridCol = gridCol;
 
         const rol = rolesFirma.find((r) => r.patron.test(texto));
-        if (!rol) continue;
+        if (!rol) {
+          gridCol += celda.colSpan;
+          continue;
+        }
 
-        // Buscar NOMBRE: y FECHA: debajo del encabezado, en la misma columna
+        // Buscar NOMBRE: y FECHA: debajo del encabezado, en la misma columna del grid
         for (
           let abajo = filaIdx + 1;
           abajo < Math.min(tabla.rows.length, filaIdx + 6);
           abajo++
         ) {
           const filaAbajo = tabla.rows[abajo];
-          const celdaAbajo = filaAbajo.cells[celdaIdx];
-          if (!celdaAbajo) continue;
 
+          // Usar grid resolver para encontrar la celda en la misma columna del grid
+          const idxCeldaAbajo = resolverCeldaPorColumnaGrid(filaAbajo, currentGridCol);
+          if (idxCeldaAbajo < 0) continue;
+
+          const celdaAbajo = filaAbajo.cells[idxCeldaAbajo];
           const etiqueta = celdaAbajo.textoOriginal.trim();
 
           if (/^(?:NOMBRE|DOCENTE|DIRECTOR|VICERRECTOR|RECTOR)\s*:/i.test(etiqueta)) {
-            // Verificar que no exista ya un binding para este campo
             const yaExiste = bindings.some((b) => b.campo === rol.nombre);
             if (!yaExiste) {
               bindings.push({
@@ -492,6 +536,8 @@ function detectarBindingsPca(
             }
           }
         }
+
+        gridCol += celda.colSpan;
       }
     }
   }

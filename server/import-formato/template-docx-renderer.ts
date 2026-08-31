@@ -39,6 +39,13 @@ function buscarNodos(arbol: XmlNode[], tag: string): XmlNode[] {
   return encontrados;
 }
 
+function extraerAtributo(nodo: XmlNode, attr: string): number | undefined {
+  const attrs = nodo[":@"];
+  if (!attrs) return undefined;
+  const val = attrs[`@_w:${attr}`] ?? attrs[`@_${attr}`];
+  return val !== undefined ? parseInt(String(val), 10) : undefined;
+}
+
 /**
  * Busca hijos directos (no recursivos) de un nodo con el tag dado.
  * Usa esto en lugar de buscarNodos para w:tr dentro de w:tbl y w:tc dentro de w:tr
@@ -52,6 +59,26 @@ function hijosDirectos(nodo: XmlNode, tag: string): XmlNode[] {
   return contenido.filter((hijo: XmlNode) => {
     const hijoKey = Object.keys(hijo).find((k) => k !== ":@");
     return hijoKey === tag;
+  });
+}
+
+/**
+ * Obtiene las celdas de una fila, ignorando celdas de continuación de vMerge.
+ * Esto确保 que los índices físicos coincidan con los almacenados en los bindings
+ * por template-builder.ts (que también omite celdas vMerge continuation).
+ */
+function celdasSinVMerge(fila: XmlNode): XmlNode[] {
+  return hijosDirectos(fila, "w:tc").filter((celda) => {
+    const vMergeVal = extraerAtributo(celda, "vMerge");
+    // Incluir si no tiene vMerge, o si es restart, o si val es 0
+    if (vMergeVal === undefined) return true;
+    if (vMergeVal === 0) return true;
+    // Si tiene val="restart" incluir
+    const attrs = celda[":@"] || {};
+    const valAttr = attrs["@_w:val"];
+    if (valAttr === "restart") return true;
+    // vMerge continuation: excluir
+    return false;
   });
 }
 
@@ -529,7 +556,7 @@ function renderizarCampos(
     const fila = filas[loc.fila];
     if (!fila) continue;
 
-    const celdas = hijosDirectos(fila, "w:tc");
+    const celdas = celdasSinVMerge(fila);
     const celda = celdas[loc.columna];
     if (!celda) continue;
 
@@ -584,11 +611,11 @@ function renderizarRegionRepetible(
   const itemsTienenDcds = items.some((item) => item.dcds && String(item.dcds).trim() !== "");
   const necesitaAgregarDcds = itemsTienenDcds && !tieneColumnaDcds;
 
-  const celdasPlantilla = hijosDirectos(filaPlantilla, "w:tc");
+  const celdasPlantilla = celdasSinVMerge(filaPlantilla);
   const numColumnasOriginal = celdasPlantilla.length;
 
   function llenarFila(fila: XmlNode, item: any): void {
-    const celdas = hijosDirectos(fila, "w:tc");
+    const celdas = celdasSinVMerge(fila);
     for (const col of region.columnas) {
       const valor = item[col.campo];
       if (valor === undefined || valor === null) continue;

@@ -565,14 +565,26 @@ export const pcaRouter = router({
           aiResult.insercionesCurriculares ||
           ""
         ),
-        objetivosArea: String(aiResult.objetivosArea || ""),
-        objetivosGrado: String(aiResult.objetivosGrado || ""),
+        objetivosArea: String(
+          formData.objetivosArea ||
+          aiResult.objetivosArea ||
+          ""
+        ),
+        objetivosGrado: String(
+          formData.objetivosGrado ||
+          aiResult.objetivosGrado ||
+          ""
+        ),
         bibliografia: String(
           formData.bibliografiaDocente ||
           aiResult.bibliografiaSugerida ||
           ""
         ),
-        observaciones: String(aiResult.observaciones || ""),
+        observaciones: String(
+          formData.observaciones ||
+          aiResult.observaciones ||
+          ""
+        ),
         // Firmas
         firmaElaboradoPor: String(formData.firmaElaboradoPor || ""),
         firmaElaboradoFecha: String(formData.firmaElaboradoFecha || ""),

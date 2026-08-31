@@ -16,6 +16,56 @@ function normalizar(texto: string): string {
 export function inferirCodigoArea(textoArea: string | undefined): Area {
   if (!textoArea) return "M";
   const normalizado = normalizar(textoArea);
+
+  // Aliases comunes de siglas a código canónico
+  const ALIASES: Record<string, Area> = {
+    MAT: "M",
+    MATEMATICAS: "M",
+    MATEMÁTICA: "M",
+    LL: "LL",
+    LENGUA: "LL",
+    LENGUA_Y_LITERATURA: "LL",
+    CN: "CN",
+    CIENCIAS: "CN",
+    CIENCIAS_NATURALES: "CN",
+    CS: "CS",
+    ESTUDIOS_SOCIALES: "CS",
+    SOCIALES: "CS",
+    EF: "EF",
+    EDUCACION_FISICA: "EF",
+    ECA: "ECA",
+    EDUCACION_CULTURAL_Y_ARTISTICA: "ECA",
+    EFL: "EFL",
+    INGLES: "EFL",
+    ENGLISH: "EFL",
+    "CN.B": "CN.B",
+    BIOLOGIA: "CN.B",
+    BIOLOGÍA: "CN.B",
+    "CN.Q": "CN.Q",
+    QUIMICA: "CN.Q",
+    QUÍMICA: "CN.Q",
+    "CN.F": "CN.F",
+    FISICA: "CN.F",
+    FÍSICA: "CN.F",
+    "CS.H": "CS.H",
+    HISTORIA: "CS.H",
+    "CS.F": "CS.F",
+    FILOSOFIA: "CS.F",
+    FILOSOFÍA: "CS.F",
+    "CS.EC": "CS.EC",
+    EDUCACION_PARA_LA_CIUDADANIA: "CS.EC",
+    KAI: "CAI",
+    CAI: "CAI",
+    EG: "EG",
+    EMPRENDIMIENTO: "EG",
+  };
+
+  // Buscar alias por normalización
+  for (const [alias, codigo] of Object.entries(ALIASES)) {
+    if (normalizar(alias) === normalizado) return codigo;
+  }
+
+  // Buscar en AREAS_INFO por nombre exacto o parcial
   const entrada = (Object.entries(AREAS_INFO) as Array<[Area, { name: string }]>).find(
     ([, info]) => normalizar(info.name) === normalizado || normalizado.includes(normalizar(info.name))
   );
