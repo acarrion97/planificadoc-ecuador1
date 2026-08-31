@@ -193,28 +193,30 @@ function detectarBindingsPca(
 ): FieldBinding[] {
   const bindings: FieldBinding[] = [];
 
-  // Patrones de búsqueda: texto de celda EXACTO → campo canónico
-  // Solo campos tipo "etiqueta | valor" en la misma fila.
-  // Usamos ^ y $ para evitar coincidir con encabezados de sección.
+  // Patrones de búsqueda: texto de celda → campo canónico
+  // Campos tipo "etiqueta | valor" en la misma fila.
+  // Patrones flexibles: ^ y $ solo en patrones que no pueden confundir.
   const patrones: Array<{
     patron: RegExp;
     campo: string;
     tipo: FieldBinding["tipo"];
   }> = [
-    { patron: /^NOMBRE DE LA INSTITUCI[ÓO]N\s*:?\s*$/i, campo: "institucion", tipo: "text" },
+    // Cabecera PCA
+    { patron: /NOMBRE\s*(?:DE\s*LA\s*)?INSTITUCI[ÓO]N/i, campo: "institucion", tipo: "text" },
     { patron: /^DOCENTE\(S\)\s*:?\s*$/i, campo: "docente", tipo: "text" },
+    { patron: /^DOCENTE\s*:?\s*$/i, campo: "docente", tipo: "text" },
     { patron: /^ÁREA\s*:?\s*$/i, campo: "area", tipo: "text" },
     { patron: /^ASIGNATURA\s*:?\s*$/i, campo: "asignatura", tipo: "text" },
     { patron: /^GRADO\/CURSO\s*:?\s*$/i, campo: "grado", tipo: "text" },
     { patron: /^NIVEL EDUCATIVO\s*:?\s*$/i, campo: "nivelEducativo", tipo: "text" },
     { patron: /^PARALELO\s*:?\s*$/i, campo: "paralelo", tipo: "text" },
-    { patron: /^A[NÑ]O LECTIVO\s*:?\s*$/i, campo: "anioLectivo", tipo: "text" },
-    // Firmas
-    { patron: /^ELABORADO POR\s*:?\s*$/i, campo: "firmaElaboradoPor", tipo: "text" },
+    { patron: /A[NÑ]O\s*LECTIVO/i, campo: "anioLectivo", tipo: "text" },
+    // Firmas (rúbricas)
+    { patron: /^ELABORADO\s*(?:POR)?\s*:?\s*$/i, campo: "firmaElaboradoPor", tipo: "text" },
     { patron: /^FECHA.*ELABORACI[ÓO]N\s*:?\s*$/i, campo: "firmaElaboradoFecha", tipo: "text" },
-    { patron: /^REVISADO POR\s*:?\s*$/i, campo: "firmaRevisadoPor", tipo: "text" },
+    { patron: /^REVISADO\s*(?:POR)?\s*:?\s*$/i, campo: "firmaRevisadoPor", tipo: "text" },
     { patron: /^FECHA.*REVISI[ÓO]N\s*:?\s*$/i, campo: "firmaRevisadoFecha", tipo: "text" },
-    { patron: /^APROBADO POR\s*:?\s*$/i, campo: "firmaAprobadoPor", tipo: "text" },
+    { patron: /^APROBADO\s*(?:POR)?\s*:?\s*$/i, campo: "firmaAprobadoPor", tipo: "text" },
     { patron: /^FECHA.*APROBACI[ÓO]N\s*:?\s*$/i, campo: "firmaAprobadoFecha", tipo: "text" },
   ];
 
@@ -227,11 +229,13 @@ function detectarBindingsPca(
 
         for (const { patron, campo, tipo } of patrones) {
           if (patron.test(texto)) {
-            // La valor suele estar en la siguiente celda de la misma fila
+            // Verificar que no exista ya un binding para este campo
+            const yaExiste = bindings.some((b) => b.campo === campo);
+            if (yaExiste) break;
+
+            // Caso 1: valor en la siguiente celda de la misma fila
             const siguienteCelda = fila.cells[celdaIdx + 1];
             if (siguienteCelda) {
-              // Crear binding aunque la celda destino esté vacía
-              // La posición física es suficiente para que el renderer sepa dónde escribir
               bindings.push({
                 id: campo,
                 campo,
@@ -244,7 +248,31 @@ function detectarBindingsPca(
                 },
                 obligatorio: ["institucion", "docente", "area", "grado"].includes(campo),
               });
+              break;
             }
+
+            // Caso 2: label y valor en la MISMA celda (ej: "NOMBRE: Escuela...")
+            // El valor está después del ":"
+            const matchColon = texto.match(/^([^:]+):\s*(.+)$/);
+            if (matchColon) {
+              bindings.push({
+                id: campo,
+                campo,
+                tipo,
+                ubicacion: {
+                  tipo: "docx-cell",
+                  tabla: tabla.index,
+                  fila: fila.index,
+                  columna: celda.index,
+                },
+                transformacion: "append-after-label",
+                obligatorio: ["institucion", "docente", "area", "grado"].includes(campo),
+              });
+              break;
+            }
+
+            // Caso 3: No hay siguiente celda ni ":" → buscar debajo
+            // (para etiquetas como "OBJETIVOS DEL ÁREA")
             break;
           }
         }
@@ -595,6 +623,12 @@ export async function construirPlantilla(
     tablas: estructura.tablas.length,
     bindings: bindings.length,
     regionesRepetibles: regionesRepetibles.length,
+    camposDetectados: bindings.map((b) => ({
+      campo: b.campo,
+      tabla: (b.ubicacion as any).tabla,
+      fila: (b.ubicacion as any).fila,
+      columna: (b.ubicacion as any).columna,
+    })),
   });
 
   return {
