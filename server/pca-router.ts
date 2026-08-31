@@ -551,7 +551,7 @@ export const pcaRouter = router({
         area: areaNombre,
         asignatura: areaNombre,
         grado: String(formData.grado || ""),
-        nivelEducativo: String(formData.subnivel || ""),
+        nivelEducativo: SUBNIVEL_NAMES[Number(formData.subnivel)] || String(formData.subnivel || ""),
         anioLectivo: String(formData.anioLectivo || ""),
         paralelo: String(formData.paralelo || ""),
         cargaHorariaSemanal: String(cargaHoraria),
@@ -561,7 +561,7 @@ export const pcaRouter = router({
         totalPeriodos: String(semanasClases * cargaHoraria),
         ejesTransversales: String(((formData.ejesTransversales as string[]) || []).join(", ")),
         insercionesCurriculares: String(
-          (formData.insercionesCurriculares as string[])?.join(", ") ||
+          formData.insercionesCurriculares ||
           aiResult.insercionesCurriculares ||
           ""
         ),

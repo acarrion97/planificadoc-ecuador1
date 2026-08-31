@@ -238,6 +238,12 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
         (existenteRow ? JSON.parse(existenteRow.formData).observaciones : "") ||
         "",
 
+      // Inserciones curriculares: importadas primero, luego existentes
+      insercionesCurriculares:
+        campos.insercionesCurriculares ||
+        (existenteRow ? JSON.parse(existenteRow.formData).insercionesCurriculares : "") ||
+        "",
+
       // Fusionar firmas: importadas primero, luego existentes
       firmaElaboradoPor:
         campos.firmaElaboradoPor ||
