@@ -7,6 +7,7 @@ import {
   DocxCellLocation,
 } from "./types";
 import { obtenerIconosDestreza } from "../../src/data/iconosPorDestreza";
+import { ICONOS_DCD_BASE64 } from "../../lib/iconos-base64";
 
 const parser = new XMLParser({
   ignoreAttributes: false,
@@ -21,21 +22,6 @@ const builder = new XMLBuilder({
 });
 
 type XmlNode = Record<string, any>;
-
-// ─── Mapa de iconos DCD a texto Unicode ─────────────────────────────────────
-
-const ICONO_TEXTO: Record<string, string> = {
-  competencias_comunicacionales: "\u270D",
-  competencias_matematicas: "\u2211",
-  competencias_digitales: "\u2328",
-  competencias_socioemocionales: "\u2764",
-  insercion_civica_etica_integridad: "\u2696",
-  insercion_desarrollo_sostenible: "\u2618",
-  insercion_educacion_financiera: "\u20A1",
-  insercion_educacion_socioemocional: "\u263A",
-  insercion_educacion_vial: "\u26A0",
-  insercion_seguridad_integral: "\u26E8",
-};
 
 // ─── Funciones XML ──────────────────────────────────────────────────────────
 
@@ -279,9 +265,171 @@ function recalcularAnchosTabla(
   }
 }
 
-// ─── DCD icons (texto con símbolos Unicode) ────────────────────────────────
+// ─── DCD Icons: imagen inline en DOCX ───────────────────────────────────────
 
-function agregarContenidoDcdACelda(celda: XmlNode, dcds: any): void {
+const NS_W = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
+const NS_R = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
+const NS_WP = "http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing";
+const NS_A = "http://schemas.openxmlformats.org/drawingml/2006/main";
+const NS_PIC = "http://schemas.openxmlformats.org/drawingml/2006/picture";
+
+/**
+ * Extrae bytes raw de un data URI base64.
+ */
+function dataUriToBuffer(dataUri: string): Buffer {
+  const base64 = dataUri.replace(/^data:image\/\w+;base64,/, "");
+  return Buffer.from(base64, "base64");
+}
+
+/**
+ * Asegura que el elemento raíz del XML tenga los namespaces necesarios
+ * para DrawingML (wp, a, pic, r).
+ */
+function asegurarNamespaces(arbol: XmlNode[]): void {
+  const doc = arbol.find((n) => {
+    const k = Object.keys(n).find((kk) => kk !== ":@");
+    return k === "w:document";
+  });
+  if (!doc) return;
+
+  const attrs = doc[":@"] || {};
+  const requiredNs: [string, string][] = [
+    ["@_xmlns:wp", NS_WP],
+    ["@_xmlns:a", NS_A],
+    ["@_xmlns:pic", NS_PIC],
+    ["@_xmlns:r", NS_R],
+  ];
+  for (const [key, val] of requiredNs) {
+    if (!attrs[key]) {
+      attrs[key] = val;
+    }
+  }
+  doc[":@"] = attrs;
+}
+
+/**
+ * Genera el nodo XML <w:r> que contiene <w:drawing><wp:inline> con la imagen.
+ * Sigue la estructura exacta del docx library.
+ */
+function crearRunConImagen(
+  relId: string,
+  fileName: string,
+  sizeEmu: number,
+  imageId: number
+): XmlNode {
+  const sz = String(sizeEmu);
+  return {
+    "w:r": [
+      {
+        "w:drawing": [
+          {
+            "wp:inline": [
+              { ":@": { "@_distT": "0", "@_distB": "0", "@_distL": "0", "@_distR": "0" } },
+              {
+                "wp:extent": [],
+                ":@": { "@_cx": sz, "@_cy": sz },
+              },
+              {
+                "wp:effectExtent": [],
+                ":@": { "@_l": "0", "@_t": "0", "@_r": "0", "@_b": "0" },
+              },
+              {
+                "wp:docPr": [],
+                ":@": { "@_id": String(imageId), "@_name": fileName, "@_descr": fileName },
+              },
+              {
+                "wp:cNvGraphicFramePr": [
+                  {
+                    ":@": { "@_xmlns:a": NS_A },
+                  },
+                  {
+                    "a:graphicFrameLocks": [],
+                    ":@": { "@_noChangeAspect": "1" },
+                  },
+                ],
+              },
+              {
+                ":@": { "@_xmlns:a": NS_A },
+                "a:graphic": [
+                  {
+                    "a:graphicData": [
+                      { ":@": { "@_uri": NS_PIC } },
+                      {
+                        ":@": { "@_xmlns:pic": NS_PIC },
+                        "pic:pic": [
+                          {
+                            "pic:nvPicPr": [
+                              {
+                                "pic:cNvPr": [],
+                                ":@": { "@_id": "0", "@_name": fileName, "@_descr": fileName },
+                              },
+                              {
+                                "pic:cNvPicPr": [
+                                  {
+                                    "a:picLocks": [],
+                                    ":@": { "@_noChangeAspect": "1", "@_noChangeArrowheads": "1" },
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            "pic:blipFill": [
+                              {
+                                "a:blip": [],
+                                ":@": { "@_r:embed": `rId${relId}`, "@_cstate": "none" },
+                              },
+                              { "a:srcRect": [] },
+                              {
+                                "a:stretch": [
+                                  { "a:fillRect": [] },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            ":@": { "@_bwMode": "auto" },
+                            "pic:spPr": [
+                              {
+                                "a:xfrm": [
+                                  {
+                                    "a:off": [],
+                                    ":@": { "@_x": "0", "@_y": "0" },
+                                  },
+                                  {
+                                    "a:ext": [],
+                                    ":@": { "@_cx": sz, "@_cy": sz },
+                                  },
+                                ],
+                              },
+                              {
+                                "a:prstGeom": [],
+                                ":@": { "@_prst": "rect" },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+}
+
+/**
+ * Agrega contenido DCD (texto + iconos imagen) a una celda.
+ */
+function agregarContenidoDcdACelda(
+  celda: XmlNode,
+  dcds: any,
+  imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }>
+): void {
   let lineas: Array<{ texto: string; codigo?: string }> = [];
   if (typeof dcds === "string") {
     lineas = dcds
@@ -289,9 +437,7 @@ function agregarContenidoDcdACelda(celda: XmlNode, dcds: any): void {
       .filter(Boolean)
       .map((l) => {
         const match = l.match(/^([^:]+):\s*(.+)$/);
-        return match
-          ? { texto: l, codigo: match[1].trim() }
-          : { texto: l };
+        return match ? { texto: l, codigo: match[1].trim() } : { texto: l };
       });
   } else if (Array.isArray(dcds)) {
     lineas = dcds.map((d: any) => {
@@ -310,32 +456,38 @@ function agregarContenidoDcdACelda(celda: XmlNode, dcds: any): void {
   if (!key || key !== "w:tc") return;
 
   const paragraphChildren: XmlNode[] = [];
+  let imageId = 100;
 
   for (let idx = 0; idx < lineas.length; idx++) {
     const linea = lineas[idx];
 
-    // Agregar iconos Unicode antes del texto
     if (linea.codigo) {
       const iconNames = obtenerIconosDestreza(linea.codigo);
       for (const iconName of iconNames) {
-        const icono = ICONO_TEXTO[iconName];
-        if (icono) {
-          paragraphChildren.push({
-            "w:r": [
-              { "w:rPr": [{ "w:sz": [{ ":@": { "@_w:val": "14" } }] }] },
-              { "w:t": [{ "#text": `${icono} ` }] },
-            ],
-          });
-        }
+        const dataUri = ICONOS_DCD_BASE64[iconName];
+        if (!dataUri) continue;
+
+        const relId = String(imagenes.length + 1);
+        const fileName = `${iconName}.png`;
+        const buffer = dataUriToBuffer(dataUri);
+
+        imagenes.push({ relId, fileName, buffer });
+
+        const sizeEmu = 15 * 12700;
+        const imageRun = crearRunConImagen(relId, fileName, sizeEmu, imageId++);
+
+        paragraphChildren.push(imageRun);
+
+        paragraphChildren.push({
+          "w:r": [{ "w:t": [{ "#text": " " }] }],
+        });
       }
     }
 
-    // Texto de la línea
     paragraphChildren.push({
       "w:r": [{ "w:t": [{ "#text": linea.texto }] }],
     });
 
-    // Salto de línea entre DCDs
     if (idx < lineas.length - 1) {
       paragraphChildren.push({
         "w:r": [{ "w:br": [] }],
@@ -383,9 +535,9 @@ function renderizarCampos(
     if (!textoValor) continue;
 
     if (binding.transformacion === "append-after-label") {
-      const key = Object.keys(celda).find((k) => k !== ":@");
-      if (key && key === "w:tc") {
-        const contenido = celda[key];
+      const cellKey = Object.keys(celda).find((k) => k !== ":@");
+      if (cellKey && cellKey === "w:tc") {
+        const contenido = celda[cellKey];
         if (Array.isArray(contenido)) {
           const textos = buscarNodos([contenido], "w:t");
           let textoActual = "";
@@ -416,7 +568,8 @@ function renderizarCampos(
 function renderizarRegionRepetible(
   tabla: XmlNode,
   region: RepeatRegion,
-  items: any[]
+  items: any[],
+  imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }>
 ): void {
   if (!items || items.length === 0) return;
 
@@ -474,7 +627,7 @@ function renderizarRegionRepetible(
     const celdasActualizadas = buscarNodos([filaPlantilla], "w:tc");
     const ultimaCelda = celdasActualizadas[celdasActualizadas.length - 1];
     if (ultimaCelda) {
-      agregarContenidoDcdACelda(ultimaCelda, items[0].dcds);
+      agregarContenidoDcdACelda(ultimaCelda, items[0].dcds, imagenes);
     }
   }
 
@@ -494,7 +647,7 @@ function renderizarRegionRepetible(
       const celdasActualizadas = buscarNodos([nuevaFila], "w:tc");
       const ultimaCelda = celdasActualizadas[celdasActualizadas.length - 1];
       if (ultimaCelda) {
-        agregarContenidoDcdACelda(ultimaCelda, item.dcds);
+        agregarContenidoDcdACelda(ultimaCelda, item.dcds, imagenes);
       }
     }
 
@@ -556,6 +709,64 @@ function renderizarRegionRepetible(
   }
 }
 
+// ─── Gestión de imágenes en el ZIP ──────────────────────────────────────────
+
+async function leerMaxRelId(zip: JSZip): Promise<number> {
+  const relsFile = zip.file("word/_rels/document.xml.rels");
+  if (!relsFile) return 0;
+
+  const relsXml = await relsFile.async("string");
+  let maxId = 0;
+  const regex = /Id="rId(\d+)"/g;
+  let match;
+  while ((match = regex.exec(relsXml)) !== null) {
+    maxId = Math.max(maxId, parseInt(match[1], 10));
+  }
+  return maxId;
+}
+
+async function agregarAlRels(
+  zip: JSZip,
+  entries: Array<{ relId: string; type: string; target: string }>
+): Promise<void> {
+  if (entries.length === 0) return;
+
+  const relsFile = zip.file("word/_rels/document.xml.rels");
+  let relsXml = "";
+
+  if (relsFile) {
+    relsXml = await relsFile.async("string");
+  } else {
+    relsXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+</Relationships>`;
+  }
+
+  const newRels = entries
+    .map(
+      (e) =>
+        `<Relationship Id="${e.relId}" Type="${e.type}" Target="${e.target}"/>`
+    )
+    .join("\n    ");
+
+  relsXml = relsXml.replace("</Relationships>", `    ${newRels}\n</Relationships>`);
+  zip.file("word/_rels/document.xml.rels", relsXml);
+}
+
+async function agregarPngContentType(zip: JSZip): Promise<void> {
+  const ctFile = zip.file("[Content_Types].xml");
+  if (!ctFile) return;
+
+  let ctXml = await ctFile.async("string");
+  if (!ctXml.includes('Extension="png"')) {
+    ctXml = ctXml.replace(
+      "</Types>",
+      `  <Default Extension="png" ContentType="image/png"/>\n</Types>`
+    );
+    zip.file("[Content_Types].xml", ctXml);
+  }
+}
+
 // ─── Renderer principal ─────────────────────────────────────────────────────
 
 export async function renderizarDocxPlantilla(
@@ -581,7 +792,7 @@ export async function renderizarDocxPlantilla(
 
   const tablas = buscarNodos(arbol, "w:tbl");
 
-  console.log("[renderer] Bindings de campos:", bindings.campos.map(b => ({
+  console.log("[renderer] Bindings de campos:", bindings.campos.map((b) => ({
     campo: b.campo,
     tabla: (b.ubicacion as any).tabla,
     fila: (b.ubicacion as any).fila,
@@ -591,6 +802,8 @@ export async function renderizarDocxPlantilla(
 
   renderizarCampos(tablas, bindings.campos, datos);
 
+  const imagenes: Array<{ relId: string; fileName: string; buffer: Buffer }> = [];
+
   for (const region of bindings.regionesRepetibles) {
     const tabla = tablas[region.ubicacion.tabla];
     if (!tabla) continue;
@@ -598,11 +811,42 @@ export async function renderizarDocxPlantilla(
     const items = datos[region.origenDatos];
     if (!Array.isArray(items)) continue;
 
-    renderizarRegionRepetible(tabla, region, items);
+    renderizarRegionRepetible(tabla, region, items, imagenes);
+  }
+
+  // Asegurar namespaces DrawingML en el root
+  if (imagenes.length > 0) {
+    asegurarNamespaces(arbol);
   }
 
   const xmlModificado = builder.build(arbol);
   zip.file("word/document.xml", xmlModificado);
+
+  // Agregar imágenes al ZIP y actualizar rels + content types
+  if (imagenes.length > 0) {
+    const maxRelId = await leerMaxRelId(zip);
+    const IMAGE_REL_TYPE =
+      "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image";
+
+    const relEntries: Array<{ relId: string; type: string; target: string }> = [];
+
+    for (let i = 0; i < imagenes.length; i++) {
+      const img = imagenes[i];
+      const relNum = maxRelId + i + 1;
+      const relId = `rId${relNum}`;
+
+      zip.file(`word/media/${img.fileName}`, img.buffer);
+
+      relEntries.push({
+        relId,
+        type: IMAGE_REL_TYPE,
+        target: `media/${img.fileName}`,
+      });
+    }
+
+    await agregarAlRels(zip, relEntries);
+    await agregarPngContentType(zip);
+  }
 
   if (archivosAdicionales) {
     for (const [nombre, contenido] of Object.entries(archivosAdicionales)) {
