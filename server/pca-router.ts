@@ -562,6 +562,14 @@ export const pcaRouter = router({
         ejesTransversales: String(((formData.ejesTransversales as string[]) || []).join(", ")),
         insercionesCurriculares: String(
           formData.insercionesCurriculares ||
+          (() => {
+            const metodos = (formData.metodologiasActivas as string[]) || [];
+            const tecnicas = (formData.tecnicasEvaluacion as string[]) || [];
+            if (metodos.length === 0 && tecnicas.length === 0) return "";
+            const metodoTexto = metodos.join(", ") || "—";
+            const tecnicaTexto = tecnicas.join(", ") || "—";
+            return `Metodologías activas: ${metodoTexto}\nTécnicas de evaluación: ${tecnicaTexto}`;
+          })() ||
           aiResult.insercionesCurriculares ||
           ""
         ),

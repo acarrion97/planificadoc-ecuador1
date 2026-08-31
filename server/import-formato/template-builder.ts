@@ -228,7 +228,9 @@ function detectarBindingsPca(
     // Cabecera PCA — placeholders que deben reemplazarse en el mismo sitio
     { patron: /^NOMBRE\s*(?:DE\s*LA\s*)?INSTITUCI[ÓO]N$/i, campo: "institucion", tipo: "text", inPlace: true },
     { patron: /^A[NÑ]O\s*LECTIVO$/i, campo: "anioLectivo", tipo: "text", inPlace: true },
-    // Etiquetas con valor en la siguiente celda
+    // Etiquetas con valor en la celda contigua O después del ":" en la misma celda
+    { patron: /^DOCENTE\(S\)\s*:\s*.+/i, campo: "docente", tipo: "text" },
+    { patron: /^DOCENTE\s*:\s*.+/i, campo: "docente", tipo: "text" },
     { patron: /^DOCENTE\(S\)\s*:?\s*$/i, campo: "docente", tipo: "text" },
     { patron: /^DOCENTE\s*:?\s*$/i, campo: "docente", tipo: "text" },
     { patron: /^ÁREA\s*:?\s*$/i, campo: "area", tipo: "text" },
@@ -236,6 +238,9 @@ function detectarBindingsPca(
     { patron: /^GRADO\/CURSO\s*:?\s*$/i, campo: "grado", tipo: "text" },
     { patron: /^NIVEL EDUCATIVO\s*:?\s*$/i, campo: "nivelEducativo", tipo: "text" },
     { patron: /^PARALELO\s*:?\s*$/i, campo: "paralelo", tipo: "text" },
+    // Objetivos: valor en la siguiente celda de la misma fila
+    { patron: /OBJETIVOS.*[ÁA]REA/i, campo: "objetivosArea", tipo: "text" },
+    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
   ];
 
   // Recorrer todas las tablas y filas buscando patrones
@@ -384,8 +389,6 @@ function detectarBindingsPca(
     campo: string;
     tipo: FieldBinding["tipo"];
   }> = [
-    { patron: /OBJETIVOS.*[ÁA]REA/i, campo: "objetivosArea", tipo: "text" },
-    { patron: /OBJETIVOS.*GRADO/i, campo: "objetivosGrado", tipo: "text" },
     // Tiempo: el valor está debajo del encabezado
     { patron: /CARGA.*HORARIA/i, campo: "cargaHorariaSemanal", tipo: "number" },
     { patron: /(NO\.?|N[ÚU]MERO).*SEMANAS.*TRABAJO|SEMANAS.*TRABAJO/i, campo: "semanasTrabajoTotal", tipo: "number" },
@@ -484,6 +487,12 @@ function detectarBindingsPca(
         }
 
         // Buscar NOMBRE: y FECHA: debajo del encabezado, en la misma columna del grid
+        // Estructura esperada:
+        //   Fila N:   ELABORADO | REVISADO | APROBADO
+        //   Fila N+1: DOCENTE:  | VICERRECTOR: | DIRECTOR:  ← etiquetas
+        //   Fila N+2: [nombre]  | [nombre]      | [nombre]  ← DESTINO para nombre
+        //   Fila N+3: Firma:    | Firma:         | Firma:
+        //   Fila N+4: Fecha:    | Fecha:         | Fecha:    ← DESTINO para fecha
         for (
           let abajo = filaIdx + 1;
           abajo < Math.min(tabla.rows.length, filaIdx + 6);
@@ -498,22 +507,27 @@ function detectarBindingsPca(
           const celdaAbajo = filaAbajo.cells[idxCeldaAbajo];
           const etiqueta = celdaAbajo.textoOriginal.trim();
 
+          // Si encontramos la fila de etiquetas (DOCENTE:, NOMBRE:, etc.),
+          // la celda destino está en la SIGUIENTE fila (una más abajo)
           if (/^(?:NOMBRE|DOCENTE|DIRECTOR|VICERRECTOR|RECTOR)\s*:/i.test(etiqueta)) {
             const yaExiste = bindings.some((b) => b.campo === rol.nombre);
-            if (!yaExiste) {
-              bindings.push({
-                id: rol.nombre,
-                campo: rol.nombre,
-                tipo: "text",
-                transformacion: "append-after-label",
-                ubicacion: {
-                  tipo: "docx-cell",
-                  tabla: tabla.index,
-                  fila: filaAbajo.index,
-                  columna: celdaAbajo.index,
-                },
-                obligatorio: false,
-              });
+            if (!yaExiste && abajo + 1 < tabla.rows.length) {
+              const filaDestino = tabla.rows[abajo + 1];
+              const idxCeldaDestino = resolverCeldaPorColumnaGrid(filaDestino, currentGridCol);
+              if (idxCeldaDestino >= 0) {
+                bindings.push({
+                  id: rol.nombre,
+                  campo: rol.nombre,
+                  tipo: "text",
+                  ubicacion: {
+                    tipo: "docx-cell",
+                    tabla: tabla.index,
+                    fila: filaDestino.index,
+                    columna: filaDestino.cells[idxCeldaDestino].index,
+                  },
+                  obligatorio: false,
+                });
+              }
             }
           }
 
@@ -524,13 +538,13 @@ function detectarBindingsPca(
                 id: rol.fecha,
                 campo: rol.fecha,
                 tipo: "text",
-                transformacion: "append-after-label",
                 ubicacion: {
                   tipo: "docx-cell",
                   tabla: tabla.index,
                   fila: filaAbajo.index,
                   columna: celdaAbajo.index,
                 },
+                transformacion: "append-after-label",
                 obligatorio: false,
               });
             }

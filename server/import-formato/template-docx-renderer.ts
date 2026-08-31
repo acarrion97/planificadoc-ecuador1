@@ -784,6 +784,50 @@ async function agregarPngContentType(zip: JSZip): Promise<void> {
   }
 }
 
+/**
+ * Reemplaza placeholders de texto en un árbol XML (para footers, headers, etc.)
+ * Busca patrones como {{campo}} o {campo} y los reemplaza con datos del contexto.
+ */
+function reemplazarPlaceholdersEnXml(nodo: XmlNode, datos: Record<string, any>): void {
+  if (!nodo || typeof nodo !== "object") return;
+
+  const key = Object.keys(nodo).find((k) => k !== ":@");
+  if (!key) return;
+
+  // Si es un nodo de texto w:t, reemplazar placeholders
+  if (key === "w:t") {
+    const texto = Array.isArray(nodo["w:t"])
+      ? nodo["w:t"][0]?.["#text"]
+      : nodo["#text"];
+    if (typeof texto === "string" && texto.includes("{")) {
+      let nuevoTexto = texto;
+      for (const [campo, valor] of Object.entries(datos)) {
+        if (valor == null) continue;
+        const strValor = String(valor);
+        // Reemplazar {campo} y {{campo}}
+        const regex = new RegExp(`\\{\\{?${campo}\\}?\\}`, "gi");
+        nuevoTexto = nuevoTexto.replace(regex, strValor);
+      }
+      if (Array.isArray(nodo["w:t"])) {
+        nodo["w:t"][0]["#text"] = nuevoTexto;
+      } else {
+        nodo["#text"] = nuevoTexto;
+      }
+    }
+    return;
+  }
+
+  // Recorrer hijos
+  const contenido = nodo[key];
+  if (Array.isArray(contenido)) {
+    for (const hijo of contenido) {
+      if (hijo && typeof hijo === "object") {
+        reemplazarPlaceholdersEnXml(hijo, datos);
+      }
+    }
+  }
+}
+
 // ─── Renderer principal ─────────────────────────────────────────────────────
 
 export async function renderizarDocxPlantilla(
@@ -841,6 +885,34 @@ export async function renderizarDocxPlantilla(
 
   const xmlModificado = builder.build(arbol);
   zip.file("word/document.xml", xmlModificado);
+
+  // ── Procesar footers (word/footer*.xml) ────────────────────────────────────
+  const footerFiles = Object.keys(zip.files).filter(
+    (name) => /^word\/footer\d+\.xml$/.test(name) && !zip.files[name]?.dir
+  );
+  for (const footerPath of footerFiles) {
+    const footerFile = zip.file(footerPath);
+    if (!footerFile) continue;
+    const footerXml = await footerFile.async("string");
+    const footerArbol = parser.parse(footerXml);
+    reemplazarPlaceholdersEnXml(footerArbol, datos);
+    const footerModificado = builder.build(footerArbol);
+    zip.file(footerPath, footerModificado);
+  }
+
+  // ── Procesar headers (word/header*.xml) ────────────────────────────────────
+  const headerFiles = Object.keys(zip.files).filter(
+    (name) => /^word\/header\d+\.xml$/.test(name) && !zip.files[name]?.dir
+  );
+  for (const headerPath of headerFiles) {
+    const headerFile = zip.file(headerPath);
+    if (!headerFile) continue;
+    const headerXml = await headerFile.async("string");
+    const headerArbol = parser.parse(headerXml);
+    reemplazarPlaceholdersEnXml(headerArbol, datos);
+    const headerModificado = builder.build(headerArbol);
+    zip.file(headerPath, headerModificado);
+  }
 
   // Agregar imágenes al ZIP y actualizar rels + content types
   if (imagenes.length > 0) {
