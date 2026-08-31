@@ -3,6 +3,7 @@ import { DocumentoParseado, ImportHandler, PcaCamposExtraidos, ResultadoGuardado
 import { mapearCamposPca } from "../mapear-pca";
 import { completarPcaConIA, inferirCodigoArea, PlanificacionExistente } from "../completar-pca";
 import { construirPlantilla } from "../template-builder";
+import { normalizarDocxPca } from "../docx-normalizer";
 import { storagePut } from "../../storage";
 import {
   findMatchingPcaDocuments,
@@ -182,10 +183,11 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
 
       if (isDocx) {
         try {
-          const plantilla = await construirPlantilla(originalBuffer, campos);
+          const bufferNormalizado = await normalizarDocxPca(originalBuffer);
 
-          // Guardar buffer del template DOCX directamente en BD como base64
-          const templateBufferBase64 = originalBuffer.toString("base64");
+          const plantilla = await construirPlantilla(bufferNormalizado, campos);
+
+          const templateBufferBase64 = bufferNormalizado.toString("base64");
 
           formatoPlantillaId = await createFormatoPlantilla({
             sessionId,
