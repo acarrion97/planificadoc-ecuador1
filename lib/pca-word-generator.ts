@@ -396,6 +396,10 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
             spacing: { before: 20, after: 20 },
             children: [run("Técnicas de evaluación: ", true, SZ7), run(tecnicaTexto, false, SZ7)],
           }),
+          new Paragraph({
+            spacing: { before: 20, after: 35 },
+            children: [run("Inserciones curriculares: ", true, SZ7), run(formData.insercionesCurriculares?.join(", ") || aiResult?.insercionesCurriculares || "—", false, SZ7)],
+          }),
         ],
         span: 7,
         width: CONTENT_W,
