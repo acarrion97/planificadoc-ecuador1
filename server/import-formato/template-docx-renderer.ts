@@ -265,54 +265,70 @@ function renderizarRegionRepetible(
   const itemsTienenDcds = items.some((item) => item.dcds && String(item.dcds).trim() !== "");
   const necesitaAgregarDcds = itemsTienenDcds && !tieneColumnaDcds;
 
-  // Para cada item, crear una nueva fila basada en la plantilla
-  const nuevasFilas: XmlNode[] = [];
-
-  for (const item of items) {
-    // Clonar la fila plantilla (deep clone del nodo)
-    const nuevaFila = JSON.parse(JSON.stringify(filaPlantilla));
-
-    // Si necesitamos agregar columna dcds, agregar una nueva celda al final de la fila
-    if (necesitaAgregarDcds) {
-      const celdas = buscarNodos([nuevaFila], "w:tc");
-      if (celdas.length > 0) {
-        // Clonar la última celda como base para mantener estilos
-        const ultimaCelda = celdas[celdas.length - 1];
-        const nuevaCelda = JSON.parse(JSON.stringify(ultimaCelda));
-        // Limpiar el contenido de la celda clonada
-        const textos = buscarNodos([nuevaCelda], "w:t");
-        for (const nodo of textos) {
-          const nodoKey = Object.keys(nodo).find((k) => k !== ":@");
-          if (nodoKey === "w:t") {
-            if (Array.isArray(nodo["w:t"])) {
-              nodo["w:t"][0]["#text"] = "";
-            } else {
-              nodo["#text"] = "";
-            }
-          }
-        }
-        // Insertar la nueva celda en la fila
-        const filaKey = Object.keys(nuevaFila).find((k) => k !== ":@");
-        if (filaKey && Array.isArray(nuevaFila[filaKey])) {
-          nuevaFila[filaKey].push(nuevaCelda);
-        }
-      }
-    }
-
-    // Reemplazar textos en las celdas
-    const celdas = buscarNodos([nuevaFila], "w:tc");
+  // Función auxiliar: llenar celdas de una fila con datos de un item
+  function llenarFila(fila: XmlNode, item: any): void {
+    const celdas = buscarNodos([fila], "w:tc");
     for (const col of region.columnas) {
       const valor = item[col.campo];
       if (valor === undefined || valor === null) continue;
-
-      // Usar celdaFisica (índice físico del w:tc) en lugar de columna (gridIndex)
       const celda = celdas[col.celdaFisica];
       if (!celda) continue;
-
       reemplazarTextoEnCelda(celda, valorParaDocx(valor));
     }
+  }
 
-    // Si agregamos columna dcds, llenarla (estará al final)
+  // Función auxiliar: agregar columna dcds a una fila si se necesita
+  function agregarColumnaDcds(fila: XmlNode): void {
+    const celdas = buscarNodos([fila], "w:tc");
+    if (celdas.length === 0) return;
+    const ultimaCelda = celdas[celdas.length - 1];
+    const nuevaCelda = JSON.parse(JSON.stringify(ultimaCelda));
+    const textos = buscarNodos([nuevaCelda], "w:t");
+    for (const nodo of textos) {
+      const nodoKey = Object.keys(nodo).find((k) => k !== ":@");
+      if (nodoKey === "w:t") {
+        if (Array.isArray(nodo["w:t"])) {
+          nodo["w:t"][0]["#text"] = "";
+        } else {
+          nodo["#text"] = "";
+        }
+      }
+    }
+    const filaKey = Object.keys(fila).find((k) => k !== ":@");
+    if (filaKey && Array.isArray(fila[filaKey])) {
+      fila[filaKey].push(nuevaCelda);
+    }
+  }
+
+  // Paso 1: Reemplazar la fila plantilla IN SITU con el primer item
+  // (en lugar de dejarla como placeholder y agregar filas después)
+  if (necesitaAgregarDcds) {
+    agregarColumnaDcds(filaPlantilla);
+  }
+  llenarFila(filaPlantilla, items[0]);
+
+  // Si se agregó columna dcds al primer item, llenarla
+  if (necesitaAgregarDcds && items[0].dcds) {
+    const celdasActualizadas = buscarNodos([filaPlantilla], "w:tc");
+    const ultimaCelda = celdasActualizadas[celdasActualizadas.length - 1];
+    if (ultimaCelda) {
+      reemplazarTextoEnCelda(ultimaCelda, valorParaDocx(items[0].dcds));
+    }
+  }
+
+  // Paso 2: Para los items restantes (2+), clonar e insertar después de la fila plantilla
+  const nuevasFilas: XmlNode[] = [];
+
+  for (let i = 1; i < items.length; i++) {
+    const item = items[i];
+    const nuevaFila = JSON.parse(JSON.stringify(filaPlantilla));
+
+    if (necesitaAgregarDcds) {
+      agregarColumnaDcds(nuevaFila);
+    }
+
+    llenarFila(nuevaFila, item);
+
     if (necesitaAgregarDcds && item.dcds) {
       const celdasActualizadas = buscarNodos([nuevaFila], "w:tc");
       const ultimaCelda = celdasActualizadas[celdasActualizadas.length - 1];
