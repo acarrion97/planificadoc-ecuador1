@@ -502,32 +502,32 @@ export const pcaRouter = router({
         return {
           numero: String(unidadForm.numero ?? unidadIA.numero ?? index + 1),
           titulo:
-            unidadIA.titulo ||
             unidadForm.titulo ||
+            unidadIA.titulo ||
             unidadForm.nombre ||
             `Unidad ${index + 1}`,
           nombre:
-            unidadIA.titulo ||
             unidadForm.titulo ||
+            unidadIA.titulo ||
             unidadForm.nombre ||
             `Unidad ${index + 1}`,
           objetivosEspecificos:
-            unidadIA.objetivosEspecificos ||
             unidadForm.objetivosEspecificos ||
+            unidadIA.objetivosEspecificos ||
             unidadForm.objetivos ||
             "",
           contenidos:
-            unidadIA.contenidos ||
             unidadForm.contenidos ||
+            unidadIA.contenidos ||
             textoDcds(unidadForm.dcdsSeleccionadas || []),
           orientacionesMetodologicas:
-            unidadIA.orientacionesMetodologicas ||
             unidadForm.orientacionesMetodologicas ||
+            unidadIA.orientacionesMetodologicas ||
             unidadForm.orientaciones ||
             "",
           evaluacion:
-            unidadIA.evaluacion ||
             unidadForm.evaluacion ||
+            unidadIA.evaluacion ||
             "",
           duracionSemanas: String(duracion),
           semanaInicio: String(inicio),
