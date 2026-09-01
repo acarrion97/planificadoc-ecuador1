@@ -55,6 +55,17 @@ function buscarNodos(arbol: XmlNode[], tag: string): XmlNode[] {
   return encontrados;
 }
 
+function hijosDirectos(nodo: XmlNode, tag: string): XmlNode[] {
+  const key = Object.keys(nodo).find((k) => k !== ":@");
+  if (!key) return [];
+  const contenido = nodo[key];
+  if (!Array.isArray(contenido)) return [];
+  return contenido.filter((hijo: XmlNode) => {
+    const hijoKey = Object.keys(hijo).find((k) => k !== ":@");
+    return hijoKey === tag;
+  });
+}
+
 function extraerAtributo(nodo: XmlNode, attr: string): number | undefined {
   const attrs = nodo[":@"];
   if (!attrs) return undefined;
@@ -129,13 +140,13 @@ export async function analizarEstructuraDocx(
   const tablasXml = buscarNodos(arbol, "w:tbl");
 
   const tablas: TablaInfo[] = tablasXml.map((tabla, tablaIdx) => {
-    const filasXml = buscarNodos([tabla], "w:tr");
+    const filasXml = hijosDirectos(tabla, "w:tr");
 
     let maxGridCols = 0;
     let gridCursor = 0; // posición actual en la rejilla lógica
 
     const rows: FilaInfo[] = filasXml.map((fila, filaIdx) => {
-      const celdasXml = buscarNodos([fila], "w:tc");
+      const celdasXml = hijosDirectos(fila, "w:tc");
       const cells: CeldaInfo[] = [];
 
       // Reconstruir la rejilla lógica: saltar columnas ocupadas por gridSpan
