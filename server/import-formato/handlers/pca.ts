@@ -41,7 +41,10 @@ function fusionarUnidades(
         contenidos: unidadImportada.contenidos || unidadIA?.contenidos || "",
         orientacionesMetodologicas: unidadImportada.orientacionesMetodologicas || unidadIA?.orientacionesMetodologicas || "",
         evaluacion: unidadImportada.evaluacion || unidadIA?.evaluacion || "",
-        dcdsSeleccionadas: unidadExistente?.dcdsSeleccionadas || [],
+        dcdsSeleccionadas:
+          (unidadImportada as any).dcds
+            ? [(unidadImportada as any).dcds]
+            : unidadExistente?.dcdsSeleccionadas || [],
         duracionSemanas: unidadImportada.duracionSemanas ?? unidadIA?.duracionSemanas ?? 4,
       };
     });

@@ -123,7 +123,7 @@ DATOS DEL DOCUMENTO IMPORTADO:
 - Año lectivo: ${campos.anioLectivo || "no especificado"}
 ${campos.objetivosArea ? `- Objetivos del área ya definidos: "${campos.objetivosArea}" (consérvalos tal cual)` : "- Objetivos del área: no definidos, genéralos"}
 ${campos.objetivosGrado ? `- Objetivos del grado ya definidos: "${campos.objetivosGrado}" (consérvalos tal cual)` : "- Objetivos del grado: no definidos, genéralos"}
-${campos.bibliografia ? `- Bibliografía ya definida: "${campos.bibliografia}" (consérvala e incorpórala)` : "- Bibliografía: no definida, sugiere referencias APA"}
+${campos.bibliografia ? `- Bibliografía ya definida: "${campos.bibliografia}" (consérvala e incorpórala)` : "- Bibliografía: no definida, sugiere referencias APA 7.ª edición, fuentes 2025-2026, libros y artículos científicos de editoriales/revistas indexadas"}
 ${campos.observaciones ? `- Observaciones ya definidas: "${campos.observaciones}" (consérvalas tal cual)` : "- Observaciones: no definidas, genéralas"}
 
 UNIDADES DE PLANIFICACIÓN DETECTADAS EN EL DOCUMENTO:

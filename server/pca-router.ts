@@ -139,7 +139,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
       "duracion_semanas": número
     }
   ],
-  "bibliografia_sugerida": "Referencias bibliográficas en normas APA 7.ª edición, mínimo 5 fuentes. OBLIGATORIO incluir: Ministerio de Educación del Ecuador. (2023). Currículo Nacional Priorizado para la Emergencia. Quito: MinEduc. — y otras fuentes del área entre 2020-2025",
+  "bibliografia_sugerida": "Referencias bibliográficas en normas APA 7.ª edición, mínimo 5 fuentes actualizadas (2025-2026). Solo incluir libros y artículos científicos de editoriales/revistas indexadas. OBLIGATORIO incluir: Ministerio de Educación del Ecuador. (2025). Currículo Nacional del Ecuador. Quito: MinEduc. — y al menos 4 fuentes adicionales del área publicadas entre 2024-2026. No usar fuentes anteriores a 2024.",
   "observaciones": "Observaciones pedagógicas generales para la implementación de la PCA, incluyendo atención a la diversidad y principios DUA"
 }
 
@@ -353,7 +353,7 @@ export const pcaRouter = router({
         prompt = `Regenera la Unidad ${input.unidadNumero} de la PCA de ${areaNombre} con estas DCD:\n${dcdsTexto}\nDuración: ${unidadForm.duracionSemanas} semanas.\nMetodologías: ${formData.metodologiasActivas.join(", ") || "no especificadas"}.\nTécnicas evaluación: ${formData.tecnicasEvaluacion.join(", ") || "no especificadas"}.\nResponde SOLO con JSON: {"titulo":"","objetivos_especificos":"","contenidos":"","orientaciones_metodologicas":"","evaluacion":""}`;
         responseKey = "unidad";
       } else if (input.seccion === "bibliografia") {
-        prompt = `Genera bibliografía adicional en APA 7.ª edición para ${areaNombre} ${subnivelNombre} con mínimo 5 referencias actualizadas y pertinentes. Responde SOLO con JSON: {"bibliografia_sugerida": "referencias"}`;
+        prompt = `Genera bibliografía en APA 7.ª edición para ${areaNombre} ${subnivelNombre} con mínimo 5 referencias actualizadas (2025-2026), solo libros y artículos científicos de editoriales/revistas indexadas. No usar fuentes anteriores a 2024. Responde SOLO con JSON: {"bibliografia_sugerida": "referencias"}`;
         responseKey = "bibliografia_sugerida";
       } else if (input.seccion === "observaciones") {
         prompt = `Genera observaciones pedagógicas para la implementación de la PCA de ${areaNombre} ${subnivelNombre}, incluyendo atención a la diversidad y principios DUA. Responde SOLO con JSON: {"observaciones": "texto"}`;

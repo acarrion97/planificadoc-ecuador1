@@ -253,11 +253,29 @@ export function mapearCamposPca(doc: DocumentoParseado): PcaCamposExtraidos {
       textos.some((t) => /ORIENTACIONES/.test(t)),
       textos.some((t) => /EVALUACI/.test(t)),
       textos.some((t) => /DURACI|SEMANAS/.test(t)),
+      textos.some((t) => /DESTREZAS?|DCD|DESTREZA CON CRITERIO/.test(t)),
     ].filter(Boolean).length;
 
     if (coincidencias >= 2) {
       idxFilaEncabezadosUnidades = i;
       break;
+    }
+  }
+
+  // Build column mapping from header row
+  const colMap: Record<string, number> = {};
+  if (idxFilaEncabezadosUnidades !== -1) {
+    const headerRow = filasUnidades[idxFilaEncabezadosUnidades];
+    for (let c = 0; c < headerRow.length; c++) {
+      const enc = normalizar(headerRow[c]);
+      if (/N[.°]/.test(enc)) colMap.numero = c;
+      else if (/T[ÍI]TULO/.test(enc)) colMap.titulo = c;
+      else if (/OBJETIVOS.*ESP/.test(enc)) colMap.objetivosEspecificos = c;
+      else if (/CONTENIDOS/.test(enc)) colMap.contenidos = c;
+      else if (/ORIENTACIONES/.test(enc) || /METODOLOG/.test(enc)) colMap.orientacionesMetodologicas = c;
+      else if (/EVALUACI/.test(enc)) colMap.evaluacion = c;
+      else if (/DURACI|SEMANAS/.test(enc)) colMap.duracionSemanas = c;
+      else if (/DESTREZAS?|DCD|DESTREZA CON CRITERIO/.test(enc)) colMap.dcds = c;
     }
   }
 
@@ -270,13 +288,14 @@ export function mapearCamposPca(doc: DocumentoParseado): PcaCamposExtraidos {
   const unidades = unidadesFuente
     .filter((fila) => /^\d+\.?$/.test(fila[0]?.trim() ?? ""))
     .map((fila) => ({
-      numero: aNumero(fila[0]) ?? 0,
-      titulo: fila[1]?.trim() || undefined,
-      objetivosEspecificos: fila[2]?.trim() || undefined,
-      contenidos: fila[3]?.trim() || undefined,
-      orientacionesMetodologicas: fila[4]?.trim() || undefined,
-      evaluacion: fila[5]?.trim() || undefined,
-      duracionSemanas: aNumero(fila[6]),
+      numero: aNumero(fila[colMap.numero ?? 0]) ?? 0,
+      titulo: fila[colMap.titulo ?? 1]?.trim() || undefined,
+      objetivosEspecificos: fila[colMap.objetivosEspecificos ?? 2]?.trim() || undefined,
+      contenidos: fila[colMap.contenidos ?? 3]?.trim() || undefined,
+      orientacionesMetodologicas: fila[colMap.orientacionesMetodologicas ?? 4]?.trim() || undefined,
+      evaluacion: fila[colMap.evaluacion ?? 5]?.trim() || undefined,
+      duracionSemanas: aNumero(fila[colMap.duracionSemanas ?? 6]),
+      dcds: colMap.dcds !== undefined ? fila[colMap.dcds]?.trim() || undefined : undefined,
     }))
     .filter((u) => u.numero > 0);
 

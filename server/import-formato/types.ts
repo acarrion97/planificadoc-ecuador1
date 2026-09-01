@@ -304,5 +304,6 @@ export type PcaCamposExtraidos = CamposExtraidosBase & {
     orientacionesMetodologicas?: string;
     evaluacion?: string;
     duracionSemanas?: number;
+    dcds?: string;
   }>;
 };

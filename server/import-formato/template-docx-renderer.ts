@@ -486,6 +486,10 @@ function agregarContenidoDcdACelda(
   for (let idx = 0; idx < lineas.length; idx++) {
     const linea = lineas[idx];
 
+    paragraphChildren.push({
+      "w:r": [{ "w:t": [{ "#text": linea.texto }] }],
+    });
+
     if (linea.codigo) {
       const iconNames = obtenerIconosDestreza(linea.codigo);
       for (const iconName of iconNames) {
@@ -501,17 +505,12 @@ function agregarContenidoDcdACelda(
         const sizeEmu = 15 * 12700;
         const imageRun = crearRunConImagen(relId, fileName, sizeEmu, imageId++);
 
-        paragraphChildren.push(imageRun);
-
         paragraphChildren.push({
           "w:r": [{ "w:t": [{ "#text": " " }] }],
         });
+        paragraphChildren.push(imageRun);
       }
     }
-
-    paragraphChildren.push({
-      "w:r": [{ "w:t": [{ "#text": linea.texto }] }],
-    });
 
     if (idx < lineas.length - 1) {
       paragraphChildren.push({
