@@ -475,7 +475,15 @@ function agregarContenidoDcdACelda(
         codigo: d.codigo,
       };
     });
+  } else if (dcds && typeof dcds === "object") {
+    const d = dcds as any;
+    lineas = [{
+      texto: d.codigo && d.enunciado ? `${d.codigo}: ${d.enunciado}` : d.enunciado || d.codigo || String(d),
+      codigo: d.codigo,
+    }];
   }
+
+  if (lineas.length === 0) return;
 
   const key = Object.keys(celda).find((k) => k !== ":@");
   if (!key || key !== "w:tc") return;
@@ -491,24 +499,28 @@ function agregarContenidoDcdACelda(
     });
 
     if (linea.codigo) {
-      const iconNames = obtenerIconosDestreza(linea.codigo);
-      for (const iconName of iconNames) {
-        const dataUri = ICONOS_DCD_BASE64[iconName];
-        if (!dataUri) continue;
+      try {
+        const iconNames = obtenerIconosDestreza(linea.codigo);
+        for (const iconName of iconNames) {
+          const dataUri = ICONOS_DCD_BASE64[iconName];
+          if (!dataUri) continue;
 
-        const relId = String(baseRelId + imagenes.length + 1);
-        const fileName = `${iconName}.png`;
-        const buffer = dataUriToBuffer(dataUri);
+          const relId = String(baseRelId + imagenes.length + 1);
+          const fileName = `${iconName}.png`;
+          const buffer = dataUriToBuffer(dataUri);
 
-        imagenes.push({ relId, fileName, buffer });
+          imagenes.push({ relId, fileName, buffer });
 
-        const sizeEmu = 15 * 12700;
-        const imageRun = crearRunConImagen(relId, fileName, sizeEmu, imageId++);
+          const sizeEmu = 15 * 12700;
+          const imageRun = crearRunConImagen(relId, fileName, sizeEmu, imageId++);
 
-        paragraphChildren.push({
-          "w:r": [{ "w:t": [{ "#text": " " }] }],
-        });
-        paragraphChildren.push(imageRun);
+          paragraphChildren.push({
+            "w:r": [{ "w:t": [{ "#text": " " }] }],
+          });
+          paragraphChildren.push(imageRun);
+        }
+      } catch (e) {
+        console.error(`Error agregando íconos para ${linea.codigo}:`, e);
       }
     }
 
