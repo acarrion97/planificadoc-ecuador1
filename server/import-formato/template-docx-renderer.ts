@@ -769,7 +769,7 @@ async function agregarAlRels(
   const newRels = entries
     .map(
       (e) =>
-        `<Relationship Id="${e.relId}" Type="${e.type}" Target="${e.target}"/>`
+        `<Relationship Id="rId${e.relId}" Type="${e.type}" Target="${e.target}"/>`
     )
     .join("\n    ");
 
