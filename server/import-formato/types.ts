@@ -180,6 +180,7 @@ export type PlantillaEstructura = {
         index: number;
         rowSpan: number;
         colSpan: number;
+        gridIndex: number;
         textoOriginal: string;
         width?: number;
       }>;
