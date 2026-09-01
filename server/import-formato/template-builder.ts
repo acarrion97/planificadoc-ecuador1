@@ -66,11 +66,10 @@ function hijosDirectos(nodo: XmlNode, tag: string): XmlNode[] {
   });
 }
 
-function extraerAtributo(nodo: XmlNode, attr: string): number | undefined {
+function extraerAtributo(nodo: XmlNode, attr: string): string | undefined {
   const attrs = nodo[":@"];
   if (!attrs) return undefined;
-  const val = attrs[`@_w:${attr}`] ?? attrs[`@_${attr}`];
-  return val !== undefined ? parseInt(String(val), 10) : undefined;
+  return attrs[`@_w:${attr}`] ?? attrs[`@_${attr}`];
 }
 
 // ─── Análisis de estructura DOCX ────────────────────────────────────────────
@@ -159,15 +158,17 @@ export async function analizarEstructuraDocx(
         // el cursor avanza. Para merge vertical real necesitaríamos un mapa
         // de celdas activas, pero para el PCA oficial con solo gridSpan basta.
 
-        const colSpan = extraerAtributo(celda, "gridSpan") ?? 1;
+        const colSpan = Number(extraerAtributo(celda, "gridSpan")) || 1;
         const vMergeVal = extraerAtributo(celda, "vMerge");
-        const isRestart = vMergeVal === undefined ||
-          vMergeVal === 0 ||
-          extraerAtributo(celda, "vMerge", "val") === "restart";
 
-        // Ignorar celdas de continuación de merge vertical (no restart)
-        // Solo si no es restart y tiene vMerge definido
-        if (vMergeVal !== undefined && vMergeVal !== 0 && !isRestart) {
+        // vMerge: incluir si no tiene atributo, si es "restart", o si es "0"
+        // Excluir solo si tiene un valor definido que NO es "restart" ni "0"
+        const esContinuation =
+          vMergeVal !== undefined &&
+          vMergeVal !== "restart" &&
+          vMergeVal !== "0";
+
+        if (esContinuation) {
           // Celda de continuación: ocupa espacio visual pero no tiene contenido propio
           gridCursor += colSpan;
           continue;

@@ -45,14 +45,19 @@ function valorEntreSecciones(
   const norm = normalizar(etiqueta);
   for (let i = desde + 1; i < Math.min(hasta, filas.length); i++) {
     for (let c = 0; c < filas[i].length; c++) {
-      if (normalizar(filas[i][c]).startsWith(norm)) {
-        // Intentar siguiente celda primero
-        if (c + 1 < filas[i].length && filas[i][c + 1].trim()) {
-          return filas[i][c + 1].trim();
-        }
-        // Fallback: después del ":"
-        const match = filas[i][c].match(/^[^:]+:\s*(.+)$/);
-        if (match) return match[1].trim();
+      if (!normalizar(filas[i][c]).startsWith(norm)) continue;
+
+      const celda = filas[i][c] ?? "";
+
+      // Primero: valor después de ":" en la misma celda (ej: "DOCENTE: María")
+      const matchInline = celda.match(/^[^:]+:\s*(.+)$/);
+      if (matchInline?.[1]?.trim()) {
+        return matchInline[1].trim();
+      }
+
+      // Segundo: valor en la celda siguiente (ej: "DOCENTE:" | "María")
+      if (c + 1 < filas[i].length && filas[i][c + 1].trim()) {
+        return filas[i][c + 1].trim();
       }
     }
   }
@@ -140,7 +145,13 @@ export function mapearCamposPca(doc: DocumentoParseado): PcaCamposExtraidos {
       ? idxInserciones
       : (idxUnidades !== -1 ? idxUnidades : limiteContenido);
 
-    // Buscar fila de etiquetas "Objetivos del área | Objetivos del grado"
+    // Paso 1: localizar la fila de etiquetas "OBJETIVOS DEL ÁREA" / "OBJETIVOS DEL GRADO"
+    // dentro de la sección de objetivos generales (no confundir con "OBJETIVOS ESPECÍFICOS"
+    // que aparece en la tabla de unidades).
+    let idxEtiquetas = -1;
+    let foundArea = false;
+    let foundGrado = false;
+
     for (let i = idxObjetivos + 1; i < Math.min(limiteObjetivos, filas.length); i++) {
       const fila = filas[i];
       const textos = fila.map((c) => normalizar(c));
@@ -149,23 +160,29 @@ export function mapearCamposPca(doc: DocumentoParseado): PcaCamposExtraidos {
       const tieneGrado = textos.some((t) => /OBJETIVOS?\s+DEL?\s+(GRADO|CURSO)/.test(t));
 
       if (tieneArea || tieneGrado) {
-        // Esta fila tiene las etiquetas; la siguiente fila tiene el contenido
-        if (i + 1 < limiteObjetivos) {
-          const filaContenido = filas[i + 1];
-          if (tieneArea) {
-            objetivosArea = filaContenido[0]?.trim() || undefined;
-          }
-          if (tieneGrado) {
-            objetivosGrado = filaContenido[filaContenido.length > 1 ? 1 : 0]?.trim() || undefined;
-          }
-        }
+        idxEtiquetas = i;
+        foundArea = tieneArea;
+        foundGrado = tieneGrado;
         break;
+      }
+
+      // Si encontramos otro encabezado de sección, detener la búsqueda
+      if (/^\d+\.\s+/.test(textos.join(" "))) break;
+    }
+
+    // Paso 2: extraer contenido de la fila siguiente a las etiquetas
+    if (idxEtiquetas !== -1 && idxEtiquetas + 1 < limiteObjetivos) {
+      const filaContenido = filas[idxEtiquetas + 1];
+      if (foundArea) {
+        objetivosArea = filaContenido[0]?.trim() || undefined;
+      }
+      if (foundGrado) {
+        objetivosGrado = filaContenido[filaContenido.length > 1 ? 1 : 0]?.trim() || undefined;
       }
     }
 
     // Fallback: si no se encontraron las etiquetas explícitas,
     // buscar contenido directamente después del encabezado de objetivos.
-    // Saltar filas que parezcan etiquetas o encabezados de sección.
     if (!objetivosArea && !objetivosGrado) {
       for (let i = idxObjetivos + 1; i < Math.min(limiteObjetivos, filas.length); i++) {
         const fila = filas[i];

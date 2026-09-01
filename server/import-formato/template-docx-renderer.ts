@@ -39,11 +39,10 @@ function buscarNodos(arbol: XmlNode[], tag: string): XmlNode[] {
   return encontrados;
 }
 
-function extraerAtributo(nodo: XmlNode, attr: string): number | undefined {
+function extraerAtributo(nodo: XmlNode, attr: string): string | undefined {
   const attrs = nodo[":@"];
   if (!attrs) return undefined;
-  const val = attrs[`@_w:${attr}`] ?? attrs[`@_${attr}`];
-  return val !== undefined ? parseInt(String(val), 10) : undefined;
+  return attrs[`@_w:${attr}`] ?? attrs[`@_${attr}`];
 }
 
 /**
@@ -70,13 +69,10 @@ function hijosDirectos(nodo: XmlNode, tag: string): XmlNode[] {
 function celdasSinVMerge(fila: XmlNode): XmlNode[] {
   return hijosDirectos(fila, "w:tc").filter((celda) => {
     const vMergeVal = extraerAtributo(celda, "vMerge");
-    // Incluir si no tiene vMerge, o si es restart, o si val es 0
+    // Incluir si no tiene vMerge, si es "restart", o si es "0"
     if (vMergeVal === undefined) return true;
-    if (vMergeVal === 0) return true;
-    // Si tiene val="restart" incluir
-    const attrs = celda[":@"] || {};
-    const valAttr = attrs["@_w:val"];
-    if (valAttr === "restart") return true;
+    if (vMergeVal === "restart") return true;
+    if (vMergeVal === "0") return true;
     // vMerge continuation: excluir
     return false;
   });
