@@ -150,10 +150,13 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
         (existenteRow ? JSON.parse(existenteRow.formData).grado : "") ||
         "",
 
-      anioLectivo:
-        campos.anioLectivo ||
-        (existenteRow ? JSON.parse(existenteRow.formData).anioLectivo : "") ||
-        "",
+      anioLectivo: (() => {
+        const valor =
+          campos.anioLectivo ||
+          (existenteRow ? JSON.parse(existenteRow.formData).anioLectivo : "") ||
+          "";
+          return valor ? `AÑO LECTIVO\n${valor}` : "";
+      })(),
 
       paralelo:
         campos.paralelo ||
