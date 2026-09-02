@@ -381,7 +381,6 @@ function crearRunConImagen(
                   {
                     ":@": { "@_xmlns:a": NS_A },
                     "a:graphicData": [
-                      { ":@": { "@_uri": NS_PIC } },
                       {
                         "pic:pic": [
                           {
@@ -433,6 +432,7 @@ function crearRunConImagen(
                             ":@": { "@_bwMode": "auto" },
                           },
                         ],
+                        ":@": { "@_uri": NS_PIC },
                       },
                     ],
                   },
