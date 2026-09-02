@@ -549,9 +549,41 @@ function renderizarCampos(
   bindings: FieldBinding[],
   datos: Record<string, any>
 ): void {
+  const gradoBinding = bindings.find((b) => b.campo === "grado");
+
   for (const binding of bindings) {
     const valor = datos[binding.campo];
     if (valor === undefined || valor === null) continue;
+
+    if (binding.campo === "paralelo" && gradoBinding) {
+      const gLoc = gradoBinding.ubicacion as DocxCellLocation;
+      if (gLoc.tipo !== "docx-cell") continue;
+      const gTabla = tablas[gLoc.tabla];
+      if (!gTabla) continue;
+      const gFilas = hijosDirectos(gTabla, "w:tr");
+      const gFila = gFilas[gLoc.fila];
+      if (!gFila) continue;
+      const gCeldas = celdasSinVMerge(gFila);
+      const gCelda = gCeldas[gLoc.columna];
+      if (!gCelda) continue;
+      const cellKey = Object.keys(gCelda).find((k) => k !== ":@");
+      if (cellKey && cellKey === "w:tc") {
+        const textosActuales = buscarNodos(gCelda[cellKey] ?? [], "w:t");
+        let textoActual = "";
+        for (const nodo of textosActuales) {
+          const nk = Object.keys(nodo).find((k) => k !== ":@");
+          if (nk === "w:t") {
+            textoActual += Array.isArray(nodo["w:t"])
+              ? (nodo["w:t"][0]?.["#text"] ?? "")
+              : (nodo["#text"] ?? "");
+          }
+        }
+        const base = textoActual.trim() || valorParaDocx(datos["grado"] ?? "");
+        const textoParalelo = valorParaDocx(valor);
+        reemplazarTextoEnCelda(gCelda, `${base} — Paralelo: ${textoParalelo}`);
+      }
+      continue;
+    }
 
     const loc = binding.ubicacion as DocxCellLocation;
     if (loc.tipo !== "docx-cell") continue;
