@@ -80,6 +80,67 @@ function extraerContenidoSeccion(filas: FilaTabla[], desde: number, hasta: numbe
 }
 
 /**
+ * Normaliza la capitalización de inserciones curriculares:
+ * - Mayúscula inicial en cada oración
+ * - Nombres propios de metodologías mantienen sus mayúsculas
+ * - Lista separada por comas o saltos de línea
+ */
+function normalizarCapitalizacionInserciones(texto: string): string {
+  if (!texto) return texto;
+  const NOMBRES_PROPIOS = [
+    "APRENDIZAJE CONTEXTUALIZADO",
+    "APRENDIZAJE BASADO EN PROYECTOS",
+    "APRENDIZAJE POR INDAGACIÓN",
+    "APRENDIZAJE POR DESCUBRIMIENTO",
+    "APRENDIZAJE COOPERATIVO",
+    "APRENDIZAJE EXPERIENCIAL",
+    "APRENDIZAJE SERVICIO",
+    "APRENDIZAJE SIGNIFICATIVO",
+    "APRENDIZAJE AUTÓNOMO",
+    "APRENDIZAJE COLABORATIVO",
+    "PENSAMIENTO CRÍTICO",
+    "RESOLUCIÓN DE PROBLEMAS",
+    "CUESTIONARIO",
+    "RÚBRICA",
+    "PORTAFOLIO",
+    "OBSERVACIÓN",
+    "AUTOEVALUACIÓN",
+    "COEVALUACIÓN",
+    "HETEROEVALUACIÓN",
+  ];
+  const lineas = texto.split(/\n/);
+  return lineas
+    .map((linea) => {
+      const trimmed = linea.trim();
+      if (!trimmed) return trimmed;
+      const upper = trimmed.toUpperCase();
+      for (const nombre of NOMBRES_PROPIOS) {
+        if (upper.includes(nombre)) {
+          return trimmed
+            .split(",")
+            .map((p) => p.trim())
+            .map((p) => {
+              const pUp = p.toUpperCase();
+              for (const n of NOMBRES_PROPIOS) {
+                if (pUp.includes(n)) return p;
+              }
+              if (p.length > 0) {
+                return p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+              }
+              return p;
+            })
+            .join(", ");
+        }
+      }
+      if (trimmed.length > 0) {
+        return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+      }
+      return trimmed;
+    })
+    .join("\n");
+}
+
+/**
  * Mapea la estructura de tablas extraída de un `.docx` reconocido como PCA a
  * `PcaCamposExtraidos`. Usa delimitación por secciones para evitar que el
  * contenido de una sección se mezcle con la siguiente.
@@ -118,6 +179,7 @@ export function mapearCamposPca(doc: DocumentoParseado): PcaCamposExtraidos {
   const docente = valorEntreSecciones(filas, -1, limiteContenido, "DOCENTE");
   const area = valorEntreSecciones(filas, -1, limiteContenido, "AREA:")
     ?? valorEntreSecciones(filas, -1, limiteContenido, "ÁREA:");
+  const asignatura = valorEntreSecciones(filas, -1, limiteContenido, "ASIGNATURA");
   const grado = valorEntreSecciones(filas, -1, limiteContenido, "GRADO/CURSO")
     ?? valorEntreSecciones(filas, -1, limiteContenido, "GRADO");
   const nivelEducativo = valorEntreSecciones(filas, -1, limiteContenido, "NIVEL EDUCATIVO");
@@ -218,7 +280,8 @@ export function mapearCamposPca(doc: DocumentoParseado): PcaCamposExtraidos {
   let insercionesCurriculares: string | undefined;
   if (idxInserciones !== -1) {
     const limiteInserciones = idxUnidades !== -1 ? idxUnidades : limiteContenido;
-    insercionesCurriculares = extraerContenidoSeccion(filas, idxInserciones, limiteInserciones) || undefined;
+    const raw = extraerContenidoSeccion(filas, idxInserciones, limiteInserciones) || undefined;
+    insercionesCurriculares = raw ? normalizarCapitalizacionInserciones(raw) : undefined;
   }
 
   // ── Sección 6+7: Bibliografía y Observaciones ─────────────────────────
@@ -303,6 +366,7 @@ export function mapearCamposPca(doc: DocumentoParseado): PcaCamposExtraidos {
     institucion,
     docente,
     area,
+    asignatura: asignatura ?? area,
     grado,
     paralelo,
     anioLectivo,

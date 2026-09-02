@@ -278,6 +278,7 @@ export type PlantillaAnalisis = {
 // Mantener temporalmente hasta migrar PCA al nuevo contrato.
 
 export type PcaCamposExtraidos = CamposExtraidosBase & {
+  asignatura?: string;
   cargaHorariaSemanal?: number;
   semanasTrabajoTotal?: number;
   semanasEvaluacion?: number;

@@ -143,6 +143,10 @@ export const pcaHandler: ImportHandler<PcaCamposExtraidos, Awaited<ReturnType<ty
         "",
 
       area: areaCodigo,
+      asignatura:
+        campos.asignatura ||
+        (existenteRow ? JSON.parse(existenteRow.formData).asignatura : "") ||
+        "",
       subnivel,
 
       grado:

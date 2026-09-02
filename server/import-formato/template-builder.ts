@@ -192,6 +192,20 @@ export async function analizarEstructuraDocx(
       return { index: filaIdx, cells };
     });
 
+    // ── Validación de columnas fantasma ────────────────────────────────────
+    // Si maxGridCols difiere significativamente del conteo de celdas más
+    // frecuente, ajustar para evitar columnas fantasma por gridSpan irregular.
+    const conteosFila = rows.map((r) => {
+      let total = 0;
+      for (const c of r.cells) total += c.colSpan;
+      return total;
+    });
+    const conteosUnicos = [...new Set(conteosFila)].sort((a, b) => b - a);
+    const conteoMasComun = conteosUnicos[0] ?? maxGridCols;
+    if (maxGridCols > conteoMasComun * 1.5 && conteoMasComun > 0) {
+      maxGridCols = conteoMasComun;
+    }
+
     return {
       index: tablaIdx,
       filas: rows.length,
