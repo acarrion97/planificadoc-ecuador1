@@ -486,4 +486,79 @@ export const curriculoCompetenciasRouter = router({
 
       return { success: true };
     }),
+
+  // ── EXPORT WORD ─────────────────────────────────────────────────
+  exportWord: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .limit(1);
+
+      if (rows.length === 0) {
+        throw new Error("Planificación no encontrada");
+      }
+
+      const row = rows[0];
+      const data = JSON.parse(row.formData as string);
+
+      let blob: Blob;
+      if (row.tipo === "inicial_preparatoria") {
+        const { generarCurriculoCompetenciasWordInicial } = await import(
+          "../lib/curriculo-competencias-inicial-word-generator"
+        );
+        blob = await generarCurriculoCompetenciasWordInicial(data);
+      } else {
+        const { generarCurriculoCompetenciasWordEGBBGU } = await import(
+          "../lib/curriculo-competencias-word-generator"
+        );
+        blob = await generarCurriculoCompetenciasWordEGBBGU(data);
+      }
+
+      const buffer = await blob.arrayBuffer();
+      const base64 = Buffer.from(buffer).toString("base64");
+
+      return {
+        base64,
+        filename: `planificacion-curriculo-competencias-${row.id}.docx`,
+        mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      };
+    }),
+
+  // ── EXPORT PDF ──────────────────────────────────────────────────
+  exportPdf: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .limit(1);
+
+      if (rows.length === 0) {
+        throw new Error("Planificación no encontrada");
+      }
+
+      const row = rows[0];
+      const data = JSON.parse(row.formData as string);
+
+      const { generarCurriculoCompetenciasPdf } = await import(
+        "../lib/curriculo-competencias-pdf-generator"
+      );
+
+      const html = generarCurriculoCompetenciasPdf(data);
+
+      return {
+        html,
+        filename: `planificacion-curriculo-competencias-${row.id}.pdf`,
+      };
+    }),
 });

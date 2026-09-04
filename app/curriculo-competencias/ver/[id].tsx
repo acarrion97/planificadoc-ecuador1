@@ -42,6 +42,32 @@ export default function VerPlanificacionScreen() {
     },
   });
 
+  const exportWordMutation = trpc.curriculoCompetencias.exportWord.useMutation({
+    onSuccess: (data) => {
+      const binary = atob(data.base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const blob = new Blob([bytes], { type: data.mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = data.filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    },
+  });
+
+  const exportPdfMutation = trpc.curriculoCompetencias.exportPdf.useMutation({
+    onSuccess: (data) => {
+      const win = window.open("", "_blank");
+      if (win) {
+        win.document.write(data.html);
+        win.document.close();
+        setTimeout(() => win.print(), 300);
+      }
+    },
+  });
+
   const handleDelete = () => {
     if (Platform.OS === "web") {
       if (confirm("¿Eliminar esta planificación?")) {
@@ -225,9 +251,31 @@ export default function VerPlanificacionScreen() {
             <Text style={{ color: "#fff", fontWeight: "700" }}>Editar</Text>
           </Pressable>
           <Pressable
+            onPress={() => exportWordMutation.mutate({ id: planId })}
+            disabled={exportWordMutation.isPending}
+            style={[styles.navBtn, { backgroundColor: "#2563EB" }]}
+          >
+            {exportWordMutation.isPending ? (
+              <ActivityIndicator color="#fff" size="small" />
+            ) : (
+              <Text style={{ color: "#fff", fontWeight: "600" }}>Word</Text>
+            )}
+          </Pressable>
+          <Pressable
+            onPress={() => exportPdfMutation.mutate({ id: planId })}
+            disabled={exportPdfMutation.isPending}
+            style={[styles.navBtn, { backgroundColor: "#DC2626" }]}
+          >
+            {exportPdfMutation.isPending ? (
+              <ActivityIndicator color="#fff" size="small" />
+            ) : (
+              <Text style={{ color: "#fff", fontWeight: "600" }}>PDF</Text>
+            )}
+          </Pressable>
+          <Pressable
             onPress={handleDelete}
             disabled={deleteMutation.isPending}
-            style={[styles.navBtn, { backgroundColor: "#DC2626" }]}
+            style={[styles.navBtn, { backgroundColor: "#6B7280" }]}
           >
             {deleteMutation.isPending ? (
               <ActivityIndicator color="#fff" size="small" />
