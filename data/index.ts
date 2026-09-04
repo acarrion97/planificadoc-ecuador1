@@ -192,3 +192,61 @@ export function resolverDcdConIndicador(
   if (!indicador) return null;
   return { dcd, indicador };
 }
+
+// ============================================================
+// CURRÍCULO POR COMPETENCIAS — PLAN PILOTO
+// ============================================================
+
+export {
+  COMPETENCIAS_TRANSVERSALES,
+  obtenerCompetenciasActivas,
+  buscarCompetenciaPorCodigo,
+  buscarCompetenciaPorId,
+  codigosCompetenciasActivas,
+} from "./competencias-transversales";
+export type {
+  CompetenciaTransversalCode,
+  CompetenciaTransversalInfo,
+} from "./competencias-transversales";
+
+export {
+  ESTRATEGIAS_MODOLOGICAS,
+  estrategiasPorFamilia,
+  buscarEstrategiaPorId,
+  estrategiaDefault,
+} from "./estrategias-metodologicas";
+export type {
+  EstrategiaMetodologica,
+  FaseEstrategia,
+  EstrategiaFamily,
+} from "./estrategias-metodologicas";
+
+export {
+  AMBITOS_DESARROLLO_INICIAL,
+  obtenerAmbitosActivos,
+  buscarAmbitoPorId,
+} from "./ambitos-desarrollo-inicial";
+export type { AmbitoDesarrolloInfo } from "./ambitos-desarrollo-inicial";
+
+export type {
+  SourceTraceability,
+  DcdSeleccionada,
+  IndicadorSeleccionado,
+  UnidadAiResult,
+  UnidadCurriculoCompetencias,
+  ActividadDidactica,
+  FaseEstrategiaPlan,
+  EstructuraDidactica,
+  ProyectoInterdisciplinar,
+  AdaptacionNEE,
+  ActividadAcompaniamiento,
+  PlanificacionCurriculoCompetencias,
+  ActividadInicial,
+  ClaseInicialCurriculo,
+  AmbitoDesarrollo,
+  FirmasInicial,
+  PlanificacionInicialCurriculo,
+  PlanificacionModulo,
+  UnidadModulo,
+  ExportStrategy,
+} from "./types-curriculo-competencias";
