@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -10,7 +10,7 @@ import {
   Alert,
   Platform,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
@@ -72,7 +72,10 @@ const AMBITO_VACIO: AmbitoForm = {
 export default function InicialFormScreen() {
   const colors = useColors();
   const router = useRouter();
+  const { id } = useLocalSearchParams<{ id?: string }>();
+  const isEdit = !!id;
   const [paso, setPaso] = useState<PasoFlujo>("datos");
+  const [cargando, setCargando] = useState(isEdit);
 
   // ── Estado del formulario ──
   const [grado, setGrado] = useState("Inicial 4 años");
@@ -83,6 +86,43 @@ export default function InicialFormScreen() {
   const [ambitos, setAmbitos] = useState<AmbitoForm[]>([{ ...AMBITO_VACIO }]);
   const [metodoEvaluacionGeneral, setMetodoEvaluacionGeneral] = useState("");
 
+  // ── Cargar datos existentes (modo edición) ──
+  const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
+    { id: Number(id) },
+    { enabled: isEdit }
+  );
+
+  useEffect(() => {
+    if (planExistente?.formData) {
+      const fd = planExistente.formData as any;
+      setGrado(fd.grado || "Inicial 4 años");
+      setInstitucion(fd.institucion || "");
+      setDocente(fd.docente || "");
+      setDuracion(fd.duracion || "2026-2027");
+      setObjetivoGeneral(fd.objetivoGeneral || "");
+      if (fd.ambitos && fd.ambitos.length > 0) {
+        setAmbitos(fd.ambitos.map((a: any) => ({
+          ambitoId: AMBITOS.find(am => am.nombre === a.ambito)?.id || "",
+          competenciaCodigo: a.competenciaCodigo || "",
+          competenciaDescripcion: a.competenciaDescripcion || "",
+          competencias: a.competenciasTransversales || ["C"],
+          destrezas: a.destrezas?.length > 0 ? a.destrezas : [""],
+          clases: a.clases?.length > 0 ? a.clases.map((c: any) => ({
+            numero: c.numero || 1,
+            tema: c.tema || "",
+            objetivoEspecifico: c.objetivoEspecifico || "",
+            metodologia: c.metodologia || "",
+            inicio: c.inicio?.[0]?.texto || "",
+            desarrollo: c.desarrollo?.[0]?.texto || "",
+            cierre: c.cierre?.[0]?.texto || "",
+            metodoEvaluacion: (c.metodoEvaluacion || []).join(", "),
+          })) : [{ ...CLASE_VACIA }],
+        })));
+      }
+      setCargando(false);
+    }
+  }, [planExistente]);
+
   // ── Mutations ──
   const utils = trpc.useContext();
   const createMutation = trpc.curriculoCompetencias.createInicial.useMutation({
@@ -91,6 +131,25 @@ export default function InicialFormScreen() {
         alert("Planificación creada correctamente");
       } else {
         Alert.alert("Éxito", "Planificación creada correctamente");
+      }
+      utils.curriculoCompetencias.list.invalidate();
+      router.back();
+    },
+    onError: (error) => {
+      if (Platform.OS === "web") {
+        alert(`Error: ${error.message}`);
+      } else {
+        Alert.alert("Error", error.message);
+      }
+    },
+  });
+
+  const updateMutation = trpc.curriculoCompetencias.updateInicial.useMutation({
+    onSuccess: () => {
+      if (Platform.OS === "web") {
+        alert("Planificación actualizada correctamente");
+      } else {
+        Alert.alert("Éxito", "Planificación actualizada correctamente");
       }
       utils.curriculoCompetencias.list.invalidate();
       router.back();
@@ -254,7 +313,7 @@ export default function InicialFormScreen() {
         };
       });
 
-    createMutation.mutate({
+    const payload = {
       sessionId: "default",
       grado,
       institucion,
@@ -262,7 +321,13 @@ export default function InicialFormScreen() {
       duracion,
       objetivoGeneral,
       ambitos: ambitosPayload,
-    });
+    };
+
+    if (isEdit) {
+      updateMutation.mutate({ ...payload, id: Number(id) });
+    } else {
+      createMutation.mutate(payload);
+    }
   };
 
   const canAdvance = () => {
@@ -750,13 +815,26 @@ export default function InicialFormScreen() {
     }
   };
 
+  if (cargando) {
+    return (
+      <ScreenContainer className="flex-1">
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <ActivityIndicator color={colors.primary} />
+          <Text style={{ color: colors.muted, marginTop: 8 }}>Cargando planificación...</Text>
+        </View>
+      </ScreenContainer>
+    );
+  }
+
+  const isPending = createMutation.isPending || updateMutation.isPending;
+
   return (
     <ScreenContainer className="flex-1">
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         {/* ── Header ── */}
         <View className="px-5 pt-4 pb-2">
           <Text className="text-2xl font-bold text-foreground">
-            Planificación Inicial / Preparatoria
+            {isEdit ? "Editar Planificación" : "Planificación Inicial / Preparatoria"}
           </Text>
         </View>
 
@@ -841,13 +919,13 @@ export default function InicialFormScreen() {
           ) : (
             <Pressable
               onPress={handleSave}
-              disabled={createMutation.isPending}
+              disabled={isPending}
               style={[styles.navBtn, { backgroundColor: colors.success }]}
             >
-              {createMutation.isPending ? (
+              {isPending ? (
                 <ActivityIndicator color="#fff" size="small" />
               ) : (
-                <Text style={{ color: "#fff", fontWeight: "700" }}>Guardar</Text>
+                <Text style={{ color: "#fff", fontWeight: "700" }}>{isEdit ? "Guardar Cambios" : "Guardar"}</Text>
               )}
             </Pressable>
           )}

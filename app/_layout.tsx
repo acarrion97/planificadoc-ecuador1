@@ -88,6 +88,7 @@ function AppContent() {
             <Stack.Screen name="curriculo-competencias/nuevo" options={{ presentation: "card" }} />
             <Stack.Screen name="curriculo-competencias/egb-bgu" options={{ presentation: "card" }} />
             <Stack.Screen name="curriculo-competencias/inicial" options={{ presentation: "card" }} />
+            <Stack.Screen name="curriculo-competencias/ver/[id]" options={{ presentation: "card" }} />
             <Stack.Screen name="oauth/callback" />
           </Stack>
           </EvaluacionesProvider>
