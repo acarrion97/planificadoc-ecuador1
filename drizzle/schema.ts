@@ -422,3 +422,60 @@ export const paymentAttribution = mysqlTable("payment_attribution", {
   sent:        boolean("sent").notNull().default(false),
   createdAt:   timestamp("created_at").defaultNow(),
 });
+
+// ============================================================
+// CURRÍCULO POR COMPETENCIAS — PLAN PILOTO
+// ============================================================
+
+/**
+ * Planificaciones del módulo Currículo por Competencias.
+ * Almacena tanto EGB/BGU como Inicial/Preparatoria en una tabla unificada.
+ * Los campos clave están indexados para búsquedas frecuentes;
+ * el modelo completo se persiste en `formData` (JSON).
+ */
+export const curriculoCompetenciasPlanificaciones = mysqlTable(
+  "curriculo_competencias_planificaciones",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    sessionId: varchar("session_id", { length: 64 }).notNull(),
+    tipo: mysqlEnum("tipo", ["egb_bgu", "inicial_preparatoria"]).notNull(),
+
+    // ── Campos indexados para consultas frecuentes ──
+    grado: varchar("grado", { length: 32 }),
+    institucion: varchar("institucion", { length: 128 }),
+    docente: varchar("docente", { length: 128 }),
+    paralelo: varchar("paralelo", { length: 16 }),
+
+    // ── EGB/BGU específicos (nullable para Inicial) ──
+    asignatura: varchar("asignatura", { length: 64 }),
+    nivel: mysqlEnum("nivel", ["EGB", "BGU"]),
+    periodoPedagogico: varchar("periodo_pedagogico", { length: 64 }),
+    trimestre: varchar("trimestre", { length: 32 }),
+    dcdCodigo: varchar("dcd_codigo", { length: 32 }),
+    competencias: text("competencias"), // JSON array de códigos
+
+    // ── Estado y metadatos ──
+    status: mysqlEnum("status", ["draft", "generated", "paid"])
+      .default("draft")
+      .notNull(),
+
+    // ── Datos completos (JSON) ──
+    formData: text("form_data").notNull(),
+    aiResult: text("ai_result"),
+    sourceTraceability: text("source_traceability"), // JSON SourceTraceability
+
+    // ── Timestamps ──
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+  },
+  (t) => [
+    // Índices para búsquedas frecuentes
+    // Nota: MySQL 5.7+ crea índices implícitos para UNIQUE; 
+    // aquí solo definimos los que necesitamos explícitamente
+  ]
+);
+
+export type CurriculoCompetenciasRow =
+  typeof curriculoCompetenciasPlanificaciones.$inferSelect;
+export type InsertCurriculoCompetencias =
+  typeof curriculoCompetenciasPlanificaciones.$inferInsert;
