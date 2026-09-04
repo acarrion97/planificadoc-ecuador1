@@ -84,6 +84,9 @@ function AppContent() {
             <Stack.Screen name="conecta-nivela-crea/index" options={{ presentation: "card" }} />
             <Stack.Screen name="evaluacion-diagnostica/index" options={{ presentation: "card" }} />
             <Stack.Screen name="ver-evaluacion/[id]" options={{ presentation: "card" }} />
+            <Stack.Screen name="curriculo-competencias/index" options={{ presentation: "card" }} />
+            <Stack.Screen name="curriculo-competencias/nuevo" options={{ presentation: "card" }} />
+            <Stack.Screen name="curriculo-competencias/egb-bgu" options={{ presentation: "card" }} />
             <Stack.Screen name="oauth/callback" />
           </Stack>
           </EvaluacionesProvider>

@@ -89,6 +89,24 @@ export default function PlanesScreen() {
           </Pressable>
         </View>
 
+        {/* ── Botón Currículo por Competencias ── */}
+        <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
+          <Pressable
+            onPress={() => router.push("/curriculo-competencias" as any)}
+            style={({ pressed }) => [
+              styles.btnSemanal,
+              { backgroundColor: "#7C3AED", opacity: pressed ? 0.85 : 1 },
+            ]}
+          >
+            <Text style={{ fontSize: 22 }}>🎯</Text>
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <Text style={styles.btnSemanalTitle}>Currículo por Competencias</Text>
+              <Text style={styles.btnSemanalSub}>Plan Piloto · EGB/BGU e Inicial</Text>
+            </View>
+            <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
+          </Pressable>
+        </View>
+
         <PlanesBTSection />
         <PlanesCNCSection />
         <PlanesEvaluacionSection />
