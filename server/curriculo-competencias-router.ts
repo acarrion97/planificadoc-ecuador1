@@ -229,6 +229,41 @@ function ensureTable(db: Awaited<ReturnType<typeof getDb>>): asserts db is NonNu
   if (!db) throw new Error("Base de datos no disponible");
 }
 
+async function ensureCurriculoCompetenciasTable(): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  try {
+    await (db as any).execute(`
+      CREATE TABLE IF NOT EXISTS \`curriculo_competencias_planificaciones\` (
+        \`id\` int NOT NULL AUTO_INCREMENT,
+        \`session_id\` varchar(64) NOT NULL,
+        \`tipo\` enum('egb_bgu','inicial_preparatoria') NOT NULL,
+        \`grado\` varchar(32),
+        \`institucion\` varchar(128),
+        \`docente\` varchar(128),
+        \`paralelo\` varchar(16),
+        \`asignatura\` varchar(64),
+        \`nivel\` enum('EGB','BGU'),
+        \`periodo_pedagogico\` varchar(64),
+        \`trimestre\` varchar(32),
+        \`dcd_codigo\` varchar(32),
+        \`competencias\` text,
+        \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
+        \`form_data\` text NOT NULL,
+        \`ai_result\` text,
+        \`source_traceability\` text,
+        \`created_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        \`updated_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (\`id\`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+  } catch (err: any) {
+    if (!err?.message?.includes("already exists")) {
+      console.warn("[DB] ensureCurriculoCompetenciasTable warning:", err?.message);
+    }
+  }
+}
+
 // ============================================================
 // ROUTER
 // ============================================================
@@ -238,6 +273,7 @@ export const curriculoCompetenciasRouter = router({
   createEGBBGU: publicProcedure
     .input(PlanificacionEGBBGUInput)
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -277,6 +313,7 @@ export const curriculoCompetenciasRouter = router({
   createInicial: publicProcedure
     .input(PlanificacionInicialInput)
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -388,6 +425,7 @@ export const curriculoCompetenciasRouter = router({
   updateEGBBGU: publicProcedure
     .input(PlanificacionEGBBGUInput.extend({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -424,6 +462,7 @@ export const curriculoCompetenciasRouter = router({
   updateInicial: publicProcedure
     .input(PlanificacionInicialInput.extend({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -458,6 +497,7 @@ export const curriculoCompetenciasRouter = router({
       })
     )
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -475,6 +515,7 @@ export const curriculoCompetenciasRouter = router({
   delete: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -491,6 +532,7 @@ export const curriculoCompetenciasRouter = router({
   exportWord: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -534,6 +576,7 @@ export const curriculoCompetenciasRouter = router({
   exportPdf: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
