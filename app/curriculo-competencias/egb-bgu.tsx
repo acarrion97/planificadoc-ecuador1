@@ -255,6 +255,9 @@ export default function EGBBGUFormScreen() {
   const [instrumentoEvaluacion, setInstrumentoEvaluacion] = useState("");
   const [actividadesEvaluacion, setActividadesEvaluacion] = useState("");
 
+  // IA
+  const [sugerirIALoading, setSugerirIALoading] = useState(false);
+
   // ── Cargar datos existentes (modo edición) ──
   const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
     { id: Number(id) },
@@ -311,6 +314,33 @@ export default function EGBBGUFormScreen() {
       Alert.alert("Error", "No se pudo actualizar la planificación. Verifica los datos e intenta de nuevo.");
     },
   });
+
+  const sugerirIAMutation = trpc.curriculoCompetencias.sugerirPlanificacion.useMutation({
+    onSuccess: (data) => {
+      if (data.objetivoAprendizaje && !objetivoAprendizaje) setObjetivoAprendizaje(data.objetivoAprendizaje);
+      if (data.indicadorEvaluacion && !indicadorEvaluacion) setIndicadorEvaluacion(data.indicadorEvaluacion);
+      if (data.actividadesEvaluacion && !actividadesEvaluacion) setActividadesEvaluacion(data.actividadesEvaluacion);
+      if (data.tecnicaEvaluacion && !tecnicaEvaluacion) setTecnicaEvaluacion(data.tecnicaEvaluacion);
+      if (data.instrumentoEvaluacion && !instrumentoEvaluacion) setInstrumentoEvaluacion(data.instrumentoEvaluacion);
+      if (data.recursos && !recursos) setRecursos(data.recursos);
+      Alert.alert("Sugerencias aplicadas", "Los campos vacíos han sido completados con sugerencias de IA. Revisa y edita según necesites.");
+    },
+    onError: () => {
+      Alert.alert("Error", "No se pudieron generar sugerencias. Intenta de nuevo.");
+    },
+  });
+
+  function handleSugerirIA() {
+    sugerirIAMutation.mutate({
+      areaCode: areaCode || undefined,
+      dcdCodigo: dcdCodigo || undefined,
+      dcdDescripcion: dcdDescripcion || undefined,
+      grado,
+      nivel,
+      estrategiaId,
+      campos: ["objetivoAprendizaje", "indicadorEvaluacion", "actividadesEvaluacion", "tecnicaEvaluacion", "instrumentoEvaluacion", "recursos"],
+    });
+  }
 
   // ── Selección de DCD ──
   function handleDcdSelect(destreza: Destreza) {
@@ -594,6 +624,29 @@ export default function EGBBGUFormScreen() {
   const renderEvaluacion = () => (
     <View>
       {renderSectionHeader("Evaluación", "✅")}
+
+      {/* Botón de sugerencia IA */}
+      <Pressable
+        onPress={handleSugerirIA}
+        disabled={sugerirIALoading || sugerirIAMutation.isPending}
+        style={[styles.infoBox, {
+          backgroundColor: sugerirIALoading ? colors.muted + "10" : "#7C3AED15",
+          borderColor: sugerirIALoading ? colors.border : "#7C3AED40",
+          opacity: sugerirIALoading ? 0.6 : 1,
+        }]}
+      >
+        {sugerirIALoading || sugerirIAMutation.isPending ? (
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            <ActivityIndicator color="#7C3AED" size="small" />
+            <Text style={{ color: "#7C3AED", fontSize: 13, fontWeight: "600" }}>Generando sugerencias...</Text>
+          </View>
+        ) : (
+          <Text style={{ color: "#7C3AED", fontSize: 13, fontWeight: "600" }}>
+            ✨ Sugerir campos con IA (rellena solo campos vacíos)
+          </Text>
+        )}
+      </Pressable>
+
       {renderField("Técnica de Evaluación", tecnicaEvaluacion, setTecnicaEvaluacion, { placeholder: "Ej: Observación directa" })}
       {renderField("Instrumento de Evaluación", instrumentoEvaluacion, setInstrumentoEvaluacion, { placeholder: "Ej: Rúbrica, lista de cotejo" })}
       {renderField("Actividades de Evaluación", actividadesEvaluacion, setActividadesEvaluacion, { placeholder: "Describa las actividades de evaluación", multiline: true })}

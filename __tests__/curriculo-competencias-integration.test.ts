@@ -873,3 +873,155 @@ describe("Hardening — Seguridad y validación", () => {
     });
   });
 });
+
+// ============================================================
+// 5. INTEGRACIÓN DE CATÁLOGOS
+// ============================================================
+
+import {
+  AREAS_INFO,
+  type Area,
+} from "../data/types";
+import {
+  filtrarPorAreaYSubnivel,
+  filtrarPorArea,
+  buscarDestrezas,
+  buscarPorCodigo,
+  TODAS_LAS_DESTREZAS,
+} from "../data";
+
+describe("Integración — Catálogos de Áreas y DCD", () => {
+  it("AREAS_INFO tiene áreas para EGB", () => {
+    const areasEGB: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
+    for (const area of areasEGB) {
+      expect(AREAS_INFO[area]).toBeDefined();
+      expect(AREAS_INFO[area].name).toBeTruthy();
+      expect(AREAS_INFO[area].color).toBeTruthy();
+      expect(AREAS_INFO[area].emoji).toBeTruthy();
+    }
+  });
+
+  it("AREAS_INFO tiene áreas para BGU", () => {
+    const areasBGU: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC"];
+    for (const area of areasBGU) {
+      expect(AREAS_INFO[area]).toBeDefined();
+      expect(AREAS_INFO[area].name).toBeTruthy();
+    }
+  });
+
+  it("filtrarPorAreaYSubnivel retorna destrezas del área y subnivel correctos", () => {
+    const matSub2 = filtrarPorAreaYSubnivel("M", 2);
+    expect(matSub2.length).toBeGreaterThan(0);
+    for (const d of matSub2) {
+      expect(d.area).toBe("M");
+      expect(d.subnivel).toBe(2);
+    }
+  });
+
+  it("filtrarPorArea retorna todas las destrezas de un área", () => {
+    const mat = filtrarPorArea("M");
+    expect(mat.length).toBeGreaterThan(10);
+    for (const d of mat) {
+      expect(d.area).toBe("M");
+    }
+  });
+
+  it("buscarDestrezas por código retorna resultados", () => {
+    const results = buscarDestrezas("M.2.1");
+    expect(results.length).toBeGreaterThan(0);
+    expect(results[0].codigo).toContain("M.2.1");
+  });
+
+  it("buscarDestrezas por descripción retorna resultados", () => {
+    const results = buscarDestrezas("fracciones");
+    expect(results.length).toBeGreaterThan(0);
+  });
+
+  it("buscarDestrezas con query vacío retorna array vacío", () => {
+    expect(buscarDestrezas("")).toEqual([]);
+  });
+
+  it("buscarPorCodigo retorna destreza exacta", () => {
+    const d = buscarPorCodigo("M.2.1.1");
+    expect(d).toBeDefined();
+    expect(d!.area).toBe("M");
+    expect(d!.subnivel).toBe(2);
+    expect(d!.descripcion).toBeTruthy();
+  });
+
+  it("buscarPorCodigo con código inexistente retorna undefined", () => {
+    expect(buscarPorCodigo("XXX.9.9.9")).toBeUndefined();
+  });
+
+  it("TODAS_LAS_DESTREZAS tiene destrezas de todas las áreas EGB", () => {
+    const areas: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
+    for (const area of areas) {
+      const destrezas = TODAS_LAS_DESTREZAS.filter((d) => d.area === area);
+      expect(destrezas.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("Destreza tiene estructura completa (codigo, descripcion, objetivos, indicadores)", () => {
+    const d = buscarPorCodigo("M.2.1.1");
+    expect(d).toBeDefined();
+    expect(d!.codigo).toBeTruthy();
+    expect(d!.descripcion).toBeTruthy();
+    expect(Array.isArray(d!.objetivos)).toBe(true);
+    expect(Array.isArray(d!.indicadoresEvaluacion)).toBe(true);
+    expect(Array.isArray(d!.criteriosEvaluacion)).toBe(true);
+  });
+
+  it("Autocompletado: seleccionar DCD llena código y descripción", () => {
+    const d = buscarPorCodigo("M.2.1.1");
+    expect(d).toBeDefined();
+    // Simular lo que hace handleDcdSelect
+    const codigo = d!.codigo;
+    const descripcion = d!.descripcion;
+    expect(codigo).toBe("M.2.1.1");
+    expect(descripcion.length).toBeGreaterThan(5);
+  });
+
+  it("Autocompletado: indicador se sugiere si la DCD lo tiene", () => {
+    const d = buscarPorCodigo("M.2.1.1");
+    expect(d).toBeDefined();
+    if (d!.indicadoresEvaluacion.length > 0) {
+      expect(d!.indicadoresEvaluacion[0]).toBeTruthy();
+    }
+  });
+
+  it("Normalización preserva areaCode", () => {
+    const input = egbBguInput({ areaCode: "M", asignatura: "Matemáticas" });
+    const plan = normalizarPlanificacionEGBBGU(input);
+    expect(plan.areaCode).toBe("M");
+    expect(plan.asignatura).toBe("Matemáticas");
+  });
+
+  it("Normalización sin areaCode funciona correctamente", () => {
+    const input = egbBguInput({ areaCode: undefined });
+    const plan = normalizarPlanificacionEGBBGU(input);
+    expect(plan.areaCode).toBeUndefined();
+  });
+
+  it("Persistencia y recuperación preserva areaCode", async () => {
+    const input = egbBguInput({ areaCode: "CN" });
+    const { data } = await persistAndRetrieve(input, "egb_bgu");
+    expect(data.areaCode).toBe("CN");
+    expect(data.asignatura).toBe("Ciencias Naturales");
+  });
+
+  it("Exportación Word funciona con areaCode", async () => {
+    const input = egbBguInput({ areaCode: "M" });
+    const { data } = await persistAndRetrieve(input, "egb_bgu");
+    const blob = await generarCurriculoCompetenciasWordEGBBGU(data);
+    expect(blob).toBeInstanceOf(Blob);
+    expect(blob.size).toBeGreaterThan(0);
+  });
+
+  it("Exportación PDF funciona con areaCode", async () => {
+    const input = egbBguInput({ areaCode: "M", asignatura: "Matemática" });
+    const { data } = await persistAndRetrieve(input, "egb_bgu");
+    const html = generarCurriculoCompetenciasPdfEGBBGU(data);
+    expect(html).toContain("<!DOCTYPE html>");
+    expect(html).toContain("Matemática");
+  });
+});

@@ -561,4 +561,96 @@ export const curriculoCompetenciasRouter = router({
         filename: `planificacion-curriculo-competencias-${row.id}.pdf`,
       };
     }),
+
+  // ── SUGERENCIA IA ────────────────────────────────────────────
+  sugerirPlanificacion: publicProcedure
+    .input(
+      z.object({
+        areaCode: z.string().optional(),
+        dcdCodigo: z.string().optional(),
+        dcdDescripcion: z.string().optional(),
+        grado: z.string().optional(),
+        nivel: z.enum(["EGB", "BGU"]).optional(),
+        estrategiaId: z.string().optional(),
+        campos: z.array(z.enum(["objetivoAprendizaje", "indicadorEvaluacion", "actividadesEvaluacion", "tecnicaEvaluacion", "instrumentoEvaluacion", "recursos"])).min(1),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const camposSolicitud = input.campos.join(", ");
+
+      const prompt = `Eres un experto en el Currículo Priorizado por Competencias del Ministerio de Educación del Ecuador.
+
+CONTEXTO DE LA PLANIFICACIÓN:
+- Área: ${input.areaCode || "No especificada"}
+- Grado: ${input.grado || "No especificado"}
+- Nivel: ${input.nivel || "EGB"}
+- DCD: ${input.dcdCodigo || "No seleccionada"} — ${input.dcdDescripcion || ""}
+- Estrategia: ${input.estrategiaId || "ERCA"}
+
+SOLICITUD:
+Genera sugerencias para los siguientes campos: ${camposSolicitud}.
+
+REGLAS:
+- Las sugerencias deben ser coherentes con el área, grado y DCD indicados.
+- Usa terminología del Currículo Nacional Ecuador.
+- Para objetivoAprendizaje: inicia con verbo en infinitivo, relacionado con la DCD.
+- Para indicadorEvaluacion: describe observable medible del aprendizaje.
+- Para actividadesEvaluacion: describe actividad concreta de evaluación.
+- Para tecnicaEvaluacion: técnica apropiada para el área y grado.
+- Para instrumentoEvaluacion: instrumento compatible con la técnica.
+- Para recursos: recursos didácticos disponibles en contexto ecuatoriano.
+- NO inventes destrezas ni códigos curriculares.
+- Sé conciso: máximo 2-3 oraciones por campo.
+
+Responde ÚNICAMENTE con JSON válido:
+{
+  "objetivoAprendizaje": "string",
+  "indicadorEvaluacion": "string",
+  "actividadesEvaluacion": "string",
+  "tecnicaEvaluacion": "string",
+  "instrumentoEvaluacion": "string",
+  "recursos": "string"
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación microcurricular del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 800,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: Record<string, string>;
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      // Solo devolver los campos solicitados
+      const resultado: Record<string, string> = {};
+      for (const campo of input.campos) {
+        if (parsed[campo] && typeof parsed[campo] === "string") {
+          resultado[campo] = parsed[campo];
+        }
+      }
+
+      return resultado;
+    }),
 });
