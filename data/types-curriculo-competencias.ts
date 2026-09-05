@@ -175,6 +175,7 @@ export interface PlanificacionCurriculoCompetencias {
   docente: string;
   grado: string;
   asignatura: string;
+  areaCode?: string;
   periodoPedagogico: string;
   trimestre: string;
   nivel: "EGB" | "BGU";

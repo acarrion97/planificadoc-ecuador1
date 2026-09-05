@@ -79,6 +79,7 @@ export interface PlanificacionEGBBGURaw {
   docente?: string;
   grado?: string;
   asignatura?: string;
+  areaCode?: string;
   periodoPedagogico?: string;
   trimestre?: string;
   nivel?: "EGB" | "BGU";
@@ -394,6 +395,7 @@ export function normalizarPlanificacionEGBBGU(
     docente: limpiarTexto(raw.docente),
     grado: limpiarTexto(raw.grado),
     asignatura: limpiarTexto(raw.asignatura),
+    areaCode: raw.areaCode || undefined,
     periodoPedagogico: limpiarTexto(raw.periodoPedagogico),
     trimestre: limpiarTexto(raw.trimestre),
     nivel: raw.nivel ?? "EGB",

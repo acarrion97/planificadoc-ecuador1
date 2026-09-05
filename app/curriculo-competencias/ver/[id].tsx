@@ -235,7 +235,7 @@ export default function VerPlanificacionScreen() {
           <InfoRow label="Grado" value={formData?.grado} colors={colors} />
           {plan.tipo === "egb_bgu" && (
             <>
-              <InfoRow label="Asignatura" value={formData?.asignatura} colors={colors} />
+              <InfoRow label="Área" value={formData?.asignatura || formData?.areaCode} colors={colors} />
               <InfoRow label="Nivel" value={formData?.nivel} colors={colors} />
               <InfoRow label="Paralelo" value={formData?.paralelo} colors={colors} />
               <InfoRow label="Trimestre" value={formData?.trimestre} colors={colors} />
