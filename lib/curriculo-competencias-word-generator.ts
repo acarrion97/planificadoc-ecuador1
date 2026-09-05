@@ -2,13 +2,16 @@
  * Genera el documento Word (.docx) para Planificación Currículo por Competencias
  * Familia EGB/BGU — A4 LANDSCAPE
  *
- * Estructura:
- * 1. Encabezado (Institución / Año)
- * 2. Datos Informativos
- * 3. DCD y Competencias
- * 4. Estrategia Didáctica (fases con colores)
- * 5. Evaluación
- * 6. Firmas
+ * Estructura (según formato oficial MINEDUC):
+ * 1. Encabezado (Unidad Educativa / Año lectivo)
+ * 2. Título: Planificación microcurricular
+ * 3. Datos Informativos
+ * 4. Situación de aprendizaje (Título + Descripción)
+ * 5. Conexión interdisciplinar (Asignaturas)
+ * 6. Competencias específicas + Indicadores de evaluación (Saberes)
+ * 7. Estrategias metodológicas desde el DUA + Recursos
+ * 8. Técnicas e instrumentos de evaluación
+ * 9. Semanas 1-8 (inicio/desarrollo/cierre + Técnica + Instrumento)
  */
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
@@ -145,8 +148,8 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       [
         new TableRow({
           children: [
-            tc([p(plan.institucion || "INSTITUCIÓN", { bold: true, size: 10 })], TW * 0.6, { bg: COLOR_HEADER }),
-            tc([p(`Año Lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], TW * 0.4, { bg: COLOR_HEADER }),
+            tc([p(plan.institucion || "Unidad Educativa…", { bold: true, size: 10 })], TW * 0.6, { bg: COLOR_HEADER }),
+            tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], TW * 0.4, { bg: COLOR_HEADER }),
           ],
         }),
       ],
@@ -157,7 +160,18 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-  // ── 2. Datos Informativos ──
+  // ── 2. Título ──
+  children.push(
+    makeTable(
+      [new TableRow({ children: [tc([p("Planificación microcurricular", { bold: true, size: 12, align: "center" })], TW)] })],
+      TW,
+      [TW]
+    )
+  );
+
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  // ── 3. Datos Informativos ──
   children.push(makeTable([sectionRow("DATOS INFORMATIVOS")], TW, [TW]));
   children.push(
     makeTable(
@@ -166,16 +180,16 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
           children: [
             tc([p(`Docente: ${plan.docente || "—"}`, { size: 8 })], TW * 0.35),
             tc([p(`Asignatura: ${plan.asignatura || "—"}`, { size: 8 })], TW * 0.25),
-            tc([p(`Grado: ${plan.grado || "—"}`, { size: 8 })], TW * 0.15),
+            tc([p(`Grado/Curso: ${plan.grado || "—"}`, { size: 8 })], TW * 0.15),
             tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.1),
-            tc([p(`Nivel: ${plan.nivel || "—"}`, { size: 8 })], TW * 0.15),
+            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], TW * 0.15),
           ],
         }),
         new TableRow({
           children: [
-            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], TW * 0.35),
+            tc([p(`No. de semanas: ${plan.estructuraDidactica?.fases?.length || 8}`, { size: 8 })], TW * 0.5),
+            tc([p(`Nivel: ${plan.nivel || "—"}`, { size: 8 })], TW * 0.25),
             tc([p(`Fecha: ${plan.fecha || "—"}`, { size: 8 })], TW * 0.25),
-            tc([p(`Período: ${plan.periodoPedagogico || "—"}`, { size: 8 })], TW * 0.4),
           ],
         }),
       ],
@@ -186,14 +200,44 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-  // ── 3. DCD y Competencias ──
-  children.push(makeTable([sectionRow("APRENDIZAJE DISCIPLINAR — DCD Y COMPETENCIAS")], TW, [TW]));
+  // ── 4. Situación de aprendizaje ──
+  children.push(makeTable([sectionRow("SITUACIÓN DE APRENDIZAJE")], TW, [TW]));
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p("DCD:", { bold: true, size: 8 }), p(plan.destreza?.codigo || plan.indicadorEvaluacion || "—", { size: 8 })], TW * 0.3),
+            tc([p("Título:", { bold: true, size: 8 }), p(plan.objetivoAprendizaje || "—", { size: 8 })], TW * 0.3),
+            tc([p("Descripción:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 8 })], TW * 0.7),
+          ],
+        }),
+      ],
+      TW,
+      [TW * 0.3, TW * 0.7]
+    )
+  );
+
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  // ── 5. Conexión interdisciplinar ──
+  children.push(makeTable([sectionRow("CONEXIÓN INTERDISCIPLINAR")], TW, [TW]));
+  children.push(
+    makeTable(
+      [new TableRow({ children: [tc([p("Asignaturas:", { bold: true, size: 8 }), p(plan.asignatura || "—", { size: 8 })], TW)] })],
+      TW,
+      [TW]
+    )
+  );
+
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  // ── 6. Competencias específicas + Indicadores ──
+  children.push(makeTable([sectionRow("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN")], TW, [TW]));
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
             tc(
               [
                 p("Competencias:", { bold: true, size: 8 }),
@@ -204,25 +248,37 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
               ],
               TW * 0.3
             ),
-            tc([p("Descripción:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 8 })], TW * 0.4),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc([p("Indicador:", { bold: true, size: 8 }), p(plan.indicadorEvaluacion || "—", { size: 8 })], TW * 0.5),
-            tc([p("Objetivo:", { bold: true, size: 8 }), p(plan.objetivoAprendizaje || "—", { size: 8 })], TW * 0.5),
+            tc([p("Indicador:", { bold: true, size: 8 }), p(plan.indicadorEvaluacion || "—", { size: 8 })], TW * 0.7),
           ],
         }),
       ],
       TW,
-      [TW * 0.3, TW * 0.3, TW * 0.4]
+      [TW * 0.3, TW * 0.7]
+    )
+  );
+
+  // Saberes
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p("Saberes:", { bold: true, size: 8 })], TW * 0.2),
+            tc([p("Declarativos:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 7 })], TW * 0.27),
+            tc([p("Procedimentales:", { bold: true, size: 8 }), p(plan.actividadesEvaluacion || "—", { size: 7 })], TW * 0.27),
+            tc([p("Actitudinales:", { bold: true, size: 8 }), p(plan.tecnicaEvaluacion || "—", { size: 7 })], TW * 0.26),
+          ],
+        }),
+      ],
+      TW,
+      [TW * 0.2, TW * 0.27, TW * 0.27, TW * 0.26]
     )
   );
 
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-  // ── 4. Estrategia Didáctica ──
-  children.push(makeTable([sectionRow("ESTRATEGIA DIDÁCTICA")], TW, [TW]));
+  // ── 7. Estrategias metodológicas desde el DUA + Recursos ──
+  children.push(makeTable([sectionRow("ESTRATEGIAS METODOLÓGICAS DESDE EL DUA Y RECURSOS")], TW, [TW]));
   const fases = plan.estructuraDidactica?.fases || [];
   if (fases.length > 0) {
     const colW = Math.floor(TW / fases.length);
@@ -257,57 +313,93 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     );
   }
 
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  // ── 5. Evaluación ──
-  children.push(makeTable([sectionRow("EVALUACIÓN")], TW, [TW]));
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc([p("Técnica:", { bold: true, size: 8 }), p(plan.tecnicaEvaluacion || "—", { size: 8 })], TW * 0.35),
-            tc([p("Instrumento:", { bold: true, size: 8 }), p(plan.instrumentoEvaluacion || "—", { size: 8 })], TW * 0.35),
-            tc([p("Actividades:", { bold: true, size: 8 }), p(plan.actividadesEvaluacion || "—", { size: 8 })], TW * 0.3),
-          ],
-        }),
-      ],
-      TW,
-      [TW * 0.35, TW * 0.35, TW * 0.3]
-    )
-  );
-
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  // ── 6. Recursos ──
+  // Recursos
   if (plan.recursos) {
-    children.push(makeTable([sectionRow("RECURSOS")], TW, [TW]));
     children.push(
       makeTable(
-        [new TableRow({ children: [tc([p(plan.recursos, { size: 8 })], TW)] })],
+        [new TableRow({ children: [tc([p("Recursos:", { bold: true, size: 8 }), p(plan.recursos, { size: 8 })], TW)] })],
         TW,
         [TW]
       )
     );
-    children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
   }
 
-  // ── 7. Firmas ──
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  // ── 8. Técnicas e instrumentos de evaluación ──
+  children.push(makeTable([sectionRow("TÉCNICAS E INSTRUMENTOS DE EVALUACIÓN")], TW, [TW]));
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p("________________________", { size: 8 }), p("Docente", { size: 7, align: "center" })], TW * 0.33),
-            tc([p("________________________", { size: 8 }), p("Coordinador", { size: 7, align: "center" })], TW * 0.33),
-            tc([p("________________________", { size: 8 }), p("Director", { size: 7, align: "center" })], TW * 0.34),
+            tc([p("Técnica:", { bold: true, size: 8 }), p(plan.tecnicaEvaluacion || "—", { size: 8 })], TW * 0.5),
+            tc([p("Instrumento:", { bold: true, size: 8 }), p(plan.instrumentoEvaluacion || "—", { size: 8 })], TW * 0.5),
           ],
         }),
       ],
       TW,
-      [TW * 0.33, TW * 0.33, TW * 0.34]
+      [TW * 0.5, TW * 0.5]
     )
   );
+
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  // ── 9. Semanas 1-8 ──
+  children.push(makeTable([sectionRow("DESARROLLO DE LA EXPERIENCIA DE APRENDIZAJE")], TW, [TW]));
+  
+  // Generar 8 semanas
+  for (let semana = 1; semana <= 8; semana++) {
+    children.push(
+      makeTable(
+        [new TableRow({ children: [tc([p(`SEMANA ${semana}`, { bold: true, size: 9, color: COLOR_PRIMARY })], TW, { bg: COLOR_SECTION })] })],
+        TW,
+        [TW]
+      )
+    );
+
+    // Inicio, Desarrollo, Cierre
+    children.push(
+      makeTable(
+        [
+          new TableRow({
+            children: [
+              tc([p("Sugerencias para el inicio:", { bold: true, size: 8 })], TW * 0.33),
+              tc([p("Sugerencias para el desarrollo:", { bold: true, size: 8 })], TW * 0.34),
+              tc([p("Sugerencias para el cierre:", { bold: true, size: 8 })], TW * 0.33),
+            ],
+          }),
+          new TableRow({
+            children: [
+              tc([p("—", { size: 8 })], TW * 0.33),
+              tc([p("—", { size: 8 })], TW * 0.34),
+              tc([p("—", { size: 8 })], TW * 0.33),
+            ],
+          }),
+        ],
+        TW,
+        [TW * 0.33, TW * 0.34, TW * 0.33]
+      )
+    );
+
+    // Técnica e Instrumento
+    children.push(
+      makeTable(
+        [
+          new TableRow({
+            children: [
+              tc([p("Técnica:", { bold: true, size: 8 }), p(plan.tecnicaEvaluacion || "—", { size: 8 })], TW * 0.5),
+              tc([p("Instrumento:", { bold: true, size: 8 }), p(plan.instrumentoEvaluacion || "—", { size: 8 })], TW * 0.5),
+            ],
+          }),
+        ],
+        TW,
+        [TW * 0.5, TW * 0.5]
+      )
+    );
+
+    children.push(new Paragraph({ spacing: { after: 40 }, children: [] }));
+  }
 
   // ── Construir documento ──
   const doc = new Document({

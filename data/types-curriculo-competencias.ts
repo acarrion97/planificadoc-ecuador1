@@ -180,6 +180,18 @@ export interface PlanificacionCurriculoCompetencias {
   trimestre: string;
   nivel: "EGB" | "BGU";
   paralelo: string;
+  noSemanas?: number;
+
+  // ── SITUACIÓN DE APRENDIZAJE ──
+  situacionAprendizaje?: {
+    titulo: string;
+    descripcion: string;
+  };
+
+  // ── CONEXIÓN INTERDISCIPLINAR ──
+  conexionInterdisciplinar?: {
+    asignaturas: string[];
+  };
 
   // ── APRENDIZAJE DISCIPLINAR ──
   destreza: Destreza;
@@ -191,6 +203,23 @@ export interface PlanificacionCurriculoCompetencias {
   tecnicaEvaluacion: string;
   instrumentoEvaluacion: string;
   actividadesEvaluacion: string;
+
+  // ── SABERES ──
+  saberes?: {
+    declarativos: string;
+    procedimentales: string;
+    actitudinales: string;
+  };
+
+  // ── SEMANAS (para formato oficial) ──
+  semanas?: Array<{
+    numero: number;
+    inicio: string;
+    desarrollo: string;
+    cierre: string;
+    tecnica: string;
+    instrumento: string;
+  }>;
 
   // ── APRENDIZAJE INTERDISCIPLINAR (opcional) ──
   usaInterdisciplina?: boolean;
@@ -260,12 +289,39 @@ export interface PlanificacionInicialCurriculo {
   institucion: string;
   docente: string;
   duracion: string;
+  trimestre?: string;
+  nivel?: string;
+  paralelo?: string;
+  periodoPedagogico?: string;
+  noSemanasClase?: number;
+  numeroNinos?: number;
   objetivoGeneral: string;
   ambitos: AmbitoDesarrollo[];
   adaptacionesNEE?: AdaptacionNEE[];
   bibliografia?: string;
   observaciones?: string;
   firmas?: FirmasInicial;
+
+  // ── SITUACIÓN DE APRENDIZAJE ──
+  situacionAprendizaje?: {
+    titulo: string;
+    descripcion: string;
+  };
+
+  // ── CONEXIONES CURRICULARES ──
+  conexionesCurriculares?: {
+    ambitosDesarrollo: string[];
+    competenciasEspecifica: string;
+    indicadoresEvaluacion: string[];
+  };
+
+  // ── SABERES ──
+  saberes?: {
+    declarativos: string;
+    procedimentales: string;
+    actitudinales: string;
+  };
+
   source?: SourceTraceability;
   createdAt: string;
   updatedAt: string;

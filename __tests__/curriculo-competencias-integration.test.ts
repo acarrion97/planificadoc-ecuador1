@@ -253,7 +253,7 @@ describe("Integración — Exportación desde datos persistidos", () => {
     const docXml = await zip.file("word/document.xml")?.async("text");
     expect(docXml).toContain("Unidad Educativa Integración");
     expect(docXml).toContain("Docente Integración");
-    expect(docXml).toContain("CN.4.2");
+    expect(docXml).toContain("Clasificar seres vivos");
     expect(docXml).toContain("Ciencias Naturales");
   });
 
@@ -562,7 +562,7 @@ describe("Integración — Aislamiento entre planificaciones", () => {
     const docXml = await zip.file("word/document.xml")?.async("text");
 
     // EGB/BGU debe tener DCD, asignatura, competencias asociadas
-    expect(docXml).toContain("CN.4.2");
+    expect(docXml).toContain("Clasificar seres vivos");
     expect(docXml).toContain("Ciencias Naturales");
     // NO debe tener elementos de Inicial (firmas con 4 campos, ámbitos)
     expect(docXml).not.toContain("Elaborado por:");
@@ -576,8 +576,8 @@ describe("Integración — Aislamiento entre planificaciones", () => {
     const zip = await JSZip.loadAsync(buffer);
     const docXml = await zip.file("word/document.xml")?.async("text");
 
-    // Inicial debe tener ámbitos, firmas (uppercased by generator)
-    expect(docXml).toContain("DESARROLLO MOTOR");
+    // Inicial debe tener ámbitos, firmas
+    expect(docXml).toContain("Desarrollo Motor");
     expect(docXml).toContain("Circuito motor");
     // NO debe tener DCD de EGB/BGU
     expect(docXml).not.toContain("CN.4.2");

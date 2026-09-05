@@ -323,7 +323,7 @@ describe("E2E — Flujo completo EGB/BGU", () => {
     const docXml = await zip.file("word/document.xml")?.async("text");
     expect(docXml).toContain("Unidad Educativa Ejemplo");
     expect(docXml).toContain("Docente E2E");
-    expect(docXml).toContain("M.5.1");
+    expect(docXml).toContain("Resuelve problemas con fracciones");
     expect(docXml).toContain("Experiencia");
   });
 
@@ -567,7 +567,7 @@ describe("E2E — Flujo completo Inicial/Preparatoria", () => {
     const docXml = await zip.file("word/document.xml")?.async("text");
     expect(docXml).toContain("Unidad Educativa Inicial");
     expect(docXml).toContain("Docente Inicial E2E");
-    expect(docXml).toContain("SOCIOEMOCIONAL");
+    expect(docXml).toContain("Socioemocional");
     expect(docXml).toContain("INICIO");
   });
 
