@@ -27,10 +27,11 @@ export default function VerPlanificacionScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const planId = Number(id);
+  const isValidId = !isNaN(planId) && planId > 0;
 
-  const { data: plan, isLoading } = trpc.curriculoCompetencias.getById.useQuery(
+  const { data: plan, isLoading, error } = trpc.curriculoCompetencias.getById.useQuery(
     { id: planId },
-    { enabled: !isNaN(planId) }
+    { enabled: isValidId }
   );
 
   const utils = trpc.useContext();
@@ -38,46 +39,72 @@ export default function VerPlanificacionScreen() {
   const deleteMutation = trpc.curriculoCompetencias.delete.useMutation({
     onSuccess: () => {
       utils.curriculoCompetencias.list.invalidate();
+      Alert.alert("Eliminada", "Planificación eliminada correctamente");
       router.back();
+    },
+    onError: (err) => {
+      Alert.alert("Error", "No se pudo eliminar la planificación. Intenta de nuevo.");
     },
   });
 
   const exportWordMutation = trpc.curriculoCompetencias.exportWord.useMutation({
     onSuccess: (data) => {
-      const binary = atob(data.base64);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      const blob = new Blob([bytes], { type: data.mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = data.filename;
-      a.click();
-      URL.revokeObjectURL(url);
+      try {
+        const binary = atob(data.base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const blob = new Blob([bytes], { type: data.mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = data.filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      } catch {
+        Alert.alert("Error", "No se pudo descargar el archivo Word.");
+      }
+    },
+    onError: () => {
+      Alert.alert("Error", "No se pudo generar el documento Word. Intenta de nuevo.");
     },
   });
 
   const exportPdfMutation = trpc.curriculoCompetencias.exportPdf.useMutation({
     onSuccess: (data) => {
-      const win = window.open("", "_blank");
-      if (win) {
-        win.document.write(data.html);
-        win.document.close();
-        setTimeout(() => win.print(), 300);
+      try {
+        const win = window.open("", "_blank");
+        if (win) {
+          win.document.write(data.html);
+          win.document.close();
+          setTimeout(() => win.print(), 300);
+        } else {
+          Alert.alert("Aviso", "Se abrió una nueva ventana con el PDF. Si no lo ves, revisa el bloqueador de pop-ups.");
+        }
+      } catch {
+        Alert.alert("Error", "No se pudo abrir el PDF. Intenta de nuevo.");
       }
+    },
+    onError: () => {
+      Alert.alert("Error", "No se pudo generar el PDF. Intenta de nuevo.");
     },
   });
 
   const handleDelete = () => {
+    const confirmDelete = () => deleteMutation.mutate({ id: planId });
+
     if (Platform.OS === "web") {
-      if (confirm("¿Eliminar esta planificación?")) {
-        deleteMutation.mutate({ id: planId });
+      if (confirm("¿Eliminar esta planificación? Esta acción no se puede deshacer.")) {
+        confirmDelete();
       }
     } else {
-      Alert.alert("Eliminar planificación", "¿Deseas eliminar esta planificación?", [
-        { text: "Cancelar", style: "cancel" },
-        { text: "Eliminar", style: "destructive", onPress: () => deleteMutation.mutate({ id: planId }) },
-      ]);
+      Alert.alert(
+        "Eliminar planificación",
+        "¿Deseas eliminar esta planificación? Esta acción no se puede deshacer.",
+        [
+          { text: "Cancelar", style: "cancel" },
+          { text: "Eliminar", style: "destructive", onPress: confirmDelete },
+        ]
+      );
     }
   };
 
@@ -90,22 +117,18 @@ export default function VerPlanificacionScreen() {
     }
   };
 
-  if (isLoading) {
+  // ── Estado: ID inválido ──
+  if (!isValidId) {
     return (
       <ScreenContainer className="flex-1">
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <ActivityIndicator color={colors.primary} />
-        </View>
-      </ScreenContainer>
-    );
-  }
-
-  if (!plan) {
-    return (
-      <ScreenContainer className="flex-1">
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <Text style={{ fontSize: 32, marginBottom: 8 }}>❌</Text>
-          <Text style={{ color: colors.muted, fontSize: 15 }}>Planificación no encontrada</Text>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: 20 }}>
+          <Text style={{ fontSize: 32, marginBottom: 8 }}>⚠️</Text>
+          <Text style={{ color: colors.foreground, fontSize: 16, fontWeight: "600", textAlign: "center" }}>
+            ID de planificación inválido
+          </Text>
+          <Text style={{ color: colors.muted, fontSize: 14, marginTop: 8, textAlign: "center" }}>
+            El enlace no contiene un identificador válido.
+          </Text>
           <Pressable onPress={() => router.back()} style={{ marginTop: 16 }}>
             <Text style={{ color: colors.primary, fontWeight: "600" }}>Volver</Text>
           </Pressable>
@@ -114,8 +137,71 @@ export default function VerPlanificacionScreen() {
     );
   }
 
+  // ── Estado: Cargando ──
+  if (isLoading) {
+    return (
+      <ScreenContainer className="flex-1">
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <ActivityIndicator color={colors.primary} size="large" />
+          <Text style={{ color: colors.muted, fontSize: 14, marginTop: 12 }}>
+            Cargando planificación…
+          </Text>
+        </View>
+      </ScreenContainer>
+    );
+  }
+
+  // ── Estado: Error al cargar ──
+  if (error) {
+    return (
+      <ScreenContainer className="flex-1">
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: 20 }}>
+          <Text style={{ fontSize: 32, marginBottom: 8 }}>❌</Text>
+          <Text style={{ color: colors.foreground, fontSize: 16, fontWeight: "600", textAlign: "center" }}>
+            Error al cargar la planificación
+          </Text>
+          <Text style={{ color: colors.muted, fontSize: 14, marginTop: 8, textAlign: "center" }}>
+            {error.message || "Ocurrió un error inesperado."}
+          </Text>
+          <View style={{ flexDirection: "row", gap: 12, marginTop: 16 }}>
+            <Pressable
+              onPress={() => utils.curriculoCompetencias.getById.invalidate()}
+              style={[styles.retryBtn, { backgroundColor: colors.primary }]}
+            >
+              <Text style={{ color: "#fff", fontWeight: "600" }}>Reintentar</Text>
+            </Pressable>
+            <Pressable onPress={() => router.back()} style={[styles.retryBtn, { backgroundColor: colors.border }]}>
+              <Text style={{ color: colors.foreground, fontWeight: "600" }}>Volver</Text>
+            </Pressable>
+          </View>
+        </View>
+      </ScreenContainer>
+    );
+  }
+
+  // ── Estado: No encontrada ──
+  if (!plan) {
+    return (
+      <ScreenContainer className="flex-1">
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: 20 }}>
+          <Text style={{ fontSize: 32, marginBottom: 8 }}>📭</Text>
+          <Text style={{ color: colors.foreground, fontSize: 16, fontWeight: "600", textAlign: "center" }}>
+            Planificación no encontrada
+          </Text>
+          <Text style={{ color: colors.muted, fontSize: 14, marginTop: 8, textAlign: "center" }}>
+            No existe una planificación con el ID {planId}.
+          </Text>
+          <Pressable onPress={() => router.back()} style={{ marginTop: 16 }}>
+            <Text style={{ color: colors.primary, fontWeight: "600" }}>Volver al listado</Text>
+          </Pressable>
+        </View>
+      </ScreenContainer>
+    );
+  }
+
   const formData = plan.formData as any;
   const source = plan.sourceTraceability as any;
+  const isExporting = exportWordMutation.isPending || exportPdfMutation.isPending;
 
   return (
     <ScreenContainer className="flex-1">
@@ -246,36 +332,43 @@ export default function VerPlanificacionScreen() {
         <View style={styles.bottomBarInner}>
           <Pressable
             onPress={handleEdit}
-            style={[styles.navBtn, { backgroundColor: colors.primary }]}
+            disabled={isExporting || deleteMutation.isPending}
+            style={[styles.navBtn, { backgroundColor: colors.primary, opacity: isExporting || deleteMutation.isPending ? 0.5 : 1 }]}
           >
             <Text style={{ color: "#fff", fontWeight: "700" }}>Editar</Text>
           </Pressable>
           <Pressable
             onPress={() => exportWordMutation.mutate({ id: planId })}
-            disabled={exportWordMutation.isPending}
-            style={[styles.navBtn, { backgroundColor: "#2563EB" }]}
+            disabled={isExporting || deleteMutation.isPending}
+            style={[styles.navBtn, { backgroundColor: "#2563EB", opacity: isExporting || deleteMutation.isPending ? 0.5 : 1 }]}
           >
             {exportWordMutation.isPending ? (
-              <ActivityIndicator color="#fff" size="small" />
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                <ActivityIndicator color="#fff" size="small" />
+                <Text style={{ color: "#fff", fontWeight: "600", fontSize: 12 }}>Generando…</Text>
+              </View>
             ) : (
               <Text style={{ color: "#fff", fontWeight: "600" }}>Word</Text>
             )}
           </Pressable>
           <Pressable
             onPress={() => exportPdfMutation.mutate({ id: planId })}
-            disabled={exportPdfMutation.isPending}
-            style={[styles.navBtn, { backgroundColor: "#DC2626" }]}
+            disabled={isExporting || deleteMutation.isPending}
+            style={[styles.navBtn, { backgroundColor: "#DC2626", opacity: isExporting || deleteMutation.isPending ? 0.5 : 1 }]}
           >
             {exportPdfMutation.isPending ? (
-              <ActivityIndicator color="#fff" size="small" />
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                <ActivityIndicator color="#fff" size="small" />
+                <Text style={{ color: "#fff", fontWeight: "600", fontSize: 12 }}>Preparando…</Text>
+              </View>
             ) : (
               <Text style={{ color: "#fff", fontWeight: "600" }}>PDF</Text>
             )}
           </Pressable>
           <Pressable
             onPress={handleDelete}
-            disabled={deleteMutation.isPending}
-            style={[styles.navBtn, { backgroundColor: "#6B7280" }]}
+            disabled={isExporting || deleteMutation.isPending}
+            style={[styles.navBtn, { backgroundColor: "#6B7280", opacity: isExporting || deleteMutation.isPending ? 0.5 : 1 }]}
           >
             {deleteMutation.isPending ? (
               <ActivityIndicator color="#fff" size="small" />
@@ -391,5 +484,10 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
+  },
+  retryBtn: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
   },
 });

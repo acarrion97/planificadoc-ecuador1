@@ -127,39 +127,23 @@ export default function InicialFormScreen() {
   const utils = trpc.useContext();
   const createMutation = trpc.curriculoCompetencias.createInicial.useMutation({
     onSuccess: () => {
-      if (Platform.OS === "web") {
-        alert("Planificación creada correctamente");
-      } else {
-        Alert.alert("Éxito", "Planificación creada correctamente");
-      }
       utils.curriculoCompetencias.list.invalidate();
+      Alert.alert("Éxito", "Planificación creada correctamente");
       router.back();
     },
-    onError: (error) => {
-      if (Platform.OS === "web") {
-        alert(`Error: ${error.message}`);
-      } else {
-        Alert.alert("Error", error.message);
-      }
+    onError: () => {
+      Alert.alert("Error", "No se pudo crear la planificación. Verifica los datos e intenta de nuevo.");
     },
   });
 
   const updateMutation = trpc.curriculoCompetencias.updateInicial.useMutation({
     onSuccess: () => {
-      if (Platform.OS === "web") {
-        alert("Planificación actualizada correctamente");
-      } else {
-        Alert.alert("Éxito", "Planificación actualizada correctamente");
-      }
       utils.curriculoCompetencias.list.invalidate();
+      Alert.alert("Éxito", "Planificación actualizada correctamente");
       router.back();
     },
-    onError: (error) => {
-      if (Platform.OS === "web") {
-        alert(`Error: ${error.message}`);
-      } else {
-        Alert.alert("Error", error.message);
-      }
+    onError: () => {
+      Alert.alert("Error", "No se pudo actualizar la planificación. Verifica los datos e intenta de nuevo.");
     },
   });
 
@@ -920,10 +904,13 @@ export default function InicialFormScreen() {
             <Pressable
               onPress={handleSave}
               disabled={isPending}
-              style={[styles.navBtn, { backgroundColor: colors.success }]}
+              style={[styles.navBtn, { backgroundColor: isPending ? colors.muted + "40" : colors.success }]}
             >
               {isPending ? (
-                <ActivityIndicator color="#fff" size="small" />
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                  <ActivityIndicator color="#fff" size="small" />
+                  <Text style={{ color: "#fff", fontWeight: "600" }}>Guardando…</Text>
+                </View>
               ) : (
                 <Text style={{ color: "#fff", fontWeight: "700" }}>{isEdit ? "Guardar Cambios" : "Guardar"}</Text>
               )}
