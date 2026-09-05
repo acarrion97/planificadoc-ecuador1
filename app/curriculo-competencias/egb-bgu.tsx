@@ -235,9 +235,14 @@ export default function EGBBGUFormScreen() {
   const [areaCode, setAreaCode] = useState<Area | null>(null);
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
-  const [periodoPedagogico, setPeriodoPedagogico] = useState("");
+  
+  // Fecha y período automáticos
+  const fechaActual = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const anioActual = new Date().getFullYear();
+  const periodoAutomatico = `${anioActual}-${anioActual + 1}`;
+  const [periodoPedagogico] = useState(periodoAutomatico);
   const [trimestre, setTrimestre] = useState("Primer Trimestre");
-  const [fecha, setFecha] = useState("");
+  const [fecha] = useState(fechaActual);
 
   // DCD
   const [dcdCodigo, setDcdCodigo] = useState("");
@@ -273,9 +278,7 @@ export default function EGBBGUFormScreen() {
       setAreaCode(fd.areaCode || null);
       setInstitucion(fd.institucion || "");
       setDocente(fd.docente || "");
-      setPeriodoPedagogico(fd.periodoPedagogico || "");
       setTrimestre(fd.trimestre || "Primer Trimestre");
-      setFecha(fd.fecha || "");
       setDcdCodigo(fd.destreza?.codigo || planExistente.dcdCodigo || "");
       setDcdDescripcion(fd.destreza?.descripcion || "");
       setCompetencias(fd.competenciasAsociadas || ["C"]);
@@ -545,9 +548,23 @@ export default function EGBBGUFormScreen() {
 
       {renderField("Institución", institucion, setInstitucion, { placeholder: "Ej: Unidad Educativa San Martín" })}
       {renderField("Docente", docente, setDocente, { placeholder: "Nombre del docente" })}
-      {renderField("Período Pedagógico", periodoPedagogico, setPeriodoPedagogico, { placeholder: "Ej: 2026-2027" })}
+      
+      {/* Período y fecha automáticos */}
+      <View style={[styles.fieldContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.label, { color: colors.foreground }]}>Período Pedagógico</Text>
+        <View style={[styles.input, { backgroundColor: colors.muted + "20", borderColor: colors.border }]}>
+          <Text style={{ color: colors.foreground, fontSize: 14 }}>{periodoPedagogico}</Text>
+        </View>
+      </View>
+      
       {renderSelectRow("Trimestre", TRIMESTRES, trimestre, setTrimestre)}
-      {renderField("Fecha", fecha, setFecha, { placeholder: "YYYY-MM-DD" })}
+      
+      <View style={[styles.fieldContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.label, { color: colors.foreground }]}>Fecha</Text>
+        <View style={[styles.input, { backgroundColor: colors.muted + "20", borderColor: colors.border }]}>
+          <Text style={{ color: colors.foreground, fontSize: 14 }}>{fecha}</Text>
+        </View>
+      </View>
     </View>
   );
 
