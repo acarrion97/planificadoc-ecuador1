@@ -257,6 +257,12 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   // ── 6. Competencias específicas + Indicadores ──
   children.push(makeTable([sectionRow("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN")], TW, [TW]));
+  
+  // Extraer códigos de competencias específicas de la DCD (criteriosEvaluacion)
+  const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
+  // Extraer códigos de indicadores de la DCD
+  const indicadoresDcd = plan.destreza?.indicadoresEvaluacion || [];
+  
   children.push(
     makeTable(
       [
@@ -265,20 +271,34 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
             tc(
               [
                 p("Competencias:", { bold: true, size: 8 }),
+                // Mostrar competencias transversales como badges
                 new Paragraph({
                   spacing: { after: 0, before: 40 },
                   children: plan.competenciasAsociadas.map((c) => competencyBadge(c)),
                 }),
-                // Mostrar códigos DCD completos si existen
-                ...((plan as any).dcdsSeleccionadas?.length
-                  ? (plan as any).dcdsSeleccionadas.map((dcd: any) =>
-                      p(`• ${dcd.codigo}: ${dcd.descripcion || ""}`, { size: 7 })
+                // Mostrar competencias específicas completas (CE.M.2.1 etc.)
+                ...(competenciasEspecificas.length > 0
+                  ? competenciasEspecificas.map((ce) =>
+                      p(`• ${ce}`, { size: 7 })
                     )
                   : []),
               ],
               TW * 0.3
             ),
-            tc([p("Indicador:", { bold: true, size: 8 }), p(plan.indicadorEvaluacion || "—", { size: 8 })], TW * 0.7),
+            tc(
+              [
+                p("Indicador:", { bold: true, size: 8 }),
+                // Mostrar indicador principal
+                p(plan.indicadorEvaluacion || "—", { size: 8 }),
+                // Mostrar indicadores de la DCD si existen
+                ...(indicadoresDcd.length > 0
+                  ? indicadoresDcd.map((ind) =>
+                      p(`• ${ind}`, { size: 7 })
+                    )
+                  : []),
+              ],
+              TW * 0.7
+            ),
           ],
         }),
       ],
