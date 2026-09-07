@@ -119,7 +119,7 @@ function makeTable(rows: TableRow[], totalW: number, colWidths: number[]): Table
   });
 }
 
-function sectionRow(label: string, cs = 4): TableRow {
+function sectionRow(label: string, cs = 1): TableRow {
   return new TableRow({
     children: [
       tc([p(label, { bold: true, size: 9, color: COLOR_PRIMARY })], TW, {
@@ -219,120 +219,29 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   // ── 5. Conexión interdisciplinar ──
   children.push(makeTable([sectionRow("CONEXIÓN INTERDISCIPLINAR")], TW, [TW]));
+
   const asignaturasConexion = plan.conexionInterdisciplinar?.asignaturas?.length
-    ? plan.conexionInterdisciplinar.asignaturas.join(", ")
-    : plan.asignatura || "—";
-  children.push(
-    makeTable(
-      [new TableRow({ children: [tc([p("Asignaturas:", { bold: true, size: 8 }), p(` ${asignaturasConexion}`, { size: 8 })], TW)] })],
-      TW,
-      [TW]
-    )
-  );
+    ? plan.conexionInterdisciplinar.asignaturas
+    : [];
 
-  // ── 6. Competencias + Indicadores + Saberes ──
-  children.push(makeTable([sectionRow("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN")], TW, [TW]));
+  const filasConexion: TableRow[] = [];
 
-  const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
-  const indicadoresDcd = plan.destreza?.indicadoresEvaluacion || [];
-  const COL_IND = Math.floor(TW * 0.5);
-  const COL_SAB = TW - COL_IND;
-
-  children.push(
-    makeTable(
-      [
+  if (asignaturasConexion.length > 0) {
+    for (const asig of asignaturasConexion) {
+      filasConexion.push(
         new TableRow({
           children: [
-            tc(
-              [
-                p("Indicadores de evaluación:", { bold: true, size: 8 }),
-                p(plan.indicadorEvaluacion || "—", { size: 8 }),
-                ...(indicadoresDcd.length > 0
-                  ? indicadoresDcd.map((ind) => p(`• ${ind}`, { size: 7 }))
-                  : []),
-              ],
-              COL_IND
-            ),
-            tc([p("Saberes:", { bold: true, size: 8 })], COL_SAB),
+            tc([p(asig, { size: 8 })], TW),
           ],
-        }),
-      ],
-      TW,
-      [COL_IND, COL_SAB]
-    )
-  );
-
-  // Sub-fila: Competencias | Declarativos | Procedimentales | Actitudinales
-  const COL_COMP = Math.floor(TW * 0.30);
-  const COL_DEC = Math.floor(TW * 0.24);
-  const COL_PRO = Math.floor(TW * 0.24);
-  const COL_ACT = TW - COL_COMP - COL_DEC - COL_PRO;
-
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc(
-              [
-                p("Competencias:", { bold: true, size: 8 }),
-                new Paragraph({
-                  spacing: { after: 0, before: 40 },
-                  children: plan.competenciasAsociadas.map((c) => competencyBadge(c)),
-                }),
-                ...(competenciasEspecificas.length > 0
-                  ? competenciasEspecificas.map((ce) => p(`• ${ce}`, { size: 7 }))
-                  : []),
-              ],
-              COL_COMP
-            ),
-            tc([p("Declarativos:", { bold: true, size: 7 }), p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], COL_DEC),
-            tc([p("Procedimentales:", { bold: true, size: 7 }), p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], COL_PRO),
-            tc([p("Actitudinales:", { bold: true, size: 7 }), p(plan.saberes?.actitudinales || "—", { size: 7 })], COL_ACT),
-          ],
-        }),
-      ],
-      TW,
-      [COL_COMP, COL_DEC, COL_PRO, COL_ACT]
-    )
-  );
-
-  // ═══════════════════════════════════════════════════════════════
-  // PÁGINAS 2-3 — Tabla Destrezas | Indicadores | Actividades
-  // Rellenada con datos reales de la DCD
-  // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  const COL_DEST = Math.floor(TW * 0.34);
-  const COL_IND2 = Math.floor(TW * 0.33);
-  const COL_ACT2 = TW - COL_DEST - COL_IND2;
-
-  // Generar filas con datos de la DCD
-  const destreza = plan.destreza;
-  const indicadoresArr = destreza?.indicadoresEvaluacion || [];
-  const numFilasDestrezas = Math.max(indicadoresArr.length, 1);
-
-  const filasDestrezas: TableRow[] = [];
-  for (let i = 0; i < numFilasDestrezas; i++) {
-    const ind = indicadoresArr[i] || "";
-    filasDestrezas.push(
+        })
+      );
+    }
+  } else {
+    // Fallback: mostrar solo el área actual con su CE
+    filasConexion.push(
       new TableRow({
         children: [
-          tc([p(i === 0 ? (destreza?.codigo || "—") : "", { bold: true, size: 8 }), p(i === 0 ? (destreza?.descripcion || "—") : "", { size: 7 })], COL_DEST),
-          tc([p(ind || "—", { size: 7 })], COL_IND2),
-          tc([p("", { size: 7 })], COL_ACT2),
-        ],
-      })
-    );
-  }
-  // Agregar filas vacías si hay menos de 4
-  while (filasDestrezas.length < 4) {
-    filasDestrezas.push(
-      new TableRow({
-        children: [
-          tc([p("", { size: 7 })], COL_DEST),
-          tc([p("", { size: 7 })], COL_IND2),
-          tc([p("", { size: 7 })], COL_ACT2),
+          tc([p(`${plan.asignatura || "—"}: ${plan.destreza?.criteriosEvaluacion?.[0] || "—"}`, { size: 8 })], TW),
         ],
       })
     );
@@ -344,28 +253,107 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
         new TableRow({
           tableHeader: true,
           children: [
-            tc([p("Destrezas", { bold: true, size: 8, color: WHITE })], COL_DEST, { bg: COLOR_PRIMARY }),
-            tc([p("Indicadores", { bold: true, size: 8, color: WHITE })], COL_IND2, { bg: COLOR_PRIMARY }),
-            tc([p("Actividades", { bold: true, size: 8, color: WHITE })], COL_ACT2, { bg: COLOR_PRIMARY }),
+            tc([p("Asignaturas:", { bold: true, size: 8, color: WHITE })], TW, { bg: COLOR_PRIMARY }),
           ],
         }),
-        ...filasDestrezas,
+        ...filasConexion,
       ],
       TW,
-      [COL_DEST, COL_IND2, COL_ACT2]
+      [TW]
+    )
+  );
+
+  // ── 6. Competencias + Indicadores + Saberes ──
+  children.push(makeTable([sectionRow("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN")], TW, [TW]));
+
+  const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
+  const indicadoresDcd = plan.destreza?.indicadoresEvaluacion || [];
+
+  // Generar códigos de saberes derivados del código de la DCD
+  const dcdCodigo = plan.destreza?.codigo || "";
+  // Ej: M.5.1.1 → prefijo M, secuencial 5.1.1
+  const prefijoArea = dcdCodigo ? dcdCodigo.split(".")[0] : "";
+  const subSecuencial = dcdCodigo ? dcdCodigo.split(".").slice(1).join(".") : "";
+
+  const COL_IND = Math.floor(TW * 0.34);
+  const COL_DEC = Math.floor(TW * 0.22);
+  const COL_PRO = Math.floor(TW * 0.22);
+  const COL_ACT = TW - COL_IND - COL_DEC - COL_PRO;
+
+  // Generar filas de indicadores + saberes
+  const filasIndicadores: TableRow[] = [];
+
+  for (let i = 0; i < indicadoresDcd.length; i++) {
+    const indCodigo = indicadoresDcd[i] || `I.${prefijoArea}.${subSecuencial}.${i + 1}`;
+
+    // Saberes con código derivado del indicador
+    const numSaber = i + 1;
+    const codigoDec = `D.${prefijoArea}.${subSecuencial}.${numSaber}`;
+    const codigoPro = `P.${prefijoArea}.${subSecuencial}.${numSaber}`;
+    const codigoAct = `A.${prefijoArea}.${subSecuencial}.${numSaber}`;
+
+    const declarativo = plan.saberes?.declarativos || plan.destreza?.descripcion || "—";
+    const procedimentales = plan.saberes?.procedimentales
+      || `Representar gráficamente ${declarativo.toLowerCase()}. Aplicar procedimientos para resolver problemas relacionados con la destreza.`;
+    const actitudinales = plan.saberes?.actitudinales
+      || "Valorar la importancia del trabajo cooperativo y la responsabilidad en el aprendizaje.";
+
+    filasIndicadores.push(
+      new TableRow({
+        children: [
+          tc([p(indCodigo, { size: 7 })], COL_IND),
+          tc([p(`${codigoDec}. * ${declarativo}`, { size: 7 })], COL_DEC),
+          tc([p(`${codigoPro}. * ${procedimentales}`, { size: 7 })], COL_PRO),
+          tc([p(`${codigoAct}. * ${actitudinales}`, { size: 7 })], COL_ACT),
+        ],
+      })
+    );
+  }
+
+  // Si no hay indicadores, crear al menos una fila
+  if (filasIndicadores.length === 0) {
+    filasIndicadores.push(
+      new TableRow({
+        children: [
+          tc([p("—", { size: 7 })], COL_IND),
+          tc([p("—", { size: 7 })], COL_DEC),
+          tc([p("—", { size: 7 })], COL_PRO),
+          tc([p("—", { size: 7 })], COL_ACT),
+        ],
+      })
+    );
+  }
+
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          tableHeader: true,
+          children: [
+            tc([p("Indicadores de evaluación", { bold: true, size: 8, color: WHITE })], COL_IND, { bg: COLOR_PRIMARY }),
+            tc([p("Declarativos", { bold: true, size: 8, color: WHITE })], COL_DEC, { bg: COLOR_PRIMARY }),
+            tc([p("Procedimentales", { bold: true, size: 8, color: WHITE })], COL_PRO, { bg: COLOR_PRIMARY }),
+            tc([p("Actitudinales", { bold: true, size: 8, color: WHITE })], COL_ACT, { bg: COLOR_PRIMARY }),
+          ],
+        }),
+        ...filasIndicadores,
+      ],
+      TW,
+      [COL_IND, COL_DEC, COL_PRO, COL_ACT]
     )
   );
 
   // ═══════════════════════════════════════════════════════════════
   // PÁGINAS 4+ — Semanas con header "Estrategias desde el DUA"
   // ═══════════════════════════════════════════════════════════════
-  const semanas = plan.semanas || [];
-  const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
 
   const destrezaDesc = plan.destreza?.descripcion || "";
   const indicador = plan.indicadorEvaluacion || plan.destreza?.indicadoresEvaluacion?.[0] || "";
   const objetivo = plan.objetivoAprendizaje || "";
   const critEval = plan.destreza?.criteriosEvaluacion?.[0] || "";
+
+  const semanas = plan.semanas || [];
+  const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
 
   const COL_IZQ = Math.floor(TW * 0.45);
   const COL_REC = Math.floor(TW * 0.25);
