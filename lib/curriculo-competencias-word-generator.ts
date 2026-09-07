@@ -345,60 +345,106 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-  // ── 9. Semanas 1-8 ──
+  // ── 9. Semanas 1-8 — Formato oficial MINEDUC (6 columnas) ──
   children.push(makeTable([sectionRow("DESARROLLO DE LA EXPERIENCIA DE APRENDIZAJE")], TW, [TW]));
   
-  // Generar 8 semanas
+  // Cabeceras de columna
+  const COL_SEMANA = Math.floor(TW * 0.08);
+  const COL_DESTREZAS = Math.floor(TW * 0.18);
+  const COL_INDICADORES = Math.floor(TW * 0.16);
+  const COL_ESTRATEGIAS = Math.floor(TW * 0.30);
+  const COL_RECURSOS = Math.floor(TW * 0.12);
+  const COL_EVALUACION = TW - COL_SEMANA - COL_DESTREZAS - COL_INDICADORES - COL_ESTRATEGIAS - COL_RECURSOS;
+
+  children.push(
+    makeTable(
+      [new TableRow({
+        tableHeader: true,
+        children: [
+          tc([p("SEMANA", { bold: true, size: 7, color: WHITE })], COL_SEMANA, { bg: "1A3A5C" }),
+          tc([p("DESTREZAS CON CRITERIOS DE DESEMPEÑO", { bold: true, size: 7, color: WHITE })], COL_DESTREZAS, { bg: "1A3A5C" }),
+          tc([p("INDICADORES DE EVALUACIÓN", { bold: true, size: 7, color: WHITE })], COL_INDICADORES, { bg: "1A3A5C" }),
+          tc([p("ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", { bold: true, size: 7, color: WHITE })], COL_ESTRATEGIAS, { bg: "1A3A5C" }),
+          tc([p("RECURSOS", { bold: true, size: 7, color: WHITE })], COL_RECURSOS, { bg: "1A3A5C" }),
+          tc([p("ACTIVIDADES EVALUATIVAS", { bold: true, size: 7, color: WHITE })], COL_EVALUACION, { bg: "1A3A5C" }),
+        ],
+      })],
+      TW,
+      [COL_SEMANA, COL_DESTREZAS, COL_INDICADORES, COL_ESTRATEGIAS, COL_RECURSOS, COL_EVALUACION]
+    )
+  );
+
+  // Generar 8 semanas con contenido
+  const semanas = plan.semanas || [];
   for (let semana = 1; semana <= 8; semana++) {
+    const semData = semanas.find(s => s.numero === semana);
+    
+    // Contenido de la columna SEMANA
+    const semanaContent = [
+      p(`Semana ${semana}`, { bold: true, size: 8 }),
+      p("Suposiciones para el inicio:", { bold: true, size: 7, color: "2980B9" }),
+      p(semData?.inicio || "—", { size: 7 }),
+      p("Desarrollo:", { bold: true, size: 7, color: "27AE60" }),
+      p(semData?.desarrollo || "—", { size: 7 }),
+      p("Cierre:", { bold: true, size: 7, color: "E67E22" }),
+      p(semData?.cierre || "—", { size: 7 }),
+    ];
+
+    // Contenido de la columna DESTREZAS
+    const destrezasContent = [
+      p(plan.destreza?.codigo || "—", { bold: true, size: 8 }),
+      p(plan.destreza?.descripcion || "—", { size: 7 }),
+    ];
+
+    // Contenido de la columna INDICADORES
+    const indicadoresContent = plan.destreza?.indicadoresEvaluacion?.length
+      ? plan.destreza.indicadoresEvaluacion.map(ind => p(`• ${ind}`, { size: 7 }))
+      : [p("—", { size: 7 })];
+
+    // Contenido de la columna ESTRATEGIAS (con fases ERCA)
+    const estrategiasContent: Paragraph[] = [];
+    const fases = plan.estructuraDidactica?.fases || [];
+    if (fases.length > 0) {
+      for (const fase of fases) {
+        estrategiasContent.push(p(fase.titulo, { bold: true, size: 7, color: ERCA_COLORS[fase.titulo] || "000000" }));
+        for (const act of fase.actividades) {
+          estrategiasContent.push(p(`• ${act.texto}`, { size: 7 }));
+        }
+      }
+    } else {
+      estrategiasContent.push(p("—", { size: 7 }));
+    }
+
+    // Contenido de la columna RECURSOS
+    const recursosContent = plan.recursos
+      ? plan.recursos.split(",").map(r => p(`• ${r.trim()}`, { size: 7 }))
+      : [p("—", { size: 7 })];
+
+    // Contenido de la columna EVALUACIÓN
+    const evaluacionContent = [
+      p("Técnica:", { bold: true, size: 7 }),
+      p(semData?.tecnica || plan.tecnicaEvaluacion || "—", { size: 7 }),
+      p("Instrumento:", { bold: true, size: 7 }),
+      p(semData?.instrumento || plan.instrumentoEvaluacion || "—", { size: 7 }),
+    ];
+
+    // Fila de la semana
     children.push(
       makeTable(
-        [new TableRow({ children: [tc([p(`SEMANA ${semana}`, { bold: true, size: 9, color: COLOR_PRIMARY })], TW, { bg: COLOR_SECTION })] })],
+        [new TableRow({
+          children: [
+            tc(semanaContent, COL_SEMANA, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
+            tc(destrezasContent, COL_DESTREZAS, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
+            tc(indicadoresContent, COL_INDICADORES, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
+            tc(estrategiasContent, COL_ESTRATEGIAS, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
+            tc(recursosContent, COL_RECURSOS, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
+            tc(evaluacionContent, COL_EVALUACION, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
+          ],
+        })],
         TW,
-        [TW]
+        [COL_SEMANA, COL_DESTREZAS, COL_INDICADORES, COL_ESTRATEGIAS, COL_RECURSOS, COL_EVALUACION]
       )
     );
-
-    // Inicio, Desarrollo, Cierre
-    children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: [
-              tc([p("Sugerencias para el inicio:", { bold: true, size: 8 })], TW * 0.33),
-              tc([p("Sugerencias para el desarrollo:", { bold: true, size: 8 })], TW * 0.34),
-              tc([p("Sugerencias para el cierre:", { bold: true, size: 8 })], TW * 0.33),
-            ],
-          }),
-          new TableRow({
-            children: [
-              tc([p("—", { size: 8 })], TW * 0.33),
-              tc([p("—", { size: 8 })], TW * 0.34),
-              tc([p("—", { size: 8 })], TW * 0.33),
-            ],
-          }),
-        ],
-        TW,
-        [TW * 0.33, TW * 0.34, TW * 0.33]
-      )
-    );
-
-    // Técnica e Instrumento
-    children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: [
-              tc([p("Técnica:", { bold: true, size: 8 }), p(plan.tecnicaEvaluacion || "—", { size: 8 })], TW * 0.5),
-              tc([p("Instrumento:", { bold: true, size: 8 }), p(plan.instrumentoEvaluacion || "—", { size: 8 })], TW * 0.5),
-            ],
-          }),
-        ],
-        TW,
-        [TW * 0.5, TW * 0.5]
-      )
-    );
-
-    children.push(new Paragraph({ spacing: { after: 40 }, children: [] }));
   }
 
   // ── Construir documento ──
