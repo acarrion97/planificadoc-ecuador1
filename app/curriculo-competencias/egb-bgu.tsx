@@ -302,8 +302,9 @@ export default function EGBBGUFormScreen() {
       Alert.alert("Éxito", "Planificación creada correctamente");
       router.back();
     },
-    onError: () => {
-      Alert.alert("Error", "No se pudo crear la planificación. Verifica los datos e intenta de nuevo.");
+    onError: (err) => {
+      console.error("[createEGBBGU] Error:", err.message, err.data);
+      Alert.alert("Error", `No se pudo crear: ${err.message}`);
     },
   });
 
@@ -313,8 +314,9 @@ export default function EGBBGUFormScreen() {
       Alert.alert("Éxito", "Planificación actualizada correctamente");
       router.back();
     },
-    onError: () => {
-      Alert.alert("Error", "No se pudo actualizar la planificación. Verifica los datos e intenta de nuevo.");
+    onError: (err) => {
+      console.error("[updateEGBBGU] Error:", err.message, err.data);
+      Alert.alert("Error", `No se pudo actualizar: ${err.message}`);
     },
   });
 
@@ -383,7 +385,6 @@ export default function EGBBGUFormScreen() {
   const handleSave = () => {
     const payload = {
       sessionId: "default",
-      id: isEdit ? Number(id) : undefined,
       nivel,
       grado,
       paralelo,
@@ -406,9 +407,9 @@ export default function EGBBGUFormScreen() {
     };
 
     if (isEdit) {
-      updateMutation.mutate({ ...payload, id: Number(id) } as any);
+      updateMutation.mutate({ ...payload, id: Number(id) });
     } else {
-      createMutation.mutate(payload as any);
+      createMutation.mutate(payload);
     }
   };
 
@@ -764,4 +765,7 @@ const styles = StyleSheet.create({
   bottomBarInner: { flexDirection: "row", justifyContent: "space-between", gap: 12 },
   navBtn: { flex: 1, paddingVertical: 14, borderRadius: 12, alignItems: "center" },
   dropdownItem: { flexDirection: "row", alignItems: "center", paddingVertical: 10, paddingHorizontal: 8, borderBottomWidth: StyleSheet.hairlineWidth },
+  fieldContainer: { borderWidth: 1, borderRadius: 10, padding: 12, marginBottom: 14 },
+  label: { fontSize: 12, fontWeight: "600", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 },
+  input: { borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10 },
 });
