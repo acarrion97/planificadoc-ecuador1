@@ -285,10 +285,13 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   for (let i = 0; i < indicadoresDcd.length; i++) {
     const indCodigo = indicadoresDcd[i] || "—";
 
-    // Usar saberes del catálogo si existen, sino generar
-    const declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || plan.destreza?.descripcion || "—";
+    // Extraer el texto del indicador (sin el código)
+    const indTexto = indCodigo.replace(/^[A-Z]+\.[A-Z]+\.\d+\.\d+\.\d+\.\s*/i, "").trim();
+    
+    // Derivar saberes del texto del indicador
+    const declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || indTexto || plan.destreza?.descripcion || "—";
     const procedimentales = plan.saberes?.procedimentales || saberesFromData?.procedimentales
-      || `Aplicar procedimientos para resolver problemas relacionados con la destreza.`;
+      || `Aplicar procedimientos para resolver problemas relacionados con: ${indTexto.substring(0, 80)}${indTexto.length > 80 ? "..." : ""}.`;
     const actitudinales = plan.saberes?.actitudinales || saberesFromData?.actitudinales
       || "Valorar la importancia del trabajo cooperativo y la responsabilidad en el aprendizaje.";
 
@@ -376,31 +379,26 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     const semData = semanas.find((s) => s.numero === semana);
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-    // ── Sugerencias auto-generadas por semana ──
+    // ── Contenido aplicado por semana ──
     const inicio = semData?.inicio
       || (semana === 1
-        ? `Presentar la situación de aprendizaje: ${objetivo || destrezaDesc}. Motivar a los estudiantes con preguntas guía y revisar conocimientos previos.`
-        : `Repasar los aprendizajes de la semana anterior. Presentar el nuevo indicador: ${indicador ? indicador.substring(0, 120) + "..." : destrezaDesc}.`);
+        ? `Situación de aprendizaje: ${objetivo || destrezaDesc}\nDestreza: ${destrezaDesc}\nIndicador: ${indicador || "—"}`
+        : `Repaso de la semana anterior y profundización en: ${destrezaDesc}`);
 
     const desarrollo = semData?.desarrollo
-      || (semana <= 2
-        ? `Desarrollar actividades prácticas para comprender: ${destrezaDesc}. Los estudiantes aplicarán ${indicador ? "el indicador: " + indicador.substring(0, 100) + "..." : "las destrezas trabajadas"}.`
-        : `Profundizar en la comprensión de: ${destrezaDesc}. Trabajo grupal e individual con materiales de apoyo. Indicador: ${indicador ? indicador.substring(0, 100) + "..." : "a definir"}.`);
+      || `Actividades prácticas orientadas a la comprensión de: ${destrezaDesc}. Los estudiantes desarrollarán ejercicios aplicando ${indicador ? "el indicador: " + indicador.substring(0, 150) : "las destrezas trabajadas"}.`;
 
     const cierre = semData?.cierre
       || (semana === numSemanas
-        ? `Sintetizar los aprendizajes de la unidad. Evaluar: ${critEval ? critEval.substring(0, 120) + "..." : "las destrezas trabajadas"}. Retroalimentación grupal.`
-        : `Cerrar con una reflexión sobre lo aprendido. Socializar los trabajos realizados. Revisar el indicador: ${indicador ? indicador.substring(0, 100) + "..." : "de la DCD"}.`);
+        ? `Evaluación de la unidad: ${critEval || destrezaDesc}. Retroalimentación grupal y socialización de aprendizajes.`
+        : `Reflexión sobre lo aprendido. Socialización de trabajos realizados y revisión de: ${indicador ? indicador.substring(0, 100) : "la destreza"}.`);
 
-    // Columna izquierda: sugerencias
+    // Columna izquierda: contenido aplicado
     const izqContent = [
       p(`Semana ${semana}`, { bold: true, size: 9 }),
-      p("Sugerencias para el inicio:", { bold: true, size: 7, color: "2980B9" }),
-      p(`• ${inicio}`, { size: 7 }),
-      p("Sugerencias para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
-      p(`• ${desarrollo}`, { size: 7 }),
-      p("Sugerencias para el cierre:", { bold: true, size: 7, color: "E67E22" }),
-      p(`• ${cierre}`, { size: 7 }),
+      p(inicio, { size: 7 }),
+      p(desarrollo, { size: 7 }),
+      p(cierre, { size: 7 }),
     ];
 
     // Columna central: recursos
