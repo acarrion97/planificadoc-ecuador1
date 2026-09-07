@@ -69,6 +69,19 @@ const B_NONE = {
 };
 
 // ── Helpers ──
+const LOWERCASE_WORDS = new Set(["de", "del", "la", "las", "el", "los", "y", "en", "para", "a"]);
+
+function toTitleCase(str: string): string {
+  return str
+    .split(/\s+/)
+    .map((word, i) => {
+      const lower = word.toLowerCase();
+      if (i > 0 && LOWERCASE_WORDS.has(lower)) return lower;
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
 function p(
   text: string,
   opts: { bold?: boolean; size?: number; color?: string; align?: string } = {}
@@ -178,8 +191,8 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       [
         new TableRow({
           children: [
-            tc([p(`Docente: ${plan.docente || "—"}`, { size: 8 })], TW * 0.35),
-            tc([p(`Asignatura: ${plan.asignatura || "—"}`, { size: 8 })], TW * 0.25),
+            tc([p(`Docente: ${toTitleCase(plan.docente || "—")}`, { size: 8 })], TW * 0.35),
+            tc([p(`Asignatura: ${toTitleCase(plan.asignatura || "—")}`, { size: 8 })], TW * 0.25),
             tc([p(`Grado/Curso: ${plan.grado || "—"}`, { size: 8 })], TW * 0.15),
             tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.1),
             tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], TW * 0.15),
