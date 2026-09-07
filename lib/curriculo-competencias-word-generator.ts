@@ -3,15 +3,19 @@
  * Familia EGB/BGU — A4 LANDSCAPE
  *
  * Estructura (según formato oficial MINEDUC):
- * 1. Encabezado (Unidad Educativa / Año lectivo)
- * 2. Título: Planificación microcurricular
- * 3. Datos Informativos
- * 4. Situación de aprendizaje (Título + Descripción)
- * 5. Conexión interdisciplinar (Asignaturas)
- * 6. Competencias específicas + Indicadores de evaluación (Saberes)
- * 7. Estrategias metodológicas desde el DUA + Recursos
- * 8. Técnicas e instrumentos de evaluación
- * 9. Semanas 1-8 (inicio/desarrollo/cierre + Técnica + Instrumento)
+ * PÁGINA 1:
+ *   1. Encabezado (Unidad Educativa / Año lectivo)
+ *   2. Título: Planificación microcurricular
+ *   3. Datos Informativos (Docente, Grado, Paralelo, Asignatura, No. semanas)
+ *   4. Situación de aprendizaje (Título + Descripción)
+ *   5. Conexión interdisciplinar (Asignaturas)
+ *   6. Competencias específicas + Indicadores de evaluación / Saberes
+ * PÁGINAS 2-3:
+ *   7. Tabla Destrezas | Indicadores | Actividades
+ * PÁGINAS 4+:
+ *   8. Estrategia metodológica desde el DCA | Recursos | Técnicas e instrumentos
+ * PÁGINAS 5+ (una por semana):
+ *   9. Semana X: Inicio / Desarrollo / Cierre | (contenido) | Técnicas / Instrumento
  */
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
@@ -25,7 +29,6 @@ import type { CompetenciaTransversalCode } from "../data/competencias-transversa
 const COLOR_PRIMARY = "155E75";
 const COLOR_SECTION = "DCEFF2";
 const COLOR_HEADER = "EAF6F7";
-const COLOR_BORDER = "A9C3C8";
 const WHITE = "FFFFFF";
 const BLACK = "1A1A1A";
 
@@ -59,13 +62,6 @@ const B = {
   bottom: { style: BorderStyle.SINGLE, size: 4, color: "666666" },
   left: { style: BorderStyle.SINGLE, size: 4, color: "666666" },
   right: { style: BorderStyle.SINGLE, size: 4, color: "666666" },
-};
-
-const B_NONE = {
-  top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
-  bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
-  left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
-  right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
 };
 
 // ── Helpers ──
@@ -104,10 +100,11 @@ function p(
 function tc(
   paragraphs: Paragraph[],
   width: number,
-  opts: { cs?: number; bg?: string; vAlign?: string; borders?: any } = {}
+  opts: { cs?: number; rs?: number; bg?: string; vAlign?: string; borders?: any } = {}
 ): TableCell {
   return new TableCell({
     columnSpan: opts.cs ?? 1,
+    rowSpan: opts.rs ?? 1,
     width: { size: width, type: WidthType.DXA },
     verticalAlign: (opts.vAlign as any) ?? VerticalAlign.TOP,
     shading: opts.bg ? { fill: opts.bg, color: opts.bg, type: ShadingType.CLEAR } : undefined,
@@ -126,11 +123,11 @@ function makeTable(rows: TableRow[], totalW: number, colWidths: number[]): Table
   });
 }
 
-function sectionRow(label: string): TableRow {
+function sectionRow(label: string, cs = 4): TableRow {
   return new TableRow({
     children: [
       tc([p(label, { bold: true, size: 9, color: COLOR_PRIMARY })], TW, {
-        cs: 4,
+        cs,
         bg: COLOR_SECTION,
       }),
     ],
@@ -155,6 +152,10 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 ): Promise<Blob> {
   const children: (Paragraph | Table)[] = [];
 
+  // ═══════════════════════════════════════════════════════════════
+  // PÁGINA 1 — Encabezado + Datos + Situación + Conexión + Competencias
+  // ═══════════════════════════════════════════════════════════════
+
   // ── 1. Encabezado ──
   children.push(
     makeTable(
@@ -171,8 +172,6 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     )
   );
 
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
   // ── 2. Título ──
   children.push(
     makeTable(
@@ -182,36 +181,28 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     )
   );
 
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
   // ── 3. Datos Informativos ──
-  children.push(makeTable([sectionRow("DATOS INFORMATIVOS")], TW, [TW]));
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p(`Docente: ${toTitleCase(plan.docente || "—")}`, { size: 8 })], TW * 0.35),
-            tc([p(`Asignatura: ${toTitleCase(plan.asignatura || "—")}`, { size: 8 })], TW * 0.25),
-            tc([p(`Grado/Curso: ${plan.grado || "—"}`, { size: 8 })], TW * 0.15),
-            tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.1),
-            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], TW * 0.15),
+            tc([p(`Docente: ${toTitleCase(plan.docente || "—")}`, { size: 8 })], TW * 0.4),
+            tc([p(`Grado-Paralelo: ${plan.grado || "—"} - ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.3),
+            tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.3),
           ],
         }),
         new TableRow({
           children: [
+            tc([p(`Asignatura: ${toTitleCase(plan.asignatura || "—")}`, { size: 8 })], TW * 0.5),
             tc([p(`No. de semanas: ${plan.estructuraDidactica?.fases?.length || 8}`, { size: 8 })], TW * 0.5),
-            tc([p(`Nivel: ${plan.nivel || "—"}`, { size: 8 })], TW * 0.25),
-            tc([p(`Fecha: ${plan.fecha || "—"}`, { size: 8 })], TW * 0.25),
           ],
         }),
       ],
       TW,
-      [TW * 0.35, TW * 0.25, TW * 0.15, TW * 0.1, TW * 0.15]
+      [TW * 0.4, TW * 0.3, TW * 0.3]
     )
   );
-
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
   // ── 4. Situación de aprendizaje ──
   children.push(makeTable([sectionRow("SITUACIÓN DE APRENDIZAJE")], TW, [TW]));
@@ -220,17 +211,19 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       [
         new TableRow({
           children: [
-            tc([p("Título:", { bold: true, size: 8 }), p(plan.objetivoAprendizaje || "—", { size: 8 })], TW * 0.3),
-            tc([p("Descripción:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 8 })], TW * 0.7),
+            tc([p("Título:", { bold: true, size: 8 }), p(plan.objetivoAprendizaje || "—", { size: 8 })], TW),
+          ],
+        }),
+        new TableRow({
+          children: [
+            tc([p("Descripción:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 8 })], TW),
           ],
         }),
       ],
       TW,
-      [TW * 0.3, TW * 0.7]
+      [TW]
     )
   );
-
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
   // ── 5. Conexión interdisciplinar ──
   children.push(makeTable([sectionRow("CONEXIÓN INTERDISCIPLINAR")], TW, [TW]));
@@ -242,288 +235,240 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       [
         new TableRow({
           children: [
-            tc([p("Lingüística:", { bold: true, size: 7 }), p("Interpretación de problemas matemáticos y redacción de soluciones argumentadas", { size: 7 })], TW * 0.33),
-            tc([p("Educación para la Ciudadanía:", { bold: true, size: 7 }), p("Análisis crítico de la validez de modelos y decisiones", { size: 7 })], TW * 0.33),
-            tc([p("Emprendimiento y Gestión:", { bold: true, size: 7 }), p("Aplicación de modelos matemáticos para optimizar recursos", { size: 7 })], TW * 0.34),
+            tc([p("Asignaturas:", { bold: true, size: 8 }), p(` ${asignaturasConexion}`, { size: 8 })], TW),
           ],
         }),
       ],
-      TW,
-      [TW * 0.33, TW * 0.33, TW * 0.34]
-    )
-  );
-
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  // ── 6. Competencias específicas + Indicadores ──
-  children.push(makeTable([sectionRow("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN")], TW, [TW]));
-  
-  // Extraer códigos de competencias específicas de la DCD (criteriosEvaluacion)
-  const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
-  // Extraer códigos de indicadores de la DCD
-  const indicadoresDcd = plan.destreza?.indicadoresEvaluacion || [];
-  
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc(
-              [
-                p("Competencias:", { bold: true, size: 8 }),
-                // Mostrar competencias transversales como badges
-                new Paragraph({
-                  spacing: { after: 0, before: 40 },
-                  children: plan.competenciasAsociadas.map((c) => competencyBadge(c)),
-                }),
-                // Mostrar competencias específicas completas (CE.M.2.1 etc.)
-                ...(competenciasEspecificas.length > 0
-                  ? competenciasEspecificas.map((ce) =>
-                      p(`• ${ce}`, { size: 7 })
-                    )
-                  : []),
-              ],
-              TW * 0.3
-            ),
-            tc(
-              [
-                p("Indicador:", { bold: true, size: 8 }),
-                // Mostrar indicador principal
-                p(plan.indicadorEvaluacion || "—", { size: 8 }),
-                // Mostrar indicadores de la DCD si existen
-                ...(indicadoresDcd.length > 0
-                  ? indicadoresDcd.map((ind) =>
-                      p(`• ${ind}`, { size: 7 })
-                    )
-                  : []),
-              ],
-              TW * 0.7
-            ),
-          ],
-        }),
-      ],
-      TW,
-      [TW * 0.3, TW * 0.7]
-    )
-  );
-
-  // Saberes
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc([p("Saberes:", { bold: true, size: 8 })], TW * 0.2),
-            tc([p("Declarativos:", { bold: true, size: 8 }), p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], TW * 0.27),
-            tc([p("Procedimentales:", { bold: true, size: 8 }), p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], TW * 0.27),
-            tc([p("Actitudinales:", { bold: true, size: 8 }), p(plan.saberes?.actitudinales || "—", { size: 7 })], TW * 0.26),
-          ],
-        }),
-      ],
-      TW,
-      [TW * 0.2, TW * 0.27, TW * 0.27, TW * 0.26]
-    )
-  );
-
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  // ── 7. Estrategias metodológicas desde el DUA + Recursos ──
-  children.push(makeTable([sectionRow("ESTRATEGIAS METODOLÓGICAS DESDE EL DUA Y RECURSOS")], TW, [TW]));
-  
-  // Leyenda DUA
-  children.push(
-    makeTable(
-      [new TableRow({
-        children: [
-          tc([
-            p("Leyenda DUA: ", { bold: true, size: 7 }),
-            new Paragraph({
-              spacing: { after: 0 },
-              children: [
-                new TextRun({ text: "▪ ", color: "EC4899", size: 14, font: "Arial" }),
-                new TextRun({ text: "Representación  ", size: 14, font: "Arial" }),
-                new TextRun({ text: "▪ ", color: "1E3A5F", size: 14, font: "Arial" }),
-                new TextRun({ text: "Acción y Expresión  ", size: 14, font: "Arial" }),
-                new TextRun({ text: "▪ ", color: "22C55E", size: 14, font: "Arial" }),
-                new TextRun({ text: "Implicación", size: 14, font: "Arial" }),
-              ],
-            }),
-          ], TW),
-        ],
-      })],
       TW,
       [TW]
     )
   );
 
-  const fases = plan.estructuraDidactica?.fases || [];
-  if (fases.length > 0) {
-    const colW = Math.floor(TW / fases.length);
-    const colWidths = fases.map((_, i) => (i === fases.length - 1 ? TW - colW * (fases.length - 1) : colW));
-    children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: fases.map((fase) =>
-              tc(
-                [
-                  p(fase.titulo, { bold: true, size: 9, color: WHITE }),
-                  p(`${fase.duracionMinutos} min`, { size: 7, color: WHITE }),
-                ],
-                colW,
-                { bg: ERCA_COLORS[fase.titulo] || COLOR_PRIMARY }
-              )
-            ),
-          }),
-          new TableRow({
-            children: fases.map((fase) =>
-              tc(
-                fase.actividades.map((act) => p(`• ${act.texto}`, { size: 7 })),
-                colW
-              )
-            ),
-          }),
-        ],
-        TW,
-        colWidths
-      )
-    );
-  }
+  // ── 6. Competencias específicas + Indicadores / Saberes ──
+  children.push(makeTable([sectionRow("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN")], TW, [TW]));
 
-  // Recursos
-  if (plan.recursos) {
-    children.push(
-      makeTable(
-        [new TableRow({ children: [tc([p("Recursos:", { bold: true, size: 8 }), p(plan.recursos, { size: 8 })], TW)] })],
-        TW,
-        [TW]
-      )
-    );
-  }
+  const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
+  const indicadoresDcd = plan.destreza?.indicadoresEvaluacion || [];
+  const COL_IND = Math.floor(TW * 0.5);
+  const COL_SAB = TW - COL_IND;
 
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  // ── 8. Técnicas e instrumentos de evaluación ──
-  children.push(makeTable([sectionRow("TÉCNICAS E INSTRUMENTOS DE EVALUACIÓN")], TW, [TW]));
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p("Técnica:", { bold: true, size: 8 }), p(plan.tecnicaEvaluacion || "—", { size: 8 })], TW * 0.5),
-            tc([p("Instrumento:", { bold: true, size: 8 }), p(plan.instrumentoEvaluacion || "—", { size: 8 })], TW * 0.5),
+            tc(
+              [
+                p("Indicadores de evaluación:", { bold: true, size: 8 }),
+                // Indicador principal
+                p(plan.indicadorEvaluacion || "—", { size: 8 }),
+                // Indicadores de la DCD
+                ...(indicadoresDcd.length > 0
+                  ? indicadoresDcd.map((ind) => p(`• ${ind}`, { size: 7 }))
+                  : []),
+              ],
+              COL_IND
+            ),
+            tc(
+              [
+                p("Saberes:", { bold: true, size: 8 }),
+              ],
+              COL_SAB
+            ),
           ],
         }),
       ],
       TW,
-      [TW * 0.5, TW * 0.5]
+      [COL_IND, COL_SAB]
     )
   );
 
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  // ── 9. Semanas 1-8 — Formato oficial MINEDUC (6 columnas) ──
-  children.push(makeTable([sectionRow("DESARROLLO DE LA EXPERIENCIA DE APRENDIZAJE")], TW, [TW]));
-  
-  // Cabeceras de columna
-  const COL_SEMANA = Math.floor(TW * 0.08);
-  const COL_DESTREZAS = Math.floor(TW * 0.18);
-  const COL_INDICADORES = Math.floor(TW * 0.16);
-  const COL_ESTRATEGIAS = Math.floor(TW * 0.30);
-  const COL_RECURSOS = Math.floor(TW * 0.12);
-  const COL_EVALUACION = TW - COL_SEMANA - COL_DESTREZAS - COL_INDICADORES - COL_ESTRATEGIAS - COL_RECURSOS;
+  // Sub-fila: Declarativos | Procedimentales | Actitudinales
+  const COL_DEC = Math.floor(COL_SAB * 0.34);
+  const COL_PRO = Math.floor(COL_SAB * 0.33);
+  const COL_ACT = COL_SAB - COL_DEC - COL_PRO;
 
   children.push(
     makeTable(
-      [new TableRow({
-        tableHeader: true,
-        children: [
-          tc([p("SEMANA", { bold: true, size: 7, color: WHITE })], COL_SEMANA, { bg: "1A3A5C" }),
-          tc([p("DESTREZAS CON CRITERIOS DE DESEMPEÑO", { bold: true, size: 7, color: WHITE })], COL_DESTREZAS, { bg: "1A3A5C" }),
-          tc([p("INDICADORES DE EVALUACIÓN", { bold: true, size: 7, color: WHITE })], COL_INDICADORES, { bg: "1A3A5C" }),
-          tc([p("ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", { bold: true, size: 7, color: WHITE })], COL_ESTRATEGIAS, { bg: "1A3A5C" }),
-          tc([p("RECURSOS", { bold: true, size: 7, color: WHITE })], COL_RECURSOS, { bg: "1A3A5C" }),
-          tc([p("ACTIVIDADES EVALUATIVAS", { bold: true, size: 7, color: WHITE })], COL_EVALUACION, { bg: "1A3A5C" }),
-        ],
-      })],
+      [
+        new TableRow({
+          children: [
+            tc([p("Competencias:", { bold: true, size: 8 })], COL_IND),
+            tc([p("Declarativos:", { bold: true, size: 7 }), p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], COL_DEC),
+            tc([p("Procedimentales:", { bold: true, size: 7 }), p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], COL_PRO),
+            tc([p("Actitudinales:", { bold: true, size: 7 }), p(plan.saberes?.actitudinales || "—", { size: 7 })], COL_ACT),
+          ],
+        }),
+      ],
       TW,
-      [COL_SEMANA, COL_DESTREZAS, COL_INDICADORES, COL_ESTRATEGIAS, COL_RECURSOS, COL_EVALUACION]
+      [COL_IND, COL_DEC, COL_PRO, COL_ACT]
     )
   );
 
-  // Generar 8 semanas con contenido
+  // Fila de competencias (badges + códigos específicos)
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc(
+              [
+                new Paragraph({
+                  spacing: { after: 0, before: 40 },
+                  children: plan.competenciasAsociadas.map((c) => competencyBadge(c)),
+                }),
+                ...(competenciasEspecificas.length > 0
+                  ? competenciasEspecificas.map((ce) => p(`• ${ce}`, { size: 7 }))
+                  : []),
+              ],
+              COL_IND
+            ),
+            tc([p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], COL_DEC),
+            tc([p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], COL_PRO),
+            tc([p(plan.saberes?.actitudinales || "—", { size: 7 })], COL_ACT),
+          ],
+        }),
+      ],
+      TW,
+      [COL_IND, COL_DEC, COL_PRO, COL_ACT]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // PÁGINAS 2-3 — Tabla de Destrezas | Indicadores | Actividades
+  // ═══════════════════════════════════════════════════════════════
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  const COL_DEST = Math.floor(TW * 0.34);
+  const COL_IND2 = Math.floor(TW * 0.33);
+  const COL_ACT2 = TW - COL_DEST - COL_IND2;
+
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          tableHeader: true,
+          children: [
+            tc([p("Destrezas", { bold: true, size: 8, color: WHITE })], COL_DEST, { bg: COLOR_PRIMARY }),
+            tc([p("Indicadores", { bold: true, size: 8, color: WHITE })], COL_IND2, { bg: COLOR_PRIMARY }),
+            tc([p("Actividades", { bold: true, size: 8, color: WHITE })], COL_ACT2, { bg: COLOR_PRIMARY }),
+          ],
+        }),
+        // 4 filas vacías para completar
+        ...Array.from({ length: 4 }, () =>
+          new TableRow({
+            children: [
+              tc([p("", { size: 7 })], COL_DEST),
+              tc([p("", { size: 7 })], COL_IND2),
+              tc([p("", { size: 7 })], COL_ACT2),
+            ],
+          })
+        ),
+      ],
+      TW,
+      [COL_DEST, COL_IND2, COL_ACT2]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // PÁGINAS 4+ — Estrategia didáctica | Recursos | Técnicas
+  // ═══════════════════════════════════════════════════════════════
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  const COL_ESTR = Math.floor(TW * 0.40);
+  const COL_REC = Math.floor(TW * 0.30);
+  const COL_TECH = TW - COL_ESTR - COL_REC;
+
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          tableHeader: true,
+          children: [
+            tc([p("Estrategia metodológica desde el DCA", { bold: true, size: 8, color: WHITE })], COL_ESTR, { bg: COLOR_PRIMARY }),
+            tc([p("Recursos", { bold: true, size: 8, color: WHITE })], COL_REC, { bg: COLOR_PRIMARY }),
+            tc([p("Técnicas e instrumentos de evaluación", { bold: true, size: 8, color: WHITE })], COL_TECH, { bg: COLOR_PRIMARY }),
+          ],
+        }),
+      ],
+      TW,
+      [COL_ESTR, COL_REC, COL_TECH]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // PÁGINAS 5+ — Semanas (una por semana)
+  // Formato: 3 columnas
+  //   Izquierda (~25%): Semana X / Inicio / Desarrollo / Cierre
+  //   Centro (~50%): (contenido/actividades)
+  //   Derecha (~25%): Técnicas / Instrumento
+  // ═══════════════════════════════════════════════════════════════
   const semanas = plan.semanas || [];
-  for (let semana = 1; semana <= 8; semana++) {
-    const semData = semanas.find(s => s.numero === semana);
-    
-    // Contenido de la columna SEMANA
-    const semanaContent = [
-      p(`Semana ${semana}`, { bold: true, size: 8 }),
-      p("Sugerencias para el inicio:", { bold: true, size: 7, color: "2980B9" }),
+  const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
+
+  for (let semana = 1; semana <= numSemanas; semana++) {
+    const semData = semanas.find((s) => s.numero === semana);
+    children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+    const COL_IZQ = Math.floor(TW * 0.25);
+    const COL_CEN = Math.floor(TW * 0.50);
+    const COL_DER = TW - COL_IZQ - COL_CEN;
+
+    // ── Fila superior:headers vacíos (como en el formato oficial) ──
+    children.push(
+      makeTable(
+        [
+          new TableRow({
+            children: [
+              tc([p("", { size: 7 })], COL_IZQ),
+              tc([p("", { size: 7 })], COL_CEN),
+              tc([p("", { size: 7 })], COL_DER),
+            ],
+          }),
+        ],
+        TW,
+        [COL_IZQ, COL_CEN, COL_DER]
+      )
+    );
+
+    // ── Contenido de la semana ──
+    // Columna izquierda: Semana + sugerencias
+    const izqContent = [
+      p(`Semana ${semana}`, { bold: true, size: 9 }),
+      p("Sugerencia para el inicio:", { bold: true, size: 7, color: "2980B9" }),
       p(semData?.inicio || "—", { size: 7 }),
-      p("Sugerencias para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
+      p("Sugerencia para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
       p(semData?.desarrollo || "—", { size: 7 }),
-      p("Sugerencias para el cierre:", { bold: true, size: 7, color: "E67E22" }),
+      p("Sugerencia para el cierre:", { bold: true, size: 7, color: "E67E22" }),
       p(semData?.cierre || "—", { size: 7 }),
     ];
 
-    // Contenido de la columna DESTREZAS (soporta datos por semana o global)
-    const destrezaSemana = (semData as any)?.destreza;
-    const destrezasContent = [
-      p(destrezaSemana?.codigo || plan.destreza?.codigo || "—", { bold: true, size: 8 }),
-      p(destrezaSemana?.descripcion || plan.destreza?.descripcion || "—", { size: 7 }),
+    // Columna centro: contenido/actividades (vacía para que el docente llene)
+    const cenContent = [
+      p("", { size: 7 }),
     ];
 
-    // Contenido de la columna INDICADORES (soporta datos por semana o global)
-    const indicadorSemana = (semData as any)?.indicador || plan.indicadorEvaluacion;
-    const indicadoresSemana = (semData as any)?.indicadores || plan.destreza?.indicadoresEvaluacion;
-    const indicadoresContent = indicadoresSemana?.length
-      ? indicadoresSemana.map((ind: string) => p(`• ${ind}`, { size: 7 }))
-      : [p(indicadorSemana || "—", { size: 7 })];
-
-    // Contenido de la columna ESTRATEGIAS (con fases ERCA)
-    const estrategiasContent: Paragraph[] = [];
-    const fases = plan.estructuraDidactica?.fases || [];
-    if (fases.length > 0) {
-      for (const fase of fases) {
-        estrategiasContent.push(p(fase.titulo, { bold: true, size: 7, color: ERCA_COLORS[fase.titulo] || "000000" }));
-        for (const act of fase.actividades) {
-          estrategiasContent.push(p(`• ${act.texto}`, { size: 7 }));
-        }
-      }
-    } else {
-      estrategiasContent.push(p("—", { size: 7 }));
-    }
-
-    // Contenido de la columna RECURSOS (soporta datos por semana o global)
-    const recursosSemana = (semData as any)?.recursos || plan.recursos;
-    const recursosContent = recursosSemana
-      ? recursosSemana.split(",").map((r: string) => p(`• ${r.trim()}`, { size: 7 }))
-      : [p("—", { size: 7 })];
-
-    // Contenido de la columna EVALUACIÓN (soporta datos por semana o global)
-    const evaluacionContent = [
-      p("Técnica:", { bold: true, size: 7 }),
+    // Columna derecha: Técnicas + Instrumento
+    const derContent = [
+      p("Técnicas:", { bold: true, size: 7 }),
       p(semData?.tecnica || plan.tecnicaEvaluacion || "—", { size: 7 }),
       p("Instrumento:", { bold: true, size: 7 }),
       p(semData?.instrumento || plan.instrumentoEvaluacion || "—", { size: 7 }),
     ];
 
-    // Fila de la semana
     children.push(
       makeTable(
-        [new TableRow({
-          children: [
-            tc(semanaContent, COL_SEMANA, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
-            tc(destrezasContent, COL_DESTREZAS, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
-            tc(indicadoresContent, COL_INDICADORES, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
-            tc(estrategiasContent, COL_ESTRATEGIAS, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
-            tc(recursosContent, COL_RECURSOS, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
-            tc(evaluacionContent, COL_EVALUACION, { bg: semana % 2 === 0 ? "F8F9FA" : "FFFFFF" }),
-          ],
-        })],
+        [
+          new TableRow({
+            children: [
+              tc(izqContent, COL_IZQ),
+              tc(cenContent, COL_CEN),
+              tc(derContent, COL_DER),
+            ],
+          }),
+        ],
         TW,
-        [COL_SEMANA, COL_DESTREZAS, COL_INDICADORES, COL_ESTRATEGIAS, COL_RECURSOS, COL_EVALUACION]
+        [COL_IZQ, COL_CEN, COL_DER]
       )
     );
   }
