@@ -381,6 +381,9 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     )
   );
 
+  // Extraer texto del indicador sin el código
+  const indTexto = indicador.replace(/^[A-Z]+\.[A-Z]+\.\d+\.\d+\.\d+\.\s*/i, "").trim();
+
   for (let semana = 1; semana <= numSemanas; semana++) {
     const semData = semanas.find((s) => s.numero === semana);
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
@@ -388,16 +391,16 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     // ── Contenido aplicado por semana ──
     const inicio = semData?.inicio
       || (semana === 1
-        ? `Situación de aprendizaje: ${objetivo || destrezaDesc}\nDestreza: ${destrezaDesc}\nIndicador: ${indicador || "—"}`
+        ? `Situación de aprendizaje: ${objetivo || destrezaDesc}\nDestreza: ${destrezaDesc}\nIndicador: ${indTexto || "—"}`
         : `Repaso de la semana anterior y profundización en: ${destrezaDesc}`);
 
     const desarrollo = semData?.desarrollo
-      || `Actividades prácticas orientadas a la comprensión de: ${destrezaDesc}. Los estudiantes desarrollarán ejercicios aplicando ${indicador ? "el indicador: " + indicador.substring(0, 150) : "las destrezas trabajadas"}.`;
+      || `Actividades prácticas orientadas a la comprensión de: ${destrezaDesc}. Los estudiantes desarrollarán ejercicios aplicando ${indTexto ? "el indicador: " + indTexto.substring(0, 150) : "las destrezas trabajadas"}.`;
 
     const cierre = semData?.cierre
       || (semana === numSemanas
         ? `Evaluación de la unidad: ${critEval || destrezaDesc}. Retroalimentación grupal y socialización de aprendizajes.`
-        : `Reflexión sobre lo aprendido. Socialización de trabajos realizados y revisión de: ${indicador ? indicador.substring(0, 100) : "la destreza"}.`);
+        : `Reflexión sobre lo aprendido. Socialización de trabajos realizados y revisión de: ${indTexto ? indTexto.substring(0, 100) : "la destreza"}.`);
 
     // Columna izquierda: contenido aplicado
     const izqContent = [
