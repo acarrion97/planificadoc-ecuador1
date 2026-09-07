@@ -11,7 +11,7 @@
  *   5. Conexión interdisciplinar (Asignaturas)
  *   6. Competencias específicas + Indicadores de evaluación / Saberes
  * PÁGINAS 2-3:
- *   7. Tabla Destrezas | Indicadores | Actividades
+ *   7. Tabla Destrezas | Indicadores | Actividades (con datos reales)
  * PÁGINAS 4+:
  *   8. Estrategia metodológica desde el DCA | Recursos | Técnicas e instrumentos
  * PÁGINAS 5+ (una por semana):
@@ -32,7 +32,6 @@ const COLOR_HEADER = "EAF6F7";
 const WHITE = "FFFFFF";
 const BLACK = "1A1A1A";
 
-// Colores competencias
 const COMP_COLORS: Record<string, { bg: string; fg: string }> = {
   C: { bg: "3498DB", fg: "FFFFFF" },
   M: { bg: "E74C3C", fg: "FFFFFF" },
@@ -40,7 +39,6 @@ const COMP_COLORS: Record<string, { bg: string; fg: string }> = {
   CS: { bg: "27AE60", fg: "FFFFFF" },
 };
 
-// Colores ERCA
 const ERCA_COLORS: Record<string, string> = {
   INICIO: "2980B9",
   DESARROLLO: "27AE60",
@@ -54,9 +52,8 @@ const ERCA_COLORS: Record<string, string> = {
 // ── Dimensiones A4 landscape ──
 const PW = 16838;
 const MAR = 560;
-const TW = PW - 2 * MAR; // 15718
+const TW = PW - 2 * MAR;
 
-// ── Bordes ──
 const B = {
   top: { style: BorderStyle.SINGLE, size: 4, color: "666666" },
   bottom: { style: BorderStyle.SINGLE, size: 4, color: "666666" },
@@ -64,7 +61,6 @@ const B = {
   right: { style: BorderStyle.SINGLE, size: 4, color: "666666" },
 };
 
-// ── Helpers ──
 const LOWERCASE_WORDS = new Set(["de", "del", "la", "las", "el", "los", "y", "en", "para", "a"]);
 
 function toTitleCase(str: string): string {
@@ -153,7 +149,7 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   const children: (Paragraph | Table)[] = [];
 
   // ═══════════════════════════════════════════════════════════════
-  // PÁGINA 1 — Encabezado + Datos + Situación + Conexión + Competencias
+  // PÁGINA 1
   // ═══════════════════════════════════════════════════════════════
 
   // ── 1. Encabezado ──
@@ -210,14 +206,10 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     makeTable(
       [
         new TableRow({
-          children: [
-            tc([p("Título:", { bold: true, size: 8 }), p(plan.objetivoAprendizaje || "—", { size: 8 })], TW),
-          ],
+          children: [tc([p("Título:", { bold: true, size: 8 }), p(plan.objetivoAprendizaje || "—", { size: 8 })], TW)],
         }),
         new TableRow({
-          children: [
-            tc([p("Descripción:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 8 })], TW),
-          ],
+          children: [tc([p("Descripción:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 8 })], TW)],
         }),
       ],
       TW,
@@ -232,19 +224,13 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     : plan.asignatura || "—";
   children.push(
     makeTable(
-      [
-        new TableRow({
-          children: [
-            tc([p("Asignaturas:", { bold: true, size: 8 }), p(` ${asignaturasConexion}`, { size: 8 })], TW),
-          ],
-        }),
-      ],
+      [new TableRow({ children: [tc([p("Asignaturas:", { bold: true, size: 8 }), p(` ${asignaturasConexion}`, { size: 8 })], TW)] })],
       TW,
       [TW]
     )
   );
 
-  // ── 6. Competencias específicas + Indicadores / Saberes ──
+  // ── 6. Competencias + Indicadores + Saberes ──
   children.push(makeTable([sectionRow("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN")], TW, [TW]));
 
   const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
@@ -260,21 +246,14 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
             tc(
               [
                 p("Indicadores de evaluación:", { bold: true, size: 8 }),
-                // Indicador principal
                 p(plan.indicadorEvaluacion || "—", { size: 8 }),
-                // Indicadores de la DCD
                 ...(indicadoresDcd.length > 0
                   ? indicadoresDcd.map((ind) => p(`• ${ind}`, { size: 7 }))
                   : []),
               ],
               COL_IND
             ),
-            tc(
-              [
-                p("Saberes:", { bold: true, size: 8 }),
-              ],
-              COL_SAB
-            ),
+            tc([p("Saberes:", { bold: true, size: 8 })], COL_SAB),
           ],
         }),
       ],
@@ -283,29 +262,12 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     )
   );
 
-  // Sub-fila: Declarativos | Procedimentales | Actitudinales
-  const COL_DEC = Math.floor(COL_SAB * 0.34);
-  const COL_PRO = Math.floor(COL_SAB * 0.33);
-  const COL_ACT = COL_SAB - COL_DEC - COL_PRO;
+  // Sub-fila: Competencias | Declarativos | Procedimentales | Actitudinales
+  const COL_COMP = Math.floor(TW * 0.30);
+  const COL_DEC = Math.floor(TW * 0.24);
+  const COL_PRO = Math.floor(TW * 0.24);
+  const COL_ACT = TW - COL_COMP - COL_DEC - COL_PRO;
 
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc([p("Competencias:", { bold: true, size: 8 })], COL_IND),
-            tc([p("Declarativos:", { bold: true, size: 7 }), p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], COL_DEC),
-            tc([p("Procedimentales:", { bold: true, size: 7 }), p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], COL_PRO),
-            tc([p("Actitudinales:", { bold: true, size: 7 }), p(plan.saberes?.actitudinales || "—", { size: 7 })], COL_ACT),
-          ],
-        }),
-      ],
-      TW,
-      [COL_IND, COL_DEC, COL_PRO, COL_ACT]
-    )
-  );
-
-  // Fila de competencias (badges + códigos específicos)
   children.push(
     makeTable(
       [
@@ -313,6 +275,7 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
           children: [
             tc(
               [
+                p("Competencias:", { bold: true, size: 8 }),
                 new Paragraph({
                   spacing: { after: 0, before: 40 },
                   children: plan.competenciasAsociadas.map((c) => competencyBadge(c)),
@@ -321,27 +284,59 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
                   ? competenciasEspecificas.map((ce) => p(`• ${ce}`, { size: 7 }))
                   : []),
               ],
-              COL_IND
+              COL_COMP
             ),
-            tc([p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], COL_DEC),
-            tc([p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], COL_PRO),
-            tc([p(plan.saberes?.actitudinales || "—", { size: 7 })], COL_ACT),
+            tc([p("Declarativos:", { bold: true, size: 7 }), p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], COL_DEC),
+            tc([p("Procedimentales:", { bold: true, size: 7 }), p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], COL_PRO),
+            tc([p("Actitudinales:", { bold: true, size: 7 }), p(plan.saberes?.actitudinales || "—", { size: 7 })], COL_ACT),
           ],
         }),
       ],
       TW,
-      [COL_IND, COL_DEC, COL_PRO, COL_ACT]
+      [COL_COMP, COL_DEC, COL_PRO, COL_ACT]
     )
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // PÁGINAS 2-3 — Tabla de Destrezas | Indicadores | Actividades
+  // PÁGINAS 2-3 — Tabla Destrezas | Indicadores | Actividades
+  // Rellenada con datos reales de la DCD
   // ═══════════════════════════════════════════════════════════════
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
   const COL_DEST = Math.floor(TW * 0.34);
   const COL_IND2 = Math.floor(TW * 0.33);
   const COL_ACT2 = TW - COL_DEST - COL_IND2;
+
+  // Generar filas con datos de la DCD
+  const destreza = plan.destreza;
+  const indicadoresArr = destreza?.indicadoresEvaluacion || [];
+  const numFilasDestrezas = Math.max(indicadoresArr.length, 1);
+
+  const filasDestrezas: TableRow[] = [];
+  for (let i = 0; i < numFilasDestrezas; i++) {
+    const ind = indicadoresArr[i] || "";
+    filasDestrezas.push(
+      new TableRow({
+        children: [
+          tc([p(i === 0 ? (destreza?.codigo || "—") : "", { bold: true, size: 8 }), p(i === 0 ? (destreza?.descripcion || "—") : "", { size: 7 })], COL_DEST),
+          tc([p(ind || "—", { size: 7 })], COL_IND2),
+          tc([p("", { size: 7 })], COL_ACT2),
+        ],
+      })
+    );
+  }
+  // Agregar filas vacías si hay menos de 4
+  while (filasDestrezas.length < 4) {
+    filasDestrezas.push(
+      new TableRow({
+        children: [
+          tc([p("", { size: 7 })], COL_DEST),
+          tc([p("", { size: 7 })], COL_IND2),
+          tc([p("", { size: 7 })], COL_ACT2),
+        ],
+      })
+    );
+  }
 
   children.push(
     makeTable(
@@ -354,16 +349,7 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
             tc([p("Actividades", { bold: true, size: 8, color: WHITE })], COL_ACT2, { bg: COLOR_PRIMARY }),
           ],
         }),
-        // 4 filas vacías para completar
-        ...Array.from({ length: 4 }, () =>
-          new TableRow({
-            children: [
-              tc([p("", { size: 7 })], COL_DEST),
-              tc([p("", { size: 7 })], COL_IND2),
-              tc([p("", { size: 7 })], COL_ACT2),
-            ],
-          })
-        ),
+        ...filasDestrezas,
       ],
       TW,
       [COL_DEST, COL_IND2, COL_ACT2]
@@ -372,12 +358,28 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   // ═══════════════════════════════════════════════════════════════
   // PÁGINAS 4+ — Estrategia didáctica | Recursos | Técnicas
+  // Rellenada con datos reales
   // ═══════════════════════════════════════════════════════════════
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
   const COL_ESTR = Math.floor(TW * 0.40);
   const COL_REC = Math.floor(TW * 0.30);
   const COL_TECH = TW - COL_ESTR - COL_REC;
+
+  // Contenido de la estrategia
+  const fases = plan.estructuraDidactica?.fases || [];
+  const estrategiaContent: Paragraph[] = [];
+  if (fases.length > 0) {
+    for (const fase of fases) {
+      estrategiaContent.push(p(fase.titulo, { bold: true, size: 8, color: ERCA_COLORS[fase.titulo] || "000000" }));
+      estrategiaContent.push(p(`${fase.duracionMinutos} min`, { size: 7 }));
+      for (const act of fase.actividades) {
+        estrategiaContent.push(p(`• ${act.texto}`, { size: 7 }));
+      }
+    }
+  } else {
+    estrategiaContent.push(p("Estrategia Didáctica", { size: 8 }));
+  }
 
   children.push(
     makeTable(
@@ -390,6 +392,21 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
             tc([p("Técnicas e instrumentos de evaluación", { bold: true, size: 8, color: WHITE })], COL_TECH, { bg: COLOR_PRIMARY }),
           ],
         }),
+        new TableRow({
+          children: [
+            tc(estrategiaContent, COL_ESTR),
+            tc([p(plan.recursos || "—", { size: 7 })], COL_REC),
+            tc(
+              [
+                p("Técnica:", { bold: true, size: 7 }),
+                p(plan.tecnicaEvaluacion || "—", { size: 7 }),
+                p("Instrumento:", { bold: true, size: 7 }),
+                p(plan.instrumentoEvaluacion || "—", { size: 7 }),
+              ],
+              COL_TECH
+            ),
+          ],
+        }),
       ],
       TW,
       [COL_ESTR, COL_REC, COL_TECH]
@@ -397,11 +414,7 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // PÁGINAS 5+ — Semanas (una por semana)
-  // Formato: 3 columnas
-  //   Izquierda (~25%): Semana X / Inicio / Desarrollo / Cierre
-  //   Centro (~50%): (contenido/actividades)
-  //   Derecha (~25%): Técnicas / Instrumento
+  // PÁGINAS 5+ — Semanas
   // ═══════════════════════════════════════════════════════════════
   const semanas = plan.semanas || [];
   const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
@@ -414,46 +427,34 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     const COL_CEN = Math.floor(TW * 0.50);
     const COL_DER = TW - COL_IZQ - COL_CEN;
 
-    // ── Fila superior:headers vacíos (como en el formato oficial) ──
-    children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: [
-              tc([p("", { size: 7 })], COL_IZQ),
-              tc([p("", { size: 7 })], COL_CEN),
-              tc([p("", { size: 7 })], COL_DER),
-            ],
-          }),
-        ],
-        TW,
-        [COL_IZQ, COL_CEN, COL_DER]
-      )
-    );
-
-    // ── Contenido de la semana ──
-    // Columna izquierda: Semana + sugerencias
     const izqContent = [
       p(`Semana ${semana}`, { bold: true, size: 9 }),
       p("Sugerencia para el inicio:", { bold: true, size: 7, color: "2980B9" }),
-      p(semData?.inicio || "—", { size: 7 }),
+      p(semData?.inicio || plan.destreza?.descripcion || "—", { size: 7 }),
       p("Sugerencia para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
       p(semData?.desarrollo || "—", { size: 7 }),
       p("Sugerencia para el cierre:", { bold: true, size: 7, color: "E67E22" }),
       p(semData?.cierre || "—", { size: 7 }),
     ];
 
-    // Columna centro: contenido/actividades (vacía para que el docente llene)
-    const cenContent = [
-      p("", { size: 7 }),
-    ];
+    // Centro: contenido basado en fases ERCA
+    const cenContent: Paragraph[] = [];
+    if (fases.length > 0) {
+      for (const fase of fases) {
+        cenContent.push(p(fase.titulo, { bold: true, size: 7, color: ERCA_COLORS[fase.titulo] || "000000" }));
+        for (const act of fase.actividades) {
+          cenContent.push(p(`• ${act.texto}`, { size: 7 }));
+        }
+      }
+    } else {
+      cenContent.push(p("—", { size: 7 }));
+    }
 
-    // Columna derecha: Técnicas + Instrumento
     const derContent = [
       p("Técnicas:", { bold: true, size: 7 }),
-      p(semData?.tecnica || plan.tecnicaEvaluacion || "—", { size: 7 }),
+      p(semData?.tecnica || plan.tecnicaEvaluacion || "Observación directa", { size: 7 }),
       p("Instrumento:", { bold: true, size: 7 }),
-      p(semData?.instrumento || plan.instrumentoEvaluacion || "—", { size: 7 }),
+      p(semData?.instrumento || plan.instrumentoEvaluacion || "Lista de cotejo", { size: 7 }),
     ];
 
     children.push(

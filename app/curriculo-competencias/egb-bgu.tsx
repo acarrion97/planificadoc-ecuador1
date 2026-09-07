@@ -18,6 +18,7 @@ import { trpc } from "@/lib/trpc";
 import { codigosCompetenciasActivas } from "@/data/competencias-transversales";
 import { AREAS_INFO, type Area, type Destreza, type Subnivel } from "@/data/types";
 import { TODAS_LAS_DESTREZAS, buscarDestrezas, filtrarPorAreaYSubnivel } from "@/data";
+import { CompetenciasEspecificasSelector, type CompetenciaEspecifica } from "@/components/CompetenciasEspecificasSelector";
 
 type PasoFlujo = "datos" | "dcd" | "estructura" | "evaluacion";
 
@@ -248,6 +249,7 @@ export default function EGBBGUFormScreen() {
   const [dcdCodigo, setDcdCodigo] = useState("");
   const [dcdDescripcion, setDcdDescripcion] = useState("");
   const [competencias, setCompetencias] = useState<string[]>(["C"]);
+  const [competenciasEspecificas, setCompetenciasEspecificas] = useState<{ codigo: string; descripcion: string }[]>([]);
   const [indicadorEvaluacion, setIndicadorEvaluacion] = useState("");
   const [objetivoAprendizaje, setObjetivoAprendizaje] = useState("");
 
@@ -376,6 +378,13 @@ export default function EGBBGUFormScreen() {
   // ── Asignatura legible ──
   const asignatura = areaCode ? AREAS_INFO[areaCode]?.name || areaCode : "";
 
+  // Destrezas disponibles para el selector de competencias específicas
+  const destrezasDisponibles = useMemo(() => {
+    if (!areaCode) return [];
+    const sub = subnivelDelGrado(grado);
+    return filtrarPorAreaYSubnivel(areaCode, sub);
+  }, [areaCode, grado]);
+
   const toggleCompetencia = (code: string) => {
     setCompetencias((prev) =>
       prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
@@ -397,6 +406,7 @@ export default function EGBBGUFormScreen() {
       fecha,
       dcd: dcdCodigo ? { codigo: dcdCodigo, descripcion: dcdDescripcion } : undefined,
       competencias,
+      competenciasEspecificas: competenciasEspecificas.map((ce) => ce.codigo),
       indicadorEvaluacion,
       objetivoAprendizaje,
       estrategiaId,
@@ -618,6 +628,16 @@ export default function EGBBGUFormScreen() {
             </Pressable>
           ))}
         </View>
+      </View>
+
+      {/* Selector de Competencias Específicas */}
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.fieldLabel, { color: colors.muted }]}>Competencias específicas</Text>
+        <CompetenciasEspecificasSelector
+          destrezas={destrezasDisponibles}
+          value={competenciasEspecificas}
+          onChange={setCompetenciasEspecificas}
+        />
       </View>
     </View>
   );
