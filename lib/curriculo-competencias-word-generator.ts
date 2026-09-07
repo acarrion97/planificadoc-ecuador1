@@ -419,6 +419,12 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   const semanas = plan.semanas || [];
   const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
 
+  // Contenido base para sugerencias (derivado de la DCD)
+  const destrezaDesc = plan.destreza?.descripcion || "";
+  const indicador = plan.indicadorEvaluacion || plan.destreza?.indicadoresEvaluacion?.[0] || "";
+  const objetivo = plan.objetivoAprendizaje || "";
+  const critEval = plan.destreza?.criteriosEvaluacion?.[0] || "";
+
   for (let semana = 1; semana <= numSemanas; semana++) {
     const semData = semanas.find((s) => s.numero === semana);
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
@@ -427,14 +433,30 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     const COL_CEN = Math.floor(TW * 0.50);
     const COL_DER = TW - COL_IZQ - COL_CEN;
 
+    // ── Sugerencias auto-generadas por semana ──
+    const inicio = semData?.inicio
+      || (semana === 1
+        ? `Presentar la situacion de aprendizaje: ${objetivo || destrezaDesc}. Motivar a los estudiantes con preguntas guia y revisar conocimientos previos.`
+        : `Repasar los aprendizajes de la semana anterior. Presentar el nuevo indicador: ${indicador ? indicador.substring(0, 120) + "..." : destrezaDesc}.`);
+
+    const desarrollo = semData?.desarrollo
+      || (semana <= 2
+        ? `Desarrollar actividades practicas para comprender: ${destrezaDesc}. Los estudiantes aplicaran ${indicador ? "el indicador: " + indicador.substring(0, 100) + "..." : "las destrezas trabajadas"}.`
+        : `Profundizar en la comprension de: ${destrezaDesc}. Trabajo grupal e individual con materiales de apoyo. Indicador: ${indicador ? indicador.substring(0, 100) + "..." : "a definir"}.`);
+
+    const cierre = semData?.cierre
+      || (semana === numSemanas
+        ? `Sintetizar los aprendizajes de la unidad. Evaluar: ${critEval ? critEval.substring(0, 120) + "..." : "las destrezas trabajadas"}. Retroalimentacion grupal.`
+        : `Cerrar con una reflexion sobre lo aprendido. Socializar los trabajos realizados. Revisar el indicador: ${indicador ? indicador.substring(0, 100) + "..." : "de la DCD"}.`);
+
     const izqContent = [
       p(`Semana ${semana}`, { bold: true, size: 9 }),
       p("Sugerencia para el inicio:", { bold: true, size: 7, color: "2980B9" }),
-      p(semData?.inicio || plan.destreza?.descripcion || "—", { size: 7 }),
+      p(inicio, { size: 7 }),
       p("Sugerencia para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
-      p(semData?.desarrollo || "—", { size: 7 }),
+      p(desarrollo, { size: 7 }),
       p("Sugerencia para el cierre:", { bold: true, size: 7, color: "E67E22" }),
-      p(semData?.cierre || "—", { size: 7 }),
+      p(cierre, { size: 7 }),
     ];
 
     // Centro: contenido basado en fases ERCA
