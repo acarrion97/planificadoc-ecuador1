@@ -357,126 +357,78 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // PÁGINAS 4+ — Estrategia didáctica | Recursos | Técnicas
-  // Rellenada con datos reales
+  // PÁGINAS 4+ — Semanas con header "Estrategias desde el DUA"
   // ═══════════════════════════════════════════════════════════════
+  const semanas = plan.semanas || [];
+  const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
+
+  const destrezaDesc = plan.destreza?.descripcion || "";
+  const indicador = plan.indicadorEvaluacion || plan.destreza?.indicadoresEvaluacion?.[0] || "";
+  const objetivo = plan.objetivoAprendizaje || "";
+  const critEval = plan.destreza?.criteriosEvaluacion?.[0] || "";
+
+  const COL_IZQ = Math.floor(TW * 0.45);
+  const COL_REC = Math.floor(TW * 0.25);
+  const COL_TECH = TW - COL_IZQ - COL_REC;
+
+  // Header de la tabla (una sola vez)
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-
-  const COL_ESTR = Math.floor(TW * 0.40);
-  const COL_REC = Math.floor(TW * 0.30);
-  const COL_TECH = TW - COL_ESTR - COL_REC;
-
-  // Contenido de la estrategia
-  const fases = plan.estructuraDidactica?.fases || [];
-  const estrategiaContent: Paragraph[] = [];
-  if (fases.length > 0) {
-    for (const fase of fases) {
-      estrategiaContent.push(p(fase.titulo, { bold: true, size: 8, color: ERCA_COLORS[fase.titulo] || "000000" }));
-      estrategiaContent.push(p(`${fase.duracionMinutos} min`, { size: 7 }));
-      for (const act of fase.actividades) {
-        estrategiaContent.push(p(`• ${act.texto}`, { size: 7 }));
-      }
-    }
-  } else {
-    estrategiaContent.push(p("Estrategia Didáctica", { size: 8 }));
-  }
-
   children.push(
     makeTable(
       [
         new TableRow({
           tableHeader: true,
           children: [
-            tc([p("Estrategia metodológica desde el DCA", { bold: true, size: 8, color: WHITE })], COL_ESTR, { bg: COLOR_PRIMARY }),
-            tc([p("Recursos", { bold: true, size: 8, color: WHITE })], COL_REC, { bg: COLOR_PRIMARY }),
+            tc([p("Estrategias metodológicas desde el DUA", { bold: true, size: 8, color: WHITE })], COL_IZQ, { bg: COLOR_PRIMARY }),
+            tc([p("Recursos (se podrán emplear de acuerdo con la disponibilidad o adaptabilidad y conformidad del estudiante que realice el equipo docente)", { bold: true, size: 7, color: WHITE })], COL_REC, { bg: COLOR_PRIMARY }),
             tc([p("Técnicas e instrumentos de evaluación", { bold: true, size: 8, color: WHITE })], COL_TECH, { bg: COLOR_PRIMARY }),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc(estrategiaContent, COL_ESTR),
-            tc([p(plan.recursos || "—", { size: 7 })], COL_REC),
-            tc(
-              [
-                p("Técnica:", { bold: true, size: 7 }),
-                p(plan.tecnicaEvaluacion || "—", { size: 7 }),
-                p("Instrumento:", { bold: true, size: 7 }),
-                p(plan.instrumentoEvaluacion || "—", { size: 7 }),
-              ],
-              COL_TECH
-            ),
           ],
         }),
       ],
       TW,
-      [COL_ESTR, COL_REC, COL_TECH]
+      [COL_IZQ, COL_REC, COL_TECH]
     )
   );
-
-  // ═══════════════════════════════════════════════════════════════
-  // PÁGINAS 5+ — Semanas
-  // ═══════════════════════════════════════════════════════════════
-  const semanas = plan.semanas || [];
-  const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
-
-  // Contenido base para sugerencias (derivado de la DCD)
-  const destrezaDesc = plan.destreza?.descripcion || "";
-  const indicador = plan.indicadorEvaluacion || plan.destreza?.indicadoresEvaluacion?.[0] || "";
-  const objetivo = plan.objetivoAprendizaje || "";
-  const critEval = plan.destreza?.criteriosEvaluacion?.[0] || "";
 
   for (let semana = 1; semana <= numSemanas; semana++) {
     const semData = semanas.find((s) => s.numero === semana);
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-    const COL_IZQ = Math.floor(TW * 0.25);
-    const COL_CEN = Math.floor(TW * 0.50);
-    const COL_DER = TW - COL_IZQ - COL_CEN;
-
     // ── Sugerencias auto-generadas por semana ──
     const inicio = semData?.inicio
       || (semana === 1
-        ? `Presentar la situacion de aprendizaje: ${objetivo || destrezaDesc}. Motivar a los estudiantes con preguntas guia y revisar conocimientos previos.`
+        ? `Presentar la situación de aprendizaje: ${objetivo || destrezaDesc}. Motivar a los estudiantes con preguntas guía y revisar conocimientos previos.`
         : `Repasar los aprendizajes de la semana anterior. Presentar el nuevo indicador: ${indicador ? indicador.substring(0, 120) + "..." : destrezaDesc}.`);
 
     const desarrollo = semData?.desarrollo
       || (semana <= 2
-        ? `Desarrollar actividades practicas para comprender: ${destrezaDesc}. Los estudiantes aplicaran ${indicador ? "el indicador: " + indicador.substring(0, 100) + "..." : "las destrezas trabajadas"}.`
-        : `Profundizar en la comprension de: ${destrezaDesc}. Trabajo grupal e individual con materiales de apoyo. Indicador: ${indicador ? indicador.substring(0, 100) + "..." : "a definir"}.`);
+        ? `Desarrollar actividades prácticas para comprender: ${destrezaDesc}. Los estudiantes aplicarán ${indicador ? "el indicador: " + indicador.substring(0, 100) + "..." : "las destrezas trabajadas"}.`
+        : `Profundizar en la comprensión de: ${destrezaDesc}. Trabajo grupal e individual con materiales de apoyo. Indicador: ${indicador ? indicador.substring(0, 100) + "..." : "a definir"}.`);
 
     const cierre = semData?.cierre
       || (semana === numSemanas
-        ? `Sintetizar los aprendizajes de la unidad. Evaluar: ${critEval ? critEval.substring(0, 120) + "..." : "las destrezas trabajadas"}. Retroalimentacion grupal.`
-        : `Cerrar con una reflexion sobre lo aprendido. Socializar los trabajos realizados. Revisar el indicador: ${indicador ? indicador.substring(0, 100) + "..." : "de la DCD"}.`);
+        ? `Sintetizar los aprendizajes de la unidad. Evaluar: ${critEval ? critEval.substring(0, 120) + "..." : "las destrezas trabajadas"}. Retroalimentación grupal.`
+        : `Cerrar con una reflexión sobre lo aprendido. Socializar los trabajos realizados. Revisar el indicador: ${indicador ? indicador.substring(0, 100) + "..." : "de la DCD"}.`);
 
+    // Columna izquierda: sugerencias
     const izqContent = [
       p(`Semana ${semana}`, { bold: true, size: 9 }),
-      p("Sugerencia para el inicio:", { bold: true, size: 7, color: "2980B9" }),
-      p(inicio, { size: 7 }),
-      p("Sugerencia para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
-      p(desarrollo, { size: 7 }),
-      p("Sugerencia para el cierre:", { bold: true, size: 7, color: "E67E22" }),
-      p(cierre, { size: 7 }),
+      p("Sugerencias para el inicio:", { bold: true, size: 7, color: "2980B9" }),
+      p(`• ${inicio}`, { size: 7 }),
+      p("Sugerencias para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
+      p(`• ${desarrollo}`, { size: 7 }),
+      p("Sugerencias para el cierre:", { bold: true, size: 7, color: "E67E22" }),
+      p(`• ${cierre}`, { size: 7 }),
     ];
 
-    // Centro: contenido basado en fases ERCA
-    const cenContent: Paragraph[] = [];
-    if (fases.length > 0) {
-      for (const fase of fases) {
-        cenContent.push(p(fase.titulo, { bold: true, size: 7, color: ERCA_COLORS[fase.titulo] || "000000" }));
-        for (const act of fase.actividades) {
-          cenContent.push(p(`• ${act.texto}`, { size: 7 }));
-        }
-      }
-    } else {
-      cenContent.push(p("—", { size: 7 }));
-    }
+    // Columna central: recursos
+    const recursosSem = plan.recursos || "Ficha de trabajo, cuaderno, lápiz";
+    const recContent = recursosSem.split(",").map((r: string) => p(`• ${r.trim()}`, { size: 7 }));
 
-    const derContent = [
-      p("Técnicas:", { bold: true, size: 7 }),
-      p(semData?.tecnica || plan.tecnicaEvaluacion || "Observación directa", { size: 7 }),
-      p("Instrumento:", { bold: true, size: 7 }),
-      p(semData?.instrumento || plan.instrumentoEvaluacion || "Lista de cotejo", { size: 7 }),
+    // Columna derecha: técnicas e instrumentos
+    const techContent = [
+      p(`Técnica: ${semData?.tecnica || plan.tecnicaEvaluacion || "Observación directa"}`, { size: 7 }),
+      p(`Instrumento: ${semData?.instrumento || plan.instrumentoEvaluacion || "Lista de cotejo"}`, { size: 7 }),
     ];
 
     children.push(
@@ -485,13 +437,13 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
           new TableRow({
             children: [
               tc(izqContent, COL_IZQ),
-              tc(cenContent, COL_CEN),
-              tc(derContent, COL_DER),
+              tc(recContent, COL_REC),
+              tc(techContent, COL_TECH),
             ],
           }),
         ],
         TW,
-        [COL_IZQ, COL_CEN, COL_DER]
+        [COL_IZQ, COL_REC, COL_TECH]
       )
     );
   }
