@@ -282,26 +282,32 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   // Generar filas de indicadores + saberes
   const filasIndicadores: TableRow[] = [];
 
+  // Extraer códigos base para saberes (ej: M.5.1 → D.M.5.1, P.M.5.1, A.M.5.1)
+  const dcdCodigo = plan.destreza?.codigo || "";
+  const prefijoArea = dcdCodigo ? dcdCodigo.split(".")[0] : "";
+  const subSecuencial = dcdCodigo ? dcdCodigo.split(".").slice(1).join(".") : "";
+
   for (let i = 0; i < indicadoresDcd.length; i++) {
     const indCodigo = indicadoresDcd[i] || "—";
 
-    // Extraer el texto del indicador (sin el código)
-    const indTexto = indCodigo.replace(/^[A-Z]+\.[A-Z]+\.\d+\.\d+\.\d+\.\s*/i, "").trim();
-    
-    // Derivar saberes del texto del indicador
-    const declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || indTexto || plan.destreza?.descripcion || "—";
-    const procedimentales = plan.saberes?.procedimentales || saberesFromData?.procedimentales
-      || `Aplicar procedimientos para resolver problemas relacionados con: ${indTexto.substring(0, 80)}${indTexto.length > 80 ? "..." : ""}.`;
-    const actitudinales = plan.saberes?.actitudinales || saberesFromData?.actitudinales
-      || "Valorar la importancia del trabajo cooperativo y la responsabilidad en el aprendizaje.";
+    // Generar códigos de saberes
+    const numSaber = i + 1;
+    const codigoDec = prefijoArea ? `D.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
+    const codigoPro = prefijoArea ? `P.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
+    const codigoAct = prefijoArea ? `A.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
+
+    // Usar saberes del catálogo si existen
+    const declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || "—";
+    const procedimentales = plan.saberes?.procedimentales || saberesFromData?.procedimentales || "—";
+    const actitudinales = plan.saberes?.actitudinales || saberesFromData?.actitudinales || "—";
 
     filasIndicadores.push(
       new TableRow({
         children: [
           tc([p(indCodigo, { size: 7 })], COL_IND),
-          tc([p(declarativo, { size: 7 })], COL_DEC),
-          tc([p(procedimentales, { size: 7 })], COL_PRO),
-          tc([p(actitudinales, { size: 7 })], COL_ACT),
+          tc([p(`${codigoDec}. ${declarativo}`, { size: 7 })], COL_DEC),
+          tc([p(`${codigoPro}. ${procedimentales}`, { size: 7 })], COL_PRO),
+          tc([p(`${codigoAct}. ${actitudinales}`, { size: 7 })], COL_ACT),
         ],
       })
     );
