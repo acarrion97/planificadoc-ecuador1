@@ -382,11 +382,11 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     // Contenido de la columna SEMANA
     const semanaContent = [
       p(`Semana ${semana}`, { bold: true, size: 8 }),
-      p("Suposiciones para el inicio:", { bold: true, size: 7, color: "2980B9" }),
+      p("Sugerencias para el inicio:", { bold: true, size: 7, color: "2980B9" }),
       p(semData?.inicio || "—", { size: 7 }),
-      p("Desarrollo:", { bold: true, size: 7, color: "27AE60" }),
+      p("Sugerencias para el desarrollo:", { bold: true, size: 7, color: "27AE60" }),
       p(semData?.desarrollo || "—", { size: 7 }),
-      p("Cierre:", { bold: true, size: 7, color: "E67E22" }),
+      p("Sugerencias para el cierre:", { bold: true, size: 7, color: "E67E22" }),
       p(semData?.cierre || "—", { size: 7 }),
     ];
 
