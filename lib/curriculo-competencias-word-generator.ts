@@ -148,7 +148,7 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       [
         new TableRow({
           children: [
-            tc([p(plan.institucion || "Unidad Educativa…", { bold: true, size: 10 })], TW * 0.6, { bg: COLOR_HEADER }),
+            tc([p("Unidad Educativa:", { bold: true, size: 8 }), p(` ${plan.institucion || "—"}`, { size: 9 })], TW * 0.6, { bg: COLOR_HEADER }),
             tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], TW * 0.4, { bg: COLOR_HEADER }),
           ],
         }),
@@ -221,11 +221,22 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   // ── 5. Conexión interdisciplinar ──
   children.push(makeTable([sectionRow("CONEXIÓN INTERDISCIPLINAR")], TW, [TW]));
+  const asignaturasConexion = plan.conexionInterdisciplinar?.asignaturas?.length
+    ? plan.conexionInterdisciplinar.asignaturas.join(", ")
+    : plan.asignatura || "—";
   children.push(
     makeTable(
-      [new TableRow({ children: [tc([p("Asignaturas:", { bold: true, size: 8 }), p(plan.asignatura || "—", { size: 8 })], TW)] })],
+      [
+        new TableRow({
+          children: [
+            tc([p("Lingüística:", { bold: true, size: 7 }), p("Interpretación de problemas matemáticos y redacción de soluciones argumentadas", { size: 7 })], TW * 0.33),
+            tc([p("Educación para la Ciudadanía:", { bold: true, size: 7 }), p("Análisis crítico de la validez de modelos y decisiones", { size: 7 })], TW * 0.33),
+            tc([p("Emprendimiento y Gestión:", { bold: true, size: 7 }), p("Aplicación de modelos matemáticos para optimizar recursos", { size: 7 })], TW * 0.34),
+          ],
+        }),
+      ],
       TW,
-      [TW]
+      [TW * 0.33, TW * 0.33, TW * 0.34]
     )
   );
 
@@ -245,6 +256,12 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
                   spacing: { after: 0, before: 40 },
                   children: plan.competenciasAsociadas.map((c) => competencyBadge(c)),
                 }),
+                // Mostrar códigos DCD completos si existen
+                ...((plan as any).dcdsSeleccionadas?.length
+                  ? (plan as any).dcdsSeleccionadas.map((dcd: any) =>
+                      p(`• ${dcd.codigo}: ${dcd.descripcion || ""}`, { size: 7 })
+                    )
+                  : []),
               ],
               TW * 0.3
             ),
@@ -264,9 +281,9 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
         new TableRow({
           children: [
             tc([p("Saberes:", { bold: true, size: 8 })], TW * 0.2),
-            tc([p("Declarativos:", { bold: true, size: 8 }), p(plan.destreza?.descripcion || "—", { size: 7 })], TW * 0.27),
-            tc([p("Procedimentales:", { bold: true, size: 8 }), p(plan.actividadesEvaluacion || "—", { size: 7 })], TW * 0.27),
-            tc([p("Actitudinales:", { bold: true, size: 8 }), p(plan.tecnicaEvaluacion || "—", { size: 7 })], TW * 0.26),
+            tc([p("Declarativos:", { bold: true, size: 8 }), p(plan.saberes?.declarativos || plan.destreza?.descripcion || "—", { size: 7 })], TW * 0.27),
+            tc([p("Procedimentales:", { bold: true, size: 8 }), p(plan.saberes?.procedimentales || plan.actividadesEvaluacion || "—", { size: 7 })], TW * 0.27),
+            tc([p("Actitudinales:", { bold: true, size: 8 }), p(plan.saberes?.actitudinales || "—", { size: 7 })], TW * 0.26),
           ],
         }),
       ],
@@ -279,6 +296,33 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   // ── 7. Estrategias metodológicas desde el DUA + Recursos ──
   children.push(makeTable([sectionRow("ESTRATEGIAS METODOLÓGICAS DESDE EL DUA Y RECURSOS")], TW, [TW]));
+  
+  // Leyenda DUA
+  children.push(
+    makeTable(
+      [new TableRow({
+        children: [
+          tc([
+            p("Leyenda DUA: ", { bold: true, size: 7 }),
+            new Paragraph({
+              spacing: { after: 0 },
+              children: [
+                new TextRun({ text: "▪ ", color: "EC4899", size: 14, font: "Arial" }),
+                new TextRun({ text: "Representación  ", size: 14, font: "Arial" }),
+                new TextRun({ text: "▪ ", color: "1E3A5F", size: 14, font: "Arial" }),
+                new TextRun({ text: "Acción y Expresión  ", size: 14, font: "Arial" }),
+                new TextRun({ text: "▪ ", color: "22C55E", size: 14, font: "Arial" }),
+                new TextRun({ text: "Implicación", size: 14, font: "Arial" }),
+              ],
+            }),
+          ], TW),
+        ],
+      })],
+      TW,
+      [TW]
+    )
+  );
+
   const fases = plan.estructuraDidactica?.fases || [];
   if (fases.length > 0) {
     const colW = Math.floor(TW / fases.length);
@@ -390,16 +434,19 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       p(semData?.cierre || "—", { size: 7 }),
     ];
 
-    // Contenido de la columna DESTREZAS
+    // Contenido de la columna DESTREZAS (soporta datos por semana o global)
+    const destrezaSemana = (semData as any)?.destreza;
     const destrezasContent = [
-      p(plan.destreza?.codigo || "—", { bold: true, size: 8 }),
-      p(plan.destreza?.descripcion || "—", { size: 7 }),
+      p(destrezaSemana?.codigo || plan.destreza?.codigo || "—", { bold: true, size: 8 }),
+      p(destrezaSemana?.descripcion || plan.destreza?.descripcion || "—", { size: 7 }),
     ];
 
-    // Contenido de la columna INDICADORES
-    const indicadoresContent = plan.destreza?.indicadoresEvaluacion?.length
-      ? plan.destreza.indicadoresEvaluacion.map(ind => p(`• ${ind}`, { size: 7 }))
-      : [p("—", { size: 7 })];
+    // Contenido de la columna INDICADORES (soporta datos por semana o global)
+    const indicadorSemana = (semData as any)?.indicador || plan.indicadorEvaluacion;
+    const indicadoresSemana = (semData as any)?.indicadores || plan.destreza?.indicadoresEvaluacion;
+    const indicadoresContent = indicadoresSemana?.length
+      ? indicadoresSemana.map((ind: string) => p(`• ${ind}`, { size: 7 }))
+      : [p(indicadorSemana || "—", { size: 7 })];
 
     // Contenido de la columna ESTRATEGIAS (con fases ERCA)
     const estrategiasContent: Paragraph[] = [];
@@ -415,12 +462,13 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       estrategiasContent.push(p("—", { size: 7 }));
     }
 
-    // Contenido de la columna RECURSOS
-    const recursosContent = plan.recursos
-      ? plan.recursos.split(",").map(r => p(`• ${r.trim()}`, { size: 7 }))
+    // Contenido de la columna RECURSOS (soporta datos por semana o global)
+    const recursosSemana = (semData as any)?.recursos || plan.recursos;
+    const recursosContent = recursosSemana
+      ? recursosSemana.split(",").map((r: string) => p(`• ${r.trim()}`, { size: 7 }))
       : [p("—", { size: 7 })];
 
-    // Contenido de la columna EVALUACIÓN
+    // Contenido de la columna EVALUACIÓN (soporta datos por semana o global)
     const evaluacionContent = [
       p("Técnica:", { bold: true, size: 7 }),
       p(semData?.tecnica || plan.tecnicaEvaluacion || "—", { size: 7 }),
