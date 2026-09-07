@@ -24,6 +24,7 @@ import {
 } from "docx";
 import type { PlanificacionCurriculoCompetencias } from "../data/types-curriculo-competencias";
 import type { CompetenciaTransversalCode } from "../data/competencias-transversales";
+import { saberesData } from "../data/saberes-data";
 
 // ── Colores ──────────────────────────────────────────────────────
 const COLOR_PRIMARY = "155E75";
@@ -269,11 +270,9 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
   const indicadoresDcd = plan.destreza?.indicadoresEvaluacion || [];
 
-  // Generar códigos de saberes derivados del código de la DCD
-  const dcdCodigo = plan.destreza?.codigo || "";
-  // Ej: M.5.1.1 → prefijo M, secuencial 5.1.1
-  const prefijoArea = dcdCodigo ? dcdCodigo.split(".")[0] : "";
-  const subSecuencial = dcdCodigo ? dcdCodigo.split(".").slice(1).join(".") : "";
+  // Buscar saberes en saberesData usando el código CE
+  const ceCode = competenciasEspecificas[0]?.split(".")[0] + "." + competenciasEspecificas[0]?.split(".")[1] + "." + competenciasEspecificas[0]?.split(".")[2] || "";
+  const saberesFromData = saberesData[ceCode];
 
   const COL_IND = Math.floor(TW * 0.34);
   const COL_DEC = Math.floor(TW * 0.22);
@@ -284,27 +283,22 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   const filasIndicadores: TableRow[] = [];
 
   for (let i = 0; i < indicadoresDcd.length; i++) {
-    const indCodigo = indicadoresDcd[i] || `I.${prefijoArea}.${subSecuencial}.${i + 1}`;
+    const indCodigo = indicadoresDcd[i] || "—";
 
-    // Saberes con código derivado del indicador
-    const numSaber = i + 1;
-    const codigoDec = `D.${prefijoArea}.${subSecuencial}.${numSaber}`;
-    const codigoPro = `P.${prefijoArea}.${subSecuencial}.${numSaber}`;
-    const codigoAct = `A.${prefijoArea}.${subSecuencial}.${numSaber}`;
-
-    const declarativo = plan.saberes?.declarativos || plan.destreza?.descripcion || "—";
-    const procedimentales = plan.saberes?.procedimentales
-      || `Representar gráficamente ${declarativo.toLowerCase()}. Aplicar procedimientos para resolver problemas relacionados con la destreza.`;
-    const actitudinales = plan.saberes?.actitudinales
+    // Usar saberes del catálogo si existen, sino generar
+    const declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || plan.destreza?.descripcion || "—";
+    const procedimentales = plan.saberes?.procedimentales || saberesFromData?.procedimentales
+      || `Aplicar procedimientos para resolver problemas relacionados con la destreza.`;
+    const actitudinales = plan.saberes?.actitudinales || saberesFromData?.actitudinales
       || "Valorar la importancia del trabajo cooperativo y la responsabilidad en el aprendizaje.";
 
     filasIndicadores.push(
       new TableRow({
         children: [
           tc([p(indCodigo, { size: 7 })], COL_IND),
-          tc([p(`${codigoDec}. * ${declarativo}`, { size: 7 })], COL_DEC),
-          tc([p(`${codigoPro}. * ${procedimentales}`, { size: 7 })], COL_PRO),
-          tc([p(`${codigoAct}. * ${actitudinales}`, { size: 7 })], COL_ACT),
+          tc([p(declarativo, { size: 7 })], COL_DEC),
+          tc([p(procedimentales, { size: 7 })], COL_PRO),
+          tc([p(actitudinales, { size: 7 })], COL_ACT),
         ],
       })
     );
