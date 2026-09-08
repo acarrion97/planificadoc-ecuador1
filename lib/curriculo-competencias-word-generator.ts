@@ -228,11 +228,13 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   // ── 4. Situación de aprendizaje ──
   children.push(makeTable([sectionRow("SITUACIÓN DE APRENDIZAJE")], TW, [TW]));
   
-  // Título: usar situacionAprendizaje.titulo o generar uno desde la destreza
-  const tituloSA = plan.situacionAprendizaje?.titulo
+  // Título: usar situacionAprendizaje.titulo o generar uno desde la destreza, sin código
+  const tituloRaw = plan.situacionAprendizaje?.titulo
     || plan.objetivoAprendizaje
-    || plan.destreza?.descripcion?.substring(0, 80)
+    || plan.destreza?.descripcion
     || "—";
+  // Quitar código inicial (ej: "O.LL.2. ", "CE.M.5.1. ", "I.M.2.1.1. ")
+  const tituloSA = tituloRaw.replace(/^[A-Z]+\.[A-Z]+\.\d+[\.\d]*\.\s*/i, "").trim() || tituloRaw;
   
   children.push(
     makeTable(
