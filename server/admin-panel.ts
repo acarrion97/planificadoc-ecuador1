@@ -103,6 +103,17 @@ function buildAdminHTML(adminKey: string): string {
     .badge-cancelled { background: #f1f5f9; color: #475569; }
     .badge-recurring { background: #ede9fe; color: #5b21b6; }
     .badge-one-time { background: #f0f9ff; color: #0369a1; }
+    .btn-deactivate {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .btn-deactivate:hover { background: #dc2626; }
     .loading { text-align: center; padding: 40px; color: #64748b; }
     .refresh-btn {
       background: #3b82f6;
@@ -182,10 +193,11 @@ function buildAdminHTML(adminKey: string): string {
               <th>Vencimiento</th>
               <th>Total Pagado</th>
               <th>Tarjeta</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="usersBody">
-            <tr><td colspan="11" class="loading">Cargando...</td></tr>
+            <tr><td colspan="12" class="loading">Cargando...</td></tr>
           </tbody>
         </table>
       </div>
@@ -289,7 +301,7 @@ function buildAdminHTML(adminKey: string): string {
 
     function renderUsers(users) {
       if (users.length === 0) {
-        document.getElementById('usersBody').innerHTML = '<tr><td colspan="11" class="loading">No hay usuarios</td></tr>';
+        document.getElementById('usersBody').innerHTML = '<tr><td colspan="12" class="loading">No hay usuarios</td></tr>';
         return;
       }
       document.getElementById('usersBody').innerHTML = users.map((u, i) => \`
@@ -305,8 +317,31 @@ function buildAdminHTML(adminKey: string): string {
           <td>\${formatDate(u.endDate)}</td>
           <td><strong>$\${(u.totalPaid / 100).toFixed(2)}</strong></td>
           <td>\${u.cardBrand ? u.cardBrand + ' ****' + u.lastDigits : '-'}</td>
+          <td>\${u.currentStatus === 'active' ? \`<button class="btn-deactivate" onclick="deactivateUser('\${u.email}')">Desactivar</button>\` : '-'}</td>
         </tr>
       \`).join('');
+    }
+
+    async function deactivateUser(email) {
+      if (!confirm(\`¿Estás seguro de desactivar a \${email}? No se realizarán más cobros.\`)) return;
+      try {
+        const key = new URLSearchParams(window.location.search).get('key');
+        const res = await fetch('/api/admin/deactivate-user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          loadUsers();
+          loadMetrics();
+        } else {
+          alert('Error: ' + (data.error || 'No se pudo desactivar'));
+        }
+      } catch (e) {
+        alert('Error de conexión');
+      }
     }
 
     function filterUsers(query) {

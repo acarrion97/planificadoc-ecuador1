@@ -370,6 +370,70 @@ export function registerAdminRoutes(app: Express) {
   });
 
   /**
+   * POST /api/admin/deactivate-user
+   * Deactivates a user: cancels recurring, sets status to cancelled, deactivates card token.
+   */
+  app.post("/api/admin/deactivate-user", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        res.status(400).json({ error: "Email requerido" });
+        return;
+      }
+
+      const db = await getDb();
+      if (!db) {
+        res.status(500).json({ error: "Base de datos no disponible" });
+        return;
+      }
+
+      const normalizedEmail = email.trim().toLowerCase();
+
+      // Find active subscription
+      const subs = await db
+        .select()
+        .from(subscriptions)
+        .where(
+          and(
+            eq(subscriptions.email, normalizedEmail),
+            eq(subscriptions.status, "active")
+          )
+        );
+
+      if (subs.length === 0) {
+        res.status(404).json({ error: "No se encontró suscripción activa para este email" });
+        return;
+      }
+
+      // Cancel all active subscriptions
+      await db
+        .update(subscriptions)
+        .set({ status: "cancelled", isRecurring: false })
+        .where(
+          and(
+            eq(subscriptions.email, normalizedEmail),
+            eq(subscriptions.status, "active")
+          )
+        );
+
+      // Deactivate card token
+      await db
+        .update(cardTokens)
+        .set({ isActive: false })
+        .where(eq(cardTokens.email, normalizedEmail));
+
+      res.json({
+        success: true,
+        message: `Usuario ${normalizedEmail} desactivado. No se realizarán más cobros.`,
+        subscriptionsCancelled: subs.length,
+      });
+    } catch (error) {
+      console.error("[Admin] Deactivate user error:", error);
+      res.status(500).json({ error: "Error interno" });
+    }
+  });
+
+  /**
    * POST /api/subscription/cancel-recurring
    * Cancel recurring billing for a user.
    */
