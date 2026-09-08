@@ -62,6 +62,30 @@ const B = {
   right: { style: BorderStyle.SINGLE, size: 4, color: "666666" },
 };
 
+// ── Generación automática de saberes cuando no existen en catálogo ──
+function generarSaberesAutomaticos(
+  indicador: string,
+  ceCode: string,
+  prefijoArea: string,
+  subSecuencial: string,
+  numSaber: number
+): { declarativos: string; procedimentales: string; actitudinales: string } {
+  // Extraer texto descriptivo del indicador (sin código)
+  const textoIndicador = indicador.replace(/^[A-Z]+\.[A-Z]+\.\d+\.\d+\.\d+\.\s*/i, "").trim();
+  
+  // Generar códigos
+  const codigoDec = prefijoArea ? `D.${prefijoArea}.${subSecuencial}.${numSaber}` : `D.CE.${numSaber}`;
+  const codigoPro = prefijoArea ? `P.${prefijoArea}.${subSecuencial}.${numSaber}` : `P.CE.${numSaber}`;
+  const codigoAct = prefijoArea ? `A.${prefijoArea}.${subSecuencial}.${numSaber}` : `A.CE.${numSaber}`;
+  
+  // Generar textos genéricos pero contextuales (sin código, se agrega después)
+  const declarativos = `Conocer los conceptos, principios y procedimientos relacionados con: ${textoIndicador.substring(0, 120)}`;
+  const procedimentales = `Aplicar estrategias y procedimientos para ${textoIndicador.substring(0, 120).toLowerCase()}`;
+  const actitudinales = `Valorar la importancia del aprendizaje y la práctica de: ${textoIndicador.substring(0, 120).toLowerCase()}`;
+  
+  return { declarativos, procedimentales, actitudinales };
+}
+
 const LOWERCASE_WORDS = new Set(["de", "del", "la", "las", "el", "los", "y", "en", "para", "a"]);
 
 function toTitleCase(str: string): string {
@@ -296,10 +320,18 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     const codigoPro = prefijoArea ? `P.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
     const codigoAct = prefijoArea ? `A.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
 
-    // Usar saberes del catálogo si existen
-    const declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || "—";
-    const procedimentales = plan.saberes?.procedimentales || saberesFromData?.procedimentales || "—";
-    const actitudinales = plan.saberes?.actitudinales || saberesFromData?.actitudinales || "—";
+    // Usar saberes del catálogo si existen, o generar automáticamente
+    let declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || "";
+    let procedimentales = plan.saberes?.procedimentales || saberesFromData?.procedimentales || "";
+    let actitudinales = plan.saberes?.actitudinales || saberesFromData?.actitudinales || "";
+    
+    // Si no hay saberes, generar automáticamente
+    if (!declarativo && !procedimentales && !actitudinales) {
+      const saberesAuto = generarSaberesAutomaticos(indCodigo, ceCode, prefijoArea, subSecuencial, numSaber);
+      declarativo = saberesAuto.declarativos;
+      procedimentales = saberesAuto.procedimentales;
+      actitudinales = saberesAuto.actitudinales;
+    }
 
     filasIndicadores.push(
       new TableRow({
