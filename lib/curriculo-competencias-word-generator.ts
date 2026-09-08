@@ -446,9 +446,9 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     // Columna izquierda: contenido aplicado
     const izqContent = [
       p(`Semana ${semana}`, { bold: true, size: 9 }),
-      p(inicio, { size: 7 }),
-      p(desarrollo, { size: 7 }),
-      p(cierre, { size: 7 }),
+      p(`Inicio: `, { bold: true, size: 7 }), p(inicio, { size: 7 }),
+      p(`Desarrollo: `, { bold: true, size: 7 }), p(desarrollo, { size: 7 }),
+      p(`Cierre: `, { bold: true, size: 7 }), p(cierre, { size: 7 }),
     ];
 
     // Columna central: recursos
