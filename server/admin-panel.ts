@@ -295,7 +295,7 @@ function buildAdminHTML(adminKey: string): string {
         allUsers = data.users;
         renderUsers(allUsers);
       } catch (e) {
-        document.getElementById('usersBody').innerHTML = '<tr><td colspan="11" class="loading">Error al cargar usuarios</td></tr>';
+        document.getElementById('usersBody').innerHTML = '<tr><td colspan="12" class="loading">Error al cargar usuarios</td></tr>';
       }
     }
 
