@@ -235,6 +235,8 @@
     .badge-web { background: #fff7ed; color: #92400e; }
     .btn-metrics { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
     .btn-metrics:hover { background: #e0e7ff; }
+    .btn-deactivate { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-deactivate:hover { background: #dc2626; color: white; }
     /* Modal */
     .modal-overlay {
       display: none;
@@ -672,10 +674,10 @@
           <td>${u.cardBrand ? u.cardBrand + ' ****' + u.lastDigits : '-'}</td>
           <td style="white-space:nowrap">
             <button class="btn-metrics" onclick="openUserMetrics('${u.email.replace(/'/g, "\\'")}')">Ver</button>
-            ${u.currentStatus === 'active' || u.currentStatus === 'past_due'
-              ? `<button class="btn-danger" onclick="deactivateUser('${u.email.replace(/'/g, "\\'")}')" style="margin-left:4px">Desactivar</button>`
-              : u.currentStatus === 'cancelled' ? '<span style="color:#94a3b8;font-size:11px">Desactivado</span>'
-              : ''}
+            ${u.currentStatus === 'cancelled'
+              ? '<span style="color:#94a3b8;font-size:11px;margin-left:4px">Desactivado</span>'
+              : `<button class="btn-deactivate" onclick="deactivateUser('${u.email.replace(/'/g, "\\'")}')" style="margin-left:4px">Desactivar</button>`
+            }
           </td>
         </tr>
       `).join('');
