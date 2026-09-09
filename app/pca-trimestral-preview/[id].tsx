@@ -307,11 +307,12 @@ function PayOverlay({ doc, formData, aiResult, pcaId, onPaid, colors }: {
 
 // ─── Pantalla principal ───────────────────────────────────────────────────────
 
-export default function PcaTrimestralPreviewScreen() {
+  export default function PcaTrimestralPreviewScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const colors  = useColors();
   const router  = useRouter();
   const pcaId   = parseInt(id || "0");
+  const pctId   = id; // Alias for navigation to adaptacion-curricular
 
   const [paid, setPaid]                       = useState(false);
   const [exportingPdf, setExportingPdf]       = useState(false);
@@ -331,6 +332,7 @@ export default function PcaTrimestralPreviewScreen() {
   const formData = doc?.formData as any;
   const aiResult = doc?.aiResult as any;
   const status   = doc?.status;
+  const adaptaciones: any[] = formData?.adaptacionesCurriculares || [];
 
   useEffect(() => {
     if (status === "paid") setPaid(true);
@@ -641,7 +643,61 @@ export default function PcaTrimestralPreviewScreen() {
               </Text>
             </View>
 
-            <SectionLabel text="9. Firmas de aprobación" colors={colors} />
+            <SectionLabel text="9. Adaptaciones Curriculares" colors={colors} />
+            {adaptaciones.length > 0 ? (
+              <View style={{ paddingHorizontal: 16 }}>
+                {adaptaciones.map((a, idx) => (
+                  <View key={a.id || idx} style={[s.card, { borderColor: colors.border, marginBottom: 8 }]}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                      <Text style={[s.fieldLabel, { color: colors.muted, marginTop: 0 }]}>Estudiante: {a.codigoEstudiante}</Text>
+                      <Text style={{ fontSize: 11, color: colors.muted }}>{a.categoriaNecesidad}</Text>
+                    </View>
+                    <Text style={[s.fieldValue, { color: colors.foreground }]}>
+                      {a.fortalezas || "—"}
+                    </Text>
+                    {a.estrategias?.length > 0 && (
+                      <Text style={[s.fieldValue, { color: colors.foreground, marginTop: 4, fontSize: 12 }]}>
+                        Estrategias: {a.estrategias.join(" · ")}
+                      </Text>
+                    )}
+                  </View>
+                ))}
+                <Pressable
+                  onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { pctId } })}
+                  style={({ pressed }) => ({
+                    backgroundColor: pressed ? "#6B21A8" : "#7B2D8B",
+                    borderRadius: 12, paddingVertical: 14,
+                    alignItems: "center", marginTop: 8,
+                  })}
+                >
+                  <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>♿ Agregar otra adaptación</Text>
+                </Pressable>
+              </View>
+            ) : (
+              <View style={{ paddingHorizontal: 16 }}>
+                <View style={[s.card, { borderColor: colors.border, backgroundColor: "#F3F0FF", alignItems: "center", padding: 20 }]}>
+                  <Text style={{ fontSize: 32, marginBottom: 8 }}>♿</Text>
+                  <Text style={{ color: "#4A1942", fontSize: 14, fontWeight: "700", textAlign: "center", marginBottom: 4 }}>
+                    Sin adaptaciones aún
+                  </Text>
+                  <Text style={{ color: "#6B21A8", fontSize: 12, textAlign: "center", marginBottom: 12 }}>
+                    Agrega adaptaciones curriculares para estudiantes con NEE o discapacidad.
+                  </Text>
+                  <Pressable
+                    onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { pctId } })}
+                    style={({ pressed }) => ({
+                      backgroundColor: pressed ? "#6B21A8" : "#7B2D8B",
+                      borderRadius: 12, paddingVertical: 14,
+                      paddingHorizontal: 24, alignItems: "center",
+                    })}
+                  >
+                    <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>♿ Agregar adaptación</Text>
+                  </Pressable>
+                </View>
+              </View>
+            )}
+
+            <SectionLabel text="10. Firmas de aprobación" colors={colors} />
             <View style={[s.card, { borderColor: colors.border }]}>
               <View style={{ flexDirection: "row", gap: 10 }}>
                 {[

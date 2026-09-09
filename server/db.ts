@@ -440,6 +440,19 @@ export async function setPcaAiResult(id: number, aiResult: string): Promise<void
 }
 
 /**
+ * Update the formData of a PCA document.
+ */
+export async function setPcaFormData(id: number, formData: string): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db
+    .update(pcaDocuments)
+    .set({ formData })
+    .where(eq(pcaDocuments.id, id));
+}
+
+/**
  * Store the PayPhone clientTransactionId when the docente initiates payment.
  */
 export async function setPcaClientTxId(id: number, clientTransactionId: string): Promise<void> {
