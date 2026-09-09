@@ -237,7 +237,7 @@ export default function PlanificacionTrimestralScreen() {
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente]         = useState("");
   const [area, setArea]               = useState<Area | "">("");
-  const [subnivel, setSubnivel]       = useState<Subnivel | 0>(0);
+  const [subnivel, setSubnivel]       = useState<Subnivel | "">("");
   const [grado, setGrado]             = useState("");
   const [anioLectivo, setAnioLectivo] = useState("2026-2027");
   const [paralelo, setParalelo]       = useState("");
