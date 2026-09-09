@@ -409,13 +409,14 @@ export default function PlanificacionTrimestralScreen() {
 
   // ── Validación y envío ──
   const handleGenerar = useCallback(async () => {
-    if (!trimestre)           return Alert.alert("Falta información", "Selecciona el trimestre.");
-    if (!institucion.trim())  return Alert.alert("Falta información", "Ingresa el nombre de la institución.");
-    if (!docente.trim())      return Alert.alert("Falta información", "Ingresa el nombre del docente.");
-    if (!area)                return Alert.alert("Falta información", "Selecciona el área.");
-    if (!subnivel)            return Alert.alert("Falta información", "Selecciona el subnivel.");
-    if (!grado)               return Alert.alert("Falta información", "Selecciona el grado.");
-    if (unidades.length === 0) return Alert.alert("Falta información", "Agrega al menos una unidad.");
+    const alert = (msg: string) => Platform.OS === "web" ? window.alert(msg) : Alert.alert("", msg);
+    if (!trimestre)           return alert("Selecciona el trimestre.");
+    if (!institucion.trim())  return alert("Ingresa el nombre de la institución.");
+    if (!docente.trim())      return alert("Ingresa el nombre del docente.");
+    if (!area)                return alert("Selecciona el área.");
+    if (!subnivel)            return alert("Selecciona el subnivel.");
+    if (!grado)               return alert("Selecciona el grado.");
+    if (unidades.length === 0) return alert("Agrega al menos una unidad.");
 
     try {
       const sessionId = await getSessionId();
@@ -465,10 +466,12 @@ export default function PlanificacionTrimestralScreen() {
       if (result.success && result.pcaId) {
         router.push(`/pca-trimestral-preview/${result.pcaId}` as any);
       } else {
-        Alert.alert("Error", result.error || "No se pudo generar la PCT. Intenta de nuevo.");
+        const errMsg = result.error || "No se pudo generar la PCT. Intenta de nuevo.";
+        Platform.OS === "web" ? window.alert(errMsg) : Alert.alert("Error", errMsg);
       }
     } catch (err: any) {
-      Alert.alert("Error", err.message || "Error de conexión. Verifica tu internet.");
+      const errMsg = err.message || "Error de conexión. Verifica tu internet.";
+      Platform.OS === "web" ? window.alert(errMsg) : Alert.alert("Error", errMsg);
     }
   }, [
     trimestre, institucion, docente, area, subnivel, grado, anioLectivo, paralelo,
