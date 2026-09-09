@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 import { getDb } from "./db";
-import { subscriptions, paymentTransactions, cardTokens, codeActivations } from "../drizzle/schema";
+import { subscriptions, paymentTransactions, cardTokens, codeActivations, docenteAccounts, planificacionStats, pcaDocuments, curricularAdaptations, connectaNivelaCrea, evaluacionesDiagnosticas } from "../drizzle/schema";
 import { eq, desc, sql, and, count } from "drizzle-orm";
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET || "planificadoc-admin-2026";
@@ -429,6 +429,78 @@ export function registerAdminRoutes(app: Express) {
       });
     } catch (error) {
       console.error("[Admin] Deactivate user error:", error);
+      res.status(500).json({ error: "Error interno" });
+    }
+  });
+
+  /**
+   * GET /api/admin/user-metrics?email=xxx
+   * Returns metrics for a specific user: planificaciones by period + last login.
+   */
+  app.get("/api/admin/user-metrics", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const email = (req.query.email as string)?.trim().toLowerCase();
+      if (!email) {
+        res.status(400).json({ error: "email requerido" });
+        return;
+      }
+
+      const db = await getDb();
+      if (!db) {
+        res.status(500).json({ error: "Base de datos no disponible" });
+        return;
+      }
+
+      const account = await db
+        .select({ nombre: docenteAccounts.nombre, lastLoginAt: docenteAccounts.lastLoginAt, createdAt: docenteAccounts.createdAt })
+        .from(docenteAccounts)
+        .where(eq(docenteAccounts.email, email))
+        .limit(1);
+
+      const [pcas, adaptaciones, cncs, diagnosticas] = await Promise.all([
+        db.select({ createdAt: pcaDocuments.createdAt }).from(pcaDocuments).where(eq(pcaDocuments.sessionId, email)),
+        db.select({ createdAt: curricularAdaptations.createdAt }).from(curricularAdaptations).where(eq(curricularAdaptations.sessionId, email)),
+        db.select({ createdAt: connectaNivelaCrea.createdAt }).from(connectaNivelaCrea).where(eq(connectaNivelaCrea.sessionId, email)),
+        db.select({ createdAt: evaluacionesDiagnosticas.createdAt }).from(evaluacionesDiagnosticas).where(eq(evaluacionesDiagnosticas.sessionId, email)),
+      ]);
+
+      const porTipo = {
+        pca: pcas.length,
+        adaptaciones: adaptaciones.length,
+        conectaNivelaCrea: cncs.length,
+        evaluacionesDiagnosticas: diagnosticas.length,
+      };
+
+      const allDates = [...pcas, ...adaptaciones, ...cncs, ...diagnosticas].map(r => new Date(r.createdAt).getTime());
+      const now = Date.now();
+      const DAY = 24 * 60 * 60 * 1000;
+      const countSince = (ms: number) => allDates.filter(t => now - t <= ms).length;
+
+      const planificaciones = {
+        diarias: countSince(DAY),
+        semanales: countSince(7 * DAY),
+        trimestrales: countSince(90 * DAY),
+        anuales: countSince(365 * DAY),
+        total: allDates.length,
+        porTipo,
+      };
+
+      const stat = await db
+        .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt })
+        .from(planificacionStats)
+        .where(eq(planificacionStats.identifier, email))
+        .limit(1);
+
+      res.json({
+        email,
+        nombre: account[0]?.nombre || null,
+        lastLoginAt: account[0]?.lastLoginAt || null,
+        cuentaCreadaEl: account[0]?.createdAt || null,
+        planificaciones,
+        totalDispositivoSincronizado: stat[0]?.count ?? null,
+      });
+    } catch (error) {
+      console.error("[Admin] User metrics error:", error);
       res.status(500).json({ error: "Error interno" });
     }
   });
