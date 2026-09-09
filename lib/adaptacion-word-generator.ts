@@ -608,17 +608,17 @@ export async function generarWordAdaptacion(
   } else {
     // ── V–VIII: Secciones genéricas (solo cuando NO hay planificación semanal) ─
     if (ai?.adaptacionesAcceso?.length) {
-      sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES DE ACCESO (Grado 1, 2 y 3)`, BG_HEAD));
+      sections.push(heading(`${ROMAN[++sn]}. GRADO 1 — ADAPTACIONES DE ACCESO`, BG_HEAD));
       sections.push(adaptacionTable(ai.adaptacionesAcceso, "1A3A5C"));
       sections.push(spacer());
     }
     if (ai?.adaptacionesProceso?.length) {
-      sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES DE PROCESO (Grado 2 y 3)`, "B45309"));
+      sections.push(heading(`${ROMAN[++sn]}. GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Metodología)`, "B45309"));
       sections.push(adaptacionTable(ai.adaptacionesProceso, "B45309"));
       sections.push(spacer());
     }
     if (ai?.adaptacionesResultado?.length) {
-      sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES DE RESULTADO (Grado 3)`, "B91C1C"));
+      sections.push(heading(`${ROMAN[++sn]}. GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Evaluación)`, "B91C1C"));
       sections.push(adaptacionTable(ai.adaptacionesResultado, "B91C1C"));
       sections.push(spacer());
     }
@@ -780,6 +780,13 @@ export async function generarWordAdaptacion(
         rows: [rubricaHeaderRow, ...rubricaDataRows],
       })
     );
+    sections.push(spacer());
+  }
+
+  // ── Nota DIAC ───────────────────────────────────────────────────────────
+  if ((adaptacion as any).notaDIAC || ai?.notaDIAC) {
+    sections.push(heading(`${ROMAN[++sn]}. NOTA DIAC`, BG_HEAD));
+    sections.push(textBlock((adaptacion as any).notaDIAC || ai?.notaDIAC || "", "F8FAFC"));
     sections.push(spacer());
   }
 

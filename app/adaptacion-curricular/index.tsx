@@ -485,8 +485,19 @@ export default function AdaptacionCurricularScreen() {
       ? buildPlanContext(getPlanificacion(planId))
       : undefined;
 
+    // Extraer contexto de unidades del PCT/PCA
+    const pctContext = pctId && pctFormData?.unidades?.length
+      ? { unidades: pctFormData.unidades.map((u: any) => ({
+          numero: u.numero,
+          titulo: u.titulo || `Unidad ${u.numero}`,
+          objetivosEspecificos: u.objetivosEspecificos || "",
+          destrezas: u.destrezas?.map((d: any) => typeof d === "string" ? d : d.codigo || "") || [],
+          orientacionesMetodologicas: u.orientacionesMetodologicas || [],
+        }))}
+      : undefined;
+
     try {
-      const res = await generateMutation.mutateAsync({ form, sessionId, semanaContext, planContext });
+      const res = await generateMutation.mutateAsync({ form, sessionId, semanaContext, planContext, pctContext });
       if (!res?.aiResult) {
         setGenerateError("La IA no devolvió resultados. Intenta de nuevo.");
         return;
@@ -988,10 +999,17 @@ export default function AdaptacionCurricularScreen() {
                 🤖 ¿Que generara la IA?
               </Text>
               <Text style={{ fontSize: 11, color: "#1E3A8A" }}>
-                {form.gradoAdaptacion === 1 && "• Perfil pedagogico\n• Adaptaciones de acceso (metodologia, recursos, organizacion)\n• Metodologias sugeridas y recursos especificos\n• Plan de seguimiento"}
-                {form.gradoAdaptacion === 2 && "• Perfil pedagogico\n• Destreza levemente adaptada + criterio e indicadores simplificados\n• Adaptaciones de acceso y de proceso\n• Metodologias, recursos y plan de seguimiento"}
-                {form.gradoAdaptacion === 3 && "• Perfil pedagogico\n• Destreza significativamente adaptada + criterio e indicadores modificados\n• Adaptaciones de acceso, proceso y resultado\n• Metodologias, recursos y plan de seguimiento"}
+                {form.gradoAdaptacion === 1 && "• Perfil pedagógico\n• Adaptaciones de acceso al currículo (organización, apoyos, accesibilidad)\n• Fases ERCA adaptadas por unidad/día\n• Plan de seguimiento"}
+                {form.gradoAdaptacion === 2 && "• Perfil pedagógico\n• Destreza levemente adaptada + criterio e indicadores simplificados\n• Adaptaciones no significativas (metodología, tiempo, instrumento)\n• Fases ERCA adaptadas por unidad/día"}
+                {form.gradoAdaptacion === 3 && "• Perfil pedagógico\n• Destreza significativamente adaptada + criterio e indicadores modificados\n• Adaptaciones significativas (contenidos y objetivos)\n• Requiere sustento de evaluación psicopedagógica\n• Fases ERCA adaptadas por unidad/día"}
               </Text>
+              {form.gradoAdaptacion === 3 && (
+                <View style={{ backgroundColor: "#FEF3C7", borderRadius: 6, padding: 8, marginTop: 8, borderWidth: 1, borderColor: "#F59E0B" }}>
+                  <Text style={{ fontSize: 10, color: "#92400E" }}>
+                    ⚠️ El Grado 3 requiere evaluación psicopedagográfica que sustente un desfase curricular significativo. Según normativa MinEduc, TDAH sin comorbilidad cognitiva generalmente se resuelve con Grado 1 o 2.
+                  </Text>
+                </View>
+              )}
             </View>
 
             <Pressable

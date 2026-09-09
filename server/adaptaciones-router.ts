@@ -39,6 +39,17 @@ const PlanContextSchema = z.object({
   recursos: z.array(z.string()),
 });
 
+/** Contexto del PCT/PCA — unidades de la sección 5 */
+const PctContextSchema = z.object({
+  unidades: z.array(z.object({
+    numero: z.number(),
+    titulo: z.string(),
+    objetivosEspecificos: z.string(),
+    destrezas: z.array(z.string()),
+    orientacionesMetodologicas: z.array(z.string()),
+  })),
+});
+
 const FormSchema = z.object({
   institucion: z.string(),
   docente: z.string(),
@@ -81,6 +92,7 @@ function buildPrompt(
   input: z.infer<typeof FormSchema>,
   semanaContext?: z.infer<typeof SemanaContextSchema>,
   planContext?: z.infer<typeof PlanContextSchema>,
+  pctContext?: z.infer<typeof PctContextSchema>,
 ): string {
   const grado = input.gradoAdaptacion as GradoAdaptacion;
   const neeInfo = NEE_STRATEGIES[input.tipoNEE as keyof typeof NEE_STRATEGIES];
@@ -91,9 +103,9 @@ function buildPrompt(
   const incluirResultado = grado >= 3;
 
   const gradoDesc = {
-    1: "GRADO 1 — NO SIGNIFICATIVA: solo adaptaciones de acceso (metodología, recursos, organización del aula). La destreza, el criterio y los indicadores NO se modifican.",
-    2: "GRADO 2 — MODERADA: adaptaciones de acceso + proceso. La destreza se simplifica levemente manteniendo el objetivo esencial. Incluye versión levemente adaptada de la destreza, criterio y 3 indicadores simplificados.",
-    3: "GRADO 3 — SIGNIFICATIVA: adaptaciones de acceso + proceso + resultado. La destreza se modifica sustancialmente. Incluye destreza adaptada, criterio de evaluación adaptado y 3–5 indicadores de logro adaptados.",
+    1: "GRADO 1 — DE ACCESO: solo adaptaciones de acceso al currículo (organización, apoyos, accesibilidad). La destreza, el criterio y los indicadores NO se modifican.",
+    2: "GRADO 2 — NO SIGNIFICATIVA: adaptaciones de acceso + metodología/actividades + instrumentos de evaluación. La destreza se simplifica levemente manteniendo el objetivo esencial.",
+    3: "GRADO 3 — SIGNIFICATIVA: adaptaciones de acceso + metodología + contenido/objetivo. La destreza se modifica sustancialmente. REQUIERE evaluación psicopedagráfica que justifique desfase curricular >2 años. Solo asignar si hay desfase documentado.",
   }[grado];
 
   const estrategiasNEE = neeInfo
@@ -171,21 +183,35 @@ REGLA: Genera "adaptacionesPorDia" con UNA sola entrada (dia: "Clase") con "adap
 Ejemplo: si la Experiencia usa bloques lógicos → "adaptacionERCA.experiencia" debe decir cómo usar esos bloques adaptados al NEE.
 ──────────────────────────────────────────────────────────────────
 ` : ""}
+${pctContext?.unidades?.length ? `
+──────────────────────────────────────────────────────────────────
+UNIDADES DEL PCT/PCA (REFERENCIA OBLIGATORIA):
+Las adaptaciones curriculares DEBEN derivarse de las unidades reales del plan curricular.
+Para cada unidad, adapta las actividades ERCA y el contenido al perfil NEE del estudiante.
+
+${pctContext.unidades.map((u) => `UNIDAD ${u.numero} — "${u.titulo}"
+  Objetivos: ${u.objetivosEspecificos}
+  Destrezas: ${u.destrezas.join(", ")}
+  Orientaciones: ${u.orientacionesMetodologicas.slice(0, 2).join(" | ")}`).join("\n\n")}
+
+REGLA: Para cada unidad genera una entrada en "adaptacionesPorDia" con dia: "Unidad N — Título".
+Adapta las 4 fases ERCA y, si el grado es 2 o 3, incluye destrezaAdaptada y criterioAdaptado para esa unidad.
+──────────────────────────────────────────────────────────────────
+` : ""}
 INSTRUCCIONES IMPORTANTES:
 - NO uses lenguaje médico ni diagnósticos clínicos. Usa lenguaje pedagógico y educativo.
 - Las fortalezas, desafíos y apoyos deben describirse en términos de aprendizaje y participación.
 - Las estrategias deben ser concretas, aplicables en el aula ecuatoriana con recursos accesibles.
-- Si el grado es 1: los campos destrezaAdaptada, criterioAdaptado, indicadoresAdaptados, adaptacionesProceso y adaptacionesResultado deben ser null o arrays vacíos.
-- Si el grado es 2: incluir destrezaAdaptada, criterioAdaptado, indicadoresAdaptados y adaptacionesProceso (NO adaptacionesResultado).
-- Si el grado es 3: incluir todos los campos.
-- Generar exactamente 3 adaptaciones de acceso, ${incluirProceso ? "3 de proceso" : ""}${incluirResultado ? " y 3 de resultado" : ""}.
-- Cada adaptación tiene: categoria (string), descripcion (1 oración), estrategias (array de 2–3 strings concretos y específicos).
-- metodologiasSugeridas: 4 metodologías activas aplicables a la destreza y al tipo de NEE.
-- recursosEspecificos: 5 materiales CONCRETOS Y ESPECÍFICOS (ej: bloques lógicos, regletas Cuisenaire, pictogramas, tarjetas visuales, organizadores gráficos, fichas de trabajo adaptadas, material reciclado, aplicaciones digitales específicas, tabletas, etc.) apropiados para la destreza y el tipo de NEE.
+- Si el grado es 1: dentro de cada entrada de adaptacionesPorDia, destrezaAdaptada y criterioAdaptado deben ser null.
+- Si el grado es 2: incluir destrezaAdaptada y criterioAdaptado por unidad/día.
+- Si el grado es 3: incluir todos los campos. IMPORTANTE: Solo asignar Grado 3 si hay desfase curricular significativo sustentado en evaluación psicopedagográfica. TDAH sin comorbilidad cognitiva generalmente se resuelve con Grado 1 y 2.
+- Generar entradas en adaptacionesPorDia: ${semanaContext?.dias?.length ? `una por cada día seleccionado` : pctContext?.unidades?.length ? `una por cada unidad del PCT` : "una entrada para la clase"}.
+- Cada entrada de adaptacionesPorDia debe tener adaptacionERCA con las 4 fases, integrando de forma natural (sin etiquetas) las condiciones de acceso, ajustes metodológicos y recursos.
+- ${grado >= 2 ? "Incluir destrezaAdaptada y criterioAdaptado por unidad/día." : "No incluir destrezaAdaptada ni criterioAdaptado."}
+- evaluacionAdaptada: criterio de evaluación adaptado para esa unidad/día.
+- indicadoresAdaptados: array de indicadores adaptados.
 - seguimiento: párrafo de 2–3 oraciones sobre cómo hacer seguimiento de la adaptación.
 - observaciones: 1–2 oraciones finales.
-- adaptacionesERCA: Para cada fase del modelo ERCA, escribe 2 sugerencias concretas de cómo adaptar la actividad para el estudiante con NEE, considerando su estilo de aprendizaje y la destreza trabajada. Las sugerencias deben ser directamente aplicables en el aula.
-- evaluacionAdaptada: Genera 3 criterios de evaluación pedagógica adaptados al nivel del estudiante y 3 instrumentos de evaluación concretos y accesibles (ej: lista de cotejo, rúbrica simplificada, portafolio, observación directa con registro, prueba oral, etc.).
 - rubrica: Genera exactamente 3 criterios de rúbrica de evaluación con 4 niveles de desempeño adaptados al perfil NEE del estudiante. Los niveles son: excelente (Siempre Alcanza — nivel 4), satisfactorio (Alcanza — nivel 3), enProceso (Próximo a Alcanzar — nivel 2), necesitaApoyo (No Alcanza — nivel 1). Usa lenguaje pedagógico concreto y accesible.
 
 Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
@@ -201,40 +227,8 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
     "codigo": "${input.codigoDestreza}",
     "descripcion": "${input.descripcionDestreza}"
   },
-  ${grado >= 2 ? `"destrezaAdaptada": "string",
-  "criterioAdaptado": "string",
-  "indicadoresAdaptados": ["string", "string", "string"],` : `"destrezaAdaptada": null,
-  "criterioAdaptado": null,
-  "indicadoresAdaptados": [],`}
-  "adaptacionesAcceso": [
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] },
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] },
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] }
-  ],
-  ${incluirProceso ? `"adaptacionesProceso": [
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] },
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] },
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] }
-  ],` : `"adaptacionesProceso": [],`}
-  ${incluirResultado ? `"adaptacionesResultado": [
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] },
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] },
-    { "categoria": "string", "descripcion": "string", "estrategias": ["string", "string"] }
-  ],` : `"adaptacionesResultado": [],`}
-  "metodologiasSugeridas": ["string", "string", "string", "string"],
-  "recursosEspecificos": ["string", "string", "string", "string", "string"],
-  "seguimiento": "string",
-  "observaciones": "string",
-  "adaptacionesERCA": {
-    "experiencia": ["string (sugerencia concreta para Experiencia/activación)", "string"],
-    "reflexion": ["string (sugerencia concreta para Reflexión/análisis)", "string"],
-    "conceptualizacion": ["string (sugerencia concreta para Conceptualización)", "string"],
-    "aplicacion": ["string (sugerencia concreta para Aplicación/transferencia)", "string"]
-  },
-  "evaluacionAdaptada": {
-    "criterios": ["string (criterio de evaluación adaptado 1)", "string", "string"],
-    "instrumentos": ["string (instrumento concreto 1)", "string", "string"]
-  },
+  "seguimiento": "string (2–3 oraciones sobre seguimiento de la adaptación)",
+  "observaciones": "string (1–2 oraciones finales)",
   "rubrica": [
     {
       "criterio": "string (nombre del criterio de evaluación)",
@@ -243,53 +237,55 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
       "enProceso": "string (descripción nivel 2 — Próximo a Alcanzar)",
       "necesitaApoyo": "string (descripción nivel 1 — No Alcanza)"
     },
-    {
-      "criterio": "string",
-      "excelente": "string",
-      "satisfactorio": "string",
-      "enProceso": "string",
-      "necesitaApoyo": "string"
-    },
-    {
-      "criterio": "string",
-      "excelente": "string",
-      "satisfactorio": "string",
-      "enProceso": "string",
-      "necesitaApoyo": "string"
-    }
-  ]${semanaContext?.dias?.length ? `,
+    { "criterio": "string", "excelente": "string", "satisfactorio": "string", "enProceso": "string", "necesitaApoyo": "string" },
+    { "criterio": "string", "excelente": "string", "satisfactorio": "string", "enProceso": "string", "necesitaApoyo": "string" }
+  ],
+  "notaDIAC": "string (1 oración: 'Los datos completos del estudiante constan en el DIAC oficial de la institución, elaborado con apoyo de la UDAI/DECE.')",
   "adaptacionesPorDia": [
-    ${semanaContext.dias.map((d) => `{
+    ${semanaContext?.dias?.length ? semanaContext.dias.map((d: any) => `{
       "dia": "${d.dia}",
       "objetivo": "${d.objetivo ?? "(objetivo del día)"}",
-      "objetivoAdaptado": "string (reformulación del objetivo de ${d.dia} ajustada al nivel y perfil NEE del estudiante — debe ser alcanzable y medible)",
-      "adaptacionAcceso": "string (ajustes de acceso para las actividades del ${d.dia}: materiales, espacio, tiempos, apoyos físicos/sensoriales — referencia los recursos concretos del día)",
+      "objetivoAdaptado": "string (reformulación alcanzable y medible)",
       "adaptacionERCA": {
-        "experiencia": "string (cómo adaptar la Experiencia del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",
-        "reflexion": "string (cómo adaptar la Reflexión del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",
-        "conceptualizacion": "string (cómo adaptar la Conceptualización del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)",
-        "aplicacion": "string (cómo adaptar la Aplicación del ${d.dia} — referencia la actividad planificada y la modifica para el perfil NEE)"
+        "experiencia": "string (adaptar Experiencia del ${d.dia} — integrar condiciones de acceso y recursos de forma natural)",
+        "reflexion": "string (adaptar Reflexión del ${d.dia})",
+        "conceptualizacion": "string (adaptar Conceptualización del ${d.dia})",
+        "aplicacion": "string (adaptar Aplicación del ${d.dia})"
       },
-      "recursosAdaptados": ["string (recurso del día adaptado para el NEE 1)", "string (recurso adaptado 2)"],
-      "evaluacionAdaptada": "string (cómo evaluar el logro del ${d.dia} de forma adaptada al perfil NEE)"
-    }`).join(",\n    ")}
-  ]` : planContext ? `,
-  "adaptacionesPorDia": [
-    {
+      "evaluacionAdaptada": "string (criterio de evaluación adaptado para ${d.dia})",
+      "indicadoresAdaptados": ["string (indicador adaptado 1)", "string", "string"]${grado >= 2 ? `,
+      "destrezaAdaptada": "string (destreza adaptada para ${d.dia})",
+      "criterioAdaptado": "string (criterio adaptado para ${d.dia})` : ""}
+    }`).join(",\n    ") : pctContext?.unidades?.length ? pctContext.unidades.map((u: any) => `{
+      "dia": "Unidad ${u.numero} — ${u.titulo}",
+      "objetivo": "${u.objetivosEspecificos}",
+      "objetivoAdaptado": "string (reformulación alcanzable y medible)",
+      "adaptacionERCA": {
+        "experiencia": "string (adaptar Experiencia de la unidad ${u.numero} — integrar condiciones de acceso y recursos de forma natural)",
+        "reflexion": "string (adaptar Reflexión de la unidad ${u.numero})",
+        "conceptualizacion": "string (adaptar Conceptualización de la unidad ${u.numero})",
+        "aplicacion": "string (adaptar Aplicación de la unidad ${u.numero})"
+      },
+      "evaluacionAdaptada": "string (criterio de evaluación adaptado para la unidad ${u.numero})",
+      "indicadoresAdaptados": ["string (indicador adaptado 1)", "string", "string"]${grado >= 2 ? `,
+      "destrezaAdaptada": "string (destreza adaptada para la unidad ${u.numero})",
+      "criterioAdaptado": "string (criterio adaptado para la unidad ${u.numero})` : ""}
+    }`).join(",\n    ") : `{
       "dia": "Clase",
-      "objetivo": "${planContext.objetivo ?? "(objetivo de la clase)"}",
-      "objetivoAdaptado": "string (reformulación del objetivo de la clase ajustada al nivel y perfil NEE del estudiante — debe ser alcanzable y medible)",
-      "adaptacionAcceso": "string (ajustes de acceso para las actividades de la clase: materiales, espacio, tiempos, apoyos físicos/sensoriales — referencia los recursos concretos de la clase)",
+      "objetivo": "${planContext?.objetivo ?? "(objetivo de la clase)"}",
+      "objetivoAdaptado": "string (reformulación alcanzable y medible)",
       "adaptacionERCA": {
-        "experiencia": "string (cómo adaptar la Experiencia — referencia la actividad planificada y la modifica para el perfil NEE)",
-        "reflexion": "string (cómo adaptar la Reflexión — referencia la actividad planificada y la modifica para el perfil NEE)",
-        "conceptualizacion": "string (cómo adaptar la Conceptualización — referencia la actividad planificada y la modifica para el perfil NEE)",
-        "aplicacion": "string (cómo adaptar la Aplicación — referencia la actividad planificada y la modifica para el perfil NEE)"
+        "experiencia": "string (adaptar Experiencia — integrar condiciones de acceso y recursos de forma natural)",
+        "reflexion": "string (adaptar Reflexión)",
+        "conceptualizacion": "string (adaptar Conceptualización)",
+        "aplicacion": "string (adaptar Aplicación)"
       },
-      "recursosAdaptados": ["string (recurso de la clase adaptado para el NEE 1)", "string (recurso adaptado 2)"],
-      "evaluacionAdaptada": "string (cómo evaluar el logro de la clase de forma adaptada al perfil NEE)"
-    }
-  ]` : ""}
+      "evaluacionAdaptada": "string (criterio de evaluación adaptado para la clase)",
+      "indicadoresAdaptados": ["string (indicador adaptado 1)", "string", "string"]${grado >= 2 ? `,
+      "destrezaAdaptada": "string (destreza adaptada para la clase)",
+      "criterioAdaptado": "string (criterio adaptado para la clase)` : ""}
+    }`}
+  ]
 }`;
 }
 
@@ -307,9 +303,11 @@ export const adaptacionesRouter = router({
       semanaContext: SemanaContextSchema.optional(),
       /** Contexto de la planificación diaria vinculada (actividades ERCA reales de la clase) */
       planContext: PlanContextSchema.optional(),
+      /** Contexto del PCT/PCA — unidades de la sección 5 */
+      pctContext: PctContextSchema.optional(),
     }))
     .mutation(async ({ input }) => {
-      const prompt = buildPrompt(input.form, input.semanaContext, input.planContext);
+      const prompt = buildPrompt(input.form, input.semanaContext, input.planContext, input.pctContext);
 
       const raw = await invokeLLM({
         messages: [

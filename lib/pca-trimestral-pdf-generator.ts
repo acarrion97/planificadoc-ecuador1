@@ -138,9 +138,9 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
             orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#E67E22;">APLICACIÓN:</strong> ${esc(dp.adaptacionERCA.aplicacion)}</div>`;
           }
         }
-        // Orientaciones adicionales
-        if (dp.orientacionesAdaptadas?.length) {
-          dp.orientacionesAdaptadas.forEach(o => {
+        // Orientaciones adicionales (legacy)
+        if (dp.legacy?.orientacionesAdaptadas?.length) {
+          dp.legacy.orientacionesAdaptadas.forEach((o: string) => {
             orientacionesHTML += `<div style="font-size:8px;margin-bottom:2px;">• ${esc(o)}</div>`;
           });
         }
@@ -150,11 +150,20 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
         if (dp.indicadoresAdaptados?.length) {
           indicadorHTML = dp.indicadoresAdaptados.map(ind => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(ind)}</div>`).join("");
         }
+        if (dp.criterioAdaptado) {
+          indicadorHTML += `<div style="font-size:8px;margin-top:3px;"><strong style="color:#CC0000;">Criterio adaptado:</strong> ${esc(dp.criterioAdaptado)}</div>`;
+        }
+
+        // Destreza adaptada (Grado 3)
+        let destrezaHTML = "";
+        if (dp.destrezaAdaptada) {
+          destrezaHTML = `<div style="font-size:8px;margin-bottom:3px;"><strong style="color:#CC0000;">Destreza adaptada:</strong> ${esc(dp.destrezaAdaptada)}</div>`;
+        }
 
         derechaHTML += `
           <tr>
             <td style="font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;vertical-align:top;">${num}</td>
-            <td style="font-size:8px;padding:4px;border:1px solid #AAA;vertical-align:top;">${orientacionesHTML || "—"}</td>
+            <td style="font-size:8px;padding:4px;border:1px solid #AAA;vertical-align:top;">${destrezaHTML}${orientacionesHTML || "—"}</td>
             <td style="font-size:8px;padding:4px;border:1px solid #AAA;vertical-align:top;">${indicadorHTML}</td>
           </tr>`;
       });
@@ -164,7 +173,7 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
       // ── Secciones genéricas ──
       if (adap.adaptacionesAcceso?.length) {
         derechaHTML += `<div style="margin-bottom:6px;">
-          <div style="background:#003366;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">ADAPTACIONES DE ACCESO</div>
+          <div style="background:#003366;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">GRADO 1 — ADAPTACIONES DE ACCESO</div>
           <div style="padding:4px 5px;background:#EBF5FB;">
             ${adap.adaptacionesAcceso.map(a => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(a.descripcion)}</div>`).join("")}
           </div>
@@ -172,7 +181,7 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
       }
       if (adap.adaptacionesProceso?.length) {
         derechaHTML += `<div style="margin-bottom:6px;">
-          <div style="background:#8E44AD;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">ADAPTACIONES DE PROCESO</div>
+          <div style="background:#8E44AD;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Metodología)</div>
           <div style="padding:4px 5px;background:#F5EEF8;">
             ${adap.adaptacionesProceso.map(a => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(a.descripcion)}</div>`).join("")}
           </div>
@@ -180,7 +189,7 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
       }
       if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
         derechaHTML += `<div style="margin-bottom:6px;">
-          <div style="background:#E67E22;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">ADAPTACIONES DE RESULTADO</div>
+          <div style="background:#E67E22;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Evaluación)</div>
           <div style="padding:4px 5px;background:#FEF9E7;">
             ${adap.adaptacionesResultado.map(a => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(a.descripcion)}</div>`).join("")}
           </div>
@@ -193,6 +202,9 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
     }
     if (adap.recursosEspecificos?.length) {
       derechaHTML += `<div style="margin-top:4px;"><div style="font-size:8px;font-weight:bold;color:#003366;">RECURSOS ESPECÍFICOS:</div>${adap.recursosEspecificos.map(r => `<div style="font-size:8px;">• ${esc(r)}</div>`).join("")}</div>`;
+    }
+    if (adap.notaDIAC) {
+      derechaHTML += `<div style="margin-top:4px;padding:3px 6px;background:#FFF3CD;border:1px solid #FFD43B;border-radius:3px;font-size:8px;"><strong style="color:#856404;">Nota DIAC:</strong> ${esc(adap.notaDIAC)}</div>`;
     }
 
     return `

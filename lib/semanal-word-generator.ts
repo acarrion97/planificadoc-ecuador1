@@ -435,11 +435,18 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             }));
           }
         }
+        if (dp.destrezaAdaptada) {
+          leftContent.push(new Paragraph({
+            spacing: { before: 10, after: 4 },
+            children: [new TextRun({ text: "DESTREZA ADAPTADA: ", bold: true, size: 18, font: "Arial", color: "DC2626" }),
+                       new TextRun({ text: dp.destrezaAdaptada, size: 18, font: "Arial", color: BLACK })],
+          }));
+        }
         leftContent.push(duaLegendPara());
 
         // Columna central: recursos
-        const middleContent: Paragraph[] = dp.recursosAdaptados?.length
-          ? dp.recursosAdaptados.map(r => new Paragraph({
+        const middleContent: Paragraph[] = dp.legacy?.recursosAdaptados?.length
+          ? dp.legacy.recursosAdaptados.map(r => new Paragraph({
               spacing: { before: 8, after: 12 },
               children: [new TextRun({ text: `• ${r}`, size: 18, font: "Arial", color: BLACK })],
             }))
@@ -451,6 +458,13 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
           indent: { left: 30 },
           children: [new TextRun({ text: dp.evaluacionAdaptada || "—", size: 18, font: "Arial", color: BLACK })],
         })];
+        if (dp.criterioAdaptado) {
+          evalContent.push(new Paragraph({
+            spacing: { before: 10, after: 4 },
+            children: [new TextRun({ text: "Criterio adaptado: ", bold: true, size: 18, font: "Arial", color: "DC2626" }),
+                       new TextRun({ text: dp.criterioAdaptado, size: 18, font: "Arial", color: BLACK })],
+          }));
+        }
 
         // Tabla 3 columnas — total 12518 DXA
         rightChildren.push(new Table({
@@ -504,19 +518,37 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             ]}),
           ],
         }));
+
+        // Legacy fallback — campos pre-migración
+        if (dp.legacy?.adaptacionAcceso) {
+          rightChildren.push(new Paragraph({
+            spacing: { before: 14, after: 4 },
+            children: [new TextRun({ text: "Adaptación de acceso: ", bold: true, size: 18, font: "Arial", color: "003366" }),
+                       new TextRun({ text: dp.legacy.adaptacionAcceso, size: 18, font: "Arial", color: BLACK })],
+          }));
+        }
+        if (dp.legacy?.orientacionesAdaptadas?.length) {
+          rightChildren.push(parSeccionAdapt("Orientaciones adaptadas", "1A3A5C"));
+          dp.legacy.orientacionesAdaptadas.forEach(o => {
+            rightChildren.push(new Paragraph({
+              spacing: { before: 4, after: 4 },
+              children: [new TextRun({ text: `• ${o}`, size: 18, font: "Arial", color: BLACK })],
+            }));
+          });
+        }
       }
     } else {
       // ── SECCIONES GENÉRICAS (sin planificación semanal vinculada) ─────────
       if (adap.adaptacionesAcceso?.length) {
-        rightChildren.push(parSeccionAdapt("ADAPTACIONES DE ACCESO", "1A3A5C"));
+        rightChildren.push(parSeccionAdapt("GRADO 1 — ADAPTACIONES DE ACCESO", "1A3A5C"));
         rightChildren.push(adaptacionInnerTable(adap.adaptacionesAcceso, "1A3A5C"));
       }
       if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
-        rightChildren.push(parSeccionAdapt("ADAPTACIONES DE PROCESO", "8E44AD"));
+        rightChildren.push(parSeccionAdapt("GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Metodología)", "8E44AD"));
         rightChildren.push(adaptacionInnerTable(adap.adaptacionesProceso, "8E44AD"));
       }
       if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
-        rightChildren.push(parSeccionAdapt("ADAPTACIONES DE RESULTADO", "E67E22"));
+        rightChildren.push(parSeccionAdapt("GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Evaluación)", "E67E22"));
         rightChildren.push(adaptacionInnerTable(adap.adaptacionesResultado, "E67E22"));
       }
       if (adap.metodologiasSugeridas?.length) {
@@ -545,6 +577,15 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
         children: [
           new TextRun({ text: "Observaciones: ", bold: true, size: 18, font: "Arial", color: "555555" }),
           new TextRun({ text: adap.observaciones, size: 18, italics: true, font: "Arial", color: "555555" }),
+        ],
+      }));
+    }
+    if (adap.notaDIAC) {
+      rightChildren.push(new Paragraph({
+        spacing: { before: 14, after: 0 },
+        children: [
+          new TextRun({ text: "NOTA: ", bold: true, size: 16, font: "Arial", color: "003366" }),
+          new TextRun({ text: adap.notaDIAC, size: 16, font: "Arial", color: "555555", italics: true }),
         ],
       }));
     }

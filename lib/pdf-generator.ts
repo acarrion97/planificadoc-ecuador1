@@ -870,12 +870,19 @@ export function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurr
         </div>`;
 
         // Columna central: recursos adaptados
-        const middle = dp.recursosAdaptados?.length
-          ? dp.recursosAdaptados.map(r => `<div style="font-size:9px;margin-bottom:2px;">&bull; ${esc(r)}</div>`).join("")
+        const middle = dp.legacy?.recursosAdaptados?.length
+          ? dp.legacy.recursosAdaptados.map(r => `<div style="font-size:9px;margin-bottom:2px;">&bull; ${esc(r)}</div>`).join("")
           : `<div style="font-size:9px;color:#888;">—</div>`;
 
         // Columna derecha: evaluación adaptada
-        const right = `<div style="font-size:9px;color:#111;">${esc(dp.evaluacionAdaptada || "—")}</div>`;
+        let right = "";
+        if (dp.destrezaAdaptada) {
+          right += `<div style="font-size:9px;margin-bottom:2px;"><strong style="color:#CC0000;">Destreza adaptada:</strong> ${esc(dp.destrezaAdaptada)}</div>`;
+        }
+        right += `<div style="font-size:9px;color:#111;"><strong>Evaluación:</strong> ${esc(dp.evaluacionAdaptada || "—")}</div>`;
+        if (dp.criterioAdaptado) {
+          right += `<div style="font-size:9px;margin-top:2px;"><strong style="color:#CC0000;">Criterio adaptado:</strong> ${esc(dp.criterioAdaptado)}</div>`;
+        }
 
         derechaHTML += `
           <table style="width:100%;border-collapse:collapse;margin-bottom:6px;">
@@ -910,15 +917,15 @@ export function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurr
         </div>`;
 
       if (adap.adaptacionesAcceso?.length) {
-        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#003366;margin:4px 0 2px;">ADAPTACIONES DE ACCESO</div>`;
+        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#003366;margin:4px 0 2px;">GRADO 1 — ADAPTACIONES DE ACCESO</div>`;
         derechaHTML += adap.adaptacionesAcceso.map(renderBloque).join("");
       }
       if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
-        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#8E44AD;margin:4px 0 2px;">ADAPTACIONES DE PROCESO</div>`;
+        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#8E44AD;margin:4px 0 2px;">GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Metodología)</div>`;
         derechaHTML += adap.adaptacionesProceso.map(renderBloque).join("");
       }
       if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
-        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#E67E22;margin:4px 0 2px;">ADAPTACIONES DE RESULTADO</div>`;
+        derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#E67E22;margin:4px 0 2px;">GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Evaluación)</div>`;
         derechaHTML += adap.adaptacionesResultado.map(renderBloque).join("");
       }
       if (adap.metodologiasSugeridas?.length) {
@@ -936,6 +943,9 @@ export function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurr
     }
     if (adap.observaciones) {
       derechaHTML += `<div style="font-size:9px;margin-top:2px;color:#555;font-style:italic;">${esc(adap.observaciones)}</div>`;
+    }
+    if (adap.notaDIAC) {
+      derechaHTML += `<div style="font-size:9px;margin-top:3px;padding:3px 6px;background:#FFF3CD;border:1px solid #FFD43B;border-radius:3px;"><strong style="color:#856404;">Nota DIAC:</strong> ${esc(adap.notaDIAC)}</div>`;
     }
 
     return `

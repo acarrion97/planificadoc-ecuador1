@@ -310,11 +310,20 @@ function adaptDiaTable(dp: any): Table {
     left.push(p(val, { size: 7 }));
   }
 
-  const middle: Paragraph[] = (dp.recursosAdaptados?.length || 0)
-    ? dp.recursosAdaptados.map((r: string) => p(`• ${r}`, { size: 7 }))
+  if (dp.destrezaAdaptada) {
+    left.push(p("DESTREZA ADAPTADA:", { bold: true, size: 7, color: ADAPT_DARK }));
+    left.push(p(dp.destrezaAdaptada, { size: 7 }));
+  }
+
+  const middle: Paragraph[] = (dp.legacy?.recursosAdaptados?.length || 0)
+    ? dp.legacy.recursosAdaptados.map((r: string) => p(`• ${r}`, { size: 7 }))
     : [p("—", { size: 7 })];
 
   const right: Paragraph[] = [p(dp.evaluacionAdaptada || "—", { size: 7 })];
+  if (dp.criterioAdaptado) {
+    right.push(p("Criterio adaptado:", { bold: true, size: 7, color: ADAPT_DARK }));
+    right.push(p(dp.criterioAdaptado, { size: 7 }));
+  }
 
   const cols = [Math.floor(TW * 0.46), Math.floor(TW * 0.27), TW - Math.floor(TW * 0.46) - Math.floor(TW * 0.27)];
   return makeTable([
@@ -403,18 +412,34 @@ function crearSeccionAdaptacionesDiarias(plan: Planificacion): (Table | Paragrap
 
     if (adap.adaptacionesPorDia?.length) {
       right.push(p("ADAPTACIONES POR DÍA", { bold: true, size: 8 }));
-      adap.adaptacionesPorDia.forEach(dp => right.push(adaptDiaTable(dp)));
+      adap.adaptacionesPorDia.forEach(dp => {
+        right.push(adaptDiaTable(dp));
+        if (dp.legacy && !dp.adaptacionERCA) {
+          if (dp.legacy.recursosAdaptados?.length) {
+            right.push(p("RECURSOS ADAPTADOS", { bold: true, size: 7, color: "374151" }));
+            for (const r of dp.legacy.recursosAdaptados) {
+              right.push(p(`• ${r}`, { size: 7 }));
+            }
+          }
+          if (dp.legacy.orientacionesAdaptadas?.length) {
+            right.push(p("ORIENTACIONES ADAPTADAS", { bold: true, size: 7, color: "374151" }));
+            for (const o of dp.legacy.orientacionesAdaptadas) {
+              right.push(p(`• ${o}`, { size: 7 }));
+            }
+          }
+        }
+      });
     } else {
       if (adap.adaptacionesAcceso?.length) {
-        right.push(p("ADAPTACIONES DE ACCESO", { bold: true, size: 8, color: "1A3A5C" }));
+        right.push(p("GRADO 1 — ADAPTACIONES DE ACCESO", { bold: true, size: 8, color: "1A3A5C" }));
         right.push(adaptBlockTable(adap.adaptacionesAcceso, "1A3A5C"));
       }
       if (adap.gradoAdaptacion >= 2 && adap.adaptacionesProceso?.length) {
-        right.push(p("ADAPTACIONES DE PROCESO", { bold: true, size: 8, color: "8E44AD" }));
+        right.push(p("GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Metodología)", { bold: true, size: 8, color: "8E44AD" }));
         right.push(adaptBlockTable(adap.adaptacionesProceso, "8E44AD"));
       }
       if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
-        right.push(p("ADAPTACIONES DE RESULTADO", { bold: true, size: 8, color: "E67E22" }));
+        right.push(p("GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Evaluación)", { bold: true, size: 8, color: "E67E22" }));
         right.push(adaptBlockTable(adap.adaptacionesResultado, "E67E22"));
       }
       if (adap.metodologiasSugeridas?.length) {
@@ -440,6 +465,15 @@ function crearSeccionAdaptacionesDiarias(plan: Planificacion): (Table | Paragrap
       right.push(new Paragraph({
         spacing: { after: 20 },
         children: [new TextRun({ text: adap.observaciones, italics: true, size: 14, font: "Arial", color: "555555" })],
+      }));
+    }
+    if (adap.notaDIAC) {
+      right.push(new Paragraph({
+        spacing: { before: 40, after: 20 },
+        children: [
+          new TextRun({ text: "Nota DIAC: ", bold: true, size: 14, font: "Arial", color: "374151" }),
+          new TextRun({ text: adap.notaDIAC, size: 14, font: "Arial", color: "374151" }),
+        ],
       }));
     }
 

@@ -535,6 +535,8 @@ export interface AdaptacionAiResult {
    * acceso / proceso / resultado / metodologías cuando hay contexto semanal.
    */
   adaptacionesPorDia?: AdaptacionDiaPlan[];
+  /** Nota al pie sobre DIAC oficial del estudiante */
+  notaDIAC?: string;
 }
 
 /**
@@ -547,7 +549,6 @@ export interface AdaptacionDiaPlan {
   objetivo?: string;
   /** Objetivo adaptado al perfil NEE del estudiante (generado por IA) */
   objetivoAdaptado?: string;
-  adaptacionAcceso: string;
   /** Adaptación de cada fase ERCA del día (estrategias metodológicas activas) */
   adaptacionERCA: {
     experiencia: string;
@@ -555,12 +556,26 @@ export interface AdaptacionDiaPlan {
     conceptualizacion: string;
     aplicacion: string;
   };
-  recursosAdaptados: string[];
   evaluacionAdaptada: string;
-  /** Orientaciones metodológicas adaptadas para la unidad/día */
-  orientacionesAdaptadas?: string[];
   /** Indicadores de evaluación adaptados para la unidad/día */
   indicadoresAdaptados?: string[];
+  /** Destreza adaptada para esta unidad específica (Grado 2 y 3) */
+  destrezaAdaptada?: string;
+  /** Criterio de evaluación adaptado para esta unidad (se renderiza en columna "Indicador de evaluación") */
+  criterioAdaptado?: string;
+
+  /**
+   * LEGACY — campos previos a la migración a adaptacionERCA.
+   * Se conservan para no perder datos de registros ya guardados
+   * (planes semanales creados antes de este cambio).
+   * NO se generan para registros nuevos; el prompt de IA ya no los produce.
+   * Se usan únicamente como fallback de renderizado, entrada por entrada.
+   */
+  legacy?: {
+    adaptacionAcceso?: string;
+    recursosAdaptados?: string[];
+    orientacionesAdaptadas?: string[];
+  };
 }
 
 export interface CurricularAdaptationForm {
@@ -622,11 +637,11 @@ export interface AdaptacionCurricular {
   tipoNecesidad: TipoNEE;
   /** Descripción pedagógica del perfil — sin lenguaje médico ni diagnóstico clínico */
   descripcionNecesidad?: string;
-  // Resultados de la adaptación (según grado)
+  // Resultados de la adaptación (según grado) — LEGACY, opciones para registros nuevos
   destrezaAdaptada?: string;        // grado 2 y 3
   criterioAdaptado?: string;        // grado 2 y 3
   indicadoresAdaptados?: string[];  // grado 2 y 3
-  adaptacionesAcceso: AdaptacionPedagogicaSugerida[];
+  adaptacionesAcceso?: AdaptacionPedagogicaSugerida[];
   adaptacionesProceso?: AdaptacionPedagogicaSugerida[];    // grado 2 y 3
   adaptacionesResultado?: AdaptacionPedagogicaSugerida[];  // grado 3
   metodologiasSugeridas?: string[];
@@ -635,6 +650,8 @@ export interface AdaptacionCurricular {
   observaciones?: string;
   /** Adaptaciones por día vinculadas a la planificación semanal */
   adaptacionesPorDia?: AdaptacionDiaPlan[];
+  /** Nota al pie sobre DIAC oficial del estudiante */
+  notaDIAC?: string;
   createdAt: string;
 }
 
@@ -653,20 +670,21 @@ export const TIPOS_NEE_INFO: Record<TipoNEE, { nombre: string; emoji: string }> 
   otra:                         { nombre: "Otra NEE",                        emoji: "📋" },
 };
 
+// TODO: verificar terminología contra Acuerdo MINEDUC-MINEDUC-2023-00064-A
 export const GRADO_ADAPTACION_INFO: Record<GradoAdaptacion, { nombre: string; descripcion: string; color: string }> = {
   1: {
-    nombre: "Grado 1 — No Significativa",
-    descripcion: "Adaptaciones de acceso: ajustes en metodología, recursos y organización del aula sin modificar la destreza ni los criterios de evaluación.",
+    nombre: "Grado 1 — De Acceso al Currículo",
+    descripcion: "Modifica elementos de acceso al currículo (organización, apoyos, accesibilidad). El currículo permanece intacto.",
     color: "#16A34A",
   },
   2: {
-    nombre: "Grado 2 — Moderada",
-    descripcion: "Adaptaciones de acceso y de proceso: se ajustan actividades, tiempos y agrupamientos. La destreza se simplifica levemente pero conserva el objetivo central.",
+    nombre: "Grado 2 — No Significativa",
+    descripcion: "Modifica metodología, actividades y/o instrumentos de evaluación (sin cambiar qué se evalúa).",
     color: "#D97706",
   },
   3: {
     nombre: "Grado 3 — Significativa",
-    descripcion: "Adaptaciones de acceso, proceso y resultado: se modifica sustancialmente la destreza, el criterio de evaluación y los indicadores de logro.",
+    descripcion: "Modifica contenidos, objetivos y criterios de evaluación. Requiere evaluación psicopedagráfica que sustente desfase curricular significativo.",
     color: "#DC2626",
   },
 };

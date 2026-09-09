@@ -319,7 +319,7 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
             paragraphs: [
               new Paragraph({
                 spacing: { before: 20, after: 10 },
-                children: [run("ADAPTACIONES DE ACCESO", true, SZ7, "1A3A5C")],
+                children: [run("GRADO 1 — ADAPTACIONES DE ACCESO", true, SZ7, "1A3A5C")],
               }),
               ...adap.adaptacionesAcceso.map(acc =>
                 new Paragraph({
@@ -365,14 +365,22 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
           orientacionesText = ercaParts.join("\n");
         }
         // Agregar orientaciones adicionales si existen
-        if (dp.orientacionesAdaptadas?.length) {
-          orientacionesText += (orientacionesText ? "\n" : "") + dp.orientacionesAdaptadas.join("\n");
+        if (dp.legacy?.orientacionesAdaptadas?.length) {
+          orientacionesText += (orientacionesText ? "\n" : "") + dp.legacy.orientacionesAdaptadas.join("\n");
+        }
+        // Grado 3: destreza adaptada como nota en orientaciones
+        if (dp.destrezaAdaptada) {
+          orientacionesText += (orientacionesText ? "\n" : "") + `[Destreza adaptada: ${dp.destrezaAdaptada}]`;
         }
 
         // Indicador de evaluación
         let indicadorText = dp.evaluacionAdaptada || "—";
         if (dp.indicadoresAdaptados?.length) {
           indicadorText = dp.indicadoresAdaptados.join("\n");
+        }
+        // Grado 3: criterio adaptado en evaluación
+        if (dp.criterioAdaptado) {
+          indicadorText += (indicadorText !== "—" ? "\n" : "") + `[Criterio adaptado: ${dp.criterioAdaptado}]`;
         }
 
         tablaRows.push(new TableRow({
@@ -410,7 +418,7 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
               paragraphs: [
                 new Paragraph({
                   spacing: { before: 20, after: 10 },
-                  children: [run("ADAPTACIONES DE PROCESO", true, SZ7, "8E44AD")],
+                  children: [run("GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Metodología)", true, SZ7, "8E44AD")],
                 }),
                 ...adap.adaptacionesProceso.map(acc =>
                   new Paragraph({
@@ -434,7 +442,7 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
               paragraphs: [
                 new Paragraph({
                   spacing: { before: 20, after: 10 },
-                  children: [run("ADAPTACIONES DE RESULTADO", true, SZ7, "E67E22")],
+                  children: [run("GRADO 2 — ADAPTACIONES NO SIGNIFICATIVAS (Evaluación)", true, SZ7, "E67E22")],
                 }),
                 ...adap.adaptacionesResultado.map(acc =>
                   new Paragraph({
@@ -535,6 +543,28 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
               new Paragraph({
                 spacing: { after: 6 },
                 children: [run(adap.observaciones, false, SZ6)],
+              }),
+            ],
+            span: 7,
+            width: COL_TOTAL,
+          }),
+        ],
+      }));
+    }
+
+    // Nota DIAC
+    if ((adap as any).notaDIAC) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 6 },
+                children: [run("NOTA DIAC", true, SZ7, "003366")],
+              }),
+              new Paragraph({
+                spacing: { after: 6 },
+                children: [run((adap as any).notaDIAC, false, SZ6)],
               }),
             ],
             span: 7,
