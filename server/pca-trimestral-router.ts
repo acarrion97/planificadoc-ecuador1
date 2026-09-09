@@ -566,12 +566,19 @@ Responde SOLO con JSON válido:
         });
         const raw    = result.choices[0]?.message?.content;
         const parsed = JSON.parse(typeof raw === "string" ? raw : "{}");
+        const toStrSafe = (val: any): string => {
+          if (typeof val === "string") return val;
+          if (val === null || val === undefined) return "";
+          if (Array.isArray(val)) return val.map(toStrSafe).join("; ");
+          if (typeof val === "object") return Object.values(val).map(toStrSafe).join(" | ");
+          return String(val);
+        };
         return {
           success:              true,
           coherente:            parsed.coherente !== false,
-          titulo:               parsed.titulo               || "",
-          objetivosEspecificos: parsed.objetivosEspecificos || "",
-          mensajeAlerta:        parsed.mensajeAlerta        || "",
+          titulo:               toStrSafe(parsed.titulo),
+          objetivosEspecificos: toStrSafe(parsed.objetivosEspecificos),
+          mensajeAlerta:        toStrSafe(parsed.mensajeAlerta),
         };
       } catch (err: any) {
         return { success: false, coherente: false, titulo: "", objetivosEspecificos: "", mensajeAlerta: err.message };

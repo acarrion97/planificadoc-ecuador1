@@ -339,7 +339,10 @@ export default function PlanificacionTrimestralScreen() {
         );
         return;
       }
-      updateUnidad(unidad.id, { titulo: result.titulo, objetivosEspecificos: result.objetivosEspecificos });
+      updateUnidad(unidad.id, {
+        titulo: typeof result.titulo === "string" ? result.titulo : String(result.titulo || ""),
+        objetivosEspecificos: typeof result.objetivosEspecificos === "string" ? result.objetivosEspecificos : String(result.objetivosEspecificos || ""),
+      });
     } catch (err: any) {
       Alert.alert("Error", err.message || "Error de conexión.");
     } finally {
@@ -441,8 +444,8 @@ export default function PlanificacionTrimestralScreen() {
           numero: u.numero,
           dcdsSeleccionadas: u.dcdsSeleccionadas,
           duracionSemanas: u.duracionSemanas,
-          titulo: u.titulo.trim() || undefined,
-          objetivosEspecificos: u.objetivosEspecificos.trim() || undefined,
+          titulo: typeof u.titulo === "string" ? u.titulo.trim() || undefined : undefined,
+          objetivosEspecificos: typeof u.objetivosEspecificos === "string" ? u.objetivosEspecificos.trim() || undefined : undefined,
           deporteEnfoque: area === "EF" && u.deporteEnfoque ? u.deporteEnfoque : undefined,
         })),
         modeloPedagogico: modeloPedagogico,
