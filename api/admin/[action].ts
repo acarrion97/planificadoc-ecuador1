@@ -585,6 +585,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           .where(eq(docenteAccounts.email, normalized))
           .limit(1);
 
+        // planificacionStats usa identifier=email (campo correcto)
+        const stat = await db
+          .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt, platform: planificacionStats.platform })
+          .from(planificacionStats)
+          .where(eq(planificacionStats.identifier, normalized))
+          .limit(1);
+
+        // Buscar documentos por sessionId=email (algunos usuarios usan email como sessionId)
         const [pcas, adaptaciones, cncs, diagnosticas] = await Promise.all([
           db.select({ createdAt: pcaDocuments.createdAt }).from(pcaDocuments).where(eq(pcaDocuments.sessionId, normalized)).catch(() => []),
           db.select({ createdAt: curricularAdaptations.createdAt }).from(curricularAdaptations).where(eq(curricularAdaptations.sessionId, normalized)).catch(() => []),
@@ -604,21 +612,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const DAY = 24 * 60 * 60 * 1000;
         const countSince = (ms: number) => allDates.filter(t => now - t <= ms).length;
 
+        // Usar el conteo de planificacionStats si es mayor al de documentos
+        const totalFromDocs = allDates.length;
+        const totalFromStats = stat[0]?.count ?? 0;
+        const totalCount = Math.max(totalFromDocs, totalFromStats);
+
         const planificaciones = {
           diarias: countSince(DAY),
           semanales: countSince(7 * DAY),
           trimestrales: countSince(90 * DAY),
           anuales: countSince(365 * DAY),
-          total: allDates.length,
+          total: totalCount,
           porTipo,
         };
-
-        const stat = await db
-          .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt })
-          .from(planificacionStats)
-          .where(eq(planificacionStats.identifier, normalized))
-          .limit(1)
-          .catch(() => []);
 
         return res.json({
           email: normalized,
@@ -626,7 +632,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           lastLoginAt: account[0]?.lastLoginAt || null,
           cuentaCreadaEl: account[0]?.createdAt || null,
           planificaciones,
-          totalDispositivoSincronizado: stat[0]?.count ?? null,
+          totalDispositivoSincronizado: totalFromStats,
+          platform: stat[0]?.platform || null,
         });
       } catch (error: any) {
         console.error("[Admin] user-metrics error:", error?.message || error);

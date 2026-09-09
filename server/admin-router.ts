@@ -457,11 +457,19 @@ export function registerAdminRoutes(app: Express) {
         .where(eq(docenteAccounts.email, email))
         .limit(1);
 
+      // planificacionStats usa identifier=email
+      const stat = await db
+        .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt, platform: planificacionStats.platform })
+        .from(planificacionStats)
+        .where(eq(planificacionStats.identifier, email))
+        .limit(1);
+
+      // Buscar documentos por sessionId=email
       const [pcas, adaptaciones, cncs, diagnosticas] = await Promise.all([
-        db.select({ createdAt: pcaDocuments.createdAt }).from(pcaDocuments).where(eq(pcaDocuments.sessionId, email)),
-        db.select({ createdAt: curricularAdaptations.createdAt }).from(curricularAdaptations).where(eq(curricularAdaptations.sessionId, email)),
-        db.select({ createdAt: connectaNivelaCrea.createdAt }).from(connectaNivelaCrea).where(eq(connectaNivelaCrea.sessionId, email)),
-        db.select({ createdAt: evaluacionesDiagnosticas.createdAt }).from(evaluacionesDiagnosticas).where(eq(evaluacionesDiagnosticas.sessionId, email)),
+        db.select({ createdAt: pcaDocuments.createdAt }).from(pcaDocuments).where(eq(pcaDocuments.sessionId, email)).catch(() => []),
+        db.select({ createdAt: curricularAdaptations.createdAt }).from(curricularAdaptations).where(eq(curricularAdaptations.sessionId, email)).catch(() => []),
+        db.select({ createdAt: connectaNivelaCrea.createdAt }).from(connectaNivelaCrea).where(eq(connectaNivelaCrea.sessionId, email)).catch(() => []),
+        db.select({ createdAt: evaluacionesDiagnosticas.createdAt }).from(evaluacionesDiagnosticas).where(eq(evaluacionesDiagnosticas.sessionId, email)).catch(() => []),
       ]);
 
       const porTipo = {
@@ -476,20 +484,18 @@ export function registerAdminRoutes(app: Express) {
       const DAY = 24 * 60 * 60 * 1000;
       const countSince = (ms: number) => allDates.filter(t => now - t <= ms).length;
 
+      const totalFromDocs = allDates.length;
+      const totalFromStats = stat[0]?.count ?? 0;
+      const totalCount = Math.max(totalFromDocs, totalFromStats);
+
       const planificaciones = {
         diarias: countSince(DAY),
         semanales: countSince(7 * DAY),
         trimestrales: countSince(90 * DAY),
         anuales: countSince(365 * DAY),
-        total: allDates.length,
+        total: totalCount,
         porTipo,
       };
-
-      const stat = await db
-        .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt })
-        .from(planificacionStats)
-        .where(eq(planificacionStats.identifier, email))
-        .limit(1);
 
       res.json({
         email,
@@ -497,7 +503,8 @@ export function registerAdminRoutes(app: Express) {
         lastLoginAt: account[0]?.lastLoginAt || null,
         cuentaCreadaEl: account[0]?.createdAt || null,
         planificaciones,
-        totalDispositivoSincronizado: stat[0]?.count ?? null,
+        totalDispositivoSincronizado: totalFromStats,
+        platform: stat[0]?.platform || null,
       });
     } catch (error) {
       console.error("[Admin] User metrics error:", error);
