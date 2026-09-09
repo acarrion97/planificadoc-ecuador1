@@ -1221,6 +1221,39 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({ success: true, email: normalized, log });
     }
 
+    // POST /api/admin/deactivate-user — cancela suscripción y token sin borrar datos
+    if (action === "deactivate-user") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email } = req.body || {};
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+
+      const activeSubs = await db
+        .select()
+        .from(subscriptions)
+        .where(and(eq(subscriptions.email, normalized), eq(subscriptions.status, "active")));
+
+      if (activeSubs.length === 0) {
+        return res.status(404).json({ error: "No se encontró suscripción activa para este email" });
+      }
+
+      await db
+        .update(subscriptions)
+        .set({ status: "cancelled", isRecurring: false })
+        .where(and(eq(subscriptions.email, normalized), eq(subscriptions.status, "active")));
+
+      await db
+        .update(cardTokens)
+        .set({ isActive: false })
+        .where(eq(cardTokens.email, normalized));
+
+      return res.json({
+        success: true,
+        message: `Usuario ${normalized} desactivado. No se realizarán más cobros.`,
+        subscriptionsCancelled: activeSubs.length,
+      });
+    }
+
     // POST /api/admin/migrate-payment-attribution — crea la tabla si no existe
     if (action === "migrate-payment-attribution") {
       if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
