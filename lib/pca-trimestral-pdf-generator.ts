@@ -123,6 +123,22 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
             <div style="background:${light};font-size:8px;padding:2px 5px;margin-bottom:2px;color:#111;">${esc(val)}</div>`;
         }
 
+        // Orientaciones metodológicas adaptadas
+        if (dp.orientacionesAdaptadas?.length) {
+          ercaHTML += `<div style="font-size:8px;font-weight:bold;color:#003366;margin-top:6px;">ORIENTACIONES METODOLÓGICAS ADAPTADAS</div>`;
+          dp.orientacionesAdaptadas.forEach(o => {
+            ercaHTML += `<div style="font-size:8px;margin-bottom:2px;">• ${esc(o)}</div>`;
+          });
+        }
+
+        // Indicadores de evaluación adaptados
+        if (dp.indicadoresAdaptados?.length) {
+          ercaHTML += `<div style="font-size:8px;font-weight:bold;color:#003366;margin-top:6px;">INDICADORES DE EVALUACIÓN ADAPTADOS</div>`;
+          dp.indicadoresAdaptados.forEach(ind => {
+            ercaHTML += `<div style="font-size:8px;margin-bottom:2px;">• ${esc(ind)}</div>`;
+          });
+        }
+
         const recursosHTML = dp.recursosAdaptados?.length
           ? dp.recursosAdaptados.map(r => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(r)}</div>`).join("")
           : `<div style="font-size:8px;color:#888;">—</div>`;

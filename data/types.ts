@@ -557,6 +557,10 @@ export interface AdaptacionDiaPlan {
   };
   recursosAdaptados: string[];
   evaluacionAdaptada: string;
+  /** Orientaciones metodológicas adaptadas para la unidad/día */
+  orientacionesAdaptadas?: string[];
+  /** Indicadores de evaluación adaptados para la unidad/día */
+  indicadoresAdaptados?: string[];
 }
 
 export interface CurricularAdaptationForm {

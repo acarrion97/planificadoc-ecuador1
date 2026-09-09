@@ -437,6 +437,34 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
           }));
         }
 
+        // Orientaciones metodológicas adaptadas
+        if (adaptacionDia.orientacionesAdaptadas?.length) {
+          ercaLeft.push(new Paragraph({
+            spacing: { before: 10, after: 6 },
+            children: [run("ORIENTACIONES METODOLÓGICAS ADAPTADAS", true, SZ6, "003366")],
+          }));
+          adaptacionDia.orientacionesAdaptadas.forEach(o => {
+            ercaLeft.push(new Paragraph({
+              spacing: { after: 4 },
+              children: [run(`• ${o}`, false, SZ6)],
+            }));
+          });
+        }
+
+        // Indicadores de evaluación adaptados
+        if (adaptacionDia.indicadoresAdaptados?.length) {
+          ercaLeft.push(new Paragraph({
+            spacing: { before: 10, after: 6 },
+            children: [run("INDICADORES DE EVALUACIÓN ADAPTADOS", true, SZ6, "003366")],
+          }));
+          adaptacionDia.indicadoresAdaptados.forEach(ind => {
+            ercaLeft.push(new Paragraph({
+              spacing: { after: 4 },
+              children: [run(`• ${ind}`, false, SZ6)],
+            }));
+          });
+        }
+
         // Leyenda DUA
         ercaLeft.push(new Paragraph({
           spacing: { before: 10, after: 0 },
