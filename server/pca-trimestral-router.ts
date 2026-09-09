@@ -81,6 +81,7 @@ const FormDataTrimestralSchema = z.object({
   firmaAprobadoPor: z.string(),
   firmaAprobadoFecha: z.string(),
   deporteEnfoque: z.string().optional(),
+  adaptacionesCurriculares: z.array(z.any()).optional(),
 });
 
 // ─── Prompt ──────────────────────────────────────────────────────────────────

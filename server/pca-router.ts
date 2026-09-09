@@ -74,6 +74,7 @@ const FormDataSchema = z.object({
   firmaRevisadoFecha: z.string(),
   firmaAprobadoPor: z.string(),
   firmaAprobadoFecha: z.string(),
+  adaptacionesCurriculares: z.array(z.any()).optional(),
 });
 
 /** Construye el prompt para la IA */

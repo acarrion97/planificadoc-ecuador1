@@ -233,7 +233,8 @@ const BG_ADAPT = "7B2D8B";  // violeta — cabecera adaptaciones
  * Versión simplificada: identificación + destreza adaptada + adaptaciones de acceso.
  */
 function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): TableRow[] {
-  const activas = adaptaciones.filter(a => a.incluirEnExportacion !== false);
+  if (!Array.isArray(adaptaciones)) return [];
+  const activas = adaptaciones.filter(a => a && a.incluirEnExportacion !== false);
   if (activas.length === 0) return [];
 
   const filas: TableRow[] = [];
