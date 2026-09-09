@@ -18,7 +18,6 @@ import {
 } from "docx";
 import { AREAS_INFO, SUBNIVEL_NAMES, TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO, type AdaptacionCurricular, type TipoNEE, type GradoAdaptacion } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
-import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 import { iconosDcdRuns } from "./dcd-iconos";
 
 // ─── Utilidad ─────────────────────────────────────────────────────────────────
@@ -47,9 +46,6 @@ const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
 );
 const TECNICA_LABEL: Record<string, string> = Object.fromEntries(
   TECNICAS_EVALUACION.map((t) => [t.id, t.nombre])
-);
-const EJE_LABEL: Record<string, string> = Object.fromEntries(
-  EJES_TRANSVERSALES_PCA.map((e) => [e.id, e.nombre])
 );
 
 // Tamaños en half-points (docx): 1pt = 2 unidades
@@ -284,9 +280,6 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   const semanasClase   = (formData.semanasTrabajoTotal || 0) - (formData.semanasEvaluacion || 0);
   const totalPeriodos  = semanasClase * (formData.cargaHorariaSemanal || 0);
 
-  const ejesTexto = formData.usaEjesTransversales && formData.ejesTransversales?.length > 0
-    ? formData.ejesTransversales.map((e: string) => EJE_LABEL[e] || e).join(", ")
-    : "No aplica";
   const metodoTexto = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
   const tecnicaTexto = (formData.tecnicasEvaluacion || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
 
@@ -491,10 +484,6 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
     children: [
       makeCell({
         paragraphs: [
-          new Paragraph({
-            spacing: { before: 35, after: 10 },
-            children: [run("Ejes transversales: ", true, SZ7), run(ejesTexto, false, SZ7)],
-          }),
           new Paragraph({
             spacing: { before: 35, after: 10 },
             children: [run("Metodologías activas: ", true, SZ7), run(metodoTexto, false, SZ7)],

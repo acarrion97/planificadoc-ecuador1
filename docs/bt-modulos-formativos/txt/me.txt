@@ -1,0 +1,2165 @@
+     MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “MECATRÓNICA”
+
+       1.     Objetivo general
+
+   Formar bachilleres técnicos capaces de aplicar procedimientos técnicos para la
+   instalación, operación, mantenimiento y supervisión de sistemas automatizados, en
+   entornos industriales, productivos y de servicios, interpretar planos, seleccionar
+   equipos y diagnosticar fallas, aplicando normativas técnicas, de seguridad y
+   ambientales, e integrando tecnologías de automatización, robótica, control digital y
+   energías renovables para desarrollar soluciones innovadoras y sostenibles.
+
+       2.     Plan de estudios
+
+                                                                 1ro      2do     3ro
+Total periodos pedagógicos tronco común
+                                                                  19      19       19
+                           Seguridad Industrial                   2        2
+Módulos Genéricos de
+                       Procesos Industriales Sostenibles          2        2
+la Familia Profesional
+                           Dibujo Técnico Aplicado                2        2
+                           Pmc y Cnc                              4        4       4
+                           Sistemas de Automatización y
+                                                                  3        3       4
+                           Control
+Módulos de                 Sistemas de Microcontrolados           3        3       3
+Especialización
+                                                                  3
+                           Interfase de Control                            3       3
+
+                           Servomecanismos                                         3
+
+Módulo Práctico Experimental                                      2        2       4
+Total de periodos pedagógicos de formación técnica                21      21       21
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la Familia Industrial. Gracias a las características
+de los módulos trabajados en esta etapa, adquieren herramientas que le permiten
+construir una opinión más informada y tomar decisiones con mayor fundamento. Esto
+favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa,
+insertarse en el mundo laboral o emprender un proyecto propio.
+Se estructuran los siguientes módulos genéricos:
+  • Seguridad Industrial
+  • Procesos Industriales Sostenibles
+  • Dibujo Técnico Aplicado
+
+                                 Módulo Genérico Nro. 1
+Nombre del módulo                    Seguridad Industrial
+Nivel:                               1ro y 2do
+Duración:                            160 periodos pedagógicos
+                                     UC 1: Aplicar normas, procedimientos, planes de
+                                     seguridad e higiene en talleres, laboratorios y procesos
+Unidad       de      competencia industriales, en la prevención de riesgos, mediante el
+asociada:                            uso adecuado de herramientas, equipos y máquinas,
+                                     demostrando responsabilidad, disciplina y ética
+                                     profesional.
+Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Emplear normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Monitorea señales de seguridad en talleres y laboratorios verificando su ubicación
+y legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Utiliza los equipos de protección personal antes de iniciar actividades asegurando
+su funcionalidad.
+CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA 2: Ejecutar procedimientos de identificación, análisis y prevención de riesgos en
+entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE 2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE 2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE 2.3: Emplea medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE 2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA 3: Establecer planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE 3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE 3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE 3.3: Ejecuta la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE 3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de
+la integridad de personas y bienes.
+RA 4: Fomentar prácticas de seguridad, higiene y sostenibilidad en actividades
+industriales promoviendo disciplina, ética profesional y mejora continua.
+CE 4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE 4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE 4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE 4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y
+compromiso con la mejora continua.
+Contenidos
+Conceptuales                      Procedimentales                 Actitudinales
+Fundamentos           de       la Identificar riesgos presentes Demostrar disciplina en el
+seguridad             industrial, en el entorno laboral cumplimiento de normas de
+principios,      objetivos      y utilizando herramientas de seguridad e higiene.
+beneficios.                       observación y registro.
+                                                                  Mostrar interés en la
+Legislación y normativa Analizar                diagramas      de identificación y control de
+vigente en seguridad, salud procesos industriales para riesgos industriales.
+ocupacional       e     higiene localizar posibles focos de
+                                                                  Cumplir      con   el   uso
+laboral       (nacional       e peligro.
+                                                                  permanente y correcto de
+internacional).
+                                  Seleccionar equipos de equipos               de   protección
+Derechos y obligaciones en protección personal según personal.
+prevención       de     riesgos tipo de actividad y riesgo
+                                                                  Valorar la importancia del
+laborales.                        identificado.
+                                                                  orden y la limpieza en la
+Normas      generales        de Utilizar           correctamente seguridad del trabajo.
+seguridad       en     talleres, equipos        de     protección
+                                                                  Respetar la señalización de
+laboratorios      y     plantas personal            garantizando
+                                                                  seguridad instalada.
+industriales.                     seguridad y comodidad.
+Tipos        de     riesgos     Instalar       y      verificar Demostrar responsabilidad
+industriales:       físicos,    señalización de seguridad en en la ejecución de protocolos
+químicos,       biológicos,     talleres       y       plantas de emergencia.
+ergonómicos,    eléctricos,     industriales.
+                                                                Asumir      una      actitud
+mecánicos y psicosociales.
+                                Aplicar rutinas de orden y preventiva frente a los
+Equipos de protección           limpieza siguiendo el método riesgos laborales.
+personal           (EPP):       5S.
+                                                                Mantener disposición activa
+clasificación,
+                                Ejecutar procedimientos de en simulacros de evacuación
+características, uso   y
+                                análisis de riesgos aplicando y control de incendios.
+mantenimiento.
+                                matrices de evaluación.
+                                                                Mostrar compromiso con la
+Señalización de seguridad
+                                Elaborar informes técnicos protección          del    medio
+industrial:  códigos   de
+                                de riesgos con base en ambiente y la sostenibilidad
+colores,      pictogramas,
+                                observaciones, análisis y en procesos industriales.
+ubicación     y    normas
+                                normativa vigente.
+técnicas.                                                       Evidenciar ética profesional
+                                Implementar           medidas en la toma de decisiones
+Procedimientos de limpieza
+                                preventivas y correctivas relacionadas con seguridad
+y orden en el trabajo, 5S y
+                                ajustadas        a     riesgos y salud.
+buenas     prácticas     de
+                                detectados.
+higiene.                                                        Demostrar liderazgo en la
+                                Desarrollar      planes      de organización de grupos
+Metodologías             de
+                                evacuación simulados en frente a situaciones de
+identificación y evaluación
+                                talleres,    laboratorios     y riesgo.
+de riesgos, análisis de
+                                espacios industriales.
+trabajo     seguro   (ATS),                                     Fomentar       el    trabajo
+matriz de riesgos, método       Actuar en simulacros de colaborativo en la mejora de
+del árbol de causas.            emergencia           aplicando las      condiciones       de
+                                protocolos de comunicación seguridad.
+Medidas preventivas y
+                                y evacuación.
+correctivas aplicadas a                                         Mantener actitud reflexiva
+riesgos específicos en          Utilizar extintores, hidrantes frente a incidentes para
+talleres de electrónica,        y otros equipos contra promover la mejora continua.
+mecatrónica,                    incendios      conforme       a
+                                                                Asumir respeto por la vida,
+electromecánica, madera,        normas técnicas.
+                                                                la salud y el bienestar
+alimentos y calzado.            Aplicar técnicas básicas de colectivo como valores
+Planes de emergencia,           primeros auxilios en casos fundamentales.
+objetivos,      estructura,     de accidentes simulados.
+responsables              y     Evaluar        condiciones
+procedimientos.                 ergonómicas de los puestos
+Protocolos de evacuación,       de trabajo y proponer
+primeros auxilios, control de   mejoras.
+incendios y comunicación       Documentar y comunicar
+en emergencias.                incidentes, accidentes y
+                               medidas correctivas.
+Manejo        seguro    de
+herramientas      manuales,    Participar en actividades
+eléctricas y de máquinas       colaborativas de mejora
+industriales.                  continua en seguridad e
+                               higiene industrial.
+Ergonomía    aplicada    a
+puestos     de     trabajo,
+posturas, manipulación de
+cargas,   prevención    de
+lesiones.
+Cultura de seguridad y
+mejora           continua,
+responsabilidad,     ética,
+disciplina y sostenibilidad
+en el trabajo.
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+    riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+    con seguridad industrial.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                Especificaciones técnicas                   Cantidad
+
+Infraestructura/espacio  Entorno de aprendizaje                         1
+                         (aula)
+Laboratorio              Computadoras con acceso a internet             1
+                         Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+
+                              Módulo Genérico Nro.2
+Nombre del módulo:                   Procesos Industriales Sostenibles
+Nivel:                               1ro y 2do
+Duración:                            160 periodos pedagógicos
+                                     UC 2: Emplear prácticas de sostenibilidad y control
+                                     de calidad en actividades industriales mediante el uso
+                                     de tecnologías limpias, criterios de eficiencia
+Unidad de competencia                energética, minimización de residuos, garantizando la
+asociada:                            reducción de impactos ambientales y la optimización
+                                     de estos en beneficio del entorno local, integrando
+                                     fundamentos de formación y orientación laboral y
+                                     salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA 3: Utilizar materias primas y energía en procesos industriales garantizando
+reducción de costos operativos y aprovechamiento responsable de los recursos.
+CE3.1: Analiza puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Selecciona normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3:     Ejecuta acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Utiliza productos y materiales según parámetros establecidos en normas técnicas
+y procedimientos internos.
+CE6.2:     Ejecuta pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+Conceptuales                   Procedimentales               Actitudinales
+Principios de sostenibilidad Identificar      fuentes    de Mostrar interés en la
+en procesos industriales, consumo            energético   y aplicación      de    prácticas
+definición, importancia y      materiales    en    procesos  sostenibles en procesos
+aplicación.                    industriales.                 industriales.
+Conceptos     básicos    de    Medir y registrar consumos Cumplir         con       los
+eficiencia       energética,   eléctricos,   térmicos    e procedimientos            de
+consumo,           pérdidas,   hidráulicos.                reducción, reutilización y
+rendimiento, ahorro.           Analizar           impactos reciclaje de materiales.
+Energías          renovables ambientales de actividades Valorar la importancia del
+aplicadas   a   la industria, productivas.              ahorro energético y del
+solar,    eólica,   biomasa, Aplicar técnicas básicas de       aprovechamiento
+hidráulica.                    reducción, reutilización y      responsable de recursos.
+                               reciclaje.
+Impactos ambientales de los                                    Mostrar orden, precisión y
+procesos         industriales, Elaborar    reportes     de     método en las actividades de
+contaminación      del   aire, consumo y residuos en           medición, registro y análisis.
+agua, suelo y ruido.           procesos experimentales.
+                                                               Asumir una actitud reflexiva
+Estrategias de consumo Implementar estrategias de frente al impacto ambiental
+responsable de materias optimización del consumo de los procesos industriales.
+primas y energía.               eléctrico en equipos.
+                                                               Evidenciar iniciativa en la
+Introducción a la economía Comparar el rendimiento de búsqueda de soluciones
+circular,           reducción, energías convencionales y tecnológicas limpias.
+reutilización y reciclaje.      renovables.
+                                                               Demostrar eficiencia en la
+Marco normativo ambiental Aplicar             técnicas      de aplicación de conocimientos
+básico        nacional        e minimización de residuos para la mejora de procesos.
+internacional      relacionado sólidos, líquidos y gaseosos.
+                                                               Mantener      una      actitud
+con sostenibilidad.
+                                Diseñar         planes      de positiva frente al trabajo
+Tecnologías             limpias aprovechamiento             de colaborativo y proyectos
+aplicadas      a      procesos residuos valorizables.          colectivos.
+industriales.
+                                Documentar procedimientos Respetar                normativas
+Técnicas de optimización del de sostenibilidad aplicados ambientales            vigentes    y
+consumo        eléctrico     en en procesos experimentales. aplicarlas         de      forma
+equipos y sistemas.                                            consciente.
+                                Integrar      sistemas      de
+Procedimientos               de automatización que mejoren Tomar conciencia de la
+minimización de residuos y la eficiencia energética.           importancia de innovar en el
+emisiones contaminantes.                                       uso de energías renovables
+                                Evaluar     indicadores     de
+                                                               y tecnologías limpias.
+Modelos        de       gestión sostenibilidad en procesos
+energética y de recursos en simulados y reales.                Manifestar compromiso con
+entornos industriales.                                         el cuidado del entorno social,
+                                Incorporar            energías
+                                                               económico y ambiental.
+Sistemas de tratamiento y renovables en prototipos o
+valorización de residuos procesos de laboratorio.
+industriales.
+                                Diseñar      propuestas     de
+Relación entre eficiencia mejora             de      procesos
+energética y reducción de industriales con base en
+costos operativos.              tecnologías limpias.
+Automatización y control Validar la reducción de
+industrial    orientados a costos operativos mediante
+sostenibilidad.            la optimización de recursos
+Integración de      energías
+renovables en       procesos
+productivos.
+Innovación y tendencias en
+tecnologías sostenibles.
+Indicadores                de
+sostenibilidad, huella de
+carbono, huella hídrica,
+eficiencia global de recursos.
+Normas internacionales de
+sostenibilidad industrial (ISO
+14001, ISO 50001).
+Diseño y mejora de procesos
+industriales con enfoque
+ambiental.
+Proyectos integrales de
+sostenibilidad en procesos
+industriales,      análisis,
+implementación y evaluación
+de resultados.
+
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+    Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+    sector industrial sostenible.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                     Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio          Entorno de aprendizaje                 1
+                                 (aula)
+Laboratorio                      Computadoras con acceso a internet     1
+                                 Proyector
+Referencias Bibliográficas
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+
+                                 Módulo Genérico Nro.3
+Nombre del módulo:                 Dibujo Técnico Aplicado
+Nivel:                             1ro y 2do
+Duración:                          160 periodos pedagógicos
+                                   UC 3: Elaborar representaciones gráficas técnicas
+                                   aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia              herramientas digitales como CAD, CAE y modelado
+asociada:                          3D, generando planos, modelos y prototipos con
+                                   precisión, creatividad, responsabilidad y compromiso
+                                   con la calidad en contextos industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Emplear normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Distingue símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Elabora planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2: Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad
+técnica conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+ Contenidos
+Conceptuales                   Procedimentales                Actitudinales
+Principios básicos del dibujo Trazar líneas, vistas y Mostrar interés en la lectura,
+técnico: líneas, tipos de escalas en bocetos y planos. interpretación y elaboración
+vistas y escalas.                                             de planos técnicos.
+                               Utilizar instrumentos de
+                               dibujo técnico con precisión. Cumplir con las normas de
+Normas internacionales y                                      calidad en representaciones
+nacionales de dibujo técnico Identificar     simbología     y
+                                                              gráficas.
+(ISO, DIN, INEN).              aplicar normas básicas en
+                               representaciones gráficas.     Valorar la precisión y
+Principios fundamentales de Interpretar                       exactitud en los dibujos
+                                                     planos
+geometría       aplicados  al bidimensionales simples.        como garantía de seguridad
+dibujo técnico.                                               y confiabilidad.
+                               Representar           figuras
+                                                              Demostrar                orden,
+                               geométricas aplicadas a
+Sistemas de proyección                                        responsabilidad y método en
+                               piezas básicas.
+ortogonal,     isométrica   y                                 el uso de herramientas
+oblicua.                       Elaborar planos con cortes, manuales y digitales.
+                               secciones y detalles.
+                                                              Asumir actitud reflexiva y
+Lectura e interpretación de Dibujar ensamblajes simples
+                                                              analítica al interpretar planos
+planos y esquemas técnicos. aplicando         normas      de y diagramas técnicos.
+Conceptos de acotación, rotulación y acotación.
+tolerancias y ajustes en                                      Mostrar iniciativa en la
+representaciones gráficas.     Usar   software  CAD    en  la búsqueda de soluciones
+                               creación                   de gráficas ante problemas de
+Rotulación y simbología representaciones 2D.                  representación.
+básica en planos técnicos.     Representar diagramas y Demostrar liderazgo en
+                            esquemas funcionales de            actividades colaborativas de
+Representación de cortes, sistemas técnicos.                   diseño gráfico técnico.
+secciones     y    detalles
+                            Comprobar exactitud de             Aplicar     criterios    de
+técnicos.
+                            planos mediante cotejo con         creatividad e innovación en
+                            piezas o modelos reales.           el desarrollo de planos y
+Principios de normalización
+en planos de piezas y Generar           modelos      3D        modelos.
+ensamblajes.                mediante herramientas CAD.         Respetar las normas de
+                                                               seguridad en el uso de
+Escalas de reducción y Simular funcionamiento y equipos e instalaciones de
+ampliación aplicadas a la ensamblajes en software laboratorio de CAD.
+industria.                    CAD/CAE.
+                                                           Demostrar responsabilidad
+                              Crear prototipos digitales y en la entrega oportuna y con
+Geometría         descriptiva
+                              planos       listos     para calidad de trabajos gráficos.
+aplicada      a     sistemas
+                              fabricación.
+complejos.                                                 Mostrar disposición positiva
+                              Optimizar representaciones y activa en actividades
+Introducción a herramientas gráficas              mediante individuales y grupales.
+CAD en 2D, funciones automatización                     de
+                                                           Usar con cuidado los
+básicas      y     comandos   comandos   y macros en CAD.
+                                                           materiales,     equipos     y
+esenciales.                   Presentar proyectos de software de representación
+                              diseño gráfico técnico con gráfica.
+Elaboración     de     planos enfoque      innovador     y
+constructivos y diagramas colaborativo.                    Valorar la importancia del
+funcionales.                                               dibujo técnico como
+                                                           lenguaje universal en la
+Principios de representación                               industria.
+gráfica en componentes
+mecánicos, electrónicos y
+estructurales.
+
+Modelado tridimensional en
+software CAD y generación
+de prototipos digitales.
+
+Ensamblajes y simulación de
+funcionamiento          con
+herramientas CAD/CAE.
+
+Generación         de       vistas
+explotadas     y        despieces
+técnicos.
+
+Renderizado         básico  y
+presentación       de modelos
+3D.
+
+Optimización de planos
+digitales para manufactura y
+fabricación    asistida  por
+computadora (CAM).
+Innovación y creatividad en
+el diseño gráfico aplicado a
+procesos industriales.
+
+Integración del dibujo técnico
+en                   proyectos
+interdisciplinarios de diseño,
+producción y mantenimiento.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+    Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+    al área de representación gráfica y diseño técnico.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                           Detalle de especificaciones          Cantidad
+Denominación
+                           técnicas
+Infraestructura/espacio    Entorno de aprendizaje (aula)        1
+
+Laboratorio                    Computadoras con acceso a internet          1
+                               Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+ Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+       Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+       España. Publicación oficial
+
+ Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+       gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+       uso. ISO 45001:2018
+
+ Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+        de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+        Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+         evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+         riesgos laborales
+
+   4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Mecatrónica se
+caracterizarán por tener una sólida formación en fundamentos de electricidad,
+electrónica y mecánica, así como en el diseño, instalación, operación y mantenimiento
+de sistemas mecatrónicos y de automatización. Integrarán sensores, actuadores,
+controladores y tecnologías digitales para el control de procesos industriales, aplicando
+criterios de seguridad, eficiencia energética, innovación y sostenibilidad.
+
+Se estructuran los siguientes módulos de especialización:
+
+           •   Pmc y Cnc
+           •   Sistemas de Automatización y Control
+           •   Sistemas de Microcontrolados
+           •   Interfase de Control
+           •   Servomecanismos
+
+                            Módulo de Especialización Nro. 1
+
+ Nombre del módulo:                    PMC Y CNC
+
+ Nivel:                                1ro, 2do, 3ro
+
+ Duración:                             480 periodos pedagógicos
+
+ Unidad        de     competencia      UC1: Aplicar técnicas de construcción, reparación,
+ asociada:                             mantenimiento y soldadura de elementos mecánicos
+                                       y sistemas automatizados, utilizando procesos de
+                                       mecanizado convencionales y CNC, bajo normas
+                                       técnicas, de seguridad y cuidado ambiental.
+Objetivo del módulo: Aplicar técnicas de construcción, reparación, mantenimiento y
+soldadura en elementos mecánicos y sistemas automatizados, mediante procesos de
+mecanizado convencionales y CNC, cumpliendo normas técnicas, de seguridad industrial y
+de protección ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Interpretar planos y especificaciones técnicas de piezas o conjuntos
+mecánicos, identificando dimensiones, tolerancias, materiales y procesos, de
+acuerdo con simbología y normas técnicas vigentes.
+CE1.1: Identifica la simbología y convenciones básicas del dibujo técnico mecánico, según
+normas técnicas vigentes.
+CE1.2: Reconoce e interpreta cotas, dimensiones, tolerancias y acabados superficiales
+presentes en planos mecánicos, de acuerdo con especificaciones técnicas.
+CE1.3: Organiza las operaciones de fabricación necesarias a partir de la información del
+plano, estableciendo la secuencia de trabajo conforme a criterios técnicos.
+CE1.4: Propone alternativas viables para el proceso mecánico, justificando su elección en
+función de los materiales, herramientas y requerimientos técnicos del plano.
+RA 2: Ejecutar operaciones de mecanizado con herramientas convencionales,
+seleccionando instrumentos, parámetros y secuencias de trabajo, según
+procedimientos establecidos y normas de seguridad industrial.
+CE2.1: Identifica y selecciona herramientas, equipos y materiales apropiados de acuerdo
+con las características del proceso de mecanizado y su función en cada operación,
+conforme a las especificaciones técnicas y cumpliendo con normas de seguridad y
+procedimientos establecidos.
+CE2.2: Ejecuta operaciones de corte, taladrado, limado y roscado manual sobre piezas
+metálicas, utilizando las herramientas adecuadas, con precisión y cumpliendo las
+especificaciones técnicas, normas de seguridad y procedimientos establecidos.
+CE2.3: Realiza operaciones de torneado y fresado en máquinas convencionales, aplicando
+las técnicas correspondientes y respetando los parámetros de velocidad, avance y
+profundidad establecidos, conforme a las especificaciones técnicas y normas de seguridad.
+CE2.4: Propone mejoras en el proceso de mecanizado con herramientas convencionales,
+justificando su viabilidad en función de los materiales, herramientas y calidad requerida.
+RA 3: Operar máquinas CNC para mecanizado básico de componentes mecánicos,
+configurando parámetros, cargando programas y supervisando el proceso, conforme
+a instrucciones técnicas y protocolos de seguridad.
+CE3.1: Identifica los componentes y funciones básicas de una máquina CNC, de acuerdo
+con el manual técnico y las normas de seguridad.
+CE3.2: Configura parámetros de operación en la máquina CNC, considerando el tipo de
+material, la herramienta y el proceso requerido.
+CE3.3: Ejecuta operaciones básicas de mecanizado en CNC, cargando programas y
+supervisando el proceso según procedimientos establecidos.
+CE3.4: Propone ajustes o mejoras en los programas y parámetros de mecanizado CNC,
+justificando su factibilidad técnica y su impacto en la calidad del producto.
+RA 4: Realizar operaciones básicas de unión mecánica y soldadura, eligiendo
+técnicas, equipos y materiales adecuados, cumpliendo normas técnicas, de
+seguridad y cuidado ambiental.
+CE4.1: Identifica las herramientas, equipos y materiales utilizados en operaciones básicas
+de unión mecánica y soldadura, según especificaciones técnicas.
+CE4.2: Selecciona las técnicas y equipos de unión mecánica y soldadura, considerando
+el tipo de material y la resistencia requerida.
+CE4.3:        Ejecuta operaciones básicas de unión mecánica y soldadura, siguiendo
+procedimientos establecidos y cumpliendo normas de seguridad y cuidado ambiental.
+CE4.4: Evalúa la resistencia, acabado y calidad de uniones mecánicas o soldaduras
+realizadas, aplicando normas de seguridad, medidas de prevención de incendios y
+procedimientos adecuados para el manejo y disposición de residuos.
+Contenidos
+Conceptuales                     Procedimentales          Actitudinales
+Conceptos       básicos     del Interpretar      planos Asumir con responsabilidad las
+dibujo técnico mecánico: técnicos mecánicos.              tareas asignadas, cumpliendo con
+simbología, tipos de líneas,                              los estándares de calidad y
+escalas y formatos.              Identificación        de seguridad.
+                                 dimensiones,
+Interpretación de cotas,                                  Respetar las normas técnicas, de
+                                 tolerancias            y
+tolerancias y acabados                                    seguridad industrial y cuidado
+                                 especificaciones.
+superficiales.                                            ambiental      en     todas      las
+                                                          operaciones.
+Tipos de planos: conjuntos, Analizar planos para
+despiece, montaje, etc.          determinar procesos Colaborar efectivamente con
+                                 de fabricación.          compañeros y supervisores para
+Materiales comunes y su
+                                                          lograr objetivos comunes.
+representación en planos.        Evaluar la factibilidad
+                                                          Demostrar precisión y rigurosidad
+Normas técnicas aplicables técnica a partir de
+(ISO, DIN, ANSI).                planos y recursos en la interpretación de planos y
+                                 disponibles.             ejecución de procesos técnicos.
+Tipos     de     herramientas
+                                                          Proponer mejoras y soluciones en
+convencionales               de Seleccionar           las los procesos, mostrando interés
+mecanizado:             tornos, herramientas            y por el aprendizaje continuo.
+fresadoras, taladros, limas, materiales             para
+sierras, etc.                    mecanizado.              Mantener una actitud ética y
+                                                          respetuosa en el entorno laboral y
+Propiedades                   y
+                                                          educativo.
+características      de     los Configurar y ajustar
+materiales a mecanizar.          máquinas                 Adoptar prácticas que minimicen
+                                 convencionales para el impacto ambiental en la
+Parámetros de mecanizado: operaciones
+                                                          realización     de      actividades
+velocidad,            avance, específicas.
+                                                          técnicas.
+profundidad de corte.
+                                                          Priorizar la seguridad propia y de
+                                                          los        demás,        utilizando
+Normas y procedimientos de                             correctamente los equipos de
+seguridad   industrial  en Ejecutar procesos de        protección.
+taller.                    torneado,     fresado,
+                           taladrado y acabado.
+Componentes              y
+funcionamiento básico de Aplicar normas de
+máquinas CNC.              seguridad durante el
+Tipos de máquinas CNC y mecanizado.
+aplicaciones más comunes.
+                          Identificar y manejar
+Conceptos de programación controles     de   la
+CNC: código G y M.        máquina CNC.
+Parámetros de corte       y
+control de calidad.         Configurar parámetros
+                            y carga de programas
+Seguridad en operación de para mecanizado.
+máquinas CNC.               Supervisar y controlar
+Principios básicos de unión el    proceso      de
+mecánica y soldadura.       mecanizado  CNC.
+
+Tipos de soldadura: MIG, Diagnosticar       y
+TIG, arco eléctrico, y resolución básica de
+soldadura por resistencia. fallos  durante la
+Materiales y equipos para operación.
+soldadura y unión mecánica.
+                        Seleccionar técnicas,
+Normas de seguridad y materiales y equipos
+cuidado    ambiental en adecuados para unión
+soldadura.              y soldadura.
+
+                              Preparar piezas para
+                              procesos de unión
+                              mecánica y soldadura.
+
+                              Ejecutar de soldaduras
+                              básicas y uniones
+                              mecánicas.
+
+                              Aplicar medidas de
+                              seguridad y control
+                              ambiental durante las
+                              operaciones.
+Perfil del o la docente
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+   Mecánica, Mecatrónica, Manufactura, Automatización Industrial, o áreas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                  Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                     1
+
+Laboratorio                   Computadoras con acceso a internet                1
+                              Proyector
+Taller                        Taller    técnico    con     ventilación
+                              adecuada y espacio suficiente para el
+                              movimiento seguro de estudiantes y
+                              equipos.
+                              Áreas delimitadas para cada tipo de
+                              actividad: zona de interpretación y
+                              estudio de planos, zona de
+                              mecanizado convencional, área para
+                              operación de máquinas CNC y sector
+                              de soldadura y uniones mecánicas.
+                              Iluminación                  adecuada,
+                              especialmente en zonas de trabajo
+                              detallado y operación de máquinas.
+                              Piso resistente y nivelado, con
+                              superficie      antideslizante      para
+                              seguridad.
+                              Sistema de extracción o ventilación
+                              local en el área de soldadura para
+                              evitar acumulación de humos y
+                              gases.
+                              Señalización clara de normas de
+                              seguridad y rutas de evacuación
+Herramientas/equipos          Herramientas manuales y de                        1
+                              medición
+                              Llaves fijas, combinadas, ajustables y
+                              de torque.
+                             Destornilladores, alicates, martillos,
+                             extractores.
+                             Prensas y tornillos de banco.
+                             Micrómetros, calibradores pie de rey,
+                             comparadores de carátula.
+                             Reglas, escuadras, compases, galgas
+                             de espesores.
+                             Máquinas y equipos de mecanizado
+                             Mecanizado       convencional:      torno
+                             paralelo,    fresadora,    taladro     de
+                             columna, rectificadora, esmeriladora.
+                             Mecanizado CNC: torno CNC,
+                             fresadora CNC, centros de
+                             mecanizado con control numérico.
+                             Equipos de unión y soldadura
+                             Soldadura SMAW (arco eléctrico con
+                             electrodo revestido).
+                             Soldadura MIG/MAG.
+                             Soldadura TIG.
+                             Equipos de oxicorte y plasma.
+                             Equipos de automatización y control
+                             Bancos didácticos de sistemas
+                             mecatrónicos.
+                             PLCs y módulos de control.
+                             Sensores, actuadores, servomotores
+                             y variadores de frecuencia.
+Materiales                   Elementos de protección personal
+                             (EPP): casco, guantes, caretas, gafas,
+                             protectores auditivos, botas de
+                             seguridad.
+                             Extintores y señalética de seguridad.
+                             Sistemas de ventilación y extracción
+                             de humos.
+Referencias Bibliográficas
+Recursos Digitales:
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de
+      mecanizado y planificación de procesos: Mecanizado convencional y no
+      convencional, introducción a CNC, economía de mecanizado, planificación de
+      procesos y utillajes. Universidad Politécnica de Cartagena.
+      https://doi.org/10.31428/10317/13790
+   o Flor, O. (2025). Exoesqueletos y robots colaborativos: Innovación, productividad y
+      calidad de vida. UDLA Ediciones.
+      https://www.udlaediciones.com.ec/tienda/exoesqueletos-y-robots-colaborativos-
+      innovacion-productividad-y-calidad-de-vida/
+   o Guerra, P., Viera, D., Beltrán, D., & Bonilla, S. (2021). Seguridad industrial y
+      capacitación: Un enfoque preventivo de salud laboral. Editorial Universidad
+      Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/2224
+   o Pozo Espín, D. F., Rosero Beltrán, J. L., & Solórzano Lescano, S. L. (2022).
+      ATmega2560: Teoría y aplicaciones usando Atmel Studio. UDLA Ediciones.
+      https://www.udlaediciones.com.ec/tienda/atmega2560-teoria-y-aplicaciones-
+      usando-atmel-studio/
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+      Superior Universitario Cotopaxi.
+      https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/38
+   o Zapata, M., Topón-Visarrea, L., & Tipán, É. (2021). Fundamentos de
+      automatización y redes industriales. Editorial Universidad Tecnológica
+      Indoamérica. https://hdl.handle.net/20.500.14809/2226
+   o Zapata, M., Valencia-Aragón, K., & Tipán, E. (2024). Eficiencia y productividad:
+      Aplicaciones industriales con autómatas programables. Editorial Universidad
+      Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/6884
+
+
+                           Módulo de Especialización Nro. 2
+
+Nombre del módulo:                    Sistemas de Automatización y Control
+
+Nivel:                                1ro, 2do, 3ero
+
+Duración:                             400 periodos pedagógicos
+
+Unidad      de      competencia       UC.2. Ejecutar la simulación, instalación, operación y
+asociada:                             puesta en marcha de sistemas de automatización, y
+                                      control industrial, aplicando procedimientos técnicos,
+                                      normas de seguridad y criterios ambientales.
+Objetivo del módulo: Ejecutar la simulación, instalación, operación y puesta en marcha
+de sistemas de automatización y control industrial, aplicando procedimientos técnicos,
+normas de seguridad industrial y criterios de cuidado ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Interpretar esquemas eléctricos y lógicos de sistemas de automatización,
+identificando componentes, conexiones y funcionamiento, conforme a normas
+técnicas vigentes.
+CE1.1: Identifica correctamente los símbolos y componentes eléctricos y lógicos en
+esquemas de automatización, según normas técnicas.
+CE1.2: Analiza las conexiones y relaciones funcionales entre componentes en esquemas
+eléctricos y lógicos, interpretando su secuencia de operación.
+CE1.3: Analiza y determina las relaciones funcionales entre los elementos de un sistema
+automatizado, identificando su función dentro del proceso y asegurando el cumplimiento de
+normas técnicas y de seguridad.
+CE1.4: Propone mejoras o correcciones en esquemas eléctricos y lógicos, justificando su
+impacto en el funcionamiento y seguridad del sistema automatizado.
+RA 2: Simular sistemas automatizados utilizando software especializado,
+configurando variables y parámetros para replicar procesos reales con precisión.
+CE2.1: Reconoce las funciones básicas y herramientas principales de software de
+simulación (FluidSIM, TIA Portal, LogixPro o similar) y lo utiliza para modelar circuitos
+eléctricos o automatizados, siguiendo procedimientos técnicos y normas de seguridad.
+CE2.2: Configura variables y parámetros del sistema automatizado en el software,
+siguiendo instrucciones técnicas.
+CE2.3: Ejecuta simulaciones de sistemas automatizados, analizando resultados y
+verificando el comportamiento esperado.
+CE2.4: Propone modificaciones en las configuraciones de simulación para optimizar el
+rendimiento del sistema automatizado, justificando las mejoras.
+RA 3: Instalar sistemas de automatización en entornos reales o didácticos, aplicando
+procedimientos técnicos y normas de seguridad industrial.
+CE3.1: Identifica los componentes y herramientas necesarias para la instalación de
+sistemas de automatización.
+CE3.2: Ejecuta la instalación de sistemas automatizados en entornos reales o didácticos,
+siguiendo procedimientos técnicos establecidos.
+CE3.3: Verifica la correcta instalación de equipos de automatización, asegurando su
+fijación, conexiones y disposición conforme a las especificaciones técnicas y normas de
+seguridad.
+CE3.4: Evalúa la instalación de sistemas de automatización mediante pruebas eléctricas y
+funcionales, verificando el cumplimiento de especificaciones técnicas y normas de
+seguridad.
+RA 4: Operar y poner en marcha sistemas automatizados de baja complejidad,
+realizando pruebas funcionales y ajustes según especificaciones técnicas.
+CE4.1: Configura temporizadores, sensores y PLCs básicos en sistemas automatizados de
+baja complejidad, asegurando su correcta parametrización según los procedimientos
+técnicos.
+CE4.2: Ejecuta pruebas de funcionamiento de sistemas automatizados de baja complejidad,
+siguiendo la secuencia de control establecida y cumpliendo normas de seguridad.
+CE4.3: Verifica las condiciones de seguridad eléctrica y mecánica durante la operación de
+sistemas automatizados, aplicando procedimientos técnicos y normas de prevención.
+CE4.4: Elabora informes técnicos sobre la operación de sistemas automatizados,
+registrando observaciones, resultados y proponiendo mejoras de manera clara y técnica.
+Contenidos
+Conceptuales                   Procedimentales           Actitudinales
+Símbolos y convenciones en Leer         e    interpretar Cumplir con las tareas asignadas
+esquemas      eléctricos     y esquemas eléctricos y siguiendo normas técnicas y de
+lógicos.                       lógicos.                  seguridad,              mostrando
+                                                         compromiso con la calidad del
+Tipos de componentes
+                               Identificar conexiones trabajo.
+eléctricos     y      lógicos:
+                               y      funciones      de
+sensores, actuadores, relés,
+                               componentes.              Priorizar la seguridad personal y
+contactores,
+                                                         colectiva,               utilizando
+temporizadores.                Realizar un análisis correctamente los equipos de
+Diagramas      unifilares    y funcional de circuitos protección         y      respetando
+multifilares.                  automatizados.            protocolos establecidos.
+Principios básicos de lógica Usar     manuales      y
+cableada       y      lógica documentos técnicos         Colaborar     activamente  con
+programable.                                             compañeros y docentes para
+                             para interpretación.
+                                                         lograr objetivos comunes en la
+Normas técnicas aplicables Utilizar software de          instalación y operación de
+(IEC, NEMA, etc              simulación.
+                                                         sistemas.
+                             Configurar variables y
+Fundamentos de simulación
+                             parámetros para la
+de sistemas automatizados.                               Mostrar interés por aprender y
+                             simulación.
+                                                         mejorar           continuamente,
+Tipos de software de Ejecutar              y      dar
+                                                         proponiendo soluciones y mejoras
+simulación más usados en seguimiento               de
+                                                         en      los     procesos      de
+automatización.              simulaciones.
+                                                         automatización.
+Variables y parámetros en
+                           Interpretar resultados y
+simulación:      entradas,                               Mantener una actitud ética y
+                           generación           de
+salidas,          tiempos,                               respetuosa hacia las personas,
+                           informes.
+secuencias.                                              herramientas, equipos y el entorno
+                                                         de trabajo.
+Validación y análisis de Organizar el área y
+resultados de simulación.   herramientas    para
+                            instalación.                 Adoptar prácticas que minimicen
+Tipos      de      sistemas                              el impacto ambiental durante la
+automatizados      y    sus Montar y conexión de         instalación, operación y
+componentes principales.    componentes        y         mantenimiento de sistemas
+                              sistemas.                  automatizados.
+Procedimientos  técnicos                                Ser meticuloso en la interpretación
+para la instalación de Verificar conexiones y           de     esquemas,     simulaciones,
+sistemas.                funcionalidad.                 instalaciones y operaciones para
+                                                        garantizar la calidad y seguridad.
+Normas y protocolos de Aplicar normas de
+seguridad en instalación. seguridad durante la
+Herramientas y equipos instalación.
+para instalación.
+                              Operar        sistemas
+Funciones    y      controles automatizados
+básicos    de       sistemas siguiendo
+automatizados.                instrucciones técnicas.
+Protocolos de puesta en
+marcha        y    pruebas Realizar       pruebas
+funcionales.               funcionales y ajustes
+                           necesarios.
+Identificación y manejo de
+fallos comunes.            Diagnosticar
+Normas de seguridad y problemas y aplicación
+cuidado ambiental.         de soluciones.
+
+                              Aplicar medidas de
+                              seguridad y protocolos
+                              ambientales.
+
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+   Electrónica, Mecatrónica, Automatización Industrial, Control Industrial o áreas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                     1
+
+Laboratorio                   Computadoras con acceso a internet                1
+                              Servidor
+                              Proyector
+Taller                       Taller o laboratorio con espacio
+                             suficiente para la instalación y
+                             operación segura de sistemas
+                             automatizados.
+                             Áreas      diferenciadas     para   la
+                             interpretación       de     esquemas,
+                             simulación por software, instalación y
+                             operación práctica.
+                             Ventilación adecuada y sistema de
+                             extracción en zonas donde se
+                             realicen conexiones eléctricas o
+                             mantenimiento.
+                             Iluminación adecuada para trabajos
+                             detallados y manejo de equipos
+                             electrónicos.
+                             Pisos resistentes y nivelados con
+                             superficie      antideslizante    para
+                             seguridad.
+
+                             Señalización clara de normas de
+                             seguridad, rutas de evacuación y uso
+                             de equipos de protección
+Herramientas/equipos         Equipos y herramientas para montaje        1
+                             e instalación: multímetros, pinzas,
+                             destornilladores, alicates, pelacables.
+                             Componentes y kits didácticos de
+                             sistemas de automatización: sensores,
+                             actuadores,      relés,     contactores,
+                             temporizadores, PLCs de bajo costo o
+                             simuladores.
+                             Equipos para pruebas y puesta en
+                             marcha de sistemas: fuentes de
+                             alimentación, bancos de prueba,
+                             dispositivos de seguridad.
+
+Materiales                   Equipos de protección personal:
+                             guantes aislantes, gafas de seguridad,
+                             ropa adecuada.
+                             Extintores y botiquín de primeros
+                             auxilios.
+Referencias Bibliográficas
+Recursos Digitales:
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de
+      mecanizado y planificación de procesos: Mecanizado convencional y no
+      convencional, introducción a CNC, economía de mecanizado, planificación de
+      procesos y utillajes. Universidad Politécnica de Cartagena.
+      https://doi.org/10.31428/10317/13790
+   o Flor, O. (2025). Exoesqueletos y robots colaborativos: Innovación, productividad y
+      calidad de vida. UDLA Ediciones.
+      https://www.udlaediciones.com.ec/tienda/exoesqueletos-y-robots-colaborativos-
+      innovacion-productividad-y-calidad-de-vida/
+   o Guerra, P., Viera, D., Beltrán, D., & Bonilla, S. (2021). Seguridad industrial y
+      capacitación: Un enfoque preventivo de salud laboral. Editorial Universidad
+      Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/2224
+   o Pozo Espín, D. F., Rosero Beltrán, J. L., & Solórzano Lescano, S. L. (2022).
+      ATmega2560: Teoría y aplicaciones usando Atmel Studio. UDLA Ediciones.
+      https://www.udlaediciones.com.ec/tienda/atmega2560-teoria-y-aplicaciones-
+      usando-atmel-studio/
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+      Superior Universitario Cotopaxi.
+      https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/38
+   o Zapata, M., Topón-Visarrea, L., & Tipán, É. (2021). Fundamentos de
+      automatización y redes industriales. Editorial Universidad Tecnológica
+      Indoamérica. https://hdl.handle.net/20.500.14809/2226
+   o Zapata, M., Valencia-Aragón, K., & Tipán, E. (2024). Eficiencia y productividad:
+      Aplicaciones industriales con autómatas programables. Editorial Universidad
+      Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/6884
+
+
+
+                          Módulo de Especialización Nro. 3
+
+Nombre del módulo:                   Sistemas Microcontrolados
+
+Nivel:                               1ro, 2do, 3ro
+
+Duración:                            360 periodos pedagógicos
+
+Unidad      de      competencia      UC3. Utilizar herramientas y lenguajes de
+asociada:                            programación para microcontroladores en prototipos
+                                     automatizados, siguiendo estándares técnicos y
+                                     ambientales.
+Objetivo del módulo: Utilizar de forma eficiente herramientas y lenguajes de programación
+para microcontroladores en la configuración y prueba de prototipos automatizados,
+considerando estándares técnicos, de seguridad y criterios ambientales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Identificar la estructura, los componentes y el funcionamiento básico de un
+microcontrolador, relacionando sus partes con sus funciones principales.
+CE1.1: Reconoce los componentes principales de un microcontrolador y sus conexiones
+externas a partir de guías o esquemas de referencia.
+CE1.2: Describe la función de cada componente del microcontrolador, vinculando su
+estructura con su utilidad en el sistema.
+CE1.3: Compara características, funcionalidades y aplicaciones de distintos modelos de
+microcontroladores utilizados en automatización educativa (por ejemplo, Arduino, ESP32,
+PIC), identificando sus ventajas y limitaciones en proyectos prácticos.
+CE1.4: Evalúa las características técnicas de un microcontrolador (entradas/salidas,
+capacidades de procesamiento y opciones de expansión), determinando su adecuación al
+prototipo o proyecto de automatización a desarrollar.
+RA 2: Programar microcontroladores usando lenguajes adecuados para el control de
+dispositivos, aplicando procedimientos técnicos.
+CE2.1: Reconoce las instrucciones básicas de código, incluyendo declaraciones,
+condicionales y bucles, utilizando C/C++ o entornos de programación por bloques,
+asegurando sintaxis correcta y lógica funcional.
+CE2.2: Implementa programas sencillos en placas como Arduino o similares, verificando el
+correcto funcionamiento del prototipo según las instrucciones programadas.
+CE2.3: Controla sensores, relés, LEDs, motores y displays mediante instrucciones de
+software, aplicando la lógica de programación para lograr el comportamiento esperado del
+prototipo.
+CE2.4: Corrige errores de programación mediante el análisis del comportamiento del
+prototipo, identificando causas y aplicando correcciones para garantizar la funcionalidad del
+sistema.
+RA 3: Integrar sensores, actuadores y módulos en prototipos automatizados,
+asegurando su correcta conexión, configuración y respuesta a instrucciones del
+microcontrolador.
+CE3.1: Conecta sensores de entrada (ultrasónico, infrarrojo, temperatura, etc.), módulos de
+comunicación (WiFi, Bluetooth) y actuadores de salida (motor, relé, LED) en prototipos
+automatizados, asegurando la correcta disposición y fijación de los componentes.
+CE3.2: Utiliza configuraciones básicas para asegurar la comunicación y respuesta entre
+microcontroladores y dispositivos integrados.
+CE3.3: Monta circuitos en protoboard o PCB, organizando el cableado de forma funcional y
+segura, garantizando la conexión correcta de todos los elementos del prototipo.
+CE3.4: Evalúa el funcionamiento integral del prototipo automatizado, identificando fallas o
+áreas de mejora y proponiendo ajustes que optimicen su rendimiento y cumplimiento de
+normas de seguridad.
+RA 4: Elaborar y presentar la documentación técnica de prototipos automatizados,
+incorporando criterios técnicos, de seguridad y ambientales en su diseño y
+funcionamiento.
+CE4.1: Elabora esquemas de conexiones y diagramas de bloques funcionales de prototipos
+automatizados, representando correctamente la relación entre sensores, actuadores y
+microcontrolador.
+CE4.2: Documenta el código fuente del prototipo mediante comentarios claros y
+explicativos, asegurando que las funciones y secuencias de control sean comprensibles y
+reproducibles.
+CE4.3 Presenta el prototipo funcionando, explicando de manera técnica y justificando
+aspectos de seguridad y cuidado ambiental durante su operación.
+CE4.4: Evalúa el impacto del prototipo en términos de eficiencia energética, uso de recursos
+y reutilización de componentes, proponiendo mejoras para optimizar su sostenibilidad y
+desempeño.
+Conceptuales                    Procedimentales           Actitudinales
+Arquitectura básica de un                                 Cumplir con las tareas asignadas
+                                Identificar de forma
+microcontrolador         (CPU,                            siguiendo normas técnicas y de
+                                visual y funcional de
+memoria,       puertos      de                            seguridad,              mostrando
+                                componentes         en
+entrada/salida).                                          compromiso con la calidad del
+                                placas              de
+                                                          trabajo.
+Componentes internos y microcontroladores.
+externos         de         un
+                                Analizar diagramas y       Priorizar la seguridad personal y
+microcontrolador.
+                                esquemas            de colectiva,                  utilizando
+Funcionamiento          básico: microcontroladores.       correctamente los equipos de
+ciclo de instrucción, lectura y
+                                Relacionar       entre protección          y     respetando
+escritura de datos.
+                                componentes          y protocolos establecidos.
+Tipos      comunes          de funciones dentro de un
+microcontroladores usados sistema automatizado.           Colaborar     activamente  con
+en prototipos.                                            compañeros y docentes para
+                               Escribir    y     editar   lograr objetivos comunes en la
+Fundamentos de lenguajes programas             básicos    instalación y operación de
+de    programación       para para       control    de    sistemas.
+microcontroladores         (C, dispositivos.
+Arduino, etc.).                                           Mostrar interés por aprender y
+                               Compilar y carga de
+Estructuras básicas de programas                    en    mejorar           continuamente,
+programación:       variables, microcontroladores.        proponiendo soluciones y mejoras
+tipos de datos, estructuras                               en      los     procesos      de
+                               Probar y depuración
+de control (condicionales,                                automatización.
+                               de programas.
+bucles).
+                               Realizar la conexión       Mantener una actitud ética y
+Conceptos de entradas y                                   respetuosa hacia las personas,
+                               física de sensores,
+salidas      digitales       y                            herramientas, equipos y el entorno
+                               actuadores y módulos
+analógicas.:
+                               a microcontroladores.      de trabajo.
+
+                                                          Adoptar prácticas que minimicen
+                                                          el impacto ambiental durante la
+Tipos y características de                              instalación,       operación      y
+                              Configurar y calibrar
+sensores      y   actuadores                            mantenimiento       de     sistemas
+                              dispositivos
+comunes.                                                automatizados.
+                              integrados.
+Protocolos de comunicación
+                              Verificar             la Ser meticuloso en la interpretación
+básicos                 entre
+                              comunicación           y de      esquemas,      simulaciones,
+microcontroladores          y
+                              funcionamiento       en instalaciones y operaciones para
+periféricos.
+                              prototipos.               garantizar la calidad y seguridad.
+Conceptos de integración y
+                              Elaborar documentos
+compatibilidad de módulos
+                              técnicos           con
+electrónicos.
+                              herramientas digitales.
+Elementos         de       la
+                              Organizar y presentar
+documentación        técnica:
+                              de forma clara y
+diagramas,         manuales,
+                              coherente             la
+informes.
+                              información técnica.
+Normas y formatos para
+                              Incluir
+documentación técnica.
+                              recomendaciones
+Aspectos      técnicos,   de ambientales     y     de
+seguridad y ambientales a seguridad         en      la
+considerar        en       la documentación.
+documentación.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+    Electrónica, Mecatrónica, Automatización Industrial, Ingeniería en Sistemas o áreas
+    afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Aprendizajes basados en problemas.
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                    1
+
+Laboratorio                   Computadoras con acceso a internet               1
+                              Servidor
+                              Proyector
+                              Mesas de trabajo modulares con
+                       superficie aislante y toma de corriente
+                       regulada.
+                       Bancadas con conexión a red
+                       eléctrica segura y protegida (UPS,
+                       reguladores).
+                       Áreas         diferenciadas        para
+                       programación, montaje electrónico y
+                       pruebas de prototipos.
+Herramientas/equipos   Equipos principales                         1
+                       Computadores con software de
+                       programación (Arduino IDE, MPLAB,
+                       MicroPython, Proteus, Tinkercad,
+                       MATLAB/Simulink opcional).
+                       Microcontroladores y placas de
+                       desarrollo: Arduino UNO, Mega,
+                       ESP32, PIC, STM32, Raspberry Pi
+                       Pico.
+                       Kits didácticos de robótica y
+                       mecatrónica (plataformas móviles,
+                       brazos robóticos, mini CNC o
+                       impresoras 3D).
+                       Componentes electrónicos
+                       Sensores: temperatura, humedad,
+                       ultrasonido,        infrarrojo,     LDR,
+                       acelerómetro, presión.
+                       Actuadores: servomotores, motores
+                       DC, paso a paso, relés, solenoides.
+                       Módulos de comunicación: Bluetooth,
+                       WiFi, RF, I2C, SPI.
+                       Pantallas LCD, OLED y teclados
+                       matriciales.
+                       Protoboards,      cables      jumper    y
+                       conectores.
+                       Instrumentos de medición y prueba
+                       Multímetros digitales y analógicos.
+                       Osciloscopios digitales.
+                       Fuentes de alimentación regulables.
+                       Generadores de señal.
+                       Herramientas        de      montaje     y
+                       mantenimiento
+                       Kits de herramientas manuales:
+                       destornilladores de precisión, pinzas,
+                       alicates, llaves Allen.
+                             Estaciones      de      soldadura     y
+                             desoldadura.
+                             Extractores de humo y ventilación
+                             adecuada.
+                             Impresora 3D para fabricación de
+                             piezas y soportes de prototipos
+Materiales                   Elementos de protección personal:
+                             gafas, guantes antiestáticos, batas.
+                             Señalética de seguridad eléctrica y de
+                             laboratorio.
+                             Contenedores         para      residuos
+                             electrónicos y reciclaje.
+                             Protocolos de seguridad para el
+                             manejo de equipos eléctricos y
+                             electrónicos.
+Referencias Bibliográficas
+
+Normativa:
+   o INEN – Normas Técnicas Ecuatorianas aplicables a equipos eléctricos y
+     electrónicos.
+   o Código de Seguridad Eléctrica del Ecuador.
+   o ISO 14001 – Gestión ambiental (para tratamiento de desechos electrónicos).
+   o IEC 61131 – Estándares de programación para controladores.
+   o IEEE Standards sobre sistemas embebidos y automatización.
+
+Libros:
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de
+       mecanizado y planificación de procesos: Mecanizado convencional y no
+       convencional, introducción a CNC, economía de mecanizado, planificación de
+       procesos y utillajes. Universidad Politécnica de Cartagena.
+       https://doi.org/10.31428/10317/13790
+   o Flor, O. (2025). Exoesqueletos y robots colaborativos: Innovación, productividad y
+       calidad de vida. UDLA Ediciones.
+       https://www.udlaediciones.com.ec/tienda/exoesqueletos-y-robots-colaborativos-
+       innovacion-productividad-y-calidad-de-vida/
+   o Guerra, P., Viera, D., Beltrán, D., & Bonilla, S. (2021). Seguridad industrial y
+       capacitación: Un enfoque preventivo de salud laboral. Editorial Universidad
+       Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/2224
+   o Pozo Espín, D. F., Rosero Beltrán, J. L., & Solórzano Lescano, S. L. (2022).
+       ATmega2560: Teoría y aplicaciones usando Atmel Studio. UDLA Ediciones.
+       https://www.udlaediciones.com.ec/tienda/atmega2560-teoria-y-aplicaciones-
+       usando-atmel-studio/
+   o     Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+         Superior Universitario Cotopaxi.
+         https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/38
+   o     Zapata, M., Topón-Visarrea, L., & Tipán, É. (2021). Fundamentos de
+         automatización y redes industriales. Editorial Universidad Tecnológica
+         Indoamérica. https://hdl.handle.net/20.500.14809/2226
+   o     Zapata, M., Valencia-Aragón, K., & Tipán, E. (2024). Eficiencia y productividad:
+         Aplicaciones industriales con autómatas programables. Editorial Universidad
+         Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/6884
+
+
+
+                            Módulo de Especialización Nro. 4
+
+Nombre del módulo:                     Interfases de Control
+
+Nivel:                                 1ro, 2do, 3ro
+
+Duración:                              360 periodos pedagógicos
+
+Unidad        de      competencia      UC3. Implementar interfaces de control en sistemas
+asociada:                              mecatrónicos, utilizando entornos de programación y
+                                       herramientas de visualización.
+
+Objetivo del módulo: Desarrollar en los y las estudiantes la capacidad de implementar
+interfaces de control en sistemas mecatrónicos, mediante el uso de entornos de
+programación y herramientas de visualización, asegurando la correcta interacción entre
+hardware y software, con criterios de seguridad, eficiencia y aplicabilidad en contextos
+educativos y productivos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Describir las interfaces de control aplicables a sistemas mecatrónicos,
+diferenciando sus características básicas y relacionándolas con ejemplos de
+aplicación en prototipos educativos.
+CE1.1: Identifica correctamente los tipos de interfaces de control presentes en un sistema
+mecatrónico, diferenciando su función y ámbito de aplicación.
+CE1.2: Explica las características técnicas de las interfaces de control, justificando su
+aplicabilidad en el sistema mecatrónico analizado.
+CE1.3: Relaciona las necesidades operativas de un sistema mecatrónico con la interfaz de
+control requerida para su monitoreo y supervisión.
+CE1.4: Propone la interfaz de control más adecuada para una aplicación específica,
+argumentando criterios técnicos, de funcionalidad y sostenibilidad.
+RA 2: Aplicar el lenguaje de programación adecuado para implementar interfaces de
+control en sistemas mecatrónicos, configurando el entorno de desarrollo y validando
+su compatibilidad con los dispositivos del sistema.
+CE2.1: Reconoce los requerimientos funcionales y técnicos de los sistemas mecatrónicos,
+identificando las necesidades de control y comunicación que deben ser cubiertas por el
+lenguaje de programación.
+CE2.2: Compara las características, ventajas y limitaciones de diferentes lenguajes de
+programación, valorando su pertinencia para la implementación de interfaces de control en
+sistemas mecatrónicos.
+CE2.3: Analiza la aplicabilidad del lenguaje de programación seleccionado, justificando su
+elección en función de los requerimientos del sistema y las condiciones del entorno de
+desarrollo.
+RA 3: Programar interfaces de control en entornos de desarrollo, configurando la
+representación y supervisión de datos de sistemas mecatrónicos de acuerdo con
+especificaciones técnicas.
+CE3.1: Emplea instrucciones básicas y estructuras de programación para construir la
+interfaz de control, asegurando la correcta organización y funcionalidad de los elementos.
+CE3.2: Integra objetos de control y de visualización en el entorno de programación,
+garantizando la correcta interacción con los datos del sistema.
+CE3.3: Configura la interacción de la interfaz con las variables del sistema simulado,
+asegurando que las entradas y salidas reflejen el comportamiento esperado.
+CE3.4: Verifica el funcionamiento del código implementado, identificando y corrigiendo
+errores para asegurar la correcta operación de la interfaz de control.
+RA 4: Verificar el funcionamiento de la interfaz de control en el sistema mecatrónico,
+evaluando la correcta interacción con los dispositivos y proponiendo ajustes para
+optimizar su desempeño y seguridad.
+CE4.1: Integra la interfaz gráfica en el sistema de control, asegurando la correcta
+disposición y vinculación de elementos de visualización y control.
+CE4.2: Valida las acciones en la interfaz, verificando su correcta interacción con el sistema
+mecatrónico y la respuesta esperada de los dispositivos.
+CE4.3: Comprueba la estabilidad y funcionamiento del sistema mecatrónico mediante
+pruebas prácticas, identificando fallas y evaluando su desempeño.
+CE4.4: Documenta el procedimiento de verificación mediante diagramas y conclusiones
+técnicas, registrando resultados y proponiendo mejoras o ajustes necesarios.
+Conceptuales                    Procedimentales           Actitudinales
+Definición y tipos de Identificar             tipos    de Cumplir con las tareas asignadas
+interfaces      de      control interfaces de control en siguiendo normas técnicas y de
+(hardware y software).          un                sistema seguridad, mostrando
+                                mecatrónico.              compromiso con la calidad del
+Función de las interfaces en                              trabajo.
+sistemas mecatrónicos.          Describir funciones y
+                                características técnicas Priorizar la seguridad personal y
+Características       técnicas de               sensores, colectiva,               utilizando
+básicas      de     sensores, actuadores y módulos correctamente los equipos de
+                                de comunicación.
+actuadores y módulos de Relacionar         interfaces    protección      y     respetando
+comunicación.               de       control      con    protocolos establecidos.
+                            aplicaciones prácticas
+Aplicaciones de interfaces en prototipos.                Colaborar     activamente  con
+de control en prototipos                                 compañeros y docentes para
+educativos y de baja Aplicar normas básicas              lograr objetivos comunes en la
+complejidad.                de      seguridad        y   instalación y operación de
+                            conectividad     en     la   sistemas.
+Normas       básicas     de manipulación           de
+seguridad y conectividad en interfaces.                   Mostrar interés por aprender y
+interfaces.                                               mejorar             continuamente,
+                               Comparar       diferentes proponiendo soluciones y mejoras
+Lenguajes de programación      lenguajes              de en       los       procesos       de
+aplicables (C, C++, Python,    programación       según automatización.
+bloques gráficos).             ventajas, limitaciones y
+                               compatibilidad        con Mantener una actitud ética y
+Estructuras básicas de         hardware.                  respetuosa hacia las personas,
+programación:     variables,                              herramientas, equipos y el entorno
+condicionales, bucles.         Seleccionar el lenguaje de trabajo.
+                               más adecuado para un
+Ventajas, limitaciones y       prototipo específico.      Adoptar prácticas que minimicen
+criterios de selección de                                 el impacto ambiental durante la
+lenguajes según el proyecto.   Configurar entornos de instalación,           operación      y
+                               desarrollo               y mantenimiento       de     sistemas
+Entornos de desarrollo para    herramientas           de automatizados.
+microcontroladores (Arduino    programación.
+IDE, TIA Portal, LogixPro,                                Ser meticuloso en la interpretación
+etc.).                         Aplicar      estructuras de      esquemas,       simulaciones,
+                               básicas                de instalaciones y operaciones para
+Compatibilidad de lenguajes    programación               garantizar la calidad y seguridad.
+con hardware y módulos         (variables,
+utilizados.                    condicionales, bucles)
+                               en ejercicios prácticos.
+Instrucciones básicas y
+estructuras            de Redactar instrucciones
+programación aplicadas a y      estructuras     de
+interfaces.               programación        para
+                          construir la interfaz de
+Objetos de control y
+                          control.
+visualización en entornos
+gráficos o de código.     Integrar objetos de
+                               control y visualización
+Variables y su interacción en el entorno           de
+con sensores y actuadores. desarrollo.
+
+Técnicas de depuración y Configurar                 la
+verificación de código.      interacción    de     la
+                             interfaz con variables y
+Representación             y dispositivos         del
+supervisión de datos en sistema.
+tiempo real.
+                             Verificar              el
+Integración de la interfaz funcionamiento         del
+gráfica con el sistema código implementado y
+mecatrónico.                 corregir         errores
+                             detectados.
+Validación de acciones y
+respuesta de dispositivos.   Supervisar             la
+                             representación          y
+Pruebas de estabilidad y monitoreo de datos en
+funcionamiento del sistema. tiempo real.
+
+Documentación       técnica: Integrar  la  interfaz
+diagramas,         reportes, gráfica en el sistema
+conclusiones.                mecatrónico.
+
+Evaluación de desempeño y Validar las acciones de
+propuestas de mejora.       control y la respuesta de
+                            los dispositivos.
+Consideraciones          de
+eficiencia    energética  y Comprobar               la
+sostenibilidad.             estabilidad y correcto
+                            funcionamiento        del
+                            sistema         mediante
+                            pruebas prácticas.
+
+                              Documentar
+                              procedimientos,
+                              diagramas y resultados
+                              técnicos.
+
+                              Proponer mejoras o
+                              ajustes en la interfaz y
+                              el    sistema     según
+                              desempeño y criterios
+                              de eficiencia.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+   Electrónica, Mecatrónica, Automatización Industrial, Ingeniería en Sistemas o áreas
+   afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Aprendizajes basados en problemas.
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                 Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                    1
+
+Laboratorio                   Computadoras con acceso a internet               1
+                              Servidor
+                              Proyector
+
+                              Laboratorio de mecatrónica: espacio
+                              amplio y ventilado, con iluminación
+                              adecuada       y   tomas     eléctricas
+                              suficientes.
+                              Mesas de trabajo: resistentes y con
+                              superficie antiestática para prototipos
+                              y componentes electrónicos.
+                              Zona de almacenamiento: para
+                              sensores,                  actuadores,
+                              microcontroladores y herramientas.
+                              Acceso a red eléctrica y de datos:
+                              tomas de corriente seguras, conexión
+                              a internet para entornos de
+                              programación y documentación.
+                              Área     de     demostración/pruebas:
+                              espacio      seguro     para    probar
+                              prototipos sin riesgo para estudiantes
+                              ni equipos.
+Herramientas/equipos         Microcontroladores y tarjetas de             1
+                             desarrollo: Arduino, ESP32, PIC, o
+                             similares.
+                             Sensores y actuadores: ultrasónicos,
+                             infrarrojos, temperatura, motores,
+                             LEDs, relés, servomotores.
+                             Herramientas          de       montaje:
+                             protoboards,     cables,    conectores,
+                             multímetro, pinzas, destornilladores.
+                             Computadoras: con software de
+                             programación (Arduino IDE, TIA Portal,
+                             LogixPro, entornos gráficos de
+                             bloques).
+                             Material       de       documentación:
+                             diagramas, manuales, plantillas para
+                             registro de pruebas y resultados.
+Materiales                   Elementos de protección personal:
+                             gafas, guantes antiestáticos, batas.
+                             Señalética de seguridad eléctrica y de
+                             laboratorio.
+                             Contenedores         para      residuos
+                             electrónicos y reciclaje.
+                             Protocolos de seguridad para el
+                             manejo de equipos eléctricos y
+                             electrónicos.
+Referencias Bibliográficas
+
+Recursos Digitales:
+      Software de programación y entornos de desarrollo
+   o Arduino IDE, TIA Portal, LogixPro, MPLAB X, Scratch para microcontroladores.
+   o Plataformas de programación por bloques (Blockly, mBlock) para prototipos
+      educativos.
+      Simuladores y herramientas de diseño
+   o Simuladores de circuitos: Proteus, Fritzing, Multisim.
+   o Simuladores de sistemas mecatrónicos: FluidSIM, MATLAB/Simulink (nivel
+      básico).
+      Recursos de documentación y aprendizaje
+   o Manuales digitales de microcontroladores y módulos electrónicos.
+   o Tutoriales interactivos, videos y guías en línea.
+   o Plantillas digitales para diagramas de bloques, esquemas de conexión y registro
+      de pruebas.
+      Herramientas de visualización y monitoreo
+   o   Software de interfaces gráficas para monitoreo de datos: LabVIEW, Processing,
+       Python con librerías gráficas.
+   o Plataformas para recolección y análisis de datos de sensores en tiempo real.
+       Recursos de comunicación y colaboración
+   o Plataformas educativas: Google Classroom, Moodle, Microsoft Teams.
+   o Repositorios de código y proyectos: GitHub, GitLab.
+Libros:
+   o Agama Chico, A. J., Cevallos Monar, C. A., García Paredes, R. V., Saa Litardo, E.
+       A., Baldeón Navarrete, E. G., Bajaña Ortiz, O. A., Arias Morán, J. M., & Saa Ayala,
+       J. F. (2023). Internet de las cosas para seguridad y domótica. Universidad Técnica
+       de Babahoyo. https://libros.utb.edu.ec/index.php/utb/catalog/book/87
+   o Ortiz Arciniega, J. L., Valencia Barahona, F. X., Bosmediano Cárdenas, C. P.,
+       Bastidas Jácome, A. D., Aguirre Chagna, V. H., & Jácome Ayala, P. J. (2025).
+       ESP32: Manual básico para estudiantes. Alumni Editora.
+       https://doi.org/10.70625/alumned/9
+   o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+       Instrumentación y automatización industrial. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/17
+   o Rodríguez Vinces, J. A., & Suárez Arreaga, J. D. (2025). Implementación de una
+       interfaz gráfica de control domótico utilizando HMI y ESP32 [Trabajo de titulación,
+       Universidad Politécnica Salesiana]. Repositorio Institucional de la Universidad
+       Politécnica Salesiana.
+       https://dspace.ups.edu.ec/bitstream/123456789/29616/1/UPS-GT006014.pdf
+   o Torres Chávez, I., Mejía Bugallo, D. A., & Suárez Villamizar, W. A. (2023).
+       LabVIEW: Un enfoque práctico para principiantes. Sello Editorial Unipamplona.
+       https://doi.org/10.24054/seu.38
+   o Villamarín Reinoso, J. V. (2024). Libro de texto de automatización y control
+       industrial. Instituto Superior Universitario Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/45
+
+
+
+                          Módulo de Especialización Nro. 5
+
+Nombre del módulo:                   Servomecanismos
+
+Nivel:                               3ro
+
+Duración:                            120 periodos pedagógicos
+
+Unidad      de      competencia      UC5. Utilizar herramientas y procesos de elaboración
+asociada:                            para sistemas con servomecanismos en prototipos
+                                     automatizados, usando métodos analíticos y
+                                     creativos, siguiendo      estándares     técnicos   y
+                                     ambientales.
+
+
+Objetivo del módulo: Utilizar herramientas y procesos de elaboración en sistemas con
+servomecanismos para prototipos automatizados, empleando métodos analíticos y
+creativos, y siguiendo estándares técnicos y ambientales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA1: Identificar componentes y principios de funcionamiento de sistemas con
+servomecanismos, analizando esquemas y diagramas técnicos en entornos de
+laboratorio o prototipos didácticos.
+CE1.1: Reconoce los tipos de servomotores (analógicos, digitales y lineales), identificando
+sus parámetros eléctricos, mecánicos y de control.
+CE1.2: Explica el funcionamiento de los componentes de un servomecanismo,
+interpretando sus especificaciones técnicas según las indicaciones del fabricante.
+CE1.3: Clasifica aplicaciones típicas de servomotores en automatización y robótica,
+determinando criterios de selección según torque, velocidad y precisión requeridos.
+RA2: Conectar y programar servomecanismos en prototipos automatizados,
+utilizando herramientas y software especializado, siguiendo normas técnicas y
+criterios de seguridad.
+CE2.1: Selecciona el tipo de servomecanismo adecuado para el prototipo, considerando
+parámetros técnicos, requerimientos del sistema y especificaciones del fabricante.
+CE2.2: Realiza conexiones eléctricas y electrónicas de servomecanismos según esquemas
+técnicos, cumpliendo normas de seguridad y procedimientos establecidos.
+CE2.3: Programa servomecanismos mediante dispositivos de control (microcontroladores,
+PLC, etc.), configurando entradas, salidas y secuencias de operación según el prototipo.
+CE2.4: Verifica el funcionamiento del servomecanismo dentro del prototipo automatizado,
+evaluando estabilidad, eficiencia y desempeño del sistema, e identificando posibles
+mejoras.
+RA3: Construir prototipos automatizados funcionales con servomecanismos,
+aplicando procesos de elaboración y métodos analíticos para garantizar su correcto
+funcionamiento.
+CE3.1: Selecciona materiales, herramientas y estructuras adecuadas para la integración
+del servomecanismo, considerando las especificaciones técnicas y requerimientos del
+prototipo.
+CE3.2: Ensambla partes móviles, transmisiones y soportes del servomecanismo,
+asegurando precisión, estabilidad y alineación correcta de los componentes.
+CE3.3: Asegura el funcionamiento del sistema de control del servomecanismo, verificando
+la correcta interacción entre componentes mecánicos, eléctricos y electrónicos.
+RA4: Documentar y presentar el funcionamiento del prototipo con servomecanismos,
+elaborando informes claros y completos bajo criterios técnicos, de seguridad y
+cuidado ambiental.
+CE4.1: Describe los componentes utilizados, el esquema de conexiones y el flujo de control
+del servomecanismo, identificando su función dentro del prototipo.
+CE4.2: Documenta el proceso de programación y los ajustes aplicados al sistema,
+registrando configuraciones, resultados de pruebas y modificaciones realizadas.
+CE4.3: Presenta el prototipo en funcionamiento, justificando sus aplicaciones prácticas y
+la efectividad del sistema en el cumplimiento de los objetivos del prototipo.
+Conceptuales                     Procedimentales          Actitudinales
+Tipos de servomotores: Reconocer                        e Cumplir con las tareas asignadas
+analógicos,     digitales      y inspeccionar             siguiendo normas técnicas y de
+lineales.                        componentes           en seguridad,               mostrando
+                                 prototipos             o compromiso con la calidad del
+Parámetros eléctricos y esquemas.                         trabajo.
+mecánicos         de         los
+servomotores           (torque, Analizar      diagramas Priorizar la seguridad personal y
+velocidad, precisión).           eléctricos y mecánicos colectiva,                  utilizando
+                                 de servomecanismos.      correctamente los equipos de
+Principio de lazo cerrado y                               protección       y      respetando
+retroalimentación             en Clasificar aplicaciones protocolos establecidos.
+sistemas                    con según criterios de
+servomecanismos.                 torque, velocidad y Colaborar           activamente       con
+                                 precisión.               compañeros y docentes para
+Aplicaciones típicas de
+                                                          lograr objetivos comunes en la
+servomecanismos               en Evaluar la adecuación
+                                                          instalación y operación de
+automatización y robótica.       del servomecanismo a
+                                                          sistemas.
+                                 un             prototipo
+Interfaces de conexión de específico.
+                                                          Mostrar interés por aprender y
+servomecanismos.
+                                                          mejorar             continuamente,
+                                 Realizar la conexión
+Software y lenguajes de física                            proponiendo soluciones y mejoras
+                                                       de
+programación para servos.                                 en       los      procesos        de
+                                 servomecanismos        a
+                                                          automatización.
+                                 prototipos y sistemas
+Parámetros de control y de control.
+secuencias de movimiento.                                 Mantener una actitud ética y
+                                 Configurar parámetros respetuosa hacia las personas,
+Normas de seguridad en la básicos en software de herramientas, equipos y el entorno
+conexión y programación de control.                       de trabajo.
+sistemas automatizados.
+                                 Programar                Adoptar prácticas que minimicen
+Procesos de montaje y movimientos                       y el impacto ambiental durante la
+ensamblaje de prototipos secuencias                según instalación,        operación       y
+automatizados.                   especificaciones del mantenimiento           de     sistemas
+                                 prototipo.               automatizados.
+                                                           Ser meticuloso en la interpretación
+Métodos analíticos para
+                              Verificar               la   de     esquemas,     simulaciones,
+evaluar funcionamiento de
+                              funcionalidad         del    instalaciones y operaciones para
+servomecanismos.
+                              servomecanismo               garantizar la calidad y seguridad.
+                              programado.
+Integración de componentes
+mecánicos, eléctricos y
+                              Ensamblar y montaje
+electrónicos.
+                              de servomecanismos
+                              en prototipos.
+Normas técnicas y de
+seguridad en construcción
+                              Aplicar        métodos
+de prototipos.
+                              analíticos para verificar
+                              la      precisión        y
+Elementos de un informe
+                              estabilidad            de
+técnico        (introducción,
+                              movimientos.
+metodología,      resultados,
+conclusiones).
+                              Ajustar     y   calibrar
+                              servos en función de
+Normas y formatos para
+                              requisitos             de
+documentación técnica.
+                              funcionamiento.
+Aspectos de seguridad,
+                       Probar los funcionales
+eficiencia  y  cuidado
+                       de     prototipos     y
+ambiental           en
+                       corrección de fallas.
+documentación.
+                           Registrar
+Técnicas de presentación y
+                           sistemáticamente
+comunicación de resultados
+                           pruebas y resultados
+técnicos.
+                           del prototipo.
+
+                               Elaborar diagramas,
+                               tablas    y reportes
+                               técnicos.
+
+                               Usar      herramientas
+                               digitales         para
+                               organizar y presentar
+                               la información.
+
+                               Presentar de forma
+                               oral y escrita del
+                               funcionamiento  del
+                               prototipo.
+Perfil del o la docente
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+   Electrónica, Mecatrónica, Automatización Industrial, Ingeniería en Sistemas o áreas
+   afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Aprendizajes basados en problemas.
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                  Especificaciones técnicas                  Cantidad
+
+Infraestructura/espacio       Entorno de aprendizaje (aula)                     1
+
+Laboratorio                   Computadoras con acceso a internet                1
+                              Servidor
+                              Proyector
+                              Zona de trabajo mecánico (montaje
+                              de estructuras y servomecanismos).
+                              Zona       de     trabajo   electrónico
+                              (cableado, conexiones y pruebas).
+                              Zona de programación y simulación
+                              (computadores).
+Herramientas/equipos          Kits de servomecanismos (analógicos,              1
+                              digitales,    lineales)   en    cantidad
+                              suficiente para trabajo en parejas o
+                              pequeños grupos.
+                              Controladores y placas de desarrollo
+                              (Arduino,          PLC       educativos,
+                              controladores de servos).
+                              Fuentes de alimentación regulables
+                              para pruebas.
+                              Multímetros digitales y osciloscopios
+                              básicos.
+                              Herramientas           de      montaje:
+                              destornilladores de precisión, llaves
+                              Allen, pinzas, cortadores y peladores
+                              de cable.
+                              Instrumentos de medición mecánica:
+                              calibres,       micrómetros,      reglas
+                              metálicas.
+                             Materiales estructurales: perfiles de
+                             aluminio, piezas impresas en 3D,
+                             tornillería, soportes y engranajes.
+                             Computadores con software de
+                             programación       y    simulación    de
+                             servomecanismos         (Arduino    IDE,
+                             simuladores PLC, software CAD
+                             básico).
+                             Prototipos de prueba para integración
+                             y      ajustes     (brazos     robóticos,
+                             plataformas móviles, mecanismos de
+                             posicionamiento).
+Materiales                   Elementos de protección personal:
+                             gafas, guantes antiestáticos, batas.
+                             Señalética de seguridad eléctrica y de
+                             laboratorio.
+                             Contenedores          para      residuos
+                             electrónicos y reciclaje.
+                             Protocolos de seguridad para el
+                             manejo de equipos eléctricos y
+                             electrónicos.
+Referencias Bibliográficas
+Recursos Digitales:
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de
+      mecanizado y planificación de procesos: Mecanizado convencional y no
+      convencional, introducción a CNC, economía de mecanizado, planificación de
+      procesos y utillajes. Universidad Politécnica de Cartagena.
+      https://doi.org/10.31428/10317/13790
+   o Flor, O. (2025). Exoesqueletos y robots colaborativos: Innovación, productividad y
+      calidad de vida. UDLA Ediciones.
+      https://www.udlaediciones.com.ec/tienda/exoesqueletos-y-robots-colaborativos-
+      innovacion-productividad-y-calidad-de-vida/
+   o Guerra, P., Viera, D., Beltrán, D., & Bonilla, S. (2021). Seguridad industrial y
+      capacitación: Un enfoque preventivo de salud laboral. Editorial Universidad
+      Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/2224
+   o Pozo Espín, D. F., Rosero Beltrán, J. L., & Solórzano Lescano, S. L. (2022).
+      ATmega2560: Teoría y aplicaciones usando Atmel Studio. UDLA Ediciones.
+      https://www.udlaediciones.com.ec/tienda/atmega2560-teoria-y-aplicaciones-
+      usando-atmel-studio/
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+      Superior Universitario Cotopaxi.
+      https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/38
+    o     Zapata, M., Topón-Visarrea, L., & Tipán, É. (2021). Fundamentos de
+          automatización y redes industriales. Editorial Universidad Tecnológica
+          Indoamérica. https://hdl.handle.net/20.500.14809/2226
+    o     Zapata, M., Valencia-Aragón, K., & Tipán, E. (2024). Eficiencia y productividad:
+          Aplicaciones industriales con autómatas programables. Editorial Universidad
+          Tecnológica Indoamérica. https://hdl.handle.net/20.500.14809/6884
+
+
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios
+y metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales
+como el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la
+adaptación a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en
+los módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización
+
+                             Módulo Práctico Experimental
+
+ Nombre del módulo:           Practico Experimental
+
+ Nivel:                       1ro, 2do, 3ro
+
+ Duración:                    320 periodos pedagógicos
+
+ Unidad                 de    UC1: Aplicar técnicas de construcción, reparación,
+ competencia                  mantenimiento y soldadura de elementos mecánicos y
+ asociada:                    sistemas automatizados, utilizando procesos de
+                              mecanizado convencionales y CNC, bajo normas
+                              técnicas, de seguridad y cuidado ambiental.
+                              UC2: Ejecutar la simulación, instalación, operación y
+                              puesta en marcha de sistemas de automatización, y
+                              control industrial, aplicando procedimientos técnicos,
+                              normas de seguridad y criterios ambientales.
+                              UC3: Utilizar herramientas y lenguajes de programación
+                              para microcontroladores en prototipos automatizados,
+                              siguiendo estándares técnicos y ambientales.
+                            UC4: Implementar interfaces de control en sistemas
+                            mecatrónicos, utilizando entornos de programación y
+                            herramientas de visualización.
+
+Objetivo del módulo: Desarrollar competencias para construir, mantener y reparar
+elementos mecánicos y sistemas automatizados mediante procesos de mecanizado
+convencional y CNC; ejecutar la instalación, operación y puesta en marcha de
+sistemas de automatización y control industrial; programar microcontroladores en
+prototipos automatizados; y diagnosticar y resolver fallas en sistemas automatizados,
+aplicando procedimientos técnicos, herramientas de simulación y normativas de
+seguridad, ambientales y de calidad, con enfoque en la innovación y la mejora
+continua.
+Resultados            de     Criterios              de Actividades Prácticas
+Aprendizaje (RA)             Evaluación  (CE)            Experimentales
+RA1: Ejecutar procesos       CE1.1: Selecciona y Identificar            y     clasificar
+básicos de mecanizado        prepara herramientas, herramientas, materiales y
+convencional en piezas       materiales y equipos de equipos de mecanizado y
+mecánicas       simples,     mecanizado              y soldadura en el taller,
+aplicando técnicas de        soldadura, asegurando explicando su uso y las
+construcción, reparación     el   cumplimiento      de normas         de     seguridad
+y soldadura bajo normas      normas de seguridad y asociadas.
+de seguridad y cuidado       ambientales.                Preparar un banco de trabajo
+ambiental,          para     CE1.2:           Realiza    seguro       para     realizar
+garantizar             la    operaciones básicas de operaciones de mecanizado
+funcionalidad         de     mecanizado y soldadura o soldadura, verificando la
+elementos en sistemas        en piezas mecánicas correcta            disposición      de
+automatizados.               simples, verificando la equipos, protecciones y
+                             funcionalidad de los materiales.
+                             elementos dentro de Ejecutar                       cortes,
+                             sistemas                    perforaciones     y    ajustes
+                             automatizados.              básicos en piezas metálicas
+                                                         utilizando          máquinas
+                                                         manuales o CNC bajo
+                                                         supervisión,        aplicando
+                                                         técnicas de mecanizado.
+                                                         Unir o reparar piezas
+                                                         mediante      técnicas       de
+                                                         soldadura            básicas,
+                                                         comprobando que la pieza
+                                                         resultante cumpla con las
+                                                         dimensiones y funcionalidad
+                                                         requeridas.
+RA2:                 Aplicar   CE2.1:            Instala   Montar un circuito simple con
+procedimientos            de   componentes y equipos       sensores,     actuadores     y
+instalación y operación        de un sistema de            controladores en un prototipo
+básica de sistemas de          automatización          a   de automatización, siguiendo
+automatización             a   pequeña           escala    un diagrama de conexión y
+pequeña              escala,   siguiendo                   normas de seguridad.
+utilizando herramientas        procedimientos técnicos     Preparar y organizar el área
+de      simulación,    bajo    y normas de seguridad.      de trabajo para la instalación
+normas de seguridad y          CE2.2: Opera y prueba       del     sistema,     revisando
+criterios     ambientales,     un       sistema       de   herramientas, materiales y
+para       verificar      su   automatización básico       protecciones de seguridad.
+funcionamiento            en   utilizando herramientas     Ejecutar un programa de
+condiciones controladas.       de            simulación,   control básico en un sistema
+                               verificando            su   de automatización simulado,
+                               funcionamiento correcto     observando                   el
+                               y cumpliendo criterios      comportamiento de sensores
+                               ambientales.                y actuadores.
+                                                           Registrar los resultados de la
+                                                           prueba, identificar posibles
+                                                           fallas y proponer ajustes para
+                                                           garantizar el funcionamiento
+                                                           correcto del sistema.
+
+RA3:      Programar    y       CE3.1: Configura un         Identificar    y      conectar
+configurar                     microcontrolador en un      correctamente               los
+microcontroladores    en       prototipo automatizado,     componentes       electrónicos
+prototipos      simples,       siguiendo                   (sensores,         actuadores,
+aplicando                      procedimientos técnicos     cables) en un prototipo con
+procedimientos básicos y       y normas de seguridad.      microcontrolador.
+normas de seguridad y          CE3.2: Programa un          Preparar el entorno de
+ambientales,        para       microcontrolador para       programación y cargar un
+comprobar              el      controlar un prototipo      programa básico en el
+funcionamiento        de       simple, verificando su      microcontrolador,
+sistemas automatizados         funcionamiento         y    asegurando que se cumplan
+en           condiciones       realizando       ajustes    las normas de seguridad y
+controladas.                   básicos.                    ambientales.
+                                                           Escribir y cargar un programa
+                                                           básico que controle el
+                                                           encendido/apagado            de
+                                                           actuadores según señales de
+                                                           sensores.
+                                                           Probar el prototipo, observar
+                                                           su funcionamiento, registrar
+                                                          resultados y realizar ajustes
+                                                          simples para corregir errores
+                                                          o mejorar la operación.
+ RA4: Diagnosticar y          CE4.1: Identifica fallas    Inspeccionar un prototipo
+ resolver      problemas      en             sistemas     automatizado, observando el
+ básicos en sistemas          automatizados simples       comportamiento de sensores
+ automatizados,               siguiendo                   y actuadores para detectar
+ aplicando       métodos      procedimientos técnicos     irregularidades o fallas.
+ analíticos y creativos,      y normas de seguridad.      Realizar       pruebas       de
+ bajo      normas     de      CE4.2:            Aplica    componentes        individuales
+ seguridad y cuidado          soluciones básicas a        (sensores,         actuadores,
+ ambiental, y reportando      problemas detectados        controladores)             para
+ los resultados de forma      en             sistemas     determinar la ubicación y tipo
+ organizada.                  automatizados,              de falla.
+                              verificando            la   Ajustar            conexiones,
+                              funcionalidad           y   reemplazar       componentes
+                              cumpliendo       normas     defectuosos o modificar
+                              ambientales     y     de    parámetros del programa
+                              seguridad.                  para corregir fallas simples.
+                                                          Probar      nuevamente        el
+                                                          sistema          automatizado
+                                                          después de la intervención y
+                                                          registrar    los    resultados,
+                                                          asegurando que funcione
+                                                          correctamente.
+
+Nota:
+
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e
+incluir las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje
+significativo, sin que este reemplace su paso por la Formación Estudiantil en Centros
+Educativos y de Trabajo.
+

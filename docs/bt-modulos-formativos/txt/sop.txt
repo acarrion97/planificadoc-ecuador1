@@ -1,0 +1,2110 @@
+MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “SOPORTE INFORMÁTICO”
+
+   1. Objetivo general
+
+Aplicar procedimientos técnicos para el diagnóstico, instalación, configuración,
+mantenimiento de equipos tecnológicos y redes, así como para la atención de soporte técnico
+presencial o remoto a usuarios finales, garantizando el funcionamiento eficiente y seguro de
+la infraestructura tecnológica, con responsabilidad, ética profesional, orientación a la
+satisfacción del usuario.
+
+   2. Plan de estudios
+
+                                                                    1ro      2do     3ro
+ Total periodos pedagógicos tronco común
+                                                                    19        19     19
+                            Fundamentos de las Tecnologías
+                            de la Información y la                   3        2
+                            Comunicación.
+ Módulos Genéricos de la
+                            Pensamiento Computacional y
+ Familia Profesional                                                 3        3
+                            Resolución de Problemas.
+                            Ética, Legislación y Ciudadanía
+                                                                     2
+                            Digital.
+                            Sistemas Operativos y
+                                                                     3        2       4
+                            Aplicaciones
+                            Mantenimiento Preventivo y
+                                                                              3       4
+                            Correctivo
+ Módulos Especialización
+                            Redes y Conectividad                              3       4
+                            Soporte Técnico Informático              3        3       3
+                            Fundamentos Básicos De
+                                                                     4        2       2
+                            Electricidad y Electrónica
+ Módulo Práctico Experimental                                        3        3       4
+ Total de periodos pedagógicos de formación técnica                  21      21      21
+
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Profesional Tecnologías. Gracias a las
+características de los módulos trabajados en esta etapa, adquieren herramientas que le
+permiten construir una opinión más informada y tomar decisiones con mayor fundamento.
+Esto favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa, insertarse
+en el mundo laboral o emprender un proyecto propio.
+
+Se estructuran los siguientes módulos genéricos:
+
+   •   Fundamentos de las Tecnologías de la Información y la Comunicación
+  •   Pensamiento Computacional y Resolución de Problemas
+  •   Ética, Legislación y Ciudadanía Digital
+
+                             Módulo Genérico Nro. 1
+                                      Fundamentos de las Tecnologías de la Información y
+Nombre del módulo:
+                                      la Comunicación
+Nivel:                                1ro, 2do
+Duración:                             200 periodos pedagógicos
+                                      UC1: Aplicar fundamentos de tecnologías de la
+                                      información y la comunicación mediante el análisis de
+                                      su evolución, la identificación de la arquitectura de
+Unidad       de     competencia
+                                      hardware, software y principios básicos de electricidad
+asociada:
+                                      y electrónica, la operación básica de redes y sistemas
+                                      operativos y, la gestión de información digital, con el fin
+                                      de resolver requerimientos tecnológicos.
+Objetivo del módulo: Desarrollar en el estudiante competencias que analice la evolución
+de las tecnologías de la información y la comunicación, identifique la arquitectura, el
+funcionamiento de hardware y software, manipule sistemas de redes y sistemas operativos,
+organice la información digital, con el fin de resolver de manera efectiva requerimientos en
+distintos entornos tecnológicos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar la evolución de las tecnologías de la información y la comunicación
+reconociendo sus hitos históricos, transformaciones tecnológicas y su impacto en
+los entornos productivos, educativos y sociales.
+CE1.1: Distingue la evolución de las TIC con base en líneas de tiempo o esquemas
+cronológicos.
+CE1.2: Emplea los avances tecnológicos con sus aplicaciones en distintos sectores de la
+sociedad.
+CE1.3: Define las generaciones de computadoras y dispositivos en función de su
+capacidad y arquitectura.
+CE1.4: Argumenta el impacto social, económico y cultural del uso de las TIC, mediante
+análisis de casos actuales o discusiones dirigidas.
+RA 2: Examinar la arquitectura de sistemas informáticos, identificando componentes
+de hardware, software y su funcionamiento integrado en distintos entornos
+tecnológicos.
+CE2.1: Inspecciona los componentes físicos de un sistema informático, clasificándolos
+según su función principal (entrada, procesamiento, almacenamiento, salida y
+comunicación).
+CE2.2: Distingue entre software de sistema, de aplicación y de desarrollo, explicando su
+propósito funcional con ejemplos representativos.
+CE2.3: Elabora esquemas de arquitectura de computadoras donde ubicar los
+componentes funcionales y describe el flujo básico de información entre ellos.
+CE2.4: Determina el tipo de sistema informático (doméstico, industrial, educativo, entre
+otros) a partir de su estructura y características técnicas, según el contexto de uso.
+RA 3: Emplear sistemas operativos y entornos digitales gestionando recursos,
+configuración inicial y funciones elementales en la administración del sistema.
+CE3.1: Ejecuta tareas básicas de administración de archivos y carpetas, diferenciando
+procedimientos entre sistemas operativos gráficos y basados en línea de comandos.
+CE3.2: Identifica parámetros esenciales del sistema operativo como nombre de usuario,
+configuración de red y capacidad de almacenamiento, utilizando herramientas del entorno.
+CE3.3: Aplica funciones básicas de herramientas de mantenimiento del sistema operativo
+para optimizar su funcionamiento.
+CE3.4: Emplea instrucciones en los entornos gráficos o de línea de comandos según el
+tipo de operación administrativa requerida, justificando su elección.
+RA 4: Utilizar los fundamentos básicos de electricidad y electrónica digital para la
+construcción de circuitos simples.
+CE4.1: Examina los principios básicos de electricidad y su relación con el funcionamiento
+de dispositivos electrónicos utilizados en computación.
+CE4.2: Analiza componentes electrónicos digitales y su aplicación en sistemas
+informáticos.
+CE4.3: Establece conocimientos de lógica en la resolución de problemas digitales.
+CE4.4: Diseña esquemas y diagramas electrónicos básicos para comprender la estructura
+de circuitos eléctricos simples.
+RA 5: Diseñar redes informáticas comprendiendo su estructura, tipos, dispositivos,
+protocolos de comunicación y funciones esenciales.
+CE5.1: Clasifica elementos físicos y lógicos de una red informática según su función en el
+sistema.
+CE5.2: Diferencia tipos de redes (LAN, WAN, WLAN) en función de su alcance, propósito
+y características.
+CE5.3: Representa dispositivos de red en esquemas funcionales según su rol en la
+infraestructura.
+CE5.4: Elabora cuadros técnicos sobre el funcionamiento de protocolos de comunicación
+en la transmisión de datos.
+RA 6: Gestionar información digital utilizando herramientas tecnológicas mediante
+la organización, almacenamiento, protección y compartición de datos.
+CE6.1: Analiza información digital considerando su tipo, relevancia y nivel de
+confidencialidad en contextos educativos o profesionales.
+CE6.2: Organiza carpetas y archivos con nombres coherentes en soportes físicos y
+virtuales con base en criterios de estructuración lógica.
+CE6.3: Implementa medidas básicas de protección de datos mediante contraseñas,
+permisos de acceso o cifrado en entornos digitales.
+CE6.4: Transfiere información en plataformas colaborativas o servicios en la nube
+respetando estándares de seguridad y compatibilidad.
+Contenidos
+Conceptuales                     Procedimentales                 Actitudinales
+Evolución histórica de las      Analizar líneas de tiempo y     Mostrar responsabilidad y
+Tecnologías       de     la     esquemas       cronológicos     ética en el manejo y
+Información       y      la     para identificar hitos y        protección de la información
+Comunicación (TIC).             evolución de las TIC.           digital.
+Hitos    tecnológicos      y    Clasificar dispositivos de
+                                                                Valorar la importancia de la
+generaciones              de    hardware y software según
+                                                                evolución tecnológica y su
+computadoras.                   su función y tipo.
+                                                                impacto en la sociedad.
+Impacto social, económico       Organizar esquemas y
+                                                                Desarrollar    una    actitud
+y cultural de las TIC.          diagramas de arquitectura
+                                                                crítica y reflexiva ante los
+                                de sistemas informáticos.
+Software libre y software                                       cambios y avances en las
+propietario, licenciamiento y   Identificar el flujo de         TIC.
+pagos.                          información         entre
+                                                                Fomentar el interés por el
+                                componentes de hardware
+Arquitectura de sistemas                                        aprendizaje    continuo    y
+                                y software.
+informáticos: componentes                                       actualización en tecnologías
+de    hardware    y   sus       Manipular         sistemas      emergentes.
+funciones.                      operativos para gestionar
+                                                                Promover      el     trabajo
+                                archivos,    carpetas    y
+Tipos de software: de                                           colaborativo      y       la
+                                configuraciones básicas.
+sistema, de aplicación y de                                     comunicación efectiva en
+desarrollo,     según    su     Configurar parámetros de        ambientes tecnológicos.
+contexto,     funciones   y     usuario,       red     y
+                                                                Adoptar     prácticas    de
+características.                almacenamiento        en
+                                                                seguridad      digital para
+                                sistemas operativos.
+Estructura funcional de                                         proteger datos personales y
+computadoras y flujo de         Aplicar funciones básicas       profesionales.
+información         entre       de    mantenimiento   del
+                                                                Reconocer la importancia del
+componentes.                    sistema operativo.
+                                                                respeto a la privacidad y la
+Clasificación de sistemas       Utilizar entornos gráficos y    confidencialidad en el uso de
+informáticos   según   su       línea de comandos para          tecnologías.
+contexto de uso.                tareas de administración.
+                                                                Desarrollar autonomía en la
+Redes          informáticas,    Catalogar y diferenciar         gestión y solución de
+elementos físicos y lógicos.    elementos físicos y lógicos     problemas       tecnológicos
+                                de redes informáticas.          básicos.
+Tipos de redes (LAN, WAN,
+WLAN)           y         sus   Describir tipos de redes y      Mantener       una      postura
+características principales.    sus           características   abierta y flexible ante nuevas
+                                mediante           ejemplos     metodologías y herramientas
+Dispositivos de red y sus
+                                prácticos.                      tecnológicas.
+funciones (switch, router,
+módem, punto de acceso,         Configurar dispositivos de      Impulsar la conciencia sobre
+repetidor).                     red y simular funciones de      el impacto ambiental y social
+                                protocolos              de      del uso responsable de las
+Protocolos             de
+                                comunicación.                   TIC.
+comunicación en redes.
+Conceptos de gestión,          Organizar, almacenar y         Mantener       una      actitud
+organización,                  proteger información digital   positiva y resiliente ante
+almacenamiento, normas y       mediante      herramientas     fallos y errores técnicos.
+buenas      prácticas en       tecnológicas.
+                                                              Fomentar el trabajo en
+seguridad informática y
+                               Implementar     medidas        equipo con comunicación
+protección de datos.
+                               básicas de seguridad en        abierta,     respeto  y
+Herramientas tecnológicas      entornos        digitales      cooperación.
+para compartir información     (contraseñas,  permisos,
+                                                              Priorizar la gestión adecuada
+en entornos digitales.         cifrado).
+                                                              del tiempo y recursos para
+Fundamentos de trabajo         Compartir información en       cumplir objetivos.
+colaborativo           y       plataformas colaborativas y
+comunicación efectiva en       servicios en la nube,          Demostrar responsabilidad
+entornos tecnológicos.         respetando normas de           en el manejo seguro de
+                               seguridad y formatos.          herramientas e
+Organización, planificación
+                                                              instrumentos eléctricos y
+y gestión de proyectos         Probar                nuevas
+                                                              electrónicos.
+tecnológicos.                  herramientas tecnológicas
+                               y entornos digitales.
+Unidades de medidas de la
+información.                   Diagnosticar y resolver
+                               problemas técnicos con
+Fundamentos eléctricos y
+                               actitud     analítica y
+electrónicos: conceptos
+                               perseverante.
+básicos y práctica con
+circuitos.                     Documentar procesos y
+                               resultados técnicos de
+Protección     eléctrica   y
+                               manera clara y ordenada.
+puesta a tierra.
+                               Utilizar        plataformas
+Componentes eléctricos y
+                               colaborativas     para   la
+electrónicos.
+                               gestión del     trabajo en
+Esquemas, diagramas        y   equipo.
+circuitos electrónicos
+                               Identificar  componentes
+Lógica digital.                eléctricos y electrónicos
+                               básicos visualmente y por
+                               código.
+                               Construir circuitos
+                               eléctricos básicos en
+                               protoboard y simuladores
+                               digitales.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+  Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación              Especificaciones técnicas               Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)                1
+                         Computadoras con acceso a internet
+Laboratorio                                                         1
+                         Proyector
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+      Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021.
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+        Una guía de aproximación para el empresario. INCIBE.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_glosario_cibers
+        eguridad_2021.pdf
+
+Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La ciberseguridad
+        al alcance de todos. INCIBE.
+        https://www.incibe.es/sites/default/files/docs/senior/guia_ciberseguridad_para_tod
+        os.pdf
+
+Instituto Nacional de Ciberseguridad. (2024). Gestión de crisis de ciberseguridad en
+        empresas. INCIBE.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_gestion_de_cri
+        sis.pdf
+
+Lema, W. R., & Chérrez, P. F. (2023). Estudio diagnóstico del uso de la infraestructura
+      TIC básica (hardware, software e Internet) en instituciones educativas de
+      educación básica, cantón Azogues-Ecuador. LATAM Revista Latinoamericana de
+      Ciencias Sociales y Humanidades, 4(1), 24–39.
+      https://doi.org/10.56712/latam.v4i1.221
+
+Ministerio de Educación de Bolivia. (2024). Tecnología de la información digital: Guía de
+       trabajo. Nivel técnico básico. Dirección General de Educación Alternativa.
+       https://www.minedu.gob.bo/files/publicaciones/veaye/dgea/16_GUIA_DE_TRABA
+       JO_-_TECNOLOGA_DE_LA_INFROMACIN_DIGITAL.pdf
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2023).
+      Resumen del Informe de seguimiento de la educación en el mundo 2023:
+      Tecnología en la educación. UNESCO. https://www.unesco.org/gem-
+      report/sites/default/files/medias/fichiers/2023/07/7952%20UNESCO%20GEM%20
+      2023%20Summary_ES_Web.pdf
+
+Santiago-Trujillo, Y. D., & Garvich-Ormeño, R. M. (2024). Competencias digitales e
+       integración de las TIC en el proceso de enseñanza-aprendizaje. Revista
+       Tecnológica-Educativa Docentes 2.0, 17(1).
+       https://doi.org/10.37843/rted.v17i1.405
+
+Stallman, R. M. (2004). Software libre para una sociedad libre. Traficantes de Sueños.
+       https://www.gnu.org/philosophy/fsfs/free_software.es.pdf
+
+Vuorikari, R., Kluzer, S., & Punie, Y. (2022). DigComp 2.2: Marco de competencias
+       digitales para la ciudadanía. Con nuevos ejemplos de conocimientos, habilidades
+       y actitudes. Oficina de Publicaciones de la Unión Europea. https://somos-
+       digital.org/wp-content/uploads/2022/04/digcomp2.2_castellano.pdf
+
+
+
+
+                            Módulo Genérico Nro.2
+                                    Pensamiento Computacional y Resolución de
+Nombre del módulo:
+                                    Problemas
+Nivel:                              1ro, 2do
+Duración:                           240 periodos pedagógicos
+                                    UC2:     Proponer     soluciones   informáticas    y
+                                    computacionales mediante el análisis lógico-
+Unidad      de     competencia      matemático, manejo de sistemas numéricos, lógica de
+asociada:                           conjuntos, formulación algorítmica con diagramas y
+                                    pseudocódigo, aplicación de programación básica,
+                                    levantando documentación técnica, como fundamento
+                                    del desempeño profesional en tecnologías de la
+                                    información y comunicación.
+Objetivo del módulo: Fortalecer en el estudiante competencias técnicas en la formulación
+y representación algorítmica, programación básica, aplicando metodologías de desarrollo,
+conceptos lógicos matemáticos y sistemas numéricos para la resolución de problemas
+computacionales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar conceptos de lógica matemática, conjuntos y sistemas numéricos en
+la resolución de problemas computacionales.
+CE1.1: Distingue proposiciones y operaciones lógicas utilizando tablas de verdad y leyes
+del álgebra booleana.
+CE1.2: Representa operaciones de conjuntos en problemas computacionales mediante
+diagramas y notación formal.
+CE1.3: Transforma valores entre sistemas numéricos binario, decimal, hexadecimal y octal
+como base para el tratamiento de datos.
+CE1.4: Resuelve problemas que combinan lógica proposicional y sistemas numéricos en
+contextos computacionales específicos.
+RA 2: Resolver algoritmos de aplicaciones informáticas, representarlos mediante
+diagramas de flujo y pseudocódigo.
+CE2.1: Descompone problemas en pasos secuenciales mediante la elaboración de
+diagramas de flujo estructurados.
+CE2.2: Traduce diagramas de flujo a pseudocódigo utilizando sintaxis estructurada y lógica
+funcional.
+CE2.3: Verifica algoritmos mediante pruebas y simulaciones, identificando errores de lógica
+y eficiencia.
+CE2.4: Contrasta resultados esperados y obtenidos para evaluar el comportamiento
+funcional del algoritmo.
+ RA 3: Utilizar programación en la construcción de soluciones computacionales.
+CE3.1: Emplea estructuras secuenciales, condicionales y repetitivas al desarrollar
+programas en un lenguaje de programación resolviendo problemas computacionales
+básicos.
+CE3.2: Construye clases, atributos y métodos aplicando principios de encapsulamiento,
+herencia y polimorfismo en un lenguaje orientado a objetos.
+CE3.3: Elabora estructuras de datos simples como vectores, listas y matrices para la gestión
+de información en aplicaciones básicas.
+CE3.4: Codifica programas simples verificando la funcionalidad conforme a los
+requerimientos establecidos y resultados esperados.
+CE3.5: Documenta mediante comentarios técnicos explicando la lógica, estructura y
+funcionamiento del código fuente.
+ RA 4: Diseñar interfaces básicas facilitando la interacción con usuarios en
+ aplicaciones de consola y GUI.
+CE4.1: Aplica elementos visuales, etiquetas y campos adecuados al tipo de aplicación
+(consola o GUI) para representar la funcionalidad esperada.
+CE4.2: Integra principios de usabilidad y accesibilidad en el diseño de interfaces,
+considerando la disposición, navegación y comprensión visual
+CE4.3: Programa eventos y validaciones que responden correctamente a las acciones del
+usuario, previniendo errores en tiempo de ejecución.
+CE4.4: Realiza pruebas para identificar mejoras en la interacción y funcionalidad de la
+interfaz desarrollada.
+ RA 5: Implementar metodologías de desarrollo de software en función del tipo de
+ proyecto, integrando tiempos de entrega y colaboración en equipo.
+CE5.1: Selecciona adecuadamente la metodología de desarrollo (ágil, tradicional, híbrida)
+según los requerimientos del proyecto.
+CE5.2: Realiza las tareas de desarrollo de acuerdo con la metodología seleccionada,
+cumpliendo entregables y estándares.
+CE5.3: Coordina la colaboración en equipo utilizando herramientas digitales que facilitan la
+comunicación y el seguimiento de actividades.
+CE5.4: Documenta el proceso de desarrollo mediante registros técnicos que evidencian el
+avance y la gestión del proyecto.
+Contenidos
+Conceptuales                   Procedimentales               Actitudinales
+Principios del pensamiento Descomponer problemas Emplear el pensamiento
+computacional.                 complejos                 en analítico en la resolución de
+                               subproblemas manejables problemas.
+Componentes        de     un
+                               mediante estrategias de
+problema computacional.                                      Mostrar disposición para
+                               pensamiento lógico.
+                                                             explorar         situaciones
+Criterios de optimización en
+                               Identificar        patrones problemáticas             desde
+soluciones
+                               comunes     en     distintos múltiples perspectivas antes
+computacionales.
+                               problemas para proponer de proponer soluciones.
+Metodología       para     la soluciones generalizables.
+                                                             Asumir responsabilidad en la
+resolución de problemas
+                               Representar procesos a coherencia lógica de los
+computacionales.
+                               través de diagramas de diseños                 propuestos,
+Identificación de patrones y flujo, pseudocódigo u otras considerando el contexto del
+relaciones.                    formas de modelado lógico. problema.
+Algoritmos, definición    y    Formular         algoritmos    Mostrar flexibilidad para
+características.               eficientes    considerando     ajustar    los     modelos
+Tipos de datos, variables,     secuencia,        selección,   diseñados    ante   nuevas
+constantes y expresiones.      iteración y modularidad.       condiciones o sugerencias.
+
+Lenguajes             de       Simular    algoritmos     en   Aplicar buenas prácticas en
+pseudocódigo y diagramas       entornos digitales o físicos   la elaboración de algoritmos
+de flujo.                      para      comprobar       su   organizados,     claros    y
+                               funcionalidad.                 eficientes.
+Estructuras  de     control
+secuencial, condicional y      Evaluar    soluciones    en    Reflexionar     sobre     los
+repetitiva.                    función de su eficiencia,      resultados obtenidos como
+                               claridad y capacidad de        una     oportunidad     para
+Tipos       de      errores,   resolución del problema.       mejorar     las   soluciones
+sintácticos, lógicos y de                                     propuestas.
+ejecución.                     Aplicar heurísticas para
+                               resolver problemas donde       Aceptar con apertura la
+Buenas prácticas en la         no existe un camino único o    retroalimentación de otros
+resolución de problemas        completamente definido.        como parte fundamental del
+computacionales                                               proceso de aprendizaje.
+                               Construir      soluciones
+Heurísticas para la toma de    computacionales básicas        Mostrar        comunicación
+decisiones.                    empleando    herramientas      asertiva en la resolución de
+                               de programación.               problemas computacionales,
+Operadores lógicos y tablas    Revisar errores lógicos o      Colaborar activamente con
+de verdad.                     sintácticos en algoritmos o    sus pares para enriquecer
+                               programas         mediante     ideas y construir soluciones
+Funciones             de
+                               procesos de depuración.        colectivas.
+modelamiento de bases de
+datos.                         Integrar estrategias de        Valorar la importancia de la
+                               mejora continua en la          lógica matemática en la
+Fundamentos de lógica y
+                               solución de problemas          resolución de problemas.
+matemáticas     aplicadas,
+                               computacionales.
+operadores         lógicos,                                  Adoptar      una       actitud
+proposiciones, tablas de                                     perseverante       en        la
+                               Verificar sistemáticamente la
+verdad, operaciones entre                                    resolución de problemas con
+                               funcionalidad lógica de las
+conjuntos,       sistemas                                    algoritmos      claros        y
+                               soluciones      antes     de
+numéricos y conversiones.                                    eficientes.
+                               validarlas.
+Tipos      de       lógica,
+                                                              Demostrar empatía hacia el
+proposicional, booleana y      Aplicar operadores lógicos
+                                                              usuario final en el diseño de
+matemática.                    en    la   resolución   de
+                                                              interfaces.
+                               problemas
+Interfaz gráfica de usuario
+                               computacionales.               Fomentar la colaboración de
+GUI,       usabilidad     y
+accesibilidad.                                                trabajo en equipo
+                               Transformar       números
+ Metodologías de desarrollo,
+                               entres distintos sistemas
+ herramientas colaborativas
+                               numéricos, entendiendo los
+ y documentación técnica y
+                               procesos computacionales.
+ de usuario.
+
+                               Diseñar interfaces graficas
+                               con elementos interactivos
+                               aplicando principios de
+                               usabilidad y accesibilidad
+                               con enfoque al usuario.
+
+                               Utilizar      herramientas
+                               colaborativas    para   el
+                               trabajo en equipo.
+
+                               Elaborar   documentación
+                               técnica y de usuario del
+                               software.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                  Especificaciones técnicas                       Cantidad
+Infraestructura/espacio       Entorno de aprendizaje (aula)             1
+                              Computadoras con acceso a internet
+Laboratorio
+                              Proyector                                 1
+Referencias Bibliográficas
+Borchardt, M., & Roggi, I. (2017). Ciencias de la computación en los sistemas educativos
+        de América Latina. Instituto Internacional de Planeamiento de la Educación de la
+        UNESCO & Organización de Estados Iberoamericanos para la Educación, la
+        Ciencia y la Cultura.
+
+Brennan, K., Balch, C., & Chung, M. (2014). Informática creativa: Una introducción al
+      pensamiento computacional con Scratch. Harvard Graduate School of Education.
+
+Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado. (2022).
+        Pensamiento computacional, programación y robótica educativa en el currículo
+        LOMLOE. Ministerio de Educación y Formación Profesional de España.
+
+Marañón Marañón, Ó., & González-García, H. (2021). Una revisión narrativa sobre el
+      pensamiento computacional en Educación Secundaria Obligatoria. Contextos
+      Educativos. Revista de Educación, (27), 169–182.
+      https://doi.org/10.18172/con.4644
+
+Méndez Hernández, S. O., & Bermúdez, J. F. (2023). El pensamiento computacional
+     como competencia para el siglo XXI. Ciencia Latina Revista Científica
+     Multidisciplinar, 7(4), 2258–2279. https://doi.org/10.37811/cl_rcm.v7i4.7044
+
+Ministerio de Educación Nacional de Colombia. (2022). Orientaciones curriculares para el
+       área de tecnología e informática en la educación básica y media. Ministerio de
+       Educación Nacional.
+
+Ministerio de Tecnologías de la Información y las Comunicaciones, Ministerio de
+       Educación Nacional, & British Council. (2022). ¿Por qué y para qué el
+       pensamiento computacional y las habilidades digitales? Gobierno de Colombia.
+
+Morales Caumel, R. (2023). PSeInt: Programando en pseudocódigo. Observatorio de
+      Tecnología Educativa, (103). Instituto Nacional de Tecnologías Educativas y de
+      Formación del Profesorado. https://doi.org/10.4438/2695-
+       4176_OTEpdf103_2020_847-19-134-33
+
+Polanco Padrón, N., Ferrer Planchart, S., & Fernández Reina, M. (2021). Aproximación a
+      una definición de pensamiento computacional. RIED. Revista Iberoamericana de
+      Educación a Distancia, 24(1), 55–76. https://doi.org/10.5944/ried.24.1.27419
+
+Python Software Foundation. (2026). El tutorial de Python: Documentación de Python
+      3.14. Python Software Foundation.
+
+Schwaber, K., & Sutherland, J. (2020). La guía de Scrum: La guía definitiva de Scrum.
+     Las reglas del juego. Scrum.org.
+
+World Wide Web Consortium. (2025). Sumario de las Pautas de Accesibilidad para el
+      Contenido Web (WCAG) 2. Web Accessibility Initiative.
+
+
+
+                                Módulo Genérico Nro.3
+Nombre del módulo:                    Ética, Legislación y Ciudadanía Digital
+Nivel:                                1ro
+Duración:                             80 periodos pedagógicos
+                                      UC3: Integrar principios éticos y legales en el uso de
+                                      tecnologías, protección de datos, propiedad intelectual
+Unidad       de     competencia
+                                      y responsabilidad digital con el fin de asumir
+asociada:
+                                      desempeño consciente y responsable en entornos
+                                      digitales.
+Objetivo del módulo: Fomentar la comprensión y aplicación de principios éticos,
+normativas legales y prácticas responsables en el uso de las tecnologías digitales,
+fortaleciendo una ciudadanía digital crítica, respetuosa, segura y consciente de los derechos
+y deberes en entorno virtuales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar los principios éticos relacionados con el uso responsable de las
+tecnologías digitales.
+CE1.1: Analiza casos o situaciones que evidencias conflictos éticos en el uso de
+tecnologías digitales.
+CE1.2: Relaciona el uso de herramientas digitales con posibles impactos éticos y sociales
+en distintos contextos.
+CE1.3: Muestra respeto a los derechos de propiedad intelectual en entornos digitales.
+CE1.4: Reflexiona críticamente sobre sus prácticas digitales cotidianas en el uso ético y
+responsable de la tecnología en actividades personales, académicas, culturales o
+profesionales.
+RA 2: Diferenciar el uso lícito e ilícito de recursos digitales, software y contenidos
+en línea.
+CE2.1: Clasifica recursos digitales según su tipo de licencia y condiciones de uso.
+CE2.2: Discrimina prácticas ilícitas como el uso de software pirata, descargas ilegales,
+reproducción sin autorización o plagio digital.
+CE2.3: Aplica criterios de legalidad y responsabilidad en la selección, uso y difusión de
+recursos digitales en contextos educativos o institucionales.
+CE2.4: Evalúa las consecuencias legales y éticas del uso indebido de software y
+contenidos protegidos por derechos de autor.
+RA 3: Aplicar normas legales relacionadas con la protección de datos personales y
+privacidad digital.
+CE3.1: Distingue el tipo de información que se considera dato personal y sensible según
+la normativa vigente.
+CE3.2: Analiza situaciones de vulneración de privacidad en entornos digitales y sus
+implicaciones legales y éticas.
+CE3.3: Aplica buenas prácticas en la recolección, almacenamiento y uso responsable de
+datos personales en contextos laborales, académicos o comunitarios.
+CE3.4: Verifica que las plataformas, formularios o recursos digitales utilizados respeten
+principios de confidencialidad, seguridad y protección de datos.
+RA 4.: Promover comportamientos responsables y seguros en el uso de tecnologías
+y redes digitales.
+CE4.1: Distingue situaciones de riesgo digital derivadas de vulnerabilidades de hardware
+y software, y propone formas de prevención.
+CE4.2: Emplea normas básicas de conducta digital (netiqueta) promoviendo valores como
+el respeto, la responsabilidad, la empatía y la honestidad en entornos laborales, educativos
+y sociales, haciendo un uso ético y consciente de las tecnologías.
+CE4.3: Participa de manera crítica, ética y responsable en entornos digitales, promoviendo
+el uso de la tecnología y contribuyendo a una cultura digital inclusiva y respetuosa.
+CE4.4: Propone actividades que promuevan la ciudadanía digital, el respeto a los demás y
+el cuidado del entono virtual.
+ Contenidos
+Conceptuales                     Procedimentales                 Actitudinales
+Ética y moral en entornos Analizar casos reales o Mantener compromiso con el
+digitales:                       simulados de dilemas éticos uso responsable de las
+• Definición de ética y moral. digitales.                        tecnologías.
+• Diferencias entre ética
+personal, profesional y digital Evaluar el cumplimiento de Respetar la privacidad y la
+• Dilemas éticos en el principios éticos en el uso de identidad digital propia y
+entorno tecnológico              plataformas tecnológicas.       ajena.
+Principios éticos aplicados
+a la tecnología:                  Aplicar criterios éticos en la Promover el uso ético de las
+• Responsabilidad                toma de decisiones digitales TIC evitando acoso digital,
+• Integridad                     (uso      de      información, difusión de contenido falso,
+• Justicia y equidad             comunicación, privacidad).      piratería.
+• Respeto a la privacidad
+• Transparencia                  Elaborar    códigos      de    Manifestar actitud crítica y
+Legislación Digital:             conducta   o   guías     de    reflexiva   frente   a     la
+• Marco legal                    comportamiento digital para    información y a la conducta
+• Derechos y deberes             contextos  educativos     o    digital.
+• Delitos cibernéticos           laborales.
+• Importancia                                                      Demostrar      empatía    y
+Ciudadanía Digital:              Participar en debates o foros responsabilidad         en   la
+• Definición                     sobre       temas         éticos interacción virtual.
+• Componentes                    relacionados        con        la
+• Habilidades                    tecnología.                       Mantener     disposición  a
+• Participación                                                    actuar con integridad y
+• Ética                          Participar en campañas honestidad en entornos
+• Seguridad                      sociales digitales o en digitales.
+Diferencias culturales y         espacios      de      discusión
+legales                          respetuosa.
+Tendencias futuras en            Configurar la privacidad en
+ética digital                    redes sociales.
+Ejemplos de ética digital        Realizar      prácticas       de
+• Privacidad de datos            recolección de datos no
+• Bias algorítmico               éticas.
+• Ciberseguridad                 Usar contraseñas seguras,
+• Brecha digital                 reconocer               correos
+Uso responsable de las           fraudulentos o evitar el
+tecnologías digitales            acceso      a    sitios     web
+• Comportamiento ético en        peligrosos.
+redes sociales y plataformas
+digitales.
+• Derechos y deberes de los
+usuarios digitales
+• Netiqueta y ciudadanía
+digital
+Consecuencias del uso no
+ético de la tecnología:
+• Ciberacoso, suplantación
+de                  identidad,
+desinformación.
+• Impactos sociales, legales
+y personales del mal uso de
+las TIC
+Ética profesional en el
+ámbito tecnológico
+Sociedad digital
+Datos y seguridad.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Role-Playing y Simulaciones
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                             Detalle de especificaciones
+Denominación                                                       Cantidad
+                             técnicas
+                             Entorno de aprendizaje
+Infraestructura/espacio                                                     1
+                             Laboratorio informático
+                             Computadoras con acceso a internet
+Laboratorio                                                                 1
+                             Proyector
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2014). Código Orgánico Integral Penal. Registro
+        Oficial, Suplemento N.º 180, 10 de febrero de 2014.
+
+Asamblea Nacional del Ecuador. (2016). Código Orgánico de la Economía Social de los
+     Conocimientos, Creatividad e Innovación. Registro Oficial, Suplemento N.º 899, 9
+     de diciembre de 2016.
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+     Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021.
+
+Congreso Nacional del Ecuador. (2002). Ley de Comercio Electrónico, Firmas
+      Electrónicas y Mensajes de Datos. Registro Oficial, Suplemento N.º 557, 17 de
+      abril de 2002.
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+        Una guía de aproximación para el empresario. INCIBE.
+
+Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La ciberseguridad
+        al alcance de todos. INCIBE.
+
+López Jacobo, D. R., Angulo Armenta, J., Torres Gastelú, C. A., & López Herrera, M.
+      (2024). La ciudadanía digital: Metaanálisis sobre investigaciones en México.
+      Apertura, 16(1), 162–175. https://doi.org/10.32870/ap.v16n1.2477
+ Morduchowicz, R. (2020). La ciudadanía digital como política pública en educación en
+       América Latina. Oficina Regional de Ciencias de la UNESCO para América Latina
+       y el Caribe.
+
+ Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+        de Protección de Datos Personales. Decreto Ejecutivo N.º 904. Registro Oficial,
+        Suplemento N.º 435, 13 de noviembre de 2023.
+
+ Rosado García, T. L., Alcívar Vera, T. P., Cobeña Cedeño, A. A., Chancay Chancay, M.
+       M., García Espinoza, M. I., & Bernal Mendieta, C. J. (2025). Desarrollo de valores
+       éticos en la educación digital. Universidad, Ciencia y Tecnología, 29(Especial),
+       114–123. https://doi.org/10.47460/uct.v29iSpecial.885
+
+ Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2021).
+       Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+
+
+
+   4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Soporte Informático se
+caracterizarán por tener una sólida formación en conocimientos técnicos, prácticos y
+actitudinales que les permitirán desenvolverse en el diagnóstico, instalación, configuración,
+mantenimiento y soporte de equipos de cómputo, sistemas operativos, aplicaciones
+informáticas y redes de datos.
+
+Se estructuran los siguientes módulos de especialización para 1ro de bachillerato:
+
+   •   Sistemas Operativos y Aplicaciones
+   •   Mantenimiento Preventivo Correctivo
+   •   Redes y Conectividad
+   •   Soporte Técnico Informático
+   •   Fundamentos Básicos De Electricidad Y Electrónica.
+
+                      Módulo de Especialización Nro. 1
+ Nombre del módulo:            Sistemas Operativos y Aplicaciones
+ Nivel:                        1ro, 2do, 3ro
+ Duración:                     360 periodos pedagógicos
+                               UC1: Aplicar procesos de instalación y configuración
+ Unidad     de    competencia  de hardware, software y redes, bajo estándares y
+ asociada:                     requerimientos técnicos, garantizando operatividad
+                               en los equipos.
+ Objetivo del módulo: Fomentar la comprensión y aplicación de procesos de instalación,
+ configuración de componentes de hardware, redes, sistemas operativos y aplicaciones
+informáticas, integrando soluciones tecnológicas que respondan a requerimientos técnicos
+específicos.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Distinguir las especificaciones técnicas de los componentes de hardware y
+software, en función de los requerimientos del entorno de los usuarios.
+CE1.1: Clasifica los componentes de hardware y software de acuerdo con sus
+especificaciones técnicas.
+CE1.2: Relaciona diferentes configuraciones tecnológicas, evaluando ventajas y
+desventajas según el contexto.
+CE1.3: Instala el hardware y software adecuado a las necesidades de los usuarios.
+RA 2: Administrar la instalación de sistemas operativos y aplicaciones, evaluando las
+especificaciones técnicas y tomando decisiones para su correcta implementación.
+CE2.1: Clasifica versiones de sistemas operativos y tipos de instalación, según las
+especificaciones técnicas.
+CE2.2: Prepara el equipo destino, evaluando compatibilidad, recursos disponibles,
+habilitando dispositivos y conectividades requeridas.
+CE2.3: Aplica la instalación del sistema operativo y aplicaciones, cumpliendo protocolos
+técnicos.
+CE2.4: Comprueba el funcionamiento del sistema operativo, mediante pruebas de
+rendimiento.
+RA 3: Ejecutar actualizaciones del sistema operativo y aplicaciones siguiendo las
+directrices organizacionales, manteniendo su operatividad.
+CE3.1: Distingue los requerimientos de actualización del sistema operativo y aplicaciones,
+según las necesidades del entorno y de usuarios.
+CE3.2: Evalúa la viabilidad de actualizaciones, considerando compatibilidades, versiones y
+condiciones del equipo.
+CE3.3: Actualiza el sistema operativo y aplicaciones con procedimientos técnicos
+establecidos y resolviendo incidencias menores.
+CE3.4: Verifica el estado de las actualizaciones, garantizando la operatividad de los equipos
+y aplicaciones.
+Contenidos
+Conceptuales                    Procedimentales            Actitudinales
+Tecnológicos y análisis Examinar                           Mostrar responsabilidad en el
+del entorno                     especificaciones        de cumplimiento de procedimientos
+• Clasificación y funciones hardware y software.           técnicos.
+   de los componentes de
+   hardware.                    Identificar                Emplear      ética    profesional,
+• Tipos y características requerimientos               del respetando normas de seguridad
+   del software de sistema y    entorno  y  del usuario.   y confidencialidad.
+   de aplicación.               Comparar                   Colaboración y comunicación
+• Parámetros         técnicos configuraciones            y efectiva con usuarios y equipos
+   clave:     compatibilidad,   seleccionar                técnicos.
+    arquitectura,                componentes                 Manifestar compromiso con la
+    rendimiento, capacidad.      adecuados.                  mejora continua y actualización
+•   Análisis                de                               tecnológica.
+    requerimientos         del   Preparar equipos y
+    entorno y del usuario.       entornos             para Valorar la importancia de instalar y
+•   Criterios             para   instalación.              configurar adecuadamente los
+    seleccionar                                            sistemas operativos como base
+    combinaciones óptimas        Instalar        sistemas para el correcto funcionamiento de
+    de hardware y software.      operativos              y los equipos.
+•   Arquitectura             y   aplicaciones.
+    funcionamiento general                                 Mostrar disposición al análisis
+    de       los     sistemas    Configurar     funciones técnico riguroso antes de realizar
+    operativos (monotarea,       básicas del sistema y instalaciones o actualizaciones,
+    multitarea, monousuario,     dispositivos.             priorizando la estabilidad del
+    multiusuario).                                         entorno de trabajo.
+•   Tipos      de    sistemas    Validar funcionamiento
+    operativos: propietarios,    mediante         pruebas Respetar        las     políticas      de
+    libres,       embebidos,     técnicas.                 licenciamiento y uso legal del
+    móviles y virtualizados.     Identificar necesidades software, evitando prácticas que
+•   Tipos de licencias de        de actualización de vulneren los derechos de autor o
+    software:       freeware,    software.                 comprometan          la      seguridad
+    shareware,        software                             institucional.
+    libre,            software   Verificar compatibilidad Demostrar interés por mantenerse
+    propietario.                 de       versiones      y actualizado en cuanto a nuevas
+                                 condiciones técnicas.     versiones de sistemas operativos
+Actualización              y     Aplicar actualizaciones y tendencias en software de uso
+mantenimiento             de     y resolver incidencias común.
+sistemas                         menores.
+• Requisitos técnicos y de       Utilizar gestores de Respetar              las        directrices
+   compatibilidad para la        paquetes o asistentes organizacionales durante los
+   instalación de software y     de instalación para procesos             de     instalación      y
+   sistemas operativos.          software adicional.       actualización,           garantizando
+• Tipos de particiones y         Documentar            los coherencia con los estándares
+   sistemas de archivos          procesos      realizados, técnicos institucionales.
+   (FAT, NTFS, EXT, entre        incluyendo
+   otros).                       configuraciones         y Manifestar compromiso con la
+                                 versiones de software mejora continua de los procesos
+• Tipos de actualizaciones
+                                 instaladas.               de instalación, configuración y
+• Fuentes y mecanismos
+                                                           mantenimiento         del     software,
+   de actualización.
+                                                           considerando          siempre        las
+• Evaluación              de
+                                                           necesidades reales de los
+   compatibilidad, impacto y
+                                                           usuarios.
+   viabilidad     de     las
+   actualizaciones.
+•   Métodos de instalación
+    de aplicaciones: manual,
+    automatizada, por red o
+    mediante scripts.
+• Procedimientos seguros
+    de actualización.
+• Verificación           post-
+    actualización.
+• Registro       técnico   de
+    cambios y versiones
+    para trazabilidad.
+• Normativas y protocolos
+    institucionales         u
+    organizacionales sobre
+    instalación             y
+    mantenimiento          de
+    software.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                   Especificaciones técnicas                      Cantidad
+Infraestructura/espacio        Entorno de aprendizaje (aula)                       1
+                               Computadoras con acceso a internet
+                               Servidor
+Laboratorio                                                                        1
+                               Proyector
+                               Estaciones de trabajo para los estudiantes
+                               Fichas técnicas de hardware y software.
+                               Sistemas operativos, plataformas de
+                               virtualización, ofimática, bases de datos,
+                               herramientas de programación,
+Herramientas/equipos
+                               aplicaciones de seguridad, entre otros.
+                               Manuales de usuario
+                               Listado de requerimientos mínimos y
+                               recomendados de software
+                              Software de diagnóstico
+                              Proyector.
+
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2016). Código Orgánico de la Economía Social de los
+        Conocimientos, Creatividad e Innovación (Registro Oficial N.º 899, Suplemento, 9
+        de diciembre de 2016). https://www.asambleanacional.gob.ec/es/multimedios-
+        legislativos/38877-codigo-organico-de-la-economia-social
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+        Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+        https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+        organica-de-proteccion-de-datos
+Jorba i Esteve, J., & Suppi Boldrito, R. (2014). Administración de sistemas GNU/Linux.
+        Universitat Oberta de Catalunya.
+        https://openaccess.uoc.edu/handle/10609/61287
+Microsoft. (2025a). Formas de instalar Windows 11. Microsoft Support.
+        https://support.microsoft.com/es-es/windows/deployment/install-upgrade/ways-to-
+        install-windows-11
+Microsoft. (2025b). Windows 11: Información general para administradores. Microsoft
+        Learn. https://learn.microsoft.com/es-es/windows/whats-new/windows-11-
+        overview
+Microsoft. (2026). Requisitos de Windows 11. Microsoft Learn.
+        https://learn.microsoft.com/es-es/windows/whats-new/windows-11-requirements
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2024). Esquema
+        Gubernamental de Seguridad de la Información (EGSI), versión 3.0 (Acuerdo
+        Ministerial N.º MINTEL-MINTEL-2024-0003).
+        https://www.telecomunicaciones.gob.ec/avanzamos-en-la-implementacion-del-
+        esquema-gubernamental-de-seguridad-de-la-informacion-egsi-version-3/
+Pacheco, D. S. (2022). Seguridad en redes de comunicaciones: Perspectivas y desafíos.
+        Ingeniare. Revista Chilena de Ingeniería, 30(2), 215–217.
+        https://doi.org/10.4067/S0718-33052022000200215
+Red Hat, Inc. (2021). Configuración de los ajustes básicos del sistema: Red Hat
+        Enterprise Linux 8. Red Hat.
+        https://docs.redhat.com/es/documentation/red_hat_enterprise_linux/8/pdf/configur
+        ing_basic_system_settings/configuracin-de-los-ajustes-bsicos-del-sistema.pdf
+Red Hat, Inc. (2021). Creación, ejecución y gestión de contenedores: Red Hat Enterprise
+        Linux 8. Red Hat.
+        https://docs.redhat.com/es/documentation/red_hat_enterprise_linux/8/pdf/building
+        _running_and_managing_containers/creacin-ejecucin-y-gestin-de-
+        contenedores.pdf
+                            Módulo de Especialización Nro. 2
+Nombre del módulo:                     Mantenimiento Preventivo y Correctivo
+Nivel:                                 2do, 3ro
+Duración:                              280 periodos pedagógicos
+                                       UC2: Ejecutar el mantenimiento preventivo y
+Unidad        de     competencia
+                                       correctivo en equipos y dispositivos tecnológicos,
+asociada:
+                                       siguiendo los protocolos técnicos.
+Objetivo del módulo: Realizar el mantenimiento preventivo y correctivo de equipos y
+dispositivos tecnológicos, aplicando procedimientos técnicos, protocolos de seguridad y el
+uso adecuado de herramientas especializadas, con el fin de garantizar el funcionamiento
+óptimo, seguro y continuo de los sistemas informáticos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Comprobar instalaciones eléctricas y electrónicas básicas mediante la
+identificación de funcionalidades, análisis de condiciones, ejecución de instalaciones
+simples y verificación funcional en entornos controlados.
+CE1.1: Describe la funcionalidad de sistemas eléctricos y electrónicos básicos identificando
+componentes, flujos y principios operativos.
+CE1.2: Analiza las condiciones de instalaciones eléctricas y electrónicas básicas
+empleando herramientas de medición y verificando parámetros establecidos.
+CE1.3: Realiza instalaciones eléctricas y electrónicas básicas siguiendo especificaciones
+técnicas, normas de seguridad y procedimientos establecidos.
+CE1.4: Verifica el funcionamiento de equipos tecnológicos aplicando pruebas básicas y
+procedimientos técnicos definidos.
+RA 2: Administrar la instalación física y lógica de equipos y dispositivos informáticos
+mediante el análisis de especificaciones técnicas, ejecución de procedimientos
+adecuados y verificación funcional bajo condiciones de operación segura.
+CE2.1: Analiza la información técnica del fabricante identificando especificaciones,
+conectores, requisitos de instalación y precauciones de seguridad.
+CE2.2: Aplica procedimientos de instalación física y lógica siguiendo estándares técnicos y
+asegurando la operatividad del equipo o dispositivo.
+CE2.3: Verifica el funcionamiento de los equipos instalados mediante pruebas de
+encendido, reconocimiento del sistema operativo y evaluación de funciones principales.
+RA 3: Aplicar mantenimiento preventivo en equipos tecnológicos mediante la
+detección de signos de desgaste, actualización de componentes lógicos y ejecución
+de limpieza técnica, en condiciones de seguridad y uso adecuado de herramientas.
+CE3.1: Distingue signos de desgaste o fallas potenciales en equipos tecnológicos,
+identificando síntomas visibles o parámetros anómalos.
+CE3.2: Usa políticas de mantenimiento lógico realizando actualizaciones de controladores,
+firmware y software básico conforme a procedimientos técnicos.
+CE3.3: Ejecuta limpieza interna y externa del equipo tecnológico utilizando herramientas y
+materiales adecuados y respetando protocolos de seguridad.
+RA 4: Implementar mantenimiento correctivo básico mediante el diagnóstico de
+fallas, sustitución técnica de componentes, aplicación de medidas de seguridad y
+verificación del normal funcionamiento.
+CE4.1: Comprueba fallas comunes de hardware o software empleando pruebas estándares
+funcionales y análisis de síntomas documentados.
+CE4.2: Aplica protocolos para sustituir componentes defectuosos siguiendo
+especificaciones técnicas y procedimientos estandarizados.
+CE4.3: Implementa medidas de seguridad protegiendo la integridad de los datos y
+asegurando la funcionalidad del equipo durante la reparación.
+CE4.4: Verifica el funcionamiento posterior realizando pruebas estándar y comprobando
+estabilidad de los equipos tecnológicos.
+RA 5: Elaborar informes técnicos de mantenimiento mediante la organización de
+información, descripción de resultados, uso de formatos estandarizados y
+formulación de recomendaciones.
+CE5.1: Organiza la información del mantenimiento realizado con las acciones ejecutadas,
+hallazgos y observaciones técnicas.
+CE5.2: Describe los resultados obtenidos comparándolos con el diagnóstico inicial y
+objetivos de la intervención.
+CE5.3: Usa formatos institucionales o estandarizados asegurando claridad, coherencia y
+consistencia en el registro técnico.
+CE5.4: Crea el informe técnico incorporando recomendaciones preventivas y correctivas
+para evitar recurrencia de problemas.
+Contenidos
+Conceptuales                    Procedimentales           Actitudinales
+Conceptos fundamentales Identificar                       Valorar     la   importancia   del
+del mantenimiento técnico funcionalidades               y mantenimiento oportuno para
+• Diferencias           entre señales de indicadores prolongar la vida útil de los
+    mantenimiento               en               equipos equipos.
+    preventivo, predictivo y tecnológicos.
+    correctivo en equipos                                 Respetar las especificaciones
+    tecnológicos.               Analizar condiciones de técnicas del fabricante en cada
+• Ciclo de vida de los operación                eléctrica intervención.
+    equipos informáticos y su antes de intervenir.
+    relación      con       la                            Mostrar rigor en la revisión y
+    planificación          de Examinar conexiones, verificación del estado de los
+    mantenimiento.              módulos y elementos equipos.
+• Clasificación de fallas electrónicos visibles.
+    según su origen: físicas,                             Reconocer la importancia de la
+    lógicas, funcionales y de   Ejecutar   instalaciones  precisión en el diagnóstico.
+    desgaste.                   simples en entornos
+• Concepto de diagnóstico controlados.                    Valorar la aplicación de normas de
+    técnico y su importancia                              seguridad          durante       el
+                                                          mantenimiento       preventivo    y
+                                                          correctivo.
+    en     la   continuidad Verificar       continuidad
+    operativa.                funcional        mediante    Priorizar la correcta manipulación
+                              pruebas básicas.             de herramientas y dispositivos.
+Comprobación              de
+instalaciones eléctricas y Registrar            valores,   Reconocer los riesgos asociados
+electrónicas        básicas observaciones              y   al  manejo     inadecuado    de
+(enfocado                  al resultados.                  componentes internos.
+mantenimiento)
+• Interpretación          de Instalación física y          Reconocer la documentación
+   indicaciones funcionales lógica de equipos.             técnica como parte esencial del
+   de equipos tecnológicos                                 mantenimiento.
+   (LEDs, mensajes de Interpretar                 fichas
+   BIOS, códigos sonoros,     técnicas                 y   Valorar el registro de acciones y
+   alertas).                  recomendaciones del          hallazgos para optimizar recursos
+• Condiciones             de fabricante.                   y tiempos.
+   operatividad    eléctrica
+   esenciales: continuidad, Preparar el equipo y el        Mantener disciplina en el uso de
+   polaridad, tensiones de entorno         físico     de   formatos estandarizados.
+   referencia, estado de      instalación.
+   conectores.                                             Mostrar interés en nuevas
+• Componentes                 Montar componentes y         tecnologías de mantenimiento y
+   electrónicos típicos en asegurar conexiones.            diagnóstico.
+    equipos       informáticos:
+    ventiladores, sensores        Configurar parámetros Reflexionar       sobre         los
+    térmicos, fuentes de          iniciales          de procedimientos utilizados para
+    poder, módulos plug-          reconocimiento.       mejorar intervenciones futuras.
+    and-play.
+•   Indicadores técnicos que      Verificar                 Buscar información confiable
+    permiten detectar riesgo      funcionamiento       bajo antes      de    efectuar    una
+    eléctrico o electrónico       condiciones            de intervención.
+    previo a la intervención.     operación segura.
+                                                            Colaborar con el equipo durante
+Instalación física y lógica       Documentar                procesos técnicos complejos.
+de equipos y dispositivos         parámetros              y
+• Concepto de instalación         verificación realizada.   Respetar ideas y sugerencias
+   integral: montaje físico,                                técnicas fundamentadas.
+   conexión de periféricos y      Detectar signos de
+   habilitación lógica inicial.   desgaste físico o lógico Comunicar de manera clara
+• Interpretación            de    mediante inspección.      hallazgos y recomendaciones.
+   especificaciones
+   técnicas del fabricante Limpiar componentes
+   para instalación segura. internos y externos
+                                según       técnicas
+                                permitidas.
+•   Parámetros de operación
+    estándar utilizados para     Actualizar  elementos
+    verificar la funcionalidad   lógicos esenciales del
+    del      equipo     recién   equipo.
+    instalado.
+•   Requerimientos               Comprobar ventilación,
+    ambientales       mínimos    estabilidad          y
+    para la instalación de       disposición de cables
+    equipos      (temperatura,   internos.
+    ventilación, estabilidad
+    física).                     Evaluar el rendimiento
+                                 posterior           al
+Mantenimiento preventivo         mantenimiento.
+• Indicadores de desgaste
+  físico en equipos y            Registrar
+  dispositivos:        ruido,    intervenciones
+  temperatura,        polvo,     realizadas          con
+  deterioro de conectores.       precisión.
+• Indicadores de desgaste
+  lógico: lentitud inusual,      Diagnosticar      fallas
+  mensajes                 de    mediante observación,
+  advertencia,                   mediciones y síntomas.
+  inconsistencias          de
+  operación.                     Desmontar
+• Tipos de mantenimiento         componentes          de
+  preventivo en hardware:        manera segura.
+  limpieza            física,
+  lubricación     permitida,     Sustituir    elementos
+  ordenamiento de cables         defectuosos utilizando
+  internos, revisión de          herramientas
+  ventilación.                   adecuadas.
+• Conceptos                de
+  mantenimiento                  Reensamblar el equipo
+  preventivo lógico que no       siguiendo  protocolos
+  pertenecen al módulo de        técnicos.
+  SO (solo desde la mirada
+  técnica): actualización de     Ejecutar       pruebas
+  firmware, verificación de      estándar de verificación
+  integridad básica.             funcional.
+
+
+Mantenimiento correctivo Confirmar la estabilidad
+• Tipos de fallas comunes del equipo tras la
+  en equipos tecnológicos: reparación.
+    sobrecalentamiento,           Organizar información
+    componentes         flojos,   recolectada durante el
+    módulos      defectuosos,     proceso técnico.
+    polvo obstructivo, mal
+    contacto.                     Describir     acciones,
+•   Procedimientos                resultados y hallazgos
+    estandarizados          de    de forma clara.
+    sustitución segura de
+    componentes (memoria,         Incorporar evidencias
+    tarjetas,       módulos,      relevantes al informe.
+    ventiladores).
+•   Principios de pruebas         Validar     consistencia
+    estándar                de    técnica     antes    de
+    funcionamiento luego de       entregar el informe.
+    la reparación.
+•   Conceptos de control
+    posterior                al
+    mantenimiento:
+    estabilidad      térmica,
+    rendimiento        inicial,
+    normalidad              en
+    indicadores.
+
+Seguridad            técnica
+aplicada al mantenimiento
+• Tipos de riesgos en
+   intervenciones internas:
+   descargas
+   electrostáticas,
+   cortocircuitos,
+   manipulación de bordes
+   afilados.
+• Importancia       de   las
+   medidas antiestáticas en
+   cada procedimiento.
+• Concepto                de
+   desenergización técnica
+   y zonas seguras de
+   manipulación.
+
+Elaboración de informes
+técnicos
+•   Estructura de un informe
+    técnico                de
+    mantenimiento:      datos
+    iniciales,     acciones,
+    hallazgos, conclusiones
+    y recomendaciones.
+• Tipos        de  evidencia
+    aplicables: fotografías,
+    mediciones, capturas de
+    pruebas.
+• Terminología        técnica
+    adecuada y criterios de
+    claridad comunicacional.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                   Especificaciones técnicas                      Cantidad
+Infraestructura/espacio        Entorno de aprendizaje (aula)                       1
+                               Computadoras con acceso a internet
+                               Servidor
+Laboratorio                                                                        1
+                               Proyector
+                               Estaciones de trabajo para los estudiantes
+                               Fichas técnicas de hardware y software
+                               Equipos intercambiables (teclados,
+                               mouse, fuentes de poder, discos duros,
+                               ventiladores, tarjetas de red, entre otros)
+                               Multímetros digitales
+                               Kits de electricidad/electrónica con
+Herramientas/equipos
+                               (resistencias, diodos, cables, extensiones,
+                               probador de tomacorrientes, entre otros)
+                               Herramientas para mantenimiento y
+                               desmontaje (Destornilladores, pinzas,
+                               alicates, llaves, brochas, sopladores,
+                               cepillos, entre otros)
+                               Pulseras antiestáticas, guantes
+Materiales de seguridad        dieléctricos, gafas de seguridad,
+                               mascarilla, entre otros.
+Referencias Bibliográficas
+Armero Kreisberger, S. (2011). Mantenimiento de computadores. Universidad del Cauca
+        & Computadores para Educar.
+        https://archive.org/details/MantenimientoDeComputadores
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+        Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+        https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+        organica-de-proteccion-de-datos
+Escuela Superior Politécnica Agropecuaria de Manabí Manuel Félix López. (2023). Plan
+        de mantenimiento preventivo y correctivo de equipos de cómputo. Unidad de
+        Tecnología.
+        https://www.espam.edu.ec/recursos/sitio/informativo/archivos/reglamento/202311
+        811436699.pdf
+Instituto Nacional de Ciberseguridad. (2018). Buenas prácticas en el área de informática.
+        INCIBE.
+        https://www.incibe.es/sites/default/files/contenidos/dosieres/metad_buenas_practi
+        cas_en_el_area_de_informatica.pdf
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2021). Guía técnica para la
+        evaluación y prevención de los riesgos relativos a la utilización de los equipos de
+        trabajo. INSST. https://www.insst.es/documentacion/catalogo-de-
+        publicaciones/guia-tecnica-para-la-evaluacion-y-prevencion-de-los-riesgos-
+        relativos-a-la-utilizacion-de-los-equipos-de-trabajo
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Guía técnica para la
+        utilización por los trabajadores de equipos de protección individual. INSST.
+        https://www.insst.es/materias/equipos/epi
+Muñoz Pinto, D. J., & Muñoz Pinto, D. A. (2025). Mantenimiento preventivo y predictivo
+        en centrales telefónicas: Revisión teórica. Athenea, 6(22).
+        https://doi.org/10.47460/athenea.v6i22.108
+Superintendencia de Protección de Datos Personales. (2025). Guía de gestión de
+        riesgos y evaluación de impacto del tratamiento de datos personales (Resolución
+        N.º SPDP-SPD-2025-0003-R). https://spdp.gob.ec/wp-
+        content/uploads/2025/05/03.01.01-SPDP-SPD-2025-0003-R-Guia-Gest-de-Riesg-
+        y-Ev-Imp-signed.pdf
+Universidad Laica Eloy Alfaro de Manabí. (2024). Plan de mantenimiento preventivo y
+        correctivo a equipos informáticos y comunicación (Código PMPC-DIIT-2024,
+        versión 001). Dirección de Informática e Innovación Tecnológica.
+        https://tics.uleam.edu.ec/wp-content/uploads/2024/05/PLAN-DE-
+        MANTENIMIENTO-2024-FINAL-signed-OK-DIIT.pdf
+                            Módulo de Especialización Nro. 3
+Nombre del módulo:                     Redes y Conectividad
+Nivel:                                 2do, 3ro
+Duración:                              280 periodos pedagógicos
+                                       UC3: Resolver fallas de conectividad en redes locales
+Unidad        de      competencia
+                                       o inalámbricas, mediante el análisis técnico y la
+asociada:
+                                       aplicación de soluciones eficaces.
+Objetivo del módulo: Resolver fallas de conectividad en redes cableadas e inalámbricas,
+mediante el análisis técnico, el uso de herramientas de diagnóstico y la aplicación de
+métodos de configuración, para asegurar la disponibilidad, estabilidad y eficiencia de las
+comunicaciones en la red.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar los puntos de red física e inalámbrica considerando categorías de
+conexión, uso de herramientas de diagnóstico, revisión de estándares y registro
+técnico, en condiciones de laboratorio.
+CE1.1: Clasifica instrumentos de diagnóstico de redes físicas e inalámbricas según tipos de
+pruebas y características técnicas requeridas.
+CE1.2: Comprueba niveles de conectividad y calidad de señal aplicando procedimientos
+técnicos establecidos y verificando parámetros medibles.
+CE1.3: Verifica el cumplimiento de estándares mínimos de red contrastando categorías,
+potencias y disposiciones del diseño.
+CE1.4: Usa formatos institucionales para registrar incidencias consignando hallazgos con
+precisión y trazabilidad técnica.
+RA 2: Diagnosticar fallas de conectividad en redes locales evaluando causas físicas
+y lógicas, aplicando herramientas de análisis y estableciendo niveles de afectación.
+CE2.1: Clasifica fallas físicas y lógicas considerando características de componentes,
+configuraciones y condiciones de funcionamiento.
+CE2.2: Aplica comandos y herramientas de análisis de red ejecutando pruebas que
+evidencien interrupciones o degradaciones.
+CE2.3: Usa procedimientos seguros en pruebas de conectividad siguiendo protocolos
+organizacionales y prácticas autorizadas de acuerdo a los protocolos de la organización.
+CE2.4: Determina causas de falla valorando impacto, urgencia y viabilidad de solución.
+RA 3: Aplicar soluciones técnicas de restablecimiento de conectividad de red física
+o inalámbrica, implementando correcciones físicas, ajustes de configuración, bajo
+condiciones de seguridad y estándares de red.
+CE3.1: Distingue correcciones físicas en red cableada o inalámbrica seleccionando
+intervenciones acordes con protocolos técnicos.
+CE3.2: Utiliza herramientas de reconfiguración de red estableciendo parámetros adecuados
+en equipos cliente y dispositivos de red.
+CE3.3: Comprueba la restauración del servicio realizando pruebas de rendimiento y
+estabilidad definidas.
+CE3.4: Emplea medidas preventivas registrando acciones que reduzcan recurrencia y
+mantengan orden documental.
+RA 4: Documentar reportes técnicos de fallas de conectividad estructurando procesos
+realizados, evidencias, resultados y recomendaciones preventivas.
+CE4.1: Describe procedimientos ejecutados y herramientas utilizadas detallando acciones
+y resultados de la intervención.
+CE4.2: Organiza la información recopilada estructurando hallazgos y correcciones según el
+formato institucional.
+CE4.3: Evalúa la calidad del reporte considerando claridad técnica, precisión y utilidad
+operativa.
+CE4.4: Recomienda acciones preventivas proponiendo medidas que reduzcan incidencias
+similares en futuras intervenciones.
+Contenidos
+Conceptuales                    Procedimentales             Actitudinales
+Fundamentos de redes Examinar puntos de red Valorar la importancia del tendido,
+orientados al análisis de física e inalámbrica la integridad y el mantenimiento
+conectividad                    según su categoría y del cableado estructurado en el
+• Concepto de red local y estado.                           desempeño de toda la red.
+    red inalámbrica aplicado
+    a entornos de soporte.      Identificar              la Respetar especificaciones de
+• Componentes                de categorización y tipo de organismos internacionales y
+    infraestructura          de conexión según planos lineamientos del fabricante en la
+    conectividad: puntos de y etiquetas.                    manipulación de componentes de
+    red, patch panels, tomas                                red.
+    RJ45,     AP,     antenas,  Utilizar herramientas   de
+    puertos lógicos.            diagnóstico          para Reconocer la importancia de un
+• Características               evaluar      continuidad,   análisis preciso antes de ejecutar
+    conceptuales             de intensidad o calidad de acciones correctivas.
+    categorías de cableado: señal.
+    Cat5e, Cat6, Cat6A y sus                                Mostrar rigor y responsabilidad en
+    capacidades              de Registrar        valores, las tareas asignadas de revisión y
+    transmisión.                mediciones y resultados diagnóstico.
+• Estructura física del en formatos técnicos.
+    enlace y sus elementos                                  Mantener orden y limpieza en
+    críticos en el diagnóstico: Comparar parámetros zonas de intervención de red.
+    tramo horizontal, vertical, obtenidos      con     los
+    punto final.                estándares vigentes.        Valorar la correcta aplicación de
+• Estándares relevantes                                     normas de seguridad durante
+    para         conectividad: Analizar causas físicas intervenciones en infraestructura
+    TIA/EIA 568, IEEE 802.3 mediante revisión del de red.
+    y      802.11       (visión cableado, conectores o
+    operativa             para disposición física.          Priorizar la integridad de los
+    diagnóstico).                                           equipos y personas durante la
+• Concepto de ancho de          Analizar  causas  lógicas   manipulación de elementos físicos
+    banda, latencia, pérdida mediante indicadores y antenas.
+                                de enlace, pruebas
+   de paquetes y ruido básicas y patrones de                Reconocer la importancia de
+   como indicadores de comportamiento.                      evitar interferencias y riesgos al
+   calidad del enlace.                                      trabajar en zonas elevadas o con
+                                Aplicar herramientas de     dispositivos energizados.
+Herramientas                de análisis de red cableada
+diagnóstico de redes            e inalámbrica.              Reconocer el valor de documentar
+• Función y fundamentos                                     todas las fallas y soluciones
+   de     herramientas      de Clasificar el nivel de       aplicadas.
+   prueba:      certificadores afectación según el
+   básicos, probadores de comportamiento             del    Mantener rigurosidad en el
+   continuidad,                 enlace.                     registro     de      mediciones,
+   analizadores de señal                                    evidencias y acciones correctivas.
+   WiFi, verificadores de Identificar parámetros
+   puertos.                     alterados que influyan      Valorar el uso de reportes técnicos
+• Indicadores                   en la degradación del       como herramienta para mejorar el
+   proporcionados por las servicio.                         desempeño y prevenir futuras
+   herramientas:                                            fallas.
+   continuidad, mapa de Corregir              problemas
+   cables,     potencia     de  físicos        mediante     Mostrar interés en conocer nuevas
+   señal,                canal, reubicación, reconexión     tecnologías    de    conectividad,
+   interferencias.              o reterminación de          estándares y herramientas de
+• Concepto de registro enlaces.                             diagnóstico.
+    técnico de resultados de
+    diagnóstico.                 Ajustar configuraciones Reflexionar sobre los resultados
+Análisis de puntos de red        básicas que influyen en obtenidos       para     mejorar
+física e inalámbrica             la conectividad.        intervenciones futuras.
+• Parámetros de revisión
+    en puntos de red:            Optimizar la disposición   Buscar información confiable
+    conexión           física,   de puntos de acceso        relacionada        con    el
+    integridad del conector,     considerando               comportamiento de las redes
+    asignación del puerto.       interferencias         y   cableadas e inalámbricas.
+• Tipos de interferencias        cobertura.
+    en redes inalámbricas:                       Respetar el aporte técnico de
+    físicas,             Verificar nuevamente la otros integrantes del equipo.
+    electromagnéticas    calidad del enlace tras
+                             y
+    lógicas.             la corrección.          Apoyar la coordinación de tareas
+• Canales, bandas de                             en diagnósticos y correcciones
+                         Evaluar la estabilidad que requieren múltiples acciones.
+    frecuencia y niveles de
+    potencia en WiFi.    de      la     conexión
+                         mediante        pruebas Comunicar de manera clara los
+Diagnóstico de fallas en controladas.            hallazgos y avances del proceso
+redes locales                                    de restablecimiento.
+•   Tipologías     de      fallas   Organizar          datos
+    físicas: ruptura, mala          recolectados durante el
+    conectorización, falsos         análisis y diagnóstico.
+    contactos, degradación
+    del cableado, colisiones        Elaborar     reportes
+    físicas.                        técnicos describiendo
+•   Tipologías     de      fallas   causas, acciones y
+    lógicas: mala asignación        resultados.
+    de            parámetros,
+    saturación del enlace,          Incorporar evidencias
+    bloqueos            lógicos,    en el informe técnico
+    interferencias, duplicidad      (capturas,   registros,
+    de direcciones.                 mediciones).
+•   Concepto de nivel de
+    afectación:          parcial,   Formular
+    intermitente, total.            recomendaciones
+•   Indicadores de fallas:          preventivas basadas en
+    desconexiones                   el     comportamiento
+    esporádicas,       lentitud,    observado.
+    inconsistencia de enlace,
+    caídas de paquetes.         Revisar la coherencia y
+                                claridad del reporte
+Soluciones técnicas          de final.
+restablecimiento             de
+conectividad
+• Principios conceptuales
+   del      restablecimiento
+   físico del enlace.
+• Ajustes             lógicos
+   aplicables     a     redes
+   cableadas                e
+   inalámbricas
+   (configuraciones
+   básicas).
+• Procedimientos
+   estandarizados          de
+   corrección:
+   reterminación,
+   reorganización de canal,
+   redistribución de carga
+   de señal, reubicación de
+   puntos de acceso.
+•   Condiciones    mínimas
+    para validar que el
+    enlace fue restablecido
+    correctamente.
+
+Documentación técnica de
+fallas de conectividad
+• Estructura conceptual de
+    un reporte técnico de
+    conectividad.
+• Tipos de evidencias:
+    capturas     de    señal,
+    mapas de cobertura,
+    resultados de pruebas.
+• Registro organizado de
+    causas        detectadas,
+    acciones correctivas y
+    recomendaciones
+    preventivas.
+• Concepto de rendimiento
+    de red asociado a uso de
+    canales, saturación y
+    distribución de usuarios.
+• Interpretación           de
+    gráficas                 o
+    representaciones
+    visuales de tráfico y
+    cobertura.
+• Buenas prácticas de
+    ubicación de puntos de
+    acceso y diseño básico
+    de cobertura.
+• Concepto operacional de
+    seguridad     en    redes
+    físicas e inalámbricas
+    aplicado al diagnóstico
+    (no incluye configuración
+    de seguridad avanzada,
+    que pertenece a otros
+    módulos).
+• Relación               entre
+    conectividad y entorno:
+    obstáculos, distribución
+    espacial,      materiales
+    constructivos.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                   Especificaciones técnicas                      Cantidad
+Infraestructura/espacio        Entorno de aprendizaje (aula)                       1
+                               Computadoras con acceso a internet
+Laboratorio                    Servidor                                            1
+                               Estaciones de trabajo para los estudiantes
+                               Fichas técnicas de hardware y software.
+                               Sistemas operativos, plataformas de
+                               virtualización, ofimática, bases de datos,
+                               herramientas de programación, software
+                               de diagnóstico, aplicaciones de seguridad,
+                               entre otros.
+                               Insumos de red física e inalámbrica (
+Herramientas/equipos
+                               Switch, router, cables, patch panel,
+                               tarjetas de red, entre otros)
+                               Insumos de instalación, diagnóstico,
+                               pruebas (tester de cable, multímetro,
+                               anlisador de espectro, crimpadora,
+                               pelacables, destornilladores, pinzas,
+                               conectores, entre otros)
+
+                              Pulseras antiestáticas, guantes
+Materiales de seguridad       dieléctricos, gafas de seguridad,
+                              mascarilla, entre otros.
+
+Referencias Bibliográficas
+Barceló Ordinas, J. M., Íñigo Griera, J., Martí Escalé, R., Peig Olivé, E., & Perramon
+       Tornil, X. (2006). Redes de computadores. Universitat Oberta de Catalunya.
+       https://openaccess.uoc.edu/server/api/core/bitstreams/40f465e7-9cc4-4169-a86e-
+       acc16768b752/content
+Cisco Systems, Inc. (2025). Resolución de problemas de velocidad inalámbrica. Cisco.
+       https://www.cisco.com/c/es_mx/support/docs/wireless/wireless-lan-controller-
+       software/220877-troubleshoot-wireless-speed-issues.html
+Cisco Systems, Inc. (2026). Resolución de problemas de latencia de red y caídas de
+       paquetes en switches Catalyst 9000. Cisco.
+       https://www.cisco.com/c/es_mx/support/docs/switches/catalyst-9300-series-
+       switches/225617-troubleshooting-network-latency-and.html
+Cotúa, J. G. (2021). Tutorial de operación de redes IPv6: IPv6 Only y mecanismo de
+       transición SIIT-DC. Registro de Direcciones de Internet de América Latina y
+       Caribe. https://www.lacnic.net/innovaportal/file/5576/1/lacnic36-jgc---tutorial-oper-
+       red-ipv6-siit-dc-11-oct-2021.pdf
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2024). Plan
+       Nacional de Telecomunicaciones 2024–2025. Gobierno del Ecuador.
+       https://www.telecomunicaciones.gob.ec/wp-
+       content/uploads/2024/09/Plan_nacional_de_telecomunicaciones_2024_2025.pdf
+Pacheco, D. S. (2022). Seguridad en redes de comunicaciones: Perspectivas y desafíos.
+       Ingeniare. Revista Chilena de Ingeniería, 30(2), 215–217.
+       https://doi.org/10.4067/S0718-33052022000200215
+Registro de Direcciones de Internet de América Latina y Caribe. (2021). El
+       comportamiento de operadores en el despliegue de IPv6 en América Latina y el
+       Caribe. LACNIC. https://www.lacnic.net/innovaportal/file/5832/1/el-
+       comportamiento-de-operadores-en-el-despliegue-de-ipv6-en-america-latina-y-el-
+       caribe-es.pdf
+Unión Internacional de Telecomunicaciones. (2001). Categorías de calidad de servicio
+       para los usuarios de extremo de servicios multimedios (Recomendación UIT-T
+       G.1010). https://www.itu.int/rec/T-REC-G.1010-200111-I/es
+Unión Internacional de Telecomunicaciones. (2019). Servicio de comunicación de datos
+       con protocolo Internet: Parámetros de calidad de funcionamiento relativos a la
+       disponibilidad y la transferencia de paquetes del protocolo Internet
+       (Recomendación UIT-T Y.1540). https://www.itu.int/rec/T-REC-Y.1540-201912-
+       I/es
+Universidad Técnica Federico Santa María. (2025). Manual estándar de cableado
+       estructurado y networking. Dirección de Tecnologías de la Información.
+       https://dti.usm.cl/wp-content/uploads/sites/16/2025/03/Estandar-Cableado-
+       estructurado-DTI-Vol1.pdf
+
+
+
+
+                            Módulo de Especialización Nro. 4
+Nombre del módulo:                    Soporte Técnico Informático.
+Nivel:                                1ro, 2do, 3ro
+Duración:                             360 periodos pedagógicos
+Unidad       de     competencia      UC4: Desarrollar actividades de soporte técnico
+asociada:                            presencial y/o remoto a usuarios finales.
+Objetivo del módulo: Ejecutar procedimientos técnicos para brindar soporte presencial o
+remoto a usuarios finales, identificando y resolviendo incidencias en hardware, software o
+conectividad.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Analizar incidencias técnicas reportadas por usuarios, priorizándolas según
+su nivel de impacto.
+CE1.1: Clasifica la incidencia según su naturaleza (hardware, software, red, configuración
+o acceso) y su nivel de severidad.
+CE1.2: Registra la información del incidente de manera precisa y ordenada en sistemas
+de tickets o formatos de soporte establecidos
+CE1.3: Organiza los incidentes de acuerdo con el impacto generado en la operación o en
+el servicio al usuario
+RA2: Aplicar acciones de soporte técnico, siguiendo procedimientos técnicos
+establecidos de forma presencial o remota.
+CE2.1: Selecciona la técnica de soporte más adecuada (presencial o remota),
+considerando el tipo de incidente y las condiciones del entorno
+CE2.2: Utiliza los procedimientos establecidos para la resolución de incidencias,
+cumpliendo con las políticas de seguridad y protocolos de atención.
+CE2.3: Usa herramientas de acceso remoto, diagnóstico y comunicación de forma eficaz
+y segura
+CE2.4: Resuelve la incidencia o deriva el caso según su nivel de complejidad y los límites
+de su rol técnico
+RA3: Comprobar la funcionalidad de los sistemas o equipos intervenidos,
+verificando la efectividad de la solución aplicada.
+CE3.1: Ejecuta pruebas funcionales básicas después de la intervención, comprobando la
+operatividad del sistema o equipo
+CE3.2: Confirma con el usuario que su requerimiento ha sido resuelto de manera
+satisfactoria
+CE3.3: Registra las acciones realizadas y los resultados obtenidos en el sistema o formato
+establecido
+RA4: Emplear buenas prácticas de atención al usuario, comunicación efectiva y
+registro del soporte brindado.
+CE4.1: Establece una comunicación clara, empática y respetuosa con el usuario durante
+todo el proceso de soporte.
+CE4.2: Explica al usuario las acciones a realizar, los tiempos estimados de solución y
+medidas preventivas básicas.
+CE4.3: Documenta el historial del soporte de forma clara y ordenada, facilitando futuras
+atenciones o procesos de auditoría.
+Contenidos
+Conceptuales                    Procedimentales                      Actitudinales
+Incidencias técnicas y          Identificar síntomas de fallas en    Reconocer los límites de
+protocolos de atención.         equipos o sistemas mediante la       su competencia técnica y
+• Tipos        y      causas    consulta      al   usuario      o    escalar    cuando    sea
+   frecuentes de incidencias    herramientas de diagnóstico.         necesario.
+   en hardware, software y
+   conectividad.                Registrar de forma precisa las       Mantener integridad y
+• Clasificación            y    incidencias             reportadas   honestidad   en     la
+   priorización de fallas       utilizando formatos físicos o        ejecución del trabajo
+   según       impacto     y    digitales.                           técnico.
+   criticidad.                  Clasificar y priorizar incidencias
+• Proceso       técnico   de    según su nivel de criticidad e       Participar activamente en
+   diagnóstico de problemas     impacto operativo.                   espacios de actualización
+   reportados por usuarios.                                          profesional.
+• Protocolos institucionales   Aplicar    procedimientos       de
+   para la atención de         solución de problemas de              Valorar la importancia de
+   solicitudes técnicas.       hardware,         software        o   una atención técnica
+                               conectividad según el caso.           oportuna y eficiente como
+Procedimientos de soporte Utilizar herramientas digitales            parte fundamental del
+técnico.                       para brindar soporte remoto a         servicio informático.
+• Etapas       del    soporte usuarios,       garantizando      la
+   técnico:       diagnóstico, integridad del sistema.               Respetar               la
+   intervención, solución y                                          confidencialidad de los
+   seguimiento.                Verificar la efectividad de la        datos y la privacidad de
+• Procedimientos               solución      técnica    aplicada     los usuarios durante los
+   establecidos para soporte mediante pruebas funcionales y          procesos de soporte.
+   presencial y remoto.        validación con el usuario.
+• Herramientas               y                                       Mostrar iniciativa en el
+   plataformas            para Documentar paso a paso las            uso de herramientas
+   asistencia          técnica acciones realizadas durante el        actualizadas            de
+   (acceso remoto, sistemas soporte técnico, incluyendo              asistencia    remota     y
+   de tickets, monitoreo).     recursos utilizados y tiempos de      gestión de incidencias.
+• Aplicación de soluciones respuesta.
+                                                                     Aceptar con apertura la
+   correctivas y preventivas Comunicar de forma clara y
+                               profesional                    las    retroalimentación       del
+   en equipos y redes.
+                               recomendaciones técnicas o            usuario o del equipo
+                                                                     técnico, enfocándose en
+Verificación     técnica     y medidas preventivas al usuario.
+                                                                     la mejora del servicio.
+validación de soluciones.
+• Métodos de prueba para        Escalar los casos que superan
+   verificar             el     el    nivel   de     intervención
+   funcionamiento      del      permitido o que requieren
+   sistema      o   equipo      asistencia especializada.
+   intervenido.
+•   Indicadores técnicos de       Mantener       actualizada     la
+    efectividad de la solución    información técnica en       las
+    aplicada.                     plataformas de gestión        de
+•   Registro    técnico     de    incidencias o tickets.
+    acciones realizadas y
+    resultados obtenidos.   Aplicar               protocolos
+                            institucionales de seguridad al
+Atención al usuario y manipular equipos o acceder a
+comunicación profesional. sistemas ajenos.
+• Principios de atención al
+   usuario en contextos Asegurar la confidencialidad de
+   tecnológicos.            la información a la que se tiene
+• Estrategias            de acceso         durante        las
+   comunicación efectiva en intervenciones técnicas.
+    soporte técnico.
+•   Registro estructurado del
+    soporte brindado: datos
+    del incidente, solución
+    aplicada, satisfacción del
+    usuario.
+•   Ética    profesional      y
+    calidad del servicio en la
+    atención técnica.
+•   Herramientas de soporte
+    remoto: escritorio remoto,
+    herramientas
+    colaborativas, conexión
+    vía VPN.
+•   Normas      básicas      de
+    seguridad      digital    y
+    protección    de      datos
+    durante    la     atención
+    técnica.
+
+Perfil del docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                  Detalle de especificaciones técnicas              Cantidad
+                              Entorno de aprendizaje (aula)
+Infraestructura/espacio                                                            1
+                              Aula taller
+                              Computadoras con acceso a internet.
+                              Servidor.
+                              Proyector.
+Laboratorio                   Redes de computadoras.                               1
+                              Hardware para prácticas.
+                              Redes telecomunicaciones.
+                              Software y herramientas digitales.
+                              Pulseras antiestáticas, guantes dieléctricos,
+Materiales de seguridad
+                              gafas de seguridad, mascarilla, entre otros.
+Referencias Bibliográficas
+ Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+         Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+         https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+         organica-de-proteccion-de-datos
+ Asamblea Nacional del Ecuador. (2026). Ley Orgánica para el Fortalecimiento de la
+         Ciberseguridad (Registro Oficial N.º 290, Quinto Suplemento, 22 de mayo de
+         2026). https://www.registroficial.gob.ec/quinto-suplemento-no-290/
+ Ayala López, M. S., & López Rodríguez, A. (2024). Rediseño del proceso de solicitud de
+         soporte técnico con enfoque de arquitectura empresarial en la Facultad de
+         Ingeniería Industrial. Revista Latino-Americana de Inovação e Engenharia de
+         Produção, 12(23), 127–140. https://doi.org/10.5380/relainep.v12i23.97575
+ Celis-Reátegui, R. D. (2023). Implementación del marco de trabajo ITIL V3 y su impacto
+         en la gestión de incidencias en organizaciones de TI. Revista Amazonía Digital,
+         2(1), e278. https://doi.org/10.55873/rad.v2i1.278
+ Centro Criptológico Nacional. (2022). CCN-STIC 836: Seguridad en redes privadas
+         virtuales (VPN) en el marco del Esquema Nacional de Seguridad. CCN-CERT.
+         https://www.ccn-cert.cni.es/es/seguridad-al-dia/novedades-ccn-cert/11564-
+         actualizada-la-guia-ccn-stic-836-sobre-seguridad-en-redes-privadas-virtuales-
+         vpn.html
+ Instituto Nacional de Ciberseguridad. (2021). Información confidencial, secreto
+         profesional: Acuerdos de confidencialidad. INCIBE.
+         https://www.incibe.es/empresas/blog/informacion-confidencial-secreto-profesional-
+         acuerdos-confidencialidad
+Microsoft. (2025). Solucionar problemas de desconexión de Escritorio remoto. Microsoft
+       Learn. https://learn.microsoft.com/es-es/troubleshoot/windows-
+       server/remote/troubleshoot-remote-desktop-disconnected-errors
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2024). Esquema
+       Gubernamental de Seguridad de la Información (EGSI), versión 3.0 (Acuerdo
+       Ministerial N.º MINTEL-MINTEL-2024-0003). Gobierno del Ecuador.
+       https://www.telecomunicaciones.gob.ec/wp-content/uploads/2024/04/Acuerdo-
+       Nro.-MINTEL-MINTEL-2024-0003-Esquema-Gubernamental-Seguridad-de-la-
+       Informacion-EGSI.pdf
+Superintendencia de Protección de Datos Personales. (2025). Guía de gestión de riesgos
+       y evaluación de impacto del tratamiento de datos personales (Resolución N.º
+       SPDP-SPD-2025-0003-R). https://spdp.gob.ec/wp-
+       content/uploads/2025/05/03.01.01-SPDP-SPD-2025-0003-R-Guia-Gest-de-Riesg-
+       y-Ev-Imp-signed.pdf
+
+
+
+
+                             Módulo Especialización Nro.5
+Nombre del módulo:                    Fundamentos Básicos de Electricidad Y Electrónica
+Nivel:                                 1ro, 2do, 3ro
+Duración:                              320 periodos pedagógicos
+                                       UC5: Adoptar medidas de seguridad eléctrica y
+Unidad        de       competencia     electrónica, cumpliendo con normas básicas de
+asociada:                              protección, prevención de riesgos y uso adecuado
+                                       de equipos en entornos tecnológicos.
+Objetivo del módulo: Implementar medidas de seguridad eléctrica y electrónica en
+entornos informáticos, cumpliendo normas básicas de protección personal, prevención de
+riesgos y uso adecuado de equipos, con responsabilidad y atención al entorno laboral.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Analizar los principios fundamentales de la electricidad relacionados con el
+funcionamiento seguro de entornos tecnológicos.
+CE1.1: Clasifica los tipos de corriente, cables, conectores y dispositivos de protección
+eléctrica según su característica.
+CE1.2: Distingue los tipos de corriente, cables, conectores, fases y dispositivos de
+protección eléctrica.
+CE1.3: Interpreta símbolos y esquemas eléctricos simples utilizados en entornos de soporte
+técnico.
+RA:2: Implementar normas básicas de seguridad eléctrica y electrónica durante la
+manipulación de equipos informáticos.
+CE2.1: Reconoce riesgos eléctricos comunes presentes en salas técnicas, oficinas,
+laboratorios y centros de cómputo.
+CE2.2: Emplea buenas prácticas en el uso de herramientas, aplicación de EPP (equipos
+de protección personal y normas de desconexión eléctrica.
+CE2.3: Ejecuta medidas preventivas para evitar descargas eléctricas, cortocircuitos y daños
+electrónicos en equipos.
+CE2.4: Gestiona la resolución de incidencias eléctricas dentro del alcance de su rol técnico.
+RA:3: Evaluar las condiciones de instalación eléctrica y electrónica en espacios que
+utilizan equipos informáticos.
+CE3.1: Inspecciona puntos de conexión, tomas eléctricas, UPS, estabilizadores y
+extensiones en entornos informáticos.
+CE3.2: Verifica la existencia de puesta a tierra, el uso correcto de protecciones (fusibles,
+disyuntores), y el estado de los cables.
+CE3.3: Reporta hallazgos y riesgos eléctricos y electrónicos detectados, siguiendo formatos
+o protocolos definidos.
+RA:4: Participar en la implementación de medidas de protección eléctrica para
+usuarios y equipos.
+CE4.1: Apoya la instalación de UPS, protectores de voltaje, canalización de cables,
+rotulación de zonas y señalización de riesgos.
+CE4.2: Ejecuta pruebas básicas con multímetro o herramientas de diagnóstico eléctrico y
+electrónico, bajo supervisión
+CE4.3: Colabora en simulacros o prácticas de contingencia ante fallos eléctricos, siguiendo
+indicaciones técnicas.
+Contenidos
+Conceptuales                   Procedimentales               Actitudinales
+Fundamentos eléctricos Identificar            componentes Reconocer la necesidad de
+y electrónicos.                eléctricos y electrónicos cumplir rigurosamente con
+• Fuente de alimentación básicos             en     fuentes, normas y protocolos de
+• Principios básicos de        tableros  y placas.           seguridad eléctrica al manipular
+    electricidad:     tensión,                               equipos electrónicos.
+    corriente,    resistencia, Comprobar niveles de
+    potencia y energía.        tensión y continuidad de Promover ambientes de trabajo
+• Paneles solares.             circuitos           mediante seguros        mediante        la
+• Generadores.                 multímetros o instrumentos prevención       de     accidentes
+• Estructura                 y básicos.                      eléctricos.
+    comportamiento          de
+    circuitos       eléctricos   Diagnosticar          fallas   Mostrar     responsabilidad    y
+    simples: serie, paralelo y   comunes       en    cables,    disciplina en la manipulación de
+    mixtos.                      fuentes    de    poder     o   dispositivos energizados o en la
+•   Identificación y función     dispositivos de conexión       evaluación de condiciones
+    de          componentes      eléctrica.                     eléctricas.
+    electrónicos comunes:
+    resistencias,                Manipular          equipos     Seguir     protocolos      y
+    condensadores, diodos,       electrónicos     siguiendo     recomendaciones          sin
+    circuitos de protoboard y    normas de prevención de        excepción   para   minimizar
+    placas      arduinas     y   descarga electrostática.       riesgos.
+    transistores.
+•  Magnitudes eléctricas         Instalar dispositivos de        Compartir     información    y
+   fundamentales: voltaje,       protección        eléctrica     buenas prácticas en materia de
+   corriente,    resistencia,    adecuados       a       las     seguridad       eléctrica    y
+   potencia y su relación        condiciones del entorno         electrónica.
+   mediante la Ley de            tecnológico.
+   Ohm.                                                          Asumir la responsabilidad ética
+• Tipos      de     corriente:   Verificar      la      correcta en la aplicación de medidas de
+   corriente continua (DC)       conexión de los equipos         seguridad, entendiendo las
+   y corriente alterna (AC),     informáticos a la red           consecuencias        de       la
+   características           y   eléctrica mediante revisión     negligencia.
+   aplicaciones.                 de polaridad, continuidad y
+• Componentes eléctricos         tierra física.                   Mostrar      disposición     para
+   básicos:     resistencias,                                     aprender       sobre      nuevas
+   fusibles, interruptores,      Aplicar procedimientos de tecnologías            de     protección
+   transformadores,              seguridad       personal      al eléctrica aplicadas a entornos
+   fuentes de alimentación.      operar en instalaciones informáticos.
+• Fundamentos              de    eléctricas o al manipular
+   electrónica        básica:    componentes energizados. Fomentar                 una       cultura
+   semiconductores,                                               preventiva en el equipo de
+   diodos,      transistores,    Evaluar condiciones del trabajo             frente    a    riesgos
+   circuitos        impresos     entorno        de       trabajo: eléctricos, promoviendo el
+   (PCBs).                       humedad,           ventilación, cumplimiento de normas.
+Riesgos eléctricos en            sobrecargas, organización
+entornos informáticos.           de cables.                       Mantener una actitud de
+• Tipos de incidentes:                                            respeto hacia la integridad
+   descargas       eléctricas,   Interpretar         diagramas física de las personas y el
+   cortocircuitos,               básicos de conexiones correcto funcionamiento de los
+   sobrecargas y arcos           eléctricas para identificar equipos              mediante        la
+   eléctricos.                   rutas de alimentación.           observancia permanente de las
+• Factores de riesgo:                                             buenas prácticas eléctricas.
+   cables dañados, malas         Realizar         inspecciones
+   conexiones, humedad,          visuales y técnicas de las Ser cuidadoso y meticuloso en
+   falta de puesta a tierra.     instalaciones eléctricas en las         tareas     que    implican
+• Riesgos          eléctricos    espacios informáticos.           contacto con componentes
+   comunes                 en    Colaborar          en         la electrónicos delicados.
+   instalaciones                 implementación               de
+   informáticas:                 medidas correctivas en
+   sobrecarga,                   casos de riesgo eléctrico
+   cortocircuitos,               identificado.
+   acumulación             de
+   estática.                     Registrar    condiciones
+Protección eléctrica y           técnicas de los equipos
+puesta a tierra.                 eléctricos y electrónicos
+•  Función y principios de durante la evaluación del
+   la toma de tierra en entorno.
+   sistemas TI.
+• Dispositivos             de
+   protección         contra
+   sobretensiones:
+   supresores, protectores
+   de línea.
+• Regulador de voltaje,
+   Ups y fuente de poder.
+• Procedimientos para la
+   verificación             y
+   mantenimiento           de
+   sistemas de puesta a
+   tierra.
+• Normas básicas de
+   seguridad eléctrica en
+   entornos tecnológicos.
+Mantenimiento             de
+equipos eléctricos y
+electrónicos.
+• Inspección de cables,
+   conectores, regletas y
+   sistemas                de
+   alimentación             y
+   dispositivos
+   electrónicos.
+• Mediciones       eléctricas
+   básicas: continuidad a
+   tierra, resistencia de
+   aislamiento.
+• Registro                  y
+   documentación           de
+   pruebas de seguridad
+   eléctrica y electrónica.
+Gestión de emergencias
+eléctricas.
+• Protocolos             ante
+   emergencias: corte de
+   energía, RCP básico.
+• Uso       adecuado       de
+   extintores clase C para
+   incendios eléctricos.
+•  Comunicación efectiva y
+   reporte de incidentes
+   eléctricos y electrónicos
+• Procedimientos          de
+   evaluación             de
+   instalaciones eléctricas
+   en laboratorios, oficinas
+   y centros de datos.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                           Cantidad
+                          Entorno de aprendizaje (aula)
+Infraestructura/espacio                                                           1
+                          Aula taller
+                          Computador
+Laboratorio                                                                       1
+                          Proyector
+                          Equipos      eléctricos:     tablero    eléctrico
+                          independiente con protecciones, tomas
+                          múltiples seguras, suministro de corriente
+                          alterna y continua, reguladores de voltaje entre
+                          otros.
+                          Equipos de medición: multímetros digitales y
+                          analógicos, osciloscopios, generadores de
+                          funciones,      protoboards,      fuentes      de
+Herramientas/equipos      alimentación regulables.
+                          Componentes          eléctricos:      bombillas,
+                          interruptores, fusibles, relés, contactores,
+                          cables de diferentes calibres, transformadores
+                          didácticos entre otros.
+                          Componentes electrónicos
+                          destornilladores, pinzas de corte, punta fina y
+                          presión, pelacables, estaciones de
+                          soldadura, estaño, taladro y herramientas
+                           manuales ligeras.
+ Materiales de               Pulseras antiestáticas, guantes dieléctricos,
+ seguridad                   gafas de seguridad, mascarilla, entre otros
+ Referencias Bibliográficas
+ Asamblea Nacional del Ecuador. (2015). Ley Orgánica del Servicio Público de Energía
+         Eléctrica (Registro Oficial N.º 418, Tercer Suplemento, 16 de enero de 2015).
+         https://www.recursosyenergia.gob.ec/wp-content/uploads/2019/03/LEY-DE-
+         ELECRICIDAD.pdf
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2021). Guía técnica para la
+         evaluación y prevención de los riesgos relacionados con la protección frente al
+         riesgo eléctrico. INSST.
+         https://www.insst.es/documents/94886/789467/Gu%C3%ADa%2Bt%C3%A9cnica
+         %2Bpara%2Bla%2Bevaluaci%C3%B3n%2By%2Bprevenci%C3%B3n%2Bde%2B
+         los%2Briesgos%2Brelacionados%2Bcon%2Bla%2Bprotecci%C3%B3n%2Bfrente
+         %2Bal%2Briesgo%2Bel%C3%A9ctrico.pdf
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2021). El riesgo debido a la
+         electricidad estática: medidas preventivas. ERGA Online, (165).
+         https://www.insst.es/documents/94886/152662/N%C3%BAmero%2B165%2B-
+         %2BErga%40nline.pdf
+ Ling, S. J., Moebs, W., & Sanny, J. (2021). Física universitaria: Volumen 2. OpenStax.
+         https://openstax.org/details/books/f%C3%ADsica-universitaria-volumen-2
+ Ministerio de Energía y Recursos Naturales No Renovables. (2021). Reglamento
+         General a la Ley Orgánica del Servicio Público de Energía Eléctrica (Decreto
+         Ejecutivo N.º 239). https://www.recursosyenergia.gob.ec/wp-
+         content/uploads/2022/12/20211020-Decreto_Ejecutivo_No._229-Reglamento-
+         LOEE_compressed.pdf
+ Servicio Ecuatoriano de Normalización. (2026). Normas técnicas ecuatorianas
+         oficializadas. INEN. https://www.normalizacion.gob.ec/normas-oficializadas/
+
+
+
+
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras
+de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como el
+trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación a
+entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver situaciones
+reales, al tiempo que refuerza sus capacidades técnicas y fomenta el desarrollo de
+competencias conceptuales, procedimentales y actitudinales, tanto de los módulos
+genéricos como de los de especialización.
+
+                              Módulo Práctico Experimental
+ Nombre del módulo:           Práctico Experimental
+ Nivel:                       1ro, 2do, 3ro
+ Duración:                    400 periodos pedagógicos
+ Unidad de competencia        UC 2: Ejecutar el mantenimiento preventivo y correctivo en
+ asociada:                    equipos y dispositivos tecnológicos, siguiendo los protocolos
+                              técnicos.
+                              UC 2: Ejecutar el mantenimiento preventivo y correctivo en
+                              equipos y dispositivos tecnológicos, siguiendo los protocolos
+                              técnicos.
+                              UC 3: Resolver fallas de conectividad en redes locales o
+                              inalámbricas, mediante el análisis técnico y la aplicación de
+                              soluciones eficaces.
+                              UC 4: Desarrollar actividades de soporte técnico presencial
+                              y/o remoto a usuarios finales.
+                              UC 5: Aplicar medidas de seguridad eléctrica y electrónica,
+                              cumpliendo con normas básicas de protección, prevención de
+                              riesgos y uso adecuado de equipos en entornos informáticos.
+ Objetivo del módulo: Desarrollar en los estudiantes la capacidad de integrar y aplicar en
+ forma práctica, crítica y contextualizada los conocimientos técnicos adquiridos en los
+ módulos formativos de la figura profesional de Soporte Informático, mediante actividades
+ de soporte real en hardware, software, redes y asistencia técnica a usuarios, en entornos
+ controlados y reales, incluyendo visitas técnicas a empresas e instituciones vinculadas al
+ sector.
+ Resultados               de    Criterios de evaluación Actividades Prácticas
+ aprendizaje (RA)               (CE)                         Experimentales
+ RA1:                 Aplicar   CE1.1:             Ejecuta Asistencia técnica en entornos
+ procedimientos     técnicos    correctamente             la institucionales           reales:
+ integrados de soporte          instalación, configuración laboratorios,          bibliotecas,
+ informático en hardware,       y     mantenimiento      de  departamentos
+ software y redes en            equipos       informáticos, administrativos.
+ escenarios     reales      o   considerando las normas Instalación y configuración de
+ simulados.                     técnicas y de seguridad.     sistemas        operativos      y
+                                                             aplicaciones.
+                                CE1.2: Realiza pruebas Montaje y prueba de redes
+                                de     funcionamiento      y cableadas e inalámbricas.
+                                validación          técnica Uso de herramientas de
+                                posterior      a      cada diagnóstico para resolución de
+                                intervención.                fallas de conectividad
+                                 CE1.3: Resuelve fallas de     Registro y documentación de
+                                 conectividad en redes         incidencias   y  soluciones
+                                 cableadas e inalámbricas      aplicadas.
+                                 mediante     diagnósticos,
+                                 pruebas     técnicas     y
+                                 documentando el proceso.
+RA2:      Interactuar   con      CE2.1: Identifica, analiza    Soporte remoto y presencial a
+usuarios finales brindando       y prioriza incidencias        usuarios      en    instituciones
+soporte técnico de manera        técnicas reportadas por       educativas       o     empresas
+presencial      o    remota,     los usuarios con base en      mediante               asistencia
+aplicando protocolos de          criterios de impacto y        planificada.
+atención y comunicación          urgencia.                     Simulación de situaciones de
+efectiva.                                                      soporte con roles rotativos
+                                 CE2.2: Mantiene una           (usuario – técnico).
+                                 actitud        profesional,   Aplicación de protocolos de
+                                 empática y orientada a la     atención      y    comunicación
+                                 solución     durante    el    técnica efectiva.
+                                 proceso de asistencia         Elaboración      de      informes
+                                 técnica.                      técnicos y bitácoras de soporte.
+RA3: Aplicar medidas de          CE3.1: Utiliza equipos,       Identificación     de      riesgos
+seguridad         eléctrica,     herramientas             y    eléctricos y electrónicos en el
+electrónica e informática        dispositivos respetando       laboratorio.
+durante las actividades de       protocolos de seguridad        Uso de equipos de protección
+soporte, cumpliendo con          eléctrica, electrónica e      personal (EPP) en prácticas de
+normas      básicas      de      informática.                  soporte.
+protección y prevención de                                     Aplicación de protocolos de
+riesgos.                         CE3.2: Evalúa riesgos         seguridad en montaje de
+                                 potenciales en el entorno     equipos          y          redes.
+                                 de trabajo antes de           Simulación de planes de
+                                 ejecutar la intervención      contingencia y respuesta ante
+                                 técnica.                      incidentes.
+RA4:                  Aplicar    CE4.1:             Realiza    Diagnóstico y solución de fallas
+mantenimiento preventivo         diagnósticos     utilizando   reales en equipos (fuente,
+y correctivo en equipos y        herramientas físicas y        RAM,        disco,       sistema,
+dispositivos tecnológicos,       digitales,   identificando    periféricos).
+diagnosticando          fallas   causas y niveles de
+físicas    y     lógicas     y   afectación en los equipos. Mantenimiento         preventivo
+verificando la funcionalidad                                 completo en un laboratorio
+posterior.                       CE4.2:             Ejecuta informático institucional.
+                                 mantenimiento preventivo
+                                 y correctivo aplicando Realizar pruebas y monitoreo
+                                 procedimientos técnicos, de temperatura en equipos
+                                 reemplazo                de utilizando             software
+                                                             especializado,     comparando
+                               componentes y pruebas resultados antes y después del
+                               de verificación.      mantenimiento.
+
+                                                             Sustituir componentes internos
+                                                             (disco duro, memoria RAM,
+                                                             ventiladores, pasta térmica)
+                                                             documentando el proceso con
+                                                             evidencias fotográficas.
+ RA5: Resolver fallas de       CE5.1: Analiza puntos de      Simulación y resolución de
+ conectividad en redes         red, cableado, equipos        fallas     de    red     usando
+ locales o inalámbricas        activos y configuraciones     herramientas      como     ping,
+ mediante análisis técnico,    para identificar incidentes   tracert, Netstat, Wireshark o
+ pruebas de diagnóstico y      de conectividad.              similares.
+ aplicación de soluciones
+ eficaces, documentando        CE5.2: Aplica soluciones      Reparación de puntos de red,
+ resultados.                   físicas y lógicas basadas     cambio      de      conectores,
+                               en             diagnósticos   verificación de cableado y
+                               confiables, restableciendo    pruebas con certificadores.
+                               la operatividad de la red.
+                                                             Visita técnica a un proveedor
+                                                             de servicios tecnológicos o
+                                                             institución   educativa    para
+                                                             analizar infraestructura real de
+                                                             red.
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses formativos
+para cada año de bachillerato técnico, promoviendo un aprendizaje significativo, sin que este
+reemplace su paso por la Formación Estudiantil en Centros Educativos y de Trabajo.
+

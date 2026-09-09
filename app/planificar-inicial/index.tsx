@@ -52,15 +52,6 @@ const OBJETIVO_GRAL: Record<string, string> = {
 
 const METODOLOGIAS = ["Juego-trabajo", "Juego libre", "Rincones de aprendizaje", "Experiencia directa"];
 
-const EJES = [
-  "Permanencia Escolar",
-  "Socioemocional",
-  "Lógico-matemático",
-  "Corporal y motriz",
-  "Artístico",
-  "Lengua y comunicación",
-];
-
 const METODOS_EVAL = ["Observación", "Fichas anecdóticas", "Fichas de cotejo", "Portfolio"];
 
 const AMBITOS_INI = AREAS_INFO["INI"].bloques; // {1: "Identidad y Autonomía", ...}
@@ -609,27 +600,6 @@ function AmbitoCard({
               <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }}>{amb.competenciaDescripcion}</Text>
             </View>
           )}
-
-          {/* Ejes transversales */}
-          <Label text="Ejes transversales" />
-          <View style={s.chipRow}>
-            {EJES.map(eje => (
-              <Chip
-                key={eje}
-                label={eje}
-                selected={amb.ejesTransversales.includes(eje)}
-                onPress={() => {
-                  const tiene = amb.ejesTransversales.includes(eje);
-                  onUpdate({
-                    ejesTransversales: tiene
-                      ? amb.ejesTransversales.filter(e => e !== eje)
-                      : [...amb.ejesTransversales, eje],
-                  });
-                }}
-                color="#64748B"
-              />
-            ))}
-          </View>
 
           {/* Clases */}
           <View style={s.clasesHeader}>

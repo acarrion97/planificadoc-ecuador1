@@ -1,0 +1,2075 @@
+                   MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL
+                       “ELECTROMECÁNICA AUTOMOTRIZ”
+
+       1.     Objetivo General
+
+   Ejecutar procesos de diagnósticos, mantenimientos preventivos y correctivos en
+   sistemas mecánicos, hidráulicos, neumáticos, eléctricos y electrónicos del vehículo,
+   así como adaptaciones y acabados en componentes metalúrgicos, aplicando
+   procesos técnicos y de fabricación conforme a especificaciones del fabricante,
+   garantizando seguridad, eficiencia, calidad, sostenibilidad ambiental y cumplimiento
+   de normas de salud ocupacional.
+
+       2.     Plan de estudios
+
+                                                                  1ro     2do     3ro
+ Total periodos pedagógicos tronco común
+                                                                  19       19      19
+                     Seguridad Industrial                          2        2
+ Módulos Genéricos
+ de     la   Familia Procesos Industriales Sostenibles             2        2
+ Profesional
+                     Dibujo Técnico Aplicado                       2        2
+                           Motores                                          3      7
+                           Tren de Rodaje                          5        4      3
+ Módulos de
+ Especialización           Metalmecánica Aplicada al Vehículo      4        2
+
+                           Sistemas Eléctricos y Electrónicos      4        4      7
+
+ Módulo Práctico Experimental                                      2        2      4
+ Total de periodos pedagógicos de formación técnica               21       21      21
+
+              3.      3.       Módulos Genéricos
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la familia Industrial. Gracias a las características
+de los módulos trabajados en esta etapa, adquieren herramientas que le permiten
+construir una opinión más informada y tomar decisiones con mayor fundamento. Esto
+favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa,
+insertarse en el mundo laboral o emprender un proyecto propio.
+
+ Se estructuran los siguientes módulos genéricos:
+  •   Seguridad Industrial
+  •   Procesos Industriales Sostenibles
+  •   Dibujo Técnico aplicado
+
+                                 Módulo Genérico Nro. 1
+Nombre del módulo                    Seguridad Industrial
+Nivel:                               1ro y 2do
+Duración:                            160 periodos pedagógicos
+                                     UC 1: Aplicar normas, procedimientos, planes de
+                                     seguridad e higiene en talleres, laboratorios y procesos
+Unidad       de      competencia industriales, en la prevención de riesgos, mediante el
+asociada:                            uso adecuado de herramientas, equipos y máquinas,
+                                     demostrando responsabilidad, disciplina y ética
+                                     profesional.
+Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Emplear normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Monitorea señales de seguridad en talleres y laboratorios verificando su ubicación
+y legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Utiliza los equipos de protección personal antes de iniciar actividades asegurando
+su funcionalidad.
+CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA 2: Ejecutar procedimientos de identificación, análisis y prevención de riesgos en
+entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE 2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE 2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE 2.3: Emplea medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE 2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA 3: Establecer planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE 3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE 3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE 3.3: Ejecuta la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE 3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de
+la integridad de personas y bienes.
+ RA 4: Fomentar prácticas de seguridad, higiene y sostenibilidad en actividades
+ industriales promoviendo disciplina, ética profesional y mejora continua.
+CE 4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE 4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE 4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE 4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y
+compromiso con la mejora continua.
+Contenidos
+Conceptuales                      Procedimentales                  Actitudinales
+Fundamentos           de       la Identificar riesgos presentes Demostrar disciplina en el
+seguridad             industrial, en el entorno laboral cumplimiento de normas de
+principios,      objetivos      y utilizando herramientas de seguridad e higiene.
+beneficios.                       observación y registro.
+                                                                   Mostrar interés en la
+Legislación y normativa Analizar                diagramas       de identificación y control de
+vigente en seguridad, salud procesos industriales para riesgos industriales.
+ocupacional       e     higiene localizar posibles focos de
+                                                                   Cumplir      con    el   uso
+laboral       (nacional       e peligro.
+                                                                   permanente y correcto de
+internacional).
+                                  Seleccionar equipos de equipos                de    protección
+Derechos y obligaciones en protección personal según personal.
+prevención       de     riesgos tipo de actividad y riesgo
+                                                                   Valorar la importancia del
+laborales.                        identificado.
+                                                                   orden y la limpieza en la
+Normas      generales        de Utilizar           correctamente seguridad del trabajo.
+seguridad       en     talleres, equipos        de     protección
+                                                                   Respetar la señalización de
+laboratorios      y     plantas personal            garantizando
+                                                                   seguridad instalada.
+industriales.                     seguridad y comodidad.
+                                                                   Demostrar responsabilidad
+Tipos        de         riesgos Instalar          y      verificar
+                                                                   en la ejecución de protocolos
+industriales:           físicos, señalización de seguridad en
+                                                                   de emergencia.
+químicos,           biológicos,
+ergonómicos,    eléctricos,     talleres      y        plantas Asumir        una      actitud
+mecánicos y psicosociales.      industriales.                  preventiva frente a los
+                                                               riesgos laborales.
+Equipos de protección           Aplicar rutinas de orden y
+personal           (EPP):       limpieza siguiendo el método Mantener disposición activa
+clasificación,                  5S.                            en simulacros de evacuación
+características, uso   y                                       y control de incendios.
+                                Ejecutar procedimientos de
+mantenimiento.
+                                análisis de riesgos aplicando Mostrar compromiso con la
+Señalización de seguridad       matrices de evaluación.        protección      del     medio
+industrial:  códigos   de                                      ambiente y la sostenibilidad
+                                Elaborar informes técnicos
+colores,      pictogramas,                                     en procesos industriales.
+                                de riesgos con base en
+ubicación     y    normas
+                                observaciones, análisis y Evidenciar ética profesional
+técnicas.
+                                normativa vigente.             en la toma de decisiones
+Procedimientos de limpieza                                     relacionadas con seguridad
+                                Implementar           medidas
+y orden en el trabajo, 5S y                                    y salud.
+                                preventivas y correctivas
+buenas     prácticas     de
+                                ajustadas       a      riesgos Demostrar liderazgo en la
+higiene.
+                                detectados.                    organización de grupos
+Metodologías             de                                    frente a situaciones de
+                                Desarrollar      planes     de
+identificación y evaluación                                    riesgo.
+                                evacuación simulados en
+de riesgos, análisis de
+                                talleres,    laboratorios    y Fomentar        el    trabajo
+trabajo     seguro   (ATS),
+                                espacios industriales.         colaborativo en la mejora de
+matriz de riesgos, método
+                                                               las      condiciones        de
+del árbol de causas.            Actuar en simulacros de
+                                                               seguridad.
+                                emergencia           aplicando
+Medidas preventivas y
+                                protocolos de comunicación Mantener actitud reflexiva
+correctivas aplicadas a
+                                y evacuación.                  frente a incidentes para
+riesgos específicos en
+                                                               promover la mejora continua.
+talleres de electrónica,        Utilizar extintores, hidrantes
+mecatrónica,                    y otros equipos contra Asumir respeto por la vida,
+electromecánica, madera,        incendios      conforme      a la salud y el bienestar
+alimentos y calzado.            normas técnicas.               colectivo como valores
+                                                               fundamentales.
+Planes de emergencia,           Aplicar técnicas básicas de
+objetivos,      estructura,     primeros auxilios en casos
+responsables              y     de accidentes simulados.
+procedimientos.                 Evaluar        condiciones
+Protocolos de evacuación,       ergonómicas de los puestos
+primeros auxilios, control de   de trabajo y proponer
+incendios y comunicación        mejoras.
+en emergencias.                 Documentar y comunicar
+Manejo      seguro    de        incidentes, accidentes y
+herramientas    manuales,       medidas correctivas.
+eléctricas y de máquinas        Participar en actividades
+industriales.                   colaborativas de mejora
+                                continua en seguridad e
+Ergonomía    aplicada    a
+                                higiene industrial.
+puestos     de     trabajo,
+posturas, manipulación de
+cargas,   prevención    de
+lesiones.
+Cultura de seguridad y
+mejora           continua,
+responsabilidad,     ética,
+disciplina y sostenibilidad
+en el trabajo.
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+    riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+    con seguridad industrial.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                 Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio  Entorno de aprendizaje                            1
+                         (aula)
+Laboratorio              Computadoras con acceso a internet                1
+                         Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+
+
+                               Módulo Genérico Nro.2
+Nombre del módulo:                      Procesos Industriales Sostenibles
+Nivel:                                  1ro y 2do
+Duración:                               160 periodos pedagógicos
+                                        UC 2: Emplear prácticas de sostenibilidad y control
+                                        de calidad en actividades industriales mediante el uso
+                                        de tecnologías limpias, criterios de eficiencia
+Unidad de competencia                   energética, minimización de residuos, garantizando la
+asociada:                               reducción de impactos ambientales y la optimización
+                                        de estos en beneficio del entorno local, integrando
+                                        fundamentos de formación y orientación laboral y
+                                        salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA 3: Utilizar materias primas y energía en procesos industriales garantizando
+reducción de costos operativos y aprovechamiento responsable de los recursos.
+CE3.1: Analiza puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Selecciona normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3:      Ejecuta acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Utiliza productos y materiales según parámetros establecidos en normas técnicas
+y procedimientos internos.
+CE6.2:      Ejecuta pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+Conceptuales                    Procedimentales              Actitudinales
+                                                             Mostrar interés en la
+Principios de sostenibilidad Identificar       fuentes    de aplicación     de    prácticas
+en procesos industriales, consumo             energético   y sostenibles en procesos
+definición, importancia y materiales en procesos industriales.
+aplicación.                     industriales.
+                                                             Cumplir         con         los
+Conceptos       básicos     de Medir y registrar consumos procedimientos                  de
+eficiencia         energética, eléctricos,     térmicos    e reducción, reutilización y
+consumo,             pérdidas, hidráulicos.                  reciclaje de materiales.
+rendimiento, ahorro.
+                                Analizar            impactos Valorar la importancia del
+Energías           renovables ambientales de actividades ahorro energético y del
+aplicadas a la industria, productivas.                       aprovechamiento
+solar,    eólica,    biomasa,                                responsable de recursos.
+hidráulica.                     Aplicar técnicas básicas de
+                                reducción, reutilización y Mostrar orden, precisión y
+Impactos ambientales de los reciclaje.                       método en las actividades de
+procesos          industriales,                              medición, registro y análisis.
+contaminación     del      aire, Elaborar       reportes   de    Asumir una actitud reflexiva
+agua, suelo y ruido.             consumo y residuos en           frente al impacto ambiental
+                                 procesos experimentales.        de los procesos industriales.
+Estrategias de consumo
+responsable de materias Implementar estrategias de               Evidenciar iniciativa en la
+primas y energía.                optimización del consumo        búsqueda de soluciones
+                                 eléctrico en equipos.           tecnológicas limpias.
+Introducción a la economía
+circular,           reducción, Comparar el rendimiento de        Demostrar eficiencia en la
+reutilización y reciclaje.       energías convencionales y       aplicación de conocimientos
+                                 renovables.                     para la mejora de procesos.
+Marco normativo ambiental
+básico        nacional         e Aplicar       técnicas    de    Mantener     una   actitud
+internacional      relacionado minimización de residuos          positiva frente al trabajo
+con sostenibilidad.              sólidos, líquidos y gaseosos.   colaborativo y proyectos
+                                                                 colectivos.
+Tecnologías           limpias Diseñar       planes         de
+aplicadas     a     procesos aprovechamiento               de Respetar           normativas
+industriales.                 residuos valorizables.          ambientales      vigentes   y
+                                                              aplicarlas      de      forma
+Técnicas de optimización del     Documentar procedimientos
+                                                              consciente.
+consumo       eléctrico  en      de sostenibilidad aplicados
+equipos y sistemas.              en procesos experimentales. Tomar conciencia de la
+                                                              importancia de innovar en el
+Procedimientos           de      Integrar       sistemas   de
+                                                              uso de energías renovables
+minimización de residuos y       automatización que mejoren
+                                                              y tecnologías limpias.
+emisiones contaminantes.         la eficiencia energética.
+                                                              Manifestar compromiso con
+Modelos      de        gestión   Evaluar      indicadores  de
+                                                              el cuidado del entorno social,
+energética y de recursos en      sostenibilidad en procesos
+                                                              económico y ambiental.
+entornos industriales.           simulados y reales.
+Sistemas de tratamiento y Incorporar         energías
+valorización de residuos renovables en prototipos o
+industriales.             procesos de laboratorio.
+Relación entre eficiencia Diseñar      propuestas    de
+energética y reducción de mejora       de      procesos
+costos operativos.         industriales con base en
+                           tecnologías limpias.
+Automatización y control
+industrial    orientados a Validar la reducción de
+sostenibilidad.            costos operativos mediante
+                           la optimización de recursos
+Integración de energías
+renovables en procesos
+productivos.
+Innovación y tendencias en
+tecnologías sostenibles.
+Indicadores                de
+sostenibilidad, huella de
+carbono, huella hídrica,
+eficiencia global de recursos.
+Normas internacionales de
+sostenibilidad industrial (ISO
+14001, ISO 50001).
+Diseño y mejora de procesos
+industriales con enfoque
+ambiental.
+Proyectos integrales de
+sostenibilidad en procesos
+industriales,      análisis,
+implementación y evaluación
+de resultados.
+
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+    Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+    sector industrial sostenible.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                     Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio          Entorno de aprendizaje                 1
+                                 (aula)
+
+Laboratorio                      Computadoras con acceso a internet
+                                 Proyector                              1
+
+Referencias Bibliográficas
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+
+
+                                  Módulo Genérico Nro.3
+Nombre del módulo:                  Dibujo Técnico Aplicado
+Nivel:                              1ro y 2do
+Duración:                           160 periodos pedagógicos
+                                    UC 3: Elaborar representaciones gráficas técnicas
+                                    aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia               herramientas digitales como CAD, CAE y modelado
+asociada:                           3D, generando planos, modelos y prototipos con
+                                    precisión, creatividad, responsabilidad y compromiso
+                                    con la calidad en contextos industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Emplear normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Distingue símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1: Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Elabora planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2: Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+ Contenidos
+Conceptuales                     Procedimentales                  Actitudinales
+Principios básicos del dibujo    Trazar     líneas,   vistas    y Mostrar interés en la lectura,
+técnico: líneas, tipos de escalas en bocetos y planos. interpretación y elaboración
+vistas y escalas.                                                 de planos técnicos.
+                                 Utilizar instrumentos de
+                                 dibujo técnico con precisión. Cumplir con las normas de
+Normas internacionales y                                          calidad en representaciones
+                                 Identificar    simbología      y
+nacionales de dibujo técnico                                      gráficas.
+                                 aplicar normas básicas en
+(ISO, DIN, INEN).
+                                 representaciones gráficas.       Valorar la precisión y
+                                                                  exactitud en los dibujos
+Principios fundamentales de Interpretar                   planos
+                                                                  como garantía de seguridad
+geometría       aplicados    al bidimensionales simples.
+                                                                  y confiabilidad.
+dibujo técnico.
+                                 Representar             figuras
+                                                                  Demostrar              orden,
+                                 geométricas aplicadas a
+Sistemas de proyección piezas básicas.                            responsabilidad y método en
+ortogonal,     isométrica     y                                   el uso de herramientas
+oblicua.                         Elaborar   planos  con  cortes,  manuales y digitales.
+                                 secciones y detalles.
+                                                                  Asumir actitud reflexiva y
+Lectura e interpretación de Dibujar ensamblajes simples analítica al interpretar planos
+planos y esquemas técnicos. aplicando            normas       de y diagramas técnicos.
+Conceptos de acotación, rotulación y acotación.
+tolerancias y ajustes en                                          Mostrar iniciativa en la
+representaciones gráficas.       Usar   software    CAD    en  la búsqueda de soluciones
+                                 creación                     de gráficas ante problemas de
+Rotulación y simbología representaciones 2D.                      representación.
+básica en planos técnicos.  Representar diagramas y Demostrar liderazgo en
+                            esquemas funcionales de actividades colaborativas de
+Representación de cortes, sistemas técnicos.            diseño gráfico técnico.
+secciones     y    detalles
+                            Comprobar exactitud de Aplicar           criterios  de
+técnicos.
+                            planos mediante cotejo con creatividad e innovación en
+                            piezas o modelos reales.    el desarrollo de planos y
+Principios de normalización
+en planos de piezas y Generar           modelos      3D modelos.
+ensamblajes.                    mediante herramientas CAD.
+Escalas de reducción y Simular funcionamiento y Respetar las normas de
+ampliación aplicadas a la ensamblajes en software seguridad en el uso de
+industria.                   CAD/CAE.                     equipos e instalaciones de
+                                                          laboratorio de CAD.
+                             Crear prototipos digitales y
+Geometría        descriptiva
+                             planos       listos     para Demostrar responsabilidad
+aplicada     a     sistemas
+                             fabricación.                 en la entrega oportuna y con
+complejos.
+                                                          calidad de trabajos gráficos.
+Introducción a herramientas Optimizar representaciones
+CAD en 2D, funciones gráficas                    mediante Mostrar disposición positiva
+básicas     y    comandos automatización               de y activa en actividades
+esenciales.                  comandos   y macros en CAD.  individuales y grupales.
+                           Presentar proyectos de          Usar con cuidado los
+Elaboración    de   planos diseño gráfico técnico con      materiales,   equipos    y
+constructivos y diagramas enfoque        innovador  y      software de representación
+funcionales.               colaborativo.                   gráfica.
+
+Principios de representación                               Valorar la importancia del
+gráfica en componentes                                     dibujo técnico como
+mecánicos, electrónicos y                                  lenguaje universal en la
+estructurales.                                             industria.
+
+
+Modelado tridimensional en
+software CAD y generación
+de prototipos digitales.
+
+Ensamblajes y simulación de
+funcionamiento          con
+herramientas CAD/CAE.
+
+Generación         de       vistas
+explotadas     y        despieces
+técnicos.
+
+Renderizado         básico  y
+presentación       de modelos
+3D.
+
+Optimización de planos
+digitales para manufactura y
+fabricación    asistida  por
+computadora (CAM).
+Innovación y creatividad en
+el diseño gráfico aplicado a
+procesos industriales.
+
+Integración del dibujo técnico
+en                   proyectos
+interdisciplinarios de diseño,
+producción y mantenimiento.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+   Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+   al área de representación gráfica y diseño técnico.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+       Aprendizaje Basado en Proyectos (ABP)
+       Aprendizaje en Contextos Reales
+       Role-Playing y Simulaciones
+       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                                 Detalle de especificaciones               Cantidad
+Denominación
+                                 técnicas
+Infraestructura/espacio          Entorno de aprendizaje (aula)             1
+
+Laboratorio                      Computadoras con acceso a internet        1
+                                 Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+ Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+         industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+         https://doi.org/10.37135/ns.01.09.09
+
+ Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+       Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+       España. Publicación oficial
+
+ Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+       gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+       uso. ISO 45001:2018
+
+ Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+        de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+        Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+         evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+         riesgos laborales
+
+   4. Módulos de Especialización
+
+Los módulos de especialización permiten al estudiantado profundizar en áreas técnicas
+específicas, desarrollando competencias mediante la combinación de conocimientos
+teóricos y experiencias prácticas. Estos módulos fomentan el análisis, la resolución de
+problemas y la toma de decisiones, a la vez que facilitan la articulación con el sector
+productivo, la adopción de metodologías innovadoras y la adaptabilidad a los cambios
+del entorno laboral.
+
+Se estructuran los siguientes módulos de especialización para primero, segundo, y
+tercero de bachillerato:
+
+   •   Motores
+   •   Tren de Rodaje
+   •   Metalmecánica Aplicada al Vehículo
+   •   Sistemas Eléctricos y Electrónicos
+                          Módulo de Especialización Nro. 1
+
+Nombre del módulo:                   Motores
+
+Nivel:                               2do y 3ro
+
+Duración:                            400 periodos pedagógicos
+
+Unidad      de      competencia       UC1. Ejecutar mantenimiento preventivo, correctivo y
+asociada:                             reparación, ajuste de motores de combustión interna,
+                                      sistemas de propulsión automotriz, aplicando
+                                      procedimientos técnicos adecuados, utilizando
+                                      herramientas     e     instrumentos    automotrices,
+                                      considerando parámetros de seguridad, calidad,
+                                      eficiencia energética y cuidado del medio ambiente.
+Objetivo del módulo: Ejecutar el mantenimiento preventivo, correctivo y la reparación de
+motores de combustión interna y sistemas de propulsión automotriz, mediante la aplicación
+de procedimientos técnicos normalizados y el uso adecuado de herramientas e
+instrumentos automotrices, para garantizar el funcionamiento eficiente, seguro y sostenible
+del vehículo, en concordancia con las normas de calidad, seguridad, eficiencia energética y
+protección ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Analizar los elementos constitutivos, principios de funcionamiento y materiales
+de fabricación de los motores de combustión interna y sistemas de propulsión
+automotriz, en contextos de operación real y simulada, considerando parámetros de
+seguridad, eficiencia energética y sostenibilidad ambiental.
+CE1.1: Explica la función básica del motor de combustión interna y de los sistemas de
+propulsión, relacionando la generación y transmisión de energía mecánica en condiciones
+normales de operación.
+CE1.2: Clasifica los motores de combustión interna y sistemas de propulsión según criterios
+técnicos utilizados en el sector automotriz.
+CE1.3: Describe los elementos fijos y móviles del motor, asociando cada componente con
+su función dentro del sistema mecánico.
+CE1.4: Argumenta la selección de materiales de fabricación de los componentes del motor,
+considerando resistencia mecánica, durabilidad y especificaciones técnicas del fabricante.
+RA 2: Interpretar el funcionamiento y los parámetros técnicos de motores de
+combustión interna y sistemas de propulsión automotriz, a partir de mediciones
+realizadas en laboratorio y taller, conforme a especificaciones técnicas del fabricante.
+CE2.1: Relaciona los ciclos teóricos del motor con su comportamiento en ciclos reales
+observados en motores en funcionamiento.
+CE2.2: Mide parámetros geométricos del motor utilizando instrumentos de medición
+automotriz, aplicando técnicas correctas de uso y lectura.
+CE2.3: Determina parámetros técnicos del motor, valorando su incidencia en la respuesta
+dinámica y la eficiencia energética.
+CE2.4: Compara los valores obtenidos en las mediciones con las fichas técnicas del
+fabricante, estableciendo concordancias y desviaciones.
+RA 3: Diagnosticar fallas, desgastes e irregularidades en los parámetros operativos
+de motores de combustión interna, en escenarios reales de taller, utilizando
+instrumentos y equipos de diagnóstico automotriz bajo procedimientos técnicos
+normalizados.
+CE3.1: Localiza fallas y desgastes del motor utilizando instrumentos y equipos de
+diagnóstico recomendados por el fabricante.
+CE3.2: Evalúa los parámetros operativos medidos, determinando irregularidades en el
+funcionamiento de los componentes.
+CE3.3: Aplica procedimientos técnicos de diagnóstico de forma sistemática y segura,
+respetando normas de seguridad industrial y ambiental.
+CE3.4: Redacta informes técnicos de diagnóstico, empleando terminología y formatos
+propios del sector automotriz.
+RA 4: Aplicar técnicas y procedimientos de mantenimiento preventivo, correctivo,
+ajuste y reparación en motores de combustión interna y sistemas de propulsión
+automotriz, en entornos de taller, conforme a manuales de servicio y especificaciones
+técnicas del fabricante.
+CE4.1: Elige instrumentos, herramientas y equipos adecuados según el tipo de
+mantenimiento, ajuste o reparación a realizar.
+CE4.2: Desarrolla procedimientos de mantenimiento y reparación del motor, asegurando
+calidad técnica y confiabilidad en la intervención.
+CE4.3: Comprueba el funcionamiento del motor y del sistema de propulsión luego de la
+intervención, registrando resultados verificables.
+CE4.4: Registra los resultados del proceso en fichas técnicas, contrastando datos obtenidos
+con información del fabricante.
+Contenidos
+Conceptuales                       Procedimentales              Actitudinales
+Fundamentos del motor de                                        Mostrar     disposición     al
+                                   Reconocer la función
+combustión interna.                                             análisis riguroso de los
+                                   general del motor de
+                                                                principios de funcionamiento
+Concepto de motor térmico          combustión interna dentro
+                                                                del      motor      y    sus
+                                   del sistema de propulsión
+Clasificación general de los                                    componentes mecánicos.
+                                   del vehículo.
+motores de combustión interna.
+                                                                Reconocer la relevancia del
+                                   Comparar motores de dos
+Motores       alternativos     y                                uso adecuado de materiales
+                                   y cuatro tiempos a partir
+rotativos.                                                      y componentes en la
+                                   de       su      secuencia
+Motores de dos y cuatro operativa.                              durabilidad y sostenibilidad
+tiempos.                                                        del motor.
+                                   Diferenciar        motores
+                                                                Asumir       una      actitud
+                                   alternativos y rotativos
+                                                                responsable      frente     al
+Motores    según      tipo   de mediante el análisis de su      impacto ambiental asociado
+combustible.                    movimiento mecánico.            al funcionamiento del motor.
+Motores según disposición y Analizar la influencia              Respetar                las
+número de cilindros.             conceptual       de       la   especificaciones técnicas y
+                                 aspiración natural y la        recomendaciones         del
+Motores      atmosféricos      y
+                                 sobrealimentación en el        fabricante en el análisis,
+sobrealimentados        (enfoque
+                                 desempeño del motor.           medición y mantenimiento
+conceptual).
+                                                                del motor.
+                                 Representar
+Principio         termodinámico
+                                 gráficamente los ciclos        Mostrar precisión y cuidado
+aplicado     al      motor    de
+                                 teóricos del motor de          en el uso de instrumentos y
+combustión interna
+                                 combustión interna.            equipos     de     medición
+Ciclos         teóricos       de                                mecánica.
+                                 Asociar los ciclos teóricos
+funcionamiento del motor.
+                                 con situaciones reales de      Manifestar orden y disciplina
+Factores que influyen en la operación del motor.                durante las actividades de
+eficiencia del motor.                                           laboratorio     y       taller
+                                 Analizar factores que
+Pérdidas mecánicas y térmicas influyen en la eficiencia         relacionadas con motores.
+en el motor.                     del motor a partir de          Asumir una actitud crítica y
+Estructura general del motor.    casos prácticos.               analítica frente a los
+                                                                resultados obtenidos en
+Arquitectura del motor      de Reconocer          pérdidas
+                                                                procesos de diagnóstico del
+combustión interna.             mecánicas y térmicas
+                                                                motor.
+                                presentes durante el
+Conjunto estructural del motor. funcionamiento del motor.       Valorar    el   diagnóstico
+Elementos fijos del motor.                                      oportuno como medio para
+                                Identificar la arquitectura
+                                                                prevenir fallas mayores y
+Elementos móviles del motor.  general del motor de
+                                                                prolongar la vida útil del
+                              combustión interna en
+Relación funcional entre los                                    motor.
+                              modelos        reales     y
+componentes del motor.
+                              didácticos.                       Respetar los procedimientos
+Componentes del motor y su                                      técnicos       normalizados
+                              Ubicar      el     conjunto
+función.                                                        durante el diagnóstico y
+                              estructural del motor
+(Enfoque     mecánico,    sin según su disposición              evaluación del motor.
+contenido     eléctrico     o constructiva.                     Mostrar responsabilidad en
+electrónico)                                                    la     manipulación     de
+                              Distinguir elementos fijos
+Materiales de fabricación del del                               componentes mecánicos del
+                                     motor      mediante
+motor.                                                          motor.
+                              observación directa.
+Resistencia      térmica    y Distinguir                        Valorar      la     aplicación
+                                              elementos
+mecánica.                                                       sistemática                del
+                              móviles     del     motor
+                                                                mantenimiento preventivo
+Dilatación térmica aplicada a mediante     desmontajes
+                                                                como        estrategia      de
+componentes del motor.        demostrativos.
+                                                                confiabilidad del motor.
+Tratamientos superficiales de                                 Reconocer la importancia
+                               Reconocer componentes
+componentes.                                                  del          mantenimiento
+                               mecánicos del motor y su
+                                                              correctivo ejecutado con
+Relación     material–función– función específica dentro
+                                                              criterio     técnico     y
+durabilidad.                   del sistema.
+                                                              responsabilidad.
+Criterios del fabricante para Asociar el movimiento de
+                                                              Asumir compromiso con la
+selección de materiales.       los componentes móviles
+                                                              calidad técnica en los
+                               con la generación de
+Diámetro del cilindro.                                        procesos de ajuste y
+                               trabajo mecánico.
+Carrera del pistón.                                           reparación del motor.
+                               Relacionar       resistencia
+Cilindrada.                                                   Respetar las normas de
+                               térmica y mecánica con el
+                                                              seguridad mecánica durante
+Relación de compresión.        desempeño                del
+                                                              todas     las   actividades
+                               componente.
+Volumen de cámara de                                          relacionadas con motores.
+combustión.                    Analizar la relación entre
+                                                              Asumir     una     conducta
+                               material,     función      y
+Relación      geométrica     y durabilidad                    preventiva frente a riesgos
+                                                        del
+desempeño del motor.                                          asociados al funcionamiento
+                               componente.
+                                                              del motor.
+Influencia de los parámetros Interpretar criterios del
+geométricos en el rendimiento. fabricante utilizados en la    Reconocer la importancia de
+                                                              documentar procesos de
+Parámetros      técnicos     y selección de materiales.
+                                                              diagnóstico, mantenimiento
+operativos del motor.     Medir el diámetro del               y reparación del motor.
+Relación entre parámetros cilindro      utilizando
+                                                              Valorar el registro técnico
+técnicos y comportamiento instrumentos mecánicos
+                                                              como      herramienta    de
+dinámico.                 de medición.
+                                                              seguimiento     y    mejora
+Condiciones    normales     de Determinar la cilindrada       continua.
+operación del motor.           del motor a partir de datos
+                                                              Mostrar     disposición     al
+                               geométricos.
+Comportamiento del motor en                                   trabajo colaborativo en
+diferentes regímenes.          Calcular la relación de        actividades     de      taller
+                               compresión       utilizando    relacionadas con motores.
+Influencia de la carga y el
+                               valores geométricos del
+régimen de giro.                                              Asumir      responsabilidad
+                               motor.
+Concepto       de     desgaste                                individual en las tareas
+                               Determinar el volumen de       asignadas durante prácticas
+progresivo.
+                               la cámara de combustión        de motores.
+Variaciones         operativas mediante           métodos
+aceptables.                                                   Manifestar ética profesional
+                               mecánicos.
+                                                              en el manejo de información
+Concepto      de   diagnóstico Relacionar   parámetros        técnica y en la ejecución de
+automotriz.                    geométricos    con   el        procedimientos.
+Diagnóstico    preventivo    y desempeño   general del
+                                                              Mostrar interés por la
+correctivo.                    motor.
+                                                              actualización permanente
+Parámetros operativos como                                       en tecnologías y mejoras
+                                 Interpretar     parámetros
+indicadores de estado.                                           aplicadas a motores de
+                                 técnicos y operativos del
+                                                                 combustión interna.
+Síntomas mecánicos del motor. motor a partir de datos
+                                 reales.
+Relación causa–efecto en
+fallas mecánicas.                Relacionar      parámetros
+                                 técnicos        con        el
+Límites operativos establecidos
+                                 comportamiento dinámico
+por el fabricante.
+                                 del motor.
+Tipos de desgaste mecánico.
+                                 Reconocer       variaciones
+Fallas por fricción.             operativas      aceptables
+Fallas por sobrecalentamiento.   durante  el funcionamiento
+                                 del motor.
+Fallas       por     lubricación
+deficiente.                      Reconocer         síntomas
+                                 mecánicos asociados al
+Desgaste de componentes desgaste del motor.
+móviles.
+                                 Relacionar     causas y
+Desgaste de componentes efectos                en       fallas
+fijos.                           mecánicas del motor.
+Consecuencias del desgaste Interpretar                límites
+no atendido.                     operativos establecidos
+Concepto       de       medición por el fabricante.
+mecánica en motores.             Clasificar     tipos     de
+Tolerancias mecánicas.           desgaste          mecánico
+                                 presentes en motores.
+Precisión y exactitud en la
+medición.                        Reconocer            fallas
+                                 asociadas                 al
+Interpretación     de    valores
+                                 sobrecalentamiento del
+medidos.
+                                 motor.
+Interpretación de información
+                                 Reconocer            fallas
+técnica del fabricante.
+                                 relacionadas           con
+Valores nominales y valores deficiencias                  de
+límite.                          lubricación.
+Concepto de mantenimiento Aplicar     criterios de
+automotriz.               tolerancias mecánicas en
+Mantenimiento preventivo. la      evaluación    de
+                          componentes.
+Mantenimiento correctivo.
+Ajuste mecánico del motor.
+Reparación     mecánica     del
+                                  Diferenciar precisión y
+motor.
+                                  exactitud en procesos de
+Ciclo de vida del motor.          medición mecánica.
+Seguridad      mecánica      en Diferenciar
+motores.                         mantenimiento preventivo
+                                 y           mantenimiento
+Eficiencia energética del motor.
+                                 correctivo en motores.
+Emisiones y consumo.
+                                 Aplicar criterios técnicos
+                                 de ajuste mecánico del
+                                 motor.
+                                  Ejecutar    operaciones
+                                  básicas de reparación
+                                  mecánica del motor.
+                                  Relacionar
+                                  mantenimiento del motor
+                                  con su ciclo de vida
+                                  operativo.
+                                  Analizar la eficiencia
+                                  energética del motor en
+                                  función de su estado
+                                  mecánico.
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: mecánica
+    automotriz o en carreras relacionadas con el sector automotriz.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                      Especificaciones técnicas             Cantidad
+
+Infraestructura/espacio           Entorno de aprendizaje (aula)                  1
+
+Infraestructura/espacio           Aula taller                                    1
+Laboratorio            Computadoras con acceso a                1
+                       internet
+                       Servidor
+                       Proyector
+Herramientas/equipos       − Bancos de trabajo metálicos        1
+                           − Mesas        didácticas     para
+                               desarme de motores.
+                           − Carros porta herramientas
+                           − Tornillos de banco
+                           − Motores de combustión
+                               interna gasolina (4 tiempos)
+                           − Motores de combustión
+                               interna diésel
+                           − Soportes giratorios para
+                               motores
+                           − Juegos           de       llaves
+                               combinadas
+                           − Juegos de llaves de vaso y
+                               dados métricos
+                           − Carracas y extensiones
+                           − Destornilladores planos y de
+                               cruz
+                           − Alicates universales, de
+                               punta y de presión
+                           − Llaves dinamométricas
+                           − Extractores mecánicos
+                           − Gatos hidráulicos
+                           − Calibradores vernier
+                           − Micrómetros exteriores e
+                               interiores
+                           − Bases magnéticas
+                           − Reglas         metálicas       y
+                               escuadras de precisión
+                           − Medidores de compresión
+                               para motores gasolina y
+                               diésel
+                           − Manómetros de presión de
+                               aceite
+                           − Vacuómetros
+                           − Tacómetros mecánicos o
+                               básicos
+                                     −   Termómetros infrarrojos
+                                     −   Prensa hidráulica de banco
+                                     −   Bandejas recolectoras de
+                                         fluidos
+                                     −   Embudos y recipientes
+                                         graduados
+                                     −   Compresores
+                                     −   Equipos      manuales     de
+                                         lubricación
+                                     −   Juntas y empaques de
+                                         práctica
+                                     −   Tornillería de reposición
+                                     −   Overoles de trabajo
+                                     −   Manuales técnicos y fichas
+                                         del fabricante.
+Referencias Bibliográficas
+
+Recursos Digitales:
+   • Zumba Novay, E. G. (2023). Gestión de mantenimiento automotriz. Editorial
+      Politécnica            ESPOCH.              https://cimogsys.espoch.edu.ec/direccion-
+      publicaciones/public/docs/books/2024-03-27-145006-
+      Gesti%C3%B3n%20de%20Mantenimiento%20Automotriz.pdf
+   • Zumba Novay, E. G. (2023). Gestión del mantenimiento vehicular. Editorial
+      Politécnica            ESPOCH.              https://cimogsys.espoch.edu.ec/direccion-
+      publicaciones/public/docs/books/2024-03-27-145154-
+      Gesti%C3%B3n%20del%20Mantenimiento%20Vehicular.pdf
+   • Díaz Poma, E. F., & Chango Santo, S. I. (2023). Metrología automotriz. Instituto
+      Superior                              Universitario                        Cotopaxi.
+      https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/9
+   • Cárdenas Yánez, R. A., & Gavilanes López, W. L. (2024). La realidad aumentada
+      como estrategia de enseñanza de motores de combustión interna en un contexto
+      universitario.        Maestro         y        Sociedad,       21(2),      704–714.
+      https://repositorio.puce.edu.ec/handle/123456789/44047
+   • Mosquera Coronel, E. A., & Iza Pico, Á. A. (2024). Repotenciación del banco de
+      pruebas de un motor Hyundai Accent 1.6 litros del taller de la Escuela de Ingeniería
+      Automotriz de la UIDE–Guayaquil [Trabajo de titulación, Universidad Internacional
+      del              Ecuador].             Repositorio            Digital          UIDE.
+      https://repositorio.uide.edu.ec/bitstream/37000/6878/1/UIDE-G-TMA-2024-72.pdf
+   • Mora Armas, D. J. (2025). Análisis de evolución de la normativa de emisiones
+      vehiculares en Ecuador asociado al avance tecnológico de sistemas de inyección de
+      motores de encendido provocado [Trabajo de titulación, Universidad Técnica del
+      Norte]. Repositorio Digital de la Universidad Técnica del Norte.
+         https://repositorio.utn.edu.ec/bitstream/123456789/16911/2/04%20AUT%20063%2
+         0TRABAJO%20DE%20GRADO.pdf
+
+
+
+
+                          Módulo de Especialización Nro. 2
+
+Nombre del módulo:                   Tren de Rodaje
+
+Nivel:                               1ro, 2do y 3ro
+
+Duración:                            480 periodos pedagógicos
+
+Unidad       de     competencia      UC2.     Realizar    diagnósticos,  mantenimientos
+asociada:                            preventivos, correctivos en componentes de sistemas
+                                     de freno, dirección, suspensión y transmisión con
+                                     componentes hidráulicos y neumáticos, garantizando
+                                     el funcionamiento seguro, eficiente, conforme a
+                                     normas de calidad y protección ambiental.
+Objetivo del módulo: Ejecutar diagnósticos y mantenimientos preventivos y correctivos en
+sistemas de frenos, dirección, suspensión y transmisión, utilizando instrumentos de
+medición, manuales técnicos y procedimientos establecidos, para garantizar el
+funcionamiento seguro, eficiente y conforme a normas de calidad y protección ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Analizar componentes, funciones y relaciones operativas de los sistemas de
+frenos, dirección, suspensión y transmisión, con análisis de esquemas y
+especificaciones técnicas del fabricante en condiciones de taller.
+CE1.1: Reconoce los componentes principales de los sistemas hidráulicos y neumáticos
+según especificaciones técnicas y planos.
+CE1.2: Clasifica los elementos de frenos, dirección, suspensión y transmisión conforme a
+su función operativa en el sistema.
+CE1.3: Interpreta esquemas y diagramas de los sistemas relacionándolos con su estructura
+física.
+CE1.4: Explica la interacción de los componentes justificando su funcionamiento en el tren
+de rodaje.
+RA 2: Valorar el estado funcional de los sistemas de frenos, dirección, suspensión y
+transmisión, aplicando técnicas de inspección y verificación con apego a normas de
+seguridad y condiciones controladas.
+CE2.1: Organiza el área de trabajo, asegurando orden, limpieza y señalización preventiva.
+CE2.2: Inspecciona los sistemas de frenos, suspensión, dirección y transmisión
+identificando anomalías en los componentes.
+CE2.3: Detecta fallas en los sistemas mediante pruebas operativas y uso de herramientas
+específicas.
+CE2.4: Elabora un informe técnico de diagnóstico, registrando fallas localizadas y
+condiciones de seguridad observadas.
+RA 3: Ejecutar operaciones de mantenimiento preventivo y correctivo en los sistemas
+hidráulicos y neumáticos de frenos, dirección, suspensión y transmisión mediante
+procedimientos de desmontaje, sustitución y ajuste conforme a manuales del
+fabricante.
+CE3.1: Diferencia los tipos de mantenimiento aplicables conforme al plan de servicio del
+fabricante.
+CE3.2: Selecciona y utilizar herramientas y equipos adecuados garantizando precisión y
+seguridad en la intervención.
+CE3.3: Desmonta componentes defectuosos siguiendo protocolos técnicos establecidos.
+CE3.4: Sustituye, regular o ajustar elementos de los sistemas cumpliendo con normas de
+calidad y manuales técnicos.
+RA 4: Corroborar el funcionamiento de los sistemas de frenos, dirección, suspensión
+y transmisión mediante pruebas de rendimiento y registros técnicos con
+cumplimiento de normas de seguridad automotriz.
+CE4.1: Realiza pruebas operativas que confirmen el desempeño de los sistemas de frenos,
+dirección, suspensión y transmisión.
+CE4.2: Monitorea los parámetros de rendimiento de los sistemas intervenidos,
+contrastándolos con valores de referencia.
+CE4.3: Verifica el cumplimiento de los estándares de seguridad y confiabilidad tras la
+reparación de los sistemas.
+CE4.4: Elabora un informe técnico final validando resultados de comprobación conforme a
+normas vigentes.
+Contenidos
+Conceptuales                    Procedimentales          Actitudinales
+Principios                  de Identificar               Mostrar       interés    en       la
+funcionamiento,                 componentes        del identificación,      diagnóstico     y
+clasificación    (mecánicos, sistema de frenos, mantenimiento de los sistemas
+hidráulicos,     neumáticos, dirección, suspensión automotriz.
+ABS, EBD), componentes y transmisión en el
+                                                         Cumplir con los procedimientos
+principales           (discos, taller.
+                                                         con lo que estable el fabricante.
+tambores, pastillas, zapatas,
+                                Interpretar diagramas
+cilindros maestros, calipers),                           Valorar la importancia de los
+                                y esquemas técnicos
+fluidos y normativas de                                  parámetros de seguridad y confort
+                                de     manuales    del
+seguridad.                                               en la conducción después de cada
+                                fabricante.
+                                                         intervención.
+Tipos       de       dirección
+                                Analizar la función y
+(mecánica,         hidráulica,                           Demostrar liderazgo y capacidad
+                                relación    de     los
+electrohidráulica y eléctrica),                          de trabajo en equipo durante las
+                                elementos de cada
+mecanismos de cremallera y                               prácticas en taller.
+                                subsistema          en
+piñón, caja de dirección,
+                                condiciones reales de Asumir responsabilidad en el
+                                operación.               cumplimiento de las tareas
+columnas      y     sensores                                 encomendadas y los plazos de
+                                 Inspeccionar el estado
+electrónicos.                                                entrega.
+                                 de frenos, dirección,
+Clasificación                    suspensión            y     Aplicar criterios de orden, limpieza
+(independiente,          rígida, transmisión mediante        y método en cada actividad
+activa), elementos elásticos     pruebas       visuales,     desarrollada.
+(muelles, resortes, barras de    instrumentales y de
+                                                             Tomar      conciencia de   la
+torsión),    amortiguadores,     rodaje.
+                                                             importancia del mantenimiento
+bujes y geometría de
+                                 Verificar parámetros        preventivo.
+suspensión.
+                                 de      funcionamiento
+                                                             Mostrar iniciativa en la búsqueda
+Tipos de transmisiones usando                    equipos
+                                                             de soluciones técnicas ante
+(manual, automática, CVT, especializados
+                                                             problemas de fallas recurrentes.
+doble              embrague), (scanner, multímetro,
+componentes         principales manómetros,                  Respetar      las normas    de
+(embrague,         caja       de alineadores           de    seguridad, uso de EPP y
+cambios,         árbol        de dirección).                 protocolos de salud ocupacional
+transmisión, diferenciales,                                  en el taller.
+                                 Diagnosticar      fallas
+juntas homocinéticas).                                       Demostrar actitud crítica y
+                                 mediante técnicas de
+Sistemas      hidráulicos      y ensayo, medición y          reflexiva al comparar resultados
+neumáticos aplicados al tren comparación             con     técnicos con parámetros de
+de rodaje: principios físicos valores de referencia.         manuales y normas.
+(Pascal, Bernoulli), tipos de                                Valorar el impacto ambiental de
+                                 Desmontar y montar
+circuitos,     acumuladores,                                 los desechos generados en los
+                                 componentes del tren
+válvulas y actuadores.                                       procesos de mantenimiento y
+                                 de rodaje siguiendo
+Normativa internacional y procedimientos                     reparación.
+local relacionada con frenos, técnicos.                      Demostrar eficiencia en el uso de
+dirección, suspensión y                                      equipos      y      herramientas
+                                 Sustituir    elementos
+transmisión (ej. normas ISO,                                 especializadas.
+                                 desgastados            o
+reglamentos de seguridad
+                                 defectuosos de los          Mantener       actitud    positiva,
+vial, normas ambientales
+                                 sistemas.                   colaborativa y proactiva frente a
+sobre fluidos).
+                                 Ajustar tolerancias y       las actividades grupales.
+Interpretación de manuales
+                                 calibrar mecanismos
+del fabricante, diagramas,
+                                 según
+fichas técnicas, tolerancias,
+                                 especificaciones del
+parámetros de rendimiento.
+                                 fabricante.
+Manejo responsable de
+                                 Comprobar              el
+fluidos      hidráulicos       y
+                                 funcionamiento de los
+neumáticos, reciclaje de
+                                 sistemas      mediante
+piezas, gestión de desechos
+                                 pruebas dinámicas y
+peligrosos.
+                                 estáticas.
+Metacognición       aplicada:
+                                Elaborar     registros
+estrategias      diagnóstico,
+                                técnicos            de
+mantenimiento y reparación;
+                                diagnóstico,
+análisis crítico de fallos y
+                                mantenimiento        y
+soluciones           técnicas
+                                reparación.
+innovadoras.
+                                Gestionar     residuos
+                                mecánicos y fluidos en
+                                cumplimiento        de
+                                normas ambientales.
+Perfil del o la docente
+
+•   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: mecánica
+    automotriz o en carreras relacionadas con el sector automotriz.
+•   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                    Especificaciones técnicas               Cantidad
+
+Infraestructura/espacio         Entorno de aprendizaje (aula)                    1
+
+Infraestructura/espacio         Aula taller                                      1
+
+Laboratorio                     Computadoras con acceso a internet               1
+                                Servidor
+                                Proyector
+Herramientas/equipos            • Juego de llaves y dados;                       1
+                                • Torquímetro;
+                                • Extractor de rodamientos y piezas;
+                                • Gatos hidráulicos y soportes;
+                                • Bancos de trabajo;
+                                • Soplete o pistola de calor;
+                                • Barras de torsión;
+                                • Juego de destornilladores y pinzas;
+                                • Pistola de engrase;
+                                • Calibrador o vernier;
+                                • Luces de inspección;
+                              • Lupa de aumento o microscopio
+                                portátil;
+                              • Tableros de pruebas:
+                              • Esquemas de referencia.
+Referencias Bibliográficas
+
+Recursos Digitales:
+   • Zumba Novay, E. G. (2023). Gestión de mantenimiento automotriz. Editorial
+      Politécnica            ESPOCH.              https://cimogsys.espoch.edu.ec/direccion-
+      publicaciones/public/docs/books/2024-03-27-145006-
+      Gesti%C3%B3n%20de%20Mantenimiento%20Automotriz.pdf
+   • Zumba Novay, E. G. (2023). Gestión del mantenimiento vehicular. Editorial
+      Politécnica            ESPOCH.              https://cimogsys.espoch.edu.ec/direccion-
+      publicaciones/public/docs/books/2024-03-27-145154-
+      Gesti%C3%B3n%20del%20Mantenimiento%20Vehicular.pdf
+   • Díaz Poma, E. F., & Chango Santo, S. I. (2023). Metrología automotriz. Instituto
+      Superior                              Universitario                        Cotopaxi.
+      https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/9
+   • Cárdenas Yánez, R. A., & Gavilanes López, W. L. (2024). La realidad aumentada
+      como estrategia de enseñanza de motores de combustión interna en un contexto
+      universitario.        Maestro         y        Sociedad,       21(2),      704–714.
+      https://repositorio.puce.edu.ec/handle/123456789/44047
+   • Mosquera Coronel, E. A., & Iza Pico, Á. A. (2024). Repotenciación del banco de
+      pruebas de un motor Hyundai Accent 1.6 litros del taller de la Escuela de Ingeniería
+      Automotriz de la UIDE–Guayaquil [Trabajo de titulación, Universidad Internacional
+      del              Ecuador].             Repositorio            Digital          UIDE.
+      https://repositorio.uide.edu.ec/bitstream/37000/6878/1/UIDE-G-TMA-2024-72.pdf
+   • Mora Armas, D. J. (2025). Análisis de evolución de la normativa de emisiones
+      vehiculares en Ecuador asociado al avance tecnológico de sistemas de inyección de
+      motores de encendido provocado [Trabajo de titulación, Universidad Técnica del
+      Norte]. Repositorio Digital de la Universidad Técnica del Norte.
+      https://repositorio.utn.edu.ec/bitstream/123456789/16911/2/04%20AUT%20063%2
+      0TRABAJO%20DE%20GRADO.pdf
+
+                          Módulo de Especialización Nro. 3
+
+Nombre del módulo formativo:         Metalmecánica Aplicada al Vehículo
+
+Nivel: Bachillerato                  1ro y 2do
+
+Duración:                            240 periodos pedagógicos
+Unidad      de      competencia        UC.3. Emplear adaptaciones y enderezados en
+asociada:                              componentes       metalúrgicos     estructurales    y
+                                       superficiales del vehículo, aplicando procesos de
+                                       fabricación y acabados según especificaciones
+                                       técnicas, con cumplimiento de estándares de
+                                       seguridad, salud ocupacional con calidad ambiental.
+Objetivo del módulo: Aplicar procesos de adaptación, corrección y acabado en
+componentes metalúrgicos estructurales y superficiales del vehículo, empleando
+herramientas, técnicas de ensamblaje, procesos de enderezado y pintura en condiciones
+de seguridad laboral, para restituir la estructura, mejorar la estética y asegurar el
+cumplimiento de estándares de calidad, salud ocupacional y sostenibilidad ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Contrastar materiales metálicos, plásticos y compuestos de la carrocería y
+elementos estructurales del vehículo, relacionándolos con sus propiedades
+mecánicas y normativas técnicas.
+CE1.1: Evalúa correctamente los materiales metálicos, plásticos, fibras y compuestos de la
+carrocería relacionándolos con sus propiedades mecánicas, evidenciando su aplicación en
+la práctica y conforme a normativas técnicas.
+CE1.2: Clasifica los elementos estructurales del vehículo según su función, ubicación y
+resistencia mediante la correcta aplicación de normas técnicas y criterios de resistencia.
+CE1.3: Describe los materiales de acuerdo con su comportamiento ante esfuerzos,
+impactos y condiciones ambientales, justificando su selección en base a las propiedades
+mecánicas.
+CE1.4: Valora la selección de materiales en función de su seguridad, funcionalidad y
+estética, justificando su elección con base en el comportamiento de estos en el contexto
+automotriz.
+RA 2: Diferenciar características técnicas y procedimientos de tratamiento de
+materiales automotrices, considerando especificaciones del fabricante y normas de
+seguridad.
+CE2.1: Explica detalladamente las propiedades físicas y mecánicas de los materiales
+utilizados en la estructura automotriz, relacionando ventajas y limitaciones con el proceso
+de adaptación y reparación.
+CE2.2: Interpreta correctamente los catálogos técnicos y las normativas del fabricante,
+aplicando las especificaciones en los procesos de tratamiento de materiales.
+CE2.3: Contrasta de manera precisa las ventajas y limitaciones de los materiales en el
+contexto de la reparación y adaptación de carrocerías, enfocándose en la calidad y
+seguridad.
+CE2.4: Aplica correctamente los procedimientos de tratamiento y manipulación de
+materiales cumpliendo con las normas de seguridad y calidad del fabricante, asegurando
+su efectividad en el proceso de reparación.
+RA 3: Aplicar técnicas de ensamblaje y unión en componentes metálicos y no
+metálicos de carrocerías, garantizando resistencia estructural y cumplimiento de
+normas de seguridad ocupacional.
+CE3.1: Selecciona apropiadamente herramientas y equipos para procesos de ensamblaje
+y unión, considerando la resistencia estructural y normativas de seguridad.
+CE3.2: Determina de forma efectiva la técnica de unión en función del tipo de material y las
+características de resistencia estructural, asegurando la efectividad del ensamblaje.
+CE3.3: Ejecuta los procedimientos de ensamblaje siguiendo las especificaciones técnicas
+y garantizando el cumplimiento de los protocolos de seguridad establecidos.
+CE3.4: Verifica que las uniones ejecutadas cumplen con normativas de resistencia,
+seguridad y sostenibilidad ambiental, asegurando la calidad del proceso.
+RA 4: Ejecutar procesos de enderezado y pintura en superficies del vehículo,
+restituyendo geometría y acabado estético conforme a normativas técnicas, de
+seguridad y ambientales
+CE4.1: Inspecciona y equipos adecuados para procesos de enderezado, asegurando
+precisión en la restitución de la carrocería y cumpliendo con las normativas de seguridad.
+CE4.2: Prepara adecuadamente las superficies del vehículo, garantizando la adherencia de
+pintura y cumpliendo con los estándares de estética y sostenibilidad ambiental.
+CE4.3: Aplica correctamente técnicas de ensamblaje y unión considerando la resistencia
+estructural y cumpliendo con las normativas de seguridad ocupacional, asegurando la
+correcta ejecución del proceso.
+CE4.4: Ejecuta los procesos de enderezado y pintura con precisión en la restitución de la
+geometría y acabado estético, cumpliendo con las normativas técnicas, de seguridad y
+ambientales.
+Contenidos
+Conceptuales                     Procedimentales            Actitudinales
+Metales ferrosos y no Identificar                materiales Mostrar      interés     en      la
+ferrosos      aplicados       a metálicos y no metálicos identificación de materiales y
+carrocerías            (aceros de        la      carrocería técnicas       de      ensamblaje
+laminados,      galvanizados, mediante          inspección automotriz.
+aleaciones de aluminio).         visual     y      pruebas
+                                                            Cumplir con los procedimientos
+                                 simples.
+Materiales no metálicos:                                    de soldadura, ensamblaje y
+polímeros,        compuestos Clasificar los materiales pintura respetando normas de
+reforzados, fibras plásticas y según          propiedades seguridad.
+composites.                      mecánicas                y
+                                                            Valorar la importancia de la
+                                 especificaciones
+Propiedades        mecánicas                                resistencia estructural y estética
+                                 técnicas.
+(elasticidad,       ductilidad,                             del vehículo tras los procesos de
+tenacidad, resistencia a la Analizar características reparación.
+corrosión, soldabilidad).        de      resistencia      y
+                                                            Demostrar        liderazgo      en
+                                 comportamiento          de
+Normas técnicas sobre                                       actividades grupales de taller
+                                 materiales     frente    a
+clasificación, tratamientos y
+                                 cargas y esfuerzos.
+seguridad de materiales                                   orientadas   a   resultados   de
+                             Aplicar     tratamientos
+(ISO, ASTM, UNE, INEN).                                   calidad.
+                             térmicos y superficiales
+Tratamiento de materiales en piezas metálicas             Asumir responsabilidad en el
+automotrices:                siguiendo                    cumplimiento de las normas
+                             procedimientos               técnicas y ambientales en
+Procesos           térmicos:
+                             técnicos.                    procesos     de     corrección
+recocido, temple, revenido.
+                                                          estructural.
+                             Seleccionar técnicas de
+Tratamientos superficiales:
+                             unión adecuadas según        Mostrar orden y precisión en el
+galvanizado,      anodizado,
+                             material, espesor y          manejo de herramientas y
+pintado protector.
+                             función estructural.         equipos de soldadura y pintura.
+Procedimientos            de
+                             Ejecutar soldaduras y        Tomar conciencia del impacto
+protección anticorrosiva.
+                             uniones       mecánicas      ambiental de solventes, pinturas
+Estándares de seguridad y siguiendo parámetros            y residuos metálicos.
+salud ocupacional aplicados de seguridad y calidad.
+                                                          Mostrar iniciativa en la búsqueda
+al manejo de materiales y
+                             Verificar la calidad de      de soluciones técnicas ante
+productos químicos.
+                             uniones         mediante     deformaciones complejas.
+Soldadura por arco, MIG, pruebas             visuales,
+                                                          Respetar    las     normas   de
+TIG, autógena, por puntos.   ensayos y mediciones
+                                                          seguridad     ocupacional    en
+Adhesivos estructurales y dimensionales.                  trabajos con soldadura, corte y
+selladores modernos     en Desmontar y montar             cabinas de pintura.
+carrocerías.                elementos estructurales
+                                                          Demostrar actitud crítica al
+Uniones         mecánicas: de      la    carrocería
+                                                          evaluar los acabados logrados
+remaches, tornillos de alta aplicando herramientas        frente a estándares de calidad.
+resistencia,  pernos    de adecuadas.
+                                                          Mantener actitud positiva y
+seguridad.                  Realizar procesos de
+                                                          colaborativa en el desarrollo de
+Control de calidad de enderezado                    en
+                                                          proyectos      colectivos     de
+uniones y ensambles.        bancadas con control
+                                                          reparación.
+                            geométrico.
+Principios de enderezado de                               Valorar  la    innovación en
+piezas metálicas.           Aplicar masillas, lijado y
+                                                          procesos de unión y acabados
+                            preparación             de
+Uso de bancadas y sistemas superficies antes del          con nuevas tecnologías.
+de medición geométrica.     pintado.                      Mostrar eficiencia en el uso
+Técnicas de aplicación de Ejecutar procesos de            racional de materiales, insumos
+masillas y niveladores.                                   y recursos energéticos.
+                            pintado automotriz en
+Sistemas      de      pintura   cabinas     controladas
+automotriz:     imprimación,    siguiendo etapas de
+capa      base,    acabado,     imprimación, base y
+barnices.                       acabado.
+Normativas      ambientales
+                             Controlar               el
+sobre manejo de solventes,
+                             cumplimiento de normas
+pinturas     y     desechos
+                             de      seguridad       y
+contaminantes.
+                             ambientales durante la
+Equipos     de    protección aplicación de solventes
+personal (EPP) específicos y pinturas.
+para metalmecánica.
+                             Documentar procesos
+Estrategias               de de             corrección
+autoevaluación en procesos estructural y acabados
+de soldadura y pintura.      en registros técnicos.
+Identificación de errores
+frecuentes en correcciones
+estructurales    y      su
+prevención.
+Aprendizaje continuo sobre
+nuevas     tecnologías    de
+materiales automotrices (ej.
+aluminios       de       alta
+resistencia,       plásticos
+compuestos reciclables).
+
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: mecánica
+   automotriz o en carreras relacionadas con el sector automotriz.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                    Especificaciones técnicas             Cantidad
+
+Infraestructura/espacio         Entorno de aprendizaje (aula)                  1
+
+Infraestructura/espacio         Taller                                         1
+
+Laboratorio                     Computadoras con acceso a internet             1
+                                Servidor
+                                Proyector
+Herramientas/equipos          • Medidor de dureza (Rockwell o                   1
+                                Brinell)
+                              • Calibrador o vernier;
+                              • Luces de inspección;
+                              • Muestras de materiales metálicos
+                                (acero, aluminio, cobre, etc.);
+                              • Muestras       de     plásticos    y
+                                compuestos: resinas, fibras de
+                                carbono, composites;
+                              • Máquina de soldadura MIG;
+                              • Pistola de aire comprimido;
+                              • Extractor de piezas;
+                              • Gato hidráulico y soporte de
+                                seguridad;
+                              • Prensa de banco;
+                              • Soldadora por puntos;
+                              • Remachadora; Barras de torsión;
+                              • Juego de llaves de torque;
+                              • Equipo de protección personal
+                                (EPP): cascos, guantes, gafas de
+                                seguridad, botas con punta de
+                                acero;
+                              • Piezas     y     componentes      de
+                                carrocería     (metálicos     y   no
+                                metálicos);
+                              • Cinta    adhesiva      industrial  y
+                                selladores
+Referencias Bibliográficas
+Recursos Digitales:
+   •   Díaz Poma, E. F., & Chango Santo, S. I. (2023). Metrología automotriz. Instituto
+       Superior                            Universitario                       Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/9
+   •   Ortiz Sánchez, Y., Cañas Mendoza, L. A., & Marulanda Arévalo, J. L. (2024).
+       Introducción a los procesos de manufactura. Universidad Tecnológica de Pereira.
+       https://hdl.handle.net/11059/15606
+   •   Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+       Superior                            Universitario                       Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/es/catalog/book/38
+   •   Dután Dután, L. D. (2024). Propuesta de hoja de inspección multipunto para
+       visibilización de daños ocultos y optimización de las valoraciones poscolisión
+       [Trabajo de titulación, Universidad Internacional del Ecuador]. Repositorio Digital
+       UIDE. https://repositorio.uide.edu.ec/bitstream/37000/7335/1/UIDE-Q-TMA-2024-
+       159.pdf
+   •   Lara Cueva, A. E. (2025). Implementación del equipo SnapFresh Power para el
+       proceso de pintado de elementos plásticos automotrices [Trabajo de titulación,
+       Universidad      Internacional    del   Ecuador].   Repositorio   Digital   UIDE.
+       https://repositorio.uide.edu.ec/bitstream/37000/7817/1/UIDE-G-TMA-2024-123.pdf
+   •   Mendoza Loaiza, J. X. (2025). Análisis de la deformación programada estructural
+       del guardafango delantero izquierdo del KIA Soluto 1.4 cc ante una colisión lateral
+       [Trabajo de titulación, Universidad Internacional del Ecuador]. Repositorio Digital
+       UIDE. https://repositorio.uide.edu.ec/bitstream/37000/8007/1/UIDE-G-TMA-2025-
+       135.pdf
+
+
+
+                           Módulo de Especialización Nro. 4
+
+Nombre del módulo formativo:           Sistemas Eléctricos y Electrónicos
+
+Nivel: Bachillerato                    1ro, 2do y 3ro
+
+Duración:                              600 periodos pedagógicos
+
+Unidad       de       competencia      UC4. Integrar diagnósticos para mantenimiento,
+asociada:                              reparación de los sistemas eléctricos, electrónicos del
+                                       vehículo,    aplicando     procedimientos     técnicos
+                                       conforme a especificaciones del fabricante,
+                                       garantizando      seguridad,    calidad,     eficiencia
+                                       energética, sostenibilidad ambiental.
+Objetivo del módulo: Realizar diagnósticos, mantenimientos y reparaciones en sistemas
+eléctricos y electrónicos del vehículo, atreves de equipos e instrumentos de medición,
+software de diagnóstico en condiciones de seguridad y eficiencia energética, para garantizar
+confiabilidad operativa, seguridad vehicular y sostenibilidad ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Categorizar componentes, funciones y simbología de los sistemas eléctricos y
+electrónicos del vehículo, relacionándolos con las especificaciones técnicas del
+fabricante y criterios de seguridad, calidad y sostenibilidad.
+CE1.1: Evalúa los componentes eléctricos y electrónicos del vehículo contrastándolos con
+las especificaciones técnicas del fabricante.
+CE1.2: Diferencia la función y ubicación de los componentes eléctricos y electrónicos de
+acuerdo con su integración en el sistema automotriz.
+CE1.3: Clasifica los componentes eléctricos y electrónicos en los distintos sistemas del
+vehículo conforme a su aplicación y función.
+CE1.4: Interpreta la simbología de los componentes eléctricos y electrónicos en diagramas
+y esquemas técnicos proporcionados por el fabricante.
+RA 2. Diagnosticar fallas operativas en los sistemas eléctricos y electrónicos del
+vehículo, mediante técnicas de verificación con equipos especializados, conforme a
+normas técnicas y de seguridad.
+CE2.1: Selecciona las herramientas e instrumentos de diagnóstico adecuados para detectar
+fallas en los sistemas eléctricos y electrónicos, garantizando su efectividad y precisión.
+CE2.2: Ejecuta las pruebas de diagnóstico en los sistemas eléctricos y electrónicos
+utilizando equipos especializados, siguiendo los protocolos establecidos por el fabricante.
+CE2.3: Compara los valores obtenidos en el diagnóstico con las especificaciones técnicas
+descritas en manuales y fichas técnicas, asegurando precisión en los resultados.
+CE2.4: Elabora un informe técnico detallado del diagnóstico, incluyendo los resultados
+obtenidos, las conclusiones y el cumplimiento de las normas de seguridad establecidas.
+RA 3: Realizar procedimientos de mantenimiento preventivo en los sistemas
+eléctricos y electrónicos, mediante técnicas de inspección, limpieza, ajuste y
+comprobación, conforme a manuales de servicio y normas de seguridad.
+CE3.1: Selecciona las herramientas, instrumentos y equipos necesarios para realizar el
+mantenimiento preventivo de los sistemas eléctricos y electrónicos asegurando su
+efectividad y seguridad.
+CE3.2: Aplica los procedimientos de mantenimiento preventivo siguiendo las
+especificaciones técnicas del fabricante y respetando las normas de seguridad.
+CE3.3: Verifica el estado de los componentes eléctricos y electrónicos comparándolos con
+las especificaciones técnicas después del mantenimiento preventivo.
+CE3.4: Elabora un informe técnico detallado de las actividades ejecutadas en el
+mantenimiento preventivo, incluyendo observaciones y resultados obtenidos.
+RA 4: Arreglar los sistemas eléctricos y electrónicos del vehículo mediante técnicas
+de sustitución, ajuste y calibración de componentes cumpliendo especificaciones
+técnicas y normativas de seguridad.
+CE4.1: Determina procedimientos de reparación de los sistemas eléctricos y electrónicos
+en relación con las fallas identificadas siguiendo especificaciones técnicas del fabricante.
+CE4.2: Selecciona herramientas, instrumentos y equipos requeridos en la reparación de los
+sistemas eléctricos y electrónicos garantizando eficiencia y condiciones de seguridad.
+CE4.3: Ejecuta la reparación de los sistemas eléctricos y electrónicos aplicando
+procedimientos establecidos en manuales técnicos vigentes cumpliendo normas de
+seguridad.
+CE4.4: Comprueba el funcionamiento de los sistemas eléctricos y electrónicos después de
+la reparación validando su conformidad con estándares de calidad y seguridad establecidos.
+Contenidos
+Conceptuales                     Procedimentales              Actitudinales
+Definición y función de los                                   Valorar la importancia de
+                                 Identificar componentes
+sistemas       eléctricos    y                                interpretar      correctamente
+                                 eléctricos y electrónicos
+electrónicos.                                                 esquemas eléctricos, planos y
+                                 en los sistemas del
+                                                              diagramas.
+                                 vehículo.
+Generadores, reguladores                                            Respetar las especificaciones
+                                  Leer       e      interpretar
+de voltaje, fusibles, relés,                                        técnicas de fabricantes y
+                                  esquemas y diagramas
+interruptores, y conectores.                                        normas internacionales.
+                                  eléctricos y electrónicos
+Circuitos eléctricos: series, del fabricante.                       Mostrar     interés   en    la
+paralelos, y mixtos.                                                actualización de conocimientos
+                                  Verificar el estado de los
+                                                                    sobre nuevas tecnologías.
+Especificaciones técnicas sistemas eléctricos y
+del fabricante en los electrónicos                   utilizando     Reconocer la importancia de
+sistemas eléctricos.              herramientas                      documentar     procesos  de
+                                  especializadas (escáner,          diagnóstico,    medición  y
+Principales          sistemas
+                                  multímetro, osciloscopio).        reparación de sistemas.
+electrónicos: ECU (unidad
+de control electrónico), Diagnosticar                      fallas   Mantener actitud crítica y
+sensores, actuadores, y operativas                 en         los   analítica durante pruebas y
+sistemas de comunicación sistemas eléctricos y                      análisis de funcionamiento de
+(CAN bus, LIN bus).               electrónicos mediante la          sistemas, buscando siempre
+                                  medición de parámetros            evidencias     y    resultados
+Componentes         de         la
+                                  (voltaje,       resistencia,      confiables.
+electrónica
+                                  corriente).
+microcontroladores,                                                 Priorizar la seguridad personal
+transistores,         circuitos Ejecutar procedimientos             y de terceros durante el
+integrados, sensores de de                     mantenimiento        diagnóstico y manipulación de
+temperatura,          presión, preventivo, como limpieza            sistemas            vehiculares,
+oxígeno, etc.                     de        contactos           y   aplicando       normas       de
+                                  conexiones, verificación          prevención de riesgos.
+Diagnóstico      de       fallas
+                                  de tensión y ajuste de
+eléctricas y electrónicas con                                       Fomentar la colaboración y
+                                  componentes.
+metodologías de pruebas.                                            comunicación efectiva con
+                                  Aplicar      técnicas        de   compañeros y supervisores al
+Funciones de los sistemas
+                                  reparación en sistemas            realizar análisis de sistemas y
+eléctricos y electrónicos en
+                                  eléctricos y electrónicos,        diagnósticos complejos.
+la gestión de motores,
+                                  como el reemplazo de
+seguridad activa y pasiva                                           Demostrar ética profesional en
+                                  fusibles, sensores, y
+(ABS, airbags).                                                     la gestión de información
+                                  módulos electrónicos.
+                                                                    técnica,      mediciones       y
+Esquemas         electrónicos:
+                                  Realizar             pruebas      resultados, asegurando la
+simbología y representación
+                                  funcionales        de       los   confidencialidad y la integridad
+en diagramas de circuitos
+                                  sistemas eléctricos y             de los datos.
+eléctricos.
+                                  electrónicos, verificando
+Análisis de la eficiencia su operatividad después
+energética y su impacto en de la reparación o
+la sostenibilidad (uso de mantenimiento.
+fuentes       de       energía
+                                  Ajustar       y       calibrar
+renovables, optimización de
+                                  componentes
+sistemas electrónicos).
+                                  electrónicos y eléctricos
+Diagnóstico                y conforme    a            las
+mantenimiento de sistemas especificaciones            del
+eléctricos y electrónicos:   fabricante.
+Métodos y herramientas de      Implementar
+diagnóstico: escáner de        procedimientos          de
+diagnóstico,      multímetro,  seguridad durante las
+osciloscopio, etc.             intervenciones          en
+                               sistemas eléctricos y
+Procedimientos             de
+                               electrónicos (uso de EPP,
+inspección y verificación de
+                               desconexión de baterías,
+componentes eléctricos y
+                               trabajo en lugares secos).
+electrónicos.
+                               Aplicar las normativas de
+Fallas comunes en sistemas
+                               sostenibilidad y eficiencia
+eléctricos y electrónicos
+                               energética       en      el
+(circuitos           abiertos,
+                               mantenimiento           de
+cortocircuitos, fallas de
+                               sistemas eléctricos y
+señal).
+                               electrónicos.
+Técnicas de mantenimiento
+                               Elaborar          informes
+preventivo: limpieza de
+                               técnicos detallados de
+contactos,      ajuste     de
+                               diagnóstico y reparación,
+conexiones, reemplazo de
+                               con registros de las
+componentes.
+                               actividades realizadas y
+Normas de seguridad y recomendaciones                  de
+protección ambiental en los seguimiento.
+procesos de mantenimiento
+y reparación de sistemas
+eléctricos y electrónicos.
+Desarrollo de habilidades de
+análisis crítico y resolución
+de problemas en circuitos
+eléctricos y electrónicos.
+
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: mecánica
+   automotriz o en carreras relacionadas con el sector automotriz.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+   Aprendizaje Basado en Proyectos (ABP)
+   Aprendizaje en Contextos Reales
+   Aprendizajes basados en problemas.
+   Metodología STEAM aplicada al diagnóstico automotriz
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                 Especificaciones técnicas                 Cantidad
+
+Infraestructura/espacio      Entorno de aprendizaje (aula)                    1
+
+Infraestructura/espacio      Taller                                           1
+
+Laboratorio                  Computadoras con acceso a internet               1
+                             Servidor
+                             Proyector
+Herramientas/equipos         Manual técnico y esquemas eléctricos;            1
+                             Multímetro digital;
+                             Lupa de aumento o microscopio
+                             portátil;
+                             Tableros de pruebas;
+                             Multímetro avanzado con pruebas de
+                             diodos, capacitores y transistores;
+                             Limpiador de contactos eléctricos
+                             (para eliminar corrosión y suciedad en
+                             conexiones);
+                             Kit de limpieza de terminales y
+                             contactos eléctricos;
+                             Equipo de protección personal (EPP)
+                             Termómetro;
+                             Extractores       de       componentes
+                             electrónicos y eléctricos;
+                             Estación de soldadura electrónica
+                             Kit de repuesto de componentes
+                             electrónicos (diodos, transistores,
+                             resistencias):
+                             Llaves, alicates de precisión;
+                             Calibradores de voltaje y corriente;
+                             Equipo de pruebas de batería y
+                             alternadores (pruebas de carga);
+                             Kit de cables de repuesto y conectores;
+                             Dispositivos de prueba para sistemas
+                             de encendido y sistemas de inyección
+                             electrónica.
+Referencias Bibliográficas
+ Libros:
+    • Barrera Narea, I. Y. (2023). Diseño y construcción de un equipo para prueba y
+        diagnóstico aplicado para sensores automotrices del sistema de inyección
+        electrónica de automóviles [Trabajo de titulación, Universidad Politécnica
+        Salesiana]. Repositorio Institucional de la Universidad Politécnica Salesiana.
+        https://dspace.ups.edu.ec/bitstream/123456789/25150/1/UPS-GT004446.pdf
+    • Benítez Haro, J. A., & López Valenzuela, C. D. (2023). Diagnóstico estequiométrico
+        con osciloscopio: Análisis del sistema de encendido del motor 2ZR-FXE [Trabajo
+        de titulación, Universidad Técnica del Norte]. Repositorio Digital de la Universidad
+        Técnica                                   del                                 Norte.
+        https://repositorio.utn.edu.ec/bitstream/123456789/14911/2/04%20AUT%20009%
+        20TRABAJO%20GRADO.pdf
+    • Mantilla García, J. I. (2023). Implementación del osciloscopio automotriz portátil
+        DSO8060 para la obtención de datos en el sistema de inyección electrónica
+        [Trabajo de titulación, Universidad Internacional del Ecuador]. Repositorio Digital
+        UIDE. https://repositorio.uide.edu.ec/bitstream/37000/5885/1/UIDE-G-TMA-2023-
+        17.pdf
+    • Medina Piza, I. A., & Orellana Jarrín, E. A. (2024). Determinación de averías en el
+        sistema de inyección electrónica de combustible del vehículo Mazda 3 año 2008
+        [Trabajo de titulación, Universidad Internacional del Ecuador]. Repositorio Digital
+        UIDE. https://repositorio.uide.edu.ec/bitstream/37000/6922/1/UIDE-G-TMA-2024-
+        73.pdf
+    • Ortiz Castillo, F. M. (2024). Análisis de los sensores del motor del vehículo
+        Chevrolet Sail 1.4 utilizando un osciloscopio automotriz [Trabajo de titulación,
+        Universidad      Internacional    del   Ecuador].   Repositorio     Digital   UIDE.
+        https://repositorio.uide.edu.ec/bitstream/37000/7518/1/UIDE-G-TMA-2024-92.pdf
+
+
+           5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios
+y metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la
+adaptación a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en
+los módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+                           Módulo Práctico Experimental
+
+ Nombre del módulo:          Practico Experimental
+
+ Nivel:                      1ro, 2do, 3ro
+ Duración:                   320 periodos pedagógicos
+ Unidad               de     UC1: Ejecutar mantenimiento preventivo, correctivo y
+ competencia                 reparación, ajuste de motores de combustión interna,
+ asociada:                   sistemas      de    propulsión     automotriz,   aplicando
+                             procedimientos       técnicos     adecuados,     utilizando
+                             herramientas e instrumentos automotrices, considerando
+                             parámetros de seguridad, calidad, eficiencia energética y
+                             cuidado del medio ambiente.
+                             UC2: Realizar diagnósticos, mantenimientos preventivos,
+                             correctivos en componentes de sistemas de freno,
+                             dirección, suspensión y transmisión con componentes
+                             hidráulicos y neumáticos, garantizando el funcionamiento
+                             seguro, eficiente, conforme a normas de calidad y
+                             protección ambiental.
+                             UC3:      Emplear adaptaciones y enderezados en
+                             componentes metalúrgicos estructurales y superficiales
+                             del vehículo, aplicando procesos de fabricación y
+                             acabados según especificaciones técnicas, con
+                             cumplimiento de estándares de seguridad, salud
+                             ocupacional con calidad ambiental.
+                             UC4:       Integrar diagnósticos para mantenimiento,
+                             reparación de los sistemas eléctricos, electrónicos del
+                             vehículo, aplicando procedimientos técnicos conforme a
+                             especificaciones del fabricante, garantizando seguridad,
+                             calidad, eficiencia energética, sostenibilidad ambiental.
+ Objetivo del módulo: Formar al estudiantado en el diagnóstico, mantenimiento,
+ reparación y adaptación de sistemas mecánicos, eléctricos y electrónicos de
+ vehículos automotores. A través de actividades prácticas y experimentales, los
+ estudiantes adquirirán competencias en la interpretación de manuales, diagramas
+ técnicos, y en la aplicación de normas de seguridad industrial, ambientales y de
+ calidad, a fin de garantizar el funcionamiento eficiente, seguro y sostenible de los
+ vehículos.
+ Resultados             de     Criterios              de Actividades Prácticas
+ Aprendizaje (RA)              Evaluación (CE)             Experimentales
+RA1:        Diagnosticar,   CE1.1: Identificar los      Los estudiantes realizarán un
+mantener     y   reparar    componentes                 diagnóstico completo de un
+motores de combustión       principales del motor y     motor de combustión interna
+interna y sistemas de       su       funcionamiento,    usando        un       escáner
+propulsión automotriz.      aplicando                   automotriz,       identificando
+                            procedimientos         de   fallas comunes y realizando
+                            diagnóstico             y   reparaciones como ajuste de
+                            mantenimiento               válvulas,     limpieza        de
+                            adecuados.                  inyectores y cambio de
+                            CE1.3: Realizar ajustes     bujías.               Además,
+                            y     reparaciones     en   desmontarán y montarán un
+                            motores y sistemas de       sistema de transmisión,
+                            propulsión     utilizando   evaluando componentes y
+                            herramientas            e   aplicando      técnicas       de
+                            instrumentos                reparación.           También
+                            especializados.             participarán       en        una
+                                                        simulación de atención al
+                                                        cliente, diagnosticando fallas
+                                                        según los síntomas descritos
+                                                        y                   ofreciendo
+                                                        recomendaciones            sobre
+                                                        reparaciones necesarias.
+RA2: Diagnosticar y         CE2.1: Aplicar normas       Visita Técnica a un Taller de
+mantener sistemas de        de       seguridad    y     Reparación Automotriz:
+frenos,      dirección,     procedimientos       de     Los estudiantes realizarán
+suspensión            y     diagnóstico en sistemas     inspecciones      visuales     y
+transmisión.                de frenos, dirección y      usarán       equipos          de
+                            suspensión, utilizando      diagnóstico para evaluar
+                            herramientas                frenos,       dirección        y
+                            adecuadas.                  suspensión, verificando la
+                            CE2.2: Realizar ajustes     alineación de ruedas, discos
+                            y     reparaciones   de     de frenos y componentes de
+                            componentes de tren de      dirección.      Desmontarán,
+                            rodaje y transmisión        inspeccionarán                  y
+                            conforme              a     reemplazarán componentes
+                            especificaciones     del    defectuosos de los sistemas
+                            fabricante.                 de suspensión y transmisión,
+                                                        ajustando amortiguadores y
+                                                        revisando                 juntas
+                                                        homocinéticas según las
+                                                        especificaciones              del
+                                                        fabricante.           Además,
+                                                        realizarán     pruebas        de
+                                                         rendimiento en los sistemas
+                                                         de suspensión y frenos.
+RA3: Aplicar procesos de     CE3.1: Seleccionar y        Práctica de Reparación de
+adaptación y reparación      utilizar materiales y       Componentes Metálicos y No
+en         componentes       procesos      adecuados     Metálicos:
+metalúrgicos     y      no   para la reparación de       Los estudiantes aprenderán
+metálicos del vehículo.      carrocerías, teniendo en    a usar equipos de soldadura
+                             cuenta las propiedades      para reparar carrocerías
+                             mecánicas y normativas      metálicas, practicando con
+                             de seguridad.               acero y aluminio y evaluando
+                             CE3.2: Realizar trabajos    la calidad de las uniones.
+                             de             soldadura,   Utilizarán herramientas de
+                             enderezado y acabado        enderezado para corregir
+                             en           carrocerías,   deformaciones y restaurar la
+                             asegurando la calidad       geometría original de la
+                             de las uniones.             carrocería, aplicando normas
+                                                         de     seguridad.      También
+                                                         identificarán     daños        en
+                                                         plásticos y compuestos,
+                                                         utilizando     técnicas        de
+                                                         soldadura en plásticos y
+                                                         resinas para reparar piezas
+                                                         no metálicas.
+RA4: Diagnosticar y          CE4.1:        Interpretar   Diagnóstico y Reparación de
+reparar         sistemas     diagramas eléctricos y      Sistemas       Eléctricos       y
+eléctricos y electrónicos    electrónicos          del   Electrónicos:
+automotrices.                vehículo,      aplicando    Los estudiantes utilizarán un
+                             técnicas de diagnóstico     multímetro y un osciloscopio
+                             y reparación conforme a     para diagnosticar fallas en el
+                             las especificaciones del    sistema       eléctrico       del
+                             fabricante.                 vehículo, como problemas en
+                             CE4.2: Realizar pruebas     la batería y alternador, y
+                             de funcionamiento y         practicarán la reparación de
+                             reparación            de    circuitos defectuosos según
+                             componentes                 diagramas            eléctricos.
+                             electrónicos como ECU,      Realizarán pruebas en la
+                             sensores y actuadores.      ECU          y        sensores
+                                                         automotrices,         aplicando
+                                                         soluciones como reemplazo
+                                                         de sensores o recalibración.
+                                                         Además,       simularán        un
+                                                         diagnóstico       de       fallas
+                                                         electrónicas basadas en los
+                                                         síntomas reportados por un
+                                                         cliente, utilizando equipos de
+                                                         diagnóstico y reparando los
+                                                         sistemas electrónicos del
+                                                         vehículo.
+
+Nota:
+
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e
+incluir las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje
+significativo, sin que este reemplace su paso por la Formación Estudiantil en Centros
+Educativos y de Trabajo.
+

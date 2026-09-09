@@ -173,13 +173,40 @@ export default function HomeScreen() {
                   </Pressable>
                 </View>
 
+                {/* Preparatoria Section */}
+                <View className="px-5 mt-3">
+                  <Pressable
+                    onPress={() => router.push("/planificar-preparatoria" as any)}
+                    style={({ pressed }) => ({
+                      backgroundColor: "#7C3AED",
+                      borderRadius: 14,
+                      padding: 16,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 12,
+                      opacity: pressed ? 0.85 : 1,
+                    })}
+                  >
+                    <Text style={{ fontSize: 32 }}>📚</Text>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
+                        Planificación Preparatoria
+                      </Text>
+                      <Text style={{ color: "#ede9fe", fontSize: 12, marginTop: 2 }}>
+                        1.{"°"} EGB {"·"} 7 {"á"}mbitos {"·"} Curr{"í"}culo Integrador
+                      </Text>
+                    </View>
+                    <Text style={{ color: "#fff", fontSize: 20 }}>›</Text>
+                  </Pressable>
+                </View>
+
                 {/* EGB Section */}
                 <View className="px-5 mt-6 mb-3">
                   <Text className="text-lg font-semibold text-foreground">
                     Educaci{"ó"}n General B{"á"}sica
                   </Text>
                   <Text className="text-xs text-muted mt-1">
-                    Preparatoria {"·"} Elemental {"·"} Media {"·"} Superior
+                    Elemental {"·"} Media {"·"} Superior
                   </Text>
                 </View>
                 <View className="px-5">

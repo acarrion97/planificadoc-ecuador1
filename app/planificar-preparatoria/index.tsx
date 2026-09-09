@@ -1,0 +1,1218 @@
+import { useState, useCallback, useEffect } from "react";
+import {
+  Text, View, ScrollView, TextInput, StyleSheet, Alert, Platform,
+  ActivityIndicator, Switch, Pressable, Modal,
+} from "react-native";
+import { useRouter } from "expo-router";
+import { ScreenContainer } from "@/components/screen-container";
+import { DestrezaIconos } from "@/components/DestrezaIconos";
+import { useColors } from "@/hooks/use-colors";
+import { usePlanificaciones } from "@/lib/planificaciones-context";
+import {
+  TODAS_LAS_DESTREZAS, AREAS_INFO, AMBITOS_PREPARATORIA,
+  METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, HABILIDADES_SOCIOEMOCIONALES,
+} from "@/data";
+import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad } from "@/data/types";
+import { trpc } from "@/lib/trpc";
+
+// Preparatoria (subnivel 1, 1.° EGB) se organiza por los 7 ámbitos del currículo
+// integrador, no por asignatura. Este flujo reutiliza el mismo backend y la misma
+// exportación (Word) que planificar-semanal — ver openspec/changes/
+// preparatoria-area-integradora/design.md D8. Lo único que cambia es cómo se
+// eligen las destrezas: por ámbito (agrupa varias áreas), no por una sola área.
+
+// ─── Constantes ────────────────────────────────────────────────
+const SUBNIVEL = 1;
+const GRADO_UNICO = "1.° EGB";
+const NIVEL = "EGB";
+const AMBITO_KEYS = Object.keys(AMBITOS_PREPARATORIA).map(Number).sort();
+
+const DUA_ROSADO = "#EC4899";
+const DUA_AZUL   = "#1E3A5F";
+const DUA_VERDE  = "#22C55E";
+
+const DEPORTES_EF: { value: string; label: string }[] = [
+  { value: "Fútbol",             label: "⚽ Fútbol" },
+  { value: "Básquetbol",         label: "🏀 Básquetbol" },
+  { value: "Voleibol",           label: "🏐 Voleibol" },
+  { value: "Atletismo",          label: "🏃 Atletismo" },
+  { value: "Natación",           label: "🏊 Natación" },
+  { value: "Gimnasia",           label: "🤸 Gimnasia" },
+  { value: "Ajedrez",            label: "♟️ Ajedrez" },
+];
+
+const DIAS_SEMANA = ["lunes", "martes", "miercoles", "jueves", "viernes"] as const;
+type DiaSemanaKey = typeof DIAS_SEMANA[number];
+const DIA_LABEL: Record<DiaSemanaKey, string> = {
+  lunes: "Lunes", martes: "Martes", miercoles: "Miércoles",
+  jueves: "Jueves", viernes: "Viernes",
+};
+const DIA_EMOJI: Record<DiaSemanaKey, string> = {
+  lunes: "🟦", martes: "🟩", miercoles: "🟨", jueves: "🟧", viernes: "🟥",
+};
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+}
+
+function getTodayDate() {
+  const d = new Date();
+  return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`;
+}
+
+function getLunesDeEstaSemana(): string {
+  const d = new Date();
+  const day = d.getDay();
+  const diff = day === 0 ? -6 : 1 - day;
+  d.setDate(d.getDate() + diff);
+  return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`;
+}
+
+function getViernesDeEstaSemana(): string {
+  const d = new Date();
+  const day = d.getDay();
+  const diff = day === 0 ? -2 : 5 - day;
+  d.setDate(d.getDate() + diff);
+  return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`;
+}
+
+function makeHora(): HoraSemanal {
+  return {
+    id: generateId(),
+    codigoDestreza: "",
+    destreza: null,
+    tema: "",
+    temasAlternativos: [],
+    temaSeleccionado: null,
+    habilidadesSocioemocionales: [],
+    usaEjesTransversales: false,
+    insercionesCurriculares: [],
+    usaCompetencias: false,
+    competencias: [],
+    metodologiasActivas: [],
+    tecnicasEvaluacion: [],
+    deporteEnfoque: "",
+  };
+}
+
+function makeDia(activo = true): ConfiguracionDia {
+  return { activo, cantidadHoras: 1, horas: [makeHora()] };
+}
+
+type Paso = "configuracion" | "generando" | "resultado";
+type DiasState = Record<DiaSemanaKey, ConfiguracionDia>;
+
+// ─── Componente principal ────────────────────────────────────
+export default function PlanificarPreparatoriaScreen() {
+  const colors = useColors();
+  const router = useRouter();
+  const { addSemana } = usePlanificaciones();
+
+  const [paso, setPaso] = useState<Paso>("configuracion");
+
+  // ── Datos generales ──
+  const [institucion, setInstitucion] = useState("");
+  const [docente, setDocente] = useState("");
+  const [ambitoSeleccionado, setAmbitoSeleccionado] = useState<number | null>(null);
+  const [paralelo, setParalelo] = useState("");
+  const [trimestre, setTrimestre] = useState("Primero");
+  const [semanaInicio, setSemanaInicio] = useState(getLunesDeEstaSemana());
+  const [semanaFin, setSemanaFin] = useState(getViernesDeEstaSemana());
+  const [numeroUnidad, setNumeroUnidad] = useState("");
+  const [tituloUnidad, setTituloUnidad] = useState("");
+  const [objetivosUnidad, setObjetivosUnidad] = useState("");
+
+  // ── Configuración por día ──
+  const [dias, setDias] = useState<DiasState>({
+    lunes: makeDia(true),
+    martes: makeDia(true),
+    miercoles: makeDia(true),
+    jueves: makeDia(true),
+    viernes: makeDia(true),
+  });
+
+  // ── Resultado generado ──
+  const [diasConPlanes, setDiasConPlanes] = useState<Record<string, { horaIndex: number; plan: any }[]>>({});
+  const [tabActivo, setTabActivo] = useState<DiaSemanaKey>("lunes");
+  const [errorGeneral, setErrorGeneral] = useState<string | null>(null);
+
+  // ── tRPC (infraestructura genérica de EGB, no propia de Preparatoria) ──
+  const generateWeekMutation = trpc.topics.generateWeekPlan.useMutation();
+  const generateAiMutation = trpc.topics.generateAi.useMutation();
+
+  // ─── Helpers para editar días/horas ───────────────────────
+  const updateDia = useCallback((dia: DiaSemanaKey, update: Partial<ConfiguracionDia>) => {
+    setDias(prev => ({ ...prev, [dia]: { ...prev[dia], ...update } }));
+  }, []);
+
+  const updateHora = useCallback((dia: DiaSemanaKey, horaId: string, update: Partial<HoraSemanal>) => {
+    setDias(prev => ({
+      ...prev,
+      [dia]: {
+        ...prev[dia],
+        horas: prev[dia].horas.map(h => h.id === horaId ? { ...h, ...update } : h),
+      },
+    }));
+  }, []);
+
+  const setCantidadHoras = useCallback((dia: DiaSemanaKey, cantidad: 1 | 2 | 3) => {
+    setDias(prev => {
+      const current = prev[dia];
+      let horas = [...current.horas];
+      while (horas.length < cantidad) horas.push(makeHora());
+      horas = horas.slice(0, cantidad);
+      return { ...prev, [dia]: { ...current, cantidadHoras: cantidad, horas } };
+    });
+  }, []);
+
+  const copiarAlSiguienteDia = useCallback((dia: DiaSemanaKey) => {
+    const idx = DIAS_SEMANA.indexOf(dia);
+    if (idx === DIAS_SEMANA.length - 1) return;
+    const siguiente = DIAS_SEMANA[idx + 1];
+    const origen = dias[dia];
+    setDias(prev => ({
+      ...prev,
+      [siguiente]: {
+        ...origen,
+        horas: origen.horas.map(h => ({
+          ...makeHora(),
+          codigoDestreza: h.codigoDestreza,
+          destreza: h.destreza,
+          tema: h.tema,
+          habilidadesSocioemocionales: [...h.habilidadesSocioemocionales],
+          usaEjesTransversales: h.usaEjesTransversales,
+          insercionesCurriculares: [...h.insercionesCurriculares],
+          usaCompetencias: h.usaCompetencias,
+          competencias: [...h.competencias],
+          metodologiasActivas: [...h.metodologiasActivas],
+          tecnicasEvaluacion: [...h.tecnicasEvaluacion],
+        })),
+      },
+    }));
+  }, [dias]);
+
+  const toggleChipHora = useCallback((
+    dia: DiaSemanaKey,
+    horaId: string,
+    field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion",
+    id: string
+  ) => {
+    setDias(prev => ({
+      ...prev,
+      [dia]: {
+        ...prev[dia],
+        horas: prev[dia].horas.map(h => {
+          if (h.id !== horaId) return h;
+          const current = h[field] as string[];
+          return { ...h, [field]: current.includes(id) ? current.filter(x => x !== id) : [...current, id] };
+        }),
+      },
+    }));
+  }, []);
+
+  // ─── Selección de ámbito ─────────────────────────────────
+  const handleSelectAmbito = useCallback((ambito: number) => {
+    setAmbitoSeleccionado(ambito);
+    setNumeroUnidad(String(ambito));
+    setTituloUnidad(AMBITOS_PREPARATORIA[ambito] ?? "");
+  }, []);
+
+  // ─── Sugerir temas para una hora ─────────────────────────
+  const [loadingHoraId, setLoadingHoraId] = useState<string | null>(null);
+
+  const sugerirTemas = useCallback(async (dia: DiaSemanaKey, horaId: string) => {
+    const hora = dias[dia].horas.find(h => h.id === horaId);
+    if (!hora?.destreza || !hora.tema.trim()) return;
+    setLoadingHoraId(horaId);
+    try {
+      const result = await generateAiMutation.mutateAsync({
+        codigoDestreza: hora.destreza.codigo,
+        descripcionDestreza: hora.destreza.descripcion,
+        area: hora.destreza.area,
+        bloque: AMBITOS_PREPARATORIA[hora.destreza.bloque] ?? `Bloque ${hora.destreza.bloque}`,
+        subnivel: hora.destreza.subnivel,
+        temaDocente: hora.tema.trim(),
+        temasExistentes: [hora.tema.trim()],
+      });
+      if (result.success && result.temas.length > 0) {
+        updateHora(dia, horaId, { temasAlternativos: result.temas as TemaSugerido[] });
+      }
+    } catch (err: any) {
+      console.error("Error sugerirTemas:", err);
+    } finally {
+      setLoadingHoraId(null);
+    }
+  }, [dias, generateAiMutation, updateHora]);
+
+  // ─── Generación semanal ───────────────────────────────────
+  const handleGenerarSemana = async () => {
+    if (!docente.trim()) {
+      const msg = "Por favor ingresa el nombre del docente";
+      Platform.OS === "web" ? alert(msg) : Alert.alert("", msg);
+      return;
+    }
+
+    const inputDias: any[] = [];
+    for (const dia of DIAS_SEMANA) {
+      const config = dias[dia];
+      if (!config.activo) continue;
+      const horasValidas = config.horas.filter(h => h.destreza && h.tema.trim());
+      if (horasValidas.length === 0) continue;
+      inputDias.push({
+        dia,
+        horas: horasValidas.map((h, i) => ({
+          horaIndex: i,
+          codigoDestreza: h.destreza!.codigo,
+          descripcionDestreza: h.destreza!.descripcion,
+          area: h.destreza!.area,
+          bloque: AMBITOS_PREPARATORIA[h.destreza!.bloque] ?? `Bloque ${h.destreza!.bloque}`,
+          subnivel: h.destreza!.subnivel,
+          tema: h.temaSeleccionado?.titulo || h.tema,
+          ejesTransversales: h.usaEjesTransversales ? h.insercionesCurriculares : [],
+          competencias: h.usaCompetencias ? h.competencias : [],
+          metodologias: h.metodologiasActivas,
+          deporteEnfoque: h.destreza?.area === "EF" && h.deporteEnfoque ? h.deporteEnfoque : undefined,
+          indicadoresEvaluacion: h.destreza!.indicadoresEvaluacion ?? [],
+          criteriosEvaluacion: h.destreza!.criteriosEvaluacion ?? [],
+        })),
+      });
+    }
+
+    if (inputDias.length === 0) {
+      const msg = "Activa al menos un día con destreza y tema";
+      Platform.OS === "web" ? alert(msg) : Alert.alert("", msg);
+      return;
+    }
+
+    setPaso("generando");
+    setErrorGeneral(null);
+
+    try {
+      const result = await generateWeekMutation.mutateAsync({ dias: inputDias });
+      if (result.success) {
+        setDiasConPlanes(result.diasConPlanes as any);
+        const primerDiaActivo = DIAS_SEMANA.find(d => dias[d].activo && (result.diasConPlanes[d]?.length ?? 0) > 0);
+        if (primerDiaActivo) setTabActivo(primerDiaActivo);
+        setPaso("resultado");
+      } else {
+        setErrorGeneral((result as any).error || "Error al generar");
+        setPaso("configuracion");
+      }
+    } catch (err: any) {
+      setErrorGeneral(err.message || "Error inesperado");
+      setPaso("configuracion");
+    }
+  };
+
+  const regenerarHora = async (dia: DiaSemanaKey, horaIndex: number) => {
+    const config = dias[dia];
+    const hora = config.horas[horaIndex];
+    if (!hora?.destreza) return;
+    try {
+      const result = await generateWeekMutation.mutateAsync({
+        dias: [{
+          dia,
+          horas: [{
+            horaIndex,
+            codigoDestreza: hora.destreza.codigo,
+            descripcionDestreza: hora.destreza.descripcion,
+            area: hora.destreza.area,
+            bloque: AMBITOS_PREPARATORIA[hora.destreza.bloque] ?? `Bloque ${hora.destreza.bloque}`,
+            subnivel: hora.destreza.subnivel,
+            tema: hora.temaSeleccionado?.titulo || hora.tema,
+            ejesTransversales: hora.usaEjesTransversales ? hora.insercionesCurriculares : [],
+            competencias: hora.usaCompetencias ? hora.competencias : [],
+            metodologias: hora.metodologiasActivas,
+            indicadoresEvaluacion: hora.destreza!.indicadoresEvaluacion ?? [],
+            criteriosEvaluacion: hora.destreza!.criteriosEvaluacion ?? [],
+          }],
+        }],
+      });
+      if (result.success && result.diasConPlanes[dia]) {
+        setDiasConPlanes(prev => ({
+          ...prev,
+          [dia]: (prev[dia] || []).map(h =>
+            h.horaIndex === horaIndex
+              ? { ...h, plan: result.diasConPlanes[dia][0]?.plan }
+              : h
+          ),
+        }));
+      }
+    } catch (err: any) {
+      console.error("Error regenerarHora:", err);
+    }
+  };
+
+  const buildSemana = (): PlanificacionSemanal => {
+    const now = new Date().toISOString();
+    const mapDia = (diaKey: DiaSemanaKey) => ({
+      ...dias[diaKey],
+      horas: dias[diaKey].horas.map((h, i) => ({
+        ...h,
+        temaSeleccionado: diasConPlanes[diaKey]?.[i] ? {
+          id: h.temaSeleccionado?.id || generateId(),
+          titulo: h.temaSeleccionado?.titulo || h.tema,
+          descripcionBreve: "",
+          objetivoClase: diasConPlanes[diaKey][i]?.plan?.objetivoClase || "",
+          estructura: diasConPlanes[diaKey][i]?.plan?.estructura,
+          recursos: diasConPlanes[diaKey][i]?.plan?.recursos || [],
+          evaluacionFormativa: diasConPlanes[diaKey][i]?.plan?.evaluacionFormativa || "",
+          evaluacionEstructurada: diasConPlanes[diaKey][i]?.plan?.evaluacionEstructurada ?? undefined,
+          rubricaSemanal: diasConPlanes[diaKey][i]?.plan?.rubricaSemanal ?? undefined,
+        } : h.temaSeleccionado,
+      })),
+    });
+    return {
+      id: generateId(),
+      fecha: getTodayDate(),
+      semanaInicio,
+      semanaFin,
+      institucion,
+      docente,
+      asignatura: "Currículo Integrador — Preparatoria",
+      subnivel: "Preparatoria",
+      grado: GRADO_UNICO,
+      nivel: NIVEL,
+      paralelo,
+      periodoPedagogico: "",
+      trimestre,
+      periodos: "1",
+      numeroUnidad,
+      tituloUnidad,
+      objetivosUnidad,
+      duaRepresentacion: "",
+      duaAccionExpresion: "",
+      duaImplicacion: "",
+      pctVisual: "",
+      pctAuditivo: "",
+      pctLectorEscritor: "",
+      pctKinestesico: "",
+      dias: {
+        lunes: mapDia("lunes"),
+        martes: mapDia("martes"),
+        miercoles: mapDia("miercoles"),
+        jueves: mapDia("jueves"),
+        viernes: mapDia("viernes"),
+      },
+      createdAt: now,
+      updatedAt: now,
+    };
+  };
+
+  const handleGuardar = async () => {
+    const semana = buildSemana();
+    await addSemana(semana);
+    router.replace(`/ver-semana/${semana.id}` as any);
+  };
+
+  // ─── RENDER ───────────────────────────────────────────────
+  if (paso === "generando") {
+    return (
+      <ScreenContainer edges={["top","bottom","left","right"]} className="flex-1">
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 32 }}>
+          <ActivityIndicator size="large" color="#7C3AED" />
+          <Text style={{ fontSize: 18, fontWeight: "700", color: colors.foreground, marginTop: 24, textAlign: "center" }}>
+            Generando planificación semanal...
+          </Text>
+          <Text style={{ fontSize: 14, color: colors.muted, marginTop: 8, textAlign: "center" }}>
+            La IA está trabajando en paralelo para cada hora de clase.{"\n"}Esto puede tomar entre 15 y 40 segundos.
+          </Text>
+        </View>
+      </ScreenContainer>
+    );
+  }
+
+  if (paso === "resultado") {
+    return <ResultadoView
+      colors={colors}
+      dias={dias}
+      diasConPlanes={diasConPlanes}
+      tabActivo={tabActivo}
+      setTabActivo={setTabActivo}
+      onRegenerarHora={regenerarHora}
+      onGuardar={handleGuardar}
+      onVolver={() => setPaso("configuracion")}
+    />;
+  }
+
+  // ── PASO CONFIGURACIÓN ──────────────────────────────────
+  return (
+    <ScreenContainer edges={["top","bottom","left","right"]} className="flex-1">
+      <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
+        {/* Header */}
+        <View className="px-5 pt-4 pb-2">
+          <Pressable onPress={() => router.back()} style={({ pressed }) => [styles.backBtn, { opacity: pressed ? 0.6 : 1 }]}>
+            <Text style={{ fontSize: 18 }}>{"←"}</Text>
+            <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>Atrás</Text>
+          </Pressable>
+          <Text style={[styles.pageTitle, { color: colors.foreground }]}>Planificación Preparatoria</Text>
+          <Text style={{ color: colors.muted, fontSize: 13, marginTop: 2 }}>1.° EGB · Currículo Integrador · 7 ámbitos</Text>
+        </View>
+
+        {errorGeneral && (
+          <View style={styles.errorBanner}>
+            <Text style={{ color: "#DC2626", fontSize: 13 }}>{"⚠️"} {errorGeneral}</Text>
+          </View>
+        )}
+
+        {/* ── SECCIÓN 1: Datos informativos ── */}
+        <SectionHeader title="1. Datos Informativos" emoji="ℹ️" colors={colors} />
+        <View style={[styles.sectionBody, { backgroundColor: colors.surface, borderColor: colors.border, marginHorizontal: 20 }]}>
+          <FieldLabel label="Institución Educativa" colors={colors} />
+          <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+            value={institucion} onChangeText={setInstitucion} placeholder="Nombre de la institución"
+            placeholderTextColor={colors.muted} />
+
+          <FieldLabel label="Nombre Docente *" colors={colors} />
+          <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+            value={docente} onChangeText={setDocente} placeholder="Nombre completo"
+            placeholderTextColor={colors.muted} />
+
+          {/* Ámbito — reemplaza al selector de asignatura de planificar-semanal */}
+          <FieldLabel label="Ámbito de desarrollo y aprendizaje" colors={colors} />
+          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+            {AMBITO_KEYS.map(k => {
+              const active = ambitoSeleccionado === k;
+              return (
+                <Pressable key={k} onPress={() => handleSelectAmbito(k)}
+                  style={[styles.trimestreBtn, {
+                    borderColor: active ? "#7C3AED" : colors.border,
+                    backgroundColor: active ? "#7C3AED20" : colors.surface,
+                    paddingHorizontal: 12,
+                  }]}>
+                  <Text style={{ color: active ? "#7C3AED" : colors.foreground, fontSize: 12, fontWeight: active ? "700" : "500" }}>
+                    {k}. {AMBITOS_PREPARATORIA[k]}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 4 }}>
+            Grado: {GRADO_UNICO} (subnivel único, sin desagregación por grado)
+          </Text>
+
+          {/* Paralelo */}
+          <FieldLabel label="Paralelo" colors={colors} />
+          <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap", marginBottom: 4 }}>
+            {["A","B","C","D","E"].map(p => {
+              const active = paralelo === p;
+              return (
+                <Pressable key={p} onPress={() => setParalelo(active ? "" : p)}
+                  style={[styles.trimestreBtn, {
+                    borderColor: active ? "#7C3AED" : colors.border,
+                    backgroundColor: active ? "#7C3AED" : colors.surface,
+                    minWidth: 44,
+                  }]}>
+                  <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 13, fontWeight: "700", textAlign: "center" }}>{p}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <FieldLabel label="Trimestre" colors={colors} />
+          <View style={{ flexDirection: "row", gap: 8 }}>
+            {["Primero", "Segundo", "Tercero"].map(t => (
+              <Pressable key={t} onPress={() => setTrimestre(t)}
+                style={[styles.trimestreBtn, { borderColor: trimestre === t ? "#7C3AED" : colors.border, backgroundColor: trimestre === t ? "#7C3AED" : colors.surface }]}>
+                <Text style={{ color: trimestre === t ? "#fff" : colors.foreground, fontSize: 12, fontWeight: "600" }}>{t}</Text>
+              </Pressable>
+            ))}
+          </View>
+
+          <View style={{ flexDirection: "row", gap: 8, marginTop: 8 }}>
+            <View style={{ flex: 1 }}>
+              <FieldLabel label="Semana inicio" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={semanaInicio} onChangeText={setSemanaInicio} placeholder="DD/MM/AAAA"
+                placeholderTextColor={colors.muted} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <FieldLabel label="Semana fin" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={semanaFin} onChangeText={setSemanaFin} placeholder="DD/MM/AAAA"
+                placeholderTextColor={colors.muted} />
+            </View>
+          </View>
+
+          <View style={{ flexDirection: "row", gap: 8, marginTop: 4 }}>
+            <View style={{ width: 80 }}>
+              <FieldLabel label="N.º Unidad" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={numeroUnidad} onChangeText={setNumeroUnidad} placeholder="1"
+                placeholderTextColor={colors.muted} keyboardType="number-pad" />
+            </View>
+            <View style={{ flex: 1 }}>
+              <FieldLabel label="Título de unidad de planificación" colors={colors} />
+              <TextInput style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+                value={tituloUnidad} onChangeText={setTituloUnidad} placeholder="Nombre de la unidad"
+                placeholderTextColor={colors.muted} />
+            </View>
+          </View>
+          <FieldLabel label="Objetivos específicos de la unidad de planificación" colors={colors} />
+          <TextInput style={[styles.inputSm, { color: colors.foreground, borderColor: colors.border }]}
+            value={objetivosUnidad} onChangeText={setObjetivosUnidad}
+            placeholder="Escribe los objetivos de la unidad..."
+            placeholderTextColor={colors.muted} multiline numberOfLines={3} />
+        </View>
+
+        {/* ── SECCIÓN 2: Configuración por día ── */}
+        <SectionHeader title="2. Configuración por Día" emoji="📅" colors={colors} />
+        {DIAS_SEMANA.map((dia, diaIdx) => (
+          <DiaConfigBlock
+            key={dia}
+            dia={dia}
+            config={dias[dia]}
+            colors={colors}
+            isLast={diaIdx === DIAS_SEMANA.length - 1}
+            ambito={ambitoSeleccionado}
+            onToggleActivo={() => updateDia(dia, { activo: !dias[dia].activo })}
+            onSetCantidadHoras={(n) => setCantidadHoras(dia, n)}
+            onUpdateHora={(horaId, update) => updateHora(dia, horaId, update)}
+            onSugerirTemas={(horaId) => sugerirTemas(dia, horaId)}
+            loadingHoraId={loadingHoraId}
+            onToggleChipHora={(horaId, field, id) => toggleChipHora(dia, horaId, field, id)}
+            onCopiarAlSiguiente={() => copiarAlSiguienteDia(dia)}
+          />
+        ))}
+
+        {/* ── Botón generar ── */}
+        <View style={{ marginHorizontal: 20, marginTop: 24 }}>
+          <Pressable
+            onPress={handleGenerarSemana}
+            style={({ pressed }) => [styles.btnGenerar, { opacity: pressed ? 0.8 : 1 }]}
+          >
+            <Text style={{ fontSize: 20 }}>🚀</Text>
+            <Text style={styles.btnGenerarText}>Generar Planificación Semanal</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </ScreenContainer>
+  );
+}
+
+// ─── Subcomponente: bloque de configuración de un día ────────
+function DiaConfigBlock({
+  dia, config, colors, isLast, ambito,
+  onToggleActivo, onSetCantidadHoras, onUpdateHora, onSugerirTemas,
+  loadingHoraId, onToggleChipHora, onCopiarAlSiguiente,
+}: {
+  dia: DiaSemanaKey;
+  config: ConfiguracionDia;
+  colors: any;
+  isLast: boolean;
+  ambito: number | null;
+  onToggleActivo: () => void;
+  onSetCantidadHoras: (n: 1 | 2 | 3) => void;
+  onUpdateHora: (horaId: string, update: Partial<HoraSemanal>) => void;
+  onSugerirTemas: (horaId: string) => void;
+  loadingHoraId: string | null;
+  onToggleChipHora: (horaId: string, field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
+  onCopiarAlSiguiente: () => void;
+}) {
+  const [expandido, setExpandido] = useState(true);
+
+  return (
+    <View style={[styles.diaBlock, { borderColor: colors.border, marginHorizontal: 20 }]}>
+      <Pressable onPress={() => setExpandido(e => !e)} style={styles.diaHeader}>
+        <Text style={{ fontSize: 18 }}>{DIA_EMOJI[dia]}</Text>
+        <Text style={[styles.diaTitulo, { color: colors.foreground }]}>{DIA_LABEL[dia]}</Text>
+        <Switch value={config.activo} onValueChange={onToggleActivo}
+          trackColor={{ false: "#ccc", true: "#7C3AED" }} thumbColor="#fff" />
+        <Text style={{ color: colors.muted, marginLeft: 8 }}>{expandido ? "▲" : "▼"}</Text>
+      </Pressable>
+
+      {expandido && config.activo && (
+        <View style={{ paddingHorizontal: 14, paddingBottom: 14 }}>
+          <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 6 }]}>Número de horas:</Text>
+          <View style={{ flexDirection: "row", gap: 8, marginBottom: 14 }}>
+            {([1, 2, 3] as const).map(n => (
+              <Pressable key={n} onPress={() => onSetCantidadHoras(n)}
+                style={[styles.horaBtn, { borderColor: config.cantidadHoras === n ? "#7C3AED" : colors.border, backgroundColor: config.cantidadHoras === n ? "#7C3AED" : colors.surface }]}>
+                <Text style={{ color: config.cantidadHoras === n ? "#fff" : colors.foreground, fontWeight: "700" }}>{n}</Text>
+              </Pressable>
+            ))}
+          </View>
+
+          {config.horas.map((hora, horaIdx) => (
+            <HoraBlock key={hora.id} hora={hora} horaIdx={horaIdx} colors={colors}
+              ambito={ambito}
+              isLoadingIA={loadingHoraId === hora.id}
+              onUpdate={(update) => onUpdateHora(hora.id, update)}
+              onSugerirTemas={() => onSugerirTemas(hora.id)}
+              onToggleChip={(field, id) => onToggleChipHora(hora.id, field, id)} />
+          ))}
+
+          {!isLast && (
+            <Pressable onPress={onCopiarAlSiguiente}
+              style={({ pressed }) => [styles.btnCopiar, { borderColor: colors.border, opacity: pressed ? 0.7 : 1 }]}>
+              <Text style={{ fontSize: 14 }}>📋</Text>
+              <Text style={{ color: colors.foreground, fontSize: 13, marginLeft: 6 }}>Copiar configuración al siguiente día</Text>
+            </Pressable>
+          )}
+        </View>
+      )}
+
+      {expandido && !config.activo && (
+        <View style={{ padding: 16, alignItems: "center" }}>
+          <Text style={{ color: colors.muted, fontSize: 13 }}>Día desactivado — no se generará planificación</Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
+// ─── Subcomponente: una hora dentro de un día ────────────────
+function HoraBlock({
+  hora, horaIdx, colors, ambito, isLoadingIA, onUpdate, onSugerirTemas, onToggleChip,
+}: {
+  hora: HoraSemanal;
+  horaIdx: number;
+  colors: any;
+  ambito: number | null;
+  isLoadingIA: boolean;
+  onUpdate: (update: Partial<HoraSemanal>) => void;
+  onSugerirTemas: () => void;
+  onToggleChip: (field: "habilidadesSocioemocionales" | "insercionesCurriculares" | "competencias" | "metodologiasActivas" | "tecnicasEvaluacion", id: string) => void;
+}) {
+  const [busqueda, setBusqueda] = useState("");
+  const [resultados, setResultados] = useState<Destreza[]>([]);
+  const [buscando, setBuscando] = useState(false);
+  const [showDCDModal, setShowDCDModal] = useState(false);
+
+  // Pool de destrezas: subnivel 1 + bloque === ámbito seleccionado, sin restringir área
+  // — un ámbito reúne destrezas de varias áreas (CN, CS, LL, M, EFL, EF, ECA).
+  const buildPool = () => TODAS_LAS_DESTREZAS.filter(d => {
+    if (d.subnivel !== SUBNIVEL) return false;
+    if (ambito !== null && d.bloque !== ambito) return false;
+    return true;
+  });
+
+  useEffect(() => {
+    if (ambito !== null) {
+      const pool = buildPool();
+      setBusqueda("");
+      setResultados(pool.slice(0, 10));
+      setBuscando(pool.length > 0);
+    } else {
+      setResultados([]);
+      setBuscando(false);
+    }
+  }, [ambito]);
+
+  const handleBuscarDestreza = (q: string) => {
+    setBusqueda(q);
+    const pool = buildPool();
+    if (q.length < 2) {
+      setResultados(pool.slice(0, 10));
+      setBuscando(pool.length > 0);
+    } else {
+      const filtered = pool.filter(
+        d => d.codigo.toUpperCase().includes(q.toUpperCase()) ||
+             d.descripcion.toUpperCase().includes(q.toUpperCase())
+      ).slice(0, 10);
+      setResultados(filtered);
+      setBuscando(filtered.length > 0);
+    }
+  };
+
+  const handleSeleccionarDestreza = (d: Destreza) => {
+    setBusqueda("");
+    setResultados([]);
+    setBuscando(false);
+    setShowDCDModal(false);
+    onUpdate({
+      codigoDestreza: d.codigo,
+      destreza: d,
+      habilidadesSocioemocionales: d.habilidadesSocioemocionales ?? [],
+    });
+  };
+
+  const abrirDCDModal = () => {
+    setBusqueda("");
+    const pool = buildPool();
+    setResultados(pool.slice(0, 30));
+    setBuscando(pool.length > 0);
+    setShowDCDModal(true);
+  };
+
+  const areaInfo = hora.destreza ? AREAS_INFO[hora.destreza.area] : null;
+
+  return (
+    <View style={[styles.horaBlock, { borderColor: colors.border }]}>
+      <Text style={[styles.horaTitulo, { color: colors.foreground }]}>— Hora {horaIdx + 1} —</Text>
+
+      <Text style={[styles.fieldLabel, { color: colors.muted }]}>DCD (Destreza con Criterio de Desempeño)</Text>
+
+      {ambito === null ? (
+        <Text style={{ color: colors.muted, fontSize: 12, fontStyle: "italic", marginTop: 4 }}>
+          Selecciona un ámbito arriba para ver sus destrezas oficiales.
+        </Text>
+      ) : (
+        <Pressable
+          onPress={abrirDCDModal}
+          style={({ pressed }) => [{
+            borderWidth: 1,
+            borderRadius: 8,
+            padding: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            opacity: pressed ? 0.7 : 1,
+            borderColor: hora.destreza ? "#22C55E" : colors.border,
+            backgroundColor: hora.destreza ? "#22C55E10" : colors.surface,
+          }]}
+        >
+          {hora.destreza ? (
+            <View style={{ flex: 1 }}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                <Text style={{ color: areaInfo?.color || colors.primary, fontWeight: "700", fontSize: 12 }}>
+                  {hora.destreza.codigo} · {areaInfo?.name}
+                </Text>
+                <DestrezaIconos codigo={hora.destreza.codigo} size={15} />
+              </View>
+              <Text style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }} numberOfLines={2}>{hora.destreza.descripcion}</Text>
+            </View>
+          ) : (
+            <Text style={{ color: colors.muted, fontSize: 13 }}>🔍 Seleccionar DCD del ámbito...</Text>
+          )}
+          <Text style={{ color: colors.muted, fontSize: 16, marginLeft: 8 }}>▼</Text>
+        </Pressable>
+      )}
+
+      {/* Modal picker de DCDs */}
+      <Modal visible={showDCDModal} transparent animationType="fade" onRequestClose={() => setShowDCDModal(false)}>
+        <Pressable
+          style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.45)", justifyContent: "center", alignItems: "center" }}
+          onPress={() => setShowDCDModal(false)}
+        >
+          <Pressable
+            style={{ width: "90%", maxWidth: 520, backgroundColor: colors.background, borderRadius: 14, padding: 16, maxHeight: "80%" }}
+            onPress={() => {}}
+          >
+            <Text style={{ fontWeight: "700", fontSize: 14, color: colors.foreground, marginBottom: 10 }}>
+              Seleccionar DCD — {ambito !== null ? AMBITOS_PREPARATORIA[ambito] : ""}
+            </Text>
+            <TextInput
+              autoFocus
+              style={[styles.input, { color: colors.foreground, borderColor: colors.border, marginBottom: 8 }]}
+              value={busqueda}
+              onChangeText={handleBuscarDestreza}
+              placeholder="Busca por código o descripción..."
+              placeholderTextColor={colors.muted}
+            />
+            <ScrollView keyboardShouldPersistTaps="handled" style={{ maxHeight: 360 }}>
+              {resultados.map(d => {
+                const ai = AREAS_INFO[d.area];
+                return (
+                  <Pressable
+                    key={d.codigo}
+                    onPress={() => handleSeleccionarDestreza(d)}
+                    style={({ pressed }) => [styles.dropdownItem, { borderBottomColor: colors.border, opacity: pressed ? 0.7 : 1 }]}
+                  >
+                    <View style={{ minWidth: 90 }}>
+                      <Text style={{ color: ai?.color || colors.primary, fontWeight: "700", fontSize: 11 }}>{d.codigo}</Text>
+                      <Text style={{ color: colors.muted, fontSize: 10 }}>{ai?.name}</Text>
+                      <DestrezaIconos codigo={d.codigo} size={13} style={{ marginTop: 3 }} />
+                    </View>
+                    <Text style={{ color: colors.foreground, fontSize: 12, flex: 1, marginLeft: 8 }}>{d.descripcion}</Text>
+                  </Pressable>
+                );
+              })}
+              {resultados.length === 0 && (
+                <Text style={{ color: colors.muted, textAlign: "center", padding: 20, fontStyle: "italic" }}>
+                  {busqueda.length < 2 ? "Escribe para buscar..." : "Sin resultados"}
+                </Text>
+              )}
+            </ScrollView>
+            <Pressable
+              onPress={() => setShowDCDModal(false)}
+              style={{ marginTop: 12, padding: 10, borderRadius: 8, backgroundColor: colors.border, alignItems: "center" }}
+            >
+              <Text style={{ color: colors.foreground, fontWeight: "600" }}>Cancelar</Text>
+            </Pressable>
+          </Pressable>
+        </Pressable>
+      </Modal>
+
+      {/* Deporte (solo si la destreza elegida es de EF — ámbito 7) */}
+      {hora.destreza?.area === "EF" && (
+        <View style={{ marginTop: 10 }}>
+          <Text style={[styles.fieldLabel, { color: colors.muted }]}>Deporte específico (opcional)</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+            <View style={{ flexDirection: "row", gap: 6, paddingVertical: 4 }}>
+              {DEPORTES_EF.map((d) => {
+                const sel = hora.deporteEnfoque === d.value;
+                return (
+                  <Pressable
+                    key={d.value}
+                    onPress={() => onUpdate({ deporteEnfoque: sel ? "" : d.value })}
+                    style={[styles.chip, {
+                      backgroundColor: sel ? "#7C3AED" : colors.surface,
+                      borderColor: sel ? "#7C3AED" : colors.border,
+                    }]}
+                  >
+                    <Text style={{ color: sel ? "#fff" : colors.foreground, fontSize: 12 }}>{d.label}</Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </ScrollView>
+        </View>
+      )}
+
+      {/* Tema */}
+      <Text style={[styles.fieldLabel, { color: colors.muted, marginTop: 10 }]}>Tema de la hora</Text>
+      <TextInput
+        style={[styles.input, { color: colors.foreground, borderColor: colors.border }]}
+        value={hora.tema}
+        onChangeText={(t) => onUpdate({ tema: t })}
+        placeholder="Escribe el tema de esta hora..."
+        placeholderTextColor={colors.muted}
+      />
+
+      {hora.destreza && hora.tema.trim().length > 2 && (
+        <>
+          <Pressable onPress={onSugerirTemas} disabled={isLoadingIA}
+            style={({ pressed }) => [styles.btnSugerir, { opacity: isLoadingIA ? 0.6 : pressed ? 0.8 : 1 }]}>
+            <Text style={{ fontSize: 14 }}>{isLoadingIA ? "⏳" : "✨"}</Text>
+            <Text style={{ color: "#fff", fontSize: 13, fontWeight: "600", marginLeft: 6 }}>
+              {isLoadingIA ? "Generando sugerencias..." : "Sugerir alternativas con IA"}
+            </Text>
+          </Pressable>
+          {isLoadingIA && (
+            <Text style={{ fontSize: 11, color: "#7C3AED", textAlign: "center", marginTop: 6 }}>
+              Esto puede tomar entre 15 y 30 segundos...
+            </Text>
+          )}
+        </>
+      )}
+
+      {hora.temasAlternativos.length > 0 && (
+        <View style={{ marginTop: 8 }}>
+          <Text style={[styles.fieldLabel, { color: colors.muted }]}>Elige una alternativa:</Text>
+          {hora.temasAlternativos.map((tema: any) => (
+            <Pressable key={tema.id} onPress={() => onUpdate({ temaSeleccionado: tema, tema: tema.titulo })}
+              style={({ pressed }) => [
+                styles.altCard,
+                {
+                  backgroundColor: hora.temaSeleccionado?.id === tema.id ? "#7C3AED" + "15" : colors.surface,
+                  borderColor: hora.temaSeleccionado?.id === tema.id ? "#7C3AED" : colors.border,
+                  opacity: pressed ? 0.8 : 1,
+                }
+              ]}>
+              <Text style={{ fontWeight: "700", fontSize: 13, color: colors.foreground }}>{tema.titulo}</Text>
+              <Text style={{ fontSize: 12, color: colors.muted, marginTop: 2 }}>{tema.descripcionBreve}</Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
+
+      {/* Habilidades Socioemocionales */}
+      <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Habilidades Socioemocionales</Text>
+      <View style={styles.chipsWrap}>
+        {(hora.destreza?.habilidadesSocioemocionales?.length
+          ? HABILIDADES_SOCIOEMOCIONALES.filter(h => hora.destreza!.habilidadesSocioemocionales.includes(h.id))
+          : HABILIDADES_SOCIOEMOCIONALES.filter(h => !h.caiOnly)
+        ).map(h => (
+          <ChipBtn key={h.id} label={`${h.emoji} ${h.nombre}`}
+            selected={hora.habilidadesSocioemocionales.includes(h.id)}
+            onPress={() => onToggleChip("habilidadesSocioemocionales", h.id)} colors={colors} />
+        ))}
+      </View>
+
+      {/* Metodologías Activas */}
+      <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Metodologías Activas</Text>
+      <View style={styles.chipsWrap}>
+        {METODOLOGIAS_ACTIVAS.map(m => (
+          <ChipBtn key={m.id} label={m.nombre}
+            selected={hora.metodologiasActivas.includes(m.id)}
+            onPress={() => onToggleChip("metodologiasActivas", m.id)} colors={colors} />
+        ))}
+      </View>
+
+      {/* Técnicas de Evaluación */}
+      <Text style={[styles.subSectionTitle, { color: colors.foreground }]}>Técnicas de Evaluación</Text>
+      <View style={styles.chipsWrap}>
+        {TECNICAS_EVALUACION.map(t => (
+          <ChipBtn key={t.id} label={t.nombre}
+            selected={hora.tecnicasEvaluacion.includes(t.id)}
+            onPress={() => onToggleChip("tecnicasEvaluacion", t.id)} colors={colors} />
+        ))}
+      </View>
+    </View>
+  );
+}
+
+// ─── Vista de resultado ──────────────────────────────────────
+function ResultadoView({
+  colors, dias, diasConPlanes, tabActivo, setTabActivo,
+  onRegenerarHora, onGuardar, onVolver,
+}: {
+  colors: any;
+  dias: DiasState;
+  diasConPlanes: Record<string, { horaIndex: number; plan: any }[]>;
+  tabActivo: DiaSemanaKey;
+  setTabActivo: (d: DiaSemanaKey) => void;
+  onRegenerarHora: (dia: DiaSemanaKey, horaIndex: number) => void;
+  onGuardar: () => void;
+  onVolver: () => void;
+}) {
+  const diasActivos = DIAS_SEMANA.filter(d => dias[d].activo && (diasConPlanes[d]?.length ?? 0) > 0);
+
+  return (
+    <ScreenContainer edges={["top","bottom","left","right"]} className="flex-1">
+      <View style={{ flex: 1 }}>
+        <View style={[styles.resultHeader, { borderBottomColor: colors.border }]}>
+          <Pressable onPress={onVolver} style={{ padding: 8 }}>
+            <Text style={{ color: colors.primary, fontSize: 15 }}>{"← Editar"}</Text>
+          </Pressable>
+          <Text style={[styles.resultTitle, { color: colors.foreground }]}>Planificación Preparatoria</Text>
+          <Pressable onPress={onGuardar}
+            style={({ pressed }) => [styles.btnGuardar, { opacity: pressed ? 0.7 : 1 }]}>
+            <Text style={{ color: "#fff", fontSize: 13, fontWeight: "700" }}>💾 Guardar</Text>
+          </Pressable>
+        </View>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[styles.tabsRow, { borderBottomColor: colors.border }]}>
+          {diasActivos.map(d => (
+            <Pressable key={d} onPress={() => setTabActivo(d)}
+              style={[styles.tab, { borderBottomColor: tabActivo === d ? "#7C3AED" : "transparent" }]}>
+              <Text style={{ fontSize: 14 }}>{DIA_EMOJI[d]}</Text>
+              <Text style={[styles.tabLabel, { color: tabActivo === d ? "#7C3AED" : colors.muted }]}>
+                {DIA_LABEL[d]}
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+
+        <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+          {(diasConPlanes[tabActivo] || []).sort((a, b) => a.horaIndex - b.horaIndex).map((item) => {
+            const { horaIndex, plan } = item as any;
+            const hora = dias[tabActivo]?.horas[horaIndex];
+            if (!plan) {
+              return (
+                <View key={horaIndex} style={[styles.horaPlanCard, { borderColor: "#FCA5A5", backgroundColor: "#FEF2F2" }]}>
+                  <View style={{ padding: 16, alignItems: "center", gap: 10 }}>
+                    <Text style={{ fontSize: 24 }}>⚠️</Text>
+                    <Text style={{ fontWeight: "700", color: "#DC2626", fontSize: 14 }}>
+                      Error al generar Hora {horaIndex + 1}
+                    </Text>
+                    {item.error ? <Text style={{ color: "#DC2626", fontSize: 12, textAlign: "center" }}>{item.error}</Text> : null}
+                    <Pressable onPress={() => onRegenerarHora(tabActivo, horaIndex)}
+                      style={({ pressed }) => ({ backgroundColor: "#DC2626", paddingHorizontal: 16, paddingVertical: 8, borderRadius: 8, opacity: pressed ? 0.7 : 1 })}>
+                      <Text style={{ color: "#fff", fontWeight: "600", fontSize: 13 }}>🔄 Reintentar</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              );
+            }
+            return (
+              <HoraPlanCard
+                key={horaIndex}
+                horaIndex={horaIndex}
+                hora={hora}
+                plan={plan}
+                colors={colors}
+                onRegenerar={() => onRegenerarHora(tabActivo, horaIndex)}
+              />
+            );
+          })}
+          {(!diasConPlanes[tabActivo] || diasConPlanes[tabActivo].length === 0) && (
+            <View style={{ padding: 32, alignItems: "center" }}>
+              <Text style={{ color: colors.muted }}>No hay planificación para este día</Text>
+            </View>
+          )}
+        </ScrollView>
+      </View>
+    </ScreenContainer>
+  );
+}
+
+// ─── Card de una hora planificada ────────────────────────────
+function HoraPlanCard({ horaIndex, hora, plan, colors, onRegenerar }: {
+  horaIndex: number;
+  hora: HoraSemanal | undefined;
+  plan: any;
+  colors: any;
+  onRegenerar: () => void;
+}) {
+  const areaInfo = hora?.destreza ? AREAS_INFO[hora.destreza.area] : null;
+
+  return (
+    <View style={[styles.horaPlanCard, { borderColor: colors.border, backgroundColor: colors.surface }]}>
+      <View style={[styles.horaPlanHeader, { backgroundColor: areaInfo?.color ? areaInfo.color + "12" : "#7C3AED" + "10" }]}>
+        <Text style={[styles.horaPlanTitle, { color: areaInfo?.color || "#7C3AED" }]}>
+          Hora {horaIndex + 1} — {hora?.destreza?.codigo || ""}
+        </Text>
+        <Text style={{ color: colors.muted, fontSize: 12 }} numberOfLines={1}>
+          {hora?.temaSeleccionado?.titulo || hora?.tema || ""}
+        </Text>
+      </View>
+
+      {plan.objetivoClase && (
+        <View style={{ padding: 12, borderBottomWidth: 1, borderBottomColor: colors.border }}>
+          <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED", marginBottom: 3 }}>🎯 OBJETIVO DE APRENDIZAJE</Text>
+          <Text style={{ fontSize: 13, color: colors.foreground, lineHeight: 18 }}>{plan.objetivoClase}</Text>
+        </View>
+      )}
+
+      {plan.estructura && (
+        <View style={{ padding: 12 }}>
+          {[
+            { key: "experiencia", label: "EXPERIENCIA", emoji: "💡", color: "#2980B9" },
+            { key: "reflexion", label: "REFLEXIÓN", emoji: "🤔", color: "#8E44AD" },
+            { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", emoji: "📚", color: "#27AE60" },
+            { key: "aplicacion", label: "APLICACIÓN", emoji: "✅", color: "#E67E22" },
+          ].map(({ key, label, emoji, color }) => {
+            const fase = plan.estructura[key];
+            if (!fase) return null;
+            return (
+              <View key={key} style={[styles.faseSection, { borderLeftColor: color }]}>
+                <View style={styles.faseHeaderRow}>
+                  <Text style={{ fontSize: 14 }}>{emoji}</Text>
+                  <Text style={[styles.faseName, { color }]}>{label}</Text>
+                  <Text style={{ fontSize: 12, color: colors.muted }}>{fase.duracion}</Text>
+                </View>
+                {(fase.actividades || []).map((act: string, i: number) => {
+                  const dua: DUAActividad = fase.duaActividades?.[i] || { representacion: false, accionExpresion: false, implicacion: false };
+                  return (
+                    <View key={i} style={styles.actRow}>
+                      <View style={[styles.actNum, { backgroundColor: color + "18" }]}>
+                        <Text style={{ color, fontSize: 11, fontWeight: "700" }}>{i + 1}</Text>
+                      </View>
+                      <Text style={{ flex: 1, fontSize: 12, color: colors.foreground, lineHeight: 17, marginLeft: 8 }}>{act}</Text>
+                      <View style={styles.duaSquaresRow}>
+                        <View style={[styles.duaMini, { backgroundColor: dua.representacion ? DUA_ROSADO : DUA_ROSADO + "35" }]} />
+                        <View style={[styles.duaMini, { backgroundColor: dua.accionExpresion ? DUA_AZUL : DUA_AZUL + "35" }]} />
+                        <View style={[styles.duaMini, { backgroundColor: dua.implicacion ? DUA_VERDE : DUA_VERDE + "35" }]} />
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            );
+          })}
+        </View>
+      )}
+
+      {plan.recursos?.length > 0 && (
+        <View style={[styles.planFooterSection, { borderTopColor: colors.border }]}>
+          <Text style={styles.planFooterLabel}>📦 Recursos</Text>
+          <Text style={{ fontSize: 12, color: colors.foreground }}>{plan.recursos.join(" · ")}</Text>
+        </View>
+      )}
+
+      {(plan as any).evaluacionEstructurada ? (
+        <View style={[styles.planFooterSection, { borderTopColor: colors.border }]}>
+          <Text style={styles.planFooterLabel}>📊 Evaluación formativa</Text>
+          {[
+            ["Técnica", (plan as any).evaluacionEstructurada.tecnica],
+            ["Instrumento", (plan as any).evaluacionEstructurada.instrumento],
+            ["Evidencia", (plan as any).evaluacionEstructurada.evidencia],
+            ["Criterio", (plan as any).evaluacionEstructurada.criterio],
+          ].map(([label, value]) => value ? (
+            <View key={label as string} style={{ flexDirection: "row", marginTop: 4 }}>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED", minWidth: 80 }}>{label as string}: </Text>
+              <Text style={{ fontSize: 11, color: colors.foreground, flex: 1 }}>{value as string}</Text>
+            </View>
+          ) : null)}
+        </View>
+      ) : plan.evaluacionFormativa ? (
+        <View style={[styles.planFooterSection, { borderTopColor: colors.border }]}>
+          <Text style={styles.planFooterLabel}>📊 Evaluación formativa</Text>
+          <Text style={{ fontSize: 12, color: colors.foreground }}>{plan.evaluacionFormativa}</Text>
+        </View>
+      ) : null}
+
+      <View style={[styles.duaLegend, { borderTopColor: colors.border }]}>
+        <View style={styles.duaLegendItem}><View style={[styles.duaMini, { backgroundColor: DUA_ROSADO }]} /><Text style={styles.duaLegendTxt}>Representación</Text></View>
+        <View style={styles.duaLegendItem}><View style={[styles.duaMini, { backgroundColor: DUA_AZUL }]} /><Text style={styles.duaLegendTxt}>Acción/Expresión</Text></View>
+        <View style={styles.duaLegendItem}><View style={[styles.duaMini, { backgroundColor: DUA_VERDE }]} /><Text style={styles.duaLegendTxt}>Implicación</Text></View>
+      </View>
+
+      <View style={{ paddingHorizontal: 12, paddingBottom: 12 }}>
+        <Pressable onPress={onRegenerar}
+          style={({ pressed }) => [styles.btnRegenerar, { borderColor: colors.border, opacity: pressed ? 0.7 : 1 }]}>
+          <Text style={{ fontSize: 13 }}>🔄</Text>
+          <Text style={{ fontSize: 12, color: colors.foreground, marginLeft: 6 }}>Regenerar esta hora</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
+// ─── Helpers UI ───────────────────────────────────────────────
+function SectionHeader({ title, emoji, colors }: { title: string; emoji: string; colors: any }) {
+  return (
+    <View style={[styles.sectionHeaderRow, { marginHorizontal: 20 }]}>
+      <Text style={{ fontSize: 16 }}>{emoji}</Text>
+      <Text style={[styles.sectionHeaderText, { color: colors.foreground }]}>{title}</Text>
+    </View>
+  );
+}
+
+function FieldLabel({ label, colors }: { label: string; colors: any }) {
+  return <Text style={[styles.fieldLabel, { color: colors.muted }]}>{label}</Text>;
+}
+
+function ChipBtn({ label, selected, onPress, colors }: {
+  label: string; selected: boolean; onPress: () => void; colors: any;
+}) {
+  return (
+    <Pressable onPress={onPress}
+      style={[styles.chip, { backgroundColor: selected ? "#7C3AED" : colors.surface, borderColor: selected ? "#7C3AED" : colors.border }]}>
+      <Text style={{ color: selected ? "#fff" : colors.foreground, fontSize: 12 }}>{label}</Text>
+    </Pressable>
+  );
+}
+
+// ─── Estilos ──────────────────────────────────────────────────
+const styles = StyleSheet.create({
+  backBtn: { flexDirection: "row", alignItems: "center" },
+  pageTitle: { fontSize: 22, fontWeight: "800", marginTop: 8 },
+  errorBanner: { margin: 20, padding: 12, backgroundColor: "#FEE2E2", borderRadius: 8 },
+  sectionHeaderRow: { flexDirection: "row", alignItems: "center", marginTop: 20, marginBottom: 8 },
+  sectionHeaderText: { fontSize: 15, fontWeight: "700", marginLeft: 8 },
+  sectionBody: { borderRadius: 12, padding: 16, borderWidth: 1, marginBottom: 4 },
+  fieldLabel: { fontSize: 12, fontWeight: "600", marginBottom: 4, marginTop: 8 },
+  input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, marginBottom: 4 },
+  inputSm: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, marginTop: 4 },
+  trimestreBtn: { flex: 1, paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center" },
+  diaBlock: { borderWidth: 1, borderRadius: 12, marginBottom: 12, overflow: "hidden" },
+  diaHeader: { flexDirection: "row", alignItems: "center", padding: 14, gap: 8 },
+  diaTitulo: { fontSize: 16, fontWeight: "700", flex: 1 },
+  horaBtn: { width: 44, height: 36, borderRadius: 8, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  horaBlock: { borderWidth: 1, borderRadius: 10, padding: 12, marginBottom: 12 },
+  horaTitulo: { fontSize: 13, fontWeight: "700", textAlign: "center", marginBottom: 10 },
+  dropdownItem: { flexDirection: "row", alignItems: "center", padding: 10, borderBottomWidth: 1 },
+  btnSugerir: { backgroundColor: "#7C3AED", flexDirection: "row", alignItems: "center", justifyContent: "center", padding: 10, borderRadius: 8, marginTop: 8 },
+  altCard: { borderWidth: 1, borderRadius: 8, padding: 10, marginBottom: 6 },
+  subSectionTitle: { fontSize: 13, fontWeight: "700", marginTop: 14, marginBottom: 6 },
+  chipsWrap: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
+  chip: { borderWidth: 1, borderRadius: 16, paddingHorizontal: 10, paddingVertical: 5 },
+  btnCopiar: { flexDirection: "row", alignItems: "center", borderWidth: 1, borderRadius: 8, padding: 10, marginTop: 14 },
+  btnGenerar: { backgroundColor: "#7C3AED", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: 16, borderRadius: 12, gap: 10 },
+  btnGenerarText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  resultHeader: { flexDirection: "row", alignItems: "center", paddingHorizontal: 16, paddingVertical: 10, borderBottomWidth: 1 },
+  resultTitle: { flex: 1, fontSize: 16, fontWeight: "700", textAlign: "center" },
+  btnGuardar: { backgroundColor: "#7C3AED", paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8 },
+  tabsRow: { borderBottomWidth: 1, height: 66, flexShrink: 0 },
+  tab: { paddingHorizontal: 16, paddingVertical: 10, alignItems: "center", justifyContent: "center", borderBottomWidth: 2, height: 66 },
+  tabLabel: { fontSize: 12, fontWeight: "600", marginTop: 2 },
+  horaPlanCard: { margin: 16, marginBottom: 0, borderRadius: 12, borderWidth: 1, overflow: "hidden" },
+  horaPlanHeader: { padding: 12 },
+  horaPlanTitle: { fontSize: 14, fontWeight: "700" },
+  faseSection: { borderLeftWidth: 3, paddingLeft: 10, marginBottom: 12 },
+  faseHeaderRow: { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 6 },
+  faseName: { fontSize: 12, fontWeight: "700", flex: 1 },
+  actRow: { flexDirection: "row", alignItems: "flex-start", marginBottom: 5 },
+  actNum: { width: 20, height: 20, borderRadius: 10, alignItems: "center", justifyContent: "center" },
+  duaSquaresRow: { flexDirection: "row", gap: 3, marginLeft: 6 },
+  duaMini: { width: 11, height: 11, borderRadius: 2 },
+  planFooterSection: { padding: 12, borderTopWidth: 1 },
+  planFooterLabel: { fontSize: 11, fontWeight: "700", color: "#7C3AED", marginBottom: 3 },
+  duaLegend: { flexDirection: "row", padding: 10, borderTopWidth: 1, gap: 12, flexWrap: "wrap" },
+  duaLegendItem: { flexDirection: "row", alignItems: "center", gap: 4 },
+  duaLegendTxt: { fontSize: 10, color: "#666" },
+  btnRegenerar: { flexDirection: "row", alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: 8, padding: 8 },
+});

@@ -1,0 +1,2367 @@
+    MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “CONSERVACIÓN Y
+                  PROCESAMIENTO DE ALIMENTOS”
+
+   1. Objetivo General
+
+Formar Bachilleres Técnicos en Conservación y Procesamiento de Alimentos, con
+competencias técnicas y tecnológicas que les permitan aplicar normas de higiene, seguridad
+e inocuidad alimentaria; procesar y conservar materias primas de origen vegetal y animal
+garantizando su calidad, valor nutricional y vida útil; gestionar procesos productivos de
+manera sostenible y eficiente; y responder a las necesidades del sector alimentario local y
+nacional con responsabilidad social, innovación y espíritu emprendedor.
+
+   2. Plan de Estudios
+
+                                                                      1ro     2do      3ro
+ Total periodos pedagógicos tronco común
+                                                                      19       19      19
+ Módulos         Seguridad Industrial                                  2        2
+ Genéricos de la Procesos Industriales Sostenibles                     2        2
+ Familia
+ Profesional     Dibujo Técnico Aplicado                               2
+                 Nutrientes de los Alimentos                           4
+                 Métodos de Conservación                               4
+ Módulos         Gestión de Calidad y Seguridad Alimentaria            4        2
+ Especialización Procesamiento de Cárnicos                                      4       6
+                 Procesamiento de Lácteos                                       4       6
+                 Procesamiento de Frutas y Verduras                             4       6
+ Módulo Práctico Experimental                                          3        3       3
+ Total de periodos pedagógicos de formación técnica                   21       21      21
+
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiante desarrolla competencias
+genéricas vinculadas a la Familia Profesional Industrial. Gracias a las características de los
+módulos trabajados en esta etapa, el estudiante adquiere herramientas que le permiten
+construir una opinión más informada y tomar decisiones con mayor fundamento. Esto
+favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa, insertarse
+en el mundo laboral o emprender un proyecto propio.
+
+Se estructuran los siguientes módulos genéricos:
+
+   •   Seguridad Industrial
+   •   Procesos Industriales Sostenibles
+   •   Dibujo Técnico Aplicado
+                                        Módulo Genérico Nro. 1
+Nombre del módulo:               Seguridad Industrial
+Nivel:                           1ro, 2do
+Duración:                        160 periodos pedagógicos
+                                 UC1: Aplicar normas, procedimientos, planes de seguridad
+                                 e higiene en talleres, laboratorios y procesos industriales, en
+Unidad de competencia
+                                 la prevención de riesgos, mediante el uso adecuado de
+asociada:
+                                 herramientas, equipos y máquinas, demostrando
+                                 responsabilidad, disciplina y ética profesional.
+Objetivo del módulo: Implementar normas y procedimientos de seguridad e higiene en
+entornos técnicos e industriales, mediante el uso responsable de herramientas, equipos y
+maquinaria, para prevenir accidentes y garantizar un ambiente seguro, con disciplina, ética
+y compromiso profesional.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Aplicar normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Reconoce señales de seguridad en talleres y laboratorios verificando su ubicación
+y legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Verifica el estado de los equipos de protección personal asegurando su operatividad
+antes de cada actividad.
+CE1.3: Inspecciona las condiciones de talleres y laboratorios comprobando el cumplimiento
+de protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA2: Ejecutar procedimientos de identificación, análisis y prevención de riesgos en
+entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE2.3: Establece medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA3: Aplicar planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE3.2: Aplica los protocolos de comunicación de emergencia al personal responsable
+utilizando los medios de comunicación definidos en el plan.
+CE3.3: Ejecuta la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de la
+integridad de personas y bienes.
+ RA4: Integrar prácticas de seguridad, higiene y sostenibilidad en actividades
+ industriales promoviendo disciplina, ética profesional y mejora continua.
+CE4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y
+compromiso con la mejora continua.
+                                        Contenidos
+        Conceptuales                  Procedimentales                  Actitudinales
+Fundamentos        de       la Reconocer riesgos presentes Ser responsable en la
+seguridad          industrial, en el entorno laboral utilizando higiene personal: uniforme
+principios,   objetivos      y herramientas de observación limpio, uñas cortas, evitar
+beneficios.                    y registro.                       accesorios y maquillaje
+                                                                 durante la producción.
+Legislación y normativa Analizar             diagramas        de
+vigente en seguridad, salud procesos industriales para Mostrar interés en la
+ocupacional     e    higiene localizar posibles focos de identificación y control de
+laboral como la Norma ISO peligro.                               riesgos industriales.
+45001.
+                               Seleccionar        y         usar Cumplir con el uso
+Derechos y obligaciones en correctamente los equipos de permanente y correcto de
+prevención     de     riesgos protección personal según el equipos de protección
+laborales.                     tipo de actividad o riesgo.       personal.
+
+Normas       generales     de      Verificar      limpieza       de    Ordenar     y      limpiar
+seguridad      en    talleres,     superficies,          utensilios,   constante durante toda la
+laboratorios     y    plantas      máquinas y áreas antes de           actividad.
+industriales.                      iniciar la producción.
+                                                                       Respetar la señalización
+Tipos de riesgos laborales:        Instalar y verificar señalización   de seguridad instalada.
+físicos     (vidrio,     metal,    de seguridad en talleres y
+plástico), químicos (residuos      plantas industriales.               Demostrar
+de detergentes, pesticidas,                                            responsabilidad en la
+aditivos),           biológicos    Aplicar la matriz de riesgos        ejecución de protocolos de
+(bacterias, virus, hongos),        para evaluar probabilidad,          emergencia
+ergonómicos,         eléctricos,   consecuencias y nivel de
+mecánicos y psicosociales.         riesgo.                             Asumir      una    actitud
+                                                                       preventiva frente a los
+                                                                       riesgos laborales.
+Equipos      de    protección    Seleccionar            medidas     Ser disciplinados en el
+personal                (EPP)    preventivas        adecuadas       cumplimiento de normas y
+clasificación, características   (protección   de     cuchillas,    procedimientos       de
+y uso.                           barandas, señalización de          seguridad.
+                                 zonas calientes, ventilación).
+En     alimentos:     cofias,                                       Tener compromiso con la
+guantes,        mascarillas,     Implementar          medidas       inocuidad y la calidad del
+mandiles, calzado sanitario,     correctivas     frente      a      alimento    al    prevenir
+mallas para cabello, etc.        condiciones        inseguras:      contaminación por errores
+                                 reportar    daños,    detener      humanos o accidentes.
+Procedimientos básicos de        maquinaria, aislar área de
+limpieza y orden, 5S y           riesgo o corregir postura de       Poseer orden y limpieza
+buenas prácticas de higiene      trabajo.                           constantes como parte de
+como el manejo de residuos,                                         la prevención.
+limpieza de herramientas y       Colocar señalización temporal
+superficies.                     (suelo mojado, sustancias          Mostrar responsabilidad y
+                                 químicas, áreas calientes).        liderazgo en la ejecución
+Metodologías              de                                        de planes de acción y
+identificación y evaluación      Activar     protocolos       de    apoyo al equipo.
+de riesgos, como matriz de       comunicación              ante
+riesgos, método del árbol de     emergencias: Avisar mediante       Mantener     disposición
+causas, análisis de trabajo      alarmas, radios, teléfonos         activa en simulacros de
+seguro (ATS).                    internos o señales visuales.       evacuación y control de
+                                                                    incendios.
+Medidas         preventivas      Reportar a supervisores y
+generales              como      servicios de emergencia.           Mostrar compromiso con
+señalización, mantenimiento                                         la protección del medio
+preventivo, orden y limpieza     Desarrollar     planes       de    ambiente         y       la
+(5S), capacitación, uso de       evacuación simulados         en    sostenibilidad en procesos
+EPP.                             talleres,   laboratorios      y    industriales.
+                                 espacios industriales.
+Acciones para eliminar o                                            Evidenciar           ética
+controlar riesgos detectados     Actuar en simulacros de            profesional en la toma de
+(cambio de maquinaria,           emergencia        aplicando        decisiones relacionadas
+ajustes      de     proceso,     protocolos de comunicación y       con seguridad y salud.
+aislamiento     de    zonas,     evacuación.
+rediseño de herramientas).                                          Demostrar liderazgo en la
+                                 Utilizar extintores, hidrantes y   organización de grupos
+Tipos de emergencias en          otros equipos contra incendios     frente a situaciones de
+plantas    de     alimentos:     conforme a normas técnicas.        riesgo.
+incendios (eléctricos, por
+aceite, combustibles).           Aplicar técnicas básicas de        Fomentar     el    trabajo
+                                 primeros auxilios en casos de      colaborativo en la mejora
+                                 accidentes simulados.
+Fugas de gas, vapor o           Evaluar           condiciones     de las condiciones de
+refrigerantes. Derrames de      ergonómicas de los puestos        seguridad.
+productos     químicos   de     de trabajo y proponer mejoras.
+limpieza o desinfección.                                          Poseer honestidad en los
+                                Documentar y comunicar            registros,  respetar   al
+Accidentes con maquinaria       incidentes,  accidentes y         producto alimentario y al
+(cortes,    atrapamientos,      medidas correctivas.              consumidor.
+caídas).
+                                Participar     en    auditorías   Colaborar para crear un
+Planes de emergencia,           internas, círculos de calidad o   ambiente     de     trabajo
+objetivos,      estructura,     comités de mejora continua.       seguro, ético y sostenible.
+responsables              y
+procedimientos.                 Cumplir con protocolos de
+                                limpieza y desinfección de
+Protocolos de evacuación,       equipos,     superficies   y
+primeros auxilios, control de   utensilios antes, durante y
+incendios y comunicación en     después del procesamiento.
+emergencias.
+
+Seguridad e higiene en la
+industria       alimentaria:
+Buenas     Prácticas     de
+Manufactura         (BPM),
+Sistema HACCP, inocuidad,
+contaminación cruzada.
+
+Principios de sostenibilidad
+en el procesamiento de
+alimentos como el uso
+eficiente del agua, energía y
+materias primas; la gestión
+de     residuos    orgánicos,
+reciclables y peligrosos.
+
+Cultura de seguridad y
+mejora              continua,
+responsabilidad,         ética,
+disciplina y sostenibilidad en
+el trabajo.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Seguridad
+    Industrial, Ingeniería Industrial, Licenciado en Seguridad y Salud Ocupacional,
+    Ingeniería Agroindustrial o afines.
+   •   Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    • Aprendizaje Basado en Proyectos (ABP).
+    • Role-playing y simulaciones.
+    • Aprendizaje en contextos reales.
+    • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas).
+Materiales y recursos
+     Denominación               Especificaciones técnicas              Cantidad
+Infraestructura/espacio      Entorno de aprendizaje (aula)                       1
+                             Computadoras con acceso a internet
+Laboratorio                                                                      1
+                             Proyector
+Referencias Bibliográficas
+
+• Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+  Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+  https://doi.org/10.5281/zenodo.6917094
+• Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+  Organización Internacional del Trabajo. Organización Internacional del Trabajo
+• Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+  seguridad y salud ocupacional para la prevención de accidentes laborales en empresas
+  mineras. Llamkasun, 3(1), 112–118.
+• Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+  industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+  https://doi.org/10.37135/ns.01.09.09
+• Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+  Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de España.
+  Publicación oficial
+• Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+  gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su uso.
+  ISO 45001:2018
+• Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393.
+  Reglamento de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio
+  Ambiente de Trabajo. Texto oficial del Decreto Ejecutivo 2393 }
+• Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para
+  la evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+  riesgos laborales
+                               Módulo Genérico Nro.2
+Nombre del módulo:              Procesos Industriales Sostenibles
+Nivel:                          1ro, 2do
+Duración:                       160 periodos pedagógicos
+                                UC2: Emplear prácticas de sostenibilidad y control de calidad
+Unidad de competencia           en actividades industriales mediante el uso de tecnologías
+asociada:                       limpias, criterios de eficiencia energética, minimización de
+                                residuos, garantizando la reducción de impactos ambientales
+                                y la optimización de estos en beneficio del entorno local,
+                                integrando fundamentos de formación y orientación laboral y
+                                salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1. Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA2. Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA3. Gestionar el uso de materias primas y energía en procesos industriales
+garantizando reducción de costos operativos y aprovechamiento responsable de los
+recursos.
+CE3.1: Distingue puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+ RA4. Incorporar tecnologías limpias en sistemas de automatización y procesos
+ comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA5. Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Explica las normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3: Practica acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA6. Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Utiliza productos y materiales según parámetros establecidos en normas técnicas y
+procedimientos internos.
+CE6.2: Ejecuta pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+                                       Contenidos
+        Conceptuales                Procedimentales                   Actitudinales
+Principios de sostenibilidad Analizar fuentes de consumo         Mostrar interés en la
+en procesos industriales, energético y materiales en             aplicación    de prácticas
+definición, importancia y procesos industriales.                 sostenibles en procesos
+aplicación.                                                      industriales.
+                               Medir y registrar consumos
+                               eléctricos,      térmicos     e   Valorar      la   eficiencia
+Conceptos      básicos     de
+                               hidráulicos.                      energética             como
+eficiencia        energética,
+                                                                 herramienta     para      la
+consumo,            pérdidas, Distinguir puntos críticos de
+                                                                 competitividad             y
+rendimiento, ahorro.           pérdidas energéticas en
+                                                                 sostenibilidad del sector
+                               equipos como cámaras
+Tipos de energía utilizados                                      alimentario.
+                               frigoríficas, hornos, calderas
+en el sector alimentario
+                               y compresores.                    Cumplir        con       los
+(eléctrica,          térmica,
+                                                                 procedimientos            de
+mecánica).                     Analizar               impactos
+                                                                 reducción, reutilización y
+                               ambientales de actividades
+Energías          renovables                                     reciclaje de materiales.
+                               productivas.
+aplicadas a la industria
+                                                                 Valorar la importancia del
+alimentaria     como        la Elaborar        reportes     de
+                                                                 ahorro energético y del
+fotovoltaica, de biomasa. Y    consumo       y   residuos   en
+                                                                 aprovechamiento
+también para otras industrias procesos experimentales.
+                                                                 responsable de recursos.
+como la eólica, hidráulica.    Implementar estrategias de
+                                                           Coordinar acciones con sus
+Impactos ambientales de los optimización del consumo
+                                                           compañeros para mejorar la
+procesos         industriales, eléctrico en equipos.
+                                                           gestión de residuos.
+contaminación      del   aire, Proponer alternativas para
+agua, suelo y ruido.                                       Mostrar orden, precisión y
+                               aprovechar subproductos o
+                                                           método en las actividades de
+Fuentes de generación de reducir pérdidas.
+                                                           medición, registro y análisis.
+residuos         en         el Reconoce puntos críticos
+procesamiento                y de desperdicio en líneas de Asumir una actitud reflexiva
+conservación de alimentos producción y conservación.       frente al impacto ambiental
+como la limpieza, pelado,                                  de los procesos industriales.
+cocción,           envasado, Reutilizar       aguas     de Evidenciar iniciativa en la
+transporte.                    enjuague,             vapor búsqueda de soluciones
+Estrategias de consumo           condensado               o      tecnológicas limpias.
+responsable de materias          subproductos         como
+                                                                 Demostrar eficiencia en la
+primas y energía, como la        alimento animal o compost
+                                                                 aplicación de conocimientos
+optimización del uso del                                         para la mejora de procesos.
+agua y energía en procesos       Elaborar fichas de control y
+térmicos y refrigeración.        hojas de seguimiento de    Mantener     una   actitud
+                                 residuos peligrosos.       positiva frente al trabajo
+Introducción a la economía                                  colaborativo y proyectos
+circular,         reducción,
+                                 Comparar el rendimiento de colectivos.
+reutilización y     reciclaje,
+                                 energías convencionales y
+como el reaprovechamiento
+                                 renovables.
+de            subproductos
+alimentarios      (cáscaras, Diseñar       planes       de    Respetar los protocolos de
+bagazo, aguas de cocción).   aprovechamiento            de    mantenimiento y calibración
+                             residuos valorizables.           de equipos.
+Principios de legislación
+ambiental ecuatoriana        Implementar controles de         Promover     la   igualdad,
+                             dosificación de aditivos y       inclusión y respeto en el
+Importancia de la eficiencia
+                             almacenamiento de materia        entorno académico.
+en el uso de insumos, agua y
+                             prima y producto terminado
+energía.                                                      Respetar         normativas
+                             adecuados.
+                                                              ambientales    vigentes   y
+Clasificación de materias
+                                                              aplicarlas    de      forma
+primas como perecederas, Controlar            inventarios
+                                                              consciente.
+semiprocesadas      y    de mediante el principio que lo
+empaque.                     primero en Entrar es lo  Tomar conciencia de la
+                                                      importancia de innovar en el
+Control de inventarios y primero en Salir.
+                                                      uso de energías renovables
+trazabilidad de materias
+primas.                   Incorporar         energías y tecnologías limpias.
+                          renovables en prototipos o Manifestar compromiso con
+Principios de tecnologías procesos de laboratorio.
+                                                      el cuidado del entorno social,
+limpias y sostenibles.
+                                                      económico y ambiental.
+Integración de energías Distinguir áreas de alto
+renovables en procesos consumo energético o con
+productivos.              pérdidas en líneas de
+Innovación y tendencias en producción
+tecnologías sostenibles.
+                               Integrar tecnologías de
+Sistemas de tratamiento y
+                               control digital para mejorar
+valorización de residuos
+                               la precisión de procesos
+industriales, como la re-
+                               térmicos o de conservación
+utilización de agua de
+                               como sensores, PLC, etc.
+proceso mediante filtración o
+tratamientos biológicos.
+                               Comparar indicadores de
+Relación entre eficiencia desempeño             antes     y
+energética y reducción de después               de       la
+costos operativos, a través automatización.
+de        indicadores      de
+desempeño        (rendimiento Cumplir        normas     de
+térmico, eficiencia eléctrica, seguridad alimentaria (BPM
+productividad).                y HACCP)
+Condiciones seguras en
+plantas      de  producción    Diseñar     propuestas    de
+alimentaria:       limpieza,   mejora      de      procesos
+ventilación,    orden      y   industriales con base en
+señalización.                  tecnologías limpias.
+Salud física, mental         y Validar la reducción de
+emocional en el trabajo.       costos operativos mediante
+                               la optimización de recursos.
+Normas internacionales de
+sostenibilidad industrial (ISO
+                               Aplicar listas de chequeo de
+14001, ISO 50001).
+                               BPM y HACCP en áreas de
+Diseño y mejora de procesos producción.
+industriales con enfoque
+ambiental.
+Normas de calidad y
+seguridad alimentaria como
+ISO 22000, BPM, HACCP,
+etc.
+Buenas      Prácticas   de
+Manufactura y HACCP en
+entornos automatizados.
+
+Perfil del o la docente
+   • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+       reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+       Industriales Sostenibles, Producción Industrial, Energías Renovables, Gestión
+       Ambiental, Agroindustria o carreras afines al sector industrial sostenible.
+   • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+     • Aprendizaje Basado en Proyectos (ABP)
+     • Aprendizaje en contextos reales
+     • Role-Playing y simulaciones
+     • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+      Denominación                   Especificaciones técnicas            Cantidad
+Infraestructura/espacio         Entorno de aprendizaje (aula)                 1
+                                Computadoras con acceso a internet
+Laboratorio
+                                Proyector                                     1
+Referencias Bibliográficas
+ • Besterfield, D. H. (2009). Control de calidad (8.ª ed.). Pearson Educación.
+    https://maaz.ihmc.us/rid%3D1Y2G0F7VH-1RQJ94G-
+    CVP/Control%20de%20Calidad%20H.%20Besterfield.pdf
+ • Comisión Económica para América Latina y el Caribe. (2021). Economía circular en
+    América Latina y el Caribe: Oportunidades para una recuperación transformadora.
+    https://repositorio.cepal.org/handle/11362/47309
+ • Comisión para la Seguridad de los Productos de Consumo de los Estados Unidos.
+    (2006). Manual para la fabricación de productos de consumo seguros: Control de
+    calidad. https://www.cpsc.gov/s3fs-public/pdfs/blk_pdf_handbookspanishjul06.pdf
+• Falcón, P. C. G. (2022). Mejora del desempeño ambiental, de seguridad y salud
+  ocupacional: Caso de una empresa peruana de agroquímicos. Industrial Data, 25(2).
+  https://revistasinvestigacion.unmsm.edu.pe/index.php/idata
+• Gutiérrez Pulido, H. (2013). Control estadístico de la calidad y Seis Sigma (2.ª ed.).
+  McGraw-Hill Education. https://www.uv.mx/personal/ermeneses/files/2018/05/6-control-
+  estadistico-de-la-calidad-y-seis-sigma-gutierrez-2da.pdf
+• Organización de las Naciones Unidas para la Alimentación y la Agricultura. (2018).
+  Manuales para el control de calidad en laboratorios de alimentos.
+  https://openknowledge.fao.org/server/api/core/bitstreams/6768c081-bda7-455b-a14e-
+  3cf9f6498bea/content
+• Organización Internacional de Normalización. (2015). ISO 14001:2015. Sistemas de
+  gestión       ambiental—Requisitos       con      orientación      para    su    uso.
+  https://www.iso.org/standard/60857.html
+• Organización Internacional de Normalización. (2018). ISO 50001:2018. Sistemas de
+  gestión      de    la   energía—Requisitos      con    orientación    para  su   uso.
+  https://www.iso.org/standard/69426.html
+
+
+                                   Módulo Genérico Nro.3
+Nombre del módulo:             Dibujo  Técnico Aplicado
+Nivel:                         1ro
+Duración:                      80 periodos pedagógicos
+                               UC3: Elaborar representaciones gráficas técnicas aplicando
+                               normas de dibujo, principios de geometría, y herramientas
+Unidad de competencia          digitales como CAD, CAE y modelado 3D, generando planos,
+asociada:                      modelos      y    prototipos con     precisión,  creatividad,
+                               responsabilidad y compromiso con la calidad en contextos
+                               industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Aplicar normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Utiliza símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Elabora planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2 Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+                                           Contenidos
+         Conceptuales                   Procedimentales                Actitudinales
+                                  Trazar líneas, vistas y Mostrar interés en la lectura,
+Principios básicos del dibujo
+                                  escalas en bocetos y planos. interpretación y elaboración
+técnico: líneas, tipos de
+                                                                de planos técnicos.
+vistas y escalas.                 Utilizar instrumentos de
+                                  dibujo técnico con precisión.
+Normas internacionales y Utilizar simbología y aplicar Cumplir con las normas de
+nacionales de dibujo técnico normas       básicas      en calidad en representaciones
+(ISO, DIN, INEN).            representaciones gráficas.   gráficas.
+                             Interpretar          planos       Valorar la precisión y
+Principios fundamentales de
+                             bidimensionales simples.          exactitud en los dibujos
+geometría     aplicados   al
+                                                               como garantía de seguridad
+dibujo técnico.              Representar          figuras
+                                                               y confiabilidad.
+                             geométricas aplicadas a
+Sistemas de proyección piezas básicas.                         Demostrar                orden,
+ortogonal,   isométrica   y                                    responsabilidad y método en
+                               Elaborar planos con cortes,
+oblicua.                                                       el uso de herramientas
+                               secciones y detalles.
+                                                               manuales y digitales.
+Lectura e interpretación de    Dibujar ensamblajes simples
+                                                               Asumir actitud reflexiva y
+planos y esquemas técnicos.    aplicando       normas       de
+                                                               analítica al interpretar planos
+Conceptos de acotación,        rotulación y acotación.
+                                                               y diagramas técnicos.
+tolerancias y ajustes en       Elaborar bocetos digitales en
+representaciones gráficas.                                     Mostrar iniciativa en la
+                               2D de piezas y componentes
+                                                               búsqueda de soluciones
+                               para        equipos          de
+Rotulación y simbología                                        gráficas ante problemas de
+                               procesamiento de alimentos.
+básica en planos técnicos.                                     representación.
+                               Representar diagramas y
+                                                               Demostrar liderazgo en
+                               esquemas funcionales de
+Representación de cortes,                                      actividades colaborativas de
+                               sistemas técnicos.
+secciones    y   detalles                                      diseño gráfico técnico.
+técnicos.                      Comprobar exactitud de
+                                                               Aplicar        criterios     de
+                               planos mediante cotejo con
+                                                               creatividad e innovación en
+Principios de normalización    piezas o modelos reales.
+                                                               el desarrollo de planos y
+en planos de piezas y          Construir modelos 3D de modelos.
+ensamblajes.                   partes y conjuntos de
+                                                               Respetar las normas de
+                               equipos            alimentarios
+Escalas de reducción y                                         seguridad en el uso de
+                               utilizando herramientas CAD
+ampliación aplicadas a la                                      equipos e instalaciones de
+industria.                     Simular funcionamiento y laboratorio de CAD.
+                               ensamblajes en software
+                                                               Demostrar responsabilidad
+Geometría        descriptiva   CAD/CAE.
+                                                               en la entrega oportuna y con
+aplicada     a    sistemas     Realizar          ensamblajes calidad de trabajos gráficos.
+complejos.                     digitales que simulen el
+                                                               Mostrar disposición positiva
+                               funcionamiento de máquinas
+Introducción a herramientas                                    y activa en actividades
+                               o         sistemas           de
+CAD en 2D, funciones                                           individuales y grupales.
+                               procesamiento como un
+básicas     y    comandos      molino o una selladora.         Usar con cuidado los
+esenciales.                                                    materiales,        equipos    y
+                               Crear prototipos digitales y
+                                                               software de representación
+                               planos        listos      para
+                                                               gráfica.
+                               fabricación.
+Elaboración     de   planos Optimizar representaciones      Valorar la importancia del
+constructivos y diagramas gráficas               mediante   dibujo técnico como lenguaje
+funcionales.                 automatización            de   universal en la industria.
+                             comandos y macros en CAD.
+                                                            Promover la cultura de
+Principios de representación
+                             Presentar proyectos de         calidad en el diseño de
+gráfica en componentes
+                             diseño gráfico técnico con     soluciones técnicas que
+mecánicos, electrónicos y
+                             enfoque       innovador    y   contribuyan a la seguridad y
+estructurales.
+                             colaborativo.                  conservación      de     los
+                                                            alimentos.
+Modelado tridimensional en
+software CAD y generación
+de prototipos digitales.
+
+Elementos de diseño de
+equipos y maquinaria para
+procesamiento               y
+conservación de alimentos
+(mezcladoras,      secadores,
+pasteurizadores,
+envasadoras, cámaras de
+refrigeración, etc.).
+
+Materiales       y       sus
+propiedades en contacto con
+alimentos (acero inoxidable,
+plásticos     de       grado
+alimentario,      aleaciones
+seguras).
+
+Introducción     al  análisis
+estructural y de movimiento
+en     prototipos   digitales
+(CAE).
+
+Ensamblajes y simulación de
+funcionamiento          con
+herramientas CAD/CAE.
+
+Generación        de       vistas
+explotadas    y        despieces
+técnicos.
+
+Optimización de planos
+digitales para manufactura y
+fabricación  asistida    por
+computadora (CAM).
+
+Innovación y creatividad en
+el diseño gráfico aplicado a
+procesos industriales.
+
+Integración del dibujo técnico
+en                   proyectos
+interdisciplinarios de diseño,
+producción y mantenimiento.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+     Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+     al área de representación gráfica y diseño técnico.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en contextos reales
+ • Role-Playing y simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                               Detalle de especificaciones
+     Denominación                                                     Cantidad
+                                          técnicas
+                           Entorno de aprendizaje
+Infraestructura/espacio                                                   1
+                           Laboratorio informático
+                           Computadoras con acceso a internet
+Laboratorio                                                               1
+                           Proyector
+Referencias Bibliográficas
+Recursos Digitales:
+
+
+• Fernández-Bravo,       P.     U.    (2009).    Mecanizado        básico.      Paraninfo.
+  https://www.paraninfo.es/catalogo/9788497326933/mecanizado-basico
+• Fernández Saavedra, D. (2019). Material docente: Dibujo Industrial I. Diseño asistido por
+  ordenador (CAD). Universidad Politécnica de Madrid. https://oa.upm.es/57277/
+• Gómez       González,      S.     (2018).   Interpretación      gráfica.      Paraninfo.
+  https://www.paraninfo.es/catalogo/9788428339773/interpretacion-grafica
+• Organización Internacional de Normalización. (2017). ISO 128-1:2017. Technical
+  drawings—General principles of presentation—Part 1: Introduction and index.
+  https://www.iso.org/standard/65023.html
+ • Organización Internacional de Normalización. (2020). ISO 129-1:2018. Technical
+   product documentation (TPD)—Presentation of dimensions and tolerances.
+   https://www.iso.org/standard/70657.html
+ • Razo-Arteaga, V. A. (2022). El diseño, la manufactura y análisis asistido por
+   computadora (CAD/CAM/CAE) en el desarrollo de productos en América Latina.
+   Información                  Tecnológica,                33(2),                297–308.
+   https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-07642022000200297
+ • Revatta Espinoza, J. (2016). Dibujo para diseño de ingeniería I. Universidad Continental.
+   https://repositorio.continental.edu.pe/handle/20.500.12394/2210
+ • SOLIDWORKS. (2025). 3D ContentCentral®. Biblioteca gratuita de modelos CAD 2D y
+   3D. https://www.3dcontentcentral.com/
+
+   4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Conservación y Procesamiento
+de Alimentos se caracterizarán por desarrollar competencias técnicas para transformar y
+conservar los alimentos, garantizando calidad, inocuidad y valor nutricional. Promover el uso
+eficiente de recursos, prácticas sostenibles, innovación y emprendimiento, preparándolos
+para integrarse al sector productivo y responder a las necesidades del mercado local y
+nacional.
+Se estructuran los siguientes módulos de especialización:
+   •   Nutrientes de los Alimentos
+   •   Métodos de Conservación
+   •   Gestión de Calidad y Seguridad Alimentaria
+   •   Procesamiento de Cárnicos
+   •   Procesamiento de Lácteos
+   •   Procesamiento de Frutas y Vegetales
+
+                            Módulo de Especialización Nro. 1
+ Nombre del módulo:             Nutrientes de los Alimentos
+ Nivel:                         1ro
+ Duración:                      160 periodos pedagógicos
+                                UC1: Describir los nutrientes que presentan los alimentos de
+ Unidad de competencia          origen vegetal y animal, aplicando conocimientos de
+ asociada:                      principios bioquímicos y de nutrición para estimar su aporte
+                                energético y funcional.
+ Objetivo del módulo: Analizar los nutrientes presentes en los alimentos y su aporte
+ energético, funcional y biológico, aplicando fundamentos de bioquímica y nutrición, para
+ promover dietas balanceadas y garantizar la salud y bienestar del consumidor.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA1. Comprender la relación entre la estructura de las biomoléculas presentes en los
+ alimentos con sus funciones en el organismo y valor nutricional.
+CE1.1: Justifica correctamente los nutrientes presentes en diversos productos alimenticios,
+diferenciando sus estructuras químicas y funciones biológicas, mediante la aplicación de
+herramientas analíticas básicas.
+CE1.2: Interpreta correctamente los procesos metabólicos relacionados con la obtención y
+uso de energía como el catabolismo y anabolismo.
+CE1.3: Analiza correctamente los componentes nutricionales los macronutrientes,
+micronutrientes y valor energético en tablas o etiquetas alimentarias.
+RA2. Determinar el valor energético y funcional de los compuestos de los alimentos
+en relación con una dieta equilibrada y la salud del consumidor.
+CE2.1: Establece relaciones coherentes entre el aporte energético de los alimentos y los
+requerimientos nutricionales de las personas, considerando variables biológicas y de estilo
+de vida como edad, sexo y nivel de actividad física para una alimentación equilibrada.
+CE2.2: Aplica correctamente los principios del cálculo nutricional para determinar el aporte
+energético de proteínas, carbohidratos y lípidos presentes en alimentos o dietas, utilizando
+conversiones energéticas estándar.
+CE2.3: Valora la composición de dietas, verificando si las proporciones de proteínas,
+carbohidratos y lípidos se ajustan a las guías y recomendaciones nutricionales vigentes
+RA3. Examinar parámetros que afectan la estabilidad de los nutrientes en el
+procesamiento de alimentos y su conservación
+CE3.1: Organiza los parámetros causantes de la degradación de compuestos nutricionales
+en físicos, químicos y biológicos.
+CE3.2: Determina que los métodos de procesamiento como la cocción, el escaldado, entre
+otros, afectan la concentración de nutrientes.
+CE3.3: Interpreta diferentes formas de conservación para preservar la calidad nutricional de
+los alimentos.
+CE3.4: Establece el deterioro nutricional físicamente a través de cambios de color, textura
+o sabor de los productos alimenticios.
+RA4. Registrar los resultados de análisis bromatológicos de los alimentos siguiendo
+protocolos establecidos y normas de calidad.
+CE4.1: Realiza de forma adecuada la metodología para toma de muestras, envío al
+laboratorio y el procesamiento de resultados de los análisis bromatológicos realizados a los
+alimentos.
+CD4.2: Interpreta los resultados de los análisis del laboratorio y compara con normas de
+calidad nutricional o tablas de composición de alimentos frescos o procesados.
+CD4.3: Estructura informes técnicos de forma clara y precisa con compresión analítica de
+los resultados.
+                                        Contenidos
+        Conceptuales               Procedimentales                  Actitudinales
+Naturaleza         de       la Realizar ensayos en el Comprender que la preservación
+bioquímica:       compuestos laboratorio             que de biomoléculas es esencial para
+bioquímicos        en      los demuestren la relación la salud y nutrición.
+alimentos. Carbohidratos: entre          estructura    y
+fuente de carbohidratos, comportamiento de las Garantizar la inocuidad y calidad
+clasificación,                  biomoléculas       como nutricional de los alimentos.
+monosacáridos,                    coagulación          de   Valorar el impacto de los
+propiedades          físicas,     proteínas,                alimentos en la salud y bienestar
+químicas y su relación con la     gelatinización      del   del consumidor.
+digestibilidad y el poder         almidón, emulsificación
+edulcorante.                      de grasas.                Realizar cálculos energéticos y
+                                                            análisis     de       composición
+Proteínas:       fuente     de    Evaluar la estabilidad y alimentaria.
+proteínas, enlace peptídico,      conservación          de
+aminoácidos, clasificación        nutrientes.               Ser conscientes del impacto que
+de        las        proteínas,                             tiene el procesamiento industrial
+desnaturalización, medida         Ajustar procedimientos sobre la nutrición y el bienestar
+del valor nutritivo.              para mantener calidad y humano.
+                                  nutrientes.
+Lípidos: clasificación de los                               Promocionar una alimentación
+lípidos, lípidos simples,         Calcular     el     valor saludable y equilibrada.
+ácidos grasos, propiedades        energético de alimentos
+físicas, químicas y su            a     partir    de    su Evaluar de la calidad nutricional
+influencia en la textura,         composición química.      de los alimentos.
+oxidación y rancidez.
+                             Evaluar    el   aporte         Trabajar en equipo para proponer
+Vitaminas    y minerales: nutricional de una dieta          mejoras     en    técnicas    de
+naturaleza          química, y       ajustar      a         conservación y procesamiento.
+estabilidad y función como requerimientos
+cofactores metabólicos.      energéticos.                 Coordinar con los compañeros
+                                                          para el análisis, monitoreo y
+Agua:          propiedades        Analizar el efecto de evaluación de alimentos.
+químicas,    enlaces    de        distintos    parámetros
+hidrógeno y papel en la           (temperatura,       pH, Explorar nuevas técnicas de
+solubilidad,   textura   y        tiempo, luz) sobre la conservación y métodos que
+conservación.                     conservación         de mantengan la calidad nutricional.
+                                  nutrientes en muestras
+Valor nutricional de los          alimentarias.           Manejar éticamente los registros
+alimentos.                                                de    datos,  garantizando      la
+Concepto de caloría y             Ajustar procedimientos veracidad y precisión de los
+kilocaloría (kcal).               para mantener calidad y resultados.
+                                  nutrientes.
+Aportes energéticos de las
+principales biomoléculas.    Interpretar          los
+                             resultados analíticos en
+Definición de alimentos relación con la calidad
+funcionales, nutracéuticos y nutricional.
+fortificados.
+                             Elaborar       informes
+                             técnicos y su relación
+Procesos que mejoran la con el procesamiento y
+biodisponibilidad          de conservación.
+nutrientes      como        la
+fermentación y la cocción
+controlada.
+Consecuencias             del
+desequilibrio     nutricional
+como       la      obesidad,
+desnutrición,    deficiencias
+vitamínicas.
+
+Estabilidad de nutrientes
+
+Parámetros que afectan la
+estabilidad de los nutrientes
+como temperatura, pH,
+tiempo de procesamiento,
+luz, oxígeno, actividad de
+agua y su relación con la
+presencia                  de
+microorganismos.
+
+Reacciones químicas de
+oxidación de lípidos y
+vitaminas,    hidrólisis  y
+desnaturalización        de
+proteínas,   reacción    de
+Maillar.
+
+Pérdida del valor energético
+de los nutrientes por calor,
+oxidación o deshidratación.
+
+Método de conservación
+que afectan la estabilidad de
+los      nutrientes      como
+deshidratación, escaldado,
+enlatado,      pasteurización,
+esterilización, entre otros.
+
+Análisis bromatológicos
+
+Propósito de los análisis
+Etiquetado nutricional
+Normas de higiene
+Trazabilidad documental
+Perfil del o la docente
+    •   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados
+        y reconocidos por el órgano rector del Sistema de Educación Superior en:
+        Procesamiento de alimentos, Agroindustria, Calidad y seguridad alimentaria,
+        Gestión de calidad y seguridad alimentaria o afines.
+    • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+     Aprendizaje Basado en Proyectos (ABP)
+     Aprendizaje en contextos reales
+     Role-Playing y simulaciones
+     Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                    Especificaciones técnicas                        Cantidad
+Infraestructura/espacio         Entorno de aprendizaje (aula)                         1
+Laboratorio                     Química y/o Microbiología                             1
+Referencias Bibliográficas
+ • Castañón Rodríguez, J. F., & Uresti Marín, R. M. (2021). Manual de prácticas de
+   laboratorio de tecnología de alimentos I. Universidad Autónoma de Tamaulipas.
+   https://libros.uat.edu.mx/index.php/librosuat/catalog/download/360/356/1348?inline=1
+ • Díaz Ocampo, R. G. (2025). Diseño y desarrollo de nuevos productos alimentarios.
+   Universidad              Técnica              Estatal             de             Quevedo.
+   https://www.uteq.edu.ec/es/investigacion/libro/475
+ • Herrera-Fontana, M. E., Chisaguano-Tonato, A. M., Jumbo Crisanto, J. V., Castro
+   Morillo, N. P., & Anchundia Ortega, A. P. (2021). Tabla de composición química de los
+   alimentos: Basada en nutrientes de interés para la población ecuatoriana. USFQ Press.
+   https://revistas.usfq.edu.ec/index.php/bitacora/issue/view/191/PDF%20Bit%C3%A1cor
+   a%20Acad%C3%A9mica…
+   https://revistas.usfq.edu.ec/index.php/bitacora/issue/view/191/PDF%20Bit%C3%A1cor
+   a%20Acad%C3%A9mica…
+ • Jurado-Gámez, H. A., Insuasty-Santacruz, E. G., & Jojoa-Rodríguez, C. A. (2025).
+   Procedimientos de tecnología de carne (2.ª ed.). Editorial Universidad de Nariño.
+   https://sired.udenar.edu.co/17544/1/17544.pdf
+ • Jurado-Gámez, H. A., Insuasty-Santacruz, E. G., & Jojoa-Rodríguez, C. A. (2025).
+   Procedimientos de tecnología de leche (2.ª ed.). Editorial Universidad de Nariño.
+   https://sired.udenar.edu.co/17549/1/17549.pdf
+ • Vera-Chang, J. F., Barzola-Miranda, S. E., & Álvarez-Aspiazu, A. A. (2024).
+   Procesamiento y conservación de frutas y hortalizas. Editorial Grupo AEA.
+   https://doi.org/10.55813/egaea.l.84
+                        Módulo de Especialización Nro. 2
+Nombre del módulo:            Métodos de Conservación
+Nivel:                          1ro
+Duración:                       160 periodos pedagógicos
+                                UC2: Emplear técnicas físicas, químicas y biológicas para la
+Unidad de competencia
+                                conservación considerando las propiedades de los alimentos,
+asociada:
+                                las características de los procesos y la regulación sanitaria.
+Objetivo del módulo: Aplicar métodos físicos, químicos y biológicos de conservación de
+alimentos, considerando la naturaleza del producto y las normativas sanitarias, con el fin de
+prolongar la vida útil de los alimentos, mantener su calidad y asegurar su inocuidad.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Determinar los métodos de conservación apropiados en los alimentos para
+cuidar sus características nutricionales, sensoriales y microbiológicas.
+CE1.1: Selecciona el método de conservación propicio para los diferentes alimentos tanto
+de origen vegetal como animal considerando su valor nutricional.
+CE1.2: Deduce los posibles puntos de contaminación microbiológica y su control mediante
+la inhibición de crecimiento bacteriano y de hongos.
+CE1.3: Juzga la variación de algún método de conservación en la composición nutricional
+para que preserven de mejor manera las proteínas, carbohidratos, lípidos, vitaminas y
+minerales.
+CE1.4: Recomienda parámetros adecuados como temperatura, humedad, tipo de envase
+o cadena de frío la conservación de los alimentos.
+RA2: Realizar técnicas físicas de conservación como es la refrigeración,
+congelación, deshidratación, entre otros, cumpliendo normas de higiene y
+seguridad alimentaria.
+CE2.1: Decide el método de conservación física propicio de los alimentos para reducir la
+afectación de sus características nutricionales y sensoriales y evitar contaminación
+microbiológica.
+CE2.2: Ordena el alimento antes de los procesos de conservación ejecutando tareas
+previas como clasificado, limpieza, troceado, escaldado y envasado.
+CE2.3: Opera equipos de conservación física como cámara de frío, de congelación,
+deshidratadores, hornos de sacado, siguiendo manuales técnicos, protocolos de uso de
+equipos con previa capacitación.
+RA3: Seleccionar técnicas químicas de conservación como el uso de aditivos,
+acidificación, soluciones salinas, entre otros, precautelando cumplir con las normas
+de calidad y seguridad alimentaria.
+CE3.1: Plantea la técnica de conservación química adecuada, como: la salazón,
+acidificación, antioxidantes, nitratos, entre otros, según el tipo y características de los
+alimentos.
+CE3.2: Dosifica los aditivos o compuestos químicos para el procesamiento y conservación
+de alimentos procurando ser lo más exacto posible, con la correcta concentración y tiempo
+según normativas de seguridad alimentaria.
+CE3.3: Inspecciona la inocuidad de los alimentos conservados realizando prueba
+microbiológicas y sensoriales para garantizar su inocuidad.
+RA4: Realizar técnicas biológicas de conservación como la fermentación
+controlada, cultivos protectores y biopreservación obteniendo alimentos inocuos y
+estables.
+CE4.1: Define la técnica adecuada de conservación biológica, teniendo en cuenta el tipo
+de alimento, microorganismo benéfico para la obtención de un producto inocuo.
+CE4.2: Realiza cultivos de microorganismos protectores como bacterias lácticas,
+levaduras y hongos benéficos según procedimientos establecidos en las normativas de
+calidad.
+CE4.3: Evalúa la inocuidad de los alimentos conservados biológicamente mediante
+análisis microbiológicos, para establecer la presencia de microorganismos benéficos y
+ausencias de patógenos.
+CD4.4: Aplica buenas prácticas de higiene y manipulación como son las Buenas prácticas
+de manufactura.
+RA5: Definir los efectos de las técnicas de conservación de los alimentos, en la
+calidad, seguridad e inocuidad, mediante registros, inspecciones y análisis de
+laboratorio.
+CE5.1: Aplica inspecciones visuales y sensoriales en los alimentos conservados como
+modificaciones del color, olor y textura para apreciar si hay signos de deterioro o
+alteraciones en la calidad.
+CE5.2: Realiza análisis microbiológicos y fisicoquímicas en los alimentos, entre los
+principales están, conteo de bacterias, pH, contenido de humedad, etc.
+CE5.3: Compara los resultados obtenidos de los análisis con normas y estándares de
+calidad e inocuidad alimentaria, como, INEN, BPM, etc.
+CE5.4: Cumple las normas de bioseguridad en el laboratorio al usar la vestimenta correcta,
+utilizar los materiales y equipos de laboratorio de acuerdo con los protocolos de seguridad
+establecidos.
+                                         Contenidos
+         Conceptuales                   Procedimentales               Actitudinales
+Definiciones: concepto de       Aplicar         métodos       de    Cumplir con las normas
+conservación de alimentos.      conservación                como    de higiene, seguridad,
+Principios de conservación      deshidratación, pasteurización y    calidad    e  inocuidad
+de     alimentos:    métodos    esterilización, envasado al vacío   alimentaria.
+físicos,     químicos       y   o en atmósfera modificada,
+biológicos, y su relación con   fermentación controlada.       Prevenir enfermedades y
+la composición nutricional.                                    garantizar      alimentos
+                               Preparar los alimentos según el seguros.
+Higiene     e     inocuidad método de conservación a
+                                                               Seguir     procedimientos
+alimentaria:       definición, emplear.
+                                                               estrictos de limpieza,
+importancia y relación con la
+salud pública; tipos de       Ejecutar la conservación de manipulación y control de
+contaminación:       física,  alimentos aplicando métodos alimentos.
+química y biológica; y        por calor, frío y atmosferas
+                                                              Mantener disciplina en la
+agentes de deterioro como     modificadas.
+                                                              ejecución de procesos
+bacterias,   levaduras     y
+                                                              físicos de conservación.
+procesos oxidativos.          Operar equipos de conservación
+                              física,    como:       cámaras Asumir                    la
+Clasificación de métodos frigoríficas,         congeladores, responsabilidad frente a
+de conservación               secadores,      equipos      de la preservación de la vida
+Métodos              Físicos: pasteurización y sellado al útil y seguridad de los
+mecanismos de acción del vacío.                               productos alimenticios.
+calor, del frío y de la
+eliminación del agua en los Dosificar correctamente los Respetar la normativa
+microorganismos.              aditivos,    respetando     las legal y regulaciones
+                              concentraciones autorizadas.    sanitarias en todas las
+Técnicas de aplicación y                                      operaciones.
+variables a vigilar.          Preparar y aplicar soluciones
+                              químicas (salinas, azucaradas, Trabajar en equipos con
+Alteraciones y defectos.      ácidas).                        comunicación efectiva.
+
+Procedimientos: escaldado, Ejecutar           procesos       de    Cumplir     normas  de
+pasteurización, esterilización conservación como encurtido,        seguridad e higiene en
+                               curado, marinado o elaboración      áreas de procesamiento
+Procedimientos:                de almíbares.                       y laboratorio.
+refrigeración, congelación.
+                               Registrar y monitorear los
+Procedimientos:                parámetros de conservación:
+deshidratación y liofilización temperatura, humedad, pH y
+                               tiempo de almacenamiento.
+Procedimientos: atmosfera
+modificada y al vacío.         Realizar       procesos       de
+                               fermentación          controlada,
+Métodos Químicos               ajustando      parámetros      de
+                               temperatura, tiempo, pH, etc.
+Aditivos        conservantes:
+antimicrobianos,               Utilizar vestimenta y equipos de
+antioxidantes, acidulantes, protección personal adecuados
+estabilizantes.                durante todos los procesos.
+
+Soluciones      y    medios Optimizar el uso de recursos
+estabilizadores: salmueras, técnicos y herramientas de
+aderezos,     almíbares   y trabajo.
+salsas,      vinagres     y
+encurtidos.
+Soluciones conservantes.       Mantener registros actualizados
+                               de procesos y resultados de
+Conceptos asociados a la conservación.
+maduración.
+                               Aplicar    procedimientos       de
+Límites máximos permitidos laboratorio para medir pH,
+de aditivos según normativas humedad,                  recuentos
+nacionales.                    microbianos       y       cambios
+                               sensoriales.
+Métodos biológicos
+                               Comparar resultados obtenidos
+Importancia        de      los con los límites permitidos por las
+microorganismos                normas de inocuidad y calidad.
+protectores benéficos en la
+elaboración y preservación Propone          oportunidades      de
+de alimentos.                  mejora en los procesos de
+                               conservación para optimizar
+Fermentación controlada y recursos y resultados.
+tipos    como:     alcohólica,
+láctica y acética.
+
+Aplicación en la elaboración
+de quesos, pan, yogurt, entre
+otros.
+
+Efectos de las técnicas de
+conservación sobre textura,
+color, nutrientes y carga
+microbiana de los alimentos.
+
+Microbiología:
+
+Microbiología     de       los
+alimentos.
+
+Fases     de     crecimiento
+bacteriano y factores que le
+afectan.
+
+Alteraciones no deseadas
+por microorganismos.
+Análisis o metodologías
+microbiológicos       para
+alimentos según normativa.
+
+Análisis de laboratorio
+
+Análisis     fisicoquímicos:
+humedad,     pH,     acidez,
+contenido de sal y azúcar.
+
+Análisis        sensoriales:
+pruebas organolépticas de
+aceptación y calidad.
+Perfil del docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Procesamiento
+   de alimentos, Agroindustria, Calidad y seguridad alimentaria, Gestión de calidad y
+   seguridad alimentaria o a fines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+  • Aprendizaje Basado en Proyectos (ABP)
+  • Aprendizaje en contextos reales
+  • Role-Playing y simulaciones
+  • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+     Denominación                 Detalle de especificaciones técnicas          Cantidad
+                               Entorno de aprendizaje (aula)
+Infraestructura/espacio                                                             1
+                               Planta de Procesamiento de alimentos
+                               Para análisis de alimentos físicos-químicos y
+Laboratorio                                                                         1
+                               microbiológicos
+Vestimenta de
+                               Mandil, cofia, mascarilla, guantes de nitrilo        1
+bioseguridad
+Referencias Bibliográficas
+ • Castañón Rodríguez, J. F., & Uresti Marín, R. M. (2021). Manual de prácticas de
+   laboratorio de tecnología de alimentos I. Universidad Autónoma de Tamaulipas.
+   https://libros.uat.edu.mx/index.php/librosuat/catalog/download/360/356/1348?inline=1
+ • Organización de las Naciones Unidas para la Alimentación y la Agricultura, &
+   Organización Mundial de la Salud. (2023). Principios generales de higiene de los
+   alimentos: Código de prácticas del Codex Alimentarius CXC 1-1969. Organización de
+   las      Naciones      Unidas     para      la    Alimentación      y     la  Agricultura.
+   https://doi.org/10.4060/cc6125es
+• Secretaría de Educación Pública. (2022a). Elabora productos cárnicos: Módulo IV,
+  submódulo 3. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar.         https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/qqlCjIlv6a-M4-SM3-
+  Elabora%20productos%20carnic…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/qqlCjIlv6a-M4-SM3-
+  Elabora%20productos%20carnic…
+• Secretaría de Educación Pública. (2022b). Elabora productos hortofrutícolas: Módulo IV,
+  submódulo 1. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar. https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/5KnS6GYC2A-M4-SM1-
+  Elabora%20Productos%20hortof…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/5KnS6GYC2A-M4-SM1-
+  Elabora%20Productos%20hortof…
+• Secretaría de Educación Pública. (2022c). Elabora productos lácteos: Módulo IV,
+  submódulo 2. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar.      https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/M9tRbMi5fm-M4-SM2-
+  Elabora%20productos%20lacteo…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/M9tRbMi5fm-M4-SM2-
+  Elabora%20productos%20lacteo…
+• Vera-Chang, J. F., Barzola-Miranda, S. E., & Álvarez-Aspiazu, A. A. (2024).
+  Procesamiento y conservación de frutas y hortalizas. Editorial Grupo AEA.
+  https://doi.org/10.55813/egaea.l.84
+
+
+
+                       Módulo de Especialización Nro.3
+Nombre del módulo:          Gestión de Calidad y Seguridad Alimentaria
+Nivel:                        1ro, 2do
+Duración:                     240 periodos pedagógicos
+                              UC3: Aplicar las normas de sistemas de gestión de calidad y
+Unidad de competencia
+                              seguridad alimentaria para el procesamiento de productos
+asociada:
+                              alimenticios.
+Objetivo del módulo: Aplicar sistemas de gestión de calidad e inocuidad alimentaria en los
+procesos de producción, incorporando normas, procedimientos y buenas prácticas de
+manufactura, para garantizar la seguridad de los productos, la satisfacción del consumidor
+y el cumplimiento de la normativa vigente.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Distinguir normativas de calidad e inocuidad alimentaria como la INEN ISO
+22000, HACCP, BPM, Codex Alimentarius
+CE1.1: Infiere los objetivos y alcances de cada normativa diferenciando su aplicación a la
+calidad, inocuidad, procesos de producción y control de riesgo microbiológico.
+CE1.2: Comprueba los requisitos y lineamientos de las normativas comprendiendo los
+planes HACCP, documentación necesaria, responsables, puntos de control, entre otros.
+CE1.3: Especifica las responsabilidades de la alta dirección, del líder del equipo, auditores
+internos, personal operativo, entre otros, que pertenecen a la implementación y seguimiento
+de la normativa a aplicarse.
+CE1.4: Responde a situaciones de ejemplos prácticos de las industrias alimentarias,
+verificando el cumplimiento, detección de no conformidades, medidas correctivas y mejora
+continua de la aplicación de las normas de calidad e inocuidad alimentaria.
+RA2: Implementar procedimientos de higiene, control y aseguramiento de la calidad
+en las etapas de producción alimentaria.
+CE2.1: Aplica controles de limpieza y desinfección de equipos, materiales y superficies
+cumpliendo con la higiene para la transformación de los alimentos.
+CE2.2: Establece medidas de prevención de contaminación cruzada en los procesos
+productivos, además señala área de calidad, materias primas, calidad y producto terminado.
+CE2.3: Desarrolla procedimientos de control de calidad en las diferentes fases de
+producción mediante análisis sensoriales, físicos-químicos y microbiológicos.
+CE2.4: Registra las mediciones de los controles de calidad para asegurar el cumplimiento
+y tener la trazabilidad de la normativa aplicada.
+RA3: Verificar el cumplimiento de los requisitos de la norma de calidad e inocuidad
+en el procesamiento de alimentos.
+CE3.1: Establece técnicas de muestreo y análisis de laboratorio para evaluar la calidad e
+inocuidad de los alimentos procesados.
+CE3.2: Descubre no conformidades en los requisitos de gestión de calidad y relaciona con
+afecta al producto terminado.
+CE3.3: Sugiere acciones preventivas y de mejora continua en el procesamiento de
+alimentos de acuerdo con la normativa aplicada.
+RA4: Elaborar informes de resultados del control y auditorías internas de la normativa
+aplicada.
+CE4.1: Registra los resultados de los controles de calidad, inspecciones y auditorías
+internas utilizando formatos establecidos por la organización.
+CE4.2: Documenta los hallazgos y propone soluciones para la mejora continua.
+CE4.3: Desarrolla reportes técnicos completos de la implementación de la normativa.
+                                         Contenidos
+        Conceptuales                   Procedimentales               Actitudinales
+Normativas de calidad e Distinguir peligros físicos, Demostrar                   compromiso
+inocuidad                         químicos y biológicos en con              la     seguridad
+                                  alimentos.                      alimentaria y la salud del
+Sistema de gestión de                                             consumidor.
+inocuidad alimentaria ISO Aplicar las buenas prácticas
+22000: Estructura, principios, de manufactura BPM en cada Alistar el instrumental,
+y relación con la cadena una de fases como recepción, equipos o herramientas
+alimentaria.                      transformación,                 pertinentes     para      la
+                                  almacenamiento y transporte. actividad encomendada.
+Principios      del     sistema Implementar             planes
+HACCP (Análisis de Peligros HACCP (Análisis de peligros Participar activamente en
+y Puntos Críticos de Control).                                    la implementación de
+BPM:       higiene      personal, y puntos críticos de control)     sistemas de calidad junto
+limpieza      y     desinfección, en procesos productivos.          con otros miembros del
+control         de        plagas,                                   área de producción.
+almacenamiento, entre otros. Aplicar procedimientos de
+                                   limpieza, desinfección bajo      Ser disciplinado con las
+Codex Alimentarius: Normas, estándares de la ISO 22000.             normas      de   higiene,
+directrices y códigos de                                            control y aseguramiento
+práctica       aplicables       al Registrar     procedimientos,    de la calidad.
+procesamiento de alimentos. controles y resultados para la
+                                   trazabilidad de la producción    Mantener el espacio de
+ Higiene        y     seguridad alimentaria.                        trabajo con orden y
+ alimentaria: importancia de                                        limpieza.
+ la higiene en la producción de Ejecutar rutinas de limpieza y
+ alimentos,       higiene     del desinfección en equipos,          Cumplir              los
+ personal,          uso        de utensilios e instalaciones.       procedimientos        de
+ indumentaria adecuada.                                             verificación asegurando
+                                   Aplicar prácticas de higiene     la confiabilidad de los
+ Requisitos            higiénicos personal antes, durante y         resultados.
+ generales de instalaciones y después del trabajo.
+ equipos.                                                       Ser responsable de los
+                                   Evaluar la calidad mediante  procedimientos         de
+ Guías de prácticas correctas análisis          físicos-químicos,
+                                                                documentación            y
+ de higiene.                       microbiológicos y sensoriales.
+                                                                auditoría, garantizando la
+                                                                veracidad       de      la
+Riesgos más comunes en la Usar listas de verificación y información registrada.
+industria alimentaria.          checklists de control de
+                                calidad e inocuidad.
+Calidad            en        el
+procesamiento               de Examinar       registros      de
+alimentos:                      limpieza, control de plagas,
+                                calibración    de      equipos,
+Manual de Calidad.              control    microbiológico     y
+                                trazabilidad.
+Técnicas      de      muestreo:
+sistemas de identificación, Registrar            temperatura,
+registro    y    traslado   de humedad,       pH     y    otros
+muestras.                       parámetros relevantes en las
+                                etapas de conservación.
+Conceptos de inspección,
+monitoreo,      validación    y Examinar      registros      de
+auditoría interna.              limpieza, control de plagas,
+Diferencia entre conformidad, calibración      de      equipos,
+no conformidad y acción control            microbiológico     y
+correctiva.                     trazabilidad.
+Documentación y control Detectar             desviaciones
+de calidad                   respecto a los requisitos
+                             normativos y clasifica las no
+Estructura documental la ISO conformidades      (menores,
+22000: política, objetivos, mayores o críticas).
+registros y evidencias del
+sistema.                     Elaborar informes claros y
+                             estructurados que detallen
+Concepto, propósito y tipos hallazgos, conclusiones y
+de auditoría.                recomendaciones de mejora.
+
+Control    de   registros    y Documentar las desviaciones
+trazabilidad.                  detectadas    y     propone
+                               medidas para su corrección o
+Elementos del informe de prevención.
+auditoría: objetivo, alcance,
+metodología,        hallazgos,
+observaciones, conclusiones
+y recomendaciones.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en:
+    Procesamiento de alimentos, Agroindustria, Calidad y seguridad alimentaria, Gestión
+    de calidad y seguridad alimentaria o a fines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en contextos reales
+ • Role-Playing y simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                  Especificaciones técnicas                Cantidad
+                              Entorno de aprendizaje
+Infraestructura/espacio                                                    1
+                              (aula).
+Laboratorio                   Análisis de microbiológicos                  1
+                              Equipamiento   básico  y
+Planta de procesamiento
+                              materiales para procesar                     1
+de alimentos.
+                              alimentos.
+Referencias Bibliográficas
+• Castañón Rodríguez, J. F., & Uresti Marín, R. M. (2021). Manual de prácticas de
+  laboratorio de tecnología de alimentos I. Universidad Autónoma de Tamaulipas.
+  https://libros.uat.edu.mx/index.php/librosuat/catalog/download/360/356/1348?inline=1
+• Organización de las Naciones Unidas para la Alimentación y la Agricultura, &
+  Organización Mundial de la Salud. (2023). Principios generales de higiene de los
+  alimentos: Código de prácticas del Codex Alimentarius CXC 1-1969. Organización de
+  las      Naciones        Unidas    para    la    Alimentación    y    la     Agricultura.
+  https://doi.org/10.4060/cc6125es
+• Organización Panamericana de la Salud. (2023). Manual de inspección de alimentos
+  basada         en      riesgos:   Establecimientos     productores    de      alimentos.
+  https://iris.paho.org/bitstreams/8a3b22e8-99dd-47a2-a7ee-3a692064fff4/download
+• Secretaría de Educación Pública. (2022a). Elabora productos cárnicos: Módulo IV,
+  submódulo 3. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar.           https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/qqlCjIlv6a-M4-SM3-
+  Elabora%20productos%20carnic…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/qqlCjIlv6a-M4-SM3-
+  Elabora%20productos%20carnic…
+• Secretaría de Educación Pública. (2022b). Elabora productos hortofrutícolas: Módulo IV,
+  submódulo 1. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar. https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/5KnS6GYC2A-M4-SM1-
+  Elabora%20Productos%20hortof…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/5KnS6GYC2A-M4-SM1-
+  Elabora%20Productos%20hortof…
+• Secretaría de Educación Pública. (2022c). Elabora productos lácteos: Módulo IV,
+  submódulo 2. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar.        https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/M9tRbMi5fm-M4-SM2-
+  Elabora%20productos%20lacteo…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/M9tRbMi5fm-M4-SM2-
+  Elabora%20productos%20lacteo…
+
+
+
+
+                        Módulo de Especialización Nro.4
+Nombre del módulo:           Procesamiento de Cárnicos
+Nivel:                        2do, 3ero
+Duración:                     400 periodos pedagógicos
+                              UC4: Ejecutar procesos de transformación, conservación y
+Unidad de competencia
+                             control de productos cárnicos, aplicando normativas de
+asociada:
+                             calidad e inocuidad alimentaria.
+Objetivo del módulo: Ejecutar procesos de transformación, conservación y control de
+productos cárnicos, aplicando normativas de calidad e inocuidad alimentaria con el fin de
+garantizar la obtención de productos seguros, uniformes y aptos para el consumo humano.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Comparar los materiales cárnicos verificando su estado de inocuidad, frescura
+y condiciones de almacenamiento.
+CE1.1: Evalúa el estado higiénico de las materias de las carnes ingresadas, observando la
+presencia de residuos o alteraciones físicas que manifiesten deterioro.
+CE1.2: Examina las condiciones de almacenamiento de la carne controlando temperatura,
+ventilación y tiempos adecuados para precautelar su desmejora
+CE1.3: Elige procedimientos de higiene y manipulación segura incluyendo el uso de
+indumentaria adecuada, limpieza de superficies y utensilios, y evitando la contaminación
+cruzada.
+RA2: Establecer procedimientos de despiece, corte y preparación de la carne
+garantizando la inocuidad y buenas prácticas de manipulación.
+CE2.1: Elige técnicas de cortadura seguras para obtener cortes uniformes, optimizando
+rendimiento
+CE2.2: Garantiza la seguridad alimentaria al evitar contaminación cruzada, aplicando BPM
+al utilizar indumentaria adecuada como guantes, gafas, delantal, cofia, botas entre las
+principales.
+CE2.3: Escoge posturas ergonómicas correctas para evitar lesiones durante el
+procesamiento de la carne.
+CE2.4: Clasifica los cortes según parámetros, para diferenciar tipos de carne y cortes
+comerciales, garantizando calidad y presentación adecuada.
+RA3: Desarrollar procesos de transformación como el curado, embutido, ahumado,
+cocinado, entre otros, de acuerdo con el tipo y corte de carne aplicando normativas
+de calidad e inocuidad.
+CE3.1: Argumenta técnicas de procesamiento para la elaboración de curados, embutidos,
+ahumados, cocinados, entre otros.
+CE3.2: Aplica técnicas de procesamiento en el manejo de equipos para la elaboración de
+curados, embutidos, ahumado, cocinados, entre otros, para obtener un producto uniforme
+y de las mismas características.
+CE3.3: Calcula y suministra correctamente los insumos como sales, nitratos, especias,
+aditivos permitidos, entre otros, según fórmulas previamente determinadas.
+CE3.4: Verifica parámetros durante la transformación de productos cárnicos como son la
+temperatura, el tiempo, humedad, pH, entre otros, para la obtención de productos inocuos.
+RA4: Aplicar técnicas de conservación y almacenamiento de productos cárnicos
+cumpliendo calidad e inocuidad para el consumidor.
+CE4.1: Selecciona técnicas de conservación como la refrigeración, congelación, al vacío,
+atmósfera modificada, entre otros, según el tipo y producto cárnico.
+CE4.2: Prepara el área y los equipos de conservación y almacenamiento, asegurando
+condiciones de limpieza, desinfección, funcionamiento y normas de bioseguridad.
+CE4.3: Evalúa parámetros en la conservación como temperatura, humedad relativa,
+ventilación, concentración de sal o aditivos, pH, actividad de agua, etc, conforme a las
+especificaciones técnicas y normativas establecidas.
+CE4.4: Elige adecuadamente métodos de envasado, empaquetado o sellado como al vacío,
+termoformado, empaques primarios y secundarios, garantizando protección, higiene y
+trazabilidad del producto.
+RA5: Envasar, etiquetar y almacenar productos cárnicos procesados conforme a
+normativas de calidad e inocuidad alimentaria.
+CE5.1: Elige el tipo de envase y empaque correcto para hacerlo al vacío, con atmósfera
+modificada, con termoformados, de plástico, entre otros, de acuerdo con las características
+fisicoquímicas de los productos cárnicos.
+CE5.2: Utiliza de manera correcta equipos para el envasado, sellado y etiquetado siguiendo
+instrucciones técnicas de los manuales, protocolos de uso y con previa capacitación.
+CE5.3: Aplica el proceso de envasado sin comprometer la inocuidad del producto cárnico,
+evitando contaminación cruzada de acuerdo con la normativa de calidad y seguridad
+alimentaria aplicada.
+                                       Contenidos
+       Conceptuales               Procedimentales                  Actitudinales
+Obtención de materias Realizar                 inspección Valorar la obtención de
+primas cárnicas.              sensorial a las carnes.      productos seguros.
+
+Cambios en las carnes post Medir parámetros críticos:         Comunicar responsablemente
+mortem:      rigor     mortis, temperatura, pH, actividad     con el equipo de trabajo en la
+maduración                   y de agua.                       recepción y control de calidad.
+descomposición.
+                               Comprobar                 el   Asumir responsabilidad para
+Inspecciones: pH, actividad funcionamiento de las             garantizar la inocuidad de los
+de agua, temperatura, cámaras de frío y de                    productos cárnicos.
+color, olor, textura y congelación.
+alteraciones       por      el                                Cumplir las normas de
+desarrollo microbiano.         Aplicar     limpieza      y    higiene,     durante  el
+                               desinfección en áreas de       desempeño       de   sus
+Principios de cadena de recepción, procesamiento              actividades.
+frío, rangos de refrigeración y almacenamiento.
+y congelación.                                                Promover la prevención de la
+                               Reconocer articulaciones y     contaminación cruzada.
+Higiene y manipulación en líneas naturales de corte.
+la planta de procesamiento,                                   Trabajar en equipo        para
+aplicación de las normas de Realizar cortes precisos          asegurar la inocuidad.
+calidad.                       siguiendo          técnicas
+                               anatómicas.                    Aplicar los procedimientos
+Deshuesado y despiece                                         establecidos.
+                               Separar piezas con mínimo
+Anatomía básica, tipos de desperdicio y máxima                Comprobar constantemente
+carne, estructura muscular eficiencia.                        los parámetros críticos de
+de res, cerdo, pescado,                                       control.
+aves.
+Clasificación de la carne Aplicar cortes a las carnes             Tener exactitud en la toma de
+como primera, segunda y como el fileteado, el                    pesajes,    temperaturas     y
+tercera.                         troceado, el deshuesado,        tiempos.
+                                 entre otros.
+Principios de deshuesado y                                       Registrar y reportar datos del
+despiece.                        Clasificar     piezas    por    proceso.
+                                 calidad,             tamaño,
+Rendimiento cárnico.             procesamiento térmico y         Contribuir al ambiente seguro,
+                                 uso industrial.                 ordenado y productivo.
+Contaminación cruzada.           Seleccionar el tipo de
+                                 carne adecuado según el         Mantener       áreas       de
+Factores para controlar producto deseado.                        conservación     limpias    y
+como: temperatura, higiene                                       desinfectadas.
+de superficies, utensilios y Picar, moler o trozar de
+operador.                        acuerdo con el producto a       Aplicar      normas       de
+                                 preparar.                       bioseguridad personal (EPP).
+Cuchillos, sierras, mesas
+de despiece, afiladores y Preparar             salmuera      y    Ordenar productos de forma
+equipos      de       protección ajustar formulaciones.          lógica y segura.
+personal, bioseguridad y
+posturas ergonómicas.            Aplicar      técnicas     de     Registrar datos veraces de
+                                 inyección e inmersión.          lote, fechas y controles.
+Elaboración                    y
+estandarización               de Mezclar la carne con            Participar en procesos de
+productos cárnicos.              ingredientes y aditivos de      mejora continua.
+                                 acuerdo con formulaciones
+El papel de ingredientes y establecidas.
+aditivos: harinas, especias,
+sal, nitratos, nitritos, azúcar, Aplicar técnicas adecuadas
+agua,              polifosfatos, según producto como
+glutamato         monosódico, escaldado para mortadelas
+ácido ascórbico, huevos, y horneado para jamones.
+plasma, grasa, entre otros.
+                                 Reconocer desviaciones y
+Curado: concepto, tipos de aplicar                   acciones
+curado,              reacciones correctivas       según     la
+químicas, salmueras y normativa HACCP, BPM,
+agentes de curado como ISO 22000, entre otras.
+sal, nitritos, nitratos y
+azúcares.                        Operar cámaras frigoríficas
+                                 y congeladores siguiendo
+Cocción:       técnicas       de procedimientos seguros.
+escaldado,        hervido      y
+horneado.
+Embutidos:    clasificación, Seleccionar el tipo de
+emulsiones cárnicas.         empaque adecuado: al
+                             vacío,        atmósfera
+Elaboración de salchichas, modificada, bolsas termo
+mortadela, chorizo, jamón. encogibles.
+
+Ahumado:              tipos, Registrar temperaturas y
+composición del humo, humedad en formatos de
+procesos tecnológicos.       control según la normativa
+                             aplicada.
+Elaboración de chuleta
+ahumada,            costilla Evitar sobrecargas en
+ahumada, pollo ahumado, cámaras          y    mantener
+entre otros.                 separación entre materias
+                             primas      y     producto
+Esterilizados:   concepto, terminado.
+uso       de     autoclave,
+productos enlatados como Realizar              controles
+atún, jamón enlatado, entre microbiológicos periódicos.
+otros.
+                             Aplicar           acciones
+Control                  de correctivas en caso de
+microorganismos            y desviaciones (temperatura
+aplicación de la normativa fuera de rango, olores
+como BPM, HACCP, entre anómalos,             empaques
+otras.                       rotos).
+
+Conservación             de Colocar producto en el
+productos cárnicos           envase             evitando
+                             contaminación.
+Concepto de conservación
+y vida útil.                 Realizar vacío o inyección
+                             de gas según el sistema
+Factores que influyen en la utilizado.
+vida útil como: temperatura,
+humedad, oxígeno, pH, Aw Sellar           correctamente
+y luz.                       evitando fugas o arrugas
+                             en la bolsa.
+Técnicas de conservación:
+refrigeración, congelación, Inspeccionar      sellos   y
+envasado        al    vacío, asegurar integridad del
+atmósfera        modificada, empaque.
+termoformados, entre otros.
+BPM y HACCP aplicados al Registrar lote y fecha de
+almacenamiento         y envasado             para
+conservación.            trazabilidad.
+
+Embalajes
+
+Embalajes para carnes en
+canal.
+
+Embalajes para       carnes
+deshuesadas.
+
+Embalajes para embutidos.
+
+Tripas naturales, sintéticas
+y envolturas.
+
+Métodos de empacado
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Procesamiento
+   de alimentos, Agroindustria, Calidad y seguridad alimentaria, Gestión de calidad y
+   seguridad alimentaria o afines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+ • Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP).
+ • Aprendizaje en contextos reales.
+ • Role-Playing y simulaciones.
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas).
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+    Denominación                    Especificaciones técnicas                Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula).                       1
+Laboratorio                 Análisis de microbiológicos                          1
+Planta de
+                              Equipamiento básico y materiales para
+procesamiento de                                                                  1
+                              procesar alimentos.
+alimentos
+Referencias Bibliográficas
+• Aragonés Mendoza, J. F. (s. f.). Almacenaje y expedición de carne y productos cárnicos.
+  Libro electrónico.
+• Castañón Rodríguez, J. F., & Uresti Marín, R. M. (2021). Manual de prácticas de
+  laboratorio de tecnología de alimentos I. Universidad Autónoma de Tamaulipas.
+  https://libros.uat.edu.mx/index.php/librosuat/catalog/download/360/356/1348?inline=1
+• Guerrero Legarreta, I. & Arteaga Martínez, M. R. (1990). Elaboración y preservación de
+  productos cárnicos. México: Trillas
+• Jurado Gámez, H. & Insuasty Santacruz, E. (2021). Procedimientos de tecnología de
+  carnes. [PDF]. Universidad de Nariño.
+• Jurado-Gámez, H. A., Insuasty-Santacruz, E. G., & Jojoa-Rodríguez, C. A. (2025).
+  Procedimientos de tecnología de carne (2.ª ed.). Editorial Universidad de Nariño.
+  https://sired.udenar.edu.co/17544/1/17544.pdf
+• Organización de las Naciones Unidas para la Alimentación y la Agricultura, & Organización
+  Mundial de la Salud. (2023). Principios generales de higiene de los alimentos: Código de
+  prácticas del Codex Alimentarius CXC 1-1969. Organización de las Naciones Unidas para
+  la Alimentación y la Agricultura. https://doi.org/10.4060/cc6125es
+• Organización Panamericana de la Salud. (2023). Manual de inspección de alimentos
+  basada         en      riesgos:    Establecimientos      productores    de     alimentos.
+  https://iris.paho.org/bitstreams/8a3b22e8-99dd-47a2-a7ee-3a692064fff4/download
+• Salazar Llorente, E. J., & Cobos Mora, F. J. (2024). Industrialización de productos
+  cárnicos: Ciencia, tecnología e inocuidad. Universidad Técnica de Babahoyo.
+  https://libros.utb.edu.ec/index.php/utb/catalog/book/124
+• Secretaría de Educación Pública. (2022). Elabora productos cárnicos: Módulo IV,
+  submódulo 3. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar.            https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/qqlCjIlv6a-M4-SM3-
+  Elabora%20productos%20carnic…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/qqlCjIlv6a-M4-SM3-
+  Elabora%20productos%20carnic…
+
+
+                        Módulo de Especialización Nro.5
+Nombre del módulo:          Procesamiento de Lácteos
+Nivel:                       2do, 3ero
+Duración:                    400 periodos pedagógicos
+                             UC5: Elaborar productos lácteos y sus derivados, aplicando
+ Unidad de competencia
+                             procedimientos tecnológicos con normativas de calidad y
+asociada:
+                             seguridad alimentaria.
+ Objetivo del módulo: Realizar productos lácteos y derivados, utilizando técnicas
+adecuadas, normativas de calidad y seguridad alimentaria para obtener productos
+terminados inocuos de acuerdo con la demanda y las exigencias del consumidor.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA1: Explicar las propiedades físicas, químicas y microbiológicas de la leche,
+identificando los factores que afectan su calidad e inocuidad para su posterior uso.
+ CE1.1: Interpreta correctamente las propiedades físicas de la leche, tales como densidad,
+crioscopía, viscosidad, acidez, punto de ebullición, color y olor característico.
+ CE1.2: Explica las propiedades químicas de la leche, reconociendo su composición: agua,
+grasa, proteínas, lactosa y como puede variar según la raza del animal, alimentación y
+manejo.
+ CE1.3: Compara condiciones que afectan la calidad e inocuidad de la leche, como
+condiciones de ordeño, higiene del animal, utensilios, temperatura de almacenamiento,
+tiempo de enfriamiento y presencia de residuos químicos (antibióticos, detergentes).
+ RA2: Monitorear la calidad de la leche cruda mediante análisis fisicoquímicas,
+microbiológicas y organolépticas, asegurando el cumplimiento de normativas de
+calidad e inocuidad.
+ CE2.1: Recolecta muestras de leche cruda siguiendo procedimientos establecidos en las
+normativas de calidad e inocuidad.
+ CE2.2: Desarrolla análisis fisicoquímicas básicas de la leche, tales como pH, acidez
+titulable, densidad, crioscopía, contenido de grasa, sólidos totales y proteína, utilizando
+instrumentos y métodos establecidos.
+ CE2.3: Valora los análisis microbiológicos para determinar la presencia bacteriana, como
+recuento en placa, pruebas de reductasa o azul de metileno para identificar la presencia de
+microorganismos alterantes o patógenos (E. coli, Salmonella).
+ CE2.4: Verifica las características organolépticas de la leche como color, olor, sabor,
+textura, para determinar signos de deterioro como rancidez, acidez excesiva, grumos o mal
+olor.
+ RA3: Aplicar procesos de inocuidad como son los tratamientos térmicos
+(pasteurización, esterilización, UHT) de acuerdo con la normativa aplicada de calidad
+y seguridad alimentaria.
+ CE3.1: Ordena el área de trabajo, equipos y utensilios garantizando limpieza, desinfección
+y condiciones adecuadas para el procesamiento de la leche.
+ CE3.2: Establece los principios básicos de cada tratamiento térmico (pasteurización,
+esterilización, UHT), su finalidad, temperatura, tiempo y efectos sobre microorganismos y
+componentes de la leche.
+ CE3.3: Verifica y mide los parámetros del proceso térmico, como temperatura, tiempo de
+exposición, presión, caudal de flujo y velocidad de enfriamiento, según especificaciones
+técnicas y normativas sanitarias.
+ RA4: Aplicar técnicas de transformación de la leche en derivados como quesos,
+yogures, mantequilla, crema, helados, entre otros empleando procedimientos de
+acuerdo con la normativa de calidad e inocuidad implementada.
+ CE4.1: Elige el proceso de transformación apropiado en cada derivado lácteo como
+coagulación en quesos, fermentación en yogures, batido en mantequilla, homogenización y
+maduración en helados, de acuerdo con procedimientos estandarizados.
+ CE4.2: Valora la leche según el producto a elaborar, ajustando su contenido de grasa,
+sólidos no grasos, temperatura o adicionando cultivos lácticos, sales, estabilizantes u otros
+insumos necesarios.
+ CE4.3: Verifica y analiza parámetros del proceso de transformación, tales como pH,
+temperatura, tiempo de fermentación o maduración, velocidad de agitación y presencia de
+microorganismos, entre otros.
+ RA5: Definir métodos de conservación y almacenamiento de leche y derivados,
+considerando sus características sensoriales, nutricionales y microbiológicas.
+ CE5.1: Verifica los parámetros del almacenamiento y conservación, como temperatura,
+humedad relativa, oxígeno residual, tiempo de almacenamiento, actividad de agua, pH,
+presencia de microorganismos asegurando la preservación de sus propiedades
+nutricionales.
+ CE5.2: Determina el método de conservación adecuado como refrigeración, congelación,
+pasteurización, UHT, envasado al vacío, atmósfera modificada, entre otros, según el
+producto lácteo a desarrollar.
+ CE5.3: Monitorea de manera clara y precisa los datos del proceso, incluyendo lote, fecha,
+método de conservación, parámetros controlados y observaciones de calidad, siguiendo
+formatos de registros establecidos según la normativa implementada.
+ RA6: Aplicar operaciones de envasado y etiquetado de acuerdo con normas de
+calidad e inocuidad.
+ CE6.1: Propone el tipo de envase adecuado para la leche y sus derivados, de acuerdo a
+las propiedades fisicoquímicas, microbiológicas conforme a la demanda del consumidor.
+ CE6.2: Realiza técnicas de envasado que garanticen la inocuidad, las características
+sensoriales y nutricionales.
+ CE6.3: Emplea normas de higiene, seguridad y buenas prácticas de manufactura (BPM)
+durante todas las operaciones de envasado y etiquetado, garantizando la inocuidad del
+productos lácteos.
+                                       Contenidos
+        Conceptuales                 Procedimentales             Actitudinales
+ Generalidades                 y Determinar pH, acidez Reportar           anomalías en
+componentes de la leche          titulable,       densidad, calidad e inocuidad de la
+                                 crioscopía, entre otros.    leche.
+Panorama actual de la industria
+láctea.                           Realizar pruebas rápidas Rechazar el uso de leche
+                                 de calidad como la adulterada.
+Tipos de ordeñe.                 prueba de alcohol y de
+                                 antibióticos.               Mantener disciplina en las
+Ciclos de producción de leche                                prácticas de limpieza y
+en las distintas especies Analizar adulteraciones desinfección.
+(bovinos, ovinos y               con pruebas básicas.
+ caprinos).                                                  Cooperar con compañeros
+                                 Efectuar           análisis en actividades prácticas.
+Principales razas lecheras, sensorial del color, olor,
+características y frecuencia del sabor y textura.            Cumplir         estrictamente
+ordeñe.                                                      parámetros de tiempo y
+                                 Realizar muestreos para temperatura.
+Definiciones generales de la análisis microbiológicos
+leche.                           básicos.                    Mantener constancia en el
+                                                             registro de datos.
+Definición fisicoquímicas de la Manejar        temperaturas
+leche.                           correctas en la recepción Respetar        siempre     las
+                                 y almacenamiento.           normas de inocuidad.
+Composición química de la                                    Garantizar higiene personal
+leche.                                                       y uso adecuado de EPP
+                                Verificar estado higiénico   para el manejo seguro de
+Factores que afectan en la de equipos.                       equipos térmicos.
+inocuidad de la leche.
+                                Revisar calibración de       Seguir estrictamente    los
+Características organolépticas. termómetros.                 procedimientos           de
+                                                             inocuidad.
+La     leche   como       fuente Operar      sistemas      de
+nutricional.                     pasteurización,              Mantener el área de trabajo
+                                 esterilización y UHT.        limpia,    organizada      y
+Microbiología láctea.                                         desinfectada.
+                                  Supervisar          etapas:
+ Centros de recepción y calentamiento,                        Escuchar        indicaciones
+transporte de la leche.          homogeneización,             técnicas    y    apoyar    a
+                                 enfriamiento y envasado. compañeros          en    tareas
+ Operaciones de proceso de                                    críticas.
+leches de consumo                Interpretar           fichas
+                                 técnicas y normativas.       Estar dispuesto a aprender y
+Identificación y realización de                               aplicar nuevas técnicas
+las        operaciones        de Filtrar,     medir       pH, lácteas.
+mantenimiento y                  densidad y acidez de la
+ preparación de la maquinaria y leche.                        Cumplir los protocolos de
+equipos.                                                      conservación               y
+                                  Aplicar        tratamiento almacenamiento.
+Recepción y preparación de térmico adecuado.
+leche para su posterior                                       Coordinar con compañeros
+tratamiento.                      Seguir procedimientos la limpieza, etiquetado y
+                                 estandarizados para la organización del producto
+Importancia del control térmico elaboración de derivados lácteo elaborado.
+en      la    destrucción    de lácteos.
+microorganismos patógenos,                                    Tener compromiso con
+relación tiempo-temperatura.      Registrar      parámetros entregar un producto lácteo
+                                 críticos:    temperaturas, inocuo.
+Realización de tratamientos pH, tiempos, lotes.
+térmicos a la leche.                                          Mantener orden y separación
+                                  Limpiar y desinfectar de zonas de materia prima y
+Pasteurización: tiempo largo- envases,           tapas      y productos elaborados.
+baja temperatura; corto tiempo- equipos.
+alta temperatura.
+                                  Operar       envasadoras
+Esterilización:       autoclave, manuales                   y
+cambios        sensoriales     y semiautomáticas.
+nutricionales.
+Técnica UHT: alta temperatura- Efectuar un cerramiento
+tiempo muy corto, vida útil, hermético en leche y sus
+condiciones                   de derivados.
+almacenamiento.
+                                 Evitar exposición a luz
+ Derivados lácteos               directa en productos
+                                 sensibles    como     la
+Identificación y realización de mantequilla.
+las        operaciones        de
+mantenimiento y preparación Mantener temperaturas
+de la maquinaria y equipos.      registradas            y
+                                 monitoreadas      según
+Ingredientes      y     aditivos normativa implementada.
+permitidos.
+
+Parámetros para controlar en la
+elaboración:    temperaturas,
+tiempos, pH, grasa, control de
+microrganismos, entre otros.
+
+Preparación y conservación de
+cultivos       para       las
+fermentaciones.
+
+Elaboración de quesos.
+
+Elaboración de yogures.
+
+Elaboración de helados.
+
+Elaboración        de     otros
+derivados.
+
+Envasado                     y
+Almacenamiento
+
+Tipos de envase.
+
+Métodos de envasado para
+leche y sus derivados.
+
+Métodos de conservación:
+refrigeración,    congelación,
+tratamientos previos con UHT,
+salado, fermentado, al vacío y
+atmósfera modificada.
+
+Requisitos de temperatura y
+humedad para leche y sus
+derivados en almacenamiento.
+
+Importancia de la cadena de
+frío en la inocuidad y calidad
+sensorial de los productos
+lácteos.
+ Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en:
+    Procesamiento de alimentos, Agroindustria, Calidad y seguridad alimentaria, Gestión
+    de calidad y seguridad alimentaria o a fines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en contextos reales
+  Role-Playing y simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+     Denominación                   Especificaciones técnicas                 Cantidad
+Infraestructura/espacio      Entorno de aprendizaje (aula).                       1
+Laboratorio                  Análisis de microbiológicos                          1
+Planta de
+                               Equipamiento básico y materiales para
+procesamiento de                                                                 1
+                               procesar alimentos.
+alimentos
+Referencias Bibliográficas
+• Castañón Rodríguez, J. F., & Uresti Marín, R. M. (2021). Manual de prácticas de
+   laboratorio de tecnología de alimentos I. Universidad Autónoma de Tamaulipas.
+   https://libros.uat.edu.mx/index.php/librosuat/catalog/download/360/356/1348?inline=1
+• Díaz Ocampo, R. G. (2025). Diseño y desarrollo de nuevos productos alimentarios.
+   Universidad              Técnica              Estatal           de           Quevedo.
+   https://www.uteq.edu.ec/es/investigacion/libro/475
+• Jurado-Gámez, H. A., Insuasty-Santacruz, E. G., & Jojoa-Rodríguez, C. A. (2025).
+   Procedimientos de tecnología de leche (2.ª ed.). Editorial Universidad de Nariño.
+   https://sired.udenar.edu.co/17549/1/17549.pdf
+• Organización de las Naciones Unidas para la Alimentación y la Agricultura, &
+   Organización Mundial de la Salud. (2023). Principios generales de higiene de los
+  alimentos: Código de prácticas del Codex Alimentarius CXC 1-1969. Organización de
+  las      Naciones        Unidas   para     la    Alimentación    y   la   Agricultura.
+  https://doi.org/10.4060/cc6125es
+• Organización Panamericana de la Salud. (2023). Manual de inspección de alimentos
+  basada         en      riesgos:   Establecimientos    productores    de    alimentos.
+  https://iris.paho.org/bitstreams/8a3b22e8-99dd-47a2-a7ee-3a692064fff4/download
+• Secretaría de Educación Pública. (2022). Elabora productos lácteos: Módulo IV,
+  submódulo 2. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+  Mar.        https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/M9tRbMi5fm-M4-SM2-
+  Elabora%20productos%20lacteo…
+  https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/M9tRbMi5fm-M4-SM2-
+  Elabora%20productos%20lacteo…
+
+
+
+                        Módulo de Especialización Nro.6
+Nombre del módulo:           Procesamiento de Frutas y Verduras
+Nivel:                       2do, 3ero
+Duración:                    400 periodos pedagógicos
+                             UC6: Transformar frutas y vegetales en productos alimenticios
+Unidad de competencia        de calidad y seguros, mediante técnicas de procesamiento,
+asociada:                    conservación y envasado aplicando normas de calidad, de
+                             inocuidad y sostenibilidad establecidas.
+Objetivo del módulo: Realizar la transformación de frutas y vegetales aplicando técnicas
+de procesamiento, conservación y envasado, cumpliendo con las normas de calidad,
+inocuidad y sostenibilidad para garantizar productos aptos para el consumo y responsables
+con el ambiente.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Calificar las características físicas y nutricionales de frutas y vegetales frescos,
+apreciando su estado óptimo para la elaboración de productos alimenticios inocuos
+y de calidad.
+CE1.1: Diferencia las características físicas de frutas y vegetales como color, textura,
+firmeza, tamaño, forma y defectos.
+CE1.2: Califica el estado de madurez y frescura, utilizando técnicas sensoriales y análisis
+físicos.
+CE1.3: Escoge normas de inocuidad y calidad alimentaria para las etapas de manipulación,
+inspección y clasificación de productos frescos.
+RA2: Realizar actividades preliminares como limpieza, lavado, desinfección, pelado,
+troceado de frutas o vegetales de acuerdo con la normativa de calidad e inocuidad
+aplicada.
+CE2.1: Ordena el área de trabajo y los equipos, asegurando limpieza, desinfección y
+condiciones higiénicas.
+CE2.2: Realiza técnicas de desinfección adecuados al utilizar soluciones grado alimenticio
+y concentraciones correctas para asegurar la inocuidad y no afectar las propiedades
+nutricionales de frutas o vegetales.
+CE2.3: Aplica técnicas de pelado y corte acordes a los requerimientos de transformación
+posterior evitando pérdidas de materia prima.
+CE2.4: Registra procedimientos, materias primas, tiempos, entre otros, relacionado a la
+calidad e inocuidad.
+RA3: Desarrollar técnicas de procesamiento para la elaboración de jugos, pulpas,
+mermeladas, deshidratados, encurtidos, entre otros, considerando las características
+finales del producto requerido.
+CE3.1: Controla los parámetros de las fases de los procesos de elaboración como
+temperatura, tiempo, concentración de sólidos solubles, ph, entre otros, según las
+características del producto requerido y estándares de calidad.
+CE3.2: Opera los equipos e instrumentos siguiendo protocolos de uso, manuales técnicos
+con previa capacitación para el manejo de marmitas, secadoras, hornos, medidores de pH,
+entre otros.
+CE3.3: Valora la calidad sensorial evaluando color, sabor, aroma, textura, entre otros, y
+presencia de microorganismos patógenos del producto elaborado.
+CE4.4: Aplica normas de calidad e inocuidad alimentaria en las etapas de clasificación,
+procesamiento e inspección.
+RA4: Establecer métodos de conservación como refrigeración, congelación,
+deshidratación, pasteurización, fermentación, envasado al vacío, entre otros, de los
+productos elaborados de frutas y vegetales.
+CE4.1: Aplica técnicas de conservación como refrigeración, congelación, deshidratación,
+pasteurización, fermentación o envasado al vacío, respetando los protocolos de la
+normativa de calidad e inocuidad establecidos.
+CE4.2: Opera equipos e instrumentos de conservación siguiendo protocolos de uso,
+manuales técnicos de equipos y de seguridad previa capacitación continua.
+CE4.3: Valora la calidad sensorial, nutricional y microbiológica del producto elaborado y
+conservado, asegurando que cumple con los estándares requeridos en las normas de
+calidad aplicados.
+RA5: Realizar operaciones de envasado, sellado y etiquetado cumpliendo con
+normativas calidad, seguridad alimentaria, sostenibilidad y trazabilidad.
+CE5.1: Aplica métodos de envasado y sellado correctas, garantizando integridad,
+hermeticidad y protección del producto frente a contaminantes externos.
+CE5.2: Rotula y etiqueta de manera precisa información como nombre del producto, lote,
+fecha de elaboración, fecha de caducidad, ingredientes, información nutricional, semáforo
+nutricional, condiciones de conservación, registro sanitario y país de origen
+CE5.3: Verifica normas de sostenibilidad y manejo responsable de residuos, minimizando
+el impacto ambiental y asegurando la inocuidad del producto durante todas las operaciones.
+                                     Contenidos
+      Conceptuales              Procedimentales              Actitudinales
+Manejo postcosecha de Inspeccionar                color, Mantener el área de trabajo
+frutas-hortalizas y su firmeza, olor y ausencia de limpia y organizada.
+caracterización.            daños.
+                                                         Colaborar con compañeros en
+Frutas      y    hortalizas Clasificar por tamaño, tareas de selección, lavado y
+climatéricos     y       no madurez       y  tipo    de corte.
+climatéricos.               producto.
+                                                         Reducir el desperdicio y
+Factores que afectan la Retirar tierra, hojas o promover                    prácticas
+calidad.                    restos visibles.             sostenibles.
+
+Características      físicas:Lavar con agua potable Controlar         parámetros      de
+forma,      tamaño,    peso, bajo flujo constante.        proceso de transformación
+textura, firmeza, estado de                               como tiempos, temperaturas y
+madurez,            defectos Preparar          soluciones pH.
+comunes.                     desinfectantes            en
+                             concentraciones correctas Manipular         equipos       y
+Procesos       preliminares: y aplicarlas en tiempo herramientas con método
+limpieza,            lavado, adecuado.                    adecuado.
+desinfección,        pelado,
+despulpado, troceado y Minimizar el desperdicio y Proponer combinaciones de
+corte.                       mantener             higiene frutas y hortalizas para la
+                             constante.                   innovación     de      nuevos
+Fundamentos               de                              productos.
+transformación de frutas Seleccionar y clasificar
+y hortalizas                 frutas y hortalizas según Respetar la contribución de
+                             uso.                         cada miembro del equipo.
+Aditivos alimentarios.
+                             Ajustar la materia prima a Priorizar la inocuidad por
+Factores que afectan la las condiciones óptimas de encima de la rapidez.
+calidad del producto final.  extracción o cocción.
+                                                          Evitar contaminación cruzada
+Procesos           térmicos: Elaborar de mermeladas, mediante                  prácticas
+escaldado, pasteurizado y conservas,          confitados, adecuadas.
+deshidratado.                caramelos,       chocolates,
+                             jugos, deshidratados y Comunicar            riesgos      de
+Elaboración               de pulpas.                      contaminación detectados.
+mermeladas y conservas.
+                             Medir pH, temperatura, Promover                   prácticas
+Elaboración de confitados, humedad y °Brix.               ambientalmente
+caramelos y chocolates.                                   responsables.
+Elaboración               de Elaborar         encurtidos, Registrar datos    reales   en
+deshidratación de frutas.    congelados,         salsas, hojas de control.
+                             infusiones     y    aceites
+Elaboración jugos y pulpas. esenciales.
+
+Elaboración de encurtidos Elaborar pastas largas y
+en hortalizas.            pastas cortas
+
+Elaboración de congelados Acomodar productos para
+en hortalizas.              garantizar circulación de
+                            aire en la refrigeración.
+Elaboración de salsas y
+aderezos.                   Empacar antes de congelar
+                            para evitar quemadura por
+Elaboración de infusiones y frío.
+aceites esenciales.
+                            Colocar cortes uniformes
+Identificación de peligros en     bandejas       en    la
+físicos,     químicos     y deshidratación.
+biológicos en los procesos
+de transformación.          Controlar pH diariamente
+                            hasta la estabilización en la
+Harinas                     fermentación.
+
+Harinas y semolinas.          Seleccionar el envase
+                              adecuado según producto
+Tipos de pasta.               y técnica de conservación.
+
+Elaboración pastas.      Archivar   registros     de
+                         control de calidad como
+Principios            de pH,    temperatura,     aw,
+conservación en frutas y volúmenes, entre otros.
+hortalizas
+
+Objetivos         de     la
+conservación.
+
+Causas de deterioro.
+
+Técnicas de conservación
+de acuerdo con el producto
+a       elaborar     como:
+refrigeración, congelación,
+deshidratación,
+pasteurización y envasado
+al vacío.
+
+Normativa            HACCP
+aplicada.
+
+Envasado frio y caliente.
+
+Formas de sellado.
+
+Elementos obligatorios en
+la etiqueta.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en:
+   Procesamiento de alimentos, Agroindustria, Calidad y seguridad alimentaria, Gestión
+   de calidad y seguridad alimentaria o a fines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP).
+ • Aprendizaje en contextos reales.
+ • Role-Playing y simulaciones.
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas).
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+     Denominación                   Especificaciones técnicas                 Cantidad
+Infraestructura/espacio      Entorno de aprendizaje (aula).                       1
+Laboratorio                  Análisis de microbiológicos                          1
+Planta de
+                               Equipamiento básico y materiales para
+procesamiento de                                                                 1
+                               procesar alimentos.
+alimentos
+Referencias Bibliográficas
+• Castañón Rodríguez, J. F., & Uresti Marín, R. M. (2021). Manual de prácticas de
+   laboratorio de tecnología de alimentos I. Universidad Autónoma de Tamaulipas.
+   https://libros.uat.edu.mx/index.php/librosuat/catalog/download/360/356/1348?inline=1
+• Díaz Ocampo, R. G. (2025). Diseño y desarrollo de nuevos productos alimentarios.
+   Universidad              Técnica              Estatal           de           Quevedo.
+   https://www.uteq.edu.ec/es/investigacion/libro/475
+• Organización de las Naciones Unidas para la Alimentación y la Agricultura, &
+   Organización Mundial de la Salud. (2023). Principios generales de higiene de los
+   alimentos: Código de prácticas del Codex Alimentarius CXC 1-1969. Organización de
+   las      Naciones      Unidas     para     la    Alimentación   y    la    Agricultura.
+   https://doi.org/10.4060/cc6125es
+ • Organización Panamericana de la Salud. (2023). Manual de inspección de alimentos
+   basada        en     riesgos:     Establecimientos    productores    de     alimentos.
+   https://iris.paho.org/bitstreams/8a3b22e8-99dd-47a2-a7ee-3a692064fff4/download
+ • Secretaría de Educación Pública. (2022). Elabora productos hortofrutícolas: Módulo IV,
+   submódulo 1. Dirección General de Educación Tecnológica Agropecuaria y Ciencias del
+   Mar. https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/5KnS6GYC2A-M4-SM1-
+   Elabora%20Productos%20hortof…
+   https://dgetaycm.sep.gob.mx/storage/recursos/2022/08/5KnS6GYC2A-M4-SM1-
+   Elabora%20Productos%20hortof…
+ • Vera-Chang, J. F., Barzola-Miranda, S. E., & Álvarez-Aspiazu, A. A. (2024).
+   Procesamiento y conservación de frutas y hortalizas. Editorial Grupo AEA.
+   https://doi.org/10.55813/egaea.l.84
+
+
+
+
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras
+de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como el
+trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación a
+entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver situaciones
+reales, al tiempo que refuerza sus capacidades técnicas y fomenta el desarrollo de
+competencias conceptuales, procedimentales y actitudinales, tanto de los módulos
+genéricos como de los de.
+
+                      Módulo Práctico Experimental
+ Nombre del módulo:       Práctico Experimental
+ Nivel:                   1ro, 2do, 3ro
+ Duración:                360 periodos pedagógicos
+ Unidad de                UC2: Emplear técnicas físicas, químicas y biológicas para la
+ competencia asociada:   conservación considerando las propiedades de los alimentos,
+                         las características de los procesos y la regulación sanitaria.
+                              UC4: Ejecutar procesos de transformación, conservación y
+                              control de productos cárnicos, aplicando normativas de
+                              calidad e inocuidad alimentaria.
+                              UC5: Elaborar productos lácteos y sus derivados, aplicando
+                              procedimientos tecnológicos con normativas de calidad y
+                              seguridad alimentaria.
+                              UC6: Transformar frutas y vegetales en productos
+                              alimenticios de calidad y seguros, mediante técnicas de
+                              procesamiento, conservación y envasado aplicando normas
+                              de calidad, de inocuidad y sostenibilidad establecidas.
+ Objetivo del módulo: Desarrollar en las y los estudiantes la capacidad de integrar y aplicar
+en forma práctica, crítica y contextualizada los conocimientos técnicos adquiridos en los
+módulos formativos de la figura profesional de Conservación y Procesamiento de
+Alimentos, mediante actividades de mediciones de parámetros, análisis de laboratorio,
+transformaciones de alimentos como cárnicos, lácteos, frutas y hortalizas, en entornos
+reales, incluyendo visitas técnicas a empresas e instituciones vinculadas al sector
+alimentario.
+       Resultados de             Criterios de Evaluación         Actividades Prácticas
+     Aprendizaje (RA)                      (CE)                      Experimentales
+RA1: Aplicar métodos             CE1.1: Emplea el método Transformación                     y
+físicos,     químicos       y   de           conservación    conservación   de alimentos   de
+biológicos      para       la   adecuado para preservar origen vegetal o animal en
+transformación              y   la composición nutricional entornos como la planta de
+conservación      de     los    de los alimentos.            procesamiento.
+alimentos          mediante
+normas de calidad e              CE1.2: Opera equipos de Uso          de     equipos       de
+inocuidad, en escenarios        conservación         como conservación para preservar
+reales.                         deshidratadores, cámaras los nutrientes de los alimentos.
+                                de frío, de congelación, Análisis de laboratorio de
+                                entre otros, siguiendo muestras                  alimenticias
+                                protocoles de uso.           obtenidas de la planta de
+                                                             procesamiento.
+                                 CE1.3: Realiza análisis
+                                microbiológicos, físicos- Registro y documentación de
+                                químicos en el laboratorio los parámetros medidos y
+                                considerando            las análisis realizados.
+                                normativas de calidad y
+                                seguridad alimentaria.
+ RA2: Desarrollar técnicas       CE2.1:         Establece Elaboración de salame italiano
+de          transformación,     procedimiento  de  higiene empleando control de calidad e
+conservación                y   en la manipulación de los inocuidad en las siguientes
+almacenamiento            de    productos cárnicos.          etapas del proceso:
+productos cárnicos bajo
+normas de calidad        y   CE2.2: Utiliza equipos y     • Disponer la carne vacuna y
+seguridad alimentaria.       materiales respetando las       grasa de cerdo en las
+                             normas higiénicas y de          cámaras de congelación (-
+                             seguridad alimentarias.         10 ºC).
+                                                          • Cortar en trozos la carne
+                             CE2.3: Evalúa riesgos           vacuna y grasa de cerdo.
+                             potenciales          de      • Colocar en el equipo cutter
+                             contaminación   cruzada         hasta llegar a 1mm de
+                             antes del procesamiento         carne picada, más la grasa.
+                             cárnico.                        Las últimas vueltas en el
+                                                             cutter     adicionar      sal,
+                                                             especias, ácido ascórbico.
+                                                          • Llevar         al      equipo
+                                                             mezcladora       y     añadir
+                                                             glucosa con vino a 80 º C
+                                                             por 4 minutos.
+                                                          • Utilizar       el      equipo
+                                                             embutidora         y       las
+                                                             características de la tripa.
+                                                          • Pinchado de la tripa con
+                                                             una aguja para retirar
+                                                             burbujas.
+                                                          • Fermentación con una
+                                                             temperatura de 20 º C a 25
+                                                             º C, y HR 85-95 %
+                                                          • Secado a 12-15 º C y HR
+                                                             70-85 %.
+                                                          • Envasar al vacío o con
+                                                             atmósfera modificada.
+                                                          • Realizar              análisis
+                                                             microbiológicos             de
+                                                             mesófilos totales UFC/g del
+                                                             producto terminado.
+                                                          • Almacenamiento               en
+                                                             refrigeración.
+                                                          • Visita técnica a empresas
+                                                             procesadoras de cárnicos
+                                                             para consolidar y afianzar
+                                                             los conocimientos teóricos-
+                                                             prácticos.
+ RA3: Ejecutar métodos de     CE3.1: Utiliza equipos e   Elaboración        de      queso
+transformación         de    insumos        respetando   holandés        tipo      Gouda
+productos    lácteos   de    normativa de calidad e      empleando control de calidad e
+acuerdo con la normativa   inocuidad.                inocuidad en las siguientes
+de calidad e inocuidad     CE3.2: Evalúa y analiza etapas del proceso:
+implementada.              parámetros de control de • Recepción de la leche
+                           calidad       en       la     cruda en un tanque
+                           transformación        de      sanitario,   midiendo     la
+                           productos lácteos.            acidez mediante titulación,
+                                                         y su densidad con un lacto
+                                                         densímetro.
+                                                      • Filtración a través de un
+                                                         colador.
+                                                      • Estandarización de la grasa
+                                                         utilizando un tanque con
+                                                         agitación.
+                                                      • Pasteurización de la leche
+                                                         a 72 º C por 15 segundos
+                                                         utilizando u pasteurizador
+                                                         HTST
+                                                      • Enfriamiento inmediato 30
+                                                         a 32 º C.
+                                                      • Inoculación de cultivos
+                                                         lácticos      (Lactococcus
+                                                         lactis)
+                                                      • Adición de cloruro de calcio
+                                                         0.03%.
+                                                      • Adición       de       cuajo
+                                                         microbiano sin agitación
+                                                         durante 40 minutos.
+                                                      • Corte de cuajada, cubos de
+                                                         1 cm.
+                                                      • Lavada de la cuajada, retiro
+                                                         parcial de suero y adición
+                                                         de agua caliente a 60 º C.
+                                                      • Agitar y calentar a 36-38 º
+                                                         C.
+                                                      • Desuerado total y control
+                                                         del pH entre 6,2-6,4 con
+                                                         pHmetro.
+                                                      • Moldeado       en    moldes
+                                                         redondos perforados.
+                                                      • Prensado progresivo entre
+                                                         4 a 8 horas.
+                                                      • Salado en salmuera del 18-
+                                                         20 % NaCl.
+                                                            • Maduración en la cámaras
+                                                              de maduración control de
+                                                              temperatura 10-14º C y HR:
+                                                              80-85%, entre 3 a 6 meses.
+                                                            • Encerado y envasado al
+                                                              vacío con equipos sellador.
+                                                            • Almacenamiento         con
+                                                              refrigeración.
+
+                                                            Registro y documentación de
+                                                            los análisis realizados en los
+                                                            puntos de control de calidad y
+                                                            seguridad de los productos
+                                                            lácteos.
+
+                                                             Visita técnica a empresas
+                                                            procesadoras de lácteos para
+                                                            consolidar y afianzar los
+                                                            conocimientos          teóricos-
+                                                            prácticos.
+RA4: Desarrollar técnicas       CE3.1: Utiliza equipos e     Elaboración de pulpa de fresa
+de procesamiento de frutas     instrumentos     siguiendo   empleando control de calidad e
+y hortalizas garantizando la   protocolos de uso y bajo     inocuidad en las siguientes
+calidad e inocuidad de los     supervisión.                 etapas del proceso:
+productos elaborados.                                       • Recepción de las fresas
+                               CE3.2: Realiza y evalúa         maduras y sanas mediante
+                               parámetros de calidad en        control      de       calidad
+                               el procesamiento de frutas      organoléptico.
+                               y hortalizas                 • Selección eliminando frutas
+                                                               dañadas o sobremaduras, y
+                                                               retiro del pedúnculo y hojas
+                                                               verdes.
+                                                            • Lavado con agua potable
+                                                               para    eliminar tierra y
+                                                               residuos.
+                                                            • Desinfección        mediante
+                                                               inmersión por 5 a 10
+                                                               minutos.
+                                                            • Despulpado a través de una
+                                                               despulpadora mecánica.
+                                                            • Añadir azúcar para alcanzar
+                                                               grados brix según tablas, y
+                                                               conservantes como sorbato
+                                                               o benzoato de acuerdo con
+                                                               límites establecidos, no
+                                                               superar los 250 mg/l de
+                                                               conservantes.
+                                                             • Pasteurizado      en       una
+                                                               marmita con agitación a una
+                                                               temperatura de 80-85 º C,
+                                                               entre 2 a 5 minutos.
+                                                             • Control de las características
+                                                               fisicoquímicas como grado
+                                                               brix, PH, acidez titulable,
+                                                               mediante el uso de un
+                                                               refractómetro y pH metro
+                                                               respectivamente.
+                                                             • Envasado, control del peso y
+                                                               sellado térmico.
+                                                             • Realizar              análisis
+                                                               microbiológicos de mesófilos
+                                                               totales UFC/ml del producto
+                                                               terminado.
+                                                             • Almacenamiento              en
+                                                               refrigeración o congelación.
+
+                                                             Registro y documentación de
+                                                             los análisis realizados en los
+                                                             puntos de control de calidad y
+                                                             seguridad de las pulpas.
+
+                                                             Visita técnica a empresas
+                                                             procesadoras de frutas y
+                                                             hortalizas para consolidar y
+                                                             afianzar los conocimientos
+                                                             teóricos y prácticos.
+
+
+Nota: La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses formativos
+para cada año de bachillerato técnico, promoviendo un aprendizaje significativo, sin que este
+reemplace su paso por la Formación Estudiantil en Centros Educativos y de Trabajo.
+

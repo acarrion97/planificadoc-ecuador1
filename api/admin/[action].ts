@@ -11,6 +11,9 @@ import {
   docenteContacts,
   docenteAccounts,
   planificacionStats,
+  curricularAdaptations,
+  connectaNivelaCrea,
+  evaluacionesDiagnosticas,
 } from "../../drizzle/schema";
 import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
@@ -563,6 +566,79 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           avgPerUser: stats.length > 0 ? (total / stats.length).toFixed(1) : "0",
         },
       });
+    }
+
+    // GET /api/admin/user-metrics?email=... → métricas de un usuario: planificaciones por período + último login
+    if (action === "user-metrics") {
+      const { email } = req.query;
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+
+      try {
+        await db.execute(drizzleSql.raw(`ALTER TABLE docente_accounts ADD COLUMN IF NOT EXISTS lastLoginAt TIMESTAMP NULL`));
+      } catch (_) { /* ya existe */ }
+
+      try {
+        const account = await db
+          .select({ nombre: docenteAccounts.nombre, lastLoginAt: docenteAccounts.lastLoginAt, createdAt: docenteAccounts.createdAt })
+          .from(docenteAccounts)
+          .where(eq(docenteAccounts.email, normalized))
+          .limit(1);
+
+        // planificacionStats usa identifier=email (campo correcto)
+        const stat = await db
+          .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt, platform: planificacionStats.platform })
+          .from(planificacionStats)
+          .where(eq(planificacionStats.identifier, normalized))
+          .limit(1);
+
+        // Buscar documentos por sessionId=email (algunos usuarios usan email como sessionId)
+        const [pcas, adaptaciones, cncs, diagnosticas] = await Promise.all([
+          db.select({ createdAt: pcaDocuments.createdAt }).from(pcaDocuments).where(eq(pcaDocuments.sessionId, normalized)).catch(() => []),
+          db.select({ createdAt: curricularAdaptations.createdAt }).from(curricularAdaptations).where(eq(curricularAdaptations.sessionId, normalized)).catch(() => []),
+          db.select({ createdAt: connectaNivelaCrea.createdAt }).from(connectaNivelaCrea).where(eq(connectaNivelaCrea.sessionId, normalized)).catch(() => []),
+          db.select({ createdAt: evaluacionesDiagnosticas.createdAt }).from(evaluacionesDiagnosticas).where(eq(evaluacionesDiagnosticas.sessionId, normalized)).catch(() => []),
+        ]);
+
+        const porTipo = {
+          pca: pcas.length,
+          adaptaciones: adaptaciones.length,
+          conectaNivelaCrea: cncs.length,
+          evaluacionesDiagnosticas: diagnosticas.length,
+        };
+
+        const allDates = [...pcas, ...adaptaciones, ...cncs, ...diagnosticas].map(r => new Date(r.createdAt).getTime());
+        const now = Date.now();
+        const DAY = 24 * 60 * 60 * 1000;
+        const countSince = (ms: number) => allDates.filter(t => now - t <= ms).length;
+
+        // Usar el conteo de planificacionStats si es mayor al de documentos
+        const totalFromDocs = allDates.length;
+        const totalFromStats = stat[0]?.count ?? 0;
+        const totalCount = Math.max(totalFromDocs, totalFromStats);
+
+        const planificaciones = {
+          diarias: countSince(DAY),
+          semanales: countSince(7 * DAY),
+          trimestrales: countSince(90 * DAY),
+          anuales: countSince(365 * DAY),
+          total: totalCount,
+          porTipo,
+        };
+
+        return res.json({
+          email: normalized,
+          nombre: account[0]?.nombre || null,
+          lastLoginAt: account[0]?.lastLoginAt || null,
+          cuentaCreadaEl: account[0]?.createdAt || null,
+          planificaciones,
+          totalDispositivoSincronizado: totalFromStats,
+          platform: stat[0]?.platform || null,
+        });
+      } catch (error: any) {
+        console.error("[Admin] user-metrics error:", error?.message || error);
+        return res.status(500).json({ error: "Error al obtener métricas", detail: error?.message });
+      }
     }
 
     // POST /api/admin/reset-code → elimina todas las activaciones de un código (para cuando el alumno limpia cache)
@@ -1153,6 +1229,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       } catch (e: any) { log.push(`planificacion_stats ERROR: ${e.message}`); }
 
       return res.json({ success: true, email: normalized, log });
+    }
+
+    // POST /api/admin/deactivate-user — cancela suscripción y token sin borrar datos
+    if (action === "deactivate-user") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email } = req.body || {};
+      if (!email) return res.status(400).json({ error: "email requerido" });
+      const normalized = (email as string).trim().toLowerCase();
+
+      // Buscar todas las suscripciones que no estén canceladas
+      const subs = await db
+        .select()
+        .from(subscriptions)
+        .where(and(eq(subscriptions.email, normalized), ne(subscriptions.status, "cancelled")));
+
+      if (subs.length === 0) {
+        return res.status(404).json({ error: "No se encontró suscripción para este email" });
+      }
+
+      // Cancelar todas las suscripciones y desactivar cobro recurrente
+      await db
+        .update(subscriptions)
+        .set({ status: "cancelled", isRecurring: false })
+        .where(and(eq(subscriptions.email, normalized), ne(subscriptions.status, "cancelled")));
+
+      // Desactivar token de tarjeta
+      await db
+        .update(cardTokens)
+        .set({ isActive: false })
+        .where(eq(cardTokens.email, normalized));
+
+      return res.json({
+        success: true,
+        message: `Usuario ${normalized} desactivado. No se realizarán más cobros.`,
+        subscriptionsCancelled: subs.length,
+      });
     }
 
     // POST /api/admin/migrate-payment-attribution — crea la tabla si no existe

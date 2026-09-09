@@ -14,7 +14,7 @@ import { destrezasEmprendimiento } from "./destrezas-emprendimiento";
 import { destrezasEducacionCiudadania as _rawEC } from "./destrezas-educacion-ciudadania";
 import { destrezasCAI } from "./destrezas-kai";
 export { NOMBRES_BLOQUES_CAI, CRITERIOS_CAI, OBJETIVO_NIVEL_CAI } from "./destrezas-kai";
-import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES } from "./types";
+import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES, AMBITOS_PREPARATORIA } from "./types";
 
 const destrezasEducacionCiudadania: Destreza[] = _rawEC.map((d) => ({
   ...d,
@@ -33,12 +33,14 @@ export { NIVELES_MARZANO, MAPEO_ERCA_MARZANO, obtenerVerbosParaEtapa, generarTex
 export type { NivelMarzano, MapeoERCAMarzano } from "./taxonomia-marzano";
 export { HABILIDADES_SOCIOEMOCIONALES } from "./habilidades-socioemocionales";
 export type { HabilidadSocioemocional } from "./habilidades-socioemocionales";
+export * from "./types-evaluacion";
 export {
   AREAS_BT,
   FAMILIAS_PROFESIONALES,
   FIGURAS_PROFESIONALES,
   obtenerFamiliasPorArea,
   obtenerFigurasPorFamilia,
+  obtenerFigurasActivas,
   obtenerFiguraPorId,
   obtenerModulosPorAnio,
   obtenerTodosLosModulos,
@@ -134,6 +136,117 @@ export function obtenerNombreBloque(area: Area, bloque: number): string {
   return AREAS_INFO[area]?.bloques[bloque] ?? `Bloque ${bloque}`;
 }
 
+/**
+ * Nombre del bloque de una destreza, consciente de Preparatoria: para
+ * `subnivel: 1` el campo `bloque` es un ámbito de desarrollo y aprendizaje
+ * (ver AMBITOS_PREPARATORIA), no el bloque regular que la misma área usa en
+ * subniveles 2-5 — `obtenerNombreBloque` resolvería el nombre equivocado.
+ * Ver openspec/changes/preparatoria-area-integradora/design.md D7.
+ */
+export function obtenerNombreBloqueDestreza(destreza: Destreza): string {
+  if (destreza.subnivel === 1) {
+    return AMBITOS_PREPARATORIA[destreza.bloque] ?? `Ámbito ${destreza.bloque}`;
+  }
+  return obtenerNombreBloque(destreza.area, destreza.bloque);
+}
+
 export function obtenerNombreSubnivel(subnivel: Subnivel): string {
   return SUBNIVEL_NAMES[subnivel] ?? `Subnivel ${subnivel}`;
 }
+
+// ============================================================
+// DESAGREGACIÓN / GRADACIÓN DE DCD POR GRADO
+// ============================================================
+
+/**
+ * Grados que aplican a la desagregación según el subnivel de la DCD.
+ * Devuelve `null` para Preparatoria (subnivel 1) e Inicial (-1, 0): constan
+ * de un solo grado y no se desagregan.
+ */
+export function gradosDeSubnivel(subnivel: Subnivel): number[] | null {
+  switch (subnivel) {
+    case 2:
+      return [2, 3, 4];
+    case 3:
+      return [5, 6, 7];
+    case 4:
+      return [8, 9, 10];
+    case 5:
+      return [1, 2, 3];
+    default:
+      return null;
+  }
+}
+
+/**
+ * Resuelve la DCD oficial por código y su indicador de evaluación principal
+ * (el primero de `indicadoresEvaluacion`). Devuelve `null` si la DCD no existe
+ * en el catálogo o no tiene indicador (no se puede desagregar).
+ */
+export function resolverDcdConIndicador(
+  codigo: string
+): { dcd: Destreza; indicador: string } | null {
+  const dcd = buscarPorCodigo(codigo);
+  if (!dcd) return null;
+  const indicador = dcd.indicadoresEvaluacion?.[0];
+  if (!indicador) return null;
+  return { dcd, indicador };
+}
+
+// ============================================================
+// CURRÍCULO POR COMPETENCIAS — PLAN PILOTO
+// ============================================================
+
+export {
+  COMPETENCIAS_TRANSVERSALES,
+  obtenerCompetenciasActivas,
+  buscarCompetenciaPorCodigo,
+  buscarCompetenciaPorId,
+  codigosCompetenciasActivas,
+} from "./competencias-transversales";
+export type {
+  CompetenciaTransversalCode,
+  CompetenciaTransversalInfo,
+} from "./competencias-transversales";
+
+export {
+  ESTRATEGIAS_MODOLOGICAS,
+  estrategiasPorFamilia,
+  buscarEstrategiaPorId,
+  estrategiaDefault,
+} from "./estrategias-metodologicas";
+export type {
+  EstrategiaMetodologica,
+  FaseEstrategia,
+  EstrategiaFamily,
+} from "./estrategias-metodologicas";
+
+export {
+  AMBITOS_DESARROLLO_INICIAL,
+  obtenerAmbitosActivos,
+  buscarAmbitoPorId,
+} from "./ambitos-desarrollo-inicial";
+export type { AmbitoDesarrolloInfo } from "./ambitos-desarrollo-inicial";
+
+export type {
+  SourceTraceability,
+  DcdSeleccionada,
+  IndicadorSeleccionado,
+  UnidadAiResult,
+  UnidadCurriculoCompetencias,
+  ActividadDidactica,
+  FaseEstrategiaPlan,
+  EstructuraDidactica,
+  ProyectoInterdisciplinar,
+  AdaptacionNEE,
+  ActividadAcompaniamiento,
+  PlanificacionCurriculoCompetencias,
+  ActividadInicial,
+  ClaseInicialCurriculo,
+  AmbitoDesarrollo,
+  FirmasInicial,
+  PlanificacionInicialCurriculo,
+  PlanificacionModulo,
+  UnidadModulo,
+  ExportStrategy,
+} from "./types-curriculo-competencias";

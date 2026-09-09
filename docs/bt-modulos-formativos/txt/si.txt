@@ -1,0 +1,2786 @@
+       MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “SEGURIDAD
+                           INFORMÁTICA”
+
+   1. Objetivo general
+
+Desarrollar en los estudiantes las competencias técnicas, éticas y legales necesarias para
+proteger la información, los sistemas informáticos y las infraestructuras tecnológicas frente
+amenazas, vulnerabilidades y ataques, promoviendo una cultura de seguridad digital,
+responsabilidad profesional y mejora continua, en conformidad con la normativa nacional
+e internacional.
+
+   2. Plan de estudios
+
+                                                                      1ro      2do     3ro
+Total, periodos pedagógicos tronco común
+                                                                      19        19     19
+                           Fundamentos de las Tecnologías
+                           de la Información y la                      3        2
+                           Comunicación
+Módulos Genéricos de la
+                           Pensamiento Computacional y
+Familia Profesional                                                    3        3
+                           Resolución de Problemas
+                           Ética, Legislación y Ciudadanía
+                                                                       2
+                           Digital
+                           Fundamentos de Seguridad
+                                                                       3        2
+                           informática
+                           Manejo de Incidentes y
+                                                                       4        3
+                           Recuperación Informática
+                           Gestión y Análisis de
+                                                                                3       5
+                           Vulnerabilidades
+Módulos Especialización
+                           Monitoreo de Redes y Sistemas
+                                                                                2       3
+                           Informáticos
+                           Cultura y Conciencia en
+                                                                       3        3       4
+                           Ciberseguridad
+                           Auditorías Básicas de Seguridad
+                                                                                        5
+                           Informática
+Módulo Práctico Experimental                                           3        3       4
+Total periodos pedagógicos formación técnica                          21       21       21
+
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Profesional Tecnologías. Gracias a las
+características de los módulos trabajados en esta etapa, adquieren herramientas que le
+permiten construir una opinión más informada y tomar decisiones con mayor fundamento.
+Esto favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa, insertarse
+en el mundo laboral o emprender un proyecto propio.
+
+Se estructuran los siguientes módulos genéricos:
+
+   •   Fundamentos de las Tecnologías de la Información y la Comunicación
+   •   Pensamiento Computacional y Resolución de Problemas
+   •   Ética, Legislación y Ciudadanía Digital
+
+                              Módulo Genérico Nro. 1
+                                       Fundamentos de las Tecnologías de la Información y
+ Nombre del módulo:
+                                       la Comunicación
+ Nivel:                                1ro, 2do
+ Duración:                             200 periodos pedagógicos
+                                       UC1: Aplicar fundamentos de tecnologías de la
+                                       información y la comunicación mediante el análisis de
+                                       su evolución, la identificación de la arquitectura de
+ Unidad       de     competencia
+                                       hardware, software y principios básicos de electricidad
+ asociada:
+                                       y electrónica, la operación básica de redes y sistemas
+                                       operativos y, la gestión de información digital, con el fin
+                                       de resolver requerimientos tecnológicos.
+ Objetivo del módulo: Desarrollar en el estudiante competencias que analice la evolución
+ de las tecnologías de la información y la comunicación, identifique la arquitectura, el
+ funcionamiento de hardware y software, manipule sistemas de redes y sistemas operativos,
+ organice la información digital, con el fin de resolver de manera efectiva requerimientos en
+ distintos entornos tecnológicos.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA1: Analizar la evolución de las tecnologías de la información y la comunicación
+ reconociendo sus hitos históricos, transformaciones tecnológicas y su impacto en
+ los entornos productivos, educativos y sociales.
+ CE1.1: Distingue la evolución de las TIC con base en líneas de tiempo o esquemas
+ cronológicos.
+ CE1.2: Emplea los avances tecnológicos con sus aplicaciones en distintos sectores de la
+ sociedad.
+ CE1.3: Define las generaciones de computadoras y dispositivos en función de su
+ capacidad y arquitectura.
+ CE1.4: Argumenta el impacto social, económico y cultural del uso de las TIC, mediante
+ análisis de casos actuales o discusiones dirigidas.
+ RA2: Examinar la arquitectura de sistemas informáticos, identificando componentes
+ de hardware, software y su funcionamiento integrado en distintos entornos
+ tecnológicos.
+ CE2.1: Inspecciona los componentes físicos de un sistema informático, clasificándolos
+ según su función principal (entrada, procesamiento, almacenamiento, salida y
+ comunicación).
+CE2.2: Distingue entre software de sistema, de aplicación y de desarrollo, explicando su
+propósito funcional con ejemplos representativos.
+CE2.3: Elabora esquemas de arquitectura de computadoras donde ubicar los
+componentes funcionales y describe el flujo básico de información entre ellos.
+CE2.4: Determina el tipo de sistema informático (doméstico, industrial, educativo, entre
+otros) a partir de su estructura y características técnicas, según el contexto de uso.
+RA3: Emplear sistemas operativos y entornos digitales gestionando recursos,
+configuración inicial y funciones elementales en la administración del sistema.
+CE3.1: Ejecuta tareas básicas de administración de archivos y carpetas, diferenciando
+procedimientos entre sistemas operativos gráficos y basados en línea de comandos.
+CE3.2: Identifica parámetros esenciales del sistema operativo como nombre de usuario,
+configuración de red y capacidad de almacenamiento, utilizando herramientas del entorno.
+CE3.3: Aplica funciones básicas de herramientas de mantenimiento del sistema operativo
+para optimizar su funcionamiento.
+CE3.4: Emplea instrucciones en los entornos gráficos o de línea de comandos según el
+tipo de operación administrativa requerida, justificando su elección.
+RA4: Utilizar los fundamentos básicos de electricidad y electrónica digital para la
+construcción de circuitos simples.
+CE4.1: Examina los principios básicos de electricidad y su relación con el funcionamiento
+de dispositivos electrónicos utilizados en computación.
+CE4.2: Analiza componentes electrónicos digitales y su aplicación en sistemas
+informáticos.
+CE4.3: Establece conocimientos de lógica en la resolución de problemas digitales.
+CE4.4: Diseña esquemas y diagramas electrónicos básicos para comprender la estructura
+de circuitos eléctricos simples.
+RA5: Diseñar redes informáticas comprendiendo su estructura, tipos, dispositivos,
+protocolos de comunicación y funciones esenciales.
+CE5.1: Clasifica elementos físicos y lógicos de una red informática según su función en el
+sistema.
+CE5.2: Diferencia tipos de redes (LAN, WAN, WLAN) en función de su alcance, propósito
+y características.
+CE5.3: Representa dispositivos de red en esquemas funcionales según su rol en la
+infraestructura.
+CE5.4: Elabora cuadros técnicos sobre el funcionamiento de protocolos de comunicación
+en la transmisión de datos.
+RA6: Gestionar información digital utilizando herramientas tecnológicas mediante la
+organización, almacenamiento, protección y compartición de datos.
+CE6.1: Analiza información digital considerando su tipo, relevancia y nivel de
+confidencialidad en contextos educativos o profesionales.
+CE6.2: Organiza carpetas y archivos con nombres coherentes en soportes físicos y
+virtuales con base en criterios de estructuración lógica.
+CE6.3: Implementa medidas básicas de protección de datos mediante contraseñas,
+permisos de acceso o cifrado en entornos digitales.
+CE6.4: Transfiere información en plataformas colaborativas o servicios en la nube
+respetando estándares de seguridad y compatibilidad.
+Contenidos
+Conceptuales                    Procedimentales                 Actitudinales
+                                Analizar líneas de tiempo y     Mostrar responsabilidad y
+Evolución histórica de las
+                                esquemas       cronológicos     ética en el manejo y
+Tecnologías       de     la
+                                para identificar hitos y        protección de la información
+Información       y      la
+                                evolución de las TIC.           digital.
+Comunicación (TIC).
+                                Clasificar dispositivos de
+Hitos    tecnológicos      y                                    Valorar la importancia de la
+                                hardware y software según
+generaciones              de                                    evolución tecnológica y su
+                                su función y tipo.
+computadoras.                                                   impacto en la sociedad.
+                                Organizar esquemas y
+Impacto social, económico                                       Desarrollar    una    actitud
+                                diagramas de arquitectura
+y cultural de las TIC.                                          crítica y reflexiva ante los
+                                de sistemas informáticos.
+Software libre y software                                       cambios y avances en las
+propietario, licenciamiento y                                   TIC.
+                                Identificar el flujo de
+pagos.                                                          Fomentar el interés por el
+                                información         entre
+Arquitectura de sistemas                                        aprendizaje    continuo    y
+                                componentes de hardware
+informáticos: componentes                                       actualización en tecnologías
+                                y software.
+de    hardware    y   sus                                       emergentes.
+                                Manipular         sistemas
+funciones.                                                      Promover      el     trabajo
+                                operativos para gestionar
+Tipos de software: de                                           colaborativo      y       la
+                                archivos,    carpetas    y
+sistema, de aplicación y de                                     comunicación efectiva en
+                                configuraciones básicas.
+desarrollo,     según    su                                     ambientes tecnológicos.
+                                Configurar parámetros de
+contexto,     funciones   y                                     Adoptar     prácticas    de
+                                usuario,       red     y
+características.                                                seguridad      digital para
+                                almacenamiento        en
+Estructura funcional de                                         proteger datos personales y
+                                sistemas operativos.
+computadoras y flujo de                                         profesionales.
+                                Aplicar funciones básicas
+información         entre                                       Reconocer la importancia del
+                                de    mantenimiento   del
+componentes.                                                    respeto a la privacidad y la
+                                sistema operativo.
+Clasificación de sistemas                                       confidencialidad en el uso de
+                                Utilizar entornos gráficos y    tecnologías.
+informáticos   según   su
+                                línea de comandos para
+contexto de uso.                                                Desarrollar autonomía en la
+                                tareas de administración.
+Redes          informáticas,                                    gestión y solución de
+                                Catalogar y diferenciar         problemas       tecnológicos
+elementos físicos y lógicos.
+                                elementos físicos y lógicos     básicos.
+Tipos de redes (LAN, WAN,       de redes informáticas.
+WLAN)           y         sus                                   Mantener       una      postura
+                                Describir tipos de redes y      abierta y flexible ante nuevas
+características principales.
+                                sus           características   metodologías y herramientas
+Dispositivos de red y sus       mediante           ejemplos     tecnológicas.
+funciones (switch, router,      prácticos.
+módem, punto de acceso,
+                                                                 Impulsar la conciencia sobre
+repetidor).
+                               Configurar dispositivos de        el impacto ambiental y social
+Protocolos             de      red y simular funciones de        del uso responsable de las
+comunicación en redes.         protocolos              de        TIC.
+                               comunicación.
+Conceptos de gestión,                                            Mantener       una      actitud
+organización,                  Organizar, almacenar y            positiva y resiliente ante
+almacenamiento, normas y       proteger información digital      fallos y errores técnicos.
+buenas      prácticas en       mediante      herramientas
+                                                                 Fomentar el trabajo en
+seguridad informática y        tecnológicas.
+                                                                 equipo con comunicación
+protección de datos.
+                               Implementar     medidas           abierta,     respeto  y
+Herramientas tecnológicas      básicas de seguridad en           cooperación.
+para compartir información     entornos        digitales
+                                                                 Priorizar la gestión adecuada
+en entornos digitales.         (contraseñas,  permisos,
+                                                                 del tiempo y recursos para
+                               cifrado).
+Fundamentos de trabajo                                           cumplir objetivos.
+colaborativo           y       Compartir información en
+comunicación efectiva en       plataformas colaborativas y       Demostrar responsabilidad
+entornos tecnológicos.         servicios en la nube,             en el manejo seguro de
+                               respetando normas de              herramientas e
+Organización, planificación
+                               seguridad y formatos.             instrumentos eléctricos y
+y gestión de proyectos
+                                                                 electrónicos.
+tecnológicos.                  Probar                nuevas
+                               herramientas tecnológicas
+Unidades de medidas de la
+                               y entornos digitales.
+información.
+                               Diagnosticar y resolver
+Fundamentos eléctricos y
+                               problemas técnicos con
+electrónicos: conceptos
+                               actitud     analítica y
+básicos y práctica con
+                               perseverante.
+circuitos.
+                               Documentar procesos y
+Protección     eléctrica   y
+                               resultados técnicos de
+puesta a tierra.
+                               manera clara y ordenada.
+Componentes eléctricos y
+                               Utilizar          plataformas
+electrónicos.
+                               colaborativas       para   la
+Esquemas, diagramas        y   gestión del       trabajo en
+circuitos electrónicos         equipo.
+Lógica digital.
+                               Identificar  componentes
+                               eléctricos y electrónicos
+                               básicos visualmente y por
+                               código.
+
+                               Construir             circuitos
+                               eléctricos      básicos      en
+                              protoboard y simuladores
+                              digitales.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación               Especificaciones técnicas                  Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)              1
+                           Computadoras con acceso a internet
+Laboratorio                                                          1
+                           Proyector
+Referencias Bibliográficas
+Libros:
+• Caballero, K. (2016). Fundamentos de informática y computación. Alfaomega Grupo
+   Editor.https://books.google.com/books?q=Fundamentos+de+inform%C3%A1tica+y+co
+   mputaci%C3%B3n+Caballero
+• Flores, J. (2021), Componentes y mantenimiento del PC. Marcombo.
+• Forouzan, B. A. (2007), Comunicación de datos y redes de computadoras (4.ª ed.).
+   McGraw-Hill.
+• Fundamentos de sistemas operativos (9.ª ed.). Wiley / Limusa.
+• García, Luis. Fundamentos de las Tecnologías de la Información y la Comunicación.
+   Alfaomega, 2022.
+• Laudon, K. C., & Laudon, J. P. (2020), Sistemas de información gerencial (13.ª ed.).
+   Pearson Educación.
+• López, Carlos. Gestión y Seguridad de la Información Digital. Ediciones Universitarias,
+   2022.
+• Martínez, Ana y Pérez, Jorge. Arquitectura de Computadores y Sistemas Operativos.
+   Ediciones Técnicas, 2021.
+• Moreno, R. A., & Velázquez, E. (2017), Arquitectura y organización de computadoras.
+   McGraw-Hill Educación.
+• Rodríguez, Sandra. Redes de Computadoras: Principios y Prácticas. Editorial Digital,
+   2023.
+• Stair, R., & Reynolds, G. (2018), Fundamentos de sistemas de información (7.ª ed.).
+   Cengage Learning.
+• Silberschatz, A., Galvin, P. B., & Gagne, G. (2021).
+• Sánchez, Paula. Introducción a los Sistemas Operativos. Ediciones Académicas, 2020.
+Referencias web:
+• Herrera        S,     Fundamentos         de      Computación.      Disponible    en:
+   https://ocw.unican.es/pluginfile.php/3199/course/section/3012/bloque01.pd
+• Khan        Academy      en      español    –    Ciencias     de    la   computación.
+   https://es.khanacademy.org/computing
+
+
+
+
+                             Módulo Genérico Nro.2
+                                    Pensamiento Computacional y Resolución de
+Nombre del módulo:
+                                    Problemas
+Nivel:                              1ro, 2do
+Duración:                           240 periodos pedagógicos
+                                    UC2:     Proponer      soluciones   informáticas    y
+                                    computacionales mediante el análisis lógico-
+Unidad      de     competencia      matemático, manejo de sistemas numéricos, lógica de
+asociada:                           conjuntos, formulación algorítmica con diagramas y
+                                    pseudocódigo, aplicación de programación básica,
+                                    levantando documentación técnica, como fundamento
+                                    del desempeño profesional en tecnologías de la
+                                    información y comunicación.
+Objetivo del módulo: Fortalecer en el estudiante competencias técnicas en la formulación
+y representación algorítmica, programación básica, aplicando metodologías de desarrollo,
+conceptos lógicos matemáticos y sistemas numéricos para la resolución de problemas
+computacionales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Aplicar conceptos de lógica matemática, conjuntos y sistemas numéricos en
+la resolución de problemas computacionales.
+CE1.1: Distingue proposiciones y operaciones lógicas utilizando tablas de verdad y leyes
+del álgebra booleana.
+CE1.2: Representa operaciones de conjuntos en problemas computacionales mediante
+diagramas y notación formal.
+CE1.3: Transforma valores entre sistemas numéricos binario, decimal, hexadecimal y octal
+como base para el tratamiento de datos.
+CE1.4: Resuelve problemas que combinan lógica proposicional y sistemas numéricos en
+contextos computacionales específicos.
+RA2: Resolver algoritmos de aplicaciones informáticas, representarlos mediante
+diagramas de flujo y pseudocódigo.
+CE2.1: Descompone problemas en pasos secuenciales mediante la elaboración de
+diagramas de flujo estructurados.
+CE2.2: Traduce diagramas de flujo a pseudocódigo utilizando sintaxis estructurada y lógica
+funcional.
+CE2.3: Verifica algoritmos mediante pruebas y simulaciones, identificando errores de lógica
+y eficiencia.
+CE2.4: Contrasta resultados esperados y obtenidos para evaluar el comportamiento
+funcional del algoritmo.
+ RA3: Utilizar programación en la construcción de soluciones computacionales.
+CE3.1: Emplea estructuras secuenciales, condicionales y repetitivas al desarrollar
+programas en un lenguaje de programación resolviendo problemas computacionales
+básicos.
+CE3.2: Construye clases, atributos y métodos aplicando principios de encapsulamiento,
+herencia y polimorfismo en un lenguaje orientado a objetos.
+CE3.3: Elabora estructuras de datos simples como vectores, listas y matrices para la gestión
+de información en aplicaciones básicas.
+CE3.4: Codifica programas simples verificando la funcionalidad conforme a los
+requerimientos establecidos y resultados esperados.
+CE3.5: Documenta mediante comentarios técnicos explicando la lógica, estructura y
+funcionamiento del código fuente.
+ RA4: Diseñar interfaces básicas facilitando la interacción con usuarios en
+ aplicaciones de consola y GUI.
+CE4.1: Aplica elementos visuales, etiquetas y campos adecuados al tipo de aplicación
+(consola o GUI) para representar la funcionalidad esperada.
+CE4.2: Integra principios de usabilidad y accesibilidad en el diseño de interfaces,
+considerando la disposición, navegación y comprensión visual
+CE4.3: Programa eventos y validaciones que responden correctamente a las acciones del
+usuario, previniendo errores en tiempo de ejecución.
+CE4.4: Realiza pruebas para identificar mejoras en la interacción y funcionalidad de la
+interfaz desarrollada.
+ RA5: Implementar metodologías de desarrollo de software en función del tipo de
+ proyecto, integrando tiempos de entrega y colaboración en equipo.
+CE5.1: Selecciona adecuadamente la metodología de desarrollo (ágil, tradicional, híbrida)
+según los requerimientos del proyecto.
+CE5.2: Realiza las tareas de desarrollo de acuerdo con la metodología seleccionada,
+cumpliendo entregables y estándares.
+CE5.3: Coordina la colaboración en equipo utilizando herramientas digitales que facilitan la
+comunicación y el seguimiento de actividades.
+CE5.4: Documenta el proceso de desarrollo mediante registros técnicos que evidencian el
+avance y la gestión del proyecto.
+Contenidos
+Conceptuales                   Procedimentales                Actitudinales
+Principios del pensamiento Descomponer problemas Emplear el pensamiento
+computacional.                 complejos               en analítico en la resolución de
+                               subproblemas manejables problemas.
+Componentes        de     un
+problema computacional.
+                               mediante estrategias     de
+Criterios de optimización en                                  Mostrar disposición para
+                               pensamiento lógico.
+soluciones                                                    explorar         situaciones
+computacionales.               Identificar       patrones     problemáticas         desde
+                               comunes     en     distintos   múltiples perspectivas antes
+Metodología    para   la
+                               problemas para proponer        de proponer soluciones.
+resolución de problemas
+                               soluciones generalizables.
+computacionales.                                              Asumir responsabilidad en la
+                               Representar procesos a         coherencia lógica de los
+Identificación de patrones y
+                               través de diagramas de         diseños         propuestos,
+relaciones.
+                               flujo, pseudocódigo u otras    considerando el contexto del
+Algoritmos, definición    y    formas de modelado lógico.     problema.
+características.
+                               Formular         algoritmos    Mostrar flexibilidad para
+Tipos de datos, variables,     eficientes    considerando     ajustar    los     modelos
+constantes y expresiones.      secuencia,        selección,   diseñados    ante   nuevas
+Lenguajes             de       iteración y modularidad.       condiciones o sugerencias.
+pseudocódigo y diagramas       Simular    algoritmos     en   Aplicar buenas prácticas en
+de flujo.                      entornos digitales o físicos   la elaboración de algoritmos
+Estructuras  de     control    para      comprobar       su   organizados,     claros    y
+secuencial, condicional y      funcionalidad.                 eficientes.
+repetitiva.                    Evaluar    soluciones    en    Reflexionar     sobre     los
+Tipos       de      errores,   función de su eficiencia,      resultados obtenidos como
+sintácticos, lógicos y de      claridad y capacidad de        una     oportunidad     para
+ejecución.                     resolución del problema.       mejorar     las   soluciones
+                                                              propuestas.
+Buenas prácticas en la         Aplicar heurísticas para
+resolución de problemas        resolver problemas donde       Aceptar con apertura la
+computacionales                no existe un camino único o    retroalimentación de otros
+                               completamente definido.        como parte fundamental del
+Heurísticas para la toma de                                   proceso de aprendizaje.
+decisiones.                    Construir      soluciones
+                               computacionales básicas        Mostrar        comunicación
+Operadores lógicos y tablas    empleando    herramientas      asertiva en la resolución de
+de verdad.                     de programación.               problemas computacionales,
+Funciones             de       Revisar errores lógicos o      Colaborar activamente con
+modelamiento de bases de       sintácticos en algoritmos o    sus pares para enriquecer
+datos.                         programas         mediante     ideas y construir soluciones
+Fundamentos de lógica y        procesos de depuración.        colectivas.
+matemáticas     aplicadas,     Integrar estrategias de        Valorar la importancia de la
+operadores         lógicos,    mejora continua en la          lógica matemática en la
+proposiciones, tablas de       solución de problemas          resolución de problemas.
+verdad, operaciones entre      computacionales.
+conjuntos,       sistemas                                    Adoptar     una     actitud
+numéricos y conversiones.      Verificar sistemáticamente la perseverante     en       la
+                               funcionalidad lógica de las resolución de problemas con
+                               soluciones     antes     de algoritmos        claros         y
+Tipos      de       lógica,
+                               validarlas.                 eficientes.
+proposicional, booleana y
+matemática.                                                  Demostrar empatía hacia el
+                               Aplicar operadores lógicos
+                                                             usuario final en el diseño de
+Interfaz gráfica de usuario    en    la   resolución   de
+                                                             interfaces.
+GUI,       usabilidad     y    problemas
+                                                             Fomentar la colaboración de
+accesibilidad.                 computacionales.
+                                                             trabajo en equipo
+ Metodologías de desarrollo,
+ herramientas colaborativas    Transformar       números
+ y documentación técnica y     entres distintos sistemas
+ de usuario.                   numéricos, entendiendo los
+                               procesos computacionales.
+
+                               Diseñar interfaces graficas
+                               con elementos interactivos
+                               aplicando principios de
+                               usabilidad y accesibilidad
+                               con enfoque al usuario.
+
+                               Utilizar      herramientas
+                               colaborativas    para   el
+                               trabajo en equipo.
+
+                               Elaborar   documentación
+                               técnica y de usuario del
+                               software.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación               Especificaciones técnicas                     Cantidad
+                           Entorno de aprendizaje
+Infraestructura/espacio                                           1
+                           (aula)
+                           Computadoras con acceso a internet
+Laboratorio
+                           Proyector                              1
+Referencias Bibliográficas
+Libros:
+   • Fernández, David. Diseño y Desarrollo de Interfaces de Usuario. Editorial Técnica,
+       2021.
+   • Joyanes Aguilar. (2020). Fundamentos de programación: Algoritmos, estructuras de
+       datos       y     objetos.    5ta      Edición.    McGraw-Hill.    Disponible    en:
+       https://www.buscalibre.ec/libro-fundamentos-de-
+       programacion/9786071514684/p/52789598
+   • Narváez-Narváez, J.-C., Pardo-Calvache, C.-J., and Orozco-Garcés, C.-E. (2023).
+       Deuda de la documentación en el desarrollo ágil de software: mapeo sistemático
+       de la literatura. Revista Científica, 46(1), 107–121.
+       https://doi.org/10.14483/23448350.19670
+   • Ramírez, Carla. Lógica Matemática y Algoritmos para Programadores. Ediciones
+       Digitales, 2022.
+   • Torres, Miguel. Programación Estructurada y Orientada a Objetos con Java. Editorial
+       Universitaria, 2023.
+Referencias web:
+   • Guía          Práctica      de      Algoritmos      y    Estructuras     de     Datos
+       Autor:             Instituto           Politécnico          Nacional          (IPN)
+       Disponible en: https://www.ipn.mx/pdf/algoritmos-y-estructuras-de-datos.pdf
+   • Guía completa sobre metodologías ágiles en desarrollo de software: Mejora la
+       flexibilidad y eficiencia de tu equipo. TICNUS Technology Magazine.
+       https://ticnus.com/guias/guia-completa-sobre-metodologias-agiles-en-desarrollo-
+       de-software-mejora-la-flexibilidad-y-eficiencia-de-tu-equipo/
+
+
+
+
+                                Módulo Genérico Nro.3
+Nombre del módulo:                    Ética, Legislación y Ciudadanía Digital
+Nivel:                                1ro
+Duración:                             80 periodos pedagógicos
+                                      UC3: Integrar principios éticos y legales en el uso de
+                                      tecnologías, protección de datos, propiedad intelectual
+Unidad      de      competencia
+                                      y responsabilidad digital con el fin de asumir
+asociada:
+                                      desempeño consciente y responsable en entornos
+                                      digitales.
+Objetivo del módulo: Fomentar la comprensión y aplicación de principios éticos,
+normativas legales y prácticas responsables en el uso de las tecnologías digitales,
+fortaleciendo una ciudadanía digital crítica, respetuosa, segura y consciente de los derechos
+y deberes en entorno virtuales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Analizar los principios éticos relacionados con el uso responsable de las
+tecnologías digitales.
+CE1.1: Analiza casos o situaciones que evidencias conflictos éticos en el uso de
+tecnologías digitales.
+CE1.2: Relaciona el uso de herramientas digitales con posibles impactos éticos y sociales
+en distintos contextos.
+CE1.3: Muestra respeto a los derechos de propiedad intelectual en entornos digitales.
+CE1.4: Reflexiona críticamente sobre sus prácticas digitales cotidianas en el uso ético y
+responsable de la tecnología en actividades personales, académicas, culturales o
+profesionales.
+RA2: Diferenciar el uso lícito e ilícito de recursos digitales, software y contenidos en
+línea.
+CE2.1: Clasifica recursos digitales según su tipo de licencia y condiciones de uso.
+CE2.2: Discrimina prácticas ilícitas como el uso de software pirata, descargas ilegales,
+reproducción sin autorización o plagio digital.
+CE2.3: Aplica criterios de legalidad y responsabilidad en la selección, uso y difusión de
+recursos digitales en contextos educativos o institucionales.
+CE2.4: Evalúa las consecuencias legales y éticas del uso indebido de software y
+contenidos protegidos por derechos de autor.
+RA3: Aplicar normas legales relacionadas con la protección de datos personales y
+privacidad digital.
+CE3.1: Distingue el tipo de información que se considera dato personal y sensible según
+la normativa vigente.
+CE3.2: Analiza situaciones de vulneración de privacidad en entornos digitales y sus
+implicaciones legales y éticas.
+CE3.3: Aplica buenas prácticas en la recolección, almacenamiento y uso responsable de
+datos personales en contextos laborales, académicos o comunitarios.
+CE3.4: Verifica que las plataformas, formularios o recursos digitales utilizados respeten
+principios de confidencialidad, seguridad y protección de datos.
+RA4: Promover comportamientos responsables y seguros en el uso de tecnologías
+y redes digitales.
+CE4.1: Distingue situaciones de riesgo digital derivadas de vulnerabilidades de hardware
+y software, y propone formas de prevención.
+CE4.2: Emplea normas básicas de conducta digital (netiqueta) promoviendo valores como
+el respeto, la responsabilidad, la empatía y la honestidad en entornos laborales, educativos
+y sociales, haciendo un uso ético y consciente de las tecnologías.
+CE4.3: Participa de manera crítica, ética y responsable en entornos digitales, promoviendo
+el uso de la tecnología y contribuyendo a una cultura digital inclusiva y respetuosa.
+CE4.4: Propone actividades que promuevan la ciudadanía digital, el respeto a los demás y
+el cuidado del entono virtual.
+ Contenidos
+Conceptuales                     Procedimentales                Actitudinales
+Ética y moral en entornos
+digitales:
+• Definición de ética y moral.
+• Diferencias entre ética
+                                  Analizar casos reales o
+personal, profesional y digital
+                                  simulados de dilemas éticos
+• Dilemas éticos en el
+                                  digitales.
+entorno tecnológico
+Principios éticos aplicados
+                                  Evaluar el cumplimiento de
+a la tecnología:
+                                  principios éticos en el uso de
+• Responsabilidad                                                 Mantener compromiso con el
+                                  plataformas tecnológicas.
+• Integridad                                                      uso responsable de las
+• Justicia y equidad                                              tecnologías.
+                                   Aplicar criterios éticos en la
+• Respeto a la privacidad
+                                  toma de decisiones digitales
+• Transparencia                                                   Respetar la privacidad y la
+                                  (uso      de      información,
+Legislación Digital:                                              identidad digital propia y
+                                  comunicación, privacidad).
+• Marco legal                                                     ajena.
+• Derechos y deberes
+                                  Elaborar    códigos      de
+• Delitos cibernéticos                                           Promover el uso ético de las
+                                  conducta   o   guías     de
+• Importancia                                                    TIC evitando acoso digital,
+                                  comportamiento digital para
+                                                                 difusión de contenido falso,
+                                  contextos  educativos     o
+Ciudadanía Digital:                                              piratería.
+                                  laborales.
+• Definición
+• Componentes                                                    Manifestar actitud crítica y
+                             Participar en debates o foros
+• Habilidades                                                    reflexiva   frente   a     la
+                             sobre       temas         éticos
+• Participación                                                  información y a la conducta
+                             relacionados        con        la
+• Ética                                                          digital.
+                             tecnología.
+• Seguridad
+                             Participar en campañas
+Diferencias culturales y                                         Demostrar       empatía     y
+                             sociales digitales o en
+legales                                                          responsabilidad      en    la
+                             espacios      de      discusión
+Tendencias futuras en                                            interacción virtual.
+                             respetuosa.
+ética digital
+                             Configurar la privacidad en
+Ejemplos de ética digital                                        Mantener   disposición a
+                             redes sociales.
+• Privacidad de datos                                            actuar con integridad y
+                             Realizar      prácticas       de
+• Bias algorítmico                                               honestidad en entornos
+                             recolección de datos no
+• Ciberseguridad                                                 digitales.
+                             éticas.
+• Brecha digital
+                             Usar contraseñas seguras,
+                             reconocer               correos
+Uso responsable de las
+                             fraudulentos o evitar el
+tecnologías digitales
+                             acceso      a    sitios     web
+• Comportamiento ético en
+                             peligrosos
+redes sociales y plataformas
+digitales.
+• Derechos y deberes de los
+usuarios digitales
+• Netiqueta y ciudadanía
+digital
+
+Consecuencias del uso no
+ético de la tecnología:
+• Ciberacoso, suplantación
+de                  identidad,
+desinformación.
+• Impactos sociales, legales
+y personales del mal uso de
+las TIC
+Ética profesional en el
+ámbito tecnológico
+Sociedad digital
+Datos y seguridad
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Role-Playing y Simulaciones
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                               Detalle de especificaciones
+Denominación                                                                Cantidad
+                               técnicas
+                               Entorno de aprendizaje
+Infraestructura/espacio                                                     1
+                               Laboratorio informático
+                               Computadoras con acceso a internet
+Laboratorio                                                                 1
+                               Proyector
+Referencias Bibliográficas
+    • Asamblea Nacional del Ecuador. (2021). Ley Orgánica Reformatoria del Código
+        Orgánico Integral Penal para prevenir y combatir la violencia sexual digital y
+        fortalecer la lucha contra los delitos informáticos. Registro Oficial N.º 526, Cuarto
+        Suplemento, 30 de agosto de 2021.
+        https://www.asambleanacional.gob.ec/es/leyes-
+        aprobadas?leyesaprobadas=All&title=C%C3%B3digo+Org%C3%A1nico+Integral+
+        Penal
+    • Asamblea Nacional del Ecuador. (2026). Ley Orgánica de Protección de Datos
+        Personales (actualización al 11 de abril de 2026). https://legalcloud.ec/wp-
+        content/uploads/2026/04/LEY-ORGANICA-DE-PROTECCION-DE-DATOS-
+        PERSONALES-11-04-2026-Normativa-Ecuatoriana.pdf
+    •   Balladares, J.A(2023). Principios y valores para una ética digital. Universidad
+        Andina Simon Bolivar. Disponible en:
+        https://repositorio.uasb.edu.ec/items/8ece932d-4c78-441b-b743-
+        dab5c2360110?utm_source
+    •   Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2022).
+        Estrategia Nacional de Ciberseguridad del Ecuador (Versión 1.1, borrador para
+        consulta pública).
+        https://aportecivico.gobiernoelectronico.gob.ec/system/documents/attachments/000
+        /000/103/original/04bfdeb041e78cdc522f3d095f340a5dea2f0083.pdf
+    •   Organización Mundial de la Propiedad Intelectual. (2023). Introducción al marco
+        jurídico internacional de la propiedad intelectual. OMPI.
+        https://www.wipo.int/publications/es/details.jsp?id=4636
+    •   Organización Mundial de la Propiedad Intelectual. (s. f.). Portal de la OMPI.
+        https://www.wipo.int/portal/es/
+    •   UNESCO: Alfabetización en privacidad.
+        https://unesdoc.unesco.org/ark:/48223/pf0000377064
+    •   Guía de políticas y estrategias para la alfabetización mediática e informacional.
+        UNESCO. https://unesdoc.unesco.org/ark:/48223/pf0000377064
+
+   4. Módulos de Especialización
+
+Las y los jóvenes que cursen el Bachillerato Técnico en Seguridad Informática se
+caracterizarán por contar con una sólida formación en protección de la información digital,
+administración de sistemas y gestión de riesgos tecnológicos.
+
+Se estructuran los siguientes módulos de especialización:
+    • Fundamentos de Seguridad Informática
+    • Manejo de Incidentes y Recuperación Informática
+    • Gestión y Análisis de Vulnerabilidades
+    • Monitoreo de Redes y Sistemas Informáticos
+    • Cultura y Conciencia en Ciberseguridad
+    • Auditorías Básicas de Seguridad Informática
+
+                      Módulo de Especialización Nro. 1
+ Nombre del módulo:            Fundamentos de Seguridad Informática
+ Nivel:                        1ro, 2do
+ Duración:                     200 periodos pedagógicos
+                               UC1: Analizar el estado de seguridad y
+ Unidad     de    competencia  vulnerabilidades de la red y de los sistemas
+ asociada:                     informáticos, con el fin de reducir amenazas y
+                               proponer soluciones digitales.
+Objetivo del módulo: Comprender los principios, conceptos y mecanismos de seguridad
+informática, identificando amenazas, vulnerabilidades y controles, aplicando buenas
+prácticas en la protección de la información, el uso seguro de tecnologías digitales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Seleccionar los activos informáticos que contengan información crítica para la
+organización, aplicando principios de seguridad de la información.
+CE1.1: Distingue los activos clave (hardware, software, datos, servicios) considerando su
+valor para la organización.
+CE1.2: Clasifica los activos según su importancia en la confidencialidad, integridad y
+disponibilidad de la información.
+CE1.3: Analiza principios de análisis de riesgos en la priorización de los activos con base
+en su impacto potencial frente a amenazas.
+CE1.4: Cataloga los activos identificados en un inventario básico, incluyendo su ubicación,
+tipo de información que manejan y criticidad.
+ RA2: Distinguir las amenazas potenciales internas y externas que pueden afectar los
+ sistemas informáticos utilizando marcos de referencia para su clasificación.
+CE2.1: Diferencia correctamente amenazas internas como accesos indebidos, errores de
+configuración, negligencia o sabotaje.
+CE2.2: Compara amenazas externas como malware, phishing, ransomware, ataques por
+fuerza bruta, entre otros.
+CE2.3: Relaciona amenazas con vulnerabilidades, evaluando su impacto en la
+confidencialidad, integridad y disponibilidad.
+CE2.4: Utiliza listas y marcos de referencia simplificados (como OWASP Top 10) para
+describir tipos comunes de amenazas.
+ RA3: Detectar vulnerabilidades y brechas de seguridad utilizando herramientas
+ básicas, interpretando los resultados y proponiendo acciones de mitigación.
+CE3.1: Usa herramientas accesibles y seguras para identificar configuraciones inseguras o
+servicios expuestos.
+CE2.3: Aplica técnicas básicas de escaneo en entornos de laboratorio o simulación,
+respetando políticas de no intrusión.
+CE3.3: Interpreta los resultados de las herramientas, diferenciando falsos positivos y
+priorizando hallazgos por criticidad.
+CE3.4: Propone acciones básicas de corrección o mitigación en base a buenas prácticas y
+al entorno evaluado.
+RA4: Justificar los hallazgos de seguridad en un informe técnico con lenguaje
+adecuado, respetando estándares de manejo seguro de la información.
+CE4.1: Organiza la información recolectada de manera estructurada, siguiendo un formato
+prediseñado.
+CE4.2: Elabora informes con lenguaje técnico claro y adecuado al contexto educativo o
+institucional.
+CE4.3: Presenta el informe aplicando principios básicos de manejo seguro de la información
+(confidencialidad, integridad y trazabilidad).
+Contenidos
+Conceptuales                   Procedimentales           Actitudinales
+Historia     la      seguridad Debatir la historia de la Mostrar responsabilidad en el uso
+informática.                   seguridad informática.    de tecnologías.
+
+Introducción y conceptos        Identificar   elementos Usar de forma ética y legal los
+básicos de la seguridad         claves de la seguridad recursos informáticos.
+informática.                    informática.
+• Elementos de la red                                     Cooperar en actividades de
+• Software                      Clasificar los principios concienciación y formación en
+• Spam                          de       la    seguridad seguridad.
+• Phishing                      informática.
+• Cookies                                                 Compartir buenas prácticas y
+• Bluetooth                     Analizar amenazas y conocimientos con respeto y
+• Smishing                      vulnerabilidades       en apertura.
+• Vishing                       diferentes contextos.
+                                                          Demostrar Pensamiento crítico y
+• Fake News
+                                Evaluar situaciones o reflexivo.
+Principios básicos              casos       donde      se
+• Confidencialidad              presentan        riesgos Mostrar respeto por la privacidad y
+                                digitales.                los derechos digitales.
+• Integridad
+• Disponibilidad
+                                Configurar contraseñas Fomentar el uso responsable y
+• Autenticidad
+                                seguras y autentificar ético de plataformas digitales.
+Tipos de seguridad              correctamente        el
+                                acceso.                 Valorar la confidencialidad de la
+• Seguridad de Red                                      información propia y ajena.
+• Seguridad de Software
+                                Detectar      y   evitar
+• Seguridad de Hardware
+                                correos     o   enlaces
+•Seguridad       de       la
+                                sospechosos
+Información
+                                (phishing).
+• Seguridad de Aplicaciones
+• Seguridad de Identidad     Verificar certificados y
+                             protocolos seguros de
+ Herramientas de seguridad
+                             navegación web.
+ esenciales
+• Antivirus                  Instalar, actualizar y
+• Firewall                   configurar antivirus y
+• Cifrado                    firewall.
+•Escáneres                de
+vulnerabilidades             Utilizar herramientas de
+• Control de acceso a la red análisis malware       y
+(NAC).                       escaneo básico.
+• Sistemas de prevención de
+intrusiones (IPS).
+• Contraseñas
+Seguridad       física     y
+seguridad lógica.
+
+Vulnerabilidades, tipos y
+factores Amenazas y sus
+tipos.
+
+Ciclo de la       seguridad
+informática.
+
+Controles y medidas de
+seguridad.
+
+Tipos de ataques
+informáticos.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                   Especificaciones técnicas                      Cantidad
+Infraestructura/espacio        Entorno de aprendizaje (aula)                       1
+                               Laboratorio de Informática equipado con
+                               acceso a Internet, redes internas
+Infraestructura/espacio                                                            1
+                               aisladas y estaciones con capacidad de
+                               virtualización.
+                               Sistemas de detección y análisis:
+                                    • Consolas básicas de Snort
+                                        (mínimo requerido)
+                                    • Suricata integrado con Kibana o
+                                        ELK Stack (recomendado)
+Recursos                       Herramientas    de diagnóstico y
+                               análisis:
+                                    • Nmap
+                                    • OpenVAS o Nessus Essentials
+                                    • Metasploit Framework
+                                    • Wireshark
+                                  • Snort o Suricata
+                                  • Zeek (recomendado)
+                                  • OSSEC (recomendado para
+                                    monitoreo de integridad)
+                                 • Hashcat / John the Ripper
+                                    (recomendado para ejercicios de
+                                    recuperación de contraseñas en
+                                    entornos simulados)
+                              Gestión de tickets e incidentes:
+                                 • GLPI o OTRS (recomendado)
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Código Orgánico Integral Penal (COIP), sección delitos informáticos
+   • Ley Orgánica de Protección de Datos Personales (LOPDP)
+   • Ley de Comercio Electrónico, Firmas y Mensajes de Datos
+   • Reglamentos emitidos por la Superintendencia de Protección de Datos (si están
+       disponibles)
+Libros:
+   • Avenía Delgado, C. A. (2017). Fundamentos de seguridad informática. Fundación
+       Universitaria del Área Andina. https://core.ac.uk/download/pdf/326424171.pdf
+   • Baca Urbina, G. (2016). Introducción a la seguridad informática. Grupo Editorial
+       Patria. Disponible en:
+       https://virtual.unju.edu.ar/pluginfile.php/694709/mod_resource/content/1/Introducci
+       on_a_la_seguridad_informatica%20%281%29.pdf
+   • Romero, A. (2024). Seguridad informática y alta disponibilidad. IES Tiempos
+       Modernos.https://www.iestiemposmodernos.com/departamentos/informática
+
+
+
+
+                           Módulo de Especialización Nro. 2
+Nombre del módulo:                       Manejo de Incidentes y Recuperación Informática
+Nivel:                                    1ro, 2do
+Duración:                                 280 periodos pedagógicos
+                                          UC2: Aplicar protocolos de respuesta ante
+                                          incidentes, recuperando sistemas y respaldos de
+Unidad de competencia asociada:
+                                          información, garantizando la continuidad operativa
+                                          de los servicios.
+Objetivo del módulo: Aplicar procedimientos y protocolos de respuesta ante incidentes de
+seguridad informática, identificando y clasificando eventos, mitigando daños, recuperando
+sistemas comprometidos y restaurando respaldos de información, conforme a normas
+técnicas y buenas prácticas.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Clasificar los tipos de incidentes de seguridad informática distinguiendo
+eventos y aplicando las etapas del ciclo de respuesta.
+CE1.1: Distingue eventos de seguridad como errores humanos, fallos técnicos, accesos
+no autorizados o ataques maliciosos.
+CE1.2: Clasifica los incidentes por origen (interno/externo), tipo (tecnológico/humano) e
+intencionalidad (accidental/deliberado), utilizando categorías simplificadas.
+CE1.3: Aplica las etapas básicas del ciclo de respuesta ante incidentes: detección,
+análisis, contención, erradicación y recuperación.
+RA2: Establecer acciones básicas de contención y mitigación frente a incidentes
+utilizando procedimientos controlados y registrando la trazabilidad de las acciones
+ejecutadas.
+CE2.1: Usa comandos, herramientas o procedimientos básicos (como deshabilitación de
+servicios, aislamiento de red o uso de antivirus) en entornos controlados.
+CE2.2: Justifica la decisión de aislar sistemas comprometidos evitando la propagación del
+incidente, según protocolos preestablecidos en prácticas simuladas.
+CE2.3: Cataloga las acciones ejecutadas utilizando una bitácora técnica clara,
+manteniendo trazabilidad de los pasos tomados.
+RA3: Restaurar los sistemas afectados utilizando respaldos verificados y validación
+funcional.
+CE3.1: Verifica que las copias de respaldo estén completas y sin alteraciones antes de
+restaurar datos.
+CE3.3: Evalúa el nivel de daño sufrido por los sistemas y selecciona el método de
+restauración más apropiado.
+CD4.3: Restaura correctamente sistemas operativos, configuraciones o archivos desde
+copias de seguridad locales o en la nube.
+CE4.4: Realiza pruebas de funcionalidad básicas (servicios activos, accesos permitidos,
+ausencia de errores) para validar la correcta recuperación del sistema.
+Contenidos
+Conceptuales                   Procedimentales                    Actitudinales
+Conceptos fundamentales        Analizar registros (logs) y Cumplir             con       los
+de incidentes de seguridad     alertas       generadas       por procedimientos
+• Evento                       herramientas de monitoreo.         establecidos para la
+• Incidente de seguridad                                          gestión de incidentes.
+•Incidente de seguridad        Documentar el incidente y
+computacional                  reportarlo según el protocolo Asumir con seriedad las
+• Sistema de información       establecido.                       tareas asignadas durante
+Manejo de Incidentes           Evaluar el tipo, origen, impacto y la      respuesta        y
+• Preparación                  alcance del incidente.             recuperación.
+• Detección y análisis
+• Contención, Erradicación y                                      Proteger                la
+recuperación                                                      confidencialidad   de   la
+• Revisión post incidente                                            información durante y
+                                  Asignar niveles de criticidad de después del incidente.
+Prevención de incidentes.         acuerdo       con        criterios
+                                  predefinidos.                      Verificar cuidadosamente
+Detección y análisis.                                                los registros y evidencias
+                                  Determinar la urgencia de antes de actuar.
+Clasificación     de        los   respuesta y aplicar políticas de
+incidentes.                       escalamiento.                      Mantener               una
+                                                                     comunicación
+Protocolos de respuesta           Aplicar protocolos de respuesta efectivamente con el
+ante incidentes.                  ante incidentes.                   equipo             durante
+                                                                     situaciones críticas.
+Ciclo    de     gestión     de    Ejecutar acciones de contención
+incidentes.                       para evitar la propagación del Presentar una actitud
+                                  daño.                              proactiva y preventiva.
+Síntomas de un incidente.
+                                  Realizar la recuperación de Demostrar          ética    y
+Análisis del incidente.           sistemas afectados.             confidencialidad en el
+Priorización    de   los                                          manejo de la información.
+                                  Restaurar el funcionamiento de
+incidentes y tiempos de           sistemas       y      servicios Cumplir       con     los
+respuesta.                        comprometidos.                  procedimientos
+Recolección y manejo de                                           establecidos para la
+                                  Verificar la integridad del elaboración y resguardo
+evidencias.                       sistema tras la recuperación.   de        documentación
+Recursos para la mitigación                                       técnica.
+                                  Validar la operación normal con
+y remediación.                    pruebas de funcionalidad.       Respetar las políticas de
+Componentes de un Plan                                          privacidad, propiedad de
+                                  Realizar respaldos periódicos
+de Manejo de Incidentes.                                        la información y uso
+                                  según cronograma.
+                                                                adecuado de los datos.
+Fases del Manejo de               Probar la integridad de los
+Incidentes (según el NIST).                                     Rechazar prácticas como
+                                  respaldos.
+                                                                la alteración de datos o la
+Gestión de respaldo de            Restaurar datos de forma omisión de información
+información.                      efectiva en caso de pérdida o relevante.
+                                  corrupción.
+Normativa, estándares y
+buenas prácticas.                 Proponer medidas preventivas y
+                                  correctivas para evitar futuros
+Principios     de            la
+                                  incidentes.
+comunicación técnica.
+                                  Organizar cronológicamente la
+Características     de     la
+                                  información obtenida.
+comunicación         técnica:
+claridad,         precisión,
+objetividad.                    Registrar    y     documentar
+                                acciones durante la gestión del
+Diferencias           entre     incidente.
+comunicación técnica y
+comunicación general.           Utilizar formatos estandarizados
+                                para describir procedimientos,
+Tipos de       destinatarios:   hallazgos y decisiones.
+técnicos,          usuarios,
+directivos.                     Incorporar capturas, archivos de
+                                registro y datos de respaldo
+Elementos y estructura de       como evidencia documental.
+un informe técnico.
+                                Redactar documentos utilizando
+Tipos de documentación de       lenguaje claro, técnico y
+incidentes de seguridad         objetivo.
+informática.
+                                Proteger los documentos
+Buenas prácticas en el          digitales mediante contraseñas,
+registro de información         cifrado o almacenamiento
+técnica.                        seguro.
+
+Confidencialidad y
+resguardo de la información.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Detalle de especificaciones técnicas           Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula)                         1
+                            Laboratorio de Informática equipado con
+Laboratorio                 acceso a Internet, redes internas aisladas y          1
+                            estaciones con capacidad de virtualización.
+                            Computadoras con acceso a internet
+                            Proyector
+                         Software de gestión para recetas, menús,
+                         inventarios y planificación de compras.
+                         Herramientas de diagnóstico y análisis:
+                             • Nmap
+                             • OpenVAS o Nessus Essentials
+                             • Metasploit Framework
+                             • Wireshark
+                             • Snort o Suricata
+                             • Zeek (recomendado)
+                             • OSSEC (recomendado para monitoreo
+                                de integridad)
+                             • Hashcat / John the Ripper
+                                (recomendado para ejercicios de
+                                recuperación de contraseñas en
+Equipos/herramientas
+                                entornos simulados)
+                         Sistemas de detección y análisis:
+                             • Consolas básicas de Snort (mínimo
+                                requerido)
+                             • Suricata integrado con Kibana o ELK
+                                Stack (recomendado)
+                         Hardware complementario:
+                             • Switch gestionable básico
+                                (recomendado)
+                             • Router o firewall físico (recomendado)
+                             • Dispositivos IoT para prácticas de
+                                evaluación de riesgos (recomendado)
+Normativas y Políticas Públicas en Ecuador
+   • Código Orgánico Integral Penal (COIP), sección delitos informáticos
+   • Ley Orgánica de Protección de Datos Personales (LOPDP)
+   • Ley de Comercio Electrónico, Firmas y Mensajes de Datos
+   • Reglamentos emitidos por la Superintendencia de Protección de Datos (si están
+      disponibles)
+
+Normativas y Estrategias:
+   • Estrategia Nacional de Ciberseguridad del Ecuador (última versión disponible)
+   • ISO/IEC 27001 (gestión de la seguridad de la información)
+   • ISO/IEC 27002 (controles de seguridad)
+   • MITRE ATT&CK (catálogo de técnicas y tácticas de ataque)
+   • NIST SP 800-30 (análisis de riesgos)
+   • NIST SP 800-53 (controles de seguridad para sistemas de información)
+   • OWASP Top 10 (riesgos en aplicaciones web)
+Referencias web:
+   • Avenía Delgado, C. A. (2017). Fundamentos de seguridad informática. Fundación
+       Universitaria del Área Andina.
+       https://core.ac.uk/download/pdf/326424171.pdf
+   •   Ministerio de Tecnologías de la Información y las Comunicaciones. (2014). Guía
+       para la gestión y clasificación de incidentes de seguridad de la información (Guía
+       No. 21). Gobierno de Colombia. https://gobiernodigital.mintic.gov.co/692/articles-
+       5482_G21_Gestion_Incidentes.pdf
+   •   Ministerio de Tecnologías de la Información y las Comunicaciones. (2021). Modelo
+       de Seguridad y Privacidad de la Información (MSPI), versión 4.0. Gobierno de
+       Colombia. https://gobiernodigital.mintic.gov.co/692/articles-401775_recurso_1.pdf
+   •   Ministerio de Tecnologías de la Información y las Comunicaciones. (2016). Guía
+       para la gestión y clasificación de incidentes de seguridad de la información (Guía
+       No. 21, versión 1.2). Gobierno de Colombia.
+       https://gobiernodigital.mintic.gov.co/692/articles5482_G21_Gestion_Incidentes.pdf
+   •   Moreno García, M. T. (2023). Gestor de incidentes de ciberseguridad. RA-MA
+       Editorial. https://www.ra-ma.es/libro/ifct0009-gestor-de-incidentes-de-
+       ciberseguridad_147288/
+   •   Superintendencia de Economía Popular y Solidaria. (2022). Manejo y respuesta a
+       incidentes de ciberseguridad. https://www.seps.gob.ec/wp-content/uploads/SEPS-
+       Manejo-de-Incidentes-IT.pdf
+
+
+                              Módulo Especialización Nro. 3
+Nombre del módulo formativo:             Monitoreo de Redes y Sistemas Informáticos
+Nivel:                                   2do, 3ro
+Duración:                                200 periodos pedagógicos
+                                         UC3: Realizar el monitoreo de redes y sistemas
+                                         informáticos en forma periódica en la detección de
+                                         eventos de seguridad y riesgos, aplicando
+Unidad       de       competencia
+                                         herramientas de supervisión, análisis de datos y
+asociada:
+                                         elaboración de reportes técnicos conforme a
+                                         protocolos establecidos, con el fin de mantener la
+                                         disponibilidad y confiabilidad de los servicios.
+Objetivo del módulo: Monitorear redes y sistemas informáticos de forma periódica,
+utilizando herramientas de supervisión, análisis de eventos y generación de reportes
+técnicos conforme a protocolos establecidos, para detectar riesgos y eventos de seguridad
+que afecten la disponibilidad y confiabilidad de los servicios informáticos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Analizar datos provenientes de herramientas de monitoreo de redes y
+sistemas, generando correlaciones entre eventos y priorización de alertas según su
+criticidad en escenarios reales o simulados.
+CE1.1: Examina de forma sistemática los datos generados por herramientas de monitoreo,
+reconociendo patrones inusuales en entornos simulados.
+CE1.2: Distingue eventos normales y señales asociadas a amenazas o incidentes en
+desarrollo.
+CE1.3: Establece relaciones entre múltiples eventos registrados y evidenciando posibles
+secuencias de ataque encadenado.
+CE1.4: Prioriza alertas considerando nivel de criticidad, contexto del activo afectado y
+probabilidad de ocurrencia.
+RA2: Aplicar herramientas y procedimientos de monitoreo continuo en redes y
+sistemas informáticos, configurando parámetros de supervisión y clasificando
+eventos relevantes según criterios técnicos definidos.
+CE2.1: Utiliza herramientas básicas de monitoreo de redes y sistemas para supervisar
+servicios, puertos, autenticaciones y tráfico en entornos controlados.
+CE2.2: Define parámetros de operación normal y establece umbrales de alerta coherentes
+con el contexto del sistema supervisado.
+CE2.3: Distingue registros que incluyen eventos clave como inicios de sesión, cambios de
+configuración, accesos sospechosos y consumo de recursos.
+CE2.4: Garantiza condiciones básicas de integridad, disponibilidad y confidencialidad de los
+registros generados.
+RA3: Detectar eventos de seguridad y comportamientos inusuales en sistemas
+monitoreados, generando una clasificación técnica e interpretación inicial conforme
+a procedimientos establecidos.
+CE3.1: Distingue comportamientos anómalos como picos de tráfico, accesos no autorizados
+o modificaciones inesperadas en archivos o configuraciones.
+CE3.2: Clasifica eventos detectados considerando severidad, impacto potencial y urgencia
+de respuesta.
+CE3.3: Emplea herramientas de detección de intrusos (IDS) y análisis de logs para
+interpretar eventos de seguridad capturados.
+CE3.4: Ordena los eventos detectados según procedimientos definidos para su evaluación
+y seguimiento.
+RA4: Elaborar reportes técnicos de monitoreo de redes y sistemas, integrando
+hallazgos, evidencias y recomendaciones de mejora, organizados de forma
+estructurada y protegidos según principios de seguridad de la información.
+CE4.1: Construye reportes técnicos que incorporan descripciones claras, evidencias
+verificables y análisis técnico del monitoreo realizado.
+CE4.2: Organiza la información del reporte considerando el perfil técnico o administrativo
+del destinatario.
+CE4.3: Propone recomendaciones prácticas orientadas al ajuste de configuraciones o
+fortalecimiento del sistema de monitoreo.
+CE4.4: Clasifica los reportes conforme a criterios de trazabilidad, integridad de los datos y
+confidencialidad de la información.
+Contenidos
+Conceptuales                    Procedimentales              Actitudinales
+Fundamentos del                 Reconocer el rol del         Valorar la importancia del
+monitoreo informático.          monitoreo dentro de la       monitoreo continuo como
+                                                             práctica esencial para la
+Monitoreo en entornos de
+redes y sistemas.            gestión operativa de redes    estabilidad   de redes       y
+                             y sistemas informáticos.      sistemas informáticos.
+Objetivos del monitoreo
+informático.                 Identificar escenarios        Reconocer el rol del monitoreo
+                             reales y simulados donde      oportuno en la detección
+Alcance del monitoreo
+                             se aplica el monitoreo        temprana de eventos de
+operativo.
+                             informático.                  seguridad      y       riesgos
+Monitoreo como apoyo a                                     operativos.
+                             Examinar diagramas
+la gestión tecnológica.
+                             básicos de arquitectura de    Mostrar disposición al análisis
+Monitoreo en entornos        redes y sistemas desde        sistemático de datos técnicos
+reales y simulados.          una perspectiva de            obtenidos desde herramientas
+Arquitectura de redes y      monitoreo.                    de monitoreo.
+sistemas desde la            Identificar componentes de    Asumir una actitud crítica y
+perspectiva del              red sujetos a monitoreo       reflexiva  al    correlacionar
+monitoreo.                   dentro de un entorno          eventos y priorizar alertas
+Componentes de red           controlado.                   según su nivel de criticidad.
+sujetos a monitoreo.         Reconocer dispositivos de     Respetar los procedimientos y
+Dispositivos de              interconexión                 protocolos       establecidos
+interconexión                monitoreables según su        durante las actividades de
+monitoreables.               función técnica.              monitoreo    de    redes    y
+                                                           sistemas.
+Servidores y sistemas        Distinguir servidores y
+monitoreables.               sistemas monitoreables en     Valorar      la     correcta
+                             entornos simulados.           configuración de parámetros
+Servicios informáticos en                                  de supervisión como factor
+ejecución.                   Asociar componentes
+                                                           clave en la calidad del
+                             físicos con elementos
+Relación entre                                             monitoreo.
+                             lógicos relevantes al
+componentes físicos y        monitoreo.                    Manifestar rigurosidad técnica
+lógicos.                                                   en la clasificación de eventos
+Datos generados por          Identificar estándar de
+                                                           según su relevancia operativa
+redes y sistemas.            datos generados por redes
+                                                           y de seguridad.
+                             y sistemas informáticos.
+Concepto de evento en                                      Mostrar responsabilidad frente
+sistemas informáticos.       Reconocer eventos
+                                                           a la detección y seguimiento
+                             producidos por el
+Eventos de red.                                            de           comportamientos
+                             funcionamiento normal de
+                                                           inusuales     en     sistemas
+Eventos de sistema.          redes y sistemas.
+                                                           monitoreados.
+Eventos de servicio.         Diferenciar eventos de red,
+                                                           Reconocer la importancia de
+                             sistema, servicio y
+Eventos de disponibilidad.                                 interpretar los eventos de
+                             disponibilidad según su
+Registros de red.                                          seguridad conforme a criterios
+                             origen.
+                                                           técnicos definidos.
+Registros de sistema.        Clasificar eventos según
+                                                           Actuar con prudencia y criterio
+Registros de aplicaciones.   su naturaleza técnica
+                                                           técnico ante la identificación
+Registros centralizados.   dentro de registros          de posibles     eventos    de
+                           básicos.                     seguridad.
+Estructura básica de
+registros técnicos.        Reconocer registros          Valorar la necesidad de
+                           producidos por               registrar   y  documentar
+Herramientas de
+                           aplicaciones y servicios     adecuadamente los eventos
+monitoreo.
+                           informáticos.                detectados.
+Clasificación general de
+                           Analizar estructuras de      Reconocer la importancia de
+herramientas de
+                           registros técnicos.          elaborar reportes técnicos
+monitoreo.
+                                                        claros,      precisos     y
+                           Clasificar herramientas de
+Herramientas de                                         estructurados.
+                           monitoreo según su
+monitoreo de red.
+                           enfoque técnico.             Valorar la trazabilidad de la
+Herramientas de                                         información como elemento
+                           Utilizar herramientas de
+monitoreo de sistemas.                                  fundamental en los procesos
+                           monitoreo de red en
+Herramientas de                                         de monitoreo.
+                           escenarios simulados.
+monitoreo de servicios.                                 Respetar los principios de
+                           Utilizar herramientas de
+Herramientas de                                         confidencialidad e integridad
+                           monitoreo de servicios
+visualización de datos.                                 de la información contenida en
+                           según parámetros
+                                                        registros y reportes.
+Métricas de red.           definidos.
+                                                        Mostrar compromiso con el
+Métricas de sistema.       Emplear herramientas de
+                                                        manejo ético de los datos
+                           visualización de datos de
+Métricas de servicio.                                   obtenidos    durante    el
+                           monitoreo.
+                                                        monitoreo.
+Métricas de capacidad.     Analizar métricas de
+                                                        Mostrar disposición al trabajo
+Métricas de latencia.      capacidad en escenarios
+                                                        colaborativo          durante
+                           simulados.
+Alertas automáticas.                                    actividades de monitoreo y
+                           Analizar métricas de         elaboración de reportes.
+Alertas manuales.
+                           latencia obtenidas desde
+Alertas informativas.                                   Reconocer la importancia del
+                           herramientas de
+                                                        monitoreo como apoyo a la
+Comportamientos atípicos   monitoreo.
+                                                        toma de decisiones técnicas
+de red.                    Configurar alertas           informadas.
+Comportamientos atípicos   automáticas según
+de sistemas.               condiciones técnicas
+                           establecidas.
+Variaciones inesperadas
+de servicio.               Generar alertas manuales
+                           durante ejercicios de
+Detección de eventos de    monitoreo guiado.
+seguridad.
+                           Interpretar alertas
+Detección basada en        informativas emitidas por
+eventos.                   herramientas de
+Detección basada en        supervisión.
+anomalías.                 Reconocer
+                           comportamientos atípicos
+Detección por reglas.
+                           en el tráfico de red
+Herramientas de            monitoreado.
+detección.
+                           Reconocer
+Indicadores técnicos de    comportamientos atípicos
+seguridad.                 en el funcionamiento de
+Clasificación técnica de   sistemas monitoreados.
+eventos detectados.        Detectar variaciones
+Nivel de severidad.        inesperadas en la
+                           prestación de servicios
+Nivel de impacto           informáticos.
+Estado del evento.         Aplicar mecanismos
+Categorías técnicas de     básicos de detección de
+eventos.                   eventos de seguridad.
+Estructura estándar de     Identificar eventos
+reportes.                  mediante detección
+                           basada en eventos.
+Componentes de un
+reporte técnico.           Identificar anomalías
+Trazabilidad de la         mediante detección
+información.               basada en
+Control de acceso a la     comportamiento.
+información.               Aplicar reglas predefinidas
+Confidencialidad de        en procesos de detección.
+registros y reportes.
+                           Utilizar herramientas de
+                           detección integradas al
+                           monitoreo.
+                           Reconocer indicadores
+                           técnicos de seguridad
+                           presentes en los datos
+                           analizados.
+                           Clasificar eventos
+                           detectados según criterios
+                           técnicos establecidos.
+                           Determinar niveles de
+                           severidad de eventos
+                           identificados.
+                             Determinar niveles de
+                             impacto técnico asociados
+                             a eventos detectados.
+                             Categorizar eventos según
+                             tipologías técnicas
+                             definidas.
+                             Organizar información
+                             técnica conforme a una
+                             estructura estándar de
+                             reportes.
+                             Registrar hallazgos
+                             derivados del análisis de
+                             datos de monitoreo.
+                             Incorporar evidencias
+                             técnicas obtenidas durante
+                             el monitoreo.
+                             Aplicar controles básicos
+                             de acceso a la información
+                             de monitoreo.
+                             Preservar la
+                             confidencialidad de
+                             registros y reportes
+                             técnicos.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                          Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)                          1
+                          Laboratorio de Informática equipado con
+Laboratorio                                                                      1
+                          acceso a Internet
+                           Wireshark
+                           Nmap
+                           Tcpdump
+                           Zabbix (Community Edition)
+                           Nagios Core
+                           Elasticsearch + Kibana
+                           Snort
+Recursos                   Suricata
+                           Zeek
+                           OSSEC / Wazuh Agent
+                           Servidores o PCs dedicados a monitoreo
+                           Dispositivos de red reales o simulados
+                           OpenVAS / Nessus Essentials
+                           CIS-CAT Lite
+                           Visores de eventos del sistema operativo
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Código Orgánico Integral Penal (COIP), sección delitos informáticos
+   • Ley Orgánica de Protección de Datos Personales (LOPDP)
+Normativas y Estrategias:
+   • Estrategia Nacional de Ciberseguridad del Ecuador (última versión disponible)
+   • ISO/IEC 27001 (gestión de la seguridad de la información)
+   • ISO/IEC 27002 (controles de seguridad)
+   • MITRE ATT&CK (catálogo de técnicas y tácticas de ataque)
+   • NIST SP 800-30 (análisis de riesgos)
+   • NIST SP 800-53 (controles de seguridad para sistemas de información)
+   • OWASP Top 10 (riesgos en aplicaciones web)
+Libros:
+   • Areitio Bertolín, J. (2008). Seguridad de la información: Redes, informática y
+       sistemas         de      información.       Ediciones      Paraninfo,    S.   A.
+       https://www.paraninfo.es/catalogo/9788497325028/seguridad-de-la-informacion--
+       redes--informatica-y-sistemas-de-informacion
+   • Baca Urbina, G. (2017). Introducción a la seguridad informática. Grupo Editorial
+       Patria. https://books.google.com/books?id=IhUhDgAAQBAJ
+   • Peralta Martínez, F. A. (2018). Identificando nuevas funcionalidades de seguridad
+       para redes WLAN a través de los IPDS (Tesis de maestría, Centro de Investigación
+       en Matemáticas). Repositorio Institucional del Centro de Investigación en
+       Matemáticas:
+       https://cimat.repositorioinstitucional.mx/jspui/bitstream/1008/1070/1/ZAC%20TE%
+       2075%20%282%29.pdfPérez Sifre, J. (2020). IDS de red para la detección de
+       ataques sobre SSH y FTP.
+Recursos Digitales y Plataformas
+   • ENI Elearning. (s.f). Libros de Sistemas y redes:https://www.eni-
+       elearning.com/es/ti/biblioteca-online-ti/libros-sistemas-redes/
+   •   IPS. vs. IDS vs. Firewall: ¿Cuáles son las diferencias?
+       https://www.paloaltonetworks.lat/cyberpedia/firewall-vs-ids-vs-ips
+   •   IPS. vs. IDS vs. Firewall: ¿Cuáles son las diferencias?
+       https://www.paloaltonetworks.lat/cyberpedia/firewall-vs-ids-vs-ips
+   •   Manrique C. J., et al. (2021). Herramientas de código abierto para el monitoreo de
+       redes          LAN.         Revista           Científica      de       Informática.
+       https://publicacionescd.uleam.edu.ec/index.php/encriptar/article/view/333.
+   •   Monitoreo de red. Disponible en:
+       https://www.fortinet.com/lat/resources/cyberglossary/network-monitoring
+
+
+                             Módulo Especialización Nro.4
+Nombre del módulo formativo:           Cultura y Conciencia en Ciberseguridad
+Nivel:                                 1ero, 2do, 3ro
+Duración:                              400 periodos pedagógicos
+                                       UC4: Emplear normas de protección de datos y de
+                                       ciberseguridad      en   sistemas      informáticos,
+                                       garantizando la protección de información sensible.
+                                       UC 6: Promover la cultura de seguridad informática
+                                       en el entorno escolar, empresarial o comunitario,
+                                       aplicando prácticas seguras y prevención de
+Unidad        de      competencia      incidentes, contribuyendo a la creación de entornos
+asociada:                              digitales confiables.
+                                       UC8: Aplicar fundamentos del hacking ético y
+                                       análisis forense básico en la evaluación de la
+                                       seguridad de sistemas y redes en entornos
+                                       controlados, interpretando hallazgos, proponiendo
+                                       mejoras de protección y cumpliendo principios
+                                       legales y éticos.
+Objetivo del módulo: Fomentar una cultura de seguridad digital mediante la identificación
+de riesgos cibernéticos, la adopción de comportamientos responsables en el uso de
+tecnologías de la información y la promoción de prácticas seguras que contribuyan a la
+protección de datos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Clasificar las principales normas, leyes y marcos regulatorios aplicables a la
+protección de datos y ciberseguridad, interpretando sus principios fundamentales y
+relacionándolos con situaciones prácticas.
+CE1.1: Cataloga las principales leyes y normas relacionadas con la protección de datos y
+la ciberseguridad, como la LOPDP y el COIP en Ecuador, e instrumentos internacionales
+como el RGPD e ISO/IEC 27001.
+CE1.2: Explica las consecuencias legales, técnicas y organizacionales del incumplimiento
+de normas sobre protección de datos.
+CE1.3: Aplica los principios fundamentales de la protección de datos, tales como
+consentimiento informado, minimización, finalidad, seguridad y responsabilidad.CD1.4:
+Relaciona correctamente marcos normativos con situaciones comunes en entornos
+educativos, laborales o comunitarios.
+CE1.4: Relaciona correctamente marcos normativos con situaciones comunes en entornos
+educativos, laborales o comunitarios.
+RA2: Analizar los principios de protección de datos con la seguridad de la
+información, evaluando riesgos y proponiendo medidas para proteger datos
+sensibles.
+CE2.1: Analiza cómo se aplican los principios de protección de datos personales en casos
+reales o simulados de manejo de información.
+CE2.2: Relaciona los principios de protección de datos con los pilares de la seguridad de
+la información: confidencialidad, integridad, disponibilidad y trazabilidad.
+CE2.3: Examina los riesgos y consecuencias de no aplicar los principios de protección de
+datos sobre los titulares de la información.
+CE2.4: Propone medidas básicas como encriptación, control de accesos, respaldos o
+anonimización, para proteger datos sensibles.
+RA3: Aplicar políticas organizacionales y controles técnicos conforme a normas y
+estándares básicos de seguridad, configurando parámetros adecuados y realizando
+mejoras ante debilidades detectadas.
+CE3.1: Utiliza controles técnicos como autenticación, cifrado, respaldo y bitácoras,
+alineados con políticas organizacionales de seguridad.
+CE3.2: Configura parámetros de seguridad adecuados para proteger el acceso y la
+integridad de los datos, en plataformas o entornos simulados.
+CE3.3: Evalúa de forma general la eficacia de los controles frente a amenazas comunes.
+CE3.4: Realiza mejoras prácticas ante debilidades o incumplimientos detectados en los
+controles aplicados.
+RA4: Aplicar buenas prácticas de seguridad informática en distintos contextos
+incorporando medidas de protección y procedimientos de prevención de incidentes.
+CE4.1: Muestra buenas prácticas de protección de datos personales y corporativos en
+actividades escolares, laborales y comunitarias.
+CE4.2: Reporta comportamientos o incidentes que comprometen la seguridad de la
+información, conforme a protocolos básicos.
+CE4.3: Utiliza contraseñas robustas, cifrado y respaldos como mecanismos esenciales de
+protección.
+CE4.4: Emplea principios como consentimiento informado y privacidad en el tratamiento de
+datos personales.
+RA5: Relacionar los controles de seguridad con los requisitos establecidos en
+normas de referencia, identificando tipos, utilizando mapeos y considerando el marco
+legal aplicable.
+CE5.1: Analiza los tipos de controles de seguridad: preventivos, detectivos y correctivos,
+sus aplicaciones en la protección de sistemas y datos.
+CE5.2: Utiliza herramientas o esquemas de mapeo normativo básico para verificar el
+cumplimiento de requisitos.
+CE5.3: Demuestra comprensión del marco legal nacional e internacional y su importancia
+en la gestión de la seguridad de la información.
+RA6: Fomentar comportamientos seguros mediante recursos digitales y acciones
+formativas adaptando los mensajes y materiales al contexto y necesidades del
+entorno.
+CE6.1: Distingue necesidades y riesgos del entorno para diseñar estrategias de
+sensibilización contextualizadas.
+CE6.2: Selecciona contenidos relevantes sobre amenazas, buenas prácticas y normas de
+ciberseguridad básicas.
+RA7: Diseñar estrategias de sensibilización en ciberseguridad adaptadas al entorno,
+integrando recursos apropiados para el público objetivo.
+CE7.1: Distingue las necesidades, características y riesgos específicos del entorno en la
+construcción de estrategias de sensibilización.
+CE7.2: Crea mensajes claves sobre el uso responsable de las tecnologías, protección de
+datos personales y gestión segura de contraseñas.
+CE7.3: Elabora materiales de apoyo de sensibilización en ciberseguridad para difundir en
+su entorno social, educativo u organizacional.
+RA8: Promover el uso ético, legal y responsable de los recursos informáticos en
+diferentes contextos, integrando estrategias que fomenten la protección de la
+información y la propiedad intelectual.
+CE8.1: Selecciona normativas básicas sobre el uso adecuado de tecnología y protección
+de la propiedad intelectual.
+CE8.2: Distingue las practicas inadecuadas o riesgosas en el uso de la información y
+propone alternativas responsables.
+CE8.3: Aplica el uso responsable y consciente de tecnologías digitales en contextos
+educativos, sociales o laborales.
+CE8.4: Propone estrategias que fomenten el respeto por los derechos de autor, licencias
+de software y uso correcto de contenidos digitales.
+RA9: Diferenciar el hacking ético del hacking malicioso, destacando el rol del
+consentimiento y aplicando normativa vigente.
+CE9.1: Analiza los principios del hacking ético, incluyendo legalidad, autorización,
+confidencialidad y responsabilidad profesional.
+CE9.2: Distingue las fases de una prueba de penetración (reconocimiento, escaneo,
+explotación simulada y reporte).
+CE9.3: Aplica técnicas básicas de reconocimiento y escaneo de vulnerabilidades utilizando
+herramientas autorizadas y en entornos simulados.
+CE9.4: Documenta los hallazgos de forma técnica, sin comprometer la operación o
+integridad del entorno evaluado.
+RA10: Emplear herramientas básicas de análisis forense para recolectar y preservar
+evidencia digital, asegurando la integridad, trazabilidad de los hallazgos en entornos
+controlados.
+CE10.1: Distingue conceptos clave del análisis forense: cadena de custodia, integridad de
+la evidencia, duplicación forense.
+CE10.2 Utiliza herramientas básicas de adquisición y análisis de datos digitales en discos
+o sistemas de archivos.
+CE10.3: Aplica procedimientos de preservación de evidencia en entornos simulados,
+asegurando su integridad y trazabilidad.
+CE10.4: Describe hallazgos relevantes derivados del análisis forense, considerando su
+valor probatorio en contextos educativos o institucionales.
+RA11: Interpretar los hallazgos de pruebas éticas y análisis forense básico para
+apoyar decisiones de seguridad, evaluando el origen de incidentes y presentando
+resultados de forma clara, estructurada.
+CE11.1: Relaciona las vulnerabilidades encontradas con los riesgos de seguridad
+identificados.
+CE11.2: Evalúa la información obtenida en análisis forense para comprender el origen y tipo
+de incidente simulado.
+CE11.3: Propone medidas preventivas o correctivas básicas basadas en los hallazgos.
+CE11.4: Presenta los resultados de manera clara, estructurada y respetando principios de
+confidencialidad.
+RA12: Aplicar principios legales y éticos en todas las etapas del hacking ético y
+análisis forense básico, respetando normativa legal, marcos éticos y consentimiento.
+CE12.1: Distingue los límites legales del hacking ético en Ecuador, incluyendo delitos
+informáticos definidos en el COIP.
+CE12.2: Reconoce los marcos éticos y normativos internacionales que rigen el análisis
+forense y las pruebas de penetración (ej. EC-Council, NIST).
+CE12.3: Justifica la importancia del consentimiento informado y la autorización previa en
+toda práctica de evaluación de seguridad.
+CE12.4: Utiliza una postura ética en la interpretación y uso de los hallazgos, evitando su
+uso indebido o malicioso.
+Contenidos
+Conceptuales                  Procedimentales               Actitudinales
+Uso ético y legal de la Evaluar el comportamiento Demostrar responsabilidad y
+información y recursos digital propio y de otros con compromiso en el uso de
+digitales.                    base en criterios de tecnologías digitales.
+                              seguridad.
+Normativa y principios                                      Valorar la privacidad y respeta
+éticos.                       Aplicar buenas prácticas la información personal y ajena.
+                              para la protección de datos
+Concepto                 de y cuentas personales.           Promover el comportamiento
+vulnerabilidad, amenaza,                                    ético en entornos virtuales.
+exploit y vector de ataque.   Simular escenarios de
+                              riesgo      y      proponer Reconocer el papel del usuario
+Definición de cultura de respuestas seguras.                como primera línea de defensa
+ciberseguridad.                                             en la ciberseguridad.
+                              Identificar   servicios    y
+Buenas prácticas para la vulnerabilidades             con Mantener una actitud crítica y
+navegación, comunicación escáneres.                         reflexiva frente al uso de
+y uso de dispositivos.                                      internet y redes sociales.
+Importancia de la cultura      Simular         ataques Respetar     por     la    ética
+de ciberseguridad.             controlados en entornos profesional y la legalidad en el
+                               virtualizados.          uso de técnicas de hacking.
+Componentes de la cultura
+de ciberseguridad.             Configurar    y utilizar Demostrar     conciencia    del
+                               entornos de laboratorio impacto social y legal del mal
+Ciberseguridad personal y      para pruebas.            uso del conocimiento técnico.
+organizacional.
+                               Aplicar exploits de forma Manifestar confidencialidad en
+Desarrollo de la cultura de    ética para validar fallas de el tratamiento de hallazgos
+ciberseguridad.                seguridad.                   técnicos.
+
+Impacto de la cultura en la    Recolectar evidencia digital
+ciberseguridad.                en pruebas.
+
+Ciudadanía           digital   Documentar hallazgos y
+responsable.                   redactar informes técnicos
+                               con lenguaje claro y
+Derechos       y    deberes    técnico.
+digitales.
+                               Utilizar máquinas virtuales
+Nociones               de      y redes simuladas para
+programación, cifrado y        prácticas seguras.
+descifrado enfocados a la
+seguridad informática.         Emplear formatos estándar
+                               para reportes de pruebas
+Definición y principios del    de penetración.
+hacking ético.
+                               Elaborar        campañas,
+Tipos de hackers.              charlas o materiales de
+                               concienciación      sobre
+Ciclo del hacking ético:
+                               ciberseguridad.
+reconocimiento, escaneo,
+explotación,           post-   Participar en actividades
+explotación y reporte.         colaborativas para
+                               fortalecer la cultura de
+Marco legal y ético del
+                               seguridad informática.
+hacking         (normas,
+consentimiento,
+privacidad).
+
+Metodologías de pruebas
+de penetración (OWASP,
+OSSTMM, PTES).
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+  reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+  de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+  Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                          Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)                          1
+                         Laboratorio de Informática equipado con
+Laboratorio                                                                      1
+                         acceso a Internet
+                         Herramientas de diagnóstico y análisis:
+                            • Nmap
+                            • OpenVAS o Nessus Essentials
+                            • Metasploit Framework
+                            • Wireshark
+                            • Snort o Suricata
+                            • Zeek (recomendado)
+                            • OSSEC (recomendado para monitoreo
+                                de integridad)
+                            • Hashcat / John the Ripper
+                                (recomendado para ejercicios de
+                                recuperación de contraseñas en
+                                entornos simulados)
+Recursos
+                         Herramientas de diagnóstico y análisis:
+                            • Nmap
+                            • OpenVAS o Nessus Essentials
+                            • Metasploit Framework
+                            • Wireshark
+                            • Snort o Suricata
+                            • Zeek (recomendado)
+                            • OSSEC (recomendado para monitoreo
+                                de integridad)
+                            • Hashcat / John the Ripper
+                                (recomendado para ejercicios de
+                                recuperación de contraseñas en
+                                entornos simulados)
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Asamblea Nacional del Ecuador. (2014). Código Orgánico Integral Penal (Registro
+     Oficial,     Suplemento     N.º     180,    10     de     febrero      de     2014).
+     https://www.asambleanacional.gob.ec/sites/default/files/private/asambleanacional/
+     filesasambleanacionalnameuid-20/codigo_organico_integral_penal-registro-
+     oficial.pdf
+   • Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+     Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+     https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+     organica-de-proteccion-de-datos
+   • Congreso Nacional del Ecuador. (2002). Ley de Comercio Electrónico, Firmas
+     Electrónicas y Mensajes de Datos (Ley N.º 67, Registro Oficial, Suplemento N.º
+     557, 17 de abril de 2002). https://www.telecomunicaciones.gob.ec/wp-
+     content/uploads/2020/07/LEY-DE-COMERCIO-ELECTRONICO-FIRMAS-Y.pdf
+   • Superintendencia de Protección de Datos Personales. (2025a). Guía de gestión de
+     riesgos y evaluación de impacto del tratamiento de datos personales (Resolución
+     N.º                SPDP-SPD-2025-0003-R).                   https://spdp.gob.ec/wp-
+     content/uploads/2025/05/03.01.01-SPDP-SPD-2025-0003-R-Guia-Gest-de-Riesg-
+     y-Ev-Imp-signed.pdf
+   • Superintendencia de Protección de Datos Personales. (2025b). Reglamento que
+     establece la obligación de incorporar cláusulas de protección de datos personales
+     en los contratos celebrados dentro del territorio de la República del Ecuador
+     (Resolución N.º SPDP-SPD-2025-0006-R). https://spdp.gob.ec/resolucion6/
+   • Superintendencia de Protección de Datos Personales. (2025c). Reglamento del
+     Delegado de Protección de Datos Personales (Resolución N.º SPDP-SPD-2025-
+     0028-R). https://spdp.gob.ec/resolucion_028/
+Normativas y Estrategias:
+   • Comité Nacional de Ciberseguridad. (2022). Estrategia Nacional de Ciberseguridad
+     del Ecuador 2022–2025 (Resolución N.º CNC-2022-007). Ministerio de
+     Telecomunicaciones        y    de     la    Sociedad     de      la     Información.
+     https://www.gobiernoelectronico.gob.ec/wp-content/uploads/2022/10/Difusion-
+     ENC.pdf
+   • International Organization for Standardization. (2022a). ISO/IEC 27001:2022.
+     Information security, cybersecurity and privacy protection—Information security
+     management systems—Requirements. ISO. https://www.iso.org/es/norma/27001
+   • International Organization for Standardization. (2022b). ISO/IEC 27002:2022.
+     Information security, cybersecurity and privacy protection—Information security
+     controls. ISO. https://www.iso.org/es/contents/data/standard/07/56/75652.html
+   • MITRE       Corporation.    (2026).     MITRE     ATT&CK®         (versión     19.2).
+     https://attack.mitre.org/
+   • National Institute of Standards and Technology. (2012). Guide for conducting risk
+     assessments (NIST Special Publication 800-30, Revision 1). U.S. Department of
+     Commerce. https://doi.org/10.6028/NIST.SP.800-30r1
+   • National Institute of Standards and Technology. (2020). Security and privacy
+       controls for information systems and organizations (NIST Special Publication 800-
+       53, Revision 5; actualización 5.2.0 de 2025). U.S. Department of Commerce.
+       https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+   •   OWASP            Foundation.       (2025).       OWASP       Top        10:2025.
+       https://owasp.org/Top10/2025/es/0x00_2025-Introduction/
+
+Recursos Digitales y Plataformas
+   • Centro Criptológico Nacional. (2021). CCN-STIC 817. Herramientas de análisis de
+      vulnerabilidades. https://www.ccn-cert.cni.es/
+   • Instituto Nacional de Ciberseguridad. (2023). Guía para la gestión y notificación de
+      vulnerabilidades. https://www.incibe.es/
+   • Instituto Nacional de Ciberseguridad. (2024). Guías de ciberseguridad para
+      ciudadanos y empresas. https://www.incibe.es/
+   • Organización Internacional de Normalización. (2022). ISO/IEC 27001:2022
+      Seguridad de la información, ciberseguridad y protección de la privacidad —
+      Sistemas de gestión de seguridad de la información — Requisitos. International
+      Organization for Standardization. https://www.iso.org/standard/27001
+   • Universidad Nacional Autónoma de México. (2023). CERT-UNAM.
+      Recomendaciones para la atención y respuesta a incidentes de seguridad
+      informática. https://www.cert.unam.mx
+                              Módulo Especialización Nro. 5
+Nombre del módulo formativo:            Gestión y Análisis de Vulnerabilidades
+Nivel:                                  2do, 3ro
+Duración:                               320 periodos pedagógicos
+                                        UC5: Gestionar los riesgos asociados a los activos
+                                        informáticos y procesos críticos de una
+                                        organización, proponiendo acciones preventivas y
+Unidad         de      competencia      de recuperación, conforme a principios básicos de
+asociada:                               gestión del riesgo, continuidad operativa y
+                                        recuperación de la información, para minimizar
+                                        incidentes y mantener la disponibilidad de los
+                                        sistemas.
+Objetivo del módulo: Analizar riesgos y vulnerabilidades presentes en los activos
+informáticos y procesos críticos, mediante la identificación, evaluación y priorización de
+amenazas y debilidades de seguridad, para proponer acciones preventivas y de
+recuperación que minimicen incidentes y aseguren la continuidad y disponibilidad de los
+sistemas.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Analizar riesgos presentes en activos informáticos y procesos críticos en un
+entorno real o simulado, generando un registro estructurado que relacione activos,
+amenazas, vulnerabilidades e incidentes potenciales, utilizando métodos de análisis
+de riesgos.
+CE1.1: Clasifica los activos informáticos relevantes según su función y nivel de criticidad en
+la operación de servicios educativos, institucionales o comunitarios.
+CE1.2: Cataloga amenazas frecuentes que afectan la confidencialidad, integridad y
+disponibilidad de los sistemas en contextos reales o simulados.
+CE1.3: Aplica matrices de riesgo o formatos simplificados alineados con NIST SP 800-30 o
+ISO/IEC 27005 en escenarios prácticos.
+CE1.4: Relaciona vulnerabilidades técnicas u operativas con posibles incidentes que
+impactan la continuidad de los servicios.
+RA2: Aplicar conceptos básicos de continuidad operativa y recuperación ante
+desastres en escenarios simulados, elaborando documentación funcional y
+ejecutando simulacros ante interrupciones del servicio informático.
+CE2.1: Distingue entre continuidad operativa y recuperación ante desastres en situaciones
+prácticas de seguridad de la información.
+CE2.2: Selecciona componentes esenciales de un plan básico como BIA, RTO, RPO,
+responsables, procedimientos y pruebas según el contexto planteado.
+CE2.3: Interpreta los resultados obtenidos en simulacros de recuperación ante incidentes
+críticos.
+CE2.4: Documenta procedimientos sencillos de respaldo, restauración y asignación de roles
+frente a interrupciones del servicio.
+RA3: Evaluar los riesgos informáticos considerando impacto y probabilidad,
+elaborando análisis con apoyo de herramientas digitales y plantillas estandarizadas
+en un entorno simulado.
+CE3.1: Diferencia riesgos tolerables y no tolerables de acuerdo con el contexto
+organizacional y los recursos disponibles.
+CE3.2: Calcula niveles de riesgo combinando impacto y probabilidad en escenarios
+prácticos o simulados.
+CE3.3: Organiza la información del análisis empleando hojas de cálculo, plantillas digitales
+u otras herramientas accesibles.
+CE3.4: Presenta los resultados del análisis de forma estructurada, argumentando
+prioridades y recomendaciones técnicas en plantillas estandarizadas.
+RA4: Proponer medidas básicas de tratamiento del riesgo informático, formulando
+soluciones preventivas, detectivas o correctivas según la criticidad, los recursos
+disponibles y la viabilidad en contextos simulados.
+CE4.1: Plantea controles preventivos, detectivos o correctivos que reduzcan la exposición
+al riesgo informático.
+CE4.2: Relaciona las medidas propuestas con buenas prácticas y lineamientos normativos
+básicos de seguridad digital.
+CE4.3: Prioriza acciones realistas considerando el nivel de riesgo residual, la criticidad de
+los activos y los recursos disponibles.
+CE4.4: Justifica la viabilidad técnica y económica de las medidas sugeridas en el contexto
+analizado.
+Contenidos
+Conceptuales                    Procedimentales              Actitudinales
+Gestión       de     riesgos    Reconocer conceptos          Valorar la gestión del riesgo
+informáticos.                   básicos de gestión de        informático como una práctica
+                                riesgos informáticos en      esencial para la continuidad
+Riesgo,           amenaza,
+                                situaciones cotidianas del   de los servicios y procesos
+vulnerabilidad e impacto.
+                                entorno tecnológico.         organizacionales.
+Enfoque de gestión del
+                                Diferenciar riesgo,          Reconocer la importancia de
+riesgo aplicado a entornos
+                                amenaza, vulnerabilidad e analizar los riesgos de forma
+organizacionales.
+                                impacto a partir de          sistemática y objetiva.
+Relación entre riesgo           ejemplos reales y
+                                                             Manifestar actitud crítica y
+tecnológico y objetivos         simulados.
+                                                             reflexiva ante la detección de
+institucionales.
+                                Relacionar riesgos           vulnerabilidades y escenarios
+Principios generales de         tecnológicos con objetivos de riesgo.
+gestión del riesgo en           institucionales definidos en
+                                                             Respetar los criterios técnicos
+seguridad        de        la   casos prácticos.
+                                                             establecidos en los métodos
+información.
+                                Interpretar principios       básicos de análisis de riesgos.
+Activos informáticos y su       generales de gestión del
+                                                             Valorar        la        correcta
+criticidad.                     riesgo aplicados a la
+                                                             identificación y clasificación de
+Tipos       de       activos                                 activos informáticos como
+informáticos.                  seguridad de la                base de una gestión         de
+                               información.                   riesgos efectiva.
+Activos de información.
+                               Listar activos informáticos    Reconocer la relevancia de los
+Activos tecnológicos.
+                               presentes en un entorno        procesos críticos asociados a
+Activos de soporte.            educativo o institucional      los activos tecnológicos.
+Procesos        críticos       simulado.
+                                                              Mostrar compromiso con la
+asociados a los activos        Clasificar activos según su    protección        de        la
+informáticos.                  tipo: información,             confidencialidad, integridad y
+Valoración de activos          tecnológicos y de soporte.     disponibilidad      de      la
+según     confidencialidad,                                   información.
+                               Asociar activos
+integridad y disponibilidad.   informáticos con procesos      Asumir una actitud preventiva
+Dependencia entre activos      críticos de la organización.   frente a las amenazas que
+y                 servicios                                   afectan       los     activos
+                               Valorar activos
+organizacionales.                                             informáticos.
+                               considerando criterios de
+Amenazas en entornos           confidencialidad,              Reconocer la importancia de
+informáticos.                  integridad y disponibilidad.   analizar      amenazas    y
+                                                              vulnerabilidades.
+Clasificación general de       Establecer dependencias
+amenazas.                      entre activos y servicios      Mantener una postura ética
+                               organizacionales               frente     al   análisis    de
+Amenazas        de    origen   representados en               vulnerabilidades,     evitando
+humano.                        diagramas simples.             acciones intrusivas o no
+Amenazas        de    origen                                  autorizadas.
+                               Reconocer amenazas
+técnico.                       informáticas presentes en      Mostrar respeto por las
+Amenazas        de    origen   escenarios educativos o        políticas,     normas         y
+ambiental.                     comunitarios.                  lineamientos    institucionales
+                                                              relacionados con la seguridad
+Amenazas        internas   y   Clasificar amenazas según
+                                                              de la información.
+externas.                      su origen humano, técnico
+                               o ambiental.                   Valorar el análisis de impacto
+Amenazas intencionales y
+                                                              y probabilidad como base para
+no intencionales.              Diferenciar amenazas
+                                                              la priorización objetiva de
+                               internas y externas en
+Relación entre amenazas                                       riesgos.
+                               estudios de caso.
+y contexto organizacional.
+                                                              Mostrar     disposición   para
+                               Comparar amenazas
+Vulnerabilidad informática.                                   utilizar     herramientas     y
+                               intencionales y no
+Vulnerabilidades       en                                     plantillas estandarizadas en la
+                               intencionales en
+sistemas informáticos.                                        evaluación de riesgos.
+                               situaciones simuladas.
+Vulnerabilidades técnicas.                                    Reconocer la importancia de
+                               Relacionar amenazas con
+                                                              la trazabilidad y coherencia en
+Vulnerabilidades               el contexto organizacional
+                                                              los registros de análisis de
+operativas.                    analizado.
+                                                              riesgos.
+Vulnerabilidades                                              Aceptar   la   necesidad    de
+organizacionales.              Reconocer el concepto de       priorizar    riesgos    según
+                               vulnerabilidad en sistemas     criterios técnicos y recursos
+Vulnerabilidades
+                               informáticos.                  disponibles.
+asociadas                  a
+                                                              Reconocer la importancia de
+configuraciones.               Diferenciar
+                                                              la continuidad operativa frente
+                               vulnerabilidades técnicas,
+Vulnerabilidades                                              a interrupciones del servicio
+                               operativas y
+asociadas a procesos.                                         informático.
+                               organizacionales en
+Ciclo de vida de        las    ejemplos prácticos.            Valorar la planificación y
+vulnerabilidades.                                             ejecución de simulacros como
+                               Analizar vulnerabilidades
+Incidentes potenciales y                                      estrategia de preparación ante
+                               asociadas a
+escenarios de riesgo.                                         incidentes.
+                               configuraciones
+Incidentes     potenciales     incorrectas.                   Mostrar    disposición   para
+derivados               de                                    participar     de      manera
+                               Analizar vulnerabilidades
+vulnerabilidades.                                             responsable en ejercicios de
+                               asociadas a procesos
+                                                              continuidad y recuperación.
+Impacto de los incidentes      organizacionales.
+en los servicios.                                             Reconocer la relevancia de los
+                               Interpretar el ciclo de vida
+                                                              roles y responsabilidades
+Interrupciones del servicio    de las vulnerabilidades en
+                                                              asignados durante procesos
+y degradación operativa.       escenarios controlados.
+                                                              de recuperación.
+Relación entre incidentes      Describir incidentes
+                                                              Valorar la aplicación de
+y continuidad del negocio.     potenciales derivados de
+                                                              medidas de tratamiento del
+                               vulnerabilidades
+Métodos       básicos    de                                   riesgo como parte de la
+                               detectadas.
+análisis de riesgos.                                          mejora    continua     de la
+                               Construir escenarios de        seguridad informática.
+Enfoques cualitativos de       riesgo combinando
+análisis de riesgos.                                          Mostrar apertura al análisis de
+                               activos, amenazas y
+                                                              la viabilidad técnica, operativa
+Enfoques           semi-       vulnerabilidades.
+                                                              y económica de las medidas
+cuantitativos de análisis      Analizar el impacto de         propuestas.
+de riesgos.                    incidentes en la
+                                                              Reconocer la importancia de
+Componentes de          una    continuidad de los
+                                                              priorizar      controles   de
+matriz de riesgos.             servicios.
+                                                              seguridad de acuerdo con la
+Niveles de impacto.            Relacionar interrupciones      criticidad de los activos.
+                               del servicio con la
+Niveles de probabilidad.                                      Fomentar una actitud de
+                               degradación operativa.
+Criterios de clasificación                                    mejora continua frente a los
+                               Vincular incidentes            procesos de gestión de
+del riesgo.
+                               potenciales con la             riesgos y seguridad de la
+Uso    de    escalas       y   continuidad del negocio en     información.
+categorías de riesgo.          ejercicios prácticos.
+                                                              Mostrar     interés por    la
+Normativas y marcos de         Aplicar enfoques               actualización permanente en
+referencia para análisis de    cualitativos de análisis de    prácticas básicas de gestión
+riesgos.
+Principios generales de       riesgos en situaciones         del riesgo informático.
+ISO/IEC 27005.                simuladas.
+                                                             Actuar con responsabilidad y
+Enfoque de gestión del        Aplicar enfoques semi-         criterio técnico en la toma de
+riesgo según NIST SP          cuantitativos de análisis de   decisiones relacionadas con la
+800-30.                       riesgos utilizando escalas     seguridad de los sistemas.
+                              simples.
+Adaptación de marcos de
+referencia a contextos        Construir matrices de
+educativos            o       riesgos con niveles de
+institucionales.              impacto y probabilidad
+                              definidos.
+Evaluación y priorización
+del riesgo.                   Asignar niveles de impacto
+Clasificación de riesgos      según consecuencias
+tolerables y no tolerables.   operativas y
+Priorización de riesgos       organizacionales.
+según criticidad.
+                              Asignar niveles de
+Continuidad operativa.
+                              probabilidad según
+Recuperación           ante
+                              frecuencia estimada de
+desastres.
+                              ocurrencia.
+Diferencia            entre
+continuidad operativa y       Clasificar riesgos
+recuperación           ante   utilizando escalas y
+desastres.                    categorías predefinidas.
+
+Análisis de impacto al        Registrar resultados del
+negocio (BIA).                análisis de riesgos en
+                              plantillas estructuradas.
+Tiempo     objetivo     de
+recuperación (RTO).           Interpretar principios
+                              generales de ISO/IEC
+Punto     objetivo      de
+                              27005 en actividades
+recuperación (RPO).
+                              guiadas.
+Roles y responsabilidades
+                              Interpretar el enfoque de
+en la recuperación.
+                              gestión del riesgo
+Procedimientos generales      propuesto por NIST SP
+de recuperación.              800-30.
+Pruebas y simulacros de       Adaptar marcos de
+continuidad.                  referencia de análisis de
+                              riesgos a contextos
+                              simulados.
+                              Evaluar riesgos
+                              considerando impacto y
+                              probabilidad combinados.
+Diferenciar riesgos
+tolerables y no tolerables
+según criterios
+establecidos.
+Priorizar riesgos en
+función de la criticidad de
+los activos involucrados.
+Representar gráficamente
+la priorización de riesgos
+obtenida.
+Reconocer conceptos
+básicos de continuidad
+operativa en sistemas
+informáticos.
+Reconocer conceptos
+básicos de recuperación
+ante desastres
+informáticos.
+Comparar continuidad
+operativa y recuperación
+ante desastres en
+escenarios simulados.
+Elaborar un análisis de
+impacto al negocio a nivel
+básico.
+Establecer valores de
+tiempo objetivo de
+recuperación en
+escenarios propuestos.
+Establecer valores de
+punto objetivo de
+recuperación según el tipo
+de información.
+Asignar roles y
+responsabilidades básicas
+en procesos de
+recuperación.
+Diseñar procedimientos
+generales de recuperación
+                             ante interrupciones del
+                             servicio.
+                             Ejecutar simulacros
+                             básicos de continuidad
+                             operativa y recuperación.
+                             Registrar resultados de
+                             pruebas y simulacros en
+                             formatos establecidos.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                          Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)                          1
+                         Laboratorio de Informática equipado con
+Laboratorio                                                                  1
+                         acceso a Internet
+                         Nmap
+                         OpenVAS / Greenbone Community Edition
+                         Nessus Essentials
+                         Metasploit Framework
+                         Bases de datos de vulnerabilidades públicas
+                         Máquinas virtuales vulnerables
+Recursos                 (Metasploitable, DVWA, Vulnyx)
+                         Laboratorios virtuales locales o institucionales
+                         Equipos de cómputo con virtualización
+                         habilitada
+                         Dispositivos de red básicos (switch, router
+                         educativo)
+                         Wireshark
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Asamblea Nacional del Ecuador. (2014). Código Orgánico Integral Penal (Registro
+      Oficial,   Suplemento       N.º     180,     10     de      febrero de  2014).
+      https://www.asambleanacional.gob.ec/es/contenido/codigo-organico-integral-
+      penal-0
+   • Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+      Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+Normativas y Estrategias:
+   • Comité Nacional de Ciberseguridad. (2022). Estrategia Nacional de Ciberseguridad
+      del Ecuador 2022–2025 (Resolución N.º CNC-2022-007). Ministerio de
+      Telecomunicaciones        y    de      la    Sociedad     de    la    Información.
+      https://www.gobiernoelectronico.gob.ec/estrategia-nacional-de-ciberseguridad-
+      del-ecuador/
+   • International Organization for Standardization. (2022). ISO/IEC 27001:2022.
+      Information security, cybersecurity and privacy protection—Information security
+      management systems—Requirements. ISO. https://www.iso.org/es/norma/27001
+   • International Organization for Standardization. (2024). ISO/IEC 27001:2022/Amd
+      1:2024. Information security, cybersecurity and privacy protection—Information
+      security management systems—Requirements—Amendment 1: Climate action
+      changes. ISO. https://www.iso.org/es/contents/data/standard/08/84/88435.html
+   • International Organization for Standardization. (2022). ISO/IEC 27002:2022.
+      Information security, cybersecurity and privacy protection—Information security
+      controls. ISO. https://www.iso.org/es/contents/data/standard/07/56/75652.html
+   • MITRE Corporation. (2026). MITRE ATT&CK®. https://attack.mitre.org/
+   • National Institute of Standards and Technology. (2012). Guide for conducting risk
+      assessments (NIST Special Publication 800-30, Revision 1). U.S. Department of
+      Commerce. https://doi.org/10.6028/NIST.SP.800-30r1
+   • National Institute of Standards and Technology. (2025). Security and privacy
+      controls for information systems and organizations (NIST Special Publication 800-
+      53, Revision 5, Release 5.2.0). U.S. Department of Commerce.
+      https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+   • OWASP Foundation. (2021). OWASP Top 10: Los diez riesgos más críticos en
+      aplicaciones web. https://owasp.org/Top10/2021/es/
+Recursos Digitales y Plataformas
+   • Costas Santos, J. (2010). Seguridad informática (Grado Medio). RA-MA Editorial.
+      https://www.ra-ma.es/libro/seguridad-informatica-grado-medio_49134/
+   • López, R. A. (2017). Sistema de gestión de la seguridad informática. Fundación
+      Universitaria del Área Andina. https://core.ac.uk/download/pdf/326424017.pdf
+   • Solarte, F. N., Enriquez Rosero, E. R., & Benavides, M. del C. (2015). Metodología
+      de análisis y evaluación de riesgos aplicados a la seguridad informática y de
+      información bajo la norma ISO/IEC 27001. Revista Tecnológica - ESPOL, 28(5).
+      https://www.rte.espol.edu.ec/index.php/tecnologica/article/view/456
+   • Postigo Palacios, A. (2020). Seguridad informática (Edición 2020). Ediciones
+      Paraninfo, S. A. https://www.paraninfo.es/catalogo/9788428344555/seguridad-
+       informatica--edicion-2020
+   •   SCATI. (2026, mayo). Guía de introducción a las vulnerabilidades.
+       https://www.scati.com/wp-content/uploads/2026/05/Guia-de-introduccion-a-las-
+       vulnerabilidades.pdf
+
+
+
+
+                              Módulo Especialización Nro. 6
+Nombre del módulo formativo:            Auditorías Básicas de Seguridad Informática
+Nivel:                                     3ro
+Duración:                                  200 periodos pedagógicos
+                                           UC7: Realizar auditorías básicas de seguridad
+                                           informática, generando informes técnicos, basados
+Unidad         de       competencia
+                                           en la normativa legal para evaluar el cumplimiento,
+asociada:
+                                           detección de vulnerabilidades y proponer acciones
+                                           correctivas.
+Objetivo del módulo: Evaluar el nivel de seguridad informática de sistemas y procesos,
+aplicando procedimientos básicos de auditoría y criterios normativos vigentes, para
+identificar vulnerabilidades, verificar el cumplimiento legal y proponer acciones correctivas
+documentadas en informes técnicos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Aplicar herramientas y técnicas básicas de recolección de información de
+seguridad informática, generando evidencias técnicas sobre el estado de sistemas
+y redes en entornos reales o simulados bajo criterios éticos y legales.
+CE1.1: Selecciona herramientas de recolección de información acordes al tipo de sistema,
+red o infraestructura a evaluar.
+CE1.2: Distingue configuraciones inseguras, servicios expuestos y factores de riesgo
+técnico presentes en los sistemas analizados.
+CE1.3: Ejecuta procedimientos de escaneo y análisis sin afectar la disponibilidad ni la
+integridad de los sistemas evaluados.
+CE1.4: Emplea principios éticos y legales durante el análisis de la información recolectada,
+evitando prácticas intrusivas o no autorizadas.
+RA2: Planear auditorías básicas de seguridad informática, produciendo un plan
+estructurado que integre objetivos, alcance, metodología, recursos y cronograma
+conforme a normativa vigente.
+CE2.1: Selecciona los activos informáticos sujetos a evaluación considerando su relevancia
+en la operación organizacional.
+CE2.2: Establece una metodología básica de auditoría con fases, actividades y
+herramientas alineadas con normativa aplicable.
+CE2.3: Elabora un cronograma con tiempos estimados coherentes con cada fase del
+proceso de auditoría.
+CE2.4: Diseña un plan de auditoría claro, estructurado y comprensible para los actores
+involucrados.
+RA3: Elaborar informes técnicos de auditoría de seguridad informática, integrando
+hallazgos, evidencias, conclusiones y recomendaciones de forma estructurada y
+comprensible en contextos reales o simulados.
+CE3.1: Describe hallazgos de seguridad con precisión técnica, sustentados en los datos
+recolectados durante la auditoría.
+CE3.2: Analiza riesgos asociados a las vulnerabilidades detectadas considerando impacto
+y probabilidad.
+CE3.3: Formula conclusiones coherentes con los hallazgos y alineadas con los objetivos
+definidos en el plan de auditoría.
+CE3.4: Propone recomendaciones específicas y viables fundamentadas en buenas
+prácticas de seguridad informática.
+RA4: Organizar la presentación de los resultados de auditorías básicas de seguridad
+informática, comunicando hallazgos y recomendaciones de forma ética y profesional
+a los actores involucrados.
+CE4.1: Selecciona medios y recursos adecuados para comunicar los resultados de manera
+clara y efectiva.
+CE4.2: Elabora presentaciones ajustadas al perfil técnico o directivo de los destinatarios.
+CE4.3: Expone recomendaciones promoviendo la mejora continua y la adopción de buenas
+prácticas de seguridad.
+CE4.4: Integra la retroalimentación recibida en el proceso de auditoría para fortalecer
+futuras evaluaciones.
+CE4.5: Presenta el informe final de auditoría conforme a los hallazgos documentados.
+Contenidos
+Conceptuales                   Procedimentales             Actitudinales
+Auditoría informática.         Reconocer el propósito y    Valorar la auditoría de
+                               alcance de una auditoría    seguridad informática como
+Auditoría de seguridad
+                               básica de seguridad         herramienta clave para la
+informática.
+                               informática en contextos    mejora continua de los
+Auditoría como proceso         organizacionales reales o   sistemas y redes.
+sistemático.                   simulados.
+                                                           Reconocer la importancia del
+Propósito de la auditoría      Delimitar el entorno de     cumplimiento normativo en los
+en entornos                    auditoría considerando      procesos de auditoría de
+organizacionales.              sistemas, redes,            seguridad.
+Alcance de una auditoría       infraestructura y servicios
+                                                           Respetar los marcos legales y
+básica de seguridad.           informáticos involucrados.
+                                                           éticos durante la recolección
+Enfoque técnico y              Diferenciar auditorías de   de información técnica.
+enfoque de cumplimiento.       seguridad informática
+                                                           Mostrar responsabilidad en el
+                               respecto a evaluaciones
+Diferencia entre auditoría                                 uso de herramientas de
+                               técnicas puntuales.
+y evaluación técnica.                                      auditoría y en el manejo de la
+                               Analizar el marco           información obtenida.
+Normativa legal aplicable      normativo y legal aplicable
+a la seguridad               a procesos básicos de        Manifestar compromiso con la
+informática.                 auditoría informática.       confidencialidad    de    la
+                                                          información auditada.
+Regulaciones sobre           Verificar la existencia de
+protección de la             autorizaciones y             Apreciar la autorización y el
+información.                 consentimientos previos al   consentimiento previo como
+                             inicio de actividades de     principios fundamentales en
+Principios legales
+                             auditoría.                   las auditorías de seguridad.
+relacionados con
+auditorías.                  Aplicar principios éticos    Actuar      con     integridad
+                             durante el manejo de         profesional durante el análisis
+Autorización y
+                             información sensible         de sistemas y redes.
+consentimiento en
+                             obtenida en procesos de
+procesos de auditoría.                                    Demostrar prudencia y criterio
+                             auditoría.
+                                                          técnico frente a información
+Responsabilidad legal del
+                             Seleccionar sistemas,        sensible o crítica.
+auditor.
+                             redes y servicios
+                                                          Asumir una actitud ordenada y
+Principios éticos en         informáticos susceptibles
+                                                          metódica       durante      la
+auditorías de seguridad.     de auditoría según su
+                                                          planificación de auditorías
+Confidencialidad de la       función operativa.
+                                                          básicas      de     seguridad
+información auditada.        Reconocer información        informática.
+Uso responsable de la        técnica, administrativa y
+                                                          Reconocer la importancia de
+información recolectada.     operativa relevante dentro
+                                                          definir claramente objetivos,
+                             del entorno auditado.
+Sistemas informáticos                                     alcances y recursos antes de
+auditables.                  Recopilar documentación      iniciar una auditoría.
+                             técnica organizacional
+Redes informáticas                                        Mostrar disposición al trabajo
+                             vinculada a la seguridad
+auditables.                                               colaborativo con los actores
+                             informática.
+                                                          involucrados en el proceso de
+Infraestructura              Examinar registros y         auditoría.
+tecnológica básica.          configuraciones como
+                                                          Valorar la organización del
+Plataformas y servicios      fuentes de evidencia
+                                                          tiempo y los recursos durante
+informáticos evaluables      técnica.
+                                                          el desarrollo de la auditoría.
+Entornos reales y            Distinguir tipos de
+                                                          Reconocer la importancia de
+entornos simulados.          evidencia técnica,
+                                                          documentar de forma clara y
+                             documental y lógica
+Delimitación del entorno                                  precisa los hallazgos y
+                             generadas durante la
+de auditoría.                                             evidencias técnicas.
+                             auditoría.
+Información técnica de                                    Manifestar rigor técnico y
+                             Aplicar técnicas básicas
+seguridad.                                                objetividad en la elaboración
+                             de observación técnica en
+                                                          de informes de auditoría.
+Información administrativa   entornos auditados.
+relacionada con                                           Valorar el uso de un lenguaje
+                             Ejecutar revisiones
+seguridad.                                                técnico      adecuado       y
+                             documentales
+                                                          comprensible en los informes
+Información operativa de
+                                                          generados.
+sistemas y redes.            relacionadas con controles   Mostrar compromiso con la
+                             de seguridad existentes.     trazabilidad y la integridad de
+Documentación técnica
+                                                          la información documentada.
+organizacional.              Verificar configuraciones
+                             de sistemas y servicios      Respetar la confidencialidad y
+Registros y
+                             conforme a criterios         el acceso autorizado a los
+configuraciones como
+                             definidos.                   informes de auditoría.
+fuentes de información.
+                             Analizar registros de        Valorar     la     custodia
+Evidencia técnica en
+                             sistemas y redes con fines   responsable de evidencias y
+auditoría.
+                             de auditoría básica.         documentación de auditoría.
+Evidencia documental.
+                             Realizar entrevistas         Actuar con ética profesional
+Evidencia lógica.            técnicas simples con         en    la   presentación  de
+Técnicas de observación      actores involucrados en la   hallazgos y recomendaciones.
+técnica.                     operación de sistemas.
+                                                          Mostrar       respeto      y
+Técnicas de revisión         Utilizar técnicas de         profesionalismo al comunicar
+documental.                  muestreo simple en la        observaciones a diferentes
+                             recolección de               audiencias.
+Técnicas de verificación     información.
+de configuraciones.                                       Reconocer la importancia de
+                             Evaluar la validez y         formular    recomendaciones
+Técnicas de análisis de      confiabilidad de la          orientadas a la mejora de la
+registros.                   información recolectada.     seguridad informática.
+Técnicas de entrevistas      Utilizar herramientas        Asumir la retroalimentación
+técnicas básicas.            básicas de revisión de       como insumo para fortalecer
+Técnicas de muestreo         configuraciones de           futuros procesos de auditoría.
+simple.                      seguridad.
+                                                          Mostrar disposición a la
+Validez y confiabilidad de   Emplear herramientas de      mejora continua de las
+la información               análisis de registros en     prácticas de auditoría de
+recolectada.                 contextos de auditoría.      seguridad.
+Herramientas de revisión     Aplicar herramientas de      Responsabilizarse frente a las
+de configuraciones.          verificación de controles    tareas asignadas durante el
+                             de seguridad básicos.        proceso de auditoría.
+Herramientas de análisis
+                                                          Mantener orden y disciplina en
+de registros.                Registrar evidencias
+                                                          la ejecución de actividades de
+                             obtenidas durante el uso
+Herramientas de                                           auditoria
+                             de herramientas de
+verificación de controles
+                             auditoría.
+básicos.
+                             Reconocer limitaciones
+Herramientas de apoyo a
+                             técnicas y operativas de
+la recolección de
+                             las herramientas
+evidencias.
+                             empleadas.
+Limitaciones de las
+                             Definir objetivos de
+herramientas de auditoría
+                             auditoría alineados al
+básica.                     contexto institucional
+                            evaluado.
+Objetivos de auditoría.
+                            Establecer el alcance de la
+Alcance de auditoría.
+                            auditoría conforme a
+Criterios de auditoría.     recursos y tiempo
+Metodología básica de       disponibles.
+auditoría                   Determinar criterios de
+Fases del proceso de        auditoría basados en
+auditoría.                  normativa y buenas
+                            prácticas.
+Actividades por fase de
+auditoría.                  Estructurar una
+                            metodología básica de
+Recursos humanos            auditoría con fases y
+involucrados.               actividades.
+Recursos técnicos           Organizar las fases del
+necesarios.                 proceso de auditoría de
+Cronograma de auditoría.    forma secuencial.
+Riesgos asociados al        Asignar actividades
+proceso de auditoría.       específicas a cada fase
+                            del proceso de auditoría.
+Concepto de
+cumplimiento en             Identificar recursos
+seguridad informática.      humanos necesarios
+                            durante la auditoría.
+Controles de seguridad
+evaluables.                 Determinar recursos
+                            técnicos requeridos en el
+Requisitos de seguridad.
+                            proceso de auditoría.
+Evidencias de
+                            Elaborar un cronograma
+cumplimiento.
+                            básico de auditoría.
+Evidencias de
+                            Analizar riesgos asociados
+incumplimiento.
+                            al desarrollo del proceso
+Observaciones técnicas.     de auditoría.
+Hallazgos de auditoría.     Evaluar el cumplimiento de
+Relación entre hallazgos    controles de seguridad
+y riesgos.                  definidos en el alcance de
+                            la auditoría.
+Vulnerabilidades
+detectables en auditorías   Verificar requisitos de
+básicas.                    seguridad establecidos en
+                            el entorno auditado.
+Clasificación de
+hallazgos.                   Registrar evidencias de
+                             cumplimiento detectadas
+Severidad de hallazgos.
+                             durante la auditoría.
+Impacto potencial de
+                             Registrar evidencias de
+hallazgos.
+                             incumplimiento
+Priorización de hallazgos.   observadas en sistemas y
+Informe técnico de           procesos.
+auditoría.                   Documentar
+Presentación de              observaciones técnicas
+evidencias en informes       derivadas del análisis
+                             realizado.
+Recomendaciones de
+seguridad.                   Detectar hallazgos de
+                             auditoría relacionados con
+Lenguaje técnico y           la seguridad informática.
+lenguaje administrativo.
+                             Relacionar hallazgos
+Trazabilidad de la           detectados con riesgos
+información auditada.        potenciales.
+Control de versiones de      Reconocer
+informes.                    vulnerabilidades
+Custodia de evidencias.      detectables en auditorías
+                             básicas.
+Acceso autorizado a
+información de auditoría.    Clasificar hallazgos según
+                             criterios técnicos
+Confidencialidad de
+                             establecidos.
+informes de auditoría.
+                             Valorar la severidad de los
+Resguardo y
+                             hallazgos identificados.
+conservación de
+documentación.               Estimar el impacto
+Audiencias técnicas y no     potencial asociado a cada
+técnicas.                    hallazgo.
+Ética en la comunicación     Priorizar hallazgos
+de hallazgos.                conforme a impacto y
+                             criticidad.
+Manejo profesional de
+observaciones.               Elaborar informes técnicos
+                             de auditoría de seguridad
+Retroalimentación
+                             informática.
+posterior a la auditoría.
+                             Integrar evidencias
+                             técnicas dentro del informe
+                             de auditoría.
+                          Formular
+                          recomendaciones de
+                          seguridad coherentes con
+                          los hallazgos.
+                          Adaptar el lenguaje del
+                          informe a perfiles técnicos
+                          y administrativos.
+                          Garantizar la trazabilidad
+                          de la información incluida
+                          en el informe.
+                          Controlar versiones del
+                          informe técnico de
+                          auditoría.
+                          Custodiar evidencias
+                          recolectadas durante el
+                          proceso de auditoría.
+                          Gestionar el acceso
+                          autorizado a la información
+                          de auditoría.
+                          Proteger la
+                          confidencialidad de los
+                          informes generados.
+                          Resguardar la
+                          documentación producida
+                          durante la auditoría.
+                          Preparar la presentación
+                          de resultados ante
+                          audiencias técnicas y no
+                          técnicas.
+                          Comunicar hallazgos
+                          respetando principios
+                          éticos y profesionales.
+                          Manejar observaciones
+                          técnicas con criterio
+                          profesional.
+                          Integrar retroalimentación
+                          recibida posterior a la
+                          auditoría.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+  reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+  de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+  Software, Tecnologías de la Información y Comunicación, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación              Especificaciones técnicas                          Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)                          1
+                         Laboratorio de Informática equipado con
+Laboratorio                                                                    1
+                         acceso a Internet
+                         Wireshark
+                         Nmap
+                         Tcpdump
+                         Zabbix (Community Edition)
+                         Nagios Core
+                         Elasticsearch + Kibana
+                         Snort
+Recursos                 Suricata
+                         Zeek
+                         OSSEC / Wazuh Agent
+                         Servidores o PCs dedicados a monitoreo
+                         Dispositivos de red reales o simulados
+                         OpenVAS / Nessus Essentials
+                         CIS-CAT Lite
+                         Visores de eventos del sistema operativo
+Referencias Bibliográficas
+Normativas y Políticas Públicas en Ecuador
+   • Asamblea Nacional del Ecuador. (2014). Código Orgánico Integral Penal (Registro
+      Oficial,    Suplemento      N.º    180,     10     de     febrero   de    2014).
+      https://www.asambleanacional.gob.ec/sites/default/files/private/asambleanacional/
+      filesasambleanacionalnameuid-20/codigo_organico_integral_penal-registro-
+      oficial.pdf
+   • Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+      Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+Normativas y Estrategias:
+   •  Comité Nacional de Ciberseguridad. (2022). Estrategia Nacional de Ciberseguridad
+      del Ecuador 2022–2025 (Resolución N.º CNC-2022-007). Ministerio de
+      Telecomunicaciones        y     de    la    Sociedad       de     la    Información.
+      https://www.gobiernoelectronico.gob.ec/wp-content/uploads/2022/10/Difusion-
+      ENC.pdf
+   • International Organization for Standardization. (2022). ISO/IEC 27001:2022.
+      Information security, cybersecurity and privacy protection—Information security
+      management systems—Requirements. ISO. https://www.iso.org/standard/27001
+   • International Organization for Standardization. (2022). ISO/IEC 27002:2022.
+      Information security, cybersecurity and privacy protection—Information security
+      controls. ISO. https://www.iso.org/standard/75652.html
+   • MITRE Corporation. (2026). MITRE ATT&CK®. https://attack.mitre.org/
+   • National Institute of Standards and Technology. (2012). Guide for conducting risk
+      assessments (NIST Special Publication 800-30, Revision 1). U.S. Department of
+      Commerce. https://doi.org/10.6028/NIST.SP.800-30r1
+   • National Institute of Standards and Technology. (2020). Security and privacy
+      controls for information systems and organizations (NIST Special Publication 800-
+      53,        Revision       5).      U.S.      Department         of       Commerce.
+      https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+   • OWASP Foundation. (2025). OWASP Top 10:2025: Los diez riesgos de seguridad
+      de aplicaciones web más críticos. https://owasp.org/Top10/2025/es/
+Recursos Digitales y Plataformas
+   • Gómez, Á. (2022). Auditoría de seguridad informática. Ediciones de la U.
+   • Castello, R. J. (2006). Auditoría en entornos informáticos. Argentina: Facultad de
+      Ciencias Económicas-UNC.
+   • García Merino, J. (2018). Ventajas e implementación de un sistema SIEM.
+   • García Ibáñez, J. (2025). Despliegue y configuración de un SIEM para la
+      securización de una red corporativa.
+   • Menéndez Arantes, S. C. (2023). Auditoría de seguridad informática: Curso
+      práctico. Ediciones de la U. https://edicionesdelau.com/producto/auditoria-de-
+      seguridad-informatica-curso-practico/
+   • Piattini Velthuis, M. G., del Peso Navarro, E., & del Peso Ruiz, M. (2008). Auditoría
+      de tecnologías y sistemas de información. Ra-Ma Editorial. https://www.ra-
+      ma.es/libro/auditoria-de-tecnologias-y-sistemas-de-informacion_47954/
+   • Santos Ortega, P. (2023). Desarrollo de SIEM para la detección de amenazas
+      (Trabajo     Fin     de   Máster).    Universidad     Politécnica    de    València.
+      https://riunet.upv.es/handle/10251/198727
+   • Tejada, E. C. (2025). Auditoría de seguridad informática. IFCT0109. IC Editorial.
+   • Urbina, G. B. (2017). Introducción a la seguridad informática. Grupo editorial
+      PATRIA.
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación
+a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+                       Módulo Práctico Experimental
+ Nombre del módulo:     Practico Experimental
+ Nivel:                 1ro, 2do, 3ro
+ Duración:              400 periodos pedagógicos
+ Unidad de competencia  UC1: Analizar el estado de seguridad y vulnerabilidades de
+ asociada:              la red y de los sistemas informáticos, con el fin de reducir
+                        amenazas y proponer soluciones digitales.
+                        UC3: Realizar el monitoreo de redes y sistemas
+                        informáticos en forma periódica en la detección de eventos
+                        de seguridad y riesgos, aplicando herramientas de
+                        supervisión, análisis de datos y elaboración de reportes
+                        técnicos conforme a protocolos establecidos, con el fin de
+                        mantener la disponibilidad y confiabilidad de los servicios.
+                        UC4: Emplear normas de protección de datos y de
+                        ciberseguridad en sistemas informáticos, garantizando la
+                        protección de información sensible.
+                        UC 6: Promover la cultura de seguridad informática en el
+                        entorno escolar, empresarial o comunitario, aplicando
+                        prácticas seguras y prevención de incidentes,
+                        contribuyendo a la creación de entornos digitales
+                        confiables.
+                        UC8: Aplicar fundamentos del hacking ético y análisis
+                        forense básico en la evaluación de la seguridad de sistemas
+                        y redes en entornos controlados, interpretando hallazgos,
+                        proponiendo mejoras de protección y cumpliendo principios
+                        legales y éticos.
+Objetivo del módulo:
+Aplicar de forma integrada y experimental los conocimientos, procedimientos y
+herramientas de seguridad informática en entornos controlados o simulados, mediante
+la ejecución de prácticas técnicas orientadas a la detección de vulnerabilidades,
+respuesta ante incidentes, protección de sistemas y evaluación de riesgos, promoviendo
+el pensamiento crítico y el trabajo colaborativo.
+Resultados              de     Criterios de evaluación Actividades Prácticas
+Aprendizaje (RA)               (CE)                         Experimentales
+RA1: Aplicar técnicas          CE1.1:      Reconoce       y Simulación de incidente y
+básicas de análisis de         clasifica       incidentes recuperación
+vulnerabilidades          y    simulados                    Escenario     de    incidente:
+pruebas de penetración         CE1.2:               Aplica malware detectado, caída de
+en entornos simulados.         procedimientos               servicio,     acceso        no
+                               adecuados                de autorizado.
+                               contención, erradicación
+                               y      recuperación      de Aplicación del plan de
+                               sistemas        de        la respuesta:          detección,
+                               información.                 contención,      erradicación,
+                                                            recuperación.
+
+RA2:       Diseñar     una    CE2.1:      Identifica de      Campaña de concienciación
+campaña educativa para        manera clara los temas         en seguridad digital
+promover         prácticas    clave de la campaña            Diseño de afiches, videos,
+seguras en el uso de          (phishing,    contraseñas      charlas o infografías sobre
+tecnologías y protección      seguras, privacidad, uso       buenas prácticas.
+de la información.            responsable de redes,          Difusión del contenido en
+                              entre otros).                  medios    institucionales o
+                              CE2.2:               Utiliza   murales.
+                              herramientas TIC para
+                              crear           materiales
+                              atractivos.
+RA3:      Restaurar    los    CE3.1: Verifica que las        Restauración del sistema
+sistemas        afectados     copias de respaldo             desde un respaldo previo.
+utilizando      respaldos     estén completas y sin          Analizar la falla presentada en
+verificados y validación      alteraciones antes de          el sistema operativo.
+funcional.                    restaurar datos.               Localizar     la     copia   de
+                              CE3.3: Evalúa el nivel         seguridad disponible.
+                              de daño sufrido por los        Configurar el equipo para
+                              sistemas y selecciona el       iniciar desde un medio de
+                              método de restauración         recuperación.
+                              más apropiado.
+                              CD4.3:           Restaura
+                              correctamente sistemas
+                              operativos,
+                                configuraciones          o
+                                archivos desde copias de
+                                seguridad locales o en la
+                                nube.
+                                CE4.4: Realiza pruebas
+                                de funcionalidad básicas
+                                (servicios        activos,
+                                accesos        permitidos,
+                                ausencia de errores) para
+                                validar     la    correcta
+                                recuperación del sistema.
+ RA4: Diseñar estrategias       CE7.1: Distingue las
+ de    sensibilización     en   necesidades,                 Elaborar campañas, charlas o
+ ciberseguridad adaptadas       características y riesgos    materiales de concienciación
+ al   entorno,     integrando   específicos del entorno      sobre ciberseguridad.
+ recursos apropiados para el    en la construcción de        Participar   en actividades
+ público objetivo.              estrategias             de   colaborativas para fortalecer
+                                sensibilización.             la cultura de seguridad
+                                CE7.2: Crea mensajes         informática.
+                                claves sobre el uso          Realizar una jornada de
+                                responsable      de    las   concienciación denominada
+                                tecnologías, protección      “Semana          de        la
+                                de datos personales y        Ciberseguridad”
+                                gestión      segura     de
+                                contraseñas.
+                                CE7.3:            Elabora
+                                materiales de apoyo de
+                                sensibilización         en
+                                ciberseguridad        para
+                                difundir en su entorno
+                                social,    educativo     u
+                                organizacional
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

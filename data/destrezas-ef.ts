@@ -1144,4 +1144,45 @@ export const destrezasEducacionFisica: Destreza[] = [
     criteriosEvaluacion: ["CE.EF.5.9. Participa en diferentes prácticas corporales de manera sistemática, saludable y reflexiva, construyendo planes de trabajo pertinentes y reconociendo la importancia de las diferencias individuales y de los controles médicos (dentro y fuera del colegio)."],
     indicadoresEvaluacion: ["I.EF.5.9.1. Realiza prácticas corporales de manera sistemática, saludable y reflexiva, tomando en consideración las diferencias individuales y los controles médicos. (J.3., S.3.)", "I.EF.5.9.2. Construye planes de trabajo físico básicos, teniendo en cuenta los resultados de los controles médicos. (J.4., I.4.)."],
   },
+
+  // ── Preparatoria — 1.° EGB (subnivel 1) ─────────────────────────────────
+  // Currículo Priorizado 2025, Subnivel Preparatoria — capítulo 8, ámbito 7:
+  // "Expresión corporal" (bloque 7). `objetivos`: ver design.md D5.
+  // Estas destrezas son las que el currículo integrador cita EXPLÍCITAMENTE en el
+  // mapa del ámbito 7 (alcance de este cambio, ver design.md D4) — no el currículo
+  // específico completo de EF (capítulo 10), que queda para un change hermano.
+  // La anotación "(En Educación Física EF.x.x.x.)" es del propio currículo
+  // integrador y muestra la articulación con ese currículo específico.
+  {
+    codigo: "EF.1.7.1",
+    area: "EF", subnivel: 1, bloque: 7, secuencial: 1,
+    descripcion: "Reconocer estados de ánimo, sensaciones y emociones (alegría, tristeza, aburrimiento, enojo, frío, calor, entre otras) para crear, expresar y comunicar mensajes corporales (gestuales convencionales y/o espontáneos). (En Educación Física EF.1.3.1.)",
+    objetivos: ["O.EF.1.1. Participar en prácticas corporales (juegos, danzas, bailes, mímicas, entre otras) de manera espontánea, segura y placentera, individualmente y con otras personas.", "O.EF.1.2. Reconocer (en todas las dimensiones: motriz, emocional, conceptual, entre otras), sus posibilidades de participación en prácticas corporales, individuales y con otras personas.", "O.EF.1.4. Percibir su corporeidad y comenzar a construir conciencia de su propio cuerpo y la necesidad de cuidarlo.", "O.EF.1.6. Reconocer sus posibilidades de acción durante su participación en diferentes prácticas corporales individuales.", "O.EF.1.8. Identificar los sentidos y significados que tienen diferentes prácticas corporales en su entorno familiar y escolar."],
+    criteriosEvaluacion: ["CE.EF.1.1. Construye y comunica mensajes expresivos (convencionales y/o espontáneos) utilizando gestos, ritmos, posturas, tipos de movimiento; reconociendo sus estados de ánimo y sus posibilidades de creación, expresión, interpretación y traducción de mensajes corporales propios y de pares, a otros lenguajes; establece acuerdos colectivos (de seguridad; de respeto a diferentes formas de expresión, entre otros) que favorezcan la participación en prácticas corporales expresivo-comunicativas."],
+    indicadoresEvaluacion: [],
+  },
+  {
+    codigo: "EF.1.7.2",
+    area: "EF", subnivel: 1, bloque: 7, secuencial: 2,
+    descripcion: "Usar gestos convencionales y/o espontáneos, habilidades motrices básicas, posturas, ritmos y tipos de movimiento (lento, rápido, continuo, discontinuo, fuerte, suave, entre otros) como recursos expresivos para comunicar los mensajes producidos. (En Educación Física EF.1.3.2.)",
+    objetivos: ["O.EF.1.1. Participar en prácticas corporales (juegos, danzas, bailes, mímicas, entre otras) de manera espontánea, segura y placentera, individualmente y con otras personas.", "O.EF.1.2. Reconocer (en todas las dimensiones: motriz, emocional, conceptual, entre otras), sus posibilidades de participación en prácticas corporales, individuales y con otras personas.", "O.EF.1.4. Percibir su corporeidad y comenzar a construir conciencia de su propio cuerpo y la necesidad de cuidarlo.", "O.EF.1.6. Reconocer sus posibilidades de acción durante su participación en diferentes prácticas corporales individuales.", "O.EF.1.8. Identificar los sentidos y significados que tienen diferentes prácticas corporales en su entorno familiar y escolar."],
+    criteriosEvaluacion: ["CE.EF.1.1. Construye y comunica mensajes expresivos (convencionales y/o espontáneos) utilizando gestos, ritmos, posturas, tipos de movimiento; reconociendo sus estados de ánimo y sus posibilidades de creación, expresión, interpretación y traducción de mensajes corporales propios y de pares, a otros lenguajes; establece acuerdos colectivos (de seguridad; de respeto a diferentes formas de expresión, entre otros) que favorezcan la participación en prácticas corporales expresivo-comunicativas."],
+    indicadoresEvaluacion: ["I.EF.1.1.1. Construye y comunica mensajes (convencionales y/o espontáneos) utilizando diferentes recursos expresivos (gestos, ritmos, posturas, tipos de movimiento en el tiempo y el espacio, entre otros). (I.3.)"],
+  },
+  {
+    codigo: "EF.1.7.5",
+    area: "EF", subnivel: 1, bloque: 7, secuencial: 3,
+    descripcion: "Crear, expresar, comunicar e interpretar mensajes corporales individuales y con otros de manera espontánea. (En Educación Física EF.1.3.5.)",
+    objetivos: ["O.EF.1.1. Participar en prácticas corporales (juegos, danzas, bailes, mímicas, entre otras) de manera espontánea, segura y placentera, individualmente y con otras personas.", "O.EF.1.2. Reconocer (en todas las dimensiones: motriz, emocional, conceptual, entre otras), sus posibilidades de participación en prácticas corporales, individuales y con otras personas.", "O.EF.1.4. Percibir su corporeidad y comenzar a construir conciencia de su propio cuerpo y la necesidad de cuidarlo.", "O.EF.1.6. Reconocer sus posibilidades de acción durante su participación en diferentes prácticas corporales individuales.", "O.EF.1.8. Identificar los sentidos y significados que tienen diferentes prácticas corporales en su entorno familiar y escolar."],
+    criteriosEvaluacion: ["CE.EF.1.1. Construye y comunica mensajes expresivos (convencionales y/o espontáneos) utilizando gestos, ritmos, posturas, tipos de movimiento; reconociendo sus estados de ánimo y sus posibilidades de creación, expresión, interpretación y traducción de mensajes corporales propios y de pares, a otros lenguajes; establece acuerdos colectivos (de seguridad; de respeto a diferentes formas de expresión, entre otros) que favorezcan la participación en prácticas corporales expresivo-comunicativas."],
+    indicadoresEvaluacion: [],
+  },
+  {
+    codigo: "EF.1.7.6",
+    area: "EF", subnivel: 1, bloque: 7, secuencial: 4,
+    descripcion: "Establecer acuerdos con otros que les permitan participar en prácticas corporales expresivo-comunicativas. (En Educación Física EF.1.3.6.)",
+    objetivos: ["O.EF.1.1. Participar en prácticas corporales (juegos, danzas, bailes, mímicas, entre otras) de manera espontánea, segura y placentera, individualmente y con otras personas.", "O.EF.1.2. Reconocer (en todas las dimensiones: motriz, emocional, conceptual, entre otras), sus posibilidades de participación en prácticas corporales, individuales y con otras personas.", "O.EF.1.4. Percibir su corporeidad y comenzar a construir conciencia de su propio cuerpo y la necesidad de cuidarlo.", "O.EF.1.6. Reconocer sus posibilidades de acción durante su participación en diferentes prácticas corporales individuales.", "O.EF.1.8. Identificar los sentidos y significados que tienen diferentes prácticas corporales en su entorno familiar y escolar."],
+    criteriosEvaluacion: ["CE.EF.1.1. Construye y comunica mensajes expresivos (convencionales y/o espontáneos) utilizando gestos, ritmos, posturas, tipos de movimiento; reconociendo sus estados de ánimo y sus posibilidades de creación, expresión, interpretación y traducción de mensajes corporales propios y de pares, a otros lenguajes; establece acuerdos colectivos (de seguridad; de respeto a diferentes formas de expresión, entre otros) que favorezcan la participación en prácticas corporales expresivo-comunicativas."],
+    indicadoresEvaluacion: ["I.EF.1.1.3. Establece acuerdos colectivos que favorezcan la participación en diferentes prácticas corporales expresivo-comunicativas."],
+  },
 ];

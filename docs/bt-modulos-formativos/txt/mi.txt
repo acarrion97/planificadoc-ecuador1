@@ -1,0 +1,2801 @@
+            MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “MECÁNICA
+                             INDUSTRIAL”
+
+       1.      Objetivo general
+
+Ejecutar procesos de mecanizado, ajuste, soldadura, montaje, reparación y
+mantenimiento de equipos y componentes mecánicos, con el uso de planos y diagramas
+técnicos, la operación de máquinas, herramientas y utilización de tecnologías
+convencionales y asistidas por computadora, aplicando normas de calidad, seguridad y
+protección ambiental.
+
+       2.      Plan de estudios
+
+
+ Total, periodos pedagógicos tronco común                           1ro     2do    3ro
+                                                                    19       19    19
+ Módulos               Seguridad Industrial                          2        2
+ Genéricos de la       Procesos Industriales Sostenibles             2        2
+ Familia               Dibujo Técnico Aplicado                       3        3
+ Profesional
+                     Fundamentos de Metrología y Control de          3
+ Módulos de          Calidad
+ Especialización     Cálculo Mecánico y Estructural                  3       2
+                     Mecanizado por Arranque de Viruta               6       5     8
+                     Soldadura                                               5     8
+                     Diseño Asistido por Computador (CAD)                          3
+ Módulo Práctico Experimental                                         2       2    2
+ Total de periodos pedagógicos de formación técnica                  21      21    21
+
+   3. Módulos Genéricos de La Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la familia Industrial. Gracias a las características
+de los módulos trabajados en esta etapa, adquieren herramientas que le permiten
+construir una opinión más informada y tomar decisiones con mayor fundamento. Esto
+favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa,
+insertarse en el mundo laboral o emprender un proyecto propio.
+
+ Se estructuran los siguientes módulos genéricos:
+
+   •   Seguridad Industrial
+   •   Procesos Industriales Sostenibles
+   •   Dibujo Técnico Aplicado
+                                 Módulo Genérico Nro. 1
+
+Nombre del módulo                    Seguridad Industrial
+
+Nivel:                               1ro y 2do
+
+Duración:                            160 periodos pedagógicos
+
+                                     UC 1: Aplicar normas, procedimientos, planes de
+                                     seguridad e higiene en talleres, laboratorios y procesos
+Unidad       de      competencia industriales, en la prevención de riesgos, mediante el
+asociada:                            uso adecuado de herramientas, equipos y máquinas,
+                                     demostrando responsabilidad, disciplina y ética
+                                     profesional.
+Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Emplear normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Monitorea señales de seguridad en talleres y laboratorios verificando su ubicación
+y legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Utiliza los equipos de protección personal antes de iniciar actividades asegurando
+su funcionalidad.
+CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA 2: Ejecutar procedimientos de identificación, análisis y prevención de riesgos en
+entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE 2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE 2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE 2.3: Emplea medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE 2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA 3: Establecer planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE 3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE 3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE 3.3: Ejecuta la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE 3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de
+la integridad de personas y bienes.
+ RA 4: Fomentar prácticas de seguridad, higiene y sostenibilidad en actividades
+ industriales promoviendo disciplina, ética profesional y mejora continua.
+CE 4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE 4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE 4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE 4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y
+compromiso con la mejora continua.
+Contenidos
+Conceptuales                      Procedimentales                  Actitudinales
+Fundamentos           de       la Identificar riesgos presentes Demostrar disciplina en el
+seguridad             industrial, en el entorno laboral cumplimiento de normas de
+principios,      objetivos      y utilizando herramientas de seguridad e higiene.
+beneficios.                       observación y registro.
+                                                                   Mostrar interés en la
+Legislación y normativa Analizar                diagramas       de identificación y control de
+vigente en seguridad, salud procesos industriales para riesgos industriales.
+ocupacional       e     higiene localizar posibles focos de
+                                                                   Cumplir      con    el   uso
+laboral       (nacional       e peligro.
+                                                                   permanente y correcto de
+internacional).
+                                  Seleccionar equipos de equipos                de    protección
+Derechos y obligaciones en protección personal según personal.
+prevención       de     riesgos tipo de actividad y riesgo
+                                                                   Valorar la importancia del
+laborales.                        identificado.
+                                                                   orden y la limpieza en la
+Normas      generales        de Utilizar           correctamente seguridad del trabajo.
+seguridad       en     talleres, equipos        de     protección
+                                                                   Respetar la señalización de
+laboratorios      y     plantas personal            garantizando
+                                                                   seguridad instalada.
+industriales.                     seguridad y comodidad.
+                                                                   Demostrar responsabilidad
+Tipos        de         riesgos Instalar          y      verificar
+                                                                   en la ejecución de protocolos
+industriales:           físicos, señalización de seguridad en
+                                                                   de emergencia.
+químicos,           biológicos,
+ergonómicos,    eléctricos,     talleres      y        plantas Asumir        una      actitud
+mecánicos y psicosociales.      industriales.                  preventiva frente a los
+                                                               riesgos laborales.
+Equipos de protección           Aplicar rutinas de orden y
+personal           (EPP):       limpieza siguiendo el método Mantener disposición activa
+clasificación,                  5S.                            en simulacros de evacuación
+características, uso   y                                       y control de incendios.
+                                Ejecutar procedimientos de
+mantenimiento.
+                                análisis de riesgos aplicando Mostrar compromiso con la
+Señalización de seguridad       matrices de evaluación.        protección      del     medio
+industrial:  códigos   de                                      ambiente y la sostenibilidad
+                                Elaborar informes técnicos
+colores,      pictogramas,                                     en procesos industriales.
+                                de riesgos con base en
+ubicación     y    normas
+                                observaciones, análisis y Evidenciar ética profesional
+técnicas.
+                                normativa vigente.             en la toma de decisiones
+Procedimientos de limpieza                                     relacionadas con seguridad
+                                Implementar           medidas
+y orden en el trabajo, 5S y                                    y salud.
+                                preventivas y correctivas
+buenas     prácticas     de
+                                ajustadas       a      riesgos Demostrar liderazgo en la
+higiene.
+                                detectados.                    organización de grupos
+Metodologías             de                                    frente a situaciones de
+                                Desarrollar      planes     de
+identificación y evaluación                                    riesgo.
+                                evacuación simulados en
+de riesgos, análisis de
+                                talleres,    laboratorios    y Fomentar        el    trabajo
+trabajo     seguro   (ATS),
+                                espacios industriales.         colaborativo en la mejora de
+matriz de riesgos, método
+                                                               las      condiciones        de
+del árbol de causas.            Actuar en simulacros de
+                                                               seguridad.
+                                emergencia           aplicando
+Medidas preventivas y
+                                protocolos de comunicación Mantener actitud reflexiva
+correctivas aplicadas a
+                                y evacuación.                  frente a incidentes para
+riesgos específicos en
+                                                               promover la mejora continua.
+talleres de electrónica,        Utilizar extintores, hidrantes
+mecatrónica,                    y otros equipos contra Asumir respeto por la vida,
+electromecánica, madera,        incendios      conforme      a la salud y el bienestar
+alimentos y calzado.            normas técnicas.               colectivo como valores
+                                                               fundamentales.
+Planes de emergencia,           Aplicar técnicas básicas de
+objetivos,      estructura,     primeros auxilios en casos
+responsables              y     de accidentes simulados.
+procedimientos.                 Evaluar        condiciones
+Protocolos de evacuación,       ergonómicas de los puestos
+primeros auxilios, control de   de trabajo y proponer
+incendios y comunicación        mejoras.
+en emergencias.                 Documentar y comunicar
+Manejo      seguro    de        incidentes, accidentes y
+herramientas    manuales,       medidas correctivas.
+eléctricas y de máquinas        Participar en actividades
+industriales.                   colaborativas de mejora
+                                continua en seguridad e
+Ergonomía    aplicada    a
+                                higiene industrial.
+puestos     de     trabajo,
+posturas, manipulación de
+cargas,   prevención    de
+lesiones.
+Cultura de seguridad y
+mejora             continua,
+responsabilidad,      ética,
+disciplina y sostenibilidad
+en el trabajo.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+   riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+   con seguridad industrial.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+
+ • Aprendizaje Basado en Proyectos (ABP)
+ • Aprendizaje en Contextos Reales
+ • Role-Playing y Simulaciones
+ • Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                 Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio  Entorno de aprendizaje                            1
+                         (aula)
+Laboratorio              Computadoras con acceso a internet                1
+                         Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+                             Módulo Genérico Nro.2
+
+Nombre del módulo:                     Procesos Industriales Sostenibles
+
+Nivel:                                 1ro y 2do
+
+Duración:                              160 periodos pedagógicos
+
+                                        UC 2: Emplear prácticas de sostenibilidad y control
+                                        de calidad en actividades industriales mediante el uso
+                                        de tecnologías limpias, criterios de eficiencia
+Unidad de competencia                   energética, minimización de residuos, garantizando la
+asociada:                               reducción de impactos ambientales y la optimización
+                                        de estos en beneficio del entorno local, integrando
+                                        fundamentos de formación y orientación laboral y
+                                        salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA 3: Utilizar materias primas y energía en procesos industriales garantizando
+reducción de costos operativos y aprovechamiento responsable de los recursos.
+CE3.1: Analiza puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Selecciona normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3:      Ejecuta acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Utiliza productos y materiales según parámetros establecidos en normas técnicas
+y procedimientos internos.
+CE6.2:      Ejecuta pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+Conceptuales                    Procedimentales              Actitudinales
+Principios de sostenibilidad    Identificar    fuentes    de
+en procesos industriales, consumo             energético   y Mostrar interés en la
+                                                             aplicación     de    prácticas
+definición, importancia y materiales en procesos
+                                industriales.                sostenibles    en    procesos
+aplicación.
+                                                             industriales.
+Conceptos       básicos     de Medir y registrar consumos
+eficiencia         energética, eléctricos,     térmicos    e Cumplir         con         los
+                                                             procedimientos               de
+consumo,             pérdidas, hidráulicos.
+                                                             reducción, reutilización y
+rendimiento, ahorro.            Analizar            impactos reciclaje de materiales.
+Energías           renovables ambientales de actividades
+                                                             Valorar la importancia del
+aplicadas a la industria, productivas.
+                                                             ahorro energético y del
+solar,    eólica,    biomasa, Aplicar técnicas básicas de
+                                                             aprovechamiento
+hidráulica.                     reducción, reutilización y responsable de recursos.
+Impactos ambientales de los reciclaje.
+                                                             Mostrar orden, precisión y
+procesos          industriales, Elaborar      reportes    de método en las actividades de
+contaminación       del   aire, consumo y residuos en
+                                                             medición, registro y análisis.
+agua, suelo y ruido.            procesos experimentales.
+Estrategias de consumo Implementar estrategias de Asumir una actitud reflexiva
+responsable de materias optimización del consumo frente al impacto ambiental
+primas y energía.       eléctrico en equipos.     de los procesos industriales.
+Introducción a la economía Comparar el rendimiento de Evidenciar iniciativa en la
+circular,           reducción, energías convencionales y búsqueda de soluciones
+reutilización y reciclaje.     renovables.               tecnológicas limpias.
+Marco normativo ambiental Aplicar             técnicas      de   Demostrar eficiencia en la
+básico        nacional        e minimización de residuos         aplicación de conocimientos
+internacional      relacionado sólidos, líquidos y gaseosos.     para la mejora de procesos.
+con sostenibilidad.
+                                Diseñar         planes      de   Mantener     una   actitud
+Tecnologías             limpias aprovechamiento             de   positiva frente al trabajo
+aplicadas      a      procesos residuos valorizables.            colaborativo y proyectos
+industriales.                                                    colectivos.
+                                Documentar procedimientos
+Técnicas de optimización del de sostenibilidad aplicados         Respetar          normativas
+consumo        eléctrico     en en procesos experimentales.      ambientales     vigentes   y
+equipos y sistemas.                                              aplicarlas     de      forma
+                                Integrar      sistemas      de
+                                                                 consciente.
+Procedimientos               de automatización que mejoren
+minimización de residuos y la eficiencia energética.             Tomar conciencia de la
+emisiones contaminantes.                                         importancia de innovar en el
+                                Evaluar     indicadores     de
+                                                                 uso de energías renovables
+Modelos        de       gestión sostenibilidad en procesos
+                                                                 y tecnologías limpias.
+energética y de recursos en simulados y reales.
+entornos industriales.                                           Manifestar compromiso con
+                                Incorporar            energías
+                                                                 el cuidado del entorno social,
+Sistemas de tratamiento y renovables en prototipos o
+                                                                 económico y ambiental.
+valorización de residuos procesos de laboratorio.
+industriales.
+                                Diseñar      propuestas     de
+Relación entre eficiencia mejora             de      procesos
+energética y reducción de industriales con base en
+costos operativos.              tecnologías limpias.
+Automatización y control Validar la reducción de
+industrial    orientados a costos operativos mediante
+sostenibilidad.            la optimización de recursos
+Integración de      energías
+renovables en       procesos
+productivos.
+Innovación y tendencias en
+tecnologías sostenibles.
+Indicadores                de
+sostenibilidad,   huella   de
+carbono, huella hídrica,
+eficiencia global de recursos.
+Normas internacionales de
+sostenibilidad industrial (ISO
+14001, ISO 50001).
+Diseño y mejora de procesos
+industriales con enfoque
+ambiental.
+Proyectos integrales de
+sostenibilidad en procesos
+industriales,        análisis,
+implementación y evaluación
+de resultados.
+Perfil del o la docente
+
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+   Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+   sector industrial sostenible.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                     Especificaciones técnicas                         Cantidad
+
+Infraestructura/espacio          Entorno de aprendizaje                    1
+                                 (aula)
+
+Laboratorio                      Computadoras con acceso a internet
+                                 Proyector                                 1
+
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+
+Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+      gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+      uso. ISO 45001:2018
+
+Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+       de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+       Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+        riesgos laborales
+
+
+                                  Módulo Genérico Nro.3
+
+Nombre del módulo:                   Dibujo Técnico Aplicado
+
+Nivel:                               1ro y 2do
+
+Duración:                            160 periodos pedagógicos
+
+                                      UC 3: Elaborar representaciones gráficas técnicas
+                                      aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia                 herramientas digitales como CAD, CAE y modelado
+asociada:                             3D, generando planos, modelos y prototipos con
+                                      precisión, creatividad, responsabilidad y compromiso
+                                      con la calidad en contextos industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Emplear normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Distingue símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Elabora planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2 Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+Contenidos
+Conceptuales                  Procedimentales               Actitudinales
+                              Trazar líneas, vistas y Mostrar interés en la lectura,
+Principios básicos del dibujo escalas en bocetos y planos. interpretación y elaboración
+técnico: líneas, tipos de Utilizar instrumentos de de planos técnicos.
+vistas y escalas.             dibujo técnico con precisión. Cumplir con las normas de
+                                                              calidad en representaciones
+Normas internacionales y Identificar         simbología     y
+                                                              gráficas.
+nacionales de dibujo técnico aplicar normas básicas en
+(ISO, DIN, INEN).              representaciones gráficas.     Valorar la precisión y
+                                                              exactitud en los dibujos
+                               Interpretar            planos
+Principios fundamentales de bidimensionales simples.          como garantía de seguridad
+geometría     aplicados     al                                y confiabilidad.
+                               Representar           figuras
+dibujo técnico.                                               Demostrar               orden,
+                               geométricas aplicadas a
+                                                              responsabilidad y método en
+                               piezas básicas.
+Sistemas de proyección                                        el uso de herramientas
+ortogonal,    isométrica     y Elaborar planos con cortes, manuales y digitales.
+oblicua.                       secciones y detalles.
+                                                              Asumir actitud reflexiva y
+                               Dibujar ensamblajes simples analítica al interpretar planos
+Lectura e interpretación de
+                               aplicando      normas      de y diagramas técnicos.
+planos y esquemas técnicos.
+                               rotulación y acotación.
+Conceptos de acotación,                                       Mostrar iniciativa en la
+tolerancias y ajustes en       Usar   software  CAD    en  la búsqueda de soluciones
+representaciones gráficas.     creación                   de gráficas ante problemas de
+                               representaciones 2D.           representación.
+Rotulación y simbología Representar diagramas y
+                                                              Demostrar liderazgo en
+básica en planos técnicos.     esquemas funcionales de actividades colaborativas de
+                               sistemas técnicos.             diseño gráfico técnico.
+Representación de cortes,
+secciones       y    detalles Comprobar exactitud de Aplicar                criterios     de
+técnicos.                      planos  mediante  cotejo  con  creatividad  e  innovación  en
+                               piezas o modelos reales.       el desarrollo de planos y
+Principios de normalización Generar          modelos      3D modelos.
+en planos de       piezas
+                        y mediante herramientas CAD. Respetar las normas de
+ensamblajes.
+                          Simular funcionamiento y seguridad en el uso de
+                          ensamblajes en software equipos e instalaciones de
+Escalas de reducción y                               laboratorio de CAD.
+                          CAD/CAE.
+ampliación aplicadas a la
+industria.                                           Demostrar responsabilidad
+                                                     en la entrega oportuna y con
+                                                     calidad de trabajos gráficos.
+Geometría           descriptiva Crear prototipos digitales y Mostrar disposición positiva
+aplicada       a     sistemas planos         listos     para y activa en actividades
+complejos.                      fabricación.                 individuales y grupales.
+                            Optimizar representaciones       Usar con cuidado los
+Introducción a herramientas
+                            gráficas            mediante     materiales,   equipos    y
+CAD en 2D, funciones
+                            automatización            de     software de representación
+básicas      y    comandos
+                            comandos y macros en CAD.        gráfica.
+esenciales.
+                            Presentar proyectos de           Valorar la importancia del
+Elaboración    de    planos diseño gráfico técnico con       dibujo técnico como
+constructivos y diagramas enfoque         innovador    y     lenguaje universal en la
+funcionales.                colaborativo.                    industria.
+
+Principios de representación
+gráfica en componentes
+mecánicos, electrónicos y
+estructurales.
+
+Modelado tridimensional en
+software CAD y generación
+de prototipos digitales.
+
+Ensamblajes y simulación de
+funcionamiento          con
+herramientas CAD/CAE.
+Generación     de     vistas
+explotadas y despieces
+técnicos.
+
+Renderizado         básico  y
+presentación       de modelos
+3D.
+
+Optimización de planos
+digitales para manufactura y
+fabricación    asistida  por
+computadora (CAM).
+
+Innovación y creatividad en
+el diseño gráfico aplicado a
+procesos industriales.
+Integración del dibujo técnico
+en                   proyectos
+interdisciplinarios de diseño,
+producción y mantenimiento.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+    Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+    al área de representación gráfica y diseño técnico.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                              Detalle de especificaciones                  Cantidad
+Denominación
+                              técnicas
+Infraestructura/espacio       Entorno de aprendizaje (aula)                1
+
+Laboratorio                   Computadoras con acceso a internet           1
+                              Proyector
+Referencias Bibliográficas
+
+Recursos Digitales:
+
+Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V. (2022).
+       Salud ocupacional como vigencia de los derechos humanos. Encuentros, 16.
+       https://doi.org/10.5281/zenodo.6917094
+
+Alli, B. O. (2009). Principios fundamentales de salud y seguridad en el trabajo (2.ª ed.).
+         Organización Internacional del Trabajo. Organización Internacional del Trabajo
+
+Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+     seguridad y salud ocupacional para la prevención de accidentes laborales en
+     empresas mineras. Llamkasun, 3(1), 112–118.
+
+Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+        industria de la construcción en Ecuador. Novasinergia, 5(1), 150–162.
+        https://doi.org/10.37135/ns.01.09.09
+
+Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad industrial:
+      Fundamentos y aplicaciones. Ministerio de Industria, Turismo y Comercio de
+      España. Publicación oficial
+ Organización Internacional de Normalización. (2018). ISO 45001:2018. Sistemas de
+       gestión de la seguridad y salud en el trabajo—Requisitos con orientación para su
+       uso. ISO 45001:2018
+
+ Presidencia de la República del Ecuador. (2003). Decreto Ejecutivo N.º 2393. Reglamento
+        de Seguridad y Salud de los Trabajadores y Mejoramiento del Medio Ambiente de
+        Trabajo. Texto oficial del Decreto Ejecutivo 2393
+
+ Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+         evaluación de riesgos laborales. INSST - Directrices básicas para la evaluación de
+         riesgos laborales
+
+   4. Módulos de Especialización
+
+Las y los estudiantes que opten por la especialidad en Mecánica Industrial desarrollarán
+competencias en la operación, ajustes, montaje, mantenimiento y reparación de
+equipos, sistemas y componentes mecánicos utilizados en la industria, así como el
+manejo de herramientas y equipos necesarios para diagnosticar y solucionar fallas,
+aplicando las normativas de calidad, seguridad industrial y protección ambiental.
+
+Se estructuran los siguientes módulos de especialización para el bachillerato:
+
+   •      Fundamentos de Metrología y Control de Calidad.
+   •      Cálculo Mecánico y Estructural.
+   •      Mecanizado por Arranque de Viruta.
+   •      Soldadura
+   •      Diseño Asistido por Computador (CAD)
+
+                         Módulo de Especialización Nro. 1
+
+ Nombre del módulo:                   Fundamentos de Metrología y Control de Calidad
+
+ Nivel:                               1ro
+
+ Duración:                            120 periodos pedagógicos
+
+ Unidad de competencia               UC1:      Utilizar   instrumentos     de      medición
+ asociada:                           convencionales y de precisión, en piezas, conjuntos
+                                     mecánicos y estructuras metálicas, cumpliendo con
+                                     estándares de seguridad y calidad.
+ Objetivo del módulo: Aplicar técnicas de medición con instrumentos convencionales y de
+ precisión en piezas y estructuras metalmecánicas, interpretando especificaciones técnicas,
+ verificando tolerancias dimensionales y geométricas, y cumpliendo normas de seguridad y
+ calidad, para garantizar mediciones confiables acordes a estándares industriales.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Diferenciar instrumentos de medición convencionales y de precisión según
+las características de las piezas mecánicas y estructuras metálicas cumpliendo los
+requerimientos técnicos.
+CE1.1: Distingue conceptos básicos de metrología y sistemas de medición utilizados en el
+dimensionamiento de piezas mecánicas y estructuras metálicas.
+CE1.2: Clasifica correctamente instrumentos de medición convencionales y de precisión
+según su función y rango de medición, mediante ejercicios prácticos y fichas técnicas.
+CE1.3: Relaciona las características de las piezas mecánicas con el instrumento de
+medición adecuado, justificando su elección en casos simulados o reales.
+CE1.4: Interpreta requerimientos técnicos de planos o especificaciones para seleccionar
+el instrumento de medición óptimo, aplicando conceptos de exactitud, precisión y rango de
+trabajo.
+RA 2: Aplicar técnicas de medición con instrumentos convencionales (calibres,
+reglas, micrómetros, etc.) y de precisión (vernier, relojes comparadores, etc.),
+asegurando exactitud en las mediciones de piezas mecánicas y estructuras
+metálicas.
+CE 2.1. Obtiene mediciones repetibles con el uso instrumentos de precisión, aplicando
+técnicas de posicionamiento adecuada.
+CE 2.2: Utiliza instrumentos de precisión siguiendo protocolos de calibración y ajuste,
+obteniendo mediciones dentro de márgenes de tolerancia establecidos.
+CE 2.3: Emplea técnicas de verificación y control de calidad, comparando mediciones
+repetidas para garantizar exactitud en los resultados.
+CE 2.4: Detecta y corrige fuentes de error comunes, aplicando buenas prácticas de
+medición.
+ RA 3: Interpretar especificaciones técnicas para realizar mediciones adecuadas,
+ verificando tolerancias dimensionales y geométricas según normas de calidad.
+CE 3.1: Identifica símbolos de tolerancia dimensional y geométrica en planos, explicando
+su significado.
+CE 3.2: Relaciona las tolerancias dimensionales con el instrumento de medición adecuado
+justificando su selección según precisión requerida.
+CE 3.3: Interpreta tolerancias geométricas mediante símbolos, aplicando normas de
+calidad.
+CE 3.3: Verifica el cumplimiento de especificaciones en piezas reales o maquetas,
+contrastando mediciones con los valores de planos, detectando no conformidades.
+RA 4: Cumplir normas de seguridad y calidad durante el uso de instrumentos de
+medición, aplicando protocolos de mantenimiento y calibración para garantizar
+resultados confiables y condiciones de trabajo seguras.
+CE 4.1: Ejecuta pasos de limpieza, lubricación y almacenamiento según manuales, usando
+materiales adecuados.
+CE 4.2: Reporta anomalías en fichas técnicas mediante inspecciones visuales y pruebas
+funcionales básicas.
+CE 4.3: Realiza verificaciones de calibración usando patrones de referencia para confirmar
+la precisión de instrumentos y registrando resultados.
+CE 4.4: Elabora informes técnicos de los procesos de mantenimiento y calibración
+incluyendo fechas, responsables y acciones realizadas para garantizar trazabilidad.
+Contenidos
+Conceptuales                      Procedimentales                   Actitudinales
+Introducción a la Metrología: Diferenciar las técnicas de           Ser meticuloso y exacto en
+Concepto de medida                medición convencionales y         las mediciones.
+Sistemas de unidades              de precisión aplicadas en
+                                                                    Identificar  errores   y
+Conversión de unidades            piezas      mecánicas         y
+                                                                    desviaciones          en
+Calibración,          corrección, estructuras          metálicas,
+                                                                    mediciones y procesos de
+desviación                        según su geometría y
+                                                                    producción.
+Incertidumbre                     tolerancias especificadas en
+Trazabilidad                      planos técnicos.                  Mantener los instrumentos
+Patrones                                                            calibrados y en buen
+Repetitividad                     Relacionar los instrumentos       estado.
+División de escala                de medición con los rangos
+Precisión, exactitud, veracidad de tolerancia definidos en          Detectar     errores     y
+Instrumentos de medida:           normas             ISO/ASME,      proponer soluciones.
+Calibradores Pie de Rey           mediante      ejercicios    de    Colaborar y comunicar
+Micrómetros de exteriores, selección basados en casos               hallazgos efectivamente.
+interiores y profundidad          reales.
+Barras patrón                                                       Aplicar    normas      de
+Reglas de planitud                Aplicar    protocolos       de    seguridad      y      uso
+Sistemas comparadores             seguridad durante el uso de       responsable de recursos.
+Reloj comparador                  instrumentos de medición,         Demostrar honestidad en
+Alexómetro                        incluyendo      manipulación,     la     interpretación de
+Medidores de espesores            almacenamiento                y   resultados.
+Calibradores rápidos de interior verificación de condiciones
+y exterior                        ambientales (temperatura,         Reportar defectos, fallas o
+Gramiles                          vibraciones).                     desviaciones en piezas y
+Láminas de espesores                                                proceso.
+Goniómetro                        Ejecutar mediciones en
+                                                                    Usar    responsablemente
+Escuadra                          piezas      mecánicas         y
+                                                                    los recursos y materiales
+Rugosímetros                      estructuras          metálicas
+                                                                    para            minimizar
+Técnicas de medición:             utilizando       instrumentos
+                                                                    desperdicios.
+Medición y comparación del convencionales                y    de
+producto mecanizado               precisión, registrando en         Mantener constancia en el
+Medición directa:                 formatos              técnicos,   cumplimiento de normas y
+Instrumentos de comparación       comparándolos con valores         tareas.
+Instrumentos de verificación      de referencia.
+                                                                    Desarrollar una actitud
+Acabado superficial:
+                                                                    proactiva     hacia   la
+Parámetros de rugosidad media Interpretar simbología de
+                                                                    planificación          y
+y máxima                          tolerancias geométricas en
+                                  planos técnicos, verificando
+Tipos de errores al realizar      su cumplimiento mediante estructuración                de
+una medida:                       mediciones con equipos actividades.
+Sistemático                       adecuados.
+                                                                 Adoptar          prácticas
+Aleatorios
+                                                                 personales y colectivas de
+Sistemas de verificación y        Realizar       mantenimiento
+                                                                 higiene como parte del
+control:                          preventivo      básico      en
+                                                                 respeto propio y hacia los
+Tolerancias y ajustes             instrumentos de medición,
+                                                                 demás.
+Normas INEN e ISO                 limpieza,         lubricación,
+Sistema de criterios de           verificación de calibración, Promover una cultura de
+aceptación                        siguiendo manuales del seguridad en su entorno.
+Técnicas de mantenimientos        fabricante y registrando
+en instrumentos de medida         acciones en fichas técnicas Escuchar y valorar las
+Tipos de mantenimiento            de control.                    opiniones del equipo,
+Manejo,      almacenamiento,                                     tomando decisiones con
+conservación                      Identificar y corregir errores equidad.
+Interpretación             de     comunes en mediciones Proponer            soluciones
+certificados de calibración o     (paralaje,  desgaste    de innovadoras           ante
+fichas de control:                instrumentos,      presión problemas o desafíos.
+Criterios                  de     excesiva),       aplicando
+aceptación/especificación del     técnicas    de   medición
+equipo                            adecuadas.
+Influencia de las condiciones
+ambientales.                      Elaborar informes técnicos
+Entidades acreditadas             de              verificación,
+Periodos de calibración           documentando
+Fichas de Control                 desviaciones dimensionales
+                                  y proponiendo acciones
+                                  correctivas para piezas no
+                                  conformes.
+Perfil del o la docente
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica,
+   Metalurgia, Diseño Industrial, Mantenimiento Industrial, Producción Industrial, o a fines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                Especificaciones técnicas                    Cantidad
+Infraestructura/espacio       Entorno de aprendizaje (aula)               1
+                              Laboratorio de computación con acceso a 1
+                              internet
+                              Proyector
+Herramientas/equipos           Instrumentos         de        medición
+                               convencionales (reglas, calibres, cintas
+                               métricas, etc.) y de precisión (vernier,
+                               micrómetro, reloj comparador, etc.)
+                               Software de simulación de instrumentos
+                               de medición.
+                              Calculadoras y tablas de medidas,
+                              tolerancias y materiales.
+Referencias Bibliográficas
+Libros:
+   o Company Calleja, P. P., & González Lluch, M. C. (2022). CAD 3D con SolidWorks:
+       Tomo I. Diseño básico. Volumen 3: Dibujos (2.ª ed.). Universitat Jaume I.
+       https://cad3dconsolidworks.uji.es/
+   o Díaz Poma, E., & Chango Santo, S. (2023). Metrología automotriz. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/9
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de mecanizado
+       y planificación de procesos: Mecanizado convencional y no convencional,
+       introducción a CNC, economía de mecanizado, planificación de procesos y utillajes.
+       Universidad Politécnica de Cartagena. https://doi.org/10.31428/10317/13790
+   o Jijón Cando, P., & Mena Franco, M. (2022). Manual de seguridad e higiene del
+       trabajo.           Instituto         Superior          Universitario       Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/7
+   o Montalvo, N., León, C., & Hinojosa, C. (2021). ¿Qué es la norma ISO 9001:2015?
+       Fundamentos prácticos para su comprensión e implementación. UDLA Ediciones.
+       https://udlapublicaciones.com/que-es-la-norma-iso-90012015-wx2vj.html
+   o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+       Instrumentación y automatización industrial. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+       Superior                              Universitario                        Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+
+
+                          Módulo de Especialización Nro. 2
+
+Nombre del módulo:                   Cálculo Mecánico y Estructural
+
+Nivel:                               1ro, 2do
+
+Duración:                            200 periodos pedagógicos
+Unidad de competencia              UC2: Dimensionar elementos mecánicos y estructuras
+asociada:                          metálicas, aplicando principios básicos de cálculo
+                                   mecánico y normativa técnica, garantizando
+                                   estabilidad y funcionalidad
+Objetivo del módulo: Analizar y resolver problemas de mecánica y estructuras, aplicando
+principios básicos de cálculo mecánico y normativa técnica, de manera segura,
+eficiente y sostenible.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Interpretar planos, esquemas y especificaciones técnicas de elementos
+mecánicos y estructuras metálicas.
+CE1.1: Identifica correctamente símbolos, líneas, cotas y tolerancias en planos y
+esquemas mecánicos y estructurales.
+CE1.2: Reconoce las vistas necesarias (alzado, planta, sección, isométrica) y su relación
+con los elementos.
+CE1.3: Extrae información sobre dimensiones, materiales, procesos y tratamientos
+indicados.
+CE1.4: Reporta inconsistencias o errores en la documentación técnica y propone
+alternativas de solución.
+RA 2: Analizar diferentes tipos de cargas y solicitaciones en estructuras metálicas,
+determinando sus efectos sobre la deformación, esfuerzo y resistencia de los
+elementos, aplicando normas técnicas vigentes.
+CE 2.1. Selecciona los tipos de cargas y solicitaciones que actúan sobre las estructuras
+metálicas, reconociendo su influencia en la deformación y esfuerzo de los elementos.
+CE 2.2: Analiza los efectos de diferentes cargas y solicitaciones en los elementos
+estructurales, determinando su resistencia y comportamiento conforme a normas técnicas
+vigentes.
+CE 2.3: Elabora diagramas de cargas, esfuerzos y deformaciones de los elementos
+estructurales, utilizando métodos de análisis estructurales aplicables.
+CE 2.4: Documenta correctamente los resultados del análisis, incluyendo conclusiones
+sobre seguridad, estabilidad y cumplimiento normativo
+RA 3: Aplicar procedimientos de cálculo y dimensionamiento para elementos
+estructurales metálicos, seleccionando materiales y secciones adecuados según
+criterios de seguridad y normas técnicas.
+CE 4.1: Establece los procedimientos de cálculo y dimensionamiento para elementos
+estructurales metálicos, identificando los materiales y secciones utilizados según normas
+técnicas y criterios de seguridad.
+CE 4.2: Aplica procedimientos de cálculo y dimensionamiento en casos prácticos,
+seleccionando materiales y secciones que cumplan con los criterios de seguridad y normas
+técnicas.
+CE 4.3: Analiza los resultados de los cálculos estructurales para determinar la idoneidad de
+materiales y secciones en función de la resistencia, estabilidad y funcionalidad.
+CE 4.4: Presenta alternativas de selección de materiales y secciones que optimicen la
+resistencia, funcionalidad y seguridad de los elementos estructurales metálicos,
+garantizando cumplimiento normativo.
+RA 4: Proponer alternativas de diseño de estructuras metálicas que optimicen
+resistencia estabilidad y funcionalidad, garantizando el cumplimiento de normas
+técnicas y criterios de seguridad.
+CE 4.1: Reconoce los criterios de resistencia, estabilidad y funcionalidad en diseños de
+estructuras metálicas, reconociendo normas técnicas y criterios de seguridad aplicables.
+CE 4.2: Analiza diseños de estructuras metálicas existentes, evaluando su comportamiento
+frente a cargas y solicitaciones, detectando posibles fallas o áreas de mejora.
+CE 4.3: Aplica técnicas de diseño y dimensionamiento para ajustar elementos de
+estructuras metálicas, garantizando estabilidad, resistencia y cumplimiento normativo en
+nuevos contextos.
+CE 4.4: Plantea alternativas de diseño optimizadas que mejoren resistencia, estabilidad y
+funcionalidad, asegurando el cumplimiento de normas técnicas y criterios de seguridad.
+Contenidos
+Conceptuales                    Procedimentales                 Actitudinales
+Introducción a la Mecánica Realizar lecturas sobre Demostrar rigurosidad y
+aplicada                        magnitudes      físicas      y precisión en la realización de
+Movimiento plano: velocidad sistemas de unidades, cálculos                   mecánicos         y
+y aceleración en sistemas promoviendo la búsqueda estructurales.
+articulados.                    de información en fuentes
+                                confiables.                     Identificar posibles fallas o
+Trabajo, potencia y energía                                     riesgos estructurales.
+en sistemas mecánicos.          Resolver ejercicios que Poseer              capacidad        de
+                                impliquen conversiones de análisis crítico y resolución
+Rozamiento y eficiencia en unidades y cálculos básicos de problemas técnicos.
+máquinas simples.               de fuerza, masa, peso y
+Fundamentos                de presión.                          Mantener constancia en el
+mecánica y resistencia de                                       cumplimiento de normas y
+materiales                      Fomentar debates sobre las tareas.
+Fundamentos de mecánica: aplicaciones             de       los
+                                                                Desarrollar     una     actitud
+fuerzas,           momentos, conceptos de mecánica en
+                                                                proactiva        hacia        la
+equilibrio estático.            situaciones cotidianas.
+                                                                planificación y estructuración
+                                                                de actividades.
+Tipos de solicitaciones en Realizar experimentos que
+elementos          mecánicos: muestren la composición y Promover                    ambientes
+tensión, compresión, corte, descomposición de fuerzas. ordenados como base para
+torsión y flexión.                                              una mejor convivencia y
+                                Aplicar     métodos         de eficiencia.
+Esfuerzo y deformación: equilibrio          en     ejercicios
+tracción,        compresión, prácticos,            utilizando Adoptar                prácticas
+cortante, flexión y torsión.    diagramas de cuerpo libre.      personales y colectivas de
+Límite elástico, rotura y        Formar     grupos     para     higiene como parte del
+coeficiente de seguridad.        resolver        problemas      respeto propio y hacia los
+                                 complejos de equilibrio en     demás.
+Pandeo      de     columnas      sistemas coplanares.
+                                                                Participar en la promoción de
+esbeltas.
+                                                                ambientes limpios y seguros.
+                                 Realizar      un  estudio
+Propiedades                 de   comparativo de materiales      Identificar riesgos y actuar
+materiales                       ferrosos y no ferrosos,        con responsabilidad para
+                                 incluyendo propiedades y       prevenir accidentes.
+Materiales: ferrosos y no
+                                 aplicaciones.
+ferrosos.                                                       Cumplir con las normas y
+                                 Organizar visitas a fábricas   protocolos de seguridad.
+Propiedades   físicas        y
+                                 o laboratorios para observar   Demostrar proactividad en el
+químicas.
+                                 tratamientos térmicos y        desarrollo de tareas y
+Formas comerciales.
+                                 superficiales.                 proyectos.
+Tratamientos     térmicos    y                                  Escuchar y valorar las
+                                 Analizar y realizar las
+superficiales.                                                  opiniones del    equipo,
+                                 técnicas     de    ensayos
+                                 destructivos     y      no     tomando decisiones con
+Ensayos destructivos y no                                       equidad.
+                                 destructivos para evaluar
+destructivos.
+                                 las propiedades de los         Proponer         soluciones
+                                 materiales.                    innovadoras ante problemas
+Metalografía y microscopía.
+                                                                o desafíos.
+                                 Utilizar software de diseño
+Propiedades geométricas                                         Valorar la originalidad y
+                                 para modelar estructuras
+de las secciones                                                fomenta el pensamiento
+                                 isostáticas     y    aplicar
+Área, centroide y momento                                       divergente.
+                                 métodos de nudos y
+estático.
+                                 secciones.
+                                                                Mostrar      respeto      y
+Momento de inercia de                                           compromiso      al   llegar
+secciones   simples y            Elaborar diagramas de
+                                                                puntualmente       a    sus
+compuestas.                      fuerza axial, cortante y
+                                                                actividades.
+                                 momento flector en vigas.
+Radio de giro y             su                                  Reconocer el valor de la
+aplicación en pandeo.            Analizar casos reales de       colaboración y la diversidad
+                                 estructuras y discutir su      de aportes.
+Cálculo      mecánico     y      comportamiento        bajo
+                                                                Actuar con integridad y
+cálculo de engranajes            diferentes cargas.
+                                                                sinceridad en todas sus
+Cálculo de esfuerzos y
+                                                                acciones.
+deformaciones en barras,         Realizar ejercicios que
+vigas      y    estructuras      involucren el cálculo de       Cumplir        con         sus
+metálicas.                       esfuerzos y deformaciones      obligaciones     de     forma
+                                 en diferentes materiales.      oportuna y eficiente.
+Cálculo de engranajes.
+ Análisis de estructuras        Analizar casos de fallos
+ isostáticas                    estructurales y discutir las
+Concepto de estructura          causas relacionadas con la
+isostática, hiperestática y     resistencia de materiales.
+mecanismo.
+                                Realizar cálculos de área,
+Método de nudos y método        centroide y momento de
+de secciones.                   inercia    de    secciones
+                                simples y compuestas.
+Diagramas de fuerza axial,
+cortante y momento flector      Aplicar   los   resultados
+en vigas.                       obtenidos en el diseño de
+                                elementos estructurales.
+Equilibrio de marcos       y
+armaduras sencillas.            Desarrollar proyectos que
+                                integren el cálculo de
+Principios      de    diseño    propiedades geométricas
+estructural y normativa         en la solución de problemas
+Principios      de     diseño   reales.
+estructural:       seguridad,
+eficiencia, factor de carga.    Realizar estudios de casos
+                                sobre el movimiento en
+Normas y códigos de             sistemas articulados.
+diseño     aplicables   a
+estructuras y componentes       Realizar experimentos para
+mecánicos.                      medir trabajo, potencia y
+                                eficiencia en máquinas
+                                simples.
+
+                                Aplicar los conceptos de
+                                mecánica a problemas
+                                prácticos, promoviendo el
+                                uso de vocabulario técnico.
+Perfil del o la docente
+ •  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica,
+    Metalurgia, Diseño Industrial, Mantenimiento Industrial, Producción Industrial, o a
+    fines.
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+Materiales y recursos
+
+Denominación               Especificaciones técnicas                   Cantidad
+
+Infraestructura/espacio  Entorno de aprendizaje (aula)               1
+                         Laboratorio de computación con acceso a 1
+                         internet
+                         Proyector
+                         Taller o laboratorio de estructuras
+                         metálicas equipado con planos, modelos
+                         a escala y equipos de medición.
+Recursos                 Simulaciones virtuales o casos prácticos
+                         de estructuras reales en aula o
+                         laboratorio.
+                         Planos, manuales técnicos y normativa
+                         vigente de estructuras metálicas.
+                         Materiales de referencia para cálculo y
+                         dimensionamiento         (tablas         de
+                         propiedades de materiales, software de
+                         cálculo estructural).
+                         Calculadoras científicas o software
+                         especializado para análisis estructural.
+Referencias Bibliográficas
+
+Libros:
+   o Company Calleja, P. P., & González Lluch, M. C. (2022). CAD 3D con SolidWorks:
+       Tomo I. Diseño básico. Volumen 3: Dibujos (2.ª ed.). Universitat Jaume I.
+       https://cad3dconsolidworks.uji.es/
+   o Díaz Poma, E., & Chango Santo, S. (2023). Metrología automotriz. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/9
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de mecanizado
+       y planificación de procesos: Mecanizado convencional y no convencional,
+       introducción a CNC, economía de mecanizado, planificación de procesos y utillajes.
+       Universidad Politécnica de Cartagena. https://doi.org/10.31428/10317/13790
+   o Jijón Cando, P., & Mena Franco, M. (2022). Manual de seguridad e higiene del
+       trabajo.           Instituto         Superior          Universitario       Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/7
+   o Montalvo, N., León, C., & Hinojosa, C. (2021). ¿Qué es la norma ISO 9001:2015?
+       Fundamentos prácticos para su comprensión e implementación. UDLA Ediciones.
+       https://udlapublicaciones.com/que-es-la-norma-iso-90012015-wx2vj.html
+   o     Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+         Instrumentación y automatización industrial. Instituto Superior Universitario
+         Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o     Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+         Superior                             Universitario                   Cotopaxi.
+         https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+
+
+                       Módulo de Especialización Nro. 3
+
+Nombre del módulo:                  Mecanizado por Arranque de Viruta
+
+Nivel:                              1ro, 2do, 3ro
+
+Duración:                           760 periodos pedagógicos
+
+Unidad de competencia              UC3. Ejecutar operaciones metalmecánicas y
+asociada:                          procesos de mecanizado por arranque de viruta,
+                                   convencional y/o no convencional, en la fabricación de
+                                   elementos      mecánicos,     mediante        técnicas
+                                   especializadas, asegurando calidad, precisión y
+                                   sostenibilidad
+Objetivo del módulo: Realizar operaciones de corte, conformado y mecanizado manual
+y/o mecánico para la producción de partes y piezas, aplicando técnicas especializadas,
+normas de seguridad, calidad y sostenibilidad.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Seleccionar máquinas, herramientas y materiales utilizados en las
+operaciones metalmecánicas básicas y procesos de mecanizado por arranque de
+viruta convencional y/o no convencional, reconociendo sus características y
+funciones.
+CE1.1: Distingue los diferentes tipos de máquinas empleadas en operaciones
+metalmecánica (tornos, fresadoras, taladros, rectificadoras, entre otras), reconociendo su
+funcionamiento y campo de aplicación.
+CE1.2: Diferencia las herramientas de corte y sujeción de acuerdo con el material de la
+pieza, el tipo de mecanizado y los parámetros de operación
+CE1.3: Selecciona materiales metálicos y no metálicos considerando sus propiedades
+mecánicas, resistencia, maquinabilidad y uso en el proceso de arranque de viruta.
+CE1.4: Aplica criterios técnicos y normas de seguridad en la elección de máquinas,
+herramientas y materiales, garantizando la calidad del proceso de mecanizado.
+RA 2: Analizar los procedimientos de mecanizado convencional y/o no convencional
+y sus parámetros operativos de velocidad, avance y profundidad de corte,
+determinando su influencia en la calidad y precisión de las piezas.
+CE 2.1: Asocia los procedimientos básicos de mecanizado convencional y/o no
+convencional y los parámetros operativos de velocidad, avance y profundidad de corte,
+con su función en el proceso de fabricación.
+CE 2.2: Analiza la relación entre los parámetros de mecanizado convencional y/o no
+convencional y la calidad de las piezas, identificando cómo cada variable afecta al acabado
+y rendimiento de la máquina.
+ CE 2.3: Aplica los parámetros operativos adecuados en procesos de mecanizado
+ convencional y/o no convencional, ajustándolos según el material y tipo de pieza para
+ garantizar calidad y precisión.
+ CE 2.4: Efectúa ajustes o combinaciones de parámetros de mecanizado convencional y/o
+ no convencional que optimicen la calidad, precisión y eficiencia del proceso, justificando las
+ decisiones con base en normas y buenas prácticas técnicas.
+ RA 3: Aplicar técnicas de mecanizado por arranque de viruta convencional y/o no
+ convencional para fabricar elementos mecánicos, siguiendo instrucciones técnicas,
+ planos y normas de seguridad.
+CE 3.1: Describe los pasos básicos para ejecutar operaciones de mecanizado por arranque
+de viruta convencional y/o no convencional, identificando instrucciones técnicas y medidas
+de seguridad.
+CE 3.2: Determina la secuencia adecuada de operaciones de mecanizado convencional y/o
+no convencional a partir de planos y especificaciones técnicas, evaluando herramientas y
+parámetros necesarios.
+CE 3.3: Ejecuta técnicas de mecanizado por arranque de viruta convencional y/o no
+convencional para fabricar elementos mecánicos, cumpliendo con planos, normas de
+seguridad y especificaciones técnicas.
+CE 3.4: Formula mejoras en la planificación de operaciones de mecanizado convencional
+y/o no convencional para optimizar precisión, eficiencia y seguridad, sustentando sus
+decisiones en normas técnicas.
+RA 4: Proponer ajustes en los procesos de mecanizado convencional y/o no
+convencional para optimizar la precisión, eficiencia y calidad de los elementos
+mecánicos, garantizando cumplimiento de normas técnicas y de seguridad.
+C.E.4.1: Detecta posibles aspectos de los procesos de mecanizado convencional y/o no
+convencional que afectan la precisión, eficiencia y calidad, reconociendo normas y medidas
+de seguridad aplicables.
+C.E. 4.2: Examina los procesos de mecanizado convencional y/o no convencional
+existentes, evaluando cómo los parámetros y técnicas influyen en el resultado final de los
+elementos mecánicos.
+C.E. 4.3: Presenta alternativas de mejora en los procesos de mecanizado convencional y/o
+no convencional que optimicen precisión, eficiencia y calidad de los elementos mecánicos,
+justificando sus decisiones conforme a normas técnicas y criterios de seguridad.
+C.E. 4.4: Implementa ajustes en operaciones de mecanizado convencional y/o no
+convencional bajo supervisión, para asegurar precisión, eficiencia y calidad, siguiendo
+planos, normas y procedimientos técnicos.
+Contenidos
+Conceptuales                    Procedimentales                   Actitudinales
+Fundamentos             del     Dibujar planos y esquemas         Mantener constancia en el
+mecanizado:                     para la construcción y            cumplimiento de normas y
+Corte, arranque de viruta y     montaje de partes y piezas        tareas.
+tipos    de    mecanizado       en procesos de maquinado
+                                                                  Tener conciencia de calidad
+(convencional     y      no     por arranque de viruta,
+                                                                  técnica      y     ambiental,
+convencional).                  aplicando      las    normas
+                                                                  demostrando interés por
+                                generales y específicas del
+                                                                  mejorar el producto final de su
+Prevención de riesgos dibujo técnico mecánico,
+                                                                  trabajo.
+específicos        en        el incluido herramientas de
+mecanizado por arranque dibujo computarizado CAD.                 Asumir con seriedad sus
+de viruta:                                                        compromisos y persevera
+Riesgos de manipulación y Realizar procedimientos de              ante las dificultades.
+almacenaje.                     medición,       marcado       y
+                                trazado, seleccionando los        Asumir una actitud reflexiva y
+Riesgos de instalaciones. medios, productos, útiles y             analítica en el dibujo de
+Elementos de seguridad en métodos según los diversos              planos y esquemas para la
+las máquinas.                   tipos de piezas a mecanizar       construcción y montaje de
+                                en procesos por arranque          partes y piezas en procesos
+Contacto con sustancias de viruta.                                de maquinado por arranque
+corrosivas.                                                       de viruta.
+                                Diferenciar los materiales        Valorar la importancia del uso
+Toxicidad y peligrosidad comúnmente utilizados en                 de ropas y equipos de
+ambiental      de      grasas, procesos de maquinado por          protección personal para la
+lubricantes     y      aceites. arranque        de      viruta,   realización de operaciones de
+Equipos      de     protección analizando sus propiedades         mecanizado por arranque de
+colectiva       según        el y formatos comerciales.           viruta.
+mecanizado por arranque de
+viruta.                         Identificar y seleccionar         Desarrollar     una     actitud
+                                máquinas y herramientas           proactiva        hacia        la
+Representación gráfica de para operaciones básicas.               planificación y estructuración
+partes, piezas y elementos                                        de actividades.
+mecánicos:                      Preparar        y      montar     Respetar los planes y normas
+Planos      generales,      de herramientas en máquinas           de seguridad e higiene
+despiece, de fabricación, de sencillas.                           aplicadas en las operaciones
+montaje.                                                          de maquinado por arranque
+                                Ejecutar operaciones de           de viruta.
+Croquis,      esquemas        y torneado     y     taladrados
+códigos de representación.      simples siguiendo planos          Participar en la promoción de
+Códigos de representación básicos.                                ambientes limpios y seguros.
+en mecánica.                    Medir        y        verificar
+                                                                  Considerar las medidas de
+                                dimensiones básicas de las
+                                                                  seguridad en la preparación,
+Gráficos y léxicos.             piezas mecanizadas.
+                                                                  operación y mantenimiento de
+Marcado,        trazado      y                                máquinas y equipos de
+centrado de piezas para Ejecutar fresado, taladrado mecanizado por arranque de
+procesos de maquinado: y rectificado de piezas con viruta.
+Herramientas y útiles.         tolerancias definidas.
+                                                              Ser minuciosos en las
+                                                              operaciones de control de las
+Técnicas específicas de Ajustar parámetros de corte
+                                                              trayectorias en los procesos
+marcado        y      trazado. según material y tipo de
+                                                              de               mecanizado
+Operaciones de sujeción de operación.
+                                                              automatizado.
+piezas y herramientas.
+                               Controlar       dimensiones,
+Definición de las superficies acabados superficiales y
+de         referencia        y calidad de las piezas.
+posicionamiento de la pieza.
+                               Aplicar     técnicas        de
+Centrado y/o toma de mantenimiento preventivo
+referencias en los procesos en           máquinas           y
+de maquinado por arranque herramientas.
+de viruta.
+                               Reconocer       los riesgos
+Ejecución de trazados de la derivados de la ejecución
+pieza.                         de      operaciones         en
+                               procesos de mecanizado
+Tecnología                 del por arranque de viruta, a fin
+mecanizado por arranque de adoptar las medidas
+de viruta:                     preventivas necesarias.
+El fenómeno de formación
+de la viruta:                  Aplicar las técnicas de
+Parámetros que lo definen. preparación,          reglaje    y
+Relación entre parámetros. puesta a punto de las
+Defectos en la formación de máquinas, herramientas y
+la viruta.                     accesorios para realizar el
+                               mecanizado por arranque
+La abrasión.                   de viruta, considerando la
+Las máquinas herramientas información técnica del
+por arranque de viruta: producto que se va a
+Tipos,             estructura, mecanizar.
+funcionamiento,
+prestaciones, capacidades Realizar          la     selección,
+de trabajo y precisiones:      preparación y montaje de
+Cizalla, torno, cepilladora, las herramientas para los
+fresadora,      mandriladora, procesos de mecanizado
+taladro fresador.              por arranque de viruta,
+                               aplicando las técnicas de
+Utillajes de amarre y          afilado y ajuste de acuerdo
+sujeción, herramientas de      con las instrucciones y
+corte y elementos auxiliares   normas dadas en los
+para el mecanizado por         manuales del fabricante.
+arranque de viruta.
+                               Aplicar las técnicas de
+Herramientas      para    el   manejo y operación de
+arranque     de      viruta:   máquinas convencionales
+Funciones,     formas      y   no      automatizadas     de
+geometrías de corte.           arranque de viruta, como
+Técnicas de manejo y           torno, fresadora, cepillo,
+operación.                     rectificadora, cortadora de
+                               cinta, entre otras, para la
+Riesgos en el manejo de        producción      de    piezas
+máquinas herramientas de       metálicas ferrosas y no
+arranque de viruta.            ferrosas.
+
+Reglaje de herramientas de Realizar los procesos de
+corte multifilo.              mecanizado convencional
+                              por arranque de viruta
+Tecnología       neumática: (torno,            fresadora,
+Fundamentos        del   aire cepilladora, mandriladora),
+comprimido.                   cumpliendo las operaciones
+                              según      la    secuencia
+Generación        de     aire productiva       y       las
+comprimido.                   especificaciones
+Tratamiento       de     aire establecidas en los planos,
+comprimido.                   y operando las máquinas,
+                              útiles y herramientas en
+Actuadores neumáticos.        condiciones de seguridad.
+Válvulas      neumáticas    y
+electroneumáticas.            Diagnosticar y corregir
+                              fallas     en      procesos
+Elementos de regulación y automatizados                  o
+control.                      convencionales.
+
+Accesorios neumáticos.       Realizar operaciones de
+Circuitos   neumáticos     y mantenimiento de primer
+electroneumáticos.           nivel   de   la   máquina
+                             herramienta, siguiendo los
+Software de      simulación. procedimientos
+Tecnología      Hidráulica: recomendados       en   los
+Fundamentos     del aceite manuales técnicos, normas
+como fluido de trabajo. de seguridad y de gestión
+Centrales hidráulicas.  ambiental.
+
+Tratamiento del aceite.       Realizar los procesos de
+                              mecanizado automatizado
+Actuadores hidráulicos.       CNC (torno y fresa) para la
+Válvulas y electroválvulas producción de partes y
+hidráulicas.                  piezas metálicas, operando
+                              las máquinas, útiles y
+Elementos de control y herramientas                    en
+regulación hidráulicos.       condiciones de seguridad,
+                              obteniendo los productos
+Accesorios hidráulicos.       de conformidad con las
+                              especificaciones
+Circuitos    hidráulicos    y establecidas en los planos.
+electro
+Parámetros básicos de Programar               y    operar
+corte: velocidad, avance y máquinas CNC básicas.
+profundidad de corte.
+                              Ejecutar        mecanizado
+Tipos de viruta y su relación avanzado con tolerancias
+con     la   eficiencia   del estrictas y acabados de alta
+mecanizado.                   calidad.
+
+Herramientas   de     corte Documentar         procesos,
+avanzadas: recubrimientos, resultados y registros de
+geometrías complejas.       control de calidad.
+
+Propiedades       físicas  y
+químicas de materiales y su
+influencia en el mecanizado.
+
+Introducción a tolerancias,
+acabados superficiales y
+precisión dimensional.
+
+Operaciones              de
+mecanizado convencional
+por arranque de viruta:
+Metodología para el análisis
+del trabajo.
+Fases de mecanizado del
+producto.
+
+Ordenamiento de las fases y
+las operaciones.
+
+Asignación de máquinas y
+medios:     El   torno,    la
+fresadora, la cepilladora, la
+mandrinadora.
+
+Máquinas         herramientas
+por abrasión:
+Tipos,               estructura,
+funcionamiento,          formas
+obtenibles y precisiones:
+Cortadora         de      disco,
+rectificadora, lijadora.
+
+Técnicas de        manejo     y
+operación.
+
+Conceptos de eficiencia y
+productividad   en      el
+mecanizado.
+
+Mecanizado asistido por
+computadora       (CNC)   y
+automatización de procesos.
+Procesos de mecanizado no
+convencional:
+electroerosión, corte por
+láser, chorro de agua.
+
+Optimización de parámetros
+de corte para eficiencia y
+sostenibilidad.
+
+Normas de calidad y control
+dimensional avanzado.
+Gestión    de    materiales,
+ahorro y sostenibilidad en la
+producción.
+
+
+
+
+Perfil del o la docente
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica,
+   Metalurgia, Diseño Industrial, Mantenimiento Industrial, Producción Industrial, o a fines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Simuladores
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                Especificaciones técnicas                    Cantidad
+
+Infraestructura/espacio     Entorno de aprendizaje                     1
+                            (aula)
+Laboratorio                 Computadoras con acceso a internet         1
+                            Proyector
+                            Software      CAD,     software     CAM
+                            Simuladores de Neumática e Hidráulica.
+Taller                      • Máquinas          de        mecanizado
+                               convencionales (torno, fresadora,
+                               taladro, limadora) no convencionales.
+                            • Equipo CNC (tornos, fresadoras,
+                               impresoras 3D, sistemas de corte) y
+                               herramientas de corte.
+                            • Materiales metálicos y no metálicos
+                               variados (acero, aluminio, fibra, entre
+                               otros).
+                            • Sistemas Hidráulicos y Neumáticos
+                               (tableros, simuladores, etc.)
+                            • Planos y especificaciones técnicas de
+                               las piezas a fabricar.
+                          • Esquemas y diagramas de sistemas
+                            Neumáticos e Hidráulicos
+                          • Herramientas de medición y control de
+                            calidad (calibradores, micrómetros,
+                            comparadores, entre otros).
+Referencias Bibliográficas
+
+Libros:
+   o Company Calleja, P. P., & González Lluch, M. C. (2022). CAD 3D con SolidWorks:
+       Tomo I. Diseño básico. Volumen 3: Dibujos (2.ª ed.). Universitat Jaume I.
+       https://cad3dconsolidworks.uji.es/
+   o Díaz Poma, E., & Chango Santo, S. (2023). Metrología automotriz. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/9
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de mecanizado
+       y planificación de procesos: Mecanizado convencional y no convencional,
+       introducción a CNC, economía de mecanizado, planificación de procesos y utillajes.
+       Universidad Politécnica de Cartagena. https://doi.org/10.31428/10317/13790
+   o Jijón Cando, P., & Mena Franco, M. (2022). Manual de seguridad e higiene del
+       trabajo.           Instituto         Superior          Universitario       Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/7
+   o Montalvo, N., León, C., & Hinojosa, C. (2021). ¿Qué es la norma ISO 9001:2015?
+       Fundamentos prácticos para su comprensión e implementación. UDLA Ediciones.
+       https://udlapublicaciones.com/que-es-la-norma-iso-90012015-wx2vj.html
+   o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+       Instrumentación y automatización industrial. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+       Superior                              Universitario                        Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+
+
+
+                       Módulo de Especialización Nro. 4
+
+Nombre del módulo:                  Soldadura
+
+Nivel:                              2do, 3ro
+
+Duración:                           520 periodos pedagógicos
+
+Unidad de competencia               UC4. Aplicar procesos de soldadura, montaje y
+asociada:                           ensamble en la construcción de conjuntos mecánicos
+                                    y estructuras metálicas, garantizando la precisión,
+                                    seguridad y sostenibilidad.
+Objetivo del módulo: Aplicar procesos de soldadura, montaje y ensamble mediante la
+selección de técnicas, procedimientos, equipos, materiales y normas de seguridad, calidad
+y sostenibilidad, para fabricar y ensamblar conjuntos mecánicos y estructuras metálicas
+conforme a las especificaciones técnicas requeridas.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Analizar las condiciones de materiales, piezas, equipos y herramientas
+requeridas en procesos de soldadura, montaje y ensamblaje, considerando planos,
+especificaciones técnicas y normas de seguridad.
+CE1.1: Comprueba las características, dimensiones y estado de los materiales,
+contrastándolos con planos y fichas técnicas.
+CE1.2: Selecciona equipos, herramientas y accesorios de soldadura, montaje y
+ensamblaje, de acuerdo con el procedimiento de trabajo establecido.
+CE1.3: Acondiciona las superficies y piezas, efectuando operaciones de limpieza,
+alineación y sujeción conforme a las especificaciones técnicas y normas de seguridad.
+RA 2: Ejecutar procesos de soldadura en estructuras metálicas y conjuntos
+mecánicos, aplicando procedimientos normalizados, parámetros técnicos y normas
+de seguridad industrial.
+CE2.1: Opera equipos de soldadura eléctrica, MIG, TIG u otros, respetando los parámetros
+definidos en el procedimiento técnico.
+CE2.2: Regula la intensidad, temperatura, velocidad de avance y trayectoria del cordón de
+soldadura, obteniendo uniones resistentes y acabados uniformes.
+CE2.3: Utiliza equipos de protección personal y cumple las normas de seguridad durante
+todas las operaciones de soldadura.
+RA 3: Integrar piezas y componentes en conjuntos mecánicos y estructuras
+metálicas, siguiendo planos, secuencias de montaje y especificaciones técnicas.
+CE3.1: Organiza la secuencia de montaje con base en planos, diagramas y
+especificaciones técnicas.
+CE3.2: Verifica dimensiones, alineación y tolerancias utilizando instrumentos de medición y
+control dimensional.
+CE3.3: Ensambla piezas y componentes con herramientas manuales y mecanizadas,
+garantizando precisión, seguridad y estabilidad del conjunto.
+RA 4: Evaluar la calidad de las piezas o estructuras realizadas en los procesos de
+soldadura, montaje y ensamblaje, considerando criterios técnicos, normas de
+seguridad y principios de sostenibilidad.
+C.E4.1: Inspecciona visual y dimensionalmente las uniones soldadas y ensambladas
+conforme a las normas técnicas establecidas.
+C.E4.2: Corrige defectos de soldadura y montaje, aplicando procedimientos técnicos según
+el tipo de discontinuidad detectada.
+C.E4.3: Optimiza el uso de materiales, consumibles y energía durante las operaciones de
+soldadura y ensamblaje, respetando criterios de sostenibilidad.
+Contenidos
+Conceptuales                    Procedimentales               Actitudinales
+Introducción        a      la Diferenciar los tipos de         Valorar la importancia de la
+soldadura y       unión   de uniones           metálicas       soldadura y el montaje en la
+materiales.                   empleadas                en      fabricación de estructuras
+                              aplicaciones industriales.       metálicas    y     conjuntos
+Concepto       de      unión                                   mecánicos.
+permanente       y     unión Clasificar procesos de
+                                                               Asumir el cumplimiento de las
+desmontable.                  soldadura     según      su
+                                                               especificaciones    técnicas
+                              principio                de
+                                                               durante las operaciones de
+Función de la soldadura en funcionamiento                y
+                                                               soldadura,     montaje      y
+estructuras    metálicas    y aplicación.
+                                                               ensamblaje.
+conjuntos mecánicos.
+                              Relacionar procesos de           Respetar las normas de
+Clasificación general de los soldadura con distintos           seguridad          industrial
+procesos de soldadura.        tipos     de    estructuras      establecidas en el taller de
+Aplicaciones industriales de metálicas y conjuntos             soldadura.
+la soldadura.                 mecánicos.
+                                                               Demostrar disciplina en la
+Ventajas y limitaciones de Interpretar     terminología        preparación del área de
+los distintos procesos de técnica      utilizada    en         trabajo,            equipos,
+unión.                     operaciones de soldadura.           herramientas y materiales.
+
+                                                               Manifestar   responsabilidad
+Terminología    técnica    de Interpretar simbología de        en el uso y conservación de
+soldadura.                     soldadura presente en           máquinas,      equipos     y
+                               documentación técnica.          accesorios de soldadura.
+Simbología básica utilizada
+en      operaciones        de Reconocer         posiciones     Evidenciar orden en la
+soldadura.                     normalizadas de soldadura       organización del puesto de
+                               durante            ejercicios   trabajo antes, durante y
+Posiciones de soldadura prácticos.                             después de cada actividad
+(plana, horizontal, vertical y                                 práctica.
+sobrecabeza).                  Seleccionar tipos de juntas     Mantener           limpieza
+                               según la configuración de       permanente en las áreas de
+Tipos de juntas soldadas (a las piezas.                        trabajo y en los equipos
+tope, traslapada, en T, de                                     utilizados.
+esquina y de borde).           Distinguir     tipos       de
+                               cordones de acuerdo con         Actuar con criterio preventivo
+Tipos de cordones de la unión requerida.                       frente a situaciones de riesgo
+soldadura.                                                     presentes en las operaciones
+                               Clasificar        materiales    de soldadura.
+Materiales utilizados en metálicos           según      sus
+                                                               Promover el uso correcto de
+soldadura.                     características            de
+                                                               los equipos de protección
+Propiedades generales de soldabilidad.
+los materiales metálicos.
+Aceros al carbono.            Diferenciar     materiales    personal durante todas las
+                              base      empleados     en    actividades del taller.
+Aceros de baja aleación.      fabricación metálica.
+                                                            Mostrar compromiso con la
+Aceros inoxidables.
+                                                            prevención de accidentes
+                              Seleccionar materiales de
+                                                            laborales.
+Aluminio y sus aleaciones     aporte compatibles con el
+Cobre y sus aleaciones.       metal base.                   Fomentar hábitos de trabajo
+                                                            seguros      durante    las
+Compatibilidad        entre Seleccionar       electrodos    operaciones de preparación,
+materiales base y materiales revestidos     según      el   soldadura y ensamblaje.
+de aporte.                   proceso y aplicación.
+                                                            Reconocer la importancia de
+Selección del material de Seleccionar alambres de           la preparación adecuada de
+aporte según el material aporte según el proceso            materiales y piezas como
+base.                     MIG/MAG.                          condición de calidad en la
+                                                            fabricación.
+Clasificación de electrodos Seleccionar gases de            Apreciar el valor de la
+revestidos.                  protección de acuerdo con      precisión en la ejecución de
+                             el        material        y    uniones soldadas y procesos
+Clasificación de alambres procedimiento.                    de montaje.
+sólidos y tubulares.
+                             Relacionar la composición      Cultivar la constancia en el
+Gases de protección y sus química del material con          desarrollo de habilidades
+características.             su         comportamiento      manuales propias de la
+                             durante la soldadura.          soldadura.
+Influencia de la composición                                Perseverar       en      el
+química en la soldabilidad.  Preparar bordes de unión       perfeccionamiento   de   la
+                             según el tipo de junta.        calidad de los cordones de
+Concepto de soldabilidad de                                 soldadura.
+los materiales.              Conformar           biseles
+                             conforme        a       los    Desarrollar paciencia durante
+Preparación de materiales requerimientos             del    la ejecución de procesos que
+y piezas.                    procedimiento.                 demandan exactitud y control.
+
+                                                            Mostrar disposición hacia la
+Preparación de bordes para Verificar   ángulos     y
+                                                            mejora continua de las
+soldadura.                 separaciones de junta
+                                                            técnicas de soldadura y
+                           antes del proceso de
+                                                            ensamblaje.
+Tipos de biseles.          soldadura.
+Ángulos y separaciones de                                   Aplicar autocontrol durante la
+junta.                     Limpiar       superficies        operación de equipos de
+                           metálicas     eliminando         soldadura    en     diferentes
+Limpieza de superficies contaminantes.                      posiciones de trabajo.
+metálicas.
+                          Remover óxidos, pinturas,        Demostrar concentración en
+Contaminantes que afectan grasas     y      residuos       la ejecución de tareas que
+la soldadura.             presentes en las piezas.         requieren     precisión  y
+                                                           coordinación.
+Oxidación      y    corrosión Alinear piezas conforme a
+                                                           Fortalecer     hábitos    de
+superficial.                  la    configuración    del
+                                                           verificación antes de iniciar
+                              conjunto.
+                                                           operaciones de soldadura y
+Métodos de remoción de
+                                                           montaje.
+óxidos, grasas y residuos.    Sujetar piezas utilizando
+Alineación y fijación de dispositivos apropiados.          Asumir una actitud crítica
+piezas.                                                    frente a los resultados
+                              Ejecutar    punteos    de    obtenidos en las uniones
+Dispositivos de sujeción y fijación respetando la          soldadas.
+posicionamiento.              secuencia establecida.
+                                                           Aceptar        observaciones
+Punteo de piezas y su Comprobar la estabilidad             técnicas como oportunidad de
+función en el montaje.       del montaje previo a la       mejora     del   desempeño
+                             soldadura.                    profesional.
+Equipos, herramientas y                                    Desarrollar         confianza
+accesorios de soldadura      Seleccionar fuentes de        progresiva en la ejecución de
+                             poder según el proceso de     procedimientos de soldadura,
+Fuentes de poder para soldadura.                           sustentada        en        el
+soldadura.                                                 cumplimiento de las normas
+                             Configurar        equipos     técnicas.
+Transformadores,             considerando            el
+rectificadores e inversores. procedimiento establecido.    Colaborar activamente en
+                                                           trabajos de montaje y
+Características eléctricas de Conectar cables, pinzas y    ensamblaje desarrollados en
+los equipos.                  portaelectrodos siguiendo    equipo.
+                              especificaciones técnicas.   Favorecer la comunicación
+Ciclo de trabajo de la                                     efectiva      durante    las
+máquina de soldar.            Instalar         antorchas   actividades    prácticas  de
+                              MIG/MAG y TIG conforme       fabricación y montaje.
+Cables, portaelectrodos y al proceso seleccionado.
+pinzas de masa.                                            Practicar el respeto hacia las
+                              Regular     equipos     de   funciones                    y
+Antorchas MIG/MAG.            suministro de gas.           responsabilidades de los
+                                                           integrantes del equipo de
+Antorchas TIG.                Verificar conexiones de      trabajo.
+                              mangueras y accesorios.
+                                                           Compartir experiencias y
+Reguladores y manómetros.
+                                                           buenas           prácticas
+Mangueras y conexiones
+                                                           relacionadas  con       los
+Herramientas auxiliares de Inspeccionar el estado              procesos de     soldadura   y
+soldadura.                     operativo de equipos y          ensamblaje.
+                               herramientas.
+                                                               Evidenciar iniciativa en la
+Cepillos, martillos picadores,
+                                                               organización        de  las
+escuadras y dispositivos de Ejecutar        mantenimiento
+                                                               actividades del taller.
+apoyo.                         básico de equipos y
+                               accesorios.                     Demostrar autonomía en el
+Mantenimiento básico de                                        desarrollo de tareas acordes
+equipos y accesorios.          Seleccionar la corriente        con el nivel de formación
+                               eléctrica según material y      alcanzado.
+Fundamentos eléctricos y espesor.
+térmicos de la soldadura.                                      Asumir compromiso con el
+Corriente      continua      y Configurar         polaridad    cumplimiento de la secuencia
+corriente alterna.             conforme al procedimiento       técnica de fabricación y
+                               de soldadura.                   montaje.
+Polaridad directa e inversa.                                   Valorar la importancia de la
+Efectos de la polaridad en la Ajustar     intensidad     de    inspección de las uniones
+penetración y el depósito.     corriente de acuerdo con el     soldadas como parte del
+                               electrodo utilizado.            aseguramiento de la calidad.
+Voltaje,      amperaje       y
+resistencia eléctrica.         Regular voltaje conforme        Interiorizar la necesidad de
+                               al proceso empleado.            verificar continuamente los
+Generación        del     arco                                 resultados      del    trabajo
+eléctrico.                     Ajustar caudal del gas          realizado.
+                               protector.                      Reconocer la relevancia de la
+Estabilidad del arco.                                          documentación técnica en los
+                               Seleccionar diámetro del        procesos    de    fabricación
+Longitud del arco y sus electrodo              según      la   soldada.
+efectos.                       aplicación.
+                                                               Mostrar    interés   por   la
+Transferencia de calor en la Seleccionar diámetro del          actualización de tecnologías,
+soldadura.                   alambre de aporte según           equipos y procesos de
+                             el procedimiento.                 soldadura utilizados en la
+Zona fundida.                                                  industria.
+                             Encender el arco eléctrico
+                                                               Mantener disposición hacia el
+Zona afectada por el calor.  utilizando         técnicas
+                                                               aprendizaje permanente de
+                             apropiadas.
+                                                               nuevos procedimientos y
+Velocidad de enfriamiento.
+                                                               técnicas de unión metálica.
+Dilatación y contracción Mantener la estabilidad del
+térmica.                     arco durante el proceso.          Promover el uso responsable
+                                                               de materiales de aporte,
+Deformaciones     producidas                                   gases    y      consumibles
+por el calor.                                                  empleados en soldadura.
+                            Controlar la longitud del     Favorecer                   el
+Proceso SMAW (soldadura arco           según       el     aprovechamiento eficiente de
+por arco con electrodo procedimiento aplicado.            los recursos disponibles en el
+revestido).                                               taller.
+                            Coordinar desplazamiento
+                                                          Evidenciar sensibilidad frente
+Principio de funcionamiento manual      durante    la
+                                                          al     impacto       ambiental
+del proceso SMAW.           deposición del cordón.
+                                                          generado por las actividades
+                                                          de soldadura.
+Componentes del sistema Ejecutar cordones rectos
+SMAW.                   sobre placas de práctica.         Adoptar prácticas orientadas
+                                                          a la reducción de residuos y
+Funciones del revestimiento Ejecutar          cordones    desperdicios metálicos.
+del electrodo.               oscilantes conforme al
+                             procedimiento establecido.   Impulsar el uso eficiente de la
+Clasificación y nomenclatura                              energía      durante        las
+de electrodos.               Depositar material de        operaciones de soldadura.
+                             aporte       manteniendo     Preservar las condiciones de
+Encendido y mantenimiento uniformidad.                    funcionamiento de equipos y
+del arco.                                                 herramientas mediante su
+                             Controlar velocidad de       utilización adecuada.
+Parámetros operacionales avance         durante      la
+del proceso.                 soldadura.                   Actuar con ética profesional
+                                                          en la ejecución de trabajos de
+Influencia del diámetro del Controlar el aporte térmico   soldadura y montaje.
+electrodo.                  sobre el material base.       Honrar los principios de
+                                                          honestidad en la valoración
+Técnicas      básicas    de Preparar           equipos    de la calidad de los trabajos
+deposición.                 correspondientes         al   realizados.
+Aplicaciones del proceso proceso SMAW.
+SMAW.                                                     Consolidar     hábitos  de
+                            Operar equipos SMAW           puntualidad y cumplimiento
+Limitaciones del proceso respetando         parámetros    en el desarrollo de las
+SMAW.                       establecidos.                 actividades prácticas.
+Proceso GMAW / MIG-
+                                                          Proyectar    una    actitud
+MAG.                        Ejecutar cordones en
+                                                          profesional acorde con los
+Principio de funcionamiento posición plana.
+                                                          estándares     del   sector
+del proceso MIG/MAG.
+                                                          metalmecánico.
+                            Ejecutar cordones en
+Componentes del sistema posición horizontal.              Reafirmar el compromiso con
+GMAW.                                                     la calidad, la seguridad y la
+Alimentación continua del Ejecutar cordones en            sostenibilidad como principios
+alambre.                    posición vertical.            permanentes del ejercicio
+                                                          técnico.
+Función     del         gas   de Ejecutar cordones en
+protección.                      posición sobrecabeza.
+
+Transferencia                 por Soldar juntas a        tope
+cortocircuito.                    utilizando SMAW.
+
+Transferencia globular.           Soldar     juntas en     T
+Transferencia                 por utilizando SMAW.
+pulverización.
+                               Soldar juntas de esquina
+Parámetros       operacionales utilizando SMAW.
+del proceso.
+                                 Corregir variaciones del
+Aplicaciones      del    proceso arco durante la operación.
+MIG/MAG.
+                            Configurar        equipos
+Ventajas y limitaciones del MIG/MAG             según
+proceso                     procedimiento técnico.
+
+Proceso GTAW / TIG.         Alimentar           alambre
+Principio de funcionamiento continuo         respetando
+del proceso TIG.            especificaciones           del
+                            fabricante.
+Componentes del sistema
+GTAW.                       Regular flujo de gas
+                            protector.
+Electrodos de tungsteno.
+Tipos de tungsteno y Ejecutar                  cordones
+aplicaciones.               empleando transferencia
+                            por cortocircuito.
+Gases de protección en TIG.
+Material de aporte en TIG.  Ejecutar uniones utilizando
+                            transferencia globular.
+Parámetros operacionales
+del proceso.                Ejecutar uniones utilizando
+                            transferencia             por
+Aplicaciones del proceso pulverización.
+TIG.
+                            Soldar juntas en diferentes
+Ventajas y limitaciones del posiciones         utilizando
+proceso.                    MIG/MAG.
+
+Defectos de soldadura.
+Concepto de discontinuidad Controlar estabilidad del
+y defecto.                 baño de fusión durante el
+Porosidad.                 proceso.
+
+Inclusiones de escoria.   Configurar equipos TIG
+Falta de fusión, falta de según      procedimiento
+penetración.              técnico.
+
+Socavado.                      Preparar electrodos de
+                               tungsteno conforme al
+Grietas en caliente.           material.
+Grietas en frío.
+                               Seleccionar material de
+Salpicaduras excesivas.        aporte compatible.
+Distorsiones de la unión.
+                               Ejecutar         cordones
+Causas de los defectos.        utilizando proceso TIG.
+
+Consecuencias mecánicas y Controlar el baño de fusión
+funcionales de los defectos. durante la operación.
+
+Montaje y ensamblaje de Coordinar              alimentación
+estructuras metálicas.          manual del material de
+                                aporte.
+Principios   de       montaje
+estructural.                    Soldar     materiales    de
+Secuencia       lógica       de reducido espesor.
+ensamblaje.
+                                Ejecutar uniones con altos
+Referencias de armado.          requerimientos           de
+                                acabado superficial.
+Métodos de unión en
+estructuras metálicas.          Distribuir secuencias de
+Uniones soldadas.               soldadura      minimizando
+                                deformaciones.
+Uniones atornilladas.
+Elementos      de      fijación Aplicar     técnicas     de
+mecánica.                       soldadura simétrica.
+
+Pernos, tuercas y arandelas. Restringir
+Dispositivos de sujeción desplazamientos              de
+temporal.                    piezas           utilizando
+                             dispositivos adecuados.
+Control de deformaciones
+durante el montaje.      Controlar la contracción
+                         térmica    durante     el
+Simetría de soldadura.   proceso.
+
+Secuencias de punteo.     Corregir    deformaciones
+                          ocasionadas por el aporte
+Métodos de restricción de térmico.
+piezas.
+                          Organizar la secuencia de
+Seguridad industrial en montaje de estructuras
+soldadura.                metálicas.
+
+Riesgos asociados       a    la Posicionar componentes
+soldadura.                      respetando referencias de
+Riesgos eléctricos.             armado.
+
+Riesgos térmicos.              Ensamblar subconjuntos
+                               metálicos       mediante
+Radiación     ultravioleta   e uniones soldadas.
+infrarroja.
+                                Ensamblar componentes
+Proyección de partículas.       utilizando elementos de
+                                fijación mecánica.
+Humos y gases de soldadura
+Ruido y vibraciones.         Instalar pernos, tuercas y
+                             arandelas conforme al
+Equipos     de    protección diseño.
+personal en soldadura.
+Protección ocular y facial.  Ajustar    elementos de
+                             unión       durante     el
+Protección respiratoria.     ensamblaje.
+
+Protección    de    manos    y Integrar        conjuntos
+cuerpo.                        mecánicos respetando la
+                               secuencia constructiva.
+Protección auditiva.
+                            Consolidar   estructuras
+Ventilación y extracción de metálicas      mediante
+humos.                      operaciones de montaje
+                            progresivo.
+Señalización de áreas de
+trabajo.
+                              Reconocer
+Prevención   y   control   de discontinuidades
+incendios.                    presentes en cordones de
+                              soldadura.
+Manipulación segura de
+cilindros de gas.             Localizar porosidades en
+                              uniones soldadas.
+Almacenamiento de cilindros Localizar inclusiones de
+Transporte y sujeción de escoria.
+cilindros.
+                              Localizar zonas con falta
+Actuación ante emergencias de fusión.
+en el taller de soldadura.    Localizar     falta        de
+                              penetración.
+Calidad aplicada a la
+soldadura.                    Localizar socavados y
+                              grietas.
+Concepto de calidad en Reparar discontinuidades
+uniones soldadas.             aplicando procedimientos
+                              establecidos.
+Criterios de aceptación de
+cordones.                     Rectificar cordones con
+                              acabado deficiente.
+Apariencia superficial del
+cordón.                       Rehacer uniones que
+                              incumplen           criterios
+Uniformidad del depósito.     técnicos.
+
+Continuidad de la unión.        Examinar     visualmente
+                                cordones de soldadura.
+Penetración adecuada.
+                                Comparar           uniones
+Acabado superficial.            ejecutadas con criterios de
+                                aceptación.
+Trazabilidad    básica     de
+trabajos de soldadura.          Verificar continuidad del
+                                cordón.
+Registros de parámetros de
+soldadura.                 Verificar uniformidad del
+                           depósito metálico.
+Documentación básica de
+fabricación soldada.       Verificar       penetración
+                           visible de la unión.
+Sostenibilidad          en
+procesos de soldadura.      Registrar     parámetros
+                            empleados durante las
+Uso eficiente de materiales operaciones.
+de aporte.
+                            Documentar     resultados
+Aprovechamiento          de obtenidos en los trabajos
+consumibles.                realizados.
+
+Reducción de desperdicios Utilizar      equipos     de
+metálicos.                   protección       personal
+                             durante     todas     las
+Separación de residuos del operaciones.
+taller.
+                             Inspeccionar condiciones
+Manejo de escoria y residuos de seguridad del área de
+de soldadura.                trabajo.
+
+Gestión de envases y Organizar el puesto de
+materiales contaminados       trabajo conforme a normas
+Uso eficiente de la energía de seguridad.
+eléctrica.
+                              Manipular cilindros de gas
+Buenas              prácticas siguiendo procedimientos
+ambientales en el taller.     seguros.
+
+Impacto ambiental de los Transportar             cilindros
+procesos de soldadura.        utilizando        métodos
+                              apropiados.
+Cultura de seguridad y
+sostenibilidad             en Almacenar          cilindros
+operaciones industriales.     conforme a normas de
+                              seguridad.
+Integración de procesos
+de fabricación soldada.       Aplicar    protocolos     de
+                              prevención de incendios.
+Relación entre preparación,
+soldadura y montaje.          Actuar ante situaciones de
+                              emergencia presentes en
+Secuencia completa de el taller.
+fabricación de una estructura
+metálica.
+Coordinación               de Optimizar el consumo de
+operaciones en el taller.      electrodos y materiales de
+                               aporte.
+Selección del proceso de
+soldadura       según       la Optimizar el consumo de
+aplicación.                    gases industriales.
+                               Optimizar el uso de
+Compatibilidad          entre energía eléctrica durante
+proceso, material y posición los procesos.
+de trabajo.
+                               Gestionar          residuos
+Criterios    técnicos      de metálicos conforme a
+funcionalidad de la unión.     procedimientos
+                               ambientales.
+Confiabilidad de uniones
+soldadas en servicio.          Disponer      escorias    y
+                               consumibles       agotados
+Responsabilidad técnica y según                 normativa
+ética     en   trabajos    de institucional.
+soldadura.
+                               Planificar la secuencia de
+                               fabricación de estructuras
+                               soldadas.
+
+                                Coordinar operaciones de
+                                preparación, soldadura y
+                                montaje.
+
+                                Seleccionar el proceso de
+                                soldadura     según    las
+                                características       del
+                                proyecto.
+Perfil del o la docente
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica,
+   Metalurgia, Diseño Industrial, Mantenimiento Industrial, Producción Industrial, o a fines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Simuladores
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación              Especificaciones técnicas                  Cantidad
+
+Infraestructura/espacio   Entorno de aprendizaje                      1
+                          (aula)
+Laboratorio               Computadoras con acceso a internet          1
+                          Proyector
+                          Software      CAD,       software    CAM
+                          Simuladores de Neumática e Hidráulica.
+Taller                    • Máquinas de soldadura SMAW
+                              (electrodo revestido).
+                          • Máquinas de soldadura GMAW/MIG-
+                              MAG.
+                          • Máquinas de soldadura GTAW/TIG.
+                          • Equipos de corte térmico (oxicorte y/o
+                              plasma).
+                          • Mesas de soldadura.
+                          • Bancos de trabajo metálicos.
+                          • Sistemas de extracción de humos y
+                              ventilación.
+                          • Cilindros de gases industriales,
+                              reguladores y accesorios.
+                          • Electrodos, alambres y materiales de
+                              aporte.
+                          • Antorchas, portaelectrodos y pinzas
+                              de masa.
+                          • Dispositivos de sujeción (prensas,
+                              sargentos, escuadras magnéticas y
+                              mordazas).
+                          • Esmeriles de banco y portátiles.
+                          • Herramientas            manuales      de
+                              preparación y acabado.
+                          • Materiales metálicos para prácticas
+                              (placas, perfiles, tubos y barras).
+                          • Instrumentos         de     medición    y
+                              verificación dimensional.
+                          • Galgas         para     inspección    de
+                              soldaduras.
+                          • Equipos de protección personal para
+                              soldadura       (caretas,      guantes,
+                              mandiles, protección respiratoria,
+                              auditiva y visual).
+                           •   Extintores, mantas ignífugas y
+                               señalización de seguridad.
+                           •   Planos y especificaciones técnicas de
+                               fabricación y montaje.
+Referencias Bibliográficas
+
+Libros:
+   o Company Calleja, P. P., & González Lluch, M. C. (2022). CAD 3D con SolidWorks:
+       Tomo I. Diseño básico. Volumen 3: Dibujos (2.ª ed.). Universitat Jaume I.
+       https://cad3dconsolidworks.uji.es/
+   o Díaz Poma, E., & Chango Santo, S. (2023). Metrología automotriz. Instituto Superior
+       Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/9
+   o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de mecanizado
+       y planificación de procesos: Mecanizado convencional y no convencional,
+       introducción a CNC, economía de mecanizado, planificación de procesos y utillajes.
+       Universidad Politécnica de Cartagena. https://doi.org/10.31428/10317/13790
+   o Jijón Cando, P., & Mena Franco, M. (2022). Manual de seguridad e higiene del
+       trabajo.           Instituto         Superior          Universitario       Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/7
+   o Montalvo, N., León, C., & Hinojosa, C. (2021). ¿Qué es la norma ISO 9001:2015?
+       Fundamentos prácticos para su comprensión e implementación. UDLA Ediciones.
+       https://udlapublicaciones.com/que-es-la-norma-iso-90012015-wx2vj.html
+   o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+       Instrumentación y automatización industrial. Instituto Superior Universitario
+       Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+   o Quinatoa Lema, E. (2024). Libro de texto de procesos de soldadura. Instituto
+       Superior                              Universitario                        Cotopaxi.
+       https://libros.isuc.edu.ec/index.php/omp/catalog/book/38
+
+
+                               Módulo de Especialización Nro. 5
+
+Nombre del módulo:                  Diseño Asistido por Computador (CAD)
+
+Nivel:                              3ro
+
+Duración:                           120 periodos pedagógicos
+
+Unidad de competencia              UC5. Elaborar planos y modelos digitales con
+asociada:                          especificaciones técnicas de fabricación en estructuras
+                                   metálicas y elementos mecánicos, mediante software
+                                   asistido por computadora (CAD).
+Objetivo del módulo: Elaborar planos y modelos digitales mediante el uso de software de
+diseño asistido por computadora, aplicando normas de dibujo técnico y especificaciones de
+fabricación, para representar con precisión estructuras metálicas y elementos mecánicos
+que apoyen los procesos de manufactura y montaje.
+
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Analizar sistemas de representación gráfica aplicados a partes, piezas y
+elementos mecánicos, considerando normas de dibujo técnico y especificaciones
+de fabricación.
+CE 1.1: Distingue los sistemas normalizados de representación gráfica utilizados en
+partes, piezas y elementos mecánicos, conforme a las normas técnicas.
+CE 1.2: Explica la función y utilidad de cada sistema de representación gráfica,
+relacionándolos con la interpretación de planos mecánicos.
+CE1.3: Representa partes, piezas y elementos mecánicos utilizando los sistemas de
+representación gráfica establecidos en la normativa técnica.
+RA 2: Desarrollar planos técnicos de estructuras metálicas y elementos mecánicos,
+aplicando normas de representación gráfica, especificaciones técnicas y criterios
+de precisión dimensional.
+Interpreta la simbología, acabados superficiales, tolerancias y demás especificaciones
+técnicas contenidas en planos mecánicos.
+CE 2.2: Selecciona el tipo de plano de acuerdo con las características del elemento
+mecánico o estructura metálica representada.
+ CE 2.3: Elabora planos técnicos respetando las normas de dibujo, la funcionalidad del
+ diseño y la precisión dimensional requerida.
+ RA 3: Modelar partes, piezas, conjuntos mecánicos y estructuras metálicas en
+ entorno CAD, aplicando técnicas de dibujo, herramientas digitales y normas de
+ representación gráfica.
+CE 3.1: Utiliza comandos y herramientas del software CAD de acuerdo con la operación de
+diseño requerida.
+CE 3.2: Construye modelos tridimensionales de partes y piezas respetando dimensiones y
+restricciones geométricas.
+CE 3.3: Ensambla conjuntos mecánicos y estructuras metálicas empleando relaciones
+geométricas y herramientas propias del software CAD.
+CE3.4: Genera planos de conjunto y despiece incorporando vistas, cotas, tolerancias y
+demás especificaciones conforme a las normas de dibujo técnico.
+RA 4: Aplicar estándares en los proyectos desarrollados en software CAD,
+considerando criterios de sostenibilidad, seguridad y buenas prácticas.
+CE 4.1: Organiza archivos y proyectos utilizando estructuras de almacenamiento,
+nomenclaturas y respaldos de información.
+CE 4.2: Optimiza el uso de recursos digitales reduciendo errores, retrabajos y consumo
+innecesario de recursos informáticos.
+CE 4.3: Cumple las condiciones de uso del software, las licencias correspondientes y las
+normas de seguridad informática durante el desarrollo de proyectos CAD.
+Contenidos
+Conceptuales             Procedimentales                      Actitudinales
+Fundamentos del diseño Explorar el entorno de                 Valorar la importancia del
+asistido por computador. trabajo del software CAD.            diseño      asistido    por
+                                                              computador            como
+Diseño     asistido       por Configurar el espacio de        herramienta fundamental en
+computador (CAD).              trabajo      según       los   los procesos de fabricación
+                               requerimientos          del    de estructuras metálicas y
+Evolución y aplicaciones del proyecto.                        elementos mecánicos.
+CAD      en    la    industria
+                                                              Respetar      las    normas
+metalmecánica.                 Personalizar     unidades,
+                                                              nacionales e internacionales
+                               sistemas de coordenadas
+                                                              de representación gráfica
+Flujo digital del diseño y la y referencias del dibujo.
+                                                              empleadas en la elaboración
+fabricación.
+                                                              de planos técnicos.
+                               Organizar áreas de trabajo
+Entorno de trabajo del conforme al tipo de diseño.            Asumir compromiso con la
+software CAD.                  Gestionar         archivos     precisión y claridad de la
+                               iniciales de proyectos         información contenida en la
+Configuración del espacio de CAD.                             documentación técnica.
+trabajo.
+                               Interpretar normas de          Demostrar disciplina en la
+Sistemas de coordenadas y dibujo técnico aplicadas al         organización y desarrollo de
+referencia.                    diseño digital.                proyectos de diseño digital.
+
+                                                              Manifestar    responsabilidad
+Representación       gráfica Aplicar   sistemas       de      en el manejo de archivos,
+normalizada.                 representación gráfica en        modelos y planos generados
+                             planos mecánicos.                en el entorno CAD.
+Normas de dibujo técnico
+aplicadas al diseño CAD.     Elaborar             vistas      Evidenciar orden en la
+                             normalizadas de piezas y         administración         de
+Sistemas de representación elementos mecánicos.               documentos, versiones y
+gráfica.                                                      recursos     digitales del
+                             Construir     cortes      y      proyecto.
+Formatos y organización de secciones de acuerdo con           Mantener constancia en la
+planos.                      las normas técnicas.             aplicación de criterios de
+                                                              calidad durante el desarrollo
+Escalas y tipos de líneas.       Incorporar escalas, tipos    de modelos y planos.
+Vistas, cortes y secciones.      de líneas y simbología
+                                 normalizada en planos.       Actuar con criterio técnico en
+Rotulación   y    simbología                                  la selección de soluciones
+técnica.                         Organizar formatos     de    gráficas acordes con las
+                                 planos    conforme      a    especificaciones del diseño.
+Geometría aplicada            al estándares técnicos.
+diseño CAD.
+Geometría      bidimensional Trazar           entidades     Promover el uso responsable
+aplicada al dibujo técnico.  geométricas                    del software y de los recursos
+                             bidimensionales.               informáticos disponibles.
+Relaciones y restricciones
+                                                            Mostrar    interés    por    el
+geométricas.                 Construir            figuras
+                                                            aprendizaje     continuo    de
+                             geométricas      utilizando
+                                                            nuevas      herramientas      y
+Construcciones               relaciones de referencia.
+                                                            tecnologías de diseño asistido
+geométricas.
+                                                            por computador.
+                             Aplicar       restricciones
+Geometría de referencia.     geométricas durante la         Reconocer la importancia de
+                             elaboración de dibujos.        la normalización técnica en la
+Herramientas de dibujo y                                    comunicación gráfica entre
+edición.                     Resolver construcciones        las diferentes áreas de la
+Herramientas de dibujo geométricas propias del              industria.
+bidimensional.               diseño mecánico.
+                                                            Apreciar el valor de la
+Herramientas de edición y     Verificar la consistencia     representación        gráfica
+modificación.                 geométrica     de      los    precisa como medio de
+Métodos      de  precisión    elementos representados.      comunicación técnica.
+gráfica.                      Elaborar croquis digitales    Cultivar hábitos de revisión
+                              de elementos mecánicos.       sistemática antes de la
+Organización de objetos                                     emisión de planos y modelos
+mediante capas, bloques y Utilizar herramientas de          digitales.
+plantillas.                  dibujo en la construcción
+                             de piezas.                     Perseverar       en     el
+Documentación técnica.                                      perfeccionamiento de las
+Acotación normalizada.       Modificar       entidades      habilidades de modelado y
+Anotaciones                y gráficas        utilizando     documentación técnica.
+especificaciones técnicas.   herramientas de edición.       Desarrollar autonomía en la
+                                                            resolución de situaciones
+Organización de información Organizar        elementos      propias del diseño asistido
+en planos.                  gráficos mediante capas y       por computador.
+                            bloques.
+Documentación gráfica de                                    Fortalecer la capacidad de
+fabricación.                Administrar plantillas de       análisis frente a errores e
+                            dibujo según el tipo de         inconsistencias  detectadas
+Representación digital de proyecto.                         en modelos y planos.
+elementos mecánicos.
+                                                            Aceptar        observaciones
+Representación de piezas Optimizar la precisión
+                                                            técnicas con actitud abierta
+mecánicas.                  gráfica     durante      el
+                                                            hacia la mejora continua.
+                            desarrollo de dibujos.
+Representación           de
+elementos normalizados.
+                             Incorporar       cotas           Colaborar activamente en el
+Representación de perfiles y normalizadas en planos           desarrollo de proyectos de
+elementos estructurales.     mecánicos.                       diseño realizados en equipo.
+
+                                                              Favorecer la comunicación
+Representación            de Integrar      anotaciones
+                                                              técnica efectiva durante la
+conjuntos mecánicos.         técnicas                en
+                                                              elaboración y revisión de
+                             documentación gráfica.
+                                                              proyectos CAD.
+Modelado tridimensional.
+Fundamentos del modelado Completar          información       Compartir conocimientos y
+sólido.                      técnica    requerida    en       experiencias que contribuyan
+                             planos.                          al fortalecimiento del trabajo
+Modelado paramétrico.                                         colaborativo.
+Operaciones de generación Estructurar documentación
+y edición de sólidos.        gráfica de fabricación           Impulsar la aplicación de
+                             conforme a normas.               buenas prácticas en la
+Operaciones de modificación                                   gestión    de    proyectos
+geométrica.                  Revisar la consistencia de       digitales.
+                             la documentación técnica         Valorar la importancia de la
+Configuración              y generada.                        confidencialidad en el manejo
+administración del modelo                                     de información técnica.
+tridimensional.              Representar         piezas
+                             mecánicas conforme a             Preservar la integridad y
+Modelado de componentes especificaciones técnicas.            disponibilidad de los archivos
+mecánicos.                                                    digitales durante el desarrollo
+                             Representar componentes          de los proyectos.
+Modelado        de    piezas normalizados en dibujos          Proteger    la     información
+mecánicas.                   técnicos.                        técnica      mediante        el
+                                                              cumplimiento de prácticas de
+Modelado de perfiles       y Representar           perfiles   seguridad digital.
+estructuras metálicas.       estructurales utilizados en
+                             fabricación metálica.            Optimizar el uso de recursos
+Modelado de componentes                                       informáticos    considerando
+normalizados.                Representar        conjuntos     criterios de eficiencia y
+                             mecánicos          utilizando    productividad.
+Configuración de modelos criterios de normalización.
+                                                              Fomentar el aprovechamiento
+paramétricos.
+                                                              racional de recursos digitales
+                             Construir modelos sólidos
+                                                              en el desarrollo de proyectos.
+Ensambles digitales.         de piezas mecánicas.
+Ensambles de conjuntos                                        Adoptar prácticas orientadas
+mecánicos.                   Aplicar operaciones de           a la sostenibilidad en la
+                             generación de sólidos.           gestión de información y
+Relaciones y restricciones                                    documentación técnica.
+de ensamblaje.
+                              Modificar    geometrías      Contribuir al cuidado del
+Organización de               mediante operaciones de      ambiente      mediante        la
+ensamblajes.                  edición.                     reducción del uso innecesario
+                                                           de recursos físicos y digitales.
+Verificación de               Configurar parámetros de
+                                                           Consolidar       hábitos      de
+interferencias.               modelado conforme al
+                                                           organización documental que
+                              diseño requerido.
+                                                           faciliten la trazabilidad de los
+Elaboración de planos de
+                                                           proyectos.
+fabricación.                Administrar el historial de
+                            operaciones del modelo         Proyectar    una    actitud
+Generación de planos desde tridimensional.                 profesional acorde con los
+modelos tridimensionales.                                  estándares de la industria
+                            Optimizar          modelos     metalmecánica.
+Planos de pieza, conjunto y digitales      considerando
+despiece.                   criterios de funcionalidad.    Tener principios éticos en la
+Vistas explotadas.                                         elaboración, modificación y
+                            Modelar               piezas   gestión de documentación
+Listas de materiales.       prismáticas y cilíndricas.     técnica.
+
+                                                           Tener compromiso con la
+Revisión y emisión       de Modelar            perfiles    calidad, la seguridad digital y
+documentación técnica.      estructurales empleados        la mejora continua en el
+                            en          construcciones     desarrollo de proyectos CAD.
+Visualización             y metálicas.
+presentación técnica.
+Métodos de visualización de Modelar    componentes
+modelos.                    mecánicos normalizados.
+
+Configuración     de  estilos Configurar      relaciones
+visuales.                     paramétricas         entre
+                              elementos del modelo.
+Presentación gráfica de
+proyectos.                    Ajustar modelos digitales
+                              conforme a cambios de
+Recursos de comunicación diseño.
+visual del diseño.
+                              Integrar     componentes
+Intercambio                de mecánicos en conjuntos
+información digital.          digitales.
+Formatos de archivos CAD.
+                              Aplicar restricciones de
+Importación y exportación de posición              entre
+información técnica.          componentes.
+Compatibilidad       entre Organizar      estructuras
+plataformas CAD.           jerárquicas             de
+                           ensamblajes.
+Gestión de proyectos CAD.
+Organización documental de Comprobar interferencias
+proyectos.                 entre piezas ensambladas.
+
+Gestión    y   control   de Corregir inconsistencias
+versiones.                  detectadas durante el
+                            ensamblaje digital.
+Respaldo y recuperación de
+información.                Generar planos técnicos
+                            desde             modelos
+Trazabilidad documental.    tridimensionales.
+
+Normalización del diseño       Elaborar planos de pieza.
+digital.                       Elaborar     planos    de
+Normas       internacionales   conjunto.
+aplicadas al diseño asistido
+por computador.                Elaborar    planos    de
+                               despiece.
+Estandarización          de
+documentación técnica.      Incorporar   listas    de
+                            materiales             en
+Uniformidad    gráfica   en documentación técnica.
+proyectos CAD.
+                            Construir vistas explotadas
+Seguridad digital y buenas de conjuntos mecánicos.
+prácticas.
+Seguridad de la información Revisar planos antes de su
+técnica.                    emisión.
+
+Protección de archivos y Emitir         documentación
+proyectos.                  técnica     conforme     a
+                            estándares establecidos.
+Buenas prácticas en el uso
+del software CAD.           Configurar     estilos de
+                            visualización de modelos.
+Optimización del entorno de
+trabajo digital.            Generar presentaciones
+                            gráficas de proyectos.
+Sostenibilidad en el diseño
+digital.
+Uso eficiente de recursos Preparar modelos digitales
+digitales.                    destinados     a     revisión
+                              técnica.
+Gestión responsable de la
+información técnica.          Importar        información
+                              técnica procedente de
+Buenas              prácticas diferentes      plataformas
+ambientales en el entorno CAD.
+digital.
+                              Exportar modelos y planos
+Integración del CAD en en formatos normalizados.
+procesos industriales.
+Integración del CAD con los Verificar     compatibilidad
+procesos de fabricación.      entre archivos de distintos
+                              sistemas CAD.
+Gestión colaborativa de
+proyectos.                    Gestionar           archivos
+                              destinados al intercambio
+Transformación digital en la de información técnica.
+industria metalmecánica.
+                              Organizar         proyectos
+                              digitales          utilizando
+                              estructuras documentales.
+                              Clasificar          archivos
+                              conforme      a      criterios
+                              establecidos.
+
+                                Controlar versiones      de
+                                proyectos CAD.
+
+                                Mantener la trazabilidad
+                                documental durante el
+                                desarrollo del proyecto.
+
+                                Aplicar            normas
+                                internacionales de dibujo
+                                técnico en proyectos CAD.
+
+                                Uniformar la presentación
+                                gráfica de planos.
+                                Verificar el cumplimiento
+                                de estándares técnicos en
+                                la documentación digital.
+
+                                Estandarizar bibliotecas y
+                                recursos            gráficos
+                                utilizados en los proyectos.
+
+                                Proteger archivos técnicos
+                                mediante procedimientos
+                                de seguridad informática.
+
+                                Organizar permisos de
+                                acceso     a  proyectos
+                                digitales.
+
+                                Gestionar       información
+                                técnica aplicando criterios
+                                de sostenibilidad.
+
+                                Reducir       duplicidad
+                                documental en proyectos
+                                digitales.
+Perfil del o la docente
+•  Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Mecánica,
+   Metalurgia, Diseño Industrial, Mantenimiento Industrial, Producción Industrial, o a fines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Simuladores
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+
+Denominación                Especificaciones técnicas                    Cantidad
+
+Infraestructura/espacio     Entorno de aprendizaje                       1
+                            (aula)
+Laboratorio                 Computadoras con acceso a internet           1
+                            Proyector
+                            Software    CAD,     software   CAM
+                            Simuladores de Neumática e Hidráulica.
+Taller                   •   Estaciones de trabajo para revisión e
+                             interpretación de planos.
+                         •   Impresora de planos de formato
+                             técnico (cuando esté disponible).
+                         •   Impresora 3D para prototipado de
+                             modelos CAD.
+                         •   Escáner 3D (cuando esté disponible).
+                         •   Prototipos      físicos     de     piezas
+                             mecánicas y estructuras metálicas.
+                         •   Modelos didácticos de conjuntos
+                             mecánicos.
+                         •   Muestras de perfiles estructurales y
+                             elementos normalizados.
+                         •   Instrumentos de medición utilizados
+                             para verificar modelos físicos.
+                         •   Mesas de trabajo para revisión de
+                             planos y ensamblajes.
+                         •   Catálogos técnicos de componentes
+                             mecánicos.
+                         •   Manuales        de      fabricantes     y
+                             documentación técnica.
+                         •   Planos de fabricación, planos de
+                             conjunto y planos de despiece.
+                         •   Materiales para elaboración de
+                             prototipos físicos.
+                         •   Equipos para presentación y revisión
+                             técnica de proyectos.
+                         •   Herramientas de medición y control
+                             de         calidad         (calibradores,
+                             micrómetros, comparadores, entre
+                             otros).
+Referencias Bibliográficas
+ Libros:
+    o Company Calleja, P. P., & González Lluch, M. C. (2022). CAD 3D con SolidWorks:
+        Tomo I. Diseño básico. Volumen 3: Dibujos (2.ª ed.). Universitat Jaume I.
+        https://cad3dconsolidworks.uji.es/
+    o Díaz Poma, E., & Chango Santo, S. (2023). Metrología automotriz. Instituto Superior
+        Universitario Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/9
+    o Estrems Amestoy, M., & Cumbicus Jiménez, W. E. (2024). Principios de mecanizado
+        y planificación de procesos: Mecanizado convencional y no convencional,
+        introducción a CNC, economía de mecanizado, planificación de procesos y utillajes.
+        Universidad Politécnica de Cartagena. https://doi.org/10.31428/10317/13790
+    o Jijón Cando, P., & Mena Franco, M. (2022). Manual de seguridad e higiene del
+        trabajo.           Instituto         Superior          Universitario       Cotopaxi.
+        https://libros.isuc.edu.ec/index.php/omp/catalog/book/7
+    o Montalvo, N., León, C., & Hinojosa, C. (2021). ¿Qué es la norma ISO 9001:2015?
+        Fundamentos prácticos para su comprensión e implementación. UDLA Ediciones.
+        https://udlapublicaciones.com/que-es-la-norma-iso-90012015-wx2vj.html
+    o Pérez Miranda, V. R., Gallo Castillo, T. L., & Segovia Corrales, E. J. (2024).
+        Instrumentación y automatización industrial. Instituto Superior Universitario
+        Cotopaxi. https://libros.isuc.edu.ec/index.php/omp/catalog/book/17
+
+
+
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo,
+giras de observación, articulación con el sector productivo, proyectos interdisciplinarios
+y metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales
+como el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la
+adaptación a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en
+los módulos previos, permitiendo al estudiantado experimentar, analizar y resolver
+situaciones reales, al tiempo que refuerza sus capacidades técnicas y fomenta el
+desarrollo de competencias conceptuales, procedimentales y actitudinales, tanto de los
+módulos genéricos como de los de especialización.
+
+
+
+                            Módulo Práctico Experimental
+
+ Nombre del módulo:          Practico Experimental
+
+ Nivel:                      1ro, 2do, 3ro
+Duración:                 240 periodos pedagógicos
+
+Unidad de                 UC 1: Utilizar instrumentos de medición convencionales y
+competencia               de precisión, en piezas, conjuntos mecánicos y
+asociada:                 estructuras metálicas, cumpliendo con estándares de
+                          seguridad y calidad.
+                          UC 3: Ejecutar operaciones de metalmecánica y procesos
+                          de mecanizado por arranque de viruta, convencional y/o
+                          no convencional, en la fabricación de elementos
+                          mecánicos,       mediante     técnicas     especializadas,
+                          asegurando calidad, precisión y sostenibilidad.
+                          UC 4: Aplicar procesos de soldadura, montaje y ensamble
+                          en la construcción de conjuntos mecánicos y estructuras
+                          metálicas, garantizando la precisión, seguridad y
+                          sostenibilidad.
+                          UC 5: Elaborar planos y modelos digitales con
+                          especificaciones técnicas de fabricación en estructuras
+                          metálicas y elementos mecánicos, mediante software
+                          asistido por computadora (CAD).
+
+Objetivo del módulo: Desarrollar habilidades básicas en medición, alineación y
+control dimensional mediante la construcción de un alineador de ejes casero,
+utilizando materiales accesibles, herramientas manuales y equipos de medición
+estándar.
+Resultados de                 Criterios de evaluación    Actividades Prácticas
+aprendizaje (RA)              (CE)                       Experimentales
+RA 1: Realizar mediciones     CE1.1: Experimenta la Diseño y planificación
+con            instrumentos   importancia de usar con Presentación              del
+manuales         (calibrador  precisión      las  piezas proyecto con plano o
+Vernier, micrómetro, regla    mecánicas.                 croquis del alineador.
+metálica, escuadra) e         CE1.2: Comprende planos Breve explicación sobre
+interpretar planos simples    simples y bocetos técnicos la importancia de la
+y bocetos técnicos.           y los interpreta           alineación en maquinaria
+                              CE1.3: Aplica de manera industrial.
+                              real los instrumentos de
+                              metrología.                Formación de equipos de
+                                                         trabajo de 3 a 5
+                                                         estudiantes.
+                                                         Preparación            de
+                                                         materiales
+                                                             Identificación           y
+                                                             verificación de materiales
+                                                             a usar.
+
+                                                             Práctica de medición
+                                                             inicial: verificación de
+                                                             diámetros, longitudes y
+                                                             ángulos.
+
+                                                             Construcción
+                                                             Corte,     limado       y
+                                                             ensamblado de piezas
+                                                             para el soporte y guía de
+                                                             ejes.
+
+                                                             Instalación de ejes y
+                                                             prueba     de    giro  o
+                                                             alineación visual.
+RA2: Ejecutar operaciones     CE2.1: Interpreta planos,      Act. 2: Fabricación de
+básicas y especializadas      dimensiones, tolerancias,      una pieza o conjunto
+de     metalmecánica      y   materiales y secuencias        mecánico        mediante
+mecanizado      para     la   de trabajo necesarias para     operaciones de banco y
+fabricación               o   la fabricación de              mecanizado
+acondicionamiento       de    elementos mecánicos.           convencional       o  no
+elementos      mecánicos,     CE2.2: Prepara                 convencional.
+conforme a planos y           materiales, herramientas,
+especificaciones técnicas.    máquinas y equipos,            Elaboración de la hoja de
+                              verificando sus                proceso, selección de
+                              condiciones de                 herramientas,     cálculo
+                              funcionamiento y               básico de parámetros de
+                              seguridad.                     mecanizado              y
+                                                             verificación dimensional
+                              CE2.3: Ejecuta                 del     producto.  Visita
+                              operaciones de trazado,        técnica a talleres o
+                              corte, limado, taladrado,      plantas de producción de
+                              torneado, fresado,             empresas públicas y
+                              roscado o acabado, de          privadas para observar
+                              acuerdo con la                 procesos de fabricación,
+                              disponibilidad tecnológica     mantenimiento y control
+                              de la institución educativa.   de calidad.
+                              CE2.4: Verifica la calidad
+                              dimensional y superficial
+                              del elemento fabricado,
+                                identificando y corrigiendo
+                                desviaciones durante el
+                                proceso.
+
+RA3: Aplicar procesos de        CE3.1:      Selecciona      el   Act. 3: Construcción
+soldadura,    montaje     y     proceso de soldadura, los        colaborativa    de   una
+ensamble       para      la     materiales,      electrodos,     estructura metálica o
+construcción de conjuntos       consumibles, herramientas        conjunto        mecánico
+mecánicos o estructuras         y equipos de acuerdo con         funcional, como una
+metálicas,     cumpliendo       las características del          mesa de trabajo, soporte
+especificaciones técnicas y     trabajo.                         para        herramientas,
+normas de seguridad.            CE3.2:       Prepara      las    estantería, base para
+                                superficies y elementos          maquinaria o prototipo
+                                que      serán     soldados,     didáctico.
+                                montados o ensamblados,
+                                considerando                     Realización de prácticas
+                                dimensiones,         biseles,    de           preparación,
+                                separación, alineación y         soldadura, esmerilado,
+                                puntos de sujeción.              montaje, alineación y
+                                CE3.3: Ejecuta uniones           acabado. Visita técnica a
+                                soldadas, operaciones de         empresas o instituciones
+                                montaje      y    ensamble,      que desarrollen procesos
+                                controlando                      de soldadura, fabricación
+                                deformaciones, alineación,       y montaje de estructuras
+                                nivelación y estabilidad         metálicas.
+                                estructural.
+                                CE3.4: Inspecciona visual
+                                y dimensionalmente las
+                                uniones      y     conjuntos
+                                construidos, identificando
+                                defectos      y    aplicando
+                                acciones correctivas.
+RA4: Elaborar planos,           CE4.1: Representa piezas         Act.    4:   Diseño    y
+modelos       digitales     y   y elementos mecánicos            modelado        mediante
+documentación         técnica   mediante vistas, cortes,         software CAD de la
+para la fabricación de          secciones,      acotaciones,     pieza,     conjunto    o
+piezas,            conjuntos    escalas, simbología y            estructura   que    será
+mecánicos o estructuras         tolerancias técnicas.            fabricada durante el
+metálicas          mediante     CE4.2: Elabora modelos           módulo.
+herramientas de diseño          digitales bidimensionales o
+asistido por computadora.       tridimensionales utilizando      Elaboración de planos de
+                                software CAD disponible          fabricación,   despiece,
+                                en la institución educativa.     listado de materiales y
+                                                                 secuencia de ensamble.
+                               CE4.3: Genera planos de
+                               detalle,     planos     de    Visita técnica a centros
+                               conjunto,      listas   de    de diseño, laboratorios
+                               materiales                y   de           manufactura,
+                               especificaciones técnicas     universidades o institutos
+                               necesarias        para   la   tecnológicos          para
+                               fabricación.                  conocer aplicaciones de
+                               CE4.4: Comprueba la           CAD,      simulación     y
+                               correspondencia entre el      fabricación digital.
+                               diseño       digital,  las
+                               dimensiones del elemento
+                               fabricado         y    los
+                               requerimientos
+                               establecidos        en   el
+                               proyecto.
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e
+incluir las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje
+significativo, sin que este reemplace su paso por la Formación Estudiantil en Centros
+Educativos y de Trabajo.
+

@@ -1,0 +1,2169 @@
+        MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “PRODUCCIÓN DE
+                                CALZADO”
+
+   1. Objetivo general
+
+Formar bachilleres técnicos en Producción de Calzado con competencias científicas,
+tecnológicas y productivas orientadas al diseño, patronaje y fabricación de calzado
+ergonómico y funcional, integrando principios de biomecánica, innovación digital y
+sostenibilidad ambiental, para responder con eficiencia, creatividad y responsabilidad
+social a las necesidades del sector productivo local y nacional.
+
+   2.   Plan de estudios
+
+                                                            1ro        2do       3ro
+ Total periodos pedagógicos tronco común
+                                                            19         19        19
+ Tipos de módulo       Módulos                              1ro        2do       3ro
+ Módulos Genéricos Seguridad Industrial                          2          2
+ de    la    Familia Procesos Industriales Sostenibles           2          2
+ Profesional         Dibujo Técnico Aplicado                     2          2
+                     Materiales     Inteligentes      y
+                     Herramientas      del     Calzado           3          2
+                     Moderno
+                     Diseño Digital y Patronaje de
+                                                                 5          4         4
+                     Calzado
+ Módulos
+                     Técnicas    de    Ensamblaje y
+ Especialización                                                 5          5         7
+                     Ergonomía del Calzado
+                     Control de Calidad y Estética del
+                                                                            2         3
+                     Calzado Comercial
+                     Innovación, y Prototipado de
+                                                                                      3
+                     Calzado Sostenible
+ Módulo Práctico Experimental                                    2          2         4
+ Total de periodos pedagógicos formación técnica                 21         21        21
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Industrial. Gracias a las características de
+los módulos trabajados en esta etapa, adquieren herramientas que les permiten construir
+una opinión más informada y tomar decisiones con mayor fundamento. Esto favorece su
+capacidad para, en caso de que lo desee, transitar entre distintas figuras profesionales
+dentro de la misma familia, continuar con su trayectoria educativa, insertarse en el mundo
+laboral o emprender un proyecto propio.
+Se estructuran los siguientes módulos genéricos:
+
+  ●      Seguridad Industrial
+  ●      Procesos Industriales Sostenibles
+  ●      Dibujo Técnico Aplicado
+
+                                  Módulo Genérico Nro. 1
+Nombre del módulo                     Seguridad Industrial
+Nivel:                                1ro y 2do
+
+Duración:                             160 periodos pedagógicos
+
+                                      UC 1: Aplicar normas, procedimientos, planes de
+                                      seguridad e higiene en talleres, laboratorios y procesos
+Unidad       de      competencia industriales, en la prevención de riesgos, mediante el
+asociada:                             uso adecuado de herramientas, equipos y máquinas,
+                                      demostrando responsabilidad, disciplina y ética
+                                      profesional.
+Objetivo del módulo: Desarrollar competencias para la aplicación de normas,
+procedimientos y planes de seguridad e higiene, mediante la práctica en talleres,
+laboratorios y actividades industriales con el uso adecuado de herramientas, equipos y
+máquinas, con el fin de prevenir riesgos, garantizar la integridad personal y colectiva,
+fomentar la disciplina, responsabilidad y ética profesional en el entorno productivo.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Emplear normas de seguridad e higiene en actividades industriales utilizando
+equipos de protección, señalización y rutinas de limpieza, garantizando condiciones
+seguras de trabajo.
+CE1.1: Monitorea señales de seguridad en talleres y laboratorios verificando su ubicación
+y legibilidad en las áreas de trabajo según normativa vigente.
+CE1.2: Utiliza los equipos de protección personal antes de iniciar actividades asegurando
+su funcionalidad.
+CE1.3: Verifica las condiciones de talleres y laboratorios comprobando el cumplimiento de
+protocolos establecidos para mantener el orden y la limpieza.
+CE1.4: Aplica rutinas de higiene al finalizar las tareas comprobando la eliminación de
+riesgos residuales.
+RA 2: Ejecutar procedimientos de identificación, análisis y prevención de riesgos en
+entornos industriales aplicando metodologías técnicas y normativa vigente.
+CE 2.1: Detecta condiciones de riesgo utilizando listas de verificación y formatos de
+inspección estandarizados.
+CE 2.2: Clasifica peligros según tipo, frecuencia y severidad determinando su nivel de
+criticidad en las actividades industriales.
+CE 2.3: Emplea medidas preventivas acordes con los riesgos detectados verificando su
+pertinencia y viabilidad.
+CE 2.4: Evalúa la efectividad de las medidas preventivas constatando la disminución de
+incidentes o condiciones inseguras.
+ RA 3: Establecer planes de acción frente a emergencias siguiendo protocolos de
+ comunicación, evacuación y control de incidentes, con el fin de reducir daños
+ humanos y materiales.
+CE 3.1: Reconoce alarmas, señales y rutas de evacuación comprobando su
+correspondencia con los planes establecidos.
+CE 3.2: Notifica la emergencia al personal responsable utilizando los medios de
+comunicación definidos en el plan.
+CE 3.3: Ejecuta la evacuación siguiendo procedimientos establecidos y tiempos previstos.
+CE 3.4: Aplica técnicas básicas de control de emergencias verificando la preservación de
+la integridad de personas y bienes.
+ RA 4: Fomentar prácticas de seguridad, higiene y sostenibilidad en actividades
+ industriales promoviendo disciplina, ética profesional y mejora continua.
+CE 4.1: Inspecciona las condiciones del área de trabajo aplicando listas de control de
+seguridad, higiene y orden.
+CE 4.2: Motiva la participación en campañas de seguridad y salud ocupacional mediante
+actividades colaborativas.
+CE 4.3: Detecta desviaciones menores en las condiciones de seguridad registrando las
+observaciones en los formatos correspondientes.
+CE 4.4: Cumple normas y protocolos demostrando disciplina, ética profesional y
+compromiso con la mejora continua.
+Contenidos
+Conceptuales                      Procedimentales                  Actitudinales
+Fundamentos           de       la Identificar riesgos presentes Demostrar disciplina en el
+seguridad             industrial, en el entorno laboral cumplimiento de normas de
+principios,      objetivos      y utilizando herramientas de seguridad e higiene.
+beneficios.                       observación y registro.
+                                                                   Mostrar interés en la
+Legislación y normativa Analizar                diagramas       de identificación y control de
+vigente en seguridad, salud procesos industriales para riesgos industriales.
+ocupacional       e     higiene localizar posibles focos de
+                                                                   Cumplir      con    el   uso
+laboral       (nacional       e peligro.
+                                                                   permanente y correcto de
+internacional).
+                                  Seleccionar equipos de equipos                de    protección
+Derechos y obligaciones en protección personal según personal.
+prevención       de     riesgos tipo de actividad y riesgo
+                                                                   Valorar la importancia del
+laborales.                        identificado.
+                                                                   orden y la limpieza en la
+Normas      generales        de Utilizar           correctamente seguridad del trabajo.
+seguridad       en     talleres, equipos        de     protección
+                                                                   Respetar la señalización de
+laboratorios      y     plantas personal            garantizando
+                                                                   seguridad instalada.
+industriales.                     seguridad y comodidad.
+                                                                   Demostrar responsabilidad
+Tipos        de         riesgos Instalar          y      verificar
+                                                                   en la ejecución de protocolos
+industriales:           físicos, señalización de seguridad en
+                                                                   de emergencia.
+químicos,           biológicos,
+ergonómicos,    eléctricos,     talleres      y        plantas Asumir        una      actitud
+mecánicos y psicosociales.      industriales.                  preventiva frente a los
+                                                               riesgos laborales.
+Equipos de protección           Aplicar rutinas de orden y
+personal           (EPP):       limpieza siguiendo el método Mantener disposición activa
+clasificación,                  5S.                            en simulacros de evacuación
+características, uso   y                                       y control de incendios.
+                                Ejecutar procedimientos de
+mantenimiento.
+                                análisis de riesgos aplicando Mostrar compromiso con la
+Señalización de seguridad       matrices de evaluación.        protección      del     medio
+industrial:  códigos   de                                      ambiente y la sostenibilidad
+                                Elaborar informes técnicos
+colores,      pictogramas,                                     en procesos industriales.
+                                de riesgos con base en
+ubicación     y    normas
+                                observaciones, análisis y Evidenciar ética profesional
+técnicas.
+                                normativa vigente.             en la toma de decisiones
+Procedimientos de limpieza                                     relacionadas con seguridad
+                                Implementar           medidas
+y orden en el trabajo, 5S y                                    y salud.
+                                preventivas y correctivas
+buenas     prácticas     de
+                                ajustadas       a      riesgos Demostrar liderazgo en la
+higiene.
+                                detectados.                    organización de grupos
+Metodologías             de                                    frente a situaciones de
+                                Desarrollar      planes     de
+identificación y evaluación                                    riesgo.
+                                evacuación simulados en
+de riesgos, análisis de
+                                talleres,    laboratorios    y Fomentar        el    trabajo
+trabajo     seguro   (ATS),
+                                espacios industriales.         colaborativo en la mejora de
+matriz de riesgos, método
+                                                               las      condiciones        de
+del árbol de causas.            Actuar en simulacros de
+                                                               seguridad.
+                                emergencia           aplicando
+Medidas preventivas y
+                                protocolos de comunicación Mantener actitud reflexiva
+correctivas aplicadas a
+                                y evacuación.                  frente a incidentes para
+riesgos específicos en
+                                                               promover la mejora continua.
+talleres de electrónica,        Utilizar extintores, hidrantes
+mecatrónica,                    y otros equipos contra Asumir respeto por la vida,
+electromecánica, madera,        incendios      conforme      a la salud y el bienestar
+alimentos y calzado.            normas técnicas.               colectivo como valores
+                                                               fundamentales.
+Planes de emergencia,           Aplicar técnicas básicas de
+objetivos,      estructura,     primeros auxilios en casos
+responsables              y     de accidentes simulados.
+procedimientos.                 Evaluar        condiciones
+Protocolos de evacuación,       ergonómicas de los puestos
+primeros auxilios, control de   de trabajo y proponer
+incendios y comunicación        mejoras.
+en emergencias.                 Documentar y comunicar
+Manejo        seguro    de      incidentes, accidentes y
+herramientas      manuales,     medidas correctivas.
+eléctricas y de máquinas        Participar en actividades
+industriales.                   colaborativas de mejora
+Ergonomía    aplicada    a           continua en seguridad e
+puestos     de     trabajo,          higiene industrial.
+posturas, manipulación de
+cargas,   prevención    de
+lesiones.
+Cultura de seguridad y
+mejora           continua,
+responsabilidad,     ética,
+disciplina y sostenibilidad
+en el trabajo.
+Perfil del o la docente
+
+●       Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+        reconocidos por el órgano rector del Sistema de Educación Superior en: prevención de
+        riesgos laborales, higiene industrial y normativas de seguridad o carreras relacionadas
+        con seguridad industrial.
+●       Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+    ●       Aprendizaje Basado en Proyectos (ABP)
+    ●       Aprendizaje en Contextos Reales
+    ●       Role-Playing y Simulaciones
+    ●       Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Materiales y recursos
+
+Denominación                      Especificaciones técnicas                   Cantidad
+
+Infraestructura/espacio           Entorno de aprendizaje                      1
+                                  (aula)
+                                  Computadoras con acceso a internet
+Laboratorio                                                                   1
+                                  Proyector
+
+Referencias Bibliográficas
+
+Recursos Digitales:
+        ●     Banco Mundial. (2020). Guía de seguridad industrial para pequeñas y medianas
+              empresas. Washington, D.C.: Banco Mundial.
+        ●     Ministerio del Trabajo (Perú). (2019). Normas de seguridad y salud en el trabajo:
+              Guía práctica. Lima: Ministerio del Trabajo.
+        ●     Rodríguez Correa, C. (2016). Seguridad e higiene industrial: Gestión de riesgos.
+              Bogotá: Ash Consultores. https://ashconsultores.com.ar/wp-
+              content/uploads/2019/06/Libro_Seguridad_e_Higiene_industrial_ges.pdf
+   ●     Muñoz, A., Rodríguez Herrerías, J., & Martínez-Val, J. M. (2006). La seguridad
+         industrial: Fundamentos y aplicaciones. Madrid: Ministerio de Ciencia y Tecnología.
+         https://www.f2i2.net/web/publicaciones/libro_seguridad_industrial/lsi.pdf
+   ●     Ministerio de Trabajo (Ecuador). (2021). Guía de ergonomía y seguridad en talleres
+         técnicos. Quito: Ministerio de Trabajo de Ecuador
+   ●     Aguilar, E. J. L., Juárez, F. J. M., Collantes, C. J. A., & Oceda-Cortez, J. P. V.
+         (2022). Salud ocupacional como vigencia de los derechos humanos. Encuentros,
+         16. https://doi.org/10.5281/zenodo.6917094
+   ●     Cangahuala Sedano, J. A., & Salas Zeballos, V. R. (2022). Sistema de gestión de
+         seguridad salud ocupacional para la prevención de accidentes laborales en
+         empresas mineras. Llamkasun, 3(1), 112–118.
+   ●     Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad ocupacional en la
+         industria de la construcción en Ecuador. NOVASINERGIA, 5(1), 150–162.
+         https://doi.org/10.37135/ns.01.09.09
+   ●     Organización Internacional de Normalización. (2018). Sistemas de gestión de la
+         seguridad y salud en el trabajo: requisitos con orientación para su uso (Norma ISO
+         45001:2018). https://www.iso.org/standard/63787.html
+
+
+
+                              Módulo Genérico Nro.2
+
+Nombre del módulo:                      Procesos Industriales Sostenibles
+Nivel:                                  1ro y 2do
+
+Duración:                               160 periodos pedagógicos
+
+                                        UC 2: Emplear prácticas de sostenibilidad y control
+                                        de calidad en actividades industriales mediante el uso
+                                        de tecnologías limpias, criterios de eficiencia
+Unidad de competencia                   energética, minimización de residuos, garantizando la
+asociada:                               reducción de impactos ambientales y la optimización
+                                        de estos en beneficio del entorno local, integrando
+                                        fundamentos de formación y orientación laboral y
+                                        salud ocupacional.
+Objetivo del módulo: Implementar prácticas de sostenibilidad y control de calidad en
+procesos industriales, a través del uso de tecnologías limpias, criterios de eficiencia
+energética, técnicas de minimización de residuos, fundamentos de salud ocupacional y
+orientación laboral, con el propósito de reducir impactos ambientales, optimizar recursos y
+contribuir al desarrollo equilibrado en lo social, lo económico y lo ambiental.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar estrategias de reducción de consumo energético en equipos y
+procesos industriales mediante energías renovables y técnicas de optimización del
+consumo eléctrico, asegurando mejoras comprobables en sostenibilidad.
+CE1.1: Registra consumos energéticos de equipos verificando su correspondencia con
+valores de referencia.
+CE1.2: Analiza pérdidas de energía en rutinas operativas comprobando desviaciones frente
+a estándares de eficiencia.
+CE1.3: Ajusta parámetros de funcionamiento en equipos eléctricos evidenciando reducción
+en el gasto energético.
+CE1.4: Contrasta resultados obtenidos con el uso de energías renovables demostrando
+beneficios ambientales y económicos.
+RA 2: Implementar procedimientos de reducción, reutilización y reciclaje de
+materiales en procesos industriales aplicando técnicas de minimización de residuos
+y emisiones contaminantes bajo normativa ambiental vigente.
+CE2.1: Clasifica residuos sólidos en contenedores diferenciados asegurando su
+segregación conforme normativa ambiental.
+CE2.2: Reduce el uso de insumos en prácticas experimentales verificando el
+aprovechamiento máximo de materiales industriales.
+CE2.3: Reutiliza subproductos en actividades prácticas evidenciando funcionalidad en
+nuevos usos.
+CE2.4: Evalúa emisiones generadas en procesos industriales comprobando su disminución
+mediante prácticas de control.
+RA3: Utilizar materias primas y energía en procesos industriales garantizando
+reducción de costos operativos y aprovechamiento responsable de los recursos.
+CE3.1: Analiza puntos críticos de consumo de recursos industriales determinando su
+incidencia en costos operativos.
+CE3.2: Propone ajustes en el uso de materias primas demostrando ahorro sin afectar la
+calidad del producto.
+CE3.3: Aplica técnicas de aprovechamiento eficiente de recursos industriales comprobando
+reducción de desperdicio.
+CE3.4: Contrasta costos operativos antes y después de la optimización justificando
+beneficios económicos y ambientales.
+RA 4: Incorporar tecnologías limpias en sistemas de automatización y procesos
+comprobando mejoras en eficiencia, rendimiento y reducción del impacto ambiental.
+CE4.1: Opera sensores o controladores básicos verificando la automatización de tareas
+repetitivas.
+CE4.2: Ajusta configuraciones en dispositivos didácticos demostrando incremento en la
+eficiencia operativa.
+CE4.3: Simula procesos automatizados en software educativo comprobando reducción de
+desperdicios y errores.
+CE4.4: Contrasta resultados entre procesos tradicionales y tecnologías limpias
+evidenciando beneficios ambientales y económicos.
+RA 5: Integrar fundamentos de orientación laboral y salud ocupacional en
+actividades académicas e industriales fortaleciendo habilidades profesionales y
+condiciones de seguridad.
+CE5.1: Selecciona normativas laborales y de seguridad ocupacional con el fin de fortalecer
+habilidades técnicas profesionales.
+CE5.2: Aplica normativa en actividades de trabajo individual y en equipo considerando
+cooperación, comunicación efectiva y responsabilidad compartida.
+CE5.3:     Ejecuta acciones preventivas siguiendo protocolos de salud ocupacional,
+ergonomía y normas de seguridad industrial con el fin de reducir riesgos laborales.
+CE5.4: Valora la participación en procesos de orientación laboral evidenciando mejora en
+el desempeño profesional.
+RA 6: Ejecutar procedimientos básicos de control de calidad en productos y
+procesos industriales verificando cumplimiento de normas técnicas y mejora
+continua.
+CE6.1: Utiliza productos y materiales según parámetros establecidos en normas técnicas
+y procedimientos internos.
+CE6.2:     Ejecuta pruebas de control de calidad estandarizadas de acuerdo con
+procedimientos internos y normativas técnicas.
+CE6.3: Registra resultados de pruebas de calidad utilizando formatos establecidos y
+respetando la secuencia de procesos.
+CE6.4: Comunica los hallazgos de control de calidad siguiendo documentación
+estandarizada y sugiriendo medidas correctivas.
+Contenidos
+Conceptuales                   Procedimentales               Actitudinales
+Principios de sostenibilidad Identificar      fuentes    de Mostrar interés en la
+en procesos industriales, consumo            energético    y aplicación de prácticas
+definición, importancia y materiales         en    procesos sostenibles en procesos
+aplicación.                    industriales.                 industriales.
+Conceptos     básicos    de      Medir y registrar consumos Cumplir         con       los
+eficiencia       energética,     eléctricos,   térmicos    e procedimientos            de
+consumo,           pérdidas,     hidráulicos.                reducción, reutilización y
+rendimiento, ahorro.             Analizar           impactos reciclaje de materiales.
+Energías          renovables     ambientales de actividades Valorar la importancia del
+aplicadas a la industria,        productivas.                ahorro energético y del
+solar,    eólica,   biomasa,     Aplicar técnicas básicas de aprovechamiento
+hidráulica.                      reducción, reutilización y responsable de recursos.
+Impactos ambientales de los      reciclaje.                  Mostrar orden, precisión y
+procesos         industriales,   Elaborar    reportes     de método en las actividades
+contaminación      del   aire,   consumo y residuos en de medición, registro y
+agua, suelo y ruido.             procesos experimentales.    análisis.
+Estrategias de consumo Implementar estrategias de Asumir una actitud reflexiva
+responsable de materias optimización del consumo frente al impacto ambiental
+primas y energía.       eléctrico en equipos.     de los procesos industriales.
+Introducción a la economía Comparar el rendimiento de Evidenciar iniciativa en la
+circular,           reducción, energías convencionales y búsqueda de soluciones
+reutilización y reciclaje.     renovables.               tecnológicas limpias.
+Marco normativo ambiental Aplicar             técnicas      de   Demostrar eficiencia en la
+básico        nacional        e minimización de residuos         aplicación de conocimientos
+internacional      relacionado sólidos, líquidos y gaseosos.     para la mejora de procesos.
+con sostenibilidad.
+                                Diseñar         planes      de   Mantener     una   actitud
+Tecnologías             limpias aprovechamiento de residuos      positiva frente al trabajo
+aplicadas      a      procesos valorizables.                     colaborativo y proyectos
+industriales.                                                    colectivos.
+                                Documentar procedimientos
+Técnicas de optimización del de sostenibilidad aplicados         Respetar         normativas
+consumo        eléctrico     en en procesos experimentales.      ambientales    vigentes y
+equipos y sistemas.                                              aplicarlas    de      forma
+                                Integrar      sistemas      de
+                                                                 consciente.
+Procedimientos               de automatización que mejoren
+minimización de residuos y la eficiencia energética.             Tomar conciencia de la
+emisiones contaminantes.                                         importancia de innovar en el
+                                Evaluar     indicadores     de
+                                                                 uso de energías renovables
+Modelos        de       gestión sostenibilidad en procesos
+                                                                 y tecnologías limpias.
+energética y de recursos en simulados y reales.
+entornos industriales.                                           Manifestar compromiso con
+                                Incorporar            energías
+                                                                 el cuidado del entorno
+Sistemas de tratamiento y renovables en prototipos o
+                                                                 social,    económico    y
+valorización de residuos procesos de laboratorio.
+                                                                 ambiental.
+industriales.
+                                Diseñar     propuestas      de
+Relación entre eficiencia mejora             de       procesos
+energética y reducción de industriales con base en
+costos operativos.              tecnologías limpias.
+Automatización y control Validar la reducción de
+industrial    orientados a costos operativos mediante
+sostenibilidad.            la optimización de recursos
+Integración de      energías
+renovables en       procesos
+productivos.
+Innovación y tendencias en
+tecnologías sostenibles.
+Indicadores                de
+sostenibilidad, huella de
+carbono, huella hídrica,
+eficiencia global de recursos.
+Normas internacionales de
+sostenibilidad industrial (ISO
+14001, ISO 50001).
+Diseño y mejora de procesos
+industriales con enfoque
+ambiental.
+Proyectos integrales de
+sostenibilidad en procesos
+industriales,      análisis,
+implementación y evaluación
+de resultados.
+
+Perfil del o la docente
+
+●   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Procesos
+    Industriales Sostenibles, Producción Industrial, Gestión Ambiental o carreras afines al
+    sector industrial sostenible.
+●   Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+
+●   Aprendizaje Basado en Proyectos (ABP)
+●   Aprendizaje en Contextos Reales
+●   Role-Playing y Simulaciones
+●   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+Denominación                     Especificaciones técnicas                     Cantidad
+
+Infraestructura/espacio          Entorno de aprendizaje                 1
+                                 (aula)
+                                 Computadoras con acceso a internet
+Laboratorio                                                             1
+                                 Proyector
+
+Referencias Bibliográficas
+
+Recursos Digitales:
+   ● Contreras Cubas, I. A., & Zare Valderrama, K. A. (2019). La metodología 5S como
+      herramienta de mejora en las empresas industriales de Latinoamérica: revisión de
+      literatura científica. Universidad Privada del Norte.
+      https://hdl.handle.net/11537/25694
+   ● Falcón, P. C. G. (2022). Mejora del desempeño ambiental, de seguridad y salud
+      ocupacional: Caso de una empresa peruana de agroquímicos. Industrial Data,
+      25(2).
+   ● AO. (2018). Manuales para el control de calidad en laboratorios de alimentos.
+         https://openknowledge.fao.org/server/api/core/bitstreams/6768c081-bda7-455b-
+         a14e-3cf9f6498bea/content
+   ●     Aula Magna Proyecto Clave (Ed.). (2025). Control estadístico de la calidad para la
+         industria 5.0. Madrid: McGraw Hill.
+   ●     Gutiérrez, H. (2013). Control estadístico de la calidad y Seis Sigma (2ª ed.).
+         Universidad Veracruzana. https://www.uv.mx/personal/ermeneses/files/2018/05/6-
+         control-estadistico-de-la-calidad-y-seis-sigma-gutierrez-2da.pdf
+   ●     Besterfield, D. H. (2009). Control de calidad (8ª ed.). Pearson Educación.
+         https://maaz.ihmc.us/rid%3D1Y2G0F7VH-1RQJ94G-
+         CVP/Control%20de%20Calidad%20H.%20Besterfield.pdf
+   ●     Westgard, J. O. (2018). Prácticas básicas de control de la calidad.
+         https://colbiosa.com.ar/wp-content/uploads/2018/08/Practicas-Basicas-de-Control-
+         de-la-Calidad-James-Westgard-1.pdf
+   ●     CPSC. (2025). Manual para la fabricación de productos de consumo seguros:
+         Control de calidad. https://www.cpsc.gov/s3fs-
+         public/pdfs/blk_pdf_handbookspanishjul06.pdf
+
+
+
+                                  Módulo Genérico Nro.3
+
+Nombre del módulo:                   Dibujo Técnico Aplicado
+Nivel:                               1ro y 2do
+
+Duración:                            160 periodos pedagógicos
+
+                                      UC 3: Elaborar representaciones gráficas técnicas
+                                      aplicando normas de dibujo, principios de geometría, y
+Unidad de competencia                 herramientas digitales como CAD, CAE y modelado
+asociada:                             3D, generando planos, modelos y prototipos con
+                                      precisión, creatividad, responsabilidad y compromiso
+                                      con la calidad en contextos industriales diversos.
+Objetivo del módulo: Desarrollar competencias en la elaboración de representaciones
+gráficas técnicas, utilizando normas de dibujo, principios de geometría y herramientas
+digitales como CAD, CAE y modelado 3D, con el propósito de producir planos, modelos y
+prototipos industriales creativos y de calidad, que respondan a las necesidades de diseño y
+producción en diversos contextos industriales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+
+RA 1: Emplear normas de dibujo técnico y principios de geometría en planos,
+esquemas y representaciones gráficas verificando coherencia y exactitud en la
+información.
+CE1.1: Distingue símbolos, líneas, escalas y convenciones gráficas en planos técnicos
+comprobando su correcta aplicación según normativa.
+CE1.2: Analiza diagramas y esquemas verificando coherencia entre elementos y relaciones
+espaciales.
+CE1.3: Diferencia elementos constructivos y funcionales en representaciones técnicas
+evidenciando correspondencia con el objeto real.
+CE1.4: Evalúa la pertinencia de símbolos, escalas y convenciones gráficas utilizadas en
+planos verificando cumplimiento de estándares técnicos.
+RA 2: Elaborar representaciones gráficas manuales y digitales de componentes y
+sistemas aplicando principios geométricos, escalas y normas de rotulación con
+claridad, precisión y legibilidad.
+CE2.1 Traza figuras geométricas y vistas básicas utilizando instrumentos de dibujo en
+condiciones de orden y limpieza.
+CE2.2: Aplica escalas en representaciones gráficas comprobando proporcionalidad entre
+objeto real y dibujo técnico.
+CE2.3: Elabora planos técnicos de piezas, estructuras y ensamblajes comprobando
+exactitud de medidas y proporciones.
+CE2.4: Presenta planos manuales y digitales con formatos estandarizados cumpliendo
+criterios de orden y legibilidad.
+RA 3: Crear modelos y prototipos digitales mediante herramientas CAD/CAE
+aplicando operaciones de construcción, ensamblaje y simulación en función de
+requerimientos técnicos.
+CE3.1: Configura parámetros de software CAD ajustando unidades, capas y formatos de
+acuerdo con requerimientos técnicos.
+CE3.2 Construye modelos y prototipos básicos aplicando operaciones de diseño y
+ensamblaje.
+CE3.3: Ejecuta simulaciones de funcionamiento o resistencia comprobando la operatividad
+del diseño.
+CE3.4: Presenta prototipos digitales evidenciando precisión geométrica y factibilidad técnica
+conforme a los estándares establecidos.
+RA 4: Integrar creatividad, responsabilidad y mejora continua en representaciones
+gráficas técnicas fomentando innovación, optimización de recursos y trabajo
+colaborativo.
+CE4.1: Colabora en el diseño de planos, modelos y sistemas aplicando especificaciones
+técnicas, criterios de precisión, innovación y mejora continua.
+CE4.2: Analiza resultados de simulaciones gráficas identificando ajustes en geometría o
+materiales según especificaciones técnicas.
+CE4.3: Mejora diseños digitales reduciendo complejidad, tiempos o recursos y manteniendo
+calidad técnica del producto.
+CE4.4: Propone soluciones innovadoras en diseños de piezas o sistemas verificando su
+factibilidad técnica.
+ Contenidos
+Conceptuales                      Procedimentales               Actitudinales
+                                  Trazar líneas, vistas y Mostrar interés en la lectura,
+Principios básicos del dibujo escalas en bocetos y planos. interpretación y elaboración
+técnico: líneas, tipos de                                       de planos técnicos.
+                                  Utilizar   instrumentos    de
+vistas y escalas.
+                                  dibujo técnico con precisión.
+Normas internacionales y           Identificar  simbología    y Cumplir con las normas de
+nacionales de dibujo técnico       aplicar normas básicas en calidad en representaciones
+(ISO, DIN, INEN).                  representaciones gráficas.   gráficas.
+Principios fundamentales de
+                                   Interpretar             planos Valorar la precisión y
+geometría      aplicados      al
+                                   bidimensionales simples.        exactitud en los dibujos
+dibujo técnico.
+                                                                   como garantía de seguridad
+Sistemas de proyección             Representar             figuras
+                                                                   y confiabilidad.
+ortogonal,     isométrica      y   geométricas aplicadas a
+oblicua.                           piezas básicas.                 Demostrar                orden,
+Lectura e interpretación de                                        responsabilidad y método
+                                   Elaborar planos con cortes,
+planos y esquemas técnicos.                                        en el uso de herramientas
+                                   secciones y detalles.
+Conceptos de acotación,                                            manuales y digitales.
+tolerancias y ajustes en           Dibujar ensamblajes simples
+                                                                   Asumir actitud reflexiva y
+representaciones gráficas.         aplicando      normas        de
+                                                                   analítica     al     interpretar
+Rotulación y simbología            rotulación y acotación.
+                                                                   planos       y       diagramas
+básica en planos técnicos.         Usar software CAD en la técnicos.
+Representación de cortes,          creación de representaciones
+secciones        y     detalles                                    Mostrar iniciativa en la
+                                   2D.
+técnicos.                                                          búsqueda de soluciones
+                                   Representar diagramas y gráficas ante problemas de
+Principios de normalización
+                                   esquemas funcionales de representación.
+en planos de piezas y
+                                   sistemas técnicos.
+ensamblajes.                                                       Demostrar liderazgo en
+Escalas de reducción y             Comprobar exactitud de actividades colaborativas de
+ampliación aplicadas a la          planos mediante cotejo con diseño gráfico técnico.
+industria.                         piezas o modelos reales.
+                                                                   Aplicar       criterios      de
+Geometría           descriptiva    Generar       modelos       3D creatividad e innovación en
+aplicada      a       sistemas     mediante herramientas CAD. el desarrollo de planos y
+complejos.
+Introducción a herramientas        Simular funcionamiento y modelos.
+CAD en 2D, funciones               ensamblajes     en    software Respetar las normas de
+básicas      y       comandos      CAD/CAE.                        seguridad en el uso de
+esenciales.                        Crear prototipos digitales y equipos e instalaciones de
+Elaboración       de     planos    planos listos para fabricación. laboratorio de CAD.
+constructivos y diagramas                                           Demostrar responsabilidad
+                                   Optimizar representaciones
+funcionales.                                                        en la entrega oportuna y con
+                                   gráficas           mediante
+Principios de representación                                        calidad de trabajos gráficos.
+                                   automatización de comandos
+gráfica en componentes
+                                   y macros en CAD.           Mostrar disposición positiva
+mecánicos, electrónicos y
+estructurales.                     Presentar     proyectos de y activa en actividades
+Modelado tridimensional en         diseño gráfico técnico con individuales y grupales.
+software CAD y generación          enfoque       innovador  y Usar con cuidado los
+de prototipos digitales.           colaborativo.              materiales,     equipos    y
+Ensamblajes y simulación de                                         software de representación
+funcionamiento              con                                     gráfica.
+herramientas CAD/CAE.
+Generación        de     vistas                                   Valorar la importancia del
+explotadas y despieces                                            dibujo técnico como
+técnicos.                                                         lenguaje universal en la
+Renderizado        básico     y                                   industria.
+presentación de modelos
+3D.
+Optimización de planos
+digitales para manufactura y
+fabricación     asistida    por
+computadora (CAM).
+Innovación y creatividad en
+el diseño gráfico aplicado a
+procesos industriales.
+Integración del dibujo técnico
+en                   proyectos
+interdisciplinarios de diseño,
+producción y mantenimiento.
+Perfil del o la docente
+
+●   Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Dibujo
+    Técnico, Dibujo Industrial, Diseño Asistido por Computadora (CAD) o carreras afines
+    al área de representación gráfica y diseño técnico.
+●    Experiencia en el campo amplio de la Educación, debidamente certificada.
+
+Orientaciones Metodológicas
+ ● Aprendizaje Basado en Proyectos (ABP)
+ ● Aprendizaje en Contextos Reales
+ ● Role-Playing y Simulaciones
+ ● Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas.
+
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+
+                                  Detalle de especificaciones
+Denominación                                                              Cantidad
+                                  técnicas
+
+Infraestructura/espacio           Entorno de aprendizaje (aula)           1
+
+                                  Computadoras con acceso a internet
+Laboratorio                                                               1
+                                  Proyector
+
+Referencias Bibliográficas
+
+Recursos Digitales:
+●   Fernández Saavedra, D. (2019). Material docente: Dibujo Industrial I, Diseño Asistido
+    por Ordenador (CAD). UPM.
+    https://oa.upm.es/57277/1/TFG_DIEGO_FERNANDEZ_SAAVEDRA.pdf
+ ●   Revatta Espinoza, J. (2016). Dibujo para diseño de ingeniería I. Universidad
+     Continental.
+     https://repositorio.continental.edu.pe/bitstream/20.500.12394/2210/1/DO_FIN_EE_M
+     T_UC0222_20162.pdf
+ ●   Core.ac.uk. (2020). Arturo Solís García: Propuesta en dibujo técnico y programas
+     CAD. https://core.ac.uk/download/pdf/128741376.pdf
+ ●   3D ContentCentral®. (2025). Plataforma de piezas y ensamblajes CAD en 2D y 3D.
+     https://www.3dcontentcentral.es/
+ ●   razo-Arteaga, V. A. (2022). El diseño, la manufactura y análisis asistido por
+     computadora (CAD/CAM/CAE) en el desarrollo de productos en América Latina.
+     Información Tecnológica, 33(2).
+     https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0718-07642022000200297
+ ●   Fernández-Bravo, P. U. (2009). Mecanizado básico. Ed. Paraninfo. ISBN:
+     9788497326933
+ ●   D. Lütf & J. Ross. (1986). Dibujo técnico para la industria automotriz. Ed. Don Bosco
+     Cuenca.
+ ●   Gerschler, H. (2005). Tecnología del automóvil. Editorial Reverté.
+ ●   Alcalde San Miguel, P. (2003). Electrónica digital. Ed. Paraninfo.
+
+
+     4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Producción de Calzado se
+caracterizarán por tener una sólida formación en conocimientos técnicos, prácticos y
+actitudinales que les permitirán desenvolverse en diseño, patronaje y fabricación de
+calzado ergonómico y funcional, integrando principios de biomecánica, innovación digital y
+sostenibilidad ambiental.
+
+Se estructuran los siguientes módulos de especialización para primero, segundo y tercero
+de bachillerato:
+           ● Materiales Inteligentes y Herramientas del Calzado Moderno
+           ● Diseño Digital y Patronaje de Calzado
+           ● Técnicas de Ensamblaje y Ergonomía del Calzado
+           ● Control de Calidad y Estética del Calzado Comercial
+           ● Innovación, y Prototipado de Calzado Sostenible
+
+                        Módulo de Especialización Nro. 1
+                                      Materiales Inteligentes y Herramientas del
+ Nombre del módulo:
+                                      Calzado Moderno
+ Nivel:                               1ro, 2do.
+ Duración:                            200 periodos pedagógicos
+                                      UC1: Preparar materiales, componentes y
+                                      herramientas del calzado, aplicando normas
+ Unidad de competencia asociada:
+                                      de       seguridad,       sostenibilidad   y
+                                      aprovechamiento eficiente de recursos,
+                                               garantizando la calidad del producto, el orden
+                                               técnico y la adecuada disposición de los
+                                               elementos en el proceso de fabricación.
+Objetivo del módulo: Desarrollar las competencias necesarias para analizar, seleccionar
+y preparar materiales, componentes y herramientas del calzado, aplicando criterios de
+seguridad industrial, sostenibilidad y optimización de recursos, con el propósito de asegurar
+la calidad del producto, mantener el orden técnico del taller y garantizar la adecuada
+disposición de los elementos requeridos en el proceso de fabricación.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Seleccionar materiales y herramientas considerando su función y propiedades
+técnicas, aplicando criterios de selección adecuados al proceso de fabricación y
+demostrando decisiones pertinentes para la resolución de tareas productivas en el
+taller.
+CE1.1: Reconoce los materiales del calzado evaluando su textura, flexibilidad, densidad y
+resistencia, identificando si son adecuados según el tipo de producto a fabricar y
+asegurando que cumplan los estándares técnicos y funcionales requeridos.
+CE1.2: Organiza los componentes del calzado por tipo, uso, tamaño, color y material,
+manteniendo un orden que optimiza el proceso productivo y asegure la trazabilidad de los
+insumos.
+CE1.3: Registra información de los materiales en fichas de control, rotulando de manera
+correcta datos como proveedor, lote, fecha y cantidad, garantizando el seguimiento del
+inventario y la gestión de calidad.
+CE1.4: Verifica el estado físico de los materiales, constatando ausencia de defectos,
+humedad o deterioro, determinando su aptitud para el uso y comunicando oportunamente
+cualquier irregularidad al responsable técnico.
+RA 2: Organizar los materiales, herramientas e insumos, aplicando normas de
+seguridad y criterios de sostenibilidad, demostrando autonomía, responsabilidad y
+preparación adecuada del entorno de trabajo para facilitar el desarrollo de
+actividades prácticas de aprendizaje.
+CE2.1: Explica las condiciones de los materiales antes de su uso, verificando su limpieza,
+preparación y condiciones adecuadas para su uso técnico, confirmando que no existan
+impurezas o alteraciones que puedan afectar la calidad del corte o ensamblaje.
+CE2.2: Reconoce el funcionamiento y calibración de herramientas, maquinarias y equipos
+de trabajo según la tarea, manteniendo cada elemento en su lugar designado y
+garantizando orden, seguridad y eficiencia.
+CE2.3: Verifica el estado, funcionamiento y calibración de las herramientas, maquinaria y
+equipos antes de su uso, detectando posibles anomalías y tomando medidas preventivas
+de seguridad.
+CE2.4: Mantiene el espacio de trabajo limpio y ordenado, aplicando normas de seguridad
+laboral y demostrando disciplina y responsabilidad en el uso del espacio técnico.
+RA 3: Implementar prácticas seguras y responsables en el uso de materiales e
+insumos, garantizando condiciones adecuadas de orden, sostenibilidad y protección
+dentro del taller para fortalecer la formación técnica del estudiante.
+CE3.1: Reconoce el equipo de protección personal conforme a las normas de seguridad,
+demostrando cuidado personal y manteniendo condiciones adecuadas para realizar las
+actividades del proceso productivo.
+CE3.2: Distingue materiales y residuos reutilizables, contaminantes, y contribuyendo a
+prácticas de gestión ambiental responsable dentro del taller.
+CE3.3: Clasifica el desperdicio utilizando adecuadamente pegantes y recursos, reduciendo
+consumo de materiales por debajo del promedio estimado.
+CE3.4: Comunica oportunamente riesgos, incidentes o accidentes, siguiendo los protocolos
+establecidos y demostrando una actitud responsable frente a la prevención de riesgos.
+Contenidos
+Conceptuales                     Procedimentales                    Actitudinales
+Historia del desarrollo del Identificar diferentes tipos de Respetar                normas     de
+calzado.                         materiales  para  la fabricación   seguridad    industrial y uso
+                                 de calzado mediante pruebas obligatorio del EPP.
+Estructura     básica       del
+                                 de textura, flexibilidad y
+calzado:      corte,     forro,                                     Asumir responsabilidad en
+                                 densidad.
+plantilla, suela, puntera,                                          el manejo de herramientas
+contrafuerte, refuerzos y Reconocer               signos         de cortantes y maquinaria.
+función técnica en el deterioro o defectos como
+                                                                    Cuidar la integridad física
+desempeño del calzado.           hongos,        humedad           o
+                                                                    propia y de los compañeros.
+                                 deformaciones.
+Materiales       para         la
+                                                                    Mantener el área limpia,
+Fabricación        y       sus Clasificar materiales según su
+                                                                    organizada y libre de
+Propiedades.                     función       (corte,       forro,
+                                                                    materiales peligrosos.
+                                 refuerzos, suelas) y su
+Funcionalidad       de      los
+                                 aplicación por tipo de calzado. Valorar la importancia del
+materiales según tipo de
+                                                                    uso       responsable      de
+calzado (deportivo, casual, Reconocer                  materiales
+                                                                    materiales y energía.
+seguridad, ortopédico).          tradicionales con materiales
+                                 inteligentes evaluando sus Demostrar compromiso con
+Criterios de selección según
+                                 propiedades técnicas.              la reducción de residuos y
+calidad,     ergonomía         y
+                                                                    reciclaje.
+durabilidad.                     Seleccionar           materiales
+                                 adecuados según criterios de Fomentar el cuidado del
+Defectos      comunes        en
+                                 ergonomía,               confort, ambiente dentro del taller y
+materiales           (hongos,
+                                 durabilidad y sostenibilidad.      fuera de él.
+humedad,               grietas,
+deformaciones).                  Realizar pruebas físicas en Cooperar con compañeros
+                                 materiales              (flexión, en actividades prácticas y
+Clasificación                de
+                                 resistencia, recuperación).        proyectos grupales.
+herramientas        manuales
+para la fabricación de Organizar materiales útiles Escuchar                          activamente,
+calzado.                         para reúso en prácticas respetar                  opiniones    y
+                                 formativas.                        contribuir al clima positivo
+Maquinaria para fabricación
+                                                                    del taller.
+de calzado según procesos Explicar el funcionamiento y
+productivos.                     calibración         de         las
+Normas de uso seguro de herramientas, maquinarias y            Cuestionar, comparar y
+materiales,   herramientas, equipos.                           analizar materiales con
+maquinarias y equipos.                                         actitud investigativa.
+                            Ejemplificar el mantenimiento
+Mantenimiento preventivo preventivo de herramientas            Demostrar apertura para
+de            herramientas, maquinarias y equipos.             aprender           nuevas
+maquinarias y equipos.                                         tecnologías, técnicas y
+                            Diagramar fichas de control
+                                                               procesos.
+Fichas de control de de materiales, lotes y tallas.
+materiales.                                                    Demostrar   atención  al
+                            Rotular         correctamente
+                                                               detalle en el manejo de
+Trazabilidad de materiales materiales,       herramientas,
+                                                               materiales.
+en el proceso productivo.   maquinarias y equipos.
+                                                        Actuar con cuidado y
+Técnicas de reciclaje y Exponer correctamente el uso
+                                                        pulcritud para evitar errores
+reaprovechamiento     de de los EPP.
+                                                        o desperdicios.
+materiales.
+                          Identificar riesgos en el
+Conceptos de economía manejo de herramientas,
+circular    aplicados  al maquinaria,          equipos,
+calzado.                  químicos y solventes
+
+Principios de sostenibilidad Promover prácticas de ahorro
+en el taller.                  de recursos.
+Perfil del o la docente
+    ● Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+        reconocidos por el órgano rector del Sistema de Educación Superior en: Licenciado
+        en diseño textil e indumentaria, Ingeniería Industrial, Licenciado/a en diseño de
+        productos, Tecnología Superior en Fabricación de calzado o ramas afines.
+    ● Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+● Aprendizaje Basado en Proyectos (ABP)
+● Aprendizaje en Contextos Reales
+● Role-Playing y Simulaciones
+● Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Especificaciones técnicas     Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula) 1
+                            Computadoras con acceso a
+                            internet
+                            Proyector
+Laboratorio                                               1
+                            Área de almacenaje para
+                            herramientas y materiales
+                            plenamente identificados.
+                             Materiales
+                             Hormas,
+                             cueros/sintéticos/textil
+                             Espumas, suelas, plantillas,
+                             refuerzos
+                             Pegantes,              químicos,
+                             esponjas y látex
+                             Pasadores,              herrajes,
+                             elásticos
+                             Manuales técnicos y fichas de
+                             control
+                             Herramientas manuales
+                             Escuadras,           curvígrafos,
+                             plantillas, cutter, punzones,
+                             cuchilla de zapatero, tijeras,
+                             estiletes, tapetes, brochas,
+                             agujas, hilos encerados,
+                             pinzas, martillo, cardas, lijas
+                             finas, pinzas, martillo, cuchilla
+                             curva,     raspador,       rodillo,
+                             espátulas,     lijas     gruesas,
+                             trapos, cepillos, espumas,
+Herramientas/equipos
+                             cremas/cera, esponjas finas,
+                             regla, cartabón, cinta métrica,
+                             calibrador,     fichas,      lupa,
+                             escuadra.
+                             Maquinaria
+                             Troqueladora, máquinas de
+                             coser recta y zigzag, motor de
+                             cardado, prensa neumática,
+                             horno de activación, pistola
+                             de     calor,     termoformado,
+                             prensa de ensuelado y horno
+                             para suelas PU/TR, pulidora,
+                             lijadora, motor multipropósito.
+                             EPP
+                             Gafas de seguridad
+                             Mascarilla      de      tela      o
+                             desechable (para polvo y
+                             vapores)
+                             Guantes de nitrilo o vinilo
+                             (para manipular adhesivos)
+                             Guantes de trabajo ligeros o
+                             anticorte.
+Referencias Bibliográficas
+Normativas:
+Servicio Ecuatoriano de Normalización. (2021). Gestión de la seguridad y salud en el
+trabajo - Seguridad y salud psicológicas en el trabajo - Directrices para la gestión de los
+riesgos psicosociales (NTE INEN-ISO 45003:2021).
+Servicio Ecuatoriano de Normalización. (2011). RTE INEN 264: Calzado de protección y
+calzado de seguridad. https://www.normalizacion.gob.ec/buzon/reglamentos/RTE-264.pdf
+Servicio Ecuatoriano de Normalización. (2006). RTE INEN 013: Etiquetado de productos
+textiles, prendas de vestir y calzado.
+https://www.aduana.gob.ec/archivos/Boletines/2012/RTEINEN013_2006.pdfComisión de
+la Comunidad Andina. (2019). Resolución 2107: Reglamento técnico para calzado.
+https://gplogistics.com.ec/wp-content/uploads/2021/11/RESOLUCION-ANDINA-2107.pdf
+
+Referencias web:
+“Material Innovations in Footwear Manufacturing” –materiales inteligentes en calzado:
+ajustes al pie, temperatura, movimiento. https://www.hqts.com/footwear-material-
+innovations
+“Smart footwear: A designer’s perspective” (2023) – artículo sobre cómo calzado “smart”
+integra tecnología, sensores, etc. https://www.sciencedirect.com/science/chapter/edited-
+volume/abs/pii/B9780128195260000114?
+Haciendo Zapatos. (2017). Tipos de materiales para hacer zapatos: consejos prácticos en
+el uso del material [Video]. YouTube. https://www.youtube.com/watch?v=rWpdKAqvDvA
+Haciendo Zapatos. (2021). Qué máquinas se utilizan para hacer zapatos [Video].
+YouTube. https://www.youtube.com/watch?v=rWpdKAqvDvA
+Haciendo Zapatos. (2023). HORMAS PARA FABRICAR ZAPATOS [Video]. YouTube.
+https://www.youtube.com/watch?v=rWpdKAqvDvA
+
+Libros:
+Choklat, A. (2013). Diseño de calzado. Editorial GG.
+Luximon, A. (Ed.). (2013). Handbook of footwear design and manufacture. Woodhead
+Publishing. ISBN 978-0857095398.
+Askeland, D. R., Wright, W. J., & Rosales, L. P. (1998). Ciencia e ingeniería de los
+materiales (Vol. 3). México: International Thomson Editores.                      Callister,
+W. D., & Rethwisch, D. G. (2019). Ciencia e ingeniería de materiales. Revert Canseco de
+la Cruz, R. A., Camarillo Gómez, K. A., Silva Moreno, A., & Lesso Arroyo, R. (2011).
+Experimentación y análisis por MEF del Comportamiento Hiperelástico en Materiales
+usados en Calzado Deportivo. Ingeniería mecánica, tecnología y desarrollo, 4(1), 023-031.
+
+                      Módulo de Especialización Nro. 2
+Nombre del módulo:            Diseño Digital y Patronaje de Calzado
+Nivel:                        1ro, 2do, 3ro.
+Duración:                     520 periodos pedagógicos
+                              UC2: Diseñar bocetos, patrones base, derivados y
+Unidad de Competencia
+                              cortes digitales o manuales de calzado interpretando
+asociada:
+                              fichas técnicas y utilizando herramientas CAD/CAM,
+                                      asegurando precisión, eficiencia y cumplimiento de
+                                      especificaciones técnicas en desarrollo de calzado.
+Objetivo del módulo: Fortalecer la capacidad del estudiante en el diseño de bocetos,
+patrones base, derivados y cortes manuales o digitales, analizando fichas técnicas y
+utilizando herramientas CAD/CAM, con el propósito de asegurar precisión, eficiencia y
+cumplimiento de las especificaciones técnicas en la construcción de modelos de calzado.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Interpretar la información técnica y visual presente en bocetos y fichas de
+diseño de calzado, evaluando sus componentes estructurales, criterios funcionales
+y elementos estéticos, con el fin de fundamentar decisiones pertinentes para el
+desarrollo preciso del producto.
+CE1.1: Analiza la estructura general del diseño identificando proporciones, líneas guía y
+elementos formales del modelo, demostrando comprensión técnica y coherencia visual en
+la interpretación gráfica.
+CE1.2: Dibuja bocetos con exactitud en forma, dimensiones y detalles, demostrando
+dominio del dibujo técnico y manteniendo correspondencia con los parámetros establecidos
+en el diseño original.
+CE1.3: Describe información relevante del diseño en fichas técnicas bien estructuradas,
+integrando datos de medidas, materiales, colores y especificaciones que faciliten el
+desarrollo ordenado del proceso productivo.
+CE1.4: Propone un concepto de diseño innovador, argumentando la elección de elementos
+estéticos, ergonómicos y funcionales, comunicando con claridad la intención técnica del
+modelo.
+RA 2: Construir representaciones gráficas del calzado mediante bocetos técnicos y
+artísticos, aplicando principios de proporción, ergonomía, funcionalidad y estilo, con
+el propósito de sustentar decisiones formativas en el diseño previo al proceso de
+fabricación.
+CE2.1: Construye bocetos manuales con proporción y equilibrio, representando forma,
+volumen y detalles del calzado mediante técnicas gráficas adecuadas al modelo trabajado.
+CE2.2: Utiliza herramientas digitales en el diseño del calzado, identificando color, líneas y
+capas con precisión, logrando una representación visual clara y tecnológicamente
+mejorada.
+CE2.3: Ilustra con colores, texturas y elementos decorativos de manera armónica en los
+bocetos, asegurando coherencia estética con la funcionalidad y el estilo del modelo.
+CE2.4: Organiza la presentación de los bocetos respetando normas técnicas de formato,
+aplicando escalas, rotulación y limpieza que evidencien orden y profesionalismo gráfico.
+RA 3: Elaborar patrones base y transformaciones del calzado aplicando criterios
+técnicos, ergonómicos y de correspondencia con la horma, generando piezas
+precisas que orienten la construcción adecuada del modelo.
+CE3.1: Dibuja patrones base con precisión milimétrica, alineando las líneas del diseño con
+las proporciones de la horma según especificaciones de fabricación.
+CE3.2: Aplica técnicas en los patrones señalando, costuras, dobleces, desbastes, entre
+otras orientaciones, empleando simbología normalizada que facilite su interpretación en
+corte y armado.
+CE3.3: Usa patrones estructurales, generando variantes del modelo que mantengan el
+ajuste, la forma y la operatividad del diseño original.
+CE3.4: Compara el patrón con la horma verificando proporciones, curvas y calce, realizando
+correcciones que garanticen compatibilidad dimensional y precisión para el armado.
+RA 4: Construir series de tallas mediante procesos de escalado y moldes digitales,
+garantizando correspondencia dimensional y coherencia técnica entre las distintas
+medidas del diseño.
+CE4.1: Crea series de tallas desde el patrón base utilizando herramientas manuales o
+software CAD, aplicando escalas estandarizadas que aseguren uniformidad dimensional.
+CE4.2: Compara las medidas de cada talla con la ficha técnica del modelo, confirmando
+exactitud y consistencia antes de la digitalización o del corte.
+CE4.3: Aplica tolerancias y ajustes de proporción o ancho según el tipo de calzado, dejando
+registro de los cambios para mantener la trazabilidad.
+CE4.4: Registra las tallas generadas en la ficha técnica manteniendo coherencia entre
+archivo digital y patrón físico y asegurando accesibilidad para producción.
+RA 5: Ejecutar cortes en distintos materiales utilizando procedimientos manuales o
+mecanizados, asegurando precisión en los bordes y calidad en la terminación para
+su uso en el armado.
+CE5.1: Identifica el material siguiendo el sentido orientación y características del patrón,
+optimizando el rendimiento y evitando deformaciones según el tipo de material.
+CE5.2: Realiza cortes definidos y exactos en el trazado previsto, utilizando herramientas de
+manera segura y manteniendo precisión dimensional en cada pieza.
+CE5.3: Clasifica las piezas cortadas según talla, color y modelo, identificándolas
+correctamente para facilitar su traslado y continuidad en el área de aparado.
+CE5.4: Emplea los materiales de manera eficiente organizando los patrones sobre la
+superficie de corte, reduciendo desperdicios y fomentando prácticas sostenibles.
+Contenidos
+Conceptuales                     Procedimentales                  Actitudinales
+Concepto y evolución del Trazar líneas guía y construir Mostrar interés y apertura
+diseño de calzado.               vistas del calzado (lateral, para crear nuevos diseños
+                                 medial, superior, inferior y de calzado.
+Fases del diseño de
+                                 posterior).
+calzado, principios estéticos                                     Valorar la estética y el
+desde boceto a producción. Dibujar la silueta base del detalle en los bocetos y
+                                 calzado             respetando dibujos realizados.
+Componentes estructurales
+                                 proporciones y volúmenes.
+del calzado y su función.                                         Mantener       una    actitud
+                                 Representar             detalles responsable al trabajar con
+Tipologías de calzado según
+                                 estructurales:        costuras, medidas y proporciones.
+uso:      deportivo,    casual,
+                                 ojales, refuerzos, texturas.
+ortopédico,          seguridad,                                   Demostrar disposición para
+infantil, urbano, entre otras. Aplicar         técnicas        de aprender y usar programas
+                                 sombreado,       volumen       y digitales de diseño.
+Materiales aplicados al
+                                 acabados        gráficos      en
+patronaje               (forros,                                  Corregir errores, mejorando
+                                 bocetos.
+contrafuertes, punteras)                                          los trabajos realizados.
+Biomecánica del pie y Realizar                     ilustraciones    Cuidar adecuadamente las
+requerimientos funcionales. manuales de modelos según               herramientas y materiales
+                                estilo y uso.                       del taller.
+Comunicación visual del
+diseño del calzado.             Observar la anatomía del pie        Trabajar     de     manera
+                                y traducirla a decisiones de        colaborativa           con
+Tablas      de     tallas     y
+                                diseño.                             compañeros en actividades
+equivalencias
+                                                                    de diseño y patronaje.
+internacionales.                Evaluar el tipo de pisada
+                                (pronación,          supinación,    Entregar los trabajos a
+Documentación técnica para
+                                neutra) mediante ejemplos.          tiempo    y   con  buena
+producción.
+                                                                    presentación.
+                                Relacionar el tipo de usuario
+Fundamentos técnicos del
+                                con      los     requerimientos     Mostrar respeto por el
+patronaje y despiece.
+                                ergonómicos del calzado.            trabajo propio y el de los
+Conceptos y sistemas de                                             demás.
+                                Recolectar los datos de pie y
+escalado.
+                                horma.                              Tener      iniciativa  para
+Diseño y desarrollo digital                                         proponer ideas y soluciones
+                                Desarrollar de forma integral
+asistido por computadora.                                           creativas.
+                                los       patrones       usando
+Ventajas del corte digital
+                                información técnica en el           Demostrar perseverancia al
+frente al corte manual.
+                                proceso de recolección de           enfrentar tareas complejas o
+Parámetros       de      corte: datos para fichas.                  procesos nuevos.
+velocidad,           potencia,
+                                Organizar información del           Mantener orden en          los
+temperatura.
+                                diseño     utilizando     tablas,   archivos       digitales     y
+Precisión dimensional y códigos y simbología técnica.               materiales utilizados.
+control de calidad digital.
+                                Modificar el patrón base para       Actuar con honestidad en la
+Técnicas        de      Corte, generar variaciones de diseño        elaboración de diseños y
+preparación del material y y series de tallas, aplicando            documentación.
+optimización.                   técnicas de escalado.
+                                                            Asumir una actitud crítica y
+Errores     frecuentes   en Generar patrones digitales del reflexiva ante los resultados
+diseño y su impacto en el calzado,        preparando    los del diseño para mejorarlos
+ensamblaje.                  archivos     de    exportación continuamente.
+                             (DXF, AI, PLT).
+Normas de seguridad y
+manipulación en corte.       Simular ensambles digitales
+                             para detectar errores previos
+Identidad de marca y diseño al corte.
+orientado al usuario.
+                             Ejecutar procesos de corte y
+Importancia       de      la control de calidad, aplicando
+trazabilidad documental.     técnicas de optimización y
+                             trazabilidad     según     las
+                             especificaciones técnicas del
+                             calzado.
+Economía             circular, Identificar las partes de un
+ecodiseño      aplicado     al calzado, analizando cuáles
+desarrollo de calzado.         pueden reutilizarse, repararse
+                               o reciclarse aplicando los
+                               principios    de     economía
+                               circular.
+Perfil del o la docente
+   ● Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+        reconocidos por el órgano rector del Sistema de Educación Superior en: Licenciado
+        en diseño textil e indumentaria, Ingeniería Industrial, Licenciado/a en diseño de
+        productos, Tecnología Superior en Fabricación de calzado o ramas afines.
+   ● Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    ● Aprendizaje Basado en Proyectos (ABP)
+    ● Aprendizaje en Contextos Reales
+    ● Role-Playing y Simulaciones
+    ● Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Especificaciones técnicas              Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula)          1
+                            Aula multimedia equipada con
+                            proyector, internet y pizarra digital.
+Laboratorio                 Taller de patronaje y corte con mesas 1
+                            amplias de trabajo, ventilado e
+                            iluminado.
+                            Herramientas Manuales
+                            Cuchilla de zapatero
+                            Tijeras para calzado
+                            Reglas metálicas y cintas métricas
+                            Escuadras y compases
+                            Plantillas de curvas y formas
+                            Punzones y sacabocados.
+                            Cartulina, kraft, cartón piedra y
+                            acetato.
+Herramientas/equipos
+                            Papeles de trazado y bond
+                            Material sintético y cuero para
+                            prácticas de corte
+                            Pegamentos y materiales de marcado
+                            Herramientas y equipos de trazado
+                            y patronaje
+                            Mesas amplias de corte y trazado
+                            Plantillas para patrones base
+                            Fichas técnicas impresas
+                             Cinta adhesiva para ensamble de
+                             patrones
+                             Equipos digitales
+                             Software de diseño: Illustrator.
+                             Equipos y accesorios
+                             complementarios
+                             Organizadores de herramientas y
+                             materiales
+                             Contenedores para retazos y material
+                             reciclable
+                             EPP
+                             Gafas de seguridad
+                             Mascarilla de tela o desechable (para
+                             polvo y vapores)
+                             Guantes de nitrilo o vinilo (para
+                             manipular adhesivos)
+                             Guantes de trabajo ligeros o anticorte.
+Referencias Bibliográficas
+Normativas:
+International Organization for Standardization. (2001). ISO 20871: Footwear — Test
+methods for slip resistance. ISO.
+International Organization for Standardization. (2004). ISO 20863: Footwear — Procedure
+for preparation of footwear for evaluation. ISO.
+International Organization for Standardization. (2019). ISO 9407: Shoe sizes —
+Mondopoint system of sizing and marking. ISO.
+International Organization for Standardization. (2020). ISO 19952: Footwear — Mechanical
+and physical test methods for materials. ISO.
+Asociación Española de Normalización. (s.f.). UNE-EN 12785: Calzado — Métodos
+generales de diseño y fabricación. UNE.
+
+Referencias web:
+Tutoriales de Cuero. (2018). Curso de calzado clase 1 [Video]. YouTube.
+https://www.youtube.com/watch?v=rWpdKAqvDvA
+Cursos Calzados. (2025). CURSO DE CALZADO: Diseño y patronaje de calzado
+“Enmascarado de horma Balerina” [Video]. YouTube.
+https://www.youtube.com/
+Centro Tecnológico del Calzado de Portugal (CTCP) & ICSAS-Team. (2017). Manual para
+formadores: diseño de calzado. [PDF].
+http://icsas-project.eu/wp-content/uploads/2020/02/Design_ES.pdf
+Hazlo Diseño. (2021). Altura y contorno de tobillo, punto de asiento, línea de entrada,
+curva de unión y más!! [Video]. YouTube.
+https://www.youtube.com
+Academia de Diseño Sketching. (2020). Diseño de calzado y cómo calcular las
+proporciones y cómo marcar las líneas principales del calzado [Video]. YouTube.
+https://www.youtube.com
+Libros:
+Instituto Valenciano de Biomecánica (IVB). (s.f.). Guía de recomendaciones para el diseño
+de calzado. Valencia, España: IVB
+Servicio Nacional de Aprendizaje – SENA. (s.f.). Fichas técnicas de calzado e
+indumentaria. Bogotá, Colombia: SENA.
+Centro de Innovación Aplicada en Tecnologías Competitivas – CIATEC. (2018). Modelado
+y patronaje de calzado – Guatemala. [PDF].
+Fárez, G. (2011). Manual de patronaje de calzado. Quito, Ecuador: Editorial Artes Gráficas
+Senefelder.
+Centro de Innovación Aplicada en Tecnologías Competitivas – CIATEC. (2002). Cómo
+dibujar calzado. León, México: CIATEC.
+Arroyo, N. M. (2016). Patronaje y confección de calzado. Editorial GG.
+Barretto, S. (2006). Diseño de calzado urbano. nobuko.
+Lavalle Herrera, Y. D. (2014). Diseño y ergonomía para la tercera edad. Aplicación al
+diseño de calzado. Universidad Nacional Autónoma de México.
+Loaiza, J., & Acosta, M. A. (2019). Principios de Biomecánica Aplicados al Diseño de
+Calzado. Revista EJE, 1, 67-77.
+Aguirre, J. L. S., Viera, E., Samaniego, M. P., & Poveda, E. M. P. (2024). Análisis del
+factor emocional para el diseño de calzado. Cuadernos del Centro de Estudios en Diseño
+y Comunicación. Ensayos, (236), 127-140.
+
+                           Módulo de Especialización Nro. 3
+Nombre del módulo:                    Técnicas de Ensamblaje y Ergonomía del Calzado
+Nivel:                                1ro, 2do, 3ro.
+Duración:                             680 periodos pedagógicos
+                                      UC3. Ensamblar calzado integrando piezas de corte,
+                                      forro, suela y refuerzos mediante técnicas de costura,
+Unidad de competencia                 pegado y hormado, aplicando principios de
+asociada:                             ergonomía, biomecánica, seguridad y control de
+                                      procesos,      garantizando     la   funcionalidad   y
+                                      presentación del producto.
+Objetivo del módulo: Desarrollar competencias en los procesos de aparado y montaje de
+calzado, integrando piezas de corte, forro, suela y refuerzos mediante técnicas de costura,
+pegado y hormado, aplicando criterios de ergonomía, biomecánica, seguridad y control de
+procesos, con el propósito de asegurar productos técnicamente funcionales,
+estructuralmente estables y ajustados a los estándares de calidad del sector.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA1: Organizar los componentes del calzado según su función y secuencia operativa,
+estableciendo un flujo de trabajo ordenado que facilite el aparado y reduzca
+inconsistencias en el proceso.
+CE1.1: Clasifica las piezas del calzado por talla, color y modelo, manteniendo
+correspondencia entre pares y evidenciando control visual previo al ensamblaje.
+CE1.2: Selecciona los componentes conforme a la secuencia del armado, ubicando cada
+pieza en su posición funcional y favoreciendo un flujo de trabajo eficiente.
+CE1.3: Verifica la compatibilidad entre piezas antes del montaje, revisando proporciones,
+simetría y ajuste para asegurar calidad en el armado inicial.
+RA 2: Ejecutar la unión entre corte y forro mediante técnicas apropiadas de costura
+o adhesión, logrando conexiones firmes y bien alineadas que aseguren estabilidad
+estructural.
+CE2.1: Utiliza pegantes y maquinaria en la unión de piezas del corte y forro mediante
+costura, logrando uniones estables y técnicamente precisas.
+CE2.2: Verifica la alineación entre componentes durante el ensamblaje, ajustando su
+posición y obteniendo un acabado coherente y estético.
+CE2.3: Ejecuta presión constante en el proceso de pegado utilizando prensas o rodillos,
+asegurando adherencia total de las superficies intervenidas.
+CE2.4: Separa residuos de pegantes o material sobrante con productos adecuados,
+manteniendo una presentación limpia y cuidada en las fases previas del armado.
+RA 3: Integrar la suela con el corte aplicando técnicas de armado pertinentes al
+material y estilo del modelo, obteniendo un conjunto simétrico, adherido y
+consistente con los parámetros de calidad.
+CE3.1: Aplica técnicas en el posicionamiento del corte en la horma, alineando costuras y
+refuerzos sin generar deformaciones estructurales.
+CE3.2: Emplea herramientas o calor, regulando la tensión del material sobre la horma,
+logrando simetría entre pares y un modelado ergonómico adecuado.
+CE3.3: Verifica el encaje del corte antes de adherir la suela, confirmando coincidencia en
+bordes, líneas y medidas según el diseño establecido.
+CE3.4: Ejecuta procesos cuidadosos en el desmontaje que preserven la forma, volumen y
+estabilidad del calzado.
+RA 4: Implementar procesos de revisión y mejora durante el ensamblaje, ajustando
+detalles y corrigiendo imperfecciones que eleven la presentación y funcionalidad del
+calzado.
+CE4.1: Aplica técnicas adecuadas al material, acondicionando las superficies visibles del
+calzado, obteniendo un acabado uniforme y profesional.
+CE4.2: Compara medidas intermedias con los rangos establecidos, verificando estabilidad
+del par y registrando resultados cuando corresponda.
+CE4.3: Registra observaciones y resultados en fichas de control, comunicando hallazgos
+técnicos que aporten a la trazabilidad del proceso.
+CE4.4: Verifica imperfecciones y propone mejoras durante el ensamblaje, asegurando
+cumplimiento de estándares técnicos y estéticos.
+Contenidos
+Conceptuales                   Procedimentales                 Actitudinales
+Proceso       general      de Verificar       la      correcta Desarrollar   una    actitud
+ensamblaje: corte, aparado, organización                     y responsable en el armado
+montaje,     ensuelado      y correspondencia dimensional del calzado, trabajando con
+acabado.                       de los componentes del precisión, orden y cuidado
+                               calzado,     analizando     las en     cada   unión    para
+                               características técnicas de garantizar simetría, medidas
+                               cada pieza (corte, forro,
+                               refuerzos, etc.) para asegurar
+Secuencia     técnica    del su función estructural y la         correctas,     confort     y
+aparado y su relación con el secuencia de armado.                durabilidad.
+armado final.
+                             Revisar las características         Mantener disciplina en la
+Importancia      de       la técnicas de cada componente         preparación de piezas y
+organización de piezas asegurando que cumplan con                herramientas, usando de
+antes del ensamble.          su función estructural.             forma segura pegamentos y
+                                                                 maquinaria.
+Identificación de piezas:     Ejecutar procedimientos de
+corte,     forro,  talonera,  costura en el proceso de           Corregir errores, registrando
+puntera,          lengüeta,   aparado, configurando la           observaciones técnicas y
+refuerzos.                    máquina para diferentes            optimizando el uso de
+                              materiales       y     aplicando   materiales sin desperdicios.
+Características técnicas de
+                              soportes y guías para
+cada componente y su
+                              mantener la estabilidad.
+función estructural.
+                              Ejecutar los procedimientos
+Tecnología de aparado y
+                              de montaje y ensuelado,
+control de calidad.
+                              colocando el corte sobre la
+Tecnología de adhesión y horma con técnicas de
+ensamble de calzado.          tensado      y     fijación,   y
+                              analizando la alineación,
+Proceso de Montaje y nivelación y simetría del par.
+ensuelado del calzado.
+                              Aplicar procedimientos de
+Acabados intermedios del pegado              y       adhesión,
+producto.                     seleccionando el tipo de
+Biomecánica aplicada al pegante                     adecuado,
+ensamblaje de calzado.        preparando las superficies
+                              (lijado, cardado) y respetando
+Seguridad      industrial   y los tiempos de oreo y
+prevención de riesgos en el contacto, para lograr una
+ensamble.         Indicadores unión consolidada mediante
+básicos de calidad en prensas               mecánicas        o
+aparado y montaje.            térmicas.
+Lectura e interpretación de Limpiar el calzado según el
+fichas de proceso.           material   (cuero,   textil,
+Criterios de revisión de sintético) usando productos
+simetría, medidas y uniones. adecuados.
+
+Trazabilidad de las tareas Aplicar productos de acabado
+dentro del flujo productivo. como ceras, cremas o
+                             abrillantadores para mejorar
+                             la presentación.
+
+                               Aplicar los procedimientos de
+                              seguridad en ensamblaje y
+                              montaje,           utilizando
+                              correctamente el EPP y
+                              verificando las condiciones
+                              seguras de la maquinaria.
+Perfil del o la docente
+   ● Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+        reconocidos por el órgano rector del Sistema de Educación Superior en: Licenciado
+        en diseño textil e indumentaria, Ingeniería Industrial, Licenciado/a en diseño de
+        productos, Tecnología Superior en Fabricación de calzado o ramas afines.
+   ● Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    ● Aprendizaje Basado en Proyectos (ABP)
+    ● Aprendizaje en Contextos Reales
+    ● Role-Playing y Simulaciones
+    ● Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Especificaciones técnicas                Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula)            1
+                            Computadoras con acceso a internet
+                            Proyector
+                            Áreas delimitadas para ensamble,
+                            hormado y pegado con ventilación
+Laboratorio                 adecuada, iluminación focalizada,        1
+                            conexiones (eléctricas/neumáticas) y
+                            estantes para almacenamiento
+                            clasificado. Superficie nivelada y
+                            soportes de prueba.
+                            Herramientas manuales
+                            Martillo, pinzas, tijeras y cuchillas.
+                            Brochas, espátulas, rodillos y cepillos.
+                            Lijas y bloques abrasivos.
+                            Punzones, agujas e hilos resistentes.
+                            Maquinaria:
+                            Máquinas de coser (recta, ½ aguja,
+                            zigzag), motor de cardado y guías,
+Herramientas/equipos
+                            hormas, pistola de calor, martillo y
+                            pinza de hormado, prensas, mesas
+                            térmicas, hornos, lijadoras y rodillos,
+                            pulidoras, secadores y pistolas de
+                            aire.
+                            Cartabones, reglas flexibles, plantillas
+                            ergonómicas.
+                            Seguridad:
+                                Guantes, gafas, mascarillas,
+                                delantales y protección contra
+                                adhesivos.
+                                EPP.
+                                Gafas de seguridad
+                                Mascarilla de tela o desechable (para
+                                polvo y vapores)
+                                Guantes de nitrilo o vinilo (para
+                                manipular adhesivos)
+                                Guantes de trabajo ligeros o anticorte.
+Referencias Bibliográficas
+Normativas:
+ISO 20344 a ISO 20347 – Normas para calzado de protección, seguridad y trabajo (muy
+comunes en calzado industrial).                                                              ISO
+45001 – Sistema de gestión de salud y seguridad en el trabajo.                      Asociación
+Española de Normalización. (2002). UNE-EN 12785: Calzado — Métodos generales para
+diseñar y fabricar calzado. UNE.
+Referencias Web:
+Técnica del Calzado. (2023, septiembre). Técnica del Calzado, (245).
+https://www.tecnicadelcalzado.com/wp-content/uploads/2023/09/tecnica-del-calzado-
+edicion-245.pdf
+Martínez Guaranga, J. L. (2023). Estudio del impacto ambiental del proceso de curtido de
+cuero bovino en el Ecuador y su incidencia en el desarrollo sostenible [Tesis de grado,
+Escuela Superior Politécnica de Chimborazo]. DSpace ESPOCH.
+https://dspace.espoch.edu.ec/handle/123456789/18889
+Instituto Distrital de Patrimonio Cultural. (s.f.). Barrio Restrepo: entre el cuero y la
+memoria. En Atlas del patrimonio bogotano (pp. 126–129).
+https://issuu.com/patrimoniobogota/docs/barrio_restrepo_web/s/14795857
+Centro Tecnológico del Calzado de Portugal (CTCP) & ICSAS-Team. (2017). Manual:
+preparación de aparado de calzado. [PDF]. http://icsas-project.eu/wp-
+content/uploads/2020/02/Pre-Stitching_ES.pdf                                              Centro
+Tecnológico del Calzado de Portugal (CTCP) & ICSAS-Team. (2017). Manual: aparado de
+calzado. [PDF]. http://icsas-project.eu/wp-content/uploads/2019/07/Stitching_ES.pdf
+Centro Tecnológico del Calzado de Portugal (CTCP) & ICSAS-Team. (2017). Manual:
+corte de calzado. [PDF]. http://icsas-project.eu/wp-
+content/uploads/2019/07/Cutting_ES.pdf
+Centro Tecnológico del Calzado de Portugal (CTCP) & ICSAS-Team. (2017). Manual:
+montaje de calzado. [PDF]. http://icsas-project.eu/wp-
+content/uploads/2020/02/Design_ES.pdf
+
+Libros:
+Arroyo, N. M. (2016). Patronaje y confección de calzado. Editorial GG.
+Choklat, A. (2013). Diseño de calzado. Editorial GG.
+Montenegro, A., Zamora Sánchez, R., & Arias-Villavicencio, V. (2017). Análisis de
+factibilidad en la producción de calzado ortopédico para niños en la provincia de
+Tungurahua. RETOS. Revista de Ciencias de la Administración y Economía, 7(14), 131-
+145.
+Avila Torres, D. E. (2012). Estudio y realización de procesos en la fabricación de calzado
+en la Empresa Calzado Toravi.
+Mejía, J. O. R., & Pinilla, E. M. N. (2014). IDENTIFICACION Y CARACTERIZACIÓN DE
+LA CADENA PRODUCTIVA DEL CALZADO Y MARROQUINERIA DEL AREA
+METROPOLITANA DE CÚCUTA. FACE: Revista de la Facultad de Ciencias Económicas
+y Empresariales, 13(1), 183-198.
+Gómez Echeverry, L. L., Velásquez Restrepo, S. M., Castaño Rivera, P., Valderrama
+Mejía, S., & Ruiz Molina, M. A. (2018). La antropometría y la baropodometría como
+técnicas de caracterización del pie y herramientas que proporcionan criterios de
+ergonomía y confort en el diseño y fabricación de calzado: una revisión
+sistemática. Prospectiva, 16(1), 7-17.
+Abril, C. M., Guajala, M. R., Mantilla, L. M., & Moyolema, M. M. (2015). Procesos de
+producción y productividad en la industria de calzado ecuatoriana: caso empresa
+Mabelyz. ECA sinergia, 6(2), 88-100.
+
+
+
+                            Módulo de Especialización Nro. 4
+Nombre del módulo:                     Control de Calidad y Estética del Calzado Comercial
+Nivel:                                 2do, 3ro.
+Duración:                              200 periodos pedagógicos
+                                       UC4. Controlar la calidad y presentación del calzado
+                                       terminado mediante inspección visual, verificación
+Unidad de competencia
+                                       dimensional y evaluación de acabados, asegurando
+asociada:
+                                       el cumplimiento de estándares técnicos, estéticos y
+                                       funcionales en los procesos productivos.
+Objetivo del módulo: Desarrollar competencias técnicas para el control de la calidad del
+calzado terminado, mediante la aplicación de procedimientos de inspección visual,
+verificación dimensional y evaluación de acabados, asegurando el cumplimiento de
+estándares técnicos, estéticos y funcionales del proceso productivo, y fomentando hábitos
+de precisión, orden y responsabilidad en la fabricación.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar la calidad visual y estética del calzado terminado considerando
+estándares técnicos y comerciales propios del control de calidad en el proceso
+productivo.
+CE1.1: Constata el estado de limpieza, pulido y presentación del calzado terminado,
+evidenciando ausencia de residuos, manchas o marcas que afecten su apariencia, según
+estándares establecidos.
+CE1.2: Examina la uniformidad de color, costuras y texturas entre ambos pares, detectando
+inconsistencias visuales y fallas en los acabados.
+CE1.3: Organiza los productos con defectos visuales o técnicos según su nivel de
+conformidad, manteniendo el orden y la trazabilidad del proceso de control interno.
+CE1.4: Registra los resultados de la inspección visual en formatos establecidos, detallando
+hallazgos y niveles de gravedad observados, proponiendo acciones correctivas para
+asegurar la calidad.
+RA 2: Aplicar procedimientos de medición de dimensiones y tolerancias en el
+calzado, verificando su coherencia dimensional de acuerdo con las especificaciones
+técnicas establecidas en la ficha del producto.
+CE2.1: Ejecuta procedimientos de medición dimensional utilizando instrumentos,
+obteniendo datos precisos del calzado y sus componentes.
+CE2.2: Contrasta las medidas obtenidas con los rangos y tolerancias definidos en la ficha
+técnica, determinando el grado de conformidad dimensional.
+CE2.3: Sistematiza los resultados de la verificación dimensional en formatos de control de
+calidad, asegurando orden, claridad y legibilidad en los registros.
+CE2.4: Comunica las desviaciones técnicas o ergonómicas detectadas durante el proceso
+de medición, aportando información relevante al mejoramiento del proceso productivo.
+RA 3: Comprobar el desempeño funcional del calzado terminado a través de pruebas
+básicas de uso, resistencia y ergonomía, según criterios técnicos de calidad.
+CE3.1: Ejecuta pruebas de flexión, adherencia y resistencia del calzado, describiendo el
+comportamiento de las uniones y materiales frente al uso previsto.
+CE3.2: Examina la estabilidad, el equilibrio y el confort del calzado durante pruebas de uso
+controladas, considerando soporte plantar, talón y ajuste general.
+CE3.3: Observa el comportamiento del calzado ante pruebas elementales de desgaste,
+tracción y flexión repetida, señalando zonas críticas del producto.
+CE3.4: Documenta los resultados de las pruebas funcionales en fichas de control de
+calidad, garantizando precisión técnica y trazabilidad del proceso evaluado.
+RA 4: Organizar el calzado terminado destinado al almacenaje, entrega y distribución
+conforme a criterios de presentación comercial, conservación y trazabilidad.
+CE4.1: Realiza la limpieza final del calzado con productos apropiados, asegurando una
+presentación uniforme y acorde a los estándares de cierre del proceso productivo.
+CE4.2: Dispone el empaque del calzado respetando criterios comerciales, verificando la
+integridad de accesorios, protecciones y presentación final del producto.
+CE4.3: Comprueba la correcta colocación de etiquetas, códigos o sellos de control,
+asegurando la identificación y seguimiento del producto terminado.
+CE4.4: Registra la información del producto en sistemas de inventario físico o digital,
+controlando tallas, modelos y cantidades con fines logísticos.
+Contenidos
+Conceptuales                    Procedimentales                   Actitudinales
+Concepto y finalidad del Observar visualmente el Valorar la importancia del
+control de calidad en la calzado                    terminado control de calidad como
+industria     del     calzado considerando           limpieza, garantía       de     productos
+artesanal e industrial.         pulido,     uniformidad       y competitivos y confiables.
+                                acabados.
+Importancia de la calidad                                         Reconocer la relación entre
+visual, funcional y comercial                                     calidad estética del calzado
+                                                                  y percepción del cliente.
+del calzado terminado en la Comparar pares de calzado              Respetar los estándares
+competitividad del producto. evaluando               coherencia    técnicos    y comerciales
+                                estética y simetría visual.        definidos en el proceso
+Estándares      técnicos      y
+                                                                   productivo.
+estéticos     aplicados      al Clasificar calzado conforme y
+calzado comercial: limpieza, no conforme según criterios           Asumir responsabilidad en
+presentación, uniformidad y técnicos establecidos.                 la inspección del calzado
+acabados.                                                          terminado,     demostrando
+                                Registrar      hallazgos     del
+                                                                   orden y rigurosidad.
+Defectos              visuales control visual en formatos
+frecuentes en el calzado físicos o digitales.                      Valorar la precisión en la
+terminado:            causas,                                      medición dimensional como
+                                Aplicar     instrumentos      de
+clasificación                y                                     base del confort y la
+                                medición en el calzado y sus
+consecuencias        en      el                                    ergonomía.
+                                componentes.
+proceso productivo.
+                                                                   Mostrar compromiso con la
+                                Medir dimensiones clave del
+Principios de inspección                                           correcta   aplicación    de
+                                calzado              respetando
+visual aplicados al control de                                     normas     de     seguridad
+                                procedimientos técnicos.
+calidad del calzado.                                               durante     pruebas       y
+                                Contrastar              medidas    manipulaciones.
+Conceptos de dimensión,
+                                obtenidas con la información
+talla, simetría y tolerancia                                       Reconocer la importancia de
+                                registrada en la ficha técnica.
+aplicados al calzado.                                              documentar procesos y
+                                Registrar             resultados   resultados de control de
+Relación entre coherencia
+                                dimensionales en hojas o           calidad.
+dimensional, ergonomía y
+                                registros de control de
+confort del usuario.                                               Mantener actitud crítica y
+                                calidad.
+                                                                   reflexiva frente a los
+Ficha técnica del producto:
+                                Ejecutar pruebas básicas de        resultados obtenidos en
+estructura,       información
+                                flexión,      adherencia       y   inspecciones y pruebas.
+relevante y uso en el control
+                                resistencia estructural del
+dimensional.                                                       Mostrar disposición para
+                                calzado.
+                                                                   corregir errores y mejorar el
+Principios de metrología
+                                Realizar pruebas de uso para       producto terminado.
+aplicada al calzado.
+                                valorar estabilidad, equilibrio
+                                                                   Valorar la trazabilidad y el
+Concepto de funcionalidad y confort.
+                                                                   registro como herramientas
+del calzado: resistencia,
+                                Analizar el comportamiento         de organización y control
+estabilidad,     confort      y
+                                del calzado frente a desgaste      productivo.
+durabilidad.
+                                y tracción básica.
+                                                                   Demostrar   cuidado   y
+Fundamentos de pruebas
+                                Documentar resultados de           respeto por el producto
+básicas de uso, flexión,
+                                pruebas funcionales con rigor      terminado   durante  el
+adherencia y resistencia en
+                                técnico.                           empaque               y
+el calzado terminado.
+                                                                   almacenamiento.
+                                Limpiar y revisar el calzado
+Relación entre ergonomía,
+                                terminado         antes      del   Desarrollar   hábitos   de
+desempeño funcional y
+                                empaque.                           trabajo ordenado, limpio y
+calidad percibida     por    el Disponer el calzado en             responsable en el área de
+usuario.                        empaques            comerciales    control de calidad.
+                                respetando       criterios    de
+Importancia del registro                                           Mostrar interés por la mejora
+                                presentación.
+técnico y la trazabilidad en el                                    continua de los procesos de
+control de calidad.             Verificar etiquetas, códigos y     control y presentación del
+                                elementos de identificación        calzado.
+Presentación comercial del
+                                del producto.
+calzado:       criterios    de                                     Fomentar el trabajo en
+empaque, etiquetado e Registrar información del                    equipo y de forma individual
+imagen del producto.            producto      terminado       en   para      lograr   procesos
+                                inventarios físicos o digitales.   exitosos.
+Concepto de trazabilidad y
+su     aplicación      en    el
+almacenamiento                y
+distribución del calzado.
+
+Buenas      prácticas     de
+conservación del calzado
+terminado      en    bodega,
+transporte y logística.
+
+Perfil del o la docente
+● Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Licenciado en
+   diseño textil e indumentaria, Ingeniería Industrial, Licenciado/a en diseño de productos,
+   Tecnología Superior en Fabricación de calzado o ramas afines.
+● Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+● Aprendizaje Basado en Proyectos (ABP)
+● Aprendizaje en Contextos Reales
+● Role-Playing y Simulaciones
+● Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Especificaciones técnicas                  Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula)              1
+                            Área de control de calidad con iluminación
+                            adecuada.
+                            Estanterías para organización de
+Laboratorio                                                            1
+                            productos y muestras.
+                            Superficie para pruebas de estabilidad y
+                            marcha simulada.
+                            Equipos:
+                            Cámara fotográfica o dispositivo para
+Herramientas/equipos
+                            registro de evidencias.
+                            Selladoras manuales o etiquetadoras.
+                              Instrumentos de medición:
+                              Calibradores (pie de rey)
+                              Cartabones
+                              Reglas milimetradas.
+                              Dispositivo básico de flexión manual o
+                              semiautomático.
+                              Balanza (verificación de peso).
+                              Insumos de control de calidad y
+                              corrección:
+                              Materiales para corrección de fallas
+                              (geles, paños, cepillos, entre otros.)
+                              Cajas, bolsas y protectores interiores para
+                              empaque.
+                              Muestras de calzado terminado.
+                              Fichas de control de calidad y formatos de
+                              inspección.
+                              Etiquetas, códigos de barras o sellos de
+                              control.
+                              Impresora térmica – papel térmico en
+                              rollo.
+                              Lector de códigos de barra.
+Referencias Bibliográficas
+Normativas:
+Asociación Española de Normalización. (2005). Calzado Métodos de ensayo Resistencia
+de la suela a la flexión (UNE-EN ISO 17707). https://www.une.org
+Asociación Española de Normalización. (2005). Calzado Métodos de ensayo Resistencia
+de la unión corte-suela (UNE-EN ISO 17708). https://www.une.org
+Asociación Española de Normalización. (2012). Calzado Sustancias potencialmente
+nocivas Determinación de compuestos orgánicos (UNE-EN ISO 16177).
+https://www.une.org
+Asociación Española de Normalización. (2014). Calzado Métodos de ensayo Resistencia
+al deslizamiento (UNE-EN ISO 17696). https://www.une.org
+Asociación Española de Normalización. (2016). Calzado Métodos de ensayo
+Determinación de la absorción de energía en la zona del tacón (UNE-EN ISO 17693).
+https://www.une.org
+International Organization for Standardization. (2015). Sistemas de gestión de la calidad—
+Requisitos (ISO 9001:2015). https://www.iso.org
+Libros:
+González, J. M. (2007). Introducción a la Gestión de Calidad. Delta publicaciones.
+Urcia Vera, K. Y. (2017). Caracterización de la gestión de la calidad y competitividad de
+las mypes del sector comercial, rubro de zapaterías del distrito de Chiclayo, 2016.
+Barona Hidalgo, T. L. (2018). Sistema de Gestión de Calidad basado en la 5 “S” aplicado
+al Sector Industrial de Calzado.
+Durán, M. U. (1991). Gestión de calidad. Ediciones Díaz de Santos.
+Choklat, A. (2013). Diseño de calzado. Editorial GG.
+                              Módulo de Especialización Nro. 5
+Nombre del módulo:                     Innovación, y Prototipado de Calzado Sostenible
+Nivel:                                 3ro.
+Duración:                              120 periodos pedagógicos
+                                       UC5.     Desarrollar     proyectos    productivos     e
+                                       innovadores aplicando principios de diseño
+Unidad de competencia                  sostenible, creatividad, uso de tecnologías digitales y
+asociada:                              gestión emprendedora, respondiendo a las
+                                       demandas del mercado laboral y fomentando la
+                                       competitividad local con responsabilidad social.
+Objetivo del módulo: Desarrollar competencias para ejecutar proyectos productivos e
+innovadores en el ámbito del calzado, integrando principios de sostenibilidad, creatividad,
+tecnologías digitales y gestión emprendedora, con el fin de responder a las demandas del
+mercado laboral, fortalecer la competitividad local y promover prácticas responsables y
+socialmente sostenibles.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar el entorno productivo del sector calzado considerando tendencias,
+necesidades del usuario y dinámicas del mercado, como base del desarrollo de
+propuestas innovadoras y sostenibles.
+CE1.1: Explora tendencias, gustos y comportamientos del consumidor del sector calzado a
+partir de fuentes digitales, encuestas guiadas o entrevistas, evidenciando comprensión del
+contexto productivo actual.
+CE1.2: Registra información relevante sobre materiales, estilos, colores y tecnologías en
+fichas técnicas o herramientas digitales, manteniendo orden y trazabilidad de los datos
+recopilados.
+CE1.3: Organiza los datos obtenidos en tablas, gráficos o resúmenes comparativos,
+facilitando la interpretación de tendencias según segmentos de mercado o necesidades
+específicas.
+CE1.4: Comunica conclusiones del análisis del entorno con lenguaje técnico acorde al nivel
+formativo, argumentando oportunidades de diseño o innovación detectadas.
+RA 2: Diseña propuestas de productos de calzado innovadores integrando
+creatividad, funcionalidad, criterios técnicos, ergonómicos y ambientales acordes al
+contexto productivo local.
+CE2.1: Desarrolla bocetos de calzado representando proporciones, componentes y detalles
+técnicos, reflejando coherencia entre estética y funcionalidad.
+CE2.2: Representa las propuestas gráficas utilizando herramientas digitales educativas de
+diseño, demostrando precisión visual y correspondencia técnica básica.
+CE2.3: Incorpora criterios de sostenibilidad en la selección de materiales, procesos y
+acabados, valorando su factibilidad productiva en el contexto formativo.
+CE2.4: Expone la propuesta de diseño sustentando el concepto, uso previsto y valor
+agregado del producto, apoyándose en recursos visuales adecuados.
+RA 3: Elaborar prototipos de calzado aplicando procesos técnicos de fabricación y
+normas de seguridad, con el fin de verificar el diseño y fortalecer el aprendizaje
+práctico.
+CE3.1: Construye el prototipo de calzado aplicando procesos de corte, aparado y montaje,
+pegado y acabado del calzado, cumpliendo normas de seguridad en el uso de herramientas
+y materiales.
+CE3.2: Valora el prototipo considerando ajuste, ergonomía, resistencia y estética a través
+de pruebas guiadas de uso y revisión técnica.
+CE3.3: Ajusta el prototipo incorporando mejoras derivadas de la retroalimentación docente
+o del trabajo colaborativo, optimizando el resultado final.
+CE3.4: Documenta el proceso de prototipado utilizando fichas técnicas, registros
+fotográficos o bitácoras, evidenciando cada fase del trabajo realizado.
+RA 4: Gestionar acciones de promoción y comercialización del producto desarrollado
+aplicando principios elementales de costos, comunicación visual y relación con el
+usuario.
+CE4.1: Calcula costos del producto considerando materiales, insumos y tiempos empleados
+durante el proceso formativo.
+CE4.2: Establece un precio referencial del producto analizando costos, margen de utilidad
+y condiciones del mercado local.
+CE4.3: Diseña material promocional digital o físico aplicando principios de marketing visual
+y coherencia con la identidad del proyecto.
+CE4.4: Participa en simulaciones de venta, exposiciones o ferias educativas demostrando
+actitud profesional, comunicación clara y argumentación técnica inicial.
+RA 5: Evaluar el proyecto desarrollado valorando su viabilidad técnica, económica y
+ambiental, comunicando resultados y aprendizajes de forma estructurada y reflexiva.
+CE5.1: Organiza la información del proyecto en formatos estructurados que faciliten la
+comprensión de los resultados obtenidos en cada etapa.
+CE5.2: Presenta el informe final o plan de negocios del proyecto, utilizando recursos
+visuales o digitales, comunicando logros, dificultades y aprendizajes alcanzados.
+CE5.3: Analiza la sostenibilidad del producto y del proceso considerando aspectos técnicos,
+económicos y ambientales desde una perspectiva formativa.
+Contenidos
+Conceptuales                    Procedimentales                Actitudinales
+Definiciones fundamentales Investigar información del Valorar la innovación como
+para la elaboración de un entorno productivo del sector motor             de   mejora     y
+plan de negocios.               calzado en fuentes locales y competitividad en el sector
+                                digitales.                     calzado.
+Concepto de innovación
+aplicada a la fabricación de Analizar              tendencias, Reconocer la importancia
+calzado      en     contextos necesidades del usuario y del análisis del entorno y del
+productivos locales.            características del mercado mercado en el desarrollo de
+                                local.                         productos.
+Importancia del análisis del
+entorno productivo y del Registrar                información Mostrar apertura a la
+                                relevante del mercado en creatividad y generación de
+mercado en el desarrollo de fichas, cuadros o medios ideas originales en el diseño
+proyectos de calzado.       digitales.               de calzado.
+
+Características del sector Organizar datos recopilados Valorar la sostenibilidad
+calzado a nivel local, en tablas, esquemas o como principio fundamental
+regional y nacional.            resúmenes comparativos.           en         los       proyectos
+                                                                  productivos.
+Tendencias actuales del Formular ideas de productos
+mercado       del    calzado: de calzado a partir del análisis Respetar criterios técnicos y
+estilos, usos, sostenibilidad del entorno.                        formativos       durante     el
+y valor agregado.                                                 desarrollo de propuestas y
+                                Elaborar                 bocetos
+                                                                  prototipos.
+Necesidades del usuario y conceptuales de calzado
+su relación con el diseño innovador               considerando Asumir responsabilidad en
+funcional y ergonómico del funcionalidad y sostenibilidad. el             uso     seguro      de
+calzado.                                                          herramientas y materiales
+                                Representar propuestas de
+                                                                  en el taller.
+Principios     básicos      del diseño utilizando recursos
+diseño sostenible aplicados gráficos manuales o digitales. Reconocer la importancia
+al calzado: reducción de                                          del trabajo colaborativo en
+                                Seleccionar      criterios     de
+impacto ambiental, uso                                            proyectos de innovación.
+                                diseño acordes con el
+responsable de recursos y
+                                contexto      productivo        y Mantener actitud reflexiva
+ciclo de vida del producto.
+                                formativo.                        frente a los resultados
+Creatividad aplicada a la                                         obtenidos en el prototipado.
+                                Construir     prototipos       de
+generación       de      ideas
+                                calzado aplicando procesos Aceptar la retroalimentación
+innovadoras en productos
+                                técnicos de fabricación.          como oportunidad de mejora
+de calzado.
+                                                                  del diseño y del proceso.
+                                Utilizar         herramientas,
+Concepto de propuesta de
+                                materiales y equipos de taller Valorar la planificación y
+valor y diferenciación del
+                                con normas de seguridad.          organización        en       el
+producto en el mercado.
+                                                                  desarrollo de proyectos
+                                Evaluar       el        prototipo
+Relación     entre     diseño,                                    productivos.
+                                considerando funcionalidad,
+funcionalidad                y
+                                ajuste y coherencia con el Mostrar interés por la
+competitividad del calzado.
+                                diseño.                           documentación del proceso
+Prototipo como herramienta                                        como         evidencia      de
+                                Ajustar       el        prototipo
+de     validación     técnica,                                    aprendizaje.
+                                incorporando             mejoras
+funcional y formativa.
+                                técnicas y formativas.            Reconocer la importancia de
+Etapas      generales       del                                   comunicar         ideas       y
+                                Calcular costos de materiales
+desarrollo de un prototipo de                                     resultados de manera clara
+                                y tiempos empleados en el
+calzado      en     contextos                                     y estructurada.
+                                proyecto.
+educativos.
+                                                                  Asumir compromiso con la
+                                Establecer               precios
+Importancia de la seguridad                                       viabilidad y coherencia del
+                                referenciales del producto
+y el uso responsable de                                           proyecto desarrollado.
+                                desarrollado.
+herramientas    durante    el Diseñar material promocional      Valorar el emprendimiento
+prototipado.                  sencillo     del      producto    como una opción formativa y
+                              elaborado.                        de desarrollo personal.
+Conceptos      básicos    de
+costos     de     producción Presentar el producto en           Desarrollar   hábitos  de
+aplicados     a    proyectos simulaciones de compra y           autoevaluación y mejora
+formativos.                   venta local e internacional,      continua en el aprendizaje
+                              exposiciones       o     ferias   técnico.
+Principios elementales de
+                              educativas.
+marketing y comunicación                                        Promover la orientación al
+aplicados a productos de Organizar información del              servicio con enfoque a la
+calzado.                      proyecto en fichas, informes o    satisfacción del cliente en el
+                              presentaciones digitales.         producto terminado.
+Presentación del producto
+como elemento clave de Elaborar             informes      del
+promoción                   y proyecto mediante un plan de
+comercialización      en   el negocios.
+mercado         local      e
+                              Presentar el trabajo practico
+internacional.
+                              con memoria técnica del
+Concepto                  de proyecto.
+emprendimiento formativo y
+proyecto productivo escolar.
+
+Viabilidad          técnica,
+económica y ambiental de
+un proyecto de calzado.
+
+Importancia de la
+documentación y
+presentación de resultados
+en proyectos productivo.
+Perfil del o la docente
+   ● El o la docente del Bachillerato Técnico en Producción de Calzado debe contar con
+        experiencia en diseño, patronaje, corte, ensamblaje y control de calidad, así como
+        en el uso de herramientas CAD/CAM y tecnologías aplicadas al sector. Debe
+        dominar el trabajo práctico en taller, aplicar normas de seguridad y sostenibilidad, y
+        fomentar el uso responsable de materiales.
+   ● Requiere habilidades pedagógicas para promover aprendizaje activo, creatividad,
+        pensamiento crítico y trabajo colaborativo.
+Orientaciones Metodológicas
+● Aprendizaje Basado en Proyectos (ABP)
+● Aprendizaje en Contextos Reales
+● Role-Playing y Simulaciones
+● Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Especificaciones técnicas                Cantidad
+Infraestructura/espacio       Entorno de aprendizaje (aula)                1
+                              Computadoras con acceso a internet
+                              Proyector
+                              Espacio para prototipado básico y pruebas
+Laboratorio                                                                1
+                              iniciales de productos.
+                              Área para exposición de proyectos o
+                              prototipos PMV (Producto Mínimo Viable).
+                              Maquinaria, equipos y herramientas
+                              necesarios para el desarrollo del producto
+                              innovador.
+                              Insumos:
+                              Materiales e insumos eco amigables o de
+                              bajo impacto ambiental.
+                              Fichas técnicas, formatos de planificación
+Herramientas/equipos
+                              y documentación del proyecto.
+                              Material promocional para práctica de
+                              marketing (mockups, etiquetas,
+                              empaques).
+                              Recursos digitales:
+                              Bancos de imágenes, plantillas de diseño
+                              para redes, etc.
+Referencias Bibliográficas
+Normativas:
+Asociación Española de Normalización. (2014). Gestión de la I+D+i—Terminología y
+definiciones (UNE 166000). https://www.une.org
+Asociación Española de Normalización. (2014). Gestión de la I+D+i—Requisitos del
+sistema de gestión de la I+D+i (UNE 166002). https://www.une.org
+Asociación Española de Normalización. (2014). Gestión de la I+D+i—Sistema de vigilancia
+e inteligencia competitiva (UNE 166006). https://www.une.org
+Asociación Española de Normalización. (2018). Gestión de la I+D+i—Transferencia de
+tecnología (UNE 166008). https://www.une.org
+International Organization for Standardization. (2021). Sistema de gestión de la
+innovación—Requisitos (ISO 56002:2021). https://www.iso.org
+Libros:
+Novoa, D. F. (2015). Innovación Abierta: Una estrategia para el desarrollo de nuevos
+productos. ReCiTela, 14.
+Zuñiga, E. C., Toro, J. L. C., & Quesada, N. C. (2018). Creatividad e innovación: Motores
+de desarrollo empresarial. Lámpsakos, (19), 55-65.
+Escorsa Castells, P. (2004). Tecnología e innovación en la empresa (Vol. 148). Univ.
+Politèc. de Catalunya.
+Cabra, H. H. M. (2015). Creatividad e innovación para el desarrollo empresarial. Ediciones
+de la U.
+Ortega Cardona, N. C., & Hurtado Valbuena, C. J. (2012). Procesos de innovación
+aplicado en empresas de la industria del cuero y el calzado, en la ciudad de Bogotá.
+ Alquicira, A. M., Trejo, A. R., & Mondragón, I. J. G. (2019). Innovaciones en el entorno
+ tecnológico actual. Industria del calzado en México y el mundo. LOS SISTEMAS DE
+ CALIDAD EN LAS OPERACIONES FOMENTANDO LA COMPETITIVIDAD DE LAS
+ EMPRESAS, 91.
+
+ Referencias web:
+ https://www.materialconnexion.com
+ Base de datos global de materiales innovadores y sostenibles.
+ https://www.materialdistrict.com
+ Recursos sobre nuevos materiales, textiles técnicos y soluciones sostenibles.
+ https://www.satra.com
+ Centro internacional de investigación, pruebas y tecnología para calzado.
+ https://www.footwearnews.com
+ Tendencias, innovación y análisis del sector calzado a nivel global.
+
+   5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación de las y los estudiantes mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras
+de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación
+a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver situaciones
+reales, al tiempo que refuerza sus capacidades técnicas y fomenta el desarrollo de
+competencias conceptuales, procedimentales y actitudinales, tanto de los módulos
+genéricos como de los de especialización.
+
+                            Módulo Práctico Experimental
+Nombre del módulo:              Práctico Experimental
+Nivel:                          1ro, 2do, 3ro.
+Duración:                       320 periodos pedagógicos
+Unidad de competencia           UC1: Preparar       materiales,   componentes       y
+asociada:                       herramientas del calzado, aplicando normas de
+                                seguridad, sostenibilidad y aprovechamiento eficiente
+                                de recursos, garantizando la calidad del producto, el
+                                orden técnico y la adecuada disposición de los
+                                elementos en el proceso de fabricación.
+                                UC2: Diseñar bocetos, patrones base, derivados y
+                                cortes digitales o manuales de calzado interpretando
+                                   fichas técnicas y utilizando herramientas CAD/CAM,
+                                   asegurando precisión, eficiencia y cumplimiento de
+                                   especificaciones técnicas en desarrollo de calzado.
+                                   UC3: Ensamblar calzado integrando piezas de corte,
+                                   forro, suela y refuerzos mediante técnicas de costura,
+                                   pegado y hormado, aplicando principios de ergonomía,
+                                   biomecánica, seguridad y control de procesos,
+                                   garantizando la funcionalidad y presentación del
+                                   producto.
+                                   UC4: Controlar la calidad y presentación del calzado
+                                   terminado mediante inspección visual, verificación
+                                   dimensional y evaluación de acabados, asegurando el
+                                   cumplimiento de estándares técnicos, estéticos y
+                                   funcionales en los procesos productivos.
+                                   UC5: Desarrollar proyectos productivos e
+                                   innovadores aplicando principios de diseño
+                                   sostenible, creatividad, uso de tecnologías digitales y
+                                   gestión emprendedora, respondiendo a las demandas
+                                   del mercado laboral y fomentando la competitividad
+                                   local con responsabilidad social.
+Objetivo del módulo: Desarrollar y aplicar competencias técnicas en la preparación de
+materiales, el diseño de patrones, el ensamblaje y el control de calidad del calzado,
+garantizando seguridad, ergonomía y precisión en los procesos, con el fin de obtener
+prototipos y productos terminados funcionales y de calidad, incorporando estándares
+técnicos, estéticos y funcionales, así como principios de diseño sostenible, tecnologías
+digitales y gestión emprendedora en contextos reales de aprendizaje.
+Resultados de                Criterios de Evaluación (CE) Actividades Prácticas
+Aprendizaje (RA)                                                Experimentales
+  RA1: Organizar              CE1.1: Clasifica materiales, Identificar        visualmente
+  materiales,                 componentes                   y materiales      defectuosos
+  componentes             y herramientas,           aplicando (arrugas,            roturas,
+  herramientas          del normas         de      seguridad, contaminantes)               y
+  proceso de calzado, sostenibilidad y uso eficiente separarlos del material
+  aplicando criterios de de recursos antes del útil.
+  seguridad,                  proceso productivo.
+  sostenibilidad          y                                   Ordenar materiales como:
+  eficiencia, asegurando                                      cuero, textiles, espumas,
+  un entorno de trabajo                                       suelas y refuerzos en
+  ordenado y elementos                                        bandejas o cajas según
+  listos para su uso con                                      tipo y tamaño.
+  calidad técnica.
+                                                              Etiquetar cada grupo (piel,
+                                                              sintético, forros, plantillas,
+                                                              etc.).
+                                                              Preparar una mesa de
+                                                              trabajo        con      las
+                                                              herramientas
+                                                              indispensables
+                                                              (tijeras, cutter, punzones)
+                                                              siguiendo normas de
+                                                              seguridad.
+RA2: Elaborar bocetos,        CE2.1: Comprueba           la   Dibujar un patrón (por
+patrones manuales o           precisión    y   coherencia     ejemplo, una capellada)
+digitales, interpretando      técnica de los patrones y       usando          escuadras,
+especificaciones              diseños          generados,     curvígrafos y reglas.
+técnicas y utilizando         asegurando que respondan
+recursos manuales o           fielmente       a        las    Revisar si las líneas
+tecnológicos,                 especificaciones del modelo     quedan limpias, rectas o
+garantizando exactitud        y a los requerimientos de       curvas            según
+en     las   piezas     y     producción manual o digital.    corresponda.
+coherencia     con    los
+requerimientos        del                                     Elaborar un molde de
+modelo.                                                       corte. A partir de un
+                                                              patrón existente sobre
+                                                              cartón fino y recortarlo
+                                                              con estilete o tijeras
+                                                              manteniendo el contorno
+                                                              correcto.
+
+                                                              Comparar       el      lado
+                                                              izquierdo y derecho del
+                                                              patrón usando una línea
+                                                              de centro para asegurar
+                                                              simetría y proporción.
+RA3: Ejecutar la unión        CE3.1: Aplica técnicas en la    Unir dos piezas simples
+de las diferentes piezas      unión de las piezas del         (por ejemplo, corte con
+del calzado mediante          calzado,         verificando    forro o dos piezas del
+operaciones de costura,       alineación, ergonomía y         corte)            usando
+pegado y hormado,             calidad final del producto      pegamento, verificando
+aplicando fundamentos         ensamblado.                     la alineación.
+de       ergonomía        y
+biomecánica,                                                  Coser dos retazos de
+asegurando un producto                                        material simulando una
+final funcional, estético y                                   unión     de   calzado,
+técnicamente correcto.                                        manteniendo      tensión
+                                                              regular    y    puntada
+                                                              continua.
+                                                              Crear una réplica simple
+                                                              de una sección (costado
+                                                              y     talón)  verificando
+                                                              visualmente             el
+                                                              resultado.
+RA1: Aplicar procesos       CE1.1:              Determina     Inspeccionar los pares
+de control de calidad del   procedimientos               de   de calzado terminado,
+calzado        terminado    inspección       visual       y   observando      limpieza,
+mediante inspección y       verificación dimensional del      presentación, simetría y
+evaluación de acabados,     calzado terminado conforme        uniformidad, y verifica
+asegurando             el   a estándares técnicos y           las dimensiones básicas
+cumplimiento          de    estéticos.                        (talla, largo, ancho y
+estándares      técnicos,   CE1.2: Analiza los acabados       altura)        utilizando
+estéticos y funcionales     y la funcionalidad del calzado    instrumentos simples de
+en contextos prácticos y    identificando conformidades       medición, comparando
+reales.                     y no conformidades en             los resultados con los
+                            contextos prácticos y reales.     estándares técnicos y
+                            CE1.3:       Registra       los   estéticos establecidos.
+                            resultados del control de
+                            calidad utilizando formatos       Verificar los acabados
+                            técnicos establecidos para el     del calzado mediante la
+                            proceso productivo.               revisión de costuras,
+                                                              pegado, materiales y
+                                                              terminaciones, y evalúa
+                                                              su funcionalidad a través
+                                                              de pruebas básicas de
+                                                              uso,       flexión      y
+                                                              estabilidad.
+
+                                                              Registrar los resultados
+                                                              de la inspección visual,
+                                                              verificación dimensional
+                                                              y análisis de acabados
+                                                              en formatos técnicos de
+                                                              control    de    calidad,
+                                                              anotando
+                                                              observaciones,
+                                                              conformidades y no
+                                                              conformidades,          y
+                                                              organiza la información
+                                                              como      respaldo    del
+                                                              proceso productivo.
+RA2:         Desarrollar    CE2.1:     Identifica    la       Investigar el mercado
+proyectos productivos e     necesidad del mercado o del       local           mediante
+ innovadores de calzado       sector productivo para la        encuestas, entrevistas o
+ aplicando          diseño    formulación de un proyecto       sondeos dirigidos a un
+ sostenible, tecnologías      innovador de calzado.            público objetivo.
+ digitales   y    gestión     CE2.2: Describe principios       Comprobar              la
+ emprendedora,           en   de     diseño      sostenible,   información recopilada y
+ respuesta      a       las   tecnologías     digitales    y   definir   el    tipo  de
+ demandas del mercado         gestión emprendedora en el       producto innovador a
+ y la vinculación con el      desarrollo    del     proyecto   desarrollar.
+ sector productivo.           productivo.
+                              CE2.3: Evalúa la viabilidad      Elaborar un producto de
+                              técnica, productiva y social     calzado        innovador
+                              del proyecto en relación con     considerando criterios
+                              su contexto y vinculación con    de sostenibilidad.
+                              el sector productivo.            Determinar los costos y
+                                                               precios referenciales del
+                                                               producto.
+
+                                                               Comercializar           el
+                                                               producto en el mercado
+                                                               local, aplicando técnicas
+                                                               de ventas.
+
+
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

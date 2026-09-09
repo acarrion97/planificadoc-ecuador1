@@ -268,31 +268,12 @@ export default function VerPlanScreen() {
           </SectionCard>
         )}
 
-        {/* Destreza con Criterio de Desempe\u00f1o + Competencias como badges */}
+        {/* Destreza con Criterio de Desempe\u00f1o */}
         <SectionCard title={isEFL ? "Performance Criteria Skill" : "Destreza con Criterio de Desempe\u00f1o"} emoji={"\u2B50"} colors={colors}>
           <Text className="text-sm text-foreground leading-5">
             <Text style={{ fontWeight: "700" }}>{plan.destreza.codigo}: </Text>
             {plan.destreza.descripcion}
           </Text>
-          {plan.usaCompetencias && plan.competencias && plan.competencias.length > 0 && (
-            <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 8, gap: 6 }}>
-              {plan.competencias.map((compId: string) => {
-                const badgeMap: Record<string, { label: string; color: string }> = {
-                  matematicas: { label: "CM", color: "#7C3AED" },
-                  comunicacionales: { label: "C", color: "#059669" },
-                  digitales: { label: "CD", color: "#2563EB" },
-                  socioemocionales: { label: "CS", color: "#DC2626" },
-                };
-                const badge = badgeMap[compId];
-                if (!badge) return null;
-                return (
-                  <View key={compId} style={{ backgroundColor: badge.color, paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 }}>
-                    <Text style={{ color: "#fff", fontSize: 10, fontWeight: "700" }}>{badge.label}</Text>
-                  </View>
-                );
-              })}
-            </View>
-          )}
         </SectionCard>
 
         {/* Estructura de la Clase - 4 fases ERCA con DUA */}

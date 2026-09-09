@@ -3,7 +3,13 @@ import {
   AdaptacionCurricular, TipoNEE, GradoAdaptacion,
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
 } from "../data/types";
-import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
+import type { DUAActividad } from "../data/types";
+import type { PlanUnidadTrabajoBT } from "../data/types-bt";
+import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import { buscarPorCodigo as cncBuscarPorCodigo } from "../data";
+import { obtenerFiguraPorId as obtenerFiguraPorIdBT } from "../data/bachillerato-tecnico";
+import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
+import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
 import { iconosDestrezaHTML } from "./dcd-iconos";
 
@@ -666,7 +672,7 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
           ${iconosDestrezaHTML(plan.destreza.codigo)}
           ${competenciasBadgesHTML ? `<div style="margin-top:3px;">${competenciasBadgesHTML}</div>` : ""}
           <br/>
-          ${plan.destreza.descripcion}
+          ${plan.descripcionEfectiva ?? plan.destreza.descripcion}
         </td>
         <td>
           ${habHTML !== (isEFL ? "Not specified" : "No especificadas") ? `
@@ -1015,7 +1021,7 @@ export function generarHTMLSemanal(
       // ── Columna 2: DCD ──
       const dcdHTML = `
         <strong style="color:#003366;font-size:9px;">${hora.codigoDestreza}</strong><br/>
-        <span style="font-size:9px;">${hora.destreza?.descripcion || ""}</span>
+        <span style="font-size:9px;">${hora.descripcionEfectiva ?? hora.destreza?.descripcion ?? ""}</span>
         ${iconosDestrezaHTML(hora.codigoDestreza)}
         ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:9px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${plan.objetivoClase}</div>` : ""}`;
 
@@ -1270,4 +1276,374 @@ function getHabilidadDescripcion(id: string, isEFL: boolean): string {
   const desc = descripciones[id];
   if (!desc) return "";
   return isEFL ? desc.en : desc.es;
+}
+
+// ============================================================
+// BACHILLERATO TÉCNICO — PLAN DE UNIDAD DE TRABAJO — HTML GENERATOR
+// Módulo intencionalmente independiente de las funciones EGB/BGU de arriba
+// (aislamiento del sistema BT). Reutiliza solo esc() (helper genérico de
+// escape HTML) y las mismas clases CSS .firmas/.firma-box/.firma-linea que
+// el resto de la app, para mantener consistencia visual entre exportaciones.
+// ============================================================
+
+export function generarHTMLPlanBT(plan: PlanUnidadTrabajoBT): string {
+  const criteriosDe = (procedimientoId: string) =>
+    plan.procedimientoCriterioEvaluacion
+      .filter((pc) => pc.procedimientoId === procedimientoId)
+      .map((pc) => pc.criterioEvaluacionId)
+      .join(", ") || "—";
+
+  const filasProcedimientos = plan.unidadTrabajo.procedimientos
+    .map(
+      (p, i) => `
+    <tr>
+      <td style="text-align:center;">${i + 1}</td>
+      <td><strong>${esc(p.nombre)}</strong></td>
+      <td>${esc(p.objetivo)}</td>
+      <td>${esc(p.tiempo)}</td>
+      <td>${p.fases.map((f) => `<div><strong>${esc(f.nombre)}:</strong> ${esc(f.descripcion)}</div>`).join("")}</td>
+      <td>${p.recursos.map((r) => `<div>• ${esc(r)}</div>`).join("")}</td>
+      <td>${esc(criteriosDe(p.id))}</td>
+      <td>${esc(p.evaluacion.tecnica)}<br/>${esc(p.evaluacion.instrumento)}</td>
+    </tr>`
+    )
+    .join("");
+
+  const contenidosHTML = (["conceptuales", "procedimentales", "actitudinales"] as const)
+    .map((k) => {
+      const items = plan.unidadTrabajo.contenidos[k];
+      if (!items.length) return "";
+      return `<div style="margin-top:6px;"><strong>${k[0].toUpperCase()}${k.slice(1)}</strong>${items
+        .map((it) => `<div>• ${esc(it)}</div>`)
+        .join("")}</div>`;
+    })
+    .join("");
+
+  const estrategiasHTML = plan.unidadTrabajo.estrategiasMetodologicas
+    .map((e) => `<div>• <strong>${esc(e.nombre)}</strong>${e.descripcion ? `: ${esc(e.descripcion)}` : ""}</div>`)
+    .join("");
+
+  const adaptacionesHTML = plan.adaptacionesCurriculares?.length
+    ? plan.adaptacionesCurriculares
+        .map(
+          (a) => `
+    <table class="tabla-plan" style="margin-bottom:8px;">
+      <tr><th>Especificación de la necesidad educativa atendida</th><th>Especificación de la adaptación aplicada</th></tr>
+      <tr>
+        <td>${esc(a.categoriaNecesidad)}${a.descripcionNecesidad ? " — " + esc(a.descripcionNecesidad) : ""}</td>
+        <td>${(a.adaptacionesAcceso || []).map((x) => `<div>• ${esc(x.categoria)}: ${esc(x.descripcion)}</div>`).join("") || "—"}</td>
+      </tr>
+    </table>`
+        )
+        .join("")
+    : `<p style="color:#666;font-style:italic;">No se registraron adaptaciones curriculares para esta unidad.</p>`;
+
+  const bibliografiaHTML = plan.bibliografiaWebgrafia?.length
+    ? plan.bibliografiaWebgrafia.map((r) => `<div>• ${esc(r)}</div>`).join("")
+    : `<p style="color:#666;">—</p>`;
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Plan de Unidad de Trabajo — ${esc(plan.unidadTrabajo.nombre)}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; margin: 24px; font-size: 11px; }
+  h1 { background:#003366; color:#fff; padding:10px 14px; font-size:16px; margin:0 0 4px; }
+  h2 { background:#1A3A5C; color:#fff; padding:6px 10px; font-size:12px; margin:16px 0 8px; }
+  .subt { color:#555; font-style:italic; margin:0 0 16px; }
+  table.tabla-plan { width:100%; border-collapse:collapse; margin-bottom:8px; }
+  table.tabla-plan th, table.tabla-plan td { border:1px solid #999; padding:6px 8px; text-align:left; vertical-align:top; font-size:10px; }
+  table.tabla-plan th { background:#EAF4F6; font-weight:bold; }
+  .label-cell { background:#EAF4F6; font-weight:bold; width:28%; }
+  .firmas { display:flex; justify-content:space-between; margin-top:24px; gap:16px; }
+  .firma-box { text-align:center; width:32%; }
+  .firma-linea { border-top:1px solid #333; padding-top:4px; font-size:10px; margin-top:36px; }
+  @media print { body { margin: 10mm; } }
+</style>
+</head>
+<body>
+  <h1>PLAN DE UNIDAD DE TRABAJO</h1>
+  <p class="subt">Bachillerato Técnico</p>
+
+  <h2>1.- DATOS DE REFERENCIA</h2>
+  <table class="tabla-plan">
+    <tr><td class="label-cell">Institución educativa</td><td>${esc(plan.institucion || "—")}</td></tr>
+    <tr><td class="label-cell">Docente</td><td>${esc(plan.docente || "—")}</td></tr>
+    <tr><td class="label-cell">Curso / Paralelo</td><td>${esc(plan.curso || "—")} / ${esc(plan.paralelo || "—")}</td></tr>
+    <tr><td class="label-cell">Año lectivo</td><td>${esc(plan.anioLectivo || "—")}</td></tr>
+    <tr><td class="label-cell">Módulo formativo</td><td>${esc(plan.nombreModuloFormativo || "—")}</td></tr>
+    <tr><td class="label-cell">Objetivo del módulo</td><td>${esc(plan.objetivoModuloFormativo || "—")}</td></tr>
+    <tr><td class="label-cell">Unidad de Trabajo</td><td>N.° ${plan.unidadTrabajo.numero} — ${esc(plan.unidadTrabajo.nombre || "—")}</td></tr>
+    <tr><td class="label-cell">Horas pedagógicas</td><td>${plan.unidadTrabajo.tiempoEstimadoPeriodos || plan.horasPedagogicas || "—"}</td></tr>
+  </table>
+
+  <h2>2.- DESARROLLO DE LA UNIDAD DE TRABAJO</h2>
+  <table class="tabla-plan">
+    <tr>
+      <th>N.°</th><th>Nombre</th><th>Objetivo</th><th>Tiempo</th>
+      <th>Secuencia de la actividad</th><th>Recursos</th><th>Criterios</th><th>Técnica / Instrumento</th>
+    </tr>
+    ${filasProcedimientos}
+  </table>
+
+  <div style="margin-top:10px;"><strong>Contenidos</strong>${contenidosHTML}</div>
+  ${estrategiasHTML ? `<div style="margin-top:10px;"><strong>Estrategias metodológicas</strong>${estrategiasHTML}</div>` : ""}
+
+  <h2>3.- ADAPTACIONES CURRICULARES</h2>
+  ${adaptacionesHTML}
+
+  <h2>4.- BIBLIOGRAFÍA/WEBGRAFÍA</h2>
+  ${bibliografiaHTML}
+
+  <div class="firmas">
+    <div class="firma-box">
+      <div class="firma-linea">${esc(plan.elaboradoPor?.nombre || plan.docente || "________________________")}</div>
+      <div style="font-size:9px;color:#555;">ELABORADO POR (Docente)</div>
+    </div>
+    <div class="firma-box">
+      <div class="firma-linea">${esc(plan.revisadoPor?.nombre || "________________________")}</div>
+      <div style="font-size:9px;color:#555;">REVISADO POR</div>
+    </div>
+    <div class="firma-box">
+      <div class="firma-linea">${esc(plan.aprobadoPor?.nombre || "________________________")}</div>
+      <div style="font-size:9px;color:#555;">APROBADO POR</div>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+/**
+ * HTML del plan "Conecta, Nivela y Crea" (CNC) para exportación a PDF —
+ * las 5 semanas de arranque del año escolar, modalidad general o BT.
+ */
+/** Indicadores de evaluación reales del catálogo curricular (igual que la tabla de planificación semanal) */
+function cncIndicadoresDe(codigo: string): string[] {
+  return cncBuscarPorCodigo(codigo)?.indicadoresEvaluacion ?? [];
+}
+
+/** Indicadores reales de una lista de destrezas — si una destreza no tiene indicadores en el catálogo, cae al nivel detectado */
+function cncIndicadoresParaDestrezas(items: { destrezaCodigo: string; nivelDetectado?: string }[]): string[] {
+  const out: string[] = [];
+  for (const it of items) {
+    const ind = cncIndicadoresDe(it.destrezaCodigo);
+    if (ind.length) out.push(...ind);
+    else if (it.nivelDetectado) out.push(`Nivel detectado: ${it.nivelDetectado}`);
+  }
+  return out;
+}
+
+const CNC_COLUMNAS_SEMANA = [
+  "SEMANA",
+  "DESTREZAS CON CRITERIOS DE DESEMPEÑO",
+  "INDICADORES DE EVALUACIÓN",
+  "ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE",
+  "RECURSOS",
+  "ACTIVIDADES EVALUATIVAS",
+];
+
+/**
+ * Criterios de evaluación reales del módulo técnico seleccionado (catálogo
+ * FIP) — equivalente BT de los indicadores del currículo general, para la
+ * columna INDICADORES de las Semanas 4-5 (producto acreditable).
+ */
+function criteriosTecnicosDeModuloCNC(plan: PlanConectaNivelaCrea): string[] {
+  if (!plan.figuraProfesionalId || !plan.moduloId) return [];
+  const figura = obtenerFiguraPorIdBT(plan.figuraProfesionalId);
+  const modulo = figura?.modulos.find((m) => m.codigo === plan.moduloId);
+  const out: string[] = [];
+  for (const ra of modulo?.resultadosAprendizaje ?? []) {
+    for (const ce of ra.criteriosEvaluacion ?? []) {
+      if (ce.texto && !out.includes(ce.texto)) out.push(ce.texto);
+    }
+  }
+  return out;
+}
+
+/** Recursos de las Semanas 4-5: sugeridos por la IA; respaldo para planes previos al campo. */
+function recursosProyectoCNC(plan: PlanConectaNivelaCrea): string[] {
+  const sugeridos = plan.aiResult?.recursosProyectoSugeridos?.filter(Boolean) ?? [];
+  if (sugeridos.length) return sugeridos;
+  if (plan.modalidad === "bt") return plan.semana1BT?.reconocimientoEspacios.filter(Boolean) ?? [];
+  return plan.semana4y5.proyecto.areasIntegradas.filter(Boolean);
+}
+
+export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
+  const esBT = plan.modalidad === "bt";
+
+  const seccion = (label: string) => `<tr><td colspan="6" class="section-row">${esc(label)}</td></tr>`;
+  const subheading = (text: string) => `<tr><td colspan="6" class="subheading">${esc(text)}</td></tr>`;
+  const dosLabelValue = (l1: string, v1: string, l2: string, v2: string) =>
+    `<tr><td class="label-cell">${esc(l1)}</td><td colspan="2">${esc(v1 || "—")}</td><td class="label-cell">${esc(l2)}</td><td colspan="2">${esc(v2 || "—")}</td></tr>`;
+  const labelValue = (label: string, value: string) =>
+    `<tr><td class="label-cell">${esc(label)}</td><td colspan="5">${esc(value || "—")}</td></tr>`;
+  const bullets = (lines: string[]) =>
+    `<tr><td colspan="6">${lines.filter(Boolean).length
+      ? lines.filter(Boolean).map((l) => `<div>${esc(l)}</div>`).join("")
+      : "—"}</td></tr>`;
+  const header6 = (labels: string[]) => `<tr>${labels.map((l) => `<th>${esc(l)}</th>`).join("")}</tr>`;
+  const semanaCellHTML = (label: string) => `<td style="text-align:center;font-weight:bold;">${esc(label)}</td>`;
+  const contentCellHTML = (lines: string[]) =>
+    `<td>${lines.length ? lines.map((l) => `<div>${esc(l)}</div>`).join("") : "—"}</td>`;
+
+  // Cuadrado DUA — misma convención visual (color pleno si aplica, atenuado si no) que el resto de la app.
+  const duaSquareHTML = (activo: boolean, color: string) =>
+    `<span style="display:inline-block;width:6px;height:6px;background:${activo ? color : color + "38"};border-radius:1px;vertical-align:middle;margin-left:1px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></span>`;
+  const duaSquaresHTML = (dua?: DUAActividad) => {
+    const d = dua ?? { representacion: false, accionExpresion: false, implicacion: false };
+    return duaSquareHTML(d.representacion, "#EC4899") + duaSquareHTML(d.accionExpresion, "#1E3A5F") + duaSquareHTML(d.implicacion, "#22C55E");
+  };
+  /** Celda de actividades con indicadores DUA por línea — igual convención que el resto de la app (no JSON ni etiquetas sueltas) */
+  const actividadesConDuaCellHTML = (actividades: string[], dua?: DUAActividad[]) => {
+    const items = actividades.filter(Boolean);
+    if (!items.length) return `<td>—</td>`;
+    const leyenda = dua?.length
+      ? `<div style="font-size:7px;margin-bottom:2px;">
+          ${duaSquareHTML(true, "#EC4899")} Repr.&nbsp;
+          ${duaSquareHTML(true, "#1E3A5F")} Acc/Exp.&nbsp;
+          ${duaSquareHTML(true, "#22C55E")} Impl.
+        </div>`
+      : "";
+    return `<td>${leyenda}${items.map((act, idx) => `<div>${esc(act)}${dua?.length ? duaSquaresHTML(dua[idx]) : ""}</div>`).join("")}</td>`;
+  };
+
+  const semana1HTML = `<tr>
+      ${semanaCellHTML("SEMANA 1")}
+      ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
+      ${contentCellHTML(cncIndicadoresParaDestrezas(plan.semana1.diagnosticoAcademico))}
+      ${actividadesConDuaCellHTML(plan.semana1.actividadesAdaptacion, plan.semana1.duaActividadesAdaptacion)}
+      ${contentCellHTML(plan.aiResult?.recursosSemana1Sugeridos ?? [])}
+      ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
+    </tr>`;
+
+  const nivelacionSemanasHTML = [2, 3].map((numSemana) => {
+    const actividadesSemana = plan.semana2y3.actividadesNivelacion.filter((a) => a.semana === numSemana);
+    const parejasSemana = plan.semana2y3.parejasConivelacion.filter(
+      (_, i) => (numSemana === 2 ? i % 2 === 0 : i % 2 === 1)
+    );
+    return `<tr>
+        ${semanaCellHTML(`SEMANA ${numSemana}`)}
+        ${contentCellHTML(actividadesSemana.map((a) => `${a.destrezaCodigo}: ${a.destrezaDescripcion}`))}
+        ${contentCellHTML(cncIndicadoresParaDestrezas(actividadesSemana))}
+        ${contentCellHTML(actividadesSemana.map((a) => a.descripcionActividad || "—"))}
+        ${contentCellHTML(parejasSemana.map((p) => `Co-nivelación: ${p.estudianteApoyoNombre || "—"} → ${p.estudianteApoyadoNombre || "—"} (${p.destrezaFocoDescripcion})`))}
+        ${contentCellHTML(plan.aiResult?.actividadesEvaluativasNivelacionSugeridas ?? [])}
+      </tr>`;
+  }).join("");
+
+  const conivelacionHTML = plan.semana2y3.parejasConivelacion.length
+    ? plan.semana2y3.parejasConivelacion
+        .map((p) => `<tr><td colspan="2">${esc(p.estudianteApoyoNombre)}</td><td colspan="2">${esc(p.estudianteApoyadoNombre)}</td><td colspan="2">${esc(p.destrezaFocoDescripcion)}</td></tr>`)
+        .join("")
+    : bullets([]);
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Conecta, Nivela y Crea</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #000; margin: 24px; font-size: 8px; }
+  table.tabla-plan { width:100%; border-collapse:collapse; }
+  table.tabla-plan td, table.tabla-plan th { border:1px solid #999; padding:5px 8px; text-align:left; vertical-align:top; font-size:8px; }
+  table.tabla-plan th { background:#1A3A5C; color:#fff; font-weight:bold; }
+  .title-cell { background:#003366; color:#fff; text-align:center; padding:12px; }
+  .title-cell .titulo { font-size:14px; font-weight:bold; }
+  .title-cell .subt { font-size:8px; margin-top:2px; }
+  .section-row { background:#DDEFF1; font-weight:bold; padding:6px 8px; }
+  .subheading { font-weight:bold; }
+  .label-cell { background:#EAF4F6; font-weight:bold; width:16%; }
+  .banner-oficial { background:#DC2626; color:#fff; font-weight:bold; }
+  @media print { body { margin: 10mm; } }
+</style>
+</head>
+<body>
+  <table class="tabla-plan">
+    <tr><td colspan="6" class="title-cell">
+      <div class="titulo">CONECTA, NIVELA Y CREA</div>
+      <div class="subt">${esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas"}</div>
+    </td></tr>
+
+    ${seccion("DATOS INFORMATIVOS")}
+    ${dosLabelValue("Institución:", plan.institucion, "Docente:", plan.docente)}
+    ${dosLabelValue("Grado / Paralelo:", `${plan.grado || "—"} / ${plan.paralelo || "—"}`, "Año lectivo:", plan.anioLectivo)}
+    ${dosLabelValue("Modalidad:", esBT ? "Bachillerato Técnico" : "General (EGB/BGU)", "Módulo:", esBT ? (plan.moduloId || "—") : "—")}
+
+    ${seccion("SEMANA 1 — CONECTA")}
+    ${labelValue("Metodología declarada:", plan.semana1.metodologiaDeclarada)}
+    ${header6(CNC_COLUMNAS_SEMANA)}
+    ${semana1HTML}
+    ${esBT && plan.semana1BT ? `
+    ${subheading("Reconocimiento de espacios técnicos")}
+    ${bullets(plan.semana1BT.reconocimientoEspacios)}
+    ${plan.semana1BT.diagnosticoTecnico.length ? subheading("Diagnóstico técnico (criterios reales del módulo)") : ""}
+    ${plan.semana1BT.diagnosticoTecnico.length ? bullets(plan.semana1BT.diagnosticoTecnico.map((d) => `${d.criterioTexto} — ${d.nivelDetectado}`)) : ""}
+    ` : ""}
+    ${subheading("Diagnóstico socioemocional")}
+    ${bullets(plan.semana1.diagnosticoSocioemocional.map((h) => `${h.habilidadId}${h.observaciones ? " — " + h.observaciones : ""}`))}
+    ${labelValue("Coordinación DECE:", plan.semana1.coordinacionDece)}
+    ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? subheading("Técnicas de reflexión") : ""}
+    ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? bullets(plan.semana1.tecnicasReflexion) : ""}
+
+    ${seccion("SEMANAS 2-3 — NIVELA")}
+    ${header6(CNC_COLUMNAS_SEMANA)}
+    ${nivelacionSemanasHTML}
+    ${esBT && plan.semana2y3BT?.actividadesNivelacionTecnica.length ? `
+    ${subheading("Nivelación técnica")}
+    <tr><th colspan="2">Criterio técnico</th><th colspan="2">Actividad</th><th colspan="2">Articulación con Matemática</th></tr>
+    ${plan.semana2y3BT.actividadesNivelacionTecnica.map((a) => `<tr><td colspan="2">${esc(a.criterioTexto)}</td><td colspan="2">${esc(a.descripcionActividad || "—")}</td><td colspan="2">${esc(a.articulacionMatematica || "—")}</td></tr>`).join("")}
+    ` : ""}
+    ${subheading("Parejas de co-nivelación (tutoría entre pares)")}
+    ${plan.semana2y3.parejasConivelacion.length ? `<tr><th colspan="2">Apoya</th><th colspan="2">Apoyado</th><th colspan="2">Destreza foco</th></tr>` : ""}
+    ${conivelacionHTML}
+
+    ${seccion("SEMANAS 4-5 — CREA")}
+    <tr><td colspan="6" class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</td></tr>
+    ${esBT && plan.semana4y5BT
+      ? `${labelValue("Tipo de producto acreditable:", plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " "))}
+         ${labelValue("Descripción:", plan.semana4y5BT.productoAcreditable.descripcion)}
+         ${header6(CNC_COLUMNAS_SEMANA)}
+         <tr>
+           ${semanaCellHTML("SEMANA 4")}
+           ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
+           ${contentCellHTML(criteriosTecnicosDeModuloCNC(plan))}
+           ${contentCellHTML(plan.semana4y5BT.productoAcreditable.actividadesSemana4?.filter(Boolean).length ? plan.semana4y5BT.productoAcreditable.actividadesSemana4.filter(Boolean) : ["Diseño y elaboración del producto acreditable"])}
+           ${contentCellHTML(recursosProyectoCNC(plan))}
+           ${contentCellHTML(["Seguimiento formativo del proceso de elaboración"])}
+         </tr>
+         <tr>
+           ${semanaCellHTML("SEMANA 5")}
+           ${contentCellHTML([plan.semana4y5BT.productoAcreditable.tipo.replace(/_/g, " ")])}
+           ${contentCellHTML(criteriosTecnicosDeModuloCNC(plan))}
+           ${contentCellHTML(plan.semana4y5BT.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean) : ["Presentación del producto acreditable"])}
+           ${contentCellHTML(recursosProyectoCNC(plan))}
+           ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
+         </tr>`
+       : `${labelValue("Título:", plan.semana4y5.proyecto.titulo)}
+          ${labelValue("Áreas integradas:", plan.semana4y5.proyecto.areasIntegradas.join(", "))}
+          ${labelValue("Descripción:", plan.semana4y5.proyecto.descripcion)}
+          ${labelValue("Producto final:", plan.semana4y5.proyecto.productoFinal)}
+          ${header6(CNC_COLUMNAS_SEMANA)}
+          <tr>
+            ${semanaCellHTML("SEMANA 4")}
+            ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
+            ${contentCellHTML(plan.semana4y5.proyecto.evidenciasCognitivas)}
+            ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean) : ["Diseño y desarrollo del proyecto interdisciplinario"])}
+            ${contentCellHTML(recursosProyectoCNC(plan))}
+            ${contentCellHTML(["Seguimiento formativo del desarrollo del proyecto"])}
+          </tr>
+          <tr>
+            ${semanaCellHTML("SEMANA 5")}
+            ${contentCellHTML(plan.semana4y5.proyecto.destrezasReforzadas)}
+            ${contentCellHTML(plan.semana4y5.proyecto.evidenciasActitudinales)}
+            ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"])}
+            ${contentCellHTML(recursosProyectoCNC(plan))}
+            ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
+          </tr>`}
+  </table>
+</body>
+</html>`;
 }

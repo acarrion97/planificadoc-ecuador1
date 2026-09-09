@@ -1,0 +1,2197 @@
+   MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “CONSTRUCCIÓN DE
+   OBRA CIVIL”
+
+       1. Objetivo general
+
+Formar bachilleres técnicos capaces de apoyar en la ejecución de procesos constructivos,
+mediante el uso de procedimientos técnicos básicos en la interpretación de planos,
+selección de materiales, uso de equipos y diagnóstico de problemas constructivos, y
+asegurar el cumplimiento de normativas de calidad, seguridad, sostenibilidad y buenas
+prácticas ambientales, con responsabilidad, autonomía y ética.
+
+
+       2. Plan de estudios
+
+                                                                  1ro     2do     3ro
+Total periodos pedagógicos tronco común
+                                                                  19       19     19
+                     Dibujo Técnico                                3       2
+Módulos Genéricos
+de la Familia        Seguridad Industrial                          4        2
+Profesional          Sostenibilidad Industrial                     4        2
+                     Preparación Sostenible de Terrenos            2        2      3
+                     Construcción Innovadora                       3        3      3
+Módulos              Instalación Eficiente de Sistemas             3        3      3
+Especialización      Auxiliares
+                     Control de Calidad y Seguridad en Obra                 2      4
+                    Gestión de Proyectos Sostenibles                        3      4
+Módulo Práctico Experimental                                       2        2      4
+Total de periodos pedagógicos de formación técnica                21       21      21
+       3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollan
+competencias genéricas vinculadas a la Familia Profesional Construcción Sostenible, en
+función de las características de los módulos trabajados en esta etapa. A lo largo de este
+proceso adquieren herramientas que le permiten construir una opinión más informada y
+tomar decisiones con mayor fundamento. Esto favorece su capacidad para, si así lo
+desean, transitar entre distintas figuras profesionales dentro de la misma familia, continuar
+con su trayectoria educativa e insertarse en el mundo laboral o emprender en un proyecto
+propio
+
+
+Se estructuran los siguientes módulos genéricos:
+
+   •   Dibujo Técnico
+   •   Seguridad Industrial
+   •   Sostenibilidad Industrial
+
+                             Módulo Genérico Nro. 1
+ Nombre del módulo:                   Dibujo Técnico
+ Nivel:                               1ro, 2do
+ Duración:                            200 periodos pedagógicos
+                                      UC1: Interpretar planos técnicos y comunicar
+                                      información relacionada con procesos propios de la
+ Unidad de competencia                especialidad, utilizando simbología convencional,
+ asociada:                            formatos establecidos y herramientas digitales, para
+                                      resolver problemas técnicos, registrar procedimientos
+                                      y colaborar eficazmente en contextos de trabajo.
+ Objetivo del módulo: Desarrollar la capacidad de interpretar planos técnicos y comunicar
+ información propia de la especialidad, aplicando simbología convencional, formatos
+ establecidos y herramientas digitales, para registrar procedimientos, resolver problemas
+ técnicos y colaborar de manera eficaz en entornos de trabajo.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Reconocer la simbología, escalas, vistas y convenciones presentes en planos
+ técnicos según las normas establecidas en la especialidad.
+ CE1.1: Distingue correctamente los símbolos gráficos convencionales utilizados en planos
+ técnicos de su especialidad, distinguiéndolos de otros signos o representaciones.
+ CE1.2: Clasifica con precisión las partes de un plano (vistas, cortes, escalas, leyendas)
+ según la función que cumplen y la información que representan.
+ CE1.3: Establece la relación entre la simbología representada en el plano y los elementos
+ reales del proceso o sistema técnico correspondiente.
+ CE1.4: Formula observaciones o propone correcciones básicas en la lectura de planos
+ cuando identifica incongruencias, omisiones o errores gráficos, sustentando sus aportes
+ en las normas técnicas de la especialidad.
+RA 2: Interpretar planos técnicos y esquemas de la especialidad para explicar
+procesos, estructuras, circuitos o instalaciones representadas.
+CE2.1: Describe de manera clara la información contenida en planos técnicos
+(dimensiones, materiales, procesos, conexiones, rutas de instalación, entre otros) según
+su especialidad.
+CE2.2: Analiza planos o esquemas para extraer datos relevantes que orienten la ejecución
+de procesos técnicos como ubicación de componentes, secuencia de montaje o rutas de
+tendido.
+CE2.3: Resuelve dudas operativas básicas mediante la lectura e interpretación de planos,
+demostrando comprensión sin necesidad de modificar su contenido.
+CE2.4: Propone alternativas operativas simples (ajustes, replanteos, secuencias) en
+función de las condiciones reales del entorno de trabajo, utilizando como base la
+información del plano interpretado.
+ RA 3: Utilizar herramientas digitales de dibujo y visualización para representar,
+ consultar y compartir información técnica básica vinculada a planos.
+CE3.1: Identifica las principales funciones de programas y plataformas digitales utilizadas
+para visualizar, modificar o crear planos técnicos (CAD, software 2D/3D, visualizadores
+PDF, entre otros).
+CE3.2: Opera herramientas digitales básicas para consultar e interpretar planos técnicos en
+formato digital, demostrando autonomía en su uso.
+CE3.3: Registra o edita información técnica simple (medidas, comentarios, referencias) en
+planos digitales, utilizando funciones del software correspondiente y respetando normas de
+pres
+CE3.4: Plantea mejoras básicas en la forma de presentar, archivar o compartir planos
+digitales, considerando criterios de claridad, trazabilidad y colaboración en el trabajo
+técnico.
+RA 4: Proponer alternativas de mejora simples o ajustes básicos a partir del análisis
+de planos, esquemas o diagramas, considerando el entorno productivo y el trabajo
+en equipo.
+CE4.1: Reconoce situaciones problemáticas del entorno de trabajo que pueden resolverse
+mediante la correcta interpretación de planos, como errores en medidas, ubicación de
+elementos o interferencias.
+CE4.2: Analiza planos técnicos considerando los requerimientos del proyecto o proceso
+productivo, identificando oportunidades básicas de mejora en la ejecución o planificación.
+CE4.3: Elabora propuestas simples de ajuste o modificación operativa (secuencia de
+montaje, ubicación de equipos o trazado de instalaciones), justificándolas con información
+obtenida del plano.
+CE4.4: Presenta mejoras básicas en la forma de utilizar planos dentro del equipo de trabajo
+(formato de presentación, integración digital, uso colaborativo), que contribuyan a la
+eficiencia y comprensión en el contexto técnico.
+Contenidos
+Conceptuales                     Procedimentales               Actitudinales
+Análisis      de       planos • Leer e interpretar planos y • Valorar la importancia de
+técnicos                           dibujos    técnicos    en    realizar análisis y registros
+                                    diferentes            formatos      precisos para garantizar la
+• Estructura y componentes
+                                    (isométrico,        ortogonal,      calidad y fiabilidad de la
+  de un plano técnico.
+                                    cortes, detalles).                  información técnica.
+• Tipos de planos (ej. planta,
+                                  • Identificar símbolos y            • Actuar con honestidad y
+  alzado,                sección,
+                                    convenciones estándar en            compromiso          en       la
+  isométrico).
+                                    planos técnicos.                    interpretación                y
+• Escalas y proyecciones.
+                                  • Reconocer y comprender              comunicación de datos
+Simbología Convencional             la                 simbología       técnicos, respetando las
+                                    convencional utilizada en           normativas y estándares
+• Símbolos utilizados en
+                                    los diferentes procesos             establecidos.
+    planos           eléctricos,
+    mecánicos,                      especializados.                   • Mantener       una     actitud
+    electrónicos,        civiles, • Elaborar       reportes      y      abierta para aprender
+    entre otros.                    anotaciones precisas de             nuevas          simbologías,
+                                    procedimientos               y      herramientas digitales y
+• Significado de símbolos
+                                    resultados.                         formatos,       y     mejorar
+    y abreviaturas estándar.
+                                  • Utilizar la simbología y            continuamente             sus
+Normas         y      formatos      formatos adecuados para             habilidades técnicas.
+establecidos                        presentar         información     • Colaborar eficazmente con
+• Normas internacionales y          técnica.                            compañeros         y     otros
+  nacionales        para       la • Explicar      procesos       y      profesionales, fomentando
+  elaboración y lectura de          resultados    a    través   de      un ambiente de respeto,
+  planos (ej. ISO, ANSI,            informes orales y escritos          cooperación                   y
+  NOM).                             de      forma       clara    y      comunicación efectiva.
+• Normas de presentación y          coherente.                        • Desarrollar una actitud
+  organización         de      la • Utilizar software de diseño         consciente        sobre      el
+  información en los planos.        asistido por computadora            manejo       adecuado       de
+                                    (CAD)        para        crear,     software y tecnologías
+Procesos                        y                                       para      el    análisis      y
+                                    modificar y analizar planos
+procedimientos técnicos                                                 comunicación técnica.
+                                    técnicos.
+• Metodologías              para • Emplear           aplicaciones     • Evaluar       de      manera
+    registrar procedimientos        digitales para documentar           objetiva la información
+    de         trabajo          y   procedimientos               y      técnica,        identificando
+    mantenimiento.                  resultados.                         problemas y proponiendo
+• Documentación técnica • Incorporar herramientas                       soluciones
+    y su estructura.                digitales                 para      fundamentadas.
+                                    colaboración    en  proyectos     • Persistir en la resolución
+Herramientas           digitales
+                                    técnicos      (trabajo      en      de problemas técnicos
+para la elaboración y
+                                    equipo,           plataformas       complejos       y    en      la
+análisis de planos
+                                    compartidas).                       interpretación de planos,
+• Uso de software de • Analizar                     planos       y      incluso ante dificultades
+    dibujo      asistido      por   diagramas para identificar          iniciales.
+    computadora (CAD) y             posibles         fallas      o
+    otras        herramientas       inconsistencias.
+    digitales.
+• Funciones básicas y         • Aplicar       conocimientos
+  avanzadas        en           técnicos para proponer
+  programas                     soluciones a problemas
+  especializados.               representados en los
+                                planos.
+Comunicación técnica
+                              • Validar           soluciones
+• Técnicas para explicar y      mediante       simulaciones
+  presentar información         digitales o revisión de
+  técnica de manera clara       planos.
+  y precisa.                  • Documentar        pasos      y
+• Redacción de informes y       procesos              técnicos
+  descripciones técnicas.       siguiendo            formatos
+Resolución de problemas         establecidos.
+técnicos                      • Utilizar    simbología       y
+                                terminología
+• Análisis de planos para       estandarizada en registros
+  identificar     posibles      técnicos.
+  errores o mejoras.
+                              • Actualizar          mantener
+• Aplicación            de      registros de acuerdo con
+  conocimientos       para      normativas y estándares
+  resolver incidencias o        del sector.
+  diseñar soluciones.
+                              • Comunicar        información
+Trabajo en      equipo    y     técnica      de        manera
+colaboración                    efectiva     a     diferentes
+                                miembros del equipo.
+• Uso de plataformas
+                              • Participar en revisiones y
+  digitales colaborativas
+                                análisis de planos en
+• Integración            de
+                                equipo.
+  información técnica en
+                              • Utilizar        plataformas
+  proyectos conjuntos
+                                digitales para coordinar
+Normas de seguridad y           tareas      y       compartir
+buenas prácticas                información técnica.
+• Interpretación           de
+   señalización             y
+   procedimientos          de
+   seguridad en entornos
+   técnicos.
+• Uso        correcto      de
+   herramientas digitales y
+   físicas.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+   Civil, Arquitectura, Ingeniería Ambiental, Construcción u Obras Civiles, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación              Especificaciones técnicas               Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)              1
+
+Laboratorio               Computadoras con acceso a internet         1
+Referencias Bibliográficas
+
+Autodesk. (2025). Guía rápida de AutoCAD. Autodesk Help.
+      https://help.autodesk.com/view/ACD/2025/ESP/?contextId=HITCHHIKERSGUIDE
+      TOAUTOCADBASICS
+
+Instituto Ecuatoriano de Normalización. (1989). CPE INEN 003: Código de dibujo
+        técnico-mecánico. INEN. https://archive.org/details/ec.cpe.003.1989
+
+Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado. (2025a).
+        Dibujo técnico en objetos cotidianos. Ministerio de Educación, Formación
+        Profesional y Deportes.
+        https://descargas.intef.es/recursos_educativos/RED_ES/04_Bachillerato/1/B_1_0
+        68_2025_1066/index.html
+
+Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado. (2025b).
+        Diseño y representación gráfica de objetos. Ministerio de Educación, Formación
+        Profesional y Deportes.
+        https://descargas.intef.es/recursos_educativos/RED_ES/03_Eso/3/S_3_019_202
+        5_0598/index.html
+
+Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado. (2025c).
+        Normalización y lectura de planos. Ministerio de Educación, Formación
+        Profesional y Deportes.
+        https://descargas.intef.es/recursos_educativos/RED_ES/04_Bachillerato/1/B_1_0
+        57_2025_0981/index.html
+
+López Cordoví, R., & Ramírez Domínguez, E. T. (2024). Las herramientas CAD para la
+      enseñanza del dibujo técnico en la educación secundaria básica. En L. M. Díaz-
+      Granados Bricuyet, G. C. González Labrada y C. Viltre Calderón (Comps.),
+      Educación y desafíos epistemológicos del siglo XXI (pp. 216–236). Nova
+      Educare. https://dialnet.unirioja.es/servlet/libro?codigo=999195
+Ministerio del Trabajo del Ecuador. (2022). Guía básica de prevención de riesgos
+       laborales en la construcción. Dirección de Seguridad, Salud en el Trabajo y
+       Gestión Integral de Riesgos; Universidad Internacional SEK.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/Guia-basica-de-
+       prevencion-de-riesgos-laborales-en-la-construccion.pdf
+
+Morales Cruz, E. U., Morgado Gonzales, I., Martínez Vázquez, J. M., Aristeo Domínguez,
+      C., & Fuentes Hernández, D. (2025). El software CAD como herramienta para la
+      enseñanza en la ingeniería moderna. Ciencia Latina Revista Científica
+      Multidisciplinar, 9(2), 7593–7606. https://doi.org/10.37811/cl_rcm.v9i2.17484
+
+Organización Internacional del Trabajo. (2022). Seguridad y salud en la construcción:
+      Repertorio de recomendaciones prácticas de la OIT (ed. revisada). Oficina
+      Internacional del Trabajo. https://www.ilo.org/es/media/267256/download
+
+Vergara-Valverde, F., & Pérez-Lancellotti, G. (2024). El croquis y el CAD, socios en el
+      diseño arquitectónico: Experiencia en la Universidad Católica del Norte (Chile).
+      Estoa. Revista de la Facultad de Arquitectura y Urbanismo de la Universidad de
+      Cuenca, 13(25), 165–179. https://doi.org/10.18537/est.v013.n025.a10
+
+
+
+                             Módulo Genérico Nro.2
+Nombre del módulo:                    Seguridad Industrial
+Nivel:                                1ro, 2do
+Duración:                             240 periodos pedagógicos
+                                      UC2: Aplicar normas de seguridad industrial, salud
+Unidad de competencia                 ocupacional y protección ambiental en la ejecución de
+asociada:                             actividades técnicas, identificando riesgos, utilizando
+                                      adecuadamente el equipo de protección personal
+                                      (EPP) y actuando con responsabilidad ética y
+                                      compromiso con el entorno.
+Objetivo del módulo: Promover la capacidad de identificar riesgos y aplicar normas de
+seguridad industrial, salud ocupacional y protección ambiental, utilizando adecuadamente
+el equipo de protección personal (EPP) y adoptando conductas responsables y éticas en el
+entorno.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Reconocer los riesgos comunes asociados a las actividades técnicas de su
+especialidad y explica los procedimientos básicos de prevención establecidos en las
+normativas vigentes.
+CE1.1: Describe los riesgos físicos, mecánicos, eléctricos, químicos o ergonómicos
+presentes en su entorno de trabajo técnico, diferenciando su naturaleza y posibles
+consecuencias.
+CE1.2: Clasifica los riesgos identificados según su tipo y nivel de gravedad, estableciendo
+la relación con actividades o procesos propios de la especialidad.
+CE1.3: Aplica normas básicas de seguridad y salud ocupacional en situaciones simuladas
+o reales del entorno educativo y productivo, justificando su pertinencia.
+CE1.4: Emplea medidas preventivas o correctivas simples para reducir riesgos en su
+espacio de trabajo, fundamentándolas en principios técnicos, normativos y de
+responsabilidad personal.
+RA 2: Aplicar correctamente las normas de seguridad industrial y salud ocupacional
+en la ejecución de tareas técnicas, utilizando el equipo de protección personal (EPP)
+de manera adecuada y respetando los protocolos establecidos.
+CE2.1: Distingue los elementos del equipo de protección personal (EPP) requeridos para
+las actividades propias de su especialidad, explicando su función preventiva.
+CE2.2: Utiliza de manera adecuada el EPP en diferentes tareas técnicas, verificando su
+correcto funcionamiento, mantenimiento y cuidado.
+CE2.3: Ejecuta procedimientos operativos respetando los protocolos de seguridad
+establecidos (señalización, manejo seguro de herramientas, evacuación, primeros auxilios,
+entre otros), demostrando responsabilidad y disciplina.
+CE2.4: Propone acciones de mejora para la organización o la cultura de seguridad en el
+entorno educativo o técnico, fundamentándolas en la observación de prácticas inseguras
+o riesgos potenciales.
+RA 3: Implementar acciones de protección ambiental en el desarrollo de actividades
+técnicas, minimizando residuos, emisiones y el uso de recursos, conforme a las
+buenas prácticas del sector.
+CE3.1: Explica los impactos ambientales más comunes asociados a procesos técnicos de
+su especialidad (consumo de energía, generación de residuos, contaminación del aire,
+agua o suelo).
+CE3.2: Aplica buenas prácticas de manejo de residuos, uso racional de materiales y
+consumo eficiente de recursos en actividades prácticas o proyectos escolares,
+demostrando responsabilidad ambiental.
+CE3.3: Maneja de forma responsable sustancias o materiales potencialmente
+contaminantes, cumpliendo las normas de uso, almacenamiento y disposición
+establecidas.
+CE3.4: Propone y justifica estrategias sostenibles en su entorno de aprendizaje o prácticas
+(como reutilización de materiales, segregación de residuos, ahorro energético), basadas
+en criterios técnicos y ambientales.
+RA 4: Proponer mejoras en las condiciones de seguridad, salud ocupacional o
+sostenibilidad en el entorno de trabajo, sustentándolas con observaciones técnicas,
+principios éticos y compromiso ambiental.
+CE4.1: Examina situaciones de riesgo, prácticas inadecuadas o condiciones insalubres en
+entornos escolares o técnicos que comprometen la seguridad, la salud o el medioambiente.
+CE4.2: Registra evidencias de riesgos u oportunidades de mejora mediante instrumentos
+adecuados de observación (fotografías, bitácoras, diagramas o listas de chequeo),
+garantizando claridad y pertinencia en la información.
+CE4.3: Propone acciones básicas y concretas para corregir o prevenir situaciones de
+riesgo (carteles informativos, procedimientos, capacitaciones, control de residuos, entre
+otros), considerando su factibilidad en el contexto.
+CE4.4: Plantea soluciones factibles y contextualizadas que fortalezcan la cultura de
+seguridad y sostenibilidad, justificando su relevancia desde criterios técnicos, principios
+éticos y compromiso ambiental.
+Contenidos
+Conceptuales                    Procedimentales                    Actitudinales
+Normas de Seguridad • Usar correctamente el • Promover                             una     actitud
+Industrial:                       Equipo      Personal         de    proactiva        en         la
+• Concepto y finalidad de las     Protección       (EPP)       en    identificación y prevención
+  normas de seguridad en          situaciones simuladas.             de riesgos.
+  construcción y obra civil.    • Identificar    riesgos       en • Fomentar el compromiso
+• Legislación nacional e          escenarios controlados.            con el uso correcto del EPP
+  internacional        vigente • Ejercitar la respuesta ante         y el respeto por las normas
+  aplicable.                      emergencias                        de seguridad y protección
+• Protocolos                  y   (evacuaciones, primeros            ambiental.
+  procedimientos             de   auxilios).                       • Sensibilizar     sobre      la
+  seguridad en obras civiles. • Reconocer           condiciones      importancia de proteger el
+• Responsabilidades        del    inseguras en obras reales          entorno natural durante las
+  personal en materia de          o simuladas.                       obras.
+  seguridad laboral.            • Elaborar     informes        de • Valorar             prácticas
+Salud Ocupacional:                riesgos                        y   sostenibles y responsables
+• Factores de riesgo en el        recomendaciones.                   en la gestión de recursos y
+  entorno de trabajo de • Practicar el uso de la                     residuos.
+  construcción y obra civil.      señalización y delimitación • Animar la colaboración y
+• Medidas preventivas y           de zonas peligrosas.               comunicación efectiva en
+  correctivas para riesgos • Realizar evaluaciones de                temas de seguridad y
+  laborales.                      riesgos     en       diferentes    protección ambiental.
+• Procedimientos          para    etapas de una obra.              • Reportar oportunamente
+  manejo y almacenamiento • Analizar de casos y                      condiciones inseguras o
+  de sustancias peligrosas.       resolución de problemas            daños al entorno.
+• Protocolos de emergencia        relacionados         con      la • Fomentar el respeto por la
+  y primeros auxilios.            seguridad y protección             vida, la integridad y el
+Identificación y Evaluación       ambiental.                         bienestar del equipo y del
+de Riesgos:                     • Proponer y poner en                entorno.
+• Técnicas para identificar       práctica los planes de           • Promover una cultura de
+  peligros en el sitio de         seguridad específicos.             seguridad y respeto por las
+  trabajo.                      • Controlar          y        dar    normativas.
+• Métodos de evaluación de        seguimiento del uso del
+  riesgos y priorización de       EPP y cumplimiento de
+  acciones preventivas.           normativas a miembros del
+• Uso      de    listas      de   equipo.
+  verificación y matrices de
+  riesgo.
+Uso adecuado del Equipo
+de Protección Personal
+(EPP):
+• Tipos y funciones del EPP
+  (casco, guantes, gafas,
+  arnés, protección auditiva,
+  respiratoria, etc.).
+• Normas para la selección,
+  uso,    mantenimiento       y
+  almacenamiento del EPP.
+• Importancia               del
+  cumplimiento en el uso del
+  EPP para la prevención de
+  accidentes.
+Ética y Responsabilidad en
+el Trabajo:
+• Actitudes responsables y
+  éticas en el entorno laboral.
+• Compromiso          con    la
+  seguridad,       salud      y
+  protección      del     medio
+  ambiente.
+• Cultura de reporte y
+  comunicación de riesgos.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Seguridad
+    Industrial, Diseño lndustrial y de Procesos, Mantenimiento Industrial y o ramas afines
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Especificaciones técnicas                         Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula)               1
+                            Computadoras con acceso a internet
+Laboratorio
+                            Proyector                                   1
+Referencias Bibliográficas
+ Asamblea Nacional del Ecuador. (2017). Código Orgánico del Ambiente. Registro Oficial
+        Suplemento N.º 983, 12 de abril de 2017.
+        https://www.asambleanacional.gob.ec/sites/default/files/private/asambleanacional
+     /filesasambleanacionalnameuid-28/Codigo-Organico-Ambiente.pdf
+Comunidad Andina. (2004). Decisión 584: Instrumento Andino de Seguridad y Salud en
+     el Trabajo. Secretaría General de la Comunidad Andina.
+     https://www.trabajo.gob.ec/wp-content/uploads/2024/01/INSTRUMENTO-
+     ANDINO-DE-SEGURIDAD-Y-SALUD-EN-EL-TRABAJO.pdf
+
+Gallegos, M., & Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad
+       ocupacional en la industria de la construcción en las principales ciudades del
+       Ecuador. Novasinergia, 5(1), 150–162. https://doi.org/10.37135/ns.01.09.09
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2021). Guía técnica para la
+        utilización por los trabajadores de equipos de protección individual. INSST.
+        https://www.insst.es/documentacion/catalogo-de-publicaciones/guia-tecnica-para-
+        la-utilizacion-por-los-trabajadores-de-equipos-de-proteccion-individual
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2022). Directrices básicas para la
+        evaluación de riesgos laborales. INSST.
+        https://www.insst.es/documentacion/catalogo-de-publicaciones/directrices-
+        basicas-para-la-evaluacion-de-riesgos-laborales
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2023). Guía técnica sobre
+        señalización de seguridad y salud en el trabajo. INSST.
+        https://www.insst.es/documentacion/catalogo-de-publicaciones/guia-tecnica-
+        sobre-senalizacion-de-sst-2023
+
+Ministerio del Ambiente, Agua y Transición Ecológica. (2021). Guía de buenas prácticas
+       para el etiquetado y manejo de residuos y desechos peligrosos y/o especiales.
+       MAATE.
+       https://sustanciasyresiduos.ambiente.gob.ec/producto/guia_de_buenas_practicas
+       _para_el_etiquetado_y_manejo_de_residuos_y_desechos_peligrosos/
+
+Ministerio del Trabajo del Ecuador. (2022). Guía básica de prevención de riesgos
+       laborales en la construcción. Dirección de Seguridad, Salud en el Trabajo y
+       Gestión Integral de Riesgos; Universidad Internacional SEK.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/Guia-basica-de-
+       prevencion-de-riesgos-laborales-en-la-construccion.pdf
+
+Ministerio del Trabajo del Ecuador. (2024a). Normas generales para el cumplimiento y
+       control de las obligaciones laborales de los empleadores públicos y privados en
+       materia de seguridad y salud en el trabajo (Acuerdo Ministerial N.º MDT-2024-
+       196). https://www.trabajo.gob.ec/wp-content/uploads/2024/10/ACUERDO-
+       MINISTERIAL-NRO.-MDT-2024-196-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2024b). Norma técnica en seguridad e higiene del
+       trabajo (Anexo 3). https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-
+       3_Norma-Tecnica-de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-
+       signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2025). Reglamento de seguridad en el trabajo y
+       prevención de riesgos laborales para la construcción y obras públicas y privadas
+       (Acuerdo Ministerial N.º MDT-2025-122). https://www.trabajo.gob.ec/wp-
+       content/uploads/2025/09/Acuerdo-Ministerial-Nro.-MDT-2025-122-signed.pdf
+
+Organización Internacional del Trabajo. (2022). Seguridad y salud en la construcción:
+      Repertorio de recomendaciones prácticas de la OIT (ed. revisada). Oficina
+      Internacional del Trabajo. https://www.ilo.org/es/media/267256/download
+
+Presidencia de la República del Ecuador. (2024). Reglamento de Seguridad y Salud en
+       el Trabajo (Decreto Ejecutivo N.º 255). Registro Oficial Segundo Suplemento N.º
+       554, 9 de mayo de 2024.
+
+Villota Ortega, D. G., Garcés Bolaños, N. F., Córdoba Martínez, J. X., & Botina Mora, J.
+        M. (2023). La seguridad y salud en el trabajo en el sector de la construcción: Una
+        revisión de literatura. Aglala, 14(2), 1–25.
+        https://dialnet.unirioja.es/servlet/articulo?codigo=9734424
+
+
+
+                                 Módulo Genérico Nro.3
+Nombre del módulo:                  Sostenibilidad Industrial
+Nivel:                              1ro y 2do
+Duración:                           240 periodos pedagógicos
+                                    UC3: Utilizar criterios y herramientas de sostenibilidad
+                                    industrial en proyectos de construcción, proponiendo
+Unidad        de     competencia    soluciones de eficiencia energética, manejo de
+asociada:                           residuos, selección de materiales y gestión ambiental
+                                    que reduzcan impactos y aseguren cumplimiento
+                                    normativo y buenas prácticas.
+Objetivo del módulo:
+Aplicar criterios y herramientas de sostenibilidad industrial en proyectos de construcción,
+mediante la propuesta de soluciones de eficiencia energética, manejo adecuado de
+residuos, selección responsable de materiales y gestión ambiental, con el fin de reducir
+impactos negativos, cumplir la normativa vigente y promover buenas prácticas
+constructivas.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Diagnosticar los aspectos ambientales, energéticos y de consumo de recursos
+en un proyecto de construcción.
+CE1.1: Clasifica correctamente los aspectos ambientales significativos del proyecto (aire,
+agua, suelo, ruido, residuos).
+CE1.2: Reconoce consumos energéticos y de materiales, diferenciando áreas críticas.
+CE1.3: Presenta un diagnóstico documentado, con indicadores cuantitativos o cualitativos
+verificables.
+RA 2: Proponer medidas de eficiencia energética aplicables a instalaciones y
+procesos constructivos.
+CE2.1: Selecciona medidas de eficiencia coherentes con el tipo de obra y recursos
+disponibles.
+CE2.2: Justifica técnica y económicamente las propuestas, mostrando ahorros estimados y
+retorno de inversión.
+CE2.3: Cumple con normativa nacional y buenas prácticas de eficiencia energética.
+RA 3: Gestionar residuos de construcción aplicando criterios de reducción,
+segregación, reutilización y reciclaje.
+CE3.1: Clasifica residuos de acuerdo con normativa y categorías establecidas (orgánicos,
+inorgánicos, peligrosos, no peligrosos).
+CE3.2: Diseña un plan de gestión de residuos que contempla reducción en origen,
+segregación y valorización.
+CE3.3: Aplica procedimientos de control, almacenamiento y registro de disposición final.
+RA 4: Elaborar un Plan de Manejo Ambiental (PMA) que integre medidas preventivas
+y correctivas.
+CE4.1: Construye el PMA con objetivos, indicadores, responsables y cronograma de
+implementación.
+CE4.2: Incluye medidas preventivas y correctivas alineadas a normativa y buenas prácticas.
+CE4.3: Presenta el plan en formato técnico, con coherencia y aplicabilidad al proyecto.
+CE4.4: Plantea acciones de mejora en el aprovechamiento de recursos, eficiencia
+energética o reducción de residuos técnicos, fundamentadas en el análisis de su
+experiencia en tareas prácticas.
+ Contenidos
+Conceptuales                     Procedimentales                  Actitudinales
+Sostenibilidad                   • Identificar y diagnosticar • Valorar la importancia del
+• Principios de sostenibilidad     aspectos ambientales y           cuidado      del      medio
+  y desarrollo sostenible          consumos energéticos en          ambiente         en        la
+  aplicados         a         la   proyectos constructivos.         construcción.
+  construcción.                  • Diseñar propuestas de • Adoptar                     prácticas
+• Normativa ambiental y de         eficiencia         energética    sostenibles y responsables
+  construcción      sostenible     adaptadas al contexto del        en el uso de recursos.
+  vigente      (nacional       e   proyecto.                      • Ser       meticuloso        y
+  internacional).                • Elaborar planes de manejo        cuidadoso en la ejecución
+• Fundamentos de eficiencia        de residuos en obra,             de tareas.
+  energética:        consumo,      incluyendo     segregación, • Buscar la mejora continua
+  ahorro,              fuentes     almacenamiento               y   en      las     actividades
+  renovables.                      disposición final.               realizadas.
+• Clasificación de residuos • Seleccionar materiales y • Colaborar con compañeros
+  de        construcción       y   técnicas       constructivas     respetando horarios y
+  demolición; jerarquía de         comparando           criterios   procedimientos.
+  manejo (reducir, reutilizar,     técnicos y ambientales.        • Comunicar de manera
+  reciclar,           valorizar, • Elaborar un Plan de              clara y oportuna cualquier
+  disponer).                       Manejo Ambiental con             incidencia o duda.
+                                   indicadores, cronograma y
+                                   responsables definidos.
+• Economía circular en la           • Documentar y presentar • Actuar con honestidad y
+  industria          de        la     propuestas técnicas en           compromiso con la calidad
+  construcción.                       informes y exposiciones          del trabajo.
+Protección Ambiental:                 orales.                        • Respetar las normas y
+• Impactos ambientales de           • Utilizar      matrices      de   manuales         técnicos
+  las      actividades        de      impactos y listas de             establecidos.
+  construcción.                       verificación            como
+• Normas y prácticas para             herramientas de gestión
+  minimizar        la      huella     ambiental.
+  ecológica.                        • Integrar           soluciones
+• Gestión de residuos y               sostenibles en un proyecto
+  control de emisiones.               constructivo (informe o
+• Uso      responsable        de      prototipo).
+  recursos naturales.               • Clasificar      y    disponer
+• Instrumentos de medición            adecuadamente residuos
+  y control (nivel, cinta             de construcción.
+  métrica,             plomada,     • Aplicar       técnicas      de
+  escuadra, etc.).                    reutilización y reciclaje en
+• Manuales       técnicos       y     el sitio de trabajo.
+  procedimientos específicos        • Registrar las actividades
+  para tareas constructivas.          realizadas y verificar el
+• Criterios ambientales en            cumplimiento        de     los
+  construcción (uso racional          procedimientos.
+  de recursos, gestión de           • Detectar        y     corregir
+  residuos,            eficiencia     desviaciones        en     los
+  energética).                        procesos.
+• Uso      responsable        de
+  recursos naturales.
+• Reducción de residuos y
+  reciclaje.
+• Impacto ambiental de las
+  obras      y    formas      de
+  mitigarlo.
+• Identificación de riesgos en
+  tareas específicas.
+Plan de Manejo Ambiental
+(PMA)
+• Elementos básicos de un
+  Plan de Manejo Ambiental
+  (PMA):               objetivos,
+  indicadores,          medidas
+  preventivas y correctivas.
+• Certificaciones               y
+  estándares                  de
+    construcción    sostenible
+    (ej.: LEED, ISO 14001,
+    EDGE, entre otras).
+
+
+
+
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería
+   Civil, Arquitectura, Ingeniería Ambiental, Construcción u Obras Civiles, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•    Aprendizaje Basado en Proyectos (ABP)
+•    Aprendizaje en Contextos Reales
+•    Role-Playing y Simulaciones
+•    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                           Detalle de especificaciones
+Denominación                                                    Cantidad
+                           técnicas
+Infraestructura/espacio          Entorno de aprendizaje (aula)         1
+                                 Computadoras con acceso a internet
+Laboratorio
+                                 Proyector                             2
+Referencias Bibliográficas
+Abarca, Z., Barreto, U., Abarca, Y., & Barreto, O. (2024). Gestión de residuos de
+      construcción y demolición en entornos urbanos desde la calidad ambiental.
+      Revista Venezolana de Gerencia, 29(Especial 11), 778–792.
+      https://doi.org/10.52080/rvgluz.29.e11.46
+
+Asamblea Nacional del Ecuador. (2017). Código Orgánico del Ambiente. Registro Oficial
+      Suplemento N.º 983, 12 de abril de 2017.
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/38792-codigo-
+      organico-del-ambiente-t192421
+
+Asamblea Nacional del Ecuador. (2019). Ley Orgánica de Eficiencia Energética. Registro
+      Oficial Suplemento N.º 449, 19 de marzo de 2019.
+      https://www.asambleanacional.gob.ec/sites/default/files/private/asambleanacional/fi
+      lesasambleanacionalnameuid-29/Leyes%202013-2017/558-efi-energ-ealbornoz-
+      06-03-2018/ro-efi-ro-sup-449-19-03-2019.pdf
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Economía Circular Inclusiva.
+      Registro Oficial Cuarto Suplemento N.º 488, 6 de julio de 2021.
+       https://www.asambleanacional.gob.ec/es/system/files/ro-488-4to-supl-06-07-
+       2021.pdf
+
+Cabrera Medina, M. D., Solano Peláez, J. L., & Rivela Carballal, B. (2023). Optimización
+      del flujo de residuos de la construcción y demolición en el cantón Biblián. Polo del
+      Conocimiento, 8(1), 1690–1722. https://doi.org/10.23857/pc.v8i1.5161
+      https://polodelconocimiento.com/ojs/index.php/es/article/view/5161
+
+Corporación Financiera Internacional. (2021). Guía del usuario de EDGE (Versión 3.0).
+      IFC. https://edgebuildings.com/wp-
+      content/uploads/2022/07/2022001613SPAspa001.pdf
+
+Díaz, M. R., & Ruggeri, P. (2009). Guía de buenas prácticas ambientales para obras en
+       construcción. Fundación UOCRA; Aulas y Andamios.
+       https://www.oitcinterfor.org/sites/default/files/buenaspracticas_ambienta.pdf
+
+Duran-Navarrete, V., García-Alvarado, R., & Vega-Coloma, M. (2024). Integración de
+      estrategias de circularidad al diseño arquitectónico mediante BIM. Hábitat
+      Sustentable, 14(1), 118–131. https://doi.org/10.22320/07190700.2024.14.01.09
+
+Galindo-Borbón, C., Borbón-Almada, A., Ochoa-de-la-Torre, J. M., & Marincic-Lovriha, I.
+       (2024). Análisis costo-beneficio de estrategias para eficiencia energética en
+       vivienda, aplicando la normatividad vigente en el Noroeste de México. Hábitat
+       Sustentable, 14(2), 32–47. https://doi.org/10.22320/07190700.2024.14.02.03
+
+Ministerio de Ambiente y Desarrollo Sostenible de Colombia. (2023). Guía de materiales
+       para la construcción sostenible. Ministerio de Ambiente y Desarrollo Sostenible.
+       https://www.minambiente.gov.co/wp-content/uploads/2023/06/Guia-de-materiales-
+       para-la-construccion-sostenible.pdf
+
+Ministerio de Desarrollo Urbano y Vivienda. (2018). NEC-HS-EE: Eficiencia energética en
+       edificaciones residenciales. Norma Ecuatoriana de la Construcción.
+       https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/4.-NEC-HS-EE-
+       Eficiencia-Energetica.pdf
+
+Ministerio de Desarrollo Urbano y Vivienda. (2014). NEC-HS-ER: Energías renovables.
+       Sistemas solares térmicos para agua caliente. Norma Ecuatoriana de la
+       Construcción.
+       https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/6.-NEC-HS-ER-
+       Energias-Renovables.pdf
+
+Presidencia de la República del Ecuador. (2019). Reglamento al Código Orgánico del
+       Ambiente (Decreto Ejecutivo N.º 752). Registro Oficial Suplemento N.º 507, 12 de
+       junio de 2019.
+        https://sustanciasyresiduos.ambiente.gob.ec/producto/reglamento-al-codigo-
+        organico-del-ambiente/
+
+ Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+        de Economía Circular Inclusiva (Decreto Ejecutivo N.º 844). Registro Oficial
+        Suplemento N.º 379, 22 de agosto de 2023.
+        https://procuraduria.utpl.edu.ec/NormativaExterna/REGLAMENTO%20GENERAL
+        %20A%20LA%20LEY%20ORG%C3%81NICA%20DE%20ECONOM%C3%8DA%
+        20CIRCULAR%20INCLUSIVA.pdf
+
+
+
+       4. Módulos de Especialización
+
+Las y los estudiantes que cursen el Bachillerato Técnico en Construcción de Obra Civil se
+caracterizan por una formación sólida en interpretación de planos, técnicas constructivas,
+gestión de obra y uso de materiales propios del sector. Desarrollan habilidades en el
+levantamiento topográfico, ejecución de estructuras, instalaciones y acabados, aplicando
+normas de seguridad, calidad y sostenibilidad en cada fase del proceso constructivo.
+Participan en el diseño y construcción de edificaciones.
+
+Se estructuran los siguientes módulos de especialización:
+
+   •   Preparación Sostenible de Terrenos
+   •   Construcción Innovadora
+   •   Instalación Eficiente de Sistemas Auxiliares
+   •   Control de Calidad y Seguridad en Obra
+   •   Gestión de Proyectos Sostenibles
+
+
+
+                         Módulo de Especialización Nro.1
+ Nombre del módulo:                  Preparación Sostenible de Terrenos
+ Nivel: Bachillerato                 1ro, 2do, 3ro
+ Duración:                           280 periodos pedagógicos
+ Unidad de competencia asociada UC.1: Preparar terrenos para la ejecución de obras
+ del Perfil Profesional:             civiles mediante actividades de limpieza, nivelación,
+                                     trazado y compactación, considerando condiciones
+                                     del sitio, normativas técnicas y de seguridad,
+                                     contribuyendo a una ejecución precisa desde la base.
+ Objetivo del módulo: Aplicar procedimientos técnicos para la preparación de terrenos en
+ obras civiles mediante actividades de limpieza, nivelación, trazado y compactación,
+ considerando condiciones del sitio, normativas técnicas y de seguridad, contribuyendo a
+ una ejecución precisa desde la base, utilizando herramientas tradicionales y/o tecnológicas.
+ Resultados de Aprendizaje (RA) – Criterios de Evaluación (CE)
+RA 1: Registrar las condiciones del terreno, incluyendo obstáculos, tipo de suelo y
+posibles riesgos, siguiendo los protocolos de seguridad y las especificaciones
+técnicas del proyecto.
+CE.1.1: Describe las condiciones del terreno, identificando obstáculos, tipos de suelo y
+posibles riesgos.
+CE.1.2: Verifica que la información técnica y los planos estén actualizados y sean
+adecuados para la intervención.
+CE.1.3: Aplica las normativas técnicas y de seguridad durante el registro de las
+características del terreno, asegurando que la documentación refleje el cumplimiento de
+los protocolos establecidos y las especificaciones técnicas del proyecto.
+CE.1.4: Documenta y reporta las condiciones del terreno, incluyendo hallazgos relevantes
+para la planificación de las actividades.
+RA 2: Realizar actividades de limpieza y nivelación del terreno siguiendo
+procedimientos y normativas técnicas para garantizar una base adecuada para la
+obra.
+CE.2.1: Ejecuta actividades de limpieza del sitio, eliminando escombros, vegetación y otros
+obstáculos.
+CE.2.2: Aplica técnicas de nivelación del terreno, utilizando instrumentos adecuados y
+verificando niveles con precisión.
+CE.2.3: Cumple con las normativas de seguridad durante la realización de estas
+actividades.
+RA 3: Trazar y marcar referencias para la ejecución de obras, siguiendo criterios de
+precisión y normativas técnicas.
+CE.3.1: Marca las líneas de referencia y niveles siguiendo los planos y especificaciones
+técnicas del proyecto.
+CE.3.2: Utiliza instrumentos de trazado (estacas, cinta, láser, niveles) con precisión para
+asegurar la correcta ubicación de las obras.
+CE.3.3: Verifica la coherencia entre el trazado y las condiciones del terreno, realizando
+ajustes cuando sea necesario.
+CE.3.4: Asegura que las marcas sean visibles y resistentes a las condiciones climáticas y
+de uso en el sitio.
+RA 4: Ejecutar la compactación del terreno, garantizando la estabilidad del mismo y
+cumpliendo las normativas de seguridad y calidad.
+CE.4.1: Selecciona técnicas de compactación adecuadas según el tipo de suelo y los
+requerimientos del proyecto.
+CE.4.2: Mide y registra la densidad del suelo mediante pruebas de campo, asegurando que
+cumple los estándares técnicos.
+CE.4.3: Opera la maquinaria de compactación siguiendo procedimientos de seguridad y
+asegurando la correcta ejecución de la tarea bajo supervisión.
+CE.4.4: Cumple con las normas de seguridad y procedimientos técnicos durante la
+compactación, evitando riesgos y asegurando la calidad del trabajo.
+Contenidos
+Conceptuales                          Procedimentales             Actitudinales
+• Fundamentos de topografía.           • Identificar y clasificar     • Demostrar una actitud
+• Representación de terrenos.            tipos de terrenos, trazos.     responsable             y
+• Representación e interpretación      • Aplicar          métodos       proactiva      en      la
+  de planos con curvas de nivel.         matemáticos enfocados          identificación          y
+• Trazo de líneas perpendiculares,       en la topografía.              cumplimiento de las
+  paralelas,             tangentes,    • Ejecutar     tareas     de     normativas técnicas y
+  horizontales, verticales. Métodos      replanteo del terreno y        de seguridad durante
+  y cálculo de áreas y perímetros.       actividades             de     la preparación de
+• Instrumentos topográficos, útiles,     topografía conforme a          terrenos.
+  elementos de señalización y            los        planos        e   • Valorar la importancia
+  medios auxiliares. Instrumentos        instrucciones          del     de                seguir
+  simples. Cinta métrica, escuadra       profesional a cargo.           procedimientos
+  y tiralíneas. Jalones, plomadas,     • Identificar equipos y          seguros para prevenir
+  clavos, varillas, marcas y             herramientas necesarias        accidentes y garantizar
+  estacas.           Distanciómetro      previo a la realización        un ambiente de trabajo
+  electrónico.                           replanteos.                    saludable.
+• Niveles. Características, tipos y    • Organizar, clasificar y      • Mostrar respeto por las
+  elementos accesorios. Puesta en        representación de datos        normas y protocolos
+  estación y manejo.                     topográficos mediante          establecidos,
+• Teodolito y Estación total.            aplicaciones                   promoviendo          una
+  Características tipos y medios         informáticas.                  cultura de seguridad
+  auxiliares. Puesta en estación y     • Identificar propiedades y      en el sitio de obra.
+  manejo. GPS de alta precisión,         calidad de los tipos de      • Manifestar
+  Dron topográfico. Traslado de          suelo.                         compromiso con la
+  datos a sistemas informáticos        • Delimitar el área a            calidad y precisión en
+  (CAD).                                 intervenir y realizar una      cada       etapa      del
+• Nivelación. Cotas y alturas de los     representación gráfica.        proceso, reconociendo
+  puntos. Trazado de ángulos           • Aplicar       información      la importancia de una
+  verticales. Replanteo de puntos        técnica para resolver          base sólida para la
+  en cota. Replanteo de puntos, de       problemas o tareas             ejecución de obras
+  alineaciones rectas.                   prácticas.                     civiles.
+• Tipos y características de suelos.   • Recopilar     información    • Asumir                 la
+  Generalidades.                         técnica en contextos           responsabilidad       de
+• Desbroce y Limpieza de terrenos        colaborativos.                 verificar y corregir
+  (manual y a máquina)                 • Usar adecuadamente de          posibles errores o
+• Replanteo de ejes de obras de          terminología       técnica     desviaciones durante
+  construcción. Métodos y cálculo.       constructiva.                  la preparación del
+• Tipos de compactación: manual        • Realizar desbroce y            terreno.
+  y mecánica.                            limpieza del terreno         • Demostrar disposición
+• Métodos de compactación según          manual                   y     para      adaptarse     a
+  el tipo de suelo (arcilloso,           mecánicamente.                 cambios o imprevistos
+  arenoso, limoso).                    • Retirar       escombros,       en las condiciones del
+• Procedimientos               para                                     terreno,
+  compactación por capas.                vegetación y materiales
+                                                                        implementando
+• Comprobación de uniformidad y  que interfieran con la        alternativas        que
+ densidad del suelo durante la   obra                          favorezcan          una
+ compactación.                 • Aplicar    técnicas     de    ejecución eficiente.
+                                 nivelación      utilizando
+                                 herramientas manuales
+                                 (palas,    rastrillos)    y
+                                 mecánicas (niveladoras,
+                                 compactadoras
+                                 pequeñas).
+                               • Verificar la uniformidad
+                                 del terreno nivelado
+                                 según       planos        y
+                                 especificaciones.
+                               • Señalizar y delimitar
+                                 áreas de trabajo para
+                                 garantizar      seguridad
+                                 durante la limpieza y
+                                 nivelación.
+                               • Seleccionar y aplicar
+                                 técnicas                de
+                                 compactación según el
+                                 tipo de suelo y las
+                                 especificaciones        del
+                                 proyecto.
+                               • Ejecutar                 la
+                                 compactación            del
+                                 terreno     por     capas,
+                                 asegurando uniformidad
+                                 y densidad adecuada.
+                               • Medir y registrar la
+                                 densidad     del      suelo
+                                 mediante pruebas de
+                                 campo sencillas (cono,
+                                 cilindro,   compactador
+                                 manual).
+                               • Operar maquinaria de
+                                 compactación simple o
+                                 equipos                bajo
+                                 supervisión, respetando
+                                 normas de seguridad.
+                               • Aplicar procedimientos
+                                 de seguridad durante la
+                                 compactación y manejo
+                                 de equipos.
+                                     • Clasificar y organizar
+                                       áreas      compactadas,
+                                       asegurando estabilidad
+                                       y preparación para la
+                                       siguiente fase de la obra.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería en
+    Construcción, Ingeniería Civil, Arquitectura, o ramas afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas).
+Materiales y recursos
+Denominación                          Especificaciones              Cantidad
+                                      técnicas
+Infraestructura/espacio               Entorno de aprendizaje        1
+                                      (aula
+Laboratorio                           Computadoras             con 1
+                                      acceso a internet.
+                                      Proyector
+Herramientas/equipos                  Equipos
+                                       • Equipos de medición: cinta métrica, distanciómetro
+                                          láser, niveles láser, GPS
+                                       • Máquinas compactadoras, rodillos y apisonadoras
+                                       • Motoniveladoras (según tamaño de terreno)
+                                       • Vibradores de suelo manuales o mecánicos
+                                       • Dispositivos para control de densidad del suelo
+
+                                     Herramientas
+                                     • Palas, picos y azadones
+                                     • Carretillas
+                                     • Rastrillos y escobas
+                                     • Martillos para estacas
+                                     • Pistolas de pintura o tiza para marcaje
+                                     • Reglas largas, plomadas y niveles de burbuja
+
+                                     Equipos de protección personal (EPP)
+                                     • Cascos de seguridad
+                                     • Guantes resistentes
+                                     • Botas de seguridad
+                                     • Chalecos reflectantes
+                                     • Gafas de protección
+                                     • Protección auditiva
+Materiales                          Planos y documentos técnicos del proyecto
+                                    Hojas de registro o bitácoras
+                                    Cámaras o dispositivos para registro visual
+                                    Cinta de marcaje o pintura de señalización
+                                    Estacas de madera o plástico
+                                    Cuerda o hilo de nylon
+                                    Materiales de limpieza: bolsas, contenedores de
+                                    residuos, rastrillos
+                                    Materiales de compactación: grava, arena, material de
+                                    relleno
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2017). Código Orgánico del Ambiente. Registro Oficial
+      Suplemento N.º 983, 12 de abril de 2017
+
+Baque Solís, J. E., Cuadrado Torres, L. M., & Palacios Paredes, B. G. (2022). Análisis
+      comparativo topográfico sobre levantamientos altimétricos con RTK GNSS,
+      estación total y drone en Manta. Polo del Conocimiento, 7(12), 586–602.
+      https://doi.org/10.23857/pc.v7i12.5015
+      https://polodelconocimiento.com/ojs/index.php/es/article/view/5015
+
+Gámez Morales, W. R. (2015). Texto básico autoformativo de topografía general.
+     Universidad Nacional Agraria.
+     https://repositorio.una.edu.ni/3179/
+
+Guzmán Suárez, E. A., Velásquez Ramírez, J. V., & Ordoñez Ramírez, L. C. (2023).
+     Aplicación de la metodología RAMCODES en el control de compactación de capas
+     granulares de pavimento flexible. Cultura Científica, (21).
+     https://dialnet.unirioja.es/servlet/articulo?codigo=9646357
+
+Ministerio de Desarrollo Urbano y Vivienda. (2015). NEC-SE-GC: Geotecnia y
+       cimentaciones. Norma Ecuatoriana de la Construcción.
+       https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/4.-NEC-SE-GC-
+       Geotecnia-y-Cimentaciones.pdf
+
+Ministerio de Obras Públicas y Comunicaciones. (2002). Especificaciones generales para
+       la construcción de caminos y puentes: MOP-001-F-2002.
+       https://www.obraspublicas.gob.ec/wp-
+       content/uploads/downloads/2025/04/BPC_3_7_-
+       Especificaciones_Generales_MOP_001_F_2002.pdf
+
+Ministerio de Transporte y Obras Públicas. (2013). Norma Ecuatoriana Vial NEVI-12.
+       Volumen II: Manual de control de calidad en la construcción de las obras de
+       infraestructura del transporte.
+       https://www.mit.gob.ec/wp-content/uploads/downloads/2013/12/01-12-
+       2013_Manual_NEVI-12_COMPLEMENTARIO-2.pdf
+Ministerio del Trabajo del Ecuador. (2022). Guía básica de prevención de riesgos
+       laborales en la construcción. Dirección de Seguridad, Salud en el Trabajo y
+       Gestión Integral de Riesgos; Universidad Internacional SEK.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/Guia-basica-de-
+       prevencion-de-riesgos-laborales-en-la-construccion.pdf
+
+Ministerio del Trabajo del Ecuador. (2024). Norma técnica en seguridad e higiene del
+       trabajo (Anexo 3).
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-
+       de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2025). Reglamento de seguridad en el trabajo y
+       prevención de riesgos laborales para la construcción y obras públicas y privadas
+       (Acuerdo Ministerial N.º MDT-2025-122).
+       https://www.trabajo.gob.ec/wp-content/uploads/2025/09/Acuerdo-Ministerial-Nro.-
+       MDT-2025-122-signed.pdf
+
+Presidencia de la República del Ecuador. (2019). Reglamento al Código Orgánico del
+       Ambiente (Decreto Ejecutivo N.º 752). Registro Oficial Suplemento N.º 507, 12 de
+       junio de 2019.
+       https://enf.ambiente.gob.ec/web_enf/wp-content/uploads/pdfs/acuerdo_legal.pdf
+
+
+
+                            Módulo de Especialización Nro. 2
+Nombre del módulo:                  Construcción Innovadora
+Nivel:                              1ro, 2do, 3ro
+Duración:                           360 periodos pedagógicos
+                                    UC 2: Planificar los procesos constructivos de
+Unidad       de     competencia     elementos estructurales (cimientos, columnas, muros y
+8pppasociada:                       losas) de acuerdo con las especificaciones técnicas y
+                                    normativas vigentes.
+Objetivo del módulo: Apoyar en la construcción y supervisión de los elementos
+estructurales de la obra, con sujeción a normas técnicas, regulaciones de entidades de
+control y disposiciones del responsable de la unidad de obra, en condiciones de seguridad
+e higiene laboral, aplicando diferentes alternativas de sistemas constructivos acorde al
+entorno.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Participar en la preparación y planificación de procesos constructivos de
+elementos estructurales (cimientos, columnas, muros y losas), interpretando
+especificaciones técnicas y normativas vigentes.
+CE1.1: Elabora planes de trabajo que integren recursos, tiempos y procedimientos
+necesarios para la ejecución de elementos estructurales, demostrando organización y
+pertinencia técnica.
+CE1.2: Verifica la integridad de los planos y especificaciones técnicas, asegurando que
+estén completos y sean compatibles con las normativas vigentes.
+CE1.3: Organiza los materiales y maquinarias requeridos, comprobando su disponibilidad y
+aplicando criterios de uso adecuado.
+CE1.4: Evalúa riesgos potenciales durante la planificación, proponiendo medidas
+preventivas coherentes con las normas de seguridad y salud ocupacional.
+RA 2: Ejecutar actividades de cimentación, estructuración de columnas, muros y
+losas, aplicando técnicas tradicionales o industrializadas con el uso adecuado de
+materiales.
+CE2.1: Realiza la excavación, armado y colado de cimientos respetando dimensiones y
+especificaciones técnicas de los planos, asegurando precisión en el proceso constructivo.
+CE2.2: Construye columnas, muros y losas garantizando la correcta colocación de
+refuerzos, encofrados y acabados, aplicando las técnicas tradicionales o industrializadas de
+manera adecuada.
+CE2.3: Utiliza materiales adecuados en las cantidades requeridas, comprobando su calidad
+antes y durante la colocación.
+CE2.4: Controla el proceso de fraguado y curado de los elementos estructurales,
+asegurando la resistencia, durabilidad y cumplimiento de las especificaciones técnicas.
+RA 3: Aplicar normas técnicas, de calidad y de seguridad durante la ejecución de
+procesos constructivos, utilizando correctamente el equipo de protección personal
+(EPP) y procedimientos seguros.
+CE3.1: Inspecciona procesos de construcción para identificar y corregir posibles defectos
+en cada etapa del trabajo.
+CE3.2: Utiliza de manera adecuada el equipo de protección personal (EPP) y sigue los
+protocolos de seguridad en todas las fases del proceso constructivo.
+ CE3.3: Verifica que las actividades realizadas se ajusten a las normativas técnicas y a las
+ especificaciones de calidad establecidas en el proyecto.
+ CE3.4: Registra y documenta las actividades ejecutadas, evidenciando el cumplimiento de
+ normativas técnicas y procedimientos de seguridad establecidos.
+RA 4: Verificar la correcta ejecución de los elementos estructurales, evaluando su
+integridad y comprobando el cumplimiento de las especificaciones técnicas del
+proyecto.
+CE4.1: Comprueba visual y dimensionalmente los elementos estructurales, identificando
+defectos o irregularidades en relación con las especificaciones técnicas.
+CE4.2: Aplica pruebas y controles necesarios para comprobar la resistencia y estabilidad
+de los elementos construidos, asegurando su conformidad con los estándares establecidos.
+CE4.3: Corrige oportunamente las desviaciones o defectos detectados, aplicando los
+procedimientos técnicos adecuados.
+CE4.4: Elabora informes de cierre de actividades, registrando los resultados obtenidos e
+incluyendo recomendaciones pertinentes para la siguiente fase constructiva.
+Contenidos
+Conceptuales                    Procedimentales              Actitudinales
+• Herramientas manuales • Identificar los equipos, • Demostrar compromiso con
+   y eléctricas y Equipos         herramientas           y     la calidad, seguridad y
+   utilizados     en      la      materiales;     medios       cumplimiento de las normas
+                                  auxiliares    y      los     técnicas y regulaciones
+  construcción           de     recursos necesarios;           aplicables         en         la
+  elementos estructurales.      antes,     durante      y      construcción de elementos
+• Empleo y conservación         posterior a la jornada         estructurales, actuando con
+  de útiles, herramientas y     de trabajo, de acuerdo         ética y responsabilidad en
+  máquinas utilizadas en        con      procedimientos        todas las etapas del trabajo.
+  la construcción.              establecidos           en    • Mostrar disposición para
+• Materiales empleados          función de las tareas          identificar    y     proponer
+  en       sistemas      de     planificadas.                  alternativas constructivas
+  construcción tradicional.   • Ejecutar tareas previas        que optimicen recursos,
+• Materiales empleados          al hormigonado de los          tiempos      y     seguridad,
+  en       sistemas      de     elementos                      ajustándose         a       las
+  construcción mixtos.          constructivos                  condiciones del entorno y a
+• Materiales empleados          estructurales,                 las      necesidades        del
+  en       sistemas      de     preparando            las      proyecto.
+  construcción                  superficies     y    sus     • Priorizar      siempre        la
+  innovadores.                  componentes, según             seguridad personal y la de
+• Cubicación             de     especificaciones               los              compañeros,
+  materiales             de     técnicas       y       en      respetando las normas de
+  construcción.                 condiciones            de      seguridad y promoviendo
+• Hormigón: Composición,        seguridad.                     un ambiente de trabajo
+  Dosificaciones,             • Preparar hormigones,           seguro e higiénico en todo
+  Consistencia, Aditivos,       morteros y armado de           momento.
+  Aplicaciones.                 acero     conforme      a    • Fomentar       una      actitud
+• Tipos de excavaciones         normas y códigos de la         colaborativa y de respeto
+  para obras. Cambio de         construcción,                  hacia los miembros del
+  suelos, interpretación de     asegurando la correcta         equipo de trabajo y las
+  informes de estudios de       dosificación para su           diferentes               áreas
+  suelo.                        manipulación            y      involucradas en la obra,
+• Instalaciones generales       utilización en tareas          promoviendo                   la
+  (hidrosanitarias,             específicas            de      comunicación efectiva y la
+  eléctricas y especiales).     elementos                      cooperación.
+• Cimentaciones:                estructurales.               • Mostrar disposición para
+  generalidades, tipos y      • Ejecutar operaciones           aprender y adaptarse a
+  características.              posteriores             al     diferentes           sistemas
+  Procesos constructivos.       hormigonado       según        constructivos y tecnologías,
+• Muros: generalidades,         especificaciones               así como a las condiciones
+  tipos y características.      técnicas       y       en      variables del entorno de
+  Procesos constructivos.       condiciones            de      trabajo.
+                                seguridad (fraguado,         • Tener       una         actitud
+• Cadenas de amarre:
+                                desencofrado, curado,          respetuosa y responsable
+  generalidades, tipos y
+                                limpieza, medida de            hacia las normas técnicas,
+  características.
+                                niveles entre otros).          regulaciones de entidades
+  Procesos constructivos.
+                              • Aplicar     información        de control y disposiciones
+• Columnas:
+                                técnica para resolver          del responsable de la obra,
+  generalidades, tipos y
+    características.                problemas o tareas            asegurando               su
+    Procesos constructivos.         prácticas.                    cumplimiento en todas las
+ • Contrapisos:                 • Recopilar información           acciones.
+    generalidades, tipos y          técnica en contextos • Adoptar            una     actitud
+    características.                colaborativos.                respetuosa con el entorno,
+    Procesos constructivos.     • Usar adecuadamente              promoviendo       prácticas
+ • Losas         y     vigas:       la terminología técnica       constructivas sostenibles y
+    Generalidades, tipos y          constructiva.                 responsables con el medio
+    características.            • Medir el volumen de             ambiente.
+    Procesos constructivos.         obra de acuerdo con
+ • Fraguado y curado del            los presupuestos e
+    hormigón:                       instrucciones       del
+    procedimientos          y       responsable de la
+    condiciones. Uso de             unidad de obra.
+    aditivos.
+ • Morteros: Composición,
+    Dosificaciones,
+    Consistencia, Aditivos.
+    Aplicaciones.
+ • Mampostería              y
+    enlucidos:
+    generalidades, tipos y
+    características.
+    Procesos constructivos.
+ • Acabados        de   obra:
+    Recubrimientos,
+    Revestimientos
+    cerámicos,
+    Adoquinados, Pinturas.
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería en
+     Construcción, Ingeniería Civil, Arquitectura, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                        Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                        1
+                                Computadora con acceso a internet
+ Laboratorio                                                                         1
+                                Proyector
+                             Herramientas
+                             • Cintas métricas, niveles, plomadas y
+                               escuadras.
+                             • Palas, picos, carretillas y azadones
+                               para excavación.
+                             • Martillos, tenazas y cortadores de
+                               varilla.
+                             • Llaves y herramientas manuales para
+                               armado de refuerzos.
+                             • Espátulas, paletas y llana para
+                               acabados.
+Herramientas/equipos         • Instrumentos de trazado: estacas,
+                               cuerdas y niveles láser.
+                             Equipos
+                             • Equipo de protección personal (EPP):
+                               casco, guantes, gafas de seguridad,
+                               botas y arnés si aplica.
+                             • Vibradores de concreto y herramientas
+                               para compactación.
+                             • Mezcladoras de cemento y
+                               hormigoneras.
+                             • Andamios y plataformas de trabajo.
+                             • Bombas de agua o equipos para
+                               curado del concreto.
+                             • Cemento, arena, grava y agua para
+                               concretos.
+                             • Varillas de acero para refuerzos y
+                               mallas de armado.
+Materiales                   • Encofrados de madera o metálicos.
+                             • Tuberías y accesorios para drenajes
+                               temporales o sistemas de riego de
+                               curado.
+                             • Materiales de protección temporal:
+                               lonas, cintas de señalización, moldes
+                               de control de humedad.
+Referencias Bibliográficas
+
+Huamán Changa, M. D. R., Rodríguez Gozar, T. M., & Díaz Garamendi, D. (2022).
+   Comparación de propiedades físicas y mecánicas del hormigón tradicional y el
+   hormigón       con   fibras  metálicas    recicladas. Gaceta Técnica,  23(2).
+   https://doi.org/10.51372/gacetatecnica232.3
+
+
+Ministerio de Ambiente y Desarrollo Sostenible de Colombia. (2023). Guía de materiales
+    para la construcción sostenible. Ministerio de Ambiente y Desarrollo Sostenible.
+    https://www.minambiente.gov.co/wp-content/uploads/2023/06/Guia-de-materiales-
+    para-la-construccion-sostenible.pdf
+
+Ministerio de Desarrollo Urbano y Vivienda. (2015a). NEC-SE-GC: Geotecnia y
+    cimentaciones.      Norma     Ecuatoriana     de     la     Construcción.
+    https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/4.-NEC-SE-GC-
+    Geotecnia-y-Cimentaciones.pdf
+
+Ministerio de Desarrollo Urbano y Vivienda. (2015b). NEC-SE-HM: Estructuras de hormigón
+    armado.          Norma          Ecuatoriana        de       la        Construcción.
+    https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/5.-NEC-SE-HM-
+    Estructuras-de-Hormigon-Armado.pdf
+
+Ministerio de Desarrollo Urbano y Vivienda. (2015c). NEC-SE-MP: Mampostería estructural.
+    Norma                Ecuatoriana            de           la          Construcción.
+    https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/7.-NEC-SE-MP-
+    Mamposteria-Estructural.pdf
+
+Ministerio de Desarrollo Urbano y Vivienda. (2015d). NEC-SE-VIVIENDA: Viviendas de
+    hasta 2 pisos con luces de hasta 5 metros. Norma Ecuatoriana de la Construcción.
+    https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/9.-NEC-SE-
+    VIVIENDA-Vivienda-de-hasta-2-pisos-con-luces-hasta-5-metros.pdf
+
+Ministerio de Desarrollo Urbano y Vivienda, Secretaría de Gestión de Riesgos, & Programa
+    de las Naciones Unidas para el Desarrollo. (2016). Guía práctica de diseño de
+    viviendas de hasta 2 pisos con luces de hasta 5 metros de conformidad con la Norma
+    Ecuatoriana           de          la        Construcción          NEC           2015.
+    https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/1.-Guia-practica-de-
+    diseno-de-viviendas-de-hasta-2-pisos-con-luces-de-hasta-5-metros.pdf
+
+Ministerio del Trabajo del Ecuador. (2022). Guía básica de prevención de riesgos laborales
+    en la construcción. Dirección de Seguridad, Salud en el Trabajo y Gestión Integral de
+    Riesgos;                  Universidad                Internacional               SEK.
+    https://www.trabajo.gob.ec/wp-content/uploads/2024/01/Guia-basica-de-prevencion-
+    de-riesgos-laborales-en-la-construccion.pdf
+
+Ministerio del Trabajo del Ecuador. (2025). Reglamento de seguridad en el trabajo y
+    prevención de riesgos laborales para la construcción y obras públicas y privadas
+    (Acuerdo                 Ministerial             N.º              MDT-2025-122).
+    https://www.trabajo.gob.ec/wp-content/uploads/2025/09/Acuerdo-Ministerial-Nro.-
+    MDT-2025-122-signed.pdf
+
+Muñoz, M. A., Rincón, D. A., Robayo-Salazar, R., & Mejía de Gutiérrez, R. (2023). Desarrollo
+   de mezclas para impresión 3D basadas en cemento Portland y adiciones de
+   metacaolín, microsílice y carbonato. Ingeniería y Competitividad, 25(4), e-20113116.
+   https://doi.org/10.25100/iyc.v25i4.13116
+
+Sepúlveda-Solari, I., Sarmiento-Herrera, S., & Peterssen-Soffia, G. (2025). Identificación de
+    barreras en la interacción entre Construcción Industrializada (CI) y Building Information
+    Modeling      (BIM).    Revista    de     Arquitectura    (Bogotá),     27(2),     71–82.
+    https://doi.org/10.14718/RevArq.2025.27.5448
+
+Zambrano Navarrete, L. D., Alava Santos, R. J., Ruíz Párraga, W. E., & Menéndez
+   Menéndez, E. A. (2022). Aplicación de métodos de curado y su influencia en la
+   resistencia a la compresión del hormigón. Gaceta Técnica, 23(1).
+   https://doi.org/10.51372/gacetatecnica231.4
+                           Módulo de Especialización Nro. 3
+Nombre del módulo:                 Instalación Eficiente de Sistemas Auxiliares
+Nivel:                               1ro, 2do, 3ro
+Duración:                            360 periodos pedagógicos
+                                     UC 3: Instalar sistemas auxiliares (drenaje, sistemas
+                                     temporales, elementos prefabricados y de soporte) y
+Unidad       de     competencia
+                                     acabados en obras civiles, empleando materiales
+asociada:
+                                     adecuados, herramientas y equipos, cumpliendo con
+                                     especificaciones técnicas, estéticas y de seguridad.
+Objetivo del módulo: Instalar sistemas auxiliares y acabados, conforme a especificaciones
+e instrucciones del fabricante, normas técnicas y regulaciones de entidades de control.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Diferenciar los elementos, componentes, técnicas y materiales de los sistemas
+auxiliares y acabados, considerando las normas de seguridad aplicables.
+CE1.1: Reconoce en planos y croquis la ubicación y las características principales de los
+sistemas auxiliares y acabados.
+CE1.2: Clasifica los elementos y componentes de los sistemas auxiliares y acabados según
+su función, materiales y técnicas de uso.
+CE1.3: Relaciona los elementos constructivos con las herramientas y materiales
+adecuados para su instalación segura y eficiente.
+RA 2: Preparar los materiales, herramientas y equipos necesarios para la instalación
+de sistemas auxiliares y acabados, garantizando seguridad y eficiencia en el proceso
+constructivo.
+CE2.1: Diferencia los materiales empleados en sistemas auxiliares y acabados
+considerando sus propiedades, aplicaciones y normativa técnica vigente.
+CE2.2: Cumple con las normas de seguridad y salud ocupacional en la manipulación de
+materiales y herramientas propias del proceso constructivo.
+CE2.3: Escoge las herramientas y equipos adecuados de acuerdo con las especificaciones
+técnicas de instalación.
+CE2.4: Revisa el estado y funcionamiento de herramientas y equipos antes de utilizarlos,
+aplicando rutinas básicas de control preventivo.
+CE2.5: Distribuye materiales, herramientas y equipos en el área de trabajo, garantizando
+orden, accesibilidad y seguridad.
+RA 3: Instalar sistemas auxiliares y acabados, siguiendo procedimientos
+constructivos, especificaciones técnicas y normas de seguridad, para asegurar
+funcionalidad y calidad estética.
+CE3.1: Ejecuta la instalación de sistemas auxiliares y acabados siguiendo técnicas
+constructivas establecidas, asegurando funcionalidad, estabilidad y calidad estética.
+CE3.2: Aplica las normas de seguridad y salud ocupacional durante la instalación,
+utilizando correctamente el equipo de protección personal (EPP).
+CE3.3: Optimiza la gestión de tiempos, recursos y materiales durante la instalación,
+reduciendo errores y desperdicio.
+CE3.4:     Ajusta los sistemas auxiliares y acabados aplicando buenas prácticas
+constructivas para garantizar calidad, funcionalidad y cumplimiento normativo.
+RA 4: Optimizar la instalación de sistemas auxiliares y acabados, aplicando
+normativas y buenas prácticas para garantizar calidad y sostenibilidad.
+CE4.1: Aplica los estándares de calidad y normativas técnicas durante la instalación de
+sistemas auxiliares y acabados.
+CE4.2: Verifica el estado y funcionalidad de los sistemas instalados mediante inspecciones
+técnicas y pruebas de control.
+CE4.3: Registra los resultados de inspección, ajustes realizados y recomendaciones,
+contribuyendo a la mejora continua del proceso constructivo.
+CE4.4: Propone ajustes y mejoras en la instalación para asegurar funcionalidad,
+durabilidad y calidad del producto final.
+Contenidos
+Conceptuales                       Procedimentales                      Actitudinales
+• Tipos        de     sistemas     • Reconocer         los sistemas     • Mantener disposición
+    auxiliares:        drenaje,        auxiliares y acabados según          para colaborar con
+    temporales,                        su tipo y función.                   compañeros durante
+    prefabricados      y     de    •   Describir los componentes            la instalación.
+    soporte.                           de cada sistema y su relación    •   Fomentar              la
+•   Elementos                  y       funcional.                           responsabilidad        y
+    componentes              de    •   Comparar propiedades y               compromiso en la
+    sistemas auxiliares y              aplicaciones       de      los       ejecución de tareas
+    acabados.                          materiales empleados.                constructivas.
+•   Materiales      utilizados:    •    Analizar     técnicas      de   •   Actuar              con
+    propiedades,                       instalación y montaje según          responsabilidad en la
+    aplicaciones y normativas          especificaciones técnicas.           manipulación         de
+    técnicas.                      •   Interpretar manuales, planos         herramientas           y
+•   Técnicas de instalación            y normas de seguridad                equipos.
+    de sistemas auxiliares y           aplicables.                      •   Priorizar la seguridad
+    acabados.                      •   Clasificar materiales según          propia y de terceros
+•   Herramientas y equipos             propiedades,         uso     y       durante               la
+    requeridos       en       la       normativa vigente.                   preparación del área
+    instalación.                   •   Seleccionar herramientas y           de trabajo.
+•   Normas de seguridad y              equipos adecuados para           •   Demostrar orden y
+    salud         ocupacional          cada actividad.                      organización en la
+    aplicables.                    •   Verificar    el    estado    y       disposición          de
+•   Clasificación           de         funcionamiento              de       materiales y equipos.
+    materiales empleados en            herramientas y equipos           •   Mostrar proactividad
+    sistemas auxiliares y              antes de su uso.                     para             prever
+    acabados.                      •   Organizar          materiales,       problemas              o
+•   Selección y uso de                 herramientas y equipos en el         deficiencias en la
+    herramientas y equipos             área de trabajo.                     preparación.
+    adecuados.                     •   Aplicar normas de seguridad      •   Valorar la eficiencia y
+•   Preparación del área de            y protocolos de manipulación         uso adecuado de los
+    trabajo:             orden,        durante la preparación.              recursos disponibles.
+    accesibilidad y seguridad.     •   Ejecutar la instalación de       •   Mostrar compromiso
+•   Protocolos de inspección           sistemas       auxiliares    y       con       la    mejora
+    y           mantenimiento          acabados según técnicas              continua y la calidad
+                                       constructivas.                       del trabajo.
+   preventivo               de • Aplicar normas de seguridad • Valorar la importancia
+   herramientas y equipos.         y utilizar correctamente el       de la inspección y
+ • Normas de seguridad y           EPP durante la instalación.       corrección           de
+   salud ocupacional en la • Ajustar            elementos        y   sistemas instalados.
+   manipulación             de     componentes para asegurar • Demostrar
+   materiales                y     funcionalidad y estabilidad.      proactividad       para
+   herramientas.               • Optimizar la gestión de             implementar mejoras
+ • Procedimientos                  tiempos,      materiales      y   y ajustes en los
+   constructivos          para     recursos       durante       la   procesos.
+   sistemas auxiliares y           ejecución.                      • Actuar              con
+   acabados.                   • Documentar incidencias y            responsabilidad frente
+ • Técnicas de montaje de          correcciones        realizadas    a    la    durabilidad,
+   elementos prefabricados         durante la instalación.           funcionalidad         y
+   y sistemas temporales.      • Registrar los resultados de         seguridad            del
+ • Aplicación de normas de         inspección       y     ajustes    producto final.
+   seguridad y uso de EPP.         aplicados.
+ • Gestión       de tiempos, • Aplicar           mejoras         y
+   recursos y materiales           correcciones para garantizar
+   durante la instalación.         calidad,     durabilidad      y
+ • Ajustes y correcciones          cumplimiento normativo.
+   durante la instalación • Implementar                   buenas
+   para garantizar calidad y       prácticas para el uso
+   funcionalidad.                  eficiente de materiales y
+ • Estándares de calidad y         recursos.
+   normativas        técnicas • Proponer          ajustes     que
+   aplicables.                     incrementen la eficiencia y
+ • Inspección y verificación       sostenibilidad del proceso
+   de la funcionalidad de          constructivo.
+   sistemas instalados.
+ • Documentación            de
+   resultados,         ajustes
+   realizados                y
+   recomendaciones.
+ • Mejora continua y buenas
+   prácticas en instalación
+   de sistemas auxiliares y
+   acabados.
+ • Principios               de
+   sostenibilidad y eficiencia
+   en el uso de materiales y
+   recursos.
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería en
+   Construcción, Ingeniería Civil, Arquitectura, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+    Aprendizaje Basado en Proyectos (ABP)
+    Aprendizaje en Contextos Reales
+    Role-Playing y Simulaciones
+    Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación             Detalle de especificaciones técnicas           Cantidad
+Infraestructura/espacio   Entorno de aprendizaje (aula)                          1
+                          Utilizar equipos y herramientas acordes a las
+Equipos/herramientas
+                          normativas de seguridad y calidad vigentes.
+                          Herramientas
+
+                             •  Niveles de burbuja y láser.
+                             •  Cintas métricas y reglas.
+                             •  Llaves ajustables, destornilladores y alicates.
+                             •  Martillos y mazas de goma.
+                             •  Taladros eléctricos y manuales.
+                             •  Cortadoras de tubos y sierras manuales o eléctricas.
+                             •  Pistolas de silicón o selladores.
+Herramientas/equipos         •  Pinzas de presión y abrazaderas.
+                             •  Andamios metálicos y escaleras de extensión
+                             •  Caballetes y mesas de trabajo
+                             •  Carretillas y baldes de mezcla
+                             •  Pisón manual o vibrador para compactación ligera
+                             •  Equipos de bombeo de agua o mortero (según el
+                                acabado)
+                          Equipos
+
+                             •   Equipos de protección personal (EPP): casco, guantes,
+                                 botas, gafas y arnés.
+                             •   Generadores eléctricos portátiles.
+                             •   Compresores y herramientas neumáticas.
+
+                             •   Sistemas prefabricados de drenaje, soporte y
+                                 temporales (PVC, hormigón, metálicos, madera o
+                                 mixtos).
+                             •   Tuberías, conexiones, válvulas y accesorios según
+                                 normativa.
+Materiales                   •   Elementos de soporte temporal: puntales, cimbras,
+                                 estacas y perfiles metálicos.
+                             •   Selladores, adhesivos y aislantes.
+                             •   Elementos de fijación: tornillería, pernos, clavos,
+                                 abrazaderas.
+                             •   Materiales de limpieza y orden del sitio: sacos, escobas,
+                                 palas.
+Referencias Bibliográficas
+Instituto Nacional de Seguridad e Higiene en el Trabajo. (2006). NTP 719: Encofrado
+      horizontal.        Puntales          telescópicos           de         acero.
+    https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+    prevencion/21-serie-ntp-numeros-716-a-750-ano-2006/ntp-719-encofrado-horizontal.-
+    puntales-telescopicos-de-acero
+
+Instituto Nacional de Seguridad e Higiene en el Trabajo. (2014a). NTP 1015: Andamios
+      tubulares    de    componentes     prefabricados    (I):   Normas     constructivas.
+      https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-
+      prevencion/29-serie-ntp-numeros-996-a-1030-ano-2014/nota-tecnica-de-prevencion-
+      ntp-1015
+
+Instituto Nacional de Seguridad e Higiene en el Trabajo. (2014b). NTP 1016: Andamios de
+      fachadas de componentes prefabricados (II): Normas de montaje y utilización.
+      https://www.insst.es/ntp-notas-tecnicas-de-prevencion
+
+Instituto Nacional de Seguridad y Salud en el Trabajo. (2021). Guía técnica para la
+      evaluación y prevención de los riesgos relativos a la utilización de los equipos de
+      trabajo.                                                                        INSST.
+      https://www.insst.es/documentacion/catalogo-de-publicaciones/guia-tecnica-para-la-
+      evaluacion-y-prevencion-de-los-riesgos-relativos-a-la-utilizacion-de-los-equipos-de-
+      trabajo
+
+Ministerio de Ambiente y Desarrollo Sostenible de Colombia. (2023). Guía de materiales
+    para la construcción sostenible. Ministerio de Ambiente y Desarrollo Sostenible.
+    https://www.minambiente.gov.co/wp-content/uploads/2023/06/Guia-de-materiales-
+    para-la-construccion-sostenible.pdf
+
+Ministerio de Obras Públicas y Comunicaciones. (2002). Especificaciones generales para
+    la      construcción     de     caminos      y     puentes:      MOP-001-F-2002.
+    https://www.obraspublicas.gob.ec/wp-
+    content/uploads/downloads/2025/04/BPC_3_7_-
+    Especificaciones_Generales_MOP_001_F_2002.pdf
+
+Ministerio del Trabajo del Ecuador. (2022). Guía básica de prevención de riesgos laborales
+    en la construcción. Dirección de Seguridad, Salud en el Trabajo y Gestión Integral de
+    Riesgos;                  Universidad                Internacional               SEK.
+    https://www.trabajo.gob.ec/wp-content/uploads/2024/01/Guia-basica-de-prevencion-
+    de-riesgos-laborales-en-la-construccion.pdf
+
+Ministerio del Trabajo del Ecuador. (2024). Norma técnica en seguridad e higiene del trabajo
+    (Anexo                                                                               3).
+    https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-Tecnica-de-
+    Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2025). Reglamento de seguridad en el trabajo y
+    prevención de riesgos laborales para la construcción y obras públicas y privadas
+    (Acuerdo                 Ministerial             N.º              MDT-2025-122).
+    https://www.trabajo.gob.ec/wp-content/uploads/2025/09/Acuerdo-Ministerial-Nro.-
+    MDT-2025-122-signed.pdf
+Servicio Ecuatoriano de Normalización. (2013a). RTE INEN 030 (1R): Tubos y accesorios
+    plásticos.                                                                 INEN.
+    https://www.normalizacion.gob.ec/buzon/reglamentos/RTE-030-1R.pdf
+
+Servicio Ecuatoriano de Normalización. (2013b). RTE INEN 061 (1R): Pinturas. INEN.
+    https://www.normalizacion.gob.ec/buzon/reglamentos/M1-RTE-061-1R.pdf
+
+Solís-Yépez, O. I., Salazar-Miranda, D. A., Andrade-Valle, A. I., & Castillo, T. O. (2024).
+     Aislante térmico y acústico en revestimientos de módulos prefabricados con el uso de
+     un mortero geopolimérico. Revista Científica INGENIAR: Ingeniería, Tecnología e
+     Investigación,               7(13,            ed.               esp.),         10–23.
+     https://journalingeniar.org/index.php/ingeniar/article/view/192
+
+
+
+
+                        Módulo de Especialización Nro.4
+Nombre del módulo:                   Control de Calidad y Seguridad en Obra
+Nivel: Bachillerato                  2do, 3ro
+Duración:                            240 periodos pedagógicos
+Unidad de competencia                UC 4: Aplicar procedimientos básicos para verificar la
+asociada del Perfil Profesional:     calidad de materiales y procesos durante la obra,
+                                     utilizando instrumentos técnicos, bitácoras de obra y
+                                     registros comparativos con planos y especificaciones.
+Objetivo del módulo: Verificar la calidad de materiales y procesos constructivos durante
+la obra, mediante el uso de instrumentos técnicos, bitácoras y registros comparativos con
+planos y especificaciones, asegurando el cumplimiento de normas y estándares de calidad
+en cada etapa del proceso.
+Resultados de Aprendizaje (RA) – Criterios de Evaluación (CE)
+RA 1: Aplicar procedimientos de inspección y verificación de materiales durante la
+obra, asegurando que cumplan con las especificaciones técnicas, planos y normas
+de construcción vigentes.
+CE1.1: Comprueba la conformidad de los materiales recibidos con las especificaciones
+técnicas y planos establecidos, identificando posibles desviaciones.
+CE1.2: Mide y evalúa las propiedades físicas y químicas de los materiales utilizando los
+instrumentos técnicos adecuados, asegurando resultados precisos.
+CE1.3: Elabora registros en bitácoras de obra que documenten los resultados de las
+inspecciones, garantizando claridad y exactitud de la información.
+RA 2: Ejecutar controles y verificaciones de los procesos constructivos,
+identificando desviaciones y asegurando la correcta implementación de normas de
+calidad y seguridad.
+CE2.1: Verifica la ejecución de los procesos constructivos en cada etapa de la obra,
+aplicando los procedimientos establecidos e identificando desviaciones conforme a las
+instrucciones y especificaciones técnicas.
+CE2.2: Utiliza instrumentos técnicos (niveles, escuadras, medidores, entre otros) para
+evaluar la calidad y precisión de los procesos constructivos.
+CE2.3: Documenta las inspecciones de obra en los registros correspondientes,
+consignando datos exactos y verificables que permitan el control técnico de los procesos
+constructivos.
+RA 3: Elaborar reportes comparativos de materiales y procesos constructivos,
+proporcionando evidencia documentada de la conformidad con las especificaciones
+técnicas y los estándares de calidad.
+CE3.1: Actualiza registros y bitácoras de obra con información verificable, organizada y
+cronológica, vinculándola rigurosamente con los planos, especificaciones técnicas y
+avances constructivos.
+CE3.2: Analiza los registros identificando desviaciones o no conformidades en materiales
+y procesos, reportando hallazgos según instrucciones del responsable.
+CE3.3: Elabora informes precisos y estructurados que integren evidencia técnica y análisis,
+facilitando la toma de decisiones para garantizar la calidad en las fases del proyecto de
+construcción.
+Contenidos
+Conceptuales                          Procedimentales             Actitudinales
+  • Calidad en construcción:         • Aplicar procedimientos     • Demostrar
+  • Definición de calidad y             para inspeccionar           responsabilidad         y
+    control de calidad en obra.         materiales recibidos,       compromiso con la
+  • Normas técnicas aplicables          comparando     con          calidad       de      los
+    a materiales y procesos             especificaciones            materiales y procesos,
+    constructivos (locales e            técnicas  y planos.         asegurando           que
+    internacionales).                • Medir propiedades            cumplan       con     las
+  • Importancia          de       la    físicas y químicas de       especificaciones
+    verificación en la seguridad y      los materiales utilizando   técnicas y normas de
+    durabilidad        de       las     instrumentos técnicos       construcción.
+    estructuras.                        adecuados.                • Priorizar la seguridad
+  • Materiales de construcción y • Registrar los resultados         personal y del equipo,
+    sus propiedades:                    de las inspecciones en      respetando las normas
+  • Propiedades        físicas     y    bitácoras de obra,          de seguridad industrial,
+    químicas       básicas       de     asegurando precisión y      higiene     laboral     y
+    hormigón, mortero, acero,           claridad.                   reglamentos aplicables
+    madera       y       materiales • Ejecutar verificaciones       en obra.
+    prefabricados.                      en cada etapa de los      • Actuar con ética y
+  • Clasificación                  y    procesos constructivos,     responsabilidad        en
+    características       de    los     asegurando                  todas las etapas del
+    materiales utilizados en            cumplimiento de             control de calidad,
+    obra.                               normas y                    siguiendo
+  • Factores que afectan la             especificaciones.           procedimientos
+    calidad de los materiales • Identificar desviaciones            establecidos            y
+    (almacenamiento,                    o no conformidades en       respetando            las
+    manipulación,        humedad,       la ejecución de             indicaciones          del
+    temperatura, dosificación).         procesos constructivos.     responsable   de la obra.
+• Tolerancias aceptables para         •   Elaborar informes y       • Fomentar                la
+  propiedades       físicas       y       registros comparativos      cooperación              y
+  químicas según normas                   de materiales y             comunicación efectiva
+  locales.                                procesos constructivos.     con los compañeros y
+• Métodos de muestreo de              •   Analizar los datos          otras              áreas
+  materiales (concreto, acero,            recopilados para            involucradas,
+  madera, mortero).                       generar evidencia que       promoviendo            un
+• Instrumentos y técnicas de              respalde la calidad de      ambiente de trabajo
+  medición:                               la obra.                    organizado y seguro.
+• Tipos de instrumentos para          •   Seleccionar y utilizar    • Mostrar      disposición
+  verificación de materiales y            instrumentos técnicos       para aprender y aplicar
+  procesos               (niveles,        según el tipo de            nuevas técnicas de
+  escuadras, medidores de                 material o proceso a        verificación y control de
+  humedad,       esclerómetros,           verificar.                  calidad, adaptándose a
+  balanzas, etc.).                    •   Interpretar mediciones      diferentes materiales,
+• Principios de uso correcto de           y resultados, aplicando     instrumentos             y
+  instrumentos técnicos.                  tolerancias y criterios     condiciones de obra.
+• Interpretación de mediciones            establecidos en los       • Adoptar         prácticas
+  y tolerancias aceptables                planos y normas.            responsables con el
+  según especificaciones.                                             medio          ambiente,
+• Planos, especificaciones y                                          promoviendo el uso
+  bitácoras de obra:                                                  adecuado               de
+• Lectura e interpretación de                                         materiales y la gestión
+  planos y especificaciones                                           responsable            de
+  técnicas.                                                           residuos en obra.
+• Función de las bitácoras y
+  registros         en           la
+  documentación de la obra.
+• Tipos       de        registros:
+  comparativos, de control, de
+  no conformidades.
+• Procesos         constructivos
+  básicos y su control:
+• Etapas principales de la
+  construcción        (cimientos,
+  muros, columnas, losas).
+• Procedimientos de ejecución
+  y control de calidad en cada
+  etapa.
+• Identificación                de
+  desviaciones         y        no
+  conformidades        en      los
+  procesos.
+  • Documentación y reportes
+    de calidad:
+  • Formatos de bitácoras y
+    reportes técnicos adaptados
+    a bachillerato técnico.
+  • Elaboración de informes y
+    registros técnicos claros.
+  • Relación entre resultados de
+    inspección y decisiones para
+    garantizar calidad.
+  • Importancia de la trazabilidad
+    y evidencia documental en la
+    obra.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería en
+     Construcción, Ingeniería Civil, Arquitectura, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas).
+Materiales y recursos
+Denominación                          Especificaciones              Cantidad
+                                      técnicas
+Infraestructura/espacio               Entorno de aprendizaje        1
+                                      (aula
+Laboratorio                           Computadoras con acceso 1
+                                      a internet.
+                                      Proyector
+Herramientas/equipos                  Equipos
+                                       • Equipos de medición: cinta métrica, distanciómetro
+                                          láser, niveles láser, GPS
+                                       • Máquinas compactadoras, rodillos y apisonadoras
+                                       • Motoniveladoras (según tamaño de terreno)
+                                       • Vibradores de suelo manuales o mecánicos
+                                       • Dispositivos para control de densidad del suelo
+
+                                   Herramientas
+                                   • Palas, picos y azadones
+                                   • Carretillas
+                                   • Rastrillos y escobas
+                                   • Martillos para estacas
+                                   • Pistolas de pintura o tiza para marcaje
+                                   • Reglas largas, plomadas y niveles de burbuja
+
+                                   Equipos de protección personal (EPP)
+                                    • Cascos de seguridad
+                                    • Guantes resistentes
+                                    • Botas de seguridad
+                                    • Chalecos reflectantes
+                                    • Gafas de protección
+                                    • Protección auditiva
+Materiales                         Planos y documentos técnicos del proyecto
+                                   Hojas de registro o bitácoras
+                                   Cámaras o dispositivos para registro visual
+                                   Cinta de marcaje o pintura de señalización
+                                   Estacas de madera o plástico
+                                   Cuerda o hilo de nylon
+                                   Materiales de limpieza: bolsas, contenedores de
+                                   residuos, rastrillos
+                                   Materiales de compactación: grava, arena, material de
+                                   relleno
+Referencias Bibliográficas
+Andrade, A., Saldaña, C., & Espinoza, R. (2024). Análisis de la calidad de las obras de
+      contratación pública considerando el precio más bajo vs. el mejor costo.
+      Novasinergia, 7(1), 88–106. https://doi.org/10.37135/ns.01.13.05
+
+Gallegos, M., & Castillo, T. (2022). Eficiencia, carga de trabajo, salud y seguridad
+       ocupacional en la industria de la construcción en las principales ciudades del
+       Ecuador. Novasinergia, 5(1), 150–162. https://doi.org/10.37135/ns.01.09.09
+
+Guzmán Sánchez, J. C. (2023). Procedimiento para el seguimiento y control de calidad
+     en la gestión de proyectos de edificaciones, fase de ejecución: Caso Gobiernos
+     Autónomos Municipales de Cochabamba-Bolivia. Ciencia Latina Revista
+     Científica Multidisciplinar, 7(3). https://doi.org/10.37811/cl_rcm.v7i3.6378
+
+Loor Macias, M. G., Mendoza Cevallos, M. G., & Alcívar Catagua, M. A. (2024).
+      Perspectivas sobre seguridad, salud ocupacional de los trabajadores y el
+      mejoramiento del medio ambiente laboral en el período 2019-2023. Revista
+      InveCom, 4(2). https://doi.org/10.5281/zenodo.10558648
+
+Ministerio de Desarrollo Urbano y Vivienda. (2015). NEC-SE-HM: Estructuras de
+       hormigón armado. Norma Ecuatoriana de la Construcción.
+       https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/5.-NEC-SE-HM-
+       Estructuras-de-Hormigon-Armado.pdf
+
+Ministerio de Transporte y Obras Públicas. (2013). Norma Ecuatoriana Vial NEVI-12.
+       Volumen II: Manual de control de calidad en la construcción de las obras de
+       infraestructura del transporte.
+       https://www.mit.gob.ec/wp-content/uploads/downloads/2013/12/01-12-
+       2013_Manual_NEVI-12_COMPLEMENTARIO-2.pdf
+
+Ministerio del Trabajo del Ecuador. (2022). Guía básica de prevención de riesgos
+       laborales en la construcción. Dirección de Seguridad, Salud en el Trabajo y
+       Gestión Integral de Riesgos; Universidad Internacional SEK.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/Guia-basica-de-
+       prevencion-de-riesgos-laborales-en-la-construccion.pdf
+
+Ministerio del Trabajo del Ecuador. (2024). Norma técnica en seguridad e higiene del
+       trabajo (Anexo 3).
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/11/Anexo-3_Norma-
+       Tecnica-de-Seguridad-e-Higiene-del-Trabajo-signed-signed-signed-signed.pdf
+
+Ministerio del Trabajo del Ecuador. (2025). Reglamento de seguridad en el trabajo y
+       prevención de riesgos laborales para la construcción y obras públicas y privadas
+       (Acuerdo Ministerial N.º MDT-2025-122).
+       https://www.trabajo.gob.ec/wp-content/uploads/2025/09/Acuerdo-Ministerial-Nro.-
+       MDT-2025-122-signed.pdf
+
+Organización Internacional del Trabajo. (2022). Seguridad y salud en la construcción:
+      Repertorio de recomendaciones prácticas de la OIT (ed. revisada). Oficina
+      Internacional del Trabajo.
+      https://www.ilo.org/es/media/267256/download
+
+Presidencia de la República del Ecuador. (2024). Reglamento de Seguridad y Salud en
+       el Trabajo (Decreto Ejecutivo N.º 255). Registro Oficial Segundo Suplemento N.º
+       554, 9 de mayo de 2024.
+       https://www.trabajo.gob.ec/wp-content/uploads/2024/01/DECRETO-EJECUTIVO-
+       255-REGLAMENTO-DE-SEGURIDAD-Y-SALUD-DE-LOS-TRABAJADORES.pdf
+
+Saldaña, C., Roman, D., Castillo, T., Andrade, A., & Mora, C. (2025). Evaluación de
+      calidad de especificaciones técnicas en obras civiles. Novasinergia, 8(1), 99–
+      112. https://doi.org/10.37135/ns.01.15.03
+
+
+
+                          Módulo de Especialización Nro. 5
+Nombre del módulo:                Gestión de Proyectos Sostenibles
+Nivel:                            2do,3ero
+Duración:                         280 periodos pedagógicos
+                                      UC 5: Ejecutar pequeños proyectos constructivos
+Unidad       de     competencia       sostenibles, considerando costos, recursos, impacto
+asociada:                             ambiental, normativas locales y oportunidades de
+                                      emprendimiento.
+Objetivo del módulo: Desarrollar pequeños proyectos constructivos sostenibles,
+considerando costos, recursos disponibles, impacto ambiental, normativas locales y
+oportunidades de emprendimiento, aplicando buenas prácticas técnicas y principios de
+sostenibilidad.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA.1 Elaborar la planificación integral de pequeños proyectos constructivos
+sostenibles, considerando costos, recursos, normativas locales y criterios de
+impacto ambiental.
+CE1.1: Identifica los objetivos, alcance y metas del proyecto, considerando criterios de
+sostenibilidad, normativa local y lineamientos técnicos aplicables.
+CE1.2: Selecciona recursos materiales, humanos y financieros disponibles, optimizando su
+uso para reducir costos y minimizar impactos ambientales.
+CE1.3: Establece un cronograma de actividades, incluyendo etapas de diseño, adquisición
+y ejecución, promoviendo eficiencia y uso responsable de los recursos del proyecto.
+RA.2 Implementar un proyecto constructivo con enfoque sostenible, aplicando
+buenas prácticas técnicas y asegurando el uso eficiente de recursos.
+CE2.1: Ejecuta técnicas constructivas sostenibles y respetuosas con el entorno,
+asegurando el cumplimiento de normativas locales y estándares de calidad en los
+proyectos.
+CE2.2: Utiliza eficientemente los recursos durante la ejecución del proyecto, promoviendo
+prácticas de ahorro y reutilización.
+CE2.3: Monitorea de manera continua el impacto ambiental durante la ejecución del
+proyecto constructivo y aplica ajustes oportunos para minimizar efectos negativos sobre el
+entorno.
+RA.3 Comunicar el proyecto realizado utilizando diferentes canales y herramientas
+de difusión, promoviendo la adopción de prácticas de construcción responsables y
+respetuosas con el medio ambiente.
+CE3.1: Emplea de manera efectiva diversos canales y herramientas de comunicación
+(presentaciones, redes sociales, folletos, videos, entre otros) para transmitir los beneficios
+del proyecto de construcción sostenible, adaptando el mensaje según la audiencia.
+CE3.2: Promueve prácticas responsables y respetuosas con el medio ambiente en
+proyectos constructivos, captando el interés de la audiencia y motivando su participación y
+acción.
+CE3.3: Revisa cómo funcionan las estrategias de difusión del proyecto, considerando la
+retroalimentación y participación para mejorar los mensajes y fomentar la construcción
+sostenible.
+Contenidos
+Conceptuales                        Procedimentales            Actitudinales
+• Sostenibilidad           en • Aplicar              técnicas • Demostrar
+    construcción: Concepto          constructivas sostenibles      responsabilidad           y
+    de            construcción        y respetuosas con el                   compromiso      con       la
+    sostenible       y      sus       entorno.                               planificación y ejecución
+    principios.                    • Utilizar     eficientemente             de proyectos sostenibles,
+•   Dimensiones        de     la      los recursos durante la                considerando       impacto
+    sostenibilidad:                   ejecución del proyecto.                ambiental y uso eficiente
+    ambiental,      social     y   • Evaluar        el      impacto          de recursos.
+    económica.                        ambiental durante la               •   Respetar            normas
+•   Impacto         de        la      ejecución       y      realizar        técnicas,    regulaciones
+    construcción       en     el      ajustes para minimizar                 locales y procedimientos
+    entorno natural y urbano.         efectos negativos.                     de seguridad en todas las
+•   Normativa y regulación         • Elaborar presentaciones,                etapas del proyecto.
+    local: Normas técnicas            folletos, videos u otros           •   Actuar con ética y
+    ecuatorianas aplicables           medios para difundir los               responsabilidad en la
+    a la construcción.                beneficios del proyecto.               toma de decisiones, la
+•   Reglamentos         locales    • Difundir la importancia de              ejecución de tareas y la
+    sobre          urbanismo,         adoptar             prácticas          documentación           del
+    seguridad      y     medio        responsables                   y       proyecto.
+    ambiente.                         sostenibles         en        la   •   Fomentar                  la
+•   Buenas prácticas de               construcción.                          comunicación      efectiva,
+    cumplimiento legal y           • Analizar la efectividad de              cooperación y respeto
+    regulatorio en proyectos          las     estrategias          de        entre los miembros del
+    constructivos.                    comunicación.                          equipo y con otras áreas
+•   Gestión de recursos en         • Registrar información del               involucradas.
+    obra: Tipos de recursos:          proyecto,         incluyendo       •   Mostrar disposición para
+    materiales,      humanos,         planificación,       recursos          aprender nuevas técnicas
+    financieros.                      utilizados, avances y                  constructivas sostenibles
+•   Optimización y eficiencia         resultados.                            y adaptarse a condiciones
+    en el uso de recursos.         • Elaborar              informes          variables      de       los
+•   Principios de reducción,          comparativos y reportes                proyectos.
+    reutilización y reciclaje         que       respalden           la   •   Promover        prácticas
+    de materiales.                    implementación               de        constructivas
+•   Costos y planificación:           prácticas sostenibles.                 responsables con el
+    Elementos básicos de           • Detectar oportunidades de               medio      ambiente      y
+    planificación            de       emprendimiento                 o       sensibilizar     a      la
+    proyectos:         alcance,       negocio a partir del                   comunidad sobre la
+    metas, cronogramas y              proyecto.                              importancia     de      la
+    presupuestos.                  • Elaborar un plan sencillo               sostenibilidad en la
+•   Cálculo      de      costos       para      aprovechar           o       construcción.
+    directos e indirectos.            comercializar productos
+•   Técnicas       para       la      o servicios del proyecto.
+    planificación integral de      • Analizar     la      viabilidad
+    pequeños         proyectos        económica y social de
+    constructivos.                    pequeñas           iniciativas
+•   Procesos constructivos        constructivas
+    sostenibles:     Técnicas     sostenibles.
+    constructivas
+    respetuosas      con     el
+    medio ambiente.
+•   Materiales alternativos,
+    locales y ecológicos.
+•   Procedimientos          de
+    ejecución de obra con
+    enfoque sostenible.
+•   Comunicación            de
+    proyectos: Canales y
+    herramientas            de
+    comunicación:
+    presentaciones, videos,
+    redes sociales, folletos,
+    informes.
+•   Estrategias          para
+    sensibilizar        sobre
+    prácticas responsables y
+    sostenibles.
+•   Evaluación       de      la
+    efectividad     de       la
+    comunicación              y
+    retroalimentación.
+•   Concepto                de
+    emprendimiento aplicado
+    a               proyectos
+    constructivos
+    sostenibles.
+•   Identificación          de
+    necesidades            del
+    mercado                   y
+    oportunidades           de
+    negocio.
+•   Rentabilidad y valor
+    agregado       de      los
+    productos o servicios.
+
+ Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Ingeniería en
+   Construcción, Ingeniería Civil, Arquitectura, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+ Aprendizaje Basado en Proyectos (ABP)
+ Aprendizaje en Contextos Reales
+ Role-Playing y Simulaciones
+ Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                Especificaciones técnicas                   Cantidad
+Infraestructura/espacio     Entorno de aprendizaje (aula)                   1
+                            Computadora con acceso a internet
+Laboratorio                                                                 1
+                            Proyector
+                            Equipos
+
+                            • Vibradores de concreto y herramientas
+                              para compactación.
+                            • Mezcladoras de cemento y
+                              hormigoneras.
+                            • Andamios y plataformas de trabajo.
+                            • Bombas de agua o equipos para
+                              curado del concreto.
+
+                           Equipos de protección personal (EPP)
+                           • Cascos de seguridad
+                           • Guantes resistentes
+                           • Botas de seguridad
+Herramientas/equipos       • Chalecos reflectantes
+                           • Gafas de protección
+                           • Protección auditiva
+                           Herramientas
+                           • Cintas métricas, niveles, plomadas y
+                             escuadras.
+                           • Palas, picos, carretillas y azadones
+                             para excavación.
+                           • Martillos, tenazas y cortadores de
+                             varilla.
+                           • Llaves y herramientas manuales para
+                             armado de refuerzos.
+                           • Espátulas, paletas y llana para
+                             acabados.
+                           • Instrumentos de trazado: estacas,
+                             cuerdas y niveles láser.
+                           • Cemento, arena, grava y agua para
+                             concretos.
+                           • Varillas de acero para refuerzos y
+Materiales                   mallas de armado.
+                           • Encofrados de madera o metálicos.
+                           • Tuberías y accesorios para drenajes
+                             temporales o sistemas de riego de
+                             curado.
+                               • Materiales de protección temporal:
+                                  lonas, cintas de señalización, moldes
+                                  de control de humedad.
+
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2016). Ley Orgánica de Ordenamiento Territorial, Uso y
+    Gestión de Suelo. Registro Oficial Suplemento N.º 790, 5 de julio de 2016.
+    https://www.gobiernoelectronico.gob.ec/wp-content/uploads/2020/08/Ley-Organica-
+    de-Ordenamiento-Territorial-Uso-y-Gestion-de-Suelo1.pdf
+
+Asamblea Nacional del Ecuador. (2017). Código Orgánico del Ambiente. Registro Oficial
+   Suplemento        N.º      983,       12       de        abril      de        2017.
+   https://www.asambleanacional.gob.ec/es/multimedios-legislativos/38792-codigo-
+   organico-del-ambiente-t192421
+
+Asamblea Nacional del Ecuador. (2020). Ley Orgánica de Emprendimiento e Innovación.
+   Registro   Oficial  Suplemento      N.º  151,    28    de     febrero   de   2020.
+   https://www.asambleanacional.gob.ec/es/multimedios-legislativos/60908-ley-organica-
+   de-emprendimiento-e
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Economía Circular Inclusiva.
+   Registro Oficial Cuarto Suplemento N.º 488, 6 de julio de 2021.
+   https://www.asambleanacional.gob.ec/es/system/files/ro-488-4to-supl-06-07-2021.pdf
+
+Cabrera Medina, M. D., Solano Peláez, J. L., & Rivela Carballal, B. (2023). Optimización del
+    flujo de residuos de la construcción y demolición en el cantón Biblián. Polo del
+    Conocimiento,        8(1),    1690–1722.          https://doi.org/10.23857/pc.v8i1.5161
+    https://polodelconocimiento.com/ojs/index.php/es/article/view/5161
+
+Calderón-Peñafiel, J. C. (2024). Construcción sostenible con tierra y madera: Principios de
+    diseño y aplicación de tecnologías mixtas en tabiques prefabricados modulares.
+    Universidad del Azuay Casa Editora. https://doi.org/10.33324/ceuazuay.340
+    https://publicaciones.uazuay.edu.ec/index.php/ceuazuay/catalog/book/340
+
+Corporación Financiera Internacional. (2021). Guía del usuario de EDGE (Versión 3.0). IFC.
+    https://edgebuildings.com/wp-content/uploads/2022/07/2022001613SPAspa001.pdf
+
+Duran-Navarrete, V., García-Alvarado, R., & Vega-Coloma, M. (2024). Integración de
+    estrategias de circularidad al diseño arquitectónico mediante BIM. Hábitat Sustentable,
+    14(1),            118–131.             https://doi.org/10.22320/07190700.2024.14.01.09
+    https://revistas.ubiobio.cl/index.php/RHS/article/view/6178
+
+Herrera, C. (2023). Caja de herramientas para la formulación y gerencia de proyectos: Guía
+    práctica para líderes, lideresas y organizaciones locales. C. Martín, M. Vásquez, N.
+    Parra, & D. Bocarejo (Eds.). Banco Interamericano de Desarrollo.
+    https://doi.org/10.18235/0004965
+    https://publications.iadb.org/es/caja-de-herramientas-para-la-formulacion-y-gerencia-
+    de-proyectos-guia-practica-para-lideres
+ López, J. D. (2019). Manual para la construcción sostenible en Ecuador. Mutualista
+     Pichincha.
+     https://www.bivica.org/file/view/id/5572
+
+ Ministerio de Ambiente y Desarrollo Sostenible de Colombia. (2023). Guía de materiales
+     para la construcción sostenible. Ministerio de Ambiente y Desarrollo Sostenible.
+     https://www.minambiente.gov.co/wp-content/uploads/2023/06/Guia-de-materiales-
+     para-la-construccion-sostenible.pdf
+
+ Ministerio de Desarrollo Urbano y Vivienda. (2018). NEC-HS-EE: Eficiencia energética en
+     edificaciones    residenciales.   Norma     Ecuatoriana  de      la   Construcción.
+     https://www.mit.gob.ec/wp-content/uploads/downloads/2026/03/4.-NEC-HS-EE-
+     Eficiencia-Energetica.pdf
+
+ Ministerio de Desarrollo Urbano y Vivienda. (2020). Agenda Hábitat Sostenible del Ecuador
+     2036.                                                                         MIDUVI.
+     https://www.habitatyvivienda.gob.ec/wp-content/uploads/2022/03/Agenda-2036-LOW-
+     actualizacio%CC%81n-2022.pdf
+
+
+       5. Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en
+situaciones reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras
+de observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en
+contextos reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como
+el trabajo en equipo, la comunicación asertiva, la resolución de problemas y la adaptación
+a entornos cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver situaciones
+reales, al tiempo que refuerza sus capacidades técnicas y fomenta el desarrollo de
+competencias conceptuales, procedimentales y actitudinales, tanto de los módulos
+genéricos como de los de especialización.
+
+
+                       Módulo Práctico Experimental
+ Nombre del módulo:     Práctico Experimental
+ Nivel:                 1ro, 2do, 3ro
+ Duración:              320 periodos pedagógicos
+ Unidad             de  UC 1: Ejecutar procesos constructivos de elementos
+ competencia asociada:  estructurales como cimientos, columnas, muros y losas,
+                        utilizando materiales adecuados y técnicas tradicionales o
+                        industrializadas, respetando normas técnicas, de calidad y
+                        seguridad.
+                               UC2: Planificar los procesos constructivos de elementos
+                               estructurales (cimientos, columnas, muros y losas) de
+                               acuerdo con las especificaciones técnicas y normativas
+                               vigentes.
+                               UC4: Aplicar procedimientos para verificar la calidad de
+                               materiales y procesos durante la obra, utilizando
+                               instrumentos técnicos,
+                               bitácoras de obra y registros comparativos con planos y
+                               especificaciones.
+                               UC5: Ejecutar pequeños proyectos constructivos
+                               sostenibles, considerando costos, recursos, impacto
+                               ambiental, normativas locales
+                               y oportunidades de emprendimiento.
+Objetivo del módulo: Desarrollar en los estudiantes la capacidad de aplicar
+procedimientos constructivos básicos en elementos estructurales (cimientos, columnas,
+muros y losas), utilizando materiales adecuados y técnicas tradicionales o
+industrializadas, siguiendo instrucciones, normas de calidad y seguridad, y promoviendo
+prácticas responsables y sostenibles en el uso de recursos y el entorno de trabajo.
+Resultados                de     Criterios de Evaluación Actividades Prácticas
+Aprendizaje (RA)                 (CE)                        Experimentales
+RA1:        Aplicar       las    CE1.1:      Emplea      las En grupo analiza la normativa
+normativas          técnicas     normativas vigentes para vigente para la ejecución de
+vigentes para la ejecución       la ejecución de cimientos cimientos.
+de cimientos, asegurando         con               técnicas
+el     cumplimiento        de    tradicionales.              Indaga      las       técnicas
+requisitos de seguridad,         CE1.2: Cumple con los tradicionales empleadas en el
+calidad y sostenibilidad en      requisitos de seguridad y país para elaborar cimientos.
+los               procesos       calidad en la elaboración
+constructivos.                   de cimientos.
+RA2: Utilizar materiales         CE2.1:         Selecciona Emplea la técnica tradicional
+seleccionados                y   materiales     adecuados de Mampostería para elaborar
+adecuados y técnicas             para   la construcción   de cimientos.
+tradicionales      en       la   cimientos con técnicas
+construcción               de    tradicionales.
+cimientos, garantizando la       CE2.2:       Aplica     las
+durabilidad y resistencia        especificaciones técnicas
+estructural según las            según       el    proyecto
+especificaciones         del     garantizando seguridad y
+proyecto.                        durabilidad.
+RA3: Ejecutar procesos           CE3.1:      Respeta     las Preparación    del     terreno:
+constructivos de cimientos       etapas de realización del compactar adecuadamente el
+siguiendo procedimientos         proceso constructivo de terreno para mejorar su
+técnicos,     normas       de    cimientos        aplicando resistencia y       estabilidad,
+calidad      y       buenas      normas     de   calidad   y
+prácticas, asegurando la      buenas          prácticas    eliminando cualquier      zona
+correcta realización de       ambientales.                 blanda o hueco.
+cada etapa y la integridad    CE3.2: Elabora cimientos
+de la estructura.             siguiendo               el   Estabilización:       emplear
+                              procedimiento     técnico    técnicas de estabilización del
+                              tradicional garantizando     suelo    para    reforzar   la
+                              la integridad de la          resistencia antes de construir
+                              estructura.                  los cimientos.
+
+                                                           Colocación del cimiento: Se
+                                                           colocan las bases de piedra,
+                                                           de acuerdo con la técnica
+                                                           Mampostería,       asegurando
+                                                           que        se        transmitan
+                                                           adecuadamente.
+RA4: Verificar la calidad     CE4.1:       Registra   los  Durante la ejecución de un
+de los materiales y los       resultados        de    las  pequeño                proyecto
+procesos     constructivos    verificaciones           de  constructivo, completa una
+durante la obra, utilizando   materiales y procesos en     bitácora diaria registrando los
+instrumentos      técnicos,   bitácoras y formatos,        resultados de mediciones de
+bitácoras    y    registros   comparándolos          con   materiales          (humedad,
+comparativos con planos y     planos y especificaciones    densidad, resistencia) y de
+especificaciones,             técnicas.                    procesos         constructivos,
+asegurando que cumplan        CE4.2:        Aplica    los  anotando las diferencias con
+con los estándares de         instrumentos de medición     las especificaciones del plano
+calidad establecidos          y      verificación   para   y    las    normas      técnicas
+                              asegurar        que     los  aplicables.
+                              materiales y procesos
+                              cumplan         con     los Realiza       un      informe
+                              estándares de calidad.      comparativo      donde      se
+                                                          contrasten los resultados
+                                                          obtenidos en la obra con los
+                                                          planos y especificaciones
+                                                          técnicas,        identificando
+                                                          desviaciones, posibles causas
+                                                          y     proponiendo      ajustes
+                                                          correctivos para garantizar la
+                                                          calidad del proyecto.
+
+                                                           Utiliza instrumentos como
+                                                           cinta métrica, nivel, escuadra,
+                                                           calibrador y medidor de
+                                                           humedad        para       medir
+                                                           dimensiones, alineación y
+                                                           propiedades de los materiales
+                                                         durante la ejecución de un
+                                                         proyecto, verificando que
+                                                         cumplan con los planos y
+                                                         especificaciones técnicas.
+
+                                                         Realiza           inspecciones
+                                                         periódicas de los procesos
+                                                         constructivos         utilizando
+                                                         herramientas de medición y
+                                                         plantillas de control de
+                                                         calidad,    registrando       las
+                                                         mediciones      en     formatos
+                                                         técnicos y comparando los
+                                                         resultados con los estándares
+                                                         establecidos.
+RA5: Ejecutar pequeños     CE5.1: Gestiona los           Elabora un plan de recursos y
+proyectos constructivos    recursos, cronograma y        cronograma para un pequeño
+sostenibles, gestionando   costos del proyecto,          proyecto           constructivo,
+costos,     recursos   y   garantizando             el   asignando           materiales,
+cronogramas, cumpliendo    cumplimiento            de    herramientas, personal y
+con normativas locales,    normativas y estándares       tiempos      de      ejecución,
+minimizando el impacto     de sostenibilidad.            asegurando que cumpla con
+ambiental y aprovechando   CE5.2:         Implementa     las normas locales y criterios
+oportunidades         de   técnicas     constructivas    de sostenibilidad.
+emprendimiento             sostenibles y propone
+                           alternativas para generar     Realiza un registro de costos
+                           valor     o     aprovechar    y uso de recursos durante la
+                           oportunidades           de    ejecución     del    proyecto,
+                           emprendimiento en el          comparando los resultados
+                           proyecto.                     con el presupuesto planificado
+                                                         y tomando decisiones para
+                                                         optimizar el uso de materiales
+                                                         y minimizar desperdicios.
+
+                                                         Construye un prototipo de
+                                                         pequeño proyecto utilizando
+                                                         materiales     sostenibles   o
+                                                         reciclados, aplicando técnicas
+                                                         constructivas que minimicen
+                                                         el impacto ambiental, como
+                                                         reutilización de materiales o
+                                                         eficiencia en el consumo de
+                                                         recursos.
+                                                            Elaborar un plan básico de
+                                                            aprovechamiento                 o
+                                                            comercialización del proyecto
+                                                            construido,        identificando
+                                                            posibles     clientes,      valor
+                                                            agregado del producto y
+                                                            estrategias     para    generar
+                                                            ingresos o iniciar una pequeña
+                                                            actividad de emprendimiento.
+
+
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses
+formativos para cada año de bachillerato técnico, promoviendo un aprendizaje significativo,
+sin que este reemplace su paso por la Formación Estudiantil en Centros Educativos y de
+Trabajo.
+

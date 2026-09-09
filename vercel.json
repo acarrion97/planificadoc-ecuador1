@@ -1,8 +1,12 @@
 {
-  "buildCommand": "mkdir -p node_modules/react-native-css-interop/.cache && touch node_modules/react-native-css-interop/.cache/web.css && npx expo export --platform web && cp public/admin.html dist/admin.html",
+  "buildCommand": "sh scripts/build.sh",
   "outputDirectory": "dist",
   "installCommand": "pnpm install",
   "framework": null,
+  "git": {
+    "production": "main",
+    "pullRequests": true
+  },
   "functions": {
     "api/**/*.ts": {
       "runtime": "@vercel/node@5.0.0",

@@ -260,13 +260,6 @@ function buildAmbitoRows(ambito: AmbitoInicial): TableRow[] {
     destPs.push(p([run(d, { size: 15 })]));
     destPs.push(emptyPara());
   }
-  if (ambito.ejesTransversales?.length) {
-    destPs.push(emptyPara());
-    destPs.push(p([run("Ejes transversales:", { bold: true, size: 14 })]));
-    for (const eje of ambito.ejesTransversales) {
-      destPs.push(p([run(eje, { size: 14, italics: true })]));
-    }
-  }
   const destCell = tcM(destPs, DEST_W, { colSpan: 2, rowSpan: nClases, valign: VerticalAlign.TOP });
 
   // Primera fila: ámbito + competencia + destreza + proceso[0]

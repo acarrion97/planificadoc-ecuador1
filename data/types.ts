@@ -41,6 +41,61 @@ export interface Destreza {
   habilidadesSocioemocionales?: string[];
 }
 
+// ============================================================
+// DESAGREGACIÓN / GRADACIÓN DE DCD POR GRADO
+// ============================================================
+
+/** Estado de una fila de desagregación: generada por IA, editada o aprobada por el docente */
+export type EstadoDesagregacion = "generado" | "editado" | "aprobado";
+
+/**
+ * Fila de desagregación/gradación de una DCD para un grado del subnivel.
+ * Es una DERIVACIÓN editable que referencia a la DCD oficial por código:
+ * el catálogo (data/destrezas-*.ts) nunca se modifica. El último grado del
+ * subnivel conserva la DCD e indicador completos (texto oficial).
+ */
+export interface DcdDesagregacion {
+  /** Código de la DCD oficial del catálogo */
+  codigoDCD: string;
+  /** Subnivel al que pertenece la DCD */
+  subnivel: Subnivel;
+  /** Grado destino de esta versión graduada (p. ej. 3) */
+  grado: number;
+  /** Último grado del subnivel — recibe la versión completa */
+  gradoMaximo: number;
+  /** Snapshot del texto oficial de la DCD */
+  descripcionDCD: string;
+  /** Texto oficial del indicador de evaluación asociado */
+  indicadorOriginal: string;
+  /** Texto graduado de la DCD para este grado */
+  dcdGraduada: string;
+  /** Texto graduado del indicador para este grado */
+  indicadorGraduado: string;
+  /** Proceso cognitivo esperado para el grado (referencia Marzano) */
+  procesoCognitivo?: string;
+  /** Estado de la fila */
+  estado: EstadoDesagregacion;
+  /** Número de versión: se incrementa en cada regeneración */
+  version: number;
+}
+
+/** Insumo por grado para generar una desagregación (sin estado ni versión, que asigna el servidor) */
+export interface DcdDesagregacionInput {
+  /** Código de la DCD oficial del catálogo */
+  codigoDCD: string;
+  subnivel: Subnivel;
+  /** Grado destino de esta versión graduada */
+  grado: number;
+  /** Último grado del subnivel */
+  gradoMaximo: number;
+  /** Texto oficial de la DCD */
+  descripcionDCD: string;
+  /** Texto oficial del indicador */
+  indicadorOriginal: string;
+  /** Proceso cognitivo esperado para el grado (verbos Marzano) */
+  procesoCognitivo?: string;
+}
+
 /**
  * Indicadores DUA por actividad: 3 principios representados como cuadrados de colores.
  * - implicacion (verde): Múltiples formas de Implicación
@@ -158,6 +213,13 @@ export interface Planificacion {
   /** Porcentajes de estilos de aprendizaje del grupo */
   estilosAprendizajePorcentaje?: EstilosAprendizajePorcentaje;
   destreza: Destreza;
+  /**
+   * Descripción efectiva de la DCD usada en esta planificación: la versión
+   * graduada (desagregación) cuando fue seleccionada, o vacío para usar la
+   * `descripcion` oficial del catálogo. Es un resultado MATERIALIZADO en el
+   * plan (snapshot): editar o regenerar la desagregación después no lo cambia.
+   */
+  descripcionEfectiva?: string;
   objetivoAprendizaje: string;
   temaSeleccionado?: TemaSugerido;
   actividades: string;
@@ -207,6 +269,14 @@ export interface EjeTransversalPCA {
 export interface DcdSeleccionada {
   codigo: string;
   enunciado: string;
+  /**
+   * Procedencia de la versión: "oficial" (catálogo) o "desagregada" (graduada
+   * por grado). Opcional con default "oficial" para compatibilidad con
+   * selecciones existentes (p. ej. CNC).
+   */
+  origen?: "oficial" | "desagregada";
+  /** Grado de la versión desagregada (solo cuando origen === "desagregada"). */
+  grado?: number;
 }
 
 /** Una unidad de planificación dentro de la PCA */
@@ -317,6 +387,13 @@ export interface HoraSemanal {
   id: string;
   codigoDestreza: string;
   destreza: Destreza | null;
+  /**
+   * Descripción efectiva de la DCD de esta hora: la versión graduada
+   * (desagregación) cuando fue seleccionada, o vacío para usar la `descripcion`
+   * oficial. Resultado MATERIALIZADO (snapshot): no se re-resuelve contra la
+   * desagregación al generar el documento.
+   */
+  descripcionEfectiva?: string;
   tema: string;
   temasAlternativos: TemaSugerido[];
   temaSeleccionado: TemaSugerido | null;
@@ -588,6 +665,20 @@ export const GRADO_ADAPTACION_INFO: Record<GradoAdaptacion, { nombre: string; de
     descripcion: "Adaptaciones de acceso, proceso y resultado: se modifica sustancialmente la destreza, el criterio de evaluación y los indicadores de logro.",
     color: "#DC2626",
   },
+};
+
+// Ámbitos de desarrollo y aprendizaje del currículo integrador de Preparatoria
+// (subnivel 1). No es un área curricular: agrupa destrezas de varias áreas
+// (M, CN, CS, LL, EFL, EF, ECA) cuyo `bloque` coincide con el número de ámbito.
+// Fuente: Currículo Priorizado 2025, Subnivel Preparatoria, secciones 8.1-8.7 (pp.20-38).
+export const AMBITOS_PREPARATORIA: Record<number, string> = {
+  1: "Identidad y Autonomía",
+  2: "Convivencia",
+  3: "Descubrimiento y comprensión del medio natural y cultural",
+  4: "Relaciones lógico-matemáticas",
+  5: "Comprensión y expresión oral y escrita",
+  6: "Comprensión y expresión artística",
+  7: "Expresión corporal",
 };
 
 export const AREAS_INFO: Record<Area, AreaInfo> = {

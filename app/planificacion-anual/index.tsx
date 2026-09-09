@@ -25,7 +25,6 @@ import {
   Subnivel,
 } from "@/data";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "@/data/secciones-planificacion";
-import { EJES_TRANSVERSALES_PCA } from "@/data/pca-ejes-transversales";
 import { DcdMultiSelector, DcdSeleccionada } from "@/components/DcdMultiSelector";
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
@@ -77,6 +76,17 @@ const SUBNIVELES_CAI: { value: Subnivel; label: string }[] = [
   { value: 3, label: "Básica Media (5.° - 7.°)" },
   { value: 4, label: "Básica Superior (8.° - 10.°)" },
   { value: 5, label: "Bachillerato General Unificado" },
+];
+
+// Áreas del currículo integrador de Preparatoria (subnivel 1) — ver
+// openspec/changes/preparatoria-area-integradora/design.md D6. A diferencia de
+// CAI (transversal 0-5), estas áreas solo tienen destrezas de Preparatoria
+// además de sus subniveles regulares de EGB/BGU — Inicial (0) no aplica.
+const AREAS_CON_PREPARATORIA: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"];
+
+const SUBNIVELES_CON_PREPARATORIA: { value: Subnivel; label: string }[] = [
+  { value: 1, label: "Preparatoria (1.° EGB)" },
+  ...SUBNIVELES,
 ];
 
 const GRADOS_POR_SUBNIVEL: Record<number, string[]> = {
@@ -482,7 +492,11 @@ export default function PlanificacionAnualScreen() {
           <View style={{ height: 10 }} />
           <FieldLabel label="Subnivel" colors={colors} />
           <SelectPicker
-            options={(area === "CAI" ? SUBNIVELES_CAI : SUBNIVELES).map(s => ({ value: String(s.value), label: s.label }))}
+            options={(
+              area === "CAI" ? SUBNIVELES_CAI
+              : AREAS_CON_PREPARATORIA.includes(area as Area) ? SUBNIVELES_CON_PREPARATORIA
+              : SUBNIVELES
+            ).map(s => ({ value: String(s.value), label: s.label }))}
             value={subnivel ? String(subnivel) : ""}
             onSelect={handleSubnivelChange}
             placeholder="Seleccionar subnivel..."
@@ -576,25 +590,6 @@ export default function PlanificacionAnualScreen() {
               <Text style={styles.totalValue}>{totalPeriodos}</Text>
             </View>
           </View>
-        </View>
-
-        {/* ── SECCIÓN 4: Ejes transversales ── */}
-        <SectionTitle numero="4" titulo="Ejes transversales" colors={colors} />
-        <View style={styles.section}>
-          <View style={styles.toggleRow}>
-            <Text style={[styles.toggleLabel, { color: colors.foreground }]}>
-              ¿Trabajar con ejes transversales?
-            </Text>
-            <Switch value={usaEjes} onValueChange={setUsaEjes} trackColor={{ true: "#003366" }} />
-          </View>
-          {usaEjes && (
-            <ChipSelector
-              items={EJES_TRANSVERSALES_PCA.map(e => ({ id: e.id, nombre: e.nombre, emoji: e.emoji }))}
-              selected={ejesSeleccionados}
-              onToggle={id => toggleChip(id, ejesSeleccionados, setEjesSeleccionados)}
-              colors={colors}
-            />
-          )}
         </View>
 
         {/* ── SECCIÓN 5: Unidades ── */}

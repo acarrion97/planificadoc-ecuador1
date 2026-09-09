@@ -829,4 +829,53 @@ export const destrezasECA: Destreza[] = [
     criteriosEvaluacion: ["CE.ECA.5.4. Valora el uso de medios audiovisuales y recursos tecnológicos en la creación artística, y utiliza estos medios para la creación, producción y difusión de obras propias."],
     indicadoresEvaluacion: ["I.ECA.5.4.4. Asume responsabilidades individuales dentro del proyecto grupal y cumple con los plazos establecidos con una capacidad sobresaliente para trabajar en equipo, aportando ideas creativas y valorando las contribuciones de los demás. (J.3., S.4.)"],
   },
+
+  // ── Preparatoria — 1.° EGB (subnivel 1) ─────────────────────────────────
+  // Currículo Priorizado 2025, Subnivel Preparatoria — capítulo 8, ámbito 6:
+  // "Comprensión y expresión artística" (bloque 6). `objetivos`: ver design.md D5.
+  // Estas destrezas son las que el currículo integrador cita EXPLÍCITAMENTE en el
+  // mapa del ámbito 6 (alcance de este cambio, ver design.md D4) — no el currículo
+  // específico completo de ECA (capítulo 9), que queda para un change hermano.
+  // La anotación "(En Educación Cultural y Artística ECA.x.x.x.)" es del propio
+  // currículo integrador y muestra la articulación con ese currículo específico.
+  {
+    codigo: "ECA.1.6.2",
+    area: "ECA", subnivel: 1, bloque: 6, secuencial: 1,
+    descripcion: "Utilizar la expresión gráfica o plástica como recursos para la expresión libre del yo y de la historia personal de cada uno. (En Educación Cultural y Artística ECA.1.1.4.)",
+    objetivos: ["O.ECA.1.1. Explorar las posibilidades de los sonidos, el movimiento y/o las imágenes a través de la participación en juegos que integren diversas opciones.", "O.ECA.1.4. Aportar ideas y llegar a acuerdos con los otros miembros del grupo en procesos de interpretación y creación artística.", "O.ECA.1.7. Practicar un amplio repertorio de juegos tradicionales y contemporáneos que involucren el uso del cuerpo, la voz y/o imágenes.", "O.ECA.1.8. Expresar las ideas y sentimientos que suscitan las observaciones de distintas manifestaciones culturales y artísticas."],
+    criteriosEvaluacion: ["CE.ECA.1.1. Expresa libremente sus emociones con la experimentación de sonidos de la naturaleza y de la voz, del cuerpo en movimiento, en el juego simbólico, en la narración y en la plástica, para la representación de sus propias ideas."],
+    indicadoresEvaluacion: ["I.ECA.1.1.1. Explora y representa corporal, musical, gráfica o verbalmente ideas, sentimientos o emociones de forma libre y espontánea. (S.3., I.3.)"],
+  },
+  {
+    codigo: "ECA.1.6.5",
+    area: "ECA", subnivel: 1, bloque: 6, secuencial: 2,
+    descripcion: "Comunicar a través del canto, la interpretación y la creación musical pensamientos, e ideas sobre la convivencia armónica.",
+    objetivos: ["O.ECA.1.1. Explorar las posibilidades de los sonidos, el movimiento y/o las imágenes a través de la participación en juegos que integren diversas opciones.", "O.ECA.1.4. Aportar ideas y llegar a acuerdos con los otros miembros del grupo en procesos de interpretación y creación artística.", "O.ECA.1.7. Practicar un amplio repertorio de juegos tradicionales y contemporáneos que involucren el uso del cuerpo, la voz y/o imágenes.", "O.ECA.1.8. Expresar las ideas y sentimientos que suscitan las observaciones de distintas manifestaciones culturales y artísticas."],
+    criteriosEvaluacion: ["CE.ECA.1.1. Expresa libremente sus emociones con la experimentación de sonidos de la naturaleza y de la voz, del cuerpo en movimiento, en el juego simbólico, en la narración y en la plástica, para la representación de sus propias ideas."],
+    indicadoresEvaluacion: ["I.ECA.1.1.1. Explora y representa corporal, musical, gráfica o verbalmente ideas, sentimientos o emociones de forma libre y espontánea. (S.3., I.3.)"],
+  },
+  {
+    codigo: "ECA.1.6.3",
+    area: "ECA", subnivel: 1, bloque: 6, secuencial: 3,
+    descripcion: "Participar en situaciones de juego dramático como manera de situarse, narrarse y ponerse en 'lugar del otro', de poder contar historias con el otro y de jugar a ser el otro. (En Educación Cultural y Artística ECA.1.2.1.)",
+    objetivos: ["O.ECA.1.1. Explorar las posibilidades de los sonidos, el movimiento y/o las imágenes a través de la participación en juegos que integren diversas opciones.", "O.ECA.1.4. Aportar ideas y llegar a acuerdos con los otros miembros del grupo en procesos de interpretación y creación artística.", "O.ECA.1.7. Practicar un amplio repertorio de juegos tradicionales y contemporáneos que involucren el uso del cuerpo, la voz y/o imágenes.", "O.ECA.1.8. Expresar las ideas y sentimientos que suscitan las observaciones de distintas manifestaciones culturales y artísticas."],
+    criteriosEvaluacion: ["CE.ECA.1.1. Expresa libremente sus emociones con la experimentación de sonidos de la naturaleza y de la voz, del cuerpo en movimiento, en el juego simbólico, en la narración y en la plástica, para la representación de sus propias ideas."],
+    indicadoresEvaluacion: ["I.ECA.1.1.2. Experimenta con sus sentidos, cualidades o características para expresarse libremente en juegos y actividades que le permitan relacionarse con otros y su entorno próximo. (S.1., I.1.)"],
+  },
+  {
+    codigo: "ECA.1.6.4",
+    area: "ECA", subnivel: 1, bloque: 6, secuencial: 4,
+    descripcion: "Expresar las ideas y emociones que suscita la observación de algunas manifestaciones culturales y artísticas (rituales, actos festivos, danzas, conocimientos y prácticas relativos a la naturaleza, artesanía, etc.) presentes en el entorno próximo. (En Educación Cultural y Artística ECA.1.3.2.)",
+    objetivos: ["O.ECA.1.1. Explorar las posibilidades de los sonidos, el movimiento y/o las imágenes a través de la participación en juegos que integren diversas opciones.", "O.ECA.1.4. Aportar ideas y llegar a acuerdos con los otros miembros del grupo en procesos de interpretación y creación artística.", "O.ECA.1.7. Practicar un amplio repertorio de juegos tradicionales y contemporáneos que involucren el uso del cuerpo, la voz y/o imágenes.", "O.ECA.1.8. Expresar las ideas y sentimientos que suscitan las observaciones de distintas manifestaciones culturales y artísticas."],
+    criteriosEvaluacion: ["CE.ECA.1.1. Expresa libremente sus emociones con la experimentación de sonidos de la naturaleza y de la voz, del cuerpo en movimiento, en el juego simbólico, en la narración y en la plástica, para la representación de sus propias ideas."],
+    indicadoresEvaluacion: [],
+  },
+  {
+    codigo: "ECA.1.6.6",
+    area: "ECA", subnivel: 1, bloque: 6, secuencial: 5,
+    descripcion: "Identificar acciones básicas a seguir en caso de un accidente de tránsito, asumiendo roles y responsabilidades (peatón, conductor, motociclista, ciclista, pasajero, personas con movilidad reducida, discapacidad, grupos vulnerables).",
+    objetivos: ["O.ECA.1.1. Explorar las posibilidades de los sonidos, el movimiento y/o las imágenes a través de la participación en juegos que integren diversas opciones.", "O.ECA.1.4. Aportar ideas y llegar a acuerdos con los otros miembros del grupo en procesos de interpretación y creación artística.", "O.ECA.1.7. Practicar un amplio repertorio de juegos tradicionales y contemporáneos que involucren el uso del cuerpo, la voz y/o imágenes.", "O.ECA.1.8. Expresar las ideas y sentimientos que suscitan las observaciones de distintas manifestaciones culturales y artísticas."],
+    criteriosEvaluacion: ["CE.ECA.1.1. Expresa libremente sus emociones con la experimentación de sonidos de la naturaleza y de la voz, del cuerpo en movimiento, en el juego simbólico, en la narración y en la plástica, para la representación de sus propias ideas."],
+    indicadoresEvaluacion: ["I.ECA.1.1.3. Dramatiza de manera creativa las acciones básicas a seguir en caso de un accidente de tránsito. (S.1., I.1.)"],
+  },
 ];

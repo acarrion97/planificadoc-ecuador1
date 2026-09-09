@@ -1,0 +1,1964 @@
+   MÓDULOS FORMATIVOS DE LA FIGURA PROFESIONAL “CIENCIA DE DATOS”
+
+   1. Objetivo general
+
+Gestionar y analizar información mediante la recolección, organización, procesamiento y
+visualización de datos, aplicando fundamentos de estadística, programación y bases de
+datos, con el fin de generar conocimiento útil que apoye la toma de decisiones en contextos
+educativos, sociales, productivos y tecnológicos, actuando con ética, responsabilidad en el
+manejo de la información y compromiso con el desarrollo científico y digital.
+   2. Plan de estudios
+
+                                                                    1ro      2do     3ro
+ Total periodos pedagógicos tronco común
+                                                                    19        19     19
+                         Fundamentos de las Tecnologías de
+                                                                     3        2
+                         la Información y la Comunicación.
+ Módulos Genéricos de    Pensamiento Computacional y
+                                                                     3        3
+ la Familia Profesional  Resolución de Problemas.
+                         Ética, Legislación y Ciudadanía
+                                                                     2
+                         Digital.
+                         Fundamentos de Datos y
+                                                                     5        3
+                         Programación
+                         Adquisición y Gestión de Datos              3        3       3
+                         Procesamiento y Transformación de
+ Módulos                                                             2        3       4
+                         Datos
+ Especialización
+                         Modelado y Análisis Estadístico de
+                                                                              2       5
+                         Datos
+                         Visualización e Interpretación de
+                                                                              2       5
+                         Datos
+ Módulo Práctico Experimental                                        3        3       4
+ Total de periodos pedagógicos de formación técnica                  21      21      21
+
+
+   3. Módulos Genéricos de la Familia Profesional
+
+Durante el primer y segundo año de formación, las y los estudiantes desarrollarán
+competencias genéricas vinculadas a la Familia Profesional Tecnologías. Gracias a las
+características de los módulos trabajados en esta etapa, adquieren herramientas que le
+permiten construir una opinión más informada y tomar decisiones con mayor fundamento.
+Esto favorece su capacidad para, en caso de que lo desee, transitar entre distintas figuras
+profesionales dentro de la misma familia, continuar con su trayectoria educativa, insertarse
+en el mundo laboral o emprender un proyecto propio.
+Se estructuran los siguientes módulos genéricos:
+
+   •   Fundamentos de las Tecnologías de la Información y la Comunicación
+   •   Pensamiento Computacional y Resolución de Problemas
+   •   Ética, Legislación y Ciudadanía Digital
+                              Módulo Genérico Nro. 1
+                                      Fundamentos de las Tecnologías de la Información y
+Nombre del módulo:
+                                      la Comunicación
+Nivel:                                1ro, 2do
+Duración:                             200 periodos pedagógicos
+                                      UC1: Aplicar fundamentos de tecnologías de la
+                                      información y la comunicación mediante el análisis de
+                                      su evolución, la identificación de la arquitectura de
+Unidad       de      competencia
+                                      hardware, software y principios básicos de electricidad
+asociada:
+                                      y electrónica, la operación básica de redes y sistemas
+                                      operativos y, la gestión de información digital, con el fin
+                                      de resolver requerimientos tecnológicos.
+Objetivo del módulo: Desarrollar en el estudiante competencias que analice la evolución
+de las tecnologías de la información y la comunicación, identifique la arquitectura, el
+funcionamiento de hardware y software, manipule sistemas de redes y sistemas operativos,
+organice la información digital, con el fin de resolver de manera efectiva requerimientos en
+distintos entornos tecnológicos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar la evolución de las tecnologías de la información y la comunicación
+reconociendo sus hitos históricos, transformaciones tecnológicas y su impacto en
+los entornos productivos, educativos y sociales.
+CE1.1: Distingue la evolución de las TIC con base en líneas de tiempo o esquemas
+cronológicos.
+CE1.2: Emplea los avances tecnológicos con sus aplicaciones en distintos sectores de la
+sociedad.
+CE1.3: Define las generaciones de computadoras y dispositivos en función de su
+capacidad y arquitectura.
+CE1.4: Argumenta el impacto social, económico y cultural del uso de las TIC, mediante
+análisis de casos actuales o discusiones dirigidas.
+RA 2: Examinar la arquitectura de sistemas informáticos, identificando componentes
+de hardware, software y su funcionamiento integrado en distintos entornos
+tecnológicos.
+CE2.1: Inspecciona los componentes físicos de un sistema informático, clasificándolos
+según su función principal (entrada, procesamiento, almacenamiento, salida y
+comunicación).
+CE2.2: Distingue entre software de sistema, de aplicación y de desarrollo, explicando su
+propósito funcional con ejemplos representativos.
+CE2.3: Elabora esquemas de arquitectura de computadoras donde ubicar los
+componentes funcionales y describe el flujo básico de información entre ellos.
+CE2.4: Determina el tipo de sistema informático (doméstico, industrial, educativo, entre
+otros) a partir de su estructura y características técnicas, según el contexto de uso.
+RA 3: Emplear sistemas operativos y entornos digitales gestionando recursos,
+configuración inicial y funciones elementales en la administración del sistema.
+CE3.1: Ejecuta tareas básicas de administración de archivos y carpetas, diferenciando
+procedimientos entre sistemas operativos gráficos y basados en línea de comandos.
+CE3.2: Identifica parámetros esenciales del sistema operativo como nombre de usuario,
+configuración de red y capacidad de almacenamiento, utilizando herramientas del entorno.
+CE3.3: Aplica funciones básicas de herramientas de mantenimiento del sistema operativo
+para optimizar su funcionamiento.
+CE3.4: Emplea instrucciones en los entornos gráficos o de línea de comandos según el
+tipo de operación administrativa requerida, justificando su elección.
+RA 4: Utilizar los fundamentos básicos de electricidad y electrónica digital para la
+construcción de circuitos simples.
+CE4.1: Examina los principios básicos de electricidad y su relación con el funcionamiento
+de dispositivos electrónicos utilizados en computación.
+CE4.2: Analiza componentes electrónicos digitales y su aplicación en sistemas
+informáticos.
+CE4.3: Establece conocimientos de lógica en la resolución de problemas digitales.
+CE4.4: Diseña esquemas y diagramas electrónicos básicos para comprender la estructura
+de circuitos eléctricos simples.
+RA 5: Diseñar redes informáticas comprendiendo su estructura, tipos, dispositivos,
+protocolos de comunicación y funciones esenciales.
+CE5.1: Clasifica elementos físicos y lógicos de una red informática según su función en el
+sistema.
+CE5.2: Diferencia tipos de redes (LAN, WAN, WLAN) en función de su alcance, propósito
+y características.
+CE5.3: Representa dispositivos de red en esquemas funcionales según su rol en la
+infraestructura.
+CE5.4: Elabora cuadros técnicos sobre el funcionamiento de protocolos de comunicación
+en la transmisión de datos.
+RA 6: Gestionar información digital utilizando herramientas tecnológicas mediante
+la organización, almacenamiento, protección y compartición de datos.
+CE6.1: Analiza información digital considerando su tipo, relevancia y nivel de
+confidencialidad en contextos educativos o profesionales.
+CE6.2: Organiza carpetas y archivos con nombres coherentes en soportes físicos y
+virtuales con base en criterios de estructuración lógica.
+CE6.3: Implementa medidas básicas de protección de datos mediante contraseñas,
+permisos de acceso o cifrado en entornos digitales.
+CE6.4: Transfiere información en plataformas colaborativas o servicios en la nube
+respetando estándares de seguridad y compatibilidad.
+Contenidos
+Conceptuales                     Procedimentales                Actitudinales
+Evolución histórica de las Analizar líneas de tiempo y Mostrar responsabilidad y
+Tecnologías         de     la esquemas          cronológicos ética en el manejo y
+Información         y      la para identificar hitos y protección de la información
+Comunicación (TIC).              evolución de las TIC.          digital.
+Hitos    tecnológicos      y    Clasificar dispositivos de
+                                                                Valorar la importancia de la
+generaciones              de    hardware y software según
+                                                                evolución tecnológica y su
+computadoras.                   su función y tipo.
+                                                                impacto en la sociedad.
+Impacto social, económico       Organizar esquemas y
+                                                                Desarrollar    una    actitud
+y cultural de las TIC.          diagramas de arquitectura
+                                                                crítica y reflexiva ante los
+                                de sistemas informáticos.
+Software libre y software                                       cambios y avances en las
+propietario, licenciamiento y   Identificar el flujo de         TIC.
+pagos.                          información         entre
+                                                                Fomentar el interés por el
+                                componentes de hardware
+Arquitectura de sistemas                                        aprendizaje    continuo    y
+                                y software.
+informáticos: componentes                                       actualización en tecnologías
+de    hardware    y   sus       Manipular         sistemas      emergentes.
+funciones.                      operativos para gestionar
+                                                                Promover      el     trabajo
+                                archivos,    carpetas    y
+Tipos de software: de                                           colaborativo      y       la
+                                configuraciones básicas.
+sistema, de aplicación y de                                     comunicación efectiva en
+desarrollo,     según    su     Configurar parámetros de        ambientes tecnológicos.
+contexto,     funciones   y     usuario,       red     y
+                                                                Adoptar     prácticas    de
+características.                almacenamiento        en
+                                                                seguridad      digital para
+                                sistemas operativos.
+Estructura funcional de                                         proteger datos personales y
+computadoras y flujo de         Aplicar funciones básicas       profesionales.
+información         entre       de    mantenimiento   del
+                                                                Reconocer la importancia del
+componentes.                    sistema operativo.
+                                                                respeto a la privacidad y la
+Clasificación de sistemas       Utilizar entornos gráficos y    confidencialidad en el uso de
+informáticos   según   su       línea de comandos para          tecnologías.
+contexto de uso.                tareas de administración.
+                                                                Desarrollar autonomía en la
+Redes          informáticas,    Catalogar y diferenciar         gestión y solución de
+elementos físicos y lógicos.    elementos físicos y lógicos     problemas       tecnológicos
+                                de redes informáticas.          básicos.
+Tipos de redes (LAN, WAN,
+WLAN)           y         sus   Describir tipos de redes y      Mantener       una      postura
+características principales.    sus           características   abierta y flexible ante nuevas
+                                mediante           ejemplos     metodologías y herramientas
+Dispositivos de red y sus
+                                prácticos.                      tecnológicas.
+funciones (switch, router,
+módem, punto de acceso,         Configurar dispositivos de      Impulsar la conciencia sobre
+repetidor).                     red y simular funciones de      el impacto ambiental y social
+                                protocolos              de      del uso responsable de las
+Protocolos             de
+                                comunicación.                   TIC.
+comunicación en redes.
+                                Organizar, almacenar y          Mantener       una      actitud
+Conceptos de gestión,
+                                proteger información digital    positiva y resiliente ante
+organización,
+                                mediante      herramientas      fallos y errores técnicos.
+almacenamiento, normas y
+                                tecnológicas.
+buenas      prácticas en                                        Fomentar el trabajo en
+seguridad informática y         Implementar     medidas         equipo con comunicación
+protección de datos.            básicas de seguridad en
+                               entornos           digitales   abierta,     respeto          y
+Herramientas tecnológicas
+                               (contraseñas,     permisos,    cooperación.
+para compartir información
+                               cifrado).
+en entornos digitales.                                        Priorizar la gestión adecuada
+                               Compartir información en       del tiempo y recursos para
+Fundamentos de trabajo
+                               plataformas colaborativas y    cumplir objetivos.
+colaborativo           y
+                               servicios en la nube,
+comunicación efectiva en
+                               respetando normas de           Demostrar responsabilidad
+entornos tecnológicos.
+                               seguridad y formatos.          en el manejo seguro de
+Organización, planificación                                   herramientas e
+                               Probar                nuevas
+y gestión de proyectos                                        instrumentos eléctricos y
+                               herramientas tecnológicas
+tecnológicos.                                                 electrónicos.
+                               y entornos digitales.
+Unidades de medidas de la
+                               Diagnosticar y resolver
+información.
+                               problemas técnicos con
+Fundamentos eléctricos y       actitud     analítica y
+electrónicos: conceptos        perseverante.
+básicos y práctica con
+                               Documentar procesos y
+circuitos.
+                               resultados técnicos de
+Protección     eléctrica   y   manera clara y ordenada.
+puesta a tierra.
+                               Utilizar        plataformas
+Componentes eléctricos y       colaborativas     para   la
+electrónicos.                  gestión del     trabajo en
+Esquemas, diagramas        y   equipo.
+circuitos electrónicos         Identificar  componentes
+Lógica digital.                eléctricos y electrónicos
+                               básicos visualmente y por
+                               código.
+                               Construir circuitos
+                               eléctricos básicos en
+                               protoboard y simuladores
+                               digitales.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Materiales y recursos
+Denominación               Especificaciones técnicas                  Cantidad
+Infraestructura/espacio    Entorno de aprendizaje (aula)                1
+                         Computadoras con acceso a internet
+Laboratorio                                                         1
+                         Proyector
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+      Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021.
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+        Una guía de aproximación para el empresario. INCIBE.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_glosario_cibers
+        eguridad_2021.pdf
+
+Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La ciberseguridad
+        al alcance de todos. INCIBE.
+        https://www.incibe.es/sites/default/files/docs/senior/guia_ciberseguridad_para_tod
+        os.pdf
+
+Instituto Nacional de Ciberseguridad. (2024). Gestión de crisis de ciberseguridad en
+        empresas. INCIBE.
+        https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia_gestion_de_cri
+        sis.pdf
+
+Lema, W. R., & Chérrez, P. F. (2023). Estudio diagnóstico del uso de la infraestructura
+      TIC básica (hardware, software e Internet) en instituciones educativas de
+      educación básica, cantón Azogues-Ecuador. LATAM Revista Latinoamericana de
+      Ciencias Sociales y Humanidades, 4(1), 24–39.
+      https://doi.org/10.56712/latam.v4i1.221
+
+Ministerio de Educación de Bolivia. (2024). Tecnología de la información digital: Guía de
+       trabajo. Nivel técnico básico. Dirección General de Educación Alternativa.
+       https://www.minedu.gob.bo/files/publicaciones/veaye/dgea/16_GUIA_DE_TRABA
+       JO_-_TECNOLOGA_DE_LA_INFROMACIN_DIGITAL.pdf
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2023).
+      Resumen del Informe de seguimiento de la educación en el mundo 2023:
+      Tecnología en la educación. UNESCO. https://www.unesco.org/gem-
+      report/sites/default/files/medias/fichiers/2023/07/7952%20UNESCO%20GEM%20
+      2023%20Summary_ES_Web.pdf
+
+Santiago-Trujillo, Y. D., & Garvich-Ormeño, R. M. (2024). Competencias digitales e
+       integración de las TIC en el proceso de enseñanza-aprendizaje. Revista
+       Tecnológica-Educativa Docentes 2.0, 17(1).
+       https://doi.org/10.37843/rted.v17i1.405
+Stallman, R. M. (2004). Software libre para una sociedad libre. Traficantes de Sueños.
+       https://www.gnu.org/philosophy/fsfs/free_software.es.pdf
+
+Vuorikari, R., Kluzer, S., & Punie, Y. (2022). DigComp 2.2: Marco de competencias
+       digitales para la ciudadanía. Con nuevos ejemplos de conocimientos, habilidades
+       y actitudes. Oficina de Publicaciones de la Unión Europea. https://somos-
+       digital.org/wp-content/uploads/2022/04/digcomp2.2_castellano.pdf
+
+
+
+
+                             Módulo Genérico Nro.2
+                                    Pensamiento Computacional y Resolución de
+Nombre del módulo:
+                                    Problemas
+Nivel:                              1ro, 2do
+Duración:                           240 periodos pedagógicos
+                                    UC2:     Proponer      soluciones    informáticas     y
+                                    computacionales mediante el análisis lógico-
+Unidad      de     competencia      matemático, manejo de sistemas numéricos, lógica de
+asociada:                           conjuntos, formulación algorítmica con diagramas y
+                                    pseudocódigo, aplicación de programación básica,
+                                    levantando documentación técnica, como fundamento
+                                    del desempeño profesional en tecnologías de la
+                                    información y comunicación.
+Objetivo del módulo: Fortalecer en el estudiante competencias técnicas en la formulación
+y representación algorítmica, programación básica, aplicando metodologías de desarrollo,
+conceptos lógicos matemáticos y sistemas numéricos para la resolución de problemas
+computacionales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Aplicar conceptos de lógica matemática, conjuntos y sistemas numéricos en
+la resolución de problemas computacionales.
+CE1.1: Distingue proposiciones y operaciones lógicas utilizando tablas de verdad y leyes
+del álgebra booleana.
+CE1.2: Representa operaciones de conjuntos en problemas computacionales mediante
+diagramas y notación formal.
+CE1.3: Transforma valores entre sistemas numéricos binario, decimal, hexadecimal y octal
+como base para el tratamiento de datos.
+CE1.4: Resuelve problemas que combinan lógica proposicional y sistemas numéricos en
+contextos computacionales específicos.
+RA 2: Resolver algoritmos de aplicaciones informáticas, representarlos mediante
+diagramas de flujo y pseudocódigo.
+CE2.1: Descompone problemas en pasos secuenciales mediante la elaboración de
+diagramas de flujo estructurados.
+CE2.2: Traduce diagramas de flujo a pseudocódigo utilizando sintaxis estructurada y lógica
+funcional.
+CE2.3: Verifica algoritmos mediante pruebas y simulaciones, identificando errores de lógica
+y eficiencia.
+CE2.4: Contrasta resultados esperados y obtenidos para evaluar el comportamiento
+funcional del algoritmo.
+ RA 3: Utilizar programación en la construcción de soluciones computacionales.
+CE3.1: Emplea estructuras secuenciales, condicionales y repetitivas al desarrollar
+programas en un lenguaje de programación resolviendo problemas computacionales
+básicos.
+CE3.2: Construye clases, atributos y métodos aplicando principios de encapsulamiento,
+herencia y polimorfismo en un lenguaje orientado a objetos.
+CE3.3: Elabora estructuras de datos simples como vectores, listas y matrices para la gestión
+de información en aplicaciones básicas.
+CE3.4: Codifica programas simples verificando la funcionalidad conforme a los
+requerimientos establecidos y resultados esperados.
+CE3.5: Documenta mediante comentarios técnicos explicando la lógica, estructura y
+funcionamiento del código fuente.
+ RA 4: Diseñar interfaces básicas facilitando la interacción con usuarios en
+ aplicaciones de consola y GUI.
+CE4.1: Aplica elementos visuales, etiquetas y campos adecuados al tipo de aplicación
+(consola o GUI) para representar la funcionalidad esperada.
+CE4.2: Integra principios de usabilidad y accesibilidad en el diseño de interfaces,
+considerando la disposición, navegación y comprensión visual
+CE4.3: Programa eventos y validaciones que responden correctamente a las acciones del
+usuario, previniendo errores en tiempo de ejecución.
+CE4.4: Realiza pruebas para identificar mejoras en la interacción y funcionalidad de la
+interfaz desarrollada.
+ RA 5: Implementar metodologías de desarrollo de software en función del tipo de
+ proyecto, integrando tiempos de entrega y colaboración en equipo.
+CE5.1: Selecciona adecuadamente la metodología de desarrollo (ágil, tradicional, híbrida)
+según los requerimientos del proyecto.
+CE5.2: Realiza las tareas de desarrollo de acuerdo con la metodología seleccionada,
+cumpliendo entregables y estándares.
+CE5.3: Coordina la colaboración en equipo utilizando herramientas digitales que facilitan la
+comunicación y el seguimiento de actividades.
+CE5.4: Documenta el proceso de desarrollo mediante registros técnicos que evidencian el
+avance y la gestión del proyecto.
+Contenidos
+Conceptuales                   Procedimentales                Actitudinales
+Principios del pensamiento Descomponer problemas Emplear el pensamiento
+computacional.                 complejos                 en analítico en la resolución de
+                               subproblemas manejables problemas.
+Componentes        de     un
+                               mediante estrategias de
+problema computacional.                                       Mostrar disposición para
+                               pensamiento lógico.
+                                                              explorar          situaciones
+Criterios de optimización en
+                               Identificar        patrones problemáticas              desde
+soluciones
+                               comunes      en    distintos
+computacionales.
+                               problemas para proponer        múltiples perspectivas antes
+Metodología    para   la
+                               soluciones generalizables.     de proponer soluciones.
+resolución de problemas
+computacionales.               Representar procesos a         Asumir responsabilidad en la
+                               través de diagramas de         coherencia lógica de los
+Identificación de patrones y
+                               flujo, pseudocódigo u otras    diseños         propuestos,
+relaciones.
+                               formas de modelado lógico.     considerando el contexto del
+Algoritmos, definición    y                                   problema.
+                               Formular         algoritmos
+características.
+                               eficientes    considerando     Mostrar flexibilidad para
+Tipos de datos, variables,     secuencia,        selección,   ajustar    los     modelos
+constantes y expresiones.      iteración y modularidad.       diseñados    ante   nuevas
+Lenguajes             de                                      condiciones o sugerencias.
+                               Simular    algoritmos     en
+pseudocódigo y diagramas       entornos digitales o físicos   Aplicar buenas prácticas en
+de flujo.                      para      comprobar       su   la elaboración de algoritmos
+Estructuras  de     control    funcionalidad.                 organizados,     claros    y
+secuencial, condicional y                                     eficientes.
+                               Evaluar    soluciones    en
+repetitiva.                    función de su eficiencia,      Reflexionar     sobre     los
+Tipos       de      errores,   claridad y capacidad de        resultados obtenidos como
+sintácticos, lógicos y de      resolución del problema.       una     oportunidad     para
+ejecución.                                                    mejorar     las   soluciones
+                               Aplicar heurísticas para
+                                                              propuestas.
+Buenas prácticas en la         resolver problemas donde
+resolución de problemas        no existe un camino único o    Aceptar con apertura la
+computacionales                completamente definido.        retroalimentación de otros
+                                                              como parte fundamental del
+Heurísticas para la toma de    Construir      soluciones
+                                                              proceso de aprendizaje.
+decisiones.                    computacionales básicas
+                               empleando    herramientas      Mostrar        comunicación
+Operadores lógicos y tablas    de programación.               asertiva en la resolución de
+de verdad.                                                    problemas computacionales,
+                               Revisar errores lógicos o
+Funciones             de       sintácticos en algoritmos o    Colaborar activamente con
+modelamiento de bases de       programas         mediante     sus pares para enriquecer
+datos.                         procesos de depuración.        ideas y construir soluciones
+Fundamentos de lógica y                                       colectivas.
+                               Integrar estrategias de
+matemáticas     aplicadas,     mejora continua en la          Valorar la importancia de la
+operadores         lógicos,    solución de problemas          lógica matemática en la
+proposiciones, tablas de       computacionales.               resolución de problemas.
+verdad, operaciones entre
+conjuntos,       sistemas                                    Adoptar      una       actitud
+                               Verificar sistemáticamente la
+numéricos y conversiones.                                    perseverante       en        la
+                               funcionalidad lógica de las
+                                                             resolución de problemas con
+Tipos      de       lógica,    soluciones      antes     de
+                                                             algoritmos      claros        y
+proposicional, booleana y      validarlas.
+                                                             eficientes.
+matemática.
+                               Aplicar operadores lógicos
+                               en    la   resolución   de
+                               problemas
+Interfaz gráfica de usuario
+                               computacionales.               Demostrar empatía hacia el
+GUI,       usabilidad     y
+                                                              usuario final en el diseño de
+accesibilidad.
+                               Transformar       números      interfaces.
+ Metodologías de desarrollo,
+                               entres distintos sistemas
+ herramientas colaborativas                                   Fomentar la colaboración de
+                               numéricos, entendiendo los
+ y documentación técnica y                                    trabajo en equipo.
+                               procesos computacionales.
+ de usuario.
+
+                               Diseñar interfaces graficas
+                               con elementos interactivos
+                               aplicando principios de
+                               usabilidad y accesibilidad
+                               con enfoque al usuario.
+
+                               Utilizar      herramientas
+                               colaborativas    para   el
+                               trabajo en equipo.
+
+                               Elaborar   documentación
+                               técnica y de usuario del
+                               software.
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, o ramas afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+• Aprendizaje Basado en Proyectos (ABP)
+• Aprendizaje en Contextos Reales
+• Role-Playing y Simulaciones
+• Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                  Especificaciones técnicas                       Cantidad
+Infraestructura/espacio       Entorno de aprendizaje (aula)             1
+                              Computadoras con acceso a internet
+Laboratorio
+                              Proyector                                 1
+Referencias Bibliográficas
+Borchardt, M., & Roggi, I. (2017). Ciencias de la computación en los sistemas educativos
+        de América Latina. Instituto Internacional de Planeamiento de la Educación de la
+        UNESCO & Organización de Estados Iberoamericanos para la Educación, la
+        Ciencia y la Cultura.
+
+Brennan, K., Balch, C., & Chung, M. (2014). Informática creativa: Una introducción al
+       pensamiento computacional con Scratch. Harvard Graduate School of Education.
+
+Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado. (2022).
+        Pensamiento computacional, programación y robótica educativa en el currículo
+        LOMLOE. Ministerio de Educación y Formación Profesional de España.
+
+Marañón Marañón, Ó., & González-García, H. (2021). Una revisión narrativa sobre el
+      pensamiento computacional en Educación Secundaria Obligatoria. Contextos
+      Educativos. Revista de Educación, (27), 169–182.
+      https://doi.org/10.18172/con.4644
+
+Méndez Hernández, S. O., & Bermúdez, J. F. (2023). El pensamiento computacional
+     como competencia para el siglo XXI. Ciencia Latina Revista Científica
+     Multidisciplinar, 7(4), 2258–2279. https://doi.org/10.37811/cl_rcm.v7i4.7044
+
+Ministerio de Educación Nacional de Colombia. (2022). Orientaciones curriculares para el
+       área de tecnología e informática en la educación básica y media. Ministerio de
+       Educación Nacional.
+
+Ministerio de Tecnologías de la Información y las Comunicaciones, Ministerio de
+       Educación Nacional, & British Council. (2022). ¿Por qué y para qué el
+       pensamiento computacional y las habilidades digitales? Gobierno de Colombia.
+
+Morales Caumel, R. (2023). PSeInt: Programando en pseudocódigo. Observatorio de
+      Tecnología Educativa, (103). Instituto Nacional de Tecnologías Educativas y de
+      Formación del Profesorado. https://doi.org/10.4438/2695-
+      4176_OTEpdf103_2020_847-19-134-33
+
+Polanco Padrón, N., Ferrer Planchart, S., & Fernández Reina, M. (2021). Aproximación a
+      una definición de pensamiento computacional. RIED. Revista Iberoamericana de
+      Educación a Distancia, 24(1), 55–76. https://doi.org/10.5944/ried.24.1.27419
+
+Python Software Foundation. (2026). El tutorial de Python: Documentación de Python
+      3.14. Python Software Foundation.
+
+Schwaber, K., & Sutherland, J. (2020). La guía de Scrum: La guía definitiva de Scrum.
+     Las reglas del juego. Scrum.org.
+
+World Wide Web Consortium. (2025). Sumario de las Pautas de Accesibilidad para el
+      Contenido Web (WCAG) 2. Web Accessibility Initiative.
+                                 Módulo Genérico Nro.3
+Nombre del módulo:                    Ética, Legislación y Ciudadanía Digital
+Nivel:                                1ro
+Duración:                             80 periodos pedagógicos
+                                      UC3: Integrar principios éticos y legales en el uso de
+                                      tecnologías, protección de datos, propiedad intelectual
+Unidad       de     competencia
+                                      y responsabilidad digital con el fin de asumir
+asociada:
+                                      desempeño consciente y responsable en entornos
+                                      digitales.
+Objetivo del módulo: Fomentar la comprensión y aplicación de principios éticos,
+normativas legales y prácticas responsables en el uso de las tecnologías digitales,
+fortaleciendo una ciudadanía digital crítica, respetuosa, segura y consciente de los derechos
+y deberes en entorno virtuales.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar los principios éticos relacionados con el uso responsable de las
+tecnologías digitales.
+CE1.1: Analiza casos o situaciones que evidencias conflictos éticos en el uso de
+tecnologías digitales.
+CE1.2: Relaciona el uso de herramientas digitales con posibles impactos éticos y sociales
+en distintos contextos.
+CE1.3: Muestra respeto a los derechos de propiedad intelectual en entornos digitales.
+CE1.4: Reflexiona críticamente sobre sus prácticas digitales cotidianas en el uso ético y
+responsable de la tecnología en actividades personales, académicas, culturales o
+profesionales.
+RA 2: Diferenciar el uso lícito e ilícito de recursos digitales, software y contenidos
+en línea.
+CE2.1: Clasifica recursos digitales según su tipo de licencia y condiciones de uso.
+CE2.2: Discrimina prácticas ilícitas como el uso de software pirata, descargas ilegales,
+reproducción sin autorización o plagio digital.
+CE2.3: Aplica criterios de legalidad y responsabilidad en la selección, uso y difusión de
+recursos digitales en contextos educativos o institucionales.
+CE2.4: Evalúa las consecuencias legales y éticas del uso indebido de software y
+contenidos protegidos por derechos de autor.
+RA 3: Aplicar normas legales relacionadas con la protección de datos personales y
+privacidad digital.
+CE3.1: Distingue el tipo de información que se considera dato personal y sensible según
+la normativa vigente.
+CE3.2: Analiza situaciones de vulneración de privacidad en entornos digitales y sus
+implicaciones legales y éticas.
+CE3.3: Aplica buenas prácticas en la recolección, almacenamiento y uso responsable de
+datos personales en contextos laborales, académicos o comunitarios.
+CE3.4: Verifica que las plataformas, formularios o recursos digitales utilizados respeten
+principios de confidencialidad, seguridad y protección de datos.
+RA 4.: Promover comportamientos responsables y seguros en el uso de tecnologías
+y redes digitales.
+CE4.1: Distingue situaciones de riesgo digital derivadas de vulnerabilidades de hardware
+y software, y propone formas de prevención.
+CE4.2: Emplea normas básicas de conducta digital (netiqueta) promoviendo valores como
+el respeto, la responsabilidad, la empatía y la honestidad en entornos laborales, educativos
+y sociales, haciendo un uso ético y consciente de las tecnologías.
+CE4.3: Participa de manera crítica, ética y responsable en entornos digitales, promoviendo
+el uso de la tecnología y contribuyendo a una cultura digital inclusiva y respetuosa.
+CE4.4: Propone actividades que promuevan la ciudadanía digital, el respeto a los demás y
+el cuidado del entono virtual.
+ Contenidos
+Conceptuales                     Procedimentales                   Actitudinales
+Ética y moral en entornos Analizar casos reales o Mantener compromiso con el
+digitales:                       simulados de dilemas éticos uso responsable de las
+• Definición de ética y moral. digitales.                          tecnologías.
+• Diferencias entre ética
+personal, profesional y digital Evaluar el cumplimiento de Respetar la privacidad y la
+• Dilemas éticos en el principios éticos en el uso de identidad digital propia y
+entorno tecnológico              plataformas tecnológicas.         ajena.
+Principios éticos aplicados
+a la tecnología:                  Aplicar criterios éticos en la Promover el uso ético de las
+• Responsabilidad                toma de decisiones digitales TIC evitando acoso digital,
+• Integridad                     (uso      de      información, difusión de contenido falso,
+• Justicia y equidad             comunicación, privacidad).        piratería.
+• Respeto a la privacidad
+• Transparencia                  Elaborar        códigos       de Manifestar actitud crítica y
+Legislación Digital:             conducta       o   guías      de reflexiva     frente    a  la
+• Marco legal                    comportamiento digital para información y a la conducta
+• Derechos y deberes             contextos      educativos       o digital.
+• Delitos cibernéticos           laborales.
+• Importancia                                                      Demostrar       empatía    y
+Ciudadanía Digital:              Participar en debates o foros responsabilidad          en   la
+• Definición                     sobre        temas        éticos interacción virtual.
+• Componentes                    relacionados         con       la
+• Habilidades                    tecnología.                       Mantener      disposición  a
+• Participación                                                    actuar con integridad y
+• Ética                          Participar en campañas honestidad en entornos
+• Seguridad                      sociales digitales o en digitales.
+Diferencias culturales y espacios               de     discusión
+legales                          respetuosa.
+Tendencias futuras en Configurar la privacidad en
+ética digital                    redes sociales.
+Ejemplos de ética digital        Realizar       prácticas      de
+• Privacidad de datos            recolección de datos no
+• Bias algorítmico               éticas.
+• Ciberseguridad               Usar contraseñas seguras,
+• Brecha digital               reconocer              correos
+Uso responsable de las fraudulentos o evitar el
+tecnologías digitales          acceso     a    sitios    web
+• Comportamiento ético en peligrosos.
+redes sociales y plataformas
+digitales.
+• Derechos y deberes de los
+usuarios digitales
+• Netiqueta y ciudadanía
+digital
+Consecuencias del uso no
+ético de la tecnología:
+• Ciberacoso, suplantación
+de                  identidad,
+desinformación.
+• Impactos sociales, legales
+y personales del mal uso de
+las TIC
+Ética profesional en el
+ámbito tecnológico
+Sociedad digital
+Datos y seguridad.
+Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, o ramas afines
+ • Experiencia en el campo amplio de la Educación, debidamente certificada.
+Orientaciones Metodológicas
+•   Aprendizaje Basado en Proyectos (ABP)
+•   Aprendizaje en Contextos Reales
+•   Role-Playing y Simulaciones
+•   Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+                             Detalle de especificaciones
+Denominación                                                       Cantidad
+                             técnicas
+                             Entorno de aprendizaje
+Infraestructura/espacio                                                     1
+                             Laboratorio informático
+                             Computadoras con acceso a internet
+Laboratorio                                                                 1
+                             Proyector
+Referencias Bibliográficas
+Asamblea Nacional del Ecuador. (2014). Código Orgánico Integral Penal. Registro
+        Oficial, Suplemento N.º 180, 10 de febrero de 2014.
+Asamblea Nacional del Ecuador. (2016). Código Orgánico de la Economía Social de los
+     Conocimientos, Creatividad e Innovación. Registro Oficial, Suplemento N.º 899, 9
+     de diciembre de 2016.
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+     Personales. Quinto Suplemento del Registro Oficial N.º 459, 26 de mayo de 2021.
+
+Congreso Nacional del Ecuador. (2002). Ley de Comercio Electrónico, Firmas
+      Electrónicas y Mensajes de Datos. Registro Oficial, Suplemento N.º 557, 17 de
+      abril de 2002.
+
+Instituto Nacional de Ciberseguridad. (2021). Glosario de términos de ciberseguridad:
+        Una guía de aproximación para el empresario. INCIBE.
+
+Instituto Nacional de Ciberseguridad. (2022). Guía de ciberseguridad: La ciberseguridad
+        al alcance de todos. INCIBE.
+
+López Jacobo, D. R., Angulo Armenta, J., Torres Gastelú, C. A., & López Herrera, M.
+      (2024). La ciudadanía digital: Metaanálisis sobre investigaciones en México.
+      Apertura, 16(1), 162–175. https://doi.org/10.32870/ap.v16n1.2477
+
+Morduchowicz, R. (2020). La ciudadanía digital como política pública en educación en
+      América Latina. Oficina Regional de Ciencias de la UNESCO para América Latina
+      y el Caribe.
+
+Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+       de Protección de Datos Personales. Decreto Ejecutivo N.º 904. Registro Oficial,
+       Suplemento N.º 435, 13 de noviembre de 2023.
+
+Rosado García, T. L., Alcívar Vera, T. P., Cobeña Cedeño, A. A., Chancay Chancay, M.
+      M., García Espinoza, M. I., & Bernal Mendieta, C. J. (2025). Desarrollo de valores
+      éticos en la educación digital. Universidad, Ciencia y Tecnología, 29(Especial),
+      114–123. https://doi.org/10.47460/uct.v29iSpecial.885
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2021).
+      Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+   4. Módulos de Especialización
+
+Las y los estudiantes del Bachillerato Técnico en Ciencia de Datos se distinguen por su
+capacidad para gestionar, analizar y comunicar información a partir de datos estructurados y
+no estructurados. Su formación incluye la recolección, procesamiento, limpieza, análisis
+estadístico básico, programación elemental, visualización y presentación de información,
+utilizando herramientas digitales, lenguajes de programación y entornos de bases de datos.
+
+Se estructuran los siguientes módulos de especialización:
+
+   •   Fundamentos de Datos y Programación
+   •   Adquisición y Gestión de Datos
+   •   Procesamiento y Transformación de Datos
+   •   Modelado y Análisis Estadístico de Datos
+   •   Visualización e Interpretación de Datos
+
+                             Módulo de Especialización Nro. 1
+ Nombre del módulo:                    Fundamentos de Datos y Programación
+ Nivel:                                1ro, 2do
+ Duración:                             320 periodos pedagógicos
+                                       UC 1: Comprender fundamentos de los datos y la
+ Unidad      de     competencia        estadística, aplicando conceptos, tipos y estructuras de
+ asociada:                             información con el uso de programación y bases de
+                                       datos relacionales y no relacionales.
+ Objetivo del módulo: Adquirir los fundamentos de los datos y la estadística mediante
+ ejercicios prácticos de programación y manejo de bases de datos relacionales y no
+ relacionales, con el propósito de preparar al estudiante para el análisis de información y la
+ construcción de soluciones básicas de ciencia de datos.
+ Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+ RA 1: Analizar conceptos fundamentales de datos, información y estadística,
+ describiendo sus tipos, estructuras y aplicaciones en contextos académicos y
+ sociales.
+ CE1.1: Distingue los tipos de datos al analizar situaciones reales, mediante ejemplos que
+ evidencien su uso en distintos contextos.
+ CE1.2: Diseña estructuras de datos adecuadas a la naturaleza de la información empleando
+ herramientas digitales y criterios de organización
+ CE1.3: Determina variables estadísticas al clasificar datos según las escalas de medición
+ establecidas.
+ CE1.4: Interpreta la utilidad de aplicaciones básicas de la estadística en contextos
+ educativos, sociales y organizacionales.
+ RA 2: Representar datos estadísticos aplicando medidas de tendencia central,
+ dispersión y representaciones gráficas en situaciones reales con herramientas
+ digitales.
+ CE2.1: Determina medidas de tendencia central con precisión en conjuntos de datos
+ simples.
+CE2.2: Calcula medidas de dispersión aplicando fórmulas estadísticas y demostrando el
+procedimiento correcto en conjuntos de datos reales.
+CE2.3: Construye tablas de frecuencia organizando datos cuantitativos y cualitativos en
+hojas de cálculo o software estadístico.
+CE2.4: Elabora representaciones gráficas al interpretar conjuntos de datos, seleccionando
+la técnica más pertinente y comunicando los resultados con claridad.
+RA 3: Utilizar lenguajes programación implementando operaciones de lectura,
+manipulación y visualización de datos.
+CE3.1: Ejecuta scripts simples verificando la sintaxis correcta empleando lenguajes de
+programación.
+CE3.2: Importa conjuntos de datos aplicando comandos de lectura adecuados, según el
+formato y origen de los datos.
+CE3.3: Manipula datos aplicando operaciones de filtrado y selección dentro de entornos de
+programación o herramientas especializadas.
+CE3.4: Genera representaciones gráficas elementales comprobando su correspondencia
+con los datos y colecciones.
+RA 4: Aplicar fundamentos de bases de datos relacionales y no relacionales
+describiendo sus componentes, esquemas y funciones en el almacenamiento y
+recuperación de información.
+CE4.1: Distingue tablas, filas y columnas identificando su rol en la estructura de la base de
+datos.
+CE4.2: Analiza llaves primarias y foráneas en base de datos relacionales, así como
+identificadores en colecciones no relacionales, explicando su función en la organización,
+integridad y vinculación de datos.
+CE4.3: Relaciona diagramas entidad-relación y esquemas equivalentes con ejemplos de
+bases de datos relacionales y no relacionales en contextos del mundo real.
+CE4.4: Explica funciones básicas de recuperación de información mediante consultas de
+selección simples en base de datos relacionales y no relacionales.
+Contenidos
+Conceptuales                    Procedimentales                Actitudinales
+Conceptos básicos de dato, Diferenciar            datos      e Valorar la importancia de
+información y conocimiento. información en situaciones comprender los conceptos
+                                reales.                        fundamentales de datos y
+Tipos de datos cualitativos,
+                                                               estadística en la toma de
+cuantitativos, discretos y Clasificar                variables
+                                                               decisiones.
+continuos.                      estadísticas según sus
+                                características.               Mostrar interés y curiosidad
+Conceptos de variable y
+                                                               por el uso de herramientas
+escalas de medición.            Organizar datos en tablas y
+                                                               digitales y programación.
+                                listas estructuradas.
+Introducción a la estadística
+                                                               Mantener orden y disciplina
+descriptiva.                    Calcular medidas básicas
+                                                               en la organización y
+                                de tendencia central.
+Medidas       básicas      de                                  documentación del trabajo
+tendencia central media, Elaborar representaciones con datos.
+mediana, moda.                  gráficas iniciales en hojas de
+                                cálculo.
+Variabilidad básica de los Ejecutar programas simples Respetar la integridad,
+datos: rango y dispersión verificando              su veracidad y confidencialidad
+inicial.                   funcionamiento.            de la información.
+Representaciones gráficas      Importar   y  manipular        Demostrar perseverancia en
+fundamentales tablas de        pequeños conjuntos de          la solución de problemas de
+frecuencia,    histogramas,    datos    con  comandos         programación y análisis
+barras, sectores y líneas.     básicos.                       básico.
+Fundamentos de algoritmos    Elaborar diagramas entidad- Asumir responsabilidad en el
+y programación, variables,   relación básicos.             manejo correcto de datos
+operadores, expresiones y                                  personales o sensibles.
+                             Escribir consultas simples
+estructuras básicas, entre
+                             para              seleccionar Fomentar el trabajo
+otras.
+                             información en bases de colaborativo en actividades
+Introducción al manejo de datos.                           de análisis y programación.
+datos en programación
+                             Documentar procedimientos
+lectura, estructuras básicas
+                             de programación y análisis.
+y visualización simple.
+                              Aplicar normas básicas de
+Fundamentos de bases de
+                             seguridad informática en el
+datos relacionales tablas,
+                             manejo de datos.
+atributos, llaves.
+Introducción a bases de
+datos     no    relacionales
+colecciones y documentos.
+Ética y seguridad básica en
+el manejo de datos.
+
+
+ Perfil del o la docente
+  • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+     de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+     Software, Tecnologías de la Información y Comunicación, Ciencia de datos, o ramas
+     afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                      Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                       1
+ Infraestructura/espacio        Aula taller                                         1
+ Laboratorio                    Computadoras con acceso a internet                  1
+                              Proyector
+                              Red de computadoras
+                              Simuladores
+Referencias Bibliográficas
+
+Ecuador. Asamblea Nacional. (2021). Ley Orgánica de Protección de Datos Personales
+      (Registro Oficial No. 459, Quinto Suplemento, 26 de mayo de 2021).
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+
+Ecuador. Asamblea Nacional. (2023). Ley Orgánica de Transparencia y Acceso a la
+      Información Pública (Registro Oficial No. 245, Segundo Suplemento, 7 de febrero
+      de 2023). https://biblioteca.defensoria.gob.ec/handle/37000/3726
+
+Illowsky, B., & Dean, S. (2022). Introducción a la estadística. OpenStax.
+       https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-
+       introduccion
+
+Instituto Nacional de Estadística y Censos. (2025). Norma técnica para la producción de
+        estadística     oficial    (Resolución      Nro.    001-DIREJ-DIJU-NT-2025).
+        https://www.ecuadorencifras.gob.ec/documentos/web-
+        inec/Resoluciones/2025/direj/resolucion_001-DIREJ-DIJU-NT-2025.pdf
+
+Marqués-Andrés,     M.     (2011).  Bases      de    datos.    Universitat   Jaume     I.
+      http://hdl.handle.net/10234/24183
+
+Marzal Varó, A., Gracia Luengo, I., & García-Sevilla, P. (2014). Introducción a la
+      programación         con     Python    3.      Universitat      Jaume      I.
+      https://repo.umc.cl/handle/umc/7301
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2020a). Guía de
+       datos            abiertos.          https://www.gobiernoelectronico.gob.ec/wp-
+       content/uploads/2021/03/Guia-Datos-Abiertos-con-portada.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2020b). Política de
+       datos abiertos de aplicación obligatoria en la Administración Pública Central
+       (Acuerdo Ministerial No. 011-2020). https://www.gobiernoelectronico.gob.ec/wp-
+       content/uploads/2020/04/Acuerdo-Poli%CC%81tica-Datos-Abiertos-17.04.20-v4-
+       signed.pdf
+
+Severance, C. R. (2020). Python para todos: Explorando la información con Python 3.
+      https://es.py4e.com/book
+                            Módulo de Especialización Nro. 2
+Nombre del módulo:                    Adquisición y Gestión de Datos
+Nivel:                                1ro, 2do, 3ro
+Duración:                             360 periodos pedagógicos
+                                      UC 2: Recolectar datos de fuentes estructuradas y no
+Unidad       de     competencia       estructuradas garantizando su validez, confiabilidad y
+asociada:                             trazabilidad, en procesos de análisis y toma de
+                                      decisiones.
+Objetivo del módulo: Aplicar técnicas mediante herramientas de recolección de datos
+estructurados y no estructurados, utilizando programación y mecanismos de validación y
+trazabilidad, con el propósito de obtener información de calidad que sirva de base para
+proyectos de análisis y ciencia de datos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Analizar fuentes de datos estructuradas y no estructuradas considerando su
+relevancia y aplicabilidad en contextos educativos y organizacionales.
+CE1.1: Distingue las fuentes de datos estructuradas y no estructuradas según su origen,
+formato y uso técnico en distintos entornos.
+CE1.2: Clasifica fuentes de datos pertinentes al objetivo del análisis verificando su
+relevancia y aplicabilidad.
+CE1.3: Selecciona fuentes de datos pertinentes al objetivo del análisis verificando su
+relevancia y aplicabilidad.
+CE1.4: Evalúa la calidad de las fuentes mediante herramientas digitales, considerando
+confiabilidad, actualidad y validez de la información.
+RA 2: Extraer datos de distintas fuentes digitales y físicas utilizando herramientas y
+procedimientos básicos de adquisición de información.
+CE2.1: Utiliza programas informáticos con el fin de acceder a bases de datos y repositorios
+digitales manteniendo una organización estructurada de la información.
+CE2.2: Obtiene información de documentos físicos mediante procesos de digitalización con
+equipos adecuados, asegurando la legibilidad y fidelidad de los datos obtenidos.
+CE2.3: Descarga conjuntos de datos abiertos desde fuentes confiables, verificando su
+formato, completitud y compatibilidad con las herramientas de análisis.
+CE2.4: Sistematiza la extracción de datos siguiendo protocolos de almacenamiento inicial,
+manteniendo trazabilidad y acceso digital.
+RA 3: Validar datos recolectados aplicando criterios de integridad, consistencia y
+exactitud en su registro.
+CE3.1: Verifica la coherencia de los datos identificando duplicados, inconsistencias o
+valores atípicos, asegurando la calidad del conjunto de información.
+CE3.2: Contrasta la información recolectada con fuentes de referencia confiables,
+garantizando su exactitud.
+CE3.3: Confirma la integridad de los datos mediante la revisión de registros completos y sin
+omisiones, manteniendo fiabilidad de la información.
+CE3.4: Evalúa la pertinencia de los datos según el objetivo de análisis establecido,
+optimizando la utilidad en los procesos de interpretación.
+RA 4: Documentar la procedencia y el proceso de recolección de datos garantizando
+su trazabilidad y uso responsable.
+CE4.1: Clasifica el origen de los datos especificando la fuente, fecha y medio de adquisición.
+CE4.2: Describe los pasos ejecutados durante la recolección utilizando formatos
+estandarizados.
+CE4.3: Organiza la documentación de los datos en repositorios digitales accesibles y
+seguros, reservando la confidencialidad y disponibilidad de la información.
+CE4.4: Define la trazabilidad de los datos mediante el uso de referencias claras y registros
+auditables, reservando la confidencialidad y disponibilidad de la información.
+Contenidos
+Conceptuales                     Procedimentales           Actitudinales
+Fuentes        de        datos Identificar fuentes de Valorar la importancia de obtener
+estructuradas           bases datos adecuadas al datos de fuentes confiables y
+relacionales, CSV, JSON, contexto del análisis.            verificables.
+hojas de cálculo, entre otras.
+                                 Acceder a repositorios Mostrar responsabilidad y ética en
+Fuentes de datos no institucionales                      y el proceso de recolección.
+estructuradas, documentos portales           de     datos
+                                                           Respetar la privacidad y los
+PDF, imágenes, audios, abiertos.
+                                                           derechos      asociados      a    la
+videos, sensores, entre
+                                 Descargar       datasets información utilizada.
+otras.
+                                 garantizando          su
+                                                           Mantener rigurosidad al registrar,
+Criterios    de    relevancia organización inicial.
+                                                           documentar y describir los
+actualidad,           validez,
+                                 Digitalizar documentos procedimientos de adquisición.
+confiabilidad y pertinencia.
+                                 físicos mediante OCR y
+                                                           Reconocer la relevancia de la
+Métodos de adquisición escáner.
+                                                           trazabilidad    para     garantizar
+descarga              manual,
+                                 Registrar                 transparencia y control.
+repositorios digitales, APIs
+                                 procedimientos        de
+básicas.                                                   Demostrar interés por el uso de
+                                 adquisición en bitácoras
+                                                           herramientas digitales para la
+Procesos de digitalización documentadas.
+                                                           adquisición eficiente de datos.
+como       escáner,      OCR,
+                                 Organizar fuentes y
+formatos de conversión.                                    Fomentar orden, precisión y
+                                 archivos en estructuras
+                                                           disciplina en el manejo inicial de
+Introducción a la validación digitales con criterios
+                                                           información.
+de datos, integridad básica, básicos de trazabilidad.
+consistencia            inicial,                           Adoptar una actitud crítica frente a
+                                 Documentar             la
+exactitud preliminar.                                      la calidad y procedencia de los
+                                 procedencia de los
+                                                           datos obtenidos.
+Concepto de trazabilidad datos                  mediante
+registros,       referencias, registros
+procedencia y auditoría.         estandarizados.
+Documentación              de Aplicar criterios éticos y
+procesos:           bitácoras, legales en la captura de
+formatos     estandarizados, información.
+informes iniciales.
+Ética y privacidad         en
+recolección de datos.
+Normativas legales LOPDP,
+políticas de acceso abierto.
+
+
+ Perfil del o la docente
+  • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+     de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+     Software, Tecnologías de la Información y Comunicación, Ciencia de datos, o ramas
+     afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                      Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                       1
+ Infraestructura/espacio        Aula taller                                         1
+                                Computadoras con acceso a internet
+                                Proyector
+                                Red de computadoras
+ Laboratorio                    Servidor local / nube                               1
+                                UPS / Reguladores
+                                Switch de red
+                                Pantalla o TV interactiva
+ Referencias Bibliográficas
+
+Aleixandre-Benavent, R., & Alonso-Arroyo, A. (2025). Guía de buenas prácticas para la
+       gestión, depósito y preservación de los datos de investigación en el área
+       educativa. Nau Llibres. https://doi.org/10.5281/zenodo.17286359
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+     Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+     https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+     organica-de-proteccion-de-datos
+
+Bernal, I. (2021). Cómo gestionar los datos de investigación: Buenas prácticas,
+       estándares y herramientas. DIGITAL.CSIC.
+       https://digital.csic.es/handle/10261/254516
+
+Instituto Nacional de Estadística y Censos. (2025). Norma técnica para la producción de
+        estadística oficial (Resolución N.º 001-DIREJ-DIJU-NT-2025; Registro Oficial N.º
+        81). https://www.ecuadorencifras.gob.ec/normas-tecnicas/
+
+Mayta Avalos, C. A., Rosales Castilla, F., & Gines Colana, M. (2022). Trazabilidad de
+      operaciones en bases de datos para mitigar riesgos en los procesos de auditoría.
+       Innovación y Software, 3(2), 40–51.
+       https://revistas.ulasalle.edu.pe/innosoft/article/view/58
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2020a). Guía de
+       datos abiertos de aplicación en la Administración Pública Central (Acuerdo
+       Ministerial N.º 035-2020). https://www.gobiernoelectronico.gob.ec/wp-
+       content/uploads/2021/03/Guia-Datos-Abiertos-con-portada.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2020b). Política
+       de datos abiertos de aplicación en la Administración Pública Central (Acuerdo
+       Ministerial N.º 011-2020; Registro Oficial N.º 190).
+       https://www.gobiernoelectronico.gob.ec/wp-content/uploads/2020/04/Acuerdo-
+       Poli%CC%81tica-Datos-Abiertos-17.04.20-v4-signed.pdf
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2022).
+      Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+      https://unesdoc.unesco.org/ark:/48223/pf0000381137_spa
+
+Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+       de Protección de Datos Personales (Decreto Ejecutivo N.º 904; Tercer
+       Suplemento del Registro Oficial N.º 435, 13 de noviembre de 2023).
+       https://www.telecomunicaciones.gob.ec/wp-content/uploads/2023/11/Decreto-
+       Ejecutivo-No.-904.pdf
+
+Superintendencia de Protección de Datos Personales. (2025a). Guía de gestión de
+       riesgos y evaluación de impacto del tratamiento de datos personales (Resolución
+       N.º SPDP-SPD-2025-0003-R). https://spdp.gob.ec/resolucion-n-spdp-spd-2025-
+       0003-r-guia-de-gestion-de-riesgos-y-evaluacion-de-impacto-del-tratamiento-de-
+       datos-personales-con-su-anexo/
+
+Superintendencia de Protección de Datos Personales. (2025b). Reglamento para la
+       seudonimización, anonimización, bloqueo, suspensión y eliminación de datos
+       personales (Resolución N.º SPDP-SPD-2025-0030-R). https://spdp.gob.ec/wp-
+       content/uploads/2025/08/0030-R.pdf
+
+Verhulst, S., & Verdadero, L. (2025). Manual de gobernanza de datos: Cómo gestionar
+       los datos en la era digital. UNESCO, Unión Internacional de Telecomunicaciones,
+       Programa de las Naciones Unidas para el Desarrollo y Comisión de la Unión
+       Africana. https://unesdoc.unesco.org/ark:/48223/pf0000394518_spa
+
+Yepes-Delgado, C. E., Muñoz-González, S., & Zuleta-Tobón, J. J. (2023). Aseguramiento
+      y control de la calidad de los datos en un estudio de cohorte en Colombia. Salud
+      UIS, 55, e23072.
+      https://revistas.uis.edu.co/index.php/revistasaluduis/article/view/13519
+
+
+
+                           Módulo de Especialización Nro. 3
+Nombre del módulo:                 Procesamiento y Transformación de Datos
+Nivel:                             1ro, 2do, 3ro
+Duración:                          360 periodos pedagógicos
+                                     UC 3: Procesar datos aplicando técnicas de limpieza,
+Unidad    de       competencia       integración y normalización con programación, bases
+asociada:                            de datos, uso de librerías y software especializado.
+
+Objetivo del módulo: Procesar datos con métodos de depuración, integración y
+normalización mediante el uso de programación, bases de datos y librerías de análisis, con
+el propósito de garantizar la calidad y usabilidad de la información en proyectos de ciencia
+de datos.
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Clasificar datos identificando formatos, tipos y estructuras presentes en
+archivos digitales y bases de datos.
+CE1.1: Distingue tipos de datos en archivos estructurados y no estructurados aplicando
+estándares de almacenamiento.
+CE1.2: Diferencia formatos de datos según sus características de uso en aplicaciones
+estadísticas o de programación.
+CE1.3: Aplica estructuras de datos en registros, tablas y colecciones verificando
+consistencia.
+CE1.4: Ordena datos según atributos definidos garantizando coherencia inicial en bases de
+datos y hojas electrónicas.
+RA 2: Depurar datos detectando errores, duplicados, valores faltantes y registros
+inconsistentes en entornos digitales.
+CE2.1: Cataloga los errores de captura en bases de datos relacionales y no relacionales
+verificando el cumplimiento de las reglas de integridad.
+CE2.2: Filtra registros eliminando duplicados conforme a criterios de unicidad y
+consistencia, manteniendo la calidad y precisión del conjunto de datos.
+CE2.3: Sustituye valores faltantes utilizando reglas definidas en el contexto de análisis,
+preservando la coherencia estadística y semántica de los datos.
+CE2.4: Corrige inconsistencias en tablas garantizando uniformidad en los registros, según
+estándares definidos en depuración.
+RA 3: Transformar datos aplicando técnicas de normalización y estandarización en
+hojas de cálculo, consultas SQL y uso de librerías de manipulación de datos.
+CE3.1: Ajusta escalas numéricas en variables asegurando compatibilidad con métodos
+estadísticos.
+CE3.2: Convierte formatos de fechas y cadenas garantizando uniformidad en la base de
+datos.
+CE3.3: Integra atributos calculados verificando exactitud en las fórmulas aplicadas en hojas
+de cálculo o consultas SQL.
+CE3.4: Ejecuta rutinas en lenguajes de programación o SQL para transformar datos,
+verificando resultados conforme a las reglas del análisis.
+RA 4: Integrar datos combinando fuentes heterogéneas mediante operaciones de
+unión, cruce y consolidación.
+CE4.1: Relaciona tablas y colecciones mediante claves primarias y foráneas o
+identificadores    comprobando      correspondencia       y   consistencia    de   registros.
+CE4.2: Consolida archivos de diferentes formatos garantizando compatibilidad en el
+almacenamiento.
+CE4.3: Une conjuntos de datos (datasets) aplicando operaciones de merge o join
+verificando coherencia y correspondencia en los datos.
+CE4.4: Registra los procesos de integración describiendo los criterios, pasos y herramientas
+utilizadas.
+RA 5: Automatizar procesos de limpieza y transformación desarrollando scripts y
+notebooks interactivos.
+CE5.1: Construye scripts utilizando librerías especializadas verificando su correcta
+ejecución y funcionalidad.
+CE5.2: Organiza rutinas de automatización registrando secuencia lógica y comentarios
+descriptivos que faciliten su comprensión.
+CE5.3: Optimiza tareas repetitivas mediante funciones o ciclos asegurando eficiencia y
+reducción de tiempo en procesamiento.
+CE5.4: Valida resultados de los scripts comprobando coincidencia con las reglas de negocio
+y parámetros de calidad.
+Contenidos
+Conceptuales                    Procedimentales            Actitudinales
+Procesamiento de datos, Clasificar datos según Valorar la importancia de la
+ciclo de vida.                  formato, estructura y calidad de los datos para
+                                nivel de organización.     garantizar resultados confiables.
+Tipos de datos en entornos
+digitales,        numéricos, Identificar                   Mostrar rigurosidad y precisión en
+categóricos,       ordinales, inconsistencias           en la limpieza y transformación de
+temporales y binarios, entre archivos y bases de datos.
+otros.                          datos.
+                                                           Respetar buenas prácticas de
+Formatos                    de Aplicar filtros y reglas de integridad y consistencia en el
+almacenamiento, CSV, TXT, validación en hojas de procesamiento.
+JSON, XML, entre otros, cálculo.
+                                                           Asumir responsabilidad en la
+hojas de cálculo y bases de
+                                Implementar                documentación técnica de los
+datos.
+                                operaciones             de procedimientos.
+Estructuras     de      datos, búsqueda, reemplazo y
+                                                           Demostrar perseverancia ante
+registros, campos, tablas, limpieza básica.
+                                                           problemas asociados a errores e
+relaciones y metadatos.
+                                Eliminar duplicados y inconsistencias.
+Principios de clasificación manejar                valores
+                                                           Mantener orden en cada fase del
+según formato, tipo y nivel faltantes.
+                                                           procesamiento.
+de estructuración.
+                                Normalizar               y
+                                                           Utilizar herramientas digitales con
+Técnicas de depuración, estandarizar variables
+                                                           actitud proactiva y crítica.
+detección y manejo de mediante                  funciones
+duplicados, errores, valores específicas.                  Respetar       principios      éticos
+faltantes e inconsistencias.                               relacionados  con  la  integridad  de
+                                Transformar formatos
+                                                           la información procesada.
+Estrategias de imputación, de fecha, texto y
+media, mediana, moda, números.                             .
+interpolación.
+Métodos de limpieza en Integrar datos mediante
+hojas de cálculo, SQL y uniones,      cruces y
+librerías especializadas. consolidación.
+Normalización              y Importar, manipular y
+estandarización, conceptos, transformar    datasets
+ventajas y procedimientos.   con pandas y numpy.
+Integración de datos, unión, Automatizar procesos
+cruce,    consolidación    y de limpieza mediante
+combinación de fuentes.      scripts en Python.
+Reglas       básicas    de Documentar el flujo de
+integridad     en    bases procesamiento        en
+relacionales.              notebooks interactivos.
+ETL (Extract, Transform, Aplicar       instrucciones
+Load):             conceptos SQL     básicas    para
+fundamentales.                depurar y transformar
+                              datos.
+Introducción a librerías para
+procesamiento,       pandas,
+numpy, openpyxl, entre
+otras.
+Automatización           de
+depuración y transformación
+mediante scripts.
+Documentación técnica de
+procesos de limpieza y
+transformación.
+Ética    técnica  en     el
+procesamiento, integridad,
+responsabilidad  y     uso
+confiable.
+
+ Perfil del o la docente
+ • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+    reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+    de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+    Software, Tecnologías de la Información y Comunicación, Ciencia de datos o ramas
+    afines
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+Requisitos básicos de infraestructuras, espacio y equipamiento:
+Denominación                  Especificaciones técnicas                    Cantidad
+Infraestructura/espacio       Entorno de aprendizaje (aula)                     1
+Infraestructura/espacio       Aula taller                                       1
+                              Proyector / Pantalla o TV interactiva
+                              Red de computadoras / Computadoras con
+Laboratorio                                                                     1
+                              acceso a internet.
+                              Servidor local / nube
+Referencias Bibliográficas
+ Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos Personales
+        (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+        https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+        organica-de-proteccion-de-datos
+
+Cabello, S. M. (2023). Análisis de los modelos de gobernanza de datos en el sector
+       público: Una mirada desde Bogotá, Buenos Aires, Ciudad de México y São Paulo
+       (Documentos de Proyectos, LC/TS.2023/71). Comisión Económica para América
+       Latina y el Caribe. https://www.cepal.org/es/publicaciones/49009-analisis-
+       modelos-gobernanza-datos-sector-publico-mirada-bogota-buenos-aires
+
+Fernández-Avilés, G., & Montero, J. M. (Eds.). (2024). Fundamentos de ciencia de datos
+      con R. McGraw-Hill Interamericana. https://cdr-book.github.io/
+
+Hernández-Dávila, E. S., Gallegos-Londoño, C. M., & García-Mora, F. A. (2023).
+      Estadística descriptiva para el mantenimiento industrial con Python. Centro de
+      Investigación                 y              Desarrollo               Ecuador.
+      https://doi.org/10.33996/cide.ecuador.EP2636553
+
+Iniciativa Aporta. (2022). Guía práctica para la mejora de la calidad de datos abiertos.
+         Datos.gob.es. https://datos.gob.es/es/conocimiento/guia-practica-para-la-mejora-
+         de-la-calidad-de-datos-abiertos
+
+Iniciativa Aporta. (2024). Guía práctica de introducción al análisis exploratorio de datos en
+         Python. Datos.gob.es. https://datos.gob.es/es/conocimiento/guia-practica-de-
+         introduccion-al-analisis-exploratorio-de-datos-en-python
+
+Instituto Nacional de Estadística y Censos. (2025). Norma técnica para la producción de
+        estadística     oficial     (Resolución      N.º    001-DIREJ-DIJU-NT-2025).
+        https://www.ecuadorencifras.gob.ec/documentos/web-
+        inec/Resoluciones/2025/direj/resolucion_001-DIREJ-DIJU-NT-2025.pdf
+
+Ministerio de Telecomunicaciones y de la Sociedad de la Información. (2020). Guía de
+       datos abiertos de aplicación en la Administración Pública Central (Acuerdo
+       Ministerial      N.º      035-2020).       https://www.gobiernoabierto.ec/wp-
+       content/uploads/2019/10/ACUERDO-35-2020-Guia-datos-abiertos-11-12-2020-
+       signed-signed-signes-signed.pdf
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2022).
+      Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+      https://unesdoc.unesco.org/ark:/48223/pf0000381137_spa
+
+Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+       de Protección de Datos Personales (Decreto Ejecutivo N.º 904; Tercer Suplemento
+       del     Registro  Oficial   N.º   435,    13   de     noviembre     de    2023).
+       https://www.telecomunicaciones.gob.ec/wp-content/uploads/2023/11/Decreto-
+       Ejecutivo-No.-904.pdf
+
+Superintendencia de Protección de Datos Personales. (2025a). Guía de gestión de riesgos
+       y evaluación de impacto del tratamiento de datos personales (Resolución N.º
+       SPDP-SPD-2025-0003-R). https://spdp.gob.ec/resolucion-n-spdp-spd-2025-0003-
+       r-guia-de-gestion-de-riesgos-y-evaluacion-de-impacto-del-tratamiento-de-datos-
+       personales-con-su-anexo/
+
+Superintendencia de Protección de Datos Personales. (2025b). Reglamento para la
+       seudonimización, anonimización, bloqueo, suspensión y eliminación de datos
+       personales (Resolución N.º SPDP-SPD-2025-0030-R). https://spdp.gob.ec/wp-
+       content/uploads/2025/08/0030-R.pdf
+
+
+
+                        Módulo de Especialización Nro. 4
+Nombre del módulo:              Modelado y Análisis Estadístico de Datos
+Nivel:                          2do y 3ro
+Duración:                       280 periodos pedagógicos
+                                UC 4: Analizar datos utilizando métodos estadísticos
+Unidad    de      competencia   básicos y principios de probabilidad en contextos
+asociada:                       educativos, sociales y organizacionales.
+
+Objetivo del módulo: Analizar datos empleando técnicas estadísticas básicas y principios
+de probabilidad, utilizando herramientas de análisis y procedimientos sistemáticos, con el
+propósito de obtener conclusiones fundamentadas y apoyar la toma de decisiones en
+contextos educativos, sociales y organizacionales. .
+Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+RA 1: Clasificar variables cuantitativas y cualitativas identificando escalas de
+medición y organizando datos en distribuciones de frecuencia.
+CE1.1: Diferencia variables según su escala nominal, ordinal, de intervalo o de razón
+verificando definiciones estadísticas.
+CE1.2: Organiza datos en tablas de frecuencia comprobando correspondencia con los
+registros originales.
+CE1.3: Calcula medidas de tendencia central aplicando fórmulas estadísticas y verificando
+coherencia con el tipo de variable analizada.
+CE1.4: Representa distribuciones en gráficos básicos asegurando correspondencia entre
+datos y visualización.
+RA 2: Comparar conjuntos de datos aplicando medidas de dispersión y posición para
+evaluar variabilidad y concentración de la información.
+CE2.1: Determina rangos y varianzas de muestras comprobando exactitud en los cálculos.
+CE2.2: Aplica la desviación estándar e interpreta su significado respecto a la media dentro
+del conjunto de datos.
+CE2.3: Estima percentiles y cuartiles verificando su correspondencia con los valores del
+conjunto de datos (dataset).
+CE2.4: Compara distribuciones estadísticas aplicando medidas de dispersión y
+concentración de acuerdo con el contexto del estudio.
+RA 3: Aplicar principios de probabilidad estableciendo relaciones entre eventos
+simples y compuestos en situaciones prácticas.
+CE3.1: Formula espacios muestrales identificando eventos elementales con claridad,
+precisión y representándolos de manera estructurada.
+CE3.2: Calcula probabilidades simples aplicando fracciones, proporciones o frecuencias
+relativas.
+CE3.3: Determina probabilidades compuestas utilizando reglas de adición y multiplicación
+en situaciones definidas.
+CE3.4: Comprueba independencia o dependencia de eventos mediante comparación de
+resultados esperados y observados.
+RA 4: Interpretar distribuciones de probabilidad discretas y continúas mediante
+representaciones gráficas y herramientas digitales.
+CE4.1: Distingue características básicas de distribuciones discretas a partir de gráficos o
+simulaciones.
+CE4.2: Representa distribuciones normales mediante gráficos identificando simetría,
+concentración y dispersión.
+CE4.3: Estima probabilidades acumuladas aplicando tablas o software especializado
+verificando exactitud.
+CE4.4: Analiza gráficos de distribución comparando tendencias y patrones con los valores
+esperados.
+RA 5: Evaluar resultados de análisis estadísticos redactando conclusiones
+fundamentadas en datos y justificando decisiones en contextos educativos, sociales
+y organizacionales.
+CE5.1: Sintetiza hallazgos de medidas descriptivas asegurando claridad en la
+comunicación.
+CE5.2: Relaciona resultados de probabilidad con situaciones reales verificando coherencia
+contextual.
+CE5.3: Fundamenta decisiones utilizando evidencia estadística verificable y coherente con
+los resultados del análisis.
+CE5.4: Documenta conclusiones en informes escritos aplicando terminología técnica y
+criterios de calidad comunicativa.
+Contenidos
+Conceptuales                   Procedimentales           Actitudinales
+Conceptos fundamentales Clasificar variables y            Valorar la estadística como
+variable,         población, elaborar    tablas     de    herramienta fundamental para la
+muestra,     parámetros    y frecuencia.                  toma de decisiones.
+estadísticos.
+                             Calcular medidas de          Demostrar rigor y precisión en el
+Clasificación de variables, tendencia central y           cálculo y representación de datos.
+cualitativas, cuantitativas, dispersión     aplicando
+                                                          Mantener       honestidad        y
+discretas, continuas y sus fórmulas estadísticas.
+                                                          transparencia en la interpretación
+escalas de medición.
+                             Estimar      percentiles,    de resultados estadísticos.
+Tablas y distribuciones de cuartiles y deciles.
+                                                          Asumir una actitud crítica frente a
+frecuencia.
+                             Representar         datos    conclusiones no fundamentadas o
+Medidas      de   tendencia mediante         gráficos     interpretaciones sesgadas.
+central, media, mediana, estadísticos básicos y
+                                                          Respetar la confidencialidad,
+moda.                        avanzados.
+                                                          integridad y veracidad de la
+Medidas de dispersión,         Resolver        ejercicios información analizada.
+rango, varianza, desviación    aplicando reglas de
+                                                          Mostrar responsabilidad al utilizar
+estándar, coeficiente de       probabilidad.
+                                                          software estadístico verificando
+variación.
+                               Construir diagramas de coherencia entre datos, gráficos y
+Medidas      de    posición,   eventos y espacios resultados.
+percentiles,   cuartiles   y   muestrales.
+                                                          Fomentar el trabajo colaborativo
+deciles.
+                               Simular distribuciones en actividades de análisis e
+Principios    básicos     de   discretas y continuas en interpretación.
+probabilidad.                  software estadístico.
+                                                          Valorar   la   importancia       de
+Eventos             simples,   Comparar conjuntos de comunicar resultados estadísticos
+compuestos,                    datos      interpretando con claridad y ética.
+independientes             y   variabilidad y patrones.
+dependientes.
+                              Interpretar       salidas
+Teoremas de la suma y del estadísticas generadas
+producto.                     por              software
+                              especializado.
+Distribuciones     discretas,
+binomial, Bernoulli.          Elaborar        informes
+                              estadísticos          con
+Distribuciones     continuas
+                              conclusiones basadas
+normal, uniforme.
+                              en evidencia.
+Representaciones gráficas
+                              Utilizar    herramientas
+estadísticas: histogramas,
+                              como          GeoGebra,
+polígonos, cajas y bigotes,
+                              Desmos,         Seaborn,
+diagramas circulares.
+                              Tableau o Power BI
+Simulación estadística con para         análisis      y
+herramientas digitales.       representación.
+Introducción al muestreo
+aleatorio, sistemático y
+estratificado.
+Inferencia        descriptiva
+preliminar: error estándar e
+intervalos descriptivos.
+Interpretación crítica     de
+gráficos y tablas.
+Ética en el análisis       e
+interpretación de datos.
+
+ Perfil del o la docente
+  • Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+     reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+     de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+     Software, Tecnologías de la Información y Comunicación, Ciencia de Datos o ramas
+     afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                      Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                       1
+ Infraestructura/espacio        Aula taller                                         1
+                                Computadoras con acceso a internet
+                                Proyector
+                                Red de computadoras
+                                Acceso a datasets, conexión a bases de
+ Laboratorio                                                                        1
+                                datos relacionales/no relacionales
+                                Simuladores
+                                Servidor local / nube
+                                Pantalla o TV interactiva
+                                Software estadístico como Python con
+                                numpy, pandas, scip entre otros.
+ Insumos:                       Software de análisis de BI
+                                Repositorios de datasets
+                                Herramientas de probabilidad
+ Referencias Bibliográficas
+  Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos
+          Personales (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+          https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+       organica-de-proteccion-de-datos
+
+Asamblea Nacional del Ecuador. (2023). Ley Orgánica de Transparencia y Acceso a la
+      Información Pública (Registro Oficial N.º 245, Segundo Suplemento, 7 de febrero
+      de 2023). https://www.asambleanacional.gob.ec/es/multimedios-
+      legislativos/60882-ley-organica-de-transparencia-y-acceso
+
+Batanero, C., & Díaz, C. (Eds.). (2011). Estadística con proyectos. Departamento de
+      Didáctica de la Matemática, Universidad de Granada.
+      https://www.ugr.es/~batanero/pages/materialdocente.html
+
+Córdova-Espinoza, M. L., Quiroz-Calderón, M. V., Correa-Becerra, R. C., & Armas-
+      Juárez, R. A. (2024). Efectos del aprendizaje basado en proyectos en la cultura
+      estadística en estudiantes universitarios. Episteme Koinonía, 7(13), 87–109.
+      https://doi.org/10.35381/e.k.v7i13.3208
+
+Federación Española de Municipios y Provincias. (2022). Guía de visualización de datos
+      para entidades locales. Red de Entidades Locales por la Transparencia y
+      Participación Ciudadana.
+      https://datos.gob.es/sites/default/files/doc/file/guia_de_visualizacion_de_datos_pa
+      ra_entidades_locales_2022-1.pdf
+
+Gaytan-Reyna, K. L., Romero-Reyna, J. R., Zevallos-Loyaga, M. E., & Duran-LLaro, K. L.
+      (2023). Enseñanza de la estadística en modalidad virtual: Revisión sistemática.
+      Revista Arbitrada Interdisciplinaria Koinonía, 8(Supl. 2), 307–330.
+      https://doi.org/10.35381/r.k.v8i2.2878
+
+Hernández-Dávila, E. S., Gallegos-Londoño, C. M., & García-Mora, F. A. (2023).
+      Estadística descriptiva para el mantenimiento industrial con Python. Centro de
+      Investigación y Desarrollo Ecuador.
+      https://doi.org/10.33996/cide.ecuador.EP2636553
+
+Illowsky, B., & Dean, S. (2022). Introducción a la estadística. OpenStax.
+       https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-
+       introduccion
+
+Iniciativa Aporta. (2021). Herramientas de procesado y visualización de datos.
+         Datos.gob.es. https://datos.gob.es/es/conocimiento/herramientas-de-procesado-
+         y-visualizacion-de-datos
+
+Instituto Nacional de Estadística y Censos. (2025). Norma técnica para la producción de
+        estadística oficial (Resolución N.º 001-DIREJ-DIJU-NT-2025).
+        https://www.ecuadorencifras.gob.ec/documentos/web-
+        inec/Resoluciones/2025/direj/resolucion_001-DIREJ-DIJU-NT-2025.pdf
+
+Irarrázaval Aravena, F. I., Jiménez Silva, J. F., García García, J. I., & Arredondo, E. H.
+         (2025). Niveles de comprensión gráfica de estudiantes frente a preguntas
+         enfocadas en la toma de decisiones. Areté. Revista Digital del Doctorado en
+         Educación, 11(21), 113–129. https://doi.org/10.55560/arete.2025.21.11.7
+
+  Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2022).
+        Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+        https://unesdoc.unesco.org/ark:/48223/pf0000381137_spa
+
+  Pereira-González, L. M., & Basantes-Andrade, A. (2023). Probabilidad y estadística.
+         Editorial Universidad Técnica del Norte.
+         https://repositorio.utn.edu.ec/handle/123456789/14428
+
+  Presidencia de la República del Ecuador. (2023). Reglamento General a la Ley Orgánica
+         de Protección de Datos Personales (Decreto Ejecutivo N.º 904; Tercer
+         Suplemento del Registro Oficial N.º 435, 13 de noviembre de 2023).
+         https://spdp.gob.ec/wp-content/uploads/2024/12/04.pdf.pdf
+
+
+                               Módulo de Especialización Nro. 5
+  Nombre del módulo:                    Visualización e Interpretación de Datos
+  Nivel:                                2do y 3ro
+  Duración:                             280 periodos pedagógicos
+                                        UC 5: Diseñar visualizaciones e informes empleando
+  Unidad      de      competencia       herramientas de comunicación digital, principios de
+  asociada:                             ética y estándares de calidad en el manejo de la
+                                        información.
+  Objetivo del módulo: Aplicar herramientas de comunicación digital, principios de ética y
+  estándares de calidad para construir visualizaciones e informes efectivos, con el propósito
+  de comunicar resultados de análisis de manera profesional y facilitar decisiones en distintos
+  contextos.
+  Resultados de Aprendizaje (RA) y Criterios de Evaluación (CE)
+  RA 1: Elaborar representaciones gráficas seleccionando tipos de visualización
+  adecuados a la naturaleza de los datos y aplicando software especializado.
+  CE1.1: Selecciona gráficos de barras, líneas, dispersión o circulares garantizando
+  correspondencia con el tipo de variable.
+  CE1.2: Configura ejes, escalas y etiquetas ajustando parámetros visuales con precisión y
+  coherencia facilitando la interpretación.
+  CE1.3: Aplica colores, estilos y tipografía asegurando legibilidad, consistencia visual y
+  armonía gráfica.
+  CE1.4: Genera visualizaciones en software especializado facilitando la exportación y uso
+  posterior.
+- RA 2: Integrar indicadores estadísticos en tableros digitales organizando métricas
+  clave y resúmenes de información relevantes al contexto analizado.
+  CE2.1: Selecciona indicadores descriptivos verificando coherencia con los objetivos y las
+  variables del análisis.
+CE2.2: Incorpora medidas como promedios, porcentajes o tendencias en paneles digitales
+garantizando exactitud en los cálculos.
+CE2.3: Actualiza dashboards comprobando sincronización con las fuentes de datos
+disponibles.
+CE2.4: Presenta tableros interactivos aplicando principios de jerarquía visual y
+accesibilidad.
+RA 3: Redactar informes técnicos estructurando secciones de objetivos,
+metodología, resultados y conclusiones con base en evidencia estadística.
+CE3.1: Organiza contenidos del informe verificando claridad y orden lógico en la
+presentación.
+CE3.2: Expone resultados de análisis estadísticos asegurando respaldo con datos y
+gráficos.
+CE3.3: Formula conclusiones justificando decisiones con criterios cuantitativos y
+cualitativos.
+CE3.4: Clasifica informes técnicos garantizando cumplimiento de estándares y formatos
+establecidos.
+RA 4: Evaluar la calidad de los datos verificando integridad de la información y
+aplicando estándares profesionales y técnicas de inteligencia artificial.
+CE4.1: Revisa fuentes de datos e inteligencia artificial asegurando validez y confiabilidad
+en la procedencia.
+CE4.2: Detecta posibles sesgos en visualizaciones verificando neutralidad en la
+representación.
+CE4.3: Cumple principios de confidencialidad garantizando protección de información
+sensible.
+CE4.4: Desarrolla productos comunicativos aplicando estándares de calidad que garanticen
+precisión, claridad y pertinencia informativa.
+Contenidos
+Conceptuales                    Procedimentales            Actitudinales
+Principios de visualización Seleccionar tipos de Valorar la comunicación visual
+de datos percepción visual, gráficos según objetivo, como herramienta clave para
+color, contraste, jerarquía variable y naturaleza de comprender datos.
+visual y narrativa.             los datos.
+                                                           Demostrar ética al diseñar y
+Tipos de visualizaciones Crear visualizaciones presentar                      visualizaciones
+barras, líneas, dispersión, aplicando principios de evitando sesgos y distorsiones.
+pastel, cajas, mapas de diseño y legibilidad.
+                                                           Respetar la confidencialidad y
+calor, treemaps, gráficos
+                                Configurar           ejes, sensibilidad de los datos usados
+radiales y diagramas de
+                                escalas,        etiquetas, en visualización.
+relación.
+                                colores y estilos en
+                                                           Mantener rigor, precisión y
+Variables,      escalas       y software especializado.
+                                                           veracidad en la representación
+selección del tipo de gráfico.
+                                Integrar      indicadores gráfica.
+Componentes         de      las estadísticos en tableros
+                                                           Cuidar la claridad, legibilidad y
+visualizaciones,          ejes, digitales interactivos.
+                                                           accesibilidad     para     distintos
+leyendas,              títulos,
+                                                           públicos.
+anotaciones, etiquetas      y Diseñar      dashboards     Desarrollar pensamiento crítico
+unidades, entre otros.        con KPIs, filtros y         frente a gráficos engañosos o
+                              paneles comparativos.       manipulados.
+Diseño visual, simplicidad,
+coherencia,         enfoque, Elaborar          informes   Colaborar en la construcción de
+claridad, uso del espacio y técnicos        integrando    dashboards e informes visuales.
+alineación.                   visualizaciones         y
+                                                          Mostrar apertura para explorar
+                              análisis textual.
+Herramientas              de                              nuevas   herramientas     BI   y
+visualización, Power BI, Evaluar visualizaciones          metodologías de diseño visual.
+Tableau,           Seaborn, empleando listas de
+                                                          Cultivar creatividad mantenida
+Matplotlib,           Plotly, verificación profesional.
+                                                          dentro del rigor técnico y ético.
+RAWGraphs y Flourish.
+                              Detectar
+Diseño      de   dashboards visualizaciones
+jerarquía             visual, engañosas               o
+navegación, filtros, KPIs y manipulaciones
+actualización de fuentes.     gráficas.
+Storytelling    con     datos   Implementar
+narrativa visual, secuencia     visualizaciones
+lógica, énfasis y patrones de   avanzadas con Python
+presentación.                   (Seaborn, Plotly) o
+                                herramientas BI.
+Redacción de informes
+técnicos          propósito,    Exportar, publicar y
+estructura, integración de      presentar
+visualizaciones,                visualizaciones     de
+comunicación clara.             manera profesional.
+Detección     de  sesgos Aplicar técnicas de
+visuales y manipulación accesibilidad y criterios
+gráfica.                  éticos     en         la
+                          comunicación visual.
+Estándares de calidad,
+accesibilidad   y buenas
+prácticas en comunicación
+de datos.
+Ética   en      visualización
+veracidad,    transparencia,
+confidencialidad            y
+responsabilidad
+comunicativa.
+
+Perfil del o la docente
+• Experiencia en el área técnica, poseer título de tercer y/o cuarto nivel, registrados y
+   reconocidos por el órgano rector del Sistema de Educación Superior en: Tecnologías
+   de la Información, Ciencias de la Computación, Ingeniería en Sistemas, Ingeniería en
+   Software, Tecnologías de la Información y Comunicación, Ciencia de Datos o ramas
+   afines.
+• Experiencia en el campo amplio de la Educación, debidamente certificada.
+ Orientaciones Metodológicas
+  Aprendizaje Basado en Proyectos (ABP)
+  Aprendizaje en Contextos Reales
+  Role-Playing y Simulaciones
+  Metodología STEAM (Integración de Ciencia, Tecnología, Arte y Matemáticas)
+  Aprendizaje Colaborativo
+ Requisitos básicos de infraestructuras, espacio y equipamiento:
+ Denominación                   Especificaciones técnicas                     Cantidad
+ Infraestructura/espacio        Entorno de aprendizaje (aula)                    1
+ Infraestructura/espacio        Aula taller                                      1
+                                Computadoras con acceso a internet
+                                Proyector
+                                Red de computadoras
+                                Acceso      a    datasets,   software     BI,
+ Laboratorio                                                                     1
+                                repositorios digitales
+                                Simuladores
+                                Servidor local / nube
+                                Pantalla o TV interactiva
+                                Power BI, visualizador de datos, Lenguajes
+                                y librerías de visualización, repositorio de
+ Insumos                                                                         1
+                                datos, herramientas de storytelling digital,
+                                plantillas de informes técnicos, entre otros.
+ Referencias Bibliográficas
+  Álvarez Contreras, E. I. (2023). Representaciones gráficas en la divulgación científica.
+         Cuadernos del Centro de Estudios de Diseño y Comunicación, (179), 251–257.
+         https://doi.org/10.18682/cdc.vi179.8890
+
+Asamblea Nacional del Ecuador. (2021). Ley Orgánica de Protección de Datos Personales
+      (Registro Oficial N.º 459, Quinto Suplemento, 26 de mayo de 2021).
+      https://www.asambleanacional.gob.ec/es/multimedios-legislativos/63464-ley-
+      organica-de-proteccion-de-datos
+
+Asamblea Nacional del Ecuador. (2023). Ley Orgánica de Transparencia y Acceso a la
+      Información Pública (Registro Oficial N.º 245, Segundo Suplemento, 7 de febrero
+      de                                                                        2023).
+      https://www.asambleanacional.gob.ec/sites/default/files/private/asambleanacional
+      /filesasambleanacionalnameuid-29/Leyes%202013-2017/736-jvelin/ro-245-2do-
+      supl-07-02-2023.pdf
+
+Bernal-Gamboa, L. R., & Guzmán-Cedillo, Y. I. (2021). El impacto de las infografías en la
+       retención de información por parte de estudiantes de psicología. Revista
+       Colombiana de Educación, (83), 1–17. https://doi.org/10.17227/rce.num83-10700
+
+Federación Española de Municipios y Provincias. (2022). Guía de visualización de datos
+       para entidades locales. Red de Entidades Locales por la Transparencia y la
+       Participación                                                            Ciudadana.
+       https://datos.gob.es/sites/default/files/doc/file/guia_de_visualizacion_de_datos_pa
+       ra_entidades_locales_2022-1.pdf
+
+Franco, C. (2023). Guía para crear narrativas de datos sin enredarse la cabeza.
+      Observatorio      de    Datos      de     la    Universidad    Adolfo      Ibáñez.
+      https://observatoriodedatos.uai.cl/wp-content/uploads/2023/12/storytelling-de-
+      datos-guia-1.pdf
+
+Iniciativa Aporta. (2021). Herramientas de procesado y visualización de datos. Secretaría
+         de       Estado       de      Digitalización    e      Inteligencia    Artificial.
+         https://datos.gob.es/es/conocimiento/herramientas-de-procesado-y-visualizacion-
+         de-datos
+
+Iniciativa Aporta. (2022). Guía práctica para la mejora de la calidad de datos abiertos.
+         Secretaría     de    Estado   de    Digitalización   e   Inteligencia   Artificial.
+         https://datos.gob.es/es/documentacion/guia-practica-para-la-mejora-de-la-
+         calidad-de-datos-abiertos
+
+Iniciativa Aporta. (2024). Guía práctica de introducción al análisis exploratorio de datos en
+         Python. Secretaría de Estado de Digitalización e Inteligencia Artificial.
+         https://datos.gob.es/es/conocimiento/guia-practica-de-introduccion-al-analisis-
+         exploratorio-de-datos-en-python
+
+Instituto Nacional de Estadística y Censos. (2025). Norma técnica para la producción de
+        estadística     oficial     (Resolución      N.º    001-DIREJ-DIJU-NT-2025).
+        https://www.ecuadorencifras.gob.ec/documentos/web-
+        inec/Resoluciones/2025/direj/resolucion_001-DIREJ-DIJU-NT-2025.pdf
+
+Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. (2022).
+      Recomendación sobre la ética de la inteligencia artificial. UNESCO.
+      https://unesdoc.unesco.org/ark:/48223/pf0000381137_spa
+
+Profeta, D., & Gómez, C. (2023). Estrategias visuales en el periodismo de datos: Un
+       análisis desde las prácticas profesionales en Latinoamérica. Chasqui. Revista
+       Latinoamericana          de         Comunicación,      (154),       177–192.
+       https://doi.org/10.16921/chasqui.v1i154.4933
+
+Superintendencia de Protección de Datos Personales. (2025). Guía de gestión de riesgos
+       y evaluación de impacto del tratamiento de datos personales.
+       https://spdp.gob.ec/wp-content/uploads/2025/05/Guia-de-gestion-de-riesgos.pdf
+
+World Wide Web Consortium. (2024). Sumario de las Pautas de Accesibilidad para el
+      Contenido  Web     (WCAG)      2.   Iniciativa de    Accesibilidad    Web.
+        https://www.w3.org/WAI/standards-guidelines/wcag/es
+
+
+
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses formativos
+para cada año de bachillerato técnico, promoviendo un aprendizaje significativo, sin que este
+reemplace su paso por la Formación Estudiantil en Centros Educativos y de Trabajo.
+Módulo Práctico Experimental
+
+Este módulo fortalece la formación del estudiantado mediante su participación en situaciones
+reales de aprendizaje, simulaciones, acercamiento a entornos de trabajo, giras de
+observación, articulación con el sector productivo, proyectos interdisciplinarios y
+metodologías basadas en proyectos. Todas estas actividades tienen como finalidad
+consolidar los conocimientos teóricos y favorecer la aplicación de competencias en contextos
+reales. Asimismo, promueven el desarrollo de habilidades blandas, tales como el trabajo en
+equipo, la comunicación asertiva, la resolución de problemas y la adaptación a entornos
+cambiantes.
+
+En síntesis, este módulo constituye la aplicación práctica e integral de lo aprendido en los
+módulos previos, permitiendo al estudiantado experimentar, analizar y resolver situaciones
+reales, al tiempo que refuerza sus capacidades técnicas y fomenta el desarrollo de
+competencias conceptuales, procedimentales y actitudinales, tanto de los módulos genéricos
+como de los de especialización.
+
+                               Módulo Práctico Experimental
+ Nombre del módulo:             Práctico Experimental
+ Nivel:                         1ro, 2do, 3ro
+ Duración:                      400 periodos pedagógicos
+ Unidad de competencia          UC 1: Comprender fundamentos de los datos y la estadística,
+ asociada:                      aplicando conceptos, tipos y estructuras de información con
+                                el uso de programación y bases de datos relacionales y no
+                                relacionales.
+                                UC 2: Recolectar datos de fuentes estructuradas y no
+                                estructuradas garantizando su validez, confiabilidad y
+                                trazabilidad, en procesos de análisis y toma de decisiones.
+                                UC 3: Procesar datos aplicando técnicas de limpieza,
+                                integración y normalización con programación, bases de
+                                datos, uso de librerías y software especializado.
+                                UC 4: Analizar datos utilizando métodos estadísticos básicos
+                                y principios de probabilidad en contextos educativos, sociales
+                                y organizacionales.
+                                UC 5: Diseñar visualizaciones e informes empleando
+                                herramientas de comunicación digital, principios de ética y
+                                estándares de calidad en el manejo de la información.
+ Objetivo del módulo: Aplicar técnicas prácticas y experimentales de adquisición,
+ procesamiento, análisis y visualización de datos mediante programación, bases de datos
+ y herramientas digitales, fortaleciendo competencias de investigación aplicada, resolución
+ de problemas y comunicación ética de la información en contextos académicos, sociales y
+ organizacionales.
+ Resultados               de      Criterios de Evaluación Actividades Prácticas
+ Aprendizaje (RA)                 (CE)                         Experimentales
+RA1: Ejecutar proyectos       CE1.1: Recolectar datos    Realizar       prácticas      de
+de       recolección      y   de    diversas      fuenteslevantamiento de encuestas y
+organización de datos         aplicando criterios de     cuestionarios en comunidades
+estructurados      y     no   confiabilidad y validez.   educativas o sociales.
+estructurados empleando                                  Extraer datos abiertos de
+herramientas digitales y      CE1.2: Registrar datos en portales      oficiales    (INEC,
+físicas    en     contextos   formatos         digitales ministerios,      universidades,
+académicos, sociales y        garantizando integridad y entre otros) garantizando su
+organizacionales.             trazabilidad.              correcta organización.
+
+                              CE1.3: Clasificar datos de    Participar en visitas técnicas a
+                              acuerdo con su estructura     empresas o instituciones para
+                              y     tipo     verificando    conocer procesos de gestión y
+                              consistencia.                 recopilación de datos.
+
+                                                            Documentar la procedencia de
+                                                            los datos recolectados en
+                                                            informes técnicos.
+RA2: Gestionar datos           CE2.1:     Identificar   y   Desarrollar ejercicios prácticos
+aplicando técnicas de         corregir       duplicados,    de depuración de registros
+limpieza,     depuración,     errores y valores faltantes   académicos, financieros o de
+normalización y validación    aplicando     reglas     de   encuestas.
+con                software   integridad.
+especializado, hojas de                                   Realizar la integración de
+cálculo, SQL y librerías de   CE2.2:        Transformar diferentes archivos de datos
+programación.                 variables        aplicando aplicando operaciones de
+                              criterios de normalización unión y consolidación.
+                              y estandarización.
+                                                          Elaborar scripts básicos en
+                              CE2.3:        Implementar Python        para    automatizar
+                              rutinas de limpieza de tareas de limpieza de datos.
+                              datos en Python o SQL
+                              validando resultados.       Presentar evidencias de la
+                                                          mejora en la calidad de los
+                                                          datos procesados.
+RA3:               Elaborar   CE3.1: Diseñar gráficos y Construir             dashboards
+visualizaciones e informes    dashboards       utilizando interactivos     con    Python
+de datos interpretando        librerías de Python o (matplotlib, seaborn, plotly),
+patrones, tendencias y        herramientas digitales.     Power BI o software de
+relaciones en proyectos                                   visualización.
+aplicados     al     ámbito   CE3.2:          Interpretar
+académico,       social   y   resultados     estadísticos Participar en proyectos de
+organizacional.               elaborando conclusiones análisis de datos comunitarios
+                              claras y fundamentadas.     o educativos con informes de
+                                                          resultados.
+                              CE3.3:          Comunicar
+                              hallazgos en informes Exponer                resultados       en
+                              técnicos          aplicando presentaciones académicas o
+                              principios de ética y ferias                      tecnológicas.
+                              responsabilidad.
+                                                            Realizar visitas técnicas a
+                                                            universidades o centros de
+                                                            investigación para conocer
+                                                            experiencias en Big Data y
+                                                            analítica aplicada.
+RA4: Aplicar métodos          CE4.1:            Identificar Analizar datos educativos
+estadísticos descriptivos y   correctamente variables aplicando                   estadística
+principios   básicos     de   cualitativas y cuantitativas descriptiva para interpretar el
+probabilidad para analizar    en un conjunto de datos rendimiento académico.
+conjuntos de datos reales     real.
+de contextos educativos,      CE4.2: Emplear medidas Aplicar              principios        de
+sociales                  y   de     tendencia     central probabilidad para analizar
+organizacionales,             (media, mediana, moda) fenómenos sociales mediante
+interpretando           los   de forma correcta.            datos encuestados.
+resultados para la toma de    CE4.3:           Interpretar
+decisiones                    medidas de dispersión Evaluar                             datos
+fundamentadas.                (rango,            varianza, organizacionales           usando
+                              desviación estándar).         estadística y probabilidad para
+                              CE4.4: Representar los apoyar decisiones.
+                              datos mediante tablas y
+                              gráficos        estadísticos Presentar               resultados
+                              adecuados.                    estadísticos            mediante
+                              CE4.5:            Presentar visualizaciones e informes
+                              conclusiones claras que técnicos             derivados        de
+                              apoyan la toma de proyectos experimentales de
+                              decisiones basada en análisis de datos.
+                              datos.
+RA5:               Diseñar    CE5.1: Seleccionar tipos Diseñar visualizaciones de
+visualizaciones e informes    de gráficos y formatos de datos            educativos          o
+empleando herramientas        informe adecuados al comunitarios.
+de comunicación digital,      objetivo y audiencia.
+principios de ética y         CE5.2: Aplicar principios Preparar presentaciones de
+estándares de calidad en el   de         diseño          en resultados       para       ferias
+manejo de la información.     visualizaciones             e educativas         o        ferias
+                              informes.                     tecnológicas.
+                              CE5.3:              Integrar
+                              estándares de calidad de Exponer proyectos de análisis
+                              información      (exactitud, de datos en ferias tecnológicas
+                              trazabilidad de fuentes, con enfoque ético.
+                              consistencia, entre otros).
+Nota:
+La flexibilidad del currículo permite a cada docente tomar los contenidos curriculares y
+ajustarlos a las necesidades y características de cada figura profesional, proponer e incluir
+las actividades prácticas que considere necesarias, de acuerdo con los intereses formativos
+para cada año de bachillerato técnico, promoviendo un aprendizaje significativo, sin que este
+reemplace su paso por la Formación Estudiantil en Centros Educativos y de Trabajo.
+

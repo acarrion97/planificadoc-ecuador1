@@ -1,6 +1,5 @@
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
-import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 import { iconosDestrezaHTML } from "./dcd-iconos";
 
 // Mapas ID → nombre legible
@@ -9,9 +8,6 @@ const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
 );
 const TECNICA_LABEL: Record<string, string> = Object.fromEntries(
   TECNICAS_EVALUACION.map(t => [t.id, t.nombre])
-);
-const EJE_LABEL: Record<string, string> = Object.fromEntries(
-  EJES_TRANSVERSALES_PCA.map(e => [e.id, e.nombre])
 );
 
 /**
@@ -38,9 +34,6 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
   const semanasClase  = (formData.semanasTrabajoTotal || 0) - (formData.semanasEvaluacion || 0);
   const totalPeriodos = semanasClase * (formData.cargaHorariaSemanal || 0);
 
-  const ejesTexto = formData.usaEjesTransversales && formData.ejesTransversales?.length > 0
-    ? formData.ejesTransversales.map((e: string) => EJE_LABEL[e] || e).join(", ")
-    : "No aplica";
   const metodoTexto = (formData.metodologiasActivas || []).map((m: string) => METODOLOGIA_LABEL[m] || m).join(", ") || "—";
   const tecnicaTexto = (formData.tecnicasEvaluacion || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
 
@@ -180,7 +173,6 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
   <tr><td style="${SEC}">4. INSERCIONES CURRICULARES</td></tr>
   <tr>
     <td style="${TD}font-size:8px;line-height:1.6;">
-      <b>Ejes transversales:</b> ${ejesTexto}<br>
       <b>Metodologías activas:</b> ${metodoTexto}<br>
       <b>Técnicas de evaluación:</b> ${tecnicaTexto}
     </td>

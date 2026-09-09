@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, uniqueIndex } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -171,6 +171,8 @@ export const docenteAccounts = mysqlTable("docente_accounts", {
   nombre: varchar("nombre", { length: 255 }).notNull(),
   /** scrypt-hashed password (salt:hash format) */
   passwordHash: varchar("passwordHash", { length: 512 }).notNull(),
+  /** Timestamp of the most recent successful login (null if never logged in since tracking started) */
+  lastLoginAt: timestamp("lastLoginAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -301,6 +303,106 @@ export type CurricularAdaptationRow = typeof curricularAdaptations.$inferSelect;
 export type InsertCurricularAdaptation = typeof curricularAdaptations.$inferInsert;
 
 /**
+ * Desagregación/gradación de DCD por grado — respaldo best-effort en la nube,
+ * igual que curricular_adaptations. La fuente de verdad es la selección en la
+ * planificación; la app funciona sin esta tabla si falla. Una fila por
+ * (sessionId, codigoDCD, grado): la UNIQUE habilita la reutilización sin regenerar.
+ */
+export const dcdDesagregaciones = mysqlTable(
+  "dcd_desagregaciones",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    /** Email del docente o deviceId como fallback */
+    sessionId: varchar("sessionId", { length: 320 }).notNull(),
+    /** Código de la DCD oficial del catálogo (nunca se modifica) */
+    codigoDCD: varchar("codigoDCD", { length: 64 }).notNull(),
+    subnivel: int("subnivel").notNull(),
+    /** Grado destino de esta versión graduada (p. ej. 3) */
+    grado: int("grado").notNull(),
+    /** Último grado del subnivel — recibe la versión completa */
+    gradoMaximo: int("gradoMaximo").notNull(),
+    /** Snapshot del texto oficial de la DCD */
+    descripcionDCD: text("descripcionDCD").notNull(),
+    /** Texto oficial del indicador de evaluación asociado */
+    indicadorOriginal: text("indicadorOriginal").notNull(),
+    /** Texto graduado de la DCD para este grado */
+    dcdGraduada: text("dcdGraduada").notNull(),
+    /** Texto graduado del indicador para este grado */
+    indicadorGraduado: text("indicadorGraduado").notNull(),
+    /** Proceso cognitivo esperado para el grado (referencia Marzano) */
+    procesoCognitivo: varchar("procesoCognitivo", { length: 128 }),
+    /** Estado de la fila */
+    estado: mysqlEnum("estado", ["generado", "editado", "aprobado"])
+      .default("generado")
+      .notNull(),
+    /** Número de versión: se incrementa en cada regeneración */
+    version: int("version").default(1).notNull(),
+    /** JSON crudo de la respuesta de la IA */
+    aiResult: text("aiResult"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  (t) => [uniqueIndex("uq_dcd_session_grado").on(t.sessionId, t.codigoDCD, t.grado)]
+);
+
+export type DcdDesagregacionRow = typeof dcdDesagregaciones.$inferSelect;
+export type InsertDcdDesagregacion = typeof dcdDesagregaciones.$inferInsert;
+
+/**
+ * Conecta, Nivela y Crea (CNC) — planes generados con IA para las 5 semanas
+ * de arranque del año escolar (MinEduc). Respaldo best-effort en la nube,
+ * igual que curricularAdaptations; la app funciona sin esta tabla si falla.
+ */
+export const connectaNivelaCrea = mysqlTable("connecta_nivela_crea", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente o deviceId como fallback */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  institucion: varchar("institucion", { length: 255 }),
+  docente: varchar("docente", { length: 255 }),
+  anioLectivo: varchar("anioLectivo", { length: 20 }),
+  grado: varchar("grado", { length: 64 }),
+  paralelo: varchar("paralelo", { length: 20 }),
+  subnivel: varchar("subnivel", { length: 64 }),
+  /** "general" | "bt" */
+  modalidad: mysqlEnum("modalidad", ["general", "bt"]).default("general").notNull(),
+  figuraProfesionalId: varchar("figuraProfesionalId", { length: 64 }),
+  moduloId: varchar("moduloId", { length: 64 }),
+  /** JSON del formulario completo (Semana1/2y3/4y5 + extras BT) */
+  form: text("form"),
+  /** JSON del resultado de la IA (ConectaNivelaCreaAiResult) */
+  aiResult: text("aiResult"),
+  status: mysqlEnum("status", ["draft", "generated"]).default("draft").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ConnectaNivelaCreaRow = typeof connectaNivelaCrea.$inferSelect;
+export type InsertConnectaNivelaCrea = typeof connectaNivelaCrea.$inferInsert;
+
+/**
+ * Evaluaciones Diagnósticas — respaldo best-effort en la nube de las
+ * evaluaciones creadas por el docente. La fuente de verdad es AsyncStorage;
+ * la app funciona sin esta tabla si falla. Mismo patrón que
+ * connectaNivelaCrea: formulario y resultado IA como JSON.
+ */
+export const evaluacionesDiagnosticas = mysqlTable("evaluaciones_diagnosticas", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email del docente o deviceId como fallback */
+  sessionId: varchar("sessionId", { length: 320 }).notNull(),
+  /** Estado de la evaluación local */
+  status: mysqlEnum("status", ["borrador", "publicada", "aplicada", "analizada"]).default("borrador").notNull(),
+  /** JSON de la EvaluacionDiagnostica completa */
+  form: text("form"),
+  /** JSON de preguntas sugeridas por IA (si las hubo) */
+  aiResult: text("aiResult"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type EvaluacionDiagnosticaRow = typeof evaluacionesDiagnosticas.$inferSelect;
+export type InsertEvaluacionDiagnostica = typeof evaluacionesDiagnosticas.$inferInsert;
+
+/**
  * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.
  * Se recuperan en activate.ts para enviar el evento Purchase a Meta CAPI.
  */
@@ -320,3 +422,60 @@ export const paymentAttribution = mysqlTable("payment_attribution", {
   sent:        boolean("sent").notNull().default(false),
   createdAt:   timestamp("created_at").defaultNow(),
 });
+
+// ============================================================
+// CURRÍCULO POR COMPETENCIAS — PLAN PILOTO
+// ============================================================
+
+/**
+ * Planificaciones del módulo Currículo por Competencias.
+ * Almacena tanto EGB/BGU como Inicial/Preparatoria en una tabla unificada.
+ * Los campos clave están indexados para búsquedas frecuentes;
+ * el modelo completo se persiste en `formData` (JSON).
+ */
+export const curriculoCompetenciasPlanificaciones = mysqlTable(
+  "curriculo_competencias_planificaciones",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    sessionId: varchar("session_id", { length: 64 }).notNull(),
+    tipo: mysqlEnum("tipo", ["egb_bgu", "inicial_preparatoria"]).notNull(),
+
+    // ── Campos indexados para consultas frecuentes ──
+    grado: varchar("grado", { length: 32 }),
+    institucion: varchar("institucion", { length: 128 }),
+    docente: varchar("docente", { length: 128 }),
+    paralelo: varchar("paralelo", { length: 16 }),
+
+    // ── EGB/BGU específicos (nullable para Inicial) ──
+    asignatura: varchar("asignatura", { length: 64 }),
+    nivel: mysqlEnum("nivel", ["EGB", "BGU"]),
+    periodoPedagogico: varchar("periodo_pedagogico", { length: 64 }),
+    trimestre: varchar("trimestre", { length: 32 }),
+    dcdCodigo: varchar("dcd_codigo", { length: 32 }),
+    competencias: text("competencias"), // JSON array de códigos
+
+    // ── Estado y metadatos ──
+    status: mysqlEnum("status", ["draft", "generated", "paid"])
+      .default("draft")
+      .notNull(),
+
+    // ── Datos completos (JSON) ──
+    formData: text("form_data").notNull(),
+    aiResult: text("ai_result"),
+    sourceTraceability: text("source_traceability"), // JSON SourceTraceability
+
+    // ── Timestamps ──
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+  },
+  (t) => [
+    // Índices para búsquedas frecuentes
+    // Nota: MySQL 5.7+ crea índices implícitos para UNIQUE; 
+    // aquí solo definimos los que necesitamos explícitamente
+  ]
+);
+
+export type CurriculoCompetenciasRow =
+  typeof curriculoCompetenciasPlanificaciones.$inferSelect;
+export type InsertCurriculoCompetencias =
+  typeof curriculoCompetenciasPlanificaciones.$inferInsert;
