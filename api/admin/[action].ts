@@ -578,57 +578,60 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         await db.execute(drizzleSql.raw(`ALTER TABLE docente_accounts ADD COLUMN IF NOT EXISTS lastLoginAt TIMESTAMP NULL`));
       } catch (_) { /* ya existe */ }
 
-      const account = await db
-        .select({ nombre: docenteAccounts.nombre, lastLoginAt: docenteAccounts.lastLoginAt, createdAt: docenteAccounts.createdAt })
-        .from(docenteAccounts)
-        .where(eq(docenteAccounts.email, normalized))
-        .limit(1);
+      try {
+        const account = await db
+          .select({ nombre: docenteAccounts.nombre, lastLoginAt: docenteAccounts.lastLoginAt, createdAt: docenteAccounts.createdAt })
+          .from(docenteAccounts)
+          .where(eq(docenteAccounts.email, normalized))
+          .limit(1);
 
-      // Documentos con timestamp que consideramos "planificaciones" de este docente
-      const [pcas, adaptaciones, cncs, diagnosticas] = await Promise.all([
-        db.select({ createdAt: pcaDocuments.createdAt }).from(pcaDocuments).where(eq(pcaDocuments.sessionId, normalized)),
-        db.select({ createdAt: curricularAdaptations.createdAt }).from(curricularAdaptations).where(eq(curricularAdaptations.sessionId, normalized)),
-        db.select({ createdAt: connectaNivelaCrea.createdAt }).from(connectaNivelaCrea).where(eq(connectaNivelaCrea.sessionId, normalized)),
-        db.select({ createdAt: evaluacionesDiagnosticas.createdAt }).from(evaluacionesDiagnosticas).where(eq(evaluacionesDiagnosticas.sessionId, normalized)),
-      ]);
+        const [pcas, adaptaciones, cncs, diagnosticas] = await Promise.all([
+          db.select({ createdAt: pcaDocuments.createdAt }).from(pcaDocuments).where(eq(pcaDocuments.sessionId, normalized)).catch(() => []),
+          db.select({ createdAt: curricularAdaptations.createdAt }).from(curricularAdaptations).where(eq(curricularAdaptations.sessionId, normalized)).catch(() => []),
+          db.select({ createdAt: connectaNivelaCrea.createdAt }).from(connectaNivelaCrea).where(eq(connectaNivelaCrea.sessionId, normalized)).catch(() => []),
+          db.select({ createdAt: evaluacionesDiagnosticas.createdAt }).from(evaluacionesDiagnosticas).where(eq(evaluacionesDiagnosticas.sessionId, normalized)).catch(() => []),
+        ]);
 
-      const porTipo = {
-        pca: pcas.length,
-        adaptaciones: adaptaciones.length,
-        conectaNivelaCrea: cncs.length,
-        evaluacionesDiagnosticas: diagnosticas.length,
-      };
+        const porTipo = {
+          pca: pcas.length,
+          adaptaciones: adaptaciones.length,
+          conectaNivelaCrea: cncs.length,
+          evaluacionesDiagnosticas: diagnosticas.length,
+        };
 
-      const allDates = [...pcas, ...adaptaciones, ...cncs, ...diagnosticas].map(r => new Date(r.createdAt).getTime());
-      const now = Date.now();
-      const DAY = 24 * 60 * 60 * 1000;
-      const countSince = (ms: number) => allDates.filter(t => now - t <= ms).length;
+        const allDates = [...pcas, ...adaptaciones, ...cncs, ...diagnosticas].map(r => new Date(r.createdAt).getTime());
+        const now = Date.now();
+        const DAY = 24 * 60 * 60 * 1000;
+        const countSince = (ms: number) => allDates.filter(t => now - t <= ms).length;
 
-      // Ventanas móviles (no calendario): últimas 24h, 7 días, 90 días (trimestre), 365 días (año)
-      const planificaciones = {
-        diarias: countSince(DAY),
-        semanales: countSince(7 * DAY),
-        trimestrales: countSince(90 * DAY),
-        anuales: countSince(365 * DAY),
-        total: allDates.length,
-        porTipo,
-      };
+        const planificaciones = {
+          diarias: countSince(DAY),
+          semanales: countSince(7 * DAY),
+          trimestrales: countSince(90 * DAY),
+          anuales: countSince(365 * DAY),
+          total: allDates.length,
+          porTipo,
+        };
 
-      // Total sincronizado desde el dispositivo (incluye planes que no viajan al backend, ej. PCT local)
-      const stat = await db
-        .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt })
-        .from(planificacionStats)
-        .where(eq(planificacionStats.identifier, normalized))
-        .limit(1);
+        const stat = await db
+          .select({ count: planificacionStats.count, updatedAt: planificacionStats.updatedAt })
+          .from(planificacionStats)
+          .where(eq(planificacionStats.identifier, normalized))
+          .limit(1)
+          .catch(() => []);
 
-      return res.json({
-        email: normalized,
-        nombre: account[0]?.nombre || null,
-        lastLoginAt: account[0]?.lastLoginAt || null,
-        cuentaCreadaEl: account[0]?.createdAt || null,
-        planificaciones,
-        totalDispositivoSincronizado: stat[0]?.count ?? null,
-      });
+        return res.json({
+          email: normalized,
+          nombre: account[0]?.nombre || null,
+          lastLoginAt: account[0]?.lastLoginAt || null,
+          cuentaCreadaEl: account[0]?.createdAt || null,
+          planificaciones,
+          totalDispositivoSincronizado: stat[0]?.count ?? null,
+        });
+      } catch (error: any) {
+        console.error("[Admin] user-metrics error:", error?.message || error);
+        return res.status(500).json({ error: "Error al obtener métricas", detail: error?.message });
+      }
     }
 
     // POST /api/admin/reset-code → elimina todas las activaciones de un código (para cuando el alumno limpia cache)
@@ -1228,20 +1231,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!email) return res.status(400).json({ error: "email requerido" });
       const normalized = (email as string).trim().toLowerCase();
 
-      const activeSubs = await db
+      // Buscar todas las suscripciones que no estén canceladas
+      const subs = await db
         .select()
         .from(subscriptions)
-        .where(and(eq(subscriptions.email, normalized), eq(subscriptions.status, "active")));
+        .where(and(eq(subscriptions.email, normalized), ne(subscriptions.status, "cancelled")));
 
-      if (activeSubs.length === 0) {
-        return res.status(404).json({ error: "No se encontró suscripción activa para este email" });
+      if (subs.length === 0) {
+        return res.status(404).json({ error: "No se encontró suscripción para este email" });
       }
 
+      // Cancelar todas las suscripciones y desactivar cobro recurrente
       await db
         .update(subscriptions)
         .set({ status: "cancelled", isRecurring: false })
-        .where(and(eq(subscriptions.email, normalized), eq(subscriptions.status, "active")));
+        .where(and(eq(subscriptions.email, normalized), ne(subscriptions.status, "cancelled")));
 
+      // Desactivar token de tarjeta
       await db
         .update(cardTokens)
         .set({ isActive: false })
@@ -1250,7 +1256,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.json({
         success: true,
         message: `Usuario ${normalized} desactivado. No se realizarán más cobros.`,
-        subscriptionsCancelled: activeSubs.length,
+        subscriptionsCancelled: subs.length,
       });
     }
 

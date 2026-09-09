@@ -1,7 +1,7 @@
 import { Express, Request, Response } from "express";
 import { getDb } from "./db";
 import { subscriptions, paymentTransactions, cardTokens, codeActivations, docenteAccounts, planificacionStats, pcaDocuments, curricularAdaptations, connectaNivelaCrea, evaluacionesDiagnosticas } from "../drizzle/schema";
-import { eq, desc, sql, and, count } from "drizzle-orm";
+import { eq, desc, sql, and, count, ne } from "drizzle-orm";
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET || "planificadoc-admin-2026";
 
@@ -389,30 +389,30 @@ export function registerAdminRoutes(app: Express) {
 
       const normalizedEmail = email.trim().toLowerCase();
 
-      // Find active subscription
+      // Find all non-cancelled subscriptions
       const subs = await db
         .select()
         .from(subscriptions)
         .where(
           and(
             eq(subscriptions.email, normalizedEmail),
-            eq(subscriptions.status, "active")
+            ne(subscriptions.status, "cancelled")
           )
         );
 
       if (subs.length === 0) {
-        res.status(404).json({ error: "No se encontró suscripción activa para este email" });
+        res.status(404).json({ error: "No se encontró suscripción para este email" });
         return;
       }
 
-      // Cancel all active subscriptions
+      // Cancel all non-cancelled subscriptions
       await db
         .update(subscriptions)
         .set({ status: "cancelled", isRecurring: false })
         .where(
           and(
             eq(subscriptions.email, normalizedEmail),
-            eq(subscriptions.status, "active")
+            ne(subscriptions.status, "cancelled")
           )
         );
 
