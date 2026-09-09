@@ -228,6 +228,16 @@ const BG_ADAPT = "7B2D8B";  // violeta — cabecera adaptaciones
  * Genera filas para la sección de Adaptaciones Curriculares en el PCA Trimestral.
  * Versión simplificada: identificación + destreza adaptada + adaptaciones de acceso.
  */
+// ─── Constantes adaptaciones ──────────────────────────────────────────────────
+const BG_ADAPT_STUDENT = "E8D5F5"; // violeta claro — subcabecera estudiante
+const BG_ADAPT_LEFT = "F9F5FF"; // violeta muy claro — celda izquierda
+const ERCA_COLORS = [
+  { key: "experiencia",       label: "EXPERIENCIA",       dark: "2980B9", light: "EBF5FB" },
+  { key: "reflexion",         label: "REFLEXIÓN",         dark: "8E44AD", light: "F5EEF8" },
+  { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", dark: "27AE60", light: "EAFAF1" },
+  { key: "aplicacion",        label: "APLICACIÓN",        dark: "E67E22", light: "FEF9E7" },
+] as const;
+
 function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): TableRow[] {
   if (!Array.isArray(adaptaciones)) return [];
   const activas = adaptaciones.filter(a => a && a.incluirEnExportacion !== false);
@@ -255,13 +265,13 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
           paragraphs: [textPara(`${codigoLabel} — ${tipoNombre} — ${gradoInfo.nombre}`, true, SZ7, AlignmentType.LEFT)],
           span: 7,
           width: COL_TOTAL,
-          bg: BG_ADAPT,
+          bg: BG_ADAPT_STUDENT,
           vAlign: VerticalAlign.CENTER,
         }),
       ],
     }));
 
-    // Fila de información: NEE | Grado | Destreza adaptada
+    // Fila de identificación: NEE | Grado | Destreza adaptada
     const infoLeft: Paragraph[] = [
       ...labeledPara("Tipo de NEE:", tipoNombre),
       ...labeledPara("Grado de adaptación:", gradoInfo.nombre),
@@ -292,18 +302,6 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
         }));
       });
     }
-    if (adap.adaptacionesAcceso?.length) {
-      infoRight.push(new Paragraph({
-        spacing: { before: 20, after: 8 },
-        children: [run("Adaptaciones de acceso:", true, SZ7)],
-      }));
-      adap.adaptacionesAcceso.forEach(acc => {
-        infoRight.push(new Paragraph({
-          spacing: { after: 6 },
-          children: [run(`• ${acc.descripcion}`, false, SZ6)],
-        }));
-      });
-    }
 
     filas.push(new TableRow({
       children: [
@@ -312,6 +310,321 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
         makeCell({ paragraphs: infoRight, span: 3, width: COL_W[4] + COL_W[5] + COL_W[6] }),
       ],
     }));
+
+    // ── Adaptaciones de acceso (siempre) ──
+    if (adap.adaptacionesAcceso?.length) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 10 },
+                children: [run("ADAPTACIONES DE ACCESO", true, SZ7, "1A3A5C")],
+              }),
+              ...adap.adaptacionesAcceso.map(acc =>
+                new Paragraph({
+                  spacing: { after: 6 },
+                  children: [run(`• ${acc.descripcion}`, false, SZ6)],
+                })
+              ),
+            ],
+            span: 7,
+            width: COL_TOTAL,
+            bg: "EBF5FB",
+          }),
+        ],
+      }));
+    }
+
+    // ── ERCA por unidad (trimestral) ──
+    if (adap.adaptacionesPorDia?.length) {
+      // Si tiene adaptaciones por día/trimestre, usar formato ERCA
+      for (const adaptacionDia of adap.adaptacionesPorDia) {
+        const diaLabel = adaptacionDia.dia || "Trimestre";
+
+        // Cabecera del día/trimestre
+        filas.push(new TableRow({
+          children: [
+            makeCell({
+              paragraphs: [textPara(diaLabel.toUpperCase(), true, SZ7, AlignmentType.CENTER)],
+              span: 7,
+              width: COL_TOTAL,
+              bg: "1A3A5C",
+              vAlign: VerticalAlign.CENTER,
+            }),
+          ],
+        }));
+
+        // Objetivo
+        if (adaptacionDia.objetivo) {
+          filas.push(new TableRow({
+            children: [
+              makeCell({
+                paragraphs: [
+                  new Paragraph({
+                    spacing: { before: 10, after: 6 },
+                    children: [run("Objetivo: ", true, SZ7), run(adaptacionDia.objetivo, false, SZ7)],
+                  }),
+                ],
+                span: 7,
+                width: COL_TOTAL,
+              }),
+            ],
+          }));
+        }
+
+        // Objetivo adaptado
+        if (adaptacionDia.objetivoAdaptado) {
+          filas.push(new TableRow({
+            children: [
+              makeCell({
+                paragraphs: [
+                  new Paragraph({
+                    spacing: { before: 6, after: 6 },
+                    children: [run("Objetivo adaptado: ", true, SZ7, "4A1942"), run(adaptacionDia.objetivoAdaptado, true, SZ7)],
+                  }),
+                ],
+                span: 7,
+                width: COL_TOTAL,
+                bg: BG_ADAPT_LEFT,
+              }),
+            ],
+          }));
+        }
+
+        // Cabecera: ESTRATEGIAS METODOLÓGICAS ACTIVAS
+        filas.push(new TableRow({
+          children: [
+            makeCell({
+              paragraphs: [textPara("ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", true, SZ7, AlignmentType.CENTER)],
+              span: 7,
+              width: COL_TOTAL,
+              bg: "1A3A5C",
+            }),
+          ],
+        }));
+
+        // Subcabecera DUA
+        filas.push(new TableRow({
+          children: [
+            makeCell({
+              paragraphs: [textPara("Estrategias metodológicas diversificadas con base al DUA", false, SZ6, AlignmentType.CENTER)],
+              span: 7,
+              width: COL_TOTAL,
+              bg: "1A3A5C",
+            }),
+          ],
+        }));
+
+        // Fila ERCA: 3 columnas
+        const ercaLeft: Paragraph[] = [
+          new Paragraph({
+            spacing: { before: 10, after: 6 },
+            children: [run("ESTRATEGIAS ERCA ADAPTADAS", true, SZ7, "FFFFFF")],
+          }),
+        ];
+
+        for (const { key, label, dark, light } of ERCA_COLORS) {
+          const val = (adaptacionDia.adaptacionERCA as any)?.[key];
+          if (!val) continue;
+          ercaLeft.push(new Paragraph({
+            spacing: { before: 10, after: 4 },
+            children: [run(label, true, SZ7, dark)],
+          }));
+          ercaLeft.push(new Paragraph({
+            spacing: { after: 6 },
+            children: [run(val, false, SZ6)],
+          }));
+        }
+
+        // Leyenda DUA
+        ercaLeft.push(new Paragraph({
+          spacing: { before: 10, after: 0 },
+          children: [
+            new TextRun({ text: "■ Representación  ", size: SZ6, color: "EC4899", font: FONT }),
+            new TextRun({ text: "■ Acción/Expresión  ", size: SZ6, color: "1E3A5F", font: FONT }),
+            new TextRun({ text: "■ Implicación", size: SZ6, color: "22C55E", font: FONT }),
+          ],
+        }));
+
+        const ercaMiddle: Paragraph[] = [
+          new Paragraph({
+            spacing: { before: 10, after: 6 },
+            children: [run("RECURSOS ADAPTADOS", true, SZ7, "FFFFFF")],
+          }),
+        ];
+        if (adaptacionDia.recursosAdaptados?.length) {
+          adaptacionDia.recursosAdaptados.forEach(r => {
+            ercaMiddle.push(new Paragraph({
+              spacing: { after: 6 },
+              children: [run(`• ${r}`, false, SZ6)],
+            }));
+          });
+        }
+
+        const ercaRight: Paragraph[] = [
+          new Paragraph({
+            spacing: { before: 10, after: 6 },
+            children: [run("EVALUACIÓN ADAPTADA", true, SZ7, "FFFFFF")],
+          }),
+          new Paragraph({
+            spacing: { after: 6 },
+            children: [run(adaptacionDia.evaluacionAdaptada || "—", false, SZ6)],
+          }),
+        ];
+
+        // Tabla 3 columnas ERCA
+        const ERCA_COL_W = [6500, 3949, 3949] as const;
+        filas.push(new TableRow({
+          children: [
+            makeCell({ paragraphs: ercaLeft, span: 1, width: ERCA_COL_W[0], bg: "F8F9FA" }),
+            makeCell({ paragraphs: ercaMiddle, span: 1, width: ERCA_COL_W[1], bg: "F8F9FA" }),
+            makeCell({ paragraphs: ercaRight, span: 1, width: ERCA_COL_W[2], bg: "F8F9FA" }),
+          ],
+        }));
+      }
+    } else {
+      // Sin adaptaciones por día: mostrar secciones genéricas por grado
+      if (adap.adaptacionesProceso?.length) {
+        filas.push(new TableRow({
+          children: [
+            makeCell({
+              paragraphs: [
+                new Paragraph({
+                  spacing: { before: 20, after: 10 },
+                  children: [run("ADAPTACIONES DE PROCESO", true, SZ7, "8E44AD")],
+                }),
+                ...adap.adaptacionesProceso.map(acc =>
+                  new Paragraph({
+                    spacing: { after: 6 },
+                    children: [run(`• ${acc.descripcion}`, false, SZ6)],
+                  })
+                ),
+              ],
+              span: 7,
+              width: COL_TOTAL,
+              bg: "F5EEF8",
+            }),
+          ],
+        }));
+      }
+
+      if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
+        filas.push(new TableRow({
+          children: [
+            makeCell({
+              paragraphs: [
+                new Paragraph({
+                  spacing: { before: 20, after: 10 },
+                  children: [run("ADAPTACIONES DE RESULTADO", true, SZ7, "E67E22")],
+                }),
+                ...adap.adaptacionesResultado.map(acc =>
+                  new Paragraph({
+                    spacing: { after: 6 },
+                    children: [run(`• ${acc.descripcion}`, false, SZ6)],
+                  })
+                ),
+              ],
+              span: 7,
+              width: COL_TOTAL,
+              bg: "FEF9E7",
+            }),
+          ],
+        }));
+      }
+    }
+
+    // Metodologías sugeridas
+    if (adap.metodologiasSugeridas?.length) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 10 },
+                children: [run("METODOLOGÍAS SUGERIDAS", true, SZ7, "003366")],
+              }),
+              ...adap.metodologiasSugeridas.map(m =>
+                new Paragraph({
+                  spacing: { after: 6 },
+                  children: [run(`• ${m}`, false, SZ6)],
+                })
+              ),
+            ],
+            span: 7,
+            width: COL_TOTAL,
+          }),
+        ],
+      }));
+    }
+
+    // Recursos específicos
+    if (adap.recursosEspecificos?.length) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 10 },
+                children: [run("RECURSOS ESPECÍFICOS", true, SZ7, "003366")],
+              }),
+              ...adap.recursosEspecificos.map(r =>
+                new Paragraph({
+                  spacing: { after: 6 },
+                  children: [run(`• ${r}`, false, SZ6)],
+                })
+              ),
+            ],
+            span: 7,
+            width: COL_TOTAL,
+          }),
+        ],
+      }));
+    }
+
+    // Seguimiento
+    if (adap.seguimiento) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 6 },
+                children: [run("SEGUIMIENTO", true, SZ7, "003366")],
+              }),
+              new Paragraph({
+                spacing: { after: 6 },
+                children: [run(adap.seguimiento, false, SZ6)],
+              }),
+            ],
+            span: 7,
+            width: COL_TOTAL,
+          }),
+        ],
+      }));
+    }
+
+    // Observaciones
+    if (adap.observaciones) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 6 },
+                children: [run("OBSERVACIONES", true, SZ7, "003366")],
+              }),
+              new Paragraph({
+                spacing: { after: 6 },
+                children: [run(adap.observaciones, false, SZ6)],
+              }),
+            ],
+            span: 7,
+            width: COL_TOTAL,
+          }),
+        ],
+      }));
+    }
   }
 
   return filas;
