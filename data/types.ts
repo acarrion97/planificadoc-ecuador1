@@ -256,6 +256,8 @@ export interface PcaFormData {
   firmaRevisadoFecha: string;
   firmaAprobadoPor: string;
   firmaAprobadoFecha: string;
+  // Sección Adaptaciones Curriculares
+  adaptacionesCurriculares?: AdaptacionCurricular[];
 }
 
 /** Resultado completo generado por la IA para la PCA */

@@ -16,7 +16,7 @@ import {
   TableLayoutType,
   Footer,
 } from "docx";
-import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
+import { AREAS_INFO, SUBNIVEL_NAMES, TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO, type AdaptacionCurricular, type TipoNEE, type GradoAdaptacion } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { EJES_TRANSVERSALES_PCA } from "../data/pca-ejes-transversales";
 import { iconosDcdRuns } from "./dcd-iconos";
@@ -176,6 +176,101 @@ function sectionHeaderRow(label: string): TableRow {
       }),
     ],
   });
+}
+
+// ─── Adaptaciones Curriculares ────────────────────────────────────────────────
+const BG_ADAPT = "7B2D8B";  // violeta — cabecera adaptaciones
+
+/**
+ * Genera filas para la sección de Adaptaciones Curriculares en el PCA.
+ * Versión simplificada: identificación + destreza adaptada + adaptaciones de acceso.
+ */
+function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] {
+  const activas = adaptaciones.filter(a => a.incluirEnExportacion !== false);
+  if (activas.length === 0) return [];
+
+  const filas: TableRow[] = [];
+
+  // Cabecera de sección
+  filas.push(sectionHeaderRow(
+    `ADAPTACIONES CURRICULARES — ${activas.length} estudiante${activas.length !== 1 ? "s" : ""}`
+  ));
+
+  for (const adap of activas) {
+    const tipoInfo = TIPOS_NEE_INFO[adap.tipoNecesidad as TipoNEE];
+    const tipoNombre = tipoInfo?.nombre ?? adap.tipoNecesidad;
+    const gradoInfo = GRADO_ADAPTACION_INFO[adap.gradoAdaptacion as GradoAdaptacion];
+    const codigoLabel = adap.nombreEstudiante
+      ? `${adap.nombreEstudiante} (${adap.codigoEstudiante})`
+      : adap.codigoEstudiante;
+
+    // Subcabecera del estudiante
+    filas.push(new TableRow({
+      children: [
+        makeCell({
+          paragraphs: [textPara(`${codigoLabel} — ${tipoNombre} — ${gradoInfo.nombre}`, true, SZ8, AlignmentType.LEFT, COLOR_WHITE)],
+          span: 7,
+          width: CONTENT_W,
+          bg: BG_ADAPT,
+          vAlign: VerticalAlign.CENTER,
+        }),
+      ],
+    }));
+
+    // Fila de información: NEE | Grado | Destreza adaptada
+    const infoLeft: Paragraph[] = [
+      ...labeledPara("Tipo de NEE:", tipoNombre),
+      ...labeledPara("Grado de adaptación:", gradoInfo.nombre),
+    ];
+    if (adap.descripcionNecesidad) {
+      infoLeft.push(new Paragraph({
+        spacing: { before: 20, after: 0 },
+        children: [run(adap.descripcionNecesidad, false, SZ7, "555555")],
+      }));
+    }
+
+    const infoMiddle: Paragraph[] = [
+      ...labeledPara("Destreza original:", adap.codigoDestreza),
+      ...(adap.destrezaAdaptada ? labeledPara("Destreza adaptada:", adap.destrezaAdaptada) : []),
+      ...(adap.criterioAdaptado ? labeledPara("Criterio adaptado:", adap.criterioAdaptado) : []),
+    ];
+
+    const infoRight: Paragraph[] = [];
+    if (adap.indicadoresAdaptados?.length) {
+      infoRight.push(new Paragraph({
+        spacing: { before: 35, after: 10 },
+        children: [run("Indicadores adaptados:", true, SZ8, COLOR_PRIMARY_DARK)],
+      }));
+      adap.indicadoresAdaptados.forEach(ind => {
+        infoRight.push(new Paragraph({
+          spacing: { after: 8 },
+          children: [run(`• ${ind}`, false, SZ7)],
+        }));
+      });
+    }
+    if (adap.adaptacionesAcceso?.length) {
+      infoRight.push(new Paragraph({
+        spacing: { before: 35, after: 10 },
+        children: [run("Adaptaciones de acceso:", true, SZ8, COLOR_PRIMARY_DARK)],
+      }));
+      adap.adaptacionesAcceso.forEach(acc => {
+        infoRight.push(new Paragraph({
+          spacing: { after: 8 },
+          children: [run(`• ${acc.descripcion}`, false, SZ7)],
+        }));
+      });
+    }
+
+    filas.push(new TableRow({
+      children: [
+        makeCell({ paragraphs: infoLeft, span: 2, width: COL_W[0] + COL_W[1] }),
+        makeCell({ paragraphs: infoMiddle, span: 2, width: COL_W[2] + COL_W[3] }),
+        makeCell({ paragraphs: infoRight, span: 3, width: COL_W[4] + COL_W[5] + COL_W[6] }),
+      ],
+    }));
+  }
+
+  return filas;
 }
 
 // ─── Función principal ────────────────────────────────────────────────────────
@@ -521,6 +616,9 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
     ],
   });
 
+  // ── Adaptaciones curriculares ──
+  const adaptacionesRows = crearAdaptacionesPca(formData.adaptacionesCurriculares || []);
+
   // ── TABLA PRINCIPAL ──
   const mainTable = new Table({
     width: { size: CONTENT_W, type: WidthType.DXA },
@@ -545,6 +643,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
       ...unidadesRows,
       biblioHeader,
       biblioData,
+      ...adaptacionesRows,
     ],
   });
 
