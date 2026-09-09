@@ -317,7 +317,10 @@ function buildAdminHTML(adminKey: string): string {
           <td>\${formatDate(u.endDate)}</td>
           <td><strong>$\${(u.totalPaid / 100).toFixed(2)}</strong></td>
           <td>\${u.cardBrand ? u.cardBrand + ' ****' + u.lastDigits : '-'}</td>
-          <td>\${u.currentStatus === 'active' ? \`<button class="btn-deactivate" onclick="deactivateUser('\${u.email}')">Desactivar</button>\` : '-'}</td>
+          <td>\${u.currentStatus === 'active'
+            ? \`<button class="btn-deactivate" onclick="deactivateUser('\${u.email}')">Desactivar</button>\`
+            : u.currentStatus === 'cancelled' ? '<span style="color:#94a3b8">Ya desactivado</span>'
+            : '-'}</td>
         </tr>
       \`).join('');
     }
