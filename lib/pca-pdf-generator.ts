@@ -1,4 +1,4 @@
-import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
+import { AREAS_INFO, SUBNIVEL_NAMES, TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO, type AdaptacionCurricular, type TipoNEE, type GradoAdaptacion } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { iconosDestrezaHTML } from "./dcd-iconos";
 
@@ -25,6 +25,143 @@ function toStr(val: any): string {
   if (Array.isArray(val)) return val.map(toStr).join("; ");
   if (typeof val === "object") return Object.values(val).map(toStr).join(" | ");
   return String(val);
+}
+
+function esc(val: any): string {
+  if (val == null) return "";
+  return String(val)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/**
+ * Genera el bloque HTML de Adaptaciones Curriculares para el PCA.
+ */
+function generarHTMLAdaptacionesPCA(adaptaciones: AdaptacionCurricular[]): string {
+  const activas = adaptaciones.filter(a => a.incluirEnExportacion !== false);
+  if (activas.length === 0) return "";
+
+  const ERCA_PDF_CFG = [
+    { key: "experiencia",       label: "EXPERIENCIA",       dark: "#2980B9", light: "#EBF5FB" },
+    { key: "reflexion",         label: "REFLEXIÓN",         dark: "#8E44AD", light: "#F5EEF8" },
+    { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", dark: "#27AE60", light: "#EAFAF1" },
+    { key: "aplicacion",        label: "APLICACIÓN",        dark: "#E67E22", light: "#FEF9E7" },
+  ] as const;
+
+  const filasHTML = activas.map(adap => {
+    const tipoNombre = TIPOS_NEE_INFO[adap.tipoNecesidad as TipoNEE]?.nombre ?? adap.tipoNecesidad;
+    const gradoInfo = GRADO_ADAPTACION_INFO[adap.gradoAdaptacion as GradoAdaptacion];
+    const codigoLabel = adap.nombreEstudiante
+      ? `${esc(adap.nombreEstudiante)} (${esc(adap.codigoEstudiante)})`
+      : `Código: ${esc(adap.codigoEstudiante)}`;
+
+    // Contenido según ERCA o genérico
+    let derechaHTML = "";
+
+    if (adap.adaptacionesPorDia?.length) {
+      // ── Tabla numerada: N° | Orientaciones metodológicas | Indicador de evaluación ──
+      derechaHTML += `<table style="width:100%;border-collapse:collapse;margin-top:6px;">
+        <tr>
+          <td style="background:#DDEFF1;font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;width:4%;">N.°</td>
+          <td style="background:#DDEFF1;font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;width:49%;">Orientaciones metodológicas</td>
+          <td style="background:#DDEFF1;font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;width:47%;">Indicador de evaluación</td>
+        </tr>`;
+
+      adap.adaptacionesPorDia.forEach((dp, idx) => {
+        const num = idx + 1;
+
+        // Construir orientaciones metodológicas (ERCA)
+        let orientacionesHTML = "";
+        if (dp.adaptacionERCA) {
+          if (dp.adaptacionERCA.experiencia) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#2980B9;">EXPERIENCIA:</strong> ${esc(dp.adaptacionERCA.experiencia)}</div>`;
+          }
+          if (dp.adaptacionERCA.reflexion) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#8E44AD;">REFLEXIÓN:</strong> ${esc(dp.adaptacionERCA.reflexion)}</div>`;
+          }
+          if (dp.adaptacionERCA.conceptualizacion) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#27AE60;">CONCEPTUALIZACIÓN:</strong> ${esc(dp.adaptacionERCA.conceptualizacion)}</div>`;
+          }
+          if (dp.adaptacionERCA.aplicacion) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#E67E22;">APLICACIÓN:</strong> ${esc(dp.adaptacionERCA.aplicacion)}</div>`;
+          }
+        }
+        // Orientaciones adicionales
+        if (dp.orientacionesAdaptadas?.length) {
+          dp.orientacionesAdaptadas.forEach(o => {
+            orientacionesHTML += `<div style="font-size:8px;margin-bottom:2px;">• ${esc(o)}</div>`;
+          });
+        }
+
+        // Indicador de evaluación
+        let indicadorHTML = esc(dp.evaluacionAdaptada || "—");
+        if (dp.indicadoresAdaptados?.length) {
+          indicadorHTML = dp.indicadoresAdaptados.map(ind => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(ind)}</div>`).join("");
+        }
+
+        derechaHTML += `
+          <tr>
+            <td style="font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;vertical-align:top;">${num}</td>
+            <td style="font-size:8px;padding:4px;border:1px solid #AAA;vertical-align:top;">${orientacionesHTML || "—"}</td>
+            <td style="font-size:8px;padding:4px;border:1px solid #AAA;vertical-align:top;">${indicadorHTML}</td>
+          </tr>`;
+      });
+
+      derechaHTML += `</table>`;
+    } else {
+      // ── Secciones genéricas ──
+      if (adap.adaptacionesAcceso?.length) {
+        derechaHTML += `<div style="margin-bottom:6px;">
+          <div style="background:#003366;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">ADAPTACIONES DE ACCESO</div>
+          <div style="padding:4px 5px;background:#EBF5FB;">
+            ${adap.adaptacionesAcceso.map(a => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(a.descripcion)}</div>`).join("")}
+          </div>
+        </div>`;
+      }
+      if (adap.adaptacionesProceso?.length) {
+        derechaHTML += `<div style="margin-bottom:6px;">
+          <div style="background:#8E44AD;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">ADAPTACIONES DE PROCESO</div>
+          <div style="padding:4px 5px;background:#F5EEF8;">
+            ${adap.adaptacionesProceso.map(a => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(a.descripcion)}</div>`).join("")}
+          </div>
+        </div>`;
+      }
+      if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
+        derechaHTML += `<div style="margin-bottom:6px;">
+          <div style="background:#E67E22;color:white;font-size:8px;font-weight:bold;padding:2px 5px;">ADAPTACIONES DE RESULTADO</div>
+          <div style="padding:4px 5px;background:#FEF9E7;">
+            ${adap.adaptacionesResultado.map(a => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(a.descripcion)}</div>`).join("")}
+          </div>
+        </div>`;
+      }
+    }
+
+    if (adap.metodologiasSugeridas?.length) {
+      derechaHTML += `<div style="margin-top:6px;"><div style="font-size:8px;font-weight:bold;color:#003366;">METODOLOGÍAS SUGERIDAS:</div>${adap.metodologiasSugeridas.map(m => `<div style="font-size:8px;">• ${esc(m)}</div>`).join("")}</div>`;
+    }
+    if (adap.recursosEspecificos?.length) {
+      derechaHTML += `<div style="margin-top:4px;"><div style="font-size:8px;font-weight:bold;color:#003366;">RECURSOS ESPECÍFICOS:</div>${adap.recursosEspecificos.map(r => `<div style="font-size:8px;">• ${esc(r)}</div>`).join("")}</div>`;
+    }
+
+    return `
+      <tr>
+        <td colspan="2" style="background:#E8D5F5;font-weight:700;font-size:9px;padding:6px;border:1px solid #AAA;">${codigoLabel}<br><span style="font-size:8px;">${esc(tipoNombre)} — ${esc(gradoInfo?.nombre)}</span></td>
+        <td colspan="5" style="vertical-align:top;padding:6px;border:1px solid #AAA;">${derechaHTML}</td>
+      </tr>`;
+  }).join("");
+
+  return `
+    <div style="page-break-before:always;margin-top:10px;">
+      <table style="width:100%;border-collapse:collapse;">
+        <tr>
+          <td colspan="2" style="background:#4A1942;color:white;font-size:10px;font-weight:700;padding:6px 8px;">ADAPTACIONES CURRICULARES — ${activas.length} estudiante${activas.length !== 1 ? "s" : ""}</td>
+          <td colspan="5" style="background:#4A1942;color:white;font-size:10px;font-weight:700;padding:6px 8px;">ADAPTACIONES PEDAGÓGICAS</td>
+        </tr>
+        ${filasHTML}
+      </table>
+    </div>`;
 }
 
 export function generarHTMLPca(formData: any, aiResult: any): string {
@@ -224,6 +361,9 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
 </table>
 
 <div class="gap"></div>
+
+<!-- ═══ 8. ADAPTACIONES CURRICULARES ═══ -->
+${generarHTMLAdaptacionesPCA(formData.adaptacionesCurriculares || [])}
 
 <!-- ═══ FIRMAS ═══ -->
 <table>

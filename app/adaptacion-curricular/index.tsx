@@ -274,7 +274,7 @@ function DestrezaBuscador({
 export default function AdaptacionCurricularScreen() {
   const colors = useColors();
   const router = useRouter();
-  const { semanaId, planId, pctId } = useLocalSearchParams<{ semanaId?: string; planId?: string; pctId?: string }>();
+  const { semanaId, planId, pctId, pcaId } = useLocalSearchParams<{ semanaId?: string; planId?: string; pctId?: string; pcaId?: string }>();
   const scrollRef = useRef<ScrollView>(null);
 
   const { getSemana, updateSemana, getPlanificacion, updatePlanificacion } = usePlanificaciones();
@@ -287,6 +287,15 @@ export default function AdaptacionCurricularScreen() {
   );
   const pctDoc = pctData?.doc;
   const pctFormData = pctDoc?.formData as any;
+
+  // Fetch PCA data if pcaId is provided
+  const pcaNumId = pcaId ? parseInt(pcaId) : 0;
+  const { data: pcaData } = trpc.pca.getPca.useQuery(
+    { id: pcaNumId },
+    { enabled: !!pcaNumId }
+  );
+  const pcaDoc = pcaData?.doc;
+  const pcaFormData = pcaDoc?.formData as any;
 
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<CurricularAdaptationForm>(() => {
@@ -335,6 +344,19 @@ export default function AdaptacionCurricularScreen() {
         subnivel: pctFormData.subnivel ?? 3,
       };
     }
+    if (pcaId && pcaFormData) {
+      return {
+        ...FORM_EMPTY,
+        institucion: pcaFormData.institucion || "",
+        docente: pcaFormData.docente || "",
+        grado: pcaFormData.grado || "",
+        paralelo: pcaFormData.paralelo || "",
+        trimestre: pcaFormData.trimestre || "",
+        periodoPedagogico: "",
+        area: pcaFormData.area || "",
+        subnivel: pcaFormData.subnivel ?? 3,
+      };
+    }
     return FORM_EMPTY;
   });
 
@@ -353,6 +375,22 @@ export default function AdaptacionCurricularScreen() {
       }));
     }
   }, [pctFormData, pctId, step]);
+
+  // Update form when PCA data loads (async fetch)
+  useEffect(() => {
+    if (pcaId && pcaFormData && step === 0) {
+      setForm((f) => ({
+        ...f,
+        institucion: pcaFormData.institucion || f.institucion,
+        docente: pcaFormData.docente || f.docente,
+        grado: pcaFormData.grado || f.grado,
+        paralelo: pcaFormData.paralelo || f.paralelo,
+        trimestre: pcaFormData.trimestre || f.trimestre,
+        area: pcaFormData.area || f.area,
+        subnivel: pcaFormData.subnivel ?? f.subnivel,
+      }));
+    }
+  }, [pcaFormData, pcaId, step]);
 
   const [aiResult, setAiResult] = useState<AdaptacionAiResult | null>(null);
   const [savedId, setSavedId] = useState<string | null>(null);
@@ -392,6 +430,7 @@ export default function AdaptacionCurricularScreen() {
 
   const generateMutation = trpc.adaptaciones.generate.useMutation();
   const addAdaptacionMutation = trpc.pcaTrimestral.addAdaptacion.useMutation();
+  const addAdaptacionPcaMutation = trpc.pca.addAdaptacion.useMutation();
 
   function setField<K extends keyof CurricularAdaptationForm>(key: K, val: CurricularAdaptationForm[K]) {
     setForm((f) => ({ ...f, [key]: val }));
@@ -463,6 +502,9 @@ export default function AdaptacionCurricularScreen() {
       if (pctId) {
         await linkToPct(res.aiResult, id);
       }
+      if (pcaId) {
+        await linkToPca(res.aiResult, id);
+      }
       nextStep();
     } catch (err: any) {
       const msg = err?.data?.message || err?.message || "Error de conexión. Intenta de nuevo.";
@@ -503,6 +545,20 @@ export default function AdaptacionCurricularScreen() {
       setVinculada(true);
     } catch (err: any) {
       console.error("Error linking adaptation to PCT:", err);
+    }
+  }
+
+  async function linkToPca(result: AdaptacionAiResult, adaptacionId: string) {
+    if (!pcaId || !pcaNumId) return;
+    try {
+      const adaptacion = buildAdaptacionCurricular(result, adaptacionId);
+      await addAdaptacionPcaMutation.mutateAsync({
+        pcaId: pcaNumId,
+        adaptacion,
+      });
+      setVinculada(true);
+    } catch (err: any) {
+      console.error("Error linking adaptation to PCA:", err);
     }
   }
 
@@ -618,6 +674,7 @@ export default function AdaptacionCurricularScreen() {
               if (semanaId) router.replace({ pathname: "/ver-semana/[id]", params: { id: semanaId } });
               else if (planId) router.replace({ pathname: "/ver-plan/[id]", params: { id: planId } });
               else if (pctId) router.replace({ pathname: "/pca-trimestral-preview/[id]", params: { id: pctId } });
+              else if (pcaId) router.replace({ pathname: "/pca-preview/[id]", params: { id: pcaId } });
               else router.back();
             }}
             style={{ marginRight: 12 }}
@@ -634,6 +691,9 @@ export default function AdaptacionCurricularScreen() {
             )}
             {pctId && (
               <Text style={{ fontSize: 11, color: colors.muted }}>Vinculando a PCT</Text>
+            )}
+            {pcaId && (
+              <Text style={{ fontSize: 11, color: colors.muted }}>Vinculando a PCA</Text>
             )}
           </View>
         </View>
@@ -994,12 +1054,12 @@ export default function AdaptacionCurricularScreen() {
         {/* ── PASO: Resultado ── */}
         {step === idxResultado && aiResult && (
           <>
-            {vinculada && (semanaId || planId || pctId) && (
+            {vinculada && (semanaId || planId || pctId || pcaId) && (
               <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#16A34A", marginBottom: 12, flexDirection: "row", alignItems: "center", gap: 8 }}>
                 <Text style={{ fontSize: 18 }}>✅</Text>
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontSize: 12, fontWeight: "700", color: "#15803D" }}>
-                    Vinculada a la {pctId ? "PCT" : `planificación ${semanaId ? "semanal" : "diaria"}`}
+                    Vinculada a la {pctId ? "PCT" : pcaId ? "PCA" : `planificación ${semanaId ? "semanal" : "diaria"}`}
                   </Text>
                   <Text style={{ fontSize: 11, color: "#166534" }}>Aparecerá en la sección de adaptaciones al volver.</Text>
                 </View>
@@ -1083,6 +1143,14 @@ export default function AdaptacionCurricularScreen() {
                 style={{ backgroundColor: "#4A1942", borderRadius: 10, paddingVertical: 13, alignItems: "center" }}
               >
                 <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>← Volver a la PCT</Text>
+              </Pressable>
+            )}
+            {pcaId && (
+              <Pressable
+                onPress={() => router.replace({ pathname: "/pca-preview/[id]", params: { id: pcaId! } })}
+                style={{ backgroundColor: "#4A1942", borderRadius: 10, paddingVertical: 13, alignItems: "center" }}
+              >
+                <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>← Volver a la PCA</Text>
               </Pressable>
             )}
             <Pressable

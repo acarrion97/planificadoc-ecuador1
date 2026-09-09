@@ -5,6 +5,7 @@ import {
   createPcaDocument,
   getPcaDocument,
   setPcaAiResult,
+  setPcaFormData,
   setPcaStatusPaidFree,
   getActiveAnnualSubscription,
   setPcaClientTxId,
@@ -399,5 +400,25 @@ export const pcaRouter = router({
       } catch (error: any) {
         return { success: false, error: error.message || "Error al regenerar" };
       }
+    }),
+
+  /**
+   * Agrega una adaptación curricular al formData del PCA.
+   */
+  addAdaptacion: publicProcedure
+    .input(z.object({
+      pcaId: z.number(),
+      adaptacion: z.any(),
+    }))
+    .mutation(async ({ input }) => {
+      const doc = await getPcaDocument(input.pcaId);
+      if (!doc) {
+        return { success: false, error: "Documento no encontrado" };
+      }
+      const formData = doc.formData ? JSON.parse(doc.formData) : {};
+      const adaptaciones = [...(formData.adaptacionesCurriculares || []), input.adaptacion];
+      formData.adaptacionesCurriculares = adaptaciones;
+      await setPcaFormData(input.pcaId, JSON.stringify(formData));
+      return { success: true };
     }),
 });

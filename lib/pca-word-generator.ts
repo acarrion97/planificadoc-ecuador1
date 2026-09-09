@@ -179,8 +179,19 @@ const BG_ADAPT = "7B2D8B";  // violeta — cabecera adaptaciones
 
 /**
  * Genera filas para la sección de Adaptaciones Curriculares en el PCA.
- * Versión simplificada: identificación + destreza adaptada + adaptaciones de acceso.
+ * Versión completa con ERCA por unidad, orientaciones e indicadores adaptados.
  */
+// ─── Constantes adaptaciones ──────────────────────────────────────────────────
+const BG_ADAPT_STUDENT = "E8D5F5"; // violeta claro — subcabecera estudiante
+const BG_ADAPT_LEFT = "F9F5FF"; // violeta muy claro — celda izquierda
+const BG_SECTION = "DDEFF1"; // azul claro — cabeceras de tabla
+const ERCA_COLORS_PCA = [
+  { key: "experiencia",       label: "EXPERIENCIA",       dark: "2980B9", light: "EBF5FB" },
+  { key: "reflexion",         label: "REFLEXIÓN",         dark: "8E44AD", light: "F5EEF8" },
+  { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", dark: "27AE60", light: "EAFAF1" },
+  { key: "aplicacion",        label: "APLICACIÓN",        dark: "E67E22", light: "FEF9E7" },
+] as const;
+
 function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] {
   if (!Array.isArray(adaptaciones)) return [];
   const activas = adaptaciones.filter(a => a && a.incluirEnExportacion !== false);
@@ -214,7 +225,7 @@ function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] 
       ],
     }));
 
-    // Fila de información: NEE | Grado | Destreza adaptada
+    // Fila de identificación: NEE | Grado | Destreza adaptada
     const infoLeft: Paragraph[] = [
       ...labeledPara("Tipo de NEE:", tipoNombre),
       ...labeledPara("Grado de adaptación:", gradoInfo.nombre),
@@ -245,18 +256,6 @@ function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] 
         }));
       });
     }
-    if (adap.adaptacionesAcceso?.length) {
-      infoRight.push(new Paragraph({
-        spacing: { before: 35, after: 10 },
-        children: [run("Adaptaciones de acceso:", true, SZ8, COLOR_PRIMARY_DARK)],
-      }));
-      adap.adaptacionesAcceso.forEach(acc => {
-        infoRight.push(new Paragraph({
-          spacing: { after: 8 },
-          children: [run(`• ${acc.descripcion}`, false, SZ7)],
-        }));
-      });
-    }
 
     filas.push(new TableRow({
       children: [
@@ -265,6 +264,239 @@ function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] 
         makeCell({ paragraphs: infoRight, span: 3, width: COL_W[4] + COL_W[5] + COL_W[6] }),
       ],
     }));
+
+    // ── Adaptaciones de acceso (siempre) ──
+    if (adap.adaptacionesAcceso?.length) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 10 },
+                children: [run("ADAPTACIONES DE ACCESO", true, SZ7, "1A3A5C")],
+              }),
+              ...adap.adaptacionesAcceso.map(acc =>
+                new Paragraph({
+                  spacing: { after: 6 },
+                  children: [run(`• ${acc.descripcion}`, false, SZ7)],
+                })
+              ),
+            ],
+            span: 7,
+            width: CONTENT_W,
+            bg: "EBF5FB",
+          }),
+        ],
+      }));
+    }
+
+    // ── Tabla de orientaciones metodológicas e indicadores (formato oficial) ──
+    if (adap.adaptacionesPorDia?.length) {
+      // Cabecera de la tabla
+      const tablaHeader = new TableRow({
+        tableHeader: true,
+        children: [
+          makeCell({ paragraphs: [textPara("N.°", true, SZ7, AlignmentType.CENTER)], width: 600, bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+          makeCell({ paragraphs: [textPara("Orientaciones metodológicas", true, SZ7, AlignmentType.CENTER)], width: 7000, bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+          makeCell({ paragraphs: [textPara("Indicador de evaluación", true, SZ7, AlignmentType.CENTER)], width: 8158, bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+        ],
+      });
+
+      const tablaRows: TableRow[] = [tablaHeader];
+
+      // Agregar filas numeradas con ERCA como orientaciones
+      adap.adaptacionesPorDia.forEach((dp, idx) => {
+        const num = idx + 1;
+
+        // Construir orientaciones metodológicas (ERCA completo)
+        let orientacionesText = "";
+        if (dp.adaptacionERCA) {
+          const ercaParts: string[] = [];
+          if (dp.adaptacionERCA.experiencia) ercaParts.push(`EXPERIENCIA: ${dp.adaptacionERCA.experiencia}`);
+          if (dp.adaptacionERCA.reflexion) ercaParts.push(`REFLEXIÓN: ${dp.adaptacionERCA.reflexion}`);
+          if (dp.adaptacionERCA.conceptualizacion) ercaParts.push(`CONCEPTUALIZACIÓN: ${dp.adaptacionERCA.conceptualizacion}`);
+          if (dp.adaptacionERCA.aplicacion) ercaParts.push(`APLICACIÓN: ${dp.adaptacionERCA.aplicacion}`);
+          orientacionesText = ercaParts.join("\n");
+        }
+        // Agregar orientaciones adicionales si existen
+        if (dp.orientacionesAdaptadas?.length) {
+          orientacionesText += (orientacionesText ? "\n" : "") + dp.orientacionesAdaptadas.join("\n");
+        }
+
+        // Indicador de evaluación
+        let indicadorText = dp.evaluacionAdaptada || "—";
+        if (dp.indicadoresAdaptados?.length) {
+          indicadorText = dp.indicadoresAdaptados.join("\n");
+        }
+
+        tablaRows.push(new TableRow({
+          children: [
+            makeCell({ paragraphs: [textPara(String(num), true, SZ7, AlignmentType.CENTER)], width: 600, vAlign: VerticalAlign.CENTER }),
+            makeCell({ paragraphs: [textPara(orientacionesText || "—", false, SZ7)], width: 7000 }),
+            makeCell({ paragraphs: [textPara(indicadorText, false, SZ7)], width: 8158 }),
+          ],
+        }));
+      });
+
+      // Tabla anidada
+      const tablaInner = new Table({
+        width: { size: CONTENT_W, type: WidthType.DXA },
+        layout: TableLayoutType.FIXED,
+        columnWidths: [600, 7000, 8158],
+        rows: tablaRows,
+      });
+
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [tablaInner as unknown as Paragraph],
+            span: 7,
+            width: CONTENT_W,
+          }),
+        ],
+      }));
+    } else {
+      // Sin adaptaciones por día: mostrar secciones genéricas por grado
+      if (adap.adaptacionesProceso?.length) {
+        filas.push(new TableRow({
+          children: [
+            makeCell({
+              paragraphs: [
+                new Paragraph({
+                  spacing: { before: 20, after: 10 },
+                  children: [run("ADAPTACIONES DE PROCESO", true, SZ7, "8E44AD")],
+                }),
+                ...adap.adaptacionesProceso.map(acc =>
+                  new Paragraph({
+                    spacing: { after: 6 },
+                    children: [run(`• ${acc.descripcion}`, false, SZ7)],
+                  })
+                ),
+              ],
+              span: 7,
+              width: CONTENT_W,
+              bg: "F5EEF8",
+            }),
+          ],
+        }));
+      }
+
+      if (adap.gradoAdaptacion >= 3 && adap.adaptacionesResultado?.length) {
+        filas.push(new TableRow({
+          children: [
+            makeCell({
+              paragraphs: [
+                new Paragraph({
+                  spacing: { before: 20, after: 10 },
+                  children: [run("ADAPTACIONES DE RESULTADO", true, SZ7, "E67E22")],
+                }),
+                ...adap.adaptacionesResultado.map(acc =>
+                  new Paragraph({
+                    spacing: { after: 6 },
+                    children: [run(`• ${acc.descripcion}`, false, SZ7)],
+                  })
+                ),
+              ],
+              span: 7,
+              width: CONTENT_W,
+              bg: "FEF9E7",
+            }),
+          ],
+        }));
+      }
+    }
+
+    // Metodologías sugeridas
+    if (adap.metodologiasSugeridas?.length) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 10 },
+                children: [run("METODOLOGÍAS SUGERIDAS", true, SZ7, "003366")],
+              }),
+              ...adap.metodologiasSugeridas.map(m =>
+                new Paragraph({
+                  spacing: { after: 6 },
+                  children: [run(`• ${m}`, false, SZ7)],
+                })
+              ),
+            ],
+            span: 7,
+            width: CONTENT_W,
+          }),
+        ],
+      }));
+    }
+
+    // Recursos específicos
+    if (adap.recursosEspecificos?.length) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 10 },
+                children: [run("RECURSOS ESPECÍFICOS", true, SZ7, "003366")],
+              }),
+              ...adap.recursosEspecificos.map(r =>
+                new Paragraph({
+                  spacing: { after: 6 },
+                  children: [run(`• ${r}`, false, SZ7)],
+                })
+              ),
+            ],
+            span: 7,
+            width: CONTENT_W,
+          }),
+        ],
+      }));
+    }
+
+    // Seguimiento
+    if (adap.seguimiento) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 6 },
+                children: [run("SEGUIMIENTO", true, SZ7, "003366")],
+              }),
+              new Paragraph({
+                spacing: { after: 6 },
+                children: [run(adap.seguimiento, false, SZ7)],
+              }),
+            ],
+            span: 7,
+            width: CONTENT_W,
+          }),
+        ],
+      }));
+    }
+
+    // Observaciones
+    if (adap.observaciones) {
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [
+              new Paragraph({
+                spacing: { before: 20, after: 6 },
+                children: [run("OBSERVACIONES", true, SZ7, "003366")],
+              }),
+              new Paragraph({
+                spacing: { after: 6 },
+                children: [run(adap.observaciones, false, SZ7)],
+              }),
+            ],
+            span: 7,
+            width: CONTENT_W,
+          }),
+        ],
+      }));
+    }
   }
 
   return filas;

@@ -111,63 +111,55 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
     let derechaHTML = "";
 
     if (adap.adaptacionesPorDia?.length) {
-      // ── ERCA por unidad/trimestre ──
-      derechaHTML += `<div style="font-size:9px;font-weight:bold;color:#000;margin:4px 0 2px;">ADAPTACIONES POR UNIDAD</div>`;
+      // ── Tabla numerada: N° | Orientaciones metodológicas | Indicador de evaluación ──
+      derechaHTML += `<table style="width:100%;border-collapse:collapse;margin-top:6px;">
+        <tr>
+          <td style="background:#DDEFF1;font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;width:4%;">N.°</td>
+          <td style="background:#DDEFF1;font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;width:49%;">Orientaciones metodológicas</td>
+          <td style="background:#DDEFF1;font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;width:47%;">Indicador de evaluación</td>
+        </tr>`;
 
-      adap.adaptacionesPorDia.forEach((dp) => {
-        let ercaHTML = "";
-        for (const { key, label, dark, light } of ERCA_PDF_CFG) {
-          const val = (dp.adaptacionERCA as any)?.[key];
-          if (!val) continue;
-          ercaHTML += `<div style="background:${dark};color:white;font-size:8px;font-weight:bold;padding:2px 5px;margin-top:3px;">${label}</div>
-            <div style="background:${light};font-size:8px;padding:2px 5px;margin-bottom:2px;color:#111;">${esc(val)}</div>`;
+      adap.adaptacionesPorDia.forEach((dp, idx) => {
+        const num = idx + 1;
+
+        // Construir orientaciones metodológicas (ERCA)
+        let orientacionesHTML = "";
+        if (dp.adaptacionERCA) {
+          if (dp.adaptacionERCA.experiencia) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#2980B9;">EXPERIENCIA:</strong> ${esc(dp.adaptacionERCA.experiencia)}</div>`;
+          }
+          if (dp.adaptacionERCA.reflexion) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#8E44AD;">REFLEXIÓN:</strong> ${esc(dp.adaptacionERCA.reflexion)}</div>`;
+          }
+          if (dp.adaptacionERCA.conceptualizacion) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#27AE60;">CONCEPTUALIZACIÓN:</strong> ${esc(dp.adaptacionERCA.conceptualizacion)}</div>`;
+          }
+          if (dp.adaptacionERCA.aplicacion) {
+            orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#E67E22;">APLICACIÓN:</strong> ${esc(dp.adaptacionERCA.aplicacion)}</div>`;
+          }
         }
-
-        // Orientaciones metodológicas adaptadas
+        // Orientaciones adicionales
         if (dp.orientacionesAdaptadas?.length) {
-          ercaHTML += `<div style="font-size:8px;font-weight:bold;color:#003366;margin-top:6px;">ORIENTACIONES METODOLÓGICAS ADAPTADAS</div>`;
           dp.orientacionesAdaptadas.forEach(o => {
-            ercaHTML += `<div style="font-size:8px;margin-bottom:2px;">• ${esc(o)}</div>`;
+            orientacionesHTML += `<div style="font-size:8px;margin-bottom:2px;">• ${esc(o)}</div>`;
           });
         }
 
-        // Indicadores de evaluación adaptados
+        // Indicador de evaluación
+        let indicadorHTML = esc(dp.evaluacionAdaptada || "—");
         if (dp.indicadoresAdaptados?.length) {
-          ercaHTML += `<div style="font-size:8px;font-weight:bold;color:#003366;margin-top:6px;">INDICADORES DE EVALUACIÓN ADAPTADOS</div>`;
-          dp.indicadoresAdaptados.forEach(ind => {
-            ercaHTML += `<div style="font-size:8px;margin-bottom:2px;">• ${esc(ind)}</div>`;
-          });
+          indicadorHTML = dp.indicadoresAdaptados.map(ind => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(ind)}</div>`).join("");
         }
-
-        const recursosHTML = dp.recursosAdaptados?.length
-          ? dp.recursosAdaptados.map(r => `<div style="font-size:8px;margin-bottom:2px;">• ${esc(r)}</div>`).join("")
-          : `<div style="font-size:8px;color:#888;">—</div>`;
 
         derechaHTML += `
-          <table style="width:100%;border-collapse:collapse;margin-bottom:8px;">
-            <tr><td colspan="3" style="font-size:8px;font-weight:bold;padding:3px 6px;border:1px solid #888;background:#f0f0f0;">${esc(dp.dia?.toUpperCase() || "UNIDAD")}</td></tr>
-            ${dp.objetivo ? `<tr><td colspan="3" style="font-size:8px;padding:2px 6px;border:1px solid #888;"><strong>Objetivo:</strong> <em>${esc(dp.objetivo)}</em></td></tr>` : ""}
-            ${dp.objetivoAdaptado ? `<tr><td colspan="3" style="font-size:8px;padding:2px 6px;border:1px solid #888;background:#F9F5FF;"><strong>Obj. adaptado:</strong> ${esc(dp.objetivoAdaptado)}</td></tr>` : ""}
-            <tr><td colspan="3" style="background:#1A3A5C;color:white;font-size:8px;font-weight:bold;padding:2px 6px;">ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE</td></tr>
-            <tr><td colspan="3" style="background:#1A3A5C;color:#CCCCCC;font-size:7px;font-style:italic;padding:1px 6px;">Estrategias metodológicas diversificadas con base al DUA</td></tr>
-            <tr>
-              <td style="background:#374151;color:white;font-size:8px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">ESTRATEGIAS ERCA ADAPTADAS</td>
-              <td style="background:#374151;color:white;font-size:8px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">RECURSOS ADAPTADOS</td>
-              <td style="background:#374151;color:white;font-size:8px;font-weight:bold;text-align:center;padding:2px 4px;border:1px solid #888;">EVALUACIÓN ADAPTADA</td>
-            </tr>
-            <tr>
-              <td style="vertical-align:top;padding:4px 5px;border:1px solid #888;width:46%;">${ercaHTML}
-                <div style="font-size:7px;margin-top:3px;color:#666;">
-                  <span style="color:#EC4899;">■</span> Representación&nbsp;&nbsp;
-                  <span style="color:#1E3A5F;">■</span> Acción/Expresión&nbsp;&nbsp;
-                  <span style="color:#22C55E;">■</span> Implicación
-                </div>
-              </td>
-              <td style="vertical-align:top;padding:4px 5px;border:1px solid #888;width:27%;">${recursosHTML}</td>
-              <td style="vertical-align:top;padding:4px 5px;border:1px solid #888;width:27%;"><div style="font-size:8px;color:#111;">${esc(dp.evaluacionAdaptada || "—")}</div></td>
-            </tr>
-          </table>`;
+          <tr>
+            <td style="font-size:8px;font-weight:bold;text-align:center;padding:4px;border:1px solid #AAA;vertical-align:top;">${num}</td>
+            <td style="font-size:8px;padding:4px;border:1px solid #AAA;vertical-align:top;">${orientacionesHTML || "—"}</td>
+            <td style="font-size:8px;padding:4px;border:1px solid #AAA;vertical-align:top;">${indicadorHTML}</td>
+          </tr>`;
       });
+
+      derechaHTML += `</table>`;
     } else {
       // ── Secciones genéricas ──
       if (adap.adaptacionesAcceso?.length) {

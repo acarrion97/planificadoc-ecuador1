@@ -336,181 +336,71 @@ function crearAdaptacionesPcaTrimestral(adaptaciones: AdaptacionCurricular[]): T
       }));
     }
 
-    // ── ERCA por unidad (trimestral) ──
+    // ── Tabla de orientaciones metodológicas e indicadores (formato oficial) ──
     if (adap.adaptacionesPorDia?.length) {
-      // Si tiene adaptaciones por día/trimestre, usar formato ERCA
-      for (const adaptacionDia of adap.adaptacionesPorDia) {
-        const diaLabel = adaptacionDia.dia || "Trimestre";
+      // Cabecera de la tabla
+      const tablaHeader = new TableRow({
+        tableHeader: true,
+        children: [
+          makeCell({ paragraphs: [textPara("N.°", true, SZ7, AlignmentType.CENTER)], width: 600, bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+          makeCell({ paragraphs: [textPara("Orientaciones metodológicas", true, SZ7, AlignmentType.CENTER)], width: 7000, bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+          makeCell({ paragraphs: [textPara("Indicador de evaluación", true, SZ7, AlignmentType.CENTER)], width: 6798, bg: BG_SECTION, vAlign: VerticalAlign.CENTER }),
+        ],
+      });
 
-        // Cabecera del día/trimestre
-        filas.push(new TableRow({
-          children: [
-            makeCell({
-              paragraphs: [textPara(diaLabel.toUpperCase(), true, SZ7, AlignmentType.CENTER)],
-              span: 7,
-              width: COL_TOTAL,
-              bg: "1A3A5C",
-              vAlign: VerticalAlign.CENTER,
-            }),
-          ],
-        }));
+      const tablaRows: TableRow[] = [tablaHeader];
 
-        // Objetivo
-        if (adaptacionDia.objetivo) {
-          filas.push(new TableRow({
-            children: [
-              makeCell({
-                paragraphs: [
-                  new Paragraph({
-                    spacing: { before: 10, after: 6 },
-                    children: [run("Objetivo: ", true, SZ7), run(adaptacionDia.objetivo, false, SZ7)],
-                  }),
-                ],
-                span: 7,
-                width: COL_TOTAL,
-              }),
-            ],
-          }));
+      // Agregar filas numeradas con ERCA como orientaciones
+      adap.adaptacionesPorDia.forEach((dp, idx) => {
+        const num = idx + 1;
+
+        // Construir orientaciones metodológicas (ERCA completo)
+        let orientacionesText = "";
+        if (dp.adaptacionERCA) {
+          const ercaParts: string[] = [];
+          if (dp.adaptacionERCA.experiencia) ercaParts.push(`EXPERIENCIA: ${dp.adaptacionERCA.experiencia}`);
+          if (dp.adaptacionERCA.reflexion) ercaParts.push(`REFLEXIÓN: ${dp.adaptacionERCA.reflexion}`);
+          if (dp.adaptacionERCA.conceptualizacion) ercaParts.push(`CONCEPTUALIZACIÓN: ${dp.adaptacionERCA.conceptualizacion}`);
+          if (dp.adaptacionERCA.aplicacion) ercaParts.push(`APLICACIÓN: ${dp.adaptacionERCA.aplicacion}`);
+          orientacionesText = ercaParts.join("\n");
+        }
+        // Agregar orientaciones adicionales si existen
+        if (dp.orientacionesAdaptadas?.length) {
+          orientacionesText += (orientacionesText ? "\n" : "") + dp.orientacionesAdaptadas.join("\n");
         }
 
-        // Objetivo adaptado
-        if (adaptacionDia.objetivoAdaptado) {
-          filas.push(new TableRow({
-            children: [
-              makeCell({
-                paragraphs: [
-                  new Paragraph({
-                    spacing: { before: 6, after: 6 },
-                    children: [run("Objetivo adaptado: ", true, SZ7, "4A1942"), run(adaptacionDia.objetivoAdaptado, true, SZ7)],
-                  }),
-                ],
-                span: 7,
-                width: COL_TOTAL,
-                bg: BG_ADAPT_LEFT,
-              }),
-            ],
-          }));
+        // Indicador de evaluación
+        let indicadorText = dp.evaluacionAdaptada || "—";
+        if (dp.indicadoresAdaptados?.length) {
+          indicadorText = dp.indicadoresAdaptados.join("\n");
         }
 
-        // Cabecera: ESTRATEGIAS METODOLÓGICAS ACTIVAS
-        filas.push(new TableRow({
+        tablaRows.push(new TableRow({
           children: [
-            makeCell({
-              paragraphs: [textPara("ESTRATEGIAS METODOLÓGICAS ACTIVAS PARA LA ENSEÑANZA Y APRENDIZAJE", true, SZ7, AlignmentType.CENTER)],
-              span: 7,
-              width: COL_TOTAL,
-              bg: "1A3A5C",
-            }),
+            makeCell({ paragraphs: [textPara(String(num), true, SZ7, AlignmentType.CENTER)], width: 600, vAlign: VerticalAlign.CENTER }),
+            makeCell({ paragraphs: [textPara(orientacionesText || "—", false, SZ7)], width: 7000 }),
+            makeCell({ paragraphs: [textPara(indicadorText, false, SZ7)], width: 6798 }),
           ],
         }));
+      });
 
-        // Subcabecera DUA
-        filas.push(new TableRow({
-          children: [
-            makeCell({
-              paragraphs: [textPara("Estrategias metodológicas diversificadas con base al DUA", false, SZ6, AlignmentType.CENTER)],
-              span: 7,
-              width: COL_TOTAL,
-              bg: "1A3A5C",
-            }),
-          ],
-        }));
+      // Tabla anidada
+      const tablaInner = new Table({
+        width: { size: COL_TOTAL, type: WidthType.DXA },
+        layout: TableLayoutType.FIXED,
+        columnWidths: [600, 7000, 6798],
+        rows: tablaRows,
+      });
 
-        // Fila ERCA: 3 columnas
-        const ercaLeft: Paragraph[] = [
-          new Paragraph({
-            spacing: { before: 10, after: 6 },
-            children: [run("ESTRATEGIAS ERCA ADAPTADAS", true, SZ7, "FFFFFF")],
+      filas.push(new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [tablaInner as unknown as Paragraph],
+            span: 7,
+            width: COL_TOTAL,
           }),
-        ];
-
-        for (const { key, label, dark, light } of ERCA_COLORS) {
-          const val = (adaptacionDia.adaptacionERCA as any)?.[key];
-          if (!val) continue;
-          ercaLeft.push(new Paragraph({
-            spacing: { before: 10, after: 4 },
-            children: [run(label, true, SZ7, dark)],
-          }));
-          ercaLeft.push(new Paragraph({
-            spacing: { after: 6 },
-            children: [run(val, false, SZ6)],
-          }));
-        }
-
-        // Orientaciones metodológicas adaptadas
-        if (adaptacionDia.orientacionesAdaptadas?.length) {
-          ercaLeft.push(new Paragraph({
-            spacing: { before: 10, after: 6 },
-            children: [run("ORIENTACIONES METODOLÓGICAS ADAPTADAS", true, SZ6, "003366")],
-          }));
-          adaptacionDia.orientacionesAdaptadas.forEach(o => {
-            ercaLeft.push(new Paragraph({
-              spacing: { after: 4 },
-              children: [run(`• ${o}`, false, SZ6)],
-            }));
-          });
-        }
-
-        // Indicadores de evaluación adaptados
-        if (adaptacionDia.indicadoresAdaptados?.length) {
-          ercaLeft.push(new Paragraph({
-            spacing: { before: 10, after: 6 },
-            children: [run("INDICADORES DE EVALUACIÓN ADAPTADOS", true, SZ6, "003366")],
-          }));
-          adaptacionDia.indicadoresAdaptados.forEach(ind => {
-            ercaLeft.push(new Paragraph({
-              spacing: { after: 4 },
-              children: [run(`• ${ind}`, false, SZ6)],
-            }));
-          });
-        }
-
-        // Leyenda DUA
-        ercaLeft.push(new Paragraph({
-          spacing: { before: 10, after: 0 },
-          children: [
-            new TextRun({ text: "■ Representación  ", size: SZ6, color: "EC4899", font: FONT }),
-            new TextRun({ text: "■ Acción/Expresión  ", size: SZ6, color: "1E3A5F", font: FONT }),
-            new TextRun({ text: "■ Implicación", size: SZ6, color: "22C55E", font: FONT }),
-          ],
-        }));
-
-        const ercaMiddle: Paragraph[] = [
-          new Paragraph({
-            spacing: { before: 10, after: 6 },
-            children: [run("RECURSOS ADAPTADOS", true, SZ7, "FFFFFF")],
-          }),
-        ];
-        if (adaptacionDia.recursosAdaptados?.length) {
-          adaptacionDia.recursosAdaptados.forEach(r => {
-            ercaMiddle.push(new Paragraph({
-              spacing: { after: 6 },
-              children: [run(`• ${r}`, false, SZ6)],
-            }));
-          });
-        }
-
-        const ercaRight: Paragraph[] = [
-          new Paragraph({
-            spacing: { before: 10, after: 6 },
-            children: [run("EVALUACIÓN ADAPTADA", true, SZ7, "FFFFFF")],
-          }),
-          new Paragraph({
-            spacing: { after: 6 },
-            children: [run(adaptacionDia.evaluacionAdaptada || "—", false, SZ6)],
-          }),
-        ];
-
-        // Tabla 3 columnas ERCA
-        const ERCA_COL_W = [6500, 3949, 3949] as const;
-        filas.push(new TableRow({
-          children: [
-            makeCell({ paragraphs: ercaLeft, span: 1, width: ERCA_COL_W[0], bg: "F8F9FA" }),
-            makeCell({ paragraphs: ercaMiddle, span: 1, width: ERCA_COL_W[1], bg: "F8F9FA" }),
-            makeCell({ paragraphs: ercaRight, span: 1, width: ERCA_COL_W[2], bg: "F8F9FA" }),
-          ],
-        }));
-      }
+        ],
+      }));
     } else {
       // Sin adaptaciones por día: mostrar secciones genéricas por grado
       if (adap.adaptacionesProceso?.length) {
