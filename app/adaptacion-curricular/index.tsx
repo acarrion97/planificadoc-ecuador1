@@ -1277,11 +1277,13 @@ function ResultadoEditable({
       </ResultSection>
 
       {/* Adaptaciones de acceso */}
-      <ResultSection title="Adaptaciones de Acceso" emoji="🔓" color="#1A3A5C">
-        {aiResult.adaptacionesAcceso.map((a, i) => (
-          <AdaptacionCard key={i} item={a} colors={colors} />
-        ))}
-      </ResultSection>
+      {aiResult.adaptacionesAcceso?.length ? (
+        <ResultSection title="Adaptaciones de Acceso" emoji="🔓" color="#1A3A5C">
+          {aiResult.adaptacionesAcceso.map((a, i) => (
+            <AdaptacionCard key={i} item={a} colors={colors} />
+          ))}
+        </ResultSection>
+      ) : null}
 
       {/* Adaptaciones de proceso */}
       {aiResult.adaptacionesProceso?.length ? (
