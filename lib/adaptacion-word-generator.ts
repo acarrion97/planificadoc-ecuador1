@@ -289,7 +289,7 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
     }));
   }
 
-  // Fases ERCA como tablas anidadas con cabecera coloreada
+  // Fases ERCA como tablas anidadas con cabecera coloreada estilo imagen de referencia
   const faseKeys = ["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const;
   for (const key of faseKeys) {
     const cfg = FASE_ADAPT[key];
@@ -297,18 +297,42 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
     leftContent.push(new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       rows: [
+        // Cabecera coloreada
         new TableRow({ children: [
           cell([new Paragraph({
-            spacing: { before: 20, after: 20 },
-            children: [new TextRun({ text: cfg.label, bold: true, size: 16, color: WHITE })],
+            spacing: { before: 40, after: 40 },
+            children: [new TextRun({ text: cfg.label, bold: true, size: 18, color: WHITE })],
           })], { bg: cfg.dark }),
+        ]}),
+        // Contenido
+        new TableRow({ children: [
+          cell([new Paragraph({
+            spacing: { before: 40, after: 40 },
+            indent: { left: 80 },
+            children: [new TextRun({ text: texto, size: 18, color: DARK })],
+          })], { bg: cfg.light }),
+        ]}),
+      ],
+    }));
+  }
+
+  // Destreza adaptada al final del ERCA
+  if (dia.destrezaAdaptada) {
+    leftContent.push(new Table({
+      width: { size: 100, type: WidthType.PERCENTAGE },
+      rows: [
+        new TableRow({ children: [
+          cell([new Paragraph({
+            spacing: { before: 40, after: 40 },
+            children: [new TextRun({ text: "DESTREZA ADAPTADA", bold: true, size: 18, color: WHITE })],
+          })], { bg: "B91C1C" }),
         ]}),
         new TableRow({ children: [
           cell([new Paragraph({
             spacing: { before: 40, after: 40 },
-            indent: { left: 60 },
-            children: [new TextRun({ text: texto, size: 18, color: DARK })],
-          })], { bg: cfg.light }),
+            indent: { left: 80 },
+            children: [new TextRun({ text: dia.destrezaAdaptada, bold: true, size: 18, color: DARK })],
+          })], { bg: "FEF2F2" }),
         ]}),
       ],
     }));
@@ -632,71 +656,99 @@ export async function generarWordAdaptacion(
   // ── ERCA ────────────────────────────────────────────────────────────────────
   if (ai?.adaptacionesERCA) {
     sections.push(heading(`${ROMAN[++sn]}. ADAPTACIONES POR FASE ERCA`, "0F766E"));
-    sections.push(
-      new Table({
+
+    // Objetivo y obj. adaptado
+    if (dia?.objetivo || ai?.destrezaAdaptada) {
+      const objRows: TableRow[] = [];
+      if (dia?.objetivo) {
+        objRows.push(new TableRow({ children: [
+          cell([new Paragraph({
+            spacing: { before: 40, after: 40 },
+            children: [
+              new TextRun({ text: "Objetivo: ", bold: true, size: 20, color: DARK }),
+              new TextRun({ text: dia.objetivo, size: 19, italics: true, color: DARK }),
+            ],
+          })], { bg: "F8FAFC" }),
+        ]}));
+      }
+      if (dia?.objetivoAdaptado) {
+        objRows.push(new TableRow({ children: [
+          cell([new Paragraph({
+            spacing: { before: 40, after: 40 },
+            children: [
+              new TextRun({ text: "Obj. adaptado: ", bold: true, size: 20, color: DARK }),
+              new TextRun({ text: dia.objetivoAdaptado, bold: true, size: 19, color: DARK }),
+            ],
+          })], { bg: "EFF6FF" }),
+        ]}));
+      }
+      sections.push(new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
-        layout: TableLayoutType.FIXED,
-        columnWidths: [2800, 8200],
+        rows: objRows,
+      }));
+    }
+
+    // Fases ERCA con cabeceras coloreadas estilo imagen de referencia
+    const fasesERCA = [
+      { key: "experiencia", label: "EXPERIENCIA", color: FASE_ADAPT.experiencia.dark, bg: FASE_ADAPT.experiencia.light },
+      { key: "reflexion", label: "REFLEXIÓN", color: FASE_ADAPT.reflexion.dark, bg: FASE_ADAPT.reflexion.light },
+      { key: "conceptualizacion", label: "CONCEPTUALIZACIÓN", color: FASE_ADAPT.conceptualizacion.dark, bg: FASE_ADAPT.conceptualizacion.light },
+      { key: "aplicacion", label: "APLICACIÓN", color: FASE_ADAPT.aplicacion.dark, bg: FASE_ADAPT.aplicacion.light },
+    ];
+
+    for (const fase of fasesERCA) {
+      const items = ai.adaptacionesERCA[fase.key as keyof typeof ai.adaptacionesERCA] || [];
+      sections.push(new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
         rows: [
-          new TableRow({
-            children: [
-              cell(
-                [new Paragraph({
-                  children: [
-                    new TextRun({ text: "Experiencia", bold: true, size: 22, color: DARK }),
-                    new TextRun({ text: "(Activación de saberes previos)", italics: true, size: 20, color: DARK, break: 1 }),
-                  ],
-                })],
-                { bg: "ECFDF5" }
-              ),
-              bulletCell(ai.adaptacionesERCA.experiencia),
-            ],
-          }),
-          new TableRow({
-            children: [
-              cell(
-                [new Paragraph({
-                  children: [
-                    new TextRun({ text: "Reflexión", bold: true, size: 22, color: DARK }),
-                    new TextRun({ text: "(Análisis crítico)", italics: true, size: 20, color: DARK, break: 1 }),
-                  ],
-                })],
-                { bg: "EFF6FF" }
-              ),
-              bulletCell(ai.adaptacionesERCA.reflexion),
-            ],
-          }),
-          new TableRow({
-            children: [
-              cell(
-                [new Paragraph({
-                  children: [
-                    new TextRun({ text: "Conceptualización", bold: true, size: 22, color: DARK }),
-                    new TextRun({ text: "(Construcción del concepto)", italics: true, size: 20, color: DARK, break: 1 }),
-                  ],
-                })],
-                { bg: "FEF9C3" }
-              ),
-              bulletCell(ai.adaptacionesERCA.conceptualizacion),
-            ],
-          }),
-          new TableRow({
-            children: [
-              cell(
-                [new Paragraph({
-                  children: [
-                    new TextRun({ text: "Aplicación", bold: true, size: 22, color: DARK }),
-                    new TextRun({ text: "(Transferencia y práctica)", italics: true, size: 20, color: DARK, break: 1 }),
-                  ],
-                })],
-                { bg: "FFF1F2" }
-              ),
-              bulletCell(ai.adaptacionesERCA.aplicacion),
-            ],
-          }),
+          // Cabecera coloreada
+          new TableRow({ children: [
+            cell([new Paragraph({
+              spacing: { before: 60, after: 60 },
+              alignment: AlignmentType.LEFT,
+              children: [new TextRun({ text: fase.label, bold: true, size: 20, color: WHITE })],
+            })], { bg: fase.color }),
+          ]}),
+          // Contenido
+          new TableRow({ children: [
+            cell(
+              items.length > 0
+                ? items.map(item => new Paragraph({
+                    spacing: { before: 40, after: 40 },
+                    indent: { left: 80 },
+                    children: [new TextRun({ text: item, size: 19, color: DARK })],
+                  }))
+                : [new Paragraph({ children: [new TextRun({ text: "—", size: 19, color: DARK })] })],
+              { bg: fase.bg }
+            ),
+          ]}),
         ],
-      })
-    );
+      }));
+    }
+
+    // Destreza adaptada
+    if (ai?.destrezaAdaptada) {
+      sections.push(new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        rows: [
+          new TableRow({ children: [
+            cell([new Paragraph({
+              spacing: { before: 60, after: 60 },
+              alignment: AlignmentType.LEFT,
+              children: [new TextRun({ text: "DESTREZA ADAPTADA", bold: true, size: 20, color: WHITE })],
+            })], { bg: "B91C1C" }),
+          ]}),
+          new TableRow({ children: [
+            cell([new Paragraph({
+              spacing: { before: 40, after: 40 },
+              indent: { left: 80 },
+              children: [new TextRun({ text: ai.destrezaAdaptada, bold: true, size: 19, color: DARK })],
+            })], { bg: "FEF2F2" }),
+          ]}),
+        ],
+      }));
+    }
+
     sections.push(spacer());
   }
 
