@@ -308,23 +308,105 @@ function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] 
       adap.adaptacionesPorDia.forEach((dp, idx) => {
         const num = idx + 1;
 
-        // Construir orientaciones metodológicas (ERCA completo)
-        let orientacionesText = "";
+        // Construir orientaciones metodológicas (ERCA con cabeceras coloreadas)
+        const orientacionesParagraphs: Paragraph[] = [];
         if (dp.adaptacionERCA) {
-          const ercaParts: string[] = [];
-          if (dp.adaptacionERCA.experiencia) ercaParts.push(`EXPERIENCIA: ${dp.adaptacionERCA.experiencia}`);
-          if (dp.adaptacionERCA.reflexion) ercaParts.push(`REFLEXIÓN: ${dp.adaptacionERCA.reflexion}`);
-          if (dp.adaptacionERCA.conceptualizacion) ercaParts.push(`CONCEPTUALIZACIÓN: ${dp.adaptacionERCA.conceptualizacion}`);
-          if (dp.adaptacionERCA.aplicacion) ercaParts.push(`APLICACIÓN: ${dp.adaptacionERCA.aplicacion}`);
-          orientacionesText = ercaParts.join("\n");
+          const faseKeys = ["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const;
+          for (const key of faseKeys) {
+            const cfg = ERCA_COLORS_PCA.find(c => c.key === key);
+            if (cfg) {
+              const texto = dp.adaptacionERCA[key] || "—";
+              // Tabla anidada para cada fase ERCA
+              const faseTable = new Table({
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                rows: [
+                  // Cabecera coloreada
+                  new TableRow({ children: [
+                    new TableCell({
+                      shading: { fill: cfg.dark, color: cfg.dark, type: ShadingType.CLEAR },
+                      borders: {
+                        top: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                        bottom: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                        left: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                        right: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                      },
+                      children: [new Paragraph({
+                        spacing: { before: 40, after: 40 },
+                        children: [new TextRun({ text: cfg.label, bold: true, size: 18, color: "FFFFFF" })],
+                      })],
+                    }),
+                  ]}),
+                  // Contenido
+                  new TableRow({ children: [
+                    new TableCell({
+                      shading: { fill: cfg.light, color: cfg.light, type: ShadingType.CLEAR },
+                      borders: {
+                        top: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                        bottom: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                        left: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                        right: { style: BorderStyle.SINGLE, size: 4, color: cfg.dark },
+                      },
+                      children: [new Paragraph({
+                        spacing: { before: 40, after: 40 },
+                        indent: { left: 80 },
+                        children: [new TextRun({ text: texto, size: 18, color: "1E293B" })],
+                      })],
+                    }),
+                  ]}),
+                ],
+              });
+              orientacionesParagraphs.push(faseTable as unknown as Paragraph);
+            }
+          }
         }
         // Agregar orientaciones adicionales si existen
         if (dp.legacy?.orientacionesAdaptadas?.length) {
-          orientacionesText += (orientacionesText ? "\n" : "") + dp.legacy.orientacionesAdaptadas.join("\n");
+          dp.legacy.orientacionesAdaptadas.forEach((orient: string) => {
+            orientacionesParagraphs.push(new Paragraph({
+              spacing: { after: 40 },
+              children: [new TextRun({ text: `• ${orient}`, size: 18 })],
+            }));
+          });
         }
-        // Grado 3: destreza adaptada como nota en orientaciones
+        // Destreza adaptada con cabecera roja
         if (dp.destrezaAdaptada) {
-          orientacionesText += (orientacionesText ? "\n" : "") + `[Destreza adaptada: ${dp.destrezaAdaptada}]`;
+          const destrezaTable = new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows: [
+              new TableRow({ children: [
+                new TableCell({
+                  shading: { fill: "B91C1C", color: "B91C1C", type: ShadingType.CLEAR },
+                  borders: {
+                    top: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                    bottom: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                    left: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                    right: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                  },
+                  children: [new Paragraph({
+                    spacing: { before: 40, after: 40 },
+                    children: [new TextRun({ text: "DESTREZA ADAPTADA", bold: true, size: 18, color: "FFFFFF" })],
+                  })],
+                }),
+              ]}),
+              new TableRow({ children: [
+                new TableCell({
+                  shading: { fill: "FEF2F2", color: "FEF2F2", type: ShadingType.CLEAR },
+                  borders: {
+                    top: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                    bottom: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                    left: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                    right: { style: BorderStyle.SINGLE, size: 4, color: "B91C1C" },
+                  },
+                  children: [new Paragraph({
+                    spacing: { before: 40, after: 40 },
+                    indent: { left: 80 },
+                    children: [new TextRun({ text: dp.destrezaAdaptada, bold: true, size: 18, color: "1E293B" })],
+                  })],
+                }),
+              ]}),
+            ],
+          });
+          orientacionesParagraphs.push(destrezaTable as unknown as Paragraph);
         }
 
         // Indicador de evaluación
@@ -340,7 +422,7 @@ function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] 
         tablaRows.push(new TableRow({
           children: [
             makeCell({ paragraphs: [textPara(String(num), true, SZ7, AlignmentType.CENTER)], width: 600, vAlign: VerticalAlign.CENTER }),
-            makeCell({ paragraphs: [textPara(orientacionesText || "—", false, SZ7)], width: 7000 }),
+            makeCell({ paragraphs: orientacionesParagraphs.length > 0 ? orientacionesParagraphs : [textPara("—", false, SZ7)], width: 7000 }),
             makeCell({ paragraphs: [textPara(indicadorText, false, SZ7)], width: 8158 }),
           ],
         }));
