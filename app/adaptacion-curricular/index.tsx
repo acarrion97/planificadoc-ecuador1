@@ -488,48 +488,11 @@ export default function AdaptacionCurricularScreen() {
     // Extraer contexto de unidades del PCT/PCA
     const pctContext = pctId && pctFormData?.unidades?.length
       ? { unidades: pctFormData.unidades.map((u: any) => ({
-          numero: u.numero || 1,
-          titulo: u.titulo || `Unidad ${u.numero || 1}`,
+          numero: u.numero,
+          titulo: u.titulo || `Unidad ${u.numero}`,
           objetivosEspecificos: u.objetivosEspecificos || "",
-          dcds: Array.isArray(u.dcdsSeleccionadas)
-            ? u.dcdsSeleccionadas.map((d: any) => ({
-                codigo: typeof d === "string" ? d : d?.codigo || "",
-                enunciado: typeof d === "string" ? "" : d?.enunciado || "",
-              }))
-            : [],
-          indicadores: (() => {
-            const ev = u.evaluacion || "";
-            if (!ev || typeof ev !== "string") return [];
-            return ev.split(/[.;]\s*/).filter((s: string) => s.trim().length > 10).map((s: string) => ({
-              codigo: "",
-              enunciado: s.trim(),
-            }));
-          })(),
-          destrezas: Array.isArray(u.dcdsSeleccionadas)
-            ? u.dcdsSeleccionadas.map((d: any) => typeof d === "string" ? d : d?.codigo || "")
-            : [],
-          orientacionesMetodologicas: (() => {
-            const raw = u.orientacionesMetodologicas;
-            if (Array.isArray(raw)) {
-              return raw.map((item: any) => {
-                if (typeof item === "string") return item;
-                if (item?.fases) {
-                  const fases = item.fases;
-                  const parts: string[] = [];
-                  if (fases.experiencia) parts.push(`Experiencia: ${Array.isArray(fases.experiencia) ? fases.experiencia.join("; ") : fases.experiencia}`);
-                  if (fases.reflexion) parts.push(`Reflexión: ${Array.isArray(fases.reflexion) ? fases.reflexion.join("; ") : fases.reflexion}`);
-                  if (fases.conceptualizacion) parts.push(`Conceptualización: ${Array.isArray(fases.conceptualizacion) ? fases.conceptualizacion.join("; ") : fases.conceptualizacion}`);
-                  if (fases.aplicacion) parts.push(`Aplicación: ${Array.isArray(fases.aplicacion) ? fases.aplicacion.join("; ") : fases.aplicacion}`);
-                  return parts.join(" | ");
-                }
-                return "";
-              }).filter(Boolean);
-            }
-            if (typeof raw === "string" && raw) return [raw];
-            return [];
-          })(),
-          inserciones: Array.isArray(u.inserciones) ? u.inserciones : [],
-          metodologiaActiva: u.metodologiaActiva || pctFormData?.metodologiasActivas?.[0] || undefined,
+          destrezas: u.destrezas?.map((d: any) => typeof d === "string" ? d : d.codigo || "") || [],
+          orientacionesMetodologicas: u.orientacionesMetodologicas || [],
         }))}
       : undefined;
 
