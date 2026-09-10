@@ -295,7 +295,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
       },
       "evaluacionAdaptada": "string (criterio de evaluación adaptado para la unidad ${u.numero})",
       "indicadoresAdaptados": ["string (indicador adaptado 1)", "string", "string"]${grado >= 2 ? `,
-      "destrezaAdaptada": "string (destreza adaptada para la unidad ${u.numero})`,
+      "destrezaAdaptada": "string (destreza adaptada para la unidad ${u.numero})",
       "criterioAdaptado": "string (criterio adaptado para la unidad ${u.numero})` : ""}
     }`).join(",\n    ") : `{
       "dia": "Clase",
