@@ -48,18 +48,18 @@ const PctContextSchema = z.object({
     dcds: z.array(z.object({
       codigo: z.string(),
       enunciado: z.string(),
-    })),
+    })).default([]),
     indicadores: z.array(z.object({
-      codigo: z.string(),
+      codigo: z.string().default(""),
       enunciado: z.string(),
-    })),
-    destrezas: z.array(z.string()),
-    orientacionesMetodologicas: z.array(z.string()),
+    })).default([]),
+    destrezas: z.array(z.string()).default([]),
+    orientacionesMetodologicas: z.array(z.string()).default([]),
     inserciones: z.array(z.object({
       codigo: z.string().optional(),
       nombre: z.string(),
       icono: z.string().optional(),
-    })).optional(),
+    })).optional().default([]),
     metodologiaActiva: z.string().optional(),
   })),
 });
@@ -200,27 +200,20 @@ Ejemplo: si la Experiencia usa bloques lógicos → "adaptacionERCA.experiencia"
 ${pctContext?.unidades?.length ? `
 ──────────────────────────────────────────────────────────────────
 UNIDADES DEL PCT/PCA (REFERENCIA OBLIGATORIA):
-Los elementos curriculares oficiales son la fuente de verdad.
-La IA NO modifica ni inventa: código de DCD, descripción de DCD,
-código de indicador, descripción de indicador, objetivo curricular.
-La adaptación actúa sobre la mediación pedagógica, actividades,
-recursos, tiempos, comunicación, andamiajes e instrumentos de evaluación.
+Los elementos curriculares oficiales (DCD, indicadores, objetivos) son INMUTABLES.
+La adaptación actúa SOLAMENTE sobre: mediación pedagógica, actividades, recursos,
+tiempos, comunicación, andamiajes e instrumentos de evaluación.
+ERCA es la estructura organizativa de actividades, NO una metodología.
 
 ${pctContext.unidades.map((u) => `UNIDAD ${u.numero} — "${u.titulo}"
   Objetivo: ${u.objetivosEspecificos}
-  DCDs:
-${u.dcds.map(d => `    - ${d.codigo}: ${d.enunciado}`).join("\n")}
-  Indicadores:
-${u.indicadores.map(i => `    - ${i.codigo ? i.codigo + ": " : ""}${i.enunciado}`).join("\n")}
-  Orientaciones metodológicas: ${u.orientacionesMetodologicas.join(" | ")}${u.inserciones?.length ? `\n  Inserciones curriculares: ${u.inserciones.map(i => i.nombre).join(", ")}` : ""}${u.metodologiaActiva ? `\n  Metodología activa seleccionada: ${u.metodologiaActiva}` : ""}`).join("\n\n")}
+  DCDs: ${u.dcds.map(d => `${d.codigo}: ${d.enunciado}`).join("; ")}
+  Indicadores: ${u.indicadores.map(i => `${i.codigo ? i.codigo + ": " : ""}${i.enunciado}`).join("; ")}
+  Orientaciones: ${u.orientacionesMetodologicas.join(" | ")}${u.inserciones?.length ? `\n  Inserciones: ${u.inserciones.map(i => i.nombre).join(", ")}` : ""}${u.metodologiaActiva ? `\n  Metodología: ${u.metodologiaActiva}` : ""}`).join("\n\n")}
 
 REGLA: Para cada unidad genera una entrada en "adaptacionesPorDia" con dia: "Unidad N — Título".
-La adaptación modifica SOLAMENTE la mediación pedagógica, actividades, recursos,
-tiempos, comunicación, andamiajes e instrumentos de evaluación.
-Organiza las actividades en ERCA (Experiencia → Reflexión → Conceptualización → Aplicación).
-ERCA es la estructura organizativa de actividades, NO una metodología.
-Si se indicó metodología activa, úsala como enfoque pedagógico dentro de ERCA.
-Si el grado es 2 o 3, incluye destrezaAdaptada y criterioAdaptado para esa unidad.
+Organiza las actividades en ERCA. Si hay metodología activa, úsala como enfoque pedagógico.
+${grado >= 2 ? "Incluye destrezaAdaptada y criterioAdaptado para cada unidad." : ""}
 ──────────────────────────────────────────────────────────────────
 ` : ""}
 INTEGRIDAD CURRICULAR:

@@ -488,32 +488,32 @@ export default function AdaptacionCurricularScreen() {
     // Extraer contexto de unidades del PCT/PCA
     const pctContext = pctId && pctFormData?.unidades?.length
       ? { unidades: pctFormData.unidades.map((u: any) => ({
-          numero: u.numero,
-          titulo: u.titulo || `Unidad ${u.numero}`,
+          numero: u.numero || 1,
+          titulo: u.titulo || `Unidad ${u.numero || 1}`,
           objetivosEspecificos: u.objetivosEspecificos || "",
-          dcds: (u.dcdsSeleccionadas || []).map((d: any) => ({
-            codigo: typeof d === "string" ? d : d.codigo || "",
-            enunciado: typeof d === "string" ? "" : d.enunciado || "",
-          })),
+          dcds: Array.isArray(u.dcdsSeleccionadas)
+            ? u.dcdsSeleccionadas.map((d: any) => ({
+                codigo: typeof d === "string" ? d : d?.codigo || "",
+                enunciado: typeof d === "string" ? "" : d?.enunciado || "",
+              }))
+            : [],
           indicadores: (() => {
-            // Los indicadores pueden venir del evaluacion de la unidad (string con indicadores separados)
             const ev = u.evaluacion || "";
-            if (!ev) return [];
-            // Separar por oraciones o puntos y comas
+            if (!ev || typeof ev !== "string") return [];
             return ev.split(/[.;]\s*/).filter((s: string) => s.trim().length > 10).map((s: string) => ({
               codigo: "",
               enunciado: s.trim(),
             }));
           })(),
-          destrezas: u.dcdsSeleccionadas?.map((d: any) => typeof d === "string" ? d : d.codigo || "") || [],
+          destrezas: Array.isArray(u.dcdsSeleccionadas)
+            ? u.dcdsSeleccionadas.map((d: any) => typeof d === "string" ? d : d?.codigo || "")
+            : [],
           orientacionesMetodologicas: (() => {
             const raw = u.orientacionesMetodologicas;
             if (Array.isArray(raw)) {
-              // PCT format: array of objects with {dcd, fases} or array of strings
               return raw.map((item: any) => {
                 if (typeof item === "string") return item;
                 if (item?.fases) {
-                  // Object with dcd and fases - extract activities
                   const fases = item.fases;
                   const parts: string[] = [];
                   if (fases.experiencia) parts.push(`Experiencia: ${Array.isArray(fases.experiencia) ? fases.experiencia.join("; ") : fases.experiencia}`);
@@ -525,10 +525,10 @@ export default function AdaptacionCurricularScreen() {
                 return "";
               }).filter(Boolean);
             }
-            if (typeof raw === "string") return [raw];
+            if (typeof raw === "string" && raw) return [raw];
             return [];
           })(),
-          inserciones: u.inserciones || [],
+          inserciones: Array.isArray(u.inserciones) ? u.inserciones : [],
           metodologiaActiva: u.metodologiaActiva || pctFormData?.metodologiasActivas?.[0] || undefined,
         }))}
       : undefined;
