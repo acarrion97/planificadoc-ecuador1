@@ -310,6 +310,18 @@ function crearAdaptacionesPca(adaptaciones: AdaptacionCurricular[]): TableRow[] 
 
         // Construir orientaciones metodológicas (ERCA con cabeceras coloreadas)
         const orientacionesParagraphs: Paragraph[] = [];
+        
+        // Mostrar metodología activa si existe (antes de ERCA)
+        if (dp.metodologiaActiva) {
+          orientacionesParagraphs.push(new Paragraph({
+            spacing: { before: 60, after: 40 },
+            children: [
+              new TextRun({ text: "METODOLOGÍA: ", bold: true, size: 18, color: "1A3A5C" }),
+              new TextRun({ text: dp.metodologiaActiva, size: 18, color: "1A3A5C", italics: true }),
+            ],
+          }));
+        }
+        
         if (dp.adaptacionERCA) {
           const faseKeys = ["experiencia", "reflexion", "conceptualizacion", "aplicacion"] as const;
           for (const key of faseKeys) {

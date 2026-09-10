@@ -491,8 +491,45 @@ export default function AdaptacionCurricularScreen() {
           numero: u.numero,
           titulo: u.titulo || `Unidad ${u.numero}`,
           objetivosEspecificos: u.objetivosEspecificos || "",
-          destrezas: u.destrezas?.map((d: any) => typeof d === "string" ? d : d.codigo || "") || [],
-          orientacionesMetodologicas: u.orientacionesMetodologicas || [],
+          dcds: (u.dcdsSeleccionadas || []).map((d: any) => ({
+            codigo: typeof d === "string" ? d : d.codigo || "",
+            enunciado: typeof d === "string" ? "" : d.enunciado || "",
+          })),
+          indicadores: (() => {
+            // Los indicadores pueden venir del evaluacion de la unidad (string con indicadores separados)
+            const ev = u.evaluacion || "";
+            if (!ev) return [];
+            // Separar por oraciones o puntos y comas
+            return ev.split(/[.;]\s*/).filter((s: string) => s.trim().length > 10).map((s: string) => ({
+              codigo: "",
+              enunciado: s.trim(),
+            }));
+          })(),
+          destrezas: u.dcdsSeleccionadas?.map((d: any) => typeof d === "string" ? d : d.codigo || "") || [],
+          orientacionesMetodologicas: (() => {
+            const raw = u.orientacionesMetodologicas;
+            if (Array.isArray(raw)) {
+              // PCT format: array of objects with {dcd, fases} or array of strings
+              return raw.map((item: any) => {
+                if (typeof item === "string") return item;
+                if (item?.fases) {
+                  // Object with dcd and fases - extract activities
+                  const fases = item.fases;
+                  const parts: string[] = [];
+                  if (fases.experiencia) parts.push(`Experiencia: ${Array.isArray(fases.experiencia) ? fases.experiencia.join("; ") : fases.experiencia}`);
+                  if (fases.reflexion) parts.push(`Reflexión: ${Array.isArray(fases.reflexion) ? fases.reflexion.join("; ") : fases.reflexion}`);
+                  if (fases.conceptualizacion) parts.push(`Conceptualización: ${Array.isArray(fases.conceptualizacion) ? fases.conceptualizacion.join("; ") : fases.conceptualizacion}`);
+                  if (fases.aplicacion) parts.push(`Aplicación: ${Array.isArray(fases.aplicacion) ? fases.aplicacion.join("; ") : fases.aplicacion}`);
+                  return parts.join(" | ");
+                }
+                return "";
+              }).filter(Boolean);
+            }
+            if (typeof raw === "string") return [raw];
+            return [];
+          })(),
+          inserciones: u.inserciones || [],
+          metodologiaActiva: u.metodologiaActiva || pctFormData?.metodologiasActivas?.[0] || undefined,
         }))}
       : undefined;
 

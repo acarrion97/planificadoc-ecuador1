@@ -418,6 +418,17 @@ function crearSeccionAdaptacionesCurriculares(adaptaciones: AdaptacionCurricular
             ],
           }));
         }
+        // Mostrar metodología activa si existe (antes de ERCA)
+        if ((dp as any).metodologiaActiva) {
+          leftContent.push(new Paragraph({
+            spacing: { before: 8, after: 4 },
+            indent: { left: 30 },
+            children: [
+              new TextRun({ text: "METODOLOGÍA: ", bold: true, size: 18, font: "Arial", color: "1A3A5C" }),
+              new TextRun({ text: (dp as any).metodologiaActiva, size: 18, font: "Arial", color: "1A3A5C", italics: true }),
+            ],
+          }));
+        }
         for (const { key, label, dark, light } of ERCA_SEMANAL_CFG) {
           const val = (dp.adaptacionERCA as any)[key];
           if (val) {

@@ -265,7 +265,7 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
   }));
 
   // ── Bloque 3 columnas: ERCA | RECURSOS | EVALUACIÓN ───────────────────────
-  // Columna izquierda: objetivos + fases ERCA + leyenda DUA
+  // Columna izquierda: objetivos + metodología + fases ERCA + leyenda DUA
   const leftContent: (Paragraph | Table)[] = [];
 
   // Objetivo original
@@ -285,6 +285,17 @@ function perDiaTable(dia: AdaptacionDiaPlan, index: number): (Table | Paragraph)
       children: [
         new TextRun({ text: "Obj. adaptado: ", bold: true, size: 19, color: bgColor }),
         new TextRun({ text: dia.objetivoAdaptado, bold: true, size: 18, color: DARK }),
+      ],
+    }));
+  }
+
+  // Metodología activa si existe (antes de ERCA)
+  if (dia.metodologiaActiva) {
+    leftContent.push(new Paragraph({
+      spacing: { before: 60, after: 40 },
+      children: [
+        new TextRun({ text: "METODOLOGÍA: ", bold: true, size: 18, color: "1A3A5C" }),
+        new TextRun({ text: dia.metodologiaActiva, size: 18, color: "1A3A5C", italics: true }),
       ],
     }));
   }

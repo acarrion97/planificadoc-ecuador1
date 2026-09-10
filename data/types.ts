@@ -540,8 +540,15 @@ export interface AdaptacionAiResult {
 }
 
 /**
- * Adaptación curricular por día de la semana, vinculada a la planificación semanal.
- * Incluye adaptación de cada fase ERCA planificada para ese día.
+ * Adaptación curricular por día de la semana o por unidad del PCT/PCA.
+ * Incluye la metodología activa seleccionada y la organización de actividades en ERCA.
+ *
+ * NOTA: ERCA (Experiencia → Reflexión → Conceptualización → Aplicación) es la
+ * estructura organizativa de actividades de esta aplicación. NO representa por sí
+ * misma una metodología oficial de MINEDUC. El documento "Orientaciones metodológicas"
+ * del MINEDUC recomienda metodologías activas flexibles (ABP, casos, proyectos,
+ * colaborativo, retos, etc.) y deja libertad al docente para seleccionar la adecuada.
+ * La metodología activa seleccionada se almacena en `metodologiaActiva`.
  */
 export interface AdaptacionDiaPlan {
   dia: string;
@@ -549,7 +556,16 @@ export interface AdaptacionDiaPlan {
   objetivo?: string;
   /** Objetivo adaptado al perfil NEE del estudiante (generado por IA) */
   objetivoAdaptado?: string;
-  /** Adaptación de cada fase ERCA del día (estrategias metodológicas activas) */
+  /**
+   * Metodología activa seleccionada por el docente (ej: "Aprendizaje Basado en Problemas").
+   * Opcional — si no se indica, solo se muestra ERCA sin etiqueta de metodología.
+   */
+  metodologiaActiva?: string;
+  /**
+   * Organización de actividades en ERCA (estructura pedagógica de la aplicación).
+   * NO es una metodología oficial de MINEDUC — es la estructura utilizada por
+   * Planificadoc para distribuir las actividades adaptadas.
+   */
   adaptacionERCA: {
     experiencia: string;
     reflexion: string;

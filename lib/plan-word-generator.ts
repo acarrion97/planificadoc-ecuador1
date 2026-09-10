@@ -297,6 +297,11 @@ function adaptDiaTable(dp: any): Table {
   if (dp.objetivo) left.push(p(`Objetivo: ${dp.objetivo}`, { size: 6, italic: true, color: "444444" }));
   if (dp.objetivoAdaptado) left.push(p(`Obj. adaptado: ${dp.objetivoAdaptado}`, { size: 7, bold: true }));
 
+  // Mostrar metodología activa si existe (antes de ERCA)
+  if (dp.metodologiaActiva) {
+    left.push(p(`METODOLOGÍA: ${dp.metodologiaActiva}`, { size: 7, bold: true, color: "1A3A5C", italic: true }));
+  }
+
   const ERCA_CFG = [
     { key: "experiencia",       label: "EXPERIENCIA",       dark: "2980B9", light: "EBF5FB" },
     { key: "reflexion",         label: "REFLEXIÓN",         dark: "8E44AD", light: "F5EEF8" },

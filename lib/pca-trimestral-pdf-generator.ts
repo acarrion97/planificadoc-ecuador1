@@ -124,6 +124,10 @@ function generarHTMLAdaptacionesPCT(adaptaciones: AdaptacionCurricular[]): strin
 
         // Construir orientaciones metodológicas (ERCA)
         let orientacionesHTML = "";
+        // Mostrar metodología activa si existe
+        if (dp.metodologiaActiva) {
+          orientacionesHTML += `<div style="margin-bottom:6px;"><strong style="color:#1A3A5C;">METODOLOGÍA:</strong> <em>${esc(dp.metodologiaActiva)}</em></div>`;
+        }
         if (dp.adaptacionERCA) {
           if (dp.adaptacionERCA.experiencia) {
             orientacionesHTML += `<div style="margin-bottom:4px;"><strong style="color:#2980B9;">EXPERIENCIA:</strong> ${esc(dp.adaptacionERCA.experiencia)}</div>`;

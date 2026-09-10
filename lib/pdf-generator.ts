@@ -849,13 +849,17 @@ export function generarHTMLAdaptacionesCurriculares(adaptaciones: AdaptacionCurr
       ] as const;
 
       adap.adaptacionesPorDia.forEach((dp, di) => {
-        // Columna izquierda: objetivo(s) + fases ERCA + leyenda DUA
+        // Columna izquierda: objetivo(s) + metodología + fases ERCA + leyenda DUA
         let left = "";
         if (dp.objetivo) {
           left += `<div style="font-size:9px;margin-bottom:2px;"><strong>Objetivo:</strong> <em style="color:#444;">${esc(dp.objetivo)}</em></div>`;
         }
         if ((dp as any).objetivoAdaptado) {
           left += `<div style="font-size:9px;margin-bottom:3px;"><strong>Obj. adaptado:</strong> <strong>${esc((dp as any).objetivoAdaptado)}</strong></div>`;
+        }
+        // Mostrar metodología activa si existe
+        if ((dp as any).metodologiaActiva) {
+          left += `<div style="font-size:9px;margin-bottom:4px;"><strong style="color:#1A3A5C;">METODOLOGÍA:</strong> <em>${esc((dp as any).metodologiaActiva)}</em></div>`;
         }
         for (const { key, label, dark, light } of ERCA_PDF_CFG) {
           const val = (dp.adaptacionERCA as any)?.[key];

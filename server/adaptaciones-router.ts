@@ -45,8 +45,22 @@ const PctContextSchema = z.object({
     numero: z.number(),
     titulo: z.string(),
     objetivosEspecificos: z.string(),
+    dcds: z.array(z.object({
+      codigo: z.string(),
+      enunciado: z.string(),
+    })),
+    indicadores: z.array(z.object({
+      codigo: z.string(),
+      enunciado: z.string(),
+    })),
     destrezas: z.array(z.string()),
     orientacionesMetodologicas: z.array(z.string()),
+    inserciones: z.array(z.object({
+      codigo: z.string().optional(),
+      nombre: z.string(),
+      icono: z.string().optional(),
+    })).optional(),
+    metodologiaActiva: z.string().optional(),
   })),
 });
 
@@ -186,18 +200,36 @@ Ejemplo: si la Experiencia usa bloques lógicos → "adaptacionERCA.experiencia"
 ${pctContext?.unidades?.length ? `
 ──────────────────────────────────────────────────────────────────
 UNIDADES DEL PCT/PCA (REFERENCIA OBLIGATORIA):
-Las adaptaciones curriculares DEBEN derivarse de las unidades reales del plan curricular.
-Para cada unidad, adapta las actividades ERCA y el contenido al perfil NEE del estudiante.
+Los elementos curriculares oficiales son la fuente de verdad.
+La IA NO modifica ni inventa: código de DCD, descripción de DCD,
+código de indicador, descripción de indicador, objetivo curricular.
+La adaptación actúa sobre la mediación pedagógica, actividades,
+recursos, tiempos, comunicación, andamiajes e instrumentos de evaluación.
 
 ${pctContext.unidades.map((u) => `UNIDAD ${u.numero} — "${u.titulo}"
-  Objetivos: ${u.objetivosEspecificos}
-  Destrezas: ${u.destrezas.join(", ")}
-  Orientaciones: ${u.orientacionesMetodologicas.slice(0, 2).join(" | ")}`).join("\n\n")}
+  Objetivo: ${u.objetivosEspecificos}
+  DCDs:
+${u.dcds.map(d => `    - ${d.codigo}: ${d.enunciado}`).join("\n")}
+  Indicadores:
+${u.indicadores.map(i => `    - ${i.codigo ? i.codigo + ": " : ""}${i.enunciado}`).join("\n")}
+  Orientaciones metodológicas: ${u.orientacionesMetodologicas.join(" | ")}${u.inserciones?.length ? `\n  Inserciones curriculares: ${u.inserciones.map(i => i.nombre).join(", ")}` : ""}${u.metodologiaActiva ? `\n  Metodología activa seleccionada: ${u.metodologiaActiva}` : ""}`).join("\n\n")}
 
 REGLA: Para cada unidad genera una entrada en "adaptacionesPorDia" con dia: "Unidad N — Título".
-Adapta las 4 fases ERCA y, si el grado es 2 o 3, incluye destrezaAdaptada y criterioAdaptado para esa unidad.
+La adaptación modifica SOLAMENTE la mediación pedagógica, actividades, recursos,
+tiempos, comunicación, andamiajes e instrumentos de evaluación.
+Organiza las actividades en ERCA (Experiencia → Reflexión → Conceptualización → Aplicación).
+ERCA es la estructura organizativa de actividades, NO una metodología.
+Si se indicó metodología activa, úsala como enfoque pedagógico dentro de ERCA.
+Si el grado es 2 o 3, incluye destrezaAdaptada y criterioAdaptado para esa unidad.
 ──────────────────────────────────────────────────────────────────
 ` : ""}
+INTEGRIDAD CURRICULAR:
+- Los elementos curriculares fuente (DCD, indicadores, objetivos, inserciones) son INMUTABLE en esta generación.
+- La IA NO modifica ni inventa: código de DCD, descripción de DCD, código de indicador, descripción de indicador.
+- La adaptación modifica SOLAMENTE: mediación pedagógica, actividades, recursos, tiempos, comunicación, andamiajes e instrumentos de evaluación.
+- ERCA es la estructura organizativa de actividades de esta aplicación, NO una metodología oficial.
+- Si se indicó una metodología activa, úsala como enfoque pedagógico dentro de ERCA.
+
 INSTRUCCIONES IMPORTANTES:
 - NO uses lenguaje médico ni diagnósticos clínicos. Usa lenguaje pedagógico y educativo.
 - Las fortalezas, desafíos y apoyos deben describirse en términos de aprendizaje y participación.
@@ -207,6 +239,7 @@ INSTRUCCIONES IMPORTANTES:
 - Si el grado es 3: incluir todos los campos. IMPORTANTE: Solo asignar Grado 3 si hay desfase curricular significativo sustentado en evaluación psicopedagográfica. TDAH sin comorbilidad cognitiva generalmente se resuelve con Grado 1 y 2.
 - Generar entradas en adaptacionesPorDia: ${semanaContext?.dias?.length ? `una por cada día seleccionado` : pctContext?.unidades?.length ? `una por cada unidad del PCT` : "una entrada para la clase"}.
 - Cada entrada de adaptacionesPorDia debe tener adaptacionERCA con las 4 fases, integrando de forma natural (sin etiquetas) las condiciones de acceso, ajustes metodológicos y recursos.
+- Si la unidad indica metodologiaActiva, incluirla en cada entrada de adaptacionesPorDia.
 - ${grado >= 2 ? "Incluir destrezaAdaptada y criterioAdaptado por unidad/día." : "No incluir destrezaAdaptada ni criterioAdaptado."}
 - evaluacionAdaptada: criterio de evaluación adaptado para esa unidad/día.
 - indicadoresAdaptados: array de indicadores adaptados.
@@ -259,7 +292,8 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
     }`).join(",\n    ") : pctContext?.unidades?.length ? pctContext.unidades.map((u: any) => `{
       "dia": "Unidad ${u.numero} — ${u.titulo}",
       "objetivo": "${u.objetivosEspecificos}",
-      "objetivoAdaptado": "string (reformulación alcanzable y medible)",
+      "objetivoAdaptado": "string (reformulación alcanzable y medible)",${u.metodologiaActiva ? `
+      "metodologiaActiva": "${u.metodologiaActiva}",` : ""}
       "adaptacionERCA": {
         "experiencia": "string (adaptar Experiencia de la unidad ${u.numero} — integrar condiciones de acceso y recursos de forma natural)",
         "reflexion": "string (adaptar Reflexión de la unidad ${u.numero})",
@@ -268,7 +302,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
       },
       "evaluacionAdaptada": "string (criterio de evaluación adaptado para la unidad ${u.numero})",
       "indicadoresAdaptados": ["string (indicador adaptado 1)", "string", "string"]${grado >= 2 ? `,
-      "destrezaAdaptada": "string (destreza adaptada para la unidad ${u.numero})",
+      "destrezaAdaptada": "string (destreza adaptada para la unidad ${u.numero})`,
       "criterioAdaptado": "string (criterio adaptado para la unidad ${u.numero})` : ""}
     }`).join(",\n    ") : `{
       "dia": "Clase",
