@@ -430,15 +430,15 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
     // ── Contenido aplicado por semana ──
-    const inicio = semData?.inicio
+    const inicio = (semData?.inicio && semData.inicio.trim())
       || (semana === 1
         ? `Situación de aprendizaje: ${objetivo || destrezaDesc}\nDestreza: ${destrezaDesc}\nIndicador: ${indTexto || "—"}`
         : `Repaso de la semana anterior y profundización en: ${destrezaDesc}`);
 
-    const desarrollo = semData?.desarrollo
+    const desarrollo = (semData?.desarrollo && semData.desarrollo.trim())
       || `Actividades prácticas orientadas a la comprensión de: ${destrezaDesc}. Los estudiantes desarrollarán ejercicios aplicando ${indTexto ? "el indicador: " + indTexto.substring(0, 150) : "las destrezas trabajadas"}.`;
 
-    const cierre = semData?.cierre
+    const cierre = (semData?.cierre && semData.cierre.trim())
       || (semana === numSemanas
         ? `Evaluación de la unidad: ${critEval || destrezaDesc}. Retroalimentación grupal y socialización de aprendizajes.`
         : `Reflexión sobre lo aprendido. Socialización de trabajos realizados y revisión de: ${indTexto ? indTexto.substring(0, 100) : "la destreza"}.`);
