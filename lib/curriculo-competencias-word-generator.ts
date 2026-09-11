@@ -50,6 +50,23 @@ const ERCA_COLORS: Record<string, string> = {
   Aplicación: "E67E22",
 };
 
+/** Crea un párrafo con etiqueta de color para fases ERCA */
+function coloredLabel(label: string, color: string): Paragraph {
+  return new Paragraph({
+    spacing: { before: 80, after: 40 },
+    children: [
+      new TextRun({
+        text: label,
+        bold: true,
+        size: 14,
+        color: WHITE,
+        font: "Arial",
+        shading: { fill: color, type: ShadingType.CLEAR },
+      }),
+    ],
+  });
+}
+
 // ── Dimensiones A4 landscape ──
 const PW = 16838;
 const MAR = 560;
@@ -446,9 +463,12 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     // Columna izquierda: contenido aplicado
     const izqContent = [
       p(`Semana ${semana}`, { bold: true, size: 9 }),
-      p(`Inicio: `, { bold: true, size: 7 }), p(inicio, { size: 7 }),
-      p(`Desarrollo: `, { bold: true, size: 7 }), p(desarrollo, { size: 7 }),
-      p(`Cierre: `, { bold: true, size: 7 }), p(cierre, { size: 7 }),
+      coloredLabel("Sugerencias para el inicio:", ERCA_COLORS.INICIO),
+      p(inicio, { size: 7 }),
+      coloredLabel("Sugerencias para el desarrollo:", ERCA_COLORS.DESARROLLO),
+      p(desarrollo, { size: 7 }),
+      coloredLabel("Sugerencias para el cierre:", ERCA_COLORS.CIERRE),
+      p(cierre, { size: 7 }),
     ];
 
     // Columna central: recursos
