@@ -67,6 +67,101 @@ function coloredLabel(label: string, color: string): Paragraph {
   });
 }
 
+/** Genera contenido progresivo para inicio/desarrollo/cierre por semana */
+function generarContenidoProgresivo(
+  semana: number,
+  numSemanas: number,
+  destrezaDesc: string,
+  indTexto: string,
+  objetivo: string,
+  critEval: string,
+): { inicio: string; desarrollo: string; cierre: string } {
+  // Palabras clave para variar el contenido
+  const verbosInicio = [
+    "Recuperar saberes previos sobre",
+    "Activar conocimientos previos relacionados con",
+    "Explorar comprensión inicial de",
+    "Indagar sobre el entendimiento de",
+    "Conectar experiencias previas con",
+    "Revisar conceptos fundamentales de",
+    "Presentar de manera inicial",
+    "Introducir de forma exploratoria",
+  ];
+
+  const verbosDesarrollo = [
+    "Profundizar en la comprensión de",
+    "Analizar detalladamente",
+    "Aplicar procedimientos para",
+    "Desarrollar habilidades en",
+    "Ejercitar la práctica de",
+    "Consolidar el aprendizaje de",
+    "Implementar estrategias para",
+    "Fortalecer competencias en",
+  ];
+
+  const verbosCierre = [
+    "Sintetizar los aprendizajes logrados sobre",
+    "Evaluar la comprensión alcanzada en",
+    "Socializar los resultados de",
+    "Reflexionar sobre el proceso de aprendizaje en",
+    "Demostrar la adquisición de competencias en",
+    "Consolidar mediante evaluación formativa",
+    "Presentar evidencias del logro en",
+    "Cerrar el ciclo de aprendizaje sobre",
+  ];
+
+  // Seleccionar verbos basados en el número de semana (ciclico)
+  const idxInicio = (semana - 1) % verbosInicio.length;
+  const idxDesarrollo = (semana - 1) % verbosDesarrollo.length;
+  const idxCierre = (semana - 1) % verbosCierre.length;
+
+  // Generar texto del indicador sin código
+  const indLimpio = indTexto || destrezaDesc;
+
+  // Primer semana: introductorio
+  if (semana === 1) {
+    return {
+      inicio: `Presentar la situación de aprendizaje: ${objetivo || destrezaDesc}. Destreza: ${destrezaDesc}. Indicador: ${indLimpio}`,
+      desarrollo: `Actividades exploratorias para comprender ${destrezaDesc}. Los estudiantes iniciarán ejercicios guiados aplicando ${indLimpio ? "el indicador: " + indLimpio.substring(0, 120) : "las destrezas"}.`,
+      cierre: `Primera reflexión sobre lo aprendido. Socialización de impresiones iniciales y revisión de: ${indLimpio ? indLimpio.substring(0, 80) : "la destreza"}.`,
+    };
+  }
+
+  // Última semana: evaluación final
+  if (semana === numSemanas) {
+    return {
+      inicio: `${verbosInicio[idxInicio]} ${destrezaDesc}. Revisar avances y preparar la evaluación final.`,
+      desarrollo: `Evaluación integradora de la unidad: ${critEval || destrezaDesc}. Los estudiantes resolverán situaciones aplicando ${indLimpio ? "el indicador: " + indLimpio.substring(0, 120) : "todas las destrezas trabajadas"}.`,
+      cierre: `Evaluación de la unidad: ${critEval || destrezaDesc}. Retroalimentación grupal, autoevaluación y socialización de aprendizajes. Reflexión final: ¿Cómo aplicaré lo aprendido en situaciones cotidianas?`,
+    };
+  }
+
+  // Semanas intermedias: progresión gradual
+  const progreso = semana / numSemanas;
+  let nivelActividad: string;
+  let tipoEjercicio: string;
+
+  if (progreso <= 0.25) {
+    nivelActividad = "ejercicios guiados y practicas iniciales";
+    tipoEjercicio = "actividades de reconocimiento y aplicación básica";
+  } else if (progreso <= 0.5) {
+    nivelActividad = "ejercicios de aplicación con orientación";
+    tipoEjercicio = "problemas contextualizados de dificultad moderada";
+  } else if (progreso <= 0.75) {
+    nivelActividad = "ejercicios de transferencia y análisis";
+    tipoEjercicio = "situaciones complejas que requieren razonamiento";
+  } else {
+    nivelActividad = "ejercicios de síntesis y evaluación";
+    tipoEjercicio = "problemas integradores de mayor complejidad";
+  }
+
+  return {
+    inicio: `${verbosInicio[idxInicio]} ${destrezaDesc}. ${semana === 2 ? "Profundizar en los conceptos presentados." : "Revisar avances de la semana anterior y conectar con nuevos contenidos."}`,
+    desarrollo: `${verbosDesarrollo[idxDesarrollo]} ${destrezaDesc}. Los estudiantes realizarán ${nivelActividad} aplicando ${indLimpio ? "el indicador: " + indLimpio.substring(0, 120) : "las destrezas trabajadas"}.`,
+    cierre: `${verbosCierre[idxCierre]} ${destrezaDesc}. Socialización de trabajos realizados y revisión de: ${indLimpio ? indLimpio.substring(0, 80) : "la destreza"}. Reflexión: ¿Qué aprendí hoy? ¿Cómo lo aplicaré?`,
+  };
+}
+
 // ── Dimensiones A4 landscape ──
 const PW = 16838;
 const MAR = 560;
@@ -447,18 +542,18 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
     // ── Contenido aplicado por semana ──
-    const inicio = (semData?.inicio && semData.inicio.trim())
-      || (semana === 1
-        ? `Situación de aprendizaje: ${objetivo || destrezaDesc}\nDestreza: ${destrezaDesc}\nIndicador: ${indTexto || "—"}`
-        : `Repaso de la semana anterior y profundización en: ${destrezaDesc}`);
+    const contenidoGenerado = generarContenidoProgresivo(
+      semana,
+      numSemanas,
+      destrezaDesc,
+      indTexto,
+      objetivo,
+      critEval,
+    );
 
-    const desarrollo = (semData?.desarrollo && semData.desarrollo.trim())
-      || `Actividades prácticas orientadas a la comprensión de: ${destrezaDesc}. Los estudiantes desarrollarán ejercicios aplicando ${indTexto ? "el indicador: " + indTexto.substring(0, 150) : "las destrezas trabajadas"}.`;
-
-    const cierre = (semData?.cierre && semData.cierre.trim())
-      || (semana === numSemanas
-        ? `Evaluación de la unidad: ${critEval || destrezaDesc}. Retroalimentación grupal y socialización de aprendizajes.`
-        : `Reflexión sobre lo aprendido. Socialización de trabajos realizados y revisión de: ${indTexto ? indTexto.substring(0, 100) : "la destreza"}.`);
+    const inicio = (semData?.inicio && semData.inicio.trim()) || contenidoGenerado.inicio;
+    const desarrollo = (semData?.desarrollo && semData.desarrollo.trim()) || contenidoGenerado.desarrollo;
+    const cierre = (semData?.cierre && semData.cierre.trim()) || contenidoGenerado.cierre;
 
     // Columna izquierda: contenido aplicado
     const izqContent = [
