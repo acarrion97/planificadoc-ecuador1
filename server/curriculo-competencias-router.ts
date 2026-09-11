@@ -229,6 +229,41 @@ function ensureTable(db: Awaited<ReturnType<typeof getDb>>): asserts db is NonNu
   if (!db) throw new Error("Base de datos no disponible");
 }
 
+async function ensureCurriculoCompetenciasTable(): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  try {
+    await (db as any).execute(`
+      CREATE TABLE IF NOT EXISTS \`curriculo_competencias_planificaciones\` (
+        \`id\` int NOT NULL AUTO_INCREMENT,
+        \`session_id\` varchar(64) NOT NULL,
+        \`tipo\` enum('egb_bgu','inicial_preparatoria') NOT NULL,
+        \`grado\` varchar(32),
+        \`institucion\` varchar(128),
+        \`docente\` varchar(128),
+        \`paralelo\` varchar(16),
+        \`asignatura\` varchar(64),
+        \`nivel\` enum('EGB','BGU'),
+        \`periodo_pedagogico\` varchar(64),
+        \`trimestre\` varchar(32),
+        \`dcd_codigo\` varchar(32),
+        \`competencias\` text,
+        \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
+        \`form_data\` text NOT NULL,
+        \`ai_result\` text,
+        \`source_traceability\` text,
+        \`created_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        \`updated_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (\`id\`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+  } catch (err: any) {
+    if (!err?.message?.includes("already exists")) {
+      console.warn("[DB] ensureCurriculoCompetenciasTable warning:", err?.message);
+    }
+  }
+}
+
 // ============================================================
 // ROUTER
 // ============================================================
@@ -238,6 +273,7 @@ export const curriculoCompetenciasRouter = router({
   createEGBBGU: publicProcedure
     .input(PlanificacionEGBBGUInput)
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -277,6 +313,7 @@ export const curriculoCompetenciasRouter = router({
   createInicial: publicProcedure
     .input(PlanificacionInicialInput)
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -388,6 +425,7 @@ export const curriculoCompetenciasRouter = router({
   updateEGBBGU: publicProcedure
     .input(PlanificacionEGBBGUInput.extend({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -424,6 +462,7 @@ export const curriculoCompetenciasRouter = router({
   updateInicial: publicProcedure
     .input(PlanificacionInicialInput.extend({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -458,6 +497,7 @@ export const curriculoCompetenciasRouter = router({
       })
     )
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -475,6 +515,7 @@ export const curriculoCompetenciasRouter = router({
   delete: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -485,5 +526,174 @@ export const curriculoCompetenciasRouter = router({
         );
 
       return { success: true };
+    }),
+
+  // ── EXPORT WORD ─────────────────────────────────────────────────
+  exportWord: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .limit(1);
+
+      if (rows.length === 0) {
+        throw new Error("Planificación no encontrada");
+      }
+
+      const row = rows[0];
+      const data = JSON.parse(row.formData as string);
+
+      let blob: Blob;
+      if (row.tipo === "inicial_preparatoria") {
+        const { generarCurriculoCompetenciasWordInicial } = await import(
+          "../lib/curriculo-competencias-inicial-word-generator"
+        );
+        blob = await generarCurriculoCompetenciasWordInicial(data);
+      } else {
+        const { generarCurriculoCompetenciasWordEGBBGU } = await import(
+          "../lib/curriculo-competencias-word-generator"
+        );
+        blob = await generarCurriculoCompetenciasWordEGBBGU(data);
+      }
+
+      const buffer = await blob.arrayBuffer();
+      const base64 = Buffer.from(buffer).toString("base64");
+
+      return {
+        base64,
+        filename: `planificacion-curriculo-competencias-${row.id}.docx`,
+        mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      };
+    }),
+
+  // ── EXPORT PDF ──────────────────────────────────────────────────
+  exportPdf: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .limit(1);
+
+      if (rows.length === 0) {
+        throw new Error("Planificación no encontrada");
+      }
+
+      const row = rows[0];
+      const data = JSON.parse(row.formData as string);
+
+      const { generarCurriculoCompetenciasPdf } = await import(
+        "../lib/curriculo-competencias-pdf-generator"
+      );
+
+      const html = generarCurriculoCompetenciasPdf(data);
+
+      return {
+        html,
+        filename: `planificacion-curriculo-competencias-${row.id}.pdf`,
+      };
+    }),
+
+  // ── SUGERENCIA IA ────────────────────────────────────────────
+  sugerirPlanificacion: publicProcedure
+    .input(
+      z.object({
+        areaCode: z.string().optional(),
+        dcdCodigo: z.string().optional(),
+        dcdDescripcion: z.string().optional(),
+        grado: z.string().optional(),
+        nivel: z.enum(["EGB", "BGU"]).optional(),
+        estrategiaId: z.string().optional(),
+        campos: z.array(z.enum(["objetivoAprendizaje", "indicadorEvaluacion", "actividadesEvaluacion", "tecnicaEvaluacion", "instrumentoEvaluacion", "recursos"])).min(1),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const camposSolicitud = input.campos.join(", ");
+
+      const prompt = `Eres un experto en el Currículo Priorizado por Competencias del Ministerio de Educación del Ecuador.
+
+CONTEXTO DE LA PLANIFICACIÓN:
+- Área: ${input.areaCode || "No especificada"}
+- Grado: ${input.grado || "No especificado"}
+- Nivel: ${input.nivel || "EGB"}
+- DCD: ${input.dcdCodigo || "No seleccionada"} — ${input.dcdDescripcion || ""}
+- Estrategia: ${input.estrategiaId || "ERCA"}
+
+SOLICITUD:
+Genera sugerencias para los siguientes campos: ${camposSolicitud}.
+
+REGLAS:
+- Las sugerencias deben ser coherentes con el área, grado y DCD indicados.
+- Usa terminología del Currículo Nacional Ecuador.
+- Para objetivoAprendizaje: inicia con verbo en infinitivo, relacionado con la DCD.
+- Para indicadorEvaluacion: describe observable medible del aprendizaje.
+- Para actividadesEvaluacion: describe actividad concreta de evaluación.
+- Para tecnicaEvaluacion: técnica apropiada para el área y grado.
+- Para instrumentoEvaluacion: instrumento compatible con la técnica.
+- Para recursos: recursos didácticos disponibles en contexto ecuatoriano.
+- NO inventes destrezas ni códigos curriculares.
+- Sé conciso: máximo 2-3 oraciones por campo.
+
+Responde ÚNICAMENTE con JSON válido:
+{
+  "objetivoAprendizaje": "string",
+  "indicadorEvaluacion": "string",
+  "actividadesEvaluacion": "string",
+  "tecnicaEvaluacion": "string",
+  "instrumentoEvaluacion": "string",
+  "recursos": "string"
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación microcurricular del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 800,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: Record<string, string>;
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      // Solo devolver los campos solicitados
+      const resultado: Record<string, string> = {};
+      for (const campo of input.campos) {
+        if (parsed[campo] && typeof parsed[campo] === "string") {
+          resultado[campo] = parsed[campo];
+        }
+      }
+
+      return resultado;
     }),
 });

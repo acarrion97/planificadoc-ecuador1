@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   Text,
   View,
@@ -8,116 +8,234 @@ import {
   Pressable,
   ActivityIndicator,
   Alert,
-  Platform,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { codigosCompetenciasActivas } from "@/data/competencias-transversales";
+import { AREAS_INFO, type Area, type Subnivel } from "@/data/types";
+import { filtrarPorAreaYSubnivel } from "@/data";
+import { CompetenciasEspecificasSelector } from "@/components/CompetenciasEspecificasSelector";
 
-type PasoFlujo = "datos" | "dcd" | "estructura" | "evaluacion";
+type PasoFlujo = "datos" | "competencias";
 
 const PASOS: { key: PasoFlujo; label: string }[] = [
   { key: "datos", label: "Datos" },
-  { key: "dcd", label: "DCD" },
-  { key: "estructura", label: "Estrategia" },
-  { key: "evaluacion", label: "Evaluación" },
+  { key: "competencias", label: "Competencias" },
 ];
-
-const COMPETENCIAS = codigosCompetenciasActivas();
 
 const NIVELES = ["EGB", "BGU"] as const;
 const GRADOS = ["1ro", "2do", "3ro", "4to", "5to", "6to", "7mo", "8vo", "9no", "10mo"];
 const PARALELOS = ["A", "B", "C", "D", "E"];
 const TRIMESTRES = ["Primer Trimestre", "Segundo Trimestre", "Tercer Trimestre"];
 
+const AREAS_EGB: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
+const AREAS_BGU: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "EG", "EFL", "CAI"];
+
+function gradoANumero(grado: string): number {
+  const map: Record<string, number> = {
+    "1ro": 1, "2do": 2, "3ro": 3, "4to": 4, "5to": 5,
+    "6to": 6, "7mo": 7, "8vo": 8, "9no": 9, "10mo": 10,
+  };
+  return map[grado] || 1;
+}
+
+function subnivelDelGrado(grado: string): Subnivel {
+  const n = gradoANumero(grado);
+  if (n <= 1) return 1;
+  if (n <= 4) return 2;
+  if (n <= 7) return 3;
+  if (n <= 10) return 4;
+  return 5;
+}
+
+const LOWERCASE_WORDS = new Set(["de", "del", "la", "las", "el", "los", "y", "en", "para", "a"]);
+function toTitleCase(str: string): string {
+  return str.split(/\s+/).map((word, i) => {
+    const lower = word.toLowerCase();
+    if (i > 0 && LOWERCASE_WORDS.has(lower)) return lower;
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
+  }).join(" ");
+}
+
+/** Infiera competencias transversales según el código CE */
+function inferirTransversales(codigoCE: string): string[] {
+  const area = codigoCE.split(".")[1];
+  const map: Record<string, string[]> = {
+    M: ["M"],
+    LL: ["C"],
+    CN: ["C", "M"],
+    CS: ["C", "CD"],
+    EF: ["CS"],
+    ECA: ["C", "CS"],
+    EG: ["M", "CD"],
+    EFL: ["C"],
+    CAI: ["C", "CS"],
+  };
+  return map[area] || ["C"];
+}
+
 export default function EGBBGUFormScreen() {
   const colors = useColors();
   const router = useRouter();
+  const { id } = useLocalSearchParams<{ id?: string }>();
+  const isEdit = !!id;
   const [paso, setPaso] = useState<PasoFlujo>("datos");
+  const [cargando, setCargando] = useState(isEdit);
+  const [generandoIA, setGenerandoIA] = useState(false);
 
   // ── Estado del formulario ──
   const [nivel, setNivel] = useState<"EGB" | "BGU">("EGB");
   const [grado, setGrado] = useState("3ro");
   const [paralelo, setParalelo] = useState("A");
-  const [asignatura, setAsignatura] = useState("");
+  const [areaCode, setAreaCode] = useState<Area | null>(null);
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
-  const [periodoPedagogico, setPeriodoPedagogico] = useState("");
+
+  const fechaActual = new Date().toISOString().split("T")[0];
+  const anioActual = new Date().getFullYear();
+  const periodoAutomatico = `${anioActual}-${anioActual + 1}`;
+  const [periodoPedagogico] = useState(periodoAutomatico);
   const [trimestre, setTrimestre] = useState("Primer Trimestre");
-  const [fecha, setFecha] = useState("");
+  const [fecha] = useState(fechaActual);
 
-  // DCD
-  const [dcdCodigo, setDcdCodigo] = useState("");
-  const [dcdDescripcion, setDcdDescripcion] = useState("");
-  const [competencias, setCompetencias] = useState<string[]>(["C"]);
-  const [indicadorEvaluacion, setIndicadorEvaluacion] = useState("");
-  const [objetivoAprendizaje, setObjetivoAprendizaje] = useState("");
+  // Solo CE seleccionadas
+  const [competenciasEspecificas, setCompetenciasEspecificas] = useState<{ codigo: string; descripcion: string }[]>([]);
 
-  // Estrategia
-  const [estrategiaId, setEstrategiaId] = useState("erca");
-  const [recursos, setRecursos] = useState("");
+  // ── Destrezas disponibles ──
+  const destrezasDisponibles = useMemo(() => {
+    if (!areaCode) return [];
+    const sub = subnivelDelGrado(grado);
+    return filtrarPorAreaYSubnivel(areaCode, sub);
+  }, [areaCode, grado]);
 
-  // Evaluación
-  const [tecnicaEvaluacion, setTecnicaEvaluacion] = useState("");
-  const [instrumentoEvaluacion, setInstrumentoEvaluacion] = useState("");
-  const [actividadesEvaluacion, setActividadesEvaluacion] = useState("");
+  // ── Cargar datos existentes (modo edición) ──
+  const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
+    { id: Number(id) },
+    { enabled: isEdit }
+  );
+
+  useEffect(() => {
+    if (planExistente?.formData) {
+      const fd = planExistente.formData as any;
+      setNivel(fd.nivel || "EGB");
+      setGrado(fd.grado || "3ro");
+      setParalelo(fd.paralelo || "A");
+      setAreaCode(fd.areaCode || null);
+      setInstitucion(fd.institucion || "");
+      setDocente(fd.docente || "");
+      setTrimestre(fd.trimestre || "Primer Trimestre");
+      setCargando(false);
+    }
+  }, [planExistente]);
 
   // ── Mutations ──
   const utils = trpc.useContext();
+
   const createMutation = trpc.curriculoCompetencias.createEGBBGU.useMutation({
-    onSuccess: (result) => {
-      if (Platform.OS === "web") {
-        alert("Planificación creada correctamente");
-      } else {
-        Alert.alert("Éxito", "Planificación creada correctamente");
-      }
+    onSuccess: (data) => {
       utils.curriculoCompetencias.list.invalidate();
-      router.back();
-    },
-    onError: (error) => {
-      if (Platform.OS === "web") {
-        alert(`Error: ${error.message}`);
+      const nuevoId = (data as any)?.id;
+      if (nuevoId) {
+        router.push(`/curriculo-competencias/ver/${nuevoId}` as any);
       } else {
-        Alert.alert("Error", error.message);
+        router.back();
       }
+    },
+    onError: (err) => {
+      setGenerandoIA(false);
+      console.error("[createEGBBGU] Error:", err.message, err.data);
+      Alert.alert("Error", `No se pudo crear: ${err.message}`);
     },
   });
 
-  const toggleCompetencia = (code: string) => {
-    setCompetencias((prev) =>
-      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
-    );
-  };
+  const updateMutation = trpc.curriculoCompetencias.updateEGBBGU.useMutation({
+    onSuccess: () => {
+      utils.curriculoCompetencias.list.invalidate();
+      setGenerandoIA(false);
+      router.push(`/curriculo-competencias/ver/${id}` as any);
+    },
+    onError: (err) => {
+      setGenerandoIA(false);
+      console.error("[updateEGBBGU] Error:", err.message, err.data);
+      Alert.alert("Error", `No se pudo actualizar: ${err.message}`);
+    },
+  });
 
+  const sugerirIAMutation = trpc.curriculoCompetencias.sugerirPlanificacion.useMutation({
+    onSuccess: () => {},
+    onError: () => {},
+  });
+
+  // ── Selección de área ──
+  function handleAreaSelect(code: Area) {
+    if (areaCode === code) {
+      setAreaCode(null);
+    } else {
+      setAreaCode(code);
+      setCompetenciasEspecificas([]);
+    }
+  }
+
+  const asignatura = areaCode ? AREAS_INFO[areaCode]?.name || areaCode : "";
+
+  // ── Guardar: crea la planificación y luego sugiere IA ──
   const handleSave = () => {
-    createMutation.mutate({
+    if (competenciasEspecificas.length === 0) {
+      Alert.alert("Selecciona competencias", "Debes elegir al menos una competencia específica.");
+      return;
+    }
+
+    setGenerandoIA(true);
+
+    // Inferir transversales de las CE seleccionadas
+    const transversales = [...new Set(competenciasEspecificas.flatMap((ce) => inferirTransversales(ce.codigo)))];
+
+    // Tomar la primera DCD coincidente para datos base
+    const codigosCE = new Set(competenciasEspecificas.map((ce) => ce.codigo));
+    const destrezasMatch = destrezasDisponibles.filter((d) =>
+      d.criteriosEvaluacion.some((c) => {
+        const m = c.match(/^(CE\.[A-Z]+\.[0-9]+\.[0-9]+)/);
+        return m && codigosCE.has(m[1]);
+      })
+    );
+    const dcd = destrezasMatch[0];
+
+    const payload = {
       sessionId: "default",
       nivel,
       grado,
       paralelo,
+      areaCode: areaCode || undefined,
       asignatura,
       institucion,
       docente,
       periodoPedagogico,
       trimestre,
       fecha,
-      dcd: dcdCodigo ? { codigo: dcdCodigo, descripcion: dcdDescripcion } : undefined,
-      competencias,
-      indicadorEvaluacion,
-      objetivoAprendizaje,
-      estrategiaId,
-      recursos,
-      tecnicaEvaluacion,
-      instrumentoEvaluacion,
-      actividadesEvaluacion,
-    });
+      dcd: dcd ? { codigo: dcd.codigo, descripcion: dcd.descripcion } : undefined,
+      competencias: transversales,
+      competenciasEspecificas: competenciasEspecificas.map((ce) => ce.codigo),
+      indicadorEvaluacion: dcd?.indicadoresEvaluacion?.[0] || "",
+      objetivoAprendizaje: dcd?.objetivos?.[0] || "",
+      estrategiaId: "erca",
+      recursos: "",
+      tecnicaEvaluacion: "",
+      instrumentoEvaluacion: "",
+      actividadesEvaluacion: "",
+    };
+
+    // 1) Guardar la planificación
+    if (isEdit) {
+      updateMutation.mutate({ ...payload, id: Number(id) });
+    } else {
+      createMutation.mutate(payload);
+    }
   };
 
   const canAdvance = () => {
-    if (paso === "datos") return !!asignatura && !!institucion;
-    if (paso === "dcd") return !!dcdCodigo;
+    if (paso === "datos") return !!areaCode && !!institucion;
+    if (paso === "competencias") return competenciasEspecificas.length > 0;
     return true;
   };
 
@@ -131,14 +249,10 @@ export default function EGBBGUFormScreen() {
     if (idx > 0) setPaso(PASOS[idx - 1].key);
   };
 
-  // ── Render helpers ──
-
   const renderSectionHeader = (title: string, icon: string) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.sectionIcon}>{icon}</Text>
-      <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-        {title}
-      </Text>
+      <Text style={[styles.sectionTitle, { color: colors.foreground }]}>{title}</Text>
     </View>
   );
 
@@ -146,7 +260,7 @@ export default function EGBBGUFormScreen() {
     label: string,
     value: string,
     onChange: (v: string) => void,
-    opts: { placeholder?: string; multiline?: boolean; keyboard?: "default" | "numeric" } = {}
+    opts: { placeholder?: string; multiline?: boolean } = {}
   ) => (
     <View style={styles.fieldGroup}>
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>{label}</Text>
@@ -157,16 +271,9 @@ export default function EGBBGUFormScreen() {
         placeholderTextColor={colors.muted + "80"}
         multiline={opts.multiline}
         numberOfLines={opts.multiline ? 3 : 1}
-        keyboardType={opts.keyboard || "default"}
         style={[
           styles.textInput,
-          {
-            backgroundColor: colors.surface,
-            borderColor: colors.border,
-            color: colors.foreground,
-            textAlignVertical: opts.multiline ? "top" : "center",
-            minHeight: opts.multiline ? 70 : 44,
-          },
+          { borderColor: colors.border, color: colors.foreground, backgroundColor: colors.surface, textAlignVertical: opts.multiline ? "top" : "center", minHeight: opts.multiline ? 70 : 44 },
         ]}
       />
     </View>
@@ -185,21 +292,9 @@ export default function EGBBGUFormScreen() {
           <Pressable
             key={opt}
             onPress={() => onChange(opt)}
-            style={[
-              styles.selectChip,
-              {
-                backgroundColor: value === opt ? colors.primary : colors.surface,
-                borderColor: colors.border,
-              },
-            ]}
+            style={[styles.selectChip, { backgroundColor: value === opt ? colors.primary : colors.surface, borderColor: colors.border }]}
           >
-            <Text
-              style={{
-                color: value === opt ? "#fff" : colors.foreground,
-                fontSize: 13,
-                fontWeight: value === opt ? "600" : "400",
-              }}
-            >
+            <Text style={{ color: value === opt ? "#fff" : colors.foreground, fontSize: 13, fontWeight: value === opt ? "600" : "400" }}>
               {opt}
             </Text>
           </Pressable>
@@ -208,233 +303,159 @@ export default function EGBBGUFormScreen() {
     </View>
   );
 
-  // ── Paso: Datos informativos ──
+  // ── Render: Datos paso 1 ──
   const renderDatos = () => (
     <View>
       {renderSectionHeader("Datos Informativos", "📋")}
       {renderSelectRow("Nivel", NIVELES, nivel, setNivel as (v: string) => void)}
       {renderSelectRow("Grado", GRADOS, grado, setGrado)}
       {renderSelectRow("Paralelo", PARALELOS, paralelo, setParalelo)}
-      {renderField("Asignatura", asignatura, setAsignatura, {
-        placeholder: "Ej: Matemática",
-      })}
-      {renderField("Institución", institucion, setInstitucion, {
-        placeholder: "Ej: Unidad Educativa San Martín",
-      })}
-      {renderField("Docente", docente, setDocente, {
-        placeholder: "Nombre del docente",
-      })}
-      {renderField("Período Pedagógico", periodoPedagogico, setPeriodoPedagogico, {
-        placeholder: "Ej: 2026-2027",
-      })}
-      {renderSelectRow("Trimestre", TRIMESTRES, trimestre, setTrimestre)}
-      {renderField("Fecha", fecha, setFecha, { placeholder: "YYYY-MM-DD" })}
-    </View>
-  );
-
-  // ── Paso: DCD y competencias ──
-  const renderDCD = () => (
-    <View>
-      {renderSectionHeader("DCD y Competencias", "🎯")}
-      {renderField("Código DCD", dcdCodigo, setDcdCodigo, {
-        placeholder: "Ej: M.2.1.1",
-      })}
-      {renderField("Descripción DCD", dcdDescripcion, setDcdDescripcion, {
-        placeholder: "Descripción de la DCD",
-        multiline: true,
-      })}
-      {renderField("Indicador de Evaluación", indicadorEvaluacion, setIndicadorEvaluacion, {
-        placeholder: "Indicador",
-        multiline: true,
-      })}
-      {renderField("Objetivo de Aprendizaje", objetivoAprendizaje, setObjetivoAprendizaje, {
-        placeholder: "Objetivo",
-        multiline: true,
-      })}
 
       <View style={styles.fieldGroup}>
-        <Text style={[styles.fieldLabel, { color: colors.muted }]}>
-          Competencias Transversales
-        </Text>
+        <Text style={[styles.fieldLabel, { color: colors.muted }]}>Área / Asignatura</Text>
         <View style={styles.selectRow}>
-          {COMPETENCIAS.map((code) => (
-            <Pressable
-              key={code}
-              onPress={() => toggleCompetencia(code)}
-              style={[
-                styles.selectChip,
-                {
-                  backgroundColor: competencias.includes(code)
-                    ? colors.primary
-                    : colors.surface,
-                  borderColor: colors.border,
-                },
-              ]}
-            >
-              <Text
-                style={{
-                  color: competencias.includes(code) ? "#fff" : colors.foreground,
-                  fontSize: 13,
-                  fontWeight: competencias.includes(code) ? "600" : "400",
-                }}
+          {(nivel === "BGU" ? AREAS_BGU : AREAS_EGB).map((code) => {
+            const info = AREAS_INFO[code];
+            if (!info) return null;
+            const active = areaCode === code;
+            return (
+              <Pressable
+                key={code}
+                onPress={() => handleAreaSelect(code)}
+                style={[styles.selectChip, { backgroundColor: active ? info.color : colors.surface, borderColor: active ? info.color : colors.border }]}
               >
-                {code}
-              </Text>
-            </Pressable>
-          ))}
+                <Text style={{ color: active ? "#fff" : colors.foreground, fontSize: 12, fontWeight: active ? "600" : "400" }}>
+                  {info.emoji} {info.name}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
+
+      {renderField("Institución", institucion, setInstitucion, { placeholder: "Ej: Unidad Educativa San Martín" })}
+      {renderField("Docente", docente, setDocente, { placeholder: "Nombre del docente" })}
+
+      <View style={[styles.fieldContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.label, { color: colors.foreground }]}>Período Pedagógico</Text>
+        <View style={[styles.input, { backgroundColor: colors.muted + "20", borderColor: colors.border }]}>
+          <Text style={{ color: colors.foreground, fontSize: 14 }}>{periodoPedagogico}</Text>
+        </View>
+      </View>
+
+      {renderSelectRow("Trimestre", TRIMESTRES, trimestre, setTrimestre)}
+
+      <View style={[styles.fieldContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.label, { color: colors.foreground }]}>Fecha</Text>
+        <View style={[styles.input, { backgroundColor: colors.muted + "20", borderColor: colors.border }]}>
+          <Text style={{ color: colors.foreground, fontSize: 14 }}>{fecha}</Text>
         </View>
       </View>
     </View>
   );
 
-  // ── Paso: Estrategia didáctica ──
-  const renderEstructura = () => (
+  // ── Render: Competencias paso 2 ──
+  const renderCompetencias = () => (
     <View>
-      {renderSectionHeader("Estrategia Didáctica", "📐")}
-      {renderSelectRow("Estrategia", ["erca", "directa", "proyectos"], estrategiaId, setEstrategiaId)}
-      {renderField("Recursos", recursos, setRecursos, {
-        placeholder: "Ej: Cuaderno, lápiz, pizarra",
-        multiline: true,
-      })}
-      <View
-        style={[
-          styles.infoBox,
-          { backgroundColor: colors.primary + "10", borderColor: colors.primary + "30" },
-        ]}
-      >
-        <Text style={{ color: colors.primary, fontSize: 13 }}>
-          {estrategiaId === "erca"
-            ? "ERCA: Experiencia → Reflexión → Conceptualización → Aplicación. Las fases se generarán automáticamente."
-            : estrategiaId === "directa"
-              ? "Estrategia directa: Inicio → Desarrollo → Cierre."
-              : "Estrategia por proyectos: Integración de conocimientos."}
-        </Text>
-      </View>
-    </View>
-  );
+      {renderSectionHeader("Competencias Específicas", "🎯")}
 
-  // ── Paso: Evaluación ──
-  const renderEvaluacion = () => (
-    <View>
-      {renderSectionHeader("Evaluación", "✅")}
-      {renderField("Técnica de Evaluación", tecnicaEvaluacion, setTecnicaEvaluacion, {
-        placeholder: "Ej: Observación directa",
-      })}
-      {renderField("Instrumento de Evaluación", instrumentoEvaluacion, setInstrumentoEvaluacion, {
-        placeholder: "Ej: Rúbrica, lista de cotejo",
-      })}
-      {renderField("Actividades de Evaluación", actividadesEvaluacion, setActividadesEvaluacion, {
-        placeholder: "Describa las actividades de evaluación",
-        multiline: true,
-      })}
+      <Text style={{ color: colors.muted, fontSize: 13, marginBottom: 12 }}>
+        Selecciona las competencias específicas de tu área. El sistema inferirá automáticamente las competencias transversales, la DCD, los indicadores, la estrategia didáctica, evaluación y sugerencias por semana.
+      </Text>
+
+      <View style={styles.fieldGroup}>
+        <CompetenciasEspecificasSelector
+          destrezas={destrezasDisponibles}
+          value={competenciasEspecificas}
+          onChange={setCompetenciasEspecificas}
+        />
+      </View>
+
+      {competenciasEspecificas.length > 0 && (
+        <View style={[styles.infoBox, { backgroundColor: "#22C55E15", borderColor: "#22C55E40" }]}>
+          <Text style={{ color: "#22C55E", fontSize: 13, fontWeight: "600", marginBottom: 4 }}>
+            ✓ {competenciasEspecificas.length} competencia{competenciasEspecificas.length > 1 ? "s" : ""} seleccionada{competenciasEspecificas.length > 1 ? "s" : ""}
+          </Text>
+          {competenciasEspecificas.map((ce) => (
+            <Text key={ce.codigo} style={{ color: colors.foreground, fontSize: 12, marginTop: 2 }}>
+              • {ce.codigo}: {ce.descripcion.substring(0, 80)}...
+            </Text>
+          ))}
+          <Text style={{ color: colors.muted, fontSize: 11, marginTop: 8 }}>
+            Transversales inferidas: {[...new Set(competenciasEspecificas.flatMap((ce) => inferirTransversales(ce.codigo)))].join(", ")}
+          </Text>
+        </View>
+      )}
     </View>
   );
 
   const renderPasoActual = () => {
     switch (paso) {
-      case "datos":
-        return renderDatos();
-      case "dcd":
-        return renderDCD();
-      case "estructura":
-        return renderEstructura();
-      case "evaluacion":
-        return renderEvaluacion();
+      case "datos": return renderDatos();
+      case "competencias": return renderCompetencias();
     }
   };
+
+  if (cargando) {
+    return (
+      <ScreenContainer className="flex-1">
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <ActivityIndicator color={colors.primary} />
+          <Text style={{ color: colors.muted, marginTop: 8 }}>Cargando planificación...</Text>
+        </View>
+      </ScreenContainer>
+    );
+  }
+
+  const isPending = createMutation.isPending || updateMutation.isPending;
 
   return (
     <ScreenContainer className="flex-1">
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        {/* ── Header ── */}
         <View className="px-5 pt-4 pb-2">
           <Text className="text-2xl font-bold text-foreground">
-            Planificación EGB / BGU
+            {isEdit ? "Editar Planificación" : "Planificación EGB / BGU"}
           </Text>
         </View>
 
-        {/* ── Progress bar ── */}
         <View style={styles.progressRow}>
           {PASOS.map((p, i) => (
             <View key={p.key} style={{ flex: 1, alignItems: "center" }}>
-              <View
-                style={[
-                  styles.progressDot,
-                  {
-                    backgroundColor:
-                      p.key === paso
-                        ? colors.primary
-                        : PASOS.findIndex((x) => x.key === paso) > i
-                          ? colors.success
-                          : colors.border,
-                  },
-                ]}
-              >
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontSize: 11,
-                    fontWeight: "700",
-                  }}
-                >
-                  {i + 1}
-                </Text>
+              <View style={[styles.progressDot, { backgroundColor: p.key === paso ? colors.primary : PASOS.findIndex((x) => x.key === paso) > i ? colors.success : colors.border }]}>
+                <Text style={{ color: "#fff", fontSize: 11, fontWeight: "700" }}>{i + 1}</Text>
               </View>
-              <Text
-                style={{
-                  fontSize: 10,
-                  color: p.key === paso ? colors.primary : colors.muted,
-                  marginTop: 4,
-                  fontWeight: p.key === paso ? "600" : "400",
-                }}
-              >
+              <Text style={{ fontSize: 10, color: p.key === paso ? colors.primary : colors.muted, marginTop: 4, fontWeight: p.key === paso ? "600" : "400" }}>
                 {p.label}
               </Text>
             </View>
           ))}
         </View>
 
-        {/* ── Contenido del paso ── */}
         <View style={{ paddingHorizontal: 20 }}>{renderPasoActual()}</View>
       </ScrollView>
 
-      {/* ── Botones de navegación ── */}
       <View style={[styles.bottomBar, { backgroundColor: colors.background, borderTopColor: colors.border }]}>
         <View style={styles.bottomBarInner}>
           {paso !== "datos" ? (
-            <Pressable
-              onPress={retreatPaso}
-              style={[styles.navBtn, { backgroundColor: colors.surface, borderColor: colors.border }]}
-            >
+            <Pressable onPress={retreatPaso} style={[styles.navBtn, { backgroundColor: colors.surface, borderColor: colors.border }]}>
               <Text style={{ color: colors.foreground, fontWeight: "600" }}>Anterior</Text>
             </Pressable>
           ) : (
             <View />
           )}
-
-          {paso !== "evaluacion" ? (
-            <Pressable
-              onPress={advancePaso}
-              disabled={!canAdvance()}
-              style={[
-                styles.navBtn,
-                {
-                  backgroundColor: canAdvance() ? colors.primary : colors.muted + "40",
-                },
-              ]}
-            >
+          {paso !== "competencias" ? (
+            <Pressable onPress={advancePaso} disabled={!canAdvance()} style={[styles.navBtn, { backgroundColor: canAdvance() ? colors.primary : colors.muted + "40" }]}>
               <Text style={{ color: "#fff", fontWeight: "600" }}>Siguiente</Text>
             </Pressable>
           ) : (
-            <Pressable
-              onPress={handleSave}
-              disabled={createMutation.isPending}
-              style={[styles.navBtn, { backgroundColor: colors.success }]}
-            >
-              {createMutation.isPending ? (
-                <ActivityIndicator color="#fff" size="small" />
+            <Pressable onPress={handleSave} disabled={isPending || generandoIA || competenciasEspecificas.length === 0} style={[styles.navBtn, { backgroundColor: isPending || generandoIA || competenciasEspecificas.length === 0 ? colors.muted + "40" : colors.success }]}>
+              {isPending || generandoIA ? (
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                  <ActivityIndicator color="#fff" size="small" />
+                  <Text style={{ color: "#fff", fontWeight: "600" }}>Guardando y generando...</Text>
+                </View>
               ) : (
-                <Text style={{ color: "#fff", fontWeight: "700" }}>Guardar</Text>
+                <Text style={{ color: "#fff", fontWeight: "700" }}>{isEdit ? "Guardar Cambios" : "Guardar y Ver"}</Text>
               )}
             </Pressable>
           )}
@@ -445,85 +466,21 @@ export default function EGBBGUFormScreen() {
 }
 
 const styles = StyleSheet.create({
-  sectionHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    marginBottom: 16,
-    marginTop: 8,
-  },
-  sectionIcon: {
-    fontSize: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-  },
-  fieldGroup: {
-    marginBottom: 14,
-  },
-  fieldLabel: {
-    fontSize: 12,
-    fontWeight: "600",
-    marginBottom: 6,
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 15,
-  },
-  selectRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  selectChip: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  progressRow: {
-    flexDirection: "row",
-    paddingHorizontal: 30,
-    marginBottom: 20,
-  },
-  progressDot: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  infoBox: {
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 12,
-    marginTop: 12,
-  },
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    paddingTop: 12,
-  },
-  bottomBarInner: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 12,
-  },
-  navBtn: {
-    flex: 1,
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: "center",
-  },
+  sectionHeader: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 16, marginTop: 8 },
+  sectionIcon: { fontSize: 20 },
+  sectionTitle: { fontSize: 18, fontWeight: "700" },
+  fieldGroup: { marginBottom: 14 },
+  fieldLabel: { fontSize: 12, fontWeight: "600", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 },
+  textInput: { borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10, fontSize: 15 },
+  selectRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  selectChip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10, borderWidth: 1 },
+  progressRow: { flexDirection: "row", paddingHorizontal: 30, marginBottom: 20 },
+  progressDot: { width: 24, height: 24, borderRadius: 12, alignItems: "center", justifyContent: "center" },
+  infoBox: { borderWidth: 1, borderRadius: 10, padding: 12, marginTop: 12 },
+  bottomBar: { position: "absolute", bottom: 0, left: 0, right: 0, borderTopWidth: 1, paddingHorizontal: 20, paddingBottom: 20, paddingTop: 12 },
+  bottomBarInner: { flexDirection: "row", justifyContent: "space-between", gap: 12 },
+  navBtn: { flex: 1, paddingVertical: 14, borderRadius: 12, alignItems: "center" },
+  fieldContainer: { borderWidth: 1, borderRadius: 10, padding: 12, marginBottom: 14 },
+  label: { fontSize: 12, fontWeight: "600", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 },
+  input: { borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10 },
 });
