@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   Text,
   View,
@@ -8,83 +8,56 @@ import {
   Pressable,
   ActivityIndicator,
   Alert,
-  Platform,
+  Switch,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { obtenerAmbitosActivos } from "@/data/ambitos-desarrollo-inicial";
-import { codigosCompetenciasActivas } from "@/data/competencias-transversales";
+import { COMPETENCIAS_INICIAL, type CompetenciaInicial } from "@/data/competencias-especificas-inicial";
 
-type PasoFlujo = "datos" | "ambitos" | "estrategia" | "evaluacion";
+type PasoFlujo = "contexto" | "competencias" | "datos" | "generar";
 
 const PASOS: { key: PasoFlujo; label: string }[] = [
+  { key: "contexto", label: "Contexto" },
+  { key: "competencias", label: "Competencias" },
   { key: "datos", label: "Datos" },
-  { key: "ambitos", label: "Ámbitos" },
-  { key: "estrategia", label: "Estrategia" },
-  { key: "evaluacion", label: "Evaluación" },
+  { key: "generar", label: "Generar" },
 ];
 
-const AMBITOS = obtenerAmbitosActivos();
-const COMPETENCIAS = codigosCompetenciasActivas();
-
-interface ClaseForm {
-  numero: number;
-  tema: string;
-  objetivoEspecifico: string;
-  metodologia: string;
-  inicio: string;
-  desarrollo: string;
-  cierre: string;
-  metodoEvaluacion: string;
-}
-
-interface AmbitoForm {
-  ambitoId: string;
-  competenciaCodigo: string;
-  competenciaDescripcion: string;
-  competencias: string[];
-  destrezas: string[];
-  clases: ClaseForm[];
-}
-
-const CLASE_VACIA: ClaseForm = {
-  numero: 1,
-  tema: "",
-  objetivoEspecifico: "",
-  metodologia: "",
-  inicio: "",
-  desarrollo: "",
-  cierre: "",
-  metodoEvaluacion: "",
-};
-
-const AMBITO_VACIO: AmbitoForm = {
-  ambitoId: "",
-  competenciaCodigo: "",
-  competenciaDescripcion: "",
-  competencias: ["C"],
-  destrezas: [""],
-  clases: [{ ...CLASE_VACIA }],
-};
+const GRADOS = [
+  "Inicial 3-4 años",
+  "Inicial 4-5 años",
+];
+const TRIMESTRES = ["Primer trimestre", "Segundo trimestre", "Tercer trimestre"];
+const PARALELOS = ["A", "B", "C", "D", "E"];
 
 export default function InicialFormScreen() {
   const colors = useColors();
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = !!id;
-  const [paso, setPaso] = useState<PasoFlujo>("datos");
+  const [paso, setPaso] = useState<PasoFlujo>("contexto");
   const [cargando, setCargando] = useState(isEdit);
 
-  // ── Estado del formulario ──
-  const [grado, setGrado] = useState("Inicial 4 años");
+  // ── Step 1: Contexto ──
+  const [grado, setGrado] = useState("Inicial 3-4 años");
+
+  // ── Step 2: Competencias ──
+  const [competenciasSeleccionadas, setCompetenciasSeleccionadas] = useState<CompetenciaInicial[]>([]);
+  const [busqueda, setBusqueda] = useState("");
+
+  // ── Step 3: Datos ──
+  const [trimestre, setTrimestre] = useState("Primer trimestre");
+  const [paralelo, setParalelo] = useState("A");
+  const [noSemanas, setNoSemanas] = useState("8");
+  const [titulo, setTitulo] = useState("");
+  const [situacionAprendizaje, setSituacionAprendizaje] = useState("");
+  const [temasTrimestre, setTemasTrimestre] = useState("");
   const [institucion, setInstitucion] = useState("");
   const [docente, setDocente] = useState("");
-  const [duracion, setDuracion] = useState("2026-2027");
-  const [objetivoGeneral, setObjetivoGeneral] = useState("");
-  const [ambitos, setAmbitos] = useState<AmbitoForm[]>([{ ...AMBITO_VACIO }]);
-  const [metodoEvaluacionGeneral, setMetodoEvaluacionGeneral] = useState("");
+  const [hayNEE, setHayNEE] = useState(false);
+  const [compartir, setCompartir] = useState(false);
 
   // ── Cargar datos existentes (modo edición) ──
   const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
@@ -95,29 +68,18 @@ export default function InicialFormScreen() {
   useEffect(() => {
     if (planExistente?.formData) {
       const fd = planExistente.formData as any;
-      setGrado(fd.grado || "Inicial 4 años");
+      setGrado(fd.grado || "Inicial 3-4 años");
       setInstitucion(fd.institucion || "");
       setDocente(fd.docente || "");
-      setDuracion(fd.duracion || "2026-2027");
-      setObjetivoGeneral(fd.objetivoGeneral || "");
-      if (fd.ambitos && fd.ambitos.length > 0) {
-        setAmbitos(fd.ambitos.map((a: any) => ({
-          ambitoId: AMBITOS.find(am => am.nombre === a.ambito)?.id || "",
-          competenciaCodigo: a.competenciaCodigo || "",
-          competenciaDescripcion: a.competenciaDescripcion || "",
-          competencias: a.competenciasTransversales || ["C"],
-          destrezas: a.destrezas?.length > 0 ? a.destrezas : [""],
-          clases: a.clases?.length > 0 ? a.clases.map((c: any) => ({
-            numero: c.numero || 1,
-            tema: c.tema || "",
-            objetivoEspecifico: c.objetivoEspecifico || "",
-            metodologia: c.metodologia || "",
-            inicio: c.inicio?.[0]?.texto || "",
-            desarrollo: c.desarrollo?.[0]?.texto || "",
-            cierre: c.cierre?.[0]?.texto || "",
-            metodoEvaluacion: (c.metodoEvaluacion || []).join(", "),
-          })) : [{ ...CLASE_VACIA }],
-        })));
+      setTrimestre(fd.trimestre || "Primer trimestre");
+      setParalelo(fd.paralelo || "A");
+      setNoSemanas(fd.noSemanasClase?.toString() || "8");
+      setTitulo(fd.situacionAprendizaje?.titulo || "");
+      setSituacionAprendizaje(fd.situacionAprendizaje?.descripcion || "");
+      if (fd.ambitos?.length > 0) {
+        const codes = fd.ambitos.map((a: any) => a.competenciaCodigo).filter(Boolean);
+        const selected = COMPETENCIAS_INICIAL.filter(c => codes.includes(c.codigo));
+        setCompetenciasSeleccionadas(selected);
       }
       setCargando(false);
     }
@@ -132,7 +94,7 @@ export default function InicialFormScreen() {
       router.back();
     },
     onError: () => {
-      Alert.alert("Error", "No se pudo crear la planificación. Verifica los datos e intenta de nuevo.");
+      Alert.alert("Error", "No se pudo crear la planificación.");
     },
   });
 
@@ -143,167 +105,99 @@ export default function InicialFormScreen() {
       router.back();
     },
     onError: () => {
-      Alert.alert("Error", "No se pudo actualizar la planificación. Verifica los datos e intenta de nuevo.");
+      Alert.alert("Error", "No se pudo actualizar la planificación.");
     },
   });
 
-  // ── Helpers de ámbito ──
-
-  const updateAmbito = (index: number, patch: Partial<AmbitoForm>) => {
-    setAmbitos((prev) =>
-      prev.map((a, i) => (i === index ? { ...a, ...patch } : a))
+  // ── Competencias filtering ──
+  const competenciasFiltradas = useMemo(() => {
+    if (!busqueda.trim()) return COMPETENCIAS_INICIAL;
+    const q = busqueda.trim().toLowerCase();
+    return COMPETENCIAS_INICIAL.filter(
+      c => c.codigo.toLowerCase().includes(q) || c.descripcion.toLowerCase().includes(q)
     );
+  }, [busqueda]);
+
+  const selectedCodes = useMemo(() => new Set(competenciasSeleccionadas.map(c => c.codigo)), [competenciasSeleccionadas]);
+
+  const toggleCompetencia = (comp: CompetenciaInicial) => {
+    if (selectedCodes.has(comp.codigo)) {
+      setCompetenciasSeleccionadas(prev => prev.filter(c => c.codigo !== comp.codigo));
+    } else {
+      setCompetenciasSeleccionadas(prev => [...prev, comp]);
+    }
   };
 
-  const addAmbito = () => {
-    setAmbitos((prev) => [...prev, { ...AMBITO_VACIO }]);
+  const removeCompetencia = (codigo: string) => {
+    setCompetenciasSeleccionadas(prev => prev.filter(c => c.codigo !== codigo));
   };
 
-  const removeAmbito = (index: number) => {
-    if (ambitos.length <= 1) return;
-    setAmbitos((prev) => prev.filter((_, i) => i !== index));
+  // ── Navigation ──
+  const canAdvance = () => {
+    if (paso === "contexto") return true;
+    if (paso === "competencias") return competenciasSeleccionadas.length > 0;
+    return true;
   };
 
-  // ── Helpers de clase dentro de un ámbito ──
-
-  const updateClase = (
-    ambitoIndex: number,
-    claseIndex: number,
-    patch: Partial<ClaseForm>
-  ) => {
-    setAmbitos((prev) =>
-      prev.map((a, ai) =>
-        ai === ambitoIndex
-          ? {
-              ...a,
-              clases: a.clases.map((c, ci) =>
-                ci === claseIndex ? { ...c, ...patch } : c
-              ),
-            }
-          : a
-      )
-    );
+  const advancePaso = () => {
+    const idx = PASOS.findIndex(p => p.key === paso);
+    if (idx < PASOS.length - 1) setPaso(PASOS[idx + 1].key);
   };
 
-  const addClase = (ambitoIndex: number) => {
-    setAmbitos((prev) =>
-      prev.map((a, ai) =>
-        ai === ambitoIndex
-          ? {
-              ...a,
-              clases: [
-                ...a.clases,
-                { ...CLASE_VACIA, numero: a.clases.length + 1 },
-              ],
-            }
-          : a
-      )
-    );
+  const retreatPaso = () => {
+    const idx = PASOS.findIndex(p => p.key === paso);
+    if (idx > 0) setPaso(PASOS[idx - 1].key);
   };
 
-  const removeClase = (ambitoIndex: number, claseIndex: number) => {
-    setAmbitos((prev) =>
-      prev.map((a, ai) =>
-        ai === ambitoIndex
-          ? { ...a, clases: a.clases.filter((_, ci) => ci !== claseIndex) }
-          : a
-      )
-    );
-  };
-
-  // ── Helpers de destreza ──
-
-  const addDestreza = (ambitoIndex: number) => {
-    setAmbitos((prev) =>
-      prev.map((a, ai) =>
-        ai === ambitoIndex ? { ...a, destrezas: [...a.destrezas, ""] } : a
-      )
-    );
-  };
-
-  const updateDestreza = (
-    ambitoIndex: number,
-    destrezaIndex: number,
-    value: string
-  ) => {
-    setAmbitos((prev) =>
-      prev.map((a, ai) =>
-        ai === ambitoIndex
-          ? {
-              ...a,
-              destrezas: a.destrezas.map((d, di) =>
-                di === destrezaIndex ? value : d
-              ),
-            }
-          : a
-      )
-    );
-  };
-
-  const toggleCompetenciaAmbito = (ambitoIndex: number, code: string) => {
-    setAmbitos((prev) =>
-      prev.map((a, ai) =>
-        ai === ambitoIndex
-          ? {
-              ...a,
-              competencias: a.competencias.includes(code)
-                ? a.competencias.filter((c) => c !== code)
-                : [...a.competencias, code],
-            }
-          : a
-      )
-    );
-  };
-
-  // ── Envío ──
-
+  // ── Save ──
   const handleSave = () => {
-    const ambitosPayload = ambitos
-      .filter((a) => a.ambitoId)
-      .map((a) => {
-        const ambitoInfo = AMBITOS.find((am) => am.id === a.ambitoId);
-        return {
-          ambito: ambitoInfo?.nombre || a.ambitoId,
-          competenciaCodigo: a.competenciaCodigo,
-          competenciaDescripcion: a.competenciaDescripcion,
-          competencias: a.competencias,
-          destrezas: a.destrezas.filter((d) => d.trim()),
-          clases: a.clases
-            .filter((c) => c.tema.trim())
-            .map((c) => ({
-              numero: c.numero,
-              tema: c.tema,
-              objetivoEspecifico: c.objetivoEspecifico,
-              metodologia: c.metodologia,
-              inicio: c.inicio
-                ? [{ texto: c.inicio, competencia: a.competencias[0] || "C" }]
-                : [],
-              desarrollo: c.desarrollo
-                ? [
-                    {
-                      texto: c.desarrollo,
-                      competencia: a.competencias[0] || "C",
-                    },
-                  ]
-                : [],
-              cierre: c.cierre
-                ? [{ texto: c.cierre, competencia: a.competencias[0] || "C" }]
-                : [],
-              metodoEvaluacion: c.metodoEvaluacion
-                .split(",")
-                .map((m) => m.trim())
-                .filter(Boolean),
-            })),
-        };
-      });
+    const temas = temasTrimestre.split("\n").map(t => t.trim()).filter(Boolean);
+    const ambitosPayload = competenciasSeleccionadas.map(comp => ({
+      ambito: comp.descripcion.split(",")[0].substring(0, 50),
+      competenciaCodigo: comp.codigo,
+      competenciaDescripcion: comp.descripcion,
+      competencias: comp.competenciasClave.slice(0, 2),
+      destrezas: [comp.descripcion],
+      clases: temas.map((tema, i) => ({
+        numero: i + 1,
+        tema,
+        objetivoEspecifico: comp.descripcion,
+        metodologia: "",
+        inicio: [],
+        desarrollo: [],
+        cierre: [],
+        metodoEvaluacion: [],
+      })),
+    }));
+
+    // Si no hay temas, crear una clase vacía para que la IA genere
+    if (ambitosPayload.length > 0 && ambitosPayload[0].clases.length === 0) {
+      ambitosPayload[0].clases = [{
+        numero: 1,
+        tema: titulo || "Situación de aprendizaje",
+        objetivoEspecifico: competenciasSeleccionadas[0]?.descripcion || "",
+        metodologia: "",
+        inicio: [],
+        desarrollo: [],
+        cierre: [],
+        metodoEvaluacion: [],
+      }];
+    }
 
     const payload = {
       sessionId: "default",
       grado,
       institucion,
       docente,
-      duracion,
-      objetivoGeneral,
+      duracion: "2026-2027",
+      trimestre,
+      paralelo,
+      noSemanasClase: parseInt(noSemanas) || 8,
+      objetivoGeneral: situacionAprendizaje,
+      situacionAprendizaje: {
+        titulo,
+        descripcion: situacionAprendizaje,
+      },
       ambitos: ambitosPayload,
     };
 
@@ -314,30 +208,41 @@ export default function InicialFormScreen() {
     }
   };
 
-  const canAdvance = () => {
-    if (paso === "datos") return !!institucion && !!docente;
-    if (paso === "ambitos") return ambitos.some((a) => a.ambitoId);
-    return true;
-  };
-
-  const advancePaso = () => {
-    const idx = PASOS.findIndex((p) => p.key === paso);
-    if (idx < PASOS.length - 1) setPaso(PASOS[idx + 1].key);
-  };
-
-  const retreatPaso = () => {
-    const idx = PASOS.findIndex((p) => p.key === paso);
-    if (idx > 0) setPaso(PASOS[idx - 1].key);
-  };
-
   // ── Render helpers ──
-
   const renderSectionHeader = (title: string, icon: string) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.sectionIcon}>{icon}</Text>
-      <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-        {title}
-      </Text>
+      <Text style={[styles.sectionTitle, { color: colors.foreground }]}>{title}</Text>
+    </View>
+  );
+
+  const renderSelect = (
+    label: string,
+    value: string,
+    options: string[],
+    onChange: (v: string) => void
+  ) => (
+    <View style={styles.fieldGroup}>
+      <Text style={[styles.fieldLabel, { color: colors.muted }]}>{label}</Text>
+      <View style={styles.selectRow}>
+        {options.map(opt => (
+          <Pressable
+            key={opt}
+            onPress={() => onChange(opt)}
+            style={[
+              styles.selectChip,
+              {
+                backgroundColor: value === opt ? colors.primary : colors.surface,
+                borderColor: colors.border,
+              },
+            ]}
+          >
+            <Text style={{ color: value === opt ? "#fff" : colors.foreground, fontSize: 13 }}>
+              {opt}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
     </View>
   );
 
@@ -345,11 +250,7 @@ export default function InicialFormScreen() {
     label: string,
     value: string,
     onChange: (v: string) => void,
-    opts: {
-      placeholder?: string;
-      multiline?: boolean;
-      keyboard?: "default" | "numeric";
-    } = {}
+    opts: { placeholder?: string; multiline?: boolean; keyboard?: "default" | "numeric" } = {}
   ) => (
     <View style={styles.fieldGroup}>
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>{label}</Text>
@@ -359,7 +260,7 @@ export default function InicialFormScreen() {
         placeholder={opts.placeholder || label}
         placeholderTextColor={colors.muted + "80"}
         multiline={opts.multiline}
-        numberOfLines={opts.multiline ? 3 : 1}
+        numberOfLines={opts.multiline ? 4 : 1}
         keyboardType={opts.keyboard || "default"}
         style={[
           styles.textInput,
@@ -368,434 +269,235 @@ export default function InicialFormScreen() {
             borderColor: colors.border,
             color: colors.foreground,
             textAlignVertical: opts.multiline ? "top" : "center",
-            minHeight: opts.multiline ? 70 : 44,
+            minHeight: opts.multiline ? 80 : 44,
           },
         ]}
       />
     </View>
   );
 
-  // ── Paso: Datos informativos ──
+  // ── Step 1: Contexto curricular ──
+  const renderContexto = () => (
+    <View>
+      {renderSectionHeader("Contexto curricular", "🎓")}
+
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.fieldLabel, { color: colors.muted }]}>Currículo por Competencias</Text>
+        <View style={[styles.selectRow, { backgroundColor: colors.surface, borderRadius: 10, padding: 12, borderWidth: 1, borderColor: colors.border }]}>
+          <Text style={{ color: colors.foreground, fontSize: 15 }}>Educación Inicial (3-5 años)</Text>
+        </View>
+      </View>
+
+      {renderSelect("Grado", grado, GRADOS, setGrado)}
+
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.fieldLabel, { color: colors.muted }]}>Currículo integrado</Text>
+        <View style={[styles.selectRow, { backgroundColor: colors.surface, borderRadius: 10, padding: 12, borderWidth: 1, borderColor: colors.border }]}>
+          <Text style={{ color: colors.foreground, fontSize: 15 }}>CI — Currículo integrado</Text>
+        </View>
+      </View>
+    </View>
+  );
+
+  // ── Step 2: Competencias específicas ──
+  const renderCompetencias = () => (
+    <View>
+      {renderSectionHeader("Competencias específicas", "🧩")}
+
+      <Text style={[styles.helperText, { color: colors.muted }]}>
+        Confirma que aquí están las competencias de tu materia. Los indicadores y saberes se resuelven al generar.
+      </Text>
+
+      {/* Search */}
+      <TextInput
+        value={busqueda}
+        onChangeText={setBusqueda}
+        placeholder="Buscar por código o texto..."
+        placeholderTextColor={colors.muted + "80"}
+        style={[
+          styles.textInput,
+          {
+            backgroundColor: colors.surface,
+            borderColor: colors.border,
+            color: colors.foreground,
+            marginBottom: 12,
+          },
+        ]}
+      />
+
+      {/* Selected chips */}
+      {competenciasSeleccionadas.length > 0 && (
+        <View style={{ marginBottom: 12 }}>
+          <Text style={[styles.fieldLabel, { color: colors.muted }]}>
+            Competencias elegidas ({competenciasSeleccionadas.length})
+          </Text>
+          <View style={styles.chipsWrap}>
+            {competenciasSeleccionadas.map(comp => (
+              <View key={comp.codigo} style={[styles.chip, { backgroundColor: "#EEEDFE", borderColor: "#7C3AED" }]}>
+                <Text style={[styles.chipCode, { color: "#4C1D95" }]}>{comp.codigo}</Text>
+                <Text style={[styles.chipDesc, { color: "#6D28D9" }]} numberOfLines={1}>
+                  {comp.descripcion.length > 35 ? comp.descripcion.substring(0, 35) + "..." : comp.descripcion}
+                </Text>
+                <Pressable onPress={() => removeCompetencia(comp.codigo)} hitSlop={6} style={styles.chipX}>
+                  <Text style={{ color: "#7C3AED", fontSize: 15, fontWeight: "700" }}>×</Text>
+                </Pressable>
+              </View>
+            ))}
+          </View>
+        </View>
+      )}
+
+      {/* Available list */}
+      <Text style={[styles.fieldLabel, { color: colors.muted }]}>Agregar competencias</Text>
+      <View style={[styles.listaContainer, { borderColor: colors.border }]}>
+        {competenciasFiltradas.map(comp => (
+          <Pressable
+            key={comp.codigo}
+            onPress={() => toggleCompetencia(comp)}
+            style={[
+              styles.listaItem,
+              { borderBottomColor: colors.border, backgroundColor: selectedCodes.has(comp.codigo) ? colors.primary + "10" : "transparent" },
+            ]}
+          >
+            <View style={[styles.checkbox, { borderColor: selectedCodes.has(comp.codigo) ? colors.primary : colors.border, backgroundColor: selectedCodes.has(comp.codigo) ? colors.primary : "transparent" }]}>
+              {selectedCodes.has(comp.codigo) && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.listaCodigo, { color: colors.primary }]}>{comp.codigo}</Text>
+              <Text style={[styles.listaDesc, { color: colors.foreground }]} numberOfLines={2}>
+                {comp.descripcion}
+              </Text>
+            </View>
+          </Pressable>
+        ))}
+      </View>
+    </View>
+  );
+
+  // ── Step 3: Datos ──
   const renderDatos = () => (
     <View>
-      {renderSectionHeader("Datos Informativos", "📋")}
-      {renderField("Grado / Nivel", grado, setGrado, {
-        placeholder: "Ej: Inicial 4 años",
+      {renderSectionHeader("Datos administrativos", "📋")}
+
+      {renderSelect("Trimestre", trimestre, TRIMESTRES, setTrimestre)}
+
+      <View style={styles.row}>
+        <View style={{ flex: 1 }}>
+          {renderSelect("Paralelo", paralelo, PARALELOS, setParalelo)}
+        </View>
+        <View style={{ flex: 1 }}>
+          {renderField("N.° de semanas", noSemanas, setNoSemanas, { keyboard: "numeric" })}
+        </View>
+      </View>
+
+      {renderField("Título", titulo, setTitulo, {
+        placeholder: "Ej: Pensamiento crítico, voz ética y creación",
       })}
+
+      {renderField("Situación de aprendizaje", situacionAprendizaje, setSituacionAprendizaje, {
+        placeholder: "Opcional. Si lo dejás vacío, la IA redacta la descripción del trimestre.",
+        multiline: true,
+      })}
+
+      {renderField("Temas del trimestre", temasTrimestre, setTemasTrimestre, {
+        placeholder: "Opcional. Escribí un tema por línea.\nEj: Lenguas originarias del Ecuador\nDialectos del Ecuador",
+        multiline: true,
+      })}
+
       {renderField("Institución", institucion, setInstitucion, {
-        placeholder: "Ej: Unidad Educativa Los Andes",
+        placeholder: "Nombre de la unidad educativa",
       })}
+
       {renderField("Docente", docente, setDocente, {
         placeholder: "Nombre del docente",
       })}
-      {renderField("Duración / Año Lectivo", duracion, setDuracion, {
-        placeholder: "Ej: 2026-2027",
-      })}
-      {renderField("Objetivo General", objetivoGeneral, setObjetivoGeneral, {
-        placeholder: "Objetivo general de la planificación",
-        multiline: true,
-      })}
+
+      {/* NEE toggle */}
+      <View style={[styles.toggleRow, { borderColor: colors.border }]}>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Hay estudiantes con NEE en este paralelo?</Text>
+        </View>
+        <Switch
+          value={hayNEE}
+          onValueChange={setHayNEE}
+          trackColor={{ false: colors.border, true: colors.primary + "60" }}
+          thumbColor={hayNEE ? colors.primary : colors.muted}
+        />
+      </View>
+
+      {/* Compartir toggle */}
+      <View style={[styles.toggleRow, { borderColor: colors.border }]}>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Compartir con la comunidad?</Text>
+          <Text style={[styles.toggleSub, { color: colors.muted }]}>Otros docentes podrán ver y clonar tu planificación.</Text>
+        </View>
+        <Switch
+          value={compartir}
+          onValueChange={setCompartir}
+          trackColor={{ false: colors.border, true: colors.primary + "60" }}
+          thumbColor={compartir ? colors.primary : colors.muted}
+        />
+      </View>
     </View>
   );
 
-  // ── Paso: Ámbitos y destrezas ──
-  const renderAmbitos = () => (
+  // ── Step 4: Generar ──
+  const renderGenerar = () => (
     <View>
-      {renderSectionHeader("Ámbitos de Desarrollo", "🎯")}
+      {renderSectionHeader("Generar planificación", "✨")}
 
-      {ambitos.map((ambito, ai) => {
-        const ambitoInfo = AMBITOS.find((am) => am.id === ambito.ambitoId);
-        return (
-          <View
-            key={ai}
-            style={[
-              styles.ambitoCard,
-              { backgroundColor: colors.surface, borderColor: colors.border },
-            ]}
-          >
-            {/* Selector de ámbito */}
-            <View style={styles.fieldGroup}>
-              <Text style={[styles.fieldLabel, { color: colors.muted }]}>
-                Ámbito {ai + 1}
-              </Text>
-              <View style={styles.selectRow}>
-                {AMBITOS.map((am) => (
-                  <Pressable
-                    key={am.id}
-                    onPress={() =>
-                      updateAmbito(ai, {
-                        ambitoId: am.id,
-                        competenciaCodigo: am.competenciasTipicas[0] || "C",
-                        competenciaDescripcion: am.descripcion,
-                      })
-                    }
-                    style={[
-                      styles.selectChip,
-                      {
-                        backgroundColor:
-                          ambito.ambitoId === am.id
-                            ? colors.primary
-                            : colors.surface,
-                        borderColor: colors.border,
-                      },
-                    ]}
-                  >
-                    <Text
-                      style={{
-                        color:
-                          ambito.ambitoId === am.id ? "#fff" : colors.foreground,
-                        fontSize: 12,
-                        fontWeight:
-                          ambito.ambitoId === am.id ? "600" : "400",
-                      }}
-                    >
-                      {am.emoji} {am.nombre}
-                    </Text>
-                  </Pressable>
-                ))}
-              </View>
-            </View>
+      <View style={[styles.summaryCard, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.summaryTitle, { color: colors.foreground }]}>Resumen</Text>
 
-            {/* Destrezas */}
-            <View style={styles.fieldGroup}>
-              <Text style={[styles.fieldLabel, { color: colors.muted }]}>
-                Destrezas
-              </Text>
-              {ambito.destrezas.map((destreza, di) => (
-                <TextInput
-                  key={di}
-                  value={destreza}
-                  onChangeText={(v) => updateDestreza(ai, di, v)}
-                  placeholder={`Destreza ${di + 1}`}
-                  placeholderTextColor={colors.muted + "80"}
-                  style={[
-                    styles.textInput,
-                    {
-                      backgroundColor: colors.background,
-                      borderColor: colors.border,
-                      color: colors.foreground,
-                      marginBottom: 6,
-                    },
-                  ]}
-                />
-              ))}
-              <Pressable
-                onPress={() => addDestreza(ai)}
-                style={[styles.addBtn, { borderColor: colors.primary }]}
-              >
-                <Text style={{ color: colors.primary, fontSize: 13 }}>
-                  + Agregar destreza
-                </Text>
-              </Pressable>
-            </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Grado:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{grado}</Text>
+        </View>
 
-            {/* Competencias transversales */}
-            <View style={styles.fieldGroup}>
-              <Text style={[styles.fieldLabel, { color: colors.muted }]}>
-                Competencias Transversales
-              </Text>
-              <View style={styles.selectRow}>
-                {COMPETENCIAS.map((code) => (
-                  <Pressable
-                    key={code}
-                    onPress={() => toggleCompetenciaAmbito(ai, code)}
-                    style={[
-                      styles.selectChip,
-                      {
-                        backgroundColor: ambito.competencias.includes(code)
-                          ? colors.primary
-                          : colors.surface,
-                        borderColor: colors.border,
-                      },
-                    ]}
-                  >
-                    <Text
-                      style={{
-                        color: ambito.competencias.includes(code)
-                          ? "#fff"
-                          : colors.foreground,
-                        fontSize: 12,
-                      }}
-                    >
-                      {code}
-                    </Text>
-                  </Pressable>
-                ))}
-              </View>
-            </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Trimestre:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{trimestre}</Text>
+        </View>
 
-            {/* Clases dentro del ámbito */}
-            <View style={styles.fieldGroup}>
-              <Text style={[styles.fieldLabel, { color: colors.muted }]}>
-                Clases
-              </Text>
-              {ambito.clases.map((clase, ci) => (
-                <View
-                  key={ci}
-                  style={[
-                    styles.claseCard,
-                    { backgroundColor: colors.background, borderColor: colors.border },
-                  ]}
-                >
-                  <View style={styles.claseHeader}>
-                    <Text
-                      style={[styles.claseNumber, { color: colors.primary }]}
-                    >
-                      Clase {clase.numero}
-                    </Text>
-                    {ambito.clases.length > 1 && (
-                      <Pressable onPress={() => removeClase(ai, ci)}>
-                        <Text style={{ color: "#DC2626", fontSize: 12 }}>
-                          Eliminar
-                        </Text>
-                      </Pressable>
-                    )}
-                  </View>
-                  <TextInput
-                    value={clase.tema}
-                    onChangeText={(v) => updateClase(ai, ci, { tema: v })}
-                    placeholder="Tema de la clase"
-                    placeholderTextColor={colors.muted + "80"}
-                    style={[
-                      styles.textInput,
-                      {
-                        backgroundColor: colors.surface,
-                        borderColor: colors.border,
-                        color: colors.foreground,
-                        marginBottom: 6,
-                      },
-                    ]}
-                  />
-                  <TextInput
-                    value={clase.objetivoEspecifico}
-                    onChangeText={(v) =>
-                      updateClase(ai, ci, { objetivoEspecifico: v })
-                    }
-                    placeholder="Objetivo específico"
-                    placeholderTextColor={colors.muted + "80"}
-                    style={[
-                      styles.textInput,
-                      {
-                        backgroundColor: colors.surface,
-                        borderColor: colors.border,
-                        color: colors.foreground,
-                        marginBottom: 6,
-                      },
-                    ]}
-                  />
-                  <TextInput
-                    value={clase.metodologia}
-                    onChangeText={(v) => updateClase(ai, ci, { metodologia: v })}
-                    placeholder="Metodología"
-                    placeholderTextColor={colors.muted + "80"}
-                    style={[
-                      styles.textInput,
-                      {
-                        backgroundColor: colors.surface,
-                        borderColor: colors.border,
-                        color: colors.foreground,
-                        marginBottom: 6,
-                      },
-                    ]}
-                  />
-                </View>
-              ))}
-              <Pressable
-                onPress={() => addClase(ai)}
-                style={[styles.addBtn, { borderColor: colors.primary }]}
-              >
-                <Text style={{ color: colors.primary, fontSize: 13 }}>
-                  + Agregar clase
-                </Text>
-              </Pressable>
-            </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Paralelo:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{paralelo}</Text>
+        </View>
 
-            {/* Eliminar ámbito */}
-            {ambitos.length > 1 && (
-              <Pressable
-                onPress={() => removeAmbito(ai)}
-                style={styles.removeAmbitoBtn}
-              >
-                <Text style={{ color: "#DC2626", fontSize: 13 }}>
-                  Eliminar ámbito
-                </Text>
-              </Pressable>
-            )}
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Semanas:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{noSemanas}</Text>
+        </View>
+
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Competencias:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>
+            {competenciasSeleccionadas.map(c => c.codigo).join(", ")}
+          </Text>
+        </View>
+
+        {titulo ? (
+          <View style={styles.summaryRow}>
+            <Text style={[styles.summaryLabel, { color: colors.muted }]}>Título:</Text>
+            <Text style={[styles.summaryValue, { color: colors.foreground }]}>{titulo}</Text>
           </View>
-        );
-      })}
+        ) : null}
+      </View>
 
-      <Pressable
-        onPress={addAmbito}
-        style={[
-          styles.addAmbitoBtn,
-          { backgroundColor: colors.primary + "10", borderColor: colors.primary },
-        ]}
-      >
-        <Text style={{ color: colors.primary, fontWeight: "600", fontSize: 15 }}>
-          + Agregar ámbito
+      <View style={[styles.disclaimer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.disclaimerText, { color: colors.muted }]}>
+          Esta herramienta pedagógica genera propuestas de planificación basadas en los lineamientos técnicos y formatos socializados en la fase de piloto. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito.
         </Text>
-      </Pressable>
-    </View>
-  );
-
-  // ── Paso: Estrategia didáctica ──
-  const renderEstrategia = () => (
-    <View>
-      {renderSectionHeader("Estrategia Didáctica", "📐")}
-
-      {ambitos
-        .filter((a) => a.ambitoId)
-        .map((ambito, ai) => {
-          const ambitoInfo = AMBITOS.find((am) => am.id === ambito.ambitoId);
-          return (
-            <View
-              key={ai}
-              style={[
-                styles.ambitoCard,
-                { backgroundColor: colors.surface, borderColor: colors.border },
-              ]}
-            >
-              <Text
-                style={[
-                  styles.ambitoCardTitle,
-                  { color: colors.foreground },
-                ]}
-              >
-                {ambitoInfo?.emoji} {ambitoInfo?.nombre || ambito.ambitoId}
-              </Text>
-
-              {ambito.clases
-                .filter((c) => c.tema.trim())
-                .map((clase, ci) => (
-                  <View key={ci} style={{ marginBottom: 12 }}>
-                    <Text
-                      style={[
-                        styles.claseLabel,
-                        { color: colors.muted },
-                      ]}
-                    >
-                      Clase {clase.numero}: {clase.tema}
-                    </Text>
-                    {renderField(
-                      "Inicio",
-                      clase.inicio,
-                      (v) =>
-                        updateClase(
-                          ambitos.indexOf(ambito),
-                          ci,
-                          { inicio: v }
-                        ),
-                      { placeholder: "Actividad de inicio", multiline: true }
-                    )}
-                    {renderField(
-                      "Desarrollo",
-                      clase.desarrollo,
-                      (v) =>
-                        updateClase(
-                          ambitos.indexOf(ambito),
-                          ci,
-                          { desarrollo: v }
-                        ),
-                      { placeholder: "Actividad de desarrollo", multiline: true }
-                    )}
-                    {renderField(
-                      "Cierre",
-                      clase.cierre,
-                      (v) =>
-                        updateClase(
-                          ambitos.indexOf(ambito),
-                          ci,
-                          { cierre: v }
-                        ),
-                      { placeholder: "Actividad de cierre", multiline: true }
-                    )}
-                  </View>
-                ))}
-            </View>
-          );
-        })}
-    </View>
-  );
-
-  // ── Paso: Evaluación ──
-  const renderEvaluacion = () => (
-    <View>
-      {renderSectionHeader("Evaluación", "✅")}
-
-      {renderField(
-        "Método de Evaluación General",
-        metodoEvaluacionGeneral,
-        setMetodoEvaluacionGeneral,
-        {
-          placeholder: "Ej: Observación directa, portafolio",
-          multiline: true,
-        }
-      )}
-
-      {ambitos
-        .filter((a) => a.ambitoId)
-        .map((ambito, ai) => {
-          const ambitoInfo = AMBITOS.find((am) => am.id === ambito.ambitoId);
-          return (
-            <View
-              key={ai}
-              style={[
-                styles.ambitoCard,
-                { backgroundColor: colors.surface, borderColor: colors.border },
-              ]}
-            >
-              <Text
-                style={[styles.ambitoCardTitle, { color: colors.foreground }]}
-              >
-                {ambitoInfo?.emoji} {ambitoInfo?.nombre || ambito.ambitoId}
-              </Text>
-
-              {ambito.clases
-                .filter((c) => c.tema.trim())
-                .map((clase, ci) => (
-                  <View key={ci} style={{ marginBottom: 8 }}>
-                    <Text style={[styles.claseLabel, { color: colors.muted }]}>
-                      Clase {clase.numero}: {clase.tema}
-                    </Text>
-                    <TextInput
-                      value={clase.metodoEvaluacion}
-                      onChangeText={(v) =>
-                        updateClase(
-                          ambitos.indexOf(ambito),
-                          ci,
-                          { metodoEvaluacion: v }
-                        )
-                      }
-                      placeholder="Evidencias (separadas por coma)"
-                      placeholderTextColor={colors.muted + "80"}
-                      style={[
-                        styles.textInput,
-                        {
-                          backgroundColor: colors.background,
-                          borderColor: colors.border,
-                          color: colors.foreground,
-                        },
-                      ]}
-                    />
-                  </View>
-                ))}
-            </View>
-          );
-        })}
+      </View>
     </View>
   );
 
   const renderPasoActual = () => {
     switch (paso) {
-      case "datos":
-        return renderDatos();
-      case "ambitos":
-        return renderAmbitos();
-      case "estrategia":
-        return renderEstrategia();
-      case "evaluacion":
-        return renderEvaluacion();
+      case "contexto": return renderContexto();
+      case "competencias": return renderCompetencias();
+      case "datos": return renderDatos();
+      case "generar": return renderGenerar();
     }
   };
 
@@ -815,88 +517,65 @@ export default function InicialFormScreen() {
   return (
     <ScreenContainer className="flex-1">
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        {/* ── Header ── */}
+        {/* Header */}
         <View className="px-5 pt-4 pb-2">
+          <Text className="text-base text-muted">
+            {isEdit ? "Editar Planificación" : "Nueva microcurricular por competencias"}
+          </Text>
           <Text className="text-2xl font-bold text-foreground">
-            {isEdit ? "Editar Planificación" : "Planificación Inicial / Preparatoria"}
+            Currículo por Competencias — Inicial
+          </Text>
+          <Text className="text-sm text-muted mt-1">
+            Elige las competencias del trimestre; la IA arma las semanas.
           </Text>
         </View>
 
-        {/* ── Progress bar ── */}
-        <View style={styles.progressRow}>
-          {PASOS.map((p, i) => (
-            <View key={p.key} style={{ flex: 1, alignItems: "center" }}>
-              <View
-                style={[
-                  styles.progressDot,
-                  {
-                    backgroundColor:
-                      p.key === paso
-                        ? colors.primary
-                        : PASOS.findIndex((x) => x.key === paso) > i
-                          ? colors.success
-                          : colors.border,
-                  },
-                ]}
+        {/* Progress links */}
+        <View style={styles.progressLinks}>
+          {PASOS.map((p, i) => {
+            const currentIdx = PASOS.findIndex(x => x.key === paso);
+            const isActive = p.key === paso;
+            const isDone = i < currentIdx;
+            return (
+              <Pressable
+                key={p.key}
+                onPress={() => { if (i <= currentIdx) setPaso(p.key); }}
+                style={styles.progressLink}
               >
-                <Text style={{ color: "#fff", fontSize: 11, fontWeight: "700" }}>
-                  {i + 1}
+                <Text style={{
+                  fontSize: 13,
+                  color: isActive ? colors.primary : isDone ? colors.success : colors.muted,
+                  fontWeight: isActive ? "700" : "400",
+                  textDecorationLine: isDone ? "line-through" : "none",
+                }}>
+                  {i + 1}. {p.label}
                 </Text>
-              </View>
-              <Text
-                style={{
-                  fontSize: 10,
-                  color: p.key === paso ? colors.primary : colors.muted,
-                  marginTop: 4,
-                  fontWeight: p.key === paso ? "600" : "400",
-                }}
-              >
-                {p.label}
-              </Text>
-            </View>
-          ))}
+              </Pressable>
+            );
+          })}
         </View>
 
-        {/* ── Contenido del paso ── */}
+        {/* Content */}
         <View style={{ paddingHorizontal: 20 }}>{renderPasoActual()}</View>
       </ScrollView>
 
-      {/* ── Botones de navegación ── */}
-      <View
-        style={[
-          styles.bottomBar,
-          { backgroundColor: colors.background, borderTopColor: colors.border },
-        ]}
-      >
+      {/* Bottom bar */}
+      <View style={[styles.bottomBar, { backgroundColor: colors.background, borderTopColor: colors.border }]}>
         <View style={styles.bottomBarInner}>
-          {paso !== "datos" ? (
+          {paso !== "contexto" ? (
             <Pressable
               onPress={retreatPaso}
-              style={[
-                styles.navBtn,
-                { backgroundColor: colors.surface, borderColor: colors.border },
-              ]}
+              style={[styles.navBtn, { backgroundColor: colors.surface, borderColor: colors.border }]}
             >
-              <Text style={{ color: colors.foreground, fontWeight: "600" }}>
-                Anterior
-              </Text>
+              <Text style={{ color: colors.foreground, fontWeight: "600" }}>Anterior</Text>
             </Pressable>
-          ) : (
-            <View />
-          )}
+          ) : <View />}
 
-          {paso !== "evaluacion" ? (
+          {paso !== "generar" ? (
             <Pressable
               onPress={advancePaso}
               disabled={!canAdvance()}
-              style={[
-                styles.navBtn,
-                {
-                  backgroundColor: canAdvance()
-                    ? colors.primary
-                    : colors.muted + "40",
-                },
-              ]}
+              style={[styles.navBtn, { backgroundColor: canAdvance() ? colors.primary : colors.muted + "40" }]}
             >
               <Text style={{ color: "#fff", fontWeight: "600" }}>Siguiente</Text>
             </Pressable>
@@ -904,7 +583,7 @@ export default function InicialFormScreen() {
             <Pressable
               onPress={handleSave}
               disabled={isPending}
-              style={[styles.navBtn, { backgroundColor: isPending ? colors.muted + "40" : colors.success }]}
+              style={[styles.navBtn, { backgroundColor: isPending ? colors.muted + "40" : colors.primary }]}
             >
               {isPending ? (
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
@@ -912,7 +591,9 @@ export default function InicialFormScreen() {
                   <Text style={{ color: "#fff", fontWeight: "600" }}>Guardando…</Text>
                 </View>
               ) : (
-                <Text style={{ color: "#fff", fontWeight: "700" }}>{isEdit ? "Guardar Cambios" : "Guardar"}</Text>
+                <Text style={{ color: "#fff", fontWeight: "700" }}>
+                  ✨ {isEdit ? "Guardar Cambios" : "Generar planificación"}
+                </Text>
               )}
             </Pressable>
           )}
@@ -930,125 +611,38 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 8,
   },
-  sectionIcon: {
-    fontSize: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-  },
-  fieldGroup: {
-    marginBottom: 14,
-  },
-  fieldLabel: {
-    fontSize: 12,
-    fontWeight: "600",
-    marginBottom: 6,
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 15,
-  },
-  selectRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  selectChip: {
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  progressRow: {
-    flexDirection: "row",
-    paddingHorizontal: 30,
-    marginBottom: 20,
-  },
-  progressDot: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  ambitoCard: {
-    borderRadius: 14,
-    borderWidth: 1,
-    padding: 14,
-    marginBottom: 14,
-  },
-  ambitoCardTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    marginBottom: 12,
-  },
-  claseCard: {
-    borderRadius: 10,
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 8,
-  },
-  claseHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  claseNumber: {
-    fontSize: 13,
-    fontWeight: "700",
-  },
-  claseLabel: {
-    fontSize: 12,
-    fontWeight: "600",
-    marginBottom: 6,
-  },
-  addBtn: {
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderRadius: 10,
-    paddingVertical: 8,
-    alignItems: "center",
-    marginTop: 6,
-  },
-  addAmbitoBtn: {
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderRadius: 12,
-    paddingVertical: 14,
-    alignItems: "center",
-    marginTop: 4,
-  },
-  removeAmbitoBtn: {
-    alignItems: "center",
-    paddingVertical: 8,
-    marginTop: 8,
-  },
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    paddingTop: 12,
-  },
-  bottomBarInner: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 12,
-  },
-  navBtn: {
-    flex: 1,
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: "center",
-  },
+  sectionIcon: { fontSize: 20 },
+  sectionTitle: { fontSize: 18, fontWeight: "700" },
+  helperText: { fontSize: 13, marginBottom: 12, lineHeight: 18 },
+  fieldGroup: { marginBottom: 14 },
+  fieldLabel: { fontSize: 12, fontWeight: "600", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 },
+  textInput: { borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10, fontSize: 15 },
+  selectRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  selectChip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10, borderWidth: 1 },
+  row: { flexDirection: "row", gap: 12 },
+  chipsWrap: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  chip: { flexDirection: "row", alignItems: "center", paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, gap: 6 },
+  chipCode: { fontSize: 12, fontWeight: "700" },
+  chipDesc: { fontSize: 11, maxWidth: 180 },
+  chipX: { paddingLeft: 4 },
+  listaContainer: { borderWidth: 1, borderRadius: 10, maxHeight: 300 },
+  listaItem: { flexDirection: "row", alignItems: "flex-start", padding: 12, borderBottomWidth: 1, gap: 10 },
+  checkbox: { width: 20, height: 20, borderRadius: 4, borderWidth: 2, alignItems: "center", justifyContent: "center", marginTop: 2 },
+  listaCodigo: { fontSize: 13, fontWeight: "700", marginBottom: 2 },
+  listaDesc: { fontSize: 12, lineHeight: 17 },
+  toggleRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: 14, borderRadius: 10, borderWidth: 1, marginBottom: 10 },
+  toggleLabel: { fontSize: 14, fontWeight: "600" },
+  toggleSub: { fontSize: 12, marginTop: 2 },
+  summaryCard: { borderRadius: 12, borderWidth: 1, padding: 16, marginBottom: 16 },
+  summaryTitle: { fontSize: 16, fontWeight: "700", marginBottom: 12 },
+  summaryRow: { flexDirection: "row", marginBottom: 6, gap: 8 },
+  summaryLabel: { fontSize: 13, fontWeight: "600", width: 100 },
+  summaryValue: { fontSize: 13, flex: 1 },
+  disclaimer: { borderRadius: 10, borderWidth: 1, padding: 14, borderStyle: "dashed" },
+  disclaimerText: { fontSize: 12, lineHeight: 18, fontStyle: "italic" },
+  progressLinks: { flexDirection: "row", paddingHorizontal: 20, gap: 16, marginBottom: 16, marginTop: 4 },
+  progressLink: {},
+  bottomBar: { position: "absolute", bottom: 0, left: 0, right: 0, borderTopWidth: 1, paddingHorizontal: 20, paddingBottom: 20, paddingTop: 12 },
+  bottomBarInner: { flexDirection: "row", justifyContent: "space-between", gap: 12 },
+  navBtn: { flex: 1, paddingVertical: 14, borderRadius: 12, alignItems: "center" },
 });
