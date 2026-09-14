@@ -24,7 +24,7 @@ import {
 } from "docx";
 import type { PlanificacionCurriculoCompetencias } from "../data/types-curriculo-competencias";
 import type { CompetenciaTransversalCode } from "../data/competencias-transversales";
-import { saberesData } from "../data/saberes-data";
+import { buscarConexionesInterdisciplinarias } from "../data/index";
 
 // ── Colores ──────────────────────────────────────────────────────
 const COLOR_PRIMARY = "155E75";
@@ -182,20 +182,19 @@ function generarSaberesAutomaticos(
   subSecuencial: string,
   numSaber: number
 ): { declarativos: string; procedimentales: string; actitudinales: string } {
-  // Extraer texto descriptivo del indicador (sin código)
   const textoIndicador = indicador.replace(/^[A-Z]+\.[A-Z]+\.\d+\.\d+\.\d+\.\s*/i, "").trim();
-  
-  // Generar códigos
-  const codigoDec = prefijoArea ? `D.${prefijoArea}.${subSecuencial}.${numSaber}` : `D.CE.${numSaber}`;
-  const codigoPro = prefijoArea ? `P.${prefijoArea}.${subSecuencial}.${numSaber}` : `P.CE.${numSaber}`;
-  const codigoAct = prefijoArea ? `A.${prefijoArea}.${subSecuencial}.${numSaber}` : `A.CE.${numSaber}`;
-  
-  // Generar textos genéricos pero contextuales (sin código, se agrega después)
   const declarativos = `Conocer los conceptos, principios y procedimientos relacionados con: ${textoIndicador.substring(0, 120)}`;
   const procedimentales = `Aplicar estrategias y procedimientos para ${textoIndicador.substring(0, 120).toLowerCase()}`;
   const actitudinales = `Valorar la importancia del aprendizaje y la práctica de: ${textoIndicador.substring(0, 120).toLowerCase()}`;
-  
   return { declarativos, procedimentales, actitudinales };
+}
+
+/** Aplica title case respetando palabras en MAYÚSCULAS completas (siglas, etc.) */
+function safeTitleCase(str: string): string {
+  // Si el texto está mayormente en mayúsculas, no transformar (preservar siglas/nombres propios)
+  const upperRatio = (str.replace(/[^A-ZÁÉÍÓÚÑ]/g, "").length) / str.replace(/\s/g, "").length;
+  if (upperRatio > 0.6) return str;
+  return toTitleCase(str);
 }
 
 const LOWERCASE_WORDS = new Set(["de", "del", "la", "las", "el", "los", "y", "en", "para", "a"]);
@@ -209,6 +208,24 @@ function toTitleCase(str: string): string {
       return lower.charAt(0).toUpperCase() + lower.slice(1);
     })
     .join(" ");
+}
+
+/** Genera un texto declarativo contextual a partir del texto del indicador */
+function generarDeclarativo(textoIndicador: string): string {
+  const limpio = textoIndicador.substring(0, 140).replace(/[.]$/, "");
+  return `Conocer los conceptos, principios y procedimientos relacionados con ${limpio.toLowerCase()}`;
+}
+
+/** Genera un texto procedimental contextual a partir del texto del indicador */
+function generarProcedimental(textoIndicador: string): string {
+  const limpio = textoIndicador.substring(0, 140).replace(/[.]$/, "");
+  return `Aplicar estrategias y procedimientos para ${limpio.toLowerCase()}`;
+}
+
+/** Genera un texto actitudinal contextual a partir del texto del indicador */
+function generarActitudinal(textoIndicador: string): string {
+  const limpio = textoIndicador.substring(0, 140).replace(/[.]$/, "");
+  return `Valorar la importancia del aprendizaje y la práctica de ${limpio.toLowerCase()}`;
 }
 
 function p(
@@ -315,20 +332,22 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   );
 
   // ── 3. Datos Informativos ──
+  const numSemanasCalc = plan.noSemanas || plan.estructuraDidactica?.fases?.length || 8;
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p(`Docente: ${toTitleCase(plan.docente || "—")}`, { size: 8 })], TW * 0.4),
-            tc([p(`Grado-Paralelo: ${plan.grado || "—"} - ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.3),
+            tc([p(`Docente: ${safeTitleCase(plan.docente || "—")}`, { size: 8 })], TW * 0.4),
+            tc([p(`Grado/Curso: ${plan.grado || "—"}`, { size: 8 })], TW * 0.3),
             tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.3),
           ],
         }),
         new TableRow({
           children: [
-            tc([p(`Asignatura: ${toTitleCase(plan.asignatura || "—")}`, { size: 8 })], TW * 0.5),
-            tc([p(`No. de semanas: ${plan.estructuraDidactica?.fases?.length || 8}`, { size: 8 })], TW * 0.5),
+            tc([p(`Asignatura: ${safeTitleCase(plan.asignatura || "—")}`, { size: 8 })], TW * 0.4),
+            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], TW * 0.3),
+            tc([p(`No. de semanas: ${numSemanasCalc}`, { size: 8 })], TW * 0.3),
           ],
         }),
       ],
@@ -352,10 +371,14 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
     makeTable(
       [
         new TableRow({
-          children: [tc([p("Título:", { bold: true, size: 8 }), p(tituloSA, { size: 8 })], TW)],
-        }),
-        new TableRow({
-          children: [tc([p("Descripción:", { bold: true, size: 8 }), p(plan.situacionAprendizaje?.descripcion || plan.destreza?.descripcion || "—", { size: 8 })], TW)],
+          children: [
+            tc([
+              p("Título:", { bold: true, size: 8 }),
+              p(tituloSA, { size: 8 }),
+              p("Descripción:", { bold: true, size: 8 }),
+              p(plan.situacionAprendizaje?.descripcion || plan.destreza?.descripcion || "—", { size: 8 }),
+            ], TW),
+          ],
         }),
       ],
       TW,
@@ -366,28 +389,42 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   // ── 5. Conexión interdisciplinar ──
   children.push(makeTable([sectionRow("CONEXIÓN INTERDISCIPLINAR")], TW, [TW]));
 
-  const asignaturasConexion = plan.conexionInterdisciplinar?.asignaturas?.length
-    ? plan.conexionInterdisciplinar.asignaturas
-    : [];
+  const conexionesManuales = plan.conexionInterdisciplinar?.asignaturas ?? [];
+  const subnivel = plan.destreza?.subnivel ?? 2;
+  const conexionesAutomaticas = buscarConexionesInterdisciplinarias(
+    plan.destreza?.area ?? "LL",
+    subnivel,
+    plan.destreza?.descripcion,
+    plan.destreza?.indicadoresEvaluacion
+  );
 
   const filasConexion: TableRow[] = [];
 
-  if (asignaturasConexion.length > 0) {
-    for (const asig of asignaturasConexion) {
+  if (conexionesManuales.length > 0) {
+    for (const asig of conexionesManuales) {
       filasConexion.push(
         new TableRow({
           children: [
-            tc([p(asig, { size: 8 })], TW),
+            tc([p(`• ${asig}`, { size: 8 })], TW),
+          ],
+        })
+      );
+    }
+  } else if (conexionesAutomaticas.length > 0) {
+    for (const conn of conexionesAutomaticas) {
+      filasConexion.push(
+        new TableRow({
+          children: [
+            tc([p(`• ${conn.area}: ${conn.descripcion} (${conn.ceCode})`, { size: 8 })], TW),
           ],
         })
       );
     }
   } else {
-    // Fallback: mostrar solo el área actual con su CE
     filasConexion.push(
       new TableRow({
         children: [
-          tc([p(`${plan.asignatura || "—"}: ${plan.destreza?.criteriosEvaluacion?.[0] || "—"}`, { size: 8 })], TW),
+          tc([p("—", { size: 8 })], TW),
         ],
       })
     );
@@ -415,9 +452,23 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   const competenciasEspecificas = plan.destreza?.criteriosEvaluacion || [];
   const indicadoresDcd = plan.destreza?.indicadoresEvaluacion || [];
 
-  // Buscar saberes en saberesData usando el código CE
-  const ceCode = competenciasEspecificas[0]?.split(".")[0] + "." + competenciasEspecificas[0]?.split(".")[1] + "." + competenciasEspecificas[0]?.split(".")[2] || "";
-  const saberesFromData = saberesData[ceCode];
+  // Línea de códigos CE centrados debajo del header (ej: "CE.LL.2.1 · CE.LL.2.3 · CE.LL.2.4")
+  if (competenciasEspecificas.length > 0) {
+    const ceLine = competenciasEspecificas.join(" · ");
+    children.push(
+      makeTable(
+        [
+          new TableRow({
+            children: [
+              tc([p(ceLine, { size: 8, align: "center" })], TW),
+            ],
+          }),
+        ],
+        TW,
+        [TW]
+      )
+    );
+  }
 
   const COL_IND = Math.floor(TW * 0.34);
   const COL_DEC = Math.floor(TW * 0.22);
@@ -435,30 +486,25 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   for (let i = 0; i < indicadoresDcd.length; i++) {
     const indCodigo = indicadoresDcd[i] || "—";
 
-    // Generar códigos de saberes
+    // Generar códigos únicos por indicador
     const numSaber = i + 1;
-    const codigoDec = prefijoArea ? `D.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
-    const codigoPro = prefijoArea ? `P.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
-    const codigoAct = prefijoArea ? `A.${prefijoArea}.${subSecuencial}.${numSaber}` : "";
+    const codigoDec = prefijoArea ? `D.${prefijoArea}.${subSecuencial}.${numSaber}` : `D.CE.${numSaber}`;
+    const codigoPro = prefijoArea ? `P.${prefijoArea}.${subSecuencial}.${numSaber}` : `P.CE.${numSaber}`;
+    const codigoAct = prefijoArea ? `A.${prefijoArea}.${subSecuencial}.${numSaber}` : `A.CE.${numSaber}`;
 
-    // Usar saberes del catálogo si existen, o generar automáticamente
-    let declarativo = plan.saberes?.declarativos || saberesFromData?.declarativos || "";
-    let procedimentales = plan.saberes?.procedimentales || saberesFromData?.procedimentales || "";
-    let actitudinales = plan.saberes?.actitudinales || saberesFromData?.actitudinales || "";
-    
-    // Si no hay saberes, generar automáticamente
-    if (!declarativo && !procedimentales && !actitudinales) {
-      const saberesAuto = generarSaberesAutomaticos(indCodigo, ceCode, prefijoArea, subSecuencial, numSaber);
-      declarativo = saberesAuto.declarativos;
-      procedimentales = saberesAuto.procedimentales;
-      actitudinales = saberesAuto.actitudinales;
-    }
+    // Extraer texto del indicador sin código para generar saberes contextuales
+    const textoIndicador = indCodigo.replace(/^[A-Z]+\.[A-Z]+\.\d+[\.\d]*\.\s*/i, "").trim() || indCodigo;
+
+    // Generar saberes contextuales por indicador (mejor que saberes genéricos globales)
+    const declarativos = `${prefijoArea ? prefijoArea + "." : ""}d.${numSaber}. ${generarDeclarativo(textoIndicador)}`;
+    const procedimentales = `${prefijoArea ? prefijoArea + "." : ""}p.${numSaber}. ${generarProcedimental(textoIndicador)}`;
+    const actitudinales = `${prefijoArea ? prefijoArea + "." : ""}a.${numSaber}. ${generarActitudinal(textoIndicador)}`;
 
     filasIndicadores.push(
       new TableRow({
         children: [
           tc([p(indCodigo, { size: 7 })], COL_IND),
-          tc([p(`${codigoDec}. ${declarativo}`, { size: 7 })], COL_DEC),
+          tc([p(`${codigoDec}. ${declarativos}`, { size: 7 })], COL_DEC),
           tc([p(`${codigoPro}. ${procedimentales}`, { size: 7 })], COL_PRO),
           tc([p(`${codigoAct}. ${actitudinales}`, { size: 7 })], COL_ACT),
         ],
@@ -509,7 +555,7 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   const critEval = plan.destreza?.criteriosEvaluacion?.[0] || "";
 
   const semanas = plan.semanas || [];
-  const numSemanas = plan.estructuraDidactica?.fases?.length || 8;
+  const numSemanas = plan.noSemanas || plan.estructuraDidactica?.fases?.length || 8;
 
   const COL_IZQ = Math.floor(TW * 0.45);
   const COL_REC = Math.floor(TW * 0.25);
@@ -539,21 +585,40 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   for (let semana = 1; semana <= numSemanas; semana++) {
     const semData = semanas.find((s) => s.numero === semana);
+    const fase = plan.estructuraDidactica?.fases?.[semana - 1];
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
     // ── Contenido aplicado por semana ──
-    const contenidoGenerado = generarContenidoProgresivo(
-      semana,
-      numSemanas,
-      destrezaDesc,
-      indTexto,
-      objetivo,
-      critEval,
-    );
+    let inicio: string;
+    let desarrollo: string;
+    let cierre: string;
 
-    const inicio = (semData?.inicio && semData.inicio.trim()) || contenidoGenerado.inicio;
-    const desarrollo = (semData?.desarrollo && semData.desarrollo.trim()) || contenidoGenerado.desarrollo;
-    const cierre = (semData?.cierre && semData.cierre.trim()) || contenidoGenerado.cierre;
+    if (semData?.inicio && semData.inicio.trim()) {
+      inicio = semData.inicio;
+      desarrollo = semData.desarrollo || "";
+      cierre = semData.cierre || "";
+    } else if (fase?.actividades?.length) {
+      const actividades = fase.actividades;
+      const grouped = { inicio: [] as string[], desarrollo: [] as string[], cierre: [] as string[] };
+      const third = Math.ceil(actividades.length / 3);
+      for (let i = 0; i < actividades.length; i++) {
+        const act = actividades[i];
+        const texto = act.texto || "";
+        if (i < third) grouped.inicio.push(`• ${texto}`);
+        else if (i < third * 2) grouped.desarrollo.push(`• ${texto}`);
+        else grouped.cierre.push(`• ${texto}`);
+      }
+      inicio = grouped.inicio.join("\n") || "• Inicio de la actividad";
+      desarrollo = grouped.desarrollo.join("\n") || "• Desarrollo de la actividad";
+      cierre = grouped.cierre.join("\n") || "• Cierre de la actividad";
+    } else {
+      const contenidoGenerado = generarContenidoProgresivo(
+        semana, numSemanas, destrezaDesc, indTexto, objetivo, critEval,
+      );
+      inicio = contenidoGenerado.inicio;
+      desarrollo = contenidoGenerado.desarrollo;
+      cierre = contenidoGenerado.cierre;
+    }
 
     // Columna izquierda: contenido aplicado
     const izqContent = [
@@ -566,14 +631,46 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
       p(cierre, { size: 7 }),
     ];
 
-    // Columna central: recursos
-    const recursosSem = plan.recursos || "Ficha de trabajo, cuaderno, lápiz";
+    // Columna central: recursos (variar por semana para mayor realismo)
+    const recursosBase = plan.recursos || "Ficha de trabajo, cuaderno, lápiz";
+    const recursosExtras = [
+      "Texto fuente, organizador gráfico",
+      "Material visual, pizarra",
+      "Guía de lectura, ficha de trabajo",
+      "Computador o tableta, proyector",
+      "Recursos MINEDUC, antología de textos",
+      "Cuaderno de ejercicios, lápiz color",
+      "Ficha de análisis, marcadores",
+      "Portafolio de evidencias, rúbrica",
+    ];
+    const recursoExtra = recursosExtras[(semana - 1) % recursosExtras.length];
+    const recursosSem = semData?.inicio
+      ? recursosBase
+      : `${recursosBase}, ${recursoExtra}`;
     const recContent = recursosSem.split(",").map((r: string) => p(`• ${r.trim()}`, { size: 7 }));
 
-    // Columna derecha: técnicas e instrumentos
+    // Columna derecha: técnicas e instrumentos (variar por semana)
+    const tecnicasBase = [
+      "Observación sistemática",
+      "Análisis de producciones estudiantiles",
+      "Observación directa",
+      "Diálogo reflexivo / metacognición",
+      "Evaluación situacional",
+      "Prueba escrita / oral",
+    ];
+    const instrumentosBase = [
+      "Lista de cotejo",
+      "Rúbrica analítica",
+      "Escala descriptiva",
+      "Guía de observación",
+      "Registro anecdótico",
+      "Prueba de desempeño",
+    ];
+    const tecnicaSem = semData?.tecnica || plan.tecnicaEvaluacion || tecnicasBase[(semana - 1) % tecnicasBase.length];
+    const instrumentoSem = semData?.instrumento || plan.instrumentoEvaluacion || instrumentosBase[(semana - 1) % instrumentosBase.length];
     const techContent = [
-      p(`Técnica: ${semData?.tecnica || plan.tecnicaEvaluacion || "Observación directa"}`, { size: 7 }),
-      p(`Instrumento: ${semData?.instrumento || plan.instrumentoEvaluacion || "Lista de cotejo"}`, { size: 7 }),
+      p(`Técnica: ${tecnicaSem}`, { size: 7 }),
+      p(`Instrumento: ${instrumentoSem}`, { size: 7 }),
     ];
 
     children.push(
