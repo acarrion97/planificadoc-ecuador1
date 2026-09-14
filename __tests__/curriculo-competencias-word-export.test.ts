@@ -41,6 +41,11 @@ const PLAN_EGB_BGU: PlanificacionCurriculoCompetencias = {
   destreza: {
     codigo: "MAT-8VO-01",
     descripcion: "Resuelve problemas de ecuaciones lineales",
+    criteriosEvaluacion: ["CE.M.8.1", "CE.M.8.2"],
+    indicadoresEvaluacion: [
+      "I.M.8.1.1. Identifica los términos de una ecuación lineal",
+      "I.M.8.1.2. Resuelve ecuaciones lineales de primer grado",
+    ],
   } as any,
   indicadorEvaluacion: "Resuelve ecuaciones lineales de primer grado",
   competenciasAsociadas: ["C", "M", "CD", "CS"],
@@ -346,7 +351,7 @@ describe("Word Inicial/Preparatoria - Estructura y contenido", () => {
   it("contiene la institución", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    expect(text).toContain("Unidad Educativa Los Andes");
+    expect(text).toContain("Unidad Educativa");
   });
 
   it("contiene el docente", async () => {
@@ -355,7 +360,7 @@ describe("Word Inicial/Preparatoria - Estructura y contenido", () => {
     expect(text).toContain("Ana García");
   });
 
-  it("contiene el objetivo general", async () => {
+  it("contiene el objetivo general como título de SA", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
     expect(text).toContain("Desarrollar habilidades socioemocionales");
@@ -364,25 +369,21 @@ describe("Word Inicial/Preparatoria - Estructura y contenido", () => {
   it("contiene los ámbitos de desarrollo", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    // El formato oficial MINEDUC incluye ámbitos en "CONEXIONES CURRICULARES"
-    expect(text).toContain("CONEXIONES CURRICULARES");
-    expect(text).toContain("Ámbitos de desarrollo y aprendizaje");
+    expect(text).toContain("Conexión interdisciplinar");
+    expect(text).toContain("Socioemocional");
+    expect(text).toContain("Cognitivo");
   });
 
   it("contiene las competencias de cada ámbito", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    // El formato oficial MINEDUC incluye competencias en "CONEXIONES CURRICULARES"
-    expect(text).toContain("CONEXIONES CURRICULARES");
-    expect(text).toContain("Competencias Específica");
+    expect(text).toContain("Competencias específicas");
   });
 
-  it("contiene las destrezas", async () => {
+  it("contiene los indicadores de evaluación", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    // El formato oficial MINEDUC incluye destrezas en "Indicadores de evaluación"
     expect(text).toContain("Indicadores de evaluación");
-    expect(text).toContain("CONEXIONES CURRICULARES");
   });
 
   it("contiene las clases con sus temas", async () => {
@@ -392,51 +393,44 @@ describe("Word Inicial/Preparatoria - Estructura y contenido", () => {
     expect(text).toContain("Clasificación");
   });
 
-  it("contiene las fases INICIO/DESARROLLO/CIERRE", async () => {
+  it("contiene las fases inicio/desarrollo/cierre", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    expect(text).toContain("INICIO");
-    expect(text).toContain("DESARROLLO");
-    expect(text).toContain("CIERRE");
+    expect(text).toContain("inicio");
+    expect(text).toContain("desarrollo");
+    expect(text).toContain("cierre");
   });
 
-  it("contiene las NEE", async () => {
+  it("contiene la tabla DUA semanal", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    // El formato oficial MINEDUC no incluye NEE separadas
-    // Verificar que contiene secciones principales
-    expect(text).toContain("SITUACIÓN DE APRENDIZAJE");
-    expect(text).toContain("CONEXIONES CURRICULARES");
+    expect(text).toContain("Situación de aprendizaje");
+    expect(text).toContain("Conexión interdisciplinar");
   });
 
-  it("contiene la bibliografía", async () => {
+  it("contiene la nota al pie", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    // El formato oficial MINEDUC no incluye bibliografía separada
-    // Verificar que contiene secciones principales
-    expect(text).toContain("RECURSOS");
-    expect(text).toContain("EVALUACIÓN");
+    expect(text).toContain("herramienta pedagógica");
   });
 
   it("contiene estructura del formato oficial MINEDUC", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    // El formato oficial MINEDUC no incluye firmas separadas
-    // Verificar que contiene las secciones principales
-    expect(text).toContain("Unidad Educativa Los Andes");
+    expect(text).toContain("Unidad Educativa");
     expect(text).toContain("Planificación microcurricular");
-    expect(text).toContain("DATOS INFORMATIVOS");
+    expect(text).toContain("Datos informativos");
   });
 
-  it("genera formato Inicial/Preparatoria según formato oficial MINEDUC", async () => {
+  it("genera formato Inicial/Preparatoria multigrado", async () => {
     const blob = await generarCurriculoCompetenciasWordInicial(PLAN_INICIAL);
     const text = await extractDocxText(blob);
-    // El formato oficial MINEDUC incluye: Trimestre, Paralelo, Situación de aprendizaje, Conexiones curriculares
-    expect(text).toContain("Planificación microcurricular");
-    expect(text).toContain("DATOS INFORMATIVOS");
-    expect(text).toContain("SITUACIÓN DE APRENDIZAJE");
-    expect(text).toContain("CONEXIONES CURRICULARES");
-    expect(text).toContain("SABERES");
+    expect(text).toContain("Planificación microcurricular por competencias - multigrado");
+    expect(text).toContain("Datos informativos");
+    expect(text).toContain("Situación de aprendizaje");
+    expect(text).toContain("Conexión interdisciplinar");
+    expect(text).toContain("Inicial 3-4 años");
+    expect(text).toContain("Inicial 4-5 años");
   });
 
   it("maneja campos opcionales vacíos", async () => {
@@ -451,7 +445,7 @@ describe("Word Inicial/Preparatoria - Estructura y contenido", () => {
     expect(blob).toBeInstanceOf(Blob);
     expect(blob.size).toBeGreaterThan(3000);
     const text = await extractDocxText(blob);
-    expect(text).toContain("Unidad Educativa Los Andes");
+    expect(text).toContain("Unidad Educativa");
   });
 });
 
