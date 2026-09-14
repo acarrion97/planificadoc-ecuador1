@@ -82,6 +82,84 @@ export function buscarDestrezas(query: string): Destreza[] {
   );
 }
 
+export interface ConexionInterdisciplinaria {
+  area: string;
+  descripcion: string;
+  ceCode: string;
+  relevancia: number;
+}
+
+/**
+ * Busca conexiones interdisciplinarias entre un área y otras áreas
+ * en el mismo subnivel, basándose en coincidencias temáticas.
+ */
+export function buscarConexionesInterdisciplinarias(
+  areaActual: Area,
+  subnivel: Subnivel,
+  descripcionActual?: string,
+  indicadoresActuales?: string[]
+): ConexionInterdisciplinaria[] {
+  if (!subnivel || subnivel < 2) return [];
+
+  const destrezasOtras = TODAS_LAS_DESTREZAS.filter(
+    (d) => d.area !== areaActual && d.subnivel === subnivel
+  );
+
+  if (destrezasOtras.length === 0) return [];
+
+  const textoActual = [
+    descripcionActual ?? "",
+    ...(indicadoresActuales ?? []),
+  ]
+    .join(" ")
+    .toUpperCase();
+
+  if (!textoActual.trim()) return [];
+
+  const palabrasClave = textoActual
+    .split(/\s+/)
+    .filter((p) => p.length > 4)
+    .slice(0, 20);
+
+  if (palabrasClave.length === 0) return [];
+
+  const conexiones: ConexionInterdisciplinaria[] = [];
+  const areasVisitadas = new Set<string>();
+
+  for (const destreza of destrezasOtras) {
+    const textoDestreza = destreza.descripcion.toUpperCase();
+    const textoIndicadores = (destreza.indicadoresEvaluacion ?? []).join(" ").toUpperCase();
+    const textoCompleto = `${textoDestreza} ${textoIndicadores}`;
+
+    let coincidencias = 0;
+    for (const palabra of palabrasClave) {
+      if (textoCompleto.includes(palabra)) {
+        coincidencias++;
+      }
+    }
+
+    const umbralMinimo = Math.max(2, Math.floor(palabrasClave.length * 0.1));
+    if (coincidencias >= umbralMinimo) {
+      const nombreArea = AREAS_INFO[destreza.area]?.name ?? destreza.area;
+      const ceCode = destreza.criteriosEvaluacion?.[0] ?? destreza.codigo;
+
+      if (!areasVisitadas.has(nombreArea)) {
+        areasVisitadas.add(nombreArea);
+        conexiones.push({
+          area: nombreArea,
+          descripcion: destreza.descripcion,
+          ceCode,
+          relevancia: coincidencias,
+        });
+      }
+    }
+  }
+
+  return conexiones
+    .sort((a, b) => b.relevancia - a.relevancia)
+    .slice(0, 5);
+}
+
 export function filtrarPorArea(area: Area): Destreza[] {
   return TODAS_LAS_DESTREZAS.filter((d) => d.area === area);
 }

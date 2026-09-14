@@ -24,6 +24,7 @@ import {
 } from "docx";
 import type { PlanificacionCurriculoCompetencias } from "../data/types-curriculo-competencias";
 import type { CompetenciaTransversalCode } from "../data/competencias-transversales";
+import { buscarConexionesInterdisciplinarias } from "../data/index";
 
 // ── Colores ──────────────────────────────────────────────────────
 const COLOR_PRIMARY = "155E75";
@@ -388,14 +389,19 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
   // ── 5. Conexión interdisciplinar ──
   children.push(makeTable([sectionRow("CONEXIÓN INTERDISCIPLINAR")], TW, [TW]));
 
-  const asignaturasConexion = plan.conexionInterdisciplinar?.asignaturas?.length
-    ? plan.conexionInterdisciplinar.asignaturas
-    : [];
+  const conexionesManuales = plan.conexionInterdisciplinar?.asignaturas ?? [];
+  const subnivel = plan.destreza?.subnivel ?? 2;
+  const conexionesAutomaticas = buscarConexionesInterdisciplinarias(
+    plan.destreza?.area ?? "LL",
+    subnivel,
+    plan.destreza?.descripcion,
+    plan.destreza?.indicadoresEvaluacion
+  );
 
   const filasConexion: TableRow[] = [];
 
-  if (asignaturasConexion.length > 0) {
-    for (const asig of asignaturasConexion) {
+  if (conexionesManuales.length > 0) {
+    for (const asig of conexionesManuales) {
       filasConexion.push(
         new TableRow({
           children: [
@@ -404,14 +410,21 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
         })
       );
     }
+  } else if (conexionesAutomaticas.length > 0) {
+    for (const conn of conexionesAutomaticas) {
+      filasConexion.push(
+        new TableRow({
+          children: [
+            tc([p(`• ${conn.area}: ${conn.descripcion} (${conn.ceCode})`, { size: 8 })], TW),
+          ],
+        })
+      );
+    }
   } else {
-    // Fallback: mostrar el área actual con su CE si hay indicadores
-    const ceCodes = plan.destreza?.criteriosEvaluacion || [];
-    const ceText = ceCodes.length > 0 ? ` (${ceCodes.join(" · ")})` : "";
     filasConexion.push(
       new TableRow({
         children: [
-          tc([p(`• ${plan.asignatura || "—"}: ${plan.destreza?.descripcion || "—"}${ceText}`, { size: 8 })], TW),
+          tc([p("—", { size: 8 })], TW),
         ],
       })
     );
@@ -572,21 +585,40 @@ export async function generarCurriculoCompetenciasWordEGBBGU(
 
   for (let semana = 1; semana <= numSemanas; semana++) {
     const semData = semanas.find((s) => s.numero === semana);
+    const fase = plan.estructuraDidactica?.fases?.[semana - 1];
     children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
     // ── Contenido aplicado por semana ──
-    const contenidoGenerado = generarContenidoProgresivo(
-      semana,
-      numSemanas,
-      destrezaDesc,
-      indTexto,
-      objetivo,
-      critEval,
-    );
+    let inicio: string;
+    let desarrollo: string;
+    let cierre: string;
 
-    const inicio = (semData?.inicio && semData.inicio.trim()) || contenidoGenerado.inicio;
-    const desarrollo = (semData?.desarrollo && semData.desarrollo.trim()) || contenidoGenerado.desarrollo;
-    const cierre = (semData?.cierre && semData.cierre.trim()) || contenidoGenerado.cierre;
+    if (semData?.inicio && semData.inicio.trim()) {
+      inicio = semData.inicio;
+      desarrollo = semData.desarrollo || "";
+      cierre = semData.cierre || "";
+    } else if (fase?.actividades?.length) {
+      const actividades = fase.actividades;
+      const grouped = { inicio: [] as string[], desarrollo: [] as string[], cierre: [] as string[] };
+      const third = Math.ceil(actividades.length / 3);
+      for (let i = 0; i < actividades.length; i++) {
+        const act = actividades[i];
+        const texto = act.texto || "";
+        if (i < third) grouped.inicio.push(`• ${texto}`);
+        else if (i < third * 2) grouped.desarrollo.push(`• ${texto}`);
+        else grouped.cierre.push(`• ${texto}`);
+      }
+      inicio = grouped.inicio.join("\n") || "• Inicio de la actividad";
+      desarrollo = grouped.desarrollo.join("\n") || "• Desarrollo de la actividad";
+      cierre = grouped.cierre.join("\n") || "• Cierre de la actividad";
+    } else {
+      const contenidoGenerado = generarContenidoProgresivo(
+        semana, numSemanas, destrezaDesc, indTexto, objetivo, critEval,
+      );
+      inicio = contenidoGenerado.inicio;
+      desarrollo = contenidoGenerado.desarrollo;
+      cierre = contenidoGenerado.cierre;
+    }
 
     // Columna izquierda: contenido aplicado
     const izqContent = [
