@@ -21,6 +21,7 @@ import {
   VerticalAlign, TableLayoutType,
 } from "docx";
 import type { PlanificacionInicialCurriculo } from "../data/types-curriculo-competencias";
+import { buscarCompetenciaInicial, type CompetenciaInicialCompleta } from "../data/competencias-especificas-inicial";
 
 // ── Colores ──
 const COLOR_PRIMARY = "155E75";
@@ -144,7 +145,7 @@ export async function generarCurriculoCompetenciasWordInicial(
       [
         new TableRow({
           children: [
-            tc([p("Unidad Educativa", { bold: true, size: 9 })], TW * 0.6, { bg: COLOR_HEADER }),
+            tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], TW * 0.6, { bg: COLOR_HEADER }),
             tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], TW * 0.4, { bg: COLOR_HEADER }),
           ],
         }),
@@ -300,37 +301,38 @@ export async function generarCurriculoCompetenciasWordInicial(
   for (let i = 0; i < ambitos.length; i++) {
     const ambito = ambitos[i];
     const grado = gradoLabel(i);
+    const ceData = buscarCompetenciaInicial(ambito.competenciaCodigo || "");
 
-    // Una fila por cada clase/destreza del ámbito
-    const destrezas = ambito.destrezas || [];
-    const clases = ambito.clases || [];
+    // Use real indicators from catalog, fallback to destrezas/clases
+    let indicadorTexts: string[] = [];
+    let saberesDeclarativos: string[] = [];
+    let saberesProcedimentales: string[] = [];
+    let saberesActitudinales: string[] = [];
 
-    if (destrezas.length === 0 && clases.length === 0) {
-      filasIndicadores.push(
-        new TableRow({
-          children: [
-            tc([p(grado, { size: 7 })], COL_GRA),
-            tc([p("—", { size: 7 })], COL_IND),
-            tc([p("—", { size: 7 })], COL_DEC),
-            tc([p("—", { size: 7 })], COL_PRO),
-            tc([p("—", { size: 7 })], COL_ACT),
-          ],
-        })
-      );
-      continue;
+    if (ceData) {
+      const inds = i === 0 ? ceData.indicadores34 : (i === 1 ? ceData.indicadores45 : ceData.indicadores56);
+      indicadorTexts = inds.map((ind) => ind.texto);
+      saberesDeclarativos = ceData.saberes.declarativos;
+      saberesProcedimentales = ceData.saberes.procedimentales;
+      saberesActitudinales = ceData.saberes.actitudinales;
+    } else {
+      const destrezas = ambito.destrezas || [];
+      const clases = ambito.clases || [];
+      indicadorTexts = destrezas.length > 0 ? destrezas : clases.map((c) => c.objetivoEspecifico || c.tema);
     }
 
-    // Usar destrezas como indicadores, o generar desde clases
-    const indicadores = destrezas.length > 0 ? destrezas : clases.map(c => c.objetivoEspecifico || c.tema);
+    if (indicadorTexts.length === 0) {
+      indicadorTexts = [ambito.competenciaDescripcion || "—"];
+    }
 
-    for (let j = 0; j < indicadores.length; j++) {
-      const indicador = indicadores[j] || "—";
+    for (let j = 0; j < indicadorTexts.length; j++) {
+      const indicador = indicadorTexts[j] || "—";
       const idx = j + 1;
+      const ceCode = ambito.competenciaCodigo || "CI";
 
-      // Generar saberes contextuales
-      const declarativos = `${ambito.competenciaCodigo || "CI"}.d.${idx}. ${indicador.substring(0, 120)}`;
-      const procedimentales = `${ambito.competenciaCodigo || "CI"}.p.${idx}. Aplicar estrategias para ${indicador.substring(0, 100).toLowerCase()}`;
-      const actitudinales = `${ambito.competenciaCodigo || "CI"}.a.${idx}. Valorar la importancia de ${indicador.substring(0, 100).toLowerCase()}`;
+      const declarativos = saberesDeclarativos[j] || `${ceCode}.d.${idx}. Conocer y comprender ${indicador.substring(0, 120).toLowerCase()}`;
+      const procedimentales = saberesProcedimentales[j] || `${ceCode}.p.${idx}. Aplicar estrategias para ${indicador.substring(0, 120).toLowerCase()}`;
+      const actitudinales = saberesActitudinales[j] || `${ceCode}.a.${idx}. Valorar la importancia de ${indicador.substring(0, 120).toLowerCase()}`;
 
       filasIndicadores.push(
         new TableRow({
@@ -346,7 +348,6 @@ export async function generarCurriculoCompetenciasWordInicial(
     }
   }
 
-  // Si no hay indicadores, crear fila vacía
   if (filasIndicadores.length === 0) {
     filasIndicadores.push(
       new TableRow({
@@ -414,41 +415,62 @@ export async function generarCurriculoCompetenciasWordInicial(
   const numSemanasCalc = plan.noSemanasClase || 8;
 
   for (let semana = 1; semana <= numSemanasCalc; semana++) {
-    // Para cada ámbito/grado, generar una fila
     for (let i = 0; i < ambitos.length; i++) {
       const ambito = ambitos[i];
       const grado = gradoLabel(i);
       const clase = ambito.clases?.find(c => c.numero === semana) || ambito.clases?.[semana - 1];
+      const ceData = buscarCompetenciaInicial(ambito.competenciaCodigo || "");
 
       const semLabel = semana === 1 || i > 0
         ? (i === 0 ? `Semana ${semana} · Grado` : "")
         : `Semana ${semana} · Grado`;
 
-      // Contenido DUA
+      // DUA content: use class data if available, else infer from CE
       const duaContent: Paragraph[] = [];
-      if (clase) {
+      if (clase && (clase.inicio?.length || clase.desarrollo?.length || clase.cierre?.length)) {
         duaContent.push(p(`Clase ${clase.numero}: ${clase.tema}`, { bold: true, size: 8 }));
         duaContent.push(p(`Sugerencias para el inicio:`, { bold: true, size: 7 }));
         const inicioTexts = clase.inicio?.map(a => `• ${a.texto}`).join("\n") || "• Inicio de la actividad";
         duaContent.push(p(inicioTexts, { size: 7 }));
-
         duaContent.push(p(`Sugerencias para el desarrollo:`, { bold: true, size: 7 }));
         const desTexts = clase.desarrollo?.map(a => `• ${a.texto}`).join("\n") || "• Desarrollo de la actividad";
         duaContent.push(p(desTexts, { size: 7 }));
-
         duaContent.push(p(`Sugerencias para el cierre:`, { bold: true, size: 7 }));
         const cierreTexts = clase.cierre?.map(a => `• ${a.texto}`).join("\n") || "• Cierre de la actividad";
         duaContent.push(p(cierreTexts, { size: 7 }));
+      } else if (ceData) {
+        // Infer DUA content from CE description and indicators
+        const descCorta = ceData.descripcion.length > 100 ? ceData.descripcion.substring(0, 100) : ceData.descripcion;
+        const inds = i === 0 ? ceData.indicadores34 : (i === 1 ? ceData.indicadores45 : ceData.indicadores56);
+        const indSample = inds.length > 0 ? inds[Math.min(semana - 1, inds.length - 1)].texto : descCorta;
+
+        duaContent.push(p(`Actividad: ${descCorta}`, { bold: true, size: 8 }));
+        duaContent.push(p(`Sugerencias para el inicio:`, { bold: true, size: 7 }));
+        duaContent.push(p(`• Presentar la actividad mediante una dinámica lúdica relacionada con: ${indSample.substring(0, 80)}`, { size: 7 }));
+        duaContent.push(p(`• Motivar con una canción, cuento o juego que introduzca el tema`, { size: 7 }));
+        duaContent.push(p(`Sugerencias para el desarrollo:`, { bold: true, size: 7 }));
+        duaContent.push(p(`• Desarrollar la actividad principal mediante juego libre y exploración guiada`, { size: 7 }));
+        duaContent.push(p(`• Realizar una actividad práctica que permita al niño explorar: ${indSample.substring(0, 80)}`, { size: 7 }));
+        duaContent.push(p(`• Fomentar la interacción entre pares y la expresión oral`, { size: 7 }));
+        duaContent.push(p(`Sugerencias para el cierre:`, { bold: true, size: 7 }));
+        duaContent.push(p(`• Reflexionar sobre lo aprendido mediante una conversación grupal`, { size: 7 }));
+        duaContent.push(p(`• Realizar una actividad de cierre que refuerce el aprendizaje`, { size: 7 }));
       } else {
-        duaContent.push(p("—", { size: 7 }));
+        duaContent.push(p("• Inicio: Presentar actividad lúdica motivadora", { size: 7 }));
+        duaContent.push(p("• Desarrollo: Exploración guiada y juego libre", { size: 7 }));
+        duaContent.push(p("• Cierre: Reflexión grupal y cierre de la actividad", { size: 7 }));
       }
 
-      // Recursos
+      // Recursos: use CE catalog resources
       const recContent: Paragraph[] = [];
       if (clase?.metodologia) {
         recContent.push(p(`• ${clase.metodologia}`, { size: 7 }));
+      } else if (ceData) {
+        ceData.recursos.materiales.slice(0, 3).forEach((m) => {
+          recContent.push(p(`• ${m}`, { size: 7 }));
+        });
       } else {
-        recContent.push(p("—", { size: 7 }));
+        recContent.push(p("• Recursos del aula", { size: 7 }));
       }
 
       // Técnicas e instrumentos
@@ -456,6 +478,11 @@ export async function generarCurriculoCompetenciasWordInicial(
       if (clase?.metodoEvaluacion?.length) {
         techContent.push(p(`Técnica: ${clase.metodoEvaluacion[0] || "Observación"}`, { size: 7 }));
         techContent.push(p(`Instrumento: ${clase.metodoEvaluacion[1] || "Lista de cotejo"}`, { size: 7 }));
+      } else if (ceData) {
+        const tecnicas = ceData.recursos.tecnicas;
+        const instrumentos = ceData.recursos.instrumentos;
+        techContent.push(p(`Técnica: ${tecnicas[0] || "Observación"}`, { size: 7 }));
+        techContent.push(p(`Instrumento: ${instrumentos[0] || "Lista de cotejo"}`, { size: 7 }));
       } else {
         techContent.push(p("Técnica: Observación", { size: 7 }));
         techContent.push(p("Instrumento: Lista de cotejo", { size: 7 }));
