@@ -14,7 +14,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { COMPETENCIAS_INICIAL, type CompetenciaInicial } from "@/data/competencias-especificas-inicial";
+import { COMPETENCIAS_INICIAL, type CompetenciaInicialCompleta as CompetenciaInicial } from "@/data/competencias-especificas-inicial";
 
 type PasoFlujo = "contexto" | "competencias" | "datos" | "generar";
 

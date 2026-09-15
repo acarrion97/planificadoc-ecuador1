@@ -311,10 +311,11 @@ export async function generarCurriculoCompetenciasWordInicial(
 
     if (ceData) {
       const inds = i === 0 ? ceData.indicadores34 : (i === 1 ? ceData.indicadores45 : ceData.indicadores56);
+      const saberes = i === 0 ? ceData.saberes34 : (i === 1 ? ceData.saberes45 : ceData.saberes56);
       indicadorTexts = inds.map((ind) => ind.texto);
-      saberesDeclarativos = ceData.saberes.declarativos;
-      saberesProcedimentales = ceData.saberes.procedimentales;
-      saberesActitudinales = ceData.saberes.actitudinales;
+      saberesDeclarativos = saberes.declarativos;
+      saberesProcedimentales = saberes.procedimentales;
+      saberesActitudinales = saberes.actitudinales;
     } else {
       const destrezas = ambito.destrezas || [];
       const clases = ambito.clases || [];
@@ -328,7 +329,10 @@ export async function generarCurriculoCompetenciasWordInicial(
     for (let j = 0; j < indicadorTexts.length; j++) {
       const indicador = indicadorTexts[j] || "—";
       const idx = j + 1;
-      const ceCode = ambito.competenciaCodigo || "CI";
+      // Los saberes oficiales usan el prefijo "CI.0.X" (sin "CE."); se deriva
+      // del código de competencia específica solo como respaldo cuando el
+      // catálogo no trae saberes para este índice.
+      const ceCode = (ambito.competenciaCodigo || "CE.CI.0").replace(/^CE\./, "");
 
       const declarativos = saberesDeclarativos[j] || `${ceCode}.d.${idx}. Conocer y comprender ${indicador.substring(0, 120).toLowerCase()}`;
       const procedimentales = saberesProcedimentales[j] || `${ceCode}.p.${idx}. Aplicar estrategias para ${indicador.substring(0, 120).toLowerCase()}`;
