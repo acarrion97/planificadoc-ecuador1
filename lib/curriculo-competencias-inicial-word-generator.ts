@@ -160,7 +160,7 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(
     makeTable(
-      [new TableRow({ children: [tc([p("Planificación microcurricular por competencias - multigrado", { bold: true, size: 12, align: "center" })], TW)] })],
+      [new TableRow({ children: [tc([p("Planificación microcurricular por competencias - multigrado", { bold: true, size: 12, align: "center" })], TW, { bg: COLOR_HEADER })] })],
       TW,
       [TW]
     )
@@ -236,19 +236,22 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Conexión interdisciplinar")], TW, [TW]));
 
-  // Ámbitos con códigos CE entre paréntesis
-  const ambitosLinea = ambitos.map((a) => {
+  // Ámbitos con códigos CE
+  const ambitosConLabels = ambitos.map((a, i) => {
     const ce = extraerCodigosCE(a);
     const ceText = ce.length > 0 ? ` (${ce.join(", ")})` : "";
     return `${a.ambito}${ceText}`;
-  }).join("  ");
+  }).join("\n");
 
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p(ambitosLinea || "—", { size: 8 })], TW),
+            tc([
+              p("Ámbitos:", { bold: true, size: 8 }),
+              p(ambitosConLabels || "—", { size: 8 }),
+            ], TW),
           ],
         }),
       ],
@@ -262,28 +265,25 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Competencias específicas")], TW, [TW]));
 
-  // Línea de códigos CE por cada年龄段
-  const ceLines = ambitos.map((a, i) => {
+  // Todos los códigos CE agrupados en una línea
+  const todosCE = ambitos.map((a) => {
     const ce = extraerCodigosCE(a);
-    const ceText = ce.length > 0 ? ce.join(" · ") : (a.competenciaCodigo || "—");
-    return `${gradoLabel(i)}: ${ceText}`;
-  });
+    return ce.length > 0 ? ce.join(", ") : (a.competenciaCodigo || "—");
+  }).filter((c) => c !== "—").join(", ");
 
-  for (const line of ceLines) {
-    children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: [
-              tc([p(line, { size: 8 })], TW),
-            ],
-          }),
-        ],
-        TW,
-        [TW]
-      )
-    );
-  }
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p(todosCE || "—", { size: 8 })], TW),
+          ],
+        }),
+      ],
+      TW,
+      [TW]
+    )
+  );
 
   // ═══════════════════════════════════════════════════════════════
   // 7. INDICADORES DE EVALUACIÓN (5 columnas)
