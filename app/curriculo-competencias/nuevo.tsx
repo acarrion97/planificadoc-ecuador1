@@ -69,6 +69,32 @@ export default function NuevoTipoScreen() {
           </View>
           <Text style={[styles.typeArrow, { color: colors.muted }]}>›</Text>
         </Pressable>
+
+        {/* ── Currículo Integrado EGB / BGU ── */}
+        <Pressable
+          onPress={() => router.push("/curriculo-competencias/egb-bgu-integrado" as any)}
+          style={({ pressed }) => [
+            styles.typeCard,
+            {
+              backgroundColor: colors.surface,
+              borderColor: colors.border,
+              opacity: pressed ? 0.7 : 1,
+            },
+          ]}
+        >
+          <Text style={styles.typeIcon}>🧩</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.typeTitle, { color: colors.foreground }]}>
+              Currículo Integrado (EGB / BGU)
+            </Text>
+            <Text style={[styles.typeDesc, { color: colors.muted }]}>
+              Elemental, Media, Superior y Bachillerato con el nuevo Currículo
+              Integrado por Competencias (Lengua, Matemática, CCNN, CCSS,
+              Inglés, ECA, Emprendimiento).
+            </Text>
+          </View>
+          <Text style={[styles.typeArrow, { color: colors.muted }]}>›</Text>
+        </Pressable>
       </View>
     </ScreenContainer>
   );

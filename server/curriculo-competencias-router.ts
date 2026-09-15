@@ -549,12 +549,24 @@ export const curriculoCompetenciasRouter = router({
       const row = rows[0];
       const data = JSON.parse(row.formData as string);
 
+      // "inicial_preparatoria" agrupa dos flujos que comparten el mismo shape
+      // (PlanificacionInicialCurriculo con ámbitos): Inicial 3-5 años (códigos
+      // CE.CI.*) y Currículo Integrado EGB/BGU (CE.LL.*, CE.M.*, etc.) — se
+      // distinguen por el prefijo del código de competencia del primer ámbito.
+      const primerCodigo: string | undefined = data?.ambitos?.[0]?.competenciaCodigo;
+      const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
+
       let blob: Blob;
-      if (row.tipo === "inicial_preparatoria") {
+      if (row.tipo === "inicial_preparatoria" && esInicial) {
         const { generarCurriculoCompetenciasWordInicial } = await import(
           "../lib/curriculo-competencias-inicial-word-generator"
         );
         blob = await generarCurriculoCompetenciasWordInicial(data);
+      } else if (row.tipo === "inicial_preparatoria") {
+        const { generarCurriculoCompetenciasWordEGBBGUIntegrado } = await import(
+          "../lib/curriculo-competencias-egb-bgu-integrado-word-generator"
+        );
+        blob = await generarCurriculoCompetenciasWordEGBBGUIntegrado(data);
       } else {
         const { generarCurriculoCompetenciasWordEGBBGU } = await import(
           "../lib/curriculo-competencias-word-generator"
