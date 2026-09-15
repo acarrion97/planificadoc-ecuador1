@@ -319,6 +319,7 @@
         <div class="tab" onclick="switchTab('codes')" id="tab-codes">Usuarios con Codigo</div>
         <div class="tab" onclick="switchTab('planificaciones')" id="tab-planificaciones">📊 Planificaciones</div>
         <div class="tab" onclick="switchTab('transactions')" id="tab-transactions">Transacciones</div>
+        <div class="tab" onclick="switchTab('expired')" id="tab-expired">Sesiones Expiradas</div>
       </div>
 
       <!-- Users Section (Suscriptores) -->
@@ -514,6 +515,20 @@
               <tr><td colspan="8" class="loading">Cargando...</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Expired Sessions Section -->
+      <div class="section" id="section-expired" style="display:none;">
+        <div class="section-title">Usuarios con Sesion Expirada</div>
+        <div style="background:white;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0;margin-bottom:16px;">
+          <p style="font-size:14px;color:#475569;margin-bottom:16px;">
+            Descarga un archivo CSV con los usuarios cuya suscripcion ha expirado, incluyendo nombre, correo y telefono.
+          </p>
+          <button class="btn-primary" onclick="downloadExpiredCSV()" id="btnDownloadExpired" style="background:#dc2626;">
+            Descargar CSV
+          </button>
+          <span class="form-msg" id="expiredMsg"></span>
         </div>
       </div>
     </div>
@@ -843,6 +858,7 @@
       document.getElementById('section-codes').style.display = tab === 'codes' ? 'block' : 'none';
       document.getElementById('section-planificaciones').style.display = tab === 'planificaciones' ? 'block' : 'none';
       document.getElementById('section-transactions').style.display = tab === 'transactions' ? 'block' : 'none';
+      document.getElementById('section-expired').style.display = tab === 'expired' ? 'block' : 'none';
     }
 
     // ===== CRM: MIS DOCENTES =====
@@ -1116,6 +1132,39 @@
       loadCodeUsers();
       loadPlanificaciones();
       loadTransactions();
+    }
+
+    // ===== EXPIRED SESSIONS CSV =====
+    async function downloadExpiredCSV() {
+      const msg = document.getElementById('expiredMsg');
+      const btn = document.getElementById('btnDownloadExpired');
+      msg.className = 'form-msg'; msg.textContent = 'Generando CSV...';
+      btn.disabled = true;
+
+      try {
+        const url = '/api/admin/expired-users-csv?key=' + encodeURIComponent(API_KEY);
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        const blob = await res.blob();
+        const disposition = res.headers.get('Content-Disposition') || '';
+        const filenameMatch = disposition.match(/filename=([^;]+)/);
+        const filename = filenameMatch ? filenameMatch[1] : 'usuarios-sesion-expirada.csv';
+
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(a.href);
+
+        msg.className = 'form-msg ok';
+        msg.textContent = 'CSV descargado correctamente';
+      } catch (e) {
+        msg.className = 'form-msg err';
+        msg.textContent = 'Error: ' + e.message;
+      } finally {
+        btn.disabled = false;
+      }
     }
 
     // ===== USER METRICS MODAL =====

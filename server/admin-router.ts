@@ -571,4 +571,74 @@ export function registerAdminRoutes(app: Express) {
       res.status(500).json({ error: "Error interno" });
     }
   });
+
+  /**
+   * GET /api/admin/expired-users-csv
+   * Returns a CSV file of users with expired subscriptions (nombre, correo, telefono).
+   */
+  app.get("/api/admin/expired-users-csv", requireAdmin, async (_req: Request, res: Response) => {
+    try {
+      const db = await getDb();
+      if (!db) {
+        res.status(500).json({ error: "Base de datos no disponible" });
+        return;
+      }
+
+      const expiredSubs = await db
+        .select()
+        .from(subscriptions)
+        .where(eq(subscriptions.status, "expired"));
+
+      const allTokens = await db.select().from(cardTokens);
+      const tokenByEmail = new Map<string, typeof allTokens[0]>();
+      for (const t of allTokens) {
+        const key = t.email.toLowerCase();
+        if (!tokenByEmail.has(key)) tokenByEmail.set(key, t);
+      }
+
+      const approvedTxns = await db
+        .select({
+          email: paymentTransactions.email,
+          cardHolder: paymentTransactions.cardHolder,
+          phoneNumber: paymentTransactions.phoneNumber,
+        })
+        .from(paymentTransactions)
+        .where(eq(paymentTransactions.status, "approved"))
+        .orderBy(desc(paymentTransactions.createdAt));
+
+      const txnByEmail = new Map<string, typeof approvedTxns[0]>();
+      for (const txn of approvedTxns) {
+        const key = txn.email.toLowerCase();
+        if (!txnByEmail.has(key)) txnByEmail.set(key, txn);
+      }
+
+      const seen = new Set<string>();
+      const rows: { nombre: string; correo: string; telefono: string }[] = [];
+      for (const sub of expiredSubs) {
+        const email = sub.email.toLowerCase();
+        if (seen.has(email)) continue;
+        seen.add(email);
+        const token = tokenByEmail.get(email);
+        const txn = txnByEmail.get(email);
+        rows.push({
+          nombre: token?.cardHolder || txn?.cardHolder || "",
+          correo: sub.email,
+          telefono: token?.phoneNumber || txn?.phoneNumber || "",
+        });
+      }
+
+      const csvHeader = "nombre,correo,telefono";
+      const csvRows = rows.map(r =>
+        `"${(r.nombre || "").replace(/"/g, '""')}","${(r.correo || "").replace(/"/g, '""')}","${(r.telefono || "").replace(/"/g, '""')}"`
+      );
+      const csv = [csvHeader, ...csvRows].join("\n");
+
+      res.setHeader("Content-Type", "text/csv; charset=utf-8");
+      res.setHeader("Content-Disposition", "attachment; filename=usuarios-sesion-expirada.csv");
+      res.send("\uFEFF" + csv);
+    } catch (error) {
+      console.error("[Admin] expired-users-csv error:", error);
+      res.status(500).json({ error: "Error interno" });
+    }
+  });
 }
