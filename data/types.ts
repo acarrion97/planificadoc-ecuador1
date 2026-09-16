@@ -679,6 +679,24 @@ export const AMBITOS_PREPARATORIA: Record<number, string> = {
   7: "Expresión corporal",
 };
 
+/**
+ * Asignaturas ofertadas por subnivel en el Currículo Nacional por Competencias
+ * (EGB Elemental/Media/Superior y Bachillerato General), según los documentos
+ * oficiales del MINEDUC publicados por asignatura y subnivel (uno por cada
+ * área que efectivamente se dicta en ese subnivel — p. ej. no existe un
+ * documento de Educación Física para Elemental, ni de Ciencias Naturales o
+ * Ciencias Sociales "generales" para Bachillerato, que las desagrega en
+ * Biología/Física/Química e Historia/Filosofía/Educación para la Ciudadanía).
+ * Preparatoria (subnivel 1) e Inicial (0, -1) no aparecen aquí: se rigen por
+ * currículo integrado organizado en ámbitos de desarrollo, no por asignatura.
+ */
+export const AREAS_POR_SUBNIVEL: Partial<Record<Subnivel, Area[]>> = {
+  2: ["M", "LL", "CN", "CS", "ECA", "EFL"],
+  3: ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"],
+  4: ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"],
+  5: ["M", "LL", "CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "ECA", "EFL", "EG", "CAI"],
+};
+
 export const AREAS_INFO: Record<Area, AreaInfo> = {
   M: {
     code: "M",

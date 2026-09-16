@@ -123,10 +123,21 @@ const PlanificacionInicialInput = z.object({
   sessionId: z.string().min(1),
   id: z.string().optional(),
   grado: z.string().optional(),
+  nivel: z.string().optional(),
   institucion: z.string().optional(),
   docente: z.string().optional(),
   duracion: z.string().optional(),
+  trimestre: z.string().optional(),
+  paralelo: z.string().optional(),
+  periodoPedagogico: z.string().optional(),
+  noSemanasClase: z.number().optional(),
   objetivoGeneral: z.string().optional(),
+  situacionAprendizaje: z
+    .object({
+      titulo: z.string().optional(),
+      descripcion: z.string().optional(),
+    })
+    .optional(),
   ambitos: z
     .array(
       z.object({
@@ -229,6 +240,18 @@ function ensureTable(db: Awaited<ReturnType<typeof getDb>>): asserts db is NonNu
   if (!db) throw new Error("Base de datos no disponible");
 }
 
+/**
+ * El driver mysql2 de drizzle resuelve un INSERT como la tupla cruda
+ * [ResultSetHeader, FieldPacket[]] (no como el ResultSetHeader directo),
+ * así que `insertId` vive en res[0], no en res. Leerlo directo de `res`
+ * devuelve undefined y el cliente termina navegando a un id inexistente.
+ */
+function extractInsertId(res: unknown): number | undefined {
+  const header = Array.isArray(res) ? res[0] : res;
+  const id = (header as any)?.insertId;
+  return typeof id === "number" ? id : undefined;
+}
+
 async function ensureCurriculoCompetenciasTable(): Promise<void> {
   const db = await getDb();
   if (!db) return;
@@ -304,7 +327,7 @@ export const curriculoCompetenciasRouter = router({
         .values(row);
 
       return {
-        id: (res as any).insertId as number,
+        id: extractInsertId(res),
         plan,
       };
     }),
@@ -325,14 +348,22 @@ export const curriculoCompetenciasRouter = router({
         grado: plan.grado || null,
         institucion: plan.institucion || null,
         docente: plan.docente || null,
-        paralelo: null,
+        paralelo: plan.paralelo || null,
         asignatura: null,
+        // La columna `nivel` es un enum ["EGB","BGU"] pensado para el tipo
+        // egb_bgu; los niveles de Currículo Integrado ("ELEMENTAL", etc.)
+        // no encajan ahí, así que se dejan solo en formData.
         nivel: null,
-        periodoPedagogico: null,
-        trimestre: null,
+        periodoPedagogico: plan.periodoPedagogico || null,
+        trimestre: plan.trimestre || null,
         dcdCodigo: null,
         competencias: null,
-        status: "draft" as const,
+        // No hay un paso separado de "guardar borrador": el botón del
+        // formulario dice "Generar planificación" y ya arma el documento
+        // completo, así que el plan queda "generated" desde que se crea
+        // (nada en el cliente llama updateStatus, por lo que "draft" se
+        // quedaba fijo para siempre).
+        status: "generated" as const,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
@@ -344,7 +375,7 @@ export const curriculoCompetenciasRouter = router({
         .values(row);
 
       return {
-        id: (res as any).insertId as number,
+        id: extractInsertId(res),
         plan,
       };
     }),
@@ -472,6 +503,9 @@ export const curriculoCompetenciasRouter = router({
         grado: plan.grado || null,
         institucion: plan.institucion || null,
         docente: plan.docente || null,
+        paralelo: plan.paralelo || null,
+        periodoPedagogico: plan.periodoPedagogico || null,
+        trimestre: plan.trimestre || null,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
@@ -549,12 +583,24 @@ export const curriculoCompetenciasRouter = router({
       const row = rows[0];
       const data = JSON.parse(row.formData as string);
 
+      // "inicial_preparatoria" agrupa dos flujos que comparten el mismo shape
+      // (PlanificacionInicialCurriculo con ámbitos): Inicial 3-5 años (códigos
+      // CE.CI.*) y Currículo Integrado EGB/BGU (CE.LL.*, CE.M.*, etc.) — se
+      // distinguen por el prefijo del código de competencia del primer ámbito.
+      const primerCodigo: string | undefined = data?.ambitos?.[0]?.competenciaCodigo;
+      const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
+
       let blob: Blob;
-      if (row.tipo === "inicial_preparatoria") {
+      if (row.tipo === "inicial_preparatoria" && esInicial) {
         const { generarCurriculoCompetenciasWordInicial } = await import(
           "../lib/curriculo-competencias-inicial-word-generator"
         );
         blob = await generarCurriculoCompetenciasWordInicial(data);
+      } else if (row.tipo === "inicial_preparatoria") {
+        const { generarCurriculoCompetenciasWordEGBBGUIntegrado } = await import(
+          "../lib/curriculo-competencias-egb-bgu-integrado-word-generator"
+        );
+        blob = await generarCurriculoCompetenciasWordEGBBGUIntegrado(data);
       } else {
         const { generarCurriculoCompetenciasWordEGBBGU } = await import(
           "../lib/curriculo-competencias-word-generator"
@@ -695,5 +741,90 @@ Responde ÚNICAMENTE con JSON válido:
       }
 
       return resultado;
+    }),
+
+  // ── SUGERENCIA IA: título/descripción de la situación de aprendizaje ──
+  // (Currículo Integrado — usa competencias específicas CE.*, no DCD)
+  sugerirSituacionAprendizaje: publicProcedure
+    .input(
+      z.object({
+        materia: z.string().optional(),
+        nivel: z.string().optional(),
+        grado: z.string().optional(),
+        competencias: z
+          .array(z.object({ codigo: z.string(), descripcion: z.string() }))
+          .min(1),
+        temasTrimestre: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const competenciasTexto = input.competencias
+        .map((c) => `- ${c.codigo}: ${c.descripcion}`)
+        .join("\n");
+
+      const prompt = `Eres un experto en el Currículo Integrado por Competencias del Ministerio de Educación del Ecuador.
+
+CONTEXTO:
+- Materia: ${input.materia || "No especificada"}
+- Nivel: ${input.nivel || "No especificado"}
+- Grado/Curso: ${input.grado || "No especificado"}
+- Competencias específicas seleccionadas para el trimestre:
+${competenciasTexto}
+${input.temasTrimestre ? `- Temas del trimestre ya definidos por el docente: ${input.temasTrimestre}` : ""}
+
+SOLICITUD:
+Sugiere un título y una descripción breve para la "situación de aprendizaje" (el hilo conductor del trimestre) que integre las competencias listadas.
+
+REGLAS:
+- El título debe ser corto (máximo 10 palabras), concreto y motivador para estudiantes del grado indicado — no repitas literalmente el texto de una competencia.
+- La descripción debe tener 1-2 oraciones, explicando qué van a explorar o producir los estudiantes y por qué conecta con las competencias.
+- No inventes competencias, códigos ni destrezas fuera de las listadas.
+- Si ya hay temas del trimestre definidos por el docente, el título y la descripción deben ser coherentes con ellos.
+
+Responde ÚNICAMENTE con JSON válido:
+{
+  "titulo": "string",
+  "descripcion": "string"
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación microcurricular del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 400,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: { titulo?: string; descripcion?: string };
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      if (!parsed.titulo || typeof parsed.titulo !== "string") {
+        throw new Error("La IA no devolvió un título válido. Intenta de nuevo.");
+      }
+
+      return {
+        titulo: parsed.titulo,
+        descripcion: typeof parsed.descripcion === "string" ? parsed.descripcion : "",
+      };
     }),
 });

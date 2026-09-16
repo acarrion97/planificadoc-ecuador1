@@ -19,32 +19,6 @@ export default function NuevoTipoScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginTop: 20, gap: 14 }}>
-        {/* ── EGB / BGU ── */}
-        <Pressable
-          onPress={() => router.push("/curriculo-competencias/egb-bgu" as any)}
-          style={({ pressed }) => [
-            styles.typeCard,
-            {
-              backgroundColor: colors.surface,
-              borderColor: colors.border,
-              opacity: pressed ? 0.7 : 1,
-            },
-          ]}
-        >
-          <Text style={styles.typeIcon}>📘</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={[styles.typeTitle, { color: colors.foreground }]}>
-              EGB / BGU
-            </Text>
-            <Text style={[styles.typeDesc, { color: colors.muted }]}>
-              Educación General Básica y Bachillerato General Unificado.
-              Planificación microcurricular con DCD, indicadores y estrategias
-              metodológicas.
-            </Text>
-          </View>
-          <Text style={[styles.typeArrow, { color: colors.muted }]}>›</Text>
-        </Pressable>
-
         {/* ── Inicial / Preparatoria ── */}
         <Pressable
           onPress={() => router.push("/curriculo-competencias/inicial" as any)}
@@ -65,6 +39,32 @@ export default function NuevoTipoScreen() {
             <Text style={[styles.typeDesc, { color: colors.muted }]}>
               Educación Inicial y Preparatoria. Planificación por ámbitos de
               desarrollo con clases y actividades.
+            </Text>
+          </View>
+          <Text style={[styles.typeArrow, { color: colors.muted }]}>›</Text>
+        </Pressable>
+
+        {/* ── Currículo Integrado EGB / BGU ── */}
+        <Pressable
+          onPress={() => router.push("/curriculo-competencias/egb-bgu-integrado" as any)}
+          style={({ pressed }) => [
+            styles.typeCard,
+            {
+              backgroundColor: colors.surface,
+              borderColor: colors.border,
+              opacity: pressed ? 0.7 : 1,
+            },
+          ]}
+        >
+          <Text style={styles.typeIcon}>🧩</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.typeTitle, { color: colors.foreground }]}>
+              Currículo Integrado (EGB / BGU)
+            </Text>
+            <Text style={[styles.typeDesc, { color: colors.muted }]}>
+              Elemental, Media, Superior y Bachillerato con el nuevo Currículo
+              Integrado por Competencias (Lengua, Matemática, CCNN, CCSS,
+              Inglés, ECA, Emprendimiento).
             </Text>
           </View>
           <Text style={[styles.typeArrow, { color: colors.muted }]}>›</Text>

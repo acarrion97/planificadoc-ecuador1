@@ -14,7 +14,13 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { COMPETENCIAS_INICIAL, type CompetenciaInicialCompleta as CompetenciaInicial } from "@/data/competencias-especificas-inicial";
+import {
+  MATERIAS_EGB_BGU,
+  nivelesDeMateria,
+  gradosDeNivel,
+  competenciasDeGrado,
+} from "@/data/competencias-especificas-egb-bgu";
+import type { CompetenciaEspecificaCompleta } from "@/data/types-competencias-especificas";
 
 type PasoFlujo = "contexto" | "competencias" | "datos" | "generar";
 
@@ -25,14 +31,10 @@ const PASOS: { key: PasoFlujo; label: string }[] = [
   { key: "generar", label: "Generar" },
 ];
 
-const GRADOS = [
-  "Inicial 3-4 años",
-  "Inicial 4-5 años",
-];
 const TRIMESTRES = ["Primer trimestre", "Segundo trimestre", "Tercer trimestre"];
 const PARALELOS = ["A", "B", "C", "D", "E"];
 
-export default function InicialFormScreen() {
+export default function EGBBGUIntegradoFormScreen() {
   const colors = useColors();
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id?: string }>();
@@ -41,11 +43,38 @@ export default function InicialFormScreen() {
   const [cargando, setCargando] = useState(isEdit);
 
   // ── Step 1: Contexto ──
-  const [grado, setGrado] = useState("Inicial 3-4 años");
+  const [materiaId, setMateriaId] = useState(MATERIAS_EGB_BGU[0].id);
+  const [nivel, setNivel] = useState("");
+  const [grado, setGrado] = useState("");
+
+  const nivelesDisponibles = useMemo(() => nivelesDeMateria(materiaId), [materiaId]);
+  const gradosDisponibles = useMemo(() => (nivel ? gradosDeNivel(materiaId, nivel) : []), [materiaId, nivel]);
+
+  // Al cambiar materia, resetear nivel/grado a los primeros disponibles
+  useEffect(() => {
+    const niveles = nivelesDeMateria(materiaId);
+    setNivel((prev) => (niveles.includes(prev) ? prev : niveles[0] || ""));
+  }, [materiaId]);
+
+  useEffect(() => {
+    const grados = nivel ? gradosDeNivel(materiaId, nivel) : [];
+    setGrado((prev) => (grados.includes(prev) ? prev : grados[0] || ""));
+  }, [materiaId, nivel]);
 
   // ── Step 2: Competencias ──
-  const [competenciasSeleccionadas, setCompetenciasSeleccionadas] = useState<CompetenciaInicial[]>([]);
+  const [competenciasSeleccionadas, setCompetenciasSeleccionadas] = useState<CompetenciaEspecificaCompleta[]>([]);
   const [busqueda, setBusqueda] = useState("");
+
+  const competenciasDisponibles = useMemo(
+    () => (nivel && grado ? competenciasDeGrado(materiaId, nivel, grado) : []),
+    [materiaId, nivel, grado]
+  );
+
+  // Al cambiar materia/nivel/grado, quitar de la selección lo que ya no aplique
+  useEffect(() => {
+    const codigosValidos = new Set(competenciasDisponibles.map((c) => c.codigo));
+    setCompetenciasSeleccionadas((prev) => prev.filter((c) => codigosValidos.has(c.codigo)));
+  }, [competenciasDisponibles]);
 
   // ── Step 3: Datos ──
   const [trimestre, setTrimestre] = useState("Primer trimestre");
@@ -68,7 +97,6 @@ export default function InicialFormScreen() {
   useEffect(() => {
     if (planExistente?.formData) {
       const fd = planExistente.formData as any;
-      setGrado(fd.grado || "Inicial 3-4 años");
       setInstitucion(fd.institucion || "");
       setDocente(fd.docente || "");
       setTrimestre(fd.trimestre || "Primer trimestre");
@@ -76,16 +104,23 @@ export default function InicialFormScreen() {
       setNoSemanas(fd.noSemanasClase?.toString() || "8");
       setTitulo(fd.situacionAprendizaje?.titulo || "");
       setSituacionAprendizaje(fd.situacionAprendizaje?.descripcion || "");
+      setGrado(fd.grado || "");
+      setNivel(fd.nivel || "");
       if (fd.ambitos?.length > 0) {
-        const codes = fd.ambitos.map((a: any) => a.competenciaCodigo).filter(Boolean);
-        const selected = COMPETENCIAS_INICIAL.filter(c => codes.includes(c.codigo));
-        setCompetenciasSeleccionadas(selected);
+        const primerCodigo = fd.ambitos[0]?.competenciaCodigo || "";
+        const materia = MATERIAS_EGB_BGU.find((m) => m.competencias.some((c) => c.codigo === primerCodigo));
+        if (materia) {
+          setMateriaId(materia.id);
+          const codes = fd.ambitos.map((a: any) => a.competenciaCodigo).filter(Boolean);
+          const selected = materia.competencias.filter((c) => codes.includes(c.codigo));
+          setCompetenciasSeleccionadas(selected);
+        }
       }
       setCargando(false);
     }
   }, [planExistente]);
 
-  // ── Mutations ──
+  // ── Mutations (comparten backend con Inicial: mismo shape de planificación) ──
   const utils = trpc.useContext();
   const createMutation = trpc.curriculoCompetencias.createInicial.useMutation({
     onSuccess: (data) => {
@@ -112,50 +147,73 @@ export default function InicialFormScreen() {
     },
   });
 
+  const sugerirTituloMutation = trpc.curriculoCompetencias.sugerirSituacionAprendizaje.useMutation({
+    onSuccess: (data) => {
+      setTitulo(data.titulo);
+      if (!situacionAprendizaje.trim() && data.descripcion) {
+        setSituacionAprendizaje(data.descripcion);
+      }
+    },
+    onError: (err) => {
+      Alert.alert("Error", err.message || "No se pudo sugerir un título. Intenta de nuevo.");
+    },
+  });
+
+  const handleSugerirTitulo = () => {
+    if (competenciasSeleccionadas.length === 0) return;
+    sugerirTituloMutation.mutate({
+      materia: MATERIAS_EGB_BGU.find((m) => m.id === materiaId)?.nombre,
+      nivel,
+      grado,
+      competencias: competenciasSeleccionadas.map((c) => ({ codigo: c.codigo, descripcion: c.descripcion })),
+      temasTrimestre: temasTrimestre.trim() || undefined,
+    });
+  };
+
   // ── Competencias filtering ──
   const competenciasFiltradas = useMemo(() => {
-    if (!busqueda.trim()) return COMPETENCIAS_INICIAL;
+    if (!busqueda.trim()) return competenciasDisponibles;
     const q = busqueda.trim().toLowerCase();
-    return COMPETENCIAS_INICIAL.filter(
-      c => c.codigo.toLowerCase().includes(q) || c.descripcion.toLowerCase().includes(q)
+    return competenciasDisponibles.filter(
+      (c) => c.codigo.toLowerCase().includes(q) || c.descripcion.toLowerCase().includes(q)
     );
-  }, [busqueda]);
+  }, [competenciasDisponibles, busqueda]);
 
-  const selectedCodes = useMemo(() => new Set(competenciasSeleccionadas.map(c => c.codigo)), [competenciasSeleccionadas]);
+  const selectedCodes = useMemo(() => new Set(competenciasSeleccionadas.map((c) => c.codigo)), [competenciasSeleccionadas]);
 
-  const toggleCompetencia = (comp: CompetenciaInicial) => {
+  const toggleCompetencia = (comp: CompetenciaEspecificaCompleta) => {
     if (selectedCodes.has(comp.codigo)) {
-      setCompetenciasSeleccionadas(prev => prev.filter(c => c.codigo !== comp.codigo));
+      setCompetenciasSeleccionadas((prev) => prev.filter((c) => c.codigo !== comp.codigo));
     } else {
-      setCompetenciasSeleccionadas(prev => [...prev, comp]);
+      setCompetenciasSeleccionadas((prev) => [...prev, comp]);
     }
   };
 
   const removeCompetencia = (codigo: string) => {
-    setCompetenciasSeleccionadas(prev => prev.filter(c => c.codigo !== codigo));
+    setCompetenciasSeleccionadas((prev) => prev.filter((c) => c.codigo !== codigo));
   };
 
   // ── Navigation ──
   const canAdvance = () => {
-    if (paso === "contexto") return true;
+    if (paso === "contexto") return !!nivel && !!grado;
     if (paso === "competencias") return competenciasSeleccionadas.length > 0;
     return true;
   };
 
   const advancePaso = () => {
-    const idx = PASOS.findIndex(p => p.key === paso);
+    const idx = PASOS.findIndex((p) => p.key === paso);
     if (idx < PASOS.length - 1) setPaso(PASOS[idx + 1].key);
   };
 
   const retreatPaso = () => {
-    const idx = PASOS.findIndex(p => p.key === paso);
+    const idx = PASOS.findIndex((p) => p.key === paso);
     if (idx > 0) setPaso(PASOS[idx - 1].key);
   };
 
   // ── Save ──
   const handleSave = () => {
-    const temas = temasTrimestre.split("\n").map(t => t.trim()).filter(Boolean);
-    const ambitosPayload = competenciasSeleccionadas.map(comp => ({
+    const temas = temasTrimestre.split("\n").map((t) => t.trim()).filter(Boolean);
+    const ambitosPayload = competenciasSeleccionadas.map((comp) => ({
       ambito: comp.descripcion.split(",")[0].substring(0, 50),
       competenciaCodigo: comp.codigo,
       competenciaDescripcion: comp.descripcion,
@@ -173,7 +231,6 @@ export default function InicialFormScreen() {
       })),
     }));
 
-    // Si no hay temas, crear una clase vacía para que la IA genere
     if (ambitosPayload.length > 0 && ambitosPayload[0].clases.length === 0) {
       ambitosPayload[0].clases = [{
         numero: 1,
@@ -190,6 +247,7 @@ export default function InicialFormScreen() {
     const payload = {
       sessionId: "default",
       grado,
+      nivel,
       institucion,
       docente,
       duracion: "2026-2027",
@@ -219,6 +277,10 @@ export default function InicialFormScreen() {
     </View>
   );
 
+  const renderSubHeader = (title: string) => (
+    <Text style={[styles.subSectionTitle, { color: colors.primary }]}>{title}</Text>
+  );
+
   const renderSelect = (
     label: string,
     value: string,
@@ -228,7 +290,7 @@ export default function InicialFormScreen() {
     <View style={styles.fieldGroup}>
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>{label}</Text>
       <View style={styles.selectRow}>
-        {options.map(opt => (
+        {options.map((opt) => (
           <Pressable
             key={opt}
             onPress={() => onChange(opt)}
@@ -285,18 +347,42 @@ export default function InicialFormScreen() {
       {renderSectionHeader("Contexto curricular", "🎓")}
 
       <View style={styles.fieldGroup}>
-        <Text style={[styles.fieldLabel, { color: colors.muted }]}>Currículo por Competencias</Text>
-        <View style={[styles.selectRow, { backgroundColor: colors.surface, borderRadius: 10, padding: 12, borderWidth: 1, borderColor: colors.border }]}>
-          <Text style={{ color: colors.foreground, fontSize: 15 }}>Educación Inicial (3-5 años)</Text>
+        <Text style={[styles.fieldLabel, { color: colors.muted }]}>Materia</Text>
+        <View style={styles.selectRow}>
+          {MATERIAS_EGB_BGU.map((m) => (
+            <Pressable
+              key={m.id}
+              onPress={() => setMateriaId(m.id)}
+              style={[
+                styles.selectChip,
+                {
+                  backgroundColor: materiaId === m.id ? colors.primary : colors.surface,
+                  borderColor: colors.border,
+                },
+              ]}
+            >
+              <Text style={{ color: materiaId === m.id ? "#fff" : colors.foreground, fontSize: 13 }}>
+                {m.nombre}
+              </Text>
+            </Pressable>
+          ))}
         </View>
       </View>
 
-      {renderSelect("Grado", grado, GRADOS, setGrado)}
+      {renderSelect("Nivel", nivel, nivelesDisponibles, setNivel)}
+
+      {gradosDisponibles.length > 0 ? (
+        renderSelect("Grado / Curso", grado, gradosDisponibles, setGrado)
+      ) : (
+        <Text style={[styles.helperText, { color: colors.muted }]}>
+          Esta materia no tiene datos para el nivel seleccionado.
+        </Text>
+      )}
 
       <View style={styles.fieldGroup}>
         <Text style={[styles.fieldLabel, { color: colors.muted }]}>Currículo integrado</Text>
         <View style={[styles.selectRow, { backgroundColor: colors.surface, borderRadius: 10, padding: 12, borderWidth: 1, borderColor: colors.border }]}>
-          <Text style={{ color: colors.foreground, fontSize: 15 }}>CI — Currículo integrado</Text>
+          <Text style={{ color: colors.foreground, fontSize: 15 }}>CE — Competencias específicas (EGB / BGU)</Text>
         </View>
       </View>
     </View>
@@ -308,10 +394,9 @@ export default function InicialFormScreen() {
       {renderSectionHeader("Competencias específicas", "🧩")}
 
       <Text style={[styles.helperText, { color: colors.muted }]}>
-        Confirma que aquí están las competencias de tu materia. Los indicadores y saberes se resuelven al generar.
+        Elige las competencias específicas de {grado || "este grado"}. Los indicadores y saberes se resuelven al generar.
       </Text>
 
-      {/* Search */}
       <TextInput
         value={busqueda}
         onChangeText={setBusqueda}
@@ -328,14 +413,13 @@ export default function InicialFormScreen() {
         ]}
       />
 
-      {/* Selected chips */}
       {competenciasSeleccionadas.length > 0 && (
         <View style={{ marginBottom: 12 }}>
           <Text style={[styles.fieldLabel, { color: colors.muted }]}>
             Competencias elegidas ({competenciasSeleccionadas.length})
           </Text>
           <View style={styles.chipsWrap}>
-            {competenciasSeleccionadas.map(comp => (
+            {competenciasSeleccionadas.map((comp) => (
               <View key={comp.codigo} style={[styles.chip, { backgroundColor: "#EEEDFE", borderColor: "#7C3AED" }]}>
                 <Text style={[styles.chipCode, { color: "#4C1D95" }]}>{comp.codigo}</Text>
                 <Text style={[styles.chipDesc, { color: "#6D28D9" }]} numberOfLines={1}>
@@ -350,29 +434,34 @@ export default function InicialFormScreen() {
         </View>
       )}
 
-      {/* Available list */}
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>Agregar competencias</Text>
       <View style={[styles.listaContainer, { borderColor: colors.border }]}>
-        {competenciasFiltradas.map(comp => (
-          <Pressable
-            key={comp.codigo}
-            onPress={() => toggleCompetencia(comp)}
-            style={[
-              styles.listaItem,
-              { borderBottomColor: colors.border, backgroundColor: selectedCodes.has(comp.codigo) ? colors.primary + "10" : "transparent" },
-            ]}
-          >
-            <View style={[styles.checkbox, { borderColor: selectedCodes.has(comp.codigo) ? colors.primary : colors.border, backgroundColor: selectedCodes.has(comp.codigo) ? colors.primary : "transparent" }]}>
-              {selectedCodes.has(comp.codigo) && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.listaCodigo, { color: colors.primary }]}>{comp.codigo}</Text>
-              <Text style={[styles.listaDesc, { color: colors.foreground }]} numberOfLines={2}>
-                {comp.descripcion}
-              </Text>
-            </View>
-          </Pressable>
-        ))}
+        {competenciasFiltradas.length === 0 ? (
+          <Text style={{ color: colors.muted, padding: 12, fontSize: 13 }}>
+            No hay competencias para esta combinación de materia/nivel/grado.
+          </Text>
+        ) : (
+          competenciasFiltradas.map((comp) => (
+            <Pressable
+              key={comp.codigo}
+              onPress={() => toggleCompetencia(comp)}
+              style={[
+                styles.listaItem,
+                { borderBottomColor: colors.border, backgroundColor: selectedCodes.has(comp.codigo) ? colors.primary + "10" : "transparent" },
+              ]}
+            >
+              <View style={[styles.checkbox, { borderColor: selectedCodes.has(comp.codigo) ? colors.primary : colors.border, backgroundColor: selectedCodes.has(comp.codigo) ? colors.primary : "transparent" }]}>
+                {selectedCodes.has(comp.codigo) && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.listaCodigo, { color: colors.primary }]}>{comp.codigo}</Text>
+                <Text style={[styles.listaDesc, { color: colors.foreground }]} numberOfLines={2}>
+                  {comp.descripcion}
+                </Text>
+              </View>
+            </Pressable>
+          ))
+        )}
       </View>
     </View>
   );
@@ -382,8 +471,16 @@ export default function InicialFormScreen() {
     <View>
       {renderSectionHeader("Datos administrativos", "📋")}
 
-      {renderSelect("Trimestre", trimestre, TRIMESTRES, setTrimestre)}
+      {renderSubHeader("Identificación")}
+      {renderField("Institución", institucion, setInstitucion, {
+        placeholder: "Nombre de la unidad educativa",
+      })}
+      {renderField("Docente", docente, setDocente, {
+        placeholder: "Nombre del docente",
+      })}
 
+      {renderSubHeader("Programación del trimestre")}
+      {renderSelect("Trimestre", trimestre, TRIMESTRES, setTrimestre)}
       <View style={styles.row}>
         <View style={{ flex: 1 }}>
           {renderSelect("Paralelo", paralelo, PARALELOS, setParalelo)}
@@ -393,29 +490,48 @@ export default function InicialFormScreen() {
         </View>
       </View>
 
-      {renderField("Título", titulo, setTitulo, {
-        placeholder: "Ej: Pensamiento crítico, voz ética y creación",
-      })}
+      {renderSubHeader("Situación de aprendizaje")}
+      <View style={styles.fieldGroup}>
+        <View style={styles.fieldLabelRow}>
+          <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 0 }]}>Título</Text>
+          <Pressable
+            onPress={handleSugerirTitulo}
+            disabled={sugerirTituloMutation.isPending || competenciasSeleccionadas.length === 0}
+            style={[
+              styles.sugerirBtn,
+              { opacity: sugerirTituloMutation.isPending || competenciasSeleccionadas.length === 0 ? 0.5 : 1 },
+            ]}
+          >
+            {sugerirTituloMutation.isPending ? (
+              <ActivityIndicator color={colors.primary} size="small" />
+            ) : (
+              <Text style={{ color: colors.primary, fontSize: 12, fontWeight: "600" }}>✨ Sugerir con IA</Text>
+            )}
+          </Pressable>
+        </View>
+        <TextInput
+          value={titulo}
+          onChangeText={setTitulo}
+          placeholder="Ej: Pensamiento crítico, voz ética y creación"
+          placeholderTextColor={colors.muted + "80"}
+          style={[
+            styles.textInput,
+            { backgroundColor: colors.surface, borderColor: colors.border, color: colors.foreground },
+          ]}
+        />
+      </View>
 
-      {renderField("Situación de aprendizaje", situacionAprendizaje, setSituacionAprendizaje, {
-        placeholder: "Opcional. Si lo dejás vacío, la IA redacta la descripción del trimestre.",
+      {renderField("Descripción", situacionAprendizaje, setSituacionAprendizaje, {
+        placeholder: "Opcional. Si lo dejás vacío, se redacta a partir de las competencias (o de la sugerencia con IA).",
         multiline: true,
       })}
 
       {renderField("Temas del trimestre", temasTrimestre, setTemasTrimestre, {
-        placeholder: "Opcional. Escribí un tema por línea.\nEj: Lenguas originarias del Ecuador\nDialectos del Ecuador",
+        placeholder: "Opcional. Escribí un tema por línea.\nEj: El mito y el logos\nLa argumentación filosófica",
         multiline: true,
       })}
 
-      {renderField("Institución", institucion, setInstitucion, {
-        placeholder: "Nombre de la unidad educativa",
-      })}
-
-      {renderField("Docente", docente, setDocente, {
-        placeholder: "Nombre del docente",
-      })}
-
-      {/* NEE toggle */}
+      {renderSubHeader("Configuración")}
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
         <View style={{ flex: 1 }}>
           <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Hay estudiantes con NEE en este paralelo?</Text>
@@ -428,7 +544,6 @@ export default function InicialFormScreen() {
         />
       </View>
 
-      {/* Compartir toggle */}
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
         <View style={{ flex: 1 }}>
           <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Compartir con la comunidad?</Text>
@@ -453,6 +568,18 @@ export default function InicialFormScreen() {
         <Text style={[styles.summaryTitle, { color: colors.foreground }]}>Resumen</Text>
 
         <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Materia:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>
+            {MATERIAS_EGB_BGU.find((m) => m.id === materiaId)?.nombre}
+          </Text>
+        </View>
+
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Nivel:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{nivel}</Text>
+        </View>
+
+        <View style={styles.summaryRow}>
           <Text style={[styles.summaryLabel, { color: colors.muted }]}>Grado:</Text>
           <Text style={[styles.summaryValue, { color: colors.foreground }]}>{grado}</Text>
         </View>
@@ -475,7 +602,7 @@ export default function InicialFormScreen() {
         <View style={styles.summaryRow}>
           <Text style={[styles.summaryLabel, { color: colors.muted }]}>Competencias:</Text>
           <Text style={[styles.summaryValue, { color: colors.foreground }]}>
-            {competenciasSeleccionadas.map(c => c.codigo).join(", ")}
+            {competenciasSeleccionadas.map((c) => c.codigo).join(", ")}
           </Text>
         </View>
 
@@ -520,23 +647,21 @@ export default function InicialFormScreen() {
   return (
     <ScreenContainer className="flex-1">
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        {/* Header */}
         <View className="px-5 pt-4 pb-2">
           <Text className="text-base text-muted">
             {isEdit ? "Editar Planificación" : "Nueva microcurricular por competencias"}
           </Text>
           <Text className="text-2xl font-bold text-foreground">
-            Currículo por Competencias — Inicial
+            Currículo Integrado — EGB / BGU
           </Text>
           <Text className="text-sm text-muted mt-1">
-            Elige las competencias del trimestre; la IA arma las semanas.
+            Elige materia, nivel, grado y competencias; arma el trimestre.
           </Text>
         </View>
 
-        {/* Progress links */}
         <View style={styles.progressLinks}>
           {PASOS.map((p, i) => {
-            const currentIdx = PASOS.findIndex(x => x.key === paso);
+            const currentIdx = PASOS.findIndex((x) => x.key === paso);
             const isActive = p.key === paso;
             const isDone = i < currentIdx;
             return (
@@ -558,11 +683,9 @@ export default function InicialFormScreen() {
           })}
         </View>
 
-        {/* Content */}
         <View style={{ paddingHorizontal: 20 }}>{renderPasoActual()}</View>
       </ScrollView>
 
-      {/* Bottom bar */}
       <View style={[styles.bottomBar, { backgroundColor: colors.background, borderTopColor: colors.border }]}>
         <View style={styles.bottomBarInner}>
           {paso !== "contexto" ? (
@@ -616,9 +739,12 @@ const styles = StyleSheet.create({
   },
   sectionIcon: { fontSize: 20 },
   sectionTitle: { fontSize: 18, fontWeight: "700" },
+  subSectionTitle: { fontSize: 13, fontWeight: "700", marginTop: 4, marginBottom: 10 },
   helperText: { fontSize: 13, marginBottom: 12, lineHeight: 18 },
   fieldGroup: { marginBottom: 14 },
   fieldLabel: { fontSize: 12, fontWeight: "600", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 },
+  fieldLabelRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 6 },
+  sugerirBtn: { paddingHorizontal: 8, paddingVertical: 2 },
   textInput: { borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10, fontSize: 15 },
   selectRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   selectChip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10, borderWidth: 1 },

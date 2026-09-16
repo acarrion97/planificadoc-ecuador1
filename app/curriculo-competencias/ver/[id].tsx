@@ -112,8 +112,19 @@ export default function VerPlanificacionScreen() {
     if (!plan) return;
     if (plan.tipo === "egb_bgu") {
       router.push(`/curriculo-competencias/egb-bgu?id=${planId}` as any);
-    } else {
+      return;
+    }
+    // "inicial_preparatoria" agrupa dos formularios que comparten el mismo
+    // shape de datos (ver server/curriculo-competencias-router.ts,
+    // exportWord): Inicial 3-5 años (códigos CE.CI.*) y Currículo Integrado
+    // EGB/BGU (CE.LL.*, CE.M.*, etc.) — sin esta distinción, "Editar" en un
+    // plan de Currículo Integrado abría por error el formulario de Inicial.
+    const primerCodigo: string | undefined = (plan.formData as any)?.ambitos?.[0]?.competenciaCodigo;
+    const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
+    if (esInicial) {
       router.push(`/curriculo-competencias/inicial?id=${planId}` as any);
+    } else {
+      router.push(`/curriculo-competencias/egb-bgu-integrado?id=${planId}` as any);
     }
   };
 

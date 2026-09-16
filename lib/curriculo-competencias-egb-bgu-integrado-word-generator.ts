@@ -1,18 +1,21 @@
 /**
- * Genera el documento Word (.docx) para Planificación Currículo por Competencias
- * Familia Inicial/Preparatoria — A4 LANDSCAPE — Formato MULTIGRADO
+ * Genera el documento Word (.docx) para Planificación Currículo Integrado
+ * por Competencias — EGB / BGU (Elemental, Media, Superior, Bachillerato).
  *
- * Estructura (según formato oficial MINEDUC):
- * PÁGINA 1:
+ * A diferencia del generador de Inicial (multigrado: 3-4/4-5 años en la
+ * misma planificación), aquí cada planificación es de UN solo grado/curso,
+ * como corresponde a una clase regular de EGB o BGU.
+ *
+ * Estructura (mismo formato oficial MINEDUC que Inicial, adaptado a un
+ * solo grado):
  *   1. Encabezado (Unidad Educativa / Año lectivo)
- *   2. Título: Planificación microcurricular por competencias - multigrado
- *   3. Datos Informativos (Docente, Asignatura, Grados, Paralelo, Trimestre, No. semanas)
- *   4. Situación de aprendizaje (Título + Descripción en una celda)
- *   5. Conexión interdisciplinar (Ámbitos con códigos CE)
+ *   2. Título: Planificación microcurricular
+ *   3. Datos Informativos (Docente, Asignatura, Grado/Curso, Paralelo, Trimestre, No. semanas)
+ *   4. Situación de aprendizaje
+ *   5. Conexión interdisciplinar (competencias con código CE)
  *   6. Competencias específicas + código CE
- *   7. Indicadores de evaluación (5 col: Grado | Indicadores | Declarativos | Procedimentales | Actitudinales)
- * PÁGINAS 2+:
- *   8. Tabla DUA semanal multigrado (4 col: Semana·Grado | Estrategias DUA | Recursos | Técnicas)
+ *   7. Indicadores de evaluación (4 col: Indicadores | Declarativos | Procedimentales | Actitudinales)
+ *   8. Tabla DUA semanal (3 col: Semana | Estrategias DUA | Técnicas e instrumentos)
  *   9. Nota al pie
  */
 import {
@@ -20,8 +23,48 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType,
 } from "docx";
-import type { PlanificacionInicialCurriculo } from "../data/types-curriculo-competencias";
-import { buscarCompetenciaInicial, type CompetenciaInicialCompleta } from "../data/competencias-especificas-inicial";
+import type { PlanificacionInicialCurriculo, AmbitoDesarrollo } from "../data/types-curriculo-competencias";
+import {
+  buscarCompetenciaEspecificaEGBBGU,
+  MATERIAS_EGB_BGU,
+} from "../data/competencias-especificas-egb-bgu";
+import { buscarConexionesInterdisciplinarias } from "../data/index";
+import type { Area, Subnivel } from "../data/types";
+
+/** Mapea el id de materia del catálogo nuevo al código de área del catálogo de destrezas (2016), usado para buscar conexiones interdisciplinarias reales. */
+const AREA_POR_MATERIA: Record<string, Area> = {
+  lengua: "LL",
+  matematica: "M",
+  "ciencias-naturales": "CN",
+  "ciencias-sociales": "CS",
+  ingles: "EFL",
+  eca: "ECA",
+  emprendimiento: "EG",
+};
+
+/** Ordinal (en palabra) → número, para reformatear "OCTAVO GRADO" como "8.º EGB". */
+const ORDINAL_A_NUMERO: Record<string, number> = {
+  PRIMER: 1, PRIMERO: 1,
+  SEGUNDO: 2,
+  TERCER: 3, TERCERO: 3,
+  CUARTO: 4,
+  QUINTO: 5,
+  SEXTO: 6,
+  SÉPTIMO: 7, SEPTIMO: 7,
+  OCTAVO: 8,
+  NOVENO: 9,
+  DÉCIMO: 10, DECIMO: 10,
+};
+
+/** "OCTAVO GRADO" → "8.º EGB"; "TERCER CURSO" → "3.º BGU"; si no se reconoce, se devuelve tal cual. */
+function formatGradoCurso(grado: string): string {
+  const primeraPalabra = grado.trim().split(/\s+/)[0]?.toUpperCase();
+  const numero = primeraPalabra ? ORDINAL_A_NUMERO[primeraPalabra] : undefined;
+  if (!numero) return grado;
+  if (/GRADO$/i.test(grado)) return `${numero}.º EGB`;
+  if (/CURSO$/i.test(grado)) return `${numero}.º BGU`;
+  return grado;
+}
 
 // ── Colores ──
 const COLOR_PRIMARY = "155E75";
@@ -100,38 +143,48 @@ function sectionRow(label: string, cs = 1): TableRow {
   });
 }
 
-/** Crea un párrafo con etiqueta de color para fases */
-function coloredLabel(label: string, color: string): Paragraph {
-  return new Paragraph({
-    spacing: { before: 80, after: 40 },
-    children: [
-      new TextRun({
-        text: label,
-        bold: true,
-        size: 14,
-        color: WHITE,
-        font: "Arial",
-        shading: { fill: color, type: ShadingType.CLEAR },
-      }),
-    ],
-  });
-}
-
-/** Mapea el índice del ámbito a su grado correspondiente */
-function gradoLabel(idx: number): string {
-  const labels = ["Inicial 3-4 años", "Inicial 4-5 años", "5-6 años"];
-  return labels[idx] || `Grado ${idx + 1}`;
-}
-
-/** Extrae los códigos CE de un ámbito */
+/** Extrae los códigos CE de un ámbito (soporta varios códigos en la descripción). */
 function extraerCodigosCE(ambito: { competenciaCodigo?: string; competenciaDescripcion?: string }): string[] {
   const desc = ambito.competenciaDescripcion || "";
-  const matches = desc.match(/CE\.[A-Z]+\.\d+[\.\d]*/g);
+  const matches = desc.match(/CE\.[A-Z]+(?:\.[A-Z]+)?\.\d+\.\d+/g);
   return matches || (ambito.competenciaCodigo ? [ambito.competenciaCodigo] : []);
 }
 
+/** Encuentra la materia del catálogo nuevo a la que pertenece un código CE. */
+function materiaDelCodigo(codigo: string): (typeof MATERIAS_EGB_BGU)[number] | undefined {
+  return MATERIAS_EGB_BGU.find((m) => m.competencias.some((c) => c.codigo === codigo));
+}
+
+/** Nombre de la materia (para mostrar en "Asignatura") a partir del código CE de cualquiera de los ámbitos. */
+function nombreMateria(ambitos: AmbitoDesarrollo[]): string {
+  for (const a of ambitos) {
+    const materia = materiaDelCodigo(a.competenciaCodigo || "");
+    if (materia) return materia.nombre;
+  }
+  return "Currículo integrado";
+}
+
+/** Trunca sin cortar palabras a la mitad. */
+function truncateWords(text: string, maxLen: number): string {
+  if (text.length <= maxLen) return text;
+  const cut = text.substring(0, maxLen);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 0 ? cut.substring(0, lastSpace) : cut).trim();
+}
+
+/** Área (catálogo 2016) y subnivel de un ámbito, para buscar conexiones interdisciplinarias reales. */
+function areaYSubnivel(ambito: AmbitoDesarrollo): { area: Area; subnivel: Subnivel } | undefined {
+  const codigo = ambito.competenciaCodigo || "";
+  const materia = materiaDelCodigo(codigo);
+  const area = materia ? AREA_POR_MATERIA[materia.id] : undefined;
+  const m = codigo.match(/^CE\.[A-Z]+(?:\.[A-Z]+)?\.(\d+)\.\d+/);
+  const subnivel = m ? (Number(m[1]) as Subnivel) : undefined;
+  if (!area || !subnivel) return undefined;
+  return { area, subnivel };
+}
+
 // ── Generador principal ──
-export async function generarCurriculoCompetenciasWordInicial(
+export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
   plan: PlanificacionInicialCurriculo
 ): Promise<Blob> {
   const children: (Paragraph | Table)[] = [];
@@ -154,7 +207,7 @@ export async function generarCurriculoCompetenciasWordInicial(
         new TableRow({
           children: [
             tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], COL_INST, { bg: COLOR_HEADER }),
-            tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], COL_ANIO, { bg: COLOR_HEADER }),
+            tc([p(`Año lectivo: ${plan.duracion || plan.periodoPedagogico || "—"}`, { size: 9 })], COL_ANIO, { bg: COLOR_HEADER }),
           ],
         }),
       ],
@@ -168,7 +221,7 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(
     makeTable(
-      [new TableRow({ children: [tc([p("Planificación microcurricular por competencias - multigrado", { bold: true, size: 12, align: "center" })], TW, { bg: COLOR_HEADER })] })],
+      [new TableRow({ children: [tc([p("Planificación microcurricular", { bold: true, size: 12, align: "center" })], TW, { bg: COLOR_HEADER })] })],
       TW,
       [TW]
     )
@@ -177,14 +230,18 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   // 3. DATOS INFORMATIVOS
   // ═══════════════════════════════════════════════════════════════
-  const grados = ambitos.map((_, i) => gradoLabel(i)).join(", ");
   const numSemanas = plan.noSemanasClase || plan.ambitos?.[0]?.clases?.length || 8;
+  const asignatura = nombreMateria(ambitos);
+  const gradoCurso = plan.grado ? formatGradoCurso(plan.grado) : "—";
 
-  // Cada fila con una cantidad distinta de celdas va en su propia tabla
-  // (ver nota del Encabezado sobre columnWidths/tblGrid).
+  // Cada fila con una cantidad distinta de celdas va en su propia tabla:
+  // docx.js usa `columnWidths` literalmente como el tblGrid de TODA la
+  // tabla, así que mezclar filas de 1/2/3 celdas bajo un único
+  // `columnWidths: [TW]` deja un grid de 1 columna que no coincide con
+  // las filas de 2-3 celdas y rompe el ancho en Word.
   const COL_ASIG = Math.floor(TW * 0.4);
-  const COL_GRADOS = Math.floor(TW * 0.4);
-  const COL_PARALELO = TW - COL_ASIG - COL_GRADOS;
+  const COL_GRADOCURSO = Math.floor(TW * 0.4);
+  const COL_PARALELO = TW - COL_ASIG - COL_GRADOCURSO;
   const COL_TRIM = Math.floor(TW * 0.5);
   const COL_SEM = TW - COL_TRIM;
 
@@ -203,14 +260,14 @@ export async function generarCurriculoCompetenciasWordInicial(
       [
         new TableRow({
           children: [
-            tc([p(`Asignatura: Currículo integrado`, { size: 8 })], COL_ASIG),
-            tc([p(`Grados: ${grados || "—"}`, { size: 8 })], COL_GRADOS),
+            tc([p(`Asignatura: ${asignatura}`, { size: 8 })], COL_ASIG),
+            tc([p(`Grado/Curso: ${gradoCurso}`, { size: 8 })], COL_GRADOCURSO),
             tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], COL_PARALELO),
           ],
         }),
       ],
       TW,
-      [COL_ASIG, COL_GRADOS, COL_PARALELO]
+      [COL_ASIG, COL_GRADOCURSO, COL_PARALELO]
     ),
     makeTable(
       [
@@ -232,7 +289,7 @@ export async function generarCurriculoCompetenciasWordInicial(
   children.push(makeTable([sectionRow("Situación de aprendizaje")], TW, [TW]));
 
   const tituloSA = plan.situacionAprendizaje?.titulo || plan.objetivoGeneral || "—";
-  const descSA = plan.situacionAprendizaje?.descripcion || plan.ambitos?.map(a => a.destrezas?.join(", ")).filter(Boolean).join("; ") || "—";
+  const descSA = plan.situacionAprendizaje?.descripcion || ambitos.map((a) => a.destrezas?.join(", ")).filter(Boolean).join("; ") || "—";
 
   children.push(
     makeTable(
@@ -258,24 +315,42 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Conexión interdisciplinar")], TW, [TW]));
 
-  // Ámbitos con códigos CE
-  const ambitosConLabels = ambitos.map((a, i) => {
-    const ce = extraerCodigosCE(a);
-    const ceText = ce.length > 0 ? ` (${ce.join(", ")})` : "";
-    return `${a.ambito}${ceText}`;
-  }).join("\n");
+  // Se buscan destrezas de OTRAS asignaturas del mismo subnivel cuyo texto
+  // coincida temáticamente (por palabras clave) con la competencia que se
+  // está planificando — igual que en el generador EGB/BGU con DCD.
+  const conexionesVistas = new Set<string>();
+  const filasConexionInterdisciplinar: TableRow[] = [];
+  for (const a of ambitos) {
+    const ctx = areaYSubnivel(a);
+    if (!ctx) continue;
+    const conexiones = buscarConexionesInterdisciplinarias(
+      ctx.area,
+      ctx.subnivel,
+      a.competenciaDescripcion,
+      []
+    );
+    for (const conn of conexiones) {
+      const key = `${conn.area}:${conn.ceCode}`;
+      if (conexionesVistas.has(key)) continue;
+      conexionesVistas.add(key);
+      filasConexionInterdisciplinar.push(
+        new TableRow({
+          children: [tc([p(`• ${conn.area}: ${conn.descripcion} (${conn.ceCode})`, { size: 8 })], TW)],
+        })
+      );
+    }
+  }
+  if (filasConexionInterdisciplinar.length === 0) {
+    filasConexionInterdisciplinar.push(
+      new TableRow({ children: [tc([p("—", { size: 8 })], TW)] })
+    );
+  }
 
   children.push(
     makeTable(
       [
-        new TableRow({
-          children: [
-            tc([
-              p("Ámbitos:", { bold: true, size: 8 }),
-              p(ambitosConLabels || "—", { size: 8 }),
-            ], TW),
-          ],
-        }),
+        new TableRow({ children: [tc([p("Asignaturas:", { bold: true, size: 8 })], TW)] }),
+        ...filasConexionInterdisciplinar,
       ],
       TW,
       [TW]
@@ -287,7 +362,6 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Competencias específicas")], TW, [TW]));
 
-  // Todos los códigos CE agrupados en una línea
   const todosCE = ambitos.map((a) => {
     const ce = extraerCodigosCE(a);
     return ce.length > 0 ? ce.join(", ") : (a.competenciaCodigo || "—");
@@ -308,36 +382,31 @@ export async function generarCurriculoCompetenciasWordInicial(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // 7. INDICADORES DE EVALUACIÓN (5 columnas)
+  // 7. INDICADORES DE EVALUACIÓN (4 columnas)
   // ═══════════════════════════════════════════════════════════════
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-  const COL_GRA = Math.floor(TW * 0.12);
-  const COL_IND = Math.floor(TW * 0.28);
+  const COL_IND = Math.floor(TW * 0.4);
   const COL_DEC = Math.floor(TW * 0.22);
-  const COL_PRO = Math.floor(TW * 0.20);
-  const COL_ACT = TW - COL_GRA - COL_IND - COL_DEC - COL_PRO;
+  const COL_PRO = Math.floor(TW * 0.2);
+  const COL_ACT = TW - COL_IND - COL_DEC - COL_PRO;
 
   const filasIndicadores: TableRow[] = [];
 
-  for (let i = 0; i < ambitos.length; i++) {
-    const ambito = ambitos[i];
-    const grado = gradoLabel(i);
-    const ceData = buscarCompetenciaInicial(ambito.competenciaCodigo || "");
+  for (const ambito of ambitos) {
+    const ce = buscarCompetenciaEspecificaEGBBGU(ambito.competenciaCodigo || "");
+    const gradoData = ce?.porGrado.find((g) => g.grado === plan.grado);
 
-    // Use real indicators from catalog, fallback to destrezas/clases
     let indicadorTexts: string[] = [];
     let saberesDeclarativos: string[] = [];
     let saberesProcedimentales: string[] = [];
     let saberesActitudinales: string[] = [];
 
-    if (ceData) {
-      const inds = i === 0 ? ceData.indicadores34 : (i === 1 ? ceData.indicadores45 : ceData.indicadores56);
-      const saberes = i === 0 ? ceData.saberes34 : (i === 1 ? ceData.saberes45 : ceData.saberes56);
-      indicadorTexts = inds.map((ind) => ind.texto);
-      saberesDeclarativos = saberes.declarativos;
-      saberesProcedimentales = saberes.procedimentales;
-      saberesActitudinales = saberes.actitudinales;
+    if (gradoData) {
+      indicadorTexts = gradoData.indicadores.map((ind) => ind.texto);
+      saberesDeclarativos = gradoData.saberes.declarativos;
+      saberesProcedimentales = gradoData.saberes.procedimentales;
+      saberesActitudinales = gradoData.saberes.actitudinales;
     } else {
       const destrezas = ambito.destrezas || [];
       const clases = ambito.clases || [];
@@ -351,19 +420,18 @@ export async function generarCurriculoCompetenciasWordInicial(
     for (let j = 0; j < indicadorTexts.length; j++) {
       const indicador = indicadorTexts[j] || "—";
       const idx = j + 1;
-      // Los saberes oficiales usan el prefijo "CI.0.X" (sin "CE."); se deriva
-      // del código de competencia específica solo como respaldo cuando el
+      // Los saberes oficiales usan el prefijo "<ÁREA>.<subnivel>" (sin "CE.");
+      // se deriva del código de competencia solo como respaldo cuando el
       // catálogo no trae saberes para este índice.
-      const ceCode = (ambito.competenciaCodigo || "CE.CI.0").replace(/^CE\./, "");
+      const ceCode = (ambito.competenciaCodigo || "CE").replace(/^CE\./, "");
 
-      const declarativos = saberesDeclarativos[j] || `${ceCode}.d.${idx}. Conocer y comprender ${indicador.substring(0, 120).toLowerCase()}`;
-      const procedimentales = saberesProcedimentales[j] || `${ceCode}.p.${idx}. Aplicar estrategias para ${indicador.substring(0, 120).toLowerCase()}`;
-      const actitudinales = saberesActitudinales[j] || `${ceCode}.a.${idx}. Valorar la importancia de ${indicador.substring(0, 120).toLowerCase()}`;
+      const declarativos = saberesDeclarativos[j] || `${ceCode}.d.${idx}. Conocer y comprender ${truncateWords(indicador, 120).toLowerCase()}`;
+      const procedimentales = saberesProcedimentales[j] || `${ceCode}.p.${idx}. Aplicar estrategias para ${truncateWords(indicador, 120).toLowerCase()}`;
+      const actitudinales = saberesActitudinales[j] || `${ceCode}.a.${idx}. Valorar la importancia de ${truncateWords(indicador, 120).toLowerCase()}`;
 
       filasIndicadores.push(
         new TableRow({
           children: [
-            tc(j === 0 ? [p(grado, { size: 7 })] : [p("", { size: 7 })], COL_GRA),
             tc([p(indicador, { size: 7 })], COL_IND),
             tc([p(declarativos, { size: 7 })], COL_DEC),
             tc([p(procedimentales, { size: 7 })], COL_PRO),
@@ -378,7 +446,6 @@ export async function generarCurriculoCompetenciasWordInicial(
     filasIndicadores.push(
       new TableRow({
         children: [
-          tc([p("—", { size: 7 })], COL_GRA),
           tc([p("—", { size: 7 })], COL_IND),
           tc([p("—", { size: 7 })], COL_DEC),
           tc([p("—", { size: 7 })], COL_PRO),
@@ -394,8 +461,13 @@ export async function generarCurriculoCompetenciasWordInicial(
         new TableRow({
           tableHeader: true,
           children: [
-            tc([p("Grado", { bold: true, size: 8, color: WHITE })], COL_GRA, { bg: COLOR_PRIMARY }),
-            tc([p("Indicadores de evaluación", { bold: true, size: 8, color: WHITE })], COL_IND, { bg: COLOR_PRIMARY }),
+            tc([p("Indicadores de evaluación", { bold: true, size: 8, color: WHITE })], COL_IND, { bg: COLOR_PRIMARY, rs: 2 }),
+            tc([p("Saberes", { bold: true, size: 8, color: WHITE, align: "center" })], COL_DEC + COL_PRO + COL_ACT, { bg: COLOR_PRIMARY, cs: 3 }),
+          ],
+        }),
+        new TableRow({
+          tableHeader: true,
+          children: [
             tc([p("Declarativos", { bold: true, size: 8, color: WHITE })], COL_DEC, { bg: COLOR_PRIMARY }),
             tc([p("Procedimentales", { bold: true, size: 8, color: WHITE })], COL_PRO, { bg: COLOR_PRIMARY }),
             tc([p("Actitudinales", { bold: true, size: 8, color: WHITE })], COL_ACT, { bg: COLOR_PRIMARY }),
@@ -404,113 +476,92 @@ export async function generarCurriculoCompetenciasWordInicial(
         ...filasIndicadores,
       ],
       TW,
-      [COL_GRA, COL_IND, COL_DEC, COL_PRO, COL_ACT]
+      [COL_IND, COL_DEC, COL_PRO, COL_ACT]
     )
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // 8. TABLA DUA SEMANAL MULTIGRADO
+  // 8. TABLA DUA SEMANAL
   // ═══════════════════════════════════════════════════════════════
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
 
-  const COL_SEMGRA = Math.floor(TW * 0.12);
-  const COL_DUA = Math.floor(TW * 0.43);
-  const COL_REC = Math.floor(TW * 0.23);
-  const COL_TECH = TW - COL_SEMGRA - COL_DUA - COL_REC;
+  const COL_DUA = Math.floor(TW * 0.55);
+  const COL_REC = Math.floor(TW * 0.22);
+  const COL_TECH = TW - COL_DUA - COL_REC;
 
-  // Header de la tabla DUA
   children.push(
     makeTable(
       [
         new TableRow({
           tableHeader: true,
           children: [
-            tc([p("Semana · Grado", { bold: true, size: 8, color: WHITE })], COL_SEMGRA, { bg: COLOR_PRIMARY }),
             tc([p("Estrategias metodológicas desde el DUA", { bold: true, size: 8, color: WHITE })], COL_DUA, { bg: COLOR_PRIMARY }),
-            tc([p("Recursos (Se podrán emplear de acuerdo con la disponibilidad o adaptabilidad y conforme la selección que realice el equipo docente)", { bold: true, size: 7, color: WHITE })], COL_REC, { bg: COLOR_PRIMARY }),
+            tc([p("Recursos (según disponibilidad institucional)", { bold: true, size: 7, color: WHITE })], COL_REC, { bg: COLOR_PRIMARY }),
             tc([p("Técnicas e instrumentos de evaluación", { bold: true, size: 8, color: WHITE })], COL_TECH, { bg: COLOR_PRIMARY }),
           ],
         }),
       ],
       TW,
-      [COL_SEMGRA, COL_DUA, COL_REC, COL_TECH]
+      [COL_DUA, COL_REC, COL_TECH]
     )
   );
 
-  // Generar filas por semana y grado
   const numSemanasCalc = plan.noSemanasClase || 8;
 
   for (let semana = 1; semana <= numSemanasCalc; semana++) {
-    for (let i = 0; i < ambitos.length; i++) {
-      const ambito = ambitos[i];
-      const grado = gradoLabel(i);
-      const clase = ambito.clases?.find(c => c.numero === semana) || ambito.clases?.[semana - 1];
-      const ceData = buscarCompetenciaInicial(ambito.competenciaCodigo || "");
+    for (const ambito of ambitos) {
+      const clase = ambito.clases?.find((c) => c.numero === semana) || ambito.clases?.[semana - 1];
+      const ce = buscarCompetenciaEspecificaEGBBGU(ambito.competenciaCodigo || "");
+      const gradoData = ce?.porGrado.find((g) => g.grado === plan.grado);
 
-      const semLabel = semana === 1 || i > 0
-        ? (i === 0 ? `Semana ${semana} · Grado` : "")
-        : `Semana ${semana} · Grado`;
-
-      // DUA content: use class data if available, else infer from CE
-      const duaContent: Paragraph[] = [];
+      const duaContent: Paragraph[] = [p(`Semana ${semana}`, { bold: true, size: 8 })];
       if (clase && (clase.inicio?.length || clase.desarrollo?.length || clase.cierre?.length)) {
         duaContent.push(p(`Clase ${clase.numero}: ${clase.tema}`, { bold: true, size: 8 }));
         duaContent.push(p(`Sugerencias para el inicio:`, { bold: true, size: 7 }));
-        const inicioTexts = clase.inicio?.map(a => `• ${a.texto}`).join("\n") || "• Inicio de la actividad";
-        duaContent.push(p(inicioTexts, { size: 7 }));
+        duaContent.push(p(clase.inicio?.map((a) => `• ${a.texto}`).join("\n") || "• Inicio de la actividad", { size: 7 }));
         duaContent.push(p(`Sugerencias para el desarrollo:`, { bold: true, size: 7 }));
-        const desTexts = clase.desarrollo?.map(a => `• ${a.texto}`).join("\n") || "• Desarrollo de la actividad";
-        duaContent.push(p(desTexts, { size: 7 }));
+        duaContent.push(p(clase.desarrollo?.map((a) => `• ${a.texto}`).join("\n") || "• Desarrollo de la actividad", { size: 7 }));
         duaContent.push(p(`Sugerencias para el cierre:`, { bold: true, size: 7 }));
-        const cierreTexts = clase.cierre?.map(a => `• ${a.texto}`).join("\n") || "• Cierre de la actividad";
-        duaContent.push(p(cierreTexts, { size: 7 }));
-      } else if (ceData) {
-        // Infer DUA content from CE description and indicators
-        const descCorta = ceData.descripcion.length > 100 ? ceData.descripcion.substring(0, 100) : ceData.descripcion;
-        const inds = i === 0 ? ceData.indicadores34 : (i === 1 ? ceData.indicadores45 : ceData.indicadores56);
-        const indSample = inds.length > 0 ? inds[Math.min(semana - 1, inds.length - 1)].texto : descCorta;
+        duaContent.push(p(clase.cierre?.map((a) => `• ${a.texto}`).join("\n") || "• Cierre de la actividad", { size: 7 }));
+      } else if (gradoData || ce) {
+        const descCorta = truncateWords(ce!.descripcion, 100);
+        // Se rota entre los indicadores disponibles (en vez de repetir el
+        // último) para que semanas sucesivas no queden idénticas cuando hay
+        // más semanas que indicadores.
+        const inds = gradoData?.indicadores || [];
+        const indSample = inds.length > 0 ? inds[(semana - 1) % inds.length].texto : descCorta;
+        const indCorta = truncateWords(indSample, 90);
 
         duaContent.push(p(`Actividad: ${descCorta}`, { bold: true, size: 8 }));
         duaContent.push(p(`Sugerencias para el inicio:`, { bold: true, size: 7 }));
-        duaContent.push(p(`• Presentar la actividad mediante una dinámica lúdica relacionada con: ${indSample.substring(0, 80)}`, { size: 7 }));
-        duaContent.push(p(`• Motivar con una canción, cuento o juego que introduzca el tema`, { size: 7 }));
+        duaContent.push(p(`• Presentar la actividad mediante una dinámica relacionada con: ${indCorta}`, { size: 7 }));
+        duaContent.push(p(`• Activar conocimientos previos con una pregunta o situación cotidiana`, { size: 7 }));
         duaContent.push(p(`Sugerencias para el desarrollo:`, { bold: true, size: 7 }));
-        duaContent.push(p(`• Desarrollar la actividad principal mediante juego libre y exploración guiada`, { size: 7 }));
-        duaContent.push(p(`• Realizar una actividad práctica que permita al niño explorar: ${indSample.substring(0, 80)}`, { size: 7 }));
-        duaContent.push(p(`• Fomentar la interacción entre pares y la expresión oral`, { size: 7 }));
+        duaContent.push(p(`• Desarrollar la actividad principal mediante trabajo guiado e independiente`, { size: 7 }));
+        duaContent.push(p(`• Aplicar una actividad práctica orientada a: ${indCorta}`, { size: 7 }));
         duaContent.push(p(`Sugerencias para el cierre:`, { bold: true, size: 7 }));
-        duaContent.push(p(`• Reflexionar sobre lo aprendido mediante una conversación grupal`, { size: 7 }));
+        duaContent.push(p(`• Reflexionar sobre lo aprendido mediante una puesta en común`, { size: 7 }));
         duaContent.push(p(`• Realizar una actividad de cierre que refuerce el aprendizaje`, { size: 7 }));
       } else {
-        duaContent.push(p("• Inicio: Presentar actividad lúdica motivadora", { size: 7 }));
-        duaContent.push(p("• Desarrollo: Exploración guiada y juego libre", { size: 7 }));
+        duaContent.push(p("• Inicio: Presentar la actividad y activar conocimientos previos", { size: 7 }));
+        duaContent.push(p("• Desarrollo: Trabajo guiado e independiente", { size: 7 }));
         duaContent.push(p("• Cierre: Reflexión grupal y cierre de la actividad", { size: 7 }));
       }
 
-      // Recursos: use CE catalog resources
       const recContent: Paragraph[] = [];
       if (clase?.metodologia) {
         recContent.push(p(`• ${clase.metodologia}`, { size: 7 }));
-      } else if (ceData) {
-        ceData.recursos.materiales.slice(0, 3).forEach((m) => {
-          recContent.push(p(`• ${m}`, { size: 7 }));
-        });
       } else {
+        recContent.push(p("• Material didáctico impreso o digital", { size: 7 }));
         recContent.push(p("• Recursos del aula", { size: 7 }));
       }
 
-      // Técnicas e instrumentos
       const techContent: Paragraph[] = [];
       if (clase?.metodoEvaluacion?.length) {
         techContent.push(p(`Técnica: ${clase.metodoEvaluacion[0] || "Observación"}`, { size: 7 }));
         techContent.push(p(`Instrumento: ${clase.metodoEvaluacion[1] || "Lista de cotejo"}`, { size: 7 }));
-      } else if (ceData) {
-        const tecnicas = ceData.recursos.tecnicas;
-        const instrumentos = ceData.recursos.instrumentos;
-        techContent.push(p(`Técnica: ${tecnicas[0] || "Observación"}`, { size: 7 }));
-        techContent.push(p(`Instrumento: ${instrumentos[0] || "Lista de cotejo"}`, { size: 7 }));
       } else {
-        techContent.push(p("Técnica: Observación", { size: 7 }));
+        techContent.push(p("Técnica: Observación directa", { size: 7 }));
         techContent.push(p("Instrumento: Lista de cotejo", { size: 7 }));
       }
 
@@ -519,7 +570,6 @@ export async function generarCurriculoCompetenciasWordInicial(
           [
             new TableRow({
               children: [
-                tc([p(`${grado}`, { size: 7 })], COL_SEMGRA),
                 tc(duaContent, COL_DUA),
                 tc(recContent, COL_REC),
                 tc(techContent, COL_TECH),
@@ -527,7 +577,7 @@ export async function generarCurriculoCompetenciasWordInicial(
             }),
           ],
           TW,
-          [COL_SEMGRA, COL_DUA, COL_REC, COL_TECH]
+          [COL_DUA, COL_REC, COL_TECH]
         )
       );
     }
