@@ -240,6 +240,18 @@ function ensureTable(db: Awaited<ReturnType<typeof getDb>>): asserts db is NonNu
   if (!db) throw new Error("Base de datos no disponible");
 }
 
+/**
+ * El driver mysql2 de drizzle resuelve un INSERT como la tupla cruda
+ * [ResultSetHeader, FieldPacket[]] (no como el ResultSetHeader directo),
+ * así que `insertId` vive en res[0], no en res. Leerlo directo de `res`
+ * devuelve undefined y el cliente termina navegando a un id inexistente.
+ */
+function extractInsertId(res: unknown): number | undefined {
+  const header = Array.isArray(res) ? res[0] : res;
+  const id = (header as any)?.insertId;
+  return typeof id === "number" ? id : undefined;
+}
+
 async function ensureCurriculoCompetenciasTable(): Promise<void> {
   const db = await getDb();
   if (!db) return;
@@ -315,7 +327,7 @@ export const curriculoCompetenciasRouter = router({
         .values(row);
 
       return {
-        id: (res as any).insertId as number,
+        id: extractInsertId(res),
         plan,
       };
     }),
@@ -363,7 +375,7 @@ export const curriculoCompetenciasRouter = router({
         .values(row);
 
       return {
-        id: (res as any).insertId as number,
+        id: extractInsertId(res),
         plan,
       };
     }),
