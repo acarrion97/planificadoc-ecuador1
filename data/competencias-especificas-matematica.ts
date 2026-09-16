@@ -1860,7 +1860,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "OCTAVO AÑO EGB",
+        grado: "OCTAVO GRADO",
         indicadores: [
           { codigo: "I.M.4.1.1", texto: "Aplica las relaciones de orden en los conjuntos de números enteros, sus propiedades algebraicas en expresiones con operaciones combinadas y la jerarquía de las operaciones para resolver situaciones cotidianas" },
           { codigo: "I.M.4.1.2", texto: "Resuelve problemas contextualizados, que involucren propiedades algebraicas (conmutativa, asociativa, distributiva) de los números enteros, racionales e irracionales, mediante el planteamiento y resolución de ecuaciones e inecuaciones de primer grado con una incógnita, interpretando críticamente las soluciones de acuerdo con el contexto planteado" },
@@ -1920,7 +1920,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "NOVENO AÑO EGB",
+        grado: "NOVENO GRADO",
         indicadores: [
           { codigo: "I.M.4.1.4", texto: "Aplica operaciones con números reales (adición, producto, potencias, raíces) y racionalización en expresiones numéricas y algebraicas, utilizando las reglas de exponentes con base natural y exponente entero" },
           { codigo: "I.M.4.1.5", texto: "Emplea las operaciones con polinomios en la solución de ejercicios algebraicos; reconociendo y aplicando productos notables y expresando polinomios como producto de factores (factorización)" },
@@ -1969,7 +1969,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "DECIMO AÑO EGB",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.M.4.1.4", texto: "Aplica operaciones con números reales (adición, producto, potencias, raíces) y racionalización en expresiones numéricas y algebraicas, utilizando las reglas de exponentes con base natural y exponente entero" },
           { codigo: "I.M.4.1.5", texto: "Emplea las operaciones con polinomios en la solución de ejercicios algebraicos; reconociendo y aplicando productos notables y expresando polinomios como producto de factores (factorización)" },
@@ -2003,7 +2003,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "OCTAVO AÑO EGB",
+        grado: "OCTAVO GRADO",
         indicadores: [
         ],
         saberes: {
@@ -2017,7 +2017,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "NOVENO AÑO EGB",
+        grado: "NOVENO GRADO",
         indicadores: [
           { codigo: "I.M.4.2.1", texto: "Analiza el dominio, recorrido, monotonía y cortes con los ejes de funciones lineales dadas mediante tablas de valores, representaciones algebraicas y gráficas" },
           { codigo: "I.M.4.2.2", texto: "Interpreta la solución de problemas en contextos reales, mediante representaciones (algebraicas, tablas o gráficas) de funciones lineales" },
@@ -2043,7 +2043,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "DECIMO AÑO EGB",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.M.4.2.1", texto: "Analiza el dominio, recorrido, monotonía y cortes con los ejes de funciones lineales dadas mediante tablas de valores, representaciones algebraicas y gráficas" },
           { codigo: "I.M.4.2.3", texto: "Determina el comportamiento (crecimiento o decrecimiento) de las funciones lineales, basándose en su formulación algebraica, tabla de valores o en gráficas" },
@@ -2085,7 +2085,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "OCTAVO AÑO EGB",
+        grado: "OCTAVO GRADO",
         indicadores: [
           { codigo: "I.M.4.3.5", texto: "Representa de forma gráfica y algebraica las operaciones de unión, intersección, diferencia y complemento entre conjuntos para resolver problemas del contexto real, mediante operaciones algebraicas o Diagramas de Venn" },
         ],
@@ -2107,7 +2107,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "NOVENO AÑO EGB",
+        grado: "NOVENO GRADO",
         indicadores: [
           { codigo: "I.M.4.3.2", texto: "Crea proposiciones lógicas simples y compuestas, asignando valores de verdad, utilizando conectivos (negación, conjunción, disyunción, condicional y bicondicional) y reconociendo su estructura basada en proposiciones simples" },
           { codigo: "I.M.4.3.3", texto: "Determina el valor lógico de proposiciones compuestas, con ayuda de los conectivos lógicos" },
@@ -2143,7 +2143,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "OCTAVO AÑO EGB",
+        grado: "OCTAVO GRADO",
         indicadores: [
         ],
         saberes: {
@@ -2157,7 +2157,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "NOVENO AÑO EGB",
+        grado: "NOVENO GRADO",
         indicadores: [
           { codigo: "I.M.4.4.1", texto: "Resuelve problemas geométricos que impliquen el cálculo de longitudes en figuras geométricas, mediante la aplicación de conceptos y criterios de congruencia, semejanza, simetría y el teorema de Tales, justificando los procesos y razonamientos utilizados" },
           { codigo: "I.M.4.4.2", texto: "Aplica las proporciones, semejanza y el factor de escala entre figuras semejantes para resolver problemas relacionados con el entorno" },
@@ -2181,7 +2181,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "DECIMO AÑO EGB",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.M.4.4.3", texto: "Aplica los criterios LAL, ALA, LLL para comprobar si dos triángulos son congruentes" },
           { codigo: "I.M.4.4.4", texto: "Calcula medidas desconocidas en triángulos rectángulos, perímetros y áreas de triángulos, utilizando la clasificación de triángulos y comunicando las estrategias utilizadas" },
@@ -2217,7 +2217,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "OCTAVO AÑO EGB",
+        grado: "OCTAVO GRADO",
         indicadores: [
           { codigo: "I.M.4.5.4", texto: "Aplica el cálculo de volúmenes de cuerpos geométricos (pirámides, prismas, conos y cilindros), juzgando la validez de los resultados" },
         ],
@@ -2238,7 +2238,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "NOVENO AÑO EGB",
+        grado: "NOVENO GRADO",
         indicadores: [
           { codigo: "I.M.4.5.1", texto: "Aplica el teorema de Pitágoras para calcular lados desconocidos en triángulos rectángulos y resolver problemas sencillos" },
         ],
@@ -2256,7 +2256,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "DECIMO AÑO EGB",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.M.4.5.1", texto: "Aplica el teorema de Pitágoras para resolver situaciones reales relacionadas con triángulos rectángulos; demostrando creatividad en los procesos empleados y valorando el trabajo individual y grupal" },
           { codigo: "I.M.4.5.2", texto: "Aplica las razones trigonométricas y sus relaciones para resolver triángulos rectángulos y en contextos reales" },
@@ -2294,7 +2294,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "OCTAVO AÑO EGB",
+        grado: "OCTAVO GRADO",
         indicadores: [
           { codigo: "I.M.4.6.1", texto: "Identifica variables estadísticas cualitativas y cuantitativas en situaciones sencillas, reconociendo las características de los datos obtenidos" },
           { codigo: "I.M.4.6.2", texto: "Organiza datos estadísticos en tablas de frecuencia simples utilizando información obtenida de situaciones cercanas" },
@@ -2328,7 +2328,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "NOVENO AÑO EGB",
+        grado: "NOVENO GRADO",
         indicadores: [
           { codigo: "I.M.4.6.3", texto: "Organiza información estadística mediante tablas de frecuencia, incorporando datos agrupados en intervalos para facilitar su análisis e interpretación" },
           { codigo: "I.M.4.6.4", texto: "Interpreta información estadística representada en tablas de frecuencia y gráficos estadísticos como histogramas, polígonos de frecuencia y diagramas circulares, identificando características relevantes de los datos" },
@@ -2359,7 +2359,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "DECIMO AÑO EGB",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.M.4.6.1", texto: "Clasifica variables cualitativas (nominales, ordinales) y cuantitativas (discretas, continuas) en diferentes conjuntos de datos para seleccionar las medidas estadísticas apropiadas según el tipo de variable y valorando la importancia de identificar correctamente las variables para un análisis estadístico preciso" },
           { codigo: "I.M.4.6.2", texto: "Construye tablas de frecuencias absoluta, absoluta acumulada, relativa y relativa acumulada para datos agrupados y no agrupados" },
@@ -2399,7 +2399,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "OCTAVO AÑO EGB",
+        grado: "OCTAVO GRADO",
         indicadores: [
           { codigo: "I.M.4.8.2", texto: "Analiza datos económicos familiares aplicando estadística descriptiva (media, mediana, moda, frecuencias, etc.)," },
         ],
@@ -2417,7 +2417,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "NOVENO AÑO EGB",
+        grado: "NOVENO GRADO",
         indicadores: [
           { codigo: "I.M.4.8.1", texto: "Aplica fórmulas de interés simple y compuesto para comparar alternativas financieras básicas y modelar situaciones de ahorro e inversión" },
         ],
@@ -2436,7 +2436,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "DECIMO AÑO EGB",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.M.4.8.3", texto: "Elabora planes financieros personales con metas a mediano plazo, mediante el análisis de datos económicos familiares y la aplicación herramientas tecnológicas para cálculos y proyecciones" },
           { codigo: "I.M.4.8.4", texto: "Diseña estrategias de recuperación ante crisis financieras familiares, identificando los riesgos financieros básicos" },
@@ -2468,7 +2468,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "SUPERIOR",
-        grado: "DECIMO AÑO EGB",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.M.4.7.1", texto: "Calcula probabilidades de eventos aleatorios empleando combinaciones y permutaciones y el factorial de un número, valorando las diferentes estrategias que se pueden aplicar y explicando con claridad el proceso lógico seguido para la resolución de problemas" },
           { codigo: "I.M.4.7.2", texto: "Determina la probabilidad empírica de eventos mediante la realización de experimentos y el análisis de frecuencias relativas" },
@@ -2502,7 +2502,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.5.1.1", texto: "Aplica ecuaciones de primer grado con valor absoluto para modelar y solucionar situaciones del entorno en diferentes contextos" },
           { codigo: "I.M.5.1.2", texto: "Aplica la resolución de sistemas de ecuaciones lineales mxm y mxn con diferentes tipos de soluciones empleando varios métodos, para modelar y solucionar problemas de la vida cotidiana, juzgando la validez de las soluciones obtenidas" },
@@ -2527,7 +2527,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.5.1.3", texto: "Aplica modelos cuadráticos para solucionar problemas reales o hipotéticos de optimización, utilizando las TIC" },
           { codigo: "I.M.5.1.4", texto: "Aplica la resolución de sistemas de ecuaciones, para calcular la intersección entre una recta y una parábola, o entre dos parábolas" },
@@ -2553,7 +2553,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.5.1.5", texto: "Opera con matrices de hasta tercer orden, analizando sus elementos y tipos de matrices" },
           { codigo: "I.M.5.1.6", texto: "Aplica el determinante y el método de la matriz inversa para resolver sistemas de ecuaciones" },
@@ -2589,7 +2589,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.5.2.1", texto: "Halla la solución de una inecuación de primer grado, con valor absoluto, expresando su respuesta en intervalos y de forma gráfica en la recta numérica" },
         ],
@@ -2613,7 +2613,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
         ],
         saberes: {
@@ -2627,7 +2627,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.5.2.2", texto: "Resuelve sistemas de inecuaciones, utilizando el método gráfico y analítico, para determinar el conjunto de soluciones factibles y la solución óptima de problemas de programación lineal" },
         ],
@@ -2652,7 +2652,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.5.3.1", texto: "Resuelve problemas reales o hipotéticos del entorno cotidiano, mediante el análisis de las características, propiedades, operaciones y representaciones gráficas de funciones reales (afines, potencias, raíz cuadrada, valor absoluto), con el apoyo de las TIC y valorando la efectividad de los procedimientos aplicados" },
           { codigo: "I.M.5.3.2", texto: "Reconoce si una función es inyectiva, sobreyectiva o biyectiva, analizando la relación entre los elementos de un conjunto de origen (dominio) con los de llegada (condominio)" },
@@ -2680,7 +2680,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.5.3.5", texto: "Resuelve problemas contextualizados, identificando las funciones polinomiales de grado n , realizando las operaciones con funciones polinomiales de grado ≤4 y racionales de grado ≤3, así como las ecuaciones de las asíntotas, para discutir la validez y coherencia de sus resultados" },
           { codigo: "I.M.5.3.6", texto: "Halla gráfica y analíticamente el dominio, recorrido, monotonía, periodicidad, desplazamientos, máximos y mínimos de funciones trigonométricas para modelar movimientos circulares y comportamientos de fenómenos naturales, y discute su pertinencia; emplea la tecnología para corroborar sus resultados" },
@@ -2716,7 +2716,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
         ],
         saberes: {
@@ -2737,7 +2737,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
         ],
         saberes: {
@@ -2751,7 +2751,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.5.4.1", texto: "Identifica las sucesiones numéricas según sus características" },
           { codigo: "I.M.5.4.2", texto: "Calcula los parámetros desconocidos en progresiones aritméticas y geométricas" },
@@ -2782,7 +2782,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
         ],
         saberes: {
@@ -2803,7 +2803,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
         ],
         saberes: {
@@ -2817,7 +2817,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.5.5.1", texto: "Calcula límites de funciones reales, identificando casos convergentes, divergentes e indeterminaciones y verificando los resultados obtenidos mediante representaciones gráficas" },
           { codigo: "I.M.5.5.2", texto: "Calcula la derivada de una función a partir del cociente incremental, aplicando las reglas de derivación en funciones polinomiales de grado ≤ 4 y mostrando precisión en los procedimientos" },
@@ -2846,7 +2846,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.5.5.4", texto: "Calcula integrales indefinidas y definidas de funciones polinomiales, aplicando propiedades y verificando los resultados mediante derivación inversa o uso de herramientas tecnológicas" },
           { codigo: "I.M.5.5.5", texto: "Aplica la integral definida para determinar el área bajo la curva en problemas geométricos o de contexto real, representando y analizando gráficamente los resultados obtenidos" },
@@ -2875,7 +2875,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.5.6.1", texto: "Representa gráficamente vectores en el plano cartesiano, a partir de sus componentes o puntos inicial y final" },
           { codigo: "I.M.5.6.2", texto: "Resuelve problemas de contextos reales que requieran el cálculo del módulo de un vector y de las operaciones de suma, resta y producto por un escalar, tanto de forma analítica como gráfica" },
@@ -2902,7 +2902,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.5.6.3", texto: "Aplica el cálculo de la distancia entre dos puntos, el módulo y la dirección de un vector y las condiciones de paralelismo y perpendicularidad entre vectores, en el espacio vectorial R, con o sin el apoyo de las TIC" },
           { codigo: "I.M.5.6.4", texto: "Determina la ecuación vectorial y paramétrica de una recta a partir de elementos dados, valorando sus aplicaciones reales y la validez de los resultados" },
@@ -2924,7 +2924,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.5.6.5", texto: "Calcula la pendiente de una recta y la posición relativa entre dos rectas en el plano o el espacio, valorando sus aplicaciones reales, la validez de los resultados y el aporte de las TIC" },
           { codigo: "I.M.5.6.6", texto: "Grafica las ecuaciones cartesianas de las cónicas (circunferencia, parábola, elipse, hipérbola), determinando sus elementos característicos para aplicarlas a problemas del contexto con o sin apoyo de las TIC" },
@@ -2950,7 +2950,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.5.7.1", texto: "Calcula, con y sin apoyo de las TIC, las medidas de dispersión, para datos agrupados y no agrupados y las interpreta juzgando su validez" },
         ],
@@ -2970,7 +2970,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.5.7.2", texto: "Calcula medidas de posición para datos agrupados y no agrupados y los interpreta juzgando su validez" },
         ],
@@ -2988,7 +2988,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
         ],
         saberes: {
@@ -3009,7 +3009,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.5.8.1", texto: "Aplica técnicas combinatorias (permutaciones, combinaciones y variaciones) en problemas de contextos reales o hipotéticos, identificando los eventos del problema, seleccionando las técnicas de conteo adecuadas, según las restricciones del problema" },
           { codigo: "I.M.5.8.2", texto: "Aplica las variables aleatorias discretas y la distribución binomial en situaciones de incertidumbre en ámbitos personales, académicos o sociales, calculando sus parámetros fundamentales y probabilidades con o sin el apoyo de las TIC" },
@@ -3031,7 +3031,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.5.8.3", texto: "Analiza la relación bidimensional entre variables cuantitativas mediante el cálculo e interpretación de la covarianza y el coeficiente de correlación, contrastando la fuerza y el sentido de la asociación lineal en fenómenos cotidianos o científicos" },
           { codigo: "I.M.5.8.4", texto: "Resuelve problemas del entorno aplicando el experimento de Bernoulli y la distribución binomial para el cálculo de probabilidades" },
@@ -3052,7 +3052,7 @@ export const COMPETENCIAS_MATEMATICA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.5.8.5", texto: "Representa gráficamente distribuciones de probabilidad discretas mediante el uso de las TIC" },
           { codigo: "I.M.5.8.6", texto: "Calcula el coeficiente de correlación para interpretar si dicha relación es nula, débil, moderada, fuerte o perfecta" },

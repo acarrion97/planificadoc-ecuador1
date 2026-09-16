@@ -2236,7 +2236,7 @@ export const COMPETENCIAS_LENGUA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.LL.4.1.1", texto: "Distingue intenciones del hablante, argumentos explícitos e implícitos, así como recursos lingüísticos, paralingüísticos y no verbales, al analizar las intervenciones orales de sus interlocutores y de emisiones unidireccionales desde una perspectiva personal" },
           { codigo: "I.LL.4.1.2", texto: "Aplica las normas de comunicación oral y de escucha activa en diferentes situaciones comunicativas (escolares, familiares, sociales y mediáticas), demostrando respeto por la diversidad de opiniones" },
@@ -2373,7 +2373,7 @@ export const COMPETENCIAS_LENGUA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.LL.4.2.1", texto: "Interviene de manera pertinente en conversaciones cotidianas, actividades de trabajo colaborativo y situaciones formales de diálogo, mediante la aplicación de las normas básicas de comunicación oral, para la construcción de acuerdos y la resolución pacífica de problemas" },
           { codigo: "I.LL.4.2.2", texto: "Produce discursos orales ajustados a las estructuras y características de diversos formatos discursivos, mediante la integración autónoma de recursos lingüísticos, paralingüísticos, no verbales y apoyos externos, en un registro adecuado al destinatario, propósito y contexto, evitando de manera consciente expresiones que reflejen discriminación o prejuicios" },
@@ -2507,7 +2507,7 @@ export const COMPETENCIAS_LENGUA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.LL.4.3.1", texto: "Interpreta textos escritos no literarios mediante la identificación de su tema, propósito, argumentos y la relación de información explícita e implícita con su contexto sociocultural, para la valoración crítica de la confiabilidad de la fuente" },
           { codigo: "I.LL.4.3.2", texto: "Aplica estrategias cognitivas y metacognitivas de comprensión y análisis (lectura, relectura, identificación de ideas principales y secundarias, consulta de significados, comparación y contraste de información con otras fuentes, subrayado, resumen, esquemas, preguntas guía, contraste de fuentes,) para comprender e interpretar el sentido global, la estructura, la información más relevante de los textos" },
@@ -2636,7 +2636,7 @@ export const COMPETENCIAS_LENGUA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.LL.4.4.1", texto: "Discrimina información extraída de fuentes impresas, digitales y comunitarias mediante la aplicación de criterios de confiabilidad, relevancia y actualidad en función de los objetivos de lectura" },
           { codigo: "I.LL.4.4.2", texto: "Sistematiza la información consultada en organizadores gráficos que evidencien el contraste fundamentado de contenidos y el reconocimiento de la autoría para garantizar el respeto a la propiedad intelectual" },
@@ -2804,7 +2804,7 @@ export const COMPETENCIAS_LENGUA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.LL.4.5.1", texto: "Estructura diferentes tipos de textos periodísticos y académicos, combinando diferentes tramas, tipos de párrafo y diálogos directos e indirectos, según sean pertinentes; utilizando normas de citación más comunes, herramientas de edición de textos en distintos programas informáticos y de la web" },
           { codigo: "I.LL.4.5.2", texto: "Usa el procedimiento (planificación, redacción, revisión y publicación) de producción de textos en la escritura de textos periodísticos y académicos y aplica estrategias que apoyen cada uno de sus pasos" },
@@ -2966,7 +2966,7 @@ export const COMPETENCIAS_LENGUA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.LL.4.6.1", texto: "Desarrolla su identidad lectora de forma autónoma, seleccionando obras de diversos géneros según sus preferencias personales y manteniendo un registro de su itinerario lector para fortalecer el hábito y el aprecio por la literatura" },
           { codigo: "I.LL.4.6.2", texto: "Analiza textos literarios, identificando géneros, convenciones y recursos estilísticos, aplicando estrategias de interpretación estructural, simbólica y temática fundamentadas en evidencias del texto" },
@@ -3106,7 +3106,7 @@ export const COMPETENCIAS_LENGUA: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "SUPERIOR",
-        grado: "",
+        grado: "DÉCIMO GRADO",
         indicadores: [
           { codigo: "I.LL.4.7.3", texto: "Recrea textos literarios creativos combinando estructuras de distintos géneros y recursos estilísticos variados" },
           { codigo: "I.LL.4.7.4", texto: "Integra colaborativamente recursos TIC en la creación literaria, revisando y autoevaluando sus textos con perseverancia y respeto por las producciones de otros" },

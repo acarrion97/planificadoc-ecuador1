@@ -22,7 +22,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.1.1", texto: "Explica con ejemplos reales de emprendimientos la importancia del capital de trabajo, identificando el cumplimiento de normas contables en entornos familiares, empresariales o estatales" },
           { codigo: "I.M.EG.5.1.2", texto: "Presenta con exactitud los cálculos y el orden lógico del ciclo contable al registrar transacciones en un caso práctico" },
@@ -54,7 +54,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.1.1", texto: "Explica con ejemplos reales de emprendimientos la importancia del capital de trabajo, identificando el cumplimiento de normas contables en entornos familiares, empresariales o estatales" },
           { codigo: "I.M.EG.5.1.2", texto: "Presenta con exactitud los cálculos y el orden lógico del ciclo contable al registrar transacciones en un caso práctico" },
@@ -84,7 +84,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.1.1", texto: "Explica con ejemplos reales de emprendimientos la importancia del capital de trabajo, identificando el cumplimiento de normas contables en entornos familiares, empresariales o estatales" },
           { codigo: "I.M.EG.5.1.2", texto: "Presenta con exactitud los cálculos y el orden lógico del ciclo contable al registrar transacciones en un caso práctico" },
@@ -123,7 +123,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.2.1", texto: "Aplica los requisitos legales básicos para la creación de un emprendimiento asumiendo un carácter emprendedor, clasificando los tipos de negocios y simulando el proceso de registro ante el SRI, IESS y Superintendencia de Compañías aplicándolos en la simulaciones o casos reales" },
           { codigo: "I.M.EG.5.2.2", texto: "Elabora una propuesta de planificación organizacional y recursos humanos (selección, contratación, inducción, capacitación, compensaciones y beneficios) precautelando un buen clima organizacional en el emprendimiento" },
@@ -154,7 +154,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.2.1", texto: "Aplica los requisitos legales básicos para la creación de un emprendimiento asumiendo un carácter emprendedor, clasificando los tipos de negocios y simulando el proceso de registro ante el SRI, IESS y Superintendencia de Compañías aplicándolos en la simulaciones o casos reales" },
           { codigo: "I.M.EG.5.2.2", texto: "Elabora una propuesta de planificación organizacional y recursos humanos (selección, contratación, inducción, capacitación, compensaciones y beneficios) precautelando un buen clima organizacional en el emprendimiento" },
@@ -185,7 +185,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.2.1", texto: "Aplica los requisitos legales básicos para la creación de un emprendimiento asumiendo un carácter emprendedor, clasificando los tipos de negocios y simulando el proceso de registro ante el SRI, IESS y Superintendencia de Compañías aplicándolos en la simulaciones o casos reales" },
           { codigo: "I.M.EG.5.2.2", texto: "Elabora una propuesta de planificación organizacional y recursos humanos (selección, contratación, inducción, capacitación, compensaciones y beneficios) precautelando un buen clima organizacional en el emprendimiento" },
@@ -223,7 +223,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.3.1", texto: "Elabora esquemas con propuestas creativas para satisfacer las necesidades de grupos de personas demostrando pensamiento crítico" },
           { codigo: "I.M.EG.5.3.2", texto: "Analiza mercados reconociendo segmentos y nichos específicos, con criterios como edad, género, ubicación, intereses o nivel socioeconómico" },
@@ -251,7 +251,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.3.1", texto: "Elabora esquemas con propuestas creativas para satisfacer las necesidades de grupos de personas demostrando pensamiento crítico" },
           { codigo: "I.M.EG.5.3.2", texto: "Analiza mercados reconociendo segmentos y nichos específicos, con criterios como edad, género, ubicación, intereses o nivel socioeconómico" },
@@ -281,7 +281,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.3.1", texto: "Elabora esquemas con propuestas creativas para satisfacer las necesidades de grupos de personas demostrando pensamiento crítico" },
           { codigo: "I.M.EG.5.3.2", texto: "Analiza mercados reconociendo segmentos y nichos específicos, con criterios como edad, género, ubicación, intereses o nivel socioeconómico" },
@@ -318,7 +318,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.4.1", texto: "Simula escenarios empresariales (familiares, empresariales y estatales) frente a cambios en oferta, demanda, precios, empleo, inflación, tasas de interés activo y pasivo, empleo, desempleo e inflación, interpretando el comportamiento del consumidor (motivaciones, percepciones y hábitos) y valorando el impacto social y medioambiental de las decisiones económicas que adopta" },
           { codigo: "I.M.EG.5.4.2", texto: "Presenta un plan de mercadeo para emprendimientos simulados o reales, privados o comunitarios, que motiva la compra del consumidor mediante una mezcla de mercado (producto, precio, plaza y promoción) ética, alineada al consumo responsable y el bienestar individual y colectivo" },
@@ -342,7 +342,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.4.1", texto: "Simula escenarios empresariales (familiares, empresariales y estatales) frente a cambios en oferta, demanda, precios, empleo, inflación, tasas de interés activo y pasivo, empleo, desempleo e inflación, interpretando el comportamiento del consumidor (motivaciones, percepciones y hábitos) y valorando el impacto social y medioambiental de las decisiones económicas que adopta" },
           { codigo: "I.M.EG.5.4.2", texto: "Presenta un plan de mercadeo para emprendimientos simulados o reales, privados o comunitarios, que motiva la compra del consumidor mediante una mezcla de mercado (producto, precio, plaza y promoción) ética, alineada al consumo responsable y el bienestar individual y colectivo" },
@@ -366,7 +366,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.4.1", texto: "Simula escenarios empresariales (familiares, empresariales y estatales) frente a cambios en oferta, demanda, precios, empleo, inflación, tasas de interés activo y pasivo, empleo, desempleo e inflación, interpretando el comportamiento del consumidor (motivaciones, percepciones y hábitos) y valorando el impacto social y medioambiental de las decisiones económicas que adopta. M.EG.5.4.2. Promueve decisiones de compra en segmentos específicos de la población manejando estrategias de mercadeo que eviten prácticas de manipulación, discriminación o consumismo excesivo. Promover decisiones de compra en segmentos específicos de la población manejando estrategias de mercadeo que eviten prácticas de manipulación, discriminación o consumismo excesivo" },
         ],
@@ -396,7 +396,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
     porGrado: [
       {
         nivel: "BACHILLERATO",
-        grado: "PRIMER AÑO BGU",
+        grado: "PRIMER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.5.1", texto: "Plantea escenarios combinando recursos de producción (tierra = agricultura local, trabajo = mano de obra en la comunidad, capital = maquinaria, tecnología = uso de TICs en empresas) para proponer de manera concreta soluciones empresariales privadas o comunitarias" },
           { codigo: "I.M.EG.5.5.2", texto: "Construye estados financieros proyectados (Balance General, Estado de Resultados y Flujo de Efectivo) simulando variaciones (con sustento científico) en las cuentas de ventas, costos y gastos, aplicando soluciones concretas" },
@@ -426,7 +426,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "SEGUNDO AÑO BGU",
+        grado: "SEGUNDO CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.5.1", texto: "Plantea escenarios combinando recursos de producción (tierra = agricultura local, trabajo = mano de obra en la comunidad, capital = maquinaria, tecnología = uso de TICs en empresas) para proponer de manera concreta soluciones empresariales privadas o comunitarias" },
           { codigo: "I.M.EG.5.5.2", texto: "Construye estados financieros proyectados (Balance General, Estado de Resultados y Flujo de Efectivo) simulando variaciones (con sustento científico) en las cuentas de ventas, costos y gastos, aplicando soluciones concretas" },
@@ -456,7 +456,7 @@ export const COMPETENCIAS_EMPRENDIMIENTO: CompetenciaEspecificaCompleta[] = [
       },
       {
         nivel: "BACHILLERATO",
-        grado: "TERCER AÑO BGU",
+        grado: "TERCER CURSO",
         indicadores: [
           { codigo: "I.M.EG.5.5.1", texto: "Plantea escenarios combinando recursos de producción (tierra = agricultura local, trabajo = mano de obra en la comunidad, capital = maquinaria, tecnología = uso de TICs en empresas) para proponer de manera concreta soluciones empresariales privadas o comunitarias" },
           { codigo: "I.M.EG.5.5.2", texto: "Construye estados financieros proyectados (Balance General, Estado de Resultados y Flujo de Efectivo) simulando variaciones (con sustento científico) en las cuentas de ventas, costos y gastos, aplicando soluciones concretas" },

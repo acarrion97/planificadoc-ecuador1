@@ -9,8 +9,8 @@
  * Estructura (mismo formato oficial MINEDUC que Inicial, adaptado a un
  * solo grado):
  *   1. Encabezado (Unidad Educativa / Año lectivo)
- *   2. Título: Planificación microcurricular por competencias
- *   3. Datos Informativos (Docente, Asignatura, Nivel/Grado, Paralelo, Trimestre, No. semanas)
+ *   2. Título: Planificación microcurricular
+ *   3. Datos Informativos (Docente, Asignatura, Grado/Curso, Paralelo, Trimestre, No. semanas)
  *   4. Situación de aprendizaje
  *   5. Conexión interdisciplinar (competencias con código CE)
  *   6. Competencias específicas + código CE
@@ -41,6 +41,30 @@ const AREA_POR_MATERIA: Record<string, Area> = {
   eca: "ECA",
   emprendimiento: "EG",
 };
+
+/** Ordinal (en palabra) → número, para reformatear "OCTAVO GRADO" como "8.º EGB". */
+const ORDINAL_A_NUMERO: Record<string, number> = {
+  PRIMER: 1, PRIMERO: 1,
+  SEGUNDO: 2,
+  TERCER: 3, TERCERO: 3,
+  CUARTO: 4,
+  QUINTO: 5,
+  SEXTO: 6,
+  SÉPTIMO: 7, SEPTIMO: 7,
+  OCTAVO: 8,
+  NOVENO: 9,
+  DÉCIMO: 10, DECIMO: 10,
+};
+
+/** "OCTAVO GRADO" → "8.º EGB"; "TERCER CURSO" → "3.º BGU"; si no se reconoce, se devuelve tal cual. */
+function formatGradoCurso(grado: string): string {
+  const primeraPalabra = grado.trim().split(/\s+/)[0]?.toUpperCase();
+  const numero = primeraPalabra ? ORDINAL_A_NUMERO[primeraPalabra] : undefined;
+  if (!numero) return grado;
+  if (/GRADO$/i.test(grado)) return `${numero}.º EGB`;
+  if (/CURSO$/i.test(grado)) return `${numero}.º BGU`;
+  return grado;
+}
 
 // ── Colores ──
 const COLOR_PRIMARY = "155E75";
@@ -189,7 +213,7 @@ export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
   // ═══════════════════════════════════════════════════════════════
   children.push(
     makeTable(
-      [new TableRow({ children: [tc([p("Planificación microcurricular por competencias", { bold: true, size: 12, align: "center" })], TW, { bg: COLOR_HEADER })] })],
+      [new TableRow({ children: [tc([p("Planificación microcurricular", { bold: true, size: 12, align: "center" })], TW, { bg: COLOR_HEADER })] })],
       TW,
       [TW]
     )
@@ -200,7 +224,7 @@ export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
   // ═══════════════════════════════════════════════════════════════
   const numSemanas = plan.noSemanasClase || plan.ambitos?.[0]?.clases?.length || 8;
   const asignatura = nombreMateria(ambitos);
-  const nivelGrado = [plan.nivel, plan.grado].filter(Boolean).join(" — ") || plan.grado || "—";
+  const gradoCurso = plan.grado ? formatGradoCurso(plan.grado) : "—";
 
   children.push(
     makeTable(
@@ -218,7 +242,7 @@ export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
         new TableRow({
           children: [
             tc([p(`Asignatura: ${asignatura}`, { size: 8 })], TW * 0.4),
-            tc([p(`Nivel / Grado: ${nivelGrado}`, { size: 8 })], TW * 0.4),
+            tc([p(`Grado/Curso: ${gradoCurso}`, { size: 8 })], TW * 0.4),
             tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.2),
           ],
         }),
