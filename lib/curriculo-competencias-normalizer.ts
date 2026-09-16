@@ -124,10 +124,19 @@ export interface PlanificacionEGBBGURaw {
 /** Entrada para normalizar una planificación Inicial/Preparatoria */
 export interface PlanificacionInicialRaw {
   grado?: string;
+  nivel?: string;
   institucion?: string;
   docente?: string;
   duracion?: string;
+  trimestre?: string;
+  paralelo?: string;
+  periodoPedagogico?: string;
+  noSemanasClase?: number;
   objetivoGeneral?: string;
+  situacionAprendizaje?: {
+    titulo?: string;
+    descripcion?: string;
+  };
   ambitos?: Array<{
     ambito?: string;
     competenciaCodigo?: string;
@@ -515,10 +524,21 @@ export function normalizarPlanificacionInicial(
     id: id ?? generarId("plan-ini"),
     sessionId: "",
     grado: limpiarTexto(raw.grado),
+    nivel: raw.nivel ? limpiarTexto(raw.nivel) : undefined,
     institucion: limpiarTexto(raw.institucion),
     docente: limpiarTexto(raw.docente),
     duracion: limpiarTexto(raw.duracion),
+    trimestre: raw.trimestre ? limpiarTexto(raw.trimestre) : undefined,
+    paralelo: raw.paralelo ? limpiarTexto(raw.paralelo) : undefined,
+    periodoPedagogico: raw.periodoPedagogico ? limpiarTexto(raw.periodoPedagogico) : undefined,
+    noSemanasClase: raw.noSemanasClase,
     objetivoGeneral: limpiarTexto(raw.objetivoGeneral),
+    situacionAprendizaje: raw.situacionAprendizaje
+      ? {
+          titulo: limpiarTexto(raw.situacionAprendizaje.titulo),
+          descripcion: limpiarTexto(raw.situacionAprendizaje.descripcion),
+        }
+      : undefined,
     ambitos,
     adaptacionesNEE: raw.adaptacionesNEE?.map((a) =>
       normalizarAdaptacionNEE(a, source)

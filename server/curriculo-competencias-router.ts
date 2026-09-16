@@ -123,10 +123,21 @@ const PlanificacionInicialInput = z.object({
   sessionId: z.string().min(1),
   id: z.string().optional(),
   grado: z.string().optional(),
+  nivel: z.string().optional(),
   institucion: z.string().optional(),
   docente: z.string().optional(),
   duracion: z.string().optional(),
+  trimestre: z.string().optional(),
+  paralelo: z.string().optional(),
+  periodoPedagogico: z.string().optional(),
+  noSemanasClase: z.number().optional(),
   objetivoGeneral: z.string().optional(),
+  situacionAprendizaje: z
+    .object({
+      titulo: z.string().optional(),
+      descripcion: z.string().optional(),
+    })
+    .optional(),
   ambitos: z
     .array(
       z.object({
@@ -325,11 +336,14 @@ export const curriculoCompetenciasRouter = router({
         grado: plan.grado || null,
         institucion: plan.institucion || null,
         docente: plan.docente || null,
-        paralelo: null,
+        paralelo: plan.paralelo || null,
         asignatura: null,
+        // La columna `nivel` es un enum ["EGB","BGU"] pensado para el tipo
+        // egb_bgu; los niveles de Currículo Integrado ("ELEMENTAL", etc.)
+        // no encajan ahí, así que se dejan solo en formData.
         nivel: null,
-        periodoPedagogico: null,
-        trimestre: null,
+        periodoPedagogico: plan.periodoPedagogico || null,
+        trimestre: plan.trimestre || null,
         dcdCodigo: null,
         competencias: null,
         status: "draft" as const,
@@ -472,6 +486,9 @@ export const curriculoCompetenciasRouter = router({
         grado: plan.grado || null,
         institucion: plan.institucion || null,
         docente: plan.docente || null,
+        paralelo: plan.paralelo || null,
+        periodoPedagogico: plan.periodoPedagogico || null,
+        trimestre: plan.trimestre || null,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
