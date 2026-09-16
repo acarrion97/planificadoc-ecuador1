@@ -144,6 +144,29 @@ export default function EGBBGUIntegradoFormScreen() {
     },
   });
 
+  const sugerirTituloMutation = trpc.curriculoCompetencias.sugerirSituacionAprendizaje.useMutation({
+    onSuccess: (data) => {
+      setTitulo(data.titulo);
+      if (!situacionAprendizaje.trim() && data.descripcion) {
+        setSituacionAprendizaje(data.descripcion);
+      }
+    },
+    onError: (err) => {
+      Alert.alert("Error", err.message || "No se pudo sugerir un título. Intenta de nuevo.");
+    },
+  });
+
+  const handleSugerirTitulo = () => {
+    if (competenciasSeleccionadas.length === 0) return;
+    sugerirTituloMutation.mutate({
+      materia: MATERIAS_EGB_BGU.find((m) => m.id === materiaId)?.nombre,
+      nivel,
+      grado,
+      competencias: competenciasSeleccionadas.map((c) => ({ codigo: c.codigo, descripcion: c.descripcion })),
+      temasTrimestre: temasTrimestre.trim() || undefined,
+    });
+  };
+
   // ── Competencias filtering ──
   const competenciasFiltradas = useMemo(() => {
     if (!busqueda.trim()) return competenciasDisponibles;
@@ -249,6 +272,10 @@ export default function EGBBGUIntegradoFormScreen() {
       <Text style={styles.sectionIcon}>{icon}</Text>
       <Text style={[styles.sectionTitle, { color: colors.foreground }]}>{title}</Text>
     </View>
+  );
+
+  const renderSubHeader = (title: string) => (
+    <Text style={[styles.subSectionTitle, { color: colors.primary }]}>{title}</Text>
   );
 
   const renderSelect = (
@@ -441,8 +468,16 @@ export default function EGBBGUIntegradoFormScreen() {
     <View>
       {renderSectionHeader("Datos administrativos", "📋")}
 
-      {renderSelect("Trimestre", trimestre, TRIMESTRES, setTrimestre)}
+      {renderSubHeader("Identificación")}
+      {renderField("Institución", institucion, setInstitucion, {
+        placeholder: "Nombre de la unidad educativa",
+      })}
+      {renderField("Docente", docente, setDocente, {
+        placeholder: "Nombre del docente",
+      })}
 
+      {renderSubHeader("Programación del trimestre")}
+      {renderSelect("Trimestre", trimestre, TRIMESTRES, setTrimestre)}
       <View style={styles.row}>
         <View style={{ flex: 1 }}>
           {renderSelect("Paralelo", paralelo, PARALELOS, setParalelo)}
@@ -452,12 +487,39 @@ export default function EGBBGUIntegradoFormScreen() {
         </View>
       </View>
 
-      {renderField("Título", titulo, setTitulo, {
-        placeholder: "Ej: Pensamiento crítico, voz ética y creación",
-      })}
+      {renderSubHeader("Situación de aprendizaje")}
+      <View style={styles.fieldGroup}>
+        <View style={styles.fieldLabelRow}>
+          <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 0 }]}>Título</Text>
+          <Pressable
+            onPress={handleSugerirTitulo}
+            disabled={sugerirTituloMutation.isPending || competenciasSeleccionadas.length === 0}
+            style={[
+              styles.sugerirBtn,
+              { opacity: sugerirTituloMutation.isPending || competenciasSeleccionadas.length === 0 ? 0.5 : 1 },
+            ]}
+          >
+            {sugerirTituloMutation.isPending ? (
+              <ActivityIndicator color={colors.primary} size="small" />
+            ) : (
+              <Text style={{ color: colors.primary, fontSize: 12, fontWeight: "600" }}>✨ Sugerir con IA</Text>
+            )}
+          </Pressable>
+        </View>
+        <TextInput
+          value={titulo}
+          onChangeText={setTitulo}
+          placeholder="Ej: Pensamiento crítico, voz ética y creación"
+          placeholderTextColor={colors.muted + "80"}
+          style={[
+            styles.textInput,
+            { backgroundColor: colors.surface, borderColor: colors.border, color: colors.foreground },
+          ]}
+        />
+      </View>
 
-      {renderField("Situación de aprendizaje", situacionAprendizaje, setSituacionAprendizaje, {
-        placeholder: "Opcional. Si lo dejás vacío, se redacta la descripción del trimestre a partir de las competencias.",
+      {renderField("Descripción", situacionAprendizaje, setSituacionAprendizaje, {
+        placeholder: "Opcional. Si lo dejás vacío, se redacta a partir de las competencias (o de la sugerencia con IA).",
         multiline: true,
       })}
 
@@ -466,14 +528,7 @@ export default function EGBBGUIntegradoFormScreen() {
         multiline: true,
       })}
 
-      {renderField("Institución", institucion, setInstitucion, {
-        placeholder: "Nombre de la unidad educativa",
-      })}
-
-      {renderField("Docente", docente, setDocente, {
-        placeholder: "Nombre del docente",
-      })}
-
+      {renderSubHeader("Configuración")}
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
         <View style={{ flex: 1 }}>
           <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Hay estudiantes con NEE en este paralelo?</Text>
@@ -681,9 +736,12 @@ const styles = StyleSheet.create({
   },
   sectionIcon: { fontSize: 20 },
   sectionTitle: { fontSize: 18, fontWeight: "700" },
+  subSectionTitle: { fontSize: 13, fontWeight: "700", marginTop: 4, marginBottom: 10 },
   helperText: { fontSize: 13, marginBottom: 12, lineHeight: 18 },
   fieldGroup: { marginBottom: 14 },
   fieldLabel: { fontSize: 12, fontWeight: "600", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 },
+  fieldLabelRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 6 },
+  sugerirBtn: { paddingHorizontal: 8, paddingVertical: 2 },
   textInput: { borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10, fontSize: 15 },
   selectRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   selectChip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10, borderWidth: 1 },

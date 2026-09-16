@@ -725,4 +725,89 @@ Responde ÚNICAMENTE con JSON válido:
 
       return resultado;
     }),
+
+  // ── SUGERENCIA IA: título/descripción de la situación de aprendizaje ──
+  // (Currículo Integrado — usa competencias específicas CE.*, no DCD)
+  sugerirSituacionAprendizaje: publicProcedure
+    .input(
+      z.object({
+        materia: z.string().optional(),
+        nivel: z.string().optional(),
+        grado: z.string().optional(),
+        competencias: z
+          .array(z.object({ codigo: z.string(), descripcion: z.string() }))
+          .min(1),
+        temasTrimestre: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const competenciasTexto = input.competencias
+        .map((c) => `- ${c.codigo}: ${c.descripcion}`)
+        .join("\n");
+
+      const prompt = `Eres un experto en el Currículo Integrado por Competencias del Ministerio de Educación del Ecuador.
+
+CONTEXTO:
+- Materia: ${input.materia || "No especificada"}
+- Nivel: ${input.nivel || "No especificado"}
+- Grado/Curso: ${input.grado || "No especificado"}
+- Competencias específicas seleccionadas para el trimestre:
+${competenciasTexto}
+${input.temasTrimestre ? `- Temas del trimestre ya definidos por el docente: ${input.temasTrimestre}` : ""}
+
+SOLICITUD:
+Sugiere un título y una descripción breve para la "situación de aprendizaje" (el hilo conductor del trimestre) que integre las competencias listadas.
+
+REGLAS:
+- El título debe ser corto (máximo 10 palabras), concreto y motivador para estudiantes del grado indicado — no repitas literalmente el texto de una competencia.
+- La descripción debe tener 1-2 oraciones, explicando qué van a explorar o producir los estudiantes y por qué conecta con las competencias.
+- No inventes competencias, códigos ni destrezas fuera de las listadas.
+- Si ya hay temas del trimestre definidos por el docente, el título y la descripción deben ser coherentes con ellos.
+
+Responde ÚNICAMENTE con JSON válido:
+{
+  "titulo": "string",
+  "descripcion": "string"
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación microcurricular del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 400,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: { titulo?: string; descripcion?: string };
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      if (!parsed.titulo || typeof parsed.titulo !== "string") {
+        throw new Error("La IA no devolvió un título válido. Intenta de nuevo.");
+      }
+
+      return {
+        titulo: parsed.titulo,
+        descripcion: typeof parsed.descripcion === "string" ? parsed.descripcion : "",
+      };
+    }),
 });
