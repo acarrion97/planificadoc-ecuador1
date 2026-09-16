@@ -140,18 +140,26 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   // 1. ENCABEZADO
   // ═══════════════════════════════════════════════════════════════
+  // Anchos en DXA enteros: docx.js usa columnWidths tal cual para el
+  // tblGrid, y con layout FIXED un valor fraccionario (TW * 0.6 sin
+  // redondear) o un grid que no coincide con las celdas reales de cada
+  // fila rompe el ancho de la tabla en Word (queda angosta / "a media
+  // página"). Se calcula la última columna por resta para que la suma
+  // sea exactamente TW.
+  const COL_INST = Math.floor(TW * 0.6);
+  const COL_ANIO = TW - COL_INST;
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], TW * 0.6, { bg: COLOR_HEADER }),
-            tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], TW * 0.4, { bg: COLOR_HEADER }),
+            tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], COL_INST, { bg: COLOR_HEADER }),
+            tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], COL_ANIO, { bg: COLOR_HEADER }),
           ],
         }),
       ],
       TW,
-      [TW * 0.6, TW * 0.4]
+      [COL_INST, COL_ANIO]
     )
   );
 
@@ -172,35 +180,49 @@ export async function generarCurriculoCompetenciasWordInicial(
   const grados = ambitos.map((_, i) => gradoLabel(i)).join(", ");
   const numSemanas = plan.noSemanasClase || plan.ambitos?.[0]?.clases?.length || 8;
 
+  // Cada fila con una cantidad distinta de celdas va en su propia tabla
+  // (ver nota del Encabezado sobre columnWidths/tblGrid).
+  const COL_ASIG = Math.floor(TW * 0.4);
+  const COL_GRADOS = Math.floor(TW * 0.4);
+  const COL_PARALELO = TW - COL_ASIG - COL_GRADOS;
+  const COL_TRIM = Math.floor(TW * 0.5);
+  const COL_SEM = TW - COL_TRIM;
+
   children.push(
+    makeTable(
+      [new TableRow({ children: [tc([p("Datos informativos:", { bold: true, size: 8 })], TW)] })],
+      TW,
+      [TW]
+    ),
+    makeTable(
+      [new TableRow({ children: [tc([p(`Docente: ${plan.docente || "—"}`, { size: 8 })], TW)] })],
+      TW,
+      [TW]
+    ),
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p("Datos informativos:", { bold: true, size: 8 })], TW),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc([p(`Docente: ${plan.docente || "—"}`, { size: 8 })], TW),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc([p(`Asignatura: Currículo integrado`, { size: 8 })], TW * 0.4),
-            tc([p(`Grados: ${grados || "—"}`, { size: 8 })], TW * 0.4),
-            tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.2),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], TW * 0.5),
-            tc([p(`No. de semanas: ${numSemanas}`, { size: 8 })], TW * 0.5),
+            tc([p(`Asignatura: Currículo integrado`, { size: 8 })], COL_ASIG),
+            tc([p(`Grados: ${grados || "—"}`, { size: 8 })], COL_GRADOS),
+            tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], COL_PARALELO),
           ],
         }),
       ],
       TW,
-      [TW]
+      [COL_ASIG, COL_GRADOS, COL_PARALELO]
+    ),
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], COL_TRIM),
+            tc([p(`No. de semanas: ${numSemanas}`, { size: 8 })], COL_SEM),
+          ],
+        }),
+      ],
+      TW,
+      [COL_TRIM, COL_SEM]
     )
   );
 
