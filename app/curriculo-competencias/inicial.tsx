@@ -88,10 +88,14 @@ export default function InicialFormScreen() {
   // ── Mutations ──
   const utils = trpc.useContext();
   const createMutation = trpc.curriculoCompetencias.createInicial.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
       utils.curriculoCompetencias.list.invalidate();
-      Alert.alert("Éxito", "Planificación creada correctamente");
-      router.back();
+      const nuevoId = (data as any)?.id;
+      if (nuevoId) {
+        router.push(`/curriculo-competencias/ver/${nuevoId}` as any);
+      } else {
+        router.back();
+      }
     },
     onError: () => {
       Alert.alert("Error", "No se pudo crear la planificación.");
@@ -101,8 +105,7 @@ export default function InicialFormScreen() {
   const updateMutation = trpc.curriculoCompetencias.updateInicial.useMutation({
     onSuccess: () => {
       utils.curriculoCompetencias.list.invalidate();
-      Alert.alert("Éxito", "Planificación actualizada correctamente");
-      router.back();
+      router.push(`/curriculo-competencias/ver/${id}` as any);
     },
     onError: () => {
       Alert.alert("Error", "No se pudo actualizar la planificación.");

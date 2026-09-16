@@ -346,7 +346,12 @@ export const curriculoCompetenciasRouter = router({
         trimestre: plan.trimestre || null,
         dcdCodigo: null,
         competencias: null,
-        status: "draft" as const,
+        // No hay un paso separado de "guardar borrador": el botón del
+        // formulario dice "Generar planificación" y ya arma el documento
+        // completo, así que el plan queda "generated" desde que se crea
+        // (nada en el cliente llama updateStatus, por lo que "draft" se
+        // quedaba fijo para siempre).
+        status: "generated" as const,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
