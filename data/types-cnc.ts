@@ -255,13 +255,6 @@ export interface PlanConectaNivelaCrea {
   subnivel: string;
   fechaInicio: string;
 
-  // Campos nuevos para Proyecto interdisciplinar
-  curriculoPriorizado?: string;
-  asignaturaAncla?: string;
-  fechaFin?: string;
-  compartirComunidad?: boolean;
-  mostrarNombreAutor?: boolean;
-
   modalidad: "general" | "bt";
   /** Solo si modalidad === "bt" — ids del catálogo estático de data/bachillerato-tecnico.ts */
   figuraProfesionalId?: string;
