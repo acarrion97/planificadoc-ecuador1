@@ -479,3 +479,45 @@ export type CurriculoCompetenciasRow =
   typeof curriculoCompetenciasPlanificaciones.$inferSelect;
 export type InsertCurriculoCompetencias =
   typeof curriculoCompetenciasPlanificaciones.$inferInsert;
+
+// ============================================================
+// PROYECTO INTERDISCIPLINAR
+// ============================================================
+
+/**
+ * Proyectos interdisciplinares — módulo independiente del ProyectoInterdisciplinar
+ * embebido en Currículo por Competencias (ver openspec/changes/proyecto-interdisciplinar).
+ * Mismo patrón híbrido que curriculoCompetenciasPlanificaciones: columnas
+ * indexadas para listar/buscar + `formData` (JSON) como fuente de verdad.
+ */
+export const proyectosInterdisciplinares = mysqlTable(
+  "proyectos_interdisciplinares",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    sessionId: varchar("session_id", { length: 64 }).notNull(),
+    baseCurricular: mysqlEnum("base_curricular", ["destrezas", "competencias"]).notNull(),
+
+    // ── Campos indexados para listar/buscar ──
+    titulo: varchar("titulo", { length: 256 }).notNull(),
+    nivelPrincipal: varchar("nivel_principal", { length: 32 }),
+    subnivelPrincipal: varchar("subnivel_principal", { length: 32 }),
+    institucion: varchar("institucion", { length: 128 }),
+
+    // ── Estado y metadatos ──
+    estado: mysqlEnum("estado", ["borrador", "generado"])
+      .default("borrador")
+      .notNull(),
+
+    // ── Datos completos (JSON) ──
+    formData: text("form_data").notNull(),
+
+    // ── Timestamps ──
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+  }
+);
+
+export type ProyectoInterdisciplinarRow =
+  typeof proyectosInterdisciplinares.$inferSelect;
+export type InsertProyectoInterdisciplinar =
+  typeof proyectosInterdisciplinares.$inferInsert;
