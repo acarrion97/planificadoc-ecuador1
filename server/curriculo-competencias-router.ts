@@ -1085,4 +1085,155 @@ Responde ÚNICAMENTE con JSON válido:
         descripcion: typeof parsed.descripcion === "string" ? parsed.descripcion : "",
       };
     }),
+
+  // ── SUGERENCIA IA: semanas multigrado (tema común + actividad por grado) ──
+  sugerirSemanasMultigrado: publicProcedure
+    .input(
+      z.object({
+        materia: z.string().optional(),
+        nivel: z.string().optional(),
+        competenciasEspecifica: z
+          .array(
+            z.object({
+              codigo: z.string(),
+              descripcion: z.string(),
+            })
+          )
+          .min(1),
+        situacionAprendizaje: z
+          .object({
+            titulo: z.string().optional(),
+            descripcion: z.string().optional(),
+          })
+          .optional(),
+        temasTrimestre: z.string().optional(),
+        noSemanas: z.number().min(1).max(20),
+        grados: z
+          .array(
+            z.object({
+              id: z.string(),
+              grado: z.string(),
+              bloqueCurricular: z.object({
+                indicadores: z.array(z.string()),
+                declarativos: z.array(z.string()),
+                procedimentales: z.array(z.string()),
+                actitudinales: z.array(z.string()),
+              }),
+            })
+          )
+          .min(2),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const temasList = (input.temasTrimestre || "")
+        .split("\n")
+        .map((t) => t.trim())
+        .filter(Boolean);
+
+      const gradosTexto = input.grados
+        .map((g) => {
+          const b = g.bloqueCurricular;
+          return `Grado "${g.id}" (${g.grado}):
+- Indicadores: ${b.indicadores.join(" | ") || "—"}
+- Saberes declarativos: ${b.declarativos.join(" | ") || "—"}
+- Saberes procedimentales: ${b.procedimentales.join(" | ") || "—"}
+- Saberes actitudinales: ${b.actitudinales.join(" | ") || "—"}`;
+        })
+        .join("\n\n");
+
+      const prompt = `Eres un experto en el Currículo Integrado por Competencias del Ministerio de Educación del Ecuador, especializado en planificación para aulas MULTIGRADO (varios grados combinados en un mismo espacio y trimestre).
+
+CONTEXTO:
+- Materia: ${input.materia || "No especificada"}
+- Subnivel: ${input.nivel || "No especificado"}
+- Competencia(s) específica(s): ${input.competenciasEspecifica.map((c) => `${c.codigo} — ${c.descripcion}`).join(" / ")}
+- Situación de aprendizaje: ${input.situacionAprendizaje?.titulo || "No especificada"}. ${input.situacionAprendizaje?.descripcion || ""}
+${temasList.length > 0 ? `- Temas sugeridos por el docente, uno por semana en orden: ${temasList.join(" | ")}` : "- El docente no definió temas; propón un tema por semana coherente con la competencia y la situación de aprendizaje."}
+- Número de semanas: ${input.noSemanas}
+
+GRADOS COMBINADOS EN ESTA AULA MULTIGRADO (usa exactamente estos "id" al responder, en el mismo orden que aparecen):
+${gradosTexto}
+
+SOLICITUD:
+Genera el contenido de las ${input.noSemanas} semanas del trimestre. Cada semana tiene UN tema común para todos los grados, y UNA actividad diferenciada POR GRADO (usando el "id" de cada grado tal cual, sin modificarlo).
+
+REGLAS:
+- No inventes destrezas, saberes ni códigos curriculares fuera de los ya listados arriba para cada grado — las actividades deben basarse en esos indicadores y saberes, no en contenido nuevo.
+- Diferencia la complejidad de la actividad según el grado: los grados que aparecen después en la lista deben tener actividades de mayor profundidad/análisis que los primeros, aunque compartan el mismo tema semanal.
+- Cada actividad de grado debe tener: "inicio" (activación/motivación breve), "desarrollo" (actividad principal), "cierre" (síntesis/producto), "recursos" (recurso didáctico concreto, sin inventar URLs específicas), "tecnica" (técnica de evaluación) e "instrumento" (instrumento de evaluación).
+- Sé conciso: 1-2 oraciones por campo de texto (inicio/desarrollo/cierre).
+- No repitas literalmente el mismo texto para todos los grados en una semana.
+- Si el docente ya definió temas, úsalos en el mismo orden, uno por semana. Si hay más semanas que temas, o no hay temas, propone temas adicionales coherentes con la competencia.
+
+Responde ÚNICAMENTE con JSON válido con esta forma exacta:
+{
+  "semanas": [
+    {
+      "numero": 1,
+      "tema": "string",
+      "actividades": [
+        { "gradoId": "string (exactamente el id de arriba)", "inicio": "string", "desarrollo": "string", "cierre": "string", "recursos": "string", "tecnica": "string", "instrumento": "string" }
+      ]
+    }
+  ]
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación microcurricular del sistema educativo ecuatoriano, especializado en aulas multigrado. Respondes siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 4000,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: { semanas?: any[] };
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      const gradoIds = new Set(input.grados.map((g) => g.id));
+      const semanas = (parsed.semanas ?? [])
+        .filter((s) => s && typeof s === "object")
+        .map((s: any, i: number) => ({
+          numero: typeof s.numero === "number" ? s.numero : i + 1,
+          tema: typeof s.tema === "string" ? s.tema : "",
+          actividades: (Array.isArray(s.actividades) ? s.actividades : [])
+            .filter((a: any) => a?.gradoId && gradoIds.has(a.gradoId))
+            .map((a: any) => ({
+              gradoId: a.gradoId as string,
+              estrategiasDUA: {
+                inicio: typeof a.inicio === "string" ? a.inicio : "",
+                desarrollo: typeof a.desarrollo === "string" ? a.desarrollo : "",
+                cierre: typeof a.cierre === "string" ? a.cierre : "",
+              },
+              recursos: typeof a.recursos === "string" ? a.recursos : "",
+              tecnica: typeof a.tecnica === "string" ? a.tecnica : "",
+              instrumento: typeof a.instrumento === "string" ? a.instrumento : "",
+            })),
+        }));
+
+      if (semanas.length === 0) {
+        throw new Error("La IA no devolvió semanas válidas. Intenta de nuevo.");
+      }
+
+      return { semanas };
+    }),
 });

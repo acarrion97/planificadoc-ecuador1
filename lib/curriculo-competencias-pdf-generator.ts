@@ -379,7 +379,11 @@ export function generarCurriculoCompetenciasPdfMultigrado(
     </tr>
     <tr>
       <td><strong>No. de semanas:</strong> ${numSemanas}</td>
-      <td colspan="4"><strong>Competencia específica:</strong> ${plan.competenciaEspecifica?.codigo || "—"}${plan.competenciaEspecifica?.descripcion ? ". " + plan.competenciaEspecifica.descripcion : ""}</td>
+      <td colspan="4"><strong>Competencia(s) específica(s):</strong> ${
+        (plan.competenciasEspecifica || [])
+          .map((c) => `${c.codigo}${c.descripcion ? ". " + c.descripcion : ""}`)
+          .join(" · ") || "—"
+      }</td>
     </tr>
 
     ${sectionHeader("SITUACIÓN DE APRENDIZAJE")}
