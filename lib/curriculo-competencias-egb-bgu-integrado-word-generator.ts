@@ -565,6 +565,10 @@ export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
         techContent.push(p("Instrumento: Lista de cotejo", { size: 7 }));
       }
 
+      // Separador para que Word no fusione tablas semanales consecutivas en
+      // una sola tabla continua (rompería el repeat de tableHeader si en el
+      // futuro se agrega una fila de encabezado propia por semana).
+      children.push(new Paragraph({ spacing: { after: 40 }, children: [] }));
       children.push(
         makeTable(
           [
