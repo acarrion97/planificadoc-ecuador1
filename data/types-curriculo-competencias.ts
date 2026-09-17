@@ -393,11 +393,11 @@ export interface PlanificacionCurriculoIntegradoMultigrado {
   /** Grados combinados en esta planificación (2..N, mismo subnivel) */
   grados: GrupoGrado[];
 
-  /** Competencias Específicas comunes, disponibles para todos los grados seleccionados */
-  competenciasEspecifica: Array<{
+  /** Competencia Específica común, disponible para todos los grados seleccionados */
+  competenciaEspecifica: {
     codigo: string;
     descripcion: string;
-  }>;
+  };
 
   // ── SITUACIÓN DE APRENDIZAJE ──
   situacionAprendizaje?: {

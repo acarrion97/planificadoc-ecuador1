@@ -205,10 +205,7 @@ export interface PlanificacionMultigradoRaw {
   competenciaEspecifica?: {
     codigo?: string;
     descripcion?: string;
-  } | Array<{
-    codigo?: string;
-    descripcion?: string;
-  }>;
+  };
   situacionAprendizaje?: {
     titulo?: string;
     descripcion?: string;
@@ -699,20 +696,6 @@ export function normalizarPlanificacionMultigrado(
     };
   });
 
-  // Support both single CE and multi-CE format (backward compatible)
-  let competenciasEspecifica: Array<{ codigo: string; descripcion: string }> = [];
-  if (Array.isArray(raw.competenciaEspecifica)) {
-    competenciasEspecifica = raw.competenciaEspecifica.map((ce) => ({
-      codigo: limpiarTexto(ce.codigo),
-      descripcion: limpiarTexto(ce.descripcion),
-    }));
-  } else if (raw.competenciaEspecifica?.codigo) {
-    competenciasEspecifica = [{
-      codigo: limpiarTexto(raw.competenciaEspecifica.codigo),
-      descripcion: limpiarTexto(raw.competenciaEspecifica.descripcion),
-    }];
-  }
-
   return {
     id: id ?? generarId("plan-mg"),
     sessionId: "",
@@ -725,7 +708,10 @@ export function normalizarPlanificacionMultigrado(
     noSemanasClase: raw.noSemanasClase,
     nivel: limpiarTexto(raw.nivel),
     grados,
-    competenciasEspecifica,
+    competenciaEspecifica: {
+      codigo: limpiarTexto(raw.competenciaEspecifica?.codigo),
+      descripcion: limpiarTexto(raw.competenciaEspecifica?.descripcion),
+    },
     situacionAprendizaje: raw.situacionAprendizaje
       ? {
           titulo: limpiarTexto(raw.situacionAprendizaje.titulo),

@@ -264,16 +264,10 @@ const PlanificacionMultigradoInput = z.object({
     )
     .min(2, "La modalidad multigrado requiere 2 o más grados"),
   competenciaEspecifica: z
-    .union([
-      z.object({
-        codigo: z.string().optional(),
-        descripcion: z.string().optional(),
-      }),
-      z.array(z.object({
-        codigo: z.string().optional(),
-        descripcion: z.string().optional(),
-      })),
-    ])
+    .object({
+      codigo: z.string().optional(),
+      descripcion: z.string().optional(),
+    })
     .optional(),
   situacionAprendizaje: z
     .object({
@@ -345,7 +339,7 @@ function extractInsertId(res: unknown): number | undefined {
 export function validarPlanificacionMultigrado(input: {
   grados: Array<{ nivel?: string; grado?: string }>;
   asignatura?: string;
-  competenciaEspecifica?: { codigo?: string; descripcion?: string } | Array<{ codigo?: string; descripcion?: string }>;
+  competenciaEspecifica?: { codigo?: string; descripcion?: string };
 }): void {
   const grados = input.grados.map((g) => ({ nivel: (g.nivel ?? "").trim() }));
   const subnivel = validarSubnivelHomogeneo(grados);
@@ -355,25 +349,17 @@ export function validarPlanificacionMultigrado(input: {
     );
   }
 
-  // Support both single and array CE format
-  const ces = Array.isArray(input.competenciaEspecifica)
-    ? input.competenciaEspecifica
-    : input.competenciaEspecifica ? [input.competenciaEspecifica] : [];
-
-  if (!input.asignatura || ces.length === 0) {
-    throw new Error("Falta la asignatura o las Competencias Específicas de la planificación multigrado.");
+  const ceCodigo = input.competenciaEspecifica?.codigo?.trim();
+  if (!input.asignatura || !ceCodigo) {
+    throw new Error("Falta la asignatura o la Competencia Específica de la planificación multigrado.");
   }
 
   const nombresGrados = input.grados.map((g) => (g.grado ?? "").trim()).filter(Boolean);
-  for (const ce of ces) {
-    const ceCodigo = ce.codigo?.trim();
-    if (!ceCodigo) continue;
-    const cobertura = ceDisponibleParaGrados(input.asignatura, ceCodigo, nombresGrados);
-    if (!cobertura.valido) {
-      throw new Error(
-        `La Competencia Específica ${ceCodigo} no cubre el/los grado(s): ${cobertura.gradosNoCubiertos.join(", ")}.`
-      );
-    }
+  const cobertura = ceDisponibleParaGrados(input.asignatura, ceCodigo, nombresGrados);
+  if (!cobertura.valido) {
+    throw new Error(
+      `La Competencia Específica ${ceCodigo} no cubre el/los grado(s): ${cobertura.gradosNoCubiertos.join(", ")}.`
+    );
   }
 }
 
@@ -566,8 +552,8 @@ export const curriculoCompetenciasRouter = router({
         periodoPedagogico: null,
         trimestre: plan.trimestre || null,
         dcdCodigo: null,
-        competencias: plan.competenciasEspecifica?.length
-          ? JSON.stringify(plan.competenciasEspecifica.map((c) => c.codigo).filter(Boolean))
+        competencias: plan.competenciaEspecifica?.codigo
+          ? JSON.stringify([plan.competenciaEspecifica.codigo])
           : null,
         status: "generated" as const,
         formData: JSON.stringify(plan),
@@ -748,8 +734,8 @@ export const curriculoCompetenciasRouter = router({
         asignatura: plan.asignatura || null,
         nivel: null,
         trimestre: plan.trimestre || null,
-        competencias: plan.competenciasEspecifica?.length
-          ? JSON.stringify(plan.competenciasEspecifica.map((c) => c.codigo).filter(Boolean))
+        competencias: plan.competenciaEspecifica?.codigo
+          ? JSON.stringify([plan.competenciaEspecifica.codigo])
           : null,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
