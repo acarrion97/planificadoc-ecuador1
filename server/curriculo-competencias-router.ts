@@ -10,7 +10,10 @@ import type {
 import {
   normalizarPlanificacionEGBBGU,
   normalizarPlanificacionInicial,
+  normalizarPlanificacionMultigrado,
+  validarSubnivelHomogeneo,
 } from "../lib/curriculo-competencias-normalizer";
+import { ceDisponibleParaGrados } from "../data/competencias-especificas-egb-bgu";
 
 // ============================================================
 // ZOD SCHEMAS DE ENTRADA
@@ -232,6 +235,81 @@ const PlanificacionInicialInput = z.object({
   sourceVersion: z.string().optional(),
 });
 
+/** Datos para crear/actualizar una planificación multigrado de Currículo Integrado EGB/BGU */
+const PlanificacionMultigradoInput = z.object({
+  sessionId: z.string().min(1),
+  id: z.string().optional(),
+  institucion: z.string().optional(),
+  docente: z.string().optional(),
+  paralelo: z.string().optional(),
+  asignatura: z.string().optional(),
+  trimestre: z.string().optional(),
+  noSemanasClase: z.number().optional(),
+  nivel: z.string().optional(),
+  grados: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        nivel: z.string().optional(),
+        grado: z.string().optional(),
+        bloqueCurricular: z
+          .object({
+            indicadores: z.array(z.string()).optional(),
+            declarativos: z.array(z.string()).optional(),
+            procedimentales: z.array(z.string()).optional(),
+            actitudinales: z.array(z.string()).optional(),
+          })
+          .optional(),
+      })
+    )
+    .min(2, "La modalidad multigrado requiere 2 o más grados"),
+  competenciaEspecifica: z
+    .object({
+      codigo: z.string().optional(),
+      descripcion: z.string().optional(),
+    })
+    .optional(),
+  situacionAprendizaje: z
+    .object({
+      titulo: z.string().optional(),
+      descripcion: z.string().optional(),
+    })
+    .optional(),
+  conexionInterdisciplinar: z
+    .object({
+      asignaturas: z.array(z.string()).optional(),
+    })
+    .optional(),
+  semanas: z
+    .array(
+      z.object({
+        numero: z.number().optional(),
+        tema: z.string().optional(),
+        actividades: z
+          .array(
+            z.object({
+              gradoId: z.string().optional(),
+              estrategiasDUA: z
+                .object({
+                  inicio: z.string().optional(),
+                  desarrollo: z.string().optional(),
+                  cierre: z.string().optional(),
+                })
+                .optional(),
+              recursos: z.string().optional(),
+              tecnica: z.string().optional(),
+              instrumento: z.string().optional(),
+            })
+          )
+          .optional(),
+      })
+    )
+    .optional(),
+  sourceDocument: z.string().optional(),
+  sourceSection: z.string().optional(),
+  sourceVersion: z.string().optional(),
+});
+
 // ============================================================
 // HELPERS
 // ============================================================
@@ -250,6 +328,71 @@ function extractInsertId(res: unknown): number | undefined {
   const header = Array.isArray(res) ? res[0] : res;
   const id = (header as any)?.insertId;
   return typeof id === "number" ? id : undefined;
+}
+
+/**
+ * Revalida en el servidor lo que el wizard ya debería haber impedido en el
+ * cliente: todos los grados pertenecen al mismo subnivel, y la CE elegida
+ * cubre todos los grados seleccionados. Defensa en profundidad — un payload
+ * manipulado no debe poder persistir una combinación inválida (design.md D4).
+ */
+export function validarPlanificacionMultigrado(input: {
+  grados: Array<{ nivel?: string; grado?: string }>;
+  asignatura?: string;
+  competenciaEspecifica?: { codigo?: string; descripcion?: string };
+}): void {
+  const grados = input.grados.map((g) => ({ nivel: (g.nivel ?? "").trim() }));
+  const subnivel = validarSubnivelHomogeneo(grados);
+  if (!subnivel.valido) {
+    throw new Error(
+      `Los grados seleccionados pertenecen a subniveles distintos (${subnivel.nivelesEncontrados.join(", ")}); la modalidad multigrado requiere que todos compartan el mismo subnivel.`
+    );
+  }
+
+  const ceCodigo = input.competenciaEspecifica?.codigo?.trim();
+  if (!input.asignatura || !ceCodigo) {
+    throw new Error("Falta la asignatura o la Competencia Específica de la planificación multigrado.");
+  }
+
+  const nombresGrados = input.grados.map((g) => (g.grado ?? "").trim()).filter(Boolean);
+  const cobertura = ceDisponibleParaGrados(input.asignatura, ceCodigo, nombresGrados);
+  if (!cobertura.valido) {
+    throw new Error(
+      `La Competencia Específica ${ceCodigo} no cubre el/los grado(s): ${cobertura.gradosNoCubiertos.join(", ")}.`
+    );
+  }
+}
+
+/** Familias de exportación posibles para una fila de `curriculo_competencias_planificaciones`. */
+export type FamiliaExportacionCurriculoCompetencias =
+  | "egb_bgu_dcd"
+  | "curriculo_integrado_inicial"
+  | "curriculo_integrado_single"
+  | "curriculo_integrado_multigrado";
+
+/**
+ * Decide qué generador de exportación corresponde a una fila guardada.
+ *
+ * Para planificaciones nuevas, `formData.modalidad` es el discriminador
+ * explícito (design.md D2): `"multigrado"` ⇒ multigrado; cualquier otro
+ * valor o su ausencia cae a la heurística preexistente basada en el
+ * prefijo del código de competencia del primer ámbito (`CE.CI.*` ⇒ Inicial),
+ * que sigue aplicando sin cambios a los registros guardados antes de este
+ * cambio (nunca tuvieron `modalidad`).
+ */
+export function determinarFamiliaExportacion(row: {
+  tipo: string;
+  formData: any;
+}): FamiliaExportacionCurriculoCompetencias {
+  if (row.tipo !== "inicial_preparatoria") return "egb_bgu_dcd";
+
+  if (row.formData?.modalidad === "multigrado") {
+    return "curriculo_integrado_multigrado";
+  }
+
+  const primerCodigo: string | undefined = row.formData?.ambitos?.[0]?.competenciaCodigo;
+  const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
+  return esInicial ? "curriculo_integrado_inicial" : "curriculo_integrado_single";
 }
 
 async function ensureCurriculoCompetenciasTable(): Promise<void> {
@@ -363,6 +506,55 @@ export const curriculoCompetenciasRouter = router({
         // completo, así que el plan queda "generated" desde que se crea
         // (nada en el cliente llama updateStatus, por lo que "draft" se
         // quedaba fijo para siempre).
+        status: "generated" as const,
+        formData: JSON.stringify(plan),
+        sourceTraceability: plan.source
+          ? JSON.stringify(plan.source)
+          : null,
+      };
+
+      const res = await db
+        .insert(curriculoCompetenciasPlanificaciones)
+        .values(row);
+
+      return {
+        id: extractInsertId(res),
+        plan,
+      };
+    }),
+
+  // ── CREATE MULTIGRADO (CURRÍCULO INTEGRADO EGB/BGU) ──────────────
+  createMultigrado: publicProcedure
+    .input(PlanificacionMultigradoInput)
+    .mutation(async ({ input }) => {
+      validarPlanificacionMultigrado(input);
+
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const plan = normalizarPlanificacionMultigrado(input, input.id);
+
+      const row = {
+        sessionId: input.sessionId,
+        // Se reutiliza el mismo bucket que Inicial/Integrado single-grade;
+        // `formData.modalidad` es el discriminador explícito que evita
+        // extender la heurística de prefijo de código (design.md D2).
+        tipo: "inicial_preparatoria" as const,
+        // La columna `grado` (varchar corto) no alcanza para listar 2..N
+        // grados combinados; la lista real vive en formData.grados.
+        grado: null,
+        institucion: plan.institucion || null,
+        docente: plan.docente || null,
+        paralelo: plan.paralelo || null,
+        asignatura: plan.asignatura || null,
+        nivel: null,
+        periodoPedagogico: null,
+        trimestre: plan.trimestre || null,
+        dcdCodigo: null,
+        competencias: plan.competenciaEspecifica?.codigo
+          ? JSON.stringify([plan.competenciaEspecifica.codigo])
+          : null,
         status: "generated" as const,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
@@ -522,6 +714,45 @@ export const curriculoCompetenciasRouter = router({
       return { success: true };
     }),
 
+  // ── UPDATE MULTIGRADO (CURRÍCULO INTEGRADO EGB/BGU) ──────────────
+  updateMultigrado: publicProcedure
+    .input(PlanificacionMultigradoInput.extend({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      validarPlanificacionMultigrado(input);
+
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const plan = normalizarPlanificacionMultigrado(input);
+
+      const row = {
+        grado: null,
+        institucion: plan.institucion || null,
+        docente: plan.docente || null,
+        paralelo: plan.paralelo || null,
+        asignatura: plan.asignatura || null,
+        nivel: null,
+        trimestre: plan.trimestre || null,
+        competencias: plan.competenciaEspecifica?.codigo
+          ? JSON.stringify([plan.competenciaEspecifica.codigo])
+          : null,
+        formData: JSON.stringify(plan),
+        sourceTraceability: plan.source
+          ? JSON.stringify(plan.source)
+          : null,
+      };
+
+      await db
+        .update(curriculoCompetenciasPlanificaciones)
+        .set(row)
+        .where(
+          eq(curriculoCompetenciasPlanificaciones.id, input.id)
+        );
+
+      return { success: true };
+    }),
+
   // ── UPDATE STATUS ────────────────────────────────────────────────
   updateStatus: publicProcedure
     .input(
@@ -583,29 +814,38 @@ export const curriculoCompetenciasRouter = router({
       const row = rows[0];
       const data = JSON.parse(row.formData as string);
 
-      // "inicial_preparatoria" agrupa dos flujos que comparten el mismo shape
-      // (PlanificacionInicialCurriculo con ámbitos): Inicial 3-5 años (códigos
-      // CE.CI.*) y Currículo Integrado EGB/BGU (CE.LL.*, CE.M.*, etc.) — se
-      // distinguen por el prefijo del código de competencia del primer ámbito.
-      const primerCodigo: string | undefined = data?.ambitos?.[0]?.competenciaCodigo;
-      const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
+      const familia = determinarFamiliaExportacion({ tipo: row.tipo, formData: data });
 
       let blob: Blob;
-      if (row.tipo === "inicial_preparatoria" && esInicial) {
-        const { generarCurriculoCompetenciasWordInicial } = await import(
-          "../lib/curriculo-competencias-inicial-word-generator"
-        );
-        blob = await generarCurriculoCompetenciasWordInicial(data);
-      } else if (row.tipo === "inicial_preparatoria") {
-        const { generarCurriculoCompetenciasWordEGBBGUIntegrado } = await import(
-          "../lib/curriculo-competencias-egb-bgu-integrado-word-generator"
-        );
-        blob = await generarCurriculoCompetenciasWordEGBBGUIntegrado(data);
-      } else {
-        const { generarCurriculoCompetenciasWordEGBBGU } = await import(
-          "../lib/curriculo-competencias-word-generator"
-        );
-        blob = await generarCurriculoCompetenciasWordEGBBGU(data);
+      switch (familia) {
+        case "curriculo_integrado_inicial": {
+          const { generarCurriculoCompetenciasWordInicial } = await import(
+            "../lib/curriculo-competencias-inicial-word-generator"
+          );
+          blob = await generarCurriculoCompetenciasWordInicial(data);
+          break;
+        }
+        case "curriculo_integrado_single": {
+          const { generarCurriculoCompetenciasWordEGBBGUIntegrado } = await import(
+            "../lib/curriculo-competencias-egb-bgu-integrado-word-generator"
+          );
+          blob = await generarCurriculoCompetenciasWordEGBBGUIntegrado(data);
+          break;
+        }
+        case "curriculo_integrado_multigrado": {
+          const { generarDocxMultigrado } = await import(
+            "../lib/curriculo-competencias-egb-bgu-integrado-word-generator"
+          );
+          blob = await generarDocxMultigrado(data);
+          break;
+        }
+        case "egb_bgu_dcd":
+        default: {
+          const { generarCurriculoCompetenciasWordEGBBGU } = await import(
+            "../lib/curriculo-competencias-word-generator"
+          );
+          blob = await generarCurriculoCompetenciasWordEGBBGU(data);
+        }
       }
 
       const buffer = await blob.arrayBuffer();
@@ -639,6 +879,10 @@ export const curriculoCompetenciasRouter = router({
       const row = rows[0];
       const data = JSON.parse(row.formData as string);
 
+      // A diferencia de exportWord, este generador unificado ya distingue
+      // internamente por `modalidad`/`ambitos` (ver
+      // lib/curriculo-competencias-pdf-generator.ts) — no hace falta repetir
+      // aquí la lógica de determinarFamiliaExportacion.
       const { generarCurriculoCompetenciasPdf } = await import(
         "../lib/curriculo-competencias-pdf-generator"
       );

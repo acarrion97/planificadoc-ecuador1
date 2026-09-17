@@ -7,6 +7,7 @@
 import type {
   PlanificacionCurriculoCompetencias,
   PlanificacionInicialCurriculo,
+  PlanificacionCurriculoIntegradoMultigrado,
 } from "../data/types-curriculo-competencias";
 
 // ── Colores ──
@@ -281,10 +282,138 @@ export function generarCurriculoCompetenciasPdfInicial(
 </html>`;
 }
 
+// ── Generador Multigrado (Currículo Integrado EGB/BGU, 2..N grados) ──
+// Misma estructura que generarDocxMultigrado en
+// curriculo-competencias-egb-bgu-integrado-word-generator.ts: encabezado con
+// "Grados:" en plural y "· multigrado", tabla de indicadores/saberes con una
+// fila por grado, y cada semana con una fila por grado.
+export function generarCurriculoCompetenciasPdfMultigrado(
+  plan: PlanificacionCurriculoIntegradoMultigrado
+): string {
+  const grados = plan.grados || [];
+  const gradosTexto = grados.map((g) => g.grado).join(", ") || "—";
+  const numSemanas = plan.semanas?.length || plan.noSemanasClase || 8;
+
+  const filasIndicadores = grados
+    .map(
+      (g) => `
+    <tr>
+      <td><strong>${g.grado}</strong></td>
+      <td>${g.bloqueCurricular.indicadores.join("<br>") || "—"}</td>
+      <td>${g.bloqueCurricular.declarativos.join("<br>") || "—"}</td>
+      <td>${g.bloqueCurricular.procedimentales.join("<br>") || "—"}</td>
+      <td>${g.bloqueCurricular.actitudinales.join("<br>") || "—"}</td>
+    </tr>`
+    )
+    .join("");
+
+  const semanas = plan.semanas?.length
+    ? plan.semanas
+    : Array.from({ length: numSemanas }, (_, i) => ({ numero: i + 1, tema: "", actividades: [] as any[] }));
+
+  const semanasHtml = semanas
+    .map((semana) => {
+      const filas = grados
+        .map((g) => {
+          const actividad = semana.actividades?.find((a) => a.gradoId === g.id);
+          return `
+      <tr>
+        <td><strong>${g.grado}</strong></td>
+        <td>
+          <div class="activity-item"><strong>Inicio:</strong> ${actividad?.estrategiasDUA.inicio || "—"}</div>
+          <div class="activity-item"><strong>Desarrollo:</strong> ${actividad?.estrategiasDUA.desarrollo || "—"}</div>
+          <div class="activity-item"><strong>Cierre:</strong> ${actividad?.estrategiasDUA.cierre || "—"}</div>
+        </td>
+        <td>${actividad?.recursos || "—"}</td>
+        <td><strong>Técnica:</strong> ${actividad?.tecnica || "—"}<br><strong>Instrumento:</strong> ${actividad?.instrumento || "—"}</td>
+      </tr>`;
+        })
+        .join("");
+
+      return `
+    ${sectionHeader(`SEMANA ${semana.numero}${semana.tema ? " · " + semana.tema.toUpperCase() : ""} · GRADO`)}
+    <tr class="header-row">
+      <td>Grado</td>
+      <td>Estrategias metodológicas desde el DUA</td>
+      <td>Recursos</td>
+      <td>Técnicas e instrumentos de evaluación</td>
+    </tr>
+    ${filas}`;
+    })
+    .join("");
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Planificación microcurricular por competencias · multigrado — ${plan.institucion}</title>
+  <style>
+    @page { size: A4 landscape; margin: 8mm; }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important; }
+    body { font-family:Arial,Helvetica,sans-serif; font-size:10px; color:#1A1A1A; padding:8px; }
+    table { border-collapse:collapse; width:100%; margin-bottom:8px; }
+    td, th { border:1px solid #ccc; padding:5px 8px; vertical-align:top; font-size:10px; }
+    .header-row { background:${COLOR_HEADER}; font-weight:bold; }
+    .section-label { background:${COLOR_SECTION}; color:${COLOR_PRIMARY}; font-weight:bold; font-size:12px; padding:6px 10px; }
+    .activity-item { margin:2px 0; font-size:9px; }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td class="header-row" colspan="2">${plan.institucion || "INSTITUCIÓN"}</td>
+      <td class="header-row" style="text-align:right;" colspan="3">Año lectivo: 2026-2027</td>
+    </tr>
+    <tr>
+      <td colspan="5" style="text-align:center;font-weight:bold;font-size:13px;background:${COLOR_HEADER};">
+        Planificación microcurricular por competencias · multigrado
+      </td>
+    </tr>
+
+    ${sectionHeader("DATOS INFORMATIVOS")}
+    <tr>
+      <td><strong>Docente:</strong> ${plan.docente || "—"}</td>
+      <td colspan="2"><strong>Grados:</strong> ${gradosTexto}</td>
+      <td><strong>Paralelo:</strong> ${plan.paralelo || "—"}</td>
+      <td><strong>Trimestre:</strong> ${plan.trimestre || "—"}</td>
+    </tr>
+    <tr>
+      <td><strong>No. de semanas:</strong> ${numSemanas}</td>
+      <td colspan="4"><strong>Competencia específica:</strong> ${plan.competenciaEspecifica?.codigo || "—"}${plan.competenciaEspecifica?.descripcion ? ". " + plan.competenciaEspecifica.descripcion : ""}</td>
+    </tr>
+
+    ${sectionHeader("SITUACIÓN DE APRENDIZAJE")}
+    <tr>
+      <td colspan="2"><strong>Título:</strong> ${plan.situacionAprendizaje?.titulo || "—"}</td>
+      <td colspan="3"><strong>Descripción:</strong> ${plan.situacionAprendizaje?.descripcion || "—"}</td>
+    </tr>
+
+    ${sectionHeader("INDICADORES DE EVALUACIÓN Y SABERES POR GRADO")}
+    <tr class="header-row">
+      <td>Grado</td>
+      <td>Indicadores de evaluación</td>
+      <td>Declarativos</td>
+      <td>Procedimentales</td>
+      <td>Actitudinales</td>
+    </tr>
+    ${filasIndicadores}
+
+    ${semanasHtml}
+  </table>
+</body>
+</html>`;
+}
+
 // ── Generador unificado ──
 export function generarCurriculoCompetenciasPdf(
-  plan: PlanificacionCurriculoCompetencias | PlanificacionInicialCurriculo
+  plan:
+    | PlanificacionCurriculoCompetencias
+    | PlanificacionInicialCurriculo
+    | PlanificacionCurriculoIntegradoMultigrado
 ): string {
+  if ("grados" in plan) {
+    return generarCurriculoCompetenciasPdfMultigrado(plan);
+  }
   if ("ambitos" in plan) {
     return generarCurriculoCompetenciasPdfInicial(plan);
   }

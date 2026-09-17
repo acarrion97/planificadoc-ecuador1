@@ -23,7 +23,12 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType,
 } from "docx";
-import type { PlanificacionInicialCurriculo, AmbitoDesarrollo } from "../data/types-curriculo-competencias";
+import type {
+  PlanificacionInicialCurriculo,
+  AmbitoDesarrollo,
+  PlanificacionCurriculoIntegradoMultigrado,
+  GrupoGrado,
+} from "../data/types-curriculo-competencias";
 import {
   buscarCompetenciaEspecificaEGBBGU,
   MATERIAS_EGB_BGU,
@@ -593,6 +598,405 @@ export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
         new TableRow({
           children: [
             tc([p("Esta herramienta pedagógica genera propuestas de planificación basadas en los instrumentos técnicos y formatos socializados en la fase de pilotaje. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito.", { size: 7 })], TW),
+          ],
+        }),
+      ],
+      TW,
+      [TW]
+    )
+  );
+
+  // ── Construir documento ──
+  const doc = new Document({
+    styles: {
+      default: {
+        document: {
+          run: { font: "Arial", size: 16 },
+        },
+      },
+    },
+    sections: [
+      {
+        properties: {
+          page: {
+            size: { width: PW, height: 11906 },
+            margin: { top: MAR, bottom: MAR, left: MAR, right: MAR },
+          },
+        },
+        children,
+      },
+    ],
+  });
+
+  return Packer.toBlob(doc);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GENERADOR MULTIGRADO (2..N grados del mismo subnivel, una sola CE)
+// ═══════════════════════════════════════════════════════════════
+//
+// Sigue el mismo formato oficial que generarCurriculoCompetenciasWordEGBBGUIntegrado
+// pero cruzado por grado: la tabla de indicadores/saberes tiene una fila por
+// grado (en vez de una fila por ámbito de un único grado), y cada semana es
+// su propia tabla con una fila por grado. Patrón validado contra los
+// ejemplos reales "CNC-MG-Ecuaciones-matemáticas.docx" y
+// "CNC-MG-Mis-nuevos-amigos.docx" del pilotaje (ver design.md del change
+// curriculo-integrado-egb-bgu-multigrado).
+
+/** Área y subnivel (catálogo 2016) de la CE de una planificación multigrado, para buscar conexiones interdisciplinarias reales. */
+function areaYSubnivelMultigrado(
+  plan: PlanificacionCurriculoIntegradoMultigrado
+): { area: Area; subnivel: Subnivel } | undefined {
+  const materia = MATERIAS_EGB_BGU.find((m) => m.id === plan.asignatura);
+  const area = materia ? AREA_POR_MATERIA[materia.id] : undefined;
+  const m = (plan.competenciaEspecifica?.codigo || "").match(/^CE\.[A-Z]+(?:\.[A-Z]+)?\.(\d+)\.\d+/);
+  const subnivel = m ? (Number(m[1]) as Subnivel) : undefined;
+  if (!area || !subnivel) return undefined;
+  return { area, subnivel };
+}
+
+export async function generarDocxMultigrado(
+  plan: PlanificacionCurriculoIntegradoMultigrado
+): Promise<Blob> {
+  const children: (Paragraph | Table)[] = [];
+  const grados: GrupoGrado[] = plan.grados || [];
+  const materia = MATERIAS_EGB_BGU.find((m) => m.id === plan.asignatura);
+  const asignatura = materia?.nombre || "Currículo integrado";
+  const gradosTexto = grados.map((g) => formatGradoCurso(g.grado)).join(", ") || "—";
+  const numSemanas = plan.semanas?.length || plan.noSemanasClase || 8;
+
+  // ═══════════════════════════════════════════════════════════════
+  // 1. ENCABEZADO
+  // ═══════════════════════════════════════════════════════════════
+  const COL_INST = Math.floor(TW * 0.6);
+  const COL_ANIO = TW - COL_INST;
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], COL_INST, { bg: COLOR_HEADER }),
+            tc([p("Año lectivo: 2026-2027", { size: 9 })], COL_ANIO, { bg: COLOR_HEADER }),
+          ],
+        }),
+      ],
+      TW,
+      [COL_INST, COL_ANIO]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 2. TÍTULO
+  // ═══════════════════════════════════════════════════════════════
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc(
+              [p("Planificación microcurricular por competencias · multigrado", { bold: true, size: 12, align: "center" })],
+              TW,
+              { bg: COLOR_HEADER }
+            ),
+          ],
+        }),
+      ],
+      TW,
+      [TW]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 3. DATOS INFORMATIVOS
+  // ═══════════════════════════════════════════════════════════════
+  const COL_ASIG = Math.floor(TW * 0.34);
+  const COL_GRADOS = Math.floor(TW * 0.4);
+  const COL_PARALELO = TW - COL_ASIG - COL_GRADOS;
+  const COL_TRIM = Math.floor(TW * 0.5);
+  const COL_SEM = TW - COL_TRIM;
+
+  children.push(
+    makeTable(
+      [new TableRow({ children: [tc([p("Datos informativos:", { bold: true, size: 8 })], TW)] })],
+      TW,
+      [TW]
+    ),
+    makeTable(
+      [new TableRow({ children: [tc([p(`Docente: ${plan.docente || "—"}`, { size: 8 })], TW)] })],
+      TW,
+      [TW]
+    ),
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p(`Asignatura: ${asignatura}`, { size: 8 })], COL_ASIG),
+            tc([p(`Grados: ${gradosTexto}`, { size: 8 })], COL_GRADOS),
+            tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], COL_PARALELO),
+          ],
+        }),
+      ],
+      TW,
+      [COL_ASIG, COL_GRADOS, COL_PARALELO]
+    ),
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], COL_TRIM),
+            tc([p(`No. de semanas: ${numSemanas}`, { size: 8 })], COL_SEM),
+          ],
+        }),
+      ],
+      TW,
+      [COL_TRIM, COL_SEM]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 4. SITUACIÓN DE APRENDIZAJE
+  // ═══════════════════════════════════════════════════════════════
+  children.push(makeTable([sectionRow("Situación de aprendizaje")], TW, [TW]));
+
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc(
+              [
+                p("Título:", { bold: true, size: 8 }),
+                p(plan.situacionAprendizaje?.titulo || "—", { size: 8 }),
+                p("Descripción:", { bold: true, size: 8 }),
+                p(plan.situacionAprendizaje?.descripcion || "—", { size: 8 }),
+              ],
+              TW
+            ),
+          ],
+        }),
+      ],
+      TW,
+      [TW]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 5. CONEXIÓN INTERDISCIPLINAR
+  // ═══════════════════════════════════════════════════════════════
+  children.push(makeTable([sectionRow("Conexión interdisciplinar")], TW, [TW]));
+
+  const filasConexionInterdisciplinar: TableRow[] = [];
+  const ctx = areaYSubnivelMultigrado(plan);
+  if (ctx) {
+    const conexiones = buscarConexionesInterdisciplinarias(
+      ctx.area,
+      ctx.subnivel,
+      plan.competenciaEspecifica?.descripcion || "",
+      []
+    );
+    for (const conn of conexiones) {
+      filasConexionInterdisciplinar.push(
+        new TableRow({
+          children: [tc([p(`• ${conn.area}: ${conn.descripcion} (${conn.ceCode})`, { size: 8 })], TW)],
+        })
+      );
+    }
+  }
+  if (filasConexionInterdisciplinar.length === 0) {
+    filasConexionInterdisciplinar.push(new TableRow({ children: [tc([p("—", { size: 8 })], TW)] }));
+  }
+
+  children.push(
+    makeTable(
+      [
+        new TableRow({ children: [tc([p("Asignaturas:", { bold: true, size: 8 })], TW)] }),
+        ...filasConexionInterdisciplinar,
+      ],
+      TW,
+      [TW]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 6. COMPETENCIA ESPECÍFICA (una sola, compartida por todos los grados)
+  // ═══════════════════════════════════════════════════════════════
+  children.push(makeTable([sectionRow("Competencias específicas")], TW, [TW]));
+
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc(
+              [
+                p(
+                  `${plan.competenciaEspecifica?.codigo || "—"}${plan.competenciaEspecifica?.descripcion ? ". " + plan.competenciaEspecifica.descripcion : ""}`,
+                  { size: 8 }
+                ),
+              ],
+              TW
+            ),
+          ],
+        }),
+      ],
+      TW,
+      [TW]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 7. INDICADORES DE EVALUACIÓN, UNA FILA POR GRADO (5 columnas)
+  // ═══════════════════════════════════════════════════════════════
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  const COL_GRADO_IND = Math.floor(TW * 0.14);
+  const COL_IND = Math.floor(TW * 0.32);
+  const COL_DEC = Math.floor(TW * 0.2);
+  const COL_PRO = Math.floor(TW * 0.18);
+  const COL_ACT = TW - COL_GRADO_IND - COL_IND - COL_DEC - COL_PRO;
+
+  const filasIndicadores: TableRow[] = grados.map(
+    (g) =>
+      new TableRow({
+        children: [
+          tc([p(formatGradoCurso(g.grado), { size: 7, bold: true })], COL_GRADO_IND),
+          tc([p(g.bloqueCurricular.indicadores.join("\n") || "—", { size: 7 })], COL_IND),
+          tc([p(g.bloqueCurricular.declarativos.join("\n") || "—", { size: 7 })], COL_DEC),
+          tc([p(g.bloqueCurricular.procedimentales.join("\n") || "—", { size: 7 })], COL_PRO),
+          tc([p(g.bloqueCurricular.actitudinales.join("\n") || "—", { size: 7 })], COL_ACT),
+        ],
+      })
+  );
+
+  if (filasIndicadores.length === 0) {
+    filasIndicadores.push(
+      new TableRow({
+        children: [
+          tc([p("—", { size: 7 })], COL_GRADO_IND),
+          tc([p("—", { size: 7 })], COL_IND),
+          tc([p("—", { size: 7 })], COL_DEC),
+          tc([p("—", { size: 7 })], COL_PRO),
+          tc([p("—", { size: 7 })], COL_ACT),
+        ],
+      })
+    );
+  }
+
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          tableHeader: true,
+          children: [
+            tc([p("Grado", { bold: true, size: 8, color: WHITE })], COL_GRADO_IND, { bg: COLOR_PRIMARY, rs: 2 }),
+            tc([p("Indicadores de evaluación", { bold: true, size: 8, color: WHITE })], COL_IND, { bg: COLOR_PRIMARY, rs: 2 }),
+            tc([p("Saberes", { bold: true, size: 8, color: WHITE, align: "center" })], COL_DEC + COL_PRO + COL_ACT, { bg: COLOR_PRIMARY, cs: 3 }),
+          ],
+        }),
+        new TableRow({
+          tableHeader: true,
+          children: [
+            tc([p("Declarativos", { bold: true, size: 8, color: WHITE })], COL_DEC, { bg: COLOR_PRIMARY }),
+            tc([p("Procedimentales", { bold: true, size: 8, color: WHITE })], COL_PRO, { bg: COLOR_PRIMARY }),
+            tc([p("Actitudinales", { bold: true, size: 8, color: WHITE })], COL_ACT, { bg: COLOR_PRIMARY }),
+          ],
+        }),
+        ...filasIndicadores,
+      ],
+      TW,
+      [COL_GRADO_IND, COL_IND, COL_DEC, COL_PRO, COL_ACT]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 8. TABLA DUA SEMANAL, UNA TABLA POR SEMANA CON UNA FILA POR GRADO
+  // ═══════════════════════════════════════════════════════════════
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+
+  const COL_GRADO_SEM = Math.floor(TW * 0.14);
+  const COL_DUA = Math.floor(TW * 0.46);
+  const COL_REC = Math.floor(TW * 0.2);
+  const COL_TECH = TW - COL_GRADO_SEM - COL_DUA - COL_REC;
+
+  const semanas = plan.semanas?.length
+    ? plan.semanas
+    : Array.from({ length: numSemanas }, (_, i) => ({ numero: i + 1, tema: "", actividades: [] }));
+
+  for (const semana of semanas) {
+    const encabezado = `Semana ${semana.numero}${semana.tema ? ` · ${semana.tema}` : ""} · Grado`;
+
+    const filasSemana: TableRow[] = grados.map((g) => {
+      const actividad = semana.actividades?.find((a) => a.gradoId === g.id);
+
+      const duaContent: Paragraph[] = [
+        p("Sugerencias para el inicio:", { bold: true, size: 7 }),
+        p(actividad?.estrategiasDUA.inicio || "—", { size: 7 }),
+        p("Sugerencias para el desarrollo:", { bold: true, size: 7 }),
+        p(actividad?.estrategiasDUA.desarrollo || "—", { size: 7 }),
+        p("Sugerencias para el cierre:", { bold: true, size: 7 }),
+        p(actividad?.estrategiasDUA.cierre || "—", { size: 7 }),
+      ];
+      const recContent: Paragraph[] = [p(actividad?.recursos || "—", { size: 7 })];
+      const techContent: Paragraph[] = [
+        p(`Técnica: ${actividad?.tecnica || "—"}`, { size: 7 }),
+        p(`Instrumento: ${actividad?.instrumento || "—"}`, { size: 7 }),
+      ];
+
+      return new TableRow({
+        children: [
+          tc([p(formatGradoCurso(g.grado), { size: 7, bold: true })], COL_GRADO_SEM),
+          tc(duaContent, COL_DUA),
+          tc(recContent, COL_REC),
+          tc(techContent, COL_TECH),
+        ],
+      });
+    });
+
+    // Un párrafo (aunque vacío) entre tablas consecutivas es obligatorio:
+    // sin él, Word fusiona las tablas de "w:tbl" adyacentes en una sola al
+    // renderizar, y repite el primer encabezado de fila (tableHeader) en
+    // cada salto de página dentro de esa tabla fusionada — así, la semana 2
+    // en adelante mostraría el encabezado de la Semana 1 tras un corte de
+    // página, aunque el contenido de las filas ya sea el correcto.
+    children.push(new Paragraph({ spacing: { after: 40 }, children: [] }));
+    children.push(
+      makeTable(
+        [
+          new TableRow({
+            tableHeader: true,
+            children: [
+              tc([p(encabezado, { bold: true, size: 8, color: WHITE })], COL_GRADO_SEM, { bg: COLOR_PRIMARY }),
+              tc([p("Estrategias metodológicas desde el DUA", { bold: true, size: 8, color: WHITE })], COL_DUA, { bg: COLOR_PRIMARY }),
+              tc([p("Recursos (según disponibilidad institucional)", { bold: true, size: 7, color: WHITE })], COL_REC, { bg: COLOR_PRIMARY }),
+              tc([p("Técnicas e instrumentos de evaluación", { bold: true, size: 8, color: WHITE })], COL_TECH, { bg: COLOR_PRIMARY }),
+            ],
+          }),
+          ...filasSemana,
+        ],
+        TW,
+        [COL_GRADO_SEM, COL_DUA, COL_REC, COL_TECH]
+      )
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // 9. NOTA AL PIE
+  // ═══════════════════════════════════════════════════════════════
+  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc(
+              [
+                p(
+                  "Esta herramienta pedagógica genera propuestas de planificación basadas en los instrumentos técnicos y formatos socializados en la fase de pilotaje. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito.",
+                  { size: 7 }
+                ),
+              ],
+              TW
+            ),
           ],
         }),
       ],

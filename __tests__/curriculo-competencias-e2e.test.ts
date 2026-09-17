@@ -71,13 +71,18 @@ vi.mock("../server/db", () => ({
 import {
   normalizarPlanificacionEGBBGU,
   normalizarPlanificacionInicial,
+  normalizarPlanificacionMultigrado,
 } from "../lib/curriculo-competencias-normalizer";
 import { generarCurriculoCompetenciasWordEGBBGU } from "../lib/curriculo-competencias-word-generator";
 import { generarCurriculoCompetenciasWordInicial } from "../lib/curriculo-competencias-inicial-word-generator";
+import { generarDocxMultigrado } from "../lib/curriculo-competencias-egb-bgu-integrado-word-generator";
 import {
   generarCurriculoCompetenciasPdfEGBBGU,
   generarCurriculoCompetenciasPdfInicial,
+  generarCurriculoCompetenciasPdf,
 } from "../lib/curriculo-competencias-pdf-generator";
+import { resolverBloquePorGrado } from "../data/competencias-especificas-egb-bgu";
+import { determinarFamiliaExportacion } from "../server/curriculo-competencias-router";
 import JSZip from "jszip";
 
 // ============================================================
@@ -687,6 +692,246 @@ describe("E2E — Flujo completo Inicial/Preparatoria", () => {
     expect(html).not.toContain("Experiencia");
     expect(html).not.toContain("Conceptualización");
     expect(html).not.toContain("Nivel:");
+  });
+});
+
+// ============================================================
+// E2E — MULTIGRADO (Currículo Integrado EGB/BGU): Crear → Persistir → Recuperar → Exportar
+// ============================================================
+
+function multigradoInput(overrides: Record<string, any> = {}) {
+  const MATERIA_ID = "matematica";
+  const CE_CODIGO = "CE.M.4.1";
+  const GRADOS = ["OCTAVO GRADO", "NOVENO GRADO", "DÉCIMO GRADO"];
+  const bloques = resolverBloquePorGrado(MATERIA_ID, CE_CODIGO, GRADOS);
+
+  return {
+    institucion: "Unidad Educativa Rural El Progreso",
+    docente: "Docente E2E Multigrado",
+    paralelo: "A",
+    asignatura: MATERIA_ID,
+    trimestre: "Primero",
+    noSemanasClase: 2,
+    nivel: "SUPERIOR",
+    grados: GRADOS.map((grado) => ({
+      id: grado,
+      nivel: "SUPERIOR",
+      grado,
+      bloqueCurricular: bloques[grado],
+    })),
+    competenciaEspecifica: {
+      codigo: CE_CODIGO,
+      descripcion: "Aplicar relaciones de orden, operaciones numéricas y expresiones algebraicas",
+    },
+    situacionAprendizaje: {
+      titulo: "Ecuaciones matemáticas",
+      descripcion: "El aula multigrado de 8.º, 9.º y 10.º EGB explora las ecuaciones matemáticas.",
+    },
+    semanas: [
+      {
+        numero: 1,
+        tema: "Conjuntos numéricos y orden",
+        actividades: GRADOS.map((grado) => ({
+          gradoId: grado,
+          estrategiasDUA: {
+            inicio: `Inicio (${grado})`,
+            desarrollo: `Desarrollo (${grado})`,
+            cierre: `Cierre (${grado})`,
+          },
+          recursos: "Ficha de trabajo",
+          tecnica: "Observación sistemática",
+          instrumento: "Lista de cotejo",
+        })),
+      },
+      {
+        numero: 2,
+        tema: "Lenguaje algebraico y expresiones",
+        actividades: GRADOS.map((grado) => ({
+          gradoId: grado,
+          estrategiasDUA: {
+            inicio: `Inicio semana 2 (${grado})`,
+            desarrollo: `Desarrollo semana 2 (${grado})`,
+            cierre: `Cierre semana 2 (${grado})`,
+          },
+          recursos: "Ficha de traducción algebraica",
+          tecnica: "Análisis de producciones",
+          instrumento: "Rúbrica sintética",
+        })),
+      },
+    ],
+    ...overrides,
+  };
+}
+
+describe("E2E — Flujo completo Multigrado (Currículo Integrado EGB/BGU)", () => {
+  beforeEach(() => {
+    autoIncrementId = 300;
+    store.clear();
+    vi.clearAllMocks();
+  });
+
+  it("1. Normaliza input raw a modelo canónico (3 grados, mismo subnivel)", () => {
+    const raw = multigradoInput();
+    const canonico = normalizarPlanificacionMultigrado(raw);
+
+    expect(canonico.modalidad).toBe("multigrado");
+    expect(canonico.grados).toHaveLength(3);
+    expect(canonico.grados.map((g) => g.grado)).toEqual([
+      "OCTAVO GRADO",
+      "NOVENO GRADO",
+      "DÉCIMO GRADO",
+    ]);
+    expect(canonico.grados.every((g) => g.bloqueCurricular.declarativos.length > 0)).toBe(true);
+    expect(canonico.semanas).toHaveLength(2);
+    expect(canonico.semanas[0].actividades).toHaveLength(3);
+  });
+
+  it("2. Persiste en BD (con modalidad explícita) y recupera por ID", async () => {
+    const raw = multigradoInput();
+    const canonico = normalizarPlanificacionMultigrado(raw);
+
+    const db: any = await import("../server/db").then((m) => m.getDb());
+    const result = await db
+      .insert({} as any)
+      .values({
+        sessionId: "session-e2e-mg-001",
+        tipo: "inicial_preparatoria",
+        institucion: canonico.institucion,
+        docente: canonico.docente,
+        asignatura: canonico.asignatura,
+        formData: JSON.stringify(canonico),
+        status: "generated",
+      } as any);
+
+    expect(result.insertId).toBe(300);
+
+    const rows = await db.select().from({} as any).where({} as any).limit(1);
+    const row = rows[0];
+    expect(row.tipo).toBe("inicial_preparatoria");
+
+    const data = JSON.parse(row.formData);
+    expect(data.modalidad).toBe("multigrado");
+    expect(data.grados).toHaveLength(3);
+
+    // El discriminador de exportación reconoce el registro como multigrado
+    // por el campo explícito, sin depender de la heurística de prefijo CE.CI.*.
+    expect(determinarFamiliaExportacion({ tipo: row.tipo, formData: data })).toBe(
+      "curriculo_integrado_multigrado"
+    );
+  });
+
+  it("3. Exporta Word a partir de datos persistidos — patrón multigrado validado", async () => {
+    const raw = multigradoInput();
+    const canonico = normalizarPlanificacionMultigrado(raw);
+
+    const db: any = await import("../server/db").then((m) => m.getDb());
+    await db
+      .insert({} as any)
+      .values({ tipo: "inicial_preparatoria", formData: JSON.stringify(canonico), status: "generated" } as any);
+
+    const rows = await db.select().from({} as any).where({} as any).limit(1);
+    const data = JSON.parse(rows[0].formData);
+
+    const blob = await generarDocxMultigrado(data);
+    expect(blob).toBeInstanceOf(Blob);
+    expect(blob.size).toBeGreaterThan(5000);
+
+    const buffer = await blob.arrayBuffer();
+    const zip = await JSZip.loadAsync(buffer);
+    const docXml = await zip.file("word/document.xml")?.async("text");
+
+    expect(docXml).toContain("multigrado");
+    expect(docXml).toContain("Unidad Educativa Rural El Progreso");
+    // Los 3 grados aparecen en el encabezado de datos informativos y en la
+    // tabla de indicadores/semanas (una fila por grado, no una sola).
+    expect(docXml).toContain("OCTAVO GRADO");
+    expect(docXml).toContain("NOVENO GRADO");
+    expect(docXml).toContain("DÉCIMO GRADO");
+    expect(docXml).toContain("CE.M.4.1");
+  });
+
+  it("4. Exporta PDF a partir de datos persistidos, vía el generador unificado", async () => {
+    const raw = multigradoInput();
+    const canonico = normalizarPlanificacionMultigrado(raw);
+
+    const db: any = await import("../server/db").then((m) => m.getDb());
+    await db
+      .insert({} as any)
+      .values({ tipo: "inicial_preparatoria", formData: JSON.stringify(canonico), status: "generated" } as any);
+
+    const rows = await db.select().from({} as any).where({} as any).limit(1);
+    const data = JSON.parse(rows[0].formData);
+
+    // El dispatcher unificado debe reconocer el shape multigrado (`"grados" in plan`)
+    // y no confundirlo con Inicial (`ambitos`) ni con EGB/BGU DCD.
+    const html = generarCurriculoCompetenciasPdf(data);
+    expect(html).toContain("<!DOCTYPE html>");
+    expect(html).toContain("multigrado");
+    expect(html).toContain("Grados:");
+    expect(html).toContain("OCTAVO GRADO, NOVENO GRADO, DÉCIMO GRADO");
+    expect(html).toContain("SEMANA 1");
+    expect(html).toContain("SEMANA 2");
+    expect(html).toContain("CE.M.4.1");
+  });
+
+  it("5. Integridad: no se mezcla con el shape de Inicial/single-grade ni con el de EGB/BGU DCD", async () => {
+    const raw = multigradoInput();
+    const canonico = normalizarPlanificacionMultigrado(raw);
+
+    const db: any = await import("../server/db").then((m) => m.getDb());
+    await db
+      .insert({} as any)
+      .values({ tipo: "inicial_preparatoria", formData: JSON.stringify(canonico), status: "generated" } as any);
+
+    const rows = await db.select().from({} as any).where({} as any).limit(1);
+    const data = JSON.parse(rows[0].formData);
+
+    expect(data.ambitos).toBeUndefined();
+    expect(data.destreza).toBeUndefined();
+
+    const html = generarCurriculoCompetenciasPdf(data);
+    expect(html).not.toContain("ÁMBITO:");
+    expect(html).not.toContain("DCD");
+  });
+
+  it("6. Flujo de punta a punta: crear → guardar → exportar Word → exportar PDF, sin afectar el flujo single-grade", async () => {
+    // Multigrado
+    const mgRaw = multigradoInput();
+    const mgCanonico = normalizarPlanificacionMultigrado(mgRaw);
+
+    const db: any = await import("../server/db").then((m) => m.getDb());
+    const mgResult = await db
+      .insert({} as any)
+      .values({ tipo: "inicial_preparatoria", formData: JSON.stringify(mgCanonico), status: "generated" } as any);
+
+    // Single-grade EGB/BGU DCD, en la misma sesión de store — no debe
+    // interferir con el registro multigrado ya insertado.
+    const sgRaw = egbBguInput({ institucion: "Colegio Single-Grade" });
+    const sgCanonico = normalizarPlanificacionEGBBGU(sgRaw);
+    await db
+      .insert({} as any)
+      .values({ tipo: "egb_bgu", formData: JSON.stringify(sgCanonico), status: "draft" } as any);
+
+    const rows = await db.select().from({} as any).where({} as any).limit(2);
+    const mgRow = rows.find((r: any) => r.id === mgResult.insertId);
+    expect(mgRow).toBeDefined();
+    const mgData = JSON.parse(mgRow.formData);
+
+    const familia = determinarFamiliaExportacion({ tipo: mgRow.tipo, formData: mgData });
+    expect(familia).toBe("curriculo_integrado_multigrado");
+
+    const wordBlob = await generarDocxMultigrado(mgData);
+    expect(wordBlob.size).toBeGreaterThan(5000);
+
+    const pdfHtml = generarCurriculoCompetenciasPdf(mgData);
+    expect(pdfHtml).toContain("multigrado");
+
+    // El registro single-grade sigue intacto y con su propio shape.
+    const sgRow = rows.find((r: any) => r.tipo === "egb_bgu");
+    expect(sgRow).toBeDefined();
+    const sgData = JSON.parse(sgRow.formData);
+    expect(sgData.grados).toBeUndefined();
+    expect(determinarFamiliaExportacion({ tipo: sgRow.tipo, formData: sgData })).toBe("egb_bgu_dcd");
   });
 });
 

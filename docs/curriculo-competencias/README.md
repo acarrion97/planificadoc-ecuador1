@@ -61,6 +61,30 @@ Los códigos son **inmutables**. Los nombres, descripciones y colores son editab
 
 7 ámbitos: Socioemocional, Cognitivo-Lingüístico, Comunicativo Expresivo, Motor, Moral Espiritual, Estético-Creativo, Salud Bienestar.
 
+## Modalidad multigrado (Currículo Integrado EGB/BGU)
+
+> Nota: esta sección documenta únicamente la modalidad multigrado. El resto de
+> este README describe el estado del plan piloto original (DCD + Inicial) y
+> no refleja todavía el wizard "Currículo Integrado" (`egb-bgu-integrado.tsx`,
+> basado en competencias específicas CE.\* del catálogo MESOCURRICULUM) del
+> que multigrado es un modo — ver `openspec/changes/curriculo-integrado-egb-bgu-multigrado/`
+> para el diseño completo.
+
+Dentro del wizard `app/curriculo-competencias/egb-bgu-integrado.tsx`, el docente puede elegir entre "Un solo grado" (comportamiento existente) o "Multigrado": combinar **2 o más grados del mismo subnivel** (ej. 8.º, 9.º y 10.º EGB) en una sola planificación, para aulas multigrado reales.
+
+**Alcance de esta primera versión:**
+- Solo grados del **mismo subnivel** — combinar subniveles distintos (ej. 6.º con 7.º) no está soportado; el sistema bloquea la selección y explica qué grado(s) quedan sin cobertura si la Competencia Específica elegida no aplica a todos.
+- El bloque curricular (indicadores + saberes declarativos/procedimentales/actitudinales) se **resuelve automáticamente** del catálogo por CE+grado, y queda como copia editable — no afecta al catálogo ni se ve afectado por cambios posteriores a él.
+- Las semanas (tema común + actividad por grado) se completan **manualmente**; la generación asistida por IA para esta modalidad todavía no existe (queda para un change posterior, una vez aterrice la generación semanal por IA de single-grade).
+- Exportación a Word y PDF disponible, siguiendo el mismo patrón validado contra ejemplos reales del pilotaje MINEDUC (encabezado con grados en plural, tabla de saberes e indicadores con una fila por grado, semanas cruzadas por grado).
+
+**Piezas clave:**
+- `data/types-curriculo-competencias.ts` — tipos `GrupoGrado`, `BloqueCurricularGrado`, `SemanaMultigrado`, `ActividadPorGrado`, `PlanificacionCurriculoIntegradoMultigrado`
+- `data/competencias-especificas-egb-bgu.ts` — `resolverBloquePorGrado`, `ceDisponibleParaGrados`
+- `server/curriculo-competencias-router.ts` — mutations `createMultigrado`/`updateMultigrado`, discriminador `determinarFamiliaExportacion` (lee `formData.modalidad` antes de caer a la heurística de prefijo de código usada por los registros anteriores a esta funcionalidad)
+- `lib/curriculo-competencias-egb-bgu-integrado-word-generator.ts` → `generarDocxMultigrado`
+- `lib/curriculo-competencias-pdf-generator.ts` → `generarCurriculoCompetenciasPdfMultigrado`
+
 ## Normalización
 
 El flujo de datos es:

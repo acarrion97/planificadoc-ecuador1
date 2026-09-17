@@ -9,6 +9,7 @@
  */
 
 import type { CompetenciaEspecificaCompleta } from "./types-competencias-especificas";
+import type { BloqueCurricularGrado } from "./types-curriculo-competencias";
 import { COMPETENCIAS_LENGUA } from "./competencias-especificas-lengua";
 import { COMPETENCIAS_MATEMATICA } from "./competencias-especificas-matematica";
 import { COMPETENCIAS_CIENCIAS_NATURALES } from "./competencias-especificas-ciencias-naturales";
@@ -91,4 +92,66 @@ export function buscarCompetenciaEspecificaEGBBGU(
     if (found) return found;
   }
   return undefined;
+}
+
+/** Busca una competencia específica por código dentro de una materia concreta. */
+function buscarCEEnMateria(
+  materiaId: string,
+  ceCodigo: string
+): CompetenciaEspecificaCompleta | undefined {
+  const materia = obtenerMateria(materiaId);
+  return materia?.competencias.find((c) => c.codigo === ceCodigo);
+}
+
+/**
+ * Valida si una Competencia Específica está disponible (tiene desagregación
+ * en `porGrado`) para TODOS los grados indicados. Se usa para bloquear, en
+ * planificación multigrado, la selección de una CE que no cubra alguno de
+ * los grados combinados.
+ */
+export function ceDisponibleParaGrados(
+  materiaId: string,
+  ceCodigo: string,
+  grados: string[]
+): { valido: boolean; gradosNoCubiertos: string[] } {
+  const ce = buscarCEEnMateria(materiaId, ceCodigo);
+  if (!ce) return { valido: false, gradosNoCubiertos: [...grados] };
+  const gradosCubiertos = new Set(ce.porGrado.map((g) => g.grado));
+  const gradosNoCubiertos = grados.filter((g) => !gradosCubiertos.has(g));
+  return { valido: gradosNoCubiertos.length === 0, gradosNoCubiertos };
+}
+
+/**
+ * Resuelve, para cada grado indicado, el bloque curricular (indicadores +
+ * saberes declarativos/procedimentales/actitudinales) que el catálogo tiene
+ * para esa Competencia Específica y ese grado. Devuelve una copia de los
+ * datos del catálogo (no una referencia viva): quien la reciba puede editarla
+ * sin afectar el catálogo, y el catálogo puede cambiar después sin afectar
+ * una copia ya guardada.
+ *
+ * Un grado que la CE no cubre (ver `ceDisponibleParaGrados`) simplemente no
+ * aparece en el resultado; se espera que el llamador valide la cobertura
+ * antes de resolver.
+ */
+export function resolverBloquePorGrado(
+  materiaId: string,
+  ceCodigo: string,
+  grados: string[]
+): Record<string, BloqueCurricularGrado> {
+  const ce = buscarCEEnMateria(materiaId, ceCodigo);
+  const resultado: Record<string, BloqueCurricularGrado> = {};
+  if (!ce) return resultado;
+
+  for (const grado of grados) {
+    const entry = ce.porGrado.find((g) => g.grado === grado);
+    if (!entry) continue;
+    resultado[grado] = {
+      indicadores: entry.indicadores.map((i) => `${i.codigo}. ${i.texto}`),
+      declarativos: [...entry.saberes.declarativos],
+      procedimentales: [...entry.saberes.procedimentales],
+      actitudinales: [...entry.saberes.actitudinales],
+    };
+  }
+
+  return resultado;
 }

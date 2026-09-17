@@ -19,10 +19,26 @@ import {
   nivelesDeMateria,
   gradosDeNivel,
   competenciasDeGrado,
+  obtenerMateria,
+  ceDisponibleParaGrados,
+  resolverBloquePorGrado,
 } from "@/data/competencias-especificas-egb-bgu";
 import type { CompetenciaEspecificaCompleta } from "@/data/types-competencias-especificas";
+import type {
+  BloqueCurricularGrado,
+  SemanaMultigrado,
+  ActividadPorGrado,
+} from "@/data/types-curriculo-competencias";
 
 type PasoFlujo = "contexto" | "competencias" | "datos" | "generar";
+type Modalidad = "unigrado" | "multigrado";
+
+const BLOQUE_VACIO: BloqueCurricularGrado = {
+  indicadores: [],
+  declarativos: [],
+  procedimentales: [],
+  actitudinales: [],
+};
 
 const PASOS: { key: PasoFlujo; label: string }[] = [
   { key: "contexto", label: "Contexto" },
@@ -43,6 +59,7 @@ export default function EGBBGUIntegradoFormScreen() {
   const [cargando, setCargando] = useState(isEdit);
 
   // ── Step 1: Contexto ──
+  const [modalidad, setModalidad] = useState<Modalidad>("unigrado");
   const [materiaId, setMateriaId] = useState(MATERIAS_EGB_BGU[0].id);
   const [nivel, setNivel] = useState("");
   const [grado, setGrado] = useState("");
@@ -60,6 +77,69 @@ export default function EGBBGUIntegradoFormScreen() {
     const grados = nivel ? gradosDeNivel(materiaId, nivel) : [];
     setGrado((prev) => (grados.includes(prev) ? prev : grados[0] || ""));
   }, [materiaId, nivel]);
+
+  // ── Multigrado: selección de grados combinados + CE común ──
+  const [gradosSeleccionados, setGradosSeleccionados] = useState<string[]>([]);
+  const [ceMultigrado, setCeMultigrado] = useState<CompetenciaEspecificaCompleta | null>(null);
+  const [bloquesPorGrado, setBloquesPorGrado] = useState<Record<string, BloqueCurricularGrado>>({});
+  const [incompatMensaje, setIncompatMensaje] = useState("");
+
+  // Al cambiar materia/nivel, quitar de la selección grados que ya no apliquen
+  useEffect(() => {
+    setGradosSeleccionados((prev) => prev.filter((g) => gradosDisponibles.includes(g)));
+  }, [gradosDisponibles]);
+
+  const ceCandidatasMultigrado = useMemo(() => {
+    if (!nivel) return [];
+    const materia = obtenerMateria(materiaId);
+    if (!materia) return [];
+    return materia.competencias.filter((c) => c.porGrado.some((pg) => pg.nivel === nivel));
+  }, [materiaId, nivel]);
+
+  // Si la CE elegida deja de cubrir todos los grados seleccionados (cambió la
+  // selección de grados), se limpia para forzar una nueva elección explícita.
+  useEffect(() => {
+    if (!ceMultigrado) return;
+    const cobertura = ceDisponibleParaGrados(materiaId, ceMultigrado.codigo, gradosSeleccionados);
+    if (!cobertura.valido) {
+      setCeMultigrado(null);
+      setBloquesPorGrado({});
+    }
+  }, [gradosSeleccionados, materiaId]);
+
+  const toggleGradoMultigrado = (g: string) => {
+    setIncompatMensaje("");
+    setGradosSeleccionados((prev) =>
+      prev.includes(g) ? prev.filter((x) => x !== g) : [...prev, g]
+    );
+  };
+
+  const seleccionarCEMultigrado = (ce: CompetenciaEspecificaCompleta) => {
+    const cobertura = ceDisponibleParaGrados(materiaId, ce.codigo, gradosSeleccionados);
+    if (!cobertura.valido) {
+      setIncompatMensaje(
+        `${ce.codigo} no tiene desagregación para: ${cobertura.gradosNoCubiertos.join(", ")}. Elige otra competencia o ajusta los grados seleccionados.`
+      );
+      return;
+    }
+    setIncompatMensaje("");
+    setCeMultigrado(ce);
+    setBloquesPorGrado(resolverBloquePorGrado(materiaId, ce.codigo, gradosSeleccionados));
+  };
+
+  const actualizarBloqueCampo = (
+    g: string,
+    campo: keyof BloqueCurricularGrado,
+    texto: string
+  ) => {
+    setBloquesPorGrado((prev) => ({
+      ...prev,
+      [g]: {
+        ...(prev[g] ?? BLOQUE_VACIO),
+        [campo]: texto.split("\n"),
+      },
+    }));
+  };
 
   // ── Step 2: Competencias ──
   const [competenciasSeleccionadas, setCompetenciasSeleccionadas] = useState<CompetenciaEspecificaCompleta[]>([]);
@@ -88,6 +168,70 @@ export default function EGBBGUIntegradoFormScreen() {
   const [hayNEE, setHayNEE] = useState(false);
   const [compartir, setCompartir] = useState(false);
 
+  // ── Multigrado: semanas con tema común y actividad por grado ──
+  const [semanasMultigrado, setSemanasMultigrado] = useState<SemanaMultigrado[]>([]);
+  const [semanaExpandida, setSemanaExpandida] = useState(1);
+
+  const actividadVacia = (gradoId: string): ActividadPorGrado => ({
+    gradoId,
+    estrategiasDUA: { inicio: "", desarrollo: "", cierre: "" },
+    recursos: "",
+    tecnica: "",
+    instrumento: "",
+  });
+
+  // Mantiene semanasMultigrado sincronizado con el número de semanas y los
+  // grados seleccionados, preservando el contenido ya escrito por el docente.
+  useEffect(() => {
+    if (modalidad !== "multigrado") return;
+    const total = Math.max(1, parseInt(noSemanas, 10) || 8);
+    const temasList = temasTrimestre.split("\n").map((t) => t.trim()).filter(Boolean);
+
+    setSemanasMultigrado((prev) => {
+      const next: SemanaMultigrado[] = [];
+      for (let i = 0; i < total; i++) {
+        const numero = i + 1;
+        const anterior = prev.find((s) => s.numero === numero);
+        const actividades: ActividadPorGrado[] = gradosSeleccionados.map(
+          (g) => anterior?.actividades.find((a) => a.gradoId === g) ?? actividadVacia(g)
+        );
+        next.push({
+          numero,
+          tema: anterior?.tema || temasList[i] || "",
+          actividades,
+        });
+      }
+      return next;
+    });
+  }, [modalidad, noSemanas, gradosSeleccionados, temasTrimestre]);
+
+  const actualizarTemaSemana = (numero: number, tema: string) => {
+    setSemanasMultigrado((prev) => prev.map((s) => (s.numero === numero ? { ...s, tema } : s)));
+  };
+
+  const actualizarActividadSemana = (
+    numero: number,
+    gradoId: string,
+    campo: "inicio" | "desarrollo" | "cierre" | "recursos" | "tecnica" | "instrumento",
+    valor: string
+  ) => {
+    setSemanasMultigrado((prev) =>
+      prev.map((s) => {
+        if (s.numero !== numero) return s;
+        return {
+          ...s,
+          actividades: s.actividades.map((a) => {
+            if (a.gradoId !== gradoId) return a;
+            if (campo === "inicio" || campo === "desarrollo" || campo === "cierre") {
+              return { ...a, estrategiasDUA: { ...a.estrategiasDUA, [campo]: valor } };
+            }
+            return { ...a, [campo]: valor };
+          }),
+        };
+      })
+    );
+  };
+
   // ── Cargar datos existentes (modo edición) ──
   const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
     { id: Number(id) },
@@ -104,6 +248,38 @@ export default function EGBBGUIntegradoFormScreen() {
       setNoSemanas(fd.noSemanasClase?.toString() || "8");
       setTitulo(fd.situacionAprendizaje?.titulo || "");
       setSituacionAprendizaje(fd.situacionAprendizaje?.descripcion || "");
+
+      // Un registro multigrado no tiene `ambitos`/`grado` singular — se
+      // precarga por separado para no tratarlo como single-grade (lo que
+      // guardaría con la mutation equivocada al presionar "Guardar Cambios").
+      if (fd.modalidad === "multigrado") {
+        setModalidad("multigrado");
+        setNivel(fd.nivel || "");
+        const materia = MATERIAS_EGB_BGU.find((m) => m.id === fd.asignatura);
+        if (materia) setMateriaId(materia.id);
+        const grados: string[] = (fd.grados ?? []).map((g: any) => g.grado).filter(Boolean);
+        setGradosSeleccionados(grados);
+        const bloques: Record<string, BloqueCurricularGrado> = {};
+        for (const g of fd.grados ?? []) {
+          if (g.grado) bloques[g.grado] = g.bloqueCurricular ?? BLOQUE_VACIO;
+        }
+        setBloquesPorGrado(bloques);
+        if (fd.competenciaEspecifica?.codigo && materia) {
+          const ce = materia.competencias.find((c) => c.codigo === fd.competenciaEspecifica.codigo);
+          setCeMultigrado(
+            ce ?? {
+              codigo: fd.competenciaEspecifica.codigo,
+              descripcion: fd.competenciaEspecifica.descripcion || "",
+              competenciasClave: [],
+              porGrado: [],
+            }
+          );
+        }
+        setSemanasMultigrado(fd.semanas ?? []);
+        setCargando(false);
+        return;
+      }
+
       setGrado(fd.grado || "");
       setNivel(fd.nivel || "");
       if (fd.ambitos?.length > 0) {
@@ -147,6 +323,31 @@ export default function EGBBGUIntegradoFormScreen() {
     },
   });
 
+  const createMultigradoMutation = trpc.curriculoCompetencias.createMultigrado.useMutation({
+    onSuccess: (data) => {
+      utils.curriculoCompetencias.list.invalidate();
+      const nuevoId = (data as any)?.id;
+      if (nuevoId) {
+        router.push(`/curriculo-competencias/ver/${nuevoId}` as any);
+      } else {
+        router.back();
+      }
+    },
+    onError: (err) => {
+      Alert.alert("Error", err.message || "No se pudo crear la planificación multigrado.");
+    },
+  });
+
+  const updateMultigradoMutation = trpc.curriculoCompetencias.updateMultigrado.useMutation({
+    onSuccess: () => {
+      utils.curriculoCompetencias.list.invalidate();
+      router.push(`/curriculo-competencias/ver/${id}` as any);
+    },
+    onError: (err) => {
+      Alert.alert("Error", err.message || "No se pudo actualizar la planificación multigrado.");
+    },
+  });
+
   const sugerirTituloMutation = trpc.curriculoCompetencias.sugerirSituacionAprendizaje.useMutation({
     onSuccess: (data) => {
       setTitulo(data.titulo);
@@ -159,13 +360,20 @@ export default function EGBBGUIntegradoFormScreen() {
     },
   });
 
+  const competenciasParaSugerencia = useMemo(() => {
+    if (modalidad === "multigrado") {
+      return ceMultigrado ? [{ codigo: ceMultigrado.codigo, descripcion: ceMultigrado.descripcion }] : [];
+    }
+    return competenciasSeleccionadas.map((c) => ({ codigo: c.codigo, descripcion: c.descripcion }));
+  }, [modalidad, ceMultigrado, competenciasSeleccionadas]);
+
   const handleSugerirTitulo = () => {
-    if (competenciasSeleccionadas.length === 0) return;
+    if (competenciasParaSugerencia.length === 0) return;
     sugerirTituloMutation.mutate({
       materia: MATERIAS_EGB_BGU.find((m) => m.id === materiaId)?.nombre,
       nivel,
-      grado,
-      competencias: competenciasSeleccionadas.map((c) => ({ codigo: c.codigo, descripcion: c.descripcion })),
+      grado: modalidad === "multigrado" ? gradosSeleccionados.join(", ") : grado,
+      competencias: competenciasParaSugerencia,
       temasTrimestre: temasTrimestre.trim() || undefined,
     });
   };
@@ -195,8 +403,16 @@ export default function EGBBGUIntegradoFormScreen() {
 
   // ── Navigation ──
   const canAdvance = () => {
-    if (paso === "contexto") return !!nivel && !!grado;
-    if (paso === "competencias") return competenciasSeleccionadas.length > 0;
+    if (paso === "contexto") {
+      if (modalidad === "multigrado") return !!nivel;
+      return !!nivel && !!grado;
+    }
+    if (paso === "competencias") {
+      if (modalidad === "multigrado") {
+        return gradosSeleccionados.length >= 2 && !!ceMultigrado;
+      }
+      return competenciasSeleccionadas.length > 0;
+    }
     return true;
   };
 
@@ -211,7 +427,52 @@ export default function EGBBGUIntegradoFormScreen() {
   };
 
   // ── Save ──
+  const handleSaveMultigrado = () => {
+    // `id` se envía explícito (= el mismo nombre de grado usado como gradoId
+    // en semanasMultigrado) para que el servidor lo use tal cual en vez de
+    // derivar su propio slug — si no coincidieran, el normalizador del
+    // servidor descartaría silenciosamente todas las actividades semanales
+    // al filtrar por id de grado.
+    const gradosPayload = gradosSeleccionados.map((g) => ({
+      id: g,
+      grado: g,
+      nivel,
+      bloqueCurricular: bloquesPorGrado[g] ?? BLOQUE_VACIO,
+    }));
+
+    const payload = {
+      sessionId: "default",
+      institucion,
+      docente,
+      paralelo,
+      asignatura: materiaId,
+      trimestre,
+      noSemanasClase: parseInt(noSemanas, 10) || 8,
+      nivel,
+      grados: gradosPayload,
+      competenciaEspecifica: ceMultigrado
+        ? { codigo: ceMultigrado.codigo, descripcion: ceMultigrado.descripcion }
+        : undefined,
+      situacionAprendizaje: {
+        titulo,
+        descripcion: situacionAprendizaje,
+      },
+      semanas: semanasMultigrado,
+    };
+
+    if (isEdit) {
+      updateMultigradoMutation.mutate({ ...payload, id: Number(id) });
+    } else {
+      createMultigradoMutation.mutate(payload);
+    }
+  };
+
   const handleSave = () => {
+    if (modalidad === "multigrado") {
+      handleSaveMultigrado();
+      return;
+    }
+
     const temas = temasTrimestre.split("\n").map((t) => t.trim()).filter(Boolean);
     const ambitosPayload = competenciasSeleccionadas.map((comp) => ({
       ambito: comp.descripcion.split(",")[0].substring(0, 50),
@@ -347,6 +608,39 @@ export default function EGBBGUIntegradoFormScreen() {
       {renderSectionHeader("Contexto curricular", "🎓")}
 
       <View style={styles.fieldGroup}>
+        <Text style={[styles.fieldLabel, { color: colors.muted }]}>Planificación</Text>
+        <View style={styles.selectRow}>
+          {(
+            [
+              { key: "unigrado" as const, label: "Un solo grado" },
+              { key: "multigrado" as const, label: "Multigrado" },
+            ]
+          ).map((opt) => (
+            <Pressable
+              key={opt.key}
+              onPress={() => setModalidad(opt.key)}
+              style={[
+                styles.selectChip,
+                {
+                  backgroundColor: modalidad === opt.key ? colors.primary : colors.surface,
+                  borderColor: colors.border,
+                },
+              ]}
+            >
+              <Text style={{ color: modalidad === opt.key ? "#fff" : colors.foreground, fontSize: 13 }}>
+                {opt.label}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+        {modalidad === "multigrado" && (
+          <Text style={[styles.helperText, { color: colors.muted, marginTop: 6 }]}>
+            Combina 2 o más grados del mismo subnivel en una sola planificación (aulas multigrado). Los grados se eligen en el siguiente paso.
+          </Text>
+        )}
+      </View>
+
+      <View style={styles.fieldGroup}>
         <Text style={[styles.fieldLabel, { color: colors.muted }]}>Materia</Text>
         <View style={styles.selectRow}>
           {MATERIAS_EGB_BGU.map((m) => (
@@ -371,12 +665,14 @@ export default function EGBBGUIntegradoFormScreen() {
 
       {renderSelect("Nivel", nivel, nivelesDisponibles, setNivel)}
 
-      {gradosDisponibles.length > 0 ? (
-        renderSelect("Grado / Curso", grado, gradosDisponibles, setGrado)
-      ) : (
-        <Text style={[styles.helperText, { color: colors.muted }]}>
-          Esta materia no tiene datos para el nivel seleccionado.
-        </Text>
+      {modalidad === "unigrado" && (
+        gradosDisponibles.length > 0 ? (
+          renderSelect("Grado / Curso", grado, gradosDisponibles, setGrado)
+        ) : (
+          <Text style={[styles.helperText, { color: colors.muted }]}>
+            Esta materia no tiene datos para el nivel seleccionado.
+          </Text>
+        )
       )}
 
       <View style={styles.fieldGroup}>
@@ -388,8 +684,162 @@ export default function EGBBGUIntegradoFormScreen() {
     </View>
   );
 
+  // ── Step 2: Competencias específicas (multigrado) ──
+  const renderBloqueTextarea = (
+    label: string,
+    grado: string,
+    campo: keyof BloqueCurricularGrado
+  ) => (
+    <View style={styles.fieldGroup}>
+      <Text style={[styles.fieldLabel, { color: colors.muted }]}>{label}</Text>
+      <TextInput
+        value={(bloquesPorGrado[grado]?.[campo] ?? []).join("\n")}
+        onChangeText={(texto) => actualizarBloqueCampo(grado, campo, texto)}
+        multiline
+        numberOfLines={4}
+        placeholder="Un ítem por línea"
+        placeholderTextColor={colors.muted + "80"}
+        style={[
+          styles.textInput,
+          {
+            backgroundColor: colors.surface,
+            borderColor: colors.border,
+            color: colors.foreground,
+            textAlignVertical: "top",
+            minHeight: 80,
+            fontSize: 13,
+          },
+        ]}
+      />
+    </View>
+  );
+
+  const renderCompetenciasMultigrado = () => (
+    <View>
+      {renderSectionHeader("Competencias específicas · multigrado", "🧩")}
+
+      <Text style={[styles.helperText, { color: colors.muted }]}>
+        Elige 2 o más grados de {nivel || "este subnivel"} y una Competencia Específica (CE) que cubra a todos.
+      </Text>
+
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.fieldLabel, { color: colors.muted }]}>
+          Grados combinados ({gradosSeleccionados.length})
+        </Text>
+        <View style={styles.selectRow}>
+          {gradosDisponibles.map((g) => {
+            const selected = gradosSeleccionados.includes(g);
+            return (
+              <Pressable
+                key={g}
+                onPress={() => toggleGradoMultigrado(g)}
+                style={[
+                  styles.selectChip,
+                  { backgroundColor: selected ? colors.primary : colors.surface, borderColor: colors.border },
+                ]}
+              >
+                <Text style={{ color: selected ? "#fff" : colors.foreground, fontSize: 13 }}>{g}</Text>
+              </Pressable>
+            );
+          })}
+        </View>
+        {gradosSeleccionados.length === 1 && (
+          <Text style={[styles.helperText, { color: colors.muted, marginTop: 6 }]}>
+            La modalidad multigrado requiere al menos 2 grados.
+          </Text>
+        )}
+      </View>
+
+      {gradosSeleccionados.length >= 2 && (
+        <View style={styles.fieldGroup}>
+          <Text style={[styles.fieldLabel, { color: colors.muted }]}>Competencia específica común</Text>
+          <View style={[styles.listaContainer, { borderColor: colors.border }]}>
+            {ceCandidatasMultigrado.length === 0 ? (
+              <Text style={{ color: colors.muted, padding: 12, fontSize: 13 }}>
+                No hay competencias para esta materia/nivel.
+              </Text>
+            ) : (
+              ceCandidatasMultigrado.map((ce) => {
+                const cobertura = ceDisponibleParaGrados(materiaId, ce.codigo, gradosSeleccionados);
+                const selected = ceMultigrado?.codigo === ce.codigo;
+                return (
+                  <Pressable
+                    key={ce.codigo}
+                    onPress={() => seleccionarCEMultigrado(ce)}
+                    style={[
+                      styles.listaItem,
+                      {
+                        borderBottomColor: colors.border,
+                        backgroundColor: selected ? colors.primary + "10" : "transparent",
+                        opacity: cobertura.valido ? 1 : 0.5,
+                      },
+                    ]}
+                  >
+                    <View
+                      style={[
+                        styles.checkbox,
+                        {
+                          borderColor: selected ? colors.primary : colors.border,
+                          backgroundColor: selected ? colors.primary : "transparent",
+                        },
+                      ]}
+                    >
+                      {selected && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={[styles.listaCodigo, { color: colors.primary }]}>{ce.codigo}</Text>
+                      <Text style={[styles.listaDesc, { color: colors.foreground }]} numberOfLines={2}>
+                        {ce.descripcion}
+                      </Text>
+                      {!cobertura.valido && (
+                        <Text style={{ color: colors.muted, fontSize: 11, marginTop: 2 }}>
+                          No cubre: {cobertura.gradosNoCubiertos.join(", ")}
+                        </Text>
+                      )}
+                    </View>
+                  </Pressable>
+                );
+              })
+            )}
+          </View>
+        </View>
+      )}
+
+      {!!incompatMensaje && (
+        <View style={[styles.disclaimer, { backgroundColor: "#FEF2F2", borderColor: "#FCA5A5" }]}>
+          <Text style={[styles.disclaimerText, { color: "#B91C1C", fontStyle: "normal" }]}>
+            ⚠️ {incompatMensaje}
+          </Text>
+        </View>
+      )}
+
+      {ceMultigrado && gradosSeleccionados.length >= 2 && (
+        <View style={{ marginTop: 8 }}>
+          <Text style={[styles.subSectionTitle, { color: colors.primary }]}>
+            Bloque curricular resuelto por grado
+          </Text>
+          <Text style={[styles.helperText, { color: colors.muted }]}>
+            Se resolvió automáticamente desde el catálogo oficial. Puedes editarlo antes de generar.
+          </Text>
+          {gradosSeleccionados.map((g) => (
+            <View
+              key={g}
+              style={[styles.summaryCard, { backgroundColor: colors.surface, borderColor: colors.border, marginBottom: 12 }]}
+            >
+              <Text style={[styles.summaryTitle, { color: colors.foreground }]}>{g}</Text>
+              {renderBloqueTextarea("Indicadores de evaluación", g, "indicadores")}
+              {renderBloqueTextarea("Saberes declarativos", g, "declarativos")}
+              {renderBloqueTextarea("Saberes procedimentales", g, "procedimentales")}
+              {renderBloqueTextarea("Saberes actitudinales", g, "actitudinales")}
+            </View>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+
   // ── Step 2: Competencias específicas ──
-  const renderCompetencias = () => (
+  const renderCompetenciasUnigrado = () => (
     <View>
       {renderSectionHeader("Competencias específicas", "🧩")}
 
@@ -466,6 +916,95 @@ export default function EGBBGUIntegradoFormScreen() {
     </View>
   );
 
+  const renderCompetencias = () =>
+    modalidad === "multigrado" ? renderCompetenciasMultigrado() : renderCompetenciasUnigrado();
+
+  // ── Semanas multigrado: tema común + actividad por grado ──
+  const renderSemanasMultigrado = () => (
+    <View style={{ marginTop: 8, marginBottom: 4 }}>
+      {renderSubHeader(`Semanas del trimestre (${semanasMultigrado.length})`)}
+      <Text style={[styles.helperText, { color: colors.muted }]}>
+        Cada semana tiene un tema común y una actividad distinta por grado. Edita el contenido de un grado sin afectar a los demás.
+      </Text>
+
+      {semanasMultigrado.map((semana) => {
+        const expandida = semanaExpandida === semana.numero;
+        return (
+          <View
+            key={semana.numero}
+            style={[styles.summaryCard, { backgroundColor: colors.surface, borderColor: colors.border, marginBottom: 10 }]}
+          >
+            <Pressable
+              onPress={() => setSemanaExpandida(expandida ? 0 : semana.numero)}
+              style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}
+            >
+              <Text style={[styles.summaryTitle, { color: colors.foreground, marginBottom: 0, flex: 1 }]} numberOfLines={1}>
+                Semana {semana.numero}{semana.tema ? ` · ${semana.tema}` : ""}
+              </Text>
+              <Text style={{ color: colors.primary, fontSize: 18, paddingLeft: 8 }}>{expandida ? "−" : "+"}</Text>
+            </Pressable>
+
+            {expandida && (
+              <View style={{ marginTop: 10 }}>
+                {renderField(
+                  `Tema de la semana ${semana.numero}`,
+                  semana.tema,
+                  (t) => actualizarTemaSemana(semana.numero, t),
+                  { placeholder: "Tema común para todos los grados" }
+                )}
+
+                {gradosSeleccionados.map((g) => {
+                  const actividad = semana.actividades.find((a) => a.gradoId === g);
+                  if (!actividad) return null;
+                  return (
+                    <View
+                      key={g}
+                      style={[styles.fieldGroup, { borderTopWidth: 1, borderTopColor: colors.border, paddingTop: 10, marginTop: 6 }]}
+                    >
+                      <Text style={[styles.listaCodigo, { color: colors.primary, marginBottom: 6 }]}>{g}</Text>
+                      {renderField(
+                        "Sugerencias para el inicio",
+                        actividad.estrategiasDUA.inicio,
+                        (v) => actualizarActividadSemana(semana.numero, g, "inicio", v),
+                        { multiline: true }
+                      )}
+                      {renderField(
+                        "Sugerencias para el desarrollo",
+                        actividad.estrategiasDUA.desarrollo,
+                        (v) => actualizarActividadSemana(semana.numero, g, "desarrollo", v),
+                        { multiline: true }
+                      )}
+                      {renderField(
+                        "Sugerencias para el cierre",
+                        actividad.estrategiasDUA.cierre,
+                        (v) => actualizarActividadSemana(semana.numero, g, "cierre", v),
+                        { multiline: true }
+                      )}
+                      {renderField(
+                        "Recursos",
+                        actividad.recursos,
+                        (v) => actualizarActividadSemana(semana.numero, g, "recursos", v),
+                        { multiline: true }
+                      )}
+                      <View style={styles.row}>
+                        <View style={{ flex: 1 }}>
+                          {renderField("Técnica", actividad.tecnica, (v) => actualizarActividadSemana(semana.numero, g, "tecnica", v))}
+                        </View>
+                        <View style={{ flex: 1 }}>
+                          {renderField("Instrumento", actividad.instrumento, (v) => actualizarActividadSemana(semana.numero, g, "instrumento", v))}
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            )}
+          </View>
+        );
+      })}
+    </View>
+  );
+
   // ── Step 3: Datos ──
   const renderDatos = () => (
     <View>
@@ -496,10 +1035,10 @@ export default function EGBBGUIntegradoFormScreen() {
           <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 0 }]}>Título</Text>
           <Pressable
             onPress={handleSugerirTitulo}
-            disabled={sugerirTituloMutation.isPending || competenciasSeleccionadas.length === 0}
+            disabled={sugerirTituloMutation.isPending || competenciasParaSugerencia.length === 0}
             style={[
               styles.sugerirBtn,
-              { opacity: sugerirTituloMutation.isPending || competenciasSeleccionadas.length === 0 ? 0.5 : 1 },
+              { opacity: sugerirTituloMutation.isPending || competenciasParaSugerencia.length === 0 ? 0.5 : 1 },
             ]}
           >
             {sugerirTituloMutation.isPending ? (
@@ -531,6 +1070,8 @@ export default function EGBBGUIntegradoFormScreen() {
         multiline: true,
       })}
 
+      {modalidad === "multigrado" && renderSemanasMultigrado()}
+
       {renderSubHeader("Configuración")}
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
         <View style={{ flex: 1 }}>
@@ -560,7 +1101,7 @@ export default function EGBBGUIntegradoFormScreen() {
   );
 
   // ── Step 4: Generar ──
-  const renderGenerar = () => (
+  const renderGenerarUnigrado = () => (
     <View>
       {renderSectionHeader("Generar planificación", "✨")}
 
@@ -622,6 +1163,68 @@ export default function EGBBGUIntegradoFormScreen() {
     </View>
   );
 
+  const renderGenerarMultigrado = () => (
+    <View>
+      {renderSectionHeader("Generar planificación · multigrado", "✨")}
+
+      <View style={[styles.summaryCard, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.summaryTitle, { color: colors.foreground }]}>Resumen</Text>
+
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Materia:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>
+            {MATERIAS_EGB_BGU.find((m) => m.id === materiaId)?.nombre}
+          </Text>
+        </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Subnivel:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{nivel}</Text>
+        </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Grados:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>
+            {gradosSeleccionados.join(", ") || "—"}
+          </Text>
+        </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Competencia:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>
+            {ceMultigrado ? ceMultigrado.codigo : "—"}
+          </Text>
+        </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Trimestre:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{trimestre}</Text>
+        </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Paralelo:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{paralelo}</Text>
+        </View>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Semanas:</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{semanasMultigrado.length}</Text>
+        </View>
+      </View>
+
+      {!multigradoListoParaGuardar && (
+        <View style={[styles.disclaimer, { backgroundColor: "#FEF2F2", borderColor: "#FCA5A5" }]}>
+          <Text style={[styles.disclaimerText, { color: "#B91C1C", fontStyle: "normal" }]}>
+            ⚠️ Falta completar el paso de Competencias: selecciona 2 o más grados y una Competencia Específica común antes de generar.
+          </Text>
+        </View>
+      )}
+
+      <View style={[styles.disclaimer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+        <Text style={[styles.disclaimerText, { color: colors.muted }]}>
+          Esta herramienta pedagógica genera propuestas de planificación basadas en los lineamientos técnicos y formatos socializados en la fase de piloto. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito. La generación de semanas por IA para multigrado todavía no está disponible; el contenido semanal se completa manualmente en el paso "Datos".
+        </Text>
+      </View>
+    </View>
+  );
+
+  const renderGenerar = () =>
+    modalidad === "multigrado" ? renderGenerarMultigrado() : renderGenerarUnigrado();
+
   const renderPasoActual = () => {
     switch (paso) {
       case "contexto": return renderContexto();
@@ -642,7 +1245,12 @@ export default function EGBBGUIntegradoFormScreen() {
     );
   }
 
-  const isPending = createMutation.isPending || updateMutation.isPending;
+  const isPending =
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    createMultigradoMutation.isPending ||
+    updateMultigradoMutation.isPending;
+  const multigradoListoParaGuardar = gradosSeleccionados.length >= 2 && !!ceMultigrado;
 
   return (
     <ScreenContainer className="flex-1">
@@ -708,8 +1316,16 @@ export default function EGBBGUIntegradoFormScreen() {
           ) : (
             <Pressable
               onPress={handleSave}
-              disabled={isPending}
-              style={[styles.navBtn, { backgroundColor: isPending ? colors.muted + "40" : colors.primary }]}
+              disabled={isPending || (modalidad === "multigrado" && !multigradoListoParaGuardar)}
+              style={[
+                styles.navBtn,
+                {
+                  backgroundColor:
+                    isPending || (modalidad === "multigrado" && !multigradoListoParaGuardar)
+                      ? colors.muted + "40"
+                      : colors.primary,
+                },
+              ]}
             >
               {isPending ? (
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>

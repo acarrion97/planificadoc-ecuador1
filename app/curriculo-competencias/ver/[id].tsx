@@ -114,12 +114,23 @@ export default function VerPlanificacionScreen() {
       router.push(`/curriculo-competencias/egb-bgu?id=${planId}` as any);
       return;
     }
+
+    const fd = plan.formData as any;
+
+    // Una planificación multigrado tiene su propio discriminador explícito
+    // (design.md D2) y siempre se edita en egb-bgu-integrado, que ya sabe
+    // precargar su estado multigrado a partir de `formData.grados`/`semanas`.
+    if (fd?.modalidad === "multigrado") {
+      router.push(`/curriculo-competencias/egb-bgu-integrado?id=${planId}` as any);
+      return;
+    }
+
     // "inicial_preparatoria" agrupa dos formularios que comparten el mismo
     // shape de datos (ver server/curriculo-competencias-router.ts,
     // exportWord): Inicial 3-5 años (códigos CE.CI.*) y Currículo Integrado
     // EGB/BGU (CE.LL.*, CE.M.*, etc.) — sin esta distinción, "Editar" en un
     // plan de Currículo Integrado abría por error el formulario de Inicial.
-    const primerCodigo: string | undefined = (plan.formData as any)?.ambitos?.[0]?.competenciaCodigo;
+    const primerCodigo: string | undefined = fd?.ambitos?.[0]?.competenciaCodigo;
     const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
     if (esInicial) {
       router.push(`/curriculo-competencias/inicial?id=${planId}` as any);

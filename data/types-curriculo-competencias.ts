@@ -329,13 +329,105 @@ export interface PlanificacionInicialCurriculo {
 }
 
 // ============================================================
+// MODELO CANÓNICO — CURRÍCULO INTEGRADO EGB/BGU MULTIGRADO
+// ============================================================
+
+/** Bloque curricular resuelto del catálogo para un grado (copia editable, no una referencia viva) */
+export interface BloqueCurricularGrado {
+  indicadores: string[];
+  declarativos: string[];
+  procedimentales: string[];
+  actitudinales: string[];
+}
+
+/** Un grado combinado dentro de una planificación multigrado */
+export interface GrupoGrado {
+  /** Slug estable (ej. "8vo-egb"), usado para enlazar semanas con este grado */
+  id: string;
+  /** Subnivel compartido por todos los grados de la planificación (ej. "SUPERIOR") */
+  nivel: string;
+  /** Grado concreto (ej. "8.º EGB") */
+  grado: string;
+  /** Copia editable del bloque curricular resuelto del catálogo para este grado */
+  bloqueCurricular: BloqueCurricularGrado;
+}
+
+/** Actividad semanal diferenciada para un grado específico */
+export interface ActividadPorGrado {
+  /** Referencia a GrupoGrado.id */
+  gradoId: string;
+  estrategiasDUA: {
+    inicio: string;
+    desarrollo: string;
+    cierre: string;
+  };
+  recursos: string;
+  tecnica: string;
+  instrumento: string;
+}
+
+/** Semana con tema común y actividades diferenciadas por grado */
+export interface SemanaMultigrado {
+  numero: number;
+  tema: string;
+  actividades: ActividadPorGrado[];
+}
+
+/** Planificación multigrado de Currículo Integrado EGB/BGU (2..N grados del mismo subnivel) */
+export interface PlanificacionCurriculoIntegradoMultigrado {
+  id: string;
+  sessionId: string;
+  modalidad: "multigrado";
+
+  // ── CONTEXTO COMPARTIDO ──
+  institucion: string;
+  docente: string;
+  paralelo?: string;
+  /** materiaId del catálogo (ej. "matematica") */
+  asignatura: string;
+  trimestre?: string;
+  noSemanasClase?: number;
+
+  /** Subnivel compartido por todos los grados seleccionados */
+  nivel: string;
+  /** Grados combinados en esta planificación (2..N, mismo subnivel) */
+  grados: GrupoGrado[];
+
+  /** Competencia Específica común, disponible para todos los grados seleccionados */
+  competenciaEspecifica: {
+    codigo: string;
+    descripcion: string;
+  };
+
+  // ── SITUACIÓN DE APRENDIZAJE ──
+  situacionAprendizaje?: {
+    titulo: string;
+    descripcion: string;
+  };
+
+  // ── CONEXIÓN INTERDISCIPLINAR ──
+  conexionInterdisciplinar?: {
+    asignaturas: string[];
+  };
+
+  // ── SEMANAS (tema común + actividad por grado) ──
+  semanas: SemanaMultigrado[];
+
+  source?: SourceTraceability;
+  createdAt: string;
+  updatedAt: string;
+  status: string;
+}
+
+// ============================================================
 // UNION TYPES — PARA PERSISTENCIA Y EXPORTACIÓN
 // ============================================================
 
 /** Tipo unión de todas las planificaciones del módulo */
 export type PlanificacionModulo =
   | PlanificacionCurriculoCompetencias
-  | PlanificacionInicialCurriculo;
+  | PlanificacionInicialCurriculo
+  | PlanificacionCurriculoIntegradoMultigrado;
 
 /** Tipo unión de configuraciones de unidades */
 export type UnidadModulo = UnidadCurriculoCompetencias;
