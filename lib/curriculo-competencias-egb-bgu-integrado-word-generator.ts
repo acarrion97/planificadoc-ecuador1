@@ -649,7 +649,11 @@ function areaYSubnivelMultigrado(
 ): { area: Area; subnivel: Subnivel } | undefined {
   const materia = MATERIAS_EGB_BGU.find((m) => m.id === plan.asignatura);
   const area = materia ? AREA_POR_MATERIA[materia.id] : undefined;
-  const m = (plan.competenciaEspecifica?.codigo || "").match(/^CE\.[A-Z]+(?:\.[A-Z]+)?\.(\d+)\.\d+/);
+  // Use first CE to determine area/subnivel
+  const firstCe = Array.isArray(plan.competenciasEspecifica)
+    ? plan.competenciasEspecifica[0]
+    : undefined;
+  const m = (firstCe?.codigo || "").match(/^CE\.[A-Z]+(?:\.[A-Z]+)?\.(\d+)\.\d+/);
   const subnivel = m ? (Number(m[1]) as Subnivel) : undefined;
   if (!area || !subnivel) return undefined;
   return { area, subnivel };
@@ -787,11 +791,13 @@ export async function generarDocxMultigrado(
 
   const filasConexionInterdisciplinar: TableRow[] = [];
   const ctx = areaYSubnivelMultigrado(plan);
+  const cesArray = plan.competenciasEspecifica || [];
+  const primeraCeDesc = cesArray[0]?.descripcion || "";
   if (ctx) {
     const conexiones = buscarConexionesInterdisciplinarias(
       ctx.area,
       ctx.subnivel,
-      plan.competenciaEspecifica?.descripcion || "",
+      primeraCeDesc,
       []
     );
     for (const conn of conexiones) {
@@ -818,31 +824,31 @@ export async function generarDocxMultigrado(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // 6. COMPETENCIA ESPECÍFICA (una sola, compartida por todos los grados)
+  // 6. COMPETENCIAS ESPECÍFICAS (una o más, compartidas por todos los grados)
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Competencias específicas")], TW, [TW]));
 
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc(
-              [
-                p(
-                  `${plan.competenciaEspecifica?.codigo || "—"}${plan.competenciaEspecifica?.descripcion ? ". " + plan.competenciaEspecifica.descripcion : ""}`,
-                  { size: 8 }
-                ),
-              ],
-              TW
+  const filasCE: TableRow[] = cesArray.map((ce) =>
+    new TableRow({
+      children: [
+        tc(
+          [
+            p(
+              `${ce.codigo || "—"}${ce.descripcion ? ". " + ce.descripcion : ""}`,
+              { size: 8 }
             ),
           ],
-        }),
+          TW
+        ),
       ],
-      TW,
-      [TW]
-    )
+    })
   );
+
+  if (filasCE.length === 0) {
+    filasCE.push(new TableRow({ children: [tc([p("—", { size: 8 })], TW)] }));
+  }
+
+  children.push(makeTable(filasCE, TW, [TW]));
 
   // ═══════════════════════════════════════════════════════════════
   // 7. INDICADORES DE EVALUACIÓN, UNA FILA POR GRADO (5 columnas)
