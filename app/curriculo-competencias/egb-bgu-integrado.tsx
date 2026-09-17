@@ -26,8 +26,6 @@ import {
 import type { CompetenciaEspecificaCompleta } from "@/data/types-competencias-especificas";
 import type {
   BloqueCurricularGrado,
-  SemanaMultigrado,
-  ActividadPorGrado,
 } from "@/data/types-curriculo-competencias";
 
 type PasoFlujo = "contexto" | "competencias" | "datos" | "generar";
@@ -80,7 +78,7 @@ export default function EGBBGUIntegradoFormScreen() {
 
   // ── Multigrado: selección de grados combinados + CE común ──
   const [gradosSeleccionados, setGradosSeleccionados] = useState<string[]>([]);
-  const [ceMultigrado, setCeMultigrado] = useState<CompetenciaEspecificaCompleta | null>(null);
+  const [cesMultigrado, setCesMultigrado] = useState<CompetenciaEspecificaCompleta[]>([]);
   const [bloquesPorGrado, setBloquesPorGrado] = useState<Record<string, BloqueCurricularGrado>>({});
   const [incompatMensaje, setIncompatMensaje] = useState("");
 
@@ -99,11 +97,14 @@ export default function EGBBGUIntegradoFormScreen() {
   // Si la CE elegida deja de cubrir todos los grados seleccionados (cambió la
   // selección de grados), se limpia para forzar una nueva elección explícita.
   useEffect(() => {
-    if (!ceMultigrado) return;
-    const cobertura = ceDisponibleParaGrados(materiaId, ceMultigrado.codigo, gradosSeleccionados);
-    if (!cobertura.valido) {
-      setCeMultigrado(null);
-      setBloquesPorGrado({});
+    if (cesMultigrado.length === 0) return;
+    const validas = cesMultigrado.filter((ce) => {
+      const cobertura = ceDisponibleParaGrados(materiaId, ce.codigo, gradosSeleccionados);
+      return cobertura.valido;
+    });
+    if (validas.length !== cesMultigrado.length) {
+      setCesMultigrado(validas);
+      if (validas.length === 0) setBloquesPorGrado({});
     }
   }, [gradosSeleccionados, materiaId]);
 
@@ -123,8 +124,23 @@ export default function EGBBGUIntegradoFormScreen() {
       return;
     }
     setIncompatMensaje("");
-    setCeMultigrado(ce);
-    setBloquesPorGrado(resolverBloquePorGrado(materiaId, ce.codigo, gradosSeleccionados));
+    setCesMultigrado((prev) => {
+      const exists = prev.some((c) => c.codigo === ce.codigo);
+      const next = exists ? prev.filter((c) => c.codigo !== ce.codigo) : [...prev, ce];
+      // Resolver bloques para todos los grados con las CEs seleccionadas
+      const newBloques: Record<string, BloqueCurricularGrado> = {};
+      for (const g of gradosSeleccionados) {
+        for (const selected of next) {
+          const resolved = resolverBloquePorGrado(materiaId, selected.codigo, [g]);
+          if (resolved[g]) {
+            newBloques[g] = resolved[g];
+            break;
+          }
+        }
+      }
+      setBloquesPorGrado(newBloques);
+      return next;
+    });
   };
 
   const actualizarBloqueCampo = (
@@ -168,70 +184,6 @@ export default function EGBBGUIntegradoFormScreen() {
   const [hayNEE, setHayNEE] = useState(false);
   const [compartir, setCompartir] = useState(false);
 
-  // ── Multigrado: semanas con tema común y actividad por grado ──
-  const [semanasMultigrado, setSemanasMultigrado] = useState<SemanaMultigrado[]>([]);
-  const [semanaExpandida, setSemanaExpandida] = useState(1);
-
-  const actividadVacia = (gradoId: string): ActividadPorGrado => ({
-    gradoId,
-    estrategiasDUA: { inicio: "", desarrollo: "", cierre: "" },
-    recursos: "",
-    tecnica: "",
-    instrumento: "",
-  });
-
-  // Mantiene semanasMultigrado sincronizado con el número de semanas y los
-  // grados seleccionados, preservando el contenido ya escrito por el docente.
-  useEffect(() => {
-    if (modalidad !== "multigrado") return;
-    const total = Math.max(1, parseInt(noSemanas, 10) || 8);
-    const temasList = temasTrimestre.split("\n").map((t) => t.trim()).filter(Boolean);
-
-    setSemanasMultigrado((prev) => {
-      const next: SemanaMultigrado[] = [];
-      for (let i = 0; i < total; i++) {
-        const numero = i + 1;
-        const anterior = prev.find((s) => s.numero === numero);
-        const actividades: ActividadPorGrado[] = gradosSeleccionados.map(
-          (g) => anterior?.actividades.find((a) => a.gradoId === g) ?? actividadVacia(g)
-        );
-        next.push({
-          numero,
-          tema: anterior?.tema || temasList[i] || "",
-          actividades,
-        });
-      }
-      return next;
-    });
-  }, [modalidad, noSemanas, gradosSeleccionados, temasTrimestre]);
-
-  const actualizarTemaSemana = (numero: number, tema: string) => {
-    setSemanasMultigrado((prev) => prev.map((s) => (s.numero === numero ? { ...s, tema } : s)));
-  };
-
-  const actualizarActividadSemana = (
-    numero: number,
-    gradoId: string,
-    campo: "inicio" | "desarrollo" | "cierre" | "recursos" | "tecnica" | "instrumento",
-    valor: string
-  ) => {
-    setSemanasMultigrado((prev) =>
-      prev.map((s) => {
-        if (s.numero !== numero) return s;
-        return {
-          ...s,
-          actividades: s.actividades.map((a) => {
-            if (a.gradoId !== gradoId) return a;
-            if (campo === "inicio" || campo === "desarrollo" || campo === "cierre") {
-              return { ...a, estrategiasDUA: { ...a.estrategiasDUA, [campo]: valor } };
-            }
-            return { ...a, [campo]: valor };
-          }),
-        };
-      })
-    );
-  };
-
   // ── Cargar datos existentes (modo edición) ──
   const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
     { id: Number(id) },
@@ -264,18 +216,18 @@ export default function EGBBGUIntegradoFormScreen() {
           if (g.grado) bloques[g.grado] = g.bloqueCurricular ?? BLOQUE_VACIO;
         }
         setBloquesPorGrado(bloques);
-        if (fd.competenciaEspecifica?.codigo && materia) {
+        // Support both old single CE and new multi-CE format
+        if (Array.isArray(fd.competenciaEspecifica)) {
+          if (materia) {
+            const selected = fd.competenciaEspecifica
+              .map((c: any) => materia.competencias.find((comp) => comp.codigo === c.codigo))
+              .filter(Boolean) as CompetenciaEspecificaCompleta[];
+            setCesMultigrado(selected);
+          }
+        } else if (fd.competenciaEspecifica?.codigo && materia) {
           const ce = materia.competencias.find((c) => c.codigo === fd.competenciaEspecifica.codigo);
-          setCeMultigrado(
-            ce ?? {
-              codigo: fd.competenciaEspecifica.codigo,
-              descripcion: fd.competenciaEspecifica.descripcion || "",
-              competenciasClave: [],
-              porGrado: [],
-            }
-          );
+          if (ce) setCesMultigrado([ce]);
         }
-        setSemanasMultigrado(fd.semanas ?? []);
         setCargando(false);
         return;
       }
@@ -362,10 +314,10 @@ export default function EGBBGUIntegradoFormScreen() {
 
   const competenciasParaSugerencia = useMemo(() => {
     if (modalidad === "multigrado") {
-      return ceMultigrado ? [{ codigo: ceMultigrado.codigo, descripcion: ceMultigrado.descripcion }] : [];
+      return cesMultigrado.map((c) => ({ codigo: c.codigo, descripcion: c.descripcion }));
     }
     return competenciasSeleccionadas.map((c) => ({ codigo: c.codigo, descripcion: c.descripcion }));
-  }, [modalidad, ceMultigrado, competenciasSeleccionadas]);
+  }, [modalidad, cesMultigrado, competenciasSeleccionadas]);
 
   const handleSugerirTitulo = () => {
     if (competenciasParaSugerencia.length === 0) return;
@@ -409,7 +361,7 @@ export default function EGBBGUIntegradoFormScreen() {
     }
     if (paso === "competencias") {
       if (modalidad === "multigrado") {
-        return gradosSeleccionados.length >= 2 && !!ceMultigrado;
+        return gradosSeleccionados.length >= 2 && cesMultigrado.length > 0;
       }
       return competenciasSeleccionadas.length > 0;
     }
@@ -450,14 +402,14 @@ export default function EGBBGUIntegradoFormScreen() {
       noSemanasClase: parseInt(noSemanas, 10) || 8,
       nivel,
       grados: gradosPayload,
-      competenciaEspecifica: ceMultigrado
-        ? { codigo: ceMultigrado.codigo, descripcion: ceMultigrado.descripcion }
+      competenciaEspecifica: cesMultigrado.length > 0
+        ? cesMultigrado.map((c) => ({ codigo: c.codigo, descripcion: c.descripcion }))
         : undefined,
       situacionAprendizaje: {
         titulo,
         descripcion: situacionAprendizaje,
       },
-      semanas: semanasMultigrado,
+      temasTrimestre,
     };
 
     if (isEdit) {
@@ -714,12 +666,14 @@ export default function EGBBGUIntegradoFormScreen() {
     </View>
   );
 
+  const cesSeleccionadasMultigrado = useMemo(() => new Set(cesMultigrado.map((c) => c.codigo)), [cesMultigrado]);
+
   const renderCompetenciasMultigrado = () => (
     <View>
       {renderSectionHeader("Competencias específicas · multigrado", "🧩")}
 
       <Text style={[styles.helperText, { color: colors.muted }]}>
-        Elige 2 o más grados de {nivel || "este subnivel"} y una Competencia Específica (CE) que cubra a todos.
+        Elige 2 o más grados de {nivel || "este subnivel"} y al menos una Competencia Específica (CE) que cubra a todos.
       </Text>
 
       <View style={styles.fieldGroup}>
@@ -752,7 +706,9 @@ export default function EGBBGUIntegradoFormScreen() {
 
       {gradosSeleccionados.length >= 2 && (
         <View style={styles.fieldGroup}>
-          <Text style={[styles.fieldLabel, { color: colors.muted }]}>Competencia específica común</Text>
+          <Text style={[styles.fieldLabel, { color: colors.muted }]}>
+            Competencias específicas ({cesMultigrado.length} seleccionadas)
+          </Text>
           <View style={[styles.listaContainer, { borderColor: colors.border }]}>
             {ceCandidatasMultigrado.length === 0 ? (
               <Text style={{ color: colors.muted, padding: 12, fontSize: 13 }}>
@@ -761,7 +717,7 @@ export default function EGBBGUIntegradoFormScreen() {
             ) : (
               ceCandidatasMultigrado.map((ce) => {
                 const cobertura = ceDisponibleParaGrados(materiaId, ce.codigo, gradosSeleccionados);
-                const selected = ceMultigrado?.codigo === ce.codigo;
+                const selected = cesSeleccionadasMultigrado.has(ce.codigo);
                 return (
                   <Pressable
                     key={ce.codigo}
@@ -813,7 +769,7 @@ export default function EGBBGUIntegradoFormScreen() {
         </View>
       )}
 
-      {ceMultigrado && gradosSeleccionados.length >= 2 && (
+      {cesMultigrado.length > 0 && gradosSeleccionados.length >= 2 && (
         <View style={{ marginTop: 8 }}>
           <Text style={[styles.subSectionTitle, { color: colors.primary }]}>
             Bloque curricular resuelto por grado
@@ -919,92 +875,6 @@ export default function EGBBGUIntegradoFormScreen() {
   const renderCompetencias = () =>
     modalidad === "multigrado" ? renderCompetenciasMultigrado() : renderCompetenciasUnigrado();
 
-  // ── Semanas multigrado: tema común + actividad por grado ──
-  const renderSemanasMultigrado = () => (
-    <View style={{ marginTop: 8, marginBottom: 4 }}>
-      {renderSubHeader(`Semanas del trimestre (${semanasMultigrado.length})`)}
-      <Text style={[styles.helperText, { color: colors.muted }]}>
-        Cada semana tiene un tema común y una actividad distinta por grado. Edita el contenido de un grado sin afectar a los demás.
-      </Text>
-
-      {semanasMultigrado.map((semana) => {
-        const expandida = semanaExpandida === semana.numero;
-        return (
-          <View
-            key={semana.numero}
-            style={[styles.summaryCard, { backgroundColor: colors.surface, borderColor: colors.border, marginBottom: 10 }]}
-          >
-            <Pressable
-              onPress={() => setSemanaExpandida(expandida ? 0 : semana.numero)}
-              style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}
-            >
-              <Text style={[styles.summaryTitle, { color: colors.foreground, marginBottom: 0, flex: 1 }]} numberOfLines={1}>
-                Semana {semana.numero}{semana.tema ? ` · ${semana.tema}` : ""}
-              </Text>
-              <Text style={{ color: colors.primary, fontSize: 18, paddingLeft: 8 }}>{expandida ? "−" : "+"}</Text>
-            </Pressable>
-
-            {expandida && (
-              <View style={{ marginTop: 10 }}>
-                {renderField(
-                  `Tema de la semana ${semana.numero}`,
-                  semana.tema,
-                  (t) => actualizarTemaSemana(semana.numero, t),
-                  { placeholder: "Tema común para todos los grados" }
-                )}
-
-                {gradosSeleccionados.map((g) => {
-                  const actividad = semana.actividades.find((a) => a.gradoId === g);
-                  if (!actividad) return null;
-                  return (
-                    <View
-                      key={g}
-                      style={[styles.fieldGroup, { borderTopWidth: 1, borderTopColor: colors.border, paddingTop: 10, marginTop: 6 }]}
-                    >
-                      <Text style={[styles.listaCodigo, { color: colors.primary, marginBottom: 6 }]}>{g}</Text>
-                      {renderField(
-                        "Sugerencias para el inicio",
-                        actividad.estrategiasDUA.inicio,
-                        (v) => actualizarActividadSemana(semana.numero, g, "inicio", v),
-                        { multiline: true }
-                      )}
-                      {renderField(
-                        "Sugerencias para el desarrollo",
-                        actividad.estrategiasDUA.desarrollo,
-                        (v) => actualizarActividadSemana(semana.numero, g, "desarrollo", v),
-                        { multiline: true }
-                      )}
-                      {renderField(
-                        "Sugerencias para el cierre",
-                        actividad.estrategiasDUA.cierre,
-                        (v) => actualizarActividadSemana(semana.numero, g, "cierre", v),
-                        { multiline: true }
-                      )}
-                      {renderField(
-                        "Recursos",
-                        actividad.recursos,
-                        (v) => actualizarActividadSemana(semana.numero, g, "recursos", v),
-                        { multiline: true }
-                      )}
-                      <View style={styles.row}>
-                        <View style={{ flex: 1 }}>
-                          {renderField("Técnica", actividad.tecnica, (v) => actualizarActividadSemana(semana.numero, g, "tecnica", v))}
-                        </View>
-                        <View style={{ flex: 1 }}>
-                          {renderField("Instrumento", actividad.instrumento, (v) => actualizarActividadSemana(semana.numero, g, "instrumento", v))}
-                        </View>
-                      </View>
-                    </View>
-                  );
-                })}
-              </View>
-            )}
-          </View>
-        );
-      })}
-    </View>
-  );
-
   // ── Step 3: Datos ──
   const renderDatos = () => (
     <View>
@@ -1069,8 +939,6 @@ export default function EGBBGUIntegradoFormScreen() {
         placeholder: "Opcional. Escribí un tema por línea.\nEj: El mito y el logos\nLa argumentación filosófica",
         multiline: true,
       })}
-
-      {modalidad === "multigrado" && renderSemanasMultigrado()}
 
       {renderSubHeader("Configuración")}
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
@@ -1187,9 +1055,9 @@ export default function EGBBGUIntegradoFormScreen() {
           </Text>
         </View>
         <View style={styles.summaryRow}>
-          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Competencia:</Text>
+          <Text style={[styles.summaryLabel, { color: colors.muted }]}>Competencias:</Text>
           <Text style={[styles.summaryValue, { color: colors.foreground }]}>
-            {ceMultigrado ? ceMultigrado.codigo : "—"}
+            {cesMultigrado.map((c) => c.codigo).join(", ") || "—"}
           </Text>
         </View>
         <View style={styles.summaryRow}>
@@ -1202,21 +1070,21 @@ export default function EGBBGUIntegradoFormScreen() {
         </View>
         <View style={styles.summaryRow}>
           <Text style={[styles.summaryLabel, { color: colors.muted }]}>Semanas:</Text>
-          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{semanasMultigrado.length}</Text>
+          <Text style={[styles.summaryValue, { color: colors.foreground }]}>{noSemanas}</Text>
         </View>
       </View>
 
       {!multigradoListoParaGuardar && (
         <View style={[styles.disclaimer, { backgroundColor: "#FEF2F2", borderColor: "#FCA5A5" }]}>
           <Text style={[styles.disclaimerText, { color: "#B91C1C", fontStyle: "normal" }]}>
-            ⚠️ Falta completar el paso de Competencias: selecciona 2 o más grados y una Competencia Específica común antes de generar.
+            ⚠️ Falta completar el paso de Competencias: selecciona 2 o más grados y al menos una Competencia Específica antes de generar.
           </Text>
         </View>
       )}
 
       <View style={[styles.disclaimer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
         <Text style={[styles.disclaimerText, { color: colors.muted }]}>
-          Esta herramienta pedagógica genera propuestas de planificación basadas en los lineamientos técnicos y formatos socializados en la fase de piloto. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito. La generación de semanas por IA para multigrado todavía no está disponible; el contenido semanal se completa manualmente en el paso "Datos".
+          Esta herramienta pedagógica genera propuestas de planificación basadas en los lineamientos técnicos y formatos socializados en la fase de piloto. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito.
         </Text>
       </View>
     </View>
@@ -1250,7 +1118,7 @@ export default function EGBBGUIntegradoFormScreen() {
     updateMutation.isPending ||
     createMultigradoMutation.isPending ||
     updateMultigradoMutation.isPending;
-  const multigradoListoParaGuardar = gradosSeleccionados.length >= 2 && !!ceMultigrado;
+  const multigradoListoParaGuardar = gradosSeleccionados.length >= 2 && cesMultigrado.length > 0;
 
   return (
     <ScreenContainer className="flex-1">
