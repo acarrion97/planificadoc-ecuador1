@@ -189,6 +189,16 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   const [institucion, setInstitucion] = useState("");
   const [docentesTexto, setDocentesTexto] = useState("");
 
+  // ── Campos nuevos para Proyecto interdisciplinar ──
+  const [curriculoPriorizado, setCurriculoPriorizado] = useState("Destrezas con criterios de desempeño");
+  const [asignaturaAncla, setAsignaturaAncla] = useState("M");
+  const [paralelo, setParalelo] = useState("");
+  const [fechaInicio, setFechaInicio] = useState("");
+  const [fechaFin, setFechaFin] = useState("");
+  const [compartirComunidad, setCompartirComunidad] = useState(false);
+  const [mostrarNombreAutor, setMostrarNombreAutor] = useState(false);
+  const [busquedaDestrezaProyecto, setBusquedaDestrezaProyecto] = useState("");
+
   // ── Paso 2: Áreas participantes ──
   const [areas, setAreas] = useState<AreaEnEdicion[]>([]);
   // Mini-formulario "agregar área" (destrezas)
@@ -372,6 +382,14 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       setEvaluacionGeneral(fd.evaluacionGeneral || "");
       setInstitucion(fd.institucion || "");
       setDocentesTexto((fd.docentesParticipantes || []).join("\n"));
+      // Campos nuevos
+      setCurriculoPriorizado(fd.curriculoPriorizado || "Destrezas con criterios de desempeño");
+      setAsignaturaAncla(fd.asignaturaAncla || "M");
+      setParalelo(fd.paralelo || "");
+      setFechaInicio(fd.fechaInicio || "");
+      setFechaFin(fd.fechaFin || "");
+      setCompartirComunidad(fd.compartirComunidad || false);
+      setMostrarNombreAutor(fd.mostrarNombreAutor || false);
       setAreas(
         (fd.areas || []).map((a) => ({
           id: a.id,
@@ -422,6 +440,14 @@ export default function ProyectoInterdisciplinarWizardScreen() {
     productoFinal: productoFinal.trim() || undefined,
     duracion: duracion.trim() || undefined,
     metodologia: metodologia.trim() || undefined,
+    // Campos nuevos
+    curriculoPriorizado,
+    asignaturaAncla,
+    paralelo: paralelo.trim() || undefined,
+    fechaInicio: fechaInicio.trim() || undefined,
+    fechaFin: fechaFin.trim() || undefined,
+    compartirComunidad,
+    mostrarNombreAutor,
     areas: areas.map((a) => ({
       id: a.id,
       areaId: a.areaId,
@@ -750,51 +776,233 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   // ── Paso 1 ──
   const renderInformacion = () => (
     <View>
-      {renderSectionHeader("Información general", "🧩")}
-      {renderField("Título", titulo, setTitulo, {
-        placeholder: "Nombre del proyecto interdisciplinar",
-        onSugerir: handleSugerirInformacion,
-        sugerirCargando: sugerirMutation.isPending,
-      })}
-      {renderField("Contexto / situación", contexto, setContexto, {
-        multiline: true,
-        placeholder: "¿Qué problema o situación motiva este proyecto?",
-      })}
-      {renderField("Pregunta guía", preguntaGuia, setPreguntaGuia, {
-        multiline: true,
-        placeholder: "Pregunta abierta que orienta la indagación",
-        helper: "Propuesto para UX — no confirmado como campo oficial del instructivo.",
-      })}
-      {renderField("Objetivo general", objetivoGeneral, setObjetivoGeneral, {
-        multiline: true,
-      })}
-      {renderField(
-        "Objetivos específicos (uno por línea)",
-        objetivosEspecificosTexto,
-        setObjetivosEspecificosTexto,
-        { multiline: true }
-      )}
-      {renderField("Producto final", productoFinal, setProductoFinal, {
-        multiline: true,
-        placeholder: "¿Qué van a producir los estudiantes?",
-      })}
-      {renderField("Duración", duracion, setDuracion, {
-        placeholder: "Ej. 3 semanas",
-      })}
-      {renderField("Metodología", metodologia, setMetodologia, {
-        multiline: true,
-      })}
+      {renderSectionHeader("Proyecto interdisciplinar", "🧩")}
+      <Text style={[styles.helperText, { color: colors.muted, marginBottom: 14 }]}>
+        Proyecto interdisciplinar · Integra varias áreas alrededor de un producto final común. El área elegida es el ancla: la IA arma portada multiárea, agenda y filas con destrezas de varias asignaturas.
+      </Text>
 
-      {renderSectionHeader("Información institucional", "🏫")}
-      {renderField("Institución", institucion, setInstitucion, {
-        placeholder: "Nombre de la unidad educativa",
-      })}
-      {renderField(
-        "Docentes participantes (uno por línea)",
-        docentesTexto,
-        setDocentesTexto,
-        { multiline: true, placeholder: "Un nombre por línea" }
-      )}
+      {/* ── Contexto curricular ── */}
+      <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface }]}>
+        <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border }]}>
+          <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>📚 Contexto curricular</Text>
+        </View>
+        <View style={styles.sectionCardBody}>
+          <Text style={[styles.fieldLabel, { color: colors.muted }]}>Currículo priorizado</Text>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+            {["Destrezas con criterios de desempeño", "Competencias específicas (CNC)"].map((opt) => (
+              <Pressable
+                key={opt}
+                onPress={() => setCurriculoPriorizado(opt)}
+                style={{
+                  paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8,
+                  backgroundColor: curriculoPriorizado === opt ? colors.primary : colors.background,
+                  borderWidth: 1, borderColor: curriculoPriorizado === opt ? colors.primary : colors.border,
+                }}
+              >
+                <Text style={{ fontSize: 12, color: curriculoPriorizado === opt ? "#fff" : colors.foreground }}>
+                  {opt}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+
+          <View style={{ flexDirection: "row", gap: 12 }}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.fieldLabel, { color: colors.muted }]}>Grado</Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                {["8.° EGB", "9.° EGB", "10.° EGB", "1.° BGU", "2.° BGU", "3.° BGU"].map((g) => (
+                  <Pressable
+                    key={g}
+                    onPress={() => {/* handled by areas step */}}
+                    style={{
+                      paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8,
+                      backgroundColor: colors.background,
+                      borderWidth: 1, borderColor: colors.border,
+                    }}
+                  >
+                    <Text style={{ fontSize: 11, color: colors.foreground }}>{g}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.fieldLabel, { color: colors.muted }]}>Asignatura ancla</Text>
+              <Text style={[styles.helperText, { color: colors.muted, marginBottom: 6 }]}>
+                Ancla del proyecto (p. ej. Matemática o Lengua). Lengua y Matemática son la base; otras áreas solo si aportan al producto.
+              </Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                {Object.entries(AREAS_INFO).slice(0, 6).map(([code, info]) => (
+                  <Pressable
+                    key={code}
+                    onPress={() => setAsignaturaAncla(code)}
+                    style={{
+                      paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8,
+                      backgroundColor: asignaturaAncla === code ? info.color : colors.background,
+                      borderWidth: 1, borderColor: asignaturaAncla === code ? info.color : colors.border,
+                    }}
+                  >
+                    <Text style={{ fontSize: 11, color: asignaturaAncla === code ? "#fff" : colors.foreground }}>
+                      {info.emoji} {info.name}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      {/* ── Datos del proyecto ── */}
+      <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface, marginTop: 14 }]}>
+        <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border }]}>
+          <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>📝 Datos del proyecto</Text>
+        </View>
+        <View style={styles.sectionCardBody}>
+          {renderField("Título", titulo, setTitulo, {
+            placeholder: "Nombre del proyecto interdisciplinar",
+            onSugerir: handleSugerirInformacion,
+            sugerirCargando: sugerirMutation.isPending,
+          })}
+          {renderField("Contexto / situación", contexto, setContexto, {
+            multiline: true,
+            placeholder: "¿Qué problema o situación motiva este proyecto?",
+          })}
+          {renderField("Pregunta guía", preguntaGuia, setPreguntaGuia, {
+            multiline: true,
+            placeholder: "Pregunta abierta que orienta la indagación",
+          })}
+          {renderField("Objetivo general", objetivoGeneral, setObjetivoGeneral, {
+            multiline: true,
+          })}
+          {renderField(
+            "Objetivos específicos (uno por línea)",
+            objetivosEspecificosTexto,
+            setObjetivosEspecificosTexto,
+            { multiline: true }
+          )}
+          {renderField("Producto final", productoFinal, setProductoFinal, {
+            multiline: true,
+            placeholder: "¿Qué van a producir los estudiantes?",
+          })}
+          {renderField("Duración", duracion, setDuracion, {
+            placeholder: "Ej. 3 semanas",
+          })}
+          {renderField("Metodología", metodologia, setMetodologia, {
+            multiline: true,
+          })}
+        </View>
+      </View>
+
+      {/* ── Datos administrativos ── */}
+      <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface, marginTop: 14 }]}>
+        <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border }]}>
+          <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>📋 Datos administrativos</Text>
+        </View>
+        <View style={styles.sectionCardBody}>
+          {renderField("Institución", institucion, setInstitucion, {
+            placeholder: "Nombre de la unidad educativa",
+          })}
+          {renderField(
+            "Docentes participantes (uno por línea)",
+            docentesTexto,
+            setDocentesTexto,
+            { multiline: true, placeholder: "Un nombre por línea" }
+          )}
+
+          <View style={{ flexDirection: "row", gap: 12 }}>
+            <View style={{ flex: 1 }}>
+              {renderField("Paralelo", paralelo, setParalelo, {
+                placeholder: "Ej: A",
+              })}
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.fieldLabel, { color: colors.muted }]}>Fecha de inicio</Text>
+              <TextInput
+                value={fechaInicio}
+                onChangeText={setFechaInicio}
+                placeholder="DD/MM/AAAA"
+                placeholderTextColor={colors.muted + "80"}
+                style={[
+                  styles.textInput,
+                  {
+                    backgroundColor: colors.surface,
+                    borderColor: colors.border,
+                    color: colors.foreground,
+                  },
+                ]}
+              />
+              <Text style={[styles.helperText, { color: colors.muted }]}>Opcional (membrante / cronograma).</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.fieldLabel, { color: colors.muted }]}>Fecha de fin</Text>
+              <TextInput
+                value={fechaFin}
+                onChangeText={setFechaFin}
+                placeholder="DD/MM/AAAA"
+                placeholderTextColor={colors.muted + "80"}
+                style={[
+                  styles.textInput,
+                  {
+                    backgroundColor: colors.surface,
+                    borderColor: colors.border,
+                    color: colors.foreground,
+                  },
+                ]}
+              />
+              <Text style={[styles.helperText, { color: colors.muted }]}>Opcional.</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      {/* ── Banco de la comunidad ── */}
+      <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface, marginTop: 14 }]}>
+        <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border, flexDirection: "row", alignItems: "center", gap: 8 }]}>
+          <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>🌐 Banco de la comunidad</Text>
+          <View style={{ paddingHorizontal: 8, paddingVertical: 2, borderRadius: 12, backgroundColor: "#FEF3C7", borderWidth: 1, borderColor: "#F59E0B" }}>
+            <Text style={{ fontSize: 10, fontWeight: "700", color: "#92400E" }}>OPCIONAL</Text>
+          </View>
+        </View>
+        <View style={styles.sectionCardBody}>
+          <Text style={[styles.helperText, { color: colors.muted, marginBottom: 12 }]}>
+            Compartir es opcional y siempre bajo tu decisión. Se publica solo el resultado de la IA, sin datos de tu escuela ni de estudiantes con NEE.
+          </Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <Pressable
+              onPress={() => setCompartirComunidad(!compartirComunidad)}
+              style={[
+                styles.checkbox,
+                {
+                  borderColor: compartirComunidad ? colors.primary : colors.border,
+                  backgroundColor: compartirComunidad ? colors.primary : "transparent",
+                },
+              ]}
+            >
+              {compartirComunidad && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+            </Pressable>
+            <Text style={{ fontSize: 12, color: colors.foreground, flex: 1 }}>
+              ¿Compartir con la comunidad? Otros docentes podrán ver y clonar tu planificación.
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            <Pressable
+              onPress={() => setMostrarNombreAutor(!mostrarNombreAutor)}
+              style={[
+                styles.checkbox,
+                {
+                  borderColor: mostrarNombreAutor ? colors.primary : colors.border,
+                  backgroundColor: mostrarNombreAutor ? colors.primary : "transparent",
+                },
+              ]}
+            >
+              {mostrarNombreAutor && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+            </Pressable>
+            <Text style={{ fontSize: 12, color: colors.foreground }}>
+              Mostrar mi nombre como autora/autor (opcional y separado).
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 
@@ -1455,6 +1663,9 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: 18, fontWeight: "700" },
   helperText: { fontSize: 12, marginBottom: 6, lineHeight: 16, fontStyle: "italic" },
   fieldGroup: { marginBottom: 14 },
+  sectionCard: { borderWidth: 1, borderRadius: 12, overflow: "hidden" },
+  sectionCardHeader: { paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 1 },
+  sectionCardBody: { padding: 14 },
   fieldLabel: {
     fontSize: 12,
     fontWeight: "600",
