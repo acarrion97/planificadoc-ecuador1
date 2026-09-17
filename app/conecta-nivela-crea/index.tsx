@@ -71,6 +71,12 @@ function planVacio(): PlanConectaNivelaCrea {
     institucion: "", docente: "", anioLectivo: "2026-2027",
     grado: "", paralelo: "", subnivel: "", fechaInicio: "",
     modalidad: "general",
+    // Campos nuevos para Proyecto interdisciplinar
+    curriculoPriorizado: "Destrezas con criterios de desempeño",
+    asignaturaAncla: "M",
+    fechaFin: "",
+    compartirComunidad: false,
+    mostrarNombreAutor: false,
     semana1: {
       metodologiaDeclarada: "",
       actividadesAdaptacion: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
@@ -421,6 +427,9 @@ export default function ConectaNivelaCreaScreen() {
   const [semanaNivelacionActiva, setSemanaNivelacionActiva] = useState<2 | 3>(2);
   // Última sugerencia IA del proyecto (Semanas 4-5) para revisión previa
   const [sugerenciaProyecto, setSugerenciaProyecto] = useState<ConectaNivelaCreaAiResult["proyectoSugerido"] | null>(null);
+
+  // ── Campos nuevos para el formulario de Proyecto interdisciplinar ──
+  const [busquedaDestrezaProyecto, setBusquedaDestrezaProyecto] = useState("");
 
   const generateMutation = trpc.cnc.generate.useMutation();
   const sugerirReflexionMutation = trpc.cnc.sugerirReflexionDece.useMutation();
@@ -1571,20 +1580,212 @@ export default function ConectaNivelaCreaScreen() {
           </View>
         )}
 
-        {/* ── PASO 3: Semanas 4-5 — Crea ── */}
+        {/* ── PASO 3: Semanas 4-5 — Proyecto interdisciplinar ── */}
         {step === 3 && (
           <View>
-            <SectionHeading text="Semanas 4-5 — Crea" colors={colors} />
-            <View style={{ backgroundColor: "#FEF3C7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#F59E0B", marginBottom: 14 }}>
-              <Text style={{ fontSize: 11, color: "#92400E" }}>
-                Este proyecto constituye formalmente una evaluación cualitativa y formativa oficial — no es una actividad de cierre opcional.
-              </Text>
+            <SectionHeading text="Proyecto interdisciplinar" colors={colors} />
+            <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 14 }}>
+              Proyecto interdisciplinar · 2 semanas (4–5 del arranque). El área elegida es el ancla: la IA arma portada multiárea, agenda y filas con destrezas de varias asignaturas. Al generar también queda lista la ficha oficial Anexo 2 para autoridades.
+            </Text>
+
+            {/* ── Contexto curricular ── */}
+            <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface }]}>
+              <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border }]}>
+                <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>📚 Contexto curricular</Text>
+              </View>
+              <View style={styles.sectionCardBody}>
+                <Label text="Currículo priorizado" colors={colors} />
+                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                  {["Destrezas con criterios de desempeño", "Competencias específicas (CNC)"].map((opt) => (
+                    <Pressable
+                      key={opt}
+                      onPress={() => setPlan((p) => ({ ...p, curriculoPriorizado: opt }))}
+                      style={{
+                        paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8,
+                        backgroundColor: plan.curriculoPriorizado === opt ? colors.primary : colors.background,
+                        borderWidth: 1, borderColor: plan.curriculoPriorizado === opt ? colors.primary : colors.border,
+                      }}
+                    >
+                      <Text style={{ fontSize: 12, color: plan.curriculoPriorizado === opt ? "#fff" : colors.text }}>
+                        {opt}
+                      </Text>
+                    </Pressable>
+                  ))}
+                </View>
+
+                <View style={{ flexDirection: "row", gap: 12 }}>
+                  <View style={{ flex: 1 }}>
+                    <Label text="Grado" colors={colors} />
+                    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                      {(esBT ? GRADOS_BT : GRADOS_TODOS).slice(0, 4).map((g) => (
+                        <Pressable
+                          key={g}
+                          onPress={() => setPlan((p) => ({ ...p, grado: g }))}
+                          style={{
+                            paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8,
+                            backgroundColor: plan.grado === g ? colors.primary : colors.background,
+                            borderWidth: 1, borderColor: plan.grado === g ? colors.primary : colors.border,
+                          }}
+                        >
+                          <Text style={{ fontSize: 11, color: plan.grado === g ? "#fff" : colors.text }}>{g}</Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Label text="Asignatura ancla" colors={colors} />
+                    <Text style={{ fontSize: 10, color: colors.muted, marginBottom: 6, fontStyle: "italic" }}>
+                      Ancla del proyecto (p. ej. Matemática o Lengua). Lengua y Matemática son la base; otras áreas solo si aportan al producto.
+                    </Text>
+                    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                      {Object.entries(AREAS_INFO).slice(0, 6).map(([code, info]) => (
+                        <Pressable
+                          key={code}
+                          onPress={() => setPlan((p) => ({ ...p, asignaturaAncla: code }))}
+                          style={{
+                            paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8,
+                            backgroundColor: plan.asignaturaAncla === code ? info.color : colors.background,
+                            borderWidth: 1, borderColor: plan.asignaturaAncla === code ? info.color : colors.border,
+                          }}
+                        >
+                          <Text style={{ fontSize: 11, color: plan.asignaturaAncla === code ? "#fff" : colors.text }}>
+                            {info.emoji} {info.name}
+                          </Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  </View>
+                </View>
+              </View>
             </View>
 
+            {/* ── Destrezas del currículo ── */}
+            <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface, marginTop: 14 }]}>
+              <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>📋 Destrezas del currículo</Text>
+                <Text style={{ fontSize: 12, color: colors.muted }}>{plan.semana4y5.proyecto.destrezasReforzadas.length} seleccionadas</Text>
+              </View>
+              <View style={styles.sectionCardBody}>
+                {plan.semana4y5.proyecto.destrezasReforzadas.length > 0 && (
+                  <View style={{ marginBottom: 12 }}>
+                    <Text style={{ fontSize: 11, fontWeight: "600", color: colors.muted, marginBottom: 6 }}>Destrezas elegidas</Text>
+                    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
+                      {plan.semana4y5.proyecto.destrezasReforzadas.map((codigo) => {
+                        const destreza = TODAS_LAS_DESTREZAS.find(d => d.codigo === codigo);
+                        return (
+                          <View
+                            key={codigo}
+                            style={{
+                              flexDirection: "row", alignItems: "center", gap: 4,
+                              paddingHorizontal: 10, paddingVertical: 5, borderRadius: 16,
+                              backgroundColor: "#DCFCE7", borderWidth: 1, borderColor: "#22C55E",
+                            }}
+                          >
+                            <Text style={{ fontSize: 11, fontWeight: "700", color: "#166534" }}>{codigo}</Text>
+                            {destreza && (
+                              <Text style={{ fontSize: 10, color: "#15803D" }} numberOfLines={1}>
+                                {destreza.descripcion.length > 30 ? destreza.descripcion.substring(0, 30) + "..." : destreza.descripcion}
+                              </Text>
+                            )}
+                            <Pressable
+                              onPress={() =>
+                                setPlan((p) => ({
+                                  ...p,
+                                  semana4y5: {
+                                    proyecto: {
+                                      ...p.semana4y5.proyecto,
+                                      destrezasReforzadas: p.semana4y5.proyecto.destrezasReforzadas.filter(c => c !== codigo),
+                                    },
+                                  },
+                                }))
+                              }
+                              hitSlop={6}
+                            >
+                              <Text style={{ color: "#16A34A", fontSize: 14, fontWeight: "700" }}>×</Text>
+                            </Pressable>
+                          </View>
+                        );
+                      })}
+                    </View>
+                  </View>
+                )}
+
+                <Label text="Agregar destrezas" colors={colors} />
+                <TextInput
+                  value={busquedaDestrezaProyecto}
+                  onChangeText={setBusquedaDestrezaProyecto}
+                  placeholder="Buscar por código o texto..."
+                  placeholderTextColor={colors.muted}
+                  style={[styles.input, {
+                    borderColor: colors.border, color: colors.text, backgroundColor: colors.background,
+                    marginBottom: 8,
+                  }]}
+                />
+                <View style={[styles.listaContainer, { borderColor: colors.border, maxHeight: 260 }]}>
+                  {(() => {
+                    const disponibles = plan.semana1.diagnosticoAcademico.map(d => ({
+                      codigo: d.destrezaCodigo,
+                      descripcion: d.destrezaDescripcion,
+                      area: d.area,
+                    }));
+                    const busqueda = busquedaDestrezaProyecto.trim().toLowerCase();
+                    const filtrados = busqueda
+                      ? disponibles.filter(d =>
+                          d.codigo.toLowerCase().includes(busqueda) ||
+                          d.descripcion.toLowerCase().includes(busqueda)
+                        )
+                      : disponibles;
+                    if (filtrados.length === 0) {
+                      return (
+                        <Text style={{ color: colors.muted, padding: 12, fontSize: 13 }}>
+                          {disponibles.length === 0
+                            ? "Completa el diagnóstico académico de Semana 1 para ver destrezas aquí."
+                            : "No se encontraron destrezas con ese criterio de búsqueda."}
+                        </Text>
+                      );
+                    }
+                    return filtrados.map((d) => {
+                      const sel = plan.semana4y5.proyecto.destrezasReforzadas.includes(d.codigo);
+                      return (
+                        <Pressable
+                          key={d.codigo}
+                          onPress={() =>
+                            setPlan((p) => {
+                              const actuales = p.semana4y5.proyecto.destrezasReforzadas;
+                              const destrezasReforzadas = actuales.includes(d.codigo)
+                                ? actuales.filter((c) => c !== d.codigo)
+                                : [...actuales, d.codigo];
+                              return { ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, destrezasReforzadas } } };
+                            })
+                          }
+                          style={[styles.listaItem, {
+                            borderBottomColor: colors.border,
+                            backgroundColor: sel ? colors.primary + "10" : "transparent",
+                          }]}
+                        >
+                          <View style={[styles.checkbox, {
+                            borderColor: sel ? colors.primary : colors.border,
+                            backgroundColor: sel ? colors.primary : "transparent",
+                          }]}>
+                            {sel && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+                          </View>
+                          <View style={{ flex: 1 }}>
+                            <Text style={[styles.listaCodigo, { color: colors.primary }]}>[{d.area}] {d.codigo}</Text>
+                            <Text style={[styles.listaDesc, { color: colors.text }]} numberOfLines={2}>{d.descripcion}</Text>
+                          </View>
+                        </Pressable>
+                      );
+                    });
+                  })()}
+                </View>
+              </View>
+            </View>
+
+            {/* ── Sugerencia IA ── */}
             <Pressable
               onPress={handleSugerirProyecto}
               disabled={sugerirProyectoMutation.isPending}
-              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: colors.primary + "20", borderRadius: 10, borderWidth: 1, borderColor: colors.primary, paddingVertical: 12, marginBottom: 12 }}
+              style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: colors.primary + "20", borderRadius: 10, borderWidth: 1, borderColor: colors.primary, paddingVertical: 12, marginTop: 14, marginBottom: 14 }}
             >
               {sugerirProyectoMutation.isPending ? (
                 <ActivityIndicator color={colors.primary} size="small" />
@@ -1608,12 +1809,115 @@ export default function ConectaNivelaCreaScreen() {
               </View>
             )}
 
+            {/* ── Datos administrativos ── */}
+            <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface }]}>
+              <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border }]}>
+                <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>📝 Datos administrativos</Text>
+              </View>
+              <View style={styles.sectionCardBody}>
+                <View style={{ backgroundColor: colors.background, borderRadius: 8, padding: 10, marginBottom: 12, borderWidth: 1, borderColor: colors.border }}>
+                  <Text style={{ fontSize: 12, color: colors.muted }}>
+                    <Text style={{ fontWeight: "700", color: colors.foreground }}>Etapa: </Text>
+                    Proyecto interdisciplinar (semanas 4–5) · 2 semanas.
+                    <Text style={{ color: colors.primary, fontWeight: "600" }}> Cambiar etapa</Text>
+                  </Text>
+                </View>
+                <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 12, fontStyle: "italic" }}>
+                  Al generar queda lista también la ficha oficial Anexo 2 (para autoridades), aparte del Word ACC de clase.
+                </Text>
+
+                <View style={{ flexDirection: "row", gap: 12 }}>
+                  <View style={{ flex: 1 }}>
+                    <Field label="Paralelo" value={plan.paralelo} onChangeText={(v) => setPlan((p) => ({ ...p, paralelo: v }))} colors={colors} placeholder="Ej: A" />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Label text="Fecha de inicio" colors={colors} />
+                    <TextInput
+                      value={plan.fechaInicio || ""}
+                      onChangeText={(v) => setPlan((p) => ({ ...p, fechaInicio: v }))}
+                      placeholder="DD/MM/AAAA"
+                      placeholderTextColor={colors.muted}
+                      style={[styles.input, {
+                        borderColor: colors.border, color: colors.text, backgroundColor: colors.background,
+                      }]}
+                    />
+                    <Text style={{ fontSize: 10, color: colors.muted, marginTop: 2 }}>Opcional (membrante / cronograma).</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Label text="Fecha de fin" colors={colors} />
+                    <TextInput
+                      value={plan.fechaFin || ""}
+                      onChangeText={(v) => setPlan((p) => ({ ...p, fechaFin: v }))}
+                      placeholder="DD/MM/AAAA"
+                      placeholderTextColor={colors.muted}
+                      style={[styles.input, {
+                        borderColor: colors.border, color: colors.text, backgroundColor: colors.background,
+                      }]}
+                    />
+                    <Text style={{ fontSize: 10, color: colors.muted, marginTop: 2 }}>Opcional.</Text>
+                  </View>
+                </View>
+
+                <Field
+                  label="Título"
+                  value={plan.semana4y5.proyecto.titulo}
+                  onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, titulo: v } } }))}
+                  colors={colors}
+                  placeholder="Título del proyecto interdisciplinar"
+                />
+              </View>
+            </View>
+
+            {/* ── Banco de la comunidad ── */}
+            <View style={[styles.sectionCard, { borderColor: colors.border, backgroundColor: colors.surface, marginTop: 14 }]}>
+              <View style={[styles.sectionCardHeader, { borderBottomColor: colors.border, flexDirection: "row", alignItems: "center", gap: 8 }]}>
+                <Text style={{ fontSize: 14, fontWeight: "700", color: colors.foreground }}>🌐 Banco de la comunidad</Text>
+                <View style={{ paddingHorizontal: 8, paddingVertical: 2, borderRadius: 12, backgroundColor: "#FEF3C7", borderWidth: 1, borderColor: "#F59E0B" }}>
+                  <Text style={{ fontSize: 10, fontWeight: "700", color: "#92400E" }}>OPCIONAL</Text>
+                </View>
+              </View>
+              <View style={styles.sectionCardBody}>
+                <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 12, fontStyle: "italic" }}>
+                  Compartir es opcional y siempre bajo tu decisión. Se publica solo el resultado de la IA, sin datos de tu escuela ni de estudiantes con NEE.
+                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <Pressable
+                    onPress={() => setPlan((p) => ({ ...p, compartirComunidad: !p.compartirComunidad }))}
+                    style={[styles.checkbox, {
+                      borderColor: plan.compartirComunidad ? colors.primary : colors.border,
+                      backgroundColor: plan.compartirComunidad ? colors.primary : "transparent",
+                    }]}
+                  >
+                    {plan.compartirComunidad && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+                  </Pressable>
+                  <Text style={{ fontSize: 12, color: colors.foreground, flex: 1 }}>
+                    ¿Compartir con la comunidad? Otros docentes podrán ver y clonar tu planificación.
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                  <Pressable
+                    onPress={() => setPlan((p) => ({ ...p, mostrarNombreAutor: !p.mostrarNombreAutor }))}
+                    style={[styles.checkbox, {
+                      borderColor: plan.mostrarNombreAutor ? colors.primary : colors.border,
+                      backgroundColor: plan.mostrarNombreAutor ? colors.primary : "transparent",
+                    }]}
+                  >
+                    {plan.mostrarNombreAutor && <Text style={{ color: "#fff", fontSize: 12 }}>✓</Text>}
+                  </Pressable>
+                  <Text style={{ fontSize: 12, color: colors.foreground }}>
+                    Mostrar mi nombre como autora/autor (opcional y separado).
+                  </Text>
+                </View>
+              </View>
+            </View>
+
             {!esBT && (
               <>
-                <Field label="Título del proyecto (opcional — la IA sugiere uno si lo dejas vacío)" value={plan.semana4y5.proyecto.titulo} onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, titulo: v } } }))} colors={colors} />
+                <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 16 }} />
+                
                 <Field label="Descripción / notas" value={plan.semana4y5.proyecto.descripcion} onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, descripcion: v } } }))} colors={colors} multiline />
                 <Field
-                  label="Objetivo de aprendizaje (opcional — la IA sugiere uno si lo dejas vacío)"
+                  label="Objetivo de aprendizaje"
                   value={plan.semana4y5.proyecto.objetivoAprendizaje}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, objetivoAprendizaje: v } } }))}
                   colors={colors}
@@ -1627,44 +1931,8 @@ export default function ConectaNivelaCreaScreen() {
                   colors={colors}
                   multiline
                 />
-
-                <Label text="Destrezas a reforzar (del diagnóstico de Semana 1)" colors={colors} />
-                {plan.semana1.diagnosticoAcademico.length === 0 ? (
-                  <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 12 }}>
-                    Completa el diagnóstico académico de Semana 1 para poder elegir aquí las destrezas que este
-                    proyecto refuerza. Mientras tanto, la IA las sugiere al generar el plan.
-                  </Text>
-                ) : (
-                  <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
-                    {plan.semana1.diagnosticoAcademico.map((d) => {
-                      const sel = plan.semana4y5.proyecto.destrezasReforzadas.includes(d.destrezaCodigo);
-                      return (
-                        <Pressable
-                          key={d.destrezaCodigo}
-                          onPress={() =>
-                            setPlan((p) => {
-                              const actuales = p.semana4y5.proyecto.destrezasReforzadas;
-                              const destrezasReforzadas = actuales.includes(d.destrezaCodigo)
-                                ? actuales.filter((c) => c !== d.destrezaCodigo)
-                                : [...actuales, d.destrezaCodigo];
-                              return { ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, destrezasReforzadas } } };
-                            })
-                          }
-                          style={{
-                            paddingHorizontal: 10, paddingVertical: 5, borderRadius: 16,
-                            backgroundColor: sel ? colors.primary : colors.surface,
-                            borderWidth: 1, borderColor: sel ? colors.primary : colors.border,
-                          }}
-                        >
-                          <Text style={{ fontSize: 11, color: sel ? "#fff" : colors.text }}>[{d.area}] {d.destrezaCodigo}</Text>
-                        </Pressable>
-                      );
-                    })}
-                  </View>
-                )}
-
                 <Field
-                  label="Producto intermedio — entregable de la Semana 4 (opcional — la IA sugiere uno si lo dejas vacío)"
+                  label="Producto intermedio — entregable de la Semana 4"
                   value={plan.semana4y5.proyecto.productoIntermedio}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, productoIntermedio: v } } }))}
                   colors={colors}
@@ -1672,7 +1940,7 @@ export default function ConectaNivelaCreaScreen() {
                   placeholder="Ej: Borrador del tríptico con la información recopilada"
                 />
                 <Field
-                  label="Producto final — entregable de la Semana 5 (opcional — la IA sugiere uno si lo dejas vacío)"
+                  label="Producto final — entregable de la Semana 5"
                   value={plan.semana4y5.proyecto.productoFinal}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, productoFinal: v } } }))}
                   colors={colors}
@@ -1680,7 +1948,7 @@ export default function ConectaNivelaCreaScreen() {
                   placeholder="Ej: Tríptico informativo terminado sobre convivencia y seguridad integral"
                 />
                 <Field
-                  label="Objetivo de la Semana 4 (opcional — la IA sugiere uno si lo dejas vacío)"
+                  label="Objetivo de la Semana 4"
                   value={plan.semana4y5.proyecto.objetivoSemana4}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, objetivoSemana4: v } } }))}
                   colors={colors}
@@ -1695,7 +1963,7 @@ export default function ConectaNivelaCreaScreen() {
                   placeholder={"Ej: Planificación del proyecto...\nOrganización de equipos de trabajo..."}
                 />
                 <Field
-                  label="Objetivo de la Semana 5 (opcional — la IA sugiere uno si lo dejas vacío)"
+                  label="Objetivo de la Semana 5"
                   value={plan.semana4y5.proyecto.objetivoSemana5}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, objetivoSemana5: v } } }))}
                   colors={colors}
@@ -1710,7 +1978,7 @@ export default function ConectaNivelaCreaScreen() {
                   placeholder={"Ej: Finalización del producto...\nSocialización y presentación..."}
                 />
                 <Field
-                  label="Compromisos (opcional — la IA sugiere unos si lo dejas vacío)"
+                  label="Compromisos"
                   value={plan.semana4y5.proyecto.compromisos}
                   onChangeText={(v) => setPlan((p) => ({ ...p, semana4y5: { proyecto: { ...p.semana4y5.proyecto, compromisos: v } } }))}
                   colors={colors}
@@ -2068,4 +2336,12 @@ function ResultSection({ title, emoji, color, children }: { title: string; emoji
 const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 8, fontSize: 13 },
   dropdownItem: { flexDirection: "row", alignItems: "center", padding: 10, borderBottomWidth: 1 },
+  sectionCard: { borderWidth: 1, borderRadius: 12, overflow: "hidden" },
+  sectionCardHeader: { paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 1 },
+  sectionCardBody: { padding: 14 },
+  listaContainer: { borderWidth: 1, borderRadius: 10, maxHeight: 260 },
+  listaItem: { flexDirection: "row", alignItems: "flex-start", padding: 12, borderBottomWidth: 1, gap: 10 },
+  checkbox: { width: 20, height: 20, borderRadius: 4, borderWidth: 2, alignItems: "center", justifyContent: "center", marginTop: 2 },
+  listaCodigo: { fontSize: 13, fontWeight: "700", marginBottom: 2 },
+  listaDesc: { fontSize: 12, lineHeight: 17 },
 });
