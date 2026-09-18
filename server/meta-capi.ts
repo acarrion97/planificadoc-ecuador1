@@ -21,9 +21,13 @@ type PurchaseInput = {
   eventTime?: number;
 };
 
+function sha256(value: string): string {
+  return crypto.createHash("sha256").update(value).digest("hex");
+}
+
 // email: trim + lowercase + SHA-256
 function hashEmail(email: string): string {
-  return crypto.createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
+  return sha256(email.trim().toLowerCase());
 }
 
 // phone: solo dígitos → normalizar Ecuador → SHA-256
@@ -38,7 +42,7 @@ function hashPhone(phone: string): string {
   } else if (digits.length === 9 && !digits.startsWith("593")) {
     digits = "593" + digits;          // "987654321"  → "593987654321" (12 dígitos)
   }
-  return crypto.createHash("sha256").update(digits).digest("hex");
+  return sha256(digits);
 }
 
 export async function sendMetaPurchase(input: PurchaseInput) {
