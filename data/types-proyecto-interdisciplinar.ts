@@ -130,19 +130,6 @@ export interface ProyectoInterdisciplinarPlan {
   institucion?: string;
   docentesParticipantes?: string[];
 
-  // ── CONTEXTO CURRICULAR ──
-  curriculoPriorizado?: string;
-  asignaturaAncla?: string;
-
-  // ── DATOS ADMINISTRATIVOS ──
-  paralelo?: string;
-  fechaInicio?: string;
-  fechaFin?: string;
-
-  // ── BANCO DE LA COMUNIDAD ──
-  compartirComunidad?: boolean;
-  mostrarNombreAutor?: boolean;
-
   // ── ADAPTACIONES / INCLUSIÓN (opcional) ──
   adaptaciones?: string;
 

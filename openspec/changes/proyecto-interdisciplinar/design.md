@@ -1,3 +1,16 @@
+## Actualización post-implementación (2026-09-18): simplificación de la UX del wizard
+
+El wizard de 6 pasos descrito en las decisiones originales de este documento (Información → Áreas → Currículo → Actividades → Evaluación → Revisión, con selección manual de área/nivel/subnivel/grado por área) se reemplazó por una **pantalla única** más corta, alineada al patrón ya usado por el módulo CNC ("Conecta, Nivela y Crea") para su propio "Proyecto interdisciplinar" (`openspec/specs/cnc-producto-final-crea/spec.md`):
+
+- Un solo nivel/subnivel/grado para todo el proyecto (no por área) — más simple y más realista: un proyecto interdisciplinar lo hacen los mismos estudiantes en varias asignaturas, no grupos de estudiantes distintos por área.
+- Un buscador único de elementos curriculares que cruza TODAS las áreas disponibles para ese nivel/grado (en vez del flujo "agregar área" → "elegir elementos de esa área" de dos pasos separados).
+- Un único botón "Generar planificación": valida el mínimo (≥2 elementos curriculares de ≥2 áreas distintas, igual que exige el patrón CNC), llama a una IA que completa contexto/pregunta guía/objetivo general/producto final (solo si el docente los dejó vacíos) y genera actividades por fase + evaluación general desde cero — todo en una sola acción, en vez de que el docente arme cada actividad manualmente paso a paso.
+- El resultado generado queda editable en la misma pantalla (objetivo, actividades, evaluación, instrumento por actividad, vínculo a criterios) antes de exportar.
+
+Motivo del cambio: durante la revisión visual (Fase 12), el usuario comparó el wizard de 6 pasos contra el patrón ya validado de CNC y pidió explícitamente simplificarlo ("demasiados campos... debería ser solo esto y el resto internamente llenarlo con IA"). Esto también revierte un intento de fusión hecha directamente por el usuario (commit `15643f1`) que había agregado campos de otro módulo (Currículo priorizado/Asignatura ancla/Paralelo/Fechas/Banco de la comunidad) al formulario de este módulo — esos campos se quitaron por no aplicar aquí.
+
+**Se mantienen sin cambio**: la base curricular dual (destrezas/competencias, elegida en `/nuevo` y fija por proyecto), la resolución de elementos curriculares por referencia al catálogo (nunca copiados), el patrón anti-alucinación de la IA (nunca inventa códigos curriculares, solo texto), y el modelo de datos (`ProyectoInterdisciplinarPlan`, `AreaProyectoInterdisciplinar`, `ElementoCurricularReferenciado`, `ActividadProyectoInterdisciplinar` sin cambios de forma — solo cambió cómo se llenan desde la UI). Los requisitos de `specs/proyecto-interdisciplinar/spec.md` sobre selección de áreas/currículo/actividades siguen cumpliéndose, solo que ahora en una interacción más corta en vez de pasos separados.
+
 ## Context
 
 Ver proposal.md - Why para la motivación. Constraints relevantes del repo (confirmadas por exploración de código, no supuestas):

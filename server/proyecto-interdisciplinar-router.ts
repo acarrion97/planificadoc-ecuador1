@@ -523,4 +523,125 @@ Responde ÚNICAMENTE con JSON válido:
       }
       return resultado;
     }),
+
+  // ── GENERACIÓN COMPLETA CON IA (formulario corto → proyecto completo) ──
+  // Recibe lo mínimo que el docente ya llenó (título, contexto, pregunta
+  // guía, producto final — cualquiera puede venir vacío) y los elementos
+  // curriculares que ya seleccionó (nunca los inventa la IA). Devuelve el
+  // proyecto completo: los campos de texto vacíos rellenados, más
+  // actividades por fase y evaluación general generadas desde cero.
+  generarProyectoCompleto: publicProcedure
+    .input(
+      z.object({
+        baseCurricular: z.enum(["destrezas", "competencias"]),
+        titulo: z.string().optional(),
+        contexto: z.string().optional(),
+        preguntaGuia: z.string().optional(),
+        productoFinal: z.string().optional(),
+        elementosCurriculares: z
+          .array(
+            z.object({
+              codigo: z.string(),
+              area: z.string(),
+              nombreArea: z.string(),
+              descripcion: z.string().optional(),
+            })
+          )
+          .min(2, "Se requieren al menos 2 elementos curriculares de áreas distintas."),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const elementosTexto = input.elementosCurriculares
+        .map((e) => `- [${e.nombreArea}] ${e.codigo}${e.descripcion ? `: ${e.descripcion}` : ""}`)
+        .join("\n");
+
+      const prompt = `Eres un experto en proyectos interdisciplinares del Ministerio de Educación del Ecuador (instructivo de Proyecto Interdisciplinar, 3 fases: Planificación, Gestión del proyecto, Evaluación del proyecto).
+
+CONTEXTO DEL PROYECTO:
+- Base curricular: ${input.baseCurricular === "destrezas" ? "destrezas con criterios de desempeño" : "competencias específicas (Currículo Nacional por Competencias)"}
+- Elementos curriculares ya seleccionados por el docente (NO los modifiques, no inventes otros, no inventes códigos):
+${elementosTexto}
+- Título del proyecto ${input.titulo ? `(ya definido por el docente, respétalo tal cual): ${input.titulo}` : "(el docente no lo definió — proponlo tú)"}
+- Contexto/situación ${input.contexto ? `(ya definido, respétalo tal cual): ${input.contexto}` : "(el docente no lo definió — proponlo tú)"}
+- Pregunta guía ${input.preguntaGuia ? `(ya definida, respétala tal cual): ${input.preguntaGuia}` : "(el docente no la definió — proponla tú)"}
+- Producto final ${input.productoFinal ? `(ya definido, respétalo tal cual): ${input.productoFinal}` : "(el docente no lo definió — proponlo tú)"}
+
+SOLICITUD:
+Genera el proyecto interdisciplinar completo, integrando REALMENTE todas las áreas listadas arriba (no solo una).
+
+REGLAS:
+- NO inventes códigos curriculares, destrezas ni competencias específicas; usa solo las ya listadas como contexto.
+- Si un campo ya viene definido arriba, cópialo tal cual en tu respuesta sin cambiarlo.
+- "objetivoGeneral": 1 oración, verbo en infinitivo, integrando las áreas.
+- "actividades": exactamente 2 actividades por cada fase ("planificacion", "gestion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual). Actividades concretas y breves, coherentes con las áreas y el producto final.
+- "evaluacionGeneral": 1-2 oraciones describiendo cómo se evalúa el proyecto en conjunto (rúbrica y/o portafolio, sugerido por el instructivo oficial).
+- Sé conciso en todos los campos de texto.
+
+Responde ÚNICAMENTE con JSON válido con esta forma exacta:
+{
+  "titulo": "string",
+  "contexto": "string",
+  "preguntaGuia": "string",
+  "objetivoGeneral": "string",
+  "productoFinal": "string",
+  "actividades": [
+    { "fase": "planificacion", "actividad": "string", "recursos": "string", "evidencia": "string", "evaluacion": "string" }
+  ],
+  "evaluacionGeneral": "string"
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación de proyectos interdisciplinares del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 1600,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: any;
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      const fasesValidas = new Set(["planificacion", "gestion", "evaluacion"]);
+      const actividades = Array.isArray(parsed.actividades)
+        ? parsed.actividades
+            .filter((a: any) => a && fasesValidas.has(a.fase))
+            .map((a: any) => ({
+              fase: a.fase as "planificacion" | "gestion" | "evaluacion",
+              actividad: typeof a.actividad === "string" ? a.actividad : "",
+              recursos: typeof a.recursos === "string" ? a.recursos : "",
+              evidencia: typeof a.evidencia === "string" ? a.evidencia : "",
+              evaluacion: typeof a.evaluacion === "string" ? a.evaluacion : "",
+            }))
+        : [];
+
+      return {
+        titulo: typeof parsed.titulo === "string" ? parsed.titulo : undefined,
+        contexto: typeof parsed.contexto === "string" ? parsed.contexto : undefined,
+        preguntaGuia: typeof parsed.preguntaGuia === "string" ? parsed.preguntaGuia : undefined,
+        objetivoGeneral: typeof parsed.objetivoGeneral === "string" ? parsed.objetivoGeneral : "",
+        productoFinal: typeof parsed.productoFinal === "string" ? parsed.productoFinal : undefined,
+        actividades,
+        evaluacionGeneral: typeof parsed.evaluacionGeneral === "string" ? parsed.evaluacionGeneral : "",
+      };
+    }),
 });
