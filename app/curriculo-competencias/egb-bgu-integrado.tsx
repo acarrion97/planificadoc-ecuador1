@@ -22,6 +22,7 @@ import {
   obtenerMateria,
   ceDisponibleParaGrados,
   fusionarBloquesPorGrado,
+  completarBloquesFaltantes,
 } from "@/data/competencias-especificas-egb-bgu";
 import type { CompetenciaEspecificaCompleta } from "@/data/types-competencias-especificas";
 import type {
@@ -108,6 +109,18 @@ export default function EGBBGUIntegradoFormScreen() {
       if (validas.length === 0) setBloquesPorGrado({});
     }
   }, [gradosSeleccionados, materiaId]);
+
+  // Si se agrega un grado a la selección multigrado y las CE ya elegidas lo
+  // siguen cubriendo válidamente, ninguna CE se invalida (efecto anterior) y
+  // `bloquesPorGrado` nunca obtenía una entrada para ese grado nuevo —
+  // quedaba usando BLOQUE_VACIO en el guardado. Se completa aquí solo lo
+  // faltante, sin tocar grados que ya tienen bloque (incluida una edición
+  // manual del docente vía `actualizarBloqueCampo`).
+  useEffect(() => {
+    if (cesMultigrado.length === 0) return;
+    const codigos = cesMultigrado.map((c) => c.codigo);
+    setBloquesPorGrado((prev) => completarBloquesFaltantes(materiaId, codigos, gradosSeleccionados, prev));
+  }, [gradosSeleccionados, cesMultigrado, materiaId]);
 
   // Las semanas generadas por IA quedan obsoletas si cambian los grados o
   // las CE seleccionadas (referencian gradoIds y contenido de un contexto

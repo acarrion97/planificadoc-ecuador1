@@ -3,6 +3,7 @@ import {
   ceDisponibleParaGrados,
   resolverBloquePorGrado,
   fusionarBloquesPorGrado,
+  completarBloquesFaltantes,
   gradosDeNivel,
   nivelesDeMateria,
 } from "../data/competencias-especificas-egb-bgu";
@@ -131,6 +132,63 @@ describe("fusionarBloquesPorGrado", () => {
       procedimentales: [],
       actitudinales: [],
     });
+  });
+});
+
+describe("completarBloquesFaltantes", () => {
+  const CE_CODIGO = "CE.M.4.1";
+  const GRADOS_SUPERIOR = ["OCTAVO GRADO", "NOVENO GRADO", "DÉCIMO GRADO"];
+
+  it("resuelve un grado agregado después que las CE ya seleccionadas siguen cubriendo (bug de bloquesPorGrado no sincronizado)", () => {
+    // Docente elige 2 grados y una CE que los cubre.
+    const bloquesIniciales = fusionarBloquesPorGrado(MATERIA_ID, [CE_CODIGO], [
+      "OCTAVO GRADO",
+      "NOVENO GRADO",
+    ]);
+
+    // Luego agrega DÉCIMO GRADO, que la misma CE también cubre válidamente
+    // (no invalida la CE, así que el efecto de depuración no dispara).
+    const resultado = completarBloquesFaltantes(
+      MATERIA_ID,
+      [CE_CODIGO],
+      GRADOS_SUPERIOR,
+      bloquesIniciales
+    );
+
+    expect(Object.keys(resultado).sort()).toEqual([...GRADOS_SUPERIOR].sort());
+    expect(resultado["DÉCIMO GRADO"].indicadores.length).toBeGreaterThan(0);
+    expect(resultado["DÉCIMO GRADO"]).toEqual(
+      resolverBloquePorGrado(MATERIA_ID, CE_CODIGO, GRADOS_SUPERIOR)["DÉCIMO GRADO"]
+    );
+  });
+
+  it("no toca (ni resetea) los grados que ya tenían un bloque, incluida una edición manual del docente", () => {
+    const bloquesConEdicionManual = {
+      "OCTAVO GRADO": {
+        indicadores: ["EDITADO A MANO"],
+        declarativos: [],
+        procedimentales: [],
+        actitudinales: [],
+      },
+    };
+
+    const resultado = completarBloquesFaltantes(
+      MATERIA_ID,
+      [CE_CODIGO],
+      ["OCTAVO GRADO", "NOVENO GRADO"],
+      bloquesConEdicionManual
+    );
+
+    // El grado ya presente (editado a mano) no se pisa.
+    expect(resultado["OCTAVO GRADO"]).toEqual(bloquesConEdicionManual["OCTAVO GRADO"]);
+    // El grado nuevo sí se rellena.
+    expect(resultado["NOVENO GRADO"].indicadores.length).toBeGreaterThan(0);
+  });
+
+  it("devuelve la misma referencia cuando no falta ningún grado (no dispara renders extra)", () => {
+    const bloques = fusionarBloquesPorGrado(MATERIA_ID, [CE_CODIGO], ["OCTAVO GRADO"]);
+    const resultado = completarBloquesFaltantes(MATERIA_ID, [CE_CODIGO], ["OCTAVO GRADO"], bloques);
+    expect(resultado).toBe(bloques);
   });
 });
 
