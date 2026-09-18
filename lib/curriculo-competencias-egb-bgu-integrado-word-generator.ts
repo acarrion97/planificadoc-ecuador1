@@ -26,21 +26,9 @@ import {
 import type { PlanificacionInicialCurriculo, AmbitoDesarrollo } from "../data/types-curriculo-competencias";
 import {
   buscarCompetenciaEspecificaEGBBGU,
+  buscarConexionesInterdisciplinariasMesocurriculo,
   MATERIAS_EGB_BGU,
 } from "../data/competencias-especificas-egb-bgu";
-import { buscarConexionesInterdisciplinarias } from "../data/index";
-import type { Area, Subnivel } from "../data/types";
-
-/** Mapea el id de materia del catálogo nuevo al código de área del catálogo de destrezas (2016), usado para buscar conexiones interdisciplinarias reales. */
-const AREA_POR_MATERIA: Record<string, Area> = {
-  lengua: "LL",
-  matematica: "M",
-  "ciencias-naturales": "CN",
-  "ciencias-sociales": "CS",
-  ingles: "EFL",
-  eca: "ECA",
-  emprendimiento: "EG",
-};
 
 /** Ordinal (en palabra) → número, para reformatear "OCTAVO GRADO" como "8.º EGB". */
 const ORDINAL_A_NUMERO: Record<string, number> = {
@@ -170,17 +158,6 @@ function truncateWords(text: string, maxLen: number): string {
   const cut = text.substring(0, maxLen);
   const lastSpace = cut.lastIndexOf(" ");
   return (lastSpace > 0 ? cut.substring(0, lastSpace) : cut).trim();
-}
-
-/** Área (catálogo 2016) y subnivel de un ámbito, para buscar conexiones interdisciplinarias reales. */
-function areaYSubnivel(ambito: AmbitoDesarrollo): { area: Area; subnivel: Subnivel } | undefined {
-  const codigo = ambito.competenciaCodigo || "";
-  const materia = materiaDelCodigo(codigo);
-  const area = materia ? AREA_POR_MATERIA[materia.id] : undefined;
-  const m = codigo.match(/^CE\.[A-Z]+(?:\.[A-Z]+)?\.(\d+)\.\d+/);
-  const subnivel = m ? (Number(m[1]) as Subnivel) : undefined;
-  if (!area || !subnivel) return undefined;
-  return { area, subnivel };
 }
 
 // ── Generador principal ──
@@ -315,17 +292,21 @@ export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Conexión interdisciplinar")], TW, [TW]));
 
-  // Se buscan destrezas de OTRAS asignaturas del mismo subnivel cuyo texto
-  // coincida temáticamente (por palabras clave) con la competencia que se
-  // está planificando — igual que en el generador EGB/BGU con DCD.
+  // Se buscan Competencias Específicas de OTRAS materias del MESOCURRICULUM,
+  // del mismo subnivel, cuyo texto coincida temáticamente (por palabras
+  // clave) con la competencia que se está planificando. Debe usar el mismo
+  // catálogo (MESOCURRICULUM) que el resto del documento — no el catálogo de
+  // Destrezas del Currículo 2016, cuyos códigos "CE" son Criterios de
+  // Evaluación de un marco distinto y no existen en este catálogo.
   const conexionesVistas = new Set<string>();
   const filasConexionInterdisciplinar: TableRow[] = [];
   for (const a of ambitos) {
-    const ctx = areaYSubnivel(a);
-    if (!ctx) continue;
-    const conexiones = buscarConexionesInterdisciplinarias(
-      ctx.area,
-      ctx.subnivel,
+    const codigo = a.competenciaCodigo || "";
+    const materia = materiaDelCodigo(codigo);
+    if (!materia) continue;
+    const conexiones = buscarConexionesInterdisciplinariasMesocurriculo(
+      materia.id,
+      codigo,
       a.competenciaDescripcion,
       []
     );
