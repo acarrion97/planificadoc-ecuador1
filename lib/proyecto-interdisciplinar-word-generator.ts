@@ -1,30 +1,36 @@
 /**
  * Genera el documento Word (.docx) para un Proyecto Interdisciplinar.
  *
- * Sigue el mismo patrón de tablas/colores que
- * `curriculo-competencias-egb-bgu-integrado-word-generator.ts` (el más
- * reciente del repo), con secciones propias del módulo (design.md, Decisión 6):
+ * Sigue el formato oficial del instructivo "Proyecto Interdisciplinar para
+ * la Evaluación Sumativa" del MinEduc:
  *   1. Encabezado (Institución / Base curricular)
  *   2. Título del documento
- *   3. Datos informativos (proyecto, duración, docentes participantes)
- *   4. Información general (contexto, pregunta guía, objetivo, producto final, metodología)
- *   5. Áreas participantes y articulación curricular (una tabla por área)
- *   6. Actividades por fase (Planificación / Gestión / Evaluación)
- *   7. Evaluación general
- *   8. Firmas de docentes participantes
- *   9. Nota al pie
+ *   3. Datos informativos (institución, docentes, curso, duración, asignaturas)
+ *   4. Proyecto interdisciplinar (título)
+ *   5. Objetivo del proyecto
+ *   6. Descripción del proyecto (contexto, desafío, producto)
+ *   7. Planificación del proyecto interdisciplinar (una fila por elemento
+ *      curricular: asignatura, competencia/destreza, indicadores de
+ *      evaluación y saberes declarativos/procedimentales/actitudinales)
+ *   8. Actividades sugeridas y evidencias de evaluación (por fase)
+ *   9. Evaluación general
+ *  10. Recomendaciones para el docente
+ *  11. Firmas de docentes participantes
  *
  * Cada elemento curricular se resuelve contra el catálogo estático VIGENTE
  * al momento de exportar (nunca se copia la descripción al registro
  * guardado — design.md, Decisión 2), así que un cambio de catálogo se
- * refleja en la próxima exportación.
+ * refleja en la próxima exportación. Los saberes declarativos/procedimentales/
+ * actitudinales y los indicadores de evaluación solo existen en el catálogo
+ * de competencias específicas (CNC); para proyectos en destrezas esas
+ * columnas muestran "—" salvo los indicadores, que sí están disponibles.
  */
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType,
   VerticalAlign, TableLayoutType,
 } from "docx";
-import type { ProyectoInterdisciplinarPlan, BaseCurricular, FaseProyecto } from "../data/types-proyecto-interdisciplinar";
+import type { AreaProyectoInterdisciplinar, ProyectoInterdisciplinarPlan, BaseCurricular, FaseProyecto } from "../data/types-proyecto-interdisciplinar";
 import { buscarPorCodigo } from "../data/index";
 import { buscarCompetenciaEspecificaEGBBGU } from "../data/competencias-especificas-egb-bgu";
 
@@ -66,6 +72,11 @@ function p(
       }),
     ],
   });
+}
+
+/** Una celda de lista: un párrafo por ítem, o "—" si la lista está vacía. */
+function listaParrafos(items: string[], size = 7): Paragraph[] {
+  return items.length > 0 ? items.map((t) => p(t, { size })) : [p("—", { size })];
 }
 
 function tc(
@@ -119,6 +130,42 @@ function descripcionDeElemento(baseCurricular: BaseCurricular, codigo: string): 
   return buscarCompetenciaEspecificaEGBBGU(codigo)?.descripcion || "(no encontrado en el catálogo actual)";
 }
 
+interface SaberesDeElemento {
+  indicadores: string[];
+  declarativos: string[];
+  procedimentales: string[];
+  actitudinales: string[];
+}
+
+/**
+ * Indicadores de evaluación y saberes declarativos/procedimentales/actitudinales
+ * de un elemento curricular para el nivel/grado del área. Solo el catálogo de
+ * competencias específicas (CNC) trae saberes desagregados por grado; para
+ * destrezas solo hay indicadores de evaluación.
+ */
+function saberesDeElemento(
+  baseCurricular: BaseCurricular,
+  codigo: string,
+  area: AreaProyectoInterdisciplinar
+): SaberesDeElemento {
+  if (baseCurricular === "destrezas") {
+    return {
+      indicadores: buscarPorCodigo(codigo)?.indicadoresEvaluacion ?? [],
+      declarativos: [],
+      procedimentales: [],
+      actitudinales: [],
+    };
+  }
+  const ce = buscarCompetenciaEspecificaEGBBGU(codigo);
+  const porGrado = ce?.porGrado.find((g) => g.nivel === area.nivel && g.grado === area.grado);
+  return {
+    indicadores: porGrado?.indicadores.map((i) => i.texto) ?? [],
+    declarativos: porGrado?.saberes.declarativos ?? [],
+    procedimentales: porGrado?.saberes.procedimentales ?? [],
+    actitudinales: porGrado?.saberes.actitudinales ?? [],
+  };
+}
+
 // ── Generador principal ──
 export async function generarProyectoInterdisciplinarWord(
   plan: ProyectoInterdisciplinarPlan
@@ -158,7 +205,11 @@ export async function generarProyectoInterdisciplinarWord(
       [
         new TableRow({
           children: [
-            tc([p("Proyecto Interdisciplinar", { bold: true, size: 12, align: "center" })], TW, { bg: COLOR_HEADER }),
+            tc(
+              [p("PROYECTO INTERDISCIPLINAR PARA LA EVALUACIÓN SUMATIVA", { bold: true, size: 12, align: "center" })],
+              TW,
+              { bg: COLOR_HEADER }
+            ),
           ],
         }),
       ],
@@ -170,36 +221,48 @@ export async function generarProyectoInterdisciplinarWord(
   // ═══════════════════════════════════════════════════════════════
   // 3. DATOS INFORMATIVOS
   // ═══════════════════════════════════════════════════════════════
-  const COL_TIT = Math.floor(TW * 0.6);
-  const COL_DUR = TW - COL_TIT;
+  children.push(makeTable([sectionRow("Datos informativos")], TW, [TW]));
+
+  const COL_LABEL = Math.floor(TW * 0.22);
+  const COL_VALUE = TW - COL_LABEL;
+  const asignaturas = Array.from(new Set(plan.areas.map((a) => a.nombreArea))).join(", ");
+  const primeraArea = plan.areas[0];
+  const cursoLabel = primeraArea
+    ? `${primeraArea.grado}${primeraArea.subnivel ? ` (${primeraArea.subnivel})` : ` (${primeraArea.nivel})`}`
+    : "";
+
+  function datoRow(label: string, value: string | undefined): TableRow {
+    return new TableRow({
+      children: [
+        tc([p(label, { bold: true, size: 8 })], COL_LABEL, { bg: COLOR_HEADER }),
+        tc([p(value?.trim() || "—", { size: 8 })], COL_VALUE),
+      ],
+    });
+  }
 
   children.push(
     makeTable(
-      [new TableRow({ children: [tc([p("Datos informativos:", { bold: true, size: 8 })], TW)] })],
-      TW,
-      [TW]
-    ),
-    makeTable(
       [
-        new TableRow({
-          children: [
-            tc([p(`Título del proyecto: ${plan.titulo || "—"}`, { size: 8 })], COL_TIT),
-            tc([p(`Duración: ${plan.duracion || "—"}`, { size: 8 })], COL_DUR),
-          ],
-        }),
+        datoRow("Institución educativa:", plan.institucion),
+        datoRow("Docentes:", plan.docentesParticipantes?.join(", ")),
+        datoRow("Curso:", cursoLabel),
+        datoRow("Duración:", plan.duracion),
+        datoRow("Asignaturas:", asignaturas),
       ],
       TW,
-      [COL_TIT, COL_DUR]
-    ),
+      [COL_LABEL, COL_VALUE]
+    )
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // 4. PROYECTO INTERDISCIPLINAR (TÍTULO)
+  // ═══════════════════════════════════════════════════════════════
+  children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
+  children.push(
     makeTable(
       [
         new TableRow({
-          children: [
-            tc(
-              [p(`Docentes participantes: ${plan.docentesParticipantes?.join(", ") || "—"}`, { size: 8 })],
-              TW
-            ),
-          ],
+          children: [tc([p(`Proyecto interdisciplinar: ${plan.titulo || "—"}`, { bold: true, size: 10 })], TW, { bg: COLOR_HEADER })],
         }),
       ],
       TW,
@@ -208,10 +271,21 @@ export async function generarProyectoInterdisciplinarWord(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // 4. INFORMACIÓN GENERAL
+  // 5. OBJETIVO DEL PROYECTO
   // ═══════════════════════════════════════════════════════════════
-  children.push(makeTable([sectionRow("Información general")], TW, [TW]));
+  children.push(makeTable([sectionRow("Objetivo del proyecto")], TW, [TW]));
+  children.push(
+    makeTable(
+      [new TableRow({ children: [tc([p(plan.objetivoGeneral || "—", { size: 8 })], TW)] })],
+      TW,
+      [TW]
+    )
+  );
 
+  // ═══════════════════════════════════════════════════════════════
+  // 6. DESCRIPCIÓN DEL PROYECTO
+  // ═══════════════════════════════════════════════════════════════
+  children.push(makeTable([sectionRow("Descripción del proyecto")], TW, [TW]));
   children.push(
     makeTable(
       [
@@ -219,27 +293,19 @@ export async function generarProyectoInterdisciplinarWord(
           children: [
             tc(
               [
-                p("Contexto / situación:", { bold: true, size: 8 }),
                 p(plan.contexto || "—", { size: 8 }),
-                p("Pregunta guía:", { bold: true, size: 8 }),
+                p("Desafío:", { bold: true, size: 8 }),
                 p(plan.preguntaGuia || "—", { size: 8 }),
-                p("Objetivo general:", { bold: true, size: 8 }),
-                p(plan.objetivoGeneral || "—", { size: 8 }),
+                p("Producto:", { bold: true, size: 8 }),
+                p(plan.productoFinal || "—", { size: 8 }),
                 ...(plan.objetivosEspecificos?.length
                   ? [
                       p("Objetivos específicos:", { bold: true, size: 8 }),
                       ...plan.objetivosEspecificos.map((o) => p(`• ${o}`, { size: 8 })),
                     ]
                   : []),
-                p("Producto final:", { bold: true, size: 8 }),
-                p(plan.productoFinal || "—", { size: 8 }),
-                p("Metodología:", { bold: true, size: 8 }),
-                p(plan.metodologia || "—", { size: 8 }),
-                ...(plan.adaptaciones
-                  ? [p("Adaptaciones / inclusión:", { bold: true, size: 8 }), p(plan.adaptaciones, { size: 8 })]
-                  : []),
-                ...(plan.observaciones
-                  ? [p("Observaciones:", { bold: true, size: 8 }), p(plan.observaciones, { size: 8 })]
+                ...(plan.metodologia
+                  ? [p("Metodología:", { bold: true, size: 8 }), p(plan.metodologia, { size: 8 })]
                   : []),
               ],
               TW
@@ -253,71 +319,82 @@ export async function generarProyectoInterdisciplinarWord(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // 5. ÁREAS PARTICIPANTES Y ARTICULACIÓN CURRICULAR
+  // 7. PLANIFICACIÓN DEL PROYECTO INTERDISCIPLINAR
   // ═══════════════════════════════════════════════════════════════
-  children.push(makeTable([sectionRow("Áreas participantes y articulación curricular")], TW, [TW]));
+  children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
+  children.push(makeTable([sectionRow("Planificación del proyecto interdisciplinar")], TW, [TW]));
 
-  const COL_COD = Math.floor(TW * 0.18);
-  const COL_DESC = TW - COL_COD;
+  const elementoLabel = plan.baseCurricular === "destrezas" ? "Destreza con criterio de desempeño" : "Competencia específica";
+  const COL_ASIG = Math.floor(TW * 0.12);
+  const COL_CE = Math.floor(TW * 0.22);
+  const COL_IND = Math.floor(TW * 0.22);
+  const COL_DECL = Math.floor(TW * 0.147);
+  const COL_PROC = Math.floor(TW * 0.147);
+  const COL_ACT = TW - COL_ASIG - COL_CE - COL_IND - COL_DECL - COL_PROC;
+  const COLS_PLANIF = [COL_ASIG, COL_CE, COL_IND, COL_DECL, COL_PROC, COL_ACT];
 
+  const filasPlanificacion: TableRow[] = [];
   if (plan.areas.length === 0) {
-    children.push(
-      makeTable([new TableRow({ children: [tc([p("Sin áreas registradas.", { size: 8 })], TW)] })], TW, [TW])
+    filasPlanificacion.push(
+      new TableRow({ children: [tc([p("Sin áreas registradas.", { size: 8 })], TW, { cs: 6 })] })
     );
   }
-
   for (const area of plan.areas) {
-    children.push(new Paragraph({ spacing: { after: 40 }, children: [] }));
     const elementosDeArea = plan.elementosCurriculares.filter((e) => e.areaProyectoId === area.id);
-
-    const filas: TableRow[] =
-      elementosDeArea.length > 0
-        ? elementosDeArea.map(
-            (e) =>
-              new TableRow({
-                children: [
-                  tc([p(e.codigo, { size: 7, bold: true })], COL_COD),
-                  tc([p(descripcionDeElemento(plan.baseCurricular, e.codigo), { size: 7 })], COL_DESC),
-                ],
-              })
-          )
-        : [
-            new TableRow({
-              children: [tc([p("—", { size: 7 })], COL_COD), tc([p("Sin elementos curriculares seleccionados.", { size: 7 })], COL_DESC)],
-            }),
-          ];
-
-    children.push(
-      makeTable(
-        [
-          new TableRow({
-            tableHeader: true,
-            children: [
-              tc(
-                [
-                  p(
-                    `${area.nombreArea} — ${area.nivel}${area.subnivel ? ` (${area.subnivel})` : ""} · ${area.grado}`,
-                    { bold: true, size: 8, color: WHITE }
-                  ),
-                ],
-                TW,
-                { bg: COLOR_PRIMARY, cs: 2 }
-              ),
-            ],
-          }),
-          ...filas,
-        ],
-        TW,
-        [COL_COD, COL_DESC]
-      )
-    );
+    if (elementosDeArea.length === 0) {
+      filasPlanificacion.push(
+        new TableRow({
+          children: [
+            tc([p(area.nombreArea, { bold: true, size: 7 })], COL_ASIG),
+            tc([p("Sin elementos curriculares seleccionados.", { size: 7 })], TW - COL_ASIG, { cs: 5 }),
+          ],
+        })
+      );
+      continue;
+    }
+    for (const e of elementosDeArea) {
+      const info = saberesDeElemento(plan.baseCurricular, e.codigo, area);
+      filasPlanificacion.push(
+        new TableRow({
+          children: [
+            tc([p(area.nombreArea, { bold: true, size: 7 })], COL_ASIG),
+            tc([p(`${e.codigo}. ${descripcionDeElemento(plan.baseCurricular, e.codigo)}`, { size: 7 })], COL_CE),
+            tc(listaParrafos(info.indicadores), COL_IND),
+            tc(listaParrafos(info.declarativos), COL_DECL),
+            tc(listaParrafos(info.procedimentales), COL_PROC),
+            tc(listaParrafos(info.actitudinales), COL_ACT),
+          ],
+        })
+      );
+    }
   }
 
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          tableHeader: true,
+          children: [
+            tc([p("Asignatura", { bold: true, size: 8, color: WHITE })], COL_ASIG, { bg: COLOR_PRIMARY }),
+            tc([p(elementoLabel, { bold: true, size: 8, color: WHITE })], COL_CE, { bg: COLOR_PRIMARY }),
+            tc([p("Indicadores de evaluación", { bold: true, size: 8, color: WHITE })], COL_IND, { bg: COLOR_PRIMARY }),
+            tc([p("Saberes declarativos", { bold: true, size: 8, color: WHITE })], COL_DECL, { bg: COLOR_PRIMARY }),
+            tc([p("Saberes procedimentales", { bold: true, size: 8, color: WHITE })], COL_PROC, { bg: COLOR_PRIMARY }),
+            tc([p("Saberes actitudinales", { bold: true, size: 8, color: WHITE })], COL_ACT, { bg: COLOR_PRIMARY }),
+          ],
+        }),
+        ...filasPlanificacion,
+      ],
+      TW,
+      COLS_PLANIF
+    )
+  );
+
   // ═══════════════════════════════════════════════════════════════
-  // 6. ACTIVIDADES POR FASE
+  // 8. ACTIVIDADES SUGERIDAS Y EVIDENCIAS DE EVALUACIÓN
   // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
-  children.push(makeTable([sectionRow("Actividades por fase")], TW, [TW]));
+  children.push(new Paragraph({ spacing: { after: 80, before: 80 }, children: [] }));
+  children.push(makeTable([sectionRow("Actividades sugeridas y evidencias de evaluación")], TW, [TW]));
 
   const COL_ACTIV = Math.floor(TW * 0.34);
   const COL_REC = Math.floor(TW * 0.2);
@@ -374,7 +451,7 @@ export async function generarProyectoInterdisciplinarWord(
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // 7. EVALUACIÓN GENERAL
+  // 9. EVALUACIÓN GENERAL
   // ═══════════════════════════════════════════════════════════════
   children.push(new Paragraph({ spacing: { after: 80 }, children: [] }));
   children.push(makeTable([sectionRow("Evaluación general")], TW, [TW]));
@@ -387,7 +464,30 @@ export async function generarProyectoInterdisciplinarWord(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // 8. FIRMAS
+  // 10. RECOMENDACIONES PARA EL DOCENTE
+  // ═══════════════════════════════════════════════════════════════
+  children.push(new Paragraph({ spacing: { after: 80, before: 120 }, children: [] }));
+  children.push(makeTable([sectionRow("Recomendaciones para el docente")], TW, [TW]));
+
+  const recomendaciones: Paragraph[] = [];
+  if (plan.adaptaciones) {
+    recomendaciones.push(p("Adaptaciones / inclusión:", { bold: true, size: 8 }));
+    recomendaciones.push(p(plan.adaptaciones, { size: 8 }));
+  }
+  if (plan.observaciones) {
+    recomendaciones.push(p("Observaciones:", { bold: true, size: 8 }));
+    recomendaciones.push(p(plan.observaciones, { size: 8 }));
+  }
+  recomendaciones.push(
+    p(
+      "Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del Ministerio de Educación.",
+      { size: 7 }
+    )
+  );
+  children.push(makeTable([new TableRow({ children: [tc(recomendaciones, TW)] })], TW, [TW]));
+
+  // ═══════════════════════════════════════════════════════════════
+  // 11. FIRMAS
   // ═══════════════════════════════════════════════════════════════
   children.push(new Paragraph({ spacing: { after: 120 }, children: [] }));
   children.push(makeTable([sectionRow("Firmas")], TW, [TW]));
@@ -408,32 +508,6 @@ export async function generarProyectoInterdisciplinarWord(
       ],
       TW,
       anchos
-    )
-  );
-
-  // ═══════════════════════════════════════════════════════════════
-  // 9. NOTA AL PIE
-  // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 80, before: 120 }, children: [] }));
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc(
-              [
-                p(
-                  "Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del Ministerio de Educación.",
-                  { size: 7 }
-                ),
-              ],
-              TW
-            ),
-          ],
-        }),
-      ],
-      TW,
-      [TW]
     )
   );
 

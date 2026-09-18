@@ -5,9 +5,10 @@
  *
  * Mismas secciones y mismo contenido que
  * `proyecto-interdisciplinar-word-generator.ts` (tasks.md 10.3: el PDF debe
- * ser equivalente en contenido al Word), en HTML en vez de tablas `docx`.
+ * ser equivalente en contenido al Word): formato oficial del instructivo
+ * "Proyecto Interdisciplinar para la Evaluación Sumativa" del MinEduc.
  */
-import type { ProyectoInterdisciplinarPlan, BaseCurricular, FaseProyecto } from "../data/types-proyecto-interdisciplinar";
+import type { AreaProyectoInterdisciplinar, ProyectoInterdisciplinarPlan, BaseCurricular, FaseProyecto } from "../data/types-proyecto-interdisciplinar";
 import { buscarPorCodigo } from "../data/index";
 import { buscarCompetenciaEspecificaEGBBGU } from "../data/competencias-especificas-egb-bgu";
 
@@ -43,11 +44,51 @@ function descripcionDeElemento(baseCurricular: BaseCurricular, codigo: string): 
   return buscarCompetenciaEspecificaEGBBGU(codigo)?.descripcion || "(no encontrado en el catálogo actual)";
 }
 
+interface SaberesDeElemento {
+  indicadores: string[];
+  declarativos: string[];
+  procedimentales: string[];
+  actitudinales: string[];
+}
+
+/**
+ * Indicadores de evaluación y saberes declarativos/procedimentales/actitudinales
+ * de un elemento curricular para el nivel/grado del área. Solo el catálogo de
+ * competencias específicas (CNC) trae saberes desagregados por grado; para
+ * destrezas solo hay indicadores de evaluación.
+ */
+function saberesDeElemento(
+  baseCurricular: BaseCurricular,
+  codigo: string,
+  area: AreaProyectoInterdisciplinar
+): SaberesDeElemento {
+  if (baseCurricular === "destrezas") {
+    return {
+      indicadores: buscarPorCodigo(codigo)?.indicadoresEvaluacion ?? [],
+      declarativos: [],
+      procedimentales: [],
+      actitudinales: [],
+    };
+  }
+  const ce = buscarCompetenciaEspecificaEGBBGU(codigo);
+  const porGrado = ce?.porGrado.find((g) => g.nivel === area.nivel && g.grado === area.grado);
+  return {
+    indicadores: porGrado?.indicadores.map((i) => i.texto) ?? [],
+    declarativos: porGrado?.saberes.declarativos ?? [],
+    procedimentales: porGrado?.saberes.procedimentales ?? [],
+    actitudinales: porGrado?.saberes.actitudinales ?? [],
+  };
+}
+
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+}
+
+function listaHtml(items: string[]): string {
+  return items.length ? items.map((i) => escapeHtml(i)).join("<br>") : "—";
 }
 
 export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplinarPlan): string {
@@ -56,33 +97,42 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
       ? "Destrezas con criterios de desempeño"
       : "Competencias específicas (Currículo Nacional por Competencias)";
 
-  // ── Áreas y articulación curricular ──
-  const areasHtml = plan.areas.length
+  const elementoLabel = plan.baseCurricular === "destrezas" ? "Destreza con criterio de desempeño" : "Competencia específica";
+  const asignaturas = Array.from(new Set(plan.areas.map((a) => a.nombreArea))).join(", ");
+  const primeraArea = plan.areas[0];
+  const cursoLabel = primeraArea
+    ? `${primeraArea.grado}${primeraArea.subnivel ? ` (${primeraArea.subnivel})` : ` (${primeraArea.nivel})`}`
+    : "";
+
+  // ── Planificación del proyecto interdisciplinar ──
+  const planificacionHtml = plan.areas.length
     ? plan.areas
         .map((area) => {
           const elementosDeArea = plan.elementosCurriculares.filter((e) => e.areaProyectoId === area.id);
-          const filas = elementosDeArea.length
-            ? elementosDeArea
-                .map(
-                  (e) => `
+          if (elementosDeArea.length === 0) {
+            return `
         <tr>
-          <td style="width:18%;"><strong>${escapeHtml(e.codigo)}</strong></td>
-          <td>${escapeHtml(descripcionDeElemento(plan.baseCurricular, e.codigo))}</td>
-        </tr>`
-                )
-                .join("")
-            : `<tr><td>—</td><td>Sin elementos curriculares seleccionados.</td></tr>`;
-
-          return `
-    <tr>
-      <td colspan="2" style="background:${COLOR_PRIMARY};color:white;font-weight:bold;">
-        ${escapeHtml(area.nombreArea)} — ${escapeHtml(area.nivel)}${area.subnivel ? ` (${escapeHtml(area.subnivel)})` : ""} · ${escapeHtml(area.grado)}
-      </td>
-    </tr>
-    ${filas}`;
+          <td><strong>${escapeHtml(area.nombreArea)}</strong></td>
+          <td colspan="5">Sin elementos curriculares seleccionados.</td>
+        </tr>`;
+          }
+          return elementosDeArea
+            .map((e) => {
+              const info = saberesDeElemento(plan.baseCurricular, e.codigo, area);
+              return `
+        <tr>
+          <td><strong>${escapeHtml(area.nombreArea)}</strong></td>
+          <td>${escapeHtml(`${e.codigo}. ${descripcionDeElemento(plan.baseCurricular, e.codigo)}`)}</td>
+          <td>${listaHtml(info.indicadores)}</td>
+          <td>${listaHtml(info.declarativos)}</td>
+          <td>${listaHtml(info.procedimentales)}</td>
+          <td>${listaHtml(info.actitudinales)}</td>
+        </tr>`;
+            })
+            .join("");
         })
-        .join("<tr><td colspan=\"2\" style=\"border:none;height:6px;\"></td></tr>")
-    : `<tr><td colspan="2">Sin áreas registradas.</td></tr>`;
+        .join("")
+    : `<tr><td colspan="6">Sin áreas registradas.</td></tr>`;
 
   // ── Actividades por fase ──
   const fases: FaseProyecto[] = ["planificacion", "gestion", "evaluacion"];
@@ -119,6 +169,15 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
     .map((d) => `<td><div class="firma-line"></div><br>${escapeHtml(d)}</td>`)
     .join("");
 
+  // ── Recomendaciones para el docente ──
+  const recomendacionesHtml = `
+    ${plan.adaptaciones ? `<strong>Adaptaciones / inclusión:</strong> ${escapeHtml(plan.adaptaciones)}<br>` : ""}
+    ${plan.observaciones ? `<strong>Observaciones:</strong> ${escapeHtml(plan.observaciones)}<br>` : ""}
+    <span class="disclaimer">Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad
+    del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa
+    y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del
+    Ministerio de Educación.</span>`;
+
   return `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -141,65 +200,76 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
   <table>
     <!-- Encabezado -->
     <tr>
-      <td class="header-row" colspan="2">${escapeHtml(plan.institucion || "Unidad Educativa")}</td>
+      <td class="header-row" colspan="3">${escapeHtml(plan.institucion || "Unidad Educativa")}</td>
       <td class="header-row" style="text-align:right;" colspan="3">Base curricular: ${baseLabel}</td>
     </tr>
     <tr>
-      <td colspan="5" style="text-align:center;font-weight:bold;font-size:13px;background:${COLOR_HEADER};">
-        Proyecto Interdisciplinar
+      <td colspan="6" style="text-align:center;font-weight:bold;font-size:13px;background:${COLOR_HEADER};">
+        PROYECTO INTERDISCIPLINAR PARA LA EVALUACIÓN SUMATIVA
       </td>
     </tr>
 
     <!-- Datos informativos -->
     ${sectionHeader("DATOS INFORMATIVOS")}
     <tr>
-      <td colspan="3"><strong>Título del proyecto:</strong> ${escapeHtml(plan.titulo || "—")}</td>
-      <td colspan="2"><strong>Duración:</strong> ${escapeHtml(plan.duracion || "—")}</td>
+      <td><strong>Institución educativa:</strong></td><td colspan="2">${escapeHtml(plan.institucion || "—")}</td>
+      <td><strong>Docentes:</strong></td><td colspan="2">${escapeHtml(plan.docentesParticipantes?.join(", ") || "—")}</td>
     </tr>
     <tr>
-      <td colspan="5"><strong>Docentes participantes:</strong> ${escapeHtml(plan.docentesParticipantes?.join(", ") || "—")}</td>
+      <td><strong>Curso:</strong></td><td colspan="2">${escapeHtml(cursoLabel || "—")}</td>
+      <td><strong>Duración:</strong></td><td colspan="2">${escapeHtml(plan.duracion || "—")}</td>
+    </tr>
+    <tr>
+      <td><strong>Asignaturas:</strong></td><td colspan="5">${escapeHtml(asignaturas || "—")}</td>
     </tr>
 
-    <!-- Información general -->
-    ${sectionHeader("INFORMACIÓN GENERAL")}
+    <!-- Proyecto interdisciplinar -->
     <tr>
-      <td colspan="5">
-        <strong>Contexto / situación:</strong> ${escapeHtml(plan.contexto || "—")}<br>
-        <strong>Pregunta guía:</strong> ${escapeHtml(plan.preguntaGuia || "—")}<br>
-        <strong>Objetivo general:</strong> ${escapeHtml(plan.objetivoGeneral || "—")}<br>
-        ${plan.objetivosEspecificos?.length ? `<strong>Objetivos específicos:</strong><br>${plan.objetivosEspecificos.map((o) => `• ${escapeHtml(o)}`).join("<br>")}<br>` : ""}
-        <strong>Producto final:</strong> ${escapeHtml(plan.productoFinal || "—")}<br>
-        <strong>Metodología:</strong> ${escapeHtml(plan.metodologia || "—")}
-        ${plan.adaptaciones ? `<br><strong>Adaptaciones / inclusión:</strong> ${escapeHtml(plan.adaptaciones)}` : ""}
-        ${plan.observaciones ? `<br><strong>Observaciones:</strong> ${escapeHtml(plan.observaciones)}` : ""}
+      <td colspan="6" style="background:${COLOR_HEADER};font-weight:bold;">
+        Proyecto interdisciplinar: ${escapeHtml(plan.titulo || "—")}
       </td>
     </tr>
 
-    <!-- Áreas y articulación curricular -->
-    ${sectionHeader("ÁREAS PARTICIPANTES Y ARTICULACIÓN CURRICULAR")}
-    ${areasHtml}
+    <!-- Objetivo del proyecto -->
+    ${sectionHeader("OBJETIVO DEL PROYECTO")}
+    <tr><td colspan="6">${escapeHtml(plan.objetivoGeneral || "—")}</td></tr>
 
-    <!-- Actividades por fase -->
-    ${sectionHeader("ACTIVIDADES POR FASE")}
+    <!-- Descripción del proyecto -->
+    ${sectionHeader("DESCRIPCIÓN DEL PROYECTO")}
+    <tr>
+      <td colspan="6">
+        ${escapeHtml(plan.contexto || "—")}<br>
+        <strong>Desafío:</strong> ${escapeHtml(plan.preguntaGuia || "—")}<br>
+        <strong>Producto:</strong> ${escapeHtml(plan.productoFinal || "—")}<br>
+        ${plan.objetivosEspecificos?.length ? `<strong>Objetivos específicos:</strong><br>${plan.objetivosEspecificos.map((o) => `• ${escapeHtml(o)}`).join("<br>")}<br>` : ""}
+        ${plan.metodologia ? `<strong>Metodología:</strong> ${escapeHtml(plan.metodologia)}` : ""}
+      </td>
+    </tr>
+
+    <!-- Planificación del proyecto interdisciplinar -->
+    ${sectionHeader("PLANIFICACIÓN DEL PROYECTO INTERDISCIPLINAR")}
+    <tr class="header-row">
+      <td>Asignatura</td><td>${elementoLabel}</td><td>Indicadores de evaluación</td>
+      <td>Saberes declarativos</td><td>Saberes procedimentales</td><td>Saberes actitudinales</td>
+    </tr>
+    ${planificacionHtml}
+
+    <!-- Actividades sugeridas y evidencias de evaluación -->
+    ${sectionHeader("ACTIVIDADES SUGERIDAS Y EVIDENCIAS DE EVALUACIÓN")}
     ${actividadesHtml || `<tr><td colspan="5">Sin actividades registradas.</td></tr>`}
 
     <!-- Evaluación general -->
     ${sectionHeader("EVALUACIÓN GENERAL")}
     <tr><td colspan="5">${escapeHtml(plan.evaluacionGeneral || "—")}</td></tr>
 
+    <!-- Recomendaciones para el docente -->
+    ${sectionHeader("RECOMENDACIONES PARA EL DOCENTE")}
+    <tr><td colspan="6">${recomendacionesHtml}</td></tr>
+
     <!-- Firmas -->
     ${sectionHeader("FIRMAS")}
     <tr class="firma-row">
       ${firmasHtml}
-    </tr>
-
-    <tr>
-      <td colspan="5" class="disclaimer">
-        Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad
-        del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa
-        y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del
-        Ministerio de Educación.
-      </td>
     </tr>
   </table>
 </body>

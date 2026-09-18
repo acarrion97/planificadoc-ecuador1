@@ -187,6 +187,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   const [contexto, setContexto] = useState("");
   const [preguntaGuia, setPreguntaGuia] = useState("");
   const [productoFinal, setProductoFinal] = useState("");
+  const [duracion, setDuracion] = useState("");
   const [institucion, setInstitucion] = useState("");
   const [docentesTexto, setDocentesTexto] = useState("");
 
@@ -238,6 +239,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       setContexto(fd.contexto || "");
       setPreguntaGuia(fd.preguntaGuia || "");
       setProductoFinal(fd.productoFinal || "");
+      setDuracion(fd.duracion || "");
       setObjetivoGeneral(fd.objetivoGeneral || "");
       setEvaluacionGeneral(fd.evaluacionGeneral || "");
       setInstitucion(fd.institucion || "");
@@ -305,6 +307,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
     preguntaGuia: preguntaGuia.trim() || undefined,
     objetivoGeneral: objetivoGeneral.trim() || undefined,
     productoFinal: productoFinal.trim() || undefined,
+    duracion: duracion.trim() || undefined,
     areas: construirAreas(),
     elementosCurriculares: elementos.map((e) => ({ areaProyectoId: e.area, codigo: e.codigo })),
     actividades: actividades.map((a) => ({
@@ -401,6 +404,13 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       );
       return;
     }
+    if (!duracion.trim() || !institucion.trim()) {
+      mostrarAlerta(
+        "Faltan datos",
+        "Completa la duración y la institución antes de generar (son obligatorias para marcar el proyecto como generado)."
+      );
+      return;
+    }
     setGenerando(true);
     try {
       const resultado = await generarCompletoMutation.mutateAsync({
@@ -452,6 +462,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
         preguntaGuia: nuevaPreguntaGuia || undefined,
         objetivoGeneral: resultado.objetivoGeneral || undefined,
         productoFinal: nuevoProducto || undefined,
+        duracion: duracion.trim() || undefined,
         areas: construirAreas(),
         elementosCurriculares: elementos.map((e) => ({ areaProyectoId: e.area, codigo: e.codigo })),
         actividades: nuevasActividades.map((a) => ({
@@ -688,6 +699,17 @@ export default function ProyectoInterdisciplinarWizardScreen() {
           {renderField("Producto preferido", productoFinal, setProductoFinal, {
             placeholder: "Opcional. Ej. Stand, dossier, podcast...",
           })}
+          {renderField("Duración", duracion, setDuracion, {
+            placeholder: "Ej. 4 semanas, 1 trimestre...",
+          })}
+
+          {/* ── Información institucional ── */}
+          {renderSectionHeader("Información institucional", "🏫")}
+          {renderField("Institución", institucion, setInstitucion, { placeholder: "Nombre de la unidad educativa" })}
+          {renderField("Docentes participantes (uno por línea)", docentesTexto, setDocentesTexto, {
+            multiline: true,
+            placeholder: "Un nombre por línea",
+          })}
 
           {/* ── Competencias de varias asignaturas ── */}
           {renderSectionHeader("Competencias de varias asignaturas", "🧩")}
@@ -823,13 +845,6 @@ export default function ProyectoInterdisciplinarWizardScreen() {
               {renderField("Evaluación general", evaluacionGeneral, setEvaluacionGeneral, {
                 multiline: true,
                 helper: "Rúbrica y/o portafolio (sugerido por el instructivo oficial) — editable.",
-              })}
-
-              {renderSectionHeader("Información institucional", "🏫")}
-              {renderField("Institución", institucion, setInstitucion, { placeholder: "Nombre de la unidad educativa" })}
-              {renderField("Docentes participantes (uno por línea)", docentesTexto, setDocentesTexto, {
-                multiline: true,
-                placeholder: "Un nombre por línea",
               })}
 
               <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
