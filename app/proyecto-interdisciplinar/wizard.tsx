@@ -8,6 +8,7 @@ import {
   Pressable,
   ActivityIndicator,
   Alert,
+  Platform,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -30,6 +31,21 @@ async function getSessionId(): Promise<string> {
 
 function generarIdLocal(prefijo: string): string {
   return `${prefijo}-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 8)}`;
+}
+
+/**
+ * `Alert.alert` de react-native-web es un no-op silencioso
+ * (`node_modules/react-native-web/dist/exports/Alert/index.js` — `static alert() {}`),
+ * así que en la app web (donde corre este wizard en producción/preview) los
+ * mensajes de validación, error y éxito nunca se mostraban. Mismo patrón ya
+ * usado en app/planificar-semanal/index.tsx y otros.
+ */
+function mostrarAlerta(titulo: string, mensaje: string): void {
+  if (Platform.OS === "web") {
+    alert(titulo ? `${titulo}\n\n${mensaje}` : mensaje);
+  } else {
+    Alert.alert(titulo, mensaje);
+  }
 }
 
 const FASES_PROYECTO: { key: FaseProyecto; label: string }[] = [
@@ -314,17 +330,17 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       }
     },
     onError: (err) => {
-      if (!generando) Alert.alert("Error", err.message || "No se pudo guardar el proyecto.");
+      if (!generando) mostrarAlerta("Error", err.message || "No se pudo guardar el proyecto.");
     },
   });
 
   const updateMutation = trpc.proyectoInterdisciplinar.update.useMutation({
     onSuccess: () => {
       utils.proyectoInterdisciplinar.list.invalidate();
-      if (!generando) Alert.alert("Guardado", "Los cambios se guardaron correctamente.");
+      if (!generando) mostrarAlerta("Guardado", "Los cambios se guardaron correctamente.");
     },
     onError: (err) => {
-      if (!generando) Alert.alert("Error", err.message || "No se pudo guardar el proyecto.");
+      if (!generando) mostrarAlerta("Error", err.message || "No se pudo guardar el proyecto.");
     },
   });
 
@@ -332,13 +348,13 @@ export default function ProyectoInterdisciplinarWizardScreen() {
 
   const generarCompletoMutation = trpc.proyectoInterdisciplinar.generarProyectoCompleto.useMutation({
     onError: (err) => {
-      Alert.alert("No se pudo generar", err.message || "Intenta de nuevo.");
+      mostrarAlerta("No se pudo generar", err.message || "Intenta de nuevo.");
     },
   });
 
   const sugerirMutation = trpc.proyectoInterdisciplinar.sugerirProyecto.useMutation({
     onError: (err) => {
-      Alert.alert("No se pudo sugerir", err.message || "Intenta de nuevo.");
+      mostrarAlerta("No se pudo sugerir", err.message || "Intenta de nuevo.");
     },
   });
 
@@ -379,7 +395,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   const handleGenerar = async () => {
     if (!sessionId) return;
     if (elementos.length < 2 || areasUnicas < 2) {
-      Alert.alert(
+      mostrarAlerta(
         "Faltan competencias",
         "Elige al menos dos elementos curriculares de al menos dos áreas distintas antes de generar."
       );
@@ -464,9 +480,9 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       if (!isEdit && projectId) {
         router.replace(`/proyecto-interdisciplinar/wizard?id=${projectId}` as any);
       }
-      Alert.alert("Proyecto generado", "La IA completó el proyecto. Puedes editar cualquier campo antes de exportar.");
+      mostrarAlerta("Proyecto generado", "La IA completó el proyecto. Puedes editar cualquier campo antes de exportar.");
     } catch (err: any) {
-      Alert.alert("No se pudo generar", err.message || "Intenta de nuevo.");
+      mostrarAlerta("No se pudo generar", err.message || "Intenta de nuevo.");
     } finally {
       setGenerando(false);
     }
@@ -487,10 +503,10 @@ export default function ProyectoInterdisciplinarWizardScreen() {
         a.click();
         URL.revokeObjectURL(url);
       } catch {
-        Alert.alert("Error", "No se pudo descargar el archivo Word.");
+        mostrarAlerta("Error", "No se pudo descargar el archivo Word.");
       }
     },
-    onError: () => Alert.alert("Error", "No se pudo generar el documento Word. Intenta de nuevo."),
+    onError: () => mostrarAlerta("Error", "No se pudo generar el documento Word. Intenta de nuevo."),
   });
 
   const exportPdfMutation = trpc.proyectoInterdisciplinar.exportPdf.useMutation({
@@ -502,13 +518,13 @@ export default function ProyectoInterdisciplinarWizardScreen() {
           win.document.close();
           setTimeout(() => win.print(), 300);
         } else {
-          Alert.alert("Aviso", "Se abrió una nueva ventana con el PDF. Si no lo ves, revisa el bloqueador de pop-ups.");
+          mostrarAlerta("Aviso", "Se abrió una nueva ventana con el PDF. Si no lo ves, revisa el bloqueador de pop-ups.");
         }
       } catch {
-        Alert.alert("Error", "No se pudo abrir el PDF. Intenta de nuevo.");
+        mostrarAlerta("Error", "No se pudo abrir el PDF. Intenta de nuevo.");
       }
     },
-    onError: () => Alert.alert("Error", "No se pudo generar el PDF. Intenta de nuevo."),
+    onError: () => mostrarAlerta("Error", "No se pudo generar el PDF. Intenta de nuevo."),
   });
 
   // ── Render helpers ──
@@ -713,7 +729,8 @@ export default function ProyectoInterdisciplinarWizardScreen() {
                 No hay elementos curriculares para esta combinación de nivel/grado.
               </Text>
             ) : (
-              elementosFiltrados.map((e) => {
+              <ScrollView style={{ maxHeight: 320 }} nestedScrollEnabled keyboardShouldPersistTaps="handled">
+              {elementosFiltrados.map((e) => {
                 const seleccionado = codigosSeleccionados.has(e.codigo);
                 return (
                   <Pressable
@@ -732,7 +749,8 @@ export default function ProyectoInterdisciplinarWizardScreen() {
                     </View>
                   </Pressable>
                 );
-              })
+              })}
+              </ScrollView>
             )}
           </View>
 
@@ -869,7 +887,7 @@ const styles = StyleSheet.create({
   chip: { flexDirection: "row", alignItems: "center", paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, gap: 6 },
   chipCode: { fontSize: 12, fontWeight: "700" },
   chipDesc: { fontSize: 11, maxWidth: 180 },
-  listaContainer: { borderWidth: 1, borderRadius: 10, maxHeight: 320 },
+  listaContainer: { borderWidth: 1, borderRadius: 10, overflow: "hidden" },
   listaItem: { flexDirection: "row", alignItems: "flex-start", padding: 12, borderBottomWidth: 1, gap: 10 },
   checkbox: { width: 20, height: 20, borderRadius: 4, borderWidth: 2, alignItems: "center", justifyContent: "center", marginTop: 2 },
   listaCodigo: { fontSize: 13, fontWeight: "700", marginBottom: 2 },
