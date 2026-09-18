@@ -21,7 +21,7 @@ import {
   competenciasDeGrado,
   obtenerMateria,
   ceDisponibleParaGrados,
-  resolverBloquePorGrado,
+  fusionarBloquesPorGrado,
 } from "@/data/competencias-especificas-egb-bgu";
 import type { CompetenciaEspecificaCompleta } from "@/data/types-competencias-especificas";
 import type {
@@ -140,17 +140,14 @@ export default function EGBBGUIntegradoFormScreen() {
     setCesMultigrado((prev) => {
       const exists = prev.some((c) => c.codigo === ce.codigo);
       const next = exists ? prev.filter((c) => c.codigo !== ce.codigo) : [...prev, ce];
-      // Resolver bloques para todos los grados con las CEs seleccionadas
-      const newBloques: Record<string, BloqueCurricularGrado> = {};
-      for (const g of gradosSeleccionados) {
-        for (const selected of next) {
-          const resolved = resolverBloquePorGrado(materiaId, selected.codigo, [g]);
-          if (resolved[g]) {
-            newBloques[g] = resolved[g];
-            break;
-          }
-        }
-      }
+      // Fusionar, por grado, los bloques de TODAS las CE seleccionadas que lo
+      // cubran (no solo la primera) — cada CE elegida debe desarrollarse en
+      // el documento final, no solo mencionarse.
+      const newBloques = fusionarBloquesPorGrado(
+        materiaId,
+        next.map((c) => c.codigo),
+        gradosSeleccionados
+      );
       setBloquesPorGrado(newBloques);
       return next;
     });

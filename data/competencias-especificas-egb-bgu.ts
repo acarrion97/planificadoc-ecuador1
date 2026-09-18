@@ -155,3 +155,49 @@ export function resolverBloquePorGrado(
 
   return resultado;
 }
+
+/**
+ * Igual que `resolverBloquePorGrado`, pero para VARIAS Competencias
+ * Específicas a la vez: para cada grado, fusiona (concatena, sin duplicados
+ * exactos) los indicadores y saberes de todas las CE que cubran ese grado,
+ * en vez de quedarse solo con la primera. Se usa en planificación
+ * multigrado, donde el docente puede elegir más de una CE para un mismo
+ * grupo de grados y el documento final debe desarrollar el contenido de
+ * todas — no solo mencionarlas y desarrollar una.
+ *
+ * Una CE que no cubre un grado dado simplemente no aporta nada a ese grado
+ * (igual que en `resolverBloquePorGrado`); se espera que el llamador valide
+ * la cobertura de cada CE con `ceDisponibleParaGrados` antes de fusionar.
+ */
+export function fusionarBloquesPorGrado(
+  materiaId: string,
+  ceCodigos: string[],
+  grados: string[]
+): Record<string, BloqueCurricularGrado> {
+  const resultado: Record<string, BloqueCurricularGrado> = {};
+
+  for (const grado of grados) {
+    const indicadores: string[] = [];
+    const declarativos: string[] = [];
+    const procedimentales: string[] = [];
+    const actitudinales: string[] = [];
+
+    for (const ceCodigo of ceCodigos) {
+      const bloque = resolverBloquePorGrado(materiaId, ceCodigo, [grado])[grado];
+      if (!bloque) continue;
+      indicadores.push(...bloque.indicadores);
+      declarativos.push(...bloque.declarativos);
+      procedimentales.push(...bloque.procedimentales);
+      actitudinales.push(...bloque.actitudinales);
+    }
+
+    resultado[grado] = {
+      indicadores: Array.from(new Set(indicadores)),
+      declarativos: Array.from(new Set(declarativos)),
+      procedimentales: Array.from(new Set(procedimentales)),
+      actitudinales: Array.from(new Set(actitudinales)),
+    };
+  }
+
+  return resultado;
+}

@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   ceDisponibleParaGrados,
   resolverBloquePorGrado,
+  fusionarBloquesPorGrado,
   gradosDeNivel,
   nivelesDeMateria,
 } from "../data/competencias-especificas-egb-bgu";
@@ -73,6 +74,63 @@ describe("resolverBloquePorGrado", () => {
   it("devuelve un objeto vacío cuando el subnivel/CE no existe", () => {
     expect(resolverBloquePorGrado(MATERIA_ID, "CE.M.9.99", GRADOS_SUPERIOR)).toEqual({});
     expect(resolverBloquePorGrado("materia-inexistente", CE_CODIGO, GRADOS_SUPERIOR)).toEqual({});
+  });
+});
+
+describe("fusionarBloquesPorGrado", () => {
+  // Caso real reportado: Ciencias Naturales, CE.CN.4.1 (la célula) y
+  // CE.CN.4.5 (salud) cubren los mismos 3 grados de SUPERIOR con contenido
+  // propio y no superpuesto — el documento final debe desarrollar ambas,
+  // no solo la primera.
+  const MATERIA_CN = "ciencias-naturales";
+  const CE_CELULA = "CE.CN.4.1";
+  const CE_SALUD = "CE.CN.4.5";
+  const GRADOS_CN = ["OCTAVO GRADO", "NOVENO GRADO", "DÉCIMO GRADO"];
+
+  it("incluye, para cada grado, los indicadores y saberes de TODAS las CE seleccionadas (no solo la primera)", () => {
+    const soloCelula = resolverBloquePorGrado(MATERIA_CN, CE_CELULA, GRADOS_CN);
+    const soloSalud = resolverBloquePorGrado(MATERIA_CN, CE_SALUD, GRADOS_CN);
+    const fusionado = fusionarBloquesPorGrado(MATERIA_CN, [CE_CELULA, CE_SALUD], GRADOS_CN);
+
+    for (const grado of GRADOS_CN) {
+      for (const indicador of soloCelula[grado].indicadores) {
+        expect(fusionado[grado].indicadores).toContain(indicador);
+      }
+      for (const indicador of soloSalud[grado].indicadores) {
+        expect(fusionado[grado].indicadores).toContain(indicador);
+      }
+      for (const declarativo of [...soloCelula[grado].declarativos, ...soloSalud[grado].declarativos]) {
+        expect(fusionado[grado].declarativos).toContain(declarativo);
+      }
+    }
+
+    // Regresión explícita del bug: con el `break` original, la segunda CE
+    // (CE.CN.4.5) quedaba totalmente descartada de octavo grado.
+    expect(fusionado["OCTAVO GRADO"].indicadores).toContain(
+      "I.CN.4.5.1. Analiza la estructura y funciones del cuerpo humano (tejidos, órganos, aparatos y sistemas), relacionándolas con las funciones vitales de nutrición, relación y reproducción, para comprender su importancia en el mantenimiento de la salud"
+    );
+  });
+
+  it("no duplica entradas exactamente iguales cuando la misma CE aparece más de una vez", () => {
+    const soloCelula = resolverBloquePorGrado(MATERIA_CN, CE_CELULA, GRADOS_CN);
+    const fusionado = fusionarBloquesPorGrado(MATERIA_CN, [CE_CELULA, CE_CELULA], GRADOS_CN);
+    for (const grado of GRADOS_CN) {
+      expect(fusionado[grado].indicadores).toEqual(soloCelula[grado].indicadores);
+    }
+  });
+
+  it("una CE que no cubre un grado no aporta contenido para ese grado, sin romper la fusión de las demás", () => {
+    const fusionado = fusionarBloquesPorGrado(MATERIA_ID, [CE_CODIGO], [
+      "OCTAVO GRADO",
+      "SEXTO GRADO",
+    ]);
+    expect(fusionado["OCTAVO GRADO"].indicadores.length).toBeGreaterThan(0);
+    expect(fusionado["SEXTO GRADO"]).toEqual({
+      indicadores: [],
+      declarativos: [],
+      procedimentales: [],
+      actitudinales: [],
+    });
   });
 });
 
