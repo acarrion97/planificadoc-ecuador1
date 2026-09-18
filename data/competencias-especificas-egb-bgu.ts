@@ -201,3 +201,26 @@ export function fusionarBloquesPorGrado(
 
   return resultado;
 }
+
+/**
+ * Devuelve una copia de `bloquesActuales` con una entrada resuelta (vía
+ * `fusionarBloquesPorGrado`) para cada grado de `grados` que todavía no
+ * tenga una — por ejemplo, un grado agregado a una selección multigrado ya
+ * existente, cuyas CE seleccionadas lo siguen cubriendo válidamente.
+ *
+ * Los grados que ya tienen una entrada se dejan intactos: no se
+ * recalculan ni se pisan, aunque el docente los haya editado a mano con
+ * `actualizarBloqueCampo`. Esta función solo rellena lo que falta.
+ */
+export function completarBloquesFaltantes(
+  materiaId: string,
+  ceCodigos: string[],
+  grados: string[],
+  bloquesActuales: Record<string, BloqueCurricularGrado>
+): Record<string, BloqueCurricularGrado> {
+  const gradosFaltantes = grados.filter((g) => !(g in bloquesActuales));
+  if (gradosFaltantes.length === 0) return bloquesActuales;
+
+  const nuevos = fusionarBloquesPorGrado(materiaId, ceCodigos, gradosFaltantes);
+  return { ...bloquesActuales, ...nuevos };
+}
