@@ -789,7 +789,7 @@ export default function EGBBGUIntegradoFormScreen() {
           <Text style={[styles.fieldLabel, { color: colors.muted }]}>
             Competencias específicas ({cesMultigrado.length} seleccionadas)
           </Text>
-          <View style={[styles.listaContainer, { borderColor: colors.border }]}>
+          <ScrollView nestedScrollEnabled style={[styles.listaContainer, { borderColor: colors.border }]}>
             {ceCandidatasMultigrado.length === 0 ? (
               <Text style={{ color: colors.muted, padding: 12, fontSize: 13 }}>
                 No hay competencias para esta materia/nivel.
@@ -837,7 +837,7 @@ export default function EGBBGUIntegradoFormScreen() {
                 );
               })
             )}
-          </View>
+          </ScrollView>
         </View>
       )}
 
@@ -921,7 +921,7 @@ export default function EGBBGUIntegradoFormScreen() {
       )}
 
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>Agregar competencias</Text>
-      <View style={[styles.listaContainer, { borderColor: colors.border }]}>
+      <ScrollView nestedScrollEnabled style={[styles.listaContainer, { borderColor: colors.border }]}>
         {competenciasFiltradas.length === 0 ? (
           <Text style={{ color: colors.muted, padding: 12, fontSize: 13 }}>
             No hay competencias para esta combinación de materia/nivel/grado.
@@ -948,7 +948,7 @@ export default function EGBBGUIntegradoFormScreen() {
             </Pressable>
           ))
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 

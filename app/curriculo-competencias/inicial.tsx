@@ -366,7 +366,7 @@ export default function InicialFormScreen() {
 
       {/* Available list */}
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>Agregar competencias</Text>
-      <View style={[styles.listaContainer, { borderColor: colors.border }]}>
+      <ScrollView nestedScrollEnabled style={[styles.listaContainer, { borderColor: colors.border }]}>
         {competenciasFiltradas.map(comp => (
           <Pressable
             key={comp.codigo}
@@ -394,7 +394,7 @@ export default function InicialFormScreen() {
             </View>
           </Pressable>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 
