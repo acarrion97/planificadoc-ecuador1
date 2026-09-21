@@ -170,9 +170,35 @@ export default function EGBBGUIntegradoFormScreen() {
     }));
   };
 
-  // Semanas generadas por IA (solo lectura + regenerar — sin editor manual
-  // campo por campo, en línea con la simplificación del paso "Datos").
+  // Semanas generadas por IA: el docente puede ajustar el tema y cada campo de
+  // la actividad por grado, o volver a generarlas con IA.
   const [semanasMultigrado, setSemanasMultigrado] = useState<SemanaMultigrado[]>([]);
+
+  const actualizarTemaSemana = (numero: number, tema: string) => {
+    setSemanasMultigrado((prev) => prev.map((s) => (s.numero === numero ? { ...s, tema } : s)));
+  };
+
+  const actualizarActividadSemana = (
+    numero: number,
+    gradoId: string,
+    campo: "inicio" | "desarrollo" | "cierre" | "recursos" | "tecnica" | "instrumento",
+    valor: string
+  ) => {
+    setSemanasMultigrado((prev) =>
+      prev.map((s) => {
+        if (s.numero !== numero) return s;
+        return {
+          ...s,
+          actividades: s.actividades.map((a) => {
+            if (a.gradoId !== gradoId) return a;
+            return campo === "inicio" || campo === "desarrollo" || campo === "cierre"
+              ? { ...a, estrategiasDUA: { ...a.estrategiasDUA, [campo]: valor } }
+              : { ...a, [campo]: valor };
+          }),
+        };
+      })
+    );
+  };
   // Evita que el efecto de "descartar semanas obsoletas" borre las semanas
   // recién precargadas al abrir un plan existente para editar (ver el efecto
   // de carga más abajo, que activa esta bandera antes de poblar el estado).
@@ -1163,7 +1189,7 @@ export default function EGBBGUIntegradoFormScreen() {
           <Text style={[styles.helperText, { color: colors.muted, marginBottom: 0 }]}>
             Todavía no se generó el contenido semanal. Presiona "Generar con IA" para crear un tema y una actividad
             diferenciada por grado en cada semana, a partir de la(s) competencia(s) y los grados seleccionados. El
-            resultado es solo de lectura aquí — si no te convence, puedes volver a generarlo.
+            resultado es editable: puedes ajustar cualquier campo o volver a generarlo.
           </Text>
         ) : (
           semanasMultigrado.map((semana) => (
@@ -1173,30 +1199,37 @@ export default function EGBBGUIntegradoFormScreen() {
             >
               <Text style={[styles.subSectionTitle, { color: colors.primary, marginBottom: 6 }]}>
                 Semana {semana.numero}
-                {semana.tema ? ` · ${semana.tema}` : ""}
               </Text>
+              {renderField("Tema de la semana", semana.tema, (v) => actualizarTemaSemana(semana.numero, v))}
               {gradosSeleccionados.map((g) => {
                 const actividad = semana.actividades.find((a) => a.gradoId === g);
                 if (!actividad) return null;
+                const campos: Array<{
+                  label: string;
+                  campo: "inicio" | "desarrollo" | "cierre" | "recursos" | "tecnica" | "instrumento";
+                  valor: string;
+                  multiline: boolean;
+                }> = [
+                  { label: "Inicio", campo: "inicio", valor: actividad.estrategiasDUA.inicio, multiline: true },
+                  { label: "Desarrollo", campo: "desarrollo", valor: actividad.estrategiasDUA.desarrollo, multiline: true },
+                  { label: "Cierre", campo: "cierre", valor: actividad.estrategiasDUA.cierre, multiline: true },
+                  { label: "Recursos", campo: "recursos", valor: actividad.recursos, multiline: true },
+                  { label: "Técnica", campo: "tecnica", valor: actividad.tecnica, multiline: false },
+                  { label: "Instrumento", campo: "instrumento", valor: actividad.instrumento, multiline: false },
+                ];
                 return (
                   <View key={g} style={{ marginBottom: 8 }}>
                     <Text style={[styles.listaCodigo, { color: colors.foreground, marginBottom: 2 }]}>{g}</Text>
-                    <Text style={{ color: colors.muted, fontSize: 12, lineHeight: 17 }}>
-                      <Text style={{ fontWeight: "700" }}>Inicio: </Text>
-                      {actividad.estrategiasDUA.inicio || "—"}
-                      {"\n"}
-                      <Text style={{ fontWeight: "700" }}>Desarrollo: </Text>
-                      {actividad.estrategiasDUA.desarrollo || "—"}
-                      {"\n"}
-                      <Text style={{ fontWeight: "700" }}>Cierre: </Text>
-                      {actividad.estrategiasDUA.cierre || "—"}
-                      {"\n"}
-                      <Text style={{ fontWeight: "700" }}>Recursos: </Text>
-                      {actividad.recursos || "—"}
-                      {"\n"}
-                      <Text style={{ fontWeight: "700" }}>Técnica/Instrumento: </Text>
-                      {actividad.tecnica || "—"} / {actividad.instrumento || "—"}
-                    </Text>
+                    {campos.map((c) => (
+                      <View key={c.campo}>
+                        {renderField(
+                          c.label,
+                          c.valor,
+                          (v) => actualizarActividadSemana(semana.numero, g, c.campo, v),
+                          { multiline: c.multiline }
+                        )}
+                      </View>
+                    ))}
                   </View>
                 );
               })}
