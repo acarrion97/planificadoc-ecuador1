@@ -361,6 +361,61 @@ export default function ProyectoInterdisciplinarWizardScreen() {
     },
   });
 
+  const sugerirInstrumentosMutation = trpc.proyectoInterdisciplinar.sugerirInstrumentosEvaluacion.useMutation({
+    onError: (err) => {
+      mostrarAlerta("No se pudo sugerir", err.message || "Intenta de nuevo.");
+    },
+  });
+  // Actividades cuyo instrumento se está pidiendo a la IA (una o todas).
+  const [instrumentoCargandoIds, setInstrumentoCargandoIds] = useState<string[]>([]);
+
+  /**
+   * Pide a la IA un instrumento de evaluación para las actividades indicadas,
+   * alineado a las destrezas/competencias elegidas. Los criterios vinculados
+   * solo se rellenan si la actividad todavía no tiene ninguno.
+   */
+  const handleSugerirInstrumentos = (ids: string[]) => {
+    const objetivo = actividades.filter((a) => ids.includes(a.id));
+    if (objetivo.length === 0) return;
+    setInstrumentoCargandoIds((prev) => Array.from(new Set([...prev, ...ids])));
+    sugerirInstrumentosMutation.mutate(
+      {
+        baseCurricular,
+        titulo: titulo.trim() || undefined,
+        productoFinal: productoFinal.trim() || undefined,
+        elementosCurriculares: elementos.map((e) => ({
+          codigo: e.codigo,
+          nombreArea: e.nombreArea,
+          descripcion: descripcionDeElemento(baseCurricular, e.codigo) || undefined,
+        })),
+        actividades: objetivo.map((a) => ({
+          id: a.id,
+          fase: a.fase,
+          actividad: a.actividad,
+          evidencia: a.evidencia || undefined,
+          evaluacion: a.evaluacion || undefined,
+        })),
+      },
+      {
+        onSuccess: (r) => {
+          setActividades((prev) =>
+            prev.map((a) => {
+              const sugerido = (r.instrumentos as Array<{ id: string; instrumento: string; criteriosVinculados: string[] }>).find((i) => i.id === a.id);
+              if (!sugerido) return a;
+              const sinCriterios = !a.criteriosVinculados || a.criteriosVinculados.length === 0;
+              return {
+                ...a,
+                instrumentoEvaluacion: sugerido.instrumento,
+                criteriosVinculados: sinCriterios ? sugerido.criteriosVinculados : a.criteriosVinculados,
+              };
+            })
+          );
+        },
+        onSettled: () => setInstrumentoCargandoIds((prev) => prev.filter((x) => !ids.includes(x))),
+      }
+    );
+  };
+
   const isPending =
     createMutation.isPending || updateMutation.isPending || generarCompletoMutation.isPending || generando;
 
@@ -806,6 +861,34 @@ export default function ProyectoInterdisciplinarWizardScreen() {
 
               {renderField("Objetivo general", objetivoGeneral, setObjetivoGeneral, { multiline: true })}
 
+              <View style={[styles.actividadEvalCard, { borderColor: colors.border, backgroundColor: colors.surface, marginBottom: 16 }]}>
+                <Text style={[styles.helperText, { color: colors.muted }]}>
+                  La IA propone un instrumento por actividad (lista de cotejo, rúbrica, escala…) a partir de{" "}
+                  {baseCurricular === "destrezas" ? "las destrezas con criterios de desempeño" : "las competencias específicas"} que elegiste.
+                  Solo completa las actividades que aún no tienen instrumento; usa el botón de cada actividad para reemplazarlo.
+                </Text>
+                <Pressable
+                  onPress={() =>
+                    handleSugerirInstrumentos(actividades.filter((a) => !a.instrumentoEvaluacion?.trim()).map((a) => a.id))
+                  }
+                  disabled={
+                    instrumentoCargandoIds.length > 0 || actividades.every((a) => !!a.instrumentoEvaluacion?.trim())
+                  }
+                  style={[
+                    styles.generarBtn,
+                    {
+                      backgroundColor: colors.primary,
+                      opacity:
+                        instrumentoCargandoIds.length > 0 || actividades.every((a) => !!a.instrumentoEvaluacion?.trim()) ? 0.5 : 1,
+                    },
+                  ]}
+                >
+                  <Text style={{ color: "#fff", fontWeight: "700" }}>
+                    {instrumentoCargandoIds.length > 0 ? "Pensando…" : "✨ Sugerir instrumentos de evaluación con IA"}
+                  </Text>
+                </Pressable>
+              </View>
+
               {FASES_PROYECTO.map((f) => {
                 const deFase = actividades.filter((a) => a.fase === f.key);
                 if (deFase.length === 0) return null;
@@ -820,6 +903,9 @@ export default function ProyectoInterdisciplinarWizardScreen() {
                         {!!a.evaluacion && <Text style={[styles.actividadDetalle, { color: colors.muted, marginBottom: 8 }]}>Evaluación: {a.evaluacion}</Text>}
                         {renderField("Instrumento de evaluación", a.instrumentoEvaluacion || "", (v) => actualizarInstrumentoActividad(a.id, v), {
                           placeholder: "Ej. lista de cotejo, rúbrica...",
+                          multiline: true,
+                          onSugerir: () => handleSugerirInstrumentos([a.id]),
+                          sugerirCargando: instrumentoCargandoIds.includes(a.id),
                         })}
                         <Text style={[styles.fieldLabel, { color: colors.muted }]}>Criterios / indicadores vinculados</Text>
                         <View style={styles.chipsWrap}>
