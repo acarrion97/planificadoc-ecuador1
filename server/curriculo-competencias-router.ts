@@ -13,7 +13,11 @@ import {
   normalizarPlanificacionMultigrado,
   validarSubnivelHomogeneo,
 } from "../lib/curriculo-competencias-normalizer";
-import { ceDisponibleParaGrados } from "../data/competencias-especificas-egb-bgu";
+import { ceDisponibleParaGrados, obtenerMateria } from "../data/competencias-especificas-egb-bgu";
+import {
+  determinarFamiliaExportacion,
+  type FamiliaExportacionCurriculoCompetencias,
+} from "../lib/curriculo-competencias-familia";
 
 // ============================================================
 // ZOD SCHEMAS DE ENTRADA
@@ -377,37 +381,8 @@ export function validarPlanificacionMultigrado(input: {
   }
 }
 
-/** Familias de exportación posibles para una fila de `curriculo_competencias_planificaciones`. */
-export type FamiliaExportacionCurriculoCompetencias =
-  | "egb_bgu_dcd"
-  | "curriculo_integrado_inicial"
-  | "curriculo_integrado_single"
-  | "curriculo_integrado_multigrado";
-
-/**
- * Decide qué generador de exportación corresponde a una fila guardada.
- *
- * Para planificaciones nuevas, `formData.modalidad` es el discriminador
- * explícito (design.md D2): `"multigrado"` ⇒ multigrado; cualquier otro
- * valor o su ausencia cae a la heurística preexistente basada en el
- * prefijo del código de competencia del primer ámbito (`CE.CI.*` ⇒ Inicial),
- * que sigue aplicando sin cambios a los registros guardados antes de este
- * cambio (nunca tuvieron `modalidad`).
- */
-export function determinarFamiliaExportacion(row: {
-  tipo: string;
-  formData: any;
-}): FamiliaExportacionCurriculoCompetencias {
-  if (row.tipo !== "inicial_preparatoria") return "egb_bgu_dcd";
-
-  if (row.formData?.modalidad === "multigrado") {
-    return "curriculo_integrado_multigrado";
-  }
-
-  const primerCodigo: string | undefined = row.formData?.ambitos?.[0]?.competenciaCodigo;
-  const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
-  return esInicial ? "curriculo_integrado_inicial" : "curriculo_integrado_single";
-}
+export { determinarFamiliaExportacion };
+export type { FamiliaExportacionCurriculoCompetencias };
 
 async function ensureCurriculoCompetenciasTable(): Promise<void> {
   const db = await getDb();
@@ -649,13 +624,33 @@ export const curriculoCompetenciasRouter = router({
           dcdCodigo: curriculoCompetenciasPlanificaciones.dcdCodigo,
           status: curriculoCompetenciasPlanificaciones.status,
           createdAt: curriculoCompetenciasPlanificaciones.createdAt,
+          formData: curriculoCompetenciasPlanificaciones.formData,
         })
         .from(curriculoCompetenciasPlanificaciones)
         .where(and(...conditions))
         .orderBy(desc(curriculoCompetenciasPlanificaciones.createdAt))
         .limit(50);
 
-      return rows;
+      // `tipo` no distingue Inicial de Currículo Integrado EGB/BGU (ambos se
+      // guardan como "inicial_preparatoria"), así que se deriva la familia real
+      // desde formData sin enviar el JSON completo al cliente.
+      return rows.map(({ formData, ...row }) => {
+        let data: any = null;
+        try {
+          data = JSON.parse(formData as string);
+        } catch {
+          data = null;
+        }
+        const familia = determinarFamiliaExportacion({ tipo: row.tipo, formData: data });
+        const gradosResumen =
+          familia === "curriculo_integrado_multigrado" && Array.isArray(data?.grados)
+            ? data.grados.map((g: any) => g?.grado).filter(Boolean).join(", ")
+            : null;
+        const asignaturaNombre = row.asignatura
+          ? obtenerMateria(row.asignatura)?.nombre ?? row.asignatura
+          : null;
+        return { ...row, familia, gradosResumen, asignaturaNombre };
+      });
     }),
 
   // ── UPDATE EGB/BGU ──────────────────────────────────────────────
