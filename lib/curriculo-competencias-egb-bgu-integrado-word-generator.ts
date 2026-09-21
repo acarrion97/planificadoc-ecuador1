@@ -628,22 +628,6 @@ export async function generarCurriculoCompetenciasWordEGBBGUIntegrado(
 // "CNC-MG-Mis-nuevos-amigos.docx" del pilotaje (ver design.md del change
 // curriculo-integrado-egb-bgu-multigrado).
 
-/** Área y subnivel (catálogo 2016) de la CE de una planificación multigrado, para buscar conexiones interdisciplinarias reales. */
-function areaYSubnivelMultigrado(
-  plan: PlanificacionCurriculoIntegradoMultigrado
-): { area: Area; subnivel: Subnivel } | undefined {
-  const materia = MATERIAS_EGB_BGU.find((m) => m.id === plan.asignatura);
-  const area = materia ? AREA_POR_MATERIA[materia.id] : undefined;
-  // Use first CE to determine area/subnivel
-  const firstCe = Array.isArray(plan.competenciasEspecifica)
-    ? plan.competenciasEspecifica[0]
-    : undefined;
-  const m = (firstCe?.codigo || "").match(/^CE\.[A-Z]+(?:\.[A-Z]+)?\.(\d+)\.\d+/);
-  const subnivel = m ? (Number(m[1]) as Subnivel) : undefined;
-  if (!area || !subnivel) return undefined;
-  return { area, subnivel };
-}
-
 export async function generarDocxMultigrado(
   plan: PlanificacionCurriculoIntegradoMultigrado
 ): Promise<Blob> {
@@ -775,23 +759,24 @@ export async function generarDocxMultigrado(
   children.push(makeTable([sectionRow("Conexión interdisciplinar")], TW, [TW]));
 
   const filasConexionInterdisciplinar: TableRow[] = [];
-  const ctx = areaYSubnivelMultigrado(plan);
   const cesArray = plan.competenciasEspecifica || [];
-  const primeraCeDesc = cesArray[0]?.descripcion || "";
-  if (ctx) {
-    const conexiones = buscarConexionesInterdisciplinarias(
-      ctx.area,
-      ctx.subnivel,
-      primeraCeDesc,
-      []
+  const primeraCe = cesArray[0];
+  // Mismo catálogo (MESOCURRICULUM) que el resto del documento, no el de
+  // Destrezas 2016 — ver buscarConexionesInterdisciplinariasMesocurriculo.
+  const conexiones = primeraCe?.codigo
+    ? buscarConexionesInterdisciplinariasMesocurriculo(
+        plan.asignatura,
+        primeraCe.codigo,
+        primeraCe.descripcion || "",
+        []
+      )
+    : [];
+  for (const conn of conexiones) {
+    filasConexionInterdisciplinar.push(
+      new TableRow({
+        children: [tc([p(`• ${conn.area}: ${conn.descripcion} (${conn.ceCode})`, { size: 8 })], TW)],
+      })
     );
-    for (const conn of conexiones) {
-      filasConexionInterdisciplinar.push(
-        new TableRow({
-          children: [tc([p(`• ${conn.area}: ${conn.descripcion} (${conn.ceCode})`, { size: 8 })], TW)],
-        })
-      );
-    }
   }
   if (filasConexionInterdisciplinar.length === 0) {
     filasConexionInterdisciplinar.push(new TableRow({ children: [tc([p("—", { size: 8 })], TW)] }));
