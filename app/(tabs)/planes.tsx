@@ -107,6 +107,24 @@ export default function PlanesScreen() {
           </Pressable>
         </View>
 
+        {/* ── Botón Proyecto Interdisciplinar ── */}
+        <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
+          <Pressable
+            onPress={() => router.push("/proyecto-interdisciplinar" as any)}
+            style={({ pressed }) => [
+              styles.btnSemanal,
+              { backgroundColor: "#0F766E", opacity: pressed ? 0.85 : 1 },
+            ]}
+          >
+            <Text style={{ fontSize: 22 }}>🧩</Text>
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <Text style={styles.btnSemanalTitle}>Proyecto Interdisciplinar</Text>
+              <Text style={styles.btnSemanalSub}>Integra varias áreas en un solo proyecto</Text>
+            </View>
+            <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
+          </Pressable>
+        </View>
+
         <PlanesBTSection />
         <PlanesCNCSection />
         <PlanesEvaluacionSection />

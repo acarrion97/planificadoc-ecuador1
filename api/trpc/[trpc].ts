@@ -16,6 +16,7 @@ import { cncRouter } from "../../server/cnc-router";
 import { evaluacionRouter } from "../../server/evaluacion-router";
 import { dcdDesagregacionesRouter } from "../../server/dcd-desagregacion-router";
 import { curriculoCompetenciasRouter } from "../../server/curriculo-competencias-router";
+import { proyectoInterdisciplinarRouter } from "../../server/proyecto-interdisciplinar-router";
 import { router } from "../../server/_core/trpc";
 
 // Router expuesto en Vercel
@@ -30,6 +31,7 @@ const vercelRouter = router({
   evaluacion: evaluacionRouter,
   dcdDesagregaciones: dcdDesagregacionesRouter,
   curriculoCompetencias: curriculoCompetenciasRouter,
+  proyectoInterdisciplinar: proyectoInterdisciplinarRouter,
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

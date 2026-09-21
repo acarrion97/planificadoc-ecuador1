@@ -30,6 +30,11 @@ import type {
   AmbitoDesarrollo,
   ClaseInicialCurriculo,
   ActividadInicial,
+  PlanificacionCurriculoIntegradoMultigrado,
+  GrupoGrado,
+  BloqueCurricularGrado,
+  SemanaMultigrado,
+  ActividadPorGrado,
 } from "../data/types-curriculo-competencias";
 import type { CompetenciaTransversalCode } from "../data/competencias-transversales";
 import type { Area, Subnivel, DUAActividad } from "../data/types";
@@ -175,6 +180,62 @@ export interface PlanificacionInicialRaw {
   sourceVersion?: string;
 }
 
+/** Entrada para normalizar una planificación multigrado de Currículo Integrado EGB/BGU */
+export interface PlanificacionMultigradoRaw {
+  institucion?: string;
+  docente?: string;
+  paralelo?: string;
+  /** materiaId del catálogo (ej. "matematica") */
+  asignatura?: string;
+  trimestre?: string;
+  noSemanasClase?: number;
+  /** Subnivel compartido por todos los grados (ej. "SUPERIOR") */
+  nivel?: string;
+  grados?: Array<{
+    id?: string;
+    nivel?: string;
+    grado?: string;
+    bloqueCurricular?: {
+      indicadores?: string[];
+      declarativos?: string[];
+      procedimentales?: string[];
+      actitudinales?: string[];
+    };
+  }>;
+  competenciaEspecifica?: {
+    codigo?: string;
+    descripcion?: string;
+  } | Array<{
+    codigo?: string;
+    descripcion?: string;
+  }>;
+  situacionAprendizaje?: {
+    titulo?: string;
+    descripcion?: string;
+  };
+  conexionInterdisciplinar?: {
+    asignaturas?: string[];
+  };
+  semanas?: Array<{
+    numero?: number;
+    tema?: string;
+    actividades?: Array<{
+      gradoId?: string;
+      estrategiasDUA?: {
+        inicio?: string;
+        desarrollo?: string;
+        cierre?: string;
+      };
+      recursos?: string;
+      tecnica?: string;
+      instrumento?: string;
+    }>;
+  }>;
+  sourceDocument?: string;
+  sourceSection?: string;
+  sourceVersion?: string;
+}
+
 // ============================================================
 // UTILIDADES
 // ============================================================
@@ -193,6 +254,16 @@ function generarId(prefijo: string): string {
 function limpiarTexto(texto: string | undefined): string {
   if (!texto) return "";
   return texto.trim().replace(/\s+/g, " ");
+}
+
+/** Slug estable a partir de un nombre de grado (ej. "OCTAVO GRADO" -> "octavo-grado") */
+function slugificarGrado(grado: string): string {
+  return limpiarTexto(grado)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
 function crearTraceability(
@@ -553,6 +624,118 @@ export function normalizarPlanificacionInicial(
           aprobado: limpiarTexto(raw.firmas.aprobado),
         }
       : undefined,
+    source,
+    createdAt: now(),
+    updatedAt: now(),
+    status: "draft",
+  };
+}
+
+// ============================================================
+// NORMALIZACIÓN DE PLANIFICACIÓN MULTIGRADO (CURRÍCULO INTEGRADO EGB/BGU)
+// ============================================================
+
+/**
+ * Valida que todos los grados de una planificación multigrado compartan el
+ * mismo subnivel. El modelo (D1/design.md) exige "mismo subnivel" para la
+ * primera versión de multigrado: combinar subniveles distintos requeriría
+ * una CE por grado, no una CE común, y queda fuera de alcance.
+ */
+export function validarSubnivelHomogeneo(
+  grados: Array<{ nivel: string }>
+): { valido: boolean; nivelesEncontrados: string[] } {
+  const niveles = [...new Set(grados.map((g) => g.nivel))];
+  return { valido: niveles.length <= 1, nivelesEncontrados: niveles };
+}
+
+export function normalizarPlanificacionMultigrado(
+  raw: PlanificacionMultigradoRaw,
+  id?: string
+): PlanificacionCurriculoIntegradoMultigrado {
+  const source = crearTraceability(
+    raw.sourceDocument,
+    raw.sourceSection,
+    undefined,
+    raw.sourceVersion
+  );
+
+  const grados: GrupoGrado[] = (raw.grados ?? []).map((g) => {
+    const gradoTexto = limpiarTexto(g.grado);
+    const bloqueCurricular: BloqueCurricularGrado = {
+      indicadores: (g.bloqueCurricular?.indicadores ?? []).map((i) => i.trim()),
+      declarativos: (g.bloqueCurricular?.declarativos ?? []).map((s) => s.trim()),
+      procedimentales: (g.bloqueCurricular?.procedimentales ?? []).map((s) => s.trim()),
+      actitudinales: (g.bloqueCurricular?.actitudinales ?? []).map((s) => s.trim()),
+    };
+    return {
+      id: g.id?.trim() || slugificarGrado(gradoTexto),
+      nivel: limpiarTexto(g.nivel),
+      grado: gradoTexto,
+      bloqueCurricular,
+    };
+  });
+
+  const gradoIds = new Set(grados.map((g) => g.id));
+
+  const semanas: SemanaMultigrado[] = (raw.semanas ?? []).map((s, idx) => {
+    const actividades: ActividadPorGrado[] = (s.actividades ?? [])
+      .filter((a) => a.gradoId && gradoIds.has(a.gradoId))
+      .map((a) => ({
+        gradoId: a.gradoId as string,
+        estrategiasDUA: {
+          inicio: limpiarTexto(a.estrategiasDUA?.inicio),
+          desarrollo: limpiarTexto(a.estrategiasDUA?.desarrollo),
+          cierre: limpiarTexto(a.estrategiasDUA?.cierre),
+        },
+        recursos: limpiarTexto(a.recursos),
+        tecnica: limpiarTexto(a.tecnica),
+        instrumento: limpiarTexto(a.instrumento),
+      }));
+
+    return {
+      numero: s.numero ?? idx + 1,
+      tema: limpiarTexto(s.tema),
+      actividades,
+    };
+  });
+
+  // Support both single CE and multi-CE format (backward compatible)
+  let competenciasEspecifica: Array<{ codigo: string; descripcion: string }> = [];
+  if (Array.isArray(raw.competenciaEspecifica)) {
+    competenciasEspecifica = raw.competenciaEspecifica.map((ce) => ({
+      codigo: limpiarTexto(ce.codigo),
+      descripcion: limpiarTexto(ce.descripcion),
+    }));
+  } else if (raw.competenciaEspecifica?.codigo) {
+    competenciasEspecifica = [{
+      codigo: limpiarTexto(raw.competenciaEspecifica.codigo),
+      descripcion: limpiarTexto(raw.competenciaEspecifica.descripcion),
+    }];
+  }
+
+  return {
+    id: id ?? generarId("plan-mg"),
+    sessionId: "",
+    modalidad: "multigrado",
+    institucion: limpiarTexto(raw.institucion),
+    docente: limpiarTexto(raw.docente),
+    paralelo: raw.paralelo ? limpiarTexto(raw.paralelo) : undefined,
+    asignatura: limpiarTexto(raw.asignatura),
+    trimestre: raw.trimestre ? limpiarTexto(raw.trimestre) : undefined,
+    noSemanasClase: raw.noSemanasClase,
+    nivel: limpiarTexto(raw.nivel),
+    grados,
+    competenciasEspecifica,
+    situacionAprendizaje: raw.situacionAprendizaje
+      ? {
+          titulo: limpiarTexto(raw.situacionAprendizaje.titulo),
+          descripcion: limpiarTexto(raw.situacionAprendizaje.descripcion),
+        }
+      : undefined,
+    conexionInterdisciplinar: raw.conexionInterdisciplinar
+      ? { asignaturas: (raw.conexionInterdisciplinar.asignaturas ?? []).map((a) => a.trim()) }
+      : undefined,
+    semanas,
     source,
     createdAt: now(),
     updatedAt: now(),
