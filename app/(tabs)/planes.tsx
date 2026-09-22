@@ -48,14 +48,21 @@ export default function PlanesScreen() {
         <View style={styles.pcaEntry}>
           <Pressable
             onPress={() => router.push("/planificacion-anual" as any)}
-            style={({ pressed }) => [styles.pcaBtn, { opacity: pressed ? 0.85 : 1 }]}
+            style={({ pressed }) => [
+              styles.pcaBtn,
+              { backgroundColor: colors.surface, borderColor: "#1E3A5F", opacity: pressed ? 0.85 : 1 },
+            ]}
           >
             <Text style={styles.pcaBtnIcon}>📋</Text>
             <View style={{ flex: 1 }}>
-              <Text style={styles.pcaBtnTitle}>Crear Planificación Anual (PCA)</Text>
-              <Text style={styles.pcaBtnSub}>Currículo Priorizado · IA + PDF + Word</Text>
+              <Text style={[styles.pcaBtnTitle, { color: colors.foreground }]}>
+                Crear Planificación Anual (PCA)
+              </Text>
+              <Text style={[styles.pcaBtnSub, { color: colors.muted }]}>
+                Currículo Priorizado · IA + PDF + Word
+              </Text>
             </View>
-            <Text style={styles.pcaBtnArrow}>›</Text>
+            <Text style={[styles.pcaBtnArrow, { color: "#1E3A5F" }]}>›</Text>
           </Pressable>
         </View>
 
@@ -63,14 +70,25 @@ export default function PlanesScreen() {
         <View style={styles.pcaEntry}>
           <Pressable
             onPress={() => router.push("/planificacion-trimestral" as any)}
-            style={({ pressed }) => [styles.pcaBtn, { opacity: pressed ? 0.85 : 1, backgroundColor: "#0E7490" }]}
+            style={({ pressed }) => [
+              styles.pcaBtn,
+              {
+                backgroundColor: colors.surface,
+                borderColor: "#0E7490",
+                opacity: pressed ? 0.85 : 1,
+              },
+            ]}
           >
             <Text style={styles.pcaBtnIcon}>🗓️</Text>
             <View style={{ flex: 1 }}>
-              <Text style={styles.pcaBtnTitle}>Crear Plan Trimestral (PCT)</Text>
-              <Text style={styles.pcaBtnSub}>Plan Curricular por Trimestre · IA + PDF + Word</Text>
+              <Text style={[styles.pcaBtnTitle, { color: colors.foreground }]}>
+                Crear Plan Trimestral (PCT)
+              </Text>
+              <Text style={[styles.pcaBtnSub, { color: colors.muted }]}>
+                Plan Curricular por Trimestre · IA + PDF + Word
+              </Text>
             </View>
-            <Text style={styles.pcaBtnArrow}>›</Text>
+            <Text style={[styles.pcaBtnArrow, { color: "#0E7490" }]}>›</Text>
           </Pressable>
         </View>
 
@@ -78,14 +96,25 @@ export default function PlanesScreen() {
         <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
           <Pressable
             onPress={() => router.push("/planificar-semanal" as any)}
-            style={({ pressed }) => [styles.btnSemanal, { opacity: pressed ? 0.85 : 1 }]}
+            style={({ pressed }) => [
+              styles.btnSemanal,
+              {
+                backgroundColor: colors.surface,
+                borderColor: "#003366",
+                opacity: pressed ? 0.85 : 1,
+              },
+            ]}
           >
             <Text style={{ fontSize: 22 }}>📅</Text>
             <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={styles.btnSemanalTitle}>Nueva Planificación Semanal</Text>
-              <Text style={styles.btnSemanalSub}>Genera 5 días de clase en una sola vez</Text>
+              <Text style={[styles.btnSemanalTitle, { color: colors.foreground }]}>
+                Nueva Planificación Semanal
+              </Text>
+              <Text style={[styles.btnSemanalSub, { color: colors.muted }]}>
+                Genera 5 días de clase en una sola vez
+              </Text>
             </View>
-            <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
+            <Text style={{ color: "#003366", fontSize: 18 }}>›</Text>
           </Pressable>
         </View>
 
@@ -95,15 +124,23 @@ export default function PlanesScreen() {
             onPress={() => router.push("/curriculo-competencias" as any)}
             style={({ pressed }) => [
               styles.btnSemanal,
-              { backgroundColor: "#7C3AED", opacity: pressed ? 0.85 : 1 },
+              {
+                backgroundColor: colors.surface,
+                borderColor: "#7C3AED",
+                opacity: pressed ? 0.85 : 1,
+              },
             ]}
           >
             <Text style={{ fontSize: 22 }}>🎯</Text>
             <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={styles.btnSemanalTitle}>Currículo por Competencias</Text>
-              <Text style={styles.btnSemanalSub}>Plan Piloto · EGB/BGU e Inicial</Text>
+              <Text style={[styles.btnSemanalTitle, { color: colors.foreground }]}>
+                Currículo por Competencias
+              </Text>
+              <Text style={[styles.btnSemanalSub, { color: colors.muted }]}>
+                Plan Piloto · EGB/BGU e Inicial
+              </Text>
             </View>
-            <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
+            <Text style={{ color: "#7C3AED", fontSize: 18 }}>›</Text>
           </Pressable>
         </View>
 
@@ -113,15 +150,23 @@ export default function PlanesScreen() {
             onPress={() => router.push("/proyecto-interdisciplinar" as any)}
             style={({ pressed }) => [
               styles.btnSemanal,
-              { backgroundColor: "#0F766E", opacity: pressed ? 0.85 : 1 },
+              {
+                backgroundColor: colors.surface,
+                borderColor: "#0F766E",
+                opacity: pressed ? 0.85 : 1,
+              },
             ]}
           >
             <Text style={{ fontSize: 22 }}>🧩</Text>
             <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={styles.btnSemanalTitle}>Proyecto Interdisciplinar</Text>
-              <Text style={styles.btnSemanalSub}>Integra varias áreas en un solo proyecto</Text>
+              <Text style={[styles.btnSemanalTitle, { color: colors.foreground }]}>
+                Proyecto Interdisciplinar
+              </Text>
+              <Text style={[styles.btnSemanalSub, { color: colors.muted }]}>
+                Integra varias áreas en un solo proyecto
+              </Text>
             </View>
-            <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
+            <Text style={{ color: "#0F766E", fontSize: 18 }}>›</Text>
           </Pressable>
         </View>
 
@@ -217,37 +262,48 @@ const styles = StyleSheet.create({
   pcaBtn: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1E3A5F",
     borderRadius: 14,
     padding: 16,
     gap: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 3,
+    // Sin relleno de color: el color de módulo vive solo en el borde y la
+    // flecha; el fondo es `colors.surface` (se inyecta en cada tarjeta).
+    borderWidth: 1.5,
+    // Relieve: sombra más marcada que la versión anterior.
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.16,
+    shadowRadius: 10,
+    elevation: 4,
   },
   pcaBtnIcon: {
     fontSize: 28,
   },
   pcaBtnTitle: {
-    color: "#ffffff",
     fontSize: 15,
     fontWeight: "700",
   },
   pcaBtnSub: {
-    color: "#93C5FD",
     fontSize: 12,
     marginTop: 2,
   },
   pcaBtnArrow: {
-    color: "#93C5FD",
     fontSize: 24,
     fontWeight: "300",
   },
-  btnSemanal: { backgroundColor: "#003366", flexDirection: "row", alignItems: "center", borderRadius: 14, padding: 16 },
-  btnSemanalTitle: { color: "#fff", fontSize: 15, fontWeight: "700" },
-  btnSemanalSub: { color: "rgba(255,255,255,0.7)", fontSize: 12, marginTop: 1 },
+  btnSemanal: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 14,
+    padding: 16,
+    borderWidth: 1.5,
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.16,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+  btnSemanalTitle: { fontSize: 15, fontWeight: "700" },
+  btnSemanalSub: { fontSize: 12, marginTop: 1 },
   sectionLabel: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5, paddingHorizontal: 20, marginTop: 16, marginBottom: 8 },
   semanaCard: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
   semanaHeader: { flexDirection: "row", alignItems: "center" },

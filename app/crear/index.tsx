@@ -111,6 +111,12 @@ export default function CrearScreen() {
                         borderRadius: 14,
                         padding: 14,
                         gap: 8,
+                        // Relieve: misma sombra que las tarjetas de Mis planes.
+                        shadowColor: "#0F172A",
+                        shadowOffset: { width: 0, height: 4 },
+                        shadowOpacity: 0.12,
+                        shadowRadius: 10,
+                        elevation: 3,
                         opacity: !disponible ? 0.7 : pressed ? 0.85 : 1,
                         transform: [{ scale: pressed && disponible ? 0.995 : 1 }],
                       })}

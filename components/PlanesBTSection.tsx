@@ -32,14 +32,25 @@ export function PlanesBTSection() {
       <View style={{ paddingHorizontal: 20, marginBottom: 8, marginTop: 8 }}>
         <Pressable
           onPress={() => router.push("/bachillerato-tecnico" as any)}
-          style={({ pressed }) => [styles.btn, { opacity: pressed ? 0.85 : 1 }]}
+          style={({ pressed }) => [
+            styles.btn,
+            {
+              backgroundColor: colors.surface,
+              borderColor: "#4A1942",
+              opacity: pressed ? 0.85 : 1,
+            },
+          ]}
         >
           <Text style={{ fontSize: 22 }}>🛠️</Text>
           <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text style={styles.btnTitle}>Planificar Bachillerato Técnico</Text>
-            <Text style={styles.btnSub}>Unidad de Trabajo por competencias · IA + Word</Text>
+            <Text style={[styles.btnTitle, { color: colors.foreground }]}>
+              Planificar Bachillerato Técnico
+            </Text>
+            <Text style={[styles.btnSub, { color: colors.muted }]}>
+              Unidad de Trabajo por competencias · IA + Word
+            </Text>
           </View>
-          <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
+          <Text style={{ color: "#4A1942", fontSize: 18 }}>›</Text>
         </Pressable>
       </View>
 
@@ -84,9 +95,21 @@ export function PlanesBTSection() {
 }
 
 const styles = StyleSheet.create({
-  btn: { backgroundColor: "#4A1942", flexDirection: "row", alignItems: "center", borderRadius: 14, padding: 16 },
-  btnTitle: { color: "#fff", fontSize: 15, fontWeight: "700" },
-  btnSub: { color: "rgba(255,255,255,0.7)", fontSize: 12, marginTop: 1 },
+  btn: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 14,
+    padding: 16,
+    // Sin relleno de color: color solo en el borde (fondo = colors.surface).
+    borderWidth: 1.5,
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.16,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+  btnTitle: { fontSize: 15, fontWeight: "700" },
+  btnSub: { fontSize: 12, marginTop: 1 },
   sectionLabel: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5, paddingHorizontal: 20, marginTop: 16, marginBottom: 8 },
   card: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
   header: { flexDirection: "row", alignItems: "center" },
