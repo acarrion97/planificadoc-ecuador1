@@ -3,6 +3,7 @@ import { publicProcedure, router } from "./_core/trpc";
 import { invokeLLM, repairJson } from "./_core/llm";
 import {
   createPcaDocument,
+  deletePcaDocument,
   getPcaDocument,
   setPcaAiResult,
   setPcaStatusPaidFree,
@@ -308,6 +309,36 @@ export const pcaRouter = router({
         formData: d.formData ? JSON.parse(d.formData) : null,
         createdAt: d.createdAt,
       }));
+    }),
+
+  /**
+   * Duplicar un documento (Mis planes, design D10): inserta una fila NUEVA en
+   * la misma tabla con el mismo `formData`/`aiResult` — el modelo de datos no
+   * cambia (non-goal respetado) y el original queda intacto. `paid` no se
+   * copia: el desbloqueo de descargas es un entitlement por documento.
+   */
+  duplicate: publicProcedure
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
+    .mutation(async ({ input }) => {
+      const original = await getPcaDocument(input.id);
+      if (!original) throw new Error("Documento no encontrado");
+
+      const nuevoId = await createPcaDocument({
+        sessionId: input.sessionId,
+        status: original.status === "paid" ? "generated" : original.status,
+        formData: original.formData,
+        aiResult: original.aiResult ?? undefined,
+      });
+
+      return { id: nuevoId };
+    }),
+
+  /** Eliminar un documento desde Mis planes. */
+  delete: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      await deletePcaDocument(input.id);
+      return { success: true };
     }),
 
   /**

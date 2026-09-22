@@ -1,38 +1,53 @@
-import { Text, View, StyleSheet, Alert, Platform, ScrollView } from "react-native";
-import { Pressable } from "react-native";
+import { useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
-import { usePlanificaciones } from "@/lib/planificaciones-context";
-import { AREAS_INFO } from "@/data";
-import { PlanesBTSection, PlanesBTCreateCard } from "@/components/PlanesBTSection";
-import { PlanesCNCSection, PlanesCNCCreateCard } from "@/components/PlanesCNCSection";
-import { PlanesEvaluacionSection } from "@/components/PlanesEvaluacionSection";
-import { CreateCard, CreateGrid } from "@/components/create-card";
+import { useMisPlanes, type PlanGestion } from "@/hooks/use-mis-planes";
+import { filtrarPlanes, formatoFecha, type FiltroPlanes } from "@/lib/mis-planes";
+
+/**
+ * Mis planes — solo gestión (fase 4, spec `mis-planes-gestion`).
+ *
+ * Sin creación: los 6 botones de creación y las secciones de módulos se
+ * retiraron; la creación vive en `/crear`. Esta pantalla lista TODOS los
+ * tipos de plan en una sola lista (design D10) con sus filtros derivados
+ * del estado existente (D5) y las acciones Continuar, Editar (solo donde
+ * hay reanudación), Duplicar y Eliminar.
+ */
+
+const FILTROS: { id: FiltroPlanes; label: string }[] = [
+  { id: "todos", label: "Todos" },
+  { id: "recientes", label: "Recientes" },
+  { id: "progreso", label: "En progreso" },
+  { id: "completados", label: "Completados" },
+];
 
 export default function PlanesScreen() {
   const colors = useColors();
   const router = useRouter();
-  const { planificaciones, deletePlanificacion, semanas, deleteSemana } = usePlanificaciones();
+  const { planes, cargando } = useMisPlanes();
+  const [filtro, setFiltro] = useState<FiltroPlanes>("todos");
 
-  const handleDelete = (id: string, codigo: string) => {
-    if (Platform.OS === "web") {
-      if (confirm(`¿Eliminar la planificación de ${codigo}?`)) deletePlanificacion(id);
-    } else {
-      Alert.alert("Eliminar planificación", `¿Deseas eliminar la planificación de ${codigo}?`, [
-        { text: "Cancelar", style: "cancel" },
-        { text: "Eliminar", style: "destructive", onPress: () => deletePlanificacion(id) },
-      ]);
-    }
-  };
+  const visibles = filtrarPlanes(planes, filtro);
 
-  const handleDeleteSemana = (id: string) => {
+  const confirmarEliminar = (plan: PlanGestion) => {
+    const texto = `¿Eliminar «${plan.titulo}»? Esta acción no se puede deshacer.`;
     if (Platform.OS === "web") {
-      if (confirm("¿Eliminar esta planificación semanal?")) deleteSemana(id);
+      if (confirm(texto)) void plan.eliminar();
     } else {
-      Alert.alert("Eliminar semana", "¿Deseas eliminar esta planificación semanal?", [
+      Alert.alert("Eliminar plan", texto, [
         { text: "Cancelar", style: "cancel" },
-        { text: "Eliminar", style: "destructive", onPress: () => deleteSemana(id) },
+        { text: "Eliminar", style: "destructive", onPress: () => void plan.eliminar() },
       ]);
     }
   };
@@ -43,142 +58,217 @@ export default function PlanesScreen() {
         {/* ── Header ── */}
         <View className="px-5 pt-4 pb-2">
           <Text className="text-3xl font-bold text-foreground">Mis Planes</Text>
+          <Text style={{ color: colors.muted, fontSize: 13, marginTop: 2 }}>
+            {planes.length === 1 ? "1 documento" : `${planes.length} documentos`}
+          </Text>
         </View>
 
-        {/* ── Entradas de creación: retícula 3 columnas (2 en tablet, 1 en móvil) ── */}
-        <CreateGrid>
-          <CreateCard
-            icono="📋"
-            titulo="Crear Planificación Anual (PCA)"
-            subtitulo="Currículo Priorizado · IA + PDF + Word"
-            color="#1E3A5F"
-            onPress={() => router.push("/planificacion-anual" as any)}
-          />
-          <CreateCard
-            icono="🗓️"
-            titulo="Crear Plan Trimestral (PCT)"
-            subtitulo="Plan Curricular por Trimestre · IA + PDF + Word"
-            color="#0E7490"
-            onPress={() => router.push("/planificacion-trimestral" as any)}
-          />
-          <CreateCard
-            icono="📅"
-            titulo="Nueva Planificación Semanal"
-            subtitulo="Genera 5 días de clase en una sola vez"
-            color="#003366"
-            onPress={() => router.push("/planificar-semanal" as any)}
-          />
-          <CreateCard
-            icono="🎯"
-            titulo="Currículo por Competencias"
-            subtitulo="Plan Piloto · EGB/BGU e Inicial"
-            color="#7C3AED"
-            onPress={() => router.push("/curriculo-competencias" as any)}
-          />
-          <CreateCard
-            icono="🧩"
-            titulo="Proyecto Interdisciplinar"
-            subtitulo="Integra varias áreas en un solo proyecto"
-            color="#0F766E"
-            onPress={() => router.push("/proyecto-interdisciplinar" as any)}
-          />
-          <PlanesBTCreateCard />
-          <PlanesCNCCreateCard />
-        </CreateGrid>
-
-        <PlanesBTSection />
-        <PlanesCNCSection />
-        <PlanesEvaluacionSection />
-
-        {/* ── Semanas guardadas ── */}
-        {semanas.length > 0 && (
-          <View style={{ marginBottom: 8 }}>
-            <Text style={[styles.sectionLabel, { color: colors.muted }]}>
-              SEMANAS GUARDADAS ({semanas.length})
-            </Text>
-            {semanas.map(semana => (
-              <Pressable key={semana.id}
-                onPress={() => router.push(`/ver-semana/${semana.id}` as any)}
-                style={({ pressed }) => [styles.semanaCard, { backgroundColor: colors.surface, borderColor: colors.border, opacity: pressed ? 0.8 : 1 }]}
+        {/* ── Filtros (design D5) ── */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filtrosRow}
+        >
+          {FILTROS.map((f) => {
+            const activo = filtro === f.id;
+            return (
+              <Pressable
+                key={f.id}
+                onPress={() => setFiltro(f.id)}
+                style={({ pressed }) => [
+                  styles.filtro,
+                  {
+                    backgroundColor: activo ? colors.brand : colors.surface,
+                    borderColor: activo ? colors.brand : colors.border,
+                    opacity: pressed ? 0.85 : 1,
+                  },
+                ]}
               >
-                <View style={styles.semanaHeader}>
-                  <View style={styles.semanaIconWrap}>
-                    <Text style={{ fontSize: 20 }}>📅</Text>
-                  </View>
-                  <View style={{ flex: 1, marginLeft: 10 }}>
-                    <Text style={[styles.semanaTitle, { color: colors.foreground }]}>
-                      Semana del {semana.semanaInicio} al {semana.semanaFin}
-                    </Text>
-                    <Text style={{ color: colors.muted, fontSize: 12 }}>
-                      {semana.docente || "Sin docente"} · {semana.grado}
-                    </Text>
-                    <Text style={{ color: colors.muted, fontSize: 11, marginTop: 2 }}>
-                      {Object.values(semana.dias).filter(d => d.activo).length} día(s) activo(s)
-                    </Text>
-                  </View>
-                  <Pressable onPress={() => handleDeleteSemana(semana.id)}
-                    style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1, padding: 4 })}>
-                    <Text style={{ fontSize: 18 }}>🗑️</Text>
-                  </Pressable>
-                </View>
+                <Text
+                  style={{
+                    color: activo ? "#FFFFFF" : colors.foreground,
+                    fontSize: 13,
+                    fontWeight: "600",
+                  }}
+                >
+                  {f.label}
+                </Text>
               </Pressable>
-            ))}
-          </View>
-        )}
+            );
+          })}
+        </ScrollView>
 
-        {/* ── Planificaciones individuales ── */}
-        <Text style={[styles.sectionLabel, { color: colors.muted }]}>
-          PLANIFICACIONES DIARIAS ({planificaciones.length})
-        </Text>
-        {planificaciones.length === 0 ? (
-          <View style={{ alignItems: "center", paddingVertical: 32, paddingHorizontal: 20 }}>
-            <Text style={{ fontSize: 48 }}>📄</Text>
-            <Text style={[styles.emptyText, { color: colors.muted }]}>Sin planificaciones diarias</Text>
-            <Text style={{ fontSize: 13, color: colors.muted, marginTop: 4, textAlign: "center" }}>
-              Busca una destreza y genera tu primera planificación
+        {/* ── Contenido ── */}
+        {cargando && planes.length === 0 ? (
+          <ActivityIndicator color={colors.primary} size="large" style={{ marginTop: 48 }} />
+        ) : planes.length === 0 ? (
+          /* Estado vacío: invita a crear desde el hub (tarea 4.9) */
+          <View style={styles.vacio}>
+            <Text style={{ fontSize: 44 }}>📄</Text>
+            <Text style={[styles.vacioTitulo, { color: colors.foreground }]}>
+              Aún no tienes planes
+            </Text>
+            <Text style={[styles.vacioTexto, { color: colors.muted }]}>
+              Crea tu primera planificación desde el catálogo: plan diario, semanal, PCA, CNC,
+              evaluaciones y más.
+            </Text>
+            <Pressable
+              onPress={() => router.push("/crear" as any)}
+              style={({ pressed }) => [
+                styles.btnCrear,
+                { backgroundColor: colors.brand, opacity: pressed ? 0.85 : 1 },
+              ]}
+            >
+              <Text style={styles.btnCrearTexto}>＋ Nueva planificación</Text>
+            </Pressable>
+          </View>
+        ) : visibles.length === 0 ? (
+          <View style={styles.vacio}>
+            <Text style={{ fontSize: 32 }}>🔍</Text>
+            <Text style={[styles.vacioTexto, { color: colors.muted, marginTop: 8 }]}>
+              Ningún plan coincide con «{FILTROS.find((f) => f.id === filtro)?.label}».
             </Text>
           </View>
         ) : (
-          planificaciones.map(item => {
-            const areaInfo = AREAS_INFO[item.destreza.area];
-            return (
-              <Pressable key={item.id}
-                onPress={() => router.push(`/ver-plan/${item.id}` as any)}
-                style={({ pressed }) => [styles.planCard, { backgroundColor: colors.surface, borderColor: colors.border, opacity: pressed ? 0.7 : 1 }]}
-              >
-                <View style={styles.planHeader}>
-                  <View style={[styles.codeBadge, { backgroundColor: areaInfo?.color + "20" }]}>
-                    <Text style={{ color: areaInfo?.color, fontWeight: "700", fontSize: 13 }}>{item.destreza.codigo}</Text>
-                  </View>
-                  <Pressable onPress={() => handleDelete(item.id, item.destreza.codigo)}
-                    style={({ pressed }) => [{ padding: 4, opacity: pressed ? 0.5 : 1 }]}>
-                    <Text style={{ fontSize: 18 }}>🗑️</Text>
-                  </Pressable>
-                </View>
-                <Text className="text-base font-semibold text-foreground mt-2" numberOfLines={1}>{areaInfo?.name}</Text>
-                <Text className="text-sm text-muted mt-1" numberOfLines={1}>{item.grado} — {item.docente || "Sin docente"}</Text>
-                <View style={styles.planFooter}>
-                  <Text style={{ fontSize: 12, color: colors.muted }}>📅 {item.fecha}</Text>
-                  <Text style={{ fontSize: 12, color: colors.muted }}>⏰ {item.periodos} período(s)</Text>
-                </View>
-              </Pressable>
-            );
-          })
+          visibles.map((plan) => (
+            <PlanCard key={plan.key} plan={plan} onEliminar={confirmarEliminar} />
+          ))
         )}
       </ScrollView>
     </ScreenContainer>
   );
 }
 
+/** Tarjeta de gestión de un plan: identificación, estado, fecha y acciones. */
+function PlanCard({
+  plan,
+  onEliminar,
+}: {
+  plan: PlanGestion;
+  onEliminar: (plan: PlanGestion) => void;
+}) {
+  const colors = useColors();
+  const router = useRouter();
+
+  const esProgreso = plan.estado?.categoria === "progreso";
+  const colorEstado = esProgreso ? colors.warning : colors.success;
+  const fecha = formatoFecha(plan.actualizadoEn);
+
+  return (
+    <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+      {/* Identificación: tipo · estado · fecha de actualización */}
+      <View style={styles.cardTop}>
+        <View
+          style={[styles.chip, { backgroundColor: colors.background, borderColor: colors.border }]}
+        >
+          <Text style={[styles.chipTexto, { color: colors.foreground }]}>{plan.tipoLabel}</Text>
+        </View>
+        {plan.estado && (
+          <View
+            style={[
+              styles.chip,
+              {
+                backgroundColor: colorEstado + "1A",
+                borderColor: colorEstado + "55",
+              },
+            ]}
+          >
+            <Text style={[styles.chipTexto, { color: colorEstado }]}>{plan.estado.label}</Text>
+          </View>
+        )}
+        <Text style={[styles.fecha, { color: colors.muted }]}>
+          {fecha ? `Act. ${fecha}` : ""}
+        </Text>
+      </View>
+
+      <Text style={[styles.titulo, { color: colors.foreground }]} numberOfLines={1}>
+        {plan.titulo}
+      </Text>
+      {plan.detalle ? (
+        <Text style={{ color: colors.muted, fontSize: 13, marginTop: 2 }} numberOfLines={1}>
+          {plan.detalle}
+        </Text>
+      ) : null}
+
+      {/* Acciones de gestión */}
+      <View style={styles.acciones}>
+        <Pressable
+          onPress={() => onEliminar(plan)}
+          style={({ pressed }) => [
+            styles.btnAccion,
+            {
+              borderColor: colors.border,
+              backgroundColor: colors.background,
+              opacity: pressed ? 0.7 : 1,
+            },
+          ]}
+        >
+          <Text style={[styles.btnAccionTexto, { color: colors.error }]}>Eliminar</Text>
+        </Pressable>
+
+        <Pressable
+          onPress={() => void plan.duplicar()}
+          style={({ pressed }) => [
+            styles.btnAccion,
+            {
+              borderColor: colors.border,
+              backgroundColor: colors.background,
+              opacity: pressed ? 0.7 : 1,
+            },
+          ]}
+        >
+          <Text style={[styles.btnAccionTexto, { color: colors.foreground }]}>Duplicar</Text>
+        </Pressable>
+
+        {/* Editar solo donde el flujo admite reanudación (spec) */}
+        {plan.rutaEditar ? (
+          <Pressable
+            onPress={() => router.push(plan.rutaEditar as any)}
+            style={({ pressed }) => [
+              styles.btnAccion,
+              {
+                borderColor: colors.border,
+                backgroundColor: colors.background,
+                opacity: pressed ? 0.7 : 1,
+              },
+            ]}
+          >
+            <Text style={[styles.btnAccionTexto, { color: colors.foreground }]}>Editar</Text>
+          </Pressable>
+        ) : null}
+
+        <View style={{ flex: 1 }} />
+
+        <Pressable
+          onPress={() => router.push(plan.rutaContinuar as any)}
+          style={({ pressed }) => [
+            styles.btnContinuar,
+            { backgroundColor: colors.brand, opacity: pressed ? 0.85 : 1 },
+          ]}
+        >
+          <Text style={[styles.btnAccionTexto, { color: "#FFFFFF" }]}>Continuar</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  sectionLabel: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5, paddingHorizontal: 20, marginTop: 16, marginBottom: 8 },
-  semanaCard: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
-  semanaHeader: { flexDirection: "row", alignItems: "center" },
-  semanaIconWrap: { width: 44, height: 44, borderRadius: 10, backgroundColor: "#003366" + "10", alignItems: "center", justifyContent: "center" },
-  semanaTitle: { fontSize: 14, fontWeight: "700" },
-  planCard: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 16, borderWidth: 1 },
-  planHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  codeBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },
-  planFooter: { flexDirection: "row", gap: 16, marginTop: 10 },
-  emptyText: { fontSize: 16, fontWeight: "600", marginTop: 10 },
+  filtrosRow: { paddingHorizontal: 20, paddingVertical: 6, gap: 8 },
+  filtro: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 999, borderWidth: 1 },
+  card: { marginHorizontal: 20, marginTop: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
+  cardTop: { flexDirection: "row", alignItems: "center", gap: 6 },
+  chip: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999, borderWidth: 1 },
+  chipTexto: { fontSize: 11, fontWeight: "700" },
+  fecha: { fontSize: 11, marginLeft: "auto" },
+  titulo: { fontSize: 15, fontWeight: "700", marginTop: 8 },
+  acciones: { flexDirection: "row", alignItems: "center", gap: 8, marginTop: 12 },
+  btnAccion: { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 10, borderWidth: 1 },
+  btnAccionTexto: { fontSize: 13, fontWeight: "600" },
+  btnContinuar: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 10 },
+  vacio: { alignItems: "center", paddingHorizontal: 32, paddingVertical: 40 },
+  vacioTitulo: { fontSize: 17, fontWeight: "700", marginTop: 10 },
+  vacioTexto: { fontSize: 13, marginTop: 6, textAlign: "center", lineHeight: 19 },
+  btnCrear: { marginTop: 18, paddingHorizontal: 20, paddingVertical: 12, borderRadius: 12 },
+  btnCrearTexto: { color: "#FFFFFF", fontSize: 15, fontWeight: "700" },
 });
