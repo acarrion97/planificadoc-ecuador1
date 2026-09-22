@@ -8,8 +8,10 @@
 - [ ] 1.6 Reemplazar el contenido de `app/(tabs)/_layout.tsx`: de `<Tabs>` al layout de navegación envolviendo `<Slot/>`, **conservando el nombre del grupo** (design D1, riesgo R3)
 - [ ] 1.7 Ajustar el manejo de safe-area inferior en el layout de secciones al no existir tab bar (design D8, riesgo R2)
 - [ ] 1.8 Destacar visualmente el ítem "Crear" y marcar el ítem activo con `brand` + gris neutro en ambas plataformas
-- [ ] 1.9 Crear la ruta `app/ayuda/index.tsx` con contenido mínimo de contacto (`soporte@planificadoc.app`) y registrarla en `app/_layout.tsx`
-- [ ] 1.10 Verificar en escritorio/tablet/móvil que todas las secciones siguen alcanzables desde pantallas profundas (spec `navegacion-principal`)
+- [ ] 1.9 Crear la ruta `app/ayuda/index.tsx`, registrarla en `app/_layout.tsx` y darle diseño responsive con contenido **estático** inicial (spec `navegacion-principal`)
+- [ ] 1.10 Implementar la FAQ agrupada con buscador simple de texto, cubriendo las 9 preguntas aprobadas (crear planificación, PCA vs PCT, continuar un plan, dónde están mis planes, planificar desde una destreza, requisitos de adaptación curricular, evaluación diagnóstica, exportación, funciones Premium). El contenido explica **cómo usar PlanificaDoc** (p. ej. "Crear → Plan de área → PCA Anual") y **no** contiene normativa ni criterios curriculares. Contenido estático: sin CMS, sin base de datos de artículos, sin tickets, chat ni búsqueda semántica
+- [ ] 1.11 Añadir enlaces desde la FAQ a los destinos reales (`/crear`, Mis planes y sus flujos), el enlace "Ver ayuda" desde el aviso contextual de Adaptación curricular, y el botón **Contactar soporte** (`soporte@planificadoc.app`)
+- [ ] 1.12 Verificar en escritorio/tablet/móvil que todas las secciones siguen alcanzables desde pantallas profundas (spec `navegacion-principal`)
 
 ## 2. Hub de creación (fase 2)
 
