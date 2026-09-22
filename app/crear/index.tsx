@@ -25,6 +25,11 @@ export default function CrearScreen() {
   const router = useRouter();
   const { semanaId, planId } = useLocalSearchParams<{ semanaId?: string; planId?: string }>();
 
+  // Contexto de origen (design D4): llega desde ver-semana o ver-plan con el
+  // id en params; sin él, "Adaptación curricular" no inicia el flujo.
+  const hayContexto = Boolean(semanaId || planId);
+  const origen = semanaId ? "una planificación semanal" : planId ? "un plan" : null;
+
   const abrir = (modulo: Modulo) => {
     if (modulo.requiereContexto) {
       if (semanaId) {
@@ -37,7 +42,7 @@ export default function CrearScreen() {
     router.push(modulo.ruta as any);
   };
 
-  const habilitado = (modulo: Modulo) => !modulo.requiereContexto || Boolean(semanaId || planId);
+  const habilitado = (modulo: Modulo) => !modulo.requiereContexto || hayContexto;
 
   return (
     <ScreenContainer edges={["top", "left", "right"]}>
@@ -58,6 +63,30 @@ export default function CrearScreen() {
             flujo existente tal como siempre ha funcionado.
           </Text>
         </View>
+
+        {/* Llegada desde una planificación concreta: el módulo contextual se habilita */}
+        {hayContexto && (
+          <View
+            accessibilityRole="alert"
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              backgroundColor: colors.brand + "0F",
+              borderWidth: 1,
+              borderColor: colors.brand + "40",
+              borderRadius: 12,
+              padding: 14,
+            }}
+          >
+            <MaterialCommunityIcons name="check-decagram" size={20} color={colors.brand} />
+            <Text style={{ flex: 1, color: colors.foreground, fontSize: 13, lineHeight: 19 }}>
+              Has llegado desde {origen}.{" "}
+              <Text style={{ fontWeight: "700" }}>Adaptación curricular</Text> está
+              disponible con ese contexto precargado.
+            </Text>
+          </View>
+        )}
 
         {CATEGORIAS.map((categoria) => {
           const modulos = CATALOGO_MODULOS.filter((m) => m.categoria === categoria.id);
@@ -161,6 +190,30 @@ export default function CrearScreen() {
                       <Text style={{ color: colors.muted, fontSize: 13, lineHeight: 18 }}>
                         {modulo.resumen}
                       </Text>
+
+                      {disponible && modulo.requiereContexto && (
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 6,
+                            alignSelf: "flex-start",
+                            backgroundColor: colors.brand + "14",
+                            borderRadius: 999,
+                            paddingHorizontal: 10,
+                            paddingVertical: 5,
+                          }}
+                        >
+                          <MaterialCommunityIcons
+                            name="check-circle"
+                            size={14}
+                            color={colors.brand}
+                          />
+                          <Text style={{ color: colors.brand, fontSize: 12, fontWeight: "700" }}>
+                            Contexto precargado
+                          </Text>
+                        </View>
+                      )}
 
                       {!disponible && (
                         <View style={{ gap: 6 }}>
