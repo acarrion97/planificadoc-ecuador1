@@ -91,7 +91,7 @@ function planCNCVacio(): PlanConectaNivelaCrea {
     modalidad: "general",
     semana1: {
       metodologiaDeclarada: "",
-      actividadesAdaptacion: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
+      actividadesAdaptacion: [], instrumentosDiagnostico: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
       coordinacionDece: "", tecnicasReflexion: [],
     },
     semana2y3: { actividadesNivelacion: [], parejasConivelacion: [] },

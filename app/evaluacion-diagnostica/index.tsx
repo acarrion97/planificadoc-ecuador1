@@ -455,6 +455,8 @@ export default function EvaluacionDiagnosticaScreen() {
     setSugerencias([]);
     try {
       const res = await sugerirMutation.mutateAsync({
+        // Calibra el énfasis cognitivo (Marzano) del ítem abierto de cada destreza.
+        subnivel: subnivel ?? undefined,
         dcds: dcdsEvaluadas.map((d) => {
           const dest = buscarPorCodigo(d.codigo);
           return {

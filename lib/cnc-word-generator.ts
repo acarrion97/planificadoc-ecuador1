@@ -326,6 +326,9 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   // SEMANA 1 — CONECTA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANA 1 — CONECTA"));
+  const instrumentosDiagnostico = (plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean);
+  // La técnica e instrumento de diagnóstico NO va en una fila propia: su lugar en
+  // el formato oficial es la columna ACTIVIDADES EVALUATIVAS de la Semana 1.
   rows.push(labelValueRow("Metodología declarada:", plan.semana1.metodologiaDeclarada));
   rows.push(headerRow(COLUMNAS_SEMANA));
   rows.push(new TableRow({
@@ -335,10 +338,15 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       semanaContentCell(indicadoresParaDestrezas(plan.semana1.diagnosticoAcademico)),
       actividadesConDuaCell(plan.semana1.actividadesAdaptacion, plan.semana1.duaActividadesAdaptacion),
       semanaContentCell(plan.aiResult?.recursosSemana1Sugeridos ?? []),
-      semanaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
+      // La columna ACTIVIDADES EVALUATIVAS lleva la técnica + instrumento con que
+      // realmente se recoge la evidencia diagnóstica; "Diagnóstico dual" solo se
+      // usa como respaldo cuando el plan no declara ninguno.
+      instrumentosDiagnostico.length
+        ? actividadesConDuaCell(instrumentosDiagnostico, plan.semana1.duaInstrumentosDiagnostico)
+        : semanaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
     ],
   }));
-  if (plan.semana1.duaActividadesAdaptacion?.length) {
+  if (plan.semana1.duaActividadesAdaptacion?.length || plan.semana1.duaInstrumentosDiagnostico?.length) {
     rows.push(leyendaDuaRow());
   }
 
@@ -357,7 +365,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   rows.push(labelValueRow("Coordinación DECE:", plan.semana1.coordinacionDece));
 
   if (plan.semana1.tecnicasReflexion.filter(Boolean).length) {
-    rows.push(subHeadingRow("Técnicas de reflexión"));
+    rows.push(subHeadingRow("Preguntas de reflexión del cierre (metacognición)"));
     rows.push(bulletsRow(plan.semana1.tecnicasReflexion.filter(Boolean)));
   }
 
