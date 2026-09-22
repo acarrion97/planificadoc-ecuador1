@@ -524,6 +524,142 @@ Responde ÚNICAMENTE con JSON válido:
       return resultado;
     }),
 
+  // ── SUGERENCIA IA: instrumentos de evaluación por actividad ──────
+  // Propone, para cada actividad, un instrumento concreto (lista de cotejo,
+  // rúbrica, escala, etc.) alineado a las destrezas con criterios de
+  // desempeño (o competencias específicas) elegidas por el docente. Nunca
+  // devuelve códigos nuevos: los criterios vinculados se filtran contra los
+  // códigos recibidos.
+  sugerirInstrumentosEvaluacion: publicProcedure
+    .input(
+      z.object({
+        baseCurricular: z.enum(["destrezas", "competencias"]),
+        titulo: z.string().optional(),
+        productoFinal: z.string().optional(),
+        elementosCurriculares: z.array(
+          z.object({
+            codigo: z.string(),
+            nombreArea: z.string().optional(),
+            descripcion: z.string().optional(),
+          })
+        ),
+        actividades: z
+          .array(
+            z.object({
+              id: z.string(),
+              fase: z.enum(["planificacion", "gestion", "evaluacion"]),
+              actividad: z.string(),
+              evidencia: z.string().optional(),
+              evaluacion: z.string().optional(),
+            })
+          )
+          .min(1)
+          .max(12),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const esDestrezas = input.baseCurricular === "destrezas";
+      const elementosTexto = input.elementosCurriculares
+        .map(
+          (e) =>
+            `- ${e.codigo}${e.nombreArea ? ` [${e.nombreArea}]` : ""}${e.descripcion ? `: ${e.descripcion}` : ""}`
+        )
+        .join("\n");
+      const actividadesTexto = input.actividades
+        .map(
+          (a) =>
+            `- id "${a.id}" (fase ${a.fase}): ${a.actividad}${a.evidencia ? ` | Evidencia: ${a.evidencia}` : ""}${
+              a.evaluacion ? ` | Cómo se evalúa: ${a.evaluacion}` : ""
+            }`
+        )
+        .join("\n");
+
+      const prompt = `Eres un experto en evaluación educativa del Ministerio de Educación del Ecuador (instructivo de Proyecto Interdisciplinar).
+
+CONTEXTO DEL PROYECTO:
+- Título: ${input.titulo || "(sin título)"}
+- Producto final: ${input.productoFinal || "(sin definir)"}
+- Base curricular: ${esDestrezas ? "destrezas con criterios de desempeño" : "competencias específicas (Currículo Nacional por Competencias)"}
+- Elementos curriculares seleccionados por el docente (NO los modifiques ni inventes otros):
+${elementosTexto || "(ninguno)"}
+
+ACTIVIDADES A EVALUAR:
+${actividadesTexto}
+
+SOLICITUD:
+Para CADA actividad, sugiere UN instrumento de evaluación concreto y coherente con la evidencia que produce la actividad y con ${
+        esDestrezas ? "el criterio de desempeño de las destrezas" : "los indicadores de las competencias"
+      } listadas.
+
+REGLAS:
+- Elige el tipo de instrumento más adecuado a la evidencia: lista de cotejo, rúbrica (analítica u holística), escala de valoración, guía de observación, registro anecdótico, portafolio, prueba escrita, autoevaluación o coevaluación. Varía el tipo cuando tenga sentido; no repitas la rúbrica en todas.
+- "instrumento": el tipo de instrumento más 2-3 criterios o indicadores concretos a valorar (máximo 30 palabras). Ej.: "Lista de cotejo: registra fuentes, organiza datos en tabla, presenta conclusiones con evidencia".
+- "criteriosVinculados": códigos EXACTOS tomados solo de la lista de elementos curriculares de arriba que esa actividad permite evaluar (1 a 3). No inventes códigos.
+- Usa el "id" de cada actividad tal cual.
+
+Responde ÚNICAMENTE con JSON válido:
+{
+  "instrumentos": [
+    { "id": "string", "instrumento": "string", "criteriosVinculados": ["string"] }
+  ]
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en evaluación de aprendizajes del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 400 + input.actividades.length * 220,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: any;
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      const idsValidos = new Set(input.actividades.map((a) => a.id));
+      const codigosValidos = new Set(input.elementosCurriculares.map((e) => e.codigo));
+      const instrumentos = Array.isArray(parsed?.instrumentos)
+        ? parsed.instrumentos
+            .filter(
+              (i: any) =>
+                i && typeof i.id === "string" && idsValidos.has(i.id) && typeof i.instrumento === "string" && i.instrumento.trim()
+            )
+            .map((i: any) => ({
+              id: i.id as string,
+              instrumento: (i.instrumento as string).trim(),
+              criteriosVinculados: Array.isArray(i.criteriosVinculados)
+                ? (i.criteriosVinculados as unknown[]).filter(
+                    (c): c is string => typeof c === "string" && codigosValidos.has(c)
+                  )
+                : [],
+            }))
+        : [];
+
+      if (instrumentos.length === 0) {
+        throw new Error("La IA no devolvió instrumentos válidos. Intenta de nuevo.");
+      }
+      return { instrumentos };
+    }),
+
   // ── GENERACIÓN COMPLETA CON IA (formulario corto → proyecto completo) ──
   // Recibe lo mínimo que el docente ya llenó (título, contexto, pregunta
   // guía, producto final — cualquiera puede venir vacío) y los elementos
@@ -575,7 +711,7 @@ REGLAS:
 - NO inventes códigos curriculares, destrezas ni competencias específicas; usa solo las ya listadas como contexto.
 - Si un campo ya viene definido arriba, cópialo tal cual en tu respuesta sin cambiarlo.
 - "objetivoGeneral": 1 oración, verbo en infinitivo, integrando las áreas.
-- "actividades": exactamente 2 actividades por cada fase ("planificacion", "gestion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual). Actividades concretas y breves, coherentes con las áreas y el producto final.
+- "actividades": exactamente 2 actividades por cada fase ("planificacion", "gestion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual) e instrumentoEvaluacion (el instrumento concreto: lista de cotejo, rúbrica, escala de valoración, guía de observación, portafolio, etc., más 2-3 criterios a valorar, máximo 25 palabras; elige el tipo según la evidencia y no uses rúbrica en todas). Actividades concretas y breves, coherentes con las áreas y el producto final.
 - "evaluacionGeneral": 1-2 oraciones describiendo cómo se evalúa el proyecto en conjunto (rúbrica y/o portafolio, sugerido por el instructivo oficial).
 - Sé conciso en todos los campos de texto.
 
@@ -587,7 +723,7 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
   "objetivoGeneral": "string",
   "productoFinal": "string",
   "actividades": [
-    { "fase": "planificacion", "actividad": "string", "recursos": "string", "evidencia": "string", "evaluacion": "string" }
+    { "fase": "planificacion", "actividad": "string", "recursos": "string", "evidencia": "string", "evaluacion": "string", "instrumentoEvaluacion": "string" }
   ],
   "evaluacionGeneral": "string"
 }`;
@@ -601,7 +737,7 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
           },
           { role: "user", content: prompt },
         ],
-        maxTokens: 1600,
+        maxTokens: 2200,
         responseFormat: { type: "json_object" },
       });
 
@@ -631,6 +767,10 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
               recursos: typeof a.recursos === "string" ? a.recursos : "",
               evidencia: typeof a.evidencia === "string" ? a.evidencia : "",
               evaluacion: typeof a.evaluacion === "string" ? a.evaluacion : "",
+              instrumentoEvaluacion:
+                typeof a.instrumentoEvaluacion === "string" && a.instrumentoEvaluacion.trim()
+                  ? a.instrumentoEvaluacion.trim()
+                  : undefined,
             }))
         : [];
 

@@ -23,7 +23,8 @@
  * refleja en la próxima exportación. Los saberes declarativos/procedimentales/
  * actitudinales y los indicadores de evaluación solo existen en el catálogo
  * de competencias específicas (CNC); para proyectos en destrezas esas
- * columnas muestran "—" salvo los indicadores, que sí están disponibles.
+ * columnas no se dibujan (quedarían vacías) y el ancho se reparte entre la
+ * destreza y sus indicadores de evaluación.
  */
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
@@ -325,18 +326,25 @@ export async function generarProyectoInterdisciplinarWord(
   children.push(makeTable([sectionRow("Planificación del proyecto interdisciplinar")], TW, [TW]));
 
   const elementoLabel = plan.baseCurricular === "destrezas" ? "Destreza con criterio de desempeño" : "Competencia específica";
-  const COL_ASIG = Math.floor(TW * 0.12);
-  const COL_CE = Math.floor(TW * 0.22);
-  const COL_IND = Math.floor(TW * 0.22);
+  // Las destrezas con criterios de desempeño no traen saberes desagregados:
+  // en ese caso se omiten las tres columnas de saberes en lugar de dejarlas
+  // llenas de "—".
+  const conSaberes = plan.baseCurricular !== "destrezas";
+  const COL_ASIG = Math.floor(TW * (conSaberes ? 0.12 : 0.14));
+  const COL_CE = Math.floor(TW * (conSaberes ? 0.22 : 0.36));
+  const COL_IND = conSaberes ? Math.floor(TW * 0.22) : TW - COL_ASIG - COL_CE;
   const COL_DECL = Math.floor(TW * 0.147);
   const COL_PROC = Math.floor(TW * 0.147);
   const COL_ACT = TW - COL_ASIG - COL_CE - COL_IND - COL_DECL - COL_PROC;
-  const COLS_PLANIF = [COL_ASIG, COL_CE, COL_IND, COL_DECL, COL_PROC, COL_ACT];
+  const COLS_PLANIF = conSaberes
+    ? [COL_ASIG, COL_CE, COL_IND, COL_DECL, COL_PROC, COL_ACT]
+    : [COL_ASIG, COL_CE, COL_IND];
+  const NCOLS_PLANIF = COLS_PLANIF.length;
 
   const filasPlanificacion: TableRow[] = [];
   if (plan.areas.length === 0) {
     filasPlanificacion.push(
-      new TableRow({ children: [tc([p("Sin áreas registradas.", { size: 8 })], TW, { cs: 6 })] })
+      new TableRow({ cantSplit: true, children: [tc([p("Sin áreas registradas.", { size: 8 })], TW, { cs: NCOLS_PLANIF })] })
     );
   }
   for (const area of plan.areas) {
@@ -344,9 +352,10 @@ export async function generarProyectoInterdisciplinarWord(
     if (elementosDeArea.length === 0) {
       filasPlanificacion.push(
         new TableRow({
+          cantSplit: true,
           children: [
             tc([p(area.nombreArea, { bold: true, size: 7 })], COL_ASIG),
-            tc([p("Sin elementos curriculares seleccionados.", { size: 7 })], TW - COL_ASIG, { cs: 5 }),
+            tc([p("Sin elementos curriculares seleccionados.", { size: 7 })], TW - COL_ASIG, { cs: NCOLS_PLANIF - 1 }),
           ],
         })
       );
@@ -356,13 +365,19 @@ export async function generarProyectoInterdisciplinarWord(
       const info = saberesDeElemento(plan.baseCurricular, e.codigo, area);
       filasPlanificacion.push(
         new TableRow({
+          // Una fila (asignatura + destreza + indicadores) no se parte entre páginas.
+          cantSplit: true,
           children: [
             tc([p(area.nombreArea, { bold: true, size: 7 })], COL_ASIG),
             tc([p(`${e.codigo}. ${descripcionDeElemento(plan.baseCurricular, e.codigo)}`, { size: 7 })], COL_CE),
             tc(listaParrafos(info.indicadores), COL_IND),
-            tc(listaParrafos(info.declarativos), COL_DECL),
-            tc(listaParrafos(info.procedimentales), COL_PROC),
-            tc(listaParrafos(info.actitudinales), COL_ACT),
+            ...(conSaberes
+              ? [
+                  tc(listaParrafos(info.declarativos), COL_DECL),
+                  tc(listaParrafos(info.procedimentales), COL_PROC),
+                  tc(listaParrafos(info.actitudinales), COL_ACT),
+                ]
+              : []),
           ],
         })
       );
@@ -378,9 +393,13 @@ export async function generarProyectoInterdisciplinarWord(
             tc([p("Asignatura", { bold: true, size: 8, color: WHITE })], COL_ASIG, { bg: COLOR_PRIMARY }),
             tc([p(elementoLabel, { bold: true, size: 8, color: WHITE })], COL_CE, { bg: COLOR_PRIMARY }),
             tc([p("Indicadores de evaluación", { bold: true, size: 8, color: WHITE })], COL_IND, { bg: COLOR_PRIMARY }),
-            tc([p("Saberes declarativos", { bold: true, size: 8, color: WHITE })], COL_DECL, { bg: COLOR_PRIMARY }),
-            tc([p("Saberes procedimentales", { bold: true, size: 8, color: WHITE })], COL_PROC, { bg: COLOR_PRIMARY }),
-            tc([p("Saberes actitudinales", { bold: true, size: 8, color: WHITE })], COL_ACT, { bg: COLOR_PRIMARY }),
+            ...(conSaberes
+              ? [
+                  tc([p("Saberes declarativos", { bold: true, size: 8, color: WHITE })], COL_DECL, { bg: COLOR_PRIMARY }),
+                  tc([p("Saberes procedimentales", { bold: true, size: 8, color: WHITE })], COL_PROC, { bg: COLOR_PRIMARY }),
+                  tc([p("Saberes actitudinales", { bold: true, size: 8, color: WHITE })], COL_ACT, { bg: COLOR_PRIMARY }),
+                ]
+              : []),
           ],
         }),
         ...filasPlanificacion,
@@ -396,10 +415,10 @@ export async function generarProyectoInterdisciplinarWord(
   children.push(new Paragraph({ spacing: { after: 80, before: 80 }, children: [] }));
   children.push(makeTable([sectionRow("Actividades sugeridas y evidencias de evaluación")], TW, [TW]));
 
-  const COL_ACTIV = Math.floor(TW * 0.34);
-  const COL_REC = Math.floor(TW * 0.2);
-  const COL_EVID = Math.floor(TW * 0.2);
-  const COL_EVAL = Math.floor(TW * 0.16);
+  const COL_ACTIV = Math.floor(TW * 0.28);
+  const COL_REC = Math.floor(TW * 0.15);
+  const COL_EVID = Math.floor(TW * 0.17);
+  const COL_EVAL = Math.floor(TW * 0.18);
   const COL_INSTR = TW - COL_ACTIV - COL_REC - COL_EVID - COL_EVAL;
 
   const fases: FaseProyecto[] = ["planificacion", "gestion", "evaluacion"];
@@ -413,6 +432,7 @@ export async function generarProyectoInterdisciplinarWord(
     const filas = actividadesDeFase.map(
       (a) =>
         new TableRow({
+          cantSplit: true,
           children: [
             tc([p(a.actividad || "—", { size: 7 })], COL_ACTIV),
             tc([p(a.recursos || "—", { size: 7 })], COL_REC),

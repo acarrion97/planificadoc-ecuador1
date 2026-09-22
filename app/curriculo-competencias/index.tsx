@@ -13,13 +13,9 @@ import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
+import { FAMILIA_LABELS, esFamiliaEGBBGU } from "@/lib/curriculo-competencias-familia";
 
 type TipoFilter = "all" | "egb_bgu" | "inicial_preparatoria";
-
-const TIPO_LABELS: Record<string, string> = {
-  egb_bgu: "EGB / BGU",
-  inicial_preparatoria: "Inicial / Preparatoria",
-};
 
 const STATUS_LABELS: Record<string, string> = {
   draft: "Borrador",
@@ -39,12 +35,20 @@ export default function CurriculoCompetenciasScreen() {
   const [filtro, setFiltro] = useState<TipoFilter>("all");
 
   const {
-    data: planificaciones,
+    data: todasLasPlanificaciones,
     isLoading,
     refetch,
   } = trpc.curriculoCompetencias.list.useQuery({
     sessionId: "default",
-    tipo: filtro === "all" ? undefined : filtro,
+  });
+
+  // El filtro se aplica por familia (no por la columna `tipo`): los planes de
+  // Currículo Integrado EGB/BGU se guardan como "inicial_preparatoria" y
+  // aparecerían bajo "Inicial".
+  const planificaciones = todasLasPlanificaciones?.filter((item) => {
+    if (filtro === "all") return true;
+    const esEGBBGU = esFamiliaEGBBGU(item.familia);
+    return filtro === "egb_bgu" ? esEGBBGU : !esEGBBGU;
   });
 
   const deleteMutation = trpc.curriculoCompetencias.delete.useMutation({
@@ -73,8 +77,14 @@ export default function CurriculoCompetenciasScreen() {
   };
 
   const getLabel = (item: any) => {
-    if (item.tipo === "egb_bgu") {
+    if (item.familia === "egb_bgu_dcd") {
       return `${item.asignatura || "Sin asignatura"} — ${item.grado || "?"}° ${item.paralelo || ""}`.trim();
+    }
+    if (item.familia === "curriculo_integrado_multigrado") {
+      return `${item.asignaturaNombre || "Sin asignatura"} — ${item.gradosResumen || "multigrado"}`;
+    }
+    if (item.familia === "curriculo_integrado_single") {
+      return `${item.asignaturaNombre || "Currículo integrado"} — ${item.grado || "?"}`;
     }
     return `${item.grado || "Inicial"}`;
   };
@@ -172,7 +182,7 @@ export default function CurriculoCompetenciasScreen() {
                     {getLabel(item)}
                   </Text>
                   <Text style={[styles.cardSubtitle, { color: colors.muted }]}>
-                    {TIPO_LABELS[item.tipo] || item.tipo}
+                    {FAMILIA_LABELS[item.familia] || item.tipo}
                   </Text>
                 </View>
                 <View

@@ -3,11 +3,8 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-
-const TIPO_LABELS: Record<string, string> = {
-  egb_bgu: "EGB / BGU",
-  inicial_preparatoria: "Inicial / Preparatoria",
-};
+import { FAMILIA_LABELS, determinarFamiliaExportacion } from "@/lib/curriculo-competencias-familia";
+import { obtenerMateria } from "@/data/competencias-especificas-egb-bgu";
 
 const STATUS_LABELS: Record<string, string> = {
   draft: "Borrador",
@@ -224,6 +221,14 @@ export default function VerPlanificacionScreen() {
   const formData = plan.formData as any;
   const source = plan.sourceTraceability as any;
   const isExporting = exportWordMutation.isPending || exportPdfMutation.isPending;
+  const familia = determinarFamiliaExportacion({ tipo: plan.tipo, formData });
+  const esMultigrado = familia === "curriculo_integrado_multigrado";
+  const asignaturaIntegrado = formData?.asignatura
+    ? obtenerMateria(formData.asignatura)?.nombre ?? formData.asignatura
+    : undefined;
+  const gradosMultigrado: string = Array.isArray(formData?.grados)
+    ? formData.grados.map((g: any) => g?.grado).filter(Boolean).join(", ")
+    : "";
 
   return (
     <ScreenContainer className="flex-1">
@@ -235,10 +240,12 @@ export default function VerPlanificacionScreen() {
               <Text className="text-2xl font-bold text-foreground">
                 {plan.tipo === "egb_bgu"
                   ? `${formData?.asignatura || "Sin asignatura"} — ${formData?.grado || "?"}`
-                  : formData?.grado || "Inicial / Preparatoria"}
+                  : esMultigrado
+                    ? `${asignaturaIntegrado || "Sin asignatura"} — ${gradosMultigrado || "multigrado"}`
+                    : formData?.grado || FAMILIA_LABELS[familia]}
               </Text>
               <Text className="text-sm text-muted mt-1">
-                {TIPO_LABELS[plan.tipo] || plan.tipo}
+                {FAMILIA_LABELS[familia] || plan.tipo}
               </Text>
             </View>
             <View style={[styles.statusBadge, { backgroundColor: STATUS_COLORS[plan.status] + "20" }]}>
@@ -254,7 +261,23 @@ export default function VerPlanificacionScreen() {
           <Text style={[styles.sectionTitle, { color: colors.foreground }]}>📋 Datos Informativos</Text>
           <InfoRow label="Institución" value={formData?.institucion} colors={colors} />
           <InfoRow label="Docente" value={formData?.docente} colors={colors} />
-          <InfoRow label="Grado" value={formData?.grado} colors={colors} />
+          {esMultigrado ? (
+            <InfoRow label="Grados" value={gradosMultigrado} colors={colors} />
+          ) : (
+            <InfoRow label="Grado" value={formData?.grado} colors={colors} />
+          )}
+          {esMultigrado && (
+            <>
+              <InfoRow label="Asignatura" value={asignaturaIntegrado} colors={colors} />
+              <InfoRow label="Paralelo" value={formData?.paralelo} colors={colors} />
+              <InfoRow label="Trimestre" value={formData?.trimestre} colors={colors} />
+              <InfoRow
+                label="Competencias"
+                value={(formData?.competenciasEspecifica || []).map((c: any) => c?.codigo).filter(Boolean).join(", ")}
+                colors={colors}
+              />
+            </>
+          )}
           {plan.tipo === "egb_bgu" && (
             <>
               <InfoRow label="Área" value={formData?.asignatura || formData?.areaCode} colors={colors} />
@@ -263,7 +286,7 @@ export default function VerPlanificacionScreen() {
               <InfoRow label="Trimestre" value={formData?.trimestre} colors={colors} />
             </>
           )}
-          {plan.tipo === "inicial_preparatoria" && (
+          {plan.tipo === "inicial_preparatoria" && !esMultigrado && (
             <InfoRow label="Duración" value={formData?.duracion} colors={colors} />
           )}
           <InfoRow label="Período" value={formData?.periodoPedagogico || formData?.duracion} colors={colors} />
