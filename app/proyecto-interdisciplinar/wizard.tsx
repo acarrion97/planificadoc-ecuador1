@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Text,
   View,
@@ -182,6 +182,16 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       ? elementosDisponiblesDestrezas(subnivelDestrezas)
       : elementosDisponiblesCompetencias(nivelCompetencias, gradoCompetencias);
 
+  // Al cambiar nivel/grado a mano, se quitan los elementos ya elegidos que no
+  // pertenecen al nuevo nivel (si no, el documento mezclaba, p. ej., una
+  // destreza de Superior con un curso de Media). No corre al precargar un
+  // proyecto guardado: solo después de que el usuario toca el contexto.
+  const contextoCambiadoPorUsuario = useRef(false);
+  const cambiarContexto = <T,>(setter: (v: T) => void) => (v: T) => {
+    contextoCambiadoPorUsuario.current = true;
+    setter(v);
+  };
+
   // ── Datos del proyecto ──
   const [titulo, setTitulo] = useState("");
   const [contexto, setContexto] = useState("");
@@ -195,6 +205,20 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   const [elementos, setElementos] = useState<ElementoEnEdicion[]>([]);
   const [busquedaElemento, setBusquedaElemento] = useState("");
   const areasUnicas = new Set(elementos.map((e) => e.area)).size;
+
+  useEffect(() => {
+    if (!contextoCambiadoPorUsuario.current) return;
+    const vigentes = new Set(elementosDisponibles.map((e) => e.codigo));
+    const validos = elementos.filter((e) => vigentes.has(e.codigo));
+    if (validos.length !== elementos.length) {
+      const quitados = elementos.length - validos.length;
+      setElementos(validos);
+      mostrarAlerta(
+        "Elementos quitados",
+        `Se quitaron ${quitados} elemento(s) curricular(es) que no pertenecen al nivel/grado elegido. Vuelve a elegirlos del nuevo nivel.`
+      );
+    }
+  }, [baseCurricular, subnivelDestrezas, gradoDestrezas, nivelCompetencias, gradoCompetencias]);
 
   const toggleElemento = (e: ElementoCatalogo) => {
     setElementos((prev) => {
@@ -492,6 +516,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
         recursos: string;
         evidencia: string;
         evaluacion: string;
+        instrumentoEvaluacion?: string;
       }) => ({
         id: generarIdLocal("actividad"),
         fase: a.fase,
@@ -499,6 +524,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
         recursos: a.recursos,
         evidencia: a.evidencia,
         evaluacion: a.evaluacion,
+        instrumentoEvaluacion: a.instrumentoEvaluacion,
       }));
 
       setTitulo(nuevoTitulo);
@@ -527,6 +553,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
           recursos: a.recursos,
           evidencia: a.evidencia,
           evaluacion: a.evaluacion,
+          instrumentoEvaluacion: a.instrumentoEvaluacion,
         })),
         evaluacionGeneral: resultado.evaluacionGeneral || undefined,
         institucion: institucion.trim() || undefined,
@@ -709,13 +736,13 @@ export default function ProyectoInterdisciplinarWizardScreen() {
                 "Subnivel",
                 subnivelDestrezas,
                 SUBNIVELES_CON_AREAS.map((s) => ({ value: s, label: SUBNIVEL_NAMES[s] })),
-                setSubnivelDestrezas
+                cambiarContexto(setSubnivelDestrezas)
               )}
               {renderSelectChips(
                 "Grado",
                 gradoDestrezas,
                 GRADOS_POR_SUBNIVEL[subnivelDestrezas].map((g) => ({ value: g, label: g })),
-                setGradoDestrezas
+                cambiarContexto(setGradoDestrezas)
               )}
             </>
           ) : (
@@ -724,13 +751,13 @@ export default function ProyectoInterdisciplinarWizardScreen() {
                 "Nivel",
                 nivelCompetencias,
                 NIVELES_COMPETENCIAS.map((n) => ({ value: n, label: n })),
-                setNivelCompetencias
+                cambiarContexto(setNivelCompetencias)
               )}
               {renderSelectChips(
                 "Grado",
                 gradoCompetencias,
                 gradosDeNivelCompetencias(nivelCompetencias).map((g) => ({ value: g, label: g })),
-                setGradoCompetencias
+                cambiarContexto(setGradoCompetencias)
               )}
             </>
           )}

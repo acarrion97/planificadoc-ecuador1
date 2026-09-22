@@ -46,7 +46,7 @@ describe("proyectoInterdisciplinar.sugerirInstrumentosEvaluacion", () => {
   it("devuelve solo instrumentos válidos por id y filtra códigos inventados", async () => {
     const r = await caller().sugerirInstrumentosEvaluacion(input);
 
-    expect(r.instrumentos.map((i) => i.id)).toEqual(["a1", "a2"]);
+    expect(r.instrumentos.map((i: any) => i.id)).toEqual(["a1", "a2"]);
     expect(r.instrumentos[0].criteriosVinculados).toEqual(["LL.3.1.1"]);
     expect(r.instrumentos[1].instrumento).toBe("Rúbrica analítica: claridad, evidencia, trabajo en equipo");
   });

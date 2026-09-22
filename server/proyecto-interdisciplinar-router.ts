@@ -711,7 +711,7 @@ REGLAS:
 - NO inventes códigos curriculares, destrezas ni competencias específicas; usa solo las ya listadas como contexto.
 - Si un campo ya viene definido arriba, cópialo tal cual en tu respuesta sin cambiarlo.
 - "objetivoGeneral": 1 oración, verbo en infinitivo, integrando las áreas.
-- "actividades": exactamente 2 actividades por cada fase ("planificacion", "gestion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual). Actividades concretas y breves, coherentes con las áreas y el producto final.
+- "actividades": exactamente 2 actividades por cada fase ("planificacion", "gestion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual) e instrumentoEvaluacion (el instrumento concreto: lista de cotejo, rúbrica, escala de valoración, guía de observación, portafolio, etc., más 2-3 criterios a valorar, máximo 25 palabras; elige el tipo según la evidencia y no uses rúbrica en todas). Actividades concretas y breves, coherentes con las áreas y el producto final.
 - "evaluacionGeneral": 1-2 oraciones describiendo cómo se evalúa el proyecto en conjunto (rúbrica y/o portafolio, sugerido por el instructivo oficial).
 - Sé conciso en todos los campos de texto.
 
@@ -723,7 +723,7 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
   "objetivoGeneral": "string",
   "productoFinal": "string",
   "actividades": [
-    { "fase": "planificacion", "actividad": "string", "recursos": "string", "evidencia": "string", "evaluacion": "string" }
+    { "fase": "planificacion", "actividad": "string", "recursos": "string", "evidencia": "string", "evaluacion": "string", "instrumentoEvaluacion": "string" }
   ],
   "evaluacionGeneral": "string"
 }`;
@@ -737,7 +737,7 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
           },
           { role: "user", content: prompt },
         ],
-        maxTokens: 1600,
+        maxTokens: 2200,
         responseFormat: { type: "json_object" },
       });
 
@@ -767,6 +767,10 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
               recursos: typeof a.recursos === "string" ? a.recursos : "",
               evidencia: typeof a.evidencia === "string" ? a.evidencia : "",
               evaluacion: typeof a.evaluacion === "string" ? a.evaluacion : "",
+              instrumentoEvaluacion:
+                typeof a.instrumentoEvaluacion === "string" && a.instrumentoEvaluacion.trim()
+                  ? a.instrumentoEvaluacion.trim()
+                  : undefined,
             }))
         : [];
 
