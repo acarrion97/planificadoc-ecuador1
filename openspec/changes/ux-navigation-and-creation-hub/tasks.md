@@ -26,14 +26,14 @@
 
 ## 3. Inicio por intención (fase 3)
 
-- [ ] 3.1 Reordenar `app/(tabs)/index.tsx`: identidad de marca + claim, buscador de DCD, bloque "Continuar", CTA "＋ Nueva planificación"
-- [ ] 3.2 Eliminar del Home las cuadrículas de áreas EGB/BGU, las tarjetas de módulo (Inicial, Preparatoria, PCA, PCT, BT) y el bloque `false &&` de Bachillerato Técnico
-- [ ] 3.3 Implementar el bloque "Continuar" con los planes recientes, navegando al detalle correspondiente por tipo (`ver-plan`, `ver-semana`, `ver-cnc`, etc.)
-- [ ] 3.4 Implementar el estado vacío: ocultar "Continuar" cuando no hay planes, sin dejar huecos
-- [ ] 3.5 Conectar el CTA "＋ Nueva planificación" a `/crear`
-- [ ] 3.6 Retirar el banner de WhatsApp del Home y añadirlo a `app/(tabs)/cuenta.tsx`
-- [ ] 3.7 Verificar que el buscador conserva resultados y detalle de destreza tal como hoy
-- [ ] 3.8 Test: el Home no renderiza cuadrículas de áreas ni tarjetas de módulo
+- [x] 3.1 Reordenar `app/(tabs)/index.tsx`: identidad de marca + claim, buscador de DCD, bloque "Continuar", CTA "＋ Nueva planificación"
+- [x] 3.2 Eliminar del Home las cuadrículas de áreas EGB/BGU, las tarjetas de módulo (Inicial, Preparatoria, PCA, PCT, BT) y el bloque `false &&` de Bachillerato Técnico
+- [x] 3.3 Implementar el bloque "Continuar" con los planes recientes, navegando al detalle correspondiente por tipo (`ver-plan`, `ver-semana`, `ver-cnc`, etc.)
+- [x] 3.4 Implementar el estado vacío: ocultar "Continuar" cuando no hay planes, sin dejar huecos
+- [x] 3.5 Conectar el CTA "＋ Nueva planificación" a `/crear`
+- [x] 3.6 Retirar el banner de WhatsApp del Home y añadirlo a `app/(tabs)/cuenta.tsx`
+- [x] 3.7 Verificar que el buscador conserva resultados y detalle de destreza tal como hoy
+- [x] 3.8 Test: el Home no renderiza cuadrículas de áreas ni tarjetas de módulo
 
 ## 4. Mis planes: solo gestión (fase 4)
 
