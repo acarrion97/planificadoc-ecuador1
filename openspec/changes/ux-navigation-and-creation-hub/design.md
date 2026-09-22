@@ -26,7 +26,8 @@ Ver `proposal.md` (Why) para la motivación. Solo el contexto técnico necesario
 ## Decisions
 
 ### D1 — Se conserva el nombre del grupo de rutas `(tabs)`
-**Decisión:** no renombrar `app/(tabs)`; solo se reemplaza el contenido de `app/(tabs)/_layout.tsx` (de `<Tabs>` a un layout con sidebar/drawer).
+**Decisión:** no renombrar `app/(tabs)`; se reemplaza el contenido de `app/(tabs)/_layout.tsx` (de `<Tabs>` a `<Slot/>`), y el componente de navegación (`components/app-navigation.tsx`) se monta en el **layout raíz** envolviendo el `<Stack/>`.
+**Por qué en la raíz y no en el grupo:** el escenario "Navegación desde cualquier pantalla" del spec exige que la navegación siga disponible en pantallas profundas (detalle de destreza, wizards), que son hermanas de `(tabs)` en el Stack; si viviera dentro del grupo no se vería desde ahí.
 **Alternativas:** renombrar a `(app)` → obligaría a tocar `anchor`, `Redirect` y 4 `push/replace` con riesgo de romper navegación profunda sin beneficio de usuario.
 **Resultado:** cero cambios de URL y cero cambios en enlaces existentes.
 
@@ -81,7 +82,7 @@ Los colores de `AREAS_INFO` quedan reservados a badges de datos.
 - **[R2] Safe-area inferior]** — `ScreenContainer` asume tab bar para el bottom (`components/screen-container.tsx:11-13`); sin ella, contenido puede quedar bajo la barra del sistema o con un hueco. → Mitigación: D8 + revisión en dispositivo/emulador iOS y Android.
 - **[R3) El grupo `(tabs)` deja de contener "tabs"]** — nombre engañoso para futuros lectores. → Aceptado a cambio de D1 (cero rompimientos); se documenta en el propio `_layout.tsx`.
 - **[R4) Contenido angosto con sidebar]** — las pantallas usan `px-5` fijo; en escritorio el área de trabajo se estira. → Mitigación: limitar el ancho máximo del contenido dentro del layout del sidebar; no se toca cada formulario.
-- **[R5) Un solo archivo de layout concentra el riesgo]** — si el sidebar rompe, rompe toda la app. → Mitigación: el sidebar se añade envolviendo `<Slot/>` en una fase independiente del rediseño de Inicio; rollback por rama.
+- **[R5) Un solo archivo de layout concentra el riesgo]** — si la navegación rompe, rompe toda la app. → Mitigación: el componente se añade envolviendo el `<Stack/>` en el layout raíz, en una fase independiente del rediseño de Inicio; rollback por rama.
 - **[R6) Filtros "por estado" pueden sorprender]** — un plan diario nunca aparece en "Completados". → Mitigación: es comportamiento deliberado (D5) y queda escrito en el spec; alternativa sería inventar estados, fuera de alcance.
 
 **Migración:** 5 fases incrementales sobre la rama `feature/ux-navigation-and-creation-hub`, cada una dejando la app navegable: (1) layout + sidebar/drawer con las secciones actuales, (2) `/crear` con los 12 módulos, (3) Inicio por intención, (4) Mis planes solo gestión, (5) retiro de la tab bar + pulido cromático. **Rollback:** cada fase es un commit revertible; la tab bar solo desaparece en la fase 5, de modo que revertir esa fase restaura la navegación previa sin tocar las demás.

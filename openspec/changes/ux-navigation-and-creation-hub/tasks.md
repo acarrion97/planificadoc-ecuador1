@@ -1,26 +1,26 @@
 ## 1. Base: navegación (fase 1)
 
-- [ ] 1.1 Agregar el token `brand` (`#003366` light y dark) en `theme.config.js` sin tocar `primary` (design D6)
-- [ ] 1.2 Crear el componente de navegación lateral con las zonas **principal** (Inicio, Crear, Explorar, Mis planes) y **gestión** (Mi cuenta, Ayuda), ítem de marca "PlanificaDoc Ecuador" al pie e iconos de `@expo/vector-icons` (design D7)
-- [ ] 1.3 Implementar los tres breakpoints con `useWindowDimensions`: ≥1024 sidebar expandido (240px), 768–1023 colapsado (64px), <768 header con `☰` (design D2)
-- [ ] 1.4 Implementar el control de colapso/expansión del sidebar conservando el estado durante la sesión
-- [ ] 1.5 Implementar el drawer móvil (apertura por `☰`, cierre al elegir ítem o al tocar el fondo)
-- [ ] 1.6 Reemplazar el contenido de `app/(tabs)/_layout.tsx`: de `<Tabs>` al layout de navegación envolviendo `<Slot/>`, **conservando el nombre del grupo** (design D1, riesgo R3)
-- [ ] 1.7 Ajustar el manejo de safe-area inferior en el layout de secciones al no existir tab bar (design D8, riesgo R2)
-- [ ] 1.8 Destacar visualmente el ítem "Crear" y marcar el ítem activo con `brand` + gris neutro en ambas plataformas
-- [ ] 1.9 Crear la ruta `app/ayuda/index.tsx`, registrarla en `app/_layout.tsx` y darle diseño responsive con contenido **estático** inicial (spec `navegacion-principal`)
-- [ ] 1.10 Implementar la FAQ agrupada con buscador simple de texto, cubriendo las 9 preguntas aprobadas (crear planificación, PCA vs PCT, continuar un plan, dónde están mis planes, planificar desde una destreza, requisitos de adaptación curricular, evaluación diagnóstica, exportación, funciones Premium). El contenido explica **cómo usar PlanificaDoc** (p. ej. "Crear → Plan de área → PCA Anual") y **no** contiene normativa ni criterios curriculares. Contenido estático: sin CMS, sin base de datos de artículos, sin tickets, chat ni búsqueda semántica
-- [ ] 1.11 Añadir enlaces desde la FAQ a los destinos reales (`/crear`, Mis planes y sus flujos), el enlace "Ver ayuda" desde el aviso contextual de Adaptación curricular, y el botón **Contactar soporte** (`soporte@planificadoc.app`)
+- [x] 1.1 Agregar el token `brand` (`#003366` light y dark) en `theme.config.js` sin tocar `primary` (design D6)
+- [x] 1.2 Crear el componente de navegación lateral con las zonas **principal** (Inicio, Crear, Explorar, Mis planes) y **gestión** (Mi cuenta, Ayuda), ítem de marca "PlanificaDoc Ecuador" al pie e iconos de `@expo/vector-icons` (design D7)
+- [x] 1.3 Implementar los tres breakpoints con `useWindowDimensions`: ≥1024 sidebar expandido (240px), 768–1023 colapsado (64px), <768 header con `☰` (design D2)
+- [x] 1.4 Implementar el control de colapso/expansión del sidebar conservando el estado durante la sesión
+- [x] 1.5 Implementar el drawer móvil (apertura por `☰`, cierre al elegir ítem o al tocar el fondo)
+- [x] 1.6 Reemplazar el contenido de `app/(tabs)/_layout.tsx`: de `<Tabs>` al layout de navegación envolviendo `<Slot/>`, **conservando el nombre del grupo** (design D1, riesgo R3)
+- [x] 1.7 Ajustar el manejo de safe-area inferior en el layout de secciones al no existir tab bar (design D8, riesgo R2)
+- [x] 1.8 Destacar visualmente el ítem "Crear" y marcar el ítem activo con `brand` + gris neutro en ambas plataformas
+- [x] 1.9 Crear la ruta `app/ayuda/index.tsx`, registrarla en `app/_layout.tsx` y darle diseño responsive con contenido **estático** inicial (spec `navegacion-principal`)
+- [x] 1.10 Implementar la FAQ agrupada con buscador simple de texto, cubriendo las 9 preguntas aprobadas (crear planificación, PCA vs PCT, continuar un plan, dónde están mis planes, planificar desde una destreza, requisitos de adaptación curricular, evaluación diagnóstica, exportación, funciones Premium). El contenido explica **cómo usar PlanificaDoc** (p. ej. "Crear → Plan de área → PCA Anual") y **no** contiene normativa ni criterios curriculares. Contenido estático: sin CMS, sin base de datos de artículos, sin tickets, chat ni búsqueda semántica
+- [x] 1.11 Añadir enlaces desde la FAQ a los destinos reales (`/crear`, Mis planes y sus flujos), el enlace "Ver ayuda" desde el aviso contextual de Adaptación curricular, y el botón **Contactar soporte** (`soporte@planificadoc.app`)
 - [ ] 1.12 Verificar en escritorio/tablet/móvil que todas las secciones siguen alcanzables desde pantallas profundas (spec `navegacion-principal`)
 
 ## 2. Hub de creación (fase 2)
 
-- [ ] 2.1 Crear la lista tipada única de módulos `{categoria, modulo, ruta, icono, requiereContexto}` que cubra los 12 flujos: diario, semanal, PCA, PCT, CNC, Proyecto interdisciplinar, BT, Currículo por Competencias, Inicial, Preparatoria, Adaptación curricular, Evaluación diagnóstica
-- [ ] 2.2 Crear la ruta `app/crear/index.tsx` que renderiza el catálogo agrupado por las 6 categorías del spec `hub-de-creacion`
-- [ ] 2.3 Aplicar el lenguaje cromático único (`brand` + blanco + gris) a todas las tarjetas, eliminando los colores de módulo
+- [x] 2.1 Crear la lista tipada única de módulos `{categoria, modulo, ruta, icono, requiereContexto}` que cubra los 12 flujos: diario, semanal, PCA, PCT, CNC, Proyecto interdisciplinar, BT, Currículo por Competencias, Inicial, Preparatoria, Adaptación curricular, Evaluación diagnóstica
+- [x] 2.2 Crear la ruta `app/crear/index.tsx` que renderiza el catálogo agrupado por las 6 categorías del spec `hub-de-creacion`
+- [x] 2.3 Aplicar el lenguaje cromático único (`brand` + blanco + gris) a todas las tarjetas, eliminando los colores de módulo
 - [ ] 2.4 Implementar la habilitación contextual: "Adaptación curricular" deshabilitada con razón visible sin origen, habilitada y precargada al llegar desde `ver-semana`/`ver-plan` (design D4)
 - [ ] 2.5 Verificar que "Evaluación diagnóstica" inicia de forma autónoma desde el catálogo conservando la precarga opcional `from=cnc`
-- [ ] 2.6 Registrar `crear/index` en `app/_layout.tsx` y enlazarlo desde el ítem "Crear" de la navegación
+- [x] 2.6 Registrar `crear/index` en `app/_layout.tsx` y enlazarlo desde el ítem "Crear" de la navegación
 - [ ] 2.7 Test: los 12 módulos aparecen en `/crear` agrupados en su categoría correcta
 - [ ] 2.8 Verificar que los flujos abiertos desde `/crear` arrancan en su estado inicial sin exigir parámetros nuevos (spec `hub-de-creacion`, no-goals)
 
