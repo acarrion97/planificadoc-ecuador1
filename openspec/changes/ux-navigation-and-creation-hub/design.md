@@ -88,5 +88,4 @@ Los colores de `AREAS_INFO` quedan reservados a badges de datos.
 
 ## Open Questions
 
-- **Contenido de `/ayuda`** (FAQ, contacto a `soporte@planificadoc.app`, enlace al grupo de WhatsApp): el spec solo exige que la ruta exista y sea accesible; el contenido puede definirse al implementar sin afectar specs ni desglose.
 - **Uso del dorado `#e0a41e` en la UI** (marcar módulos Premium en `/crear` o el estado "generado ✓"): decisión de marca que no cambia la estructura ni los requisitos; puede tomarse en una iteración posterior.
