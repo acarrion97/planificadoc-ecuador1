@@ -37,16 +37,16 @@
 
 ## 4. Mis planes: solo gestión (fase 4)
 
-- [ ] 4.1 Quitar de `app/(tabs)/planes.tsx` los 6 botones de creación (PCA, PCT, semanal, CxC, Proyecto interdisciplinar) y las secciones `PlanesBTSection`/`PlanesCNCSection`/`PlanesEvaluacionSection` como puntos de creación, conservando sus listados
-- [ ] 4.2 Implementar el listado unificado de los 8 tipos de plan con tipo, identificación y fecha de actualización
-- [ ] 4.3 Implementar los filtros Todos y Recientes para todos los tipos
-- [ ] 4.4 Implementar los filtros "En progreso" y "Completados" solo para tipos con estado, con el mapeo de la tabla de design D5, excluyendo plan diario y semanal
-- [ ] 4.5 Implementar la acción "Continuar" por plan navegando a su detalle o formulario
-- [ ] 4.6 Implementar "Eliminar" con confirmación (ya existente) moviéndola a la interacción unificada
-- [ ] 4.7 Implementar "Editar" visible únicamente en los tipos que admiten reanudación
-- [ ] 4.8 Implementar "Duplicar": copia con id nuevo, contenido igual, original intacto, sin cambios de esquema (design D5 y spec `mis-planes-gestion`)
-- [ ] 4.9 Implementar el estado vacío que invita a crear desde el hub
-- [ ] 4.10 Test: volcado de filtros por tipo (los tipos sin estado no aparecen en "En progreso"/"Completados") y que la duplicación deja el original intacto
+- [x] 4.1 Quitar de `app/(tabs)/planes.tsx` los 6 botones de creación (PCA, PCT, semanal, CxC, Proyecto interdisciplinar) y las secciones `PlanesBTSection`/`PlanesCNCSection`/`PlanesEvaluacionSection` como puntos de creación, conservando sus listados (absorbidos por el listado unificado — design D10)
+- [x] 4.2 Implementar el listado unificado de los 9 tipos de plan del spec (diario, semanal, PCA, PCT, CNC, BT, CxC, Proyecto, Evaluación) con tipo, identificación y fecha de actualización
+- [x] 4.3 Implementar los filtros Todos y Recientes (ventana de 30 días) para todos los tipos
+- [x] 4.4 Implementar los filtros "En progreso" y "Completados" solo para tipos con estado, con el mapeo de la tabla de design D5, excluyendo plan diario, semanal y BT (sin estado)
+- [x] 4.5 Implementar la acción "Continuar" por plan navegando a su detalle o formulario
+- [x] 4.6 Implementar "Eliminar" con confirmación (ya existente) moviéndola a la interacción unificada
+- [x] 4.7 Implementar "Editar" visible únicamente en los tipos que admiten reanudación (CxC por familia; el resto no tiene reanudación por id — design D10)
+- [x] 4.8 Implementar "Duplicar": copia con id nuevo, contenido igual, original intacto, sin cambios de esquema (contextos locales + `pca.duplicate`, `curriculoCompetencias.duplicate` y `proyectoInterdisciplinar.duplicate`; design D10 y spec `mis-planes-gestion`)
+- [x] 4.9 Implementar el estado vacío que invita a crear desde el hub
+- [x] 4.10 Test: volcado de filtros por tipo (los tipos sin estado no aparecen en "En progreso"/"Completados") y que la duplicación deja el original intacto
 
 ## 5. Cierre y verificación (fase 5)
 
