@@ -10,10 +10,28 @@ import { useRouter } from "expo-router";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificacionesBT } from "@/lib/planificaciones-bt-context";
 import { obtenerFiguraPorId } from "@/data/bachillerato-tecnico";
+import { CreateCard } from "@/components/create-card";
+
+/**
+ * Tarjeta de creación de BT. Vive fuera de la sección para poder renderizarse
+ * dentro de la retícula de creación de Mis planes (`<CreateGrid>`), junto con
+ * las otras 6 entradas.
+ */
+export function PlanesBTCreateCard() {
+  const router = useRouter();
+  return (
+    <CreateCard
+      icono="🛠️"
+      titulo="Planificar Bachillerato Técnico"
+      subtitulo="Unidad de Trabajo por competencias · IA + Word"
+      color="#4A1942"
+      onPress={() => router.push("/bachillerato-tecnico" as any)}
+    />
+  );
+}
 
 export function PlanesBTSection() {
   const colors = useColors();
-  const router = useRouter();
   const { planesBT, deletePlanBT } = usePlanificacionesBT();
 
   const handleDelete = (id: string) => {
@@ -29,31 +47,6 @@ export function PlanesBTSection() {
 
   return (
     <View>
-      <View style={{ paddingHorizontal: 20, marginBottom: 8, marginTop: 8 }}>
-        <Pressable
-          onPress={() => router.push("/bachillerato-tecnico" as any)}
-          style={({ pressed }) => [
-            styles.btn,
-            {
-              backgroundColor: colors.surface,
-              borderColor: "#4A1942",
-              opacity: pressed ? 0.85 : 1,
-            },
-          ]}
-        >
-          <Text style={{ fontSize: 22 }}>🛠️</Text>
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text style={[styles.btnTitle, { color: colors.foreground }]}>
-              Planificar Bachillerato Técnico
-            </Text>
-            <Text style={[styles.btnSub, { color: colors.muted }]}>
-              Unidad de Trabajo por competencias · IA + Word
-            </Text>
-          </View>
-          <Text style={{ color: "#4A1942", fontSize: 18 }}>›</Text>
-        </Pressable>
-      </View>
-
       {planesBT.length > 0 && (
         <View style={{ marginBottom: 8 }}>
           <Text style={[styles.sectionLabel, { color: colors.muted }]}>
@@ -95,21 +88,6 @@ export function PlanesBTSection() {
 }
 
 const styles = StyleSheet.create({
-  btn: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 14,
-    padding: 16,
-    // Sin relleno de color: color solo en el borde (fondo = colors.surface).
-    borderWidth: 1.5,
-    shadowColor: "#0F172A",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.16,
-    shadowRadius: 10,
-    elevation: 4,
-  },
-  btnTitle: { fontSize: 15, fontWeight: "700" },
-  btnSub: { fontSize: 12, marginTop: 1 },
   sectionLabel: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5, paddingHorizontal: 20, marginTop: 16, marginBottom: 8 },
   card: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
   header: { flexDirection: "row", alignItems: "center" },

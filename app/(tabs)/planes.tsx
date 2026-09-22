@@ -5,9 +5,10 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { AREAS_INFO } from "@/data";
-import { PlanesBTSection } from "@/components/PlanesBTSection";
-import { PlanesCNCSection } from "@/components/PlanesCNCSection";
+import { PlanesBTSection, PlanesBTCreateCard } from "@/components/PlanesBTSection";
+import { PlanesCNCSection, PlanesCNCCreateCard } from "@/components/PlanesCNCSection";
 import { PlanesEvaluacionSection } from "@/components/PlanesEvaluacionSection";
+import { CreateCard, CreateGrid } from "@/components/create-card";
 
 export default function PlanesScreen() {
   const colors = useColors();
@@ -44,131 +45,46 @@ export default function PlanesScreen() {
           <Text className="text-3xl font-bold text-foreground">Mis Planes</Text>
         </View>
 
-        {/* ── Botón PCA ── */}
-        <View style={styles.pcaEntry}>
-          <Pressable
+        {/* ── Entradas de creación: retícula 3 columnas (2 en tablet, 1 en móvil) ── */}
+        <CreateGrid>
+          <CreateCard
+            icono="📋"
+            titulo="Crear Planificación Anual (PCA)"
+            subtitulo="Currículo Priorizado · IA + PDF + Word"
+            color="#1E3A5F"
             onPress={() => router.push("/planificacion-anual" as any)}
-            style={({ pressed }) => [
-              styles.pcaBtn,
-              { backgroundColor: colors.surface, borderColor: "#1E3A5F", opacity: pressed ? 0.85 : 1 },
-            ]}
-          >
-            <Text style={styles.pcaBtnIcon}>📋</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.pcaBtnTitle, { color: colors.foreground }]}>
-                Crear Planificación Anual (PCA)
-              </Text>
-              <Text style={[styles.pcaBtnSub, { color: colors.muted }]}>
-                Currículo Priorizado · IA + PDF + Word
-              </Text>
-            </View>
-            <Text style={[styles.pcaBtnArrow, { color: "#1E3A5F" }]}>›</Text>
-          </Pressable>
-        </View>
-
-        {/* ── Botón PCT Trimestral ── */}
-        <View style={styles.pcaEntry}>
-          <Pressable
+          />
+          <CreateCard
+            icono="🗓️"
+            titulo="Crear Plan Trimestral (PCT)"
+            subtitulo="Plan Curricular por Trimestre · IA + PDF + Word"
+            color="#0E7490"
             onPress={() => router.push("/planificacion-trimestral" as any)}
-            style={({ pressed }) => [
-              styles.pcaBtn,
-              {
-                backgroundColor: colors.surface,
-                borderColor: "#0E7490",
-                opacity: pressed ? 0.85 : 1,
-              },
-            ]}
-          >
-            <Text style={styles.pcaBtnIcon}>🗓️</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.pcaBtnTitle, { color: colors.foreground }]}>
-                Crear Plan Trimestral (PCT)
-              </Text>
-              <Text style={[styles.pcaBtnSub, { color: colors.muted }]}>
-                Plan Curricular por Trimestre · IA + PDF + Word
-              </Text>
-            </View>
-            <Text style={[styles.pcaBtnArrow, { color: "#0E7490" }]}>›</Text>
-          </Pressable>
-        </View>
-
-        {/* ── Botón planificación semanal ── */}
-        <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
-          <Pressable
+          />
+          <CreateCard
+            icono="📅"
+            titulo="Nueva Planificación Semanal"
+            subtitulo="Genera 5 días de clase en una sola vez"
+            color="#003366"
             onPress={() => router.push("/planificar-semanal" as any)}
-            style={({ pressed }) => [
-              styles.btnSemanal,
-              {
-                backgroundColor: colors.surface,
-                borderColor: "#003366",
-                opacity: pressed ? 0.85 : 1,
-              },
-            ]}
-          >
-            <Text style={{ fontSize: 22 }}>📅</Text>
-            <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={[styles.btnSemanalTitle, { color: colors.foreground }]}>
-                Nueva Planificación Semanal
-              </Text>
-              <Text style={[styles.btnSemanalSub, { color: colors.muted }]}>
-                Genera 5 días de clase en una sola vez
-              </Text>
-            </View>
-            <Text style={{ color: "#003366", fontSize: 18 }}>›</Text>
-          </Pressable>
-        </View>
-
-        {/* ── Botón Currículo por Competencias ── */}
-        <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
-          <Pressable
+          />
+          <CreateCard
+            icono="🎯"
+            titulo="Currículo por Competencias"
+            subtitulo="Plan Piloto · EGB/BGU e Inicial"
+            color="#7C3AED"
             onPress={() => router.push("/curriculo-competencias" as any)}
-            style={({ pressed }) => [
-              styles.btnSemanal,
-              {
-                backgroundColor: colors.surface,
-                borderColor: "#7C3AED",
-                opacity: pressed ? 0.85 : 1,
-              },
-            ]}
-          >
-            <Text style={{ fontSize: 22 }}>🎯</Text>
-            <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={[styles.btnSemanalTitle, { color: colors.foreground }]}>
-                Currículo por Competencias
-              </Text>
-              <Text style={[styles.btnSemanalSub, { color: colors.muted }]}>
-                Plan Piloto · EGB/BGU e Inicial
-              </Text>
-            </View>
-            <Text style={{ color: "#7C3AED", fontSize: 18 }}>›</Text>
-          </Pressable>
-        </View>
-
-        {/* ── Botón Proyecto Interdisciplinar ── */}
-        <View style={{ paddingHorizontal: 20, marginBottom: 8 }}>
-          <Pressable
+          />
+          <CreateCard
+            icono="🧩"
+            titulo="Proyecto Interdisciplinar"
+            subtitulo="Integra varias áreas en un solo proyecto"
+            color="#0F766E"
             onPress={() => router.push("/proyecto-interdisciplinar" as any)}
-            style={({ pressed }) => [
-              styles.btnSemanal,
-              {
-                backgroundColor: colors.surface,
-                borderColor: "#0F766E",
-                opacity: pressed ? 0.85 : 1,
-              },
-            ]}
-          >
-            <Text style={{ fontSize: 22 }}>🧩</Text>
-            <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={[styles.btnSemanalTitle, { color: colors.foreground }]}>
-                Proyecto Interdisciplinar
-              </Text>
-              <Text style={[styles.btnSemanalSub, { color: colors.muted }]}>
-                Integra varias áreas en un solo proyecto
-              </Text>
-            </View>
-            <Text style={{ color: "#0F766E", fontSize: 18 }}>›</Text>
-          </Pressable>
-        </View>
+          />
+          <PlanesBTCreateCard />
+          <PlanesCNCCreateCard />
+        </CreateGrid>
 
         <PlanesBTSection />
         <PlanesCNCSection />
@@ -255,55 +171,6 @@ export default function PlanesScreen() {
 }
 
 const styles = StyleSheet.create({
-  pcaEntry: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  pcaBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 14,
-    padding: 16,
-    gap: 12,
-    // Sin relleno de color: el color de módulo vive solo en el borde y la
-    // flecha; el fondo es `colors.surface` (se inyecta en cada tarjeta).
-    borderWidth: 1.5,
-    // Relieve: sombra más marcada que la versión anterior.
-    shadowColor: "#0F172A",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.16,
-    shadowRadius: 10,
-    elevation: 4,
-  },
-  pcaBtnIcon: {
-    fontSize: 28,
-  },
-  pcaBtnTitle: {
-    fontSize: 15,
-    fontWeight: "700",
-  },
-  pcaBtnSub: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-  pcaBtnArrow: {
-    fontSize: 24,
-    fontWeight: "300",
-  },
-  btnSemanal: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1.5,
-    shadowColor: "#0F172A",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.16,
-    shadowRadius: 10,
-    elevation: 4,
-  },
-  btnSemanalTitle: { fontSize: 15, fontWeight: "700" },
-  btnSemanalSub: { fontSize: 12, marginTop: 1 },
   sectionLabel: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5, paddingHorizontal: 20, marginTop: 16, marginBottom: 8 },
   semanaCard: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
   semanaHeader: { flexDirection: "row", alignItems: "center" },
