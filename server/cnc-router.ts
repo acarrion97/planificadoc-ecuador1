@@ -9,7 +9,11 @@ import { obtenerUnidadesCompetenciaDeModulo } from "../data/bachillerato-tecnico
 import type { ConectaNivelaCreaAiResult } from "../data/types-cnc";
 import type { DUAActividad } from "../data/types";
 import { subnivelDesdeGrado } from "../lib/evaluacion-utils";
-import { textoCalibracionInstrumento, estrategiasMetodologicasPorSubnivel } from "../lib/curriculo-prerrequisitos";
+import {
+  textoCalibracionInstrumento,
+  estrategiasMetodologicasPorSubnivel,
+  textoHerramientasDiagnosticasOficiales,
+} from "../lib/curriculo-prerrequisitos";
 
 // ─── Zod schemas ──────────────────────────────────────────────────────────────
 
@@ -29,6 +33,7 @@ const DiagnosticoSocioemocionalSchema = z.object({
 const Semana1Schema = z.object({
   metodologiaDeclarada: z.string().default(""),
   actividadesAdaptacion: z.array(z.string()),
+  instrumentosDiagnostico: z.array(z.string()).default([]),
   diagnosticoAcademico: z.array(DiagnosticoAcademicoSchema),
   diagnosticoSocioemocional: z.array(DiagnosticoSocioemocionalSchema),
   coordinacionDece: z.string(),
@@ -202,6 +207,12 @@ REGLAS BT:
   const estrategias = subnivelCurso !== null ? estrategiasMetodologicasPorSubnivel(subnivelCurso) : null;
   const calibracionInstrumento = subnivelCurso !== null ? textoCalibracionInstrumento(subnivelCurso) : null;
 
+  // Las cuatro herramientas oficiales de evaluación diagnóstica y sus reglas de
+  // diseño (MinEduc 2026). A diferencia de la calibración por subnivel, este
+  // bloque aplica a TODOS los niveles y ofertas, incluido Bachillerato Técnico:
+  // el subnivel solo afina el énfasis cognitivo cuando la fuente lo ejemplifica.
+  const herramientasDiagnosticas = textoHerramientasDiagnosticasOficiales(subnivelCurso);
+
   const calibracionSemana1 = !esBT && (estrategias || calibracionInstrumento) ? `
 CALIBRACIÓN CURRICULAR PARA ESTE SUBNIVEL (Semana 1):
 ${estrategias ? `Estrategias metodológicas respaldadas por los Lineamientos Pedagógicos 2026-2027 para este subnivel (EJEMPLOS orientativos, no una lista cerrada ni obligatoria — puedes proponer otra estrategia coherente con el propósito, el área, la destreza y las características del grupo):
@@ -237,11 +248,13 @@ CONTEXTO DEL DOCUMENTO:
 - Modalidad: ${esBT ? "Bachillerato Técnico" : "General (EGB/BGU)"}
 ${contextoBT}
 SEMANA 1 — CONECTA (adaptación + diagnóstico dual académico y socioemocional, coordinado con DECE):
+${herramientasDiagnosticas}
 ${calibracionSemana1}
 Metodología/estrategia pedagógica ya declarada por el docente: ${input.semana1.metodologiaDeclarada || "(vacío — declara una, coherente con el propósito de adaptación e integración al entorno escolar y con la calibración de arriba si existe)"}
 Actividades de adaptación ya definidas por el docente: ${input.semana1.actividadesAdaptacion.join(" | ") || "(ninguna aún)"}
+Técnica e instrumento de diagnóstico ya definidos por el docente: ${input.semana1.instrumentosDiagnostico.filter(Boolean).join(" | ") || "(ninguno aún — propón los tuyos en \"tecnicaDiagnosticoSugerida\")"}
 Nota de coordinación DECE: ${input.semana1.coordinacionDece || "(sin nota)"}
-Técnicas de reflexión: ${input.semana1.tecnicasReflexion.join(" | ") || "(ninguna aún)"}
+Técnicas de reflexión del cierre: ${input.semana1.tecnicasReflexion.join(" | ") || "(ninguna aún)"}
 
 Diagnóstico académico (destrezas reales de Lengua/Matemática seleccionadas por el docente — NO inventes códigos ni destrezas nuevas):
 ${destrezasAcademicas}
@@ -279,7 +292,11 @@ Preguntas de autoevaluación propuestas por el docente: ${input.semana4y5.autoev
 
 INSTRUCCIONES IMPORTANTES:
 - NO inventes destrezas, códigos curriculares ni criterios técnicos que no estén listados arriba — usa únicamente los proporcionados por el docente${esBT ? " o el catálogo técnico del módulo" : ""}.
-- Semana 1 — distingue claramente cuatro cosas distintas, no las mezcles: (1) "metodologiaDeclarada" es la ESTRATEGIA/enfoque pedagógico general (usa como referencia los ejemplos de la calibración curricular de arriba, si existen para este subnivel); (2) "actividadesAdaptacionSugeridas" son las ACTIVIDADES concretas que aplican esa estrategia; (3) "tecnicaDiagnosticoSugerida" es el INSTRUMENTO/evidencia para diagnosticar (calibrado por subnivel arriba, si hay calibración); (4) el array "dua" de cada ítem son los PRINCIPIOS DUA que cubre. "Usar apoyos visuales/pictogramas" NUNCA es una metodología por sí sola — es, cuando corresponda, parte de CÓMO se aplica el principio DUA de Representación dentro de una actividad o instrumento.
+- Semana 1 — distingue claramente cuatro cosas distintas, no las mezcles: (1) "metodologiaDeclarada" es la ESTRATEGIA/enfoque pedagógico general (usa como referencia los ejemplos de la calibración curricular de arriba, si existen para este subnivel); (2) "actividadesAdaptacionSugeridas" son las ACTIVIDADES concretas que aplican esa estrategia; (3) "tecnicaDiagnosticoSugerida" es la TÉCNICA + INSTRUMENTO con que se recoge la evidencia diagnóstica (ver HERRAMIENTAS OFICIALES arriba); (4) el array "dua" de cada ítem son los PRINCIPIOS DUA que cubre. "Usar apoyos visuales/pictogramas" NUNCA es una metodología por sí sola — es, cuando corresponda, parte de CÓMO se aplica el principio DUA de Representación dentro de una actividad o instrumento.
+- "tecnicaDiagnosticoSugerida": cada entrada debe (a) corresponder a UNA de las cuatro herramientas oficiales listadas arriba —preguntas de diagnóstico abiertas, rúbrica cualitativa, lista de cotejo o prueba objetiva—, (b) nombrarla explícitamente, y (c) decir sobre qué evidencia concreta se aplica (ej. "Lista de cotejo aplicada tras el conversatorio inicial sobre el cuento leído"). No propongas un instrumento genérico ("evaluación diagnóstica", "diagnóstico dual") ni una actividad disfrazada de instrumento.
+- La evaluación diagnóstica de la Semana 1 es CUALITATIVA: si propones una rúbrica, su escala es "Inicial / En desarrollo / Alcanzado / Destacado" (sin rangos numéricos); si propones una lista de cotejo, su formato es "Indicadores de evaluación | Sí | No | Observaciones". La escala numérica 10-1 pertenece solo a la rúbrica del proyecto de las Semanas 4-5, nunca al diagnóstico.
+- Las preguntas de diagnóstico abiertas que propongas NO pueden limitarse a la recuperación del conocimiento ni a la memorización: ese es el error frecuente que la fuente oficial pide evitar. Deben partir de una situación concreta e incluir siempre metacognición, sin usar lenguaje complejo para el estudiantado.
+- "tecnicasReflexion" (cierre de la semana) y "tecnicaDiagnosticoSugerida" (instrumento) son campos DISTINTOS: no repitas el mismo contenido en ambos.
 - Si el subnivel tiene una calibración curricular (arriba), las estrategias listadas ahí son EJEMPLOS respaldados oficialmente — selecciona la(s) más pertinente(s) según el propósito, el área, la destreza diagnosticada y las características del grupo, o propón otra igualmente coherente con el subnivel; NO las apliques todas ni las trates como una receta fija obligatoria.
 - El proyecto/producto de Semanas 4-5 debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
 - ${INSTRUCCION_FUSION_AREAS}
@@ -302,7 +319,7 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
   "metodologiaDeclaradaSugerida": "string (estrategia/enfoque pedagógico de Semana 1, distinta de las actividades)",
   "actividadesAdaptacionSugeridas": ["string", "string", "string"],
   "duaActividadesAdaptacionSugeridas": [{"I": true, "R": false, "A": true}, {"I": false, "R": true, "A": false}, {"I": true, "R": true, "A": false}],
-  "tecnicaDiagnosticoSugerida": ["string", "string"],
+  "tecnicaDiagnosticoSugerida": ["string (técnica + instrumento oficial, ej. 'Rúbrica cualitativa (escala Inicial/En desarrollo/Alcanzado/Destacado) sobre las estaciones rotativas')", "string"],
   "duaTecnicaDiagnosticoSugerida": [{"I": false, "R": true, "A": true}, {"I": true, "R": false, "A": false}],
   "actividadesNivelacionSugeridas": [
     { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 2, "estrategiaConivelacion": "string" },
@@ -428,7 +445,16 @@ export const cncRouter = router({
       return { id: null, aiResult };
     }),
 
-  /** Sugiere técnicas de reflexión directa y la nota de coordinación DECE a partir del diagnóstico ya ingresado */
+  /**
+   * Sugiere las preguntas de reflexión del cierre de la Semana 1 y la nota de
+   * coordinación DECE a partir del diagnóstico ya ingresado.
+   *
+   * Son la etapa de METACOGNICIÓN de la taxonomía de Marzano, que la fuente
+   * oficial exige en todos los subniveles y niveles ("Herramientas sugeridas
+   * para la evaluación diagnóstica", MinEduc 2026, secciones 1 y 2). NO son
+   * el instrumento con que se recoge la evidencia: ese va en
+   * `Semana1CNC.instrumentosDiagnostico`.
+   */
   sugerirReflexionDece: publicProcedure
     .input(z.object({
       diagnosticoAcademico: z.array(DiagnosticoAcademicoSchema),
@@ -451,7 +477,7 @@ Habilidades socioemocionales seleccionadas:
 ${socioemocional}
 
 Genera:
-- "tecnicasReflexion": 3-4 técnicas de reflexión directa concretas y aplicables en el aula (ej. preguntas abiertas para indagar saberes previos), coherentes con las destrezas y habilidades listadas arriba.
+- "tecnicasReflexion": 3-4 preguntas de reflexión del cierre, dirigidas AL ESTUDIANTADO, coherentes con las destrezas y habilidades listadas arriba. Corresponden a la etapa de METACOGNICIÓN de la taxonomía de Marzano, que la fuente oficial exige en todos los subniveles y niveles: el estudiantado mira hacia atrás su propio proceso ("¿qué me costó más?", "¿en qué lo usé fuera del aula?", "¿qué nos falta por aprender?"). NO son el instrumento de diagnóstico (lista de cotejo, rúbrica, prueba objetiva, preguntas abiertas de indagación): ese es un campo distinto del plan, no lo repitas aquí. Lenguaje sencillo, adecuado a la edad.
 - "coordinacionDece": 1-2 oraciones de nota de coordinación con el equipo DECE, coherente con las habilidades socioemocionales seleccionadas (o un texto genérico de invitación a coordinar si no hay habilidades seleccionadas).
 
 Responde ÚNICAMENTE con JSON: { "tecnicasReflexion": ["string", "string", "string"], "coordinacionDece": "string" }`;

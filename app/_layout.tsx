@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import { Platform, View } from "react-native";
+import { Platform } from "react-native";
 import "@/lib/_core/nativewind-pressable";
 import { ThemeProvider } from "@/lib/theme-provider";
 import {
@@ -25,6 +25,7 @@ import { EvaluacionesProvider } from "@/lib/evaluaciones-context";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { AccessProvider, useAccess } from "@/lib/access-control";
 import { AnimatedLogoSplash } from "@/components/animated-logo-splash";
+import { AppNavigation } from "@/components/app-navigation";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -69,8 +70,13 @@ function AppContent() {
       <PlanificacionesBTProvider>
         <PlanificacionesCNCProvider>
           <EvaluacionesProvider>
+          {/* La navegación envuelve TODO el Stack para estar disponible también
+              en pantallas profundas (spec navegacion-principal). */}
+          <AppNavigation>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="crear/index" />
+            <Stack.Screen name="ayuda/index" />
             <Stack.Screen name="paywall" />
             <Stack.Screen name="destreza/[codigo]" options={{ presentation: "card" }} />
             <Stack.Screen name="planificar/[codigo]" options={{ presentation: "card" }} />
@@ -94,6 +100,7 @@ function AppContent() {
             <Stack.Screen name="proyecto-interdisciplinar/wizard" options={{ presentation: "card" }} />
             <Stack.Screen name="oauth/callback" />
           </Stack>
+          </AppNavigation>
           </EvaluacionesProvider>
         </PlanificacionesCNCProvider>
       </PlanificacionesBTProvider>

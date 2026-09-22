@@ -140,7 +140,7 @@ export default function VerSemanaScreen() {
                   </Text>
                 </View>
                 <Pressable
-                  onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { semanaId: semana.id } })}
+                  onPress={() => router.push({ pathname: "/crear" as any, params: { semanaId: semana.id } })}
                   style={({ pressed }) => ({
                     backgroundColor: pressed ? "#7B2D8B" : "#9D3FB5",
                     paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8,
@@ -160,7 +160,7 @@ export default function VerSemanaScreen() {
                   Agrega una adaptación para estudiantes con necesidades educativas especiales (NEE).
                 </Text>
                 <Pressable
-                  onPress={() => router.push({ pathname: "/adaptacion-curricular", params: { semanaId: semana.id } })}
+                  onPress={() => router.push({ pathname: "/crear" as any, params: { semanaId: semana.id } })}
                   style={{ backgroundColor: "#7B2D8B", paddingHorizontal: 20, paddingVertical: 12, borderRadius: 10 }}
                 >
                   <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>♿ Crear adaptación curricular</Text>

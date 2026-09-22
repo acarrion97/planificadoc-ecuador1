@@ -50,11 +50,33 @@ export interface Semana1CNC {
   actividadesAdaptacion: string[];
   /** Indicadores DUA por cada actividad de adaptación (mismo índice que actividadesAdaptacion[]) */
   duaActividadesAdaptacion?: DUAActividad[];
+  /**
+   * Técnica e instrumento con que se levanta la evaluación diagnóstica de la
+   * Semana 1 (p. ej. "Lista de cotejo sobre el conversatorio inicial",
+   * "Rúbrica cualitativa de las estaciones del ciclo vital"). Es una cosa
+   * distinta de `tecnicasReflexion`: aquí va el INSTRUMENTO con el que se
+   * recoge la evidencia; allá, las preguntas de reflexión directa del cierre.
+   *
+   * Debe corresponder a una de las cuatro herramientas oficiales — preguntas
+   * de diagnóstico abiertas, rúbrica cualitativa, lista de cotejo o prueba
+   * objetiva — ver `HERRAMIENTAS_DIAGNOSTICAS_OFICIALES` en
+   * lib/curriculo-prerrequisitos.ts ("Herramientas sugeridas para la
+   * evaluación diagnóstica", MinEduc 2026).
+   *
+   * Opcional: los planes persistidos antes de existir este campo no lo traen.
+   */
+  instrumentosDiagnostico?: string[];
+  /** Indicadores DUA por instrumento (mismo índice que instrumentosDiagnostico[]) */
+  duaInstrumentosDiagnostico?: DUAActividad[];
   diagnosticoAcademico: DiagnosticoAcademicoCNC[];
   diagnosticoSocioemocional: DiagnosticoSocioemocionalCNC[];
   /** Nota libre de coordinación con el equipo DECE — sin sobre-modelar */
   coordinacionDece: string;
-  /** Técnicas de reflexión directa, ej. "¿qué nos falta por aprender?" */
+  /**
+   * Técnicas de reflexión directa del cierre, ej. "¿qué nos falta por
+   * aprender?". NO es el instrumento de diagnóstico — ese va en
+   * `instrumentosDiagnostico`.
+   */
   tecnicasReflexion: string[];
 }
 

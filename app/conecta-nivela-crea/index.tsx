@@ -22,7 +22,12 @@ import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
 import { calcularBrechasCurso, estudiantesEvaluados, subnivelDesdeGrado, subnivelDelGradoAnterior } from "@/lib/evaluacion-utils";
 import { resolverPrerrequisitoPorGrado } from "@/lib/curriculo-prerrequisitos";
-import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado, rubricaProyectoDesdeDestrezas } from "@/lib/cnc-diagnostico";
+import {
+  diagnosticoAcademicoDesdeBrechas,
+  nivelDominanteEstado,
+  rubricaProyectoDesdeDestrezas,
+  semana1ConSugerenciasIA,
+} from "@/lib/cnc-diagnostico";
 import { NIVELES_DESEMPENO_RUBRICA } from "@/data/types-cnc";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 import { generarHTMLPruebaImprimible } from "@/lib/evaluacion-pdf-generator";
@@ -73,7 +78,7 @@ function planVacio(): PlanConectaNivelaCrea {
     modalidad: "general",
     semana1: {
       metodologiaDeclarada: "",
-      actividadesAdaptacion: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
+      actividadesAdaptacion: [], instrumentosDiagnostico: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
       coordinacionDece: "", tecnicasReflexion: [],
     },
     semana2y3: { actividadesNivelacion: [], parejasConivelacion: [] },
@@ -589,22 +594,9 @@ export default function ConectaNivelaCreaScreen() {
       setAiResult(res.aiResult);
 
       // Completa con sugerencias de la IA solo los campos que el docente dejó vacíos —
-      // lo que el docente ya escribió nunca se sobreescribe.
-      const huboActividadesPropias = plan.semana1.actividadesAdaptacion.filter(Boolean).length > 0;
-      const actividadesAdaptacion = huboActividadesPropias
-        ? plan.semana1.actividadesAdaptacion
-        : res.aiResult.actividadesAdaptacionSugeridas;
-      // El DUA está indexado en paralelo a actividadesAdaptacion: solo se adopta junto con las
-      // actividades sugeridas por la IA, nunca si el docente ya escribió las suyas (los índices no corresponderían).
-      const duaActividadesAdaptacion = huboActividadesPropias
-        ? plan.semana1.duaActividadesAdaptacion
-        : res.aiResult.duaActividadesAdaptacionSugeridas;
-      const metodologiaDeclarada = plan.semana1.metodologiaDeclarada.trim()
-        ? plan.semana1.metodologiaDeclarada
-        : (res.aiResult.metodologiaDeclaradaSugerida || "");
-      const tecnicasReflexion = plan.semana1.tecnicasReflexion.filter(Boolean).length
-        ? plan.semana1.tecnicasReflexion
-        : res.aiResult.tecnicaDiagnosticoSugerida;
+      // lo que el docente ya escribió nunca se sobreescribe. Ver
+      // semana1ConSugerenciasIA() en lib/cnc-diagnostico.ts.
+      const semana1Completada = semana1ConSugerenciasIA(plan.semana1, res.aiResult);
 
       const actividadesNivelacion = (() => {
       const existentes = plan.semana2y3.actividadesNivelacion;
@@ -667,7 +659,7 @@ export default function ConectaNivelaCreaScreen() {
 
       const actualizado: PlanConectaNivelaCrea = {
         ...plan,
-        semana1: { ...plan.semana1, metodologiaDeclarada, actividadesAdaptacion, duaActividadesAdaptacion, tecnicasReflexion },
+        semana1: semana1Completada,
         semana1BT: semana1BTCompletado,
         semana2y3: { ...plan.semana2y3, actividadesNivelacion },
         semana2y3BT: semana2y3BTCompletado,
@@ -1297,6 +1289,34 @@ export default function ConectaNivelaCreaScreen() {
             )}
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
+            <SectionHeading text="Técnica e instrumento de la evaluación diagnóstica" colors={colors} />
+            <Text style={{ fontSize: 11, color: colors.muted, marginBottom: 8 }}>
+              Herramientas oficiales (MinEduc 2026): preguntas de diagnóstico abiertas · rúbrica cualitativa
+              (Inicial / En desarrollo / Alcanzado / Destacado) · lista de cotejo (Sí / No / Observaciones) ·
+              prueba objetiva. La valoración diagnóstica es cualitativa: no lleva escala numérica.
+            </Text>
+            <Field
+              label="Técnica + instrumento (uno por línea)"
+              value={(plan.semana1.instrumentosDiagnostico ?? []).join("\n")}
+              onChangeText={(v) => setPlan((p) => ({ ...p, semana1: { ...p.semana1, instrumentosDiagnostico: v.split("\n") } }))}
+              colors={colors}
+              multiline
+              placeholder="Ej: Lista de cotejo aplicada tras el conversatorio inicial&#10;Rúbrica cualitativa de las estaciones rotativas"
+            />
+            {(plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean).length > 0 && !!plan.semana1.duaInstrumentosDiagnostico?.length && (
+              <View style={{ marginTop: -6, marginBottom: 12 }}>
+                <Label text="Indicadores DUA por instrumento" colors={colors} />
+                {(plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean).map((ins, i) => (
+                  <View key={i} style={{ flexDirection: "row", alignItems: "center", marginBottom: 4, gap: 8 }}>
+                    <Text style={{ fontSize: 11, color: colors.text, flex: 1 }} numberOfLines={2}>{ins}</Text>
+                    <DuaSquares dua={plan.semana1.duaInstrumentosDiagnostico?.[i]} />
+                  </View>
+                ))}
+                <DuaLeyenda colors={colors} />
+              </View>
+            )}
+
+            <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Diagnóstico académico (Lengua y Matemática)" colors={colors} />
             <DestrezaBuscadorCNC area="LL" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "LL")} colors={colors} />
             <DestrezaBuscadorCNC area="M" grado={plan.grado} subnivelCurso={subnivelCurso} onSelect={(c, d) => addDiagnosticoAcademico(c, d, "M")} colors={colors} />
@@ -1385,7 +1405,7 @@ export default function ConectaNivelaCreaScreen() {
             />
 
             <Field
-              label="Técnicas de reflexión (una por línea)"
+              label="Preguntas de reflexión del cierre / metacognición (una por línea)"
               value={plan.semana1.tecnicasReflexion.join("\n")}
               onChangeText={(v) => setPlan((p) => ({ ...p, semana1: { ...p.semana1, tecnicasReflexion: v.split("\n") } }))}
               colors={colors}

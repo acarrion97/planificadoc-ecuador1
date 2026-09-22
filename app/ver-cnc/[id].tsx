@@ -188,6 +188,14 @@ export default function VerCncScreen() {
               })}
             </>
           )}
+          {(plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean).length > 0 && (
+            <>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Técnica e instrumento de diagnóstico</Text>
+              {(plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean).map((ins, i) => (
+                <LineaItem key={`ins-${i}`} texto={ins} />
+              ))}
+            </>
+          )}
           {plan.semana1.diagnosticoSocioemocional.length > 0 && (
             <>
               <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Diagnóstico socioemocional</Text>
@@ -206,7 +214,7 @@ export default function VerCncScreen() {
           {plan.semana1.coordinacionDece ? <LineaItem texto={plan.semana1.coordinacionDece} /> : null}
           {plan.semana1.tecnicasReflexion.filter(Boolean).length > 0 && (
             <>
-              <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Técnicas de reflexión</Text>
+              <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Preguntas de reflexión del cierre (metacognición)</Text>
               {plan.semana1.tecnicasReflexion.filter(Boolean).map((t, i) => (
                 <LineaItem key={`tec-${i}`} texto={t} />
               ))}

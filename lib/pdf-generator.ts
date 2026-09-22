@@ -1509,13 +1509,17 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     return `<td>${leyenda}${items.map((act, idx) => `<div>${esc(act)}${dua?.length ? duaSquaresHTML(dua[idx]) : ""}</div>`).join("")}</td>`;
   };
 
+  const cncInstrumentosDiagnostico = (plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean);
+
   const semana1HTML = `<tr>
       ${semanaCellHTML("SEMANA 1")}
       ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
       ${contentCellHTML(cncIndicadoresParaDestrezas(plan.semana1.diagnosticoAcademico))}
       ${actividadesConDuaCellHTML(plan.semana1.actividadesAdaptacion, plan.semana1.duaActividadesAdaptacion)}
       ${contentCellHTML(plan.aiResult?.recursosSemana1Sugeridos ?? [])}
-      ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
+      ${cncInstrumentosDiagnostico.length
+        ? actividadesConDuaCellHTML(cncInstrumentosDiagnostico, plan.semana1.duaInstrumentosDiagnostico)
+        : contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
     </tr>`;
 
   const nivelacionSemanasHTML = [2, 3].map((numSemana) => {
@@ -1585,7 +1589,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${subheading("Diagnóstico socioemocional")}
     ${bullets(plan.semana1.diagnosticoSocioemocional.map((h) => `${h.habilidadId}${h.observaciones ? " — " + h.observaciones : ""}`))}
     ${labelValue("Coordinación DECE:", plan.semana1.coordinacionDece)}
-    ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? subheading("Técnicas de reflexión") : ""}
+    ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? subheading("Preguntas de reflexión del cierre (metacognición)") : ""}
     ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? bullets(plan.semana1.tecnicasReflexion) : ""}
 
     ${seccion("SEMANAS 2-3 — NIVELA")}

@@ -9,6 +9,25 @@ import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
+import { CreateCard } from "@/components/create-card";
+
+/**
+ * Tarjeta de creación de CNC. Vive fuera de la sección para poder renderizarse
+ * dentro de la retícula de creación de Mis planes (`<CreateGrid>`), junto con
+ * las otras 6 entradas.
+ */
+export function PlanesCNCCreateCard() {
+  const router = useRouter();
+  return (
+    <CreateCard
+      icono="🌱"
+      titulo="Planificar Conecta, Nivela y Crea"
+      subtitulo="Arranque del año escolar · 5 semanas · IA + Word/PDF"
+      color="#0F766E"
+      onPress={() => router.push("/conecta-nivela-crea" as any)}
+    />
+  );
+}
 
 export function PlanesCNCSection() {
   const colors = useColors();
@@ -28,20 +47,6 @@ export function PlanesCNCSection() {
 
   return (
     <View>
-      <View style={{ paddingHorizontal: 20, marginBottom: 8, marginTop: 8 }}>
-        <Pressable
-          onPress={() => router.push("/conecta-nivela-crea" as any)}
-          style={({ pressed }) => [styles.btn, { opacity: pressed ? 0.85 : 1 }]}
-        >
-          <Text style={{ fontSize: 22 }}>🌱</Text>
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text style={styles.btnTitle}>Planificar Conecta, Nivela y Crea</Text>
-            <Text style={styles.btnSub}>Arranque del año escolar · 5 semanas · IA + Word/PDF</Text>
-          </View>
-          <Text style={{ color: "#fff", fontSize: 18 }}>›</Text>
-        </Pressable>
-      </View>
-
       {planesCNC.length > 0 && (
         <View style={{ marginBottom: 8 }}>
           <Text style={[styles.sectionLabel, { color: colors.muted }]}>
@@ -84,9 +89,6 @@ export function PlanesCNCSection() {
 }
 
 const styles = StyleSheet.create({
-  btn: { backgroundColor: "#0F766E", flexDirection: "row", alignItems: "center", borderRadius: 14, padding: 16 },
-  btnTitle: { color: "#fff", fontSize: 15, fontWeight: "700" },
-  btnSub: { color: "rgba(255,255,255,0.7)", fontSize: 12, marginTop: 1 },
   sectionLabel: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5, paddingHorizontal: 20, marginTop: 16, marginBottom: 8 },
   card: { marginHorizontal: 20, marginBottom: 10, borderRadius: 14, padding: 14, borderWidth: 1 },
   header: { flexDirection: "row", alignItems: "center" },
