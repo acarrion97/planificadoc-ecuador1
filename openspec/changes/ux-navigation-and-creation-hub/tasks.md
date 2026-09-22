@@ -50,10 +50,10 @@
 
 ## 5. Cierre y verificación (fase 5)
 
-- [ ] 5.1 Retiro final de la tab bar (confirmado el sidebar y el drawer en fases previas, riesgo R1)
-- [ ] 5.2 Pulido cromático: sin colores de módulo en navegación, Inicio, `/crear` ni Mis planes; `AREAS_INFO` solo en badges de datos
-- [ ] 5.3 Limitar el ancho máximo del área de trabajo dentro del layout con sidebar (riesgo R4)
-- [ ] 5.4 `pnpm check` y `pnpm lint` sin errores nuevos sobre la línea base (56 preexistentes)
-- [ ] 5.5 `pnpm test` en verde con los tests nuevos
-- [ ] 5.6 Actualizar `docs/brand.md` y `design.md` de la raíz: navegación, paleta de navegación y divergencia de las 3 pestañas descritas
+- [x] 5.1 Retiro final de la tab bar (confirmado el sidebar y el drawer en fases previas, riesgo R1)
+- [x] 5.2 Pulido cromático: sin colores de módulo en navegación, Inicio, `/crear` ni Mis planes; `AREAS_INFO` solo en badges de datos
+- [x] 5.3 Limitar el ancho máximo del área de trabajo dentro del layout con sidebar (riesgo R4)
+- [x] 5.4 `pnpm check` y `pnpm lint` sin errores nuevos sobre la línea base (56 preexistentes)
+- [x] 5.5 `pnpm test` en verde con los tests nuevos
+- [x] 5.6 Actualizar `docs/brand.md` y `design.md` de la raíz: navegación, paleta de navegación y divergencia de las 3 pestañas descritas
 - [ ] 5.7 Verificación visual en navegador por el usuario (escritorio, tablet y móvil) antes del merge
