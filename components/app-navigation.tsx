@@ -35,6 +35,8 @@ export const NAV_BREAKPOINTS = { mobile: 768, expanded: 1024 } as const;
 export const SIDEBAR_WIDTH = 240;
 export const SIDEBAR_COLLAPSED_WIDTH = 64;
 export const DRAWER_WIDTH = 280;
+/** Ancho máximo del área de trabajo junto al sidebar (riesgo R4). */
+export const CONTENT_MAX_WIDTH = 1080;
 
 /** Zona principal: ir a una sección. */
 export const NAV_PRINCIPAL: NavDef[] = [
@@ -438,10 +440,23 @@ export function AppNavigation({ children }: { children: ReactNode }) {
     );
   }
 
+  // El área de trabajo se limita y centra para que en escritorios anchos el
+  // formulario no se estire junto al sidebar (riesgo R4).
   return (
     <View style={{ flex: 1, flexDirection: "row", backgroundColor: colors.background }}>
       <Sidebar collapsed={collapsed} onToggle={toggleCollapse} active={active} />
-      <View style={{ flex: 1, paddingBottom: insets.bottom }}>{children}</View>
+      <View style={{ flex: 1, paddingBottom: insets.bottom }}>
+        <View
+          style={{
+            flex: 1,
+            alignSelf: "center",
+            width: "100%",
+            maxWidth: CONTENT_MAX_WIDTH,
+          }}
+        >
+          {children}
+        </View>
+      </View>
     </View>
   );
 }

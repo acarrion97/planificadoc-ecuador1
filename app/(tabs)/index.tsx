@@ -266,9 +266,10 @@ export default function HomeScreen() {
                   {item.codigo}
                 </Text>
               </View>
+              {/* El color de área solo vive en el badge de datos (5.2). */}
               <Text
                 style={{
-                  color: AREAS_INFO[item.area]?.color,
+                  color: colors.muted,
                   fontSize: 12,
                   fontWeight: "500",
                 }}
