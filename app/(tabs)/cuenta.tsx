@@ -8,6 +8,7 @@ import {
   Platform,
   ActivityIndicator,
   RefreshControl,
+  Linking,
 } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { useAccess } from "@/lib/access-control";
@@ -399,6 +400,29 @@ export default function CuentaScreen() {
             </View>
           </View>
         </View>
+
+        {/* Comunidad: el banner de WhatsApp vive fuera del Inicio (spec inicio-por-intencion) */}
+        <TouchableOpacity
+          onPress={() =>
+            Linking.openURL("https://chat.whatsapp.com/Kx4DtAkSVW4A1SM5xQUIyj?mode=gi_t")
+          }
+          activeOpacity={0.85}
+          accessibilityRole="link"
+          accessibilityLabel="Ingresar a grupo exclusivo de WhatsApp"
+          className="rounded-2xl p-4 flex-row items-center mb-4"
+          style={{ backgroundColor: "#25D366" }}
+        >
+          <Text style={{ fontSize: 28 }}>{"\uD83D\uDCAC"}</Text>
+          <View style={{ flex: 1, marginLeft: 12 }}>
+            <Text style={{ color: "#fff", fontSize: 14, fontWeight: "700", lineHeight: 18 }}>
+              Ingresar a grupo exclusivo de WhatsApp
+            </Text>
+            <Text style={{ color: "#ffffffcc", fontSize: 12, marginTop: 3, lineHeight: 16 }}>
+              Donde muchos m{"á"}s docentes est{"á"}n planificando inteligentemente
+            </Text>
+          </View>
+          <Text style={{ color: "#fff", fontSize: 20 }}>{"\u203A"}</Text>
+        </TouchableOpacity>
 
         {/* Logout Button */}
         <TouchableOpacity

@@ -5,28 +5,50 @@ import {
   TextInput,
   FlatList,
   StyleSheet,
-  Linking,
 } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
-import {
-  AREAS_INFO,
-  TODAS_LAS_DESTREZAS,
-  buscarDestrezas,
-  filtrarPorArea,
-  Area,
-} from "@/data";
+import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
+import { useEvaluaciones } from "@/lib/evaluaciones-context";
+import { AREAS_INFO, TODAS_LAS_DESTREZAS, buscarDestrezas } from "@/data";
 
-const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "CAI"];
-const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "EFL", "EG", "CAI"];
+/**
+ * Inicio por intención (spec `inicio-por-intencion`).
+ *
+ * Orden: identidad de marca + claim → buscador de DCD → bloque **Continuar**
+ * (solo si hay planes) → CTA "＋ Nueva planificación" → `/crear`.
+ *
+ * Sin cuadrículas de áreas ni tarjetas de módulo: ese catálogo vive en
+ * Explorar y en `/crear`. El buscador conserva exactamente su comportamiento
+ * actual (resultados por código con acceso al detalle de la destreza).
+ */
+
+interface ContinuarItem {
+  key: string;
+  tipo: string;
+  titulo: string;
+  subtitulo: string;
+  /** Marca de tiempo para ordenar los recientes de mayor a menor. */
+  ts: number;
+  ruta: string;
+}
+
+const parseTs = (valor?: string): number => {
+  if (!valor) return 0;
+  const t = Date.parse(valor);
+  return Number.isNaN(t) ? 0 : t;
+};
 
 export default function HomeScreen() {
   const colors = useColors();
   const router = useRouter();
-  const { planificaciones } = usePlanificaciones();
+  const { planificaciones, semanas } = usePlanificaciones();
+  const { planesCNC } = usePlanificacionesCNC();
+  const { evaluaciones } = useEvaluaciones();
   const [query, setQuery] = useState("");
 
   const resultados = useMemo(() => {
@@ -34,39 +56,45 @@ export default function HomeScreen() {
     return buscarDestrezas(query).slice(0, 20);
   }, [query]);
 
-  const recientes = planificaciones.slice(0, 5);
-
-  const renderAreaCard = (areaCode: Area) => {
-    const area = AREAS_INFO[areaCode];
-    const count = filtrarPorArea(areaCode).length;
-    return (
-      <Pressable
-        key={area.code}
-        onPress={() =>
-          router.push(`/(tabs)/explorar?area=${area.code}` as any)
-        }
-        style={({ pressed }) => [
-          styles.areaCard,
-          {
-            backgroundColor: area.color + "15",
-            borderColor: area.color + "30",
-            opacity: pressed ? 0.7 : 1,
-          },
-        ]}
-      >
-        <Text style={{ fontSize: 28 }}>{area.emoji}</Text>
-        <Text
-          style={[styles.areaCardText, { color: area.color }]}
-          numberOfLines={2}
-        >
-          {area.name}
-        </Text>
-        <Text style={[styles.areaCountText, { color: area.color + "90" }]}>
-          {count} destrezas
-        </Text>
-      </Pressable>
-    );
-  };
+  // Bloque Continuar: lo más reciente de cada tipo que tiene detalle propio.
+  // Los tipos sin pantalla de detalle (p. ej. Bachillerato Técnico) no entran.
+  const recientes = useMemo<ContinuarItem[]>(() => {
+    const items: ContinuarItem[] = [
+      ...planificaciones.map((p) => ({
+        key: `diario-${p.id}`,
+        tipo: "Plan diario",
+        titulo: `${p.asignatura} — ${p.grado}`,
+        subtitulo: `${p.destreza.codigo} · ${p.fecha}`,
+        ts: parseTs(p.fecha),
+        ruta: `/ver-plan/${p.id}`,
+      })),
+      ...semanas.map((s) => ({
+        key: `semanal-${s.id}`,
+        tipo: "Plan semanal",
+        titulo: `Semana del ${s.semanaInicio} al ${s.semanaFin}`,
+        subtitulo: `${s.grado} · ${s.docente || "Sin docente"}`,
+        ts: parseTs(s.updatedAt || s.createdAt || s.fecha),
+        ruta: `/ver-semana/${s.id}`,
+      })),
+      ...planesCNC.map((c) => ({
+        key: `cnc-${c.id}`,
+        tipo: "Conecta, Nivela y Crea",
+        titulo: `${c.grado || "Sin grado"}${c.paralelo ? ` ${c.paralelo}` : ""}`,
+        subtitulo: `${c.docente || "Sin docente"} · ${c.anioLectivo}`,
+        ts: parseTs(c.updatedAt || c.createdAt),
+        ruta: `/ver-cnc/${c.id}`,
+      })),
+      ...evaluaciones.map((e) => ({
+        key: `eval-${e.id}`,
+        tipo: "Evaluación diagnóstica",
+        titulo: e.nombre || "Sin nombre",
+        subtitulo: `${e.grado} ${e.paralelo ? `· ${e.paralelo} ` : ""}· ${e.fecha}`,
+        ts: parseTs(e.updatedAt || e.createdAt || e.fecha),
+        ruta: `/ver-evaluacion/${e.id}`,
+      })),
+    ];
+    return items.sort((a, b) => b.ts - a.ts).slice(0, 5);
+  }, [planificaciones, semanas, planesCNC, evaluaciones]);
 
   return (
     <ScreenContainer className="flex-1">
@@ -77,17 +105,21 @@ export default function HomeScreen() {
         keyboardShouldPersistTaps="handled"
         ListHeaderComponent={
           <View>
-            {/* Header */}
+            {/* ── Identidad de marca ── */}
             <View className="px-5 pt-4 pb-2">
-              <Text className="text-3xl font-bold text-foreground">
+              <Text
+                className="text-3xl font-bold"
+                style={{ color: colors.brand }}
+                accessibilityRole="header"
+              >
                 PlanificaDoc
               </Text>
               <Text className="text-base text-muted mt-1">
-                Planificaci{"ó"}n curricular para docentes de Ecuador
+                Planificación curricular para docentes de Ecuador
               </Text>
             </View>
 
-            {/* Search */}
+            {/* ── Buscador de códigos de destreza ── */}
             <View className="px-5 mt-4">
               <View
                 className="flex-row items-center bg-surface rounded-xl px-4 border border-border"
@@ -105,212 +137,45 @@ export default function HomeScreen() {
                   style={styles.searchInput}
                 />
                 {query.length > 0 && (
-                  <Pressable onPress={() => setQuery("")} style={{ padding: 4 }}>
+                  <Pressable
+                    onPress={() => setQuery("")}
+                    style={{ padding: 4 }}
+                    accessibilityLabel="Limpiar búsqueda"
+                  >
                     <Text style={{ fontSize: 16 }}>{"✕"}</Text>
                   </Pressable>
                 )}
               </View>
             </View>
 
-            {/* Stats */}
             <View className="px-5 mt-3">
               <Text className="text-sm text-muted">
                 {TODAS_LAS_DESTREZAS.length} destrezas disponibles {"\u00b7"} 14 asignaturas
               </Text>
             </View>
 
-            {/* WhatsApp Group Banner */}
-            <View className="px-5 mt-4">
-              <Pressable
-                onPress={() => Linking.openURL("https://chat.whatsapp.com/Kx4DtAkSVW4A1SM5xQUIyj?mode=gi_t")}
-                style={({ pressed }) => [
-                  styles.whatsappBanner,
-                  { opacity: pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] },
-                ]}
-              >
-                <View style={styles.whatsappBannerContent}>
-                  <Text style={{ fontSize: 28 }}>{"\uD83D\uDCAC"}</Text>
-                  <View style={{ flex: 1, marginLeft: 12 }}>
-                    <Text style={styles.whatsappBannerTitle}>
-                      Ingresar a grupo exclusivo de WhatsApp
-                    </Text>
-                    <Text style={styles.whatsappBannerSubtitle}>
-                      Donde muchos m{"\u00e1"}s docentes est{"\u00e1"}n planificando inteligentemente
-                    </Text>
-                  </View>
-                  <Text style={{ fontSize: 20, color: "#fff" }}>{"\u203A"}</Text>
-                </View>
-              </Pressable>
-            </View>
-
-            {/* Areas grid - only show when not searching */}
+            {/* ── Vista por intención (solo sin resultados de búsqueda) ── */}
             {resultados.length === 0 && (
               <>
-                {/* Inicial Section */}
-                <View className="px-5 mt-4">
-                  <Pressable
-                    onPress={() => router.push("/planificar-inicial" as any)}
-                    style={({ pressed }) => ({
-                      backgroundColor: "#0EA5E9",
-                      borderRadius: 14,
-                      padding: 16,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 12,
-                      opacity: pressed ? 0.85 : 1,
-                    })}
-                  >
-                    <Text style={{ fontSize: 32 }}>🧒</Text>
-                    <View style={{ flex: 1 }}>
-                      <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
-                        Nueva Planificación Inicial
-                      </Text>
-                      <Text style={{ color: "#e0f2fe", fontSize: 12, marginTop: 2 }}>
-                        140 destrezas · 7 ámbitos · Actividades con IA
-                      </Text>
-                    </View>
-                    <Text style={{ color: "#fff", fontSize: 20 }}>›</Text>
-                  </Pressable>
-                </View>
-
-                {/* Preparatoria Section */}
-                <View className="px-5 mt-3">
-                  <Pressable
-                    onPress={() => router.push("/planificar-preparatoria" as any)}
-                    style={({ pressed }) => ({
-                      backgroundColor: "#7C3AED",
-                      borderRadius: 14,
-                      padding: 16,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 12,
-                      opacity: pressed ? 0.85 : 1,
-                    })}
-                  >
-                    <Text style={{ fontSize: 32 }}>📚</Text>
-                    <View style={{ flex: 1 }}>
-                      <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
-                        Planificación Preparatoria
-                      </Text>
-                      <Text style={{ color: "#ede9fe", fontSize: 12, marginTop: 2 }}>
-                        1.{"°"} EGB {"·"} 7 {"á"}mbitos {"·"} Curr{"í"}culo Integrador
-                      </Text>
-                    </View>
-                    <Text style={{ color: "#fff", fontSize: 20 }}>›</Text>
-                  </Pressable>
-                </View>
-
-                {/* EGB Section */}
-                <View className="px-5 mt-6 mb-3">
-                  <Text className="text-lg font-semibold text-foreground">
-                    Educaci{"ó"}n General B{"á"}sica
-                  </Text>
-                  <Text className="text-xs text-muted mt-1">
-                    Elemental {"·"} Media {"·"} Superior
-                  </Text>
-                </View>
-                <View className="px-5">
-                  <View style={styles.areasGrid}>
-                    {EGB_AREAS.map(renderAreaCard)}
-                  </View>
-                </View>
-
-                {/* BGU Section */}
-                <View className="px-5 mt-6 mb-3">
-                  <Text className="text-lg font-semibold text-foreground">
-                    Bachillerato General Unificado
-                  </Text>
-                  <Text className="text-xs text-muted mt-1">
-                    1ro {"\u00b7"} 2do {"\u00b7"} 3ro BGU
-                  </Text>
-                </View>
-                <View className="px-5">
-                  <View style={styles.areasGrid}>
-                    {BGU_AREAS.map(renderAreaCard)}
-                  </View>
-                </View>
-
-                {/* Planificación Curricular Section */}
-                <View className="px-5 mt-6 mb-3">
-                  <Text className="text-lg font-semibold text-foreground">
-                    Planificaci{"ó"}n Curricular
-                  </Text>
-                  <Text className="text-xs text-muted mt-1">
-                    Documentos oficiales MinEduc generados con IA
-                  </Text>
-                </View>
-                <View className="px-5">
-                  <View style={{ flexDirection: "row", gap: 12 }}>
-                    <Pressable
-                      onPress={() => router.push("/planificacion-anual" as any)}
-                      style={({ pressed }) => [
-                        styles.pcaCard,
-                        { backgroundColor: "#003366" + "15", borderColor: "#003366" + "30", opacity: pressed ? 0.7 : 1 },
-                      ]}
-                    >
-                      <Text style={{ fontSize: 24 }}>{"📋"}</Text>
-                      <Text style={[styles.pcaCardTitle, { color: "#003366" }]}>PCA Anual</Text>
-                      <Text style={[styles.pcaCardSub, { color: "#00336690" }]}>Plan Curricular Anual</Text>
-                    </Pressable>
-                    <Pressable
-                      onPress={() => router.push("/planificacion-trimestral" as any)}
-                      style={({ pressed }) => [
-                        styles.pcaCard,
-                        { backgroundColor: "#0E7490" + "15", borderColor: "#0E7490" + "30", opacity: pressed ? 0.7 : 1 },
-                      ]}
-                    >
-                      <Text style={{ fontSize: 24 }}>{"🗓️"}</Text>
-                      <Text style={[styles.pcaCardTitle, { color: "#0E7490" }]}>PCT Trimestral</Text>
-                      <Text style={[styles.pcaCardSub, { color: "#0E749090" }]}>Plan por trimestre</Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                {/* Bachillerato Técnico — oculto hasta completar el módulo */}
-                {false && (
-                  <View className="px-5 mt-4">
-                    <Pressable
-                      onPress={() => router.push("/bachillerato-tecnico" as any)}
-                      style={({ pressed }) => ({
-                        backgroundColor: "#7C3AED",
-                        borderRadius: 14,
-                        padding: 16,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 12,
-                        opacity: pressed ? 0.85 : 1,
-                      })}
-                    >
-                      <Text style={{ fontSize: 32 }}>🏭</Text>
-                      <View style={{ flex: 1 }}>
-                        <Text style={{ color: "#fff", fontWeight: "700", fontSize: 15 }}>
-                          Bachillerato T{"é"}cnico
-                        </Text>
-                        <Text style={{ color: "#ede9fe", fontSize: 12, marginTop: 2 }}>
-                          Figuras profesionales {"·"} M{"ó"}dulos formativos
-                        </Text>
-                      </View>
-                      <Text style={{ color: "#fff", fontSize: 20 }}>{"›"}</Text>
-                    </Pressable>
-                  </View>
-                )}
-
-                {/* Recent plans */}
+                {/* Continuar: oculto si no hay planes, sin dejar huecos */}
                 {recientes.length > 0 && (
-                  <>
-                    <View className="px-5 mt-6 mb-3">
-                      <Text className="text-lg font-semibold text-foreground">
-                        Planificaciones Recientes
+                  <View className="mt-5">
+                    <View className="px-5 mb-3">
+                      <Text
+                        className="text-lg font-semibold text-foreground"
+                        accessibilityRole="header"
+                      >
+                        Continuar
                       </Text>
                     </View>
-                    {recientes.map((plan) => (
+                    {recientes.map((item) => (
                       <Pressable
-                        key={plan.id}
-                        onPress={() =>
-                          router.push(`/ver-plan/${plan.id}` as any)
-                        }
+                        key={item.key}
+                        onPress={() => router.push(item.ruta as any)}
+                        accessibilityRole="button"
+                        accessibilityLabel={`Continuar: ${item.titulo}`}
                         style={({ pressed }) => [
-                          styles.recentCard,
+                          styles.continuarCard,
                           {
                             backgroundColor: colors.surface,
                             borderColor: colors.border,
@@ -318,50 +183,51 @@ export default function HomeScreen() {
                           },
                         ]}
                       >
-                        <View style={styles.recentCardContent}>
-                          <View
-                            style={[
-                              styles.recentBadge,
-                              {
-                                backgroundColor:
-                                  AREAS_INFO[plan.destreza.area]?.color + "20",
-                              },
-                            ]}
+                        <View style={{ flex: 1 }}>
+                          <View style={[styles.tipoChip, { backgroundColor: colors.brand + "14" }]}>
+                            <Text style={[styles.tipoChipText, { color: colors.brand }]}>
+                              {item.tipo}
+                            </Text>
+                          </View>
+                          <Text
+                            className="text-sm font-medium text-foreground mt-2"
+                            numberOfLines={1}
                           >
-                            <Text
-                              style={{
-                                color: AREAS_INFO[plan.destreza.area]?.color,
-                                fontSize: 12,
-                                fontWeight: "600",
-                              }}
-                            >
-                              {plan.destreza.codigo}
-                            </Text>
-                          </View>
-                          <View style={{ flex: 1, marginLeft: 12 }}>
-                            <Text
-                              className="text-sm font-medium text-foreground"
-                              numberOfLines={1}
-                            >
-                              {plan.asignatura} {"—"} {plan.grado}
-                            </Text>
-                            <Text
-                              className="text-xs text-muted mt-1"
-                              numberOfLines={1}
-                            >
-                              {plan.fecha}
-                            </Text>
-                          </View>
-                          <Text style={{ fontSize: 16, color: colors.muted }}>{"›"}</Text>
+                            {item.titulo}
+                          </Text>
+                          <Text className="text-xs text-muted mt-1" numberOfLines={1}>
+                            {item.subtitulo}
+                          </Text>
                         </View>
+                        <MaterialCommunityIcons
+                          name="chevron-right"
+                          size={22}
+                          color={colors.muted}
+                        />
                       </Pressable>
                     ))}
-                  </>
+                  </View>
                 )}
+
+                {/* ── CTA de creación → hub /crear ── */}
+                <View className="px-5 mt-5">
+                  <Pressable
+                    onPress={() => router.push("/crear" as any)}
+                    accessibilityRole="button"
+                    accessibilityLabel="Nueva planificación"
+                    style={({ pressed }) => [
+                      styles.cta,
+                      { backgroundColor: colors.brand, opacity: pressed ? 0.9 : 1 },
+                    ]}
+                  >
+                    <MaterialCommunityIcons name="plus-circle" size={20} color="#FFFFFF" />
+                    <Text style={styles.ctaText}>Nueva planificación</Text>
+                  </Pressable>
+                </View>
               </>
             )}
 
-            {/* Search results header */}
+            {/* ── Cabecera de resultados de búsqueda ── */}
             {resultados.length > 0 && (
               <View className="px-5 mt-4 mb-2">
                 <Text className="text-sm font-medium text-muted">
@@ -447,27 +313,43 @@ const styles = StyleSheet.create({
     height: 52,
     fontSize: 16,
   },
-  areasGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 12,
-  },
-  areaCard: {
-    width: "47%",
-    flexGrow: 1,
-    borderRadius: 16,
-    padding: 16,
+  continuarCard: {
+    marginHorizontal: 20,
+    marginBottom: 8,
+    borderRadius: 12,
+    padding: 14,
     borderWidth: 1,
-    alignItems: "flex-start",
-    gap: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
   },
-  areaCardText: {
-    fontSize: 14,
-    fontWeight: "600",
+  tipoChip: {
+    alignSelf: "flex-start",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
   },
-  areaCountText: {
+  tipoChipText: {
     fontSize: 11,
-    fontWeight: "500",
+    fontWeight: "700",
+  },
+  cta: {
+    borderRadius: 14,
+    padding: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+  ctaText: {
+    color: "#FFFFFF",
+    fontSize: 15,
+    fontWeight: "700",
   },
   resultCard: {
     marginHorizontal: 20,
@@ -485,63 +367,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
-  },
-  recentCard: {
-    marginHorizontal: 20,
-    marginBottom: 8,
-    borderRadius: 12,
-    padding: 14,
-    borderWidth: 1,
-  },
-  recentCardContent: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  recentBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
-  },
-  whatsappBanner: {
-    backgroundColor: "#25D366",
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: "#25D366",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-  whatsappBannerContent: {
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-  },
-  whatsappBannerTitle: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "700" as const,
-    lineHeight: 18,
-  },
-  whatsappBannerSubtitle: {
-    color: "#ffffffcc",
-    fontSize: 12,
-    marginTop: 3,
-    lineHeight: 16,
-  },
-  pcaCard: {
-    flex: 1,
-    borderRadius: 16,
-    padding: 14,
-    borderWidth: 1,
-    alignItems: 'flex-start' as const,
-    gap: 4,
-  },
-  pcaCardTitle: {
-    fontSize: 14,
-    fontWeight: '600' as const,
-  },
-  pcaCardSub: {
-    fontSize: 11,
-    fontWeight: '500' as const,
   },
 });
