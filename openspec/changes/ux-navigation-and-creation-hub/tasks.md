@@ -18,11 +18,11 @@
 - [x] 2.1 Crear la lista tipada única de módulos `{categoria, modulo, ruta, icono, requiereContexto}` que cubra los 12 flujos: diario, semanal, PCA, PCT, CNC, Proyecto interdisciplinar, BT, Currículo por Competencias, Inicial, Preparatoria, Adaptación curricular, Evaluación diagnóstica
 - [x] 2.2 Crear la ruta `app/crear/index.tsx` que renderiza el catálogo agrupado por las 6 categorías del spec `hub-de-creacion`
 - [x] 2.3 Aplicar el lenguaje cromático único (`brand` + blanco + gris) a todas las tarjetas, eliminando los colores de módulo
-- [ ] 2.4 Implementar la habilitación contextual: "Adaptación curricular" deshabilitada con razón visible sin origen, habilitada y precargada al llegar desde `ver-semana`/`ver-plan` (design D4)
-- [ ] 2.5 Verificar que "Evaluación diagnóstica" inicia de forma autónoma desde el catálogo conservando la precarga opcional `from=cnc`
+- [x] 2.4 Implementar la habilitación contextual: "Adaptación curricular" deshabilitada con razón visible sin origen, habilitada y precargada al llegar desde `ver-semana`/`ver-plan` (design D4)
+- [x] 2.5 Verificar que "Evaluación diagnóstica" inicia de forma autónoma desde el catálogo conservando la precarga opcional `from=cnc`
 - [x] 2.6 Registrar `crear/index` en `app/_layout.tsx` y enlazarlo desde el ítem "Crear" de la navegación
-- [ ] 2.7 Test: los 12 módulos aparecen en `/crear` agrupados en su categoría correcta
-- [ ] 2.8 Verificar que los flujos abiertos desde `/crear` arrancan en su estado inicial sin exigir parámetros nuevos (spec `hub-de-creacion`, no-goals)
+- [x] 2.7 Test: los 12 módulos aparecen en `/crear` agrupados en su categoría correcta
+- [x] 2.8 Verificar que los flujos abiertos desde `/crear` arrancan en su estado inicial sin exigir parámetros nuevos (spec `hub-de-creacion`, no-goals)
 
 ## 3. Inicio por intención (fase 3)
 
