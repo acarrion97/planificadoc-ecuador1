@@ -1,6 +1,9 @@
 /** @type {const} */
 const themeColors = {
   primary: { light: '#1B5E9E', dark: '#4DA3E8' },
+  // Color de marca PlanificaDoc (#003366). Blanco encima contrasta en ambos
+  // modos, por eso light y dark son iguales. Ver docs/brand.md y design D6.
+  brand: { light: '#003366', dark: '#003366' },
   background: { light: '#F8FAFC', dark: '#0F172A' },
   surface: { light: '#FFFFFF', dark: '#1E293B' },
   foreground: { light: '#0F172A', dark: '#F1F5F9' },
