@@ -9,6 +9,7 @@ Aplicación móvil para docentes ecuatorianos que permite generar planificacione
 | Token | Light | Dark | Uso |
 |-------|-------|------|-----|
 | primary | #1B5E9E | #4DA3E8 | Azul institucional (similar al Ministerio de Educación) |
+| brand | #003366 | #003366 | Marca y navegación: ítem activo del sidebar/drawer, hub `/crear` |
 | background | #F8FAFC | #0F172A | Fondo principal |
 | surface | #FFFFFF | #1E293B | Tarjetas y superficies elevadas |
 | foreground | #0F172A | #F1F5F9 | Texto principal |
@@ -91,13 +92,32 @@ Lista de planificaciones guardadas localmente. Permite ver, editar o eliminar pl
 3. Selecciona una destreza → Detalle → Generar Planificación
 
 ### Flujo 3: Revisar planificaciones
-1. Usuario va a la pestaña "Mis Planificaciones"
-2. Ve la lista de planificaciones guardadas
-3. Toca una para ver/editar los detalles
+1. Usuario entra en **Mis planes** desde la navegación lateral (sidebar; `☰` + drawer en móvil)
+2. Ve el listado unificado con los filtros (Todos, Recientes, En progreso, Completados)
+3. Continúa, edita, duplica o elimina la planificación elegida
 
 ## Navegación
 
-Tab Bar con 3 pestañas:
-1. **Inicio** (icono: casa) — Pantalla Home con búsqueda
-2. **Explorar** (icono: brújula/libro) — Explorar destrezas por área/subnivel
-3. **Mis Planes** (icono: documento) — Planificaciones guardadas
+**Sidebar / drawer** — ya no existe tab bar (cambio `ux-navigation-and-creation-hub`):
+
+| Breakpoint | Presentación |
+|---|---|
+| ≥1024 px | Sidebar expandido (240 px), colapso manual persistente durante la sesión |
+| 768–1023 px | Sidebar colapsado (64 px), solo iconos |
+| <768 px | Header con `☰` + drawer lateral (280 px) |
+
+Zonas de la navegación:
+
+- **Principal:** **Inicio**, **Crear** (destacado), **Explorar**, **Mis planes**
+- **Gestión:** Mi cuenta, Ayuda
+- **Pie:** ítem de marca "PlanificaDoc Ecuador"
+
+Paleta de navegación: fondo `surface`, texto e iconos `muted`, ítem activo en
+`brand` (`#003366`) con texto blanco; ítems inactivos en gris neutro. El área
+de trabajo se limita a **1080 px** de ancho máximo y se centra junto al sidebar
+(riesgo R4).
+
+> **Divergencia:** este documento describía antes una tab bar inferior con 3
+> pestañas (Inicio, Explorar, Mis Planes). Desde el cambio
+> `ux-navigation-and-creation-hub` la navegación es lateral y la creación se
+> centraliza en `/crear`; no queda ninguna pestaña inferior.
