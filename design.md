@@ -22,7 +22,7 @@ Aplicación móvil para docentes ecuatorianos que permite generar planificacione
 ## Lista de Pantallas
 
 ### 1. Pantalla de Inicio (Home)
-Pantalla principal con campo de búsqueda prominente para ingresar el código de destreza. Muestra accesos rápidos a planificaciones recientes guardadas y un resumen de las áreas disponibles.
+Pantalla por intención: identidad de marca y claim, buscador de destreza (DCD), bloque **Continuar** con lo más reciente de cada tipo con detalle propio y CTA **＋ Nueva planificación** que abre el hub `/crear`. Sin grids de áreas ni tarjetas de módulo (cambio `ux-navigation-and-creation-hub`).
 
 ### 2. Pantalla de Búsqueda / Resultados
 Muestra los resultados al buscar un código de destreza. Permite filtrar por área, subnivel y bloque curricular. Lista las destrezas encontradas en tarjetas informativas.
@@ -33,16 +33,23 @@ Muestra toda la información de una destreza seleccionada: código, descripción
 ### 4. Pantalla de Planificación (Generador)
 Formulario para generar la planificación microcurricular. Campos pre-llenados con la información de la destreza. El docente completa: datos institucionales, número de periodos, fecha, actividades, recursos y evaluación.
 
-### 5. Pantalla de Mis Planificaciones
-Lista de planificaciones guardadas localmente. Permite ver, editar o eliminar planificaciones anteriores.
+### 5. Pantalla de Mis planes
+Listado unificado de los 9 tipos de plan (locales y de servidor) con filtros y acciones de gestión. La creación ya no vive aquí: va en `/crear`.
+
+### 6. Pantalla Explorar
+Grid de secciones y tarjetas — Educación Inicial (grados), Preparatoria (ámbitos integradores), EGB y BGU (áreas) — con el conteo de destrezas de cada tarjeta y navegación hasta el detalle.
+
+### 7. Hub de creación (`/crear`)
+Punto único de entrada a la creación: catálogo de 12 módulos en 6 categorías que abren los flujos existentes (el plan diario entra por el buscador de Inicio, porque nace de una destreza).
 
 ## Contenido y Funcionalidad por Pantalla
 
 ### Home
+- Identidad de marca y claim en la parte superior
 - Campo de búsqueda grande con placeholder "Ingrese código de destreza (ej: M.2.1.1)"
-- Tarjetas de acceso rápido por área: Matemática, Lengua y Literatura, Ciencias Naturales, Estudios Sociales, Educación Física, Educación Cultural y Artística
-- Sección "Planificaciones recientes" con las últimas 5 planificaciones guardadas
-- Indicador del total de destrezas disponibles en la base de datos
+- Bloque **Continuar**: lo más reciente de cada tipo que tiene detalle propio
+- CTA **＋ Nueva planificación** → hub `/crear`
+- Los grids de áreas y las secciones de módulos viven ahora en **Explorar** y `/crear`, no en Home
 
 ### Búsqueda / Resultados
 - Barra de búsqueda fija en la parte superior
@@ -70,11 +77,11 @@ Lista de planificaciones guardadas localmente. Permite ver, editar o eliminar pl
   - Técnicas e instrumentos de evaluación
 - Botón "Guardar Planificación"
 
-### Mis Planificaciones
-- Lista de planificaciones guardadas con fecha, área y destreza
-- Swipe para eliminar
-- Tap para ver/editar
-- Filtro por área
+### Mis planes
+- Grid de tarjetas (1/2/3 columnas, mismos breakpoints que Explorar) con icono por plan: iconos DCD en planes diarios, emoji de materia en materias, icono del tipo como respaldo
+- Chip de tipo, chip de estado (donde existe), fecha de actualización, título y detalle
+- Filtros: Todos, Recientes (30 días), En progreso, Completados
+- Acciones por tarjeta: Eliminar, Duplicar, Editar (solo donde hay reanudación) y Continuar — iconos con tooltip al pasar el mouse en web
 
 ## Flujos de Usuario Principales
 
@@ -86,10 +93,11 @@ Lista de planificaciones guardadas localmente. Permite ver, editar o eliminar pl
 5. Toca "Generar Planificación" → abre el Generador
 6. Completa los campos editables → Guarda
 
-### Flujo 2: Navegación por área
-1. Usuario toca una tarjeta de área en Home (ej: "Matemática")
-2. Ve todas las destrezas de esa área organizadas por subnivel
-3. Selecciona una destreza → Detalle → Generar Planificación
+### Flujo 2: Exploración por nivel y área
+1. Usuario abre **Explorar** desde la navegación lateral
+2. Elige una sección: Educación Inicial (grados), Preparatoria (ámbitos), EGB (áreas) o BGU (áreas)
+3. Navega por subniveles o ámbitos hasta el listado de destrezas
+4. Selecciona una destreza → Detalle → Generar Planificación
 
 ### Flujo 3: Revisar planificaciones
 1. Usuario entra en **Mis planes** desde la navegación lateral (sidebar; `☰` + drawer en móvil)
