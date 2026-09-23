@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import {
   Text, View, TextInput, ScrollView, StyleSheet,
   Linking, Platform, ActivityIndicator, Image, Alert, Pressable,
+  useWindowDimensions,
 } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
@@ -15,6 +16,8 @@ type AuthTab = "login" | "register" | "code";
 
 export default function PaywallScreen() {
   const colors = useColors();
+  const { width: windowWidth } = useWindowDimensions();
+  const isWide = windowWidth >= 900; // ≥900px: login en dos columnas (panel de marca + tarjeta)
   const { loginWithPassword, registerAccount, unlockWithCode, unlockWithSubscription } = useAccess();
 
   const [authTab, setAuthTab]           = useState<AuthTab>("login");
@@ -392,148 +395,137 @@ export default function PaywallScreen() {
   // ── Pantalla principal (auth) ────────────────────────────────────────────────
   return (
     <ScreenContainer edges={["top", "bottom", "left", "right"]}>
-      <ScrollView contentContainerStyle={s.scroll} keyboardShouldPersistTaps="handled">
+      <ScrollView contentContainerStyle={s.authScroll} keyboardShouldPersistTaps="handled">
+        <View style={[s.layout, isWide && s.layoutWide]}>
 
-        {/* Hero */}
-        <View style={s.hero}>
-          <Image source={require("@/assets/images/icon.png")} style={s.logo} resizeMode="contain" />
-          <Text style={[s.h1, { color: colors.foreground }]}>PlanificaDoc</Text>
-          <Text style={[s.subtitle, { color: colors.muted }]}>
-            Planificación curricular con IA para docentes del Ecuador
-          </Text>
-        </View>
+          {/* Panel de marca: en desktop incluye beneficios y precios; en móvil van bajo la tarjeta */}
+          <View style={[s.brandPanel, { backgroundColor: colors.brand }, isWide ? s.brandPanelWide : s.brandPanelNarrow]}>
+            <Image source={require("@/assets/images/icon.png")} style={s.logo} resizeMode="contain" />
+            <Text style={s.brandTitle}>PlanificaDoc</Text>
+            <Text style={s.brandClaim}>Planificación curricular con IA para docentes del Ecuador</Text>
+            {isWide && (<>
+              <BenefitsBox colors={colors} onBrand />
+              <PricePills colors={colors} onBrand />
+            </>)}
+          </View>
 
-        {/* Value props */}
-        <View style={[s.valueBox, { backgroundColor: colors.primary + "08", borderColor: colors.primary + "20" }]}>
-          <Text style={[s.valueTitle, { color: colors.primary }]}>¿Qué obtienes?</Text>
-          {[
-            { e: "🔍", t: "1,652+ destrezas EGB y BGU del currículo nacional" },
-            { e: "✨", t: "Generación de planes semanales con IA (ERCA y ACC)" },
-            { e: "📋", t: "PCA y PCT con exportación Word y PDF formato MinEduc" },
-            { e: "♿", t: "Diseño Universal para el Aprendizaje integrado" },
-            { e: "🔄", t: "Acceso a todas las actualizaciones futuras" },
-          ].map(({ e, t }) => (
-            <View key={t} style={s.valueRow}>
-              <Text style={{ fontSize: 18 }}>{e}</Text>
-              <Text style={[s.valueText, { color: colors.foreground }]}>{t}</Text>
+          {/* Tarjeta de acceso */}
+          <View style={[s.authCard, { backgroundColor: colors.surface, borderColor: colors.border }, isWide ? s.authCardWide : s.authCardNarrow]}>
+
+            {/* Auth tabs */}
+            <View style={[s.tabs, { backgroundColor: colors.background, borderColor: colors.border }]}>
+              {(["login", "register", "code"] as AuthTab[]).map(tab => (
+                <Pressable
+                  key={tab}
+                  onPress={() => setAuthTab(tab)}
+                  style={({ pressed }) => [
+                    s.tab,
+                    authTab === tab && { backgroundColor: colors.primary },
+                    pressed && { opacity: 0.8 },
+                  ]}
+                >
+                  <Text style={[s.tabText, { color: authTab === tab ? "#FFF" : colors.muted }]}>
+                    {tab === "login" ? "🔑 Ingresar" : tab === "register" ? "✏️ Registrarse" : "🎫 Código"}
+                  </Text>
+                </Pressable>
+              ))}
             </View>
-          ))}
+
+            {/* LOGIN */}
+            {authTab === "login" && (
+              <View style={s.formBox}>
+                <Text style={[s.formHint, { color: colors.muted }]}>Ingresa con tu cuenta de PlanificaDoc</Text>
+                <FieldLabel label="Correo electrónico" colors={colors} />
+                <FieldInput emoji="📧" placeholder="docente@ejemplo.com" value={loginEmail}
+                  onChangeText={t => { setLoginEmail(t); setLoginError(""); }}
+                  keyboardType="email-address" autoCapitalize="none" hasError={!!loginError} colors={colors} />
+                <FieldLabel label="Contraseña" colors={colors} mt />
+                <FieldInput emoji="🔒" placeholder="Tu contraseña" value={loginPassword}
+                  onChangeText={t => { setLoginPassword(t); setLoginError(""); }}
+                  secureTextEntry autoCapitalize="none" hasError={!!loginError} colors={colors} />
+                {loginError ? <ErrorRow text={loginError} /> : null}
+                <Pressable
+                  onPress={handleLogin} disabled={loginLoading}
+                  style={({ pressed }) => [s.authBtn, { backgroundColor: colors.primary, opacity: loginLoading ? 0.6 : pressed ? 0.9 : 1 }]}
+                >
+                  {loginLoading
+                    ? <ActivityIndicator size="small" color="#fff" />
+                    : <><Text style={{ fontSize: 18 }}>🔑</Text><Text style={s.authBtnText}>Iniciar Sesión</Text></>
+                  }
+                </Pressable>
+                <Pressable onPress={() => setAuthTab("register")} style={s.switchLink}>
+                  <Text style={[s.switchLinkText, { color: colors.primary }]}>¿No tienes cuenta? Regístrate aquí →</Text>
+                </Pressable>
+              </View>
+            )}
+
+            {/* REGISTER */}
+            {authTab === "register" && (
+              <View style={s.formBox}>
+                <Text style={[s.formHint, { color: colors.muted }]}>Crea tu cuenta — luego elige tu plan</Text>
+                <FieldLabel label="Nombre completo" colors={colors} />
+                <FieldInput emoji="👤" placeholder="Ej: María González" value={regNombre}
+                  onChangeText={t => { setRegNombre(t); setRegError(""); }} autoCapitalize="words" colors={colors} />
+                <FieldLabel label="Correo electrónico" colors={colors} mt />
+                <FieldInput emoji="📧" placeholder="docente@ejemplo.com" value={regEmail}
+                  onChangeText={t => { setRegEmail(t); setRegError(""); }}
+                  keyboardType="email-address" autoCapitalize="none" colors={colors} />
+                <FieldLabel label="Contraseña" colors={colors} mt />
+                <FieldInput emoji="🔒" placeholder="Mínimo 6 caracteres" value={regPassword}
+                  onChangeText={t => { setRegPassword(t); setRegError(""); }}
+                  secureTextEntry autoCapitalize="none" colors={colors} />
+                <FieldLabel label="Confirmar contraseña" colors={colors} mt />
+                <FieldInput emoji="🔒" placeholder="Repite tu contraseña" value={regConfirm}
+                  onChangeText={t => { setRegConfirm(t); setRegError(""); }}
+                  secureTextEntry autoCapitalize="none" hasError={!!regError} colors={colors} />
+                {regError ? <ErrorRow text={regError} /> : null}
+                <Pressable
+                  onPress={handleRegister} disabled={regLoading}
+                  style={({ pressed }) => [s.authBtn, { backgroundColor: "#059669", opacity: regLoading ? 0.6 : pressed ? 0.9 : 1 }]}
+                >
+                  {regLoading
+                    ? <ActivityIndicator size="small" color="#fff" />
+                    : <><Text style={{ fontSize: 18 }}>✅</Text><Text style={s.authBtnText}>Crear Cuenta</Text></>
+                  }
+                </Pressable>
+                <Pressable onPress={() => setAuthTab("login")} style={s.switchLink}>
+                  <Text style={[s.switchLinkText, { color: colors.primary }]}>¿Ya tienes cuenta? Inicia sesión →</Text>
+                </Pressable>
+              </View>
+            )}
+
+            {/* CODE */}
+            {authTab === "code" && (
+              <View style={s.formBox}>
+                <Text style={[s.formHint, { color: colors.muted }]}>Si recibiste un código de acceso de tu institución</Text>
+                <FieldLabel label="Código de acceso" colors={colors} />
+                <FieldInput emoji="🎫" placeholder="Ej: DOCENTE001" value={code}
+                  onChangeText={t => { setCode(t.toUpperCase()); setCodeError(""); }}
+                  autoCapitalize="characters" hasError={!!codeError} colors={colors} />
+                {codeError ? <ErrorRow text={codeError} /> : null}
+                <Pressable
+                  onPress={handleUnlockCode} disabled={codeLoading}
+                  style={({ pressed }) => [s.authBtn, { backgroundColor: colors.primary, opacity: codeLoading ? 0.6 : pressed ? 0.9 : 1 }]}
+                >
+                  {codeLoading
+                    ? <ActivityIndicator size="small" color="#fff" />
+                    : <><Text style={{ fontSize: 18 }}>🔓</Text><Text style={s.authBtnText}>Activar Acceso</Text></>
+                  }
+                </Pressable>
+              </View>
+            )}
+
+            <HelpSection onWhatsApp={handleWhatsApp} colors={colors} divider />
+          </View>
         </View>
 
-        {/* Plan preview pills */}
-        <View style={s.previewPills}>
-          <View style={[s.pill, { backgroundColor: "#05966918", borderColor: "#05966940" }]}>
-            <Text style={[s.pillText, { color: "#059669" }]}>⭐ Anual — $4.89/mes</Text>
-          </View>
-          <View style={[s.pill, { backgroundColor: "#2563eb12", borderColor: "#2563eb30" }]}>
-            <Text style={[s.pillText, { color: "#2563eb" }]}>Mensual — $6.99/mes</Text>
-          </View>
-        </View>
-
-        {/* Auth tabs */}
-        <View style={[s.tabs, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-          {(["login", "register", "code"] as AuthTab[]).map(tab => (
-            <Pressable
-              key={tab}
-              onPress={() => setAuthTab(tab)}
-              style={({ pressed }) => [
-                s.tab,
-                authTab === tab && { backgroundColor: colors.primary },
-                pressed && { opacity: 0.8 },
-              ]}
-            >
-              <Text style={[s.tabText, { color: authTab === tab ? "#FFF" : colors.muted }]}>
-                {tab === "login" ? "🔑 Ingresar" : tab === "register" ? "✏️ Registrarse" : "🎫 Código"}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        {/* LOGIN */}
-        {authTab === "login" && (
-          <View style={s.formBox}>
-            <Text style={[s.formHint, { color: colors.muted }]}>Ingresa con tu cuenta de PlanificaDoc</Text>
-            <FieldLabel label="Correo electrónico" colors={colors} />
-            <FieldInput emoji="📧" placeholder="docente@ejemplo.com" value={loginEmail}
-              onChangeText={t => { setLoginEmail(t); setLoginError(""); }}
-              keyboardType="email-address" autoCapitalize="none" hasError={!!loginError} colors={colors} />
-            <FieldLabel label="Contraseña" colors={colors} mt />
-            <FieldInput emoji="🔒" placeholder="Tu contraseña" value={loginPassword}
-              onChangeText={t => { setLoginPassword(t); setLoginError(""); }}
-              secureTextEntry autoCapitalize="none" hasError={!!loginError} colors={colors} />
-            {loginError ? <ErrorRow text={loginError} /> : null}
-            <Pressable
-              onPress={handleLogin} disabled={loginLoading}
-              style={({ pressed }) => [s.authBtn, { backgroundColor: colors.primary, opacity: loginLoading ? 0.6 : pressed ? 0.9 : 1 }]}
-            >
-              {loginLoading
-                ? <ActivityIndicator size="small" color="#fff" />
-                : <><Text style={{ fontSize: 18 }}>🔑</Text><Text style={s.authBtnText}>Iniciar Sesión</Text></>
-              }
-            </Pressable>
-            <Pressable onPress={() => setAuthTab("register")} style={s.switchLink}>
-              <Text style={[s.switchLinkText, { color: colors.primary }]}>¿No tienes cuenta? Regístrate aquí →</Text>
-            </Pressable>
+        {/* En móvil, beneficios y precios van debajo de la tarjeta */}
+        {!isWide && (
+          <View style={s.afterCard}>
+            <BenefitsBox colors={colors} />
+            <PricePills colors={colors} />
           </View>
         )}
-
-        {/* REGISTER */}
-        {authTab === "register" && (
-          <View style={s.formBox}>
-            <Text style={[s.formHint, { color: colors.muted }]}>Crea tu cuenta — luego elige tu plan</Text>
-            <FieldLabel label="Nombre completo" colors={colors} />
-            <FieldInput emoji="👤" placeholder="Ej: María González" value={regNombre}
-              onChangeText={t => { setRegNombre(t); setRegError(""); }} autoCapitalize="words" colors={colors} />
-            <FieldLabel label="Correo electrónico" colors={colors} mt />
-            <FieldInput emoji="📧" placeholder="docente@ejemplo.com" value={regEmail}
-              onChangeText={t => { setRegEmail(t); setRegError(""); }}
-              keyboardType="email-address" autoCapitalize="none" colors={colors} />
-            <FieldLabel label="Contraseña" colors={colors} mt />
-            <FieldInput emoji="🔒" placeholder="Mínimo 6 caracteres" value={regPassword}
-              onChangeText={t => { setRegPassword(t); setRegError(""); }}
-              secureTextEntry autoCapitalize="none" colors={colors} />
-            <FieldLabel label="Confirmar contraseña" colors={colors} mt />
-            <FieldInput emoji="🔒" placeholder="Repite tu contraseña" value={regConfirm}
-              onChangeText={t => { setRegConfirm(t); setRegError(""); }}
-              secureTextEntry autoCapitalize="none" hasError={!!regError} colors={colors} />
-            {regError ? <ErrorRow text={regError} /> : null}
-            <Pressable
-              onPress={handleRegister} disabled={regLoading}
-              style={({ pressed }) => [s.authBtn, { backgroundColor: "#059669", opacity: regLoading ? 0.6 : pressed ? 0.9 : 1 }]}
-            >
-              {regLoading
-                ? <ActivityIndicator size="small" color="#fff" />
-                : <><Text style={{ fontSize: 18 }}>✅</Text><Text style={s.authBtnText}>Crear Cuenta</Text></>
-              }
-            </Pressable>
-            <Pressable onPress={() => setAuthTab("login")} style={s.switchLink}>
-              <Text style={[s.switchLinkText, { color: colors.primary }]}>¿Ya tienes cuenta? Inicia sesión →</Text>
-            </Pressable>
-          </View>
-        )}
-
-        {/* CODE */}
-        {authTab === "code" && (
-          <View style={s.formBox}>
-            <Text style={[s.formHint, { color: colors.muted }]}>Si recibiste un código de acceso de tu institución</Text>
-            <FieldLabel label="Código de acceso" colors={colors} />
-            <FieldInput emoji="🎫" placeholder="Ej: DOCENTE001" value={code}
-              onChangeText={t => { setCode(t.toUpperCase()); setCodeError(""); }}
-              autoCapitalize="characters" hasError={!!codeError} colors={colors} />
-            {codeError ? <ErrorRow text={codeError} /> : null}
-            <Pressable
-              onPress={handleUnlockCode} disabled={codeLoading}
-              style={({ pressed }) => [s.authBtn, { backgroundColor: colors.primary, opacity: codeLoading ? 0.6 : pressed ? 0.9 : 1 }]}
-            >
-              {codeLoading
-                ? <ActivityIndicator size="small" color="#fff" />
-                : <><Text style={{ fontSize: 18 }}>🔓</Text><Text style={s.authBtnText}>Activar Acceso</Text></>
-              }
-            </Pressable>
-          </View>
-        )}
-
-        <HelpSection onWhatsApp={handleWhatsApp} colors={colors} />
 
         <View style={s.footer}>
           <Text style={[s.footerText, { color: colors.muted }]}>🇪🇨 Hecho en Ecuador, para docentes ecuatorianos</Text>
@@ -575,9 +567,46 @@ function ErrorRow({ text }: { text: string }) {
   );
 }
 
-function HelpSection({ onWhatsApp, colors }: { onWhatsApp: () => void; colors: any }) {
+const BENEFITS = [
+  { e: "🔍", t: "1,652+ destrezas EGB y BGU del currículo nacional" },
+  { e: "✨", t: "Generación de planes semanales con IA (ERCA y ACC)" },
+  { e: "📋", t: "PCA y PCT con exportación Word y PDF formato MinEduc" },
+  { e: "♿", t: "Diseño Universal para el Aprendizaje integrado" },
+  { e: "🔄", t: "Acceso a todas las actualizaciones futuras" },
+];
+
+/** Caja de beneficios: variante sobre el panel de marca (onBrand) o sobre fondo claro. */
+function BenefitsBox({ colors, onBrand }: { colors: any; onBrand?: boolean }) {
   return (
-    <View style={s.helpRow}>
+    <View style={[s.valueBox, onBrand ? s.valueBoxBrand : { backgroundColor: colors.primary + "08", borderColor: colors.primary + "20" }]}>
+      <Text style={[s.valueTitle, { color: onBrand ? "#FFFFFF" : colors.primary }]}>¿Qué obtienes?</Text>
+      {BENEFITS.map(({ e, t }) => (
+        <View key={t} style={s.valueRow}>
+          <Text style={{ fontSize: 17 }}>{e}</Text>
+          <Text style={[s.valueText, { color: onBrand ? "#E2E8F0" : colors.foreground }]}>{t}</Text>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+/** Pastillas de vista previa de precios: sobre el panel de marca o en claro. */
+function PricePills({ colors, onBrand }: { colors: any; onBrand?: boolean }) {
+  return (
+    <View style={s.previewPills}>
+      <View style={[s.pill, onBrand ? s.pillAnnualBrand : { backgroundColor: colors.success + "18", borderColor: colors.success + "40" }]}>
+        <Text style={[s.pillText, { color: onBrand ? "#6EE7B7" : colors.success }]}>⭐ Anual — $4.89/mes</Text>
+      </View>
+      <View style={[s.pill, onBrand ? s.pillMonthlyBrand : { backgroundColor: colors.primary + "12", borderColor: colors.primary + "30" }]}>
+        <Text style={[s.pillText, { color: onBrand ? "#BFDBFE" : colors.primary }]}>Mensual — $6.99/mes</Text>
+      </View>
+    </View>
+  );
+}
+
+function HelpSection({ onWhatsApp, colors, divider }: { onWhatsApp: () => void; colors: any; divider?: boolean }) {
+  return (
+    <View style={[s.helpRow, divider && { marginTop: 16, paddingTop: 16, marginBottom: 0, borderTopWidth: 1, borderTopColor: colors.border }]}>
       <Pressable onPress={onWhatsApp} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1, flexDirection: "row", alignItems: "center", gap: 8 }]}>
         <Text style={{ fontSize: 16 }}>💬</Text>
         <Text style={[s.helpText, { color: colors.primary }]}>¿Necesitas ayuda? WhatsApp</Text>
@@ -592,18 +621,34 @@ const s = StyleSheet.create({
   scroll:        { paddingHorizontal: 20, paddingBottom: 48 },
   centerFill:    { flex: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: 32 },
 
-  // Hero / auth screen
-  hero:          { alignItems: "center", marginTop: 24, marginBottom: 22 },
-  logo:          { width: 76, height: 76, borderRadius: 20, marginBottom: 14 },
+  // Login (auth): panel de marca + tarjeta de acceso
+  authScroll:    { paddingHorizontal: 14, paddingTop: 18, paddingBottom: 36, flexGrow: 1 },
+  layout:        { width: "100%", gap: 16, alignItems: "stretch" },
+  layoutWide:    { flexDirection: "row", maxWidth: 1080, alignSelf: "center", gap: 28, paddingTop: 26 },
+
+  brandPanel:      { borderRadius: 24, padding: 24, overflow: "hidden", shadowColor: "#003366", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.3, shadowRadius: 18, elevation: 6 },
+  brandPanelNarrow:{ alignItems: "center" },
+  brandPanelWide:  { flex: 1.1, borderRadius: 28, padding: 34, justifyContent: "center" },
+  brandTitle:      { fontSize: 24, fontWeight: "800", color: "#FFFFFF", letterSpacing: -0.4, textAlign: "center" },
+  brandClaim:      { fontSize: 14, color: "#CBD5E1", textAlign: "center", marginTop: 6, lineHeight: 20 },
+
+  authCard:        { width: "100%", borderRadius: 24, borderWidth: 1, padding: 22, shadowColor: "#0F172A", shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.1, shadowRadius: 26, elevation: 8 },
+  authCardNarrow:  { maxWidth: 520, alignSelf: "center" },
+  authCardWide:    { flex: 1, padding: 28, justifyContent: "center" },
+  afterCard:       { marginTop: 20 },
+  logo:          { width: 72, height: 72, borderRadius: 20, marginBottom: 14, borderWidth: 2.5, borderColor: "rgba(255,255,255,0.20)" },
   h1:            { fontSize: 26, fontWeight: "800", letterSpacing: -0.5, textAlign: "center" },
   subtitle:      { fontSize: 14, textAlign: "center", marginTop: 6, lineHeight: 20 },
 
-  valueBox:      { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 18 },
+  valueBox:      { borderRadius: 16, padding: 16, borderWidth: 1, alignSelf: "stretch" },
+  valueBoxBrand: { backgroundColor: "rgba(255,255,255,0.08)", borderColor: "rgba(255,255,255,0.16)", marginTop: 18 },
   valueTitle:    { fontSize: 15, fontWeight: "700", marginBottom: 12, textAlign: "center" },
   valueRow:      { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 8 },
   valueText:     { fontSize: 13, flex: 1, lineHeight: 18 },
 
-  previewPills:  { flexDirection: "row", gap: 10, marginBottom: 18 },
+  previewPills:  { flexDirection: "row", gap: 10, marginTop: 16 },
+  pillAnnualBrand:  { backgroundColor: "rgba(5,150,105,0.22)", borderColor: "rgba(16,185,129,0.45)" },
+  pillMonthlyBrand: { backgroundColor: "rgba(255,255,255,0.10)", borderColor: "rgba(255,255,255,0.28)" },
   pill:          { flex: 1, borderRadius: 10, borderWidth: 1, paddingVertical: 8, alignItems: "center" },
   pillText:      { fontSize: 12, fontWeight: "700" },
 
@@ -611,7 +656,7 @@ const s = StyleSheet.create({
   tab:           { flex: 1, paddingVertical: 11, borderRadius: 12, alignItems: "center" },
   tabText:       { fontSize: 12, fontWeight: "600" },
 
-  formBox:       { marginBottom: 18 },
+  formBox:       { marginBottom: 6 },
   formHint:      { fontSize: 13, textAlign: "center", marginBottom: 16, lineHeight: 18 },
   inputLabel:    { fontSize: 13, fontWeight: "600", marginBottom: 8 },
   inputRow:      { flexDirection: "row", alignItems: "center", borderWidth: 1.5, borderRadius: 12, paddingHorizontal: 14, height: 50, gap: 10, marginBottom: 4 },
@@ -625,7 +670,7 @@ const s = StyleSheet.create({
 
   helpRow:       { alignItems: "center", marginBottom: 20 },
   helpText:      { fontSize: 13, fontWeight: "600" },
-  footer:        { alignItems: "center", gap: 4, paddingBottom: 10 },
+  footer:        { alignItems: "center", gap: 4, paddingTop: 22, paddingBottom: 8, alignSelf: "center", width: "100%", maxWidth: 1080 },
   footerText:    { fontSize: 11 },
   small:         { fontSize: 13 },
 
