@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Text, View, FlatList, SectionList, ScrollView, StyleSheet } from "react-native";
+import { Text, View, FlatList, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -42,6 +42,18 @@ export default function ExplorarScreen() {
     (params.area as Area) || null
   );
   const [selectedSubnivel, setSelectedSubnivel] = useState<Subnivel | null>(null);
+
+  // Grid de áreas: medimos el ancho real del contenido (onLayout, ya contado
+  // el sidebar); hasta el primer layout se estima con el ancho de la ventana.
+  const { width: windowWidth } = useWindowDimensions();
+  const [anchoGrilla, setAnchoGrilla] = useState(0);
+  const anchoContenido = anchoGrilla || windowWidth - 40;
+  const columnas = anchoContenido >= 940 ? 3 : anchoContenido >= 580 ? 2 : 1;
+  const anchoUtil = Math.max(anchoContenido - 40, 0); // padding horizontal 20 + 20
+  const anchoTarjeta =
+    columnas === 1
+      ? ("100%" as const)
+      : Math.floor((anchoUtil - 12 * (columnas - 1)) / columnas);
 
   // Subnivel 1 (Preparatoria) se excluye de este recorrido genérico por área:
   // sus destrezas se organizan por ámbito (ver AMBITOS_PREPARATORIA), no por
@@ -86,56 +98,68 @@ export default function ExplorarScreen() {
             Navega por {"\u00e1"}reas y subniveles
           </Text>
         </View>
-        <SectionList
-          sections={SECTIONS}
-          keyExtractor={(item) => item.code}
-          contentContainerStyle={styles.listContent}
-          stickySectionHeadersEnabled={false}
-          renderSectionHeader={({ section }) => (
-            <View style={styles.sectionHeader}>
-              <Text className="text-lg font-semibold text-foreground">
-                {section.title}
-              </Text>
-              <Text className="text-xs text-muted mt-1">
-                {section.subtitle}
-              </Text>
-            </View>
-          )}
-          renderItem={({ item }) => {
-            const count = filtrarPorArea(item.code).length;
-            return (
-              <Pressable
-                onPress={() => setSelectedArea(item.code)}
-                style={({ pressed }) => [
-                  styles.areaRow,
-                  {
-                    backgroundColor: colors.surface,
-                    borderColor: colors.border,
-                    opacity: pressed ? 0.7 : 1,
-                  },
-                ]}
-              >
-                <View
-                  style={[
-                    styles.areaIcon,
-                    { backgroundColor: item.color + "15" },
-                  ]}
-                >
-                  <Text style={{ fontSize: 24 }}>{item.emoji}</Text>
-                </View>
-                <View style={{ flex: 1, marginLeft: 14 }}>
-                  <Text className="text-base font-semibold text-foreground">
-                    {item.name}
+        <View
+          style={{ flex: 1 }}
+          onLayout={(e) => setAnchoGrilla(e.nativeEvent.layout.width)}
+        >
+          <ScrollView contentContainerStyle={styles.listContent}>
+            {SECTIONS.map((section) => (
+              <View key={section.title}>
+                <View style={styles.sectionHeader}>
+                  <Text className="text-lg font-semibold text-foreground">
+                    {section.title}
                   </Text>
-                  <Text className="text-sm text-muted">
-                    {count} destrezas
+                  <Text className="text-xs text-muted mt-1">
+                    {section.subtitle}
                   </Text>
                 </View>
-                <Text style={{ fontSize: 18, color: colors.muted }}>{"\u203A"}</Text>
-              </Pressable>
-            );
-          }}
-        />
+                <View style={styles.gridAreas}>
+                  {section.data.map((item, index) => {
+                    const count = filtrarPorArea(item.code).length;
+                    const ultimaDeFila =
+                      columnas === 1 || (index + 1) % columnas === 0;
+                    return (
+                      <Pressable
+                        key={item.code}
+                        onPress={() => setSelectedArea(item.code)}
+                        style={({ pressed }) => [
+                          styles.areaRow,
+                          {
+                            width: anchoTarjeta,
+                            marginRight: ultimaDeFila ? 0 : 12,
+                            backgroundColor: colors.surface,
+                            borderColor: colors.border,
+                            opacity: pressed ? 0.7 : 1,
+                          },
+                        ]}
+                      >
+                        <View
+                          style={[
+                            styles.areaIcon,
+                            { backgroundColor: item.color + "15" },
+                          ]}
+                        >
+                          <Text style={{ fontSize: 24 }}>{item.emoji}</Text>
+                        </View>
+                        <View style={{ flex: 1, marginLeft: 14 }}>
+                          <Text className="text-base font-semibold text-foreground">
+                            {item.name}
+                          </Text>
+                          <Text className="text-sm text-muted">
+                            {count} destrezas
+                          </Text>
+                        </View>
+                        <Text style={{ fontSize: 18, color: colors.muted }}>
+                          {"\u203A"}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
       </ScreenContainer>
     );
   }
@@ -299,8 +323,12 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 10,
   },
+  gridAreas: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 20,
+  },
   areaRow: {
-    marginHorizontal: 20,
     marginBottom: 10,
     borderRadius: 14,
     padding: 16,
