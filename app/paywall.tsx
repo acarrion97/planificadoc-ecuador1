@@ -16,7 +16,7 @@ type AuthTab = "login" | "register" | "code";
 
 export default function PaywallScreen() {
   const colors = useColors();
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const isWide = windowWidth >= 900; // ≥900px: login en dos columnas (panel de marca + tarjeta)
   const { loginWithPassword, registerAccount, unlockWithCode, unlockWithSubscription } = useAccess();
 
@@ -396,13 +396,15 @@ export default function PaywallScreen() {
   return (
     <ScreenContainer edges={["top", "bottom", "left", "right"]}>
       <ScrollView contentContainerStyle={s.authScroll} keyboardShouldPersistTaps="handled">
-        <View style={[s.layout, isWide && s.layoutWide]}>
+        <View style={[s.layout, isWide && s.layoutWide, isWide && { minHeight: windowHeight - 132 }]}>
 
           {/* Panel de marca: en desktop incluye beneficios y precios; en móvil van bajo la tarjeta */}
           <View style={[s.brandPanel, { backgroundColor: colors.brand }, isWide && s.brandPanelWide]}>
-            <Image source={require("@/assets/images/icon.png")} style={s.logo} resizeMode="contain" />
-            <Text style={s.brandTitle}>PlanificaDoc</Text>
-            <Text style={s.brandClaim}>Planificación curricular con IA para docentes del Ecuador</Text>
+            <View style={s.brandHero}>
+              <Image source={require("@/assets/images/icon.png")} style={[s.logo, isWide && s.logoWide]} resizeMode="contain" />
+              <Text style={[s.brandTitle, isWide && s.brandTitleWide]}>PlanificaDoc</Text>
+              <Text style={s.brandClaim}>Planificación curricular con IA para docentes del Ecuador</Text>
+            </View>
             {isWide && (<>
               <BenefitsBox colors={colors} onBrand />
               <PricePills colors={colors} onBrand />
@@ -639,7 +641,10 @@ const s = StyleSheet.create({
   layoutWide:    { flexDirection: "row", maxWidth: 1080, alignSelf: "center", gap: 28, paddingTop: 26 },
 
   brandPanel:      { borderRadius: 24, padding: 24, overflow: "hidden", alignItems: "center", shadowColor: "#003366", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.3, shadowRadius: 18, elevation: 6 },
-  brandPanelWide:  { flex: 1.1, borderRadius: 28, padding: 34, justifyContent: "center" },
+  brandPanelWide:  { flex: 1.1, borderRadius: 28, padding: 44, justifyContent: "space-between" },
+  brandHero:       { alignItems: "center" },
+  logoWide:        { width: 84, height: 84, borderRadius: 24 },
+  brandTitleWide:  { fontSize: 28, letterSpacing: -0.6 },
   brandTitle:      { fontSize: 24, fontWeight: "800", color: "#FFFFFF", letterSpacing: -0.4, textAlign: "center" },
   brandClaim:      { fontSize: 14, color: "#CBD5E1", textAlign: "center", marginTop: 6, lineHeight: 20 },
 
