@@ -18,8 +18,16 @@ import {
   obtenerNombreBloqueDestreza,
 } from "@/data";
 
-const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
-const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "EFL", "EG"];
+// Asignaturas por sección según el Currículo Priorizado (EGB Elemental/Media/
+// Superior y Bachillerato). Las comunes a EGB y BGU (Matemática, Lengua,
+// Educación Física, ECA, Inglés) aparecen en ambas secciones, cada tarjeta
+// limitada a los subniveles de su sección.
+const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"];
+const BGU_AREAS: Area[] = [
+  "M", "LL", "CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "EF", "ECA", "EFL", "EG",
+];
+const EGB_SUBNIVELES: Subnivel[] = [2, 3, 4];
+const BGU_SUBNIVELES: Subnivel[] = [5];
 
 /** Emojis de los 7 ámbitos de Preparatoria (orden de AMBITOS_PREPARATORIA). */
 const EMOJI_AMBITOS_PREP = ["🧑", "🤝", "🌍", "🔢", "💬", "🎨", "🤸"];
@@ -41,6 +49,8 @@ type ItemSeccion = {
   color: string;
   /** Área destino del flujo por subniveles. */
   area?: Area;
+  /** Subniveles que abarca la tarjeta dentro de su sección (EGB o BGU). */
+  subniveles?: Subnivel[];
   /** Solo en Inicial: salta directo al listado de ese grado. */
   subnivel?: Subnivel;
   /** Solo en Preparatoria: número de ámbito del currículo integrado. */
@@ -53,9 +63,23 @@ type SeccionExplorar = {
   data: ItemSeccion[];
 };
 
-function itemArea(code: Area): ItemSeccion {
+function itemArea(code: Area, subniveles: Subnivel[]): ItemSeccion {
   const info = AREAS_INFO[code];
-  return { code, area: code, name: info.name, emoji: info.emoji, color: info.color };
+  return {
+    code: `${code}@${subniveles.join("")}`,
+    area: code,
+    subniveles,
+    name: info.name,
+    emoji: info.emoji,
+    color: info.color,
+  };
+}
+
+/** Destrezas del área restringidas a los subniveles indicados (o todas salvo Preparatoria). */
+function destrezasDeArea(area: Area, subniveles: Subnivel[] | null) {
+  return filtrarPorArea(area).filter((d) =>
+    subniveles ? subniveles.includes(d.subnivel) : d.subnivel !== 1
+  );
 }
 
 const SECTIONS: SeccionExplorar[] = [
@@ -85,12 +109,12 @@ const SECTIONS: SeccionExplorar[] = [
   {
     title: "Educaci\u00f3n General B\u00e1sica",
     subtitle: "Elemental \u00b7 Media \u00b7 Superior",
-    data: EGB_AREAS.map((code) => itemArea(code)),
+    data: EGB_AREAS.map((code) => itemArea(code, EGB_SUBNIVELES)),
   },
   {
     title: "Bachillerato General Unificado",
     subtitle: "1ro \u00b7 2do \u00b7 3ro BGU",
-    data: BGU_AREAS.map((code) => itemArea(code)),
+    data: BGU_AREAS.map((code) => itemArea(code, BGU_SUBNIVELES)),
   },
 ];
 
@@ -103,6 +127,9 @@ export default function ExplorarScreen() {
     (params.area as Area) || null
   );
   const [selectedSubnivel, setSelectedSubnivel] = useState<Subnivel | null>(null);
+  // Subniveles de la sección desde la que se abrió el área (EGB o BGU);
+  // null = todos (p. ej. al llegar por ?area=).
+  const [rangoSubniveles, setRangoSubniveles] = useState<Subnivel[] | null>(null);
   // Ámbito de Preparatoria elegido (fuera del flujo por área/subnivel).
   const [ambitoPrep, setAmbitoPrep] = useState<number | null>(null);
 
@@ -127,15 +154,20 @@ export default function ExplorarScreen() {
   // mantiene subnivel 1 fuera del vuelco por área mientras se recorre por
   // ámbitos.
   const subniveles = useMemo(
-    () => (selectedArea ? obtenerSubnivelesDeArea(selectedArea).filter(s => s !== 1) : []),
-    [selectedArea]
+    () =>
+      selectedArea
+        ? obtenerSubnivelesDeArea(selectedArea).filter((s) =>
+            rangoSubniveles ? rangoSubniveles.includes(s) : s !== 1
+          )
+        : [],
+    [selectedArea, rangoSubniveles]
   );
 
   const destrezas = useMemo(() => {
     if (!selectedArea) return [];
     if (selectedSubnivel) return filtrarPorAreaYSubnivel(selectedArea, selectedSubnivel);
-    return filtrarPorArea(selectedArea).filter(d => d.subnivel !== 1);
-  }, [selectedArea, selectedSubnivel]);
+    return destrezasDeArea(selectedArea, rangoSubniveles);
+  }, [selectedArea, selectedSubnivel, rangoSubniveles]);
 
   const bloques = useMemo(() => {
     if (!selectedArea || !selectedSubnivel) return [];
@@ -145,10 +177,13 @@ export default function ExplorarScreen() {
   const areaInfo = selectedArea ? AREAS_INFO[selectedArea] : null;
 
   const handleBack = () => {
-    if (selectedSubnivel) {
+    // Con un único subnivel (Bachillerato) no hay lista intermedia: volver a áreas.
+    if (selectedSubnivel && subniveles.length > 1) {
       setSelectedSubnivel(null);
-    } else if (selectedArea) {
+    } else {
+      setSelectedSubnivel(null);
       setSelectedArea(null);
+      setRangoSubniveles(null);
     }
   };
 
@@ -267,9 +302,7 @@ export default function ExplorarScreen() {
                         : item.subnivel !== undefined && item.area
                           ? filtrarPorAreaYSubnivel(item.area, item.subnivel).length
                           : item.area
-                            ? filtrarPorArea(item.area).filter(
-                                (d) => d.subnivel !== 1
-                              ).length
+                            ? destrezasDeArea(item.area, item.subniveles ?? null).length
                             : 0;
                     const ultimaDeFila =
                       columnas === 1 || (index + 1) % columnas === 0;
@@ -282,8 +315,11 @@ export default function ExplorarScreen() {
                             return;
                           }
                           if (item.area) setSelectedArea(item.area);
+                          setRangoSubniveles(item.subniveles ?? null);
                           if (item.subnivel !== undefined)
                             setSelectedSubnivel(item.subnivel);
+                          else if (item.subniveles?.length === 1)
+                            setSelectedSubnivel(item.subniveles[0]);
                         }}
                         style={({ pressed }) => [
                           styles.areaRow,
