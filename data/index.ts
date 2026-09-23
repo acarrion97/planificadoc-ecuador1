@@ -13,6 +13,7 @@ import { destrezasIngles } from "./destrezas-ingles";
 import { destrezasEmprendimiento } from "./destrezas-emprendimiento";
 import { destrezasEducacionCiudadania as _rawEC } from "./destrezas-educacion-ciudadania";
 import { destrezasCAI } from "./destrezas-kai";
+import { destrezasInicial } from "./destrezas-inicial";
 export { NOMBRES_BLOQUES_CAI, CRITERIOS_CAI, OBJETIVO_NIVEL_CAI } from "./destrezas-kai";
 import { Area, Destreza, Subnivel, AREAS_INFO, SUBNIVEL_NAMES, AMBITOS_PREPARATORIA } from "./types";
 
@@ -63,6 +64,9 @@ export const TODAS_LAS_DESTREZAS: Destreza[] = [
   ...destrezasEmprendimiento,
   ...destrezasEducacionCiudadania,
   ...destrezasCAI,
+  // Inicial (subniveles -1 y 0): explorable junto al resto del catálogo
+  // (búsqueda DCD, detalle /destreza y grilla de Explorar).
+  ...destrezasInicial,
 ];
 
 export function buscarPorCodigo(codigo: string): Destreza | undefined {

@@ -46,6 +46,9 @@ export default function DetalleDestrezaScreen() {
   }
 
   const areaInfo = AREAS_INFO[destreza.area];
+  // Inicial (subniveles -1/0) y Preparatoria (subnivel 1) se organizan por
+  // ámbitos de desarrollo, no por bloque de asignatura.
+  const esAmbito = destreza.subnivel === 1 || destreza.area === "INI";
 
   return (
     <ScreenContainer edges={["top", "bottom", "left", "right"]} className="flex-1">
@@ -120,8 +123,8 @@ export default function DetalleDestrezaScreen() {
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             <InfoRow
               emoji={"\uD83D\uDCE6"}
-              label="Bloque Curricular"
-              value={`Bloque ${destreza.bloque}`}
+              label={esAmbito ? "Ámbito de desarrollo" : "Bloque Curricular"}
+              value={`${esAmbito ? "Ámbito" : "Bloque"} ${destreza.bloque}`}
               sublabel={obtenerNombreBloqueDestreza(destreza)}
               colors={colors}
             />
@@ -200,7 +203,13 @@ export default function DetalleDestrezaScreen() {
         {/* Generate button */}
         <View className="px-5 mt-8 mb-10">
           <Pressable
-            onPress={() => router.push(`/planificar/${destreza.codigo}` as any)}
+            onPress={() =>
+              router.push(
+                (destreza.area === "INI"
+                  ? "/planificar-inicial"
+                  : `/planificar/${destreza.codigo}`) as any
+              )
+            }
             style={({ pressed }) => [
               styles.generateBtn,
               {
