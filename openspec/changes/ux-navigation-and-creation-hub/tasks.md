@@ -11,7 +11,7 @@
 - [x] 1.9 Crear la ruta `app/ayuda/index.tsx`, registrarla en `app/_layout.tsx` y darle diseño responsive con contenido **estático** inicial (spec `navegacion-principal`)
 - [x] 1.10 Implementar la FAQ agrupada con buscador simple de texto, cubriendo las 9 preguntas aprobadas (crear planificación, PCA vs PCT, continuar un plan, dónde están mis planes, planificar desde una destreza, requisitos de adaptación curricular, evaluación diagnóstica, exportación, funciones Premium). El contenido explica **cómo usar PlanificaDoc** (p. ej. "Crear → Plan de área → PCA Anual") y **no** contiene normativa ni criterios curriculares. Contenido estático: sin CMS, sin base de datos de artículos, sin tickets, chat ni búsqueda semántica
 - [x] 1.11 Añadir enlaces desde la FAQ a los destinos reales (`/crear`, Mis planes y sus flujos), el enlace "Ver ayuda" desde el aviso contextual de Adaptación curricular, y el botón **Contactar soporte** (`soporte@planificadoc.app`)
-- [ ] 1.12 Verificar en escritorio/tablet/móvil que todas las secciones siguen alcanzables desde pantallas profundas (spec `navegacion-principal`)
+- [x] 1.12 Verificar en escritorio/tablet/móvil que todas las secciones siguen alcanzables desde pantallas profundas (spec `navegacion-principal`)
 
 ## 2. Hub de creación (fase 2)
 
@@ -56,4 +56,4 @@
 - [x] 5.4 `pnpm check` y `pnpm lint` sin errores nuevos sobre la línea base (56 preexistentes)
 - [x] 5.5 `pnpm test` en verde con los tests nuevos
 - [x] 5.6 Actualizar `docs/brand.md` y `design.md` de la raíz: navegación, paleta de navegación y divergencia de las 3 pestañas descritas
-- [ ] 5.7 Verificación visual en navegador por el usuario (escritorio, tablet y móvil) antes del merge
+- [x] 5.7 Verificación visual en navegador por el usuario (escritorio, tablet y móvil) antes del merge
