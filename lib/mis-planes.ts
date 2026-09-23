@@ -12,7 +12,7 @@
  * esta módulo es la parte testeable (`__tests__/mis-planes-filtros.test.ts`,
  * tarea 4.10).
  */
-import { AREAS_INFO } from "@/data";
+import { AREAS_INFO, type Area } from "@/data";
 import { obtenerFiguraPorId } from "@/data/bachillerato-tecnico";
 import {
   FAMILIA_LABELS,
@@ -66,6 +66,10 @@ export interface PlanResumen {
   rutaContinuar: string;
   /** Ruta de reanudación distinta de Continuar; `null` si el flujo no admite editar. */
   rutaEditar: string | null;
+  /** Código DCD: habilita los íconos de competencias del plan diario (como en los informes). */
+  dcdCodigo?: string | null;
+  /** Código de área: muestra el emoji de la materia (el mismo que usa Explorar). */
+  areaCodigo?: Area | null;
 }
 
 /** Etiquetas cortas de chip por tipo. */
@@ -158,6 +162,8 @@ export function resumenDiario(p: Planificacion): PlanResumen {
     detalle: [p.destreza?.codigo, p.grado, p.docente].filter(Boolean).join(" · "),
     actualizadoEn: normalizarFecha(p.updatedAt || p.createdAt || p.fecha),
     estado: null,
+    dcdCodigo: p.destreza?.codigo ?? null,
+    areaCodigo: p.destreza?.area ?? null,
     rutaContinuar: `/ver-plan/${p.id}`,
     rutaEditar: null, // el formulario se abre desde una destreza, sin reanudación por id
   };
@@ -208,6 +214,7 @@ export function resumenPca(doc: DocPcaListado, variante: "anual" | "trimestral")
     detalle: [area, fd.docente, fd.trimestre].filter(Boolean).join(" · "),
     actualizadoEn: normalizarFecha(doc.createdAt),
     estado: estadoDe(doc.status),
+    areaCodigo: fd.area ?? null,
     rutaContinuar: esTrimestral
       ? `/pca-trimestral-preview/${doc.id}`
       : `/pca-preview/${doc.id}`,
@@ -351,6 +358,7 @@ export function resumenEvaluacion(e: EvaluacionDiagnostica): PlanResumen {
     detalle: [e.grado, e.paralelo, e.anioLectivo].filter(Boolean).join(" · "),
     actualizadoEn: normalizarFecha(e.updatedAt || e.createdAt || e.fecha),
     estado: estadoDe(e.status),
+    areaCodigo: e.area,
     rutaContinuar: `/ver-evaluacion/${e.id}`,
     rutaEditar: null,
   };
