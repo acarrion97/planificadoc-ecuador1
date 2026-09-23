@@ -337,12 +337,7 @@ function Drawer({ open, active, onClose }: DrawerProps) {
   return (
     <Modal visible={open} transparent animationType="fade" onRequestClose={onClose}>
       <View style={{ flex: 1, flexDirection: "row", backgroundColor: "rgba(15, 23, 42, 0.45)" }}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Cerrar navegación"
-          onPress={onClose}
-          style={{ width: DRAWER_WIDTH + 40 }}
-        />
+        {/* El panel se ancla a la IZQUIERDA; el resto del ancho cierra el drawer. */}
         <View
           style={{
             width: DRAWER_WIDTH,
@@ -374,6 +369,12 @@ function Drawer({ open, active, onClose }: DrawerProps) {
           </View>
           <NavBody active={active} collapsed={false} onNavigate={onClose} />
         </View>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Cerrar navegación"
+          onPress={onClose}
+          style={{ flex: 1 }}
+        />
       </View>
     </Modal>
   );
