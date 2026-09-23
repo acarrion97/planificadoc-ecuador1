@@ -399,7 +399,7 @@ export default function PaywallScreen() {
         <View style={[s.layout, isWide && s.layoutWide]}>
 
           {/* Panel de marca: en desktop incluye beneficios y precios; en móvil van bajo la tarjeta */}
-          <View style={[s.brandPanel, { backgroundColor: colors.brand }, isWide ? s.brandPanelWide : s.brandPanelNarrow]}>
+          <View style={[s.brandPanel, { backgroundColor: colors.brand }, isWide && s.brandPanelWide]}>
             <Image source={require("@/assets/images/icon.png")} style={s.logo} resizeMode="contain" />
             <Text style={s.brandTitle}>PlanificaDoc</Text>
             <Text style={s.brandClaim}>Planificación curricular con IA para docentes del Ecuador</Text>
@@ -543,6 +543,7 @@ function FieldLabel({ label, colors, mt }: { label: string; colors: any; mt?: bo
 }
 
 function FieldInput({ emoji, placeholder, value, onChangeText, keyboardType, autoCapitalize, autoCorrect, secureTextEntry, maxLength, hasError, colors }: any) {
+  const [visible, setVisible] = useState(false);
   return (
     <View style={[s.inputRow, { backgroundColor: colors.background ?? "#fff", borderColor: hasError ? "#DC2626" : colors.border }]}>
       <Text style={{ fontSize: 18 }}>{emoji}</Text>
@@ -551,9 +552,20 @@ function FieldInput({ emoji, placeholder, value, onChangeText, keyboardType, aut
         placeholder={placeholder} placeholderTextColor={colors.muted}
         value={value} onChangeText={onChangeText}
         keyboardType={keyboardType} autoCapitalize={autoCapitalize ?? "none"}
-        autoCorrect={autoCorrect ?? false} secureTextEntry={secureTextEntry}
+        autoCorrect={autoCorrect ?? false} secureTextEntry={secureTextEntry && !visible}
         maxLength={maxLength} returnKeyType="next"
       />
+      {secureTextEntry ? (
+        <Pressable
+          onPress={() => setVisible(v => !v)}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel={visible ? "Ocultar contraseña" : "Mostrar contraseña"}
+          style={({ pressed }) => [{ opacity: pressed ? 0.6 : 1, paddingLeft: 2 }]}
+        >
+          <Text style={{ fontSize: 16 }}>{visible ? "🙈" : "👁️"}</Text>
+        </Pressable>
+      ) : null}
     </View>
   );
 }
@@ -622,12 +634,11 @@ const s = StyleSheet.create({
   centerFill:    { flex: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: 32 },
 
   // Login (auth): panel de marca + tarjeta de acceso
-  authScroll:    { paddingHorizontal: 14, paddingTop: 18, paddingBottom: 36, flexGrow: 1 },
+  authScroll:    { paddingHorizontal: 14, paddingTop: 18, paddingBottom: 36, flexGrow: 1, justifyContent: "center" },
   layout:        { width: "100%", gap: 16, alignItems: "stretch" },
   layoutWide:    { flexDirection: "row", maxWidth: 1080, alignSelf: "center", gap: 28, paddingTop: 26 },
 
-  brandPanel:      { borderRadius: 24, padding: 24, overflow: "hidden", shadowColor: "#003366", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.3, shadowRadius: 18, elevation: 6 },
-  brandPanelNarrow:{ alignItems: "center" },
+  brandPanel:      { borderRadius: 24, padding: 24, overflow: "hidden", alignItems: "center", shadowColor: "#003366", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.3, shadowRadius: 18, elevation: 6 },
   brandPanelWide:  { flex: 1.1, borderRadius: 28, padding: 34, justifyContent: "center" },
   brandTitle:      { fontSize: 24, fontWeight: "800", color: "#FFFFFF", letterSpacing: -0.4, textAlign: "center" },
   brandClaim:      { fontSize: 14, color: "#CBD5E1", textAlign: "center", marginTop: 6, lineHeight: 20 },
@@ -646,7 +657,7 @@ const s = StyleSheet.create({
   valueRow:      { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 8 },
   valueText:     { fontSize: 13, flex: 1, lineHeight: 18 },
 
-  previewPills:  { flexDirection: "row", gap: 10, marginTop: 16 },
+  previewPills:  { flexDirection: "row", gap: 10, marginTop: 16, alignSelf: "stretch" },
   pillAnnualBrand:  { backgroundColor: "rgba(5,150,105,0.22)", borderColor: "rgba(16,185,129,0.45)" },
   pillMonthlyBrand: { backgroundColor: "rgba(255,255,255,0.10)", borderColor: "rgba(255,255,255,0.28)" },
   pill:          { flex: 1, borderRadius: 10, borderWidth: 1, paddingVertical: 8, alignItems: "center" },
