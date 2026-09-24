@@ -43,6 +43,8 @@ import {
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
 import { UMBRALES_DEFECTO, subnivelDesdeGrado, subnivelDelGradoAnterior, esBachilleratoTecnico } from "@/lib/evaluacion-utils";
 import { trpc } from "@/lib/trpc";
+import { elegirImagenReducida } from "@/lib/elegir-imagen";
+import { Image } from "expo-image";
 
 const hoy = new Date();
 const fechaHoy = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(hoy.getDate()).padStart(2, "0")}`;
@@ -50,6 +52,9 @@ const fechaHoy = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, 
 function nuevoId() {
   return Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
 }
+
+/** Coincide con las letras a.–f. de la prueba imprimible. */
+const MAX_OPCIONES = 6;
 
 const STEP_LABELS = ["Contexto", "DCD", "Preguntas", "Matriz", "Revisar"];
 
@@ -203,6 +208,8 @@ export default function EvaluacionDiagnosticaScreen() {
   const [qPuntaje, setQPuntaje] = useState("1");
   const [qDcd, setQDcd] = useState<string>("");
   const [qOpciones, setQOpciones] = useState<string[]>(["", "", "", ""]);
+  // Imagen opcional por opción (data URI), paralela a qOpciones.
+  const [qImagenes, setQImagenes] = useState<(string | undefined)[]>([]);
   const [qCorrecta, setQCorrecta] = useState(0);
   const [qRespuesta, setQRespuesta] = useState("");
   const [qRetro, setQRetro] = useState("");
@@ -369,8 +376,13 @@ export default function EvaluacionDiagnosticaScreen() {
   function agregarPreguntaManual() {
     if (!qEnunciado.trim()) { setValidationError("Escribe el enunciado de la pregunta."); return; }
     if (!qDcd) { setValidationError("Asocia la pregunta a una DCD."); return; }
-    if (qTipo === "opcion_multiple" && qOpciones.filter((o) => o.trim()).length < 2) {
-      setValidationError("Agrega al menos 2 opciones.");
+    const opcionLlena = (i: number) => !!qOpciones[i]?.trim() || !!qImagenes[i];
+    if (qTipo === "opcion_multiple" && qOpciones.filter((_, i) => opcionLlena(i)).length < 2) {
+      setValidationError("Agrega al menos 2 opciones (texto o imagen).");
+      return;
+    }
+    if (qTipo === "opcion_multiple" && !opcionLlena(qCorrecta)) {
+      setValidationError("La opción marcada como correcta está vacía.");
       return;
     }
     if (qTipo === "v_f") {
@@ -391,9 +403,11 @@ export default function EvaluacionDiagnosticaScreen() {
       return;
     }
     if (qTipo === "opcion_multiple") {
+      // Se filtra después de mapear para no perder qué índice era el correcto.
       const opciones: OpcionPregunta[] = qOpciones
-        .filter((o) => o.trim())
-        .map((o, i) => ({ id: "op" + i, texto: o.trim(), esCorrecta: i === qCorrecta }));
+        .map((o, i) => ({ texto: o.trim(), imagen: qImagenes[i], esCorrecta: i === qCorrecta }))
+        .filter((o) => o.texto || o.imagen)
+        .map((o, i) => ({ id: "op" + i, ...o }));
       const nueva: PreguntaDiagnostica = {
         id: nuevoId(), enunciado: qEnunciado.trim(), tipo: qTipo, dificultad: qDificultad,
         puntaje: Number(qPuntaje) || 1, dcdCodigo: qDcd,
@@ -419,9 +433,33 @@ export default function EvaluacionDiagnosticaScreen() {
 
   function limpiarFormManual() {
     setQEnunciado(""); setQRespuesta(""); setQRetro("");
-    setQOpciones(["", "", "", ""]); setQCorrecta(0); setQPuntaje("1");
+    setQOpciones(["", "", "", ""]); setQImagenes([]); setQCorrecta(0); setQPuntaje("1");
     setShowManualForm(false);
     setValidationError(null);
+  }
+
+  async function elegirImagenOpcion(i: number) {
+    if (Platform.OS !== "web") {
+      Alert.alert("Opciones con imagen", "Por ahora puedes añadir imágenes desde la versión web.");
+      return;
+    }
+    const uri = await elegirImagenReducida();
+    if (uri) setQImagenes((prev) => { const n = [...prev]; n[i] = uri; return n; });
+  }
+
+  function quitarImagenOpcion(i: number) {
+    setQImagenes((prev) => { const n = [...prev]; n[i] = undefined; return n; });
+  }
+
+  function agregarOpcion() {
+    setQOpciones((prev) => (prev.length >= MAX_OPCIONES ? prev : [...prev, ""]));
+  }
+
+  function quitarOpcion(i: number) {
+    if (qOpciones.length <= 2) return;
+    setQOpciones((prev) => prev.filter((_, j) => j !== i));
+    setQImagenes((prev) => prev.filter((_, j) => j !== i));
+    setQCorrecta((c) => (c === i ? 0 : c > i ? c - 1 : c));
   }
 
   function agregarDeBanco(p: PreguntaDiagnostica) {
@@ -474,7 +512,7 @@ export default function EvaluacionDiagnosticaScreen() {
         dificultad: s.dificultad,
         puntaje: s.puntaje,
         dcdCodigo: s.dcdCodigo,
-        opciones: s.opciones?.map((o, i) => ({ id: "op" + i, texto: o.texto, esCorrecta: o.esCorrecta })),
+        opciones: s.opciones?.map((o, i) => ({ id: "op" + i, texto: o.texto, imagen: o.imagen, esCorrecta: o.esCorrecta })),
         respuestaCorrecta: s.respuestaCorrecta,
         retroalimentacion: s.retroalimentacion,
         activa: true,
@@ -831,6 +869,17 @@ export default function EvaluacionDiagnosticaScreen() {
                         </Text>
                       </View>
                     </Pressable>
+                    {s.opciones?.some((o) => o.imagen) && (
+                      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 8, marginLeft: 32 }}>
+                        {s.opciones.map((o) => (
+                          <View key={o.id} style={{ alignItems: "center", gap: 2, padding: 4, borderRadius: 8, borderWidth: 1, borderColor: o.esCorrecta ? "#16A34A" : colors.border }}>
+                            {o.imagen && <Image source={{ uri: o.imagen }} style={{ width: 96, height: 72 }} contentFit="contain" />}
+                            {!!o.texto && <Text style={{ fontSize: 11, color: colors.text }}>{o.texto}</Text>}
+                            {o.esCorrecta && <Text style={{ fontSize: 10, color: "#16A34A", fontWeight: "700" }}>Correcta</Text>}
+                          </View>
+                        ))}
+                      </View>
+                    )}
                   </View>
                 ))}
                 <Pressable onPress={incorporarSugerencias} style={[styles.smallBtn, { backgroundColor: colors.primary }]}>
@@ -875,24 +924,68 @@ export default function EvaluacionDiagnosticaScreen() {
                 <ChipGroup<DificultadPregunta> options={DIFICULTADES} selected={qDificultad} onSelect={setQDificultad} colors={colors} getLabel={(d) => DIFICULTAD_INFO[d].nombre} />
                 <Field label="Puntaje" value={qPuntaje} onChangeText={setQPuntaje} colors={colors} keyboardType="numeric" />
 
-                {(qTipo === "opcion_multiple" || qTipo === "v_f") && (
+                {qTipo === "v_f" && (
+                  <View>
+                    <Label text="Respuesta correcta" colors={colors} />
+                    {["Verdadero", "Falso"].map((etiqueta, i) => (
+                      <Pressable key={etiqueta} onPress={() => setQCorrecta(i)} style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8, padding: 4 }}>
+                        <Text style={{ fontSize: 16 }}>{i === (qCorrecta === 0 ? 0 : 1) ? "⭕" : "⚪"}</Text>
+                        <Text style={{ fontSize: 14, color: colors.text }}>{etiqueta}</Text>
+                      </Pressable>
+                    ))}
+                  </View>
+                )}
+
+                {qTipo === "opcion_multiple" && (
                   <View>
                     <Label text="Opciones" colors={colors} />
-                    {qOpciones.map((op, i) => (
-                      <View key={i} style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                        <Pressable onPress={() => setQCorrecta(i)} style={{ padding: 4 }}>
-                          <Text style={{ fontSize: 16 }}>{i === qCorrecta ? "⭕" : "⚪"}</Text>
-                        </Pressable>
-                        <TextInput
-                          value={op}
-                          onChangeText={(t) => setQOpciones((prev) => prev.map((o, j) => (j === i ? t : o)))}
-                          placeholder={i === qCorrecta ? "Opción correcta" : `Opción ${i + 1}`}
-                          placeholderTextColor={colors.muted}
-                          style={[styles.input, { flex: 1, borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
-                        />
-                      </View>
-                    ))}
-                    <Text style={{ fontSize: 11, color: colors.muted }}>Marca la opción correcta con ⭕</Text>
+                    {qOpciones.map((op, i) => {
+                      const img = qImagenes[i];
+                      return (
+                        <View key={i} style={{ marginBottom: 8 }}>
+                          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                            <Pressable onPress={() => setQCorrecta(i)} style={{ padding: 4 }} accessibilityLabel={`Marcar opción ${i + 1} como correcta`}>
+                              <Text style={{ fontSize: 16 }}>{i === qCorrecta ? "⭕" : "⚪"}</Text>
+                            </Pressable>
+                            <TextInput
+                              value={op}
+                              onChangeText={(t) => setQOpciones((prev) => prev.map((o, j) => (j === i ? t : o)))}
+                              placeholder={img ? "Texto opcional para la imagen" : i === qCorrecta ? "Opción correcta" : `Opción ${i + 1}`}
+                              placeholderTextColor={colors.muted}
+                              style={[styles.input, { flex: 1, borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
+                            />
+                            <Pressable
+                              onPress={() => elegirImagenOpcion(i)}
+                              style={[styles.iconBtn, { borderColor: img ? colors.primary : colors.border, backgroundColor: img ? `${colors.primary}14` : colors.surface }]}
+                              accessibilityLabel={img ? `Cambiar imagen de la opción ${i + 1}` : `Añadir imagen a la opción ${i + 1}`}
+                            >
+                              <Text style={{ fontSize: 16 }}>🖼️</Text>
+                            </Pressable>
+                            {qOpciones.length > 2 && (
+                              <Pressable onPress={() => quitarOpcion(i)} style={[styles.iconBtn, { borderColor: colors.border, backgroundColor: colors.surface }]} accessibilityLabel={`Quitar opción ${i + 1}`}>
+                                <Text style={{ fontSize: 14, color: colors.muted }}>✕</Text>
+                              </Pressable>
+                            )}
+                          </View>
+                          {img && (
+                            <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 6, marginTop: 6, marginLeft: 36 }}>
+                              <Image source={{ uri: img }} style={{ width: 120, height: 90, borderRadius: 8, borderWidth: 1, borderColor: colors.border }} contentFit="contain" />
+                              <Pressable onPress={() => quitarImagenOpcion(i)} style={{ paddingHorizontal: 8, paddingVertical: 4 }}>
+                                <Text style={{ fontSize: 12, color: "#DC2626", fontWeight: "600" }}>Quitar imagen</Text>
+                              </Pressable>
+                            </View>
+                          )}
+                        </View>
+                      );
+                    })}
+                    {qOpciones.length < MAX_OPCIONES && (
+                      <Pressable onPress={agregarOpcion} style={[styles.smallBtn, { borderWidth: 1, borderColor: colors.primary, marginBottom: 6 }]}>
+                        <Text style={{ color: colors.primary, fontSize: 12, fontWeight: "600" }}>＋ Agregar opción</Text>
+                      </Pressable>
+                    )}
+                    <Text style={{ fontSize: 11, color: colors.muted }}>
+                      Marca la opción correcta con ⭕. Usa 🖼️ para opciones visuales (figuras, gráficos, fotos).
+                    </Text>
                   </View>
                 )}
 
@@ -1036,6 +1129,7 @@ const styles = StyleSheet.create({
   iaBtnSub: { color: "rgba(255,255,255,0.75)", fontSize: 11, marginTop: 1 },
   section: { borderRadius: 12, borderWidth: 1, padding: 12, marginBottom: 12 },
   smallBtn: { borderRadius: 8, paddingHorizontal: 12, paddingVertical: 8, alignItems: "center", alignSelf: "flex-start" },
+  iconBtn: { width: 40, height: 40, borderRadius: 8, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   subnivelChip: { borderRadius: 10, borderWidth: 1, paddingHorizontal: 10, paddingVertical: 8, minWidth: 150 },
   puntajeInput: { width: 44, borderRadius: 6, borderWidth: 1, paddingHorizontal: 6, paddingVertical: 4, fontSize: 12, textAlign: "center" },
   footer: {
