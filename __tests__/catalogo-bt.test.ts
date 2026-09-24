@@ -6,6 +6,7 @@ import {
   obtenerFigurasActivas,
   obtenerFiguraPorId,
   obtenerFigurasPorFamilia,
+  obtenerModulosSeleccionables,
 } from "../data";
 
 describe("Catálogo de Bachillerato Técnico (00051-A)", () => {
@@ -97,11 +98,10 @@ describe("Catálogo de Bachillerato Técnico (00051-A)", () => {
     const deprecada = obtenerFiguraPorId("construcciones-metalicas");
     const nueva = obtenerFiguraPorId("mecanica-industrial");
     expect(deprecada?.modulos).toHaveLength(3);
-    expect(nueva?.modulos).toHaveLength(3);
-    expect(nueva?.modulos.map((m) => m.codigo)).toEqual([
-      "CM.1.1",
-      "CM.2.1",
-      "CM.3.1",
-    ]);
+    // Mecánica industrial ofrece sus módulos oficiales; los CM.* compartidos
+    // quedan como históricos para resolver planes guardados.
+    const historicos = nueva?.modulos.filter((m) => m.estadoCatalogo === "historico");
+    expect(historicos?.map((m) => m.codigo)).toEqual(["CM.1.1", "CM.2.1", "CM.3.1"]);
+    expect(obtenerModulosSeleccionables("mecanica-industrial").every((m) => m.codigo.startsWith("MI.M"))).toBe(true);
   });
 });

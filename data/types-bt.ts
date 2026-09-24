@@ -68,6 +68,8 @@ export interface ModuloFormativoBTExtras {
   categoria?: "generico" | "especializacion" | "practico";
   nivel?: string; // texto libre, ej. "1ro, 2do"
   duracionPeriodos?: Partial<Record<1 | 2 | 3, number | null>>; // periodos pedagógicos por año
+  /** Duración total del módulo en periodos pedagógicos, según el campo "Duración" del documento oficial */
+  duracionTotalPeriodos?: number;
   objetivoModulo?: string;
   objetivoPorAnio?: Partial<Record<1 | 2 | 3, string>>;
   /** "Modulos contiene N ResultadoAprendizaje" (1:N directo) — catálogo genérico (curriculo-fip-afdr.pdf) */
@@ -75,7 +77,12 @@ export interface ModuloFormativoBTExtras {
   contenidos?: ContenidosBT;
   perfilDocente?: string;
   orientacionesMetodologicas?: string[];
-  estadoCatalogo?: "completo" | "pendiente";
+  /**
+   * "historico": módulo previo a la verificación contra los PDF oficiales. Se
+   * conserva para resolver planes guardados que lo referencian, pero no se
+   * ofrece para planes nuevos (ver obtenerModulosSeleccionables).
+   */
+  estadoCatalogo?: "completo" | "pendiente" | "historico";
 }
 
 // ─── Planificación (lo que produce el docente) ──────────────────────────────

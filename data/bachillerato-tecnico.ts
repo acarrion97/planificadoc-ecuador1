@@ -4,6 +4,7 @@
  */
 import type { ModuloFormativoBTExtras } from "./types-bt";
 import { obtenerUnidadesCompetenciaDeModulo } from "./bachillerato-tecnico-uc";
+import { MODULOS_OFICIALES_BT } from "./bt/modulos-oficiales.generated";
 
 export interface ModuloFormativo extends Partial<ModuloFormativoBTExtras> {
   codigo: string;
@@ -72,7 +73,13 @@ export const FAMILIAS_PROFESIONALES: FamiliaProfesional[] = [
   { id: "diseno", nombre: "Diseño", area: "artistica", figuras: ["diseno-modas", "diseno-grafico"] },
 ];
 
-export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
+/**
+ * Catálogo base de figuras. Para las figuras con PDF oficial de "Módulos
+ * formativos", sus módulos y objetivo general se reemplazan por los oficiales
+ * (data/bt/modulos-oficiales.generated.ts) y los módulos de esta lista pasan a
+ * "historico" (ver FIGURAS_PROFESIONALES más abajo).
+ */
+const FIGURAS_BASE: FiguraProfesional[] = [
   // === ADMINISTRATIVA Y FINANCIERA ===
   {
     id: "gestion-administrativa",
@@ -1028,10 +1035,11 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
     familia: "deportes",
     area: "deportes_salud",
     objetivoGeneral: "Gestionar organizaciones deportivas y culturales aplicando principios de administración, planificación de eventos y promoción deportiva.",
+    // Sin PDF oficial de módulos formativos disponible: pendientes de catálogo.
     modulos: [
-      { codigo: "GD.1.1", nombre: "Administración Deportiva", descripcion: "Aplicar principios de administración en organizaciones deportivas y culturales.", anio: 1 },
-      { codigo: "GD.2.1", nombre: "Planificación de Eventos", descripcion: "Planificar y ejecutar eventos deportivos y culturales.", anio: 2 },
-      { codigo: "GD.3.1", nombre: "Marketing Deportivo", descripcion: "Aplicar estrategias de marketing y comunicación en el ámbito deportivo y cultural.", anio: 3 },
+      { codigo: "GD.1.1", nombre: "Administración Deportiva", descripcion: "Aplicar principios de administración en organizaciones deportivas y culturales.", anio: 1, estadoCatalogo: "pendiente" },
+      { codigo: "GD.2.1", nombre: "Planificación de Eventos", descripcion: "Planificar y ejecutar eventos deportivos y culturales.", anio: 2, estadoCatalogo: "pendiente" },
+      { codigo: "GD.3.1", nombre: "Marketing Deportivo", descripcion: "Aplicar estrategias de marketing y comunicación en el ámbito deportivo y cultural.", anio: 3, estadoCatalogo: "pendiente" },
     ],
   },
   // === SALUD Y SERVICIO ===
@@ -1142,6 +1150,26 @@ export const FIGURAS_PROFESIONALES: FiguraProfesional[] = [
 ];
 
 /**
+ * Aplica el catálogo oficial a una figura: módulos oficiales primero y los
+ * módulos previos como "historico" (mismos códigos), para que los planes
+ * guardados que los referencian se sigan resolviendo.
+ */
+function aplicarCatalogoOficial(figura: FiguraProfesional): FiguraProfesional {
+  const oficial = MODULOS_OFICIALES_BT[figura.id];
+  if (!oficial) return figura;
+  return {
+    ...figura,
+    objetivoGeneral: oficial.objetivoGeneral,
+    modulos: [
+      ...oficial.modulos,
+      ...figura.modulos.map((m) => ({ ...m, estadoCatalogo: "historico" as const })),
+    ],
+  };
+}
+
+export const FIGURAS_PROFESIONALES: FiguraProfesional[] = FIGURAS_BASE.map(aplicarCatalogoOficial);
+
+/**
  * Obtener familias profesionales por área
  */
 export function obtenerFamiliasPorArea(area: string): FamiliaProfesional[] {
@@ -1179,7 +1207,7 @@ export function obtenerFigurasActivas(): FiguraProfesional[] {
 export function obtenerModulosPorAnio(figuraId: string, anio: number): ModuloFormativo[] {
   const figura = FIGURAS_PROFESIONALES.find((f) => f.id === figuraId);
   if (!figura) return [];
-  return figura.modulos.filter((m) => m.anio === anio);
+  return figura.modulos.filter((m) => m.anio === anio && esModuloSeleccionable(m));
 }
 
 /**
@@ -1189,6 +1217,19 @@ export function obtenerTodosLosModulos(figuraId: string): ModuloFormativo[] {
   const figura = FIGURAS_PROFESIONALES.find((f) => f.id === figuraId);
   if (!figura) return [];
   return figura.modulos;
+}
+
+/** Un módulo histórico solo existe para resolver planes guardados. */
+export function esModuloSeleccionable(modulo: ModuloFormativo): boolean {
+  return modulo.estadoCatalogo !== "historico";
+}
+
+/**
+ * Módulos que se ofrecen para planes nuevos (excluye los históricos). La
+ * resolución por código (figura.modulos.find) sigue encontrando los históricos.
+ */
+export function obtenerModulosSeleccionables(figuraId: string): ModuloFormativo[] {
+  return obtenerTodosLosModulos(figuraId).filter(esModuloSeleccionable);
 }
 
 /**

@@ -45,6 +45,8 @@ export {
   obtenerFiguraPorId,
   obtenerModulosPorAnio,
   obtenerTodosLosModulos,
+  obtenerModulosSeleccionables,
+  esModuloSeleccionable,
 } from './bachillerato-tecnico';
 export type { ModuloFormativo, FiguraProfesional, FamiliaProfesional } from './bachillerato-tecnico';
 

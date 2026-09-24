@@ -12,7 +12,7 @@ import { trpc } from "@/lib/trpc";
 import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel, AREAS_INFO } from "@/data";
 import type { Subnivel, DUAActividad } from "@/data/types";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
-import { FIGURAS_PROFESIONALES, obtenerFigurasActivas, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
+import { FIGURAS_PROFESIONALES, esModuloSeleccionable, obtenerFigurasActivas, type FiguraProfesional, type ModuloFormativo } from "@/data/bachillerato-tecnico";
 import type {
   PlanConectaNivelaCrea, ConectaNivelaCreaAiResult,
   DiagnosticoAcademicoCNC, DiagnosticoSocioemocionalCNC,
@@ -1047,7 +1047,7 @@ export default function ConectaNivelaCreaScreen() {
                   <>
                     <Label text="Módulo" colors={colors} />
                     <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
-                      {figuraSeleccionada.modulos.map((m) => (
+                      {figuraSeleccionada.modulos.filter(esModuloSeleccionable).map((m) => (
                         <Pressable
                           key={m.codigo}
                           onPress={() => setPlan((p) => ({ ...p, moduloId: m.codigo }))}
