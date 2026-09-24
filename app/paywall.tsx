@@ -650,7 +650,7 @@ const s = StyleSheet.create({
 
   authCard:        { width: "100%", borderRadius: 24, borderWidth: 1, padding: 22, shadowColor: "#0F172A", shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.1, shadowRadius: 26, elevation: 8 },
   authCardNarrow:  { maxWidth: 520, alignSelf: "center" },
-  authCardWide:    { flex: 1, padding: 28, justifyContent: "center" },
+  authCardWide:    { flex: 1, padding: 34, justifyContent: "space-between" },
   afterCard:       { marginTop: 20 },
   logo:          { width: 72, height: 72, borderRadius: 20, marginBottom: 14, borderWidth: 2.5, borderColor: "rgba(255,255,255,0.20)" },
   h1:            { fontSize: 26, fontWeight: "800", letterSpacing: -0.5, textAlign: "center" },
