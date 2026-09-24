@@ -10,7 +10,7 @@ import { useAccess } from "@/lib/access-control";
 
 const WHATSAPP_NUMBER = "593978833533";
 type PlanType = "monthly" | "annual";
-type AuthTab = "login" | "register" | "code";
+type AuthTab = "login" | "register" | "code" | "forgot" | "reset";
 
 // ─── Pantalla principal ───────────────────────────────────────────────────────
 
@@ -18,7 +18,7 @@ export default function PaywallScreen() {
   const colors = useColors();
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const isWide = windowWidth >= 900; // ≥900px: login en dos columnas (panel de marca + tarjeta)
-  const { loginWithPassword, registerAccount, unlockWithCode, unlockWithSubscription } = useAccess();
+  const { loginWithPassword, registerAccount, requestPasswordReset, resetPasswordWithCode, unlockWithCode, unlockWithSubscription } = useAccess();
 
   const [authTab, setAuthTab]           = useState<AuthTab>("login");
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("annual");
@@ -50,6 +50,18 @@ export default function PaywallScreen() {
   const [code, setCode]           = useState("");
   const [codeError, setCodeError] = useState("");
   const [codeLoading, setCodeLoading] = useState(false);
+
+  // Recuperación de contraseña (código de un solo uso al correo)
+  const [resetEmail, setResetEmail]     = useState("");
+  const [resetCode, setResetCode]       = useState("");
+  const [resetPass, setResetPass]       = useState("");
+  const [resetConfirm, setResetConfirm] = useState("");
+  const [resetError, setResetError]     = useState("");
+  const [resetInfo, setResetInfo]       = useState("");
+  const [resetLoading, setResetLoading]     = useState(false); // enviar/reenviar código
+  const [confirmLoading, setConfirmLoading] = useState(false); // restablecer contraseña
+  const [resendCooldown, setResendCooldown] = useState(0);     // anti-spam de reenvío (s)
+  const [loginInfo, setLoginInfo]       = useState("");        // banner de éxito en login
 
   const [success, setSuccess] = useState(false);
 
@@ -92,6 +104,13 @@ export default function PaywallScreen() {
       if (fbc) sessionStorage.setItem("pdoc_fbc", fbc);
     } catch {}
   }, []);
+
+  // Cuenta regresiva para reenviar el código (el backend también limita a 1/min)
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const t = setTimeout(() => setResendCooldown(c => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [resendCooldown]);
 
   // ── Handlers ────────────────────────────────────────────────────────────────
 
@@ -193,6 +212,54 @@ export default function PaywallScreen() {
       else setCodeError("Código inválido. Verifica e intenta de nuevo.");
     } finally { setCodeLoading(false); }
   }, [code, unlockWithCode]);
+
+  // ── Recuperación de contraseña ──────────────────────────────────────────────
+
+  const goForgotPassword = useCallback(() => {
+    setLoginError(""); setLoginInfo("");
+    setResetEmail(loginEmail.trim().toLowerCase());
+    setResetCode(""); setResetPass(""); setResetConfirm("");
+    setResetError(""); setResetInfo("");
+    setAuthTab("forgot");
+  }, [loginEmail]);
+
+  const handleSendCode = useCallback(async () => {
+    const target = resetEmail.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) { setResetError("Correo inválido"); return; }
+    setResetError(""); setResetLoading(true);
+    try {
+      const result = await requestPasswordReset(target);
+      if (result.success) {
+        setResetInfo(`Si existe una cuenta con ${target}, recibirás un código de 6 dígitos. Revisa tu correo y la carpeta de spam.`);
+        setResetCode(""); setResetPass(""); setResetConfirm("");
+        setResendCooldown(60);
+        setAuthTab("reset");
+      } else {
+        setResetError(result.error || "No se pudo enviar el código. Intenta de nuevo.");
+      }
+    } finally { setResetLoading(false); }
+  }, [resetEmail, requestPasswordReset]);
+
+  const handleResetPassword = useCallback(async () => {
+    if (!/^\d{6}$/.test(resetCode.trim())) { setResetError("El código debe tener 6 dígitos"); return; }
+    if (resetPass.length < 6) { setResetError("La contraseña debe tener al menos 6 caracteres"); return; }
+    if (resetPass !== resetConfirm) { setResetError("Las contraseñas no coinciden"); return; }
+    setResetError(""); setConfirmLoading(true);
+    try {
+      const result = await resetPasswordWithCode(resetEmail, resetCode.trim(), resetPass);
+      if (result.success) {
+        // Redirigir al login con el correo precargado y banner de éxito
+        setLoginEmail(resetEmail);
+        setLoginPassword(""); setLoginError("");
+        setLoginInfo("Contraseña actualizada. Ya puedes iniciar sesión con tu nueva contraseña.");
+        setResetCode(""); setResetPass(""); setResetConfirm("");
+        setResetError(""); setResetInfo("");
+        setAuthTab("login");
+      } else {
+        setResetError(result.error || "No se pudo restablecer la contraseña. Intenta de nuevo.");
+      }
+    } finally { setConfirmLoading(false); }
+  }, [resetEmail, resetCode, resetPass, resetConfirm, resetPasswordWithCode]);
 
   const handleWhatsApp = () => {
     const msg = encodeURIComponent("Hola, necesito ayuda con mi suscripción de PlanificaDoc.");
@@ -393,6 +460,8 @@ export default function PaywallScreen() {
   }
 
   // ── Pantalla principal (auth) ────────────────────────────────────────────────
+  // El flujo de recuperación (forgot/reset) se muestra bajo la pestaña "Ingresar"
+  const activeTabKey: AuthTab = authTab === "forgot" || authTab === "reset" ? "login" : authTab;
   return (
     <ScreenContainer edges={["top", "bottom", "left", "right"]}>
       <ScrollView contentContainerStyle={s.authScroll} keyboardShouldPersistTaps="handled">
@@ -419,14 +488,14 @@ export default function PaywallScreen() {
               {(["login", "register", "code"] as AuthTab[]).map(tab => (
                 <Pressable
                   key={tab}
-                  onPress={() => setAuthTab(tab)}
+                  onPress={() => { setAuthTab(tab); setLoginInfo(""); }}
                   style={({ pressed }) => [
                     s.tab,
-                    authTab === tab && { backgroundColor: colors.primary },
+                    activeTabKey === tab && { backgroundColor: colors.primary },
                     pressed && { opacity: 0.8 },
                   ]}
                 >
-                  <Text style={[s.tabText, { color: authTab === tab ? "#FFF" : colors.muted }]}>
+                  <Text style={[s.tabText, { color: activeTabKey === tab ? "#FFF" : colors.muted }]}>
                     {tab === "login" ? "🔑 Ingresar" : tab === "register" ? "✏️ Registrarse" : "🎫 Código"}
                   </Text>
                 </Pressable>
@@ -445,7 +514,11 @@ export default function PaywallScreen() {
                 <FieldInput emoji="🔒" placeholder="Tu contraseña" value={loginPassword}
                   onChangeText={t => { setLoginPassword(t); setLoginError(""); }}
                   secureTextEntry autoCapitalize="none" hasError={!!loginError} colors={colors} />
+                <Pressable onPress={goForgotPassword} style={s.forgotLink} hitSlop={6}>
+                  <Text style={[s.forgotLinkText, { color: colors.primary }]}>¿Olvidaste tu contraseña?</Text>
+                </Pressable>
                 {loginError ? <ErrorRow text={loginError} /> : null}
+                {loginInfo ? <InfoRow text={loginInfo} icon="✅" /> : null}
                 <Pressable
                   onPress={handleLogin} disabled={loginLoading}
                   style={({ pressed }) => [s.authBtn, { backgroundColor: colors.primary, opacity: loginLoading ? 0.6 : pressed ? 0.9 : 1 }]}
@@ -517,6 +590,74 @@ export default function PaywallScreen() {
               </View>
             )}
 
+            {/* FORGOT PASSWORD — paso 1: pedir código al correo */}
+            {authTab === "forgot" && (
+              <View style={s.formBox}>
+                <Text style={[s.formHint, { color: colors.muted }]}>Ingresa tu correo y te enviaremos un código de un solo uso</Text>
+                <FieldLabel label="Correo electrónico" colors={colors} />
+                <FieldInput emoji="📧" placeholder="docente@ejemplo.com" value={resetEmail}
+                  onChangeText={(t: string) => { setResetEmail(t); setResetError(""); }}
+                  keyboardType="email-address" autoCapitalize="none" hasError={!!resetError} colors={colors} />
+                {resetError ? <ErrorRow text={resetError} /> : null}
+                <Pressable
+                  onPress={handleSendCode} disabled={resetLoading}
+                  style={({ pressed }) => [s.authBtn, { backgroundColor: colors.primary, opacity: resetLoading ? 0.6 : pressed ? 0.9 : 1 }]}
+                >
+                  {resetLoading
+                    ? <ActivityIndicator size="small" color="#fff" />
+                    : <><Text style={{ fontSize: 18 }}>✉️</Text><Text style={s.authBtnText}>Enviar código</Text></>
+                  }
+                </Pressable>
+                <Pressable onPress={() => setAuthTab("login")} style={s.switchLink}>
+                  <Text style={[s.switchLinkText, { color: colors.primary }]}>← Volver a iniciar sesión</Text>
+                </Pressable>
+              </View>
+            )}
+
+            {/* RESET PASSWORD — paso 2: código + contraseña nueva */}
+            {authTab === "reset" && (
+              <View style={s.formBox}>
+                <Text style={[s.formHint, { color: colors.muted }]}>Restablece tu contraseña con el código que enviamos a tu correo</Text>
+                {resetInfo ? <InfoRow text={resetInfo} icon="✉️" /> : null}
+                <FieldLabel label="Código de 6 dígitos" colors={colors} />
+                <FieldInput emoji="🔢" placeholder="Ej: 483920" value={resetCode}
+                  onChangeText={(t: string) => { setResetCode(t.replace(/\D/g, "")); setResetError(""); }}
+                  keyboardType="number-pad" maxLength={6} hasError={!!resetError} colors={colors} />
+                <FieldLabel label="Nueva contraseña" colors={colors} mt />
+                <FieldInput emoji="🔒" placeholder="Mínimo 6 caracteres" value={resetPass}
+                  onChangeText={(t: string) => { setResetPass(t); setResetError(""); }}
+                  secureTextEntry autoCapitalize="none" colors={colors} />
+                <FieldLabel label="Confirmar nueva contraseña" colors={colors} mt />
+                <FieldInput emoji="🔒" placeholder="Repite tu contraseña" value={resetConfirm}
+                  onChangeText={(t: string) => { setResetConfirm(t); setResetError(""); }}
+                  secureTextEntry autoCapitalize="none" hasError={!!resetError} colors={colors} />
+                {resetError ? <ErrorRow text={resetError} /> : null}
+                <Pressable
+                  onPress={handleResetPassword} disabled={confirmLoading}
+                  style={({ pressed }) => [s.authBtn, { backgroundColor: "#059669", opacity: confirmLoading ? 0.6 : pressed ? 0.9 : 1 }]}
+                >
+                  {confirmLoading
+                    ? <ActivityIndicator size="small" color="#fff" />
+                    : <><Text style={{ fontSize: 18 }}>✅</Text><Text style={s.authBtnText}>Restablecer contraseña</Text></>
+                  }
+                </Pressable>
+                <Pressable
+                  onPress={handleSendCode}
+                  disabled={resendCooldown > 0 || resetLoading}
+                  style={s.switchLink}
+                >
+                  <Text style={[s.switchLinkText, { color: resendCooldown > 0 || resetLoading ? colors.muted : colors.primary }]}>
+                    {resendCooldown > 0
+                      ? `¿No recibiste el código? Reenviar en ${resendCooldown}s`
+                      : "¿No recibiste el código? Reenviar →"}
+                  </Text>
+                </Pressable>
+                <Pressable onPress={() => setAuthTab("login")} style={s.switchLink}>
+                  <Text style={[s.switchLinkText, { color: colors.primary }]}>← Volver a iniciar sesión</Text>
+                </Pressable>
+              </View>
+            )}
+
             <HelpSection onWhatsApp={handleWhatsApp} colors={colors} divider />
           </View>
         </View>
@@ -577,6 +718,16 @@ function ErrorRow({ text }: { text: string }) {
     <View style={s.errorRow}>
       <Text style={{ fontSize: 14 }}>⚠️</Text>
       <Text style={s.errorText}>{text}</Text>
+    </View>
+  );
+}
+
+/** Mensaje informativo verde (éxito / instrucciones) — contraparte de ErrorRow. */
+function InfoRow({ text, icon }: { text: string; icon?: string }) {
+  return (
+    <View style={s.infoRow}>
+      <Text style={{ fontSize: 14 }}>{icon || "ℹ️"}</Text>
+      <Text style={s.infoText}>{text}</Text>
     </View>
   );
 }
@@ -679,6 +830,10 @@ const s = StyleSheet.create({
   inputText:     { flex: 1, fontSize: 15, height: 50 },
   errorRow:      { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 6, paddingHorizontal: 2 },
   errorText:     { fontSize: 12, fontWeight: "500", flex: 1, color: "#DC2626" },
+  infoRow:       { flexDirection: "row", alignItems: "flex-start", gap: 6, marginTop: 8, paddingHorizontal: 10, paddingVertical: 9, borderRadius: 10, borderWidth: 1, borderColor: "#05966940", backgroundColor: "#05966912" },
+  infoText:      { fontSize: 12, fontWeight: "500", flex: 1, color: "#059669", lineHeight: 17 },
+  forgotLink:    { alignItems: "flex-end", marginTop: 6, marginBottom: 2, paddingVertical: 2 },
+  forgotLinkText:{ fontSize: 13, fontWeight: "600" },
   authBtn:       { flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: 15, borderRadius: 14, gap: 10, marginTop: 14 },
   authBtnText:   { color: "#FFF", fontSize: 16, fontWeight: "700" },
   switchLink:    { alignItems: "center", marginTop: 14, paddingVertical: 4 },
