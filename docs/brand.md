@@ -80,7 +80,8 @@ Documentado también en `design.md`.
 | Token | Light | Dark | Uso |
 |---|---|---|---|
 | `primary` | `#1B5E9E` | `#4DA3E8` | Azul institucional (referencia MinEduc) |
-| `brand` | `#003366` | `#003366` | Marca y navegación: ítem activo del sidebar/drawer, hub `/crear` |
+| `brand` | `#003366` | `#003366` | Marca como **fondo**: ítem activo del sidebar/drawer, botones y chips (texto blanco encima) |
+| `brandFg` | `#003366` | `#7DB9EA` | Marca como **texto/icono/tinte**: títulos, links, chips y acentos (en dark se aclara para contraste ≥5:1) |
 | `background` | `#F8FAFC` | `#0A2E5C` | Fondo principal (dark: azul marino) |
 | `surface` | `#FFFFFF` | `#123C72` | Tarjetas y superficies elevadas |
 | `foreground` | `#0F172A` | `#EBF1FA` | Texto principal |
@@ -208,8 +209,9 @@ botones primarios, documentos y correos:
 - Navegación (ya **sin tab bar**): sidebar izquierdo ≥768 px (240 px expandido /
   64 px colapsado, colapso manual persistente) y header con `☰` + drawer lateral
   en móvil; zona principal **Inicio · Crear · Explorar · Mis planes**, gestión
-  **Mi cuenta · Ayuda**, marca al pie; ítem activo en `brand` `#003366` con texto
-  blanco, "Crear" destacado; área de trabajo con ancho máximo de 1080 px.
+  **Mi cuenta · Ayuda**, marca al pie en `brandFg`; ítem activo en `brand`
+  `#003366` con texto blanco, "Crear" destacado; área de trabajo con ancho
+  máximo de 1080 px.
 - Acciones primarias con `#003366`.
 
 ### 4.2 Documentos exportados (Word y PDF)

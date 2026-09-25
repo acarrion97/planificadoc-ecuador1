@@ -14,9 +14,13 @@
 /** @type {const} */
 const themeColors = {
   primary: { light: '#1B5E9E', dark: '#4DA3E8' },
-  // Color de marca PlanificaDoc (#003366). Blanco encima contrasta en ambos
-  // modos, por eso light y dark son iguales. Ver docs/brand.md y design D6.
+  // Color de marca PlanificaDoc (#003366). Se reserva como FONDO (botones,
+  // chips, panel paywall, ítem activo): blanco encima contrasta en ambos modos.
   brand: { light: '#003366', dark: '#003366' },
+  // Marca como TEXTO/ICONO. En dark, #003366 sobre #0A2E5C/#123C72 es
+  // ilegible, así que se aclara el mismo azul de marca (#7DB9EA: ≈6.4:1 sobre
+  // el cuerpo y ≈5.2:1 sobre surface). En light es idéntico a `brand`.
+  brandFg: { light: '#003366', dark: '#7DB9EA' },
   background: { light: '#F8FAFC', dark: '#0A2E5C' },
   surface: { light: '#FFFFFF', dark: '#123C72' },
   foreground: { light: '#0F172A', dark: '#EBF1FA' },

@@ -100,9 +100,9 @@ function NavItem({ item, active, collapsed, onPress }: NavItemProps) {
   const background = active
     ? colors.brand
     : isCrear
-      ? colors.brand + "14"
+      ? colors.brandFg + "14"
       : "transparent";
-  const foreground = active ? "#FFFFFF" : isCrear ? colors.brand : colors.muted;
+  const foreground = active ? "#FFFFFF" : isCrear ? colors.brandFg : colors.muted;
 
   return (
     <Pressable
@@ -195,7 +195,7 @@ function NavBody({ active, collapsed, onNavigate }: NavBodyProps) {
       {/* Marca al pie */}
       {!collapsed && (
         <View style={{ paddingBottom: 12 }}>
-          <Text style={{ color: colors.brand, fontSize: 13, fontWeight: "800" }}>
+          <Text style={{ color: colors.brandFg, fontSize: 13, fontWeight: "800" }}>
             PlanificaDoc Ecuador
           </Text>
         </View>
@@ -238,9 +238,9 @@ function Sidebar({ collapsed, onToggle, active }: SidebarProps) {
         }}
       >
         {collapsed ? (
-          <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>PD</Text>
+          <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>PD</Text>
         ) : (
-          <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>
+          <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>
             PlanificaDoc
           </Text>
         )}
@@ -310,7 +310,7 @@ function MobileHeader({ onMenu, section }: { onMenu: () => void; section: NavDef
         >
           <MaterialCommunityIcons name="menu" size={24} color={colors.foreground} />
         </Pressable>
-        <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>
+        <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>
           PlanificaDoc
         </Text>
         <View style={{ flex: 1 }} />
@@ -354,7 +354,7 @@ function Drawer({ open, active, onClose }: DrawerProps) {
               paddingVertical: 12,
             }}
           >
-            <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>
+            <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>
               PlanificaDoc
             </Text>
             <Pressable

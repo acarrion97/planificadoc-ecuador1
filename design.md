@@ -9,7 +9,8 @@ Aplicación móvil para docentes ecuatorianos que permite generar planificacione
 | Token | Light | Dark | Uso |
 |-------|-------|------|-----|
 | primary | #1B5E9E | #4DA3E8 | Azul institucional (similar al Ministerio de Educación) |
-| brand | #003366 | #003366 | Marca y navegación: ítem activo del sidebar/drawer, hub `/crear` |
+| brand | #003366 | #003366 | Marca como **fondo**: ítem activo del sidebar/drawer, botones y chips (texto blanco encima) |
+| brandFg | #003366 | #7DB9EA | Marca como **texto/icono/tinte**: títulos, links, chips y acentos (en dark se aclara para contraste ≥5:1) |
 | background | #F8FAFC | #0A2E5C | Fondo principal (dark: azul marino) |
 | surface | #FFFFFF | #123C72 | Tarjetas y superficies elevadas |
 | foreground | #0F172A | #EBF1FA | Texto principal |

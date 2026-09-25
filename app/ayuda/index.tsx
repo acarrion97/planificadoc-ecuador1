@@ -182,7 +182,7 @@ export default function AyudaScreen() {
 
           {/* FAQ */}
           <View style={{ gap: 10 }}>
-            <Text style={{ color: colors.brand, fontSize: 15, fontWeight: "800" }}>
+            <Text style={{ color: colors.brandFg, fontSize: 15, fontWeight: "800" }}>
               Preguntas frecuentes
             </Text>
 
@@ -214,7 +214,7 @@ export default function AyudaScreen() {
                   style={{
                     backgroundColor: colors.surface,
                     borderWidth: 1,
-                    borderColor: abierto_ ? colors.brand : colors.border,
+                    borderColor: abierto_ ? colors.brandFg : colors.border,
                     borderRadius: 12,
                     overflow: "hidden",
                   }}
@@ -270,7 +270,7 @@ export default function AyudaScreen() {
                         >
                           <Text
                             style={{
-                              color: colors.brand,
+                              color: colors.brandFg,
                               fontSize: 14,
                               fontWeight: "700",
                               textDecorationLine: "underline",
@@ -278,7 +278,7 @@ export default function AyudaScreen() {
                           >
                             {item.enlace.etiqueta}
                           </Text>
-                          <MaterialCommunityIcons name="arrow-right" size={14} color={colors.brand} />
+                          <MaterialCommunityIcons name="arrow-right" size={14} color={colors.brandFg} />
                         </Pressable>
                       )}
                     </View>
@@ -290,7 +290,7 @@ export default function AyudaScreen() {
 
           {/* Enlaces rápidos */}
           <View style={{ gap: 10 }}>
-            <Text style={{ color: colors.brand, fontSize: 15, fontWeight: "800" }}>
+            <Text style={{ color: colors.brandFg, fontSize: 15, fontWeight: "800" }}>
               Accesos directos
             </Text>
             <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
@@ -318,7 +318,7 @@ export default function AyudaScreen() {
                     opacity: pressed ? 0.7 : 1,
                   })}
                 >
-                  <MaterialCommunityIcons name={item.icono} size={16} color={colors.brand} />
+                  <MaterialCommunityIcons name={item.icono} size={16} color={colors.brandFg} />
                   <Text style={{ color: colors.foreground, fontSize: 13, fontWeight: "600" }}>
                     {item.etiqueta}
                   </Text>
@@ -330,15 +330,15 @@ export default function AyudaScreen() {
           {/* Soporte */}
           <View
             style={{
-              backgroundColor: colors.brand + "0F",
+              backgroundColor: colors.brandFg + "0F",
               borderWidth: 1,
-              borderColor: colors.brand + "33",
+              borderColor: colors.brandFg + "33",
               borderRadius: 14,
               padding: 16,
               gap: 12,
             }}
           >
-            <Text style={{ color: colors.brand, fontSize: 15, fontWeight: "800" }}>
+            <Text style={{ color: colors.brandFg, fontSize: 15, fontWeight: "800" }}>
               ¿No resolviste tu caso?
             </Text>
             <Text style={{ color: colors.muted, fontSize: 14, lineHeight: 20 }}>
@@ -383,7 +383,7 @@ export default function AyudaScreen() {
                   opacity: pressed ? 0.7 : 1,
                 })}
               >
-                <MaterialCommunityIcons name="whatsapp" size={18} color={colors.brand} />
+                <MaterialCommunityIcons name="whatsapp" size={18} color={colors.brandFg} />
                 <Text style={{ color: colors.foreground, fontSize: 14, fontWeight: "700" }}>
                   Grupo de WhatsApp
                 </Text>

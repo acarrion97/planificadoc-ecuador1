@@ -72,14 +72,14 @@ export default function CrearScreen() {
               flexDirection: "row",
               alignItems: "center",
               gap: 10,
-              backgroundColor: colors.brand + "0F",
+              backgroundColor: colors.brandFg + "0F",
               borderWidth: 1,
-              borderColor: colors.brand + "40",
+              borderColor: colors.brandFg + "40",
               borderRadius: 12,
               padding: 14,
             }}
           >
-            <MaterialCommunityIcons name="check-decagram" size={20} color={colors.brand} />
+            <MaterialCommunityIcons name="check-decagram" size={20} color={colors.brandFg} />
             <Text style={{ flex: 1, color: colors.foreground, fontSize: 13, lineHeight: 19 }}>
               Has llegado desde {origen}.{" "}
               <Text style={{ fontWeight: "700" }}>Adaptación curricular</Text> está
@@ -96,10 +96,10 @@ export default function CrearScreen() {
             <View key={categoria.id} style={{ gap: 12 }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
                 <View
-                  style={{ width: 4, height: 16, borderRadius: 2, backgroundColor: colors.brand }}
+                  style={{ width: 4, height: 16, borderRadius: 2, backgroundColor: colors.brandFg }}
                 />
                 <Text
-                  style={{ color: colors.brand, fontSize: 15, fontWeight: "800" }}
+                  style={{ color: colors.brandFg, fontSize: 15, fontWeight: "800" }}
                   accessibilityRole="header"
                 >
                   {categoria.label}
@@ -156,7 +156,7 @@ export default function CrearScreen() {
                             width: 36,
                             height: 36,
                             borderRadius: 10,
-                            backgroundColor: colors.brand + "14",
+                            backgroundColor: colors.brandFg + "14",
                             alignItems: "center",
                             justifyContent: "center",
                           }}
@@ -164,7 +164,7 @@ export default function CrearScreen() {
                           <MaterialCommunityIcons
                             name={modulo.icono}
                             size={20}
-                            color={colors.brand}
+                            color={colors.brandFg}
                           />
                         </View>
                         <Text
@@ -198,7 +198,7 @@ export default function CrearScreen() {
                             alignItems: "center",
                             gap: 6,
                             alignSelf: "flex-start",
-                            backgroundColor: colors.brand + "14",
+                            backgroundColor: colors.brandFg + "14",
                             borderRadius: 999,
                             paddingHorizontal: 10,
                             paddingVertical: 5,
@@ -207,9 +207,9 @@ export default function CrearScreen() {
                           <MaterialCommunityIcons
                             name="check-circle"
                             size={14}
-                            color={colors.brand}
+                            color={colors.brandFg}
                           />
-                          <Text style={{ color: colors.brand, fontSize: 12, fontWeight: "700" }}>
+                          <Text style={{ color: colors.brandFg, fontSize: 12, fontWeight: "700" }}>
                             Contexto precargado
                           </Text>
                         </View>
@@ -246,7 +246,7 @@ export default function CrearScreen() {
                           >
                             <Text
                               style={{
-                                color: colors.brand,
+                                color: colors.brandFg,
                                 fontSize: 13,
                                 fontWeight: "700",
                                 textDecorationLine: "underline",

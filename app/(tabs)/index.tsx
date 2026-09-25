@@ -109,7 +109,7 @@ export default function HomeScreen() {
             <View className="px-5 pt-4 pb-2">
               <Text
                 className="text-3xl font-bold"
-                style={{ color: colors.brand }}
+                style={{ color: colors.brandFg }}
                 accessibilityRole="header"
               >
                 PlanificaDoc
@@ -184,8 +184,8 @@ export default function HomeScreen() {
                         ]}
                       >
                         <View style={{ flex: 1 }}>
-                          <View style={[styles.tipoChip, { backgroundColor: colors.brand + "14" }]}>
-                            <Text style={[styles.tipoChipText, { color: colors.brand }]}>
+                          <View style={[styles.tipoChip, { backgroundColor: colors.brandFg + "14" }]}>
+                            <Text style={[styles.tipoChipText, { color: colors.brandFg }]}>
                               {item.tipo}
                             </Text>
                           </View>
