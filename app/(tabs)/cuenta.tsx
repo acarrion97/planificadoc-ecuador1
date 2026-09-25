@@ -14,6 +14,13 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useAccess } from "@/lib/access-control";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { getApiBaseUrl } from "@/constants/oauth";
+import { useThemeContext, type ThemePreference } from "@/lib/theme-provider";
+
+const THEME_OPTIONS: { value: ThemePreference; label: string; icon: string }[] = [
+  { value: "light", label: "Claro", icon: "☀️" },
+  { value: "dark", label: "Oscuro", icon: "🌙" },
+  { value: "system", label: "Sistema", icon: "📱" },
+];
 
 interface SubscriptionDetails {
   plan: string;
@@ -33,6 +40,7 @@ interface CardInfo {
 export default function CuentaScreen() {
   const { hasAccess, accessMethod, subscribedEmail, subscriptionEndDate, resetAccess } = useAccess();
   const { planificaciones } = usePlanificaciones();
+  const { themePreference, setThemePreference } = useThemeContext();
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [details, setDetails] = useState<SubscriptionDetails | null>(null);
@@ -398,6 +406,40 @@ export default function CuentaScreen() {
                 {planificaciones.length}
               </Text>
             </View>
+          </View>
+        </View>
+
+        {/* Apariencia */}
+        <View className="bg-surface rounded-2xl p-5 border border-border mb-4">
+          <Text className="text-lg font-semibold text-foreground mb-1">Apariencia</Text>
+          <Text className="text-sm text-muted mb-3">
+            Elige el tema de la aplicación
+          </Text>
+          <View className="flex-row gap-2" accessibilityRole="radiogroup">
+            {THEME_OPTIONS.map((option) => {
+              const selected = themePreference === option.value;
+              return (
+                <TouchableOpacity
+                  key={option.value}
+                  onPress={() => setThemePreference(option.value)}
+                  accessibilityRole="radio"
+                  accessibilityState={{ selected }}
+                  accessibilityLabel={`Tema ${option.label}`}
+                  className={`flex-1 items-center rounded-xl py-3 border ${
+                    selected ? "bg-primary border-primary" : "bg-background border-border"
+                  }`}
+                >
+                  <Text style={{ fontSize: 20 }}>{option.icon}</Text>
+                  <Text
+                    className={`text-sm font-semibold mt-1 ${
+                      selected ? "text-background" : "text-foreground"
+                    }`}
+                  >
+                    {option.label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
 
