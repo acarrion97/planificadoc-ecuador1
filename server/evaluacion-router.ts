@@ -6,6 +6,7 @@ import { getDb } from "./db";
 import { evaluacionesDiagnosticas } from "../drizzle/schema";
 import { enfasisMarzanoPorSubnivel } from "../lib/curriculo-prerrequisitos";
 import type { Subnivel } from "../data/types";
+import { svgADataUri } from "./evaluacion-svg";
 
 // ─── Zod schemas ──────────────────────────────────────────────────────────────
 
@@ -23,7 +24,12 @@ const PreguntaSugeridaSchema = z.object({
   puntaje: z.number().positive(),
   dcdCodigo: z.string().min(1),
   opciones: z
-    .array(z.object({ texto: z.string().min(1), esCorrecta: z.boolean() }))
+    .array(z.object({
+      texto: z.string().default(""),
+      /** Opción visual: SVG autocontenido; se convierte a data URI en `imagen` */
+      svg: z.string().optional(),
+      esCorrecta: z.boolean(),
+    }))
     .optional(),
   respuestaCorrecta: z.string().optional(),
   retroalimentacion: z.string().optional(),
@@ -105,6 +111,12 @@ REGLAS:
   · completamiento: el enunciado deja 2-3 espacios "__________" y cada opción es la serie de palabras que los completa, separadas por " – ".
   · emparejamiento: el enunciado lista elementos numerados y características con letras, y cada opción es una combinación (ej. "A. 1b, 2a, 3c").
 - "opcion_multiple": 4 opciones, exactamente UNA con esCorrecta=true. Las distractoras deben ser plausibles y del mismo tipo y extensión que la correcta — nunca absurdas ni notoriamente más largas.
+- OPCIONES VISUALES: cuando la destreza se evalúa mejor con imágenes (figuras y cuerpos geométricos, fracciones representadas, conteo de objetos, gráficos estadísticos, relojes, rectas numéricas, patrones, simetría, ciclos o esquemas simples), un ítem "opcion_multiple" puede tener opciones con imagen. Para eso añade a CADA opción del ítem el campo "svg" con un SVG autocontenido y sencillo:
+  · empieza con <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90"> y termina con </svg>;
+  · solo formas básicas (rect, circle, ellipse, line, polyline, polygon, path, text corto, g) con colores planos y stroke visible;
+  · prohibido: script, style, image, use, foreignObject, href, url(), eventos; máximo 1500 caracteres por SVG;
+  · las opciones visuales se distinguen solo por su dibujo; "texto" queda vacío ("") o es una etiqueta breve que no revele la respuesta.
+  Usa opciones visuales solo cuando aporten a la evaluación (como máximo en la mitad de los ítems de opción múltiple); en las demás áreas omite "svg".
 - "v_f": dos opciones de texto "Verdadero" y "Falso", una con esCorrecta=true. La afirmación debe requerir comprensión, no reconocimiento literal.
 - "respuesta_corta" y "ejercicio": incluye "respuestaCorrecta" con la respuesta o resolución esperada concisa, que sirva como criterio de corrección uniforme.
 - "dificultad" refleja el nivel cognitivo del ítem: "basica" = recuperación y comprensión; "media" = análisis; "avanzada" = utilización del conocimiento (aplicación).
@@ -115,7 +127,7 @@ REGLAS:
 Responde ÚNICAMENTE con JSON válido con este esquema:
 {
   "preguntas": [
-    { "enunciado": "string (situación previa + consigna)", "tipo": "opcion_multiple|v_f|respuesta_corta|ejercicio", "dificultad": "basica|media|avanzada", "puntaje": 1, "dcdCodigo": "string", "opciones": [{ "texto": "string", "esCorrecta": boolean }], "respuestaCorrecta": "string", "retroalimentacion": "string" }
+    { "enunciado": "string (situación previa + consigna)", "tipo": "opcion_multiple|v_f|respuesta_corta|ejercicio", "dificultad": "basica|media|avanzada", "puntaje": 1, "dcdCodigo": "string", "opciones": [{ "texto": "string", "svg": "string (opcional, solo opciones visuales)", "esCorrecta": boolean }], "respuestaCorrecta": "string", "retroalimentacion": "string" }
   ]
 }`;
 }
@@ -237,7 +249,8 @@ Responde ÚNICAMENTE con JSON válido:
         // Cada ítem ahora lleva planteamiento (situación previa) + opciones +
         // retroalimentación descriptiva: son respuestas notablemente más largas
         // que las del formato anterior de consigna suelta.
-        maxTokens: 6000,
+        // + margen para los SVG de las opciones visuales.
+        maxTokens: 9000,
         responseFormat: { type: "json_object" },
       });
 
@@ -262,7 +275,25 @@ Responde ÚNICAMENTE con JSON válido:
         throw new Error("La IA no devolvió preguntas válidas. Intenta de nuevo.");
       }
 
-      return result.data;
+      // SVG → data URI en `imagen`. Si un SVG no pasa la validación y la
+      // opción queda sin texto, la pregunta no es respondible: se descarta.
+      type PreguntaSugerida = Omit<z.infer<typeof PreguntaSugeridaSchema>, "opciones"> & {
+        opciones?: { texto: string; imagen?: string; esCorrecta: boolean }[];
+      };
+      const preguntas = result.data.preguntas.flatMap((p): PreguntaSugerida[] => {
+        if (!p.opciones) return [p as PreguntaSugerida];
+        const opciones = p.opciones.map(({ svg, ...o }) => {
+          const imagen = svgADataUri(svg);
+          return { ...o, texto: o.texto.trim(), ...(imagen ? { imagen } : {}) };
+        });
+        if (opciones.some((o) => !o.texto && !o.imagen)) return [];
+        return [{ ...p, opciones }];
+      });
+      if (preguntas.length === 0) {
+        throw new Error("La IA no devolvió preguntas válidas. Intenta de nuevo.");
+      }
+
+      return { preguntas };
     }),
 
   /**

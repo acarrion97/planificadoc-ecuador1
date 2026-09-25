@@ -35,6 +35,8 @@ export const NAV_BREAKPOINTS = { mobile: 768, expanded: 1024 } as const;
 export const SIDEBAR_WIDTH = 240;
 export const SIDEBAR_COLLAPSED_WIDTH = 64;
 export const DRAWER_WIDTH = 280;
+/** Ancho máximo del área de trabajo junto al sidebar (riesgo R4). */
+export const CONTENT_MAX_WIDTH = 1080;
 
 /** Zona principal: ir a una sección. */
 export const NAV_PRINCIPAL: NavDef[] = [
@@ -98,9 +100,9 @@ function NavItem({ item, active, collapsed, onPress }: NavItemProps) {
   const background = active
     ? colors.brand
     : isCrear
-      ? colors.brand + "14"
+      ? colors.brandFg + "14"
       : "transparent";
-  const foreground = active ? "#FFFFFF" : isCrear ? colors.brand : colors.muted;
+  const foreground = active ? "#FFFFFF" : isCrear ? colors.brandFg : colors.muted;
 
   return (
     <Pressable
@@ -193,7 +195,7 @@ function NavBody({ active, collapsed, onNavigate }: NavBodyProps) {
       {/* Marca al pie */}
       {!collapsed && (
         <View style={{ paddingBottom: 12 }}>
-          <Text style={{ color: colors.brand, fontSize: 13, fontWeight: "800" }}>
+          <Text style={{ color: colors.brandFg, fontSize: 13, fontWeight: "800" }}>
             PlanificaDoc Ecuador
           </Text>
         </View>
@@ -236,9 +238,9 @@ function Sidebar({ collapsed, onToggle, active }: SidebarProps) {
         }}
       >
         {collapsed ? (
-          <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>PD</Text>
+          <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>PD</Text>
         ) : (
-          <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>
+          <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>
             PlanificaDoc
           </Text>
         )}
@@ -308,7 +310,7 @@ function MobileHeader({ onMenu, section }: { onMenu: () => void; section: NavDef
         >
           <MaterialCommunityIcons name="menu" size={24} color={colors.foreground} />
         </Pressable>
-        <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>
+        <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>
           PlanificaDoc
         </Text>
         <View style={{ flex: 1 }} />
@@ -335,12 +337,7 @@ function Drawer({ open, active, onClose }: DrawerProps) {
   return (
     <Modal visible={open} transparent animationType="fade" onRequestClose={onClose}>
       <View style={{ flex: 1, flexDirection: "row", backgroundColor: "rgba(15, 23, 42, 0.45)" }}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Cerrar navegación"
-          onPress={onClose}
-          style={{ width: DRAWER_WIDTH + 40 }}
-        />
+        {/* El panel se ancla a la IZQUIERDA; el resto del ancho cierra el drawer. */}
         <View
           style={{
             width: DRAWER_WIDTH,
@@ -357,7 +354,7 @@ function Drawer({ open, active, onClose }: DrawerProps) {
               paddingVertical: 12,
             }}
           >
-            <Text style={{ color: colors.brand, fontSize: 16, fontWeight: "800" }}>
+            <Text style={{ color: colors.brandFg, fontSize: 16, fontWeight: "800" }}>
               PlanificaDoc
             </Text>
             <Pressable
@@ -372,6 +369,12 @@ function Drawer({ open, active, onClose }: DrawerProps) {
           </View>
           <NavBody active={active} collapsed={false} onNavigate={onClose} />
         </View>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Cerrar navegación"
+          onPress={onClose}
+          style={{ flex: 1 }}
+        />
       </View>
     </Modal>
   );
@@ -438,10 +441,23 @@ export function AppNavigation({ children }: { children: ReactNode }) {
     );
   }
 
+  // El área de trabajo se limita y centra para que en escritorios anchos el
+  // formulario no se estire junto al sidebar (riesgo R4).
   return (
     <View style={{ flex: 1, flexDirection: "row", backgroundColor: colors.background }}>
       <Sidebar collapsed={collapsed} onToggle={toggleCollapse} active={active} />
-      <View style={{ flex: 1, paddingBottom: insets.bottom }}>{children}</View>
+      <View style={{ flex: 1, paddingBottom: insets.bottom }}>
+        <View
+          style={{
+            flex: 1,
+            alignSelf: "center",
+            width: "100%",
+            maxWidth: CONTENT_MAX_WIDTH,
+          }}
+        >
+          {children}
+        </View>
+      </View>
     </View>
   );
 }

@@ -1,6 +1,7 @@
 export const themeColors: {
   primary: { light: string; dark: string };
   brand: { light: string; dark: string };
+  brandFg: { light: string; dark: string };
   background: { light: string; dark: string };
   surface: { light: string; dark: string };
   foreground: { light: string; dark: string };

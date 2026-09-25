@@ -9,11 +9,13 @@ Aplicación móvil para docentes ecuatorianos que permite generar planificacione
 | Token | Light | Dark | Uso |
 |-------|-------|------|-----|
 | primary | #1B5E9E | #4DA3E8 | Azul institucional (similar al Ministerio de Educación) |
-| background | #F8FAFC | #0F172A | Fondo principal |
-| surface | #FFFFFF | #1E293B | Tarjetas y superficies elevadas |
-| foreground | #0F172A | #F1F5F9 | Texto principal |
-| muted | #64748B | #94A3B8 | Texto secundario |
-| border | #E2E8F0 | #334155 | Bordes y divisores |
+| brand | #003366 | #003366 | Marca como **fondo**: ítem activo del sidebar/drawer, botones y chips (texto blanco encima) |
+| brandFg | #003366 | #7DB9EA | Marca como **texto/icono/tinte**: títulos, links, chips y acentos (en dark se aclara para contraste ≥5:1) |
+| background | #F8FAFC | #0A2E5C | Fondo principal (dark: azul marino) |
+| surface | #FFFFFF | #123C72 | Tarjetas y superficies elevadas |
+| foreground | #0F172A | #EBF1FA | Texto principal |
+| muted | #64748B | #93AED2 | Texto secundario |
+| border | #E2E8F0 | #174E97 | Bordes y divisores |
 | success | #16A34A | #4ADE80 | Estados exitosos |
 | warning | #D97706 | #FBBF24 | Advertencias |
 | error | #DC2626 | #F87171 | Errores |
@@ -21,7 +23,7 @@ Aplicación móvil para docentes ecuatorianos que permite generar planificacione
 ## Lista de Pantallas
 
 ### 1. Pantalla de Inicio (Home)
-Pantalla principal con campo de búsqueda prominente para ingresar el código de destreza. Muestra accesos rápidos a planificaciones recientes guardadas y un resumen de las áreas disponibles.
+Pantalla por intención: identidad de marca y claim, buscador de destreza (DCD), bloque **Continuar** con lo más reciente de cada tipo con detalle propio y CTA **＋ Nueva planificación** que abre el hub `/crear`. Sin grids de áreas ni tarjetas de módulo (cambio `ux-navigation-and-creation-hub`).
 
 ### 2. Pantalla de Búsqueda / Resultados
 Muestra los resultados al buscar un código de destreza. Permite filtrar por área, subnivel y bloque curricular. Lista las destrezas encontradas en tarjetas informativas.
@@ -32,16 +34,23 @@ Muestra toda la información de una destreza seleccionada: código, descripción
 ### 4. Pantalla de Planificación (Generador)
 Formulario para generar la planificación microcurricular. Campos pre-llenados con la información de la destreza. El docente completa: datos institucionales, número de periodos, fecha, actividades, recursos y evaluación.
 
-### 5. Pantalla de Mis Planificaciones
-Lista de planificaciones guardadas localmente. Permite ver, editar o eliminar planificaciones anteriores.
+### 5. Pantalla de Mis planes
+Listado unificado de los 9 tipos de plan (locales y de servidor) con filtros y acciones de gestión. La creación ya no vive aquí: va en `/crear`.
+
+### 6. Pantalla Explorar
+Grid de secciones y tarjetas — Educación Inicial (grados), Preparatoria (ámbitos integradores), EGB y BGU (áreas) — con el conteo de destrezas de cada tarjeta y navegación hasta el detalle.
+
+### 7. Hub de creación (`/crear`)
+Punto único de entrada a la creación: catálogo de 12 módulos en 6 categorías que abren los flujos existentes (el plan diario entra por el buscador de Inicio, porque nace de una destreza).
 
 ## Contenido y Funcionalidad por Pantalla
 
 ### Home
+- Identidad de marca y claim en la parte superior
 - Campo de búsqueda grande con placeholder "Ingrese código de destreza (ej: M.2.1.1)"
-- Tarjetas de acceso rápido por área: Matemática, Lengua y Literatura, Ciencias Naturales, Estudios Sociales, Educación Física, Educación Cultural y Artística
-- Sección "Planificaciones recientes" con las últimas 5 planificaciones guardadas
-- Indicador del total de destrezas disponibles en la base de datos
+- Bloque **Continuar**: lo más reciente de cada tipo que tiene detalle propio
+- CTA **＋ Nueva planificación** → hub `/crear`
+- Los grids de áreas y las secciones de módulos viven ahora en **Explorar** y `/crear`, no en Home
 
 ### Búsqueda / Resultados
 - Barra de búsqueda fija en la parte superior
@@ -69,11 +78,11 @@ Lista de planificaciones guardadas localmente. Permite ver, editar o eliminar pl
   - Técnicas e instrumentos de evaluación
 - Botón "Guardar Planificación"
 
-### Mis Planificaciones
-- Lista de planificaciones guardadas con fecha, área y destreza
-- Swipe para eliminar
-- Tap para ver/editar
-- Filtro por área
+### Mis planes
+- Grid de tarjetas (1/2/3 columnas, mismos breakpoints que Explorar) con icono por plan: iconos DCD en planes diarios, emoji de materia en materias, icono del tipo como respaldo
+- Chip de tipo, chip de estado (donde existe), fecha de actualización, título y detalle
+- Filtros: Todos, Recientes (30 días), En progreso, Completados
+- Acciones por tarjeta: Eliminar, Duplicar, Editar (solo donde hay reanudación) y Continuar — iconos con tooltip al pasar el mouse en web
 
 ## Flujos de Usuario Principales
 
@@ -85,19 +94,39 @@ Lista de planificaciones guardadas localmente. Permite ver, editar o eliminar pl
 5. Toca "Generar Planificación" → abre el Generador
 6. Completa los campos editables → Guarda
 
-### Flujo 2: Navegación por área
-1. Usuario toca una tarjeta de área en Home (ej: "Matemática")
-2. Ve todas las destrezas de esa área organizadas por subnivel
-3. Selecciona una destreza → Detalle → Generar Planificación
+### Flujo 2: Exploración por nivel y área
+1. Usuario abre **Explorar** desde la navegación lateral
+2. Elige una sección: Educación Inicial (grados), Preparatoria (ámbitos), EGB (áreas) o BGU (áreas)
+3. Navega por subniveles o ámbitos hasta el listado de destrezas
+4. Selecciona una destreza → Detalle → Generar Planificación
 
 ### Flujo 3: Revisar planificaciones
-1. Usuario va a la pestaña "Mis Planificaciones"
-2. Ve la lista de planificaciones guardadas
-3. Toca una para ver/editar los detalles
+1. Usuario entra en **Mis planes** desde la navegación lateral (sidebar; `☰` + drawer en móvil)
+2. Ve el listado unificado con los filtros (Todos, Recientes, En progreso, Completados)
+3. Continúa, edita, duplica o elimina la planificación elegida
 
 ## Navegación
 
-Tab Bar con 3 pestañas:
-1. **Inicio** (icono: casa) — Pantalla Home con búsqueda
-2. **Explorar** (icono: brújula/libro) — Explorar destrezas por área/subnivel
-3. **Mis Planes** (icono: documento) — Planificaciones guardadas
+**Sidebar / drawer** — ya no existe tab bar (cambio `ux-navigation-and-creation-hub`):
+
+| Breakpoint | Presentación |
+|---|---|
+| ≥1024 px | Sidebar expandido (240 px), colapso manual persistente durante la sesión |
+| 768–1023 px | Sidebar colapsado (64 px), solo iconos |
+| <768 px | Header con `☰` + drawer lateral (280 px) |
+
+Zonas de la navegación:
+
+- **Principal:** **Inicio**, **Crear** (destacado), **Explorar**, **Mis planes**
+- **Gestión:** Mi cuenta, Ayuda
+- **Pie:** ítem de marca "PlanificaDoc Ecuador"
+
+Paleta de navegación: fondo `surface`, texto e iconos `muted`, ítem activo en
+`brand` (`#003366`) con texto blanco; ítems inactivos en gris neutro. El área
+de trabajo se limita a **1080 px** de ancho máximo y se centra junto al sidebar
+(riesgo R4).
+
+> **Divergencia:** este documento describía antes una tab bar inferior con 3
+> pestañas (Inicio, Explorar, Mis Planes). Desde el cambio
+> `ux-navigation-and-creation-hub` la navegación es lateral y la creación se
+> centraliza en `/crear`; no queda ninguna pestaña inferior.

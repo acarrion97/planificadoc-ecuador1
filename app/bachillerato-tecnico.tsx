@@ -12,6 +12,7 @@ import { useColors } from "@/hooks/use-colors";
 import {
   AREAS_BT,
   FAMILIAS_PROFESIONALES,
+  esModuloSeleccionable,
   obtenerFigurasPorFamilia,
 } from "@/data";
 import type { FiguraProfesional } from "@/data";
@@ -150,7 +151,7 @@ export default function BachilleratoTecnicoScreen() {
                           {figura.objetivoGeneral}
                         </Text>
                         <Text style={[styles.figuraModulos, { color: colors.primary }]}>
-                          {figura.modulos.length} m{"\u00f3"}dulos formativos
+                          {figura.modulos.filter(esModuloSeleccionable).length} m{"\u00f3"}dulos formativos
                         </Text>
                       </View>
                       <Text style={{ fontSize: 18, color: colors.muted }}>

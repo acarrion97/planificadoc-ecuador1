@@ -6,7 +6,8 @@ import { cn } from "@/lib/utils";
 export interface ScreenContainerProps extends ViewProps {
   /**
    * SafeArea edges to apply. Defaults to ["top", "left", "right"].
-   * Bottom is typically handled by Tab Bar.
+   * Bottom is absorbed by the navigation layout (`AppNavigation`, design D8);
+   * there is no tab bar anymore.
    */
   edges?: Edge[];
   /**

@@ -181,6 +181,28 @@ export type DocenteAccount = typeof docenteAccounts.$inferSelect;
 export type InsertDocenteAccount = typeof docenteAccounts.$inferInsert;
 
 /**
+ * Password reset codes — recuperación de contraseña con código de 6 dígitos
+ * de un solo uso enviado al correo. Se crea en runtime con
+ * CREATE TABLE IF NOT EXISTS (una fila activa por email).
+ */
+export const passwordResetCodes = mysqlTable("password_reset_codes", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email de la cuenta que solicitó la recuperación */
+  email: varchar("email", { length: 320 }).notNull(),
+  /** HMAC-SHA256 del código (nunca se almacena en texto plano) */
+  codeHash: varchar("codeHash", { length: 128 }).notNull(),
+  /** Intentos fallidos de verificación (máximo 5) */
+  attempts: int("attempts").notNull().default(0),
+  /** Caducidad del código (10 minutos tras el envío) */
+  expiresAt: timestamp("expiresAt").notNull(),
+  /** Cuándo se envió — limita reenvíos a 1 por minuto */
+  sentAt: timestamp("sentAt").notNull(),
+});
+
+export type PasswordResetCode = typeof passwordResetCodes.$inferSelect;
+export type InsertPasswordResetCode = typeof passwordResetCodes.$inferInsert;
+
+/**
  * Docente contacts - manually registered by admin when giving out codes.
  * Tracks who received which code, their contact info, and payment status.
  */

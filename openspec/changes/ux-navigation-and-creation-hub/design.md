@@ -47,19 +47,21 @@ El catálogo se declara en **una única lista tipada** (`{categoria, modulo, rut
 `Evaluación diagnóstica` sí es autónoma (`app/evaluacion-diagnostica/index.tsx` tiene formulario propio y trata `from=cnc` como precarga opcional).
 
 ### D5 — Filtros de Mis planes derivados de `status` existente, sin migración
-| Tipo | Estado existente | Filtros aplicables |
-|---|---|---|
-| PCA | `PcaDocument.status: draft/generated/paid` | Todos, Recientes, En progreso, Completados |
-| CxC | `estado: draft/generated/paid` | idem |
-| CNC | `status: borrador/generado` | idem |
-| Proyecto interdisciplinar | `estado: borrador/generado` | idem |
-| Adaptación | `status: draft/generated` | idem |
-| Evaluación diagnóstica | `EstatusEvaluacion` (borrador/publicada/aplicada/analizada) | idem |
-| Plan diario | **sin estado** (`types.ts:193`) | Todos, Recientes |
-| Plan semanal | **sin estado** (`types.ts:417`) | Todos, Recientes |
+| Tipo | Fuente de datos | Estado existente | Filtros aplicables |
+|---|---|---|---|
+| PCA | `pca.listMisPcas` (tabla `pca_documents`) | `PcaDocument.status: draft/generated/paid` | Todos, Recientes, En progreso, Completados |
+| PCT | misma consulta, separada por `formData.tipo === "trimestral"` | idem PCA | idem |
+| CxC | `curriculoCompetencias.list` (sessionId `default`) | `status: draft/generated/paid` | idem |
+| CNC | `usePlanificacionesCNC` (AsyncStorage) | `status: borrador/generado` | idem |
+| Proyecto interdisciplinar | `proyectoInterdisciplinar.list` (id de dispositivo) | `estado: borrador/generado` | idem |
+| Evaluación diagnóstica | `useEvaluaciones` (AsyncStorage) | `EstatusEvaluacion` (borrador/publicada/aplicada/analizada) | idem |
+| Plan diario | `usePlanificaciones` (AsyncStorage) | **sin estado** (`types.ts:193`) | Todos, Recientes |
+| Plan semanal | `usePlanificaciones` (AsyncStorage) | **sin estado** (`types.ts:417`) | Todos, Recientes |
+| Bachillerato Técnico | `usePlanificacionesBT` (AsyncStorage) | **sin estado** (`PlanUnidadTrabajoBT` no tiene `status`) | Todos, Recientes |
+| Adaptación curricular AI | `@planificadoc_adaptaciones` | `status: draft/generated` | *fuera del listado* — ver D10 |
 
-Mapeo: *En progreso* = `draft`/`borrador`; *Completados* = `generated`/`generado`/`paid`/`publicada`/`aplicada`/`analizada`.
-**Alternativa descartada:** agregar `status` a los dos tipos sin estado → viola el non-goal de no tocar el modelo de datos; además su "estado" se puede inferir del contenido, no aporta.
+Mapeo: *En progreso* = `draft`/`borrador`; *Completados* = `generated`/`generado`/`paid`/`publicada`/`aplicada`/`analizada`. **Recientes** = actualizado dentro de la ventana de 30 días (`VENTANA_RECIENTES_DIAS`).
+**Alternativa descartada:** agregar `status` a los tipos sin estado → viola el non-goal de no tocar el modelo de datos; además su "estado" se puede inferir del contenido, no aporta.
 
 ### D6 — Cromática de navegación: token `brand`, `primary` intacto
 **Decisión:** agregar `brand: { light: '#003366', dark: '#003366' }` en `theme.config.js` (blanco sobre navy contrasta en ambos modos) y usarlo en sidebar, drawer, CTA "＋ Nueva planificación" y tarjetas de `/crear`. `surface`/`border`/`muted` dan los grises.
@@ -74,7 +76,30 @@ Los colores de `AREAS_INFO` quedan reservados a badges de datos.
 **Riesgo asociado:** ver Risk R2.
 
 ### D9 — Estrategia de verificación
-`pnpm check` y `pnpm lint` contra la línea base conocida (56 errores preexistentes, 0 nuevos) + `pnpm test`. Tests nuevos de vitest para: agrupación y cobertura de los 12 módulos en el catálogo, ítems del sidebar, y volcado de filtros de Mis planes por tipo (D5). La verificación visual en navegador corre a cargo del usuario en Vercel, como en cambios anteriores.
+`pnpm check` y `pnpm lint` contra la línea base conocida (55 errores TS y 16 de lint preexistentes, 0 nuevos) + `pnpm test` (21 fallos preexistentes por entorno/red). Tests nuevos de vitest para: agrupación y cobertura de los 12 módulos del catálogo, ítems del sidebar, volcado de filtros de Mis planes por tipo y duplicación sin tocar el original (D5/D10). La verificación visual en navegador corre a cargo del usuario en Vercel, como en cambios anteriores.
+
+### D10 — Mis planes: listado unificado, rutas de Continuar y acciones
+**Fuentes.** `hooks/use-mis-planes.ts` agrega los 5 contextos de AsyncStorage (diario, semanal, CNC, BT, evaluación) con las 3 consultas tRPC (PCA/PCT, CxC, Proyecto); el modelo puro —tipos, constructores por tipo, filtros y `duplicarRegistro`— vive en `lib/mis-planes.ts`, que es lo que prueba `__tests__/mis-planes-filtros.test.ts`.
+
+**Continuar por tipo:**
+| Tipo | Continuar → |
+|---|---|
+| Plan diario / semanal | `/ver-plan/[id]` · `/ver-semana/[id]` |
+| CNC / Evaluación | `/ver-cnc/[id]` · `/ver-evaluacion/[id]` |
+| PCA / PCT | `/pca-preview/[id]` · `/pca-trimestral-preview/[id]` |
+| CxC | `/curriculo-competencias/ver/[id]` |
+| Proyecto | `/proyecto-interdisciplinar/wizard?id=` (abre el registro) |
+| BT | `/planificar-bt/[figuraId]` — **brecha**: BT no tiene pantalla de detalle, así que Continuar abre el formulario de su figura. Un detalle propio queda para el cambio del catálogo BT (carpeta de figuras profesionales). |
+
+**Editar.** Visible solo cuando existe una ruta de reanudación distinta de Continuar: Currículo por Competencias (`egb-bgu`/`inicial`/`egb-bgu-integrado` según la familia, mismo criterio que el botón "Editar" de `curriculo-competencias/ver/[id]`). Proyecto reanuda en su propia Continuar (no se muestra un botón duplicado); los demás tipos no admiten reanudación porque sus formularios no aceptan `id` (reescribir wizards es non-goal).
+
+**Adaptación curricular AI queda fuera del listado.** Su formulario solo acepta `semanaId`/`planId` de origen y no puede reabrir un registro guardado por `id`: no se le podría ofrecer "Continuar conservando su información". La fila de D5 queda reservada para cuando ese flujo exista.
+
+**Eliminar / Duplicar.**
+- Local (diario, semanal, CNC, BT, Evaluación): acciones de los contextos + `duplicarRegistro()` (id y marcas de tiempo nuevos, contenido idéntico, original intacto).
+- Servidor: se añaden `pca.duplicate`, `pca.delete` y `curriculoCompetencias.duplicate` (`proyectoInterdisciplinar.duplicate/delete` ya existían). Insertan una fila nueva en la **misma** tabla: el modelo de datos no cambia (non-goal respetado). `paid` no se copia (`→ generated`): el desbloqueo de descargas es un entitlement por documento.
+
+**Secciones retiradas.** `PlanesBTSection`, `PlanesCNCSection`, `PlanesEvaluacionSection` y `components/create-card.tsx` se eliminan: la tarea 4.1 de conservar sus listados se cumple absorbiéndolos en la lista unificada (mantenerlos duplicaría CNC, BT y Evaluaciones en la misma pantalla).
 
 ## Risks / Trade-offs
 
@@ -83,7 +108,7 @@ Los colores de `AREAS_INFO` quedan reservados a badges de datos.
 - **[R3) El grupo `(tabs)` deja de contener "tabs"]** — nombre engañoso para futuros lectores. → Aceptado a cambio de D1 (cero rompimientos); se documenta en el propio `_layout.tsx`.
 - **[R4) Contenido angosto con sidebar]** — las pantallas usan `px-5` fijo; en escritorio el área de trabajo se estira. → Mitigación: limitar el ancho máximo del contenido dentro del layout del sidebar; no se toca cada formulario.
 - **[R5) Un solo archivo de layout concentra el riesgo]** — si la navegación rompe, rompe toda la app. → Mitigación: el componente se añade envolviendo el `<Stack/>` en el layout raíz, en una fase independiente del rediseño de Inicio; rollback por rama.
-- **[R6) Filtros "por estado" pueden sorprender]** — un plan diario nunca aparece en "Completados". → Mitigación: es comportamiento deliberado (D5) y queda escrito en el spec; alternativa sería inventar estados, fuera de alcance.
+- **[R6) Filtros "por estado" pueden sorprender]** — un plan diario (o semanal o de BT) nunca aparece en "Completados". → Mitigación: es comportamiento deliberado (D5) y queda escrito en el spec; alternativa sería inventar estados, fuera de alcance.
 
 **Migración:** 5 fases incrementales sobre la rama `feature/ux-navigation-and-creation-hub`, cada una dejando la app navegable: (1) layout + sidebar/drawer con las secciones actuales, (2) `/crear` con los 12 módulos, (3) Inicio por intención, (4) Mis planes solo gestión, (5) retiro de la tab bar + pulido cromático. **Rollback:** cada fase es un commit revertible; la tab bar solo desaparece en la fase 5, de modo que revertir esa fase restaura la navegación previa sin tocar las demás.
 

@@ -11,7 +11,7 @@
 - [x] 1.9 Crear la ruta `app/ayuda/index.tsx`, registrarla en `app/_layout.tsx` y darle diseño responsive con contenido **estático** inicial (spec `navegacion-principal`)
 - [x] 1.10 Implementar la FAQ agrupada con buscador simple de texto, cubriendo las 9 preguntas aprobadas (crear planificación, PCA vs PCT, continuar un plan, dónde están mis planes, planificar desde una destreza, requisitos de adaptación curricular, evaluación diagnóstica, exportación, funciones Premium). El contenido explica **cómo usar PlanificaDoc** (p. ej. "Crear → Plan de área → PCA Anual") y **no** contiene normativa ni criterios curriculares. Contenido estático: sin CMS, sin base de datos de artículos, sin tickets, chat ni búsqueda semántica
 - [x] 1.11 Añadir enlaces desde la FAQ a los destinos reales (`/crear`, Mis planes y sus flujos), el enlace "Ver ayuda" desde el aviso contextual de Adaptación curricular, y el botón **Contactar soporte** (`soporte@planificadoc.app`)
-- [ ] 1.12 Verificar en escritorio/tablet/móvil que todas las secciones siguen alcanzables desde pantallas profundas (spec `navegacion-principal`)
+- [x] 1.12 Verificar en escritorio/tablet/móvil que todas las secciones siguen alcanzables desde pantallas profundas (spec `navegacion-principal`)
 
 ## 2. Hub de creación (fase 2)
 
@@ -26,34 +26,34 @@
 
 ## 3. Inicio por intención (fase 3)
 
-- [ ] 3.1 Reordenar `app/(tabs)/index.tsx`: identidad de marca + claim, buscador de DCD, bloque "Continuar", CTA "＋ Nueva planificación"
-- [ ] 3.2 Eliminar del Home las cuadrículas de áreas EGB/BGU, las tarjetas de módulo (Inicial, Preparatoria, PCA, PCT, BT) y el bloque `false &&` de Bachillerato Técnico
-- [ ] 3.3 Implementar el bloque "Continuar" con los planes recientes, navegando al detalle correspondiente por tipo (`ver-plan`, `ver-semana`, `ver-cnc`, etc.)
-- [ ] 3.4 Implementar el estado vacío: ocultar "Continuar" cuando no hay planes, sin dejar huecos
-- [ ] 3.5 Conectar el CTA "＋ Nueva planificación" a `/crear`
-- [ ] 3.6 Retirar el banner de WhatsApp del Home y añadirlo a `app/(tabs)/cuenta.tsx`
-- [ ] 3.7 Verificar que el buscador conserva resultados y detalle de destreza tal como hoy
-- [ ] 3.8 Test: el Home no renderiza cuadrículas de áreas ni tarjetas de módulo
+- [x] 3.1 Reordenar `app/(tabs)/index.tsx`: identidad de marca + claim, buscador de DCD, bloque "Continuar", CTA "＋ Nueva planificación"
+- [x] 3.2 Eliminar del Home las cuadrículas de áreas EGB/BGU, las tarjetas de módulo (Inicial, Preparatoria, PCA, PCT, BT) y el bloque `false &&` de Bachillerato Técnico
+- [x] 3.3 Implementar el bloque "Continuar" con los planes recientes, navegando al detalle correspondiente por tipo (`ver-plan`, `ver-semana`, `ver-cnc`, etc.)
+- [x] 3.4 Implementar el estado vacío: ocultar "Continuar" cuando no hay planes, sin dejar huecos
+- [x] 3.5 Conectar el CTA "＋ Nueva planificación" a `/crear`
+- [x] 3.6 Retirar el banner de WhatsApp del Home y añadirlo a `app/(tabs)/cuenta.tsx`
+- [x] 3.7 Verificar que el buscador conserva resultados y detalle de destreza tal como hoy
+- [x] 3.8 Test: el Home no renderiza cuadrículas de áreas ni tarjetas de módulo
 
 ## 4. Mis planes: solo gestión (fase 4)
 
-- [ ] 4.1 Quitar de `app/(tabs)/planes.tsx` los 6 botones de creación (PCA, PCT, semanal, CxC, Proyecto interdisciplinar) y las secciones `PlanesBTSection`/`PlanesCNCSection`/`PlanesEvaluacionSection` como puntos de creación, conservando sus listados
-- [ ] 4.2 Implementar el listado unificado de los 8 tipos de plan con tipo, identificación y fecha de actualización
-- [ ] 4.3 Implementar los filtros Todos y Recientes para todos los tipos
-- [ ] 4.4 Implementar los filtros "En progreso" y "Completados" solo para tipos con estado, con el mapeo de la tabla de design D5, excluyendo plan diario y semanal
-- [ ] 4.5 Implementar la acción "Continuar" por plan navegando a su detalle o formulario
-- [ ] 4.6 Implementar "Eliminar" con confirmación (ya existente) moviéndola a la interacción unificada
-- [ ] 4.7 Implementar "Editar" visible únicamente en los tipos que admiten reanudación
-- [ ] 4.8 Implementar "Duplicar": copia con id nuevo, contenido igual, original intacto, sin cambios de esquema (design D5 y spec `mis-planes-gestion`)
-- [ ] 4.9 Implementar el estado vacío que invita a crear desde el hub
-- [ ] 4.10 Test: volcado de filtros por tipo (los tipos sin estado no aparecen en "En progreso"/"Completados") y que la duplicación deja el original intacto
+- [x] 4.1 Quitar de `app/(tabs)/planes.tsx` los 6 botones de creación (PCA, PCT, semanal, CxC, Proyecto interdisciplinar) y las secciones `PlanesBTSection`/`PlanesCNCSection`/`PlanesEvaluacionSection` como puntos de creación, conservando sus listados (absorbidos por el listado unificado — design D10)
+- [x] 4.2 Implementar el listado unificado de los 9 tipos de plan del spec (diario, semanal, PCA, PCT, CNC, BT, CxC, Proyecto, Evaluación) con tipo, identificación y fecha de actualización
+- [x] 4.3 Implementar los filtros Todos y Recientes (ventana de 30 días) para todos los tipos
+- [x] 4.4 Implementar los filtros "En progreso" y "Completados" solo para tipos con estado, con el mapeo de la tabla de design D5, excluyendo plan diario, semanal y BT (sin estado)
+- [x] 4.5 Implementar la acción "Continuar" por plan navegando a su detalle o formulario
+- [x] 4.6 Implementar "Eliminar" con confirmación (ya existente) moviéndola a la interacción unificada
+- [x] 4.7 Implementar "Editar" visible únicamente en los tipos que admiten reanudación (CxC por familia; el resto no tiene reanudación por id — design D10)
+- [x] 4.8 Implementar "Duplicar": copia con id nuevo, contenido igual, original intacto, sin cambios de esquema (contextos locales + `pca.duplicate`, `curriculoCompetencias.duplicate` y `proyectoInterdisciplinar.duplicate`; design D10 y spec `mis-planes-gestion`)
+- [x] 4.9 Implementar el estado vacío que invita a crear desde el hub
+- [x] 4.10 Test: volcado de filtros por tipo (los tipos sin estado no aparecen en "En progreso"/"Completados") y que la duplicación deja el original intacto
 
 ## 5. Cierre y verificación (fase 5)
 
-- [ ] 5.1 Retiro final de la tab bar (confirmado el sidebar y el drawer en fases previas, riesgo R1)
-- [ ] 5.2 Pulido cromático: sin colores de módulo en navegación, Inicio, `/crear` ni Mis planes; `AREAS_INFO` solo en badges de datos
-- [ ] 5.3 Limitar el ancho máximo del área de trabajo dentro del layout con sidebar (riesgo R4)
-- [ ] 5.4 `pnpm check` y `pnpm lint` sin errores nuevos sobre la línea base (56 preexistentes)
-- [ ] 5.5 `pnpm test` en verde con los tests nuevos
-- [ ] 5.6 Actualizar `docs/brand.md` y `design.md` de la raíz: navegación, paleta de navegación y divergencia de las 3 pestañas descritas
-- [ ] 5.7 Verificación visual en navegador por el usuario (escritorio, tablet y móvil) antes del merge
+- [x] 5.1 Retiro final de la tab bar (confirmado el sidebar y el drawer en fases previas, riesgo R1)
+- [x] 5.2 Pulido cromático: sin colores de módulo en navegación, Inicio, `/crear` ni Mis planes; `AREAS_INFO` solo en badges de datos
+- [x] 5.3 Limitar el ancho máximo del área de trabajo dentro del layout con sidebar (riesgo R4)
+- [x] 5.4 `pnpm check` y `pnpm lint` sin errores nuevos sobre la línea base (56 preexistentes)
+- [x] 5.5 `pnpm test` en verde con los tests nuevos
+- [x] 5.6 Actualizar `docs/brand.md` y `design.md` de la raíz: navegación, paleta de navegación y divergencia de las 3 pestañas descritas
+- [x] 5.7 Verificación visual en navegador por el usuario (escritorio, tablet y móvil) antes del merge

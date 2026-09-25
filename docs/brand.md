@@ -80,18 +80,20 @@ Documentado también en `design.md`.
 | Token | Light | Dark | Uso |
 |---|---|---|---|
 | `primary` | `#1B5E9E` | `#4DA3E8` | Azul institucional (referencia MinEduc) |
-| `background` | `#F8FAFC` | `#0F172A` | Fondo principal |
-| `surface` | `#FFFFFF` | `#1E293B` | Tarjetas y superficies elevadas |
-| `foreground` | `#0F172A` | `#F1F5F9` | Texto principal |
-| `muted` | `#64748B` | `#94A3B8` | Texto secundario, iconos, tab inactiva |
-| `border` | `#E2E8F0` | `#334155` | Bordes y divisores |
+| `brand` | `#003366` | `#003366` | Marca como **fondo**: ítem activo del sidebar/drawer, botones y chips (texto blanco encima) |
+| `brandFg` | `#003366` | `#7DB9EA` | Marca como **texto/icono/tinte**: títulos, links, chips y acentos (en dark se aclara para contraste ≥5:1) |
+| `background` | `#F8FAFC` | `#0A2E5C` | Fondo principal (dark: azul marino) |
+| `surface` | `#FFFFFF` | `#123C72` | Tarjetas y superficies elevadas |
+| `foreground` | `#0F172A` | `#EBF1FA` | Texto principal |
+| `muted` | `#64748B` | `#93AED2` | Texto secundario, iconos, ítem de navegación inactivo |
+| `border` | `#E2E8F0` | `#174E97` | Bordes y divisores |
 | `success` | `#16A34A` | `#4ADE80` | Estados exitosos |
 | `warning` | `#D97706` | `#FBBF24` | Advertencias |
 | `error` | `#DC2626` | `#F87171` | Errores |
 
 Alias de runtime (`lib/_core/theme.ts`):
-`text = foreground` · `tint = primary` · `icon = muted` ·
-`tabIconDefault = muted` · `tabIconSelected = primary`.
+`text = foreground` · `tint = primary` · `icon = muted`.
+(Se retiraron los alias `tabIconDefault`/`tabIconSelected` al eliminar la tab bar.)
 
 ### 3.2 Colores de identidad (los que "ven" al usuario)
 Están hardcodeados fuera de los tokens y dominan splash, encabezados,
@@ -99,7 +101,7 @@ botones primarios, documentos y correos:
 
 | Rol | Hex | Dónde se usa |
 |---|---|---|
-| **Azul marino de marca** | `#003366` | Splash, encabezados, botones primarios (exportar/pagar), títulos y pie de PDF, HTML de Payphone, correos, panel admin |
+| **Azul marino de marca** | `#003366` | Splash, encabezados, botones primarios (exportar/pagar), títulos y pie de PDF, HTML de Payphone, correos, panel admin, **navegación** (token `brand`: ítem activo del sidebar/drawer y hub `/crear`) |
 | **Dorado de marca** | `#e0a41e` | Check y lápiz del isotipo, "Doc" del wordmark |
 | Dorado contorno | `#cf8f12` | Contorno del libro |
 | Dorado claro | `#f6e2a6` | Punta del lápiz |
@@ -201,9 +203,15 @@ botones primarios, documentos y correos:
 ## 4. Aspectos de marca (aplicaciones)
 
 ### 4.1 App (mobile y web)
-- Home: título **PlanificaDoc** (`text-3xl font-bold`) + claim debajo en `muted`.
+- Home: título **PlanificaDoc** (`text-3xl font-bold`) + claim debajo en `muted`,
+  buscador de destreza (DCD), bloque **Continuar** y CTA **＋ Nueva planificación** → `/crear`.
 - Splash animado a pantalla completa con fondo `#003366`.
-- Tab bar: `tabIconSelected = primary`, `tabIconDefault = muted`.
+- Navegación (ya **sin tab bar**): sidebar izquierdo ≥768 px (240 px expandido /
+  64 px colapsado, colapso manual persistente) y header con `☰` + drawer lateral
+  en móvil; zona principal **Inicio · Crear · Explorar · Mis planes**, gestión
+  **Mi cuenta · Ayuda**, marca al pie en `brandFg`; ítem activo en `brand`
+  `#003366` con texto blanco, "Crear" destacado; área de trabajo con ancho
+  máximo de 1080 px.
 - Acciones primarias con `#003366`.
 
 ### 4.2 Documentos exportados (Word y PDF)

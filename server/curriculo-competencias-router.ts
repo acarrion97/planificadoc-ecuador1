@@ -785,6 +785,47 @@ export const curriculoCompetenciasRouter = router({
       return { success: true };
     }),
 
+  // ── DUPLICAR (Mis planes, design D10) ────────────────────────────
+  // Copia la fila completa en una NUEVA (mismo formData, timestamps por
+  // defecto). El modelo de datos no cambia y el original queda intacto.
+  // `paid` no se copia: el desbloqueo de descargas es por documento.
+  duplicate: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .limit(1);
+      if (rows.length === 0) throw new Error("Planificación no encontrada");
+
+      const f = rows[0];
+      await db.insert(curriculoCompetenciasPlanificaciones).values({
+        sessionId: f.sessionId,
+        tipo: f.tipo,
+        grado: f.grado,
+        institucion: f.institucion,
+        docente: f.docente,
+        paralelo: f.paralelo,
+        asignatura: f.asignatura,
+        nivel: f.nivel,
+        periodoPedagogico: f.periodoPedagogico,
+        trimestre: f.trimestre,
+        dcdCodigo: f.dcdCodigo,
+        competencias: f.competencias,
+        status: f.status === "paid" ? "generated" : f.status,
+        formData: f.formData,
+        aiResult: f.aiResult,
+        sourceTraceability: f.sourceTraceability,
+      });
+
+      return { success: true };
+    }),
+
   // ── DELETE ───────────────────────────────────────────────────────
   delete: publicProcedure
     .input(z.object({ id: z.number() }))

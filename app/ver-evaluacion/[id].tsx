@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { shareAsync } from "expo-sharing";
+import { Image } from "expo-image";
 import { useColors } from "@/hooks/use-colors";
 import { ScreenContainer } from "@/components/screen-container";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "@/data";
@@ -737,7 +738,12 @@ export default function VerEvaluacionScreen() {
                           <Pressable key={op.id} onPress={() => marcarOpcion(p.id, op.id, op.esCorrecta)}
                             style={[styles.optionRow, { borderColor: sel ? colors.primary : colors.border, backgroundColor: sel ? `${colors.primary}18` : colors.surface }]}>
                             <Text style={{ fontSize: 14 }}>{sel ? "🔵" : "⚪"}</Text>
-                            <Text style={{ flex: 1, fontSize: 13, color: colors.text }}>{op.texto}</Text>
+                            <View style={{ flex: 1, gap: 4 }}>
+                              {op.imagen && (
+                                <Image source={{ uri: op.imagen }} style={{ width: 140, height: 100, borderRadius: 6 }} contentFit="contain" />
+                              )}
+                              {!!op.texto && <Text style={{ fontSize: 13, color: colors.text }}>{op.texto}</Text>}
+                            </View>
                             {sel && (op.esCorrecta ? <Text style={{ fontSize: 14 }}>✔️</Text> : <Text style={{ fontSize: 14 }}>❌</Text>)}
                           </Pressable>
                         );

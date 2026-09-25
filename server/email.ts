@@ -404,6 +404,33 @@ export async function sendResubscribeEmail(email: string, nombre: string): Promi
   return sendEmail(email, "Tu suscripción a PlanificaDoc no pudo renovarse", html);
 }
 
+// ── Email 7: Código de un solo uso para restablecer contraseña ────────────────
+
+export async function sendPasswordResetCodeEmail(email: string, code: string, minutes: number): Promise<boolean> {
+  const html = wrapTemplate(`
+    <h2 style="color:#003366;margin:0 0 16px;">Restablece tu contraseña 🔐</h2>
+    <p style="color:#333;font-size:14px;line-height:1.6;">
+      Recibiste este correo porque se pidió restablecer la contraseña de tu cuenta
+      en <strong>PlanificaDoc Ecuador</strong>.
+    </p>
+    <div style="background:#f0f6ff;border:1px solid #c9dcf2;border-radius:10px;padding:24px;text-align:center;margin:20px 0;">
+      <p style="margin:0 0 10px;color:#555;font-size:13px;">Tu código de verificación:</p>
+      <p style="margin:0;font-size:36px;font-weight:800;letter-spacing:12px;color:#003366;font-family:monospace;">${code}</p>
+      <p style="margin:14px 0 0;color:#777;font-size:12px;">Válido durante ${minutes} minutos · un solo uso</p>
+    </div>
+    <p style="color:#555;font-size:13px;line-height:1.6;">
+      Ingresa este código en la pantalla de recuperación junto con tu nueva contraseña.
+      Solo puedes usarlo una vez.
+    </p>
+    <p style="color:#888;font-size:12px;margin-top:22px;">
+      Si no solicitaste este cambio, ignora este correo: tu contraseña actual no se modificará.
+      Si no lo encuentra, revisa la carpeta de spam.
+    </p>
+  `);
+
+  return sendEmail(email, "Código para restablecer tu contraseña", html);
+}
+
 // ── Email 5: Campaña de reactivación (usuarios expirados) ─────────────────────
 
 export async function sendPromoReactivacionEmail(email: string): Promise<boolean> {
