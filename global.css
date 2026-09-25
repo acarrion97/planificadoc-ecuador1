@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Scrollbar estilizada (ambos temas) ───────────────────────────────────
+ * Pista transparente: solo se ve el deslizador (thumb), redondeado y en
+ * tono azul oscuro en claro y en oscuro (petición en Vercel). En dark el
+ * thumb se oscurece por debajo del cuerpo (#0A2E5C) para que siga viéndose.
+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 46, 92, 0.55) transparent;
+}
+
+:root[data-theme="dark"] * {
+  scrollbar-color: rgba(3, 15, 35, 0.8) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(10, 46, 92, 0.55);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(10, 46, 92, 0.85);
+}
+
+:root[data-theme="dark"] *::-webkit-scrollbar-thumb {
+  background-color: rgba(3, 15, 35, 0.8);
+}
+
+:root[data-theme="dark"] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(3, 15, 35, 1);
+}
