@@ -81,11 +81,11 @@ Documentado también en `design.md`.
 |---|---|---|---|
 | `primary` | `#1B5E9E` | `#4DA3E8` | Azul institucional (referencia MinEduc) |
 | `brand` | `#003366` | `#003366` | Marca y navegación: ítem activo del sidebar/drawer, hub `/crear` |
-| `background` | `#F8FAFC` | `#0F172A` | Fondo principal |
-| `surface` | `#FFFFFF` | `#1E293B` | Tarjetas y superficies elevadas |
-| `foreground` | `#0F172A` | `#F1F5F9` | Texto principal |
-| `muted` | `#64748B` | `#94A3B8` | Texto secundario, iconos, ítem de navegación inactivo |
-| `border` | `#E2E8F0` | `#334155` | Bordes y divisores |
+| `background` | `#F8FAFC` | `#0A2E5C` | Fondo principal (dark: azul marino) |
+| `surface` | `#FFFFFF` | `#123C72` | Tarjetas y superficies elevadas |
+| `foreground` | `#0F172A` | `#EBF1FA` | Texto principal |
+| `muted` | `#64748B` | `#93AED2` | Texto secundario, iconos, ítem de navegación inactivo |
+| `border` | `#E2E8F0` | `#174E97` | Bordes y divisores |
 | `success` | `#16A34A` | `#4ADE80` | Estados exitosos |
 | `warning` | `#D97706` | `#FBBF24` | Advertencias |
 | `error` | `#DC2626` | `#F87171` | Errores |
