@@ -19,6 +19,13 @@
  * persistencia de EGB-BGU (data/types.ts) y de BT (data/types-bt.ts) para no
  * arriesgar ninguno de los flujos existentes; se importa únicamente el tipo
  * `DUAActividad` de data/types.ts, sin ningún acoplamiento de runtime).
+ *
+ * Variante "plan piloto" (`PlanConectaNivelaCrea.planPiloto`): Lineamientos
+ * pedagógicos Sierra-Amazonía 2026-2027, Programa Piloto del Currículo
+ * Nacional por Competencias — Zona 6, sección 2.1 "Conecta y nivela: 3
+ * semanas para arrancar con éxito el año escolar". Solo 3 semanas (Semana 1
+ * adaptación + diagnóstico; Semanas 2-3 nivelación); NO hay Semanas 4-5 ni
+ * proyecto: tras la Semana 3 inicia el abordaje curricular por competencias.
  */
 
 import type { DUAActividad } from "./types";
@@ -250,8 +257,9 @@ export interface ConectaNivelaCreaAiResult {
   /** Indicadores DUA por cada técnica/instrumento sugerido (mismo índice que tecnicaDiagnosticoSugerida[]) */
   duaTecnicaDiagnosticoSugerida?: DUAActividad[];
   actividadesNivelacionSugeridas: (ActividadNivelacionCNC & { estrategiaConivelacion?: string })[];
-  proyectoSugerido: ProyectoInterdisciplinarioCNC;
-  /** Resumen narrativo de las 5 semanas, para el encabezado del documento */
+  /** Ausente en planes piloto (Conecta y nivela, 3 semanas — sin proyecto) */
+  proyectoSugerido?: ProyectoInterdisciplinarioCNC;
+  /** Resumen narrativo de las 5 semanas (3 en plan piloto), para el encabezado del documento */
   cronogramaSemanal: string;
   /** Recursos didácticos sugeridos para la Semana 1 (columna RECURSOS del documento) */
   recursosSemana1Sugeridos: string[];
@@ -278,6 +286,12 @@ export interface PlanConectaNivelaCrea {
   fechaInicio: string;
 
   modalidad: "general" | "bt";
+  /**
+   * Plan piloto Currículo por Competencias (Sierra-Amazonía, Zona 6): "Conecta
+   * y nivela" de 3 semanas, sin Semanas 4-5. Opcional por compatibilidad: los
+   * planes guardados sin el campo se tratan como `false` (programa de 5 semanas).
+   */
+  planPiloto?: boolean;
   /** Solo si modalidad === "bt" — ids del catálogo estático de data/bachillerato-tecnico.ts */
   figuraProfesionalId?: string;
   moduloId?: string;
@@ -293,4 +307,22 @@ export interface PlanConectaNivelaCrea {
   status: "borrador" | "generado";
   createdAt: string;
   updatedAt: string;
+}
+
+// ─── Plan piloto (Sierra-Amazonía, Zona 6) ───────────────────────────────────
+
+/** Título de los documentos (Word/PDF/vista) de un plan piloto */
+export const TITULO_PLAN_PILOTO_CNC =
+  "Conecta y nivela — Programa Piloto Currículo Nacional por Competencias (Zona 6)";
+
+/** Nota de cierre de un plan piloto: transición al abordaje curricular (sección 2.2 de los lineamientos) */
+export const NOTA_ABORDAJE_CURRICULAR_PILOTO =
+  "A partir de la Semana 4 se inicia el abordaje curricular por competencias considerando los resultados del diagnóstico.";
+
+/**
+ * Pasos del asistente de app/conecta-nivela-crea aplicables al plan (índices
+ * de STEP_LABELS). El plan piloto omite el paso 3 ("Semanas 4-5").
+ */
+export function pasosAplicablesCNC(planPiloto?: boolean): number[] {
+  return planPiloto ? [0, 1, 2, 4, 5] : [0, 1, 2, 3, 4, 5];
 }

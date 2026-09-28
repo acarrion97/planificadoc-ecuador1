@@ -15,6 +15,7 @@ import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
 import { FIGURAS_PROFESIONALES } from "@/data/bachillerato-tecnico";
 import type { PlanConectaNivelaCrea } from "@/data/types-cnc";
+import { TITULO_PLAN_PILOTO_CNC, NOTA_ABORDAJE_CURRICULAR_PILOTO } from "@/data/types-cnc";
 
 const TIPOS_PRODUCTO_BT: Record<string, string> = {
   maqueta: "Maqueta",
@@ -123,6 +124,8 @@ export default function VerCncScreen() {
   }
 
   const esBT = plan.modalidad === "bt";
+  // Plan piloto (Sierra-Amazonía, Zona 6): 3 semanas, sin Semanas 4-5 ni proyecto
+  const esPiloto = !!plan.planPiloto;
   const figura = esBT ? FIGURAS_PROFESIONALES.find((f) => f.id === plan.figuraProfesionalId) : undefined;
   const modulo = esBT ? figura?.modulos.find((m) => m.codigo === plan.moduloId) : undefined;
   const actividadSemana = (sem: 2 | 3) => plan.semana2y3.actividadesNivelacion.filter((a) => a.semana === sem);
@@ -135,7 +138,7 @@ export default function VerCncScreen() {
           <Text style={{ fontSize: 15, color: colors.primary, marginLeft: 6, fontWeight: "600" }}>Atrás</Text>
         </Pressable>
 
-        <Text style={{ fontSize: 20, fontWeight: "800", color: colors.text }}>🌱 Conecta, Nivela y Crea</Text>
+        <Text style={{ fontSize: 20, fontWeight: "800", color: colors.text }}>🌱 {esPiloto ? TITULO_PLAN_PILOTO_CNC : "Conecta, Nivela y Crea"}</Text>
         <Text style={{ fontSize: 12, color: colors.muted, marginTop: 2 }}>
           {plan.grado || "Sin grado"} {plan.paralelo ? `· ${plan.paralelo}` : ""} · {esBT ? "Bachillerato Técnico" : "General (EGB/BGU)"} · {plan.anioLectivo}
         </Text>
@@ -158,7 +161,7 @@ export default function VerCncScreen() {
         </View>
 
         {plan.aiResult?.cronogramaSemanal ? (
-          <Seccion title="Cronograma de las 5 semanas" emoji="🗓️" color={colors.primary}>
+          <Seccion title={esPiloto ? "Cronograma de las 3 semanas" : "Cronograma de las 5 semanas"} emoji="🗓️" color={colors.primary}>
             <Text style={{ fontSize: 12, color: colors.text }}>{plan.aiResult.cronogramaSemanal}</Text>
           </Seccion>
         ) : null}
@@ -287,69 +290,75 @@ export default function VerCncScreen() {
           ) : null}
         </Seccion>
 
-        <Seccion title={esBT ? "Semanas 4-5 — Producto acreditable" : "Semanas 4-5 — Proyecto interdisciplinario"} emoji="🎯" color="#DC2626">
-          {esBT ? (
-            <>
-              <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>
-                {TIPOS_PRODUCTO_BT[plan.semana4y5BT?.productoAcreditable.tipo ?? "otro"] ?? "Producto acreditable"}
-              </Text>
-              <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5BT?.productoAcreditable.descripcion}</Text>
-              {plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.filter(Boolean).length ? (
-                <>
-                  <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 4 — Elaboración</Text>
-                  {plan.semana4y5BT.productoAcreditable.actividadesSemana4.filter(Boolean).map((a, i) => (
-                    <LineaItem key={`s4bt-${i}`} texto={a} />
-                  ))}
-                </>
-              ) : null}
-              {plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? (
-                <>
-                  <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 5 — Presentación</Text>
-                  {plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean).map((a, i) => (
-                    <LineaItem key={`s5bt-${i}`} texto={a} />
-                  ))}
-                </>
-              ) : null}
-            </>
-          ) : (
-            <>
-              {plan.semana4y5.proyecto.titulo ? <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{plan.semana4y5.proyecto.titulo}</Text> : null}
-              {plan.semana4y5.proyecto.descripcion ? <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5.proyecto.descripcion}</Text> : null}
-              {plan.semana4y5.proyecto.productoFinal ? (
-                <View style={{ marginTop: 8, backgroundColor: "#FFF7ED", borderRadius: 8, padding: 8, borderWidth: 1, borderColor: "#FDBA74" }}>
-                  <Text style={{ fontSize: 11, fontWeight: "700", color: "#9A3412" }}>📦 Producto final</Text>
-                  <Text style={{ fontSize: 12, color: "#431407", marginTop: 2 }}>{plan.semana4y5.proyecto.productoFinal}</Text>
-                </View>
-              ) : null}
-              {plan.semana4y5.proyecto.areasIntegradas.filter(Boolean).length ? (
-                <Text style={{ fontSize: 11, color: colors.muted, marginTop: 6 }}>
-                  Áreas integradas: {plan.semana4y5.proyecto.areasIntegradas.filter(Boolean).join(", ")}
+        {esPiloto ? (
+          <Seccion title="Abordaje curricular" emoji="🧭" color="#0F766E">
+            <Text style={{ fontSize: 12, color: colors.text }}>{NOTA_ABORDAJE_CURRICULAR_PILOTO}</Text>
+          </Seccion>
+        ) : (
+          <Seccion title={esBT ? "Semanas 4-5 — Producto acreditable" : "Semanas 4-5 — Proyecto interdisciplinario"} emoji="🎯" color="#DC2626">
+            {esBT ? (
+              <>
+                <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>
+                  {TIPOS_PRODUCTO_BT[plan.semana4y5BT?.productoAcreditable.tipo ?? "otro"] ?? "Producto acreditable"}
                 </Text>
-              ) : null}
-              {plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? (
-                <>
-                  <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 4 — Planificación y elaboración</Text>
-                  {plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean).map((a, i) => (
-                    <LineaItem key={`s4-${i}`} texto={a} />
-                  ))}
-                </>
-              ) : null}
-              {plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? (
-                <>
-                  <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 5 — Socialización y reflexión</Text>
-                  {plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean).map((a, i) => (
-                    <LineaItem key={`s5-${i}`} texto={a} />
-                  ))}
-                </>
-              ) : null}
-              {plan.semana4y5.proyecto.destrezasReforzadas?.filter(Boolean).length ? (
-                <Text style={{ fontSize: 11, color: colors.muted, marginTop: 6 }}>
-                  Destrezas reforzadas: {plan.semana4y5.proyecto.destrezasReforzadas.filter(Boolean).join(", ")}
-                </Text>
-              ) : null}
-            </>
-          )}
-        </Seccion>
+                <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5BT?.productoAcreditable.descripcion}</Text>
+                {plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.filter(Boolean).length ? (
+                  <>
+                    <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 4 — Elaboración</Text>
+                    {plan.semana4y5BT.productoAcreditable.actividadesSemana4.filter(Boolean).map((a, i) => (
+                      <LineaItem key={`s4bt-${i}`} texto={a} />
+                    ))}
+                  </>
+                ) : null}
+                {plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? (
+                  <>
+                    <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 5 — Presentación</Text>
+                    {plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean).map((a, i) => (
+                      <LineaItem key={`s5bt-${i}`} texto={a} />
+                    ))}
+                  </>
+                ) : null}
+              </>
+            ) : (
+              <>
+                {plan.semana4y5.proyecto.titulo ? <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{plan.semana4y5.proyecto.titulo}</Text> : null}
+                {plan.semana4y5.proyecto.descripcion ? <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5.proyecto.descripcion}</Text> : null}
+                {plan.semana4y5.proyecto.productoFinal ? (
+                  <View style={{ marginTop: 8, backgroundColor: "#FFF7ED", borderRadius: 8, padding: 8, borderWidth: 1, borderColor: "#FDBA74" }}>
+                    <Text style={{ fontSize: 11, fontWeight: "700", color: "#9A3412" }}>📦 Producto final</Text>
+                    <Text style={{ fontSize: 12, color: "#431407", marginTop: 2 }}>{plan.semana4y5.proyecto.productoFinal}</Text>
+                  </View>
+                ) : null}
+                {plan.semana4y5.proyecto.areasIntegradas.filter(Boolean).length ? (
+                  <Text style={{ fontSize: 11, color: colors.muted, marginTop: 6 }}>
+                    Áreas integradas: {plan.semana4y5.proyecto.areasIntegradas.filter(Boolean).join(", ")}
+                  </Text>
+                ) : null}
+                {plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? (
+                  <>
+                    <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 4 — Planificación y elaboración</Text>
+                    {plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean).map((a, i) => (
+                      <LineaItem key={`s4-${i}`} texto={a} />
+                    ))}
+                  </>
+                ) : null}
+                {plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? (
+                  <>
+                    <Text style={{ fontSize: 11, fontWeight: "700", color: colors.muted, marginTop: 8, marginBottom: 4 }}>Semana 5 — Socialización y reflexión</Text>
+                    {plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean).map((a, i) => (
+                      <LineaItem key={`s5-${i}`} texto={a} />
+                    ))}
+                  </>
+                ) : null}
+                {plan.semana4y5.proyecto.destrezasReforzadas?.filter(Boolean).length ? (
+                  <Text style={{ fontSize: 11, color: colors.muted, marginTop: 6 }}>
+                    Destrezas reforzadas: {plan.semana4y5.proyecto.destrezasReforzadas.filter(Boolean).join(", ")}
+                  </Text>
+                ) : null}
+              </>
+            )}
+          </Seccion>
+        )}
       </ScrollView>
     </ScreenContainer>
   );

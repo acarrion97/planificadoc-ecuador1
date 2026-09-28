@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 import {
   View, Text, TextInput, ScrollView, Pressable,
-  StyleSheet, Alert, ActivityIndicator, Platform, Modal,
+  StyleSheet, Alert, ActivityIndicator, Platform, Modal, Switch,
 } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,7 +28,7 @@ import {
   rubricaProyectoDesdeDestrezas,
   semana1ConSugerenciasIA,
 } from "@/lib/cnc-diagnostico";
-import { NIVELES_DESEMPENO_RUBRICA } from "@/data/types-cnc";
+import { NIVELES_DESEMPENO_RUBRICA, NOTA_ABORDAJE_CURRICULAR_PILOTO, pasosAplicablesCNC } from "@/data/types-cnc";
 import { generarWordPlanCNC } from "@/lib/cnc-word-generator";
 import { generarHTMLPruebaImprimible } from "@/lib/evaluacion-pdf-generator";
 
@@ -76,6 +76,7 @@ function planVacio(): PlanConectaNivelaCrea {
     institucion: "", docente: "", anioLectivo: "2026-2027",
     grado: "", paralelo: "", subnivel: "", fechaInicio: "",
     modalidad: "general",
+    planPiloto: false,
     semana1: {
       metodologiaDeclarada: "",
       actividadesAdaptacion: [], instrumentosDiagnostico: [], diagnosticoAcademico: [], diagnosticoSocioemocional: [],
@@ -101,17 +102,22 @@ function planVacio(): PlanConectaNivelaCrea {
 
 // ─── Sub-componentes (duplicados del patrón de adaptacion-curricular, no compartidos) ──
 
-function StepBar({ current, total, colors }: { current: number; total: number; colors: any }) {
+/**
+ * `pasos` son los índices de STEP_LABELS aplicables al plan (el plan piloto
+ * omite "Semanas 4-5"); el resaltado se hace por posición dentro de `pasos`.
+ */
+function StepBar({ current, pasos, colors }: { current: number; pasos: number[]; colors: any }) {
+  const posActual = pasos.indexOf(current);
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 4, marginBottom: 16 }}>
-      {Array.from({ length: total }).map((_, i) => (
-        <View key={i} style={{ flex: 1, flexDirection: "column", alignItems: "center", gap: 2 }}>
+      {pasos.map((paso, pos) => (
+        <View key={paso} style={{ flex: 1, flexDirection: "column", alignItems: "center", gap: 2 }}>
           <View style={{
             height: 4, width: "100%", borderRadius: 2,
-            backgroundColor: i <= current ? colors.primary : colors.border,
+            backgroundColor: pos <= posActual ? colors.primary : colors.border,
           }} />
-          <Text style={{ fontSize: 9, color: i === current ? colors.primary : colors.muted }}>
-            {STEP_LABELS[i]}
+          <Text style={{ fontSize: 9, color: paso === current ? colors.primary : colors.muted }}>
+            {STEP_LABELS[paso]}
           </Text>
         </View>
       ))}
@@ -433,6 +439,11 @@ export default function ConectaNivelaCreaScreen() {
   const sugerirProyectoMutation = trpc.cnc.sugerirProyecto.useMutation();
 
   const esBT = plan.modalidad === "bt";
+  // Plan piloto Sierra-Amazonía Zona 6: 3 semanas, sin el paso "Semanas 4-5";
+  // el botón de generar pasa al paso de Semanas 2-3.
+  const esPiloto = !!plan.planPiloto;
+  const pasos = pasosAplicablesCNC(esPiloto);
+  const pasoGenerar = esPiloto ? 2 : 3;
   const subnivelCurso = subnivelDesdeGrado(plan.grado);
   const figuraSeleccionada: FiguraProfesional | undefined = FIGURAS_PROFESIONALES.find((f) => f.id === plan.figuraProfesionalId);
   const moduloSeleccionado: ModuloFormativo | undefined = figuraSeleccionada?.modulos.find((m) => m.codigo === plan.moduloId);
@@ -520,8 +531,15 @@ export default function ConectaNivelaCreaScreen() {
   }
 
   function scrollTop() { scrollRef.current?.scrollTo({ y: 0, animated: true }); }
-  function nextStep() { setStep((s) => s + 1); scrollTop(); }
-  function prevStep() { setStep((s) => s - 1); scrollTop(); }
+  // Avanza/retrocede solo entre los pasos aplicables (el piloto salta "Semanas 4-5")
+  function nextStep() {
+    setStep((s) => pasos[Math.min(pasos.indexOf(s) + 1, pasos.length - 1)] ?? s + 1);
+    scrollTop();
+  }
+  function prevStep() {
+    setStep((s) => pasos[Math.max(pasos.indexOf(s) - 1, 0)] ?? s - 1);
+    scrollTop();
+  }
 
   function validateStep(): string | null {
     if (step === 0) {
@@ -557,7 +575,8 @@ export default function ConectaNivelaCreaScreen() {
         form: {
           institucion: plan.institucion, docente: plan.docente, anioLectivo: plan.anioLectivo,
           grado: plan.grado, paralelo: plan.paralelo, subnivel: plan.subnivel,
-          modalidad: plan.modalidad, figuraProfesionalId: plan.figuraProfesionalId, moduloId: plan.moduloId,
+          modalidad: plan.modalidad, planPiloto: esPiloto,
+          figuraProfesionalId: plan.figuraProfesionalId, moduloId: plan.moduloId,
           semana1: plan.semana1, semana1BT: plan.semana1BT,
           semana2y3: plan.semana2y3, semana2y3BT: plan.semana2y3BT,
           semana4y5: {
@@ -657,56 +676,61 @@ export default function ConectaNivelaCreaScreen() {
         };
       })() : plan.semana2y3BT;
 
+      const proyectoIA = res.aiResult.proyectoSugerido;
+      const productoIA = res.aiResult.productoAcreditableSugerido;
+
       const actualizado: PlanConectaNivelaCrea = {
         ...plan,
         semana1: semana1Completada,
         semana1BT: semana1BTCompletado,
         semana2y3: { ...plan.semana2y3, actividadesNivelacion },
         semana2y3BT: semana2y3BTCompletado,
-        semana4y5: {
+        // Plan piloto: sin fase Crea — semana4y5 queda tal cual (vacía) y no se
+        // depende de proyectoSugerido/productoAcreditableSugerido (vienen undefined).
+        semana4y5: esPiloto || !proyectoIA ? plan.semana4y5 : {
           proyecto: {
-            ...res.aiResult.proyectoSugerido,
-            titulo: plan.semana4y5.proyecto.titulo || res.aiResult.proyectoSugerido.titulo,
-            descripcion: plan.semana4y5.proyecto.descripcion || res.aiResult.proyectoSugerido.descripcion,
+            ...proyectoIA,
+            titulo: plan.semana4y5.proyecto.titulo || proyectoIA.titulo,
+            descripcion: plan.semana4y5.proyecto.descripcion || proyectoIA.descripcion,
             areasIntegradas: plan.semana4y5.proyecto.areasIntegradas.length
               ? plan.semana4y5.proyecto.areasIntegradas
-              : (res.aiResult.proyectoSugerido.areasIntegradas ?? []),
+              : (proyectoIA.areasIntegradas ?? []),
             objetivoAprendizaje:
-              plan.semana4y5.proyecto.objetivoAprendizaje || res.aiResult.proyectoSugerido.objetivoAprendizaje || "",
-            productoFinal: plan.semana4y5.proyecto.productoFinal || res.aiResult.proyectoSugerido.productoFinal || "",
+              plan.semana4y5.proyecto.objetivoAprendizaje || proyectoIA.objetivoAprendizaje || "",
+            productoFinal: plan.semana4y5.proyecto.productoFinal || proyectoIA.productoFinal || "",
             productoIntermedio:
-              plan.semana4y5.proyecto.productoIntermedio || res.aiResult.proyectoSugerido.productoIntermedio || "",
+              plan.semana4y5.proyecto.productoIntermedio || proyectoIA.productoIntermedio || "",
             objetivoSemana4:
-              plan.semana4y5.proyecto.objetivoSemana4 || res.aiResult.proyectoSugerido.objetivoSemana4 || "",
+              plan.semana4y5.proyecto.objetivoSemana4 || proyectoIA.objetivoSemana4 || "",
             objetivoSemana5:
-              plan.semana4y5.proyecto.objetivoSemana5 || res.aiResult.proyectoSugerido.objetivoSemana5 || "",
+              plan.semana4y5.proyecto.objetivoSemana5 || proyectoIA.objetivoSemana5 || "",
             actividadesSemana4: plan.semana4y5.proyecto.actividadesSemana4.length
               ? plan.semana4y5.proyecto.actividadesSemana4
-              : (res.aiResult.proyectoSugerido.actividadesSemana4 ?? []),
+              : (proyectoIA.actividadesSemana4 ?? []),
             actividadesSemana5: plan.semana4y5.proyecto.actividadesSemana5.length
               ? plan.semana4y5.proyecto.actividadesSemana5
-              : (res.aiResult.proyectoSugerido.actividadesSemana5 ?? []),
+              : (proyectoIA.actividadesSemana5 ?? []),
             destrezasReforzadas: plan.semana4y5.proyecto.destrezasReforzadas.length
               ? plan.semana4y5.proyecto.destrezasReforzadas
-              : (res.aiResult.proyectoSugerido.destrezasReforzadas ?? []),
-            compromisos: plan.semana4y5.proyecto.compromisos || res.aiResult.proyectoSugerido.compromisos || "",
+              : (proyectoIA.destrezasReforzadas ?? []),
+            compromisos: plan.semana4y5.proyecto.compromisos || proyectoIA.compromisos || "",
             autoevaluacion: plan.semana4y5.proyecto.autoevaluacion.length
               ? plan.semana4y5.proyecto.autoevaluacion
-              : (res.aiResult.proyectoSugerido.autoevaluacion ?? []),
+              : (proyectoIA.autoevaluacion ?? []),
           },
         },
-        semana4y5BT: res.aiResult.productoAcreditableSugerido
+        semana4y5BT: !esPiloto && productoIA
           ? {
               productoAcreditable: {
-                ...res.aiResult.productoAcreditableSugerido,
-                tipo: plan.semana4y5BT?.productoAcreditable.tipo || res.aiResult.productoAcreditableSugerido.tipo,
-                descripcion: plan.semana4y5BT?.productoAcreditable.descripcion || res.aiResult.productoAcreditableSugerido.descripcion,
+                ...productoIA,
+                tipo: plan.semana4y5BT?.productoAcreditable.tipo || productoIA.tipo,
+                descripcion: plan.semana4y5BT?.productoAcreditable.descripcion || productoIA.descripcion,
                 actividadesSemana4: plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.length
                   ? plan.semana4y5BT.productoAcreditable.actividadesSemana4
-                  : (res.aiResult.productoAcreditableSugerido.actividadesSemana4 ?? []),
+                  : (productoIA.actividadesSemana4 ?? []),
                 actividadesSemana5: plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.length
                   ? plan.semana4y5BT.productoAcreditable.actividadesSemana5
-                  : (res.aiResult.productoAcreditableSugerido.actividadesSemana5 ?? []),
+                  : (productoIA.actividadesSemana5 ?? []),
               },
             }
           : plan.semana4y5BT,
@@ -910,6 +934,7 @@ export default function ConectaNivelaCreaScreen() {
       const res = await sugerirReflexionMutation.mutateAsync({
         diagnosticoAcademico: plan.semana1.diagnosticoAcademico,
         diagnosticoSocioemocional: plan.semana1.diagnosticoSocioemocional,
+        planPiloto: esPiloto,
       });
       setPlan((p) => ({
         ...p,
@@ -957,6 +982,44 @@ export default function ConectaNivelaCreaScreen() {
 
   const habilidadesSeleccionables = HABILIDADES_SOCIOEMOCIONALES.filter((h) => !h.caiOnly);
 
+  // Valida el paso actual antes de generar — en el piloto se genera desde
+  // Semanas 2-3, que así conserva su validación (en el modo normal, paso 3, no aplica).
+  function handleGenerarClick() {
+    const err = validateStep();
+    if (err) { setValidationError(err); return; }
+    setValidationError(null);
+    handleGenerate();
+  }
+
+  // Botón de generar + error — en el paso "Semanas 4-5" o, en el plan piloto, en "Semanas 2-3"
+  const botonGenerar = (
+    <>
+      <Pressable
+        onPress={handleGenerarClick}
+        disabled={generateMutation.isPending}
+        style={{ backgroundColor: colors.primary, borderRadius: 12, paddingVertical: 16, alignItems: "center", marginTop: 12 }}
+      >
+        {generateMutation.isPending ? (
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            <ActivityIndicator color="#fff" size="small" />
+            <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>Generando plan...</Text>
+          </View>
+        ) : (
+          <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>
+            {esPiloto ? "✨ Generar Plan Conecta y Nivela" : "✨ Generar Plan Conecta, Nivela y Crea"}
+          </Text>
+        )}
+      </Pressable>
+
+      {generateError && (
+        <View style={{ backgroundColor: "#FEE2E2", borderRadius: 10, padding: 14, marginTop: 14, borderWidth: 1, borderColor: "#FCA5A5" }}>
+          <Text style={{ fontSize: 13, fontWeight: "700", color: "#DC2626", marginBottom: 4 }}>❌ Error al generar</Text>
+          <Text style={{ fontSize: 12, color: "#991B1B" }}>{generateError}</Text>
+        </View>
+      )}
+    </>
+  );
+
   return (
     <ScreenContainer>
       <ScrollView
@@ -972,11 +1035,13 @@ export default function ConectaNivelaCreaScreen() {
           </Pressable>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 18, fontWeight: "700", color: colors.text }}>Conecta, Nivela y Crea</Text>
-            <Text style={{ fontSize: 11, color: colors.muted }}>Arranque del año escolar — 5 semanas</Text>
+            <Text style={{ fontSize: 11, color: colors.muted }}>
+              {esPiloto ? "Programa piloto — 3 semanas (Conecta y nivela)" : "Arranque del año escolar — 5 semanas"}
+            </Text>
           </View>
         </View>
 
-        <StepBar current={step} total={6} colors={colors} />
+        <StepBar current={step} pasos={pasos} colors={colors} />
 
         {/* ── PASO 0: Identificación ── */}
         {step === 0 && (
@@ -1004,6 +1069,26 @@ export default function ConectaNivelaCreaScreen() {
             </View>
 
             <Field label="Paralelo" value={plan.paralelo} onChangeText={(v) => setPlan((p) => ({ ...p, paralelo: v }))} colors={colors} placeholder="Ej: A" />
+
+            {/* Plan piloto Currículo por Competencias — mismo estilo de toggle que app/curriculo-competencias/inicial.tsx */}
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: 14, borderRadius: 10, borderWidth: 1, borderColor: colors.border, marginBottom: 10 }}>
+              <View style={{ flex: 1, paddingRight: 10 }}>
+                <Text style={{ fontSize: 14, fontWeight: "600", color: colors.foreground }}>
+                  Plan piloto Currículo por Competencias (Sierra-Amazonía, Zona 6)
+                </Text>
+                <Text style={{ fontSize: 12, marginTop: 2, color: colors.muted }}>
+                  {esPiloto
+                    ? "\"Conecta y nivela\" de 3 semanas: Semana 1 adaptación y diagnóstico, Semanas 2-3 nivelación en Lengua y Matemática. Sin Semanas 4-5 ni proyecto: desde la Semana 4 inicia el abordaje curricular por competencias."
+                    : "Actívalo si tu institución participa en el Programa Piloto: el plan se reduce a 3 semanas (sin Semanas 4-5 ni proyecto)."}
+                </Text>
+              </View>
+              <Switch
+                value={esPiloto}
+                onValueChange={(v) => setPlan((p) => ({ ...p, planPiloto: v }))}
+                trackColor={{ false: colors.border, true: colors.primary + "60" }}
+                thumbColor={esPiloto ? colors.primary : colors.muted}
+              />
+            </View>
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
             <SectionHeading text="Modalidad" colors={colors} />
@@ -1241,7 +1326,9 @@ export default function ConectaNivelaCreaScreen() {
           <View>
             <SectionHeading text="Semana 1 — Conecta" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
-              Adaptación al inicio del año + diagnóstico dual (académico y socioemocional), coordinado con el equipo DECE.
+              {esPiloto
+                ? "Actividades de adaptación lúdicas (integración, normas de convivencia, expectativas, bienvenida) + evaluación diagnóstica académica y socioemocional (apoyada por el DECE), basada en el informe de resultados del año anterior y las conclusiones de las Juntas de Curso. Usa instrumentos no tradicionales."
+                : "Adaptación al inicio del año + diagnóstico dual (académico y socioemocional), coordinado con el equipo DECE."}
             </Text>
 
             <Field
@@ -1410,7 +1497,9 @@ export default function ConectaNivelaCreaScreen() {
               onChangeText={(v) => setPlan((p) => ({ ...p, semana1: { ...p.semana1, tecnicasReflexion: v.split("\n") } }))}
               colors={colors}
               multiline
-              placeholder="Ej: ¿Qué nos falta por aprender?&#10;¿Dónde usaste Matemática el año pasado?"
+              placeholder={esPiloto
+                ? "Ej: ¿Qué aprendí en Lengua y Literatura?\n¿Qué aprendí en Matemática?\n¿En qué aspectos de la cotidianidad apliqué lo aprendido?\n¿Qué me falta por aprender?"
+                : "Ej: ¿Qué nos falta por aprender?\n¿Dónde usaste Matemática el año pasado?"}
             />
           </View>
         )}
@@ -1420,7 +1509,9 @@ export default function ConectaNivelaCreaScreen() {
           <View>
             <SectionHeading text="Semanas 2-3 — Nivela" colors={colors} />
             <Text style={{ fontSize: 12, color: colors.muted, marginBottom: 12 }}>
-              Refuerzo focalizado en Lengua y Matemática, con "co-nivelación" (tutoría entre pares).
+              {esPiloto
+                ? "Nivelación en Lengua y Literatura y Matemática (fortalecidas con otras asignaturas del subnivel) según los resultados del diagnóstico, con \"co-nivelación\" (tutoría entre pares). Recursos: textos escolares del año anterior, folletos u hojas de trabajo. Al terminar la Semana 3 inicia el abordaje curricular por competencias."
+                : "Refuerzo focalizado en Lengua y Matemática, con \"co-nivelación\" (tutoría entre pares)."}
             </Text>
 
             <Label text="Semana en la que se agregarán las destrezas" colors={colors} />
@@ -1588,6 +1679,9 @@ export default function ConectaNivelaCreaScreen() {
             <Pressable onPress={addPareja} style={{ paddingVertical: 10, alignItems: "center", borderWidth: 1, borderColor: colors.border, borderRadius: 8, borderStyle: "dashed" }}>
               <Text style={{ fontSize: 12, color: colors.primary, fontWeight: "600" }}>+ Agregar pareja de co-nivelación</Text>
             </Pressable>
+
+            {/* Plan piloto: no hay paso "Semanas 4-5", se genera desde aquí */}
+            {esPiloto && botonGenerar}
           </View>
         )}
 
@@ -1821,27 +1915,7 @@ export default function ConectaNivelaCreaScreen() {
               </>
             )}
 
-            <Pressable
-              onPress={handleGenerate}
-              disabled={generateMutation.isPending}
-              style={{ backgroundColor: colors.primary, borderRadius: 12, paddingVertical: 16, alignItems: "center", marginTop: 12 }}
-            >
-              {generateMutation.isPending ? (
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                  <ActivityIndicator color="#fff" size="small" />
-                  <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>Generando plan...</Text>
-                </View>
-              ) : (
-                <Text style={{ color: "#fff", fontWeight: "700", fontSize: 14 }}>✨ Generar Plan Conecta, Nivela y Crea</Text>
-              )}
-            </Pressable>
-
-            {generateError && (
-              <View style={{ backgroundColor: "#FEE2E2", borderRadius: 10, padding: 14, marginTop: 14, borderWidth: 1, borderColor: "#FCA5A5" }}>
-                <Text style={{ fontSize: 13, fontWeight: "700", color: "#DC2626", marginBottom: 4 }}>❌ Error al generar</Text>
-                <Text style={{ fontSize: 12, color: "#991B1B" }}>{generateError}</Text>
-              </View>
-            )}
+            {botonGenerar}
           </View>
         )}
 
@@ -1850,7 +1924,7 @@ export default function ConectaNivelaCreaScreen() {
           <View style={{ padding: 24, alignItems: "center", gap: 12 }}>
             <Text style={{ fontSize: 40 }}>⚠️</Text>
             <Text style={{ fontSize: 15, fontWeight: "700", color: "#DC2626", textAlign: "center" }}>No se pudo obtener el resultado</Text>
-            <Pressable onPress={() => { setStep(3); scrollTop(); }} style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}>
+            <Pressable onPress={() => { setStep(pasoGenerar); scrollTop(); }} style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 24 }}>
               <Text style={{ color: "#fff", fontWeight: "700" }}>← Volver a Generar</Text>
             </Pressable>
           </View>
@@ -1940,7 +2014,7 @@ export default function ConectaNivelaCreaScreen() {
               </View>
             )}
 
-            <ResultSection title="Cronograma de las 5 semanas" emoji="🗓️" color={colors.primary}>
+            <ResultSection title={esPiloto ? "Cronograma de las 3 semanas" : "Cronograma de las 5 semanas"} emoji="🗓️" color={colors.primary}>
               <Text style={{ fontSize: 12, color: colors.text }}>{aiResult.cronogramaSemanal}</Text>
             </ResultSection>
 
@@ -1974,67 +2048,74 @@ export default function ConectaNivelaCreaScreen() {
               ))}
             </ResultSection>
 
-            <View style={{ borderWidth: 1.5, borderColor: "#DC262635", borderRadius: 14, overflow: "hidden", marginBottom: 16 }}>
-              <View style={{ backgroundColor: "#DC2626", paddingHorizontal: 14, paddingVertical: 10 }}>
-                <Text style={{ fontSize: 13, fontWeight: "700", color: "#fff" }}>🎯 Semanas 4-5 — {esBT ? "Producto acreditable" : "Proyecto interdisciplinario"}</Text>
-              </View>
-              <View style={{ padding: 14 }}>
-                <View style={{ backgroundColor: "#FEE2E2", borderRadius: 8, padding: 8, marginBottom: 10 }}>
-                  <Text style={{ fontSize: 10, fontWeight: "700", color: "#991B1B" }}>EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</Text>
+            {esPiloto ? (
+              // Plan piloto: no hay fase Crea — tras la Semana 3 inicia el abordaje curricular
+              <ResultSection title="Abordaje curricular" emoji="🧭" color="#0F766E">
+                <Text style={{ fontSize: 12, color: colors.text }}>{NOTA_ABORDAJE_CURRICULAR_PILOTO}</Text>
+              </ResultSection>
+            ) : (
+              <View style={{ borderWidth: 1.5, borderColor: "#DC262635", borderRadius: 14, overflow: "hidden", marginBottom: 16 }}>
+                <View style={{ backgroundColor: "#DC2626", paddingHorizontal: 14, paddingVertical: 10 }}>
+                  <Text style={{ fontSize: 13, fontWeight: "700", color: "#fff" }}>🎯 Semanas 4-5 — {esBT ? "Producto acreditable" : "Proyecto interdisciplinario"}</Text>
                 </View>
-                {!esBT ? (
-                  <>
-                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{plan.semana4y5.proyecto.titulo}</Text>
-                    <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5.proyecto.descripcion}</Text>
-                    {!!plan.semana4y5.proyecto.productoFinal && (
-                      <View style={{ marginTop: 8, backgroundColor: "#FFF7ED", borderRadius: 8, padding: 8, borderWidth: 1, borderColor: "#FDBA74" }}>
-                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#9A3412" }}>📦 Producto final</Text>
-                        <Text style={{ fontSize: 12, color: "#431407", marginTop: 2 }}>{plan.semana4y5.proyecto.productoFinal}</Text>
-                      </View>
-                    )}
-                    {plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? (
-                      <View style={{ marginTop: 8 }}>
-                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 4 — Planificación y elaboración</Text>
-                        {plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean).map((a, i) => (
-                          <Text key={`s4-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
-                        ))}
-                      </View>
-                    ) : null}
-                    {plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? (
-                      <View style={{ marginTop: 8 }}>
-                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 5 — Socialización y reflexión</Text>
-                        {plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean).map((a, i) => (
-                          <Text key={`s5-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
-                        ))}
-                      </View>
-                    ) : null}
-                  </>
-                ) : (
-                  <>
-                    <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>
-                      {TIPOS_PRODUCTO_BT.find((t) => t.id === plan.semana4y5BT?.productoAcreditable.tipo)?.label ?? "Producto acreditable"}
-                    </Text>
-                    <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5BT?.productoAcreditable.descripcion}</Text>
-                    {plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.filter(Boolean).length ? (
-                      <View style={{ marginTop: 8 }}>
-                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 4 — Elaboración del producto</Text>
-                        {plan.semana4y5BT.productoAcreditable.actividadesSemana4.filter(Boolean).map((a, i) => (
-                          <Text key={`s4bt-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
-                        ))}
-                      </View>
-                    ) : null}
-                    {plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? (
-                      <View style={{ marginTop: 8 }}>
-                        <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 5 — Presentación y evaluación</Text>
-                        {plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean).map((a, i) => (
-                          <Text key={`s5bt-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
-                        ))}
-                      </View>
-                    ) : null}
-                  </>
-                )}
+                <View style={{ padding: 14 }}>
+                  <View style={{ backgroundColor: "#FEE2E2", borderRadius: 8, padding: 8, marginBottom: 10 }}>
+                    <Text style={{ fontSize: 10, fontWeight: "700", color: "#991B1B" }}>EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</Text>
+                  </View>
+                  {!esBT ? (
+                    <>
+                      <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>{plan.semana4y5.proyecto.titulo}</Text>
+                      <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5.proyecto.descripcion}</Text>
+                      {!!plan.semana4y5.proyecto.productoFinal && (
+                        <View style={{ marginTop: 8, backgroundColor: "#FFF7ED", borderRadius: 8, padding: 8, borderWidth: 1, borderColor: "#FDBA74" }}>
+                          <Text style={{ fontSize: 11, fontWeight: "700", color: "#9A3412" }}>📦 Producto final</Text>
+                          <Text style={{ fontSize: 12, color: "#431407", marginTop: 2 }}>{plan.semana4y5.proyecto.productoFinal}</Text>
+                        </View>
+                      )}
+                      {plan.semana4y5.proyecto.actividadesSemana4?.filter(Boolean).length ? (
+                        <View style={{ marginTop: 8 }}>
+                          <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 4 — Planificación y elaboración</Text>
+                          {plan.semana4y5.proyecto.actividadesSemana4.filter(Boolean).map((a, i) => (
+                            <Text key={`s4-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                          ))}
+                        </View>
+                      ) : null}
+                      {plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? (
+                        <View style={{ marginTop: 8 }}>
+                          <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 5 — Socialización y reflexión</Text>
+                          {plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean).map((a, i) => (
+                            <Text key={`s5-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                          ))}
+                        </View>
+                      ) : null}
+                    </>
+                  ) : (
+                    <>
+                      <Text style={{ fontSize: 13, fontWeight: "700", color: colors.text }}>
+                        {TIPOS_PRODUCTO_BT.find((t) => t.id === plan.semana4y5BT?.productoAcreditable.tipo)?.label ?? "Producto acreditable"}
+                      </Text>
+                      <Text style={{ fontSize: 12, color: colors.text, marginTop: 4 }}>{plan.semana4y5BT?.productoAcreditable.descripcion}</Text>
+                      {plan.semana4y5BT?.productoAcreditable.actividadesSemana4?.filter(Boolean).length ? (
+                        <View style={{ marginTop: 8 }}>
+                          <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 4 — Elaboración del producto</Text>
+                          {plan.semana4y5BT.productoAcreditable.actividadesSemana4.filter(Boolean).map((a, i) => (
+                            <Text key={`s4bt-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                          ))}
+                        </View>
+                      ) : null}
+                      {plan.semana4y5BT?.productoAcreditable.actividadesSemana5?.filter(Boolean).length ? (
+                        <View style={{ marginTop: 8 }}>
+                          <Text style={{ fontSize: 11, fontWeight: "700", color: "#7C3AED" }}>Semana 5 — Presentación y evaluación</Text>
+                          {plan.semana4y5BT.productoAcreditable.actividadesSemana5.filter(Boolean).map((a, i) => (
+                            <Text key={`s5bt-${i}`} style={{ fontSize: 12, color: colors.text, marginTop: 3 }}>• {a}</Text>
+                          ))}
+                        </View>
+                      ) : null}
+                    </>
+                  )}
+                </View>
               </View>
-            </View>
+            )}
           </View>
         )}
 
@@ -2052,7 +2133,7 @@ export default function ConectaNivelaCreaScreen() {
                 <Text style={{ color: colors.text, fontWeight: "600" }}>← Anterior</Text>
               </Pressable>
             )}
-            {(step < 3 || step === 4) && (
+            {(step < pasoGenerar || step === 4) && (
               <Pressable onPress={handleNext} style={{ flex: 2, borderRadius: 10, paddingVertical: 12, alignItems: "center", backgroundColor: colors.primary }}>
                 <Text style={{ color: "#fff", fontWeight: "700" }}>Siguiente →</Text>
               </Pressable>
