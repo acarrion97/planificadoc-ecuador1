@@ -25,7 +25,10 @@ export interface Modulo {
   /** Ruta de navegación hacia el flujo existente. */
   ruta: string;
   icono: IconName;
-  /** true → necesita una planificación o semana de origen (design D4). */
+  /**
+   * true → necesita una planificación o semana de origen (design D4): plan
+   * diario, semana o plan de Currículo por competencias (con NEE).
+   */
   requiereContexto: boolean;
 }
 

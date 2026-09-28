@@ -63,7 +63,7 @@ const FAQ: FaqItem[] = [
     id: "adaptacion",
     pregunta: "¿Qué necesito para crear una Adaptación curricular?",
     respuesta:
-      "Una planificación o una semana de origen: la adaptación parte de un documento existente al que se le ajustan objetivos, metodología y evaluación. Por eso el módulo aparece deshabilitado en el catálogo sin contexto y se habilita cuando llegas desde el detalle de un plan o de una semana; ahí se carga con ese contexto precargado.",
+      "Una planificación o una semana de origen: la adaptación parte de un documento existente al que se le ajustan objetivos, metodología y evaluación. Por eso el módulo aparece deshabilitado en el catálogo sin contexto y se habilita cuando llegas desde el detalle de un plan diario, de una semana o de una planificación de Currículo por competencias (botón «Crear adaptación curricular (NEE)», o al guardarla con «¿Hay estudiantes con NEE?» activado); ahí se carga con ese contexto precargado.",
     enlace: { etiqueta: "Ver el módulo en Crear", href: "/crear" },
   },
   {
