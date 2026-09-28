@@ -532,7 +532,7 @@ export default function PlanificarSemanalScreen() {
                   setAsignatura("");
                   setSelectedAreaCode("");
                 }}
-                  style={[styles.trimestreBtn, {
+                  style={[styles.wrapChip, {
                     borderColor: active ? "#003366" : colors.border,
                     backgroundColor: active ? "#003366" : colors.surface,
                   }]}>
@@ -558,7 +558,7 @@ export default function PlanificarSemanalScreen() {
                       if (active) { setAsignatura(""); setSelectedAreaCode(""); }
                       else { setAsignatura(info.name); setSelectedAreaCode(code); }
                     }}
-                      style={[styles.trimestreBtn, {
+                      style={[styles.wrapChip, {
                         borderColor: active ? info.color : colors.border,
                         backgroundColor: active ? info.color + "20" : colors.surface,
                         paddingHorizontal: 12,
@@ -1497,6 +1497,8 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, marginBottom: 4 },
   inputSm: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, marginTop: 4 },
   trimestreBtn: { flex: 1, paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center" },
+  // Chips de etiqueta larga en filas con wrap: base "auto" para que salten de línea en móvil en vez de comprimirse.
+  wrapChip: { flexGrow: 1, flexShrink: 1, flexBasis: "auto", maxWidth: "100%", paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   estiloRow: { flexDirection: "row", alignItems: "center", marginBottom: 8, gap: 6 },
   estiloLabel: { fontSize: 12, fontWeight: "600", width: 100 },
   estiloBarBg: { flex: 1, height: 10, borderRadius: 5, overflow: "hidden" },
