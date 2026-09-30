@@ -1,0 +1,244 @@
+{
+  "title": "Manual de Usuario — PlanificaDoc",
+  "version": "1.0",
+  "date": "28/09/2026",
+  "pdf": "manual-usuario-planificadoc-v1.0.pdf",
+  "chapters": [
+    {
+      "file": "01-introduccion.md",
+      "title": "1. Introducción",
+      "id": "1-introduccion",
+      "sections": [
+        {
+          "title": "1.1. Propósito",
+          "id": "1-1-proposito"
+        },
+        {
+          "title": "1.2. Alcance",
+          "id": "1-2-alcance"
+        },
+        {
+          "title": "1.3. Público objetivo",
+          "id": "1-3-publico-objetivo"
+        },
+        {
+          "title": "1.4. Descripción general del sistema",
+          "id": "1-4-descripcion-general-del-sistema"
+        },
+        {
+          "title": "1.5. Normativa y documentos de referencia",
+          "id": "1-5-normativa-y-documentos-de-referencia"
+        },
+        {
+          "title": "1.6. Convenciones del documento",
+          "id": "1-6-convenciones-del-documento"
+        },
+        {
+          "title": "1.7. Códigos de color de la interfaz",
+          "id": "1-7-codigos-de-color-de-la-interfaz"
+        }
+      ]
+    },
+    {
+      "file": "02-requisitos-y-acceso-al-sistema.md",
+      "title": "2. Requisitos y acceso al sistema",
+      "id": "2-requisitos-y-acceso-al-sistema",
+      "sections": [
+        {
+          "title": "2.1. Requisitos previos",
+          "id": "2-1-requisitos-previos"
+        },
+        {
+          "title": "2.2. Pantalla de acceso",
+          "id": "2-2-pantalla-de-acceso"
+        },
+        {
+          "title": "2.3. Iniciar sesión",
+          "id": "2-3-iniciar-sesion"
+        },
+        {
+          "title": "2.4. Registrarse",
+          "id": "2-4-registrarse"
+        },
+        {
+          "title": "2.5. Ingresar con código de acceso",
+          "id": "2-5-ingresar-con-codigo-de-acceso"
+        },
+        {
+          "title": "2.6. Recuperar la contraseña",
+          "id": "2-6-recuperar-la-contrasena"
+        },
+        {
+          "title": "2.7. Suscripción y activación del acceso",
+          "id": "2-7-suscripcion-y-activacion-del-acceso"
+        },
+        {
+          "title": "2.8. Cerrar sesión",
+          "id": "2-8-cerrar-sesion"
+        }
+      ]
+    },
+    {
+      "file": "03-descripcion-general-de-la-interfaz.md",
+      "title": "3. Descripción general de la interfaz",
+      "id": "3-descripcion-general-de-la-interfaz",
+      "sections": [
+        {
+          "title": "3.1. Menú de navegación",
+          "id": "3-1-menu-de-navegacion"
+        },
+        {
+          "title": "3.2. Inicio",
+          "id": "3-2-inicio"
+        },
+        {
+          "title": "3.3. Explorar",
+          "id": "3-3-explorar"
+        },
+        {
+          "title": "3.4. Crear",
+          "id": "3-4-crear"
+        },
+        {
+          "title": "3.5. Mis planes",
+          "id": "3-5-mis-planes"
+        },
+        {
+          "title": "3.6. Mi cuenta",
+          "id": "3-6-mi-cuenta"
+        },
+        {
+          "title": "3.7. Ayuda",
+          "id": "3-7-ayuda"
+        }
+      ]
+    },
+    {
+      "file": "04-conceptos-curriculares-basicos.md",
+      "title": "4. Conceptos curriculares básicos",
+      "id": "4-conceptos-curriculares-basicos",
+      "sections": [
+        {
+          "title": "4.1. Sistema Nacional de Educación: niveles y subniveles",
+          "id": "4-1-sistema-nacional-de-educacion-niveles-y-subniveles"
+        },
+        {
+          "title": "4.2. Niveles de concreción curricular",
+          "id": "4-2-niveles-de-concrecion-curricular"
+        },
+        {
+          "title": "4.3. El Currículo Priorizado y la destreza con criterio de desempeño",
+          "id": "4-3-el-curriculo-priorizado-y-la-destreza-con-criterio-de-desempeno"
+        },
+        {
+          "title": "4.4. Modelos pedagógicos ERCA y ACC",
+          "id": "4-4-modelos-pedagogicos-erca-y-acc"
+        },
+        {
+          "title": "4.5. Diseño Universal para el Aprendizaje y adaptaciones curriculares",
+          "id": "4-5-diseno-universal-para-el-aprendizaje-y-adaptaciones-curriculares"
+        },
+        {
+          "title": "4.6. Currículo Nacional por Competencias: Programa Piloto Sierra-Amazonía",
+          "id": "4-6-curriculo-nacional-por-competencias-programa-piloto-sierra-amazonia"
+        },
+        {
+          "title": "2026-2027",
+          "id": "2026-2027"
+        },
+        {
+          "title": "4.7. Año lectivo 2026-2027, régimen Sierra-Amazonía",
+          "id": "4-7-ano-lectivo-2026-2027-regimen-sierra-amazonia"
+        }
+      ]
+    },
+    {
+      "file": "05-modulos-de-planificacion.md",
+      "title": "5. Módulos de planificación",
+      "id": "5-modulos-de-planificacion",
+      "sections": [
+        {
+          "title": "5.1. Plan diario",
+          "id": "5-1-plan-diario"
+        },
+        {
+          "title": "5.2. Plan semanal",
+          "id": "5-2-plan-semanal"
+        },
+        {
+          "title": "5.3. PCA Anual",
+          "id": "5-3-pca-anual"
+        },
+        {
+          "title": "5.4. PCT Trimestral",
+          "id": "5-4-pct-trimestral"
+        },
+        {
+          "title": "5.5. Conecta Nivela y Crea",
+          "id": "5-5-conecta-nivela-y-crea"
+        },
+        {
+          "title": "5.6. Evaluación diagnóstica",
+          "id": "5-6-evaluacion-diagnostica"
+        },
+        {
+          "title": "5.7. Proyecto Interdisciplinar",
+          "id": "5-7-proyecto-interdisciplinar"
+        },
+        {
+          "title": "5.8. Bachillerato Técnico",
+          "id": "5-8-bachillerato-tecnico"
+        },
+        {
+          "title": "5.9. Currículo por Competencias",
+          "id": "5-9-curriculo-por-competencias"
+        },
+        {
+          "title": "5.10. Educación Inicial",
+          "id": "5-10-educacion-inicial"
+        },
+        {
+          "title": "5.11. Preparatoria",
+          "id": "5-11-preparatoria"
+        }
+      ]
+    },
+    {
+      "file": "06-exportacion-de-documentos.md",
+      "title": "6. Exportación de documentos",
+      "id": "6-exportacion-de-documentos",
+      "sections": [
+        {
+          "title": "6.1. Formatos disponibles",
+          "id": "6-1-formatos-disponibles"
+        },
+        {
+          "title": "6.2. Procedimiento general de exportación",
+          "id": "6-2-procedimiento-general-de-exportacion"
+        },
+        {
+          "title": "6.3. Recomendaciones",
+          "id": "6-3-recomendaciones"
+        }
+      ]
+    },
+    {
+      "file": "07-solucion-de-problemas.md",
+      "title": "7. Solución de problemas",
+      "id": "7-solucion-de-problemas",
+      "sections": []
+    },
+    {
+      "file": "08-glosario.md",
+      "title": "8. Glosario",
+      "id": "8-glosario",
+      "sections": []
+    },
+    {
+      "file": "09-soporte-tecnico.md",
+      "title": "9. Soporte técnico",
+      "id": "9-soporte-tecnico",
+      "sections": []
+    }
+  ]
+}

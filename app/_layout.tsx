@@ -77,6 +77,7 @@ function AppContent() {
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="crear/index" />
             <Stack.Screen name="ayuda/index" />
+            <Stack.Screen name="ayuda/manual" />
             <Stack.Screen name="paywall" />
             <Stack.Screen name="destreza/[codigo]" options={{ presentation: "card" }} />
             <Stack.Screen name="planificar/[codigo]" options={{ presentation: "card" }} />
