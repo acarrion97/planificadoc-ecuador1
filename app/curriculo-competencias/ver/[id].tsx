@@ -5,6 +5,8 @@ import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
 import { FAMILIA_LABELS, determinarFamiliaExportacion } from "@/lib/curriculo-competencias-familia";
 import { obtenerMateria } from "@/data/competencias-especificas-egb-bgu";
+import { rutaEdicionCurriculoCompetencias } from "@/lib/curriculo-competencias-comunidad";
+import { rutaAdaptacionDesdeCurriculo } from "@/lib/curriculo-competencias-nee";
 
 const STATUS_LABELS: Record<string, string> = {
   draft: "Borrador",
@@ -107,33 +109,17 @@ export default function VerPlanificacionScreen() {
 
   const handleEdit = () => {
     if (!plan) return;
-    if (plan.tipo === "egb_bgu") {
-      router.push(`/curriculo-competencias/egb-bgu?id=${planId}` as any);
-      return;
-    }
+    // Misma regla de ruteo que "Duplicar como mío" en la comunidad (ver
+    // rutaEdicionCurriculoCompetencias): egb_bgu ⇒ egb-bgu; multigrado o
+    // Currículo Integrado EGB/BGU ⇒ egb-bgu-integrado; Inicial ⇒ inicial.
+    router.push(rutaEdicionCurriculoCompetencias(plan.tipo, plan.formData, planId) as any);
+  };
 
-    const fd = plan.formData as any;
-
-    // Una planificación multigrado tiene su propio discriminador explícito
-    // (design.md D2) y siempre se edita en egb-bgu-integrado, que ya sabe
-    // precargar su estado multigrado a partir de `formData.grados`/`semanas`.
-    if (fd?.modalidad === "multigrado") {
-      router.push(`/curriculo-competencias/egb-bgu-integrado?id=${planId}` as any);
-      return;
-    }
-
-    // "inicial_preparatoria" agrupa dos formularios que comparten el mismo
-    // shape de datos (ver server/curriculo-competencias-router.ts,
-    // exportWord): Inicial 3-5 años (códigos CE.CI.*) y Currículo Integrado
-    // EGB/BGU (CE.LL.*, CE.M.*, etc.) — sin esta distinción, "Editar" en un
-    // plan de Currículo Integrado abría por error el formulario de Inicial.
-    const primerCodigo: string | undefined = fd?.ambitos?.[0]?.competenciaCodigo;
-    const esInicial = !primerCodigo || primerCodigo.startsWith("CE.CI.");
-    if (esInicial) {
-      router.push(`/curriculo-competencias/inicial?id=${planId}` as any);
-    } else {
-      router.push(`/curriculo-competencias/egb-bgu-integrado?id=${planId}` as any);
-    }
+  // Enlace a Adaptación curricular con este plan como origen
+  // ("curriculo-competencias"): el módulo precarga grado, competencia y
+  // datos informativos a partir de `cxcId`.
+  const handleCrearAdaptacion = () => {
+    router.push(rutaAdaptacionDesdeCurriculo(planId) as any);
   };
 
   // ── Estado: ID inválido ──
@@ -291,6 +277,30 @@ export default function VerPlanificacionScreen() {
           )}
           <InfoRow label="Período" value={formData?.periodoPedagogico || formData?.duracion} colors={colors} />
         </View>
+
+        {/* ── NEE: enlace a Adaptación curricular ── */}
+        {(plan as any).hayNEE && (
+          <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={[styles.sectionTitle, { color: colors.foreground }]}>🧩 Estudiantes con NEE</Text>
+            <Text style={{ color: colors.muted, fontSize: 13, marginBottom: 10 }}>
+              Marcaste que este paralelo tiene estudiantes con NEE. Crea una adaptación curricular individual por cada estudiante a partir de esta planificación.
+            </Text>
+            <Pressable
+              onPress={handleCrearAdaptacion}
+              style={({ pressed }) => [styles.retryBtn, { backgroundColor: colors.primary, alignItems: "center", opacity: pressed ? 0.85 : 1 }]}
+            >
+              <Text style={{ color: "#fff", fontWeight: "600" }}>Crear adaptación curricular (NEE)</Text>
+            </Pressable>
+          </View>
+        )}
+
+        {(plan as any).compartida && (
+          <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={{ color: colors.muted, fontSize: 13 }}>
+              🌐 Compartida con la comunidad (sin tus datos personales ni los de tu institución).
+            </Text>
+          </View>
+        )}
 
         {/* ── EGB/BGU: DCD y competencias ── */}
         {plan.tipo === "egb_bgu" && (

@@ -2,7 +2,9 @@
  * Genera el documento Word (.docx) del plan "Conecta, Nivela y Crea" (CNC) —
  * las 5 semanas de arranque del año escolar (Semana 1 Conecta, Semanas 2-3
  * Nivela, Semanas 4-5 Crea), en modalidad general (EGB/BGU) o Bachillerato
- * Técnico.
+ * Técnico. Con `plan.planPiloto` (Programa Piloto Sierra-Amazonía, Zona 6)
+ * el documento cubre solo las 3 semanas de "Conecta y nivela": sin la
+ * sección de Semanas 4-5 y con una fila final de abordaje curricular.
  *
  * Estructura replica intencionalmente lib/semanal-word-generator.ts: UNA sola
  * tabla continua de 6 columnas (título colspan → "DATOS INFORMATIVOS" colspan
@@ -26,6 +28,7 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType, VerticalAlign,
 } from "docx";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import { TITULO_PLAN_PILOTO_CNC, NOTA_ABORDAJE_CURRICULAR_PILOTO } from "../data/types-cnc";
 import type { DUAActividad } from "../data/types";
 import { buscarPorCodigo } from "../data";
 import { obtenerFiguraPorId } from "../data/bachillerato-tecnico";
@@ -282,6 +285,7 @@ function leyendaDuaRow(): TableRow {
 
 export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<Blob> {
   const esBT = plan.modalidad === "bt";
+  const esPiloto = !!plan.planPiloto;
   const rows: TableRow[] = [];
 
   // ══════════════════════════════════════════════════════════════
@@ -297,12 +301,17 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         children: [
           new Paragraph({
             alignment: AlignmentType.CENTER,
-            children: [new TextRun({ text: "CONECTA, NIVELA Y CREA", bold: true, size: FS * 2 + 6, color: WHITE, font: "Arial" })],
+            children: [new TextRun({
+              text: esPiloto ? TITULO_PLAN_PILOTO_CNC.toUpperCase() : "CONECTA, NIVELA Y CREA",
+              bold: true, size: FS * 2 + 6, color: WHITE, font: "Arial",
+            })],
           }),
           new Paragraph({
             alignment: AlignmentType.CENTER,
             children: [new TextRun({
-              text: esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas",
+              text: esPiloto
+                ? `Arranque del año escolar — 3 semanas${esBT ? " — Bachillerato Técnico" : ""}`
+                : esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas",
               size: FS * 2, color: WHITE, font: "Arial",
             })],
           }),
@@ -437,6 +446,14 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   }
 
   // ══════════════════════════════════════════════════════════════
+  // PLAN PILOTO — sin Semanas 4-5: cierre con el abordaje curricular
+  // ══════════════════════════════════════════════════════════════
+  if (esPiloto) {
+    rows.push(labelValueRow("Abordaje curricular:", NOTA_ABORDAJE_CURRICULAR_PILOTO));
+    return empaquetarDocumento(rows);
+  }
+
+  // ══════════════════════════════════════════════════════════════
   // SEMANAS 4-5 — CREA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANAS 4-5 — CREA"));
@@ -509,6 +526,11 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     }));
   }
 
+  return empaquetarDocumento(rows);
+}
+
+/** Envuelve las filas en la tabla única del documento y lo empaqueta como .docx */
+function empaquetarDocumento(rows: TableRow[]): Promise<Blob> {
   const doc = new Document({
     sections: [
       {

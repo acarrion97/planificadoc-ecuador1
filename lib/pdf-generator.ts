@@ -6,6 +6,7 @@ import {
 import type { DUAActividad } from "../data/types";
 import type { PlanUnidadTrabajoBT } from "../data/types-bt";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import { TITULO_PLAN_PILOTO_CNC, NOTA_ABORDAJE_CURRICULAR_PILOTO } from "../data/types-cnc";
 import { buscarPorCodigo as cncBuscarPorCodigo } from "../data";
 import { obtenerFiguraPorId as obtenerFiguraPorIdBT } from "../data/bachillerato-tecnico";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
@@ -1417,7 +1418,9 @@ export function generarHTMLPlanBT(plan: PlanUnidadTrabajoBT): string {
 
 /**
  * HTML del plan "Conecta, Nivela y Crea" (CNC) para exportación a PDF —
- * las 5 semanas de arranque del año escolar, modalidad general o BT.
+ * las 5 semanas de arranque del año escolar, modalidad general o BT. Con
+ * `plan.planPiloto` (Programa Piloto Sierra-Amazonía, Zona 6) solo cubre las
+ * 3 semanas de "Conecta y nivela" y cierra con el abordaje curricular.
  */
 /** Indicadores de evaluación reales del catálogo curricular (igual que la tabla de planificación semanal) */
 function cncIndicadoresDe(codigo: string): string[] {
@@ -1472,6 +1475,7 @@ function recursosProyectoCNC(plan: PlanConectaNivelaCrea): string[] {
 
 export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
   const esBT = plan.modalidad === "bt";
+  const esPiloto = !!plan.planPiloto;
 
   const seccion = (label: string) => `<tr><td colspan="6" class="section-row">${esc(label)}</td></tr>`;
   const subheading = (text: string) => `<tr><td colspan="6" class="subheading">${esc(text)}</td></tr>`;
@@ -1547,7 +1551,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<title>Conecta, Nivela y Crea</title>
+<title>${esPiloto ? "Conecta y nivela" : "Conecta, Nivela y Crea"}</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: Arial, Helvetica, sans-serif; color: #000; margin: 24px; font-size: 8px; }
@@ -1567,8 +1571,10 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
 <body>
   <table class="tabla-plan">
     <tr><td colspan="6" class="title-cell">
-      <div class="titulo">CONECTA, NIVELA Y CREA</div>
-      <div class="subt">${esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas"}</div>
+      <div class="titulo">${esPiloto ? esc(TITULO_PLAN_PILOTO_CNC.toUpperCase()) : "CONECTA, NIVELA Y CREA"}</div>
+      <div class="subt">${esPiloto
+        ? `Arranque del año escolar — 3 semanas${esBT ? " — Bachillerato Técnico" : ""}`
+        : esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas"}</div>
     </td></tr>
 
     ${seccion("DATOS INFORMATIVOS")}
@@ -1604,6 +1610,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${plan.semana2y3.parejasConivelacion.length ? `<tr><th colspan="2">Apoya</th><th colspan="2">Apoyado</th><th colspan="2">Destreza foco</th></tr>` : ""}
     ${conivelacionHTML}
 
+    ${esPiloto ? labelValue("Abordaje curricular:", NOTA_ABORDAJE_CURRICULAR_PILOTO) : `
     ${seccion("SEMANAS 4-5 — CREA")}
     <tr><td colspan="6" class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</td></tr>
     ${esBT && plan.semana4y5BT
@@ -1646,7 +1653,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
             ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"])}
             ${contentCellHTML(recursosProyectoCNC(plan))}
             ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
-          </tr>`}
+          </tr>`}`}
   </table>
 </body>
 </html>`;

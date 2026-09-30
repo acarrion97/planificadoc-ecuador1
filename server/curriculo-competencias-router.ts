@@ -18,6 +18,17 @@ import {
   determinarFamiliaExportacion,
   type FamiliaExportacionCurriculoCompetencias,
 } from "../lib/curriculo-competencias-familia";
+import {
+  anonimizarFormData,
+  resumenPlanComunidad,
+  rutaEdicionCurriculoCompetencias,
+} from "../lib/curriculo-competencias-comunidad";
+
+/** Switches del formulario (opcionales: si no llegan, la columna no se toca). */
+const SwitchesInput = {
+  hayNEE: z.boolean().optional(),
+  compartida: z.boolean().optional(),
+};
 
 // ============================================================
 // ZOD SCHEMAS DE ENTRADA
@@ -123,6 +134,7 @@ const PlanificacionEGBBGUInput = z.object({
   sourceDocument: z.string().optional(),
   sourceSection: z.string().optional(),
   sourceVersion: z.string().optional(),
+  ...SwitchesInput,
 });
 
 /** Datos para crear/actualizar una planificación Inicial/Preparatoria */
@@ -237,6 +249,7 @@ const PlanificacionInicialInput = z.object({
   sourceDocument: z.string().optional(),
   sourceSection: z.string().optional(),
   sourceVersion: z.string().optional(),
+  ...SwitchesInput,
 });
 
 /** Datos para crear/actualizar una planificación multigrado de Currículo Integrado EGB/BGU */
@@ -318,6 +331,7 @@ const PlanificacionMultigradoInput = z.object({
   sourceDocument: z.string().optional(),
   sourceSection: z.string().optional(),
   sourceVersion: z.string().optional(),
+  ...SwitchesInput,
 });
 
 // ============================================================
@@ -384,6 +398,45 @@ export function validarPlanificacionMultigrado(input: {
 export { determinarFamiliaExportacion };
 export type { FamiliaExportacionCurriculoCompetencias };
 
+/** Columnas agregadas después de la creación original de la tabla (migración 0010). */
+const COLUMNAS_TARDIAS: Array<{ nombre: string; ddl: string }> = [
+  { nombre: "hay_nee", ddl: "`hay_nee` boolean NOT NULL DEFAULT false" },
+  { nombre: "compartida", ddl: "`compartida` boolean NOT NULL DEFAULT false" },
+];
+
+/** Una vez agregadas las columnas en este proceso, no se repiten los ALTER. */
+let columnasTardiasListas = false;
+
+function esColumnaDuplicada(err: any): boolean {
+  const codigo = err?.code ?? err?.cause?.code;
+  const errno = err?.errno ?? err?.cause?.errno;
+  const mensaje = `${err?.message ?? ""} ${err?.cause?.message ?? ""}`;
+  return codigo === "ER_DUP_FIELDNAME" || errno === 1060 || /Duplicate column/i.test(mensaje);
+}
+
+/**
+ * Agrega en caliente `hay_nee` y `compartida` si la BD todavía no tiene la
+ * migración 0010. Cada columna va en su propio ALTER para que una ya
+ * existente ("Duplicate column") no impida agregar la otra.
+ */
+async function ensureColumnasTardias(db: any): Promise<void> {
+  if (columnasTardiasListas) return;
+  let todasOk = true;
+  for (const col of COLUMNAS_TARDIAS) {
+    try {
+      await db.execute(
+        `ALTER TABLE \`curriculo_competencias_planificaciones\` ADD COLUMN ${col.ddl}`
+      );
+    } catch (err: any) {
+      if (!esColumnaDuplicada(err)) {
+        todasOk = false;
+        console.warn(`[DB] ensureColumnasTardias (${col.nombre}) warning:`, err?.message);
+      }
+    }
+  }
+  columnasTardiasListas = todasOk;
+}
+
 async function ensureCurriculoCompetenciasTable(): Promise<void> {
   const db = await getDb();
   if (!db) return;
@@ -404,6 +457,8 @@ async function ensureCurriculoCompetenciasTable(): Promise<void> {
         \`dcd_codigo\` varchar(32),
         \`competencias\` text,
         \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
+        \`hay_nee\` boolean NOT NULL DEFAULT false,
+        \`compartida\` boolean NOT NULL DEFAULT false,
         \`form_data\` text NOT NULL,
         \`ai_result\` text,
         \`source_traceability\` text,
@@ -417,6 +472,65 @@ async function ensureCurriculoCompetenciasTable(): Promise<void> {
       console.warn("[DB] ensureCurriculoCompetenciasTable warning:", err?.message);
     }
   }
+  // Tablas creadas antes de la migración 0010 no tienen los switches.
+  await ensureColumnasTardias(db);
+}
+
+/**
+ * Flags de los switches del formulario. `undefined` = no tocar la columna
+ * (p. ej. el formulario egb-bgu.tsx no tiene estos switches).
+ */
+function flagsDesdeInput(input: { hayNEE?: boolean; compartida?: boolean }) {
+  const flags: { hayNEE?: boolean; compartida?: boolean } = {};
+  if (typeof input.hayNEE === "boolean") flags.hayNEE = input.hayNEE;
+  if (typeof input.compartida === "boolean") flags.compartida = input.compartida;
+  return flags;
+}
+
+/**
+ * Solo el dueño (misma sessionId con la que se creó) puede cambiar los
+ * switches de un plan; así nadie puede publicar en la comunidad el plan de
+ * otro docente enviando `compartida: true` en un update.
+ */
+async function esDuenoDelPlan(
+  db: NonNullable<Awaited<ReturnType<typeof getDb>>>,
+  id: number,
+  sessionId: string
+): Promise<boolean> {
+  const rows = await db
+    .select({ sessionId: curriculoCompetenciasPlanificaciones.sessionId })
+    .from(curriculoCompetenciasPlanificaciones)
+    .where(eq(curriculoCompetenciasPlanificaciones.id, id))
+    .limit(1);
+  return rows.length > 0 && rows[0].sessionId === sessionId;
+}
+
+/** Límite máximo de tarjetas por página en el listado "Comunidad". */
+const LIMITE_COMUNIDAD_MAX = 50;
+
+/**
+ * Fila pública de la comunidad: nunca expone sessionId, docente, institución
+ * ni paralelo; el formData pasa por anonimizarFormData.
+ */
+function planComunidadPublico(row: {
+  id: number;
+  tipo: string;
+  asignatura: string | null;
+  createdAt: Date | null;
+  formData: string;
+}) {
+  let data: any = null;
+  try {
+    data = JSON.parse(row.formData);
+  } catch {
+    data = null;
+  }
+  const formData = anonimizarFormData(data ?? {});
+  return {
+    ...resumenPlanComunidad({ ...row, formData }),
+    tipo: row.tipo,
+    formData,
+  };
 }
 
 // ============================================================
@@ -452,6 +566,8 @@ export const curriculoCompetenciasRouter = router({
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
           : null,
+        // Al crear, quien envía la sessionId es el dueño.
+        ...flagsDesdeInput(input),
       };
 
       const res = await db
@@ -500,6 +616,8 @@ export const curriculoCompetenciasRouter = router({
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
           : null,
+        // Al crear, quien envía la sessionId es el dueño.
+        ...flagsDesdeInput(input),
       };
 
       const res = await db
@@ -549,6 +667,8 @@ export const curriculoCompetenciasRouter = router({
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
           : null,
+        // Al crear, quien envía la sessionId es el dueño.
+        ...flagsDesdeInput(input),
       };
 
       const res = await db
@@ -565,6 +685,8 @@ export const curriculoCompetenciasRouter = router({
   getById: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
+      // select() lee todas las columnas: deben existir hay_nee/compartida.
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return null;
 
@@ -598,6 +720,7 @@ export const curriculoCompetenciasRouter = router({
       })
     )
     .query(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return [];
 
@@ -623,6 +746,8 @@ export const curriculoCompetenciasRouter = router({
           paralelo: curriculoCompetenciasPlanificaciones.paralelo,
           dcdCodigo: curriculoCompetenciasPlanificaciones.dcdCodigo,
           status: curriculoCompetenciasPlanificaciones.status,
+          compartida: curriculoCompetenciasPlanificaciones.compartida,
+          hayNEE: curriculoCompetenciasPlanificaciones.hayNEE,
           createdAt: curriculoCompetenciasPlanificaciones.createdAt,
           formData: curriculoCompetenciasPlanificaciones.formData,
         })
@@ -680,9 +805,16 @@ export const curriculoCompetenciasRouter = router({
           : null,
       };
 
+      // Los switches solo se escriben si quien edita es el dueño del plan.
+      const flags = flagsDesdeInput(input);
+      const conFlags =
+        Object.keys(flags).length > 0 && (await esDuenoDelPlan(db, input.id, input.sessionId))
+          ? { ...row, ...flags }
+          : row;
+
       await db
         .update(curriculoCompetenciasPlanificaciones)
-        .set(row)
+        .set(conFlags)
         .where(
           eq(curriculoCompetenciasPlanificaciones.id, input.id)
         );
@@ -713,9 +845,16 @@ export const curriculoCompetenciasRouter = router({
           : null,
       };
 
+      // Los switches solo se escriben si quien edita es el dueño del plan.
+      const flags = flagsDesdeInput(input);
+      const conFlags =
+        Object.keys(flags).length > 0 && (await esDuenoDelPlan(db, input.id, input.sessionId))
+          ? { ...row, ...flags }
+          : row;
+
       await db
         .update(curriculoCompetenciasPlanificaciones)
-        .set(row)
+        .set(conFlags)
         .where(
           eq(curriculoCompetenciasPlanificaciones.id, input.id)
         );
@@ -752,9 +891,16 @@ export const curriculoCompetenciasRouter = router({
           : null,
       };
 
+      // Los switches solo se escriben si quien edita es el dueño del plan.
+      const flags = flagsDesdeInput(input);
+      const conFlags =
+        Object.keys(flags).length > 0 && (await esDuenoDelPlan(db, input.id, input.sessionId))
+          ? { ...row, ...flags }
+          : row;
+
       await db
         .update(curriculoCompetenciasPlanificaciones)
-        .set(row)
+        .set(conFlags)
         .where(
           eq(curriculoCompetenciasPlanificaciones.id, input.id)
         );
@@ -821,9 +967,143 @@ export const curriculoCompetenciasRouter = router({
         formData: f.formData,
         aiResult: f.aiResult,
         sourceTraceability: f.sourceTraceability,
+        hayNEE: f.hayNEE,
+        // Una copia nunca se publica sola en la comunidad.
+        compartida: false,
       });
 
       return { success: true };
+    }),
+
+  // ── COMUNIDAD: listar planificaciones compartidas ────────────────
+  // Biblioteca comunitaria: solo filas con compartida=true, más recientes
+  // primero, anonimizadas (sin sessionId, docente, institución, paralelo,
+  // firmantes ni datos de estudiantes).
+  listCompartidas: publicProcedure
+    .input(
+      z
+        .object({
+          limit: z.number().int().min(1).max(LIMITE_COMUNIDAD_MAX).optional(),
+          offset: z.number().int().min(0).optional(),
+        })
+        .optional()
+    )
+    .query(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      if (!db) return { items: [], hayMas: false };
+
+      const limit = input?.limit ?? 20;
+      const offset = input?.offset ?? 0;
+
+      const rows = await db
+        .select({
+          id: curriculoCompetenciasPlanificaciones.id,
+          tipo: curriculoCompetenciasPlanificaciones.tipo,
+          asignatura: curriculoCompetenciasPlanificaciones.asignatura,
+          createdAt: curriculoCompetenciasPlanificaciones.createdAt,
+          formData: curriculoCompetenciasPlanificaciones.formData,
+        })
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.compartida, true))
+        .orderBy(desc(curriculoCompetenciasPlanificaciones.createdAt))
+        // Se pide una fila extra para saber si hay otra página.
+        .limit(limit + 1)
+        .offset(offset);
+
+      const pagina = rows.slice(0, limit);
+      return {
+        // La tarjeta no necesita el formData completo.
+        items: pagina.map((r) => {
+          const { formData: _omitido, ...resumen } = planComunidadPublico(r as any);
+          return resumen;
+        }),
+        hayMas: rows.length > limit,
+      };
+    }),
+
+  // ── COMUNIDAD: ver una planificación compartida (solo lectura) ───
+  getCompartidaById: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      if (!db) return null;
+
+      const rows = await db
+        .select({
+          id: curriculoCompetenciasPlanificaciones.id,
+          tipo: curriculoCompetenciasPlanificaciones.tipo,
+          asignatura: curriculoCompetenciasPlanificaciones.asignatura,
+          createdAt: curriculoCompetenciasPlanificaciones.createdAt,
+          formData: curriculoCompetenciasPlanificaciones.formData,
+        })
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.compartida, true)
+          )
+        )
+        .limit(1);
+
+      if (rows.length === 0) return null;
+      return planComunidadPublico(rows[0] as any);
+    }),
+
+  // ── COMUNIDAD: duplicar como mío ─────────────────────────────────
+  // Crea una copia propia (sessionId de quien duplica, compartida=false)
+  // a partir del formData ANONIMIZADO: el autor original no viaja en la copia.
+  duplicarCompartida: publicProcedure
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
+    .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.compartida, true)
+          )
+        )
+        .limit(1);
+      if (rows.length === 0) throw new Error("La planificación ya no está compartida.");
+
+      const f = rows[0];
+      const formData = anonimizarFormData(JSON.parse(f.formData as string)) as any;
+      formData.sessionId = input.sessionId;
+
+      const res = await db.insert(curriculoCompetenciasPlanificaciones).values({
+        sessionId: input.sessionId,
+        tipo: f.tipo,
+        grado: f.grado,
+        institucion: null,
+        docente: null,
+        paralelo: null,
+        asignatura: f.asignatura,
+        nivel: f.nivel,
+        periodoPedagogico: f.periodoPedagogico,
+        trimestre: f.trimestre,
+        dcdCodigo: f.dcdCodigo,
+        competencias: f.competencias,
+        // `paid` no se hereda: el desbloqueo de descargas es por documento.
+        status: f.status === "paid" ? "generated" : f.status,
+        formData: JSON.stringify(formData),
+        aiResult: null,
+        sourceTraceability: f.sourceTraceability,
+        hayNEE: false,
+        compartida: false,
+      });
+
+      const id = extractInsertId(res);
+      return {
+        id,
+        rutaEdicion: id ? rutaEdicionCurriculoCompetencias(f.tipo, formData, id) : null,
+      };
     }),
 
   // ── DELETE ───────────────────────────────────────────────────────

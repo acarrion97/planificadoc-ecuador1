@@ -232,6 +232,7 @@ export function resumenCnc(p: PlanConectaNivelaCrea): PlanResumen {
     titulo: [p.grado, p.paralelo].filter(Boolean).join(" · ") || "Plan CNC",
     detalle: [
       p.modalidad === "bt" ? "Bachillerato Técnico" : "General",
+      p.planPiloto ? "Plan piloto (3 semanas)" : null,
       p.anioLectivo,
       p.docente,
     ]

@@ -10,6 +10,7 @@ import {
   RefreshControl,
   Linking,
 } from "react-native";
+import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useAccess } from "@/lib/access-control";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
@@ -38,6 +39,7 @@ interface CardInfo {
 }
 
 export default function CuentaScreen() {
+  const router = useRouter();
   const { hasAccess, accessMethod, subscribedEmail, subscriptionEndDate, resetAccess } = useAccess();
   const { planificaciones } = usePlanificaciones();
   const { themePreference, setThemePreference } = useThemeContext();
@@ -442,6 +444,26 @@ export default function CuentaScreen() {
             })}
           </View>
         </View>
+
+        {/* Manual de usuario */}
+        <TouchableOpacity
+          onPress={() => router.push("/ayuda/manual" as any)}
+          activeOpacity={0.85}
+          accessibilityRole="link"
+          accessibilityLabel="Abrir el manual de usuario"
+          className="rounded-2xl p-4 flex-row items-center mb-4 bg-surface border border-border"
+        >
+          <Text style={{ fontSize: 26 }}>{"📘"}</Text>
+          <View style={{ flex: 1, marginLeft: 12 }}>
+            <Text className="text-foreground" style={{ fontSize: 14, fontWeight: "700" }}>
+              Manual de usuario
+            </Text>
+            <Text className="text-muted" style={{ fontSize: 12, marginTop: 2 }}>
+              Gu{"í"}a paso a paso de cada m{"ó"}dulo, en l{"í"}nea y en PDF
+            </Text>
+          </View>
+          <Text className="text-muted" style={{ fontSize: 20 }}>{"›"}</Text>
+        </TouchableOpacity>
 
         {/* Comunidad: el banner de WhatsApp vive fuera del Inicio (spec inicio-por-intencion) */}
         <TouchableOpacity

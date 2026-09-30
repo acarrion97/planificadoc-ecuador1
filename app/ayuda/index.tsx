@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
-import { Linking, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Linking, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useRouter } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
+import { getApiBaseUrl } from "@/constants/oauth";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 
@@ -63,7 +64,7 @@ const FAQ: FaqItem[] = [
     id: "adaptacion",
     pregunta: "¿Qué necesito para crear una Adaptación curricular?",
     respuesta:
-      "Una planificación o una semana de origen: la adaptación parte de un documento existente al que se le ajustan objetivos, metodología y evaluación. Por eso el módulo aparece deshabilitado en el catálogo sin contexto y se habilita cuando llegas desde el detalle de un plan o de una semana; ahí se carga con ese contexto precargado.",
+      "Una planificación o una semana de origen: la adaptación parte de un documento existente al que se le ajustan objetivos, metodología y evaluación. Por eso el módulo aparece deshabilitado en el catálogo sin contexto y se habilita cuando llegas desde el detalle de un plan diario, de una semana o de una planificación de Currículo por competencias (botón «Crear adaptación curricular (NEE)», o al guardarla con «¿Hay estudiantes con NEE?» activado); ahí se carga con ese contexto precargado.",
     enlace: { etiqueta: "Ver el módulo en Crear", href: "/crear" },
   },
   {
@@ -88,6 +89,10 @@ const FAQ: FaqItem[] = [
     enlace: { etiqueta: "Abrir Mi cuenta", href: "/cuenta" },
   },
 ];
+
+const MANUAL_PDF_URL = `${
+  Platform.OS === "web" ? "" : getApiBaseUrl()
+}/manual/manual-usuario-planificadoc-v1.0.pdf`;
 
 const SOPORTE_EMAIL = "soporte@planificadoc.app";
 /** Mismo enlace que el banner de WhatsApp existente (se retira a Mi cuenta en la fase 3). */
@@ -136,6 +141,70 @@ export default function AyudaScreen() {
               Preguntas frecuentes sobre cómo usar PlanificaDoc. Si no encuentras
               tu respuesta, contáctanos.
             </Text>
+          </View>
+
+          {/* Manual de usuario */}
+          <View
+            style={{
+              backgroundColor: colors.surface,
+              borderWidth: 1,
+              borderColor: colors.border,
+              borderRadius: 14,
+              padding: 16,
+              gap: 12,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+              <MaterialCommunityIcons name="book-open-page-variant-outline" size={26} color={colors.brandFg} />
+              <View style={{ flex: 1 }}>
+                <Text style={{ color: colors.foreground, fontSize: 16, fontWeight: "800" }}>
+                  Manual de usuario
+                </Text>
+                <Text style={{ color: colors.muted, fontSize: 13, lineHeight: 18 }}>
+                  Guía completa, paso a paso y con capturas de cada módulo. Versión 1.0.
+                </Text>
+              </View>
+            </View>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
+              <Pressable
+                onPress={() => ir("/ayuda/manual")}
+                accessibilityRole="link"
+                accessibilityLabel="Leer el manual de usuario en línea"
+                style={({ pressed }) => ({
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 8,
+                  backgroundColor: colors.brand,
+                  borderRadius: 10,
+                  paddingHorizontal: 16,
+                  paddingVertical: 11,
+                  opacity: pressed ? 0.85 : 1,
+                })}
+              >
+                <MaterialCommunityIcons name="book-open-variant" size={18} color="#FFFFFF" />
+                <Text style={{ color: "#FFFFFF", fontSize: 14, fontWeight: "700" }}>Leer en línea</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => Linking.openURL(MANUAL_PDF_URL)}
+                accessibilityRole="link"
+                accessibilityLabel="Descargar el manual de usuario en PDF"
+                style={({ pressed }) => ({
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 8,
+                  backgroundColor: colors.surface,
+                  borderWidth: 1,
+                  borderColor: colors.border,
+                  borderRadius: 10,
+                  paddingHorizontal: 16,
+                  paddingVertical: 11,
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <MaterialCommunityIcons name="file-pdf-box" size={18} color={colors.brandFg} />
+                <Text style={{ color: colors.foreground, fontSize: 14, fontWeight: "700" }}>Descargar PDF</Text>
+              </Pressable>
+            </View>
           </View>
 
           {/* Buscador de texto */}

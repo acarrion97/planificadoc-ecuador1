@@ -117,6 +117,8 @@ const FormSchema = z.object({
   paralelo: z.string(),
   subnivel: z.string(),
   modalidad: z.enum(["general", "bt"]),
+  /** Plan piloto Sierra-Amazonía Zona 6 ("Conecta y nivela", 3 semanas). Ausente = programa de 5 semanas. */
+  planPiloto: z.boolean().optional(),
   figuraProfesionalId: z.string().optional(),
   moduloId: z.string().optional(),
   semana1: Semana1Schema,
@@ -161,10 +163,37 @@ function normalizarDua(raw: unknown, count: number): DUAActividad[] {
   return duaActividades;
 }
 
+// ─── Plan piloto (Sierra-Amazonía, Zona 6) ────────────────────────────────────
+
+/**
+ * Orientaciones del programa "Conecta y nivela: 3 semanas para arrancar con
+ * éxito el año escolar" — Lineamientos pedagógicos Sierra-Amazonía 2026-2027,
+ * Programa Piloto del Currículo Nacional por Competencias, Zona 6 (secciones
+ * 2.1 y 2.2). Se usan solo cuando `planPiloto` es true; el modo normal (5
+ * semanas, Costa-Galápagos) no se toca.
+ */
+const PILOTO_SEMANA1 = `ORIENTACIONES DEL PROGRAMA PILOTO PARA LA SEMANA 1 (adaptación + evaluación diagnóstica):
+- Actividades de adaptación LÚDICAS con enfoque pedagógico que permitan: la integración del estudiantado al entorno escolar; la socialización de normas institucionales y normas de convivencia armónica; el intercambio de experiencias personales, expectativas y compromisos de aprendizaje para el nuevo año; y la bienvenida a los estudiantes nuevos.
+- Estas actividades incluyen preguntas de reflexión sobre lo aprendido el año anterior, por ejemplo: ¿qué aprendí en Lengua y Literatura?, ¿qué aprendí en Matemática?, ¿en qué aspectos de la cotidianidad apliqué lo aprendido?, ¿qué me falta por aprender?
+- La evaluación diagnóstica se diseña sobre la base de dos insumos: (1) el informe de resultados de aprendizaje del año lectivo anterior y (2) las conclusiones de las Juntas de Curso de cierre del año escolar.
+- Incluye la evaluación del estado socioemocional del estudiantado, apoyada en la medida de lo posible por el personal DECE, y del estado de desarrollo de sus habilidades.
+- Los instrumentos de diagnóstico deben ser NO TRADICIONALES (no una prueba escrita convencional como único instrumento).`;
+
+const PILOTO_SEMANAS_2_3 = `ORIENTACIONES DEL PROGRAMA PILOTO PARA LAS SEMANAS 2-3 (nivelación):
+- La nivelación parte de los resultados de la evaluación diagnóstica (aprendizajes y habilidades de Lengua y Literatura y Matemática, y aspectos socioemocionales) como proceso de mejora continua integral: resultados diagnósticos → nivelación → abordaje curricular.
+- Se enfoca en las asignaturas FUNDACIONALES (Lengua y Literatura y Matemática), fortalecidas interdisciplinariamente con conocimientos y habilidades de otras asignaturas según el subnivel (Ciencias Naturales, Estudios Sociales, Biología, Física, Química, Historia, Educación para la Ciudadanía, Filosofía).
+- Las actividades deben orientarse a disminuir la brecha de aprendizajes antes del abordaje curricular del año.
+- Estrategia recomendada: co-nivelación (el estudiantado con habilidades más fortalecidas apoya a sus compañeros), un aprendizaje bidireccional que fomenta la solidaridad, la empatía y la responsabilidad compartida.
+- Recursos didácticos: textos escolares del año anterior, folletos, hojas de trabajo u otros insumos diseñados por el equipo docente.`;
+
+const PILOTO_ABORDAJE = `DESPUÉS DE LA SEMANA 3 — ABORDAJE CURRICULAR (no se planifica aquí):
+El programa piloto dura SOLO 3 semanas. NO hay Semanas 4-5, NI proyecto interdisciplinario, NI producto acreditable. Tras la Semana 3 se inicia el abordaje curricular por competencias de manera progresiva y articulada, considerando los resultados de la evaluación diagnóstica y las necesidades socioemocionales y académicas identificadas.`;
+
 // ─── Prompt builder ───────────────────────────────────────────────────────────
 
 function buildPrompt(input: z.infer<typeof FormSchema>): string {
   const esBT = input.modalidad === "bt";
+  const piloto = !!input.planPiloto;
 
   let contextoBT = "";
   if (esBT && input.figuraProfesionalId && input.moduloId) {
@@ -195,8 +224,8 @@ ${criteriosReales.length ? criteriosReales.join("\n") : "(sin catálogo técnico
 REGLAS BT:
 - Semana 1: además de la adaptación general, incluye reconocimiento de espacios técnicos (talleres/laboratorios/granjas) y diagnóstico de prerrequisitos técnicos reales tomados EXCLUSIVAMENTE de los criterios listados arriba.
 - Semanas 2-3: la nivelación debe reforzar destrezas procedimentales/técnicas del módulo (no solo teoría), articulando cada actividad técnica con el refuerzo de Matemática cuando sea pertinente.
-- Semanas 4-5: en vez de un proyecto interdisciplinario genérico, sugiere un "productoAcreditableSugerido" técnico-práctico coherente con la Figura Profesional — nunca un ensayo o cartel genérico. Si la figura es industrial/técnica (construcción, mecánica, electrónica, agropecuaria, TI, etc.), usa maqueta / software básico / plan de negocio inicial / mantenimiento de equipo. Si la figura es de servicio, cuidado o cultura (p. ej. Atención a la Primera Infancia, Asistencia y Cuidado a Grupos Prioritarios, Seguridad Ciudadana, Gestión Cultural, Hostelería, Gestión Turística, Actividad Física y Deporte), usa servicio_programa, evento_presentacion o material_protocolo — nunca fuerces una maqueta o un mantenimiento de equipo donde no corresponde.
-──────────────────────────────────────────────────────────────────
+${piloto ? "" : `- Semanas 4-5: en vez de un proyecto interdisciplinario genérico, sugiere un "productoAcreditableSugerido" técnico-práctico coherente con la Figura Profesional — nunca un ensayo o cartel genérico. Si la figura es industrial/técnica (construcción, mecánica, electrónica, agropecuaria, TI, etc.), usa maqueta / software básico / plan de negocio inicial / mantenimiento de equipo. Si la figura es de servicio, cuidado o cultura (p. ej. Atención a la Primera Infancia, Asistencia y Cuidado a Grupos Prioritarios, Seguridad Ciudadana, Gestión Cultural, Hostelería, Gestión Turística, Actividad Física y Deporte), usa servicio_programa, evento_presentacion o material_protocolo — nunca fuerces una maqueta o un mantenimiento de equipo donde no corresponde.
+`}──────────────────────────────────────────────────────────────────
 `;
   }
 
@@ -237,45 +266,9 @@ ${calibracionInstrumento ? `\nCalibración del instrumento/evidencia diagnóstic
     .map((p) => `- ${p.estudianteApoyoNombre} apoya a ${p.estudianteApoyadoNombre} en "${p.destrezaFocoDescripcion}" (${p.destrezaFocoCodigo})`)
     .join("\n") || "(sin parejas de conivelación registradas aún)";
 
-  return `Eres un experto en el programa "Conecta, Nivela y Crea" del Ministerio de Educación del Ecuador (Lineamientos Pedagógicos, arranque del año escolar — 5 semanas en 3 fases), aplicable a todos los niveles y ofertas del sistema educativo nacional, incluido Bachillerato Técnico.
-
-CONTEXTO DEL DOCUMENTO:
-- Institución: ${input.institucion || "(sin especificar)"}
-- Docente: ${input.docente || "(sin especificar)"}
-- Grado/Curso: ${input.grado} paralelo ${input.paralelo || ""}
-- Subnivel: ${input.subnivel}
-- Año lectivo: ${input.anioLectivo || ""}
-- Modalidad: ${esBT ? "Bachillerato Técnico" : "General (EGB/BGU)"}
-${contextoBT}
-SEMANA 1 — CONECTA (adaptación + diagnóstico dual académico y socioemocional, coordinado con DECE):
-${herramientasDiagnosticas}
-${calibracionSemana1}
-Metodología/estrategia pedagógica ya declarada por el docente: ${input.semana1.metodologiaDeclarada || "(vacío — declara una, coherente con el propósito de adaptación e integración al entorno escolar y con la calibración de arriba si existe)"}
-Actividades de adaptación ya definidas por el docente: ${input.semana1.actividadesAdaptacion.join(" | ") || "(ninguna aún)"}
-Técnica e instrumento de diagnóstico ya definidos por el docente: ${input.semana1.instrumentosDiagnostico.filter(Boolean).join(" | ") || "(ninguno aún — propón los tuyos en \"tecnicaDiagnosticoSugerida\")"}
-Nota de coordinación DECE: ${input.semana1.coordinacionDece || "(sin nota)"}
-Técnicas de reflexión del cierre: ${input.semana1.tecnicasReflexion.join(" | ") || "(ninguna aún)"}
-
-Diagnóstico académico (destrezas reales de Lengua/Matemática seleccionadas por el docente — NO inventes códigos ni destrezas nuevas):
-${destrezasAcademicas}
-
-Diagnóstico socioemocional (habilidades reales del catálogo MinEduc seleccionadas por el docente):
-${habilidadesSocioemocionales}
-
-SEMANAS 2-3 — NIVELA (refuerzo focalizado, secuencia diagnóstico → nivelación → solo después avance curricular):
-Destrezas de nivelación seleccionadas (usa ÚNICAMENTE estas, no inventes otras):
-${destrezasNivelacion}
-
-IMPORTANTE SOBRE LA DISTRIBUCIÓN EN DOS SEMANAS:
-- Distribuye las actividades de nivelación ENTRE las DOS semanas: la Semana 2 se enfoca en la base (activación de saberes, repaso estructurado, modelado guiado) y la Semana 3 en la consolidación y la transferencia (práctica independiente, aplicación, cierre).
-- Asigna a cada actividad sugerida "semana": 2 o "semana": 3 de modo que SIEMPRE queden actividades en AMBAS semanas (idealmente 2-3 por semana).
-- Si el docente ya seleccionó una destreza indicando la semana (p. ej. "semana 3"), respeta esa semana y no la cambies.
-- No dejes la Semana 3 vacía: si faltan destrezas para la Semana 3, reparte parte de las listadas hacia ella o propón actividades de consolidación para las mismas destrezas.
-
-Parejas de "co-nivelación" (tutoría entre pares — estudiante más consolidado apoya a un compañero):
-${parejas}
-
-SEMANAS 4-5 — CREA (proyecto interdisciplinario que constituye FORMALMENTE una evaluación cualitativa y formativa oficial, no una actividad de cierre opcional):
+  // Fase Crea (Semanas 4-5) — el plan piloto no la tiene: se reemplaza por la
+  // nota de transición al abordaje curricular y se omite todo lo del proyecto.
+  const bloqueCrea = piloto ? PILOTO_ABORDAJE : `SEMANAS 4-5 — CREA (proyecto interdisciplinario que constituye FORMALMENTE una evaluación cualitativa y formativa oficial, no una actividad de cierre opcional):
 Título propuesto por el docente: ${input.semana4y5.titulo || "(el docente no propuso título — sugiere uno)"}
 Descripción/notas del docente: ${input.semana4y5.descripcion || "(sin notas)"}
 Objetivo de aprendizaje propuesto por el docente: ${input.semana4y5.objetivoAprendizaje || "(vacío — sugiere uno)"}
@@ -288,44 +281,16 @@ Actividades de la Semana 4 propuestas por el docente: ${input.semana4y5.activida
 Objetivo de la Semana 5 propuesto por el docente: ${input.semana4y5.objetivoSemana5 || "(vacío — sugiere uno)"}
 Actividades de la Semana 5 propuestas por el docente: ${input.semana4y5.actividadesSemana5?.filter(Boolean).length ? input.semana4y5.actividadesSemana5!.join("; ") : "(vacío — sugiere 3-5 actividades de finalización/socialización/reflexión)"}
 Compromisos propuestos por el docente: ${input.semana4y5.compromisos || "(vacío — sugiere unos, orientados a la mejora continua cognitiva/procedimental/actitudinal)"}
-Preguntas de autoevaluación propuestas por el docente: ${input.semana4y5.autoevaluacion?.filter(Boolean).length ? input.semana4y5.autoevaluacion!.join("; ") : "(vacío — sugiere 2-3 preguntas de metacognición)"}
-
-INSTRUCCIONES IMPORTANTES:
-- NO inventes destrezas, códigos curriculares ni criterios técnicos que no estén listados arriba — usa únicamente los proporcionados por el docente${esBT ? " o el catálogo técnico del módulo" : ""}.
-- Semana 1 — distingue claramente cuatro cosas distintas, no las mezcles: (1) "metodologiaDeclarada" es la ESTRATEGIA/enfoque pedagógico general (usa como referencia los ejemplos de la calibración curricular de arriba, si existen para este subnivel); (2) "actividadesAdaptacionSugeridas" son las ACTIVIDADES concretas que aplican esa estrategia; (3) "tecnicaDiagnosticoSugerida" es la TÉCNICA + INSTRUMENTO con que se recoge la evidencia diagnóstica (ver HERRAMIENTAS OFICIALES arriba); (4) el array "dua" de cada ítem son los PRINCIPIOS DUA que cubre. "Usar apoyos visuales/pictogramas" NUNCA es una metodología por sí sola — es, cuando corresponda, parte de CÓMO se aplica el principio DUA de Representación dentro de una actividad o instrumento.
-- "tecnicaDiagnosticoSugerida": cada entrada debe (a) corresponder a UNA de las cuatro herramientas oficiales listadas arriba —preguntas de diagnóstico abiertas, rúbrica cualitativa, lista de cotejo o prueba objetiva—, (b) nombrarla explícitamente, y (c) decir sobre qué evidencia concreta se aplica (ej. "Lista de cotejo aplicada tras el conversatorio inicial sobre el cuento leído"). No propongas un instrumento genérico ("evaluación diagnóstica", "diagnóstico dual") ni una actividad disfrazada de instrumento.
-- La evaluación diagnóstica de la Semana 1 es CUALITATIVA: si propones una rúbrica, su escala es "Inicial / En desarrollo / Alcanzado / Destacado" (sin rangos numéricos); si propones una lista de cotejo, su formato es "Indicadores de evaluación | Sí | No | Observaciones". La escala numérica 10-1 pertenece solo a la rúbrica del proyecto de las Semanas 4-5, nunca al diagnóstico.
-- Las preguntas de diagnóstico abiertas que propongas NO pueden limitarse a la recuperación del conocimiento ni a la memorización: ese es el error frecuente que la fuente oficial pide evitar. Deben partir de una situación concreta e incluir siempre metacognición, sin usar lenguaje complejo para el estudiantado.
-- "tecnicasReflexion" (cierre de la semana) y "tecnicaDiagnosticoSugerida" (instrumento) son campos DISTINTOS: no repitas el mismo contenido en ambos.
-- Si el subnivel tiene una calibración curricular (arriba), las estrategias listadas ahí son EJEMPLOS respaldados oficialmente — selecciona la(s) más pertinente(s) según el propósito, el área, la destreza diagnosticada y las características del grupo, o propón otra igualmente coherente con el subnivel; NO las apliques todas ni las trates como una receta fija obligatoria.
-- El proyecto/producto de Semanas 4-5 debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
+Preguntas de autoevaluación propuestas por el docente: ${input.semana4y5.autoevaluacion?.filter(Boolean).length ? input.semana4y5.autoevaluacion!.join("; ") : "(vacío — sugiere 2-3 preguntas de metacognición)"}`;
+  const instruccionesCrea = piloto ? "" : `- El proyecto/producto de Semanas 4-5 debe derivarse coherentemente del diagnóstico de Semana 1 y reforzar exactamente las destrezas allí listadas.
 - ${INSTRUCCION_FUSION_AREAS}
 - "productoIntermedio" (entregable de Semana 4) y "productoFinal" (entregable de Semana 5) son DISTINTOS: el intermedio es un avance parcial (borrador, primera versión), el final es el proyecto terminado. No los confundas ni repitas el mismo texto en ambos.
 - "objetivoAprendizaje" es único y rector de todo el proyecto; "objetivoSemana4"/"objetivoSemana5" son los logros parciales que aportan a ese objetivo general al término de cada semana — más específicos y acotados que el objetivo de aprendizaje.
 - "productoFinal", "productoIntermedio" y las actividades de cada semana: derívalos de las DCD diagnosticadas en Semana 1, las destrezas a reforzar, las áreas integradas y el contexto. Si el docente ya escribió un campo, devuélvelo EXACTAMENTE como está; solo sugiere contenido cuando el campo está vacío.
 - "compromisos": una síntesis breve de mejora continua (cognitiva, procedimental, actitudinal) coherente con las destrezas reforzadas — no una lista de tareas pendientes.
 - "autoevaluacion": preguntas dirigidas al estudiantado para reflexionar sobre su propio proceso de aprendizaje, no al docente.
-- Para cada actividad de nivelación sugerida, incluye "estrategiaConivelacion": una sugerencia concreta de cómo aprovechar tutoría entre pares para esa destreza específica.
-- El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — es un requisito formal del MinEduc, no una opción.
-- "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
-- "recursosSemana1Sugeridos": 3-5 recursos didácticos concretos (materiales, textos, fichas, recursos digitales) apropiados para las actividades de adaptación y el diagnóstico de la Semana 1.
-- "recursosProyectoSugeridos": 3-5 recursos/materiales/herramientas concretos y accesibles para un aula ecuatoriana, necesarios para elaborar el proyecto/producto acreditable de las Semanas 4-5${esBT ? " (para BT: insumos técnicos y equipos coherentes con la Figura Profesional y el módulo)" : ""}.
-- "actividadesEvaluativasNivelacionSugeridas": 2-3 actividades evaluativas concretas (técnica + instrumento, ej. "Observación directa con lista de cotejo") para dar seguimiento al progreso durante las Semanas 2-3.
-- DUA (Diseño Universal para el Aprendizaje) en Semana 1: para CADA actividad de "actividadesAdaptacionSugeridas" y CADA instrumento de "tecnicaDiagnosticoSugerida", indica en el array paralelo "dua" (mismo índice) qué principios cubre: "I" = Implicación (motiva/involucra), "R" = Representación (presenta la información de múltiples formas — aquí es donde corresponde mencionar apoyo visual/pictográfico si aplica), "A" = Acción y Expresión (permite demostrar el aprendizaje de formas distintas). GARANTIZA que, entre el conjunto de actividades de adaptación, los 3 principios queden cubiertos al menos una vez. CRÍTICO: no incluyas los indicadores DUA dentro del texto de la actividad — van solo en el array "dua" separado.
-- Lenguaje pedagógico, concreto y aplicable en el aula ecuatoriana.
-
-Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
-{
-  "metodologiaDeclaradaSugerida": "string (estrategia/enfoque pedagógico de Semana 1, distinta de las actividades)",
-  "actividadesAdaptacionSugeridas": ["string", "string", "string"],
-  "duaActividadesAdaptacionSugeridas": [{"I": true, "R": false, "A": true}, {"I": false, "R": true, "A": false}, {"I": true, "R": true, "A": false}],
-  "tecnicaDiagnosticoSugerida": ["string (técnica + instrumento oficial, ej. 'Rúbrica cualitativa (escala Inicial/En desarrollo/Alcanzado/Destacado) sobre las estaciones rotativas')", "string"],
-  "duaTecnicaDiagnosticoSugerida": [{"I": false, "R": true, "A": true}, {"I": true, "R": false, "A": false}],
-  "actividadesNivelacionSugeridas": [
-    { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 2, "estrategiaConivelacion": "string" },
-    { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 3, "estrategiaConivelacion": "string" }
-  ],
-  "proyectoSugerido": {
+`;
+  const jsonProyecto = piloto ? "" : `  "proyectoSugerido": {
     "titulo": "string",
     "descripcion": "string (3-4 oraciones)",
     "areasIntegradas": ["string", "string"],
@@ -343,17 +308,94 @@ Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
     "autoevaluacion": ["string (pregunta de metacognición para el estudiantado)", "string"],
     "esEvaluacionFormativaOficial": true
   },
-  "cronogramaSemanal": "string",
+`;
+
+  const intro = piloto
+    ? `Eres un experto en el programa "Conecta y nivela: 3 semanas para arrancar con éxito el año escolar" del Ministerio de Educación del Ecuador (Lineamientos pedagógicos Sierra-Amazonía 2026-2027, Programa Piloto del Currículo Nacional por Competencias — Zona 6): Semana 1 de adaptación y evaluación diagnóstica, y Semanas 2-3 de nivelación en las asignaturas fundacionales (Lengua y Literatura y Matemática), como paso previo al abordaje curricular por competencias.`
+    : `Eres un experto en el programa "Conecta, Nivela y Crea" del Ministerio de Educación del Ecuador (Lineamientos Pedagógicos, arranque del año escolar — 5 semanas en 3 fases), aplicable a todos los niveles y ofertas del sistema educativo nacional, incluido Bachillerato Técnico.`;
+
+  return `${intro}
+
+CONTEXTO DEL DOCUMENTO:
+- Institución: ${input.institucion || "(sin especificar)"}
+- Docente: ${input.docente || "(sin especificar)"}
+- Grado/Curso: ${input.grado} paralelo ${input.paralelo || ""}
+- Subnivel: ${input.subnivel}
+- Año lectivo: ${input.anioLectivo || ""}
+- Modalidad: ${esBT ? "Bachillerato Técnico" : "General (EGB/BGU)"}
+${contextoBT}
+SEMANA 1 — CONECTA (adaptación + diagnóstico dual académico y socioemocional, coordinado con DECE):
+${piloto ? PILOTO_SEMANA1 + "\n" : ""}${herramientasDiagnosticas}
+${calibracionSemana1}
+Metodología/estrategia pedagógica ya declarada por el docente: ${input.semana1.metodologiaDeclarada || "(vacío — declara una, coherente con el propósito de adaptación e integración al entorno escolar y con la calibración de arriba si existe)"}
+Actividades de adaptación ya definidas por el docente: ${input.semana1.actividadesAdaptacion.join(" | ") || "(ninguna aún)"}
+Técnica e instrumento de diagnóstico ya definidos por el docente: ${input.semana1.instrumentosDiagnostico.filter(Boolean).join(" | ") || "(ninguno aún — propón los tuyos en \"tecnicaDiagnosticoSugerida\")"}
+Nota de coordinación DECE: ${input.semana1.coordinacionDece || "(sin nota)"}
+Técnicas de reflexión del cierre: ${input.semana1.tecnicasReflexion.join(" | ") || "(ninguna aún)"}
+
+Diagnóstico académico (destrezas reales de Lengua/Matemática seleccionadas por el docente — NO inventes códigos ni destrezas nuevas):
+${destrezasAcademicas}
+
+Diagnóstico socioemocional (habilidades reales del catálogo MinEduc seleccionadas por el docente):
+${habilidadesSocioemocionales}
+
+SEMANAS 2-3 — NIVELA (refuerzo focalizado, secuencia diagnóstico → nivelación → solo después avance curricular):
+${piloto ? PILOTO_SEMANAS_2_3 + "\n" : ""}Destrezas de nivelación seleccionadas (usa ÚNICAMENTE estas, no inventes otras):
+${destrezasNivelacion}
+
+IMPORTANTE SOBRE LA DISTRIBUCIÓN EN DOS SEMANAS:
+- Distribuye las actividades de nivelación ENTRE las DOS semanas: la Semana 2 se enfoca en la base (activación de saberes, repaso estructurado, modelado guiado) y la Semana 3 en la consolidación y la transferencia (práctica independiente, aplicación, cierre).
+- Asigna a cada actividad sugerida "semana": 2 o "semana": 3 de modo que SIEMPRE queden actividades en AMBAS semanas (idealmente 2-3 por semana).
+- Si el docente ya seleccionó una destreza indicando la semana (p. ej. "semana 3"), respeta esa semana y no la cambies.
+- No dejes la Semana 3 vacía: si faltan destrezas para la Semana 3, reparte parte de las listadas hacia ella o propón actividades de consolidación para las mismas destrezas.
+
+Parejas de "co-nivelación" (tutoría entre pares — estudiante más consolidado apoya a un compañero):
+${parejas}
+
+${bloqueCrea}
+
+INSTRUCCIONES IMPORTANTES:
+- NO inventes destrezas, códigos curriculares ni criterios técnicos que no estén listados arriba — usa únicamente los proporcionados por el docente${esBT ? " o el catálogo técnico del módulo" : ""}.
+- Semana 1 — distingue claramente cuatro cosas distintas, no las mezcles: (1) "metodologiaDeclarada" es la ESTRATEGIA/enfoque pedagógico general (usa como referencia los ejemplos de la calibración curricular de arriba, si existen para este subnivel); (2) "actividadesAdaptacionSugeridas" son las ACTIVIDADES concretas que aplican esa estrategia; (3) "tecnicaDiagnosticoSugerida" es la TÉCNICA + INSTRUMENTO con que se recoge la evidencia diagnóstica (ver HERRAMIENTAS OFICIALES arriba); (4) el array "dua" de cada ítem son los PRINCIPIOS DUA que cubre. "Usar apoyos visuales/pictogramas" NUNCA es una metodología por sí sola — es, cuando corresponda, parte de CÓMO se aplica el principio DUA de Representación dentro de una actividad o instrumento.
+- "tecnicaDiagnosticoSugerida": cada entrada debe (a) corresponder a UNA de las cuatro herramientas oficiales listadas arriba —preguntas de diagnóstico abiertas, rúbrica cualitativa, lista de cotejo o prueba objetiva—, (b) nombrarla explícitamente, y (c) decir sobre qué evidencia concreta se aplica (ej. "Lista de cotejo aplicada tras el conversatorio inicial sobre el cuento leído"). No propongas un instrumento genérico ("evaluación diagnóstica", "diagnóstico dual") ni una actividad disfrazada de instrumento.
+- La evaluación diagnóstica de la Semana 1 es CUALITATIVA: si propones una rúbrica, su escala es "Inicial / En desarrollo / Alcanzado / Destacado" (sin rangos numéricos); si propones una lista de cotejo, su formato es "Indicadores de evaluación | Sí | No | Observaciones". ${piloto ? "No uses escalas numéricas en el diagnóstico." : "La escala numérica 10-1 pertenece solo a la rúbrica del proyecto de las Semanas 4-5, nunca al diagnóstico."}
+- Las preguntas de diagnóstico abiertas que propongas NO pueden limitarse a la recuperación del conocimiento ni a la memorización: ese es el error frecuente que la fuente oficial pide evitar. Deben partir de una situación concreta e incluir siempre metacognición, sin usar lenguaje complejo para el estudiantado.
+- "tecnicasReflexion" (cierre de la semana) y "tecnicaDiagnosticoSugerida" (instrumento) son campos DISTINTOS: no repitas el mismo contenido en ambos.
+- Si el subnivel tiene una calibración curricular (arriba), las estrategias listadas ahí son EJEMPLOS respaldados oficialmente — selecciona la(s) más pertinente(s) según el propósito, el área, la destreza diagnosticada y las características del grupo, o propón otra igualmente coherente con el subnivel; NO las apliques todas ni las trates como una receta fija obligatoria.
+${instruccionesCrea}- Para cada actividad de nivelación sugerida, incluye "estrategiaConivelacion": una sugerencia concreta de cómo aprovechar tutoría entre pares para esa destreza específica.
+${piloto
+  ? `- "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 3 semanas del programa piloto (Semana 1 adaptación + diagnóstico; Semanas 2-3 nivelación) y cierre indicando que a partir de la Semana 4 se inicia el abordaje curricular por competencias según los resultados del diagnóstico. No menciones proyecto ni Semanas 4-5.
+`
+  : `- El campo "esEvaluacionFormativaOficial" del proyecto SIEMPRE debe ser true — es un requisito formal del MinEduc, no una opción.
+- "cronogramaSemanal": un resumen narrativo de 4-6 oraciones que recorra las 5 semanas, mencionando explícitamente que el proyecto de Semanas 4-5 constituye una evaluación cualitativa formativa oficial.
+`}- "recursosSemana1Sugeridos": 3-5 recursos didácticos concretos (materiales, textos, fichas, recursos digitales) apropiados para las actividades de adaptación y el diagnóstico de la Semana 1.
+${piloto ? "" : `- "recursosProyectoSugeridos": 3-5 recursos/materiales/herramientas concretos y accesibles para un aula ecuatoriana, necesarios para elaborar el proyecto/producto acreditable de las Semanas 4-5${esBT ? " (para BT: insumos técnicos y equipos coherentes con la Figura Profesional y el módulo)" : ""}.
+`}- "actividadesEvaluativasNivelacionSugeridas": 2-3 actividades evaluativas concretas (técnica + instrumento, ej. "Observación directa con lista de cotejo") para dar seguimiento al progreso durante las Semanas 2-3.
+- DUA (Diseño Universal para el Aprendizaje) en Semana 1: para CADA actividad de "actividadesAdaptacionSugeridas" y CADA instrumento de "tecnicaDiagnosticoSugerida", indica en el array paralelo "dua" (mismo índice) qué principios cubre: "I" = Implicación (motiva/involucra), "R" = Representación (presenta la información de múltiples formas — aquí es donde corresponde mencionar apoyo visual/pictográfico si aplica), "A" = Acción y Expresión (permite demostrar el aprendizaje de formas distintas). GARANTIZA que, entre el conjunto de actividades de adaptación, los 3 principios queden cubiertos al menos una vez. CRÍTICO: no incluyas los indicadores DUA dentro del texto de la actividad — van solo en el array "dua" separado.
+- Lenguaje pedagógico, concreto y aplicable en el aula ecuatoriana.
+
+Responde ÚNICAMENTE con JSON válido siguiendo EXACTAMENTE este esquema:
+{
+  "metodologiaDeclaradaSugerida": "string (estrategia/enfoque pedagógico de Semana 1, distinta de las actividades)",
+  "actividadesAdaptacionSugeridas": ["string", "string", "string"],
+  "duaActividadesAdaptacionSugeridas": [{"I": true, "R": false, "A": true}, {"I": false, "R": true, "A": false}, {"I": true, "R": true, "A": false}],
+  "tecnicaDiagnosticoSugerida": ["string (técnica + instrumento oficial, ej. 'Rúbrica cualitativa (escala Inicial/En desarrollo/Alcanzado/Destacado) sobre las estaciones rotativas')", "string"],
+  "duaTecnicaDiagnosticoSugerida": [{"I": false, "R": true, "A": true}, {"I": true, "R": false, "A": false}],
+  "actividadesNivelacionSugeridas": [
+    { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 2, "estrategiaConivelacion": "string" },
+    { "destrezaCodigo": "string", "destrezaDescripcion": "string", "area": "LL o M", "descripcionActividad": "string", "semana": 3, "estrategiaConivelacion": "string" }
+  ],
+${jsonProyecto}  "cronogramaSemanal": "string",
   "recursosSemana1Sugeridos": ["string", "string", "string"],
-  "recursosProyectoSugeridos": ["string (3-5 recursos/materiales/herramientas concretos para elaborar el proyecto o producto acreditable de las Semanas 4-5)", "string"],
-  "actividadesEvaluativasNivelacionSugeridas": ["string", "string"]${esBT ? `,
+${piloto ? "" : `  "recursosProyectoSugeridos": ["string (3-5 recursos/materiales/herramientas concretos para elaborar el proyecto o producto acreditable de las Semanas 4-5)", "string"],
+`}  "actividadesEvaluativasNivelacionSugeridas": ["string", "string"]${esBT ? `,
   "diagnosticoTecnicoSugerido": [
     { "criterioId": "string (id real del catálogo)", "criterioTexto": "string (texto real del catálogo)", "observaciones": "string", "nivelDetectado": "iniciado" }
   ],
   "actividadesNivelacionTecnicaSugeridas": [
     { "criterioId": "string", "criterioTexto": "string", "descripcionActividad": "string", "semana": 2, "articulacionMatematica": "string" }
-  ],
-  "productoAcreditableSugerido": { "tipo": "maqueta|software_basico|plan_negocio|mantenimiento_equipo|servicio_programa|evento_presentacion|material_protocolo|otro (elige el que corresponda a la Figura Profesional, ver REGLAS BT)", "descripcion": "string", "actividadesSemana4": ["string (3-5 actividades de elaboración del producto)"], "actividadesSemana5": ["string (3-5 actividades de presentación/evaluación del producto)"] }` : ""}
+  ]${piloto ? "" : `,
+  "productoAcreditableSugerido": { "tipo": "maqueta|software_basico|plan_negocio|mantenimiento_equipo|servicio_programa|evento_presentacion|material_protocolo|otro (elige el que corresponda a la Figura Profesional, ver REGLAS BT)", "descripcion": "string", "actividadesSemana4": ["string (3-5 actividades de elaboración del producto)"], "actividadesSemana5": ["string (3-5 actividades de presentación/evaluación del producto)"] }`}` : ""}
 }`;
 }
 
@@ -407,6 +449,13 @@ export const cncRouter = router({
           Array.isArray(parsed.tecnicaDiagnosticoSugerida) ? parsed.tecnicaDiagnosticoSugerida.length : 0
         ),
       };
+      // Plan piloto (3 semanas): no hay fase Crea — se descarta cualquier
+      // proyecto/producto que la IA devuelva de todos modos.
+      if (input.form.planPiloto) {
+        delete aiResult.proyectoSugerido;
+        delete aiResult.productoAcreditableSugerido;
+        delete aiResult.recursosProyectoSugeridos;
+      }
 
       // Intentar guardar en BD (no crítico si falla)
       try {
@@ -459,6 +508,7 @@ export const cncRouter = router({
     .input(z.object({
       diagnosticoAcademico: z.array(DiagnosticoAcademicoSchema),
       diagnosticoSocioemocional: z.array(DiagnosticoSocioemocionalSchema),
+      planPiloto: z.boolean().optional(),
     }))
     .mutation(async ({ input }) => {
       const academico = input.diagnosticoAcademico
@@ -479,7 +529,11 @@ ${socioemocional}
 Genera:
 - "tecnicasReflexion": 3-4 preguntas de reflexión del cierre, dirigidas AL ESTUDIANTADO, coherentes con las destrezas y habilidades listadas arriba. Corresponden a la etapa de METACOGNICIÓN de la taxonomía de Marzano, que la fuente oficial exige en todos los subniveles y niveles: el estudiantado mira hacia atrás su propio proceso ("¿qué me costó más?", "¿en qué lo usé fuera del aula?", "¿qué nos falta por aprender?"). NO son el instrumento de diagnóstico (lista de cotejo, rúbrica, prueba objetiva, preguntas abiertas de indagación): ese es un campo distinto del plan, no lo repitas aquí. Lenguaje sencillo, adecuado a la edad.
 - "coordinacionDece": 1-2 oraciones de nota de coordinación con el equipo DECE, coherente con las habilidades socioemocionales seleccionadas (o un texto genérico de invitación a coordinar si no hay habilidades seleccionadas).
-
+${input.planPiloto ? `
+PLAN PILOTO (Lineamientos Sierra-Amazonía 2026-2027, Zona 6 — "Conecta y nivela", 3 semanas):
+- Las preguntas de reflexión deben recuperar lo aprendido el AÑO ANTERIOR, siguiendo los ejemplos oficiales: "¿qué aprendí en Lengua y Literatura?", "¿qué aprendí en Matemática?", "¿en qué aspectos de la cotidianidad apliqué lo aprendido?", "¿qué me falta por aprender?" (adáptalas a las destrezas listadas).
+- La nota DECE debe mencionar que el diagnóstico socioemocional se apoya, en la medida de lo posible, en el personal DECE, y que el diagnóstico considera el informe de resultados de aprendizaje del año anterior y las conclusiones de las Juntas de Curso de cierre.
+` : ""}
 Responde ÚNICAMENTE con JSON: { "tecnicasReflexion": ["string", "string", "string"], "coordinacionDece": "string" }`;
 
       const raw = await invokeLLM({

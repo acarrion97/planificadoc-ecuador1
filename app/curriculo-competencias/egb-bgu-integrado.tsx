@@ -14,6 +14,8 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
+import { AYUDA_COMPARTIR_COMUNIDAD } from "@/lib/curriculo-competencias-comunidad";
+import { ofrecerAdaptacionNEE, rutaAdaptacionDesdeCurriculo } from "@/lib/curriculo-competencias-nee";
 import {
   MATERIAS_EGB_BGU,
   nivelesDeMateria,
@@ -247,6 +249,9 @@ export default function EGBBGUIntegradoFormScreen() {
       setNoSemanas(fd.noSemanasClase?.toString() || "8");
       setTitulo(fd.situacionAprendizaje?.titulo || "");
       setSituacionAprendizaje(fd.situacionAprendizaje?.descripcion || "");
+      // Switches persistidos como columnas (no viven en formData)
+      setHayNEE(!!(planExistente as any).hayNEE);
+      setCompartir(!!(planExistente as any).compartida);
 
       // Un registro multigrado no tiene `ambitos`/`grado` singular — se
       // precarga por separado para no tratarlo como single-grade (lo que
@@ -301,6 +306,16 @@ export default function EGBBGUIntegradoFormScreen() {
     }
   }, [planExistente]);
 
+  // ── Después de guardar: si hay NEE, ofrecer la adaptación curricular ──
+  const irTrasGuardar = (planId: number | string) => {
+    const verPlan = () => router.push(`/curriculo-competencias/ver/${planId}` as any);
+    if (!hayNEE) {
+      verPlan();
+      return;
+    }
+    ofrecerAdaptacionNEE(() => router.push(rutaAdaptacionDesdeCurriculo(planId) as any), verPlan);
+  };
+
   // ── Mutations (comparten backend con Inicial: mismo shape de planificación) ──
   const utils = trpc.useContext();
   const createMutation = trpc.curriculoCompetencias.createInicial.useMutation({
@@ -308,7 +323,7 @@ export default function EGBBGUIntegradoFormScreen() {
       utils.curriculoCompetencias.list.invalidate();
       const nuevoId = (data as any)?.id;
       if (nuevoId) {
-        router.push(`/curriculo-competencias/ver/${nuevoId}` as any);
+        irTrasGuardar(nuevoId);
       } else {
         router.back();
       }
@@ -321,7 +336,7 @@ export default function EGBBGUIntegradoFormScreen() {
   const updateMutation = trpc.curriculoCompetencias.updateInicial.useMutation({
     onSuccess: () => {
       utils.curriculoCompetencias.list.invalidate();
-      router.push(`/curriculo-competencias/ver/${id}` as any);
+      irTrasGuardar(id!);
     },
     onError: () => {
       Alert.alert("Error", "No se pudo actualizar la planificación.");
@@ -333,7 +348,7 @@ export default function EGBBGUIntegradoFormScreen() {
       utils.curriculoCompetencias.list.invalidate();
       const nuevoId = (data as any)?.id;
       if (nuevoId) {
-        router.push(`/curriculo-competencias/ver/${nuevoId}` as any);
+        irTrasGuardar(nuevoId);
       } else {
         router.back();
       }
@@ -346,7 +361,7 @@ export default function EGBBGUIntegradoFormScreen() {
   const updateMultigradoMutation = trpc.curriculoCompetencias.updateMultigrado.useMutation({
     onSuccess: () => {
       utils.curriculoCompetencias.list.invalidate();
-      router.push(`/curriculo-competencias/ver/${id}` as any);
+      irTrasGuardar(id!);
     },
     onError: (err) => {
       Alert.alert("Error", err.message || "No se pudo actualizar la planificación multigrado.");
@@ -490,6 +505,8 @@ export default function EGBBGUIntegradoFormScreen() {
       },
       temasTrimestre,
       semanas: semanasMultigrado,
+      hayNEE,
+      compartida: compartir,
     };
 
     if (isEdit) {
@@ -553,6 +570,8 @@ export default function EGBBGUIntegradoFormScreen() {
         descripcion: situacionAprendizaje,
       },
       ambitos: ambitosPayload,
+      hayNEE,
+      compartida: compartir,
     };
 
     if (isEdit) {
@@ -1036,7 +1055,7 @@ export default function EGBBGUIntegradoFormScreen() {
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
         <View style={{ flex: 1 }}>
           <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Compartir con la comunidad?</Text>
-          <Text style={[styles.toggleSub, { color: colors.muted }]}>Otros docentes podrán ver y clonar tu planificación.</Text>
+          <Text style={[styles.toggleSub, { color: colors.muted }]}>{AYUDA_COMPARTIR_COMUNIDAD}</Text>
         </View>
         <Switch
           value={compartir}

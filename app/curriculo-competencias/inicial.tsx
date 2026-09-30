@@ -14,6 +14,8 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
+import { AYUDA_COMPARTIR_COMUNIDAD } from "@/lib/curriculo-competencias-comunidad";
+import { ofrecerAdaptacionNEE, rutaAdaptacionDesdeCurriculo } from "@/lib/curriculo-competencias-nee";
 import { COMPETENCIAS_INICIAL, type CompetenciaInicialCompleta as CompetenciaInicial } from "@/data/competencias-especificas-inicial";
 
 type PasoFlujo = "contexto" | "competencias" | "datos" | "generar";
@@ -76,6 +78,9 @@ export default function InicialFormScreen() {
       setNoSemanas(fd.noSemanasClase?.toString() || "8");
       setTitulo(fd.situacionAprendizaje?.titulo || "");
       setSituacionAprendizaje(fd.situacionAprendizaje?.descripcion || "");
+      // Switches persistidos como columnas (no viven en formData)
+      setHayNEE(!!(planExistente as any).hayNEE);
+      setCompartir(!!(planExistente as any).compartida);
       if (fd.ambitos?.length > 0) {
         const codes = fd.ambitos.map((a: any) => a.competenciaCodigo).filter(Boolean);
         const selected = COMPETENCIAS_INICIAL.filter(c => codes.includes(c.codigo));
@@ -85,6 +90,16 @@ export default function InicialFormScreen() {
     }
   }, [planExistente]);
 
+  // ── Después de guardar: si hay NEE, ofrecer la adaptación curricular ──
+  const irTrasGuardar = (planId: number | string) => {
+    const verPlan = () => router.push(`/curriculo-competencias/ver/${planId}` as any);
+    if (!hayNEE) {
+      verPlan();
+      return;
+    }
+    ofrecerAdaptacionNEE(() => router.push(rutaAdaptacionDesdeCurriculo(planId) as any), verPlan);
+  };
+
   // ── Mutations ──
   const utils = trpc.useContext();
   const createMutation = trpc.curriculoCompetencias.createInicial.useMutation({
@@ -92,7 +107,7 @@ export default function InicialFormScreen() {
       utils.curriculoCompetencias.list.invalidate();
       const nuevoId = (data as any)?.id;
       if (nuevoId) {
-        router.push(`/curriculo-competencias/ver/${nuevoId}` as any);
+        irTrasGuardar(nuevoId);
       } else {
         router.back();
       }
@@ -105,7 +120,7 @@ export default function InicialFormScreen() {
   const updateMutation = trpc.curriculoCompetencias.updateInicial.useMutation({
     onSuccess: () => {
       utils.curriculoCompetencias.list.invalidate();
-      router.push(`/curriculo-competencias/ver/${id}` as any);
+      irTrasGuardar(id!);
     },
     onError: () => {
       Alert.alert("Error", "No se pudo actualizar la planificación.");
@@ -202,6 +217,8 @@ export default function InicialFormScreen() {
         descripcion: situacionAprendizaje,
       },
       ambitos: ambitosPayload,
+      hayNEE,
+      compartida: compartir,
     };
 
     if (isEdit) {
@@ -453,7 +470,7 @@ export default function InicialFormScreen() {
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
         <View style={{ flex: 1 }}>
           <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Compartir con la comunidad?</Text>
-          <Text style={[styles.toggleSub, { color: colors.muted }]}>Otros docentes podrán ver y clonar tu planificación.</Text>
+          <Text style={[styles.toggleSub, { color: colors.muted }]}>{AYUDA_COMPARTIR_COMUNIDAD}</Text>
         </View>
         <Switch
           value={compartir}

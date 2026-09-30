@@ -481,6 +481,13 @@ export const curriculoCompetenciasPlanificaciones = mysqlTable(
       .default("draft")
       .notNull(),
 
+    // ── Switches del formulario (migración 0010) ──
+    // `hayNEE`: el paralelo tiene estudiantes con NEE ⇒ se ofrece crear
+    // adaptaciones curriculares a partir del plan.
+    hayNEE: boolean("hay_nee").default(false).notNull(),
+    // `compartida`: el plan aparece (anonimizado) en la biblioteca "Comunidad".
+    compartida: boolean("compartida").default(false).notNull(),
+
     // ── Datos completos (JSON) ──
     formData: text("form_data").notNull(),
     aiResult: text("ai_result"),
