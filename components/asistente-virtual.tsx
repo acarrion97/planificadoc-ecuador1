@@ -47,9 +47,26 @@ interface Mensaje {
 
 const SALUDO: Mensaje = {
   rol: "asistente",
-  texto: "¡Hola! Soy Doc, tu asistente. Pregúntame lo que necesites sobre cómo usar PlanificaDoc y lo busco en el manual.",
+  texto: "¡Hola! 👋 Soy Plani. Te ayudo a usar Planificadoc, resolver dudas sobre tus planificaciones y reportar cualquier problema. ¿Qué necesitas hoy?",
 };
-const SUGERENCIAS = ["¿Cómo creo un plan diario?", "¿Cómo descargo mi planificación en Word?", "¿Cómo contacto a soporte?"];
+const MSG_DUDA: Mensaje = {
+  rol: "asistente",
+  texto: "Claro, cuéntame tu duda y la busco en el manual. Por ejemplo: «¿Cómo descargo mi planificación en Word?».",
+};
+const MSG_PROBLEMA: Mensaje = {
+  rol: "asistente",
+  texto:
+    "Lamento el inconveniente. Revisa primero si tu caso está en Solución de problemas. Si no, escríbenos a soporte@planificadoc.app o al grupo de WhatsApp (Mi cuenta), indicando el módulo, los pasos que hiciste y el mensaje que viste; si puedes, adjunta una captura.",
+  fuentes: [
+    { capId: "7-solucion-de-problemas", capTitulo: "7. Solución de problemas", seccion: "Solución de problemas", seccionId: null },
+    { capId: "9-soporte-tecnico", capTitulo: "9. Soporte técnico", seccion: "Soporte técnico", seccionId: null },
+  ],
+};
+const ATAJOS = [
+  { icono: "📝", texto: "Quiero crear una planificación", accion: "crear" },
+  { icono: "💡", texto: "Tengo una duda", accion: "duda" },
+  { icono: "🛠️", texto: "Quiero reportar un problema", accion: "problema" },
+] as const;
 
 export function AsistenteVirtual() {
   const colors = useColors();
@@ -96,6 +113,12 @@ export function AsistenteVirtual() {
     },
     [mensajes, preguntar],
   );
+
+  const atajo = (a: (typeof ATAJOS)[number]) => {
+    if (a.accion === "crear") return enviar("¿Cómo creo una planificación?");
+    const [usuario, respuesta] = a.accion === "duda" ? [a.texto, MSG_DUDA] : [a.texto, MSG_PROBLEMA];
+    setMensajes((p) => [...p, { rol: "usuario", texto: usuario }, respuesta]);
+  };
 
   const verEnManual = (f: Fuente) => {
     cambiar("cerrado");
@@ -222,8 +245,8 @@ export function AsistenteVirtual() {
             >
               <Image source={MASCOTA} style={{ width: 36, height: 36 }} resizeMode="contain" />
               <View style={{ flex: 1 }}>
-                <Text style={{ color: colors.foreground, fontSize: 14, fontWeight: "800" }}>Doc · Asistente</Text>
-                <Text style={{ color: colors.muted, fontSize: 11 }}>Respuestas basadas en el manual</Text>
+                <Text style={{ color: colors.foreground, fontSize: 14, fontWeight: "800" }}>Plani</Text>
+                <Text style={{ color: colors.muted, fontSize: 11 }}>Tu asistente de Planificadoc</Text>
               </View>
               <Pressable
                 onPress={() => cambiar("cerrado")}
@@ -289,10 +312,10 @@ export function AsistenteVirtual() {
 
               {mensajes.length === 1 && !preguntar.isPending && (
                 <View style={{ gap: 6 }}>
-                  {SUGERENCIAS.map((s) => (
+                  {ATAJOS.map((a) => (
                     <Pressable
-                      key={s}
-                      onPress={() => enviar(s)}
+                      key={a.accion}
+                      onPress={() => atajo(a)}
                       accessibilityRole="button"
                       style={({ pressed }) => ({
                         alignSelf: "flex-start",
@@ -304,7 +327,7 @@ export function AsistenteVirtual() {
                         opacity: pressed ? 0.6 : 1,
                       })}
                     >
-                      <Text style={{ color: colors.brandFg, fontSize: 13 }}>{s}</Text>
+                      <Text style={{ color: colors.brandFg, fontSize: 13 }}>{a.icono} {a.texto}</Text>
                     </Pressable>
                   ))}
                 </View>
