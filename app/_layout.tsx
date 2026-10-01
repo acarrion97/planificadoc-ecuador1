@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 import "@/lib/_core/nativewind-pressable";
 import { ThemeProvider } from "@/lib/theme-provider";
 import {
@@ -26,6 +26,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { AccessProvider, useAccess } from "@/lib/access-control";
 import { AnimatedLogoSplash } from "@/components/animated-logo-splash";
 import { AppNavigation } from "@/components/app-navigation";
+import { AsistenteVirtual } from "@/components/asistente-virtual";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -72,6 +73,7 @@ function AppContent() {
           <EvaluacionesProvider>
           {/* La navegación envuelve TODO el Stack para estar disponible también
               en pantallas profundas (spec navegacion-principal). */}
+          <View style={{ flex: 1 }}>
           <AppNavigation>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
@@ -103,6 +105,9 @@ function AppContent() {
             <Stack.Screen name="oauth/callback" />
           </Stack>
           </AppNavigation>
+          {/* Burbuja flotante del asistente: sobre todo, sin bloquear el contenido. */}
+          <AsistenteVirtual />
+          </View>
           </EvaluacionesProvider>
         </PlanificacionesCNCProvider>
       </PlanificacionesBTProvider>
