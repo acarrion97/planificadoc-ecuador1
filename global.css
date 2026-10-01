@@ -5,7 +5,7 @@
 /* ── Scrollbar estilizada (ambos temas) ───────────────────────────────────
  * Pista transparente: solo se ve el deslizador (thumb), redondeado y en
  * tono azul oscuro en claro y en oscuro (petición en Vercel). En dark el
- * thumb se oscurece por debajo del cuerpo (#0A2E5C) para que siga viéndose.
+ * thumb se oscurece por debajo del cuerpo (#1E243B) para que siga viéndose.
  */
 * {
   scrollbar-width: thin;

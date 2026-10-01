@@ -44,7 +44,7 @@ alineación al currículo nacional del MINEDUC.
 ### 2.1 Isotipo
 Libro abierto de trazo **blanco** (`#ffffff`) con contorno **dorado** (`#cf8f12`),
 un **check dorado** (`#e0a41e`) y un **lápiz dorado** que lo atraviesa
-(punta `#f6e2a6`, mina `#1e293b`), sobre fondo **azul marino `#003366`**.
+(punta `#f6e2a6`, mina `#1e293b`), sobre fondo **azul noche `#003366`**.
 
 Secuencia de animación del splash (`components/animated-logo-splash.tsx`):
 libro → check + lápiz → wordmark → claim.
@@ -82,7 +82,7 @@ Documentado también en `design.md`.
 | `primary` | `#1B5E9E` | `#4DA3E8` | Azul institucional (referencia MinEduc) |
 | `brand` | `#003366` | `#003366` | Marca como **fondo**: ítem activo del sidebar/drawer, botones y chips (texto blanco encima) |
 | `brandFg` | `#003366` | `#7DB9EA` | Marca como **texto/icono/tinte**: títulos, links, chips y acentos (en dark se aclara para contraste ≥5:1) |
-| `background` | `#F8FAFC` | `#0A2E5C` | Fondo principal (dark: azul marino) |
+| `background` | `#F8FAFC` | `#1E243B` | Fondo principal (dark: azul noche) |
 | `surface` | `#FFFFFF` | `#123C72` | Tarjetas y superficies elevadas |
 | `foreground` | `#0F172A` | `#EBF1FA` | Texto principal |
 | `muted` | `#64748B` | `#93AED2` | Texto secundario, iconos, ítem de navegación inactivo |

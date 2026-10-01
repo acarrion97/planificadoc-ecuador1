@@ -4,7 +4,7 @@
  *
  * - LIGHT: sin cambios (grises slate, cuerpo #F8FAFC).
  * - DARK: escala en TONOS AZULES (hsl ≈ 214°) pedida en Vercel, armonizada con
- *   la marca #003366. Cuerpo #0A2E5C (azul marino, un punto más claro que
+ *   la marca #003366. Cuerpo #1E243B (azul noche, más oscuro que las tarjetas; antes #0A2E5C,
  *   #1E293B); tarjetas (surface) un escalón encima y los inputs —que usan el
  *   token `background`— quedan hundidos dentro de la tarjeta para que se vean
  *   siempre.
@@ -17,11 +17,11 @@ const themeColors = {
   // Color de marca PlanificaDoc (#003366). Se reserva como FONDO (botones,
   // chips, panel paywall, ítem activo): blanco encima contrasta en ambos modos.
   brand: { light: '#003366', dark: '#003366' },
-  // Marca como TEXTO/ICONO. En dark, #003366 sobre #0A2E5C/#123C72 es
+  // Marca como TEXTO/ICONO. En dark, #003366 sobre #1E243B/#123C72 es
   // ilegible, así que se aclara el mismo azul de marca (#7DB9EA: ≈6.4:1 sobre
   // el cuerpo y ≈5.2:1 sobre surface). En light es idéntico a `brand`.
   brandFg: { light: '#003366', dark: '#7DB9EA' },
-  background: { light: '#F8FAFC', dark: '#0A2E5C' },
+  background: { light: '#F8FAFC', dark: '#1E243B' },
   surface: { light: '#FFFFFF', dark: '#123C72' },
   foreground: { light: '#0F172A', dark: '#EBF1FA' },
   muted: { light: '#64748B', dark: '#93AED2' },
