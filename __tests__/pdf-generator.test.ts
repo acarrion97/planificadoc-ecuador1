@@ -161,7 +161,9 @@ describe("generarHTMLPlanificacion", () => {
 
   it("debe incluir los indicadores de evaluación", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("I.M.3.1.1. Aplica estrategias de cálculo.");
+    // Código curricular oficial en su propio bloque (en negrita) y texto debajo
+    expect(html).toContain('<div style="font-weight:700;">I.M.3.1.1</div>');
+    expect(html).toContain("<div>Aplica estrategias de cálculo.</div>");
   });
 
   it("debe funcionar sin tema seleccionado", () => {

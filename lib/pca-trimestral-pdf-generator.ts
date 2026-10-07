@@ -1,6 +1,7 @@
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { iconosDestrezaHTML } from "./dcd-iconos";
+import { prepararBloques, bloquesAHtml } from "./codigos-curriculares";
 
 // ─── Mapas legibles ───────────────────────────────────────────────────────────
 const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
@@ -37,16 +38,59 @@ const FASE_LABELS_HTML: Record<string, string> = {
   consolidacion:    "CONSOLIDACIÓN",
 };
 
-function evaluacionHTML(raw: any): string {
+/**
+ * HTML de un objetivo o indicador: el código curricular oficial del catálogo
+ * (O.CN.B.5.2, I.CN.B.5.1.1) en negrita arriba del texto, igual que en la
+ * columna de destrezas. Si el texto lo redactó la IA no se inventa código: se
+ * agrega la referencia de la DCD de la que deriva.
+ */
+function htmlConCodigo(
+  textos: string | string[],
+  codigosDcd?: string | Array<string | null | undefined> | null
+): string {
+  return bloquesAHtml(prepararBloques(textos, codigosDcd)) || "—";
+}
+
+function evaluacionHTML(
+  raw: any,
+  codigosDcd?: string | Array<string | null | undefined> | null
+): string {
   const text = toStr(raw);
   if (!text) return "—";
-  const partes = text
+
+  const crudo = text
     .split(/\.\s+/)
     .map((s: string) => s.trim())
-    .filter((s: string) => s.length > 0)
-    .map((s: string) => (s.endsWith(".") ? s : s + "."));
-  if (partes.length <= 1) return text || "—";
-  return partes.map((p: string) => `<p style="margin:0 0 4px 0;">${p}</p>`).join("");
+    .filter((s: string) => s.length > 0);
+
+  // Un código ("I.CN.5.1.1") quedó solo al partir por ". ": se reincorpora
+  const partes: string[] = [];
+  for (let i = 0; i < crudo.length; i++) {
+    const frag = crudo[i];
+    const sig = crudo[i + 1];
+    if (sig && /^[A-Z]{1,3}\.[A-Z0-9]+(?:\.[A-Z0-9]+)+$/.test(frag)) {
+      partes.push(`${frag}. ${sig}`);
+      i++;
+    } else {
+      partes.push(frag.endsWith(".") ? frag : `${frag}.`);
+    }
+  }
+
+  const { referencia, bloques } = prepararBloques(
+    partes.length > 1 ? partes : [text],
+    codigosDcd
+  );
+  if (bloques.length === 0) return "—";
+
+  const out: string[] = [];
+  if (referencia) {
+    out.push(`<div style="font-size:6.5px;font-weight:700;color:#555;margin-bottom:2px;">${referencia}</div>`);
+  }
+  for (const b of bloques) {
+    if (b.codigo) out.push(`<div style="font-weight:700;">${b.codigo}</div>`);
+    out.push(`<p style="margin:0 0 4px 0;">${b.texto}</p>`);
+  }
+  return out.join("");
 }
 
 function orientacionesHTML(raw: any, modelo: "ERCA" | "ACC" = "ERCA"): string {
@@ -103,6 +147,15 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
 
   const aiUnidades: any[] = aiResult?.unidades || [];
 
+  // Códigos DCD del PCT: referencia cuando los objetivos los redactó la IA
+  const codigosPct = [
+    ...new Set<string>(
+      (formData.unidades || []).flatMap((u: any) =>
+        (u.dcdsSeleccionadas || []).map((d: any) => d.codigo).filter(Boolean)
+      )
+    ),
+  ];
+
   // ── Estilos inline ──
   const BORDER = "border:1px solid #AAAAAA;";
   const TD  = `padding:5px 6px;${BORDER}vertical-align:top;`;
@@ -114,6 +167,7 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
 
   const unidadesFilas = (formData.unidades || []).map((unidad: any, idx: number) => {
     const ai = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
+    const codigosUnidad = (unidad.dcdsSeleccionadas || []).map((d: any) => d.codigo);
     const dcdHTML = (unidad.dcdsSeleccionadas || []).length > 0
       ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
           `<div style="margin-bottom:3px;"><b style="color:#1a6b3a;">${d.codigo}</b> ${d.enunciado}${iconosDestrezaHTML(d.codigo)}</div>`
@@ -124,10 +178,10 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
     <tr>
       <td style="${TD}text-align:center;font-weight:700;font-size:9px;">${unidad.numero}</td>
       <td style="${TD}font-weight:700;font-size:8px;">${ai.titulo || `Unidad ${unidad.numero}`}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.objetivosEspecificos) || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${htmlConCodigo(toStr(ai.objetivosEspecificos), codigosUnidad)}</td>
       <td style="${TD}font-size:7.5px;line-height:1.5;">${dcdHTML}</td>
       <td style="${TD}padding:2px;">${orientacionesHTML(ai.orientacionesMetodologicas, formData.modeloPedagogico || "ERCA")}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;">${evaluacionHTML(ai.evaluacion)}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${evaluacionHTML(ai.evaluacion, codigosUnidad)}</td>
       <td style="${TD}text-align:center;font-size:8px;">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
     </tr>`;
   }).join("");
@@ -222,7 +276,7 @@ export function generarHTMLPcaTrimestral(formData: any, aiResult: any): string {
   <tr><td colspan="7" style="${SEC}">3. OBJETIVOS DEL TRIMESTRE</td></tr>
   <tr>
     <td colspan="7" style="${TD}font-size:7.5px;line-height:1.6;">
-      <b>Objetivos del ${trimestre}:</b><br>${toStr(aiResult?.objetivosTrimestre) || "—"}
+      <b>Objetivos del ${trimestre}:</b><br>${htmlConCodigo(toStr(aiResult?.objetivosTrimestre), codigosPct)}
     </td>
   </tr>
 

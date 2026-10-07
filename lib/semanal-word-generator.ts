@@ -19,6 +19,7 @@ import type {
 } from "../data/types";
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
 import { iconosDcdRuns } from "./dcd-iconos";
+import { prepararBloques, type BloquesTexto } from "./codigos-curriculares";
 
 // ─── Paleta ───────────────────────────────────────────────────────────────────
 const BG_TITLE     = "003366";
@@ -214,6 +215,49 @@ function parBloquePedagogico(
       })
     ),
   ];
+}
+
+/**
+ * Párrafos de objetivos e indicadores: el código curricular oficial del
+ * catálogo (O.CN.B.5.2, I.CN.B.5.1.1) en negrita arriba del texto, igual que
+ * la columna de destrezas. Si el texto lo redactó la IA —y por eso no trae
+ * código— no se inventa ninguno: se agrega una línea de referencia con el
+ * código de la DCD de la que deriva.
+ */
+function parrafosConCodigo(
+  bloques: BloquesTexto,
+  sizePt = 9,
+  opts: { bullet?: boolean; italic?: boolean; after?: number; empty?: string; boxed?: boolean } = {}
+): Paragraph[] {
+  const size = sizePt * 2;
+  const mk = (text: string, bold: boolean, color: string): Paragraph =>
+    new Paragraph({
+      bullet: opts.bullet ? { level: 0 } : undefined,
+      spacing: { after: opts.after ?? 30 },
+      shading: opts.boxed ? shade("F0F4FA") : undefined,
+      border: opts.boxed
+        ? { left: { style: BorderStyle.SINGLE, size: 8, color: "003366" } }
+        : undefined,
+      indent: opts.boxed ? { left: 80 } : undefined,
+      children: [
+        new TextRun({
+          text,
+          bold,
+          italics: opts.italic ?? false,
+          size,
+          font: "Arial",
+          color,
+        }),
+      ],
+    });
+
+  const out: Paragraph[] = [];
+  if (bloques.referencia) out.push(mk(bloques.referencia, true, "555555"));
+  for (const b of bloques.bloques) {
+    if (b.codigo) out.push(mk(b.codigo, true, "000000"));
+    out.push(mk(b.texto, false, "000000"));
+  }
+  return out.length > 0 ? out : [mk(opts.empty ?? "—", false, "999999")];
 }
 
 /** Tabla anidada para bloques de adaptación (Categoría | Descripción | Estrategias) */
@@ -673,6 +717,16 @@ export async function generarWordSemanal(
 ): Promise<Blob> {
   const rows: TableRow[] = [];
 
+  // Códigos DCD de la semana: referencia para los objetivos específicos que
+  // redactó la IA (no traen código oficial del catálogo).
+  const codigosSemana = [
+    ...new Set(
+      DIAS.flatMap((d) =>
+        (semana.dias[d]?.horas || []).map((h) => h.codigoDestreza).filter(Boolean)
+      )
+    ),
+  ];
+
   // ══════════════════════════════════════════════════════════════
   // CABECERA PRINCIPAL
   // ══════════════════════════════════════════════════════════════
@@ -746,7 +800,16 @@ export async function generarWordSemanal(
   rows.push(new TableRow({
     children: [
       simpleCell("Objetivos de la unidad:", { bold: true, size: 9, bg: BG_SUBHEAD }),
-      simpleCell(semana.objetivosUnidad || "—", { size: 9, colspan: 5 }),
+      // Código oficial en negrita arriba; si la IA los redactó, referencia DCD
+      new TableCell({
+        columnSpan: 5,
+        verticalAlign: VerticalAlign.TOP,
+        borders: BORDER_DEF,
+        children: parrafosConCodigo(
+          prepararBloques(semana.objetivosUnidad || "", codigosSemana),
+          9
+        ),
+      }),
     ],
   }));
 
@@ -861,13 +924,11 @@ export async function generarWordSemanal(
 
       // ── Col 3: INDICADORES DE EVALUACIÓN ────────────────────────────────
       const indicadores = destreza?.indicadoresEvaluacion ?? [];
-      const indChildren: Paragraph[] = indicadores.length
-        ? indicadores.map((ind, i) => new Paragraph({
-            bullet: { level: 0 },
-            spacing: { after: 30 },
-            children: [new TextRun({ text: ind, size: 18, font: "Arial", color: BLACK })],
-          }))
-        : [new Paragraph({ children: [new TextRun({ text: "—", size: 18, font: "Arial", color: "999999" })] })];
+      const indChildren: Paragraph[] = parrafosConCodigo(
+        prepararBloques(indicadores, hora.codigoDestreza),
+        9,
+        { bullet: indicadores.length > 0 }
+      );
 
       // ── Col 4: ESTRATEGIAS ERCA + DUA ────────────────────────────────────
       const estChildren: Paragraph[] = [];
@@ -876,14 +937,22 @@ export async function generarWordSemanal(
       if (plan.objetivoClase) {
         estChildren.push(new Paragraph({
           shading: shade("F0F4FA"),
-          spacing: { before: 0, after: 60 },
+          spacing: { before: 0, after: 20 },
           border: { left: { style: BorderStyle.SINGLE, size: 8, color: "003366" } },
           indent: { left: 80 },
           children: [
             new TextRun({ text: "Objetivo: ", bold: true, size: 18, color: "003366", font: "Arial" }),
-            new TextRun({ text: plan.objetivoClase, size: 18, italics: true, color: "333333", font: "Arial" }),
           ],
         }));
+        // Código oficial en negrita arriba del texto; si la IA lo redactó,
+        // referencia a la DCD de la que deriva
+        for (const para of parrafosConCodigo(
+          prepararBloques([plan.objetivoClase], hora.codigoDestreza),
+          9,
+          { italic: true, after: 30, boxed: true }
+        )) {
+          estChildren.push(para);
+        }
       }
 
       const FASES_ORDER: { key: FaseKey; duracion?: string }[] = [
