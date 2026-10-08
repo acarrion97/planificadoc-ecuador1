@@ -14,6 +14,7 @@ import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APREND
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
 import { iconosDestrezaHTML } from "./dcd-iconos";
 import { prepararBloques, bloquesAHtml } from "./codigos-curriculares";
+import { objetivosOficialesTexto } from "./oficiales-curriculares";
 
 /**
  * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador 2026-2027
@@ -138,12 +139,16 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     .map((crit) => `<li>${crit}</li>`)
     .join("");
 
-  // Objetivos — mismo criterio: código del catálogo arriba, sin inventar códigos
+  // Objetivos — los OFICIALES del catálogo MinEduc mandan sobre los que redactó
+  // la IA; su código se imprime arriba y nunca se inventa uno.
+  const objetivosOficiales: string[] = plan.destreza.objetivos ?? [];
+  const objetivosFuente: string[] = objetivosOficiales.length > 0
+    ? objetivosOficiales
+    : plan.objetivoAprendizaje
+      ? [plan.objetivoAprendizaje]
+      : [];
   const objetivosHTML = bloquesAHtml(
-    prepararBloques(
-      plan.objetivoAprendizaje ? [plan.objetivoAprendizaje] : plan.destreza.objetivos,
-      plan.destreza.codigo
-    ),
+    prepararBloques(objetivosFuente, plan.destreza.codigo),
     esc
   );
 
@@ -1189,7 +1194,12 @@ export function generarHTMLSemanal(
       <td class="lbl" colspan="1">T&iacute;tulo de unidad de planificaci&oacute;n:</td>
       <td colspan="2">${(semana as any).tituloUnidad || "___"}</td>
       <td class="lbl">Objetivos espec&iacute;ficos de la unidad de planificaci&oacute;n:</td>
-      <td colspan="2">${bloquesAHtml(prepararBloques([(semana as any).objetivosUnidad || ""], codigosSemana), esc) || "___"}</td>
+      <td colspan="2">${bloquesAHtml(prepararBloques(
+        (semana as any).objetivosUnidad?.trim()
+          ? [(semana as any).objetivosUnidad]
+          : objetivosOficialesTexto(codigosSemana),
+        codigosSemana
+      ), esc) || "___"}</td>
     </tr>
   </table>
 

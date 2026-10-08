@@ -20,6 +20,7 @@ import type {
 import { TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO } from "../data/types";
 import { iconosDcdRuns } from "./dcd-iconos";
 import { prepararBloques, type BloquesTexto } from "./codigos-curriculares";
+import { objetivosOficialesTexto } from "./oficiales-curriculares";
 
 // ─── Paleta ───────────────────────────────────────────────────────────────────
 const BG_TITLE     = "003366";
@@ -717,8 +718,8 @@ export async function generarWordSemanal(
 ): Promise<Blob> {
   const rows: TableRow[] = [];
 
-  // Códigos DCD de la semana: referencia para los objetivos específicos que
-  // redactó la IA (no traen código oficial del catálogo).
+  // Códigos DCD de la semana: referencia para los objetivos que no traen
+  // código oficial del catálogo.
   const codigosSemana = [
     ...new Set(
       DIAS.flatMap((d) =>
@@ -800,13 +801,19 @@ export async function generarWordSemanal(
   rows.push(new TableRow({
     children: [
       simpleCell("Objetivos de la unidad:", { bold: true, size: 9, bg: BG_SUBHEAD }),
-      // Código oficial en negrita arriba; si la IA los redactó, referencia DCD
+      // Código oficial en negrita arriba. Si el docente no escribió objetivos,
+      // se imprimen los oficiales del catálogo MinEduc para esas DCD.
       new TableCell({
         columnSpan: 5,
         verticalAlign: VerticalAlign.TOP,
         borders: BORDER_DEF,
         children: parrafosConCodigo(
-          prepararBloques(semana.objetivosUnidad || "", codigosSemana),
+          prepararBloques(
+            semana.objetivosUnidad?.trim()
+              ? semana.objetivosUnidad
+              : objetivosOficialesTexto(codigosSemana),
+            codigosSemana
+          ),
           9
         ),
       }),

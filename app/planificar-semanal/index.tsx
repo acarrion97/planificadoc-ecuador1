@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   Text, View, ScrollView, TextInput, StyleSheet, Alert, Platform,
   ActivityIndicator, Switch, Pressable, FlatList, Modal,
@@ -18,6 +18,7 @@ import {
 } from "@/data";
 import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad, DcdDesagregacion } from "@/data/types";
 import { trpc } from "@/lib/trpc";
+import { objetivosOficialesTexto } from "@/lib/oficiales-curriculares";
 
 // ─── Colores DUA fijos ───────────────────────────────────────
 const DUA_ROSADO = "#EC4899";
@@ -148,6 +149,23 @@ export default function PlanificarSemanalScreen() {
     jueves: makeDia(true),
     viernes: makeDia(true),
   });
+
+  // ─── Objetivos OFICIALES de la unidad (catálogo MinEduc) ────────────────────
+  // Se rellenan con los objetivos de las DCD elegidas en la semana. Solo se
+  // pisan cuando el campo está vacío o cuando el valor actual es el que puso
+  // este efecto: lo que escriba el docente (p. ej. el criterio KAI/CAI) manda.
+  const objetivosOficialesSemana = objetivosOficialesTexto(
+    Object.values(dias).flatMap((d) => d.horas.map((h) => h.codigoDestreza))
+  );
+  const objetivosAutoRef = useRef("");
+  useEffect(() => {
+    if (!objetivosOficialesSemana) return;
+    if (!objetivosUnidad.trim() || objetivosUnidad === objetivosAutoRef.current) {
+      objetivosAutoRef.current = objetivosOficialesSemana;
+      setObjetivosUnidad(objetivosOficialesSemana);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [objetivosOficialesSemana]);
 
   // ── Resultado generado ──
   const [diasConPlanes, setDiasConPlanes] = useState<Record<string, { horaIndex: number; plan: any }[]>>({});

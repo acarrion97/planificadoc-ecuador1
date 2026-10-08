@@ -626,13 +626,17 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
   // SECCIÓN 5: OBJETIVOS
   // ══════════════════════════════════════════════════════════════════════════
   // El objetivo del catálogo trae su código oficial (O.CN.B.5.2. …) y se
-  // imprime en negrita arriba; si el objetivo lo escribió la IA, no se inventa
-  // código y se agrega la referencia de la DCD de la que deriva.
-  const objSource: string[] = (plan as any).objetivoAprendizaje
-    ? [String((plan as any).objetivoAprendizaje)]
-    : Array.isArray(plan.destreza?.objetivos)
-      ? plan.destreza.objetivos
-      : [plan.destreza?.objetivos || ""];
+  // imprime en negrita arriba. Los objetivos OFICIALES del MinEduc mandan
+  // sobre los que redactó la IA; solo si el catálogo no trae ninguno se usa
+  // el texto del docente (que en ese caso queda con referencia DCD).
+  const objetivosOficiales: string[] = Array.isArray(plan.destreza?.objetivos)
+    ? plan.destreza.objetivos
+    : [];
+  const objSource: string[] = objetivosOficiales.length > 0
+    ? objetivosOficiales
+    : (plan as any).objetivoAprendizaje
+      ? [String((plan as any).objetivoAprendizaje)]
+      : [String((plan as any).destreza?.objetivos || "")];
 
   children.push(makeTable([
     sectionTitleRow(t("5. OBJETIVOS", "5. OBJECTIVES"), 1, [TW]),
