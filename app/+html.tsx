@@ -26,11 +26,30 @@ export default function Root({ children }: PropsWithChildren) {
 
         <ScrollViewStyleReset />
         <script dangerouslySetInnerHTML={{ __html: registerServiceWorker }} />
+        <script dangerouslySetInnerHTML={{ __html: googleAnalytics }} />
       </head>
       <body>{children}</body>
     </html>
   );
 }
+
+// Google Analytics 4 (mismo ID en planificadoc.website y planificadoc.app).
+// No se carga en localhost para no contaminar los datos con pruebas locales.
+const GA_MEASUREMENT_ID = "G-1C66PK389J";
+
+const googleAnalytics = `
+(function () {
+  if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}";
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", "${GA_MEASUREMENT_ID}");
+})();
+`;
 
 const registerServiceWorker = `
 if ("serviceWorker" in navigator && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
