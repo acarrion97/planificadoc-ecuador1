@@ -12,6 +12,10 @@ import {
   getPcaDocumentsBySession,
 } from "./db";
 import { TODAS_LAS_DESTREZAS } from "../data/index";
+import {
+  indicadoresOficialesTexto,
+  objetivosOficialesTexto,
+} from "../lib/oficiales-curriculares";
 
 const PCA_PRICE_CENTS = 1499; // $14.99
 
@@ -77,8 +81,44 @@ const FormDataSchema = z.object({
   firmaAprobadoFecha: z.string(),
 });
 
-/** Construye el prompt para la IA */
-function buildPcaPrompt(input: z.infer<typeof FormDataSchema>): string {
+/**
+ * DCDs de una unidad de la IA: primero intenta emparejar por número de unidad y,
+ * si no coincide, recurre a la posición (la IA suele responder en el mismo orden).
+ */
+function dcdsDeUnidadPca(unidades: any[], unidad: any, idx: number): any[] {
+  const form =
+    unidades?.find((f: any) => f?.numero === unidad?.numero) ?? unidades?.[idx];
+  return form?.dcdsSeleccionadas ?? [];
+}
+
+/**
+ * Sustituye en una unidad de la PCA los objetivos específicos y los indicadores
+ * de evaluación por los textos OFICIALES del catálogo MinEduc (si los hay).
+ */
+function aplicarOficialesUnidadPca(unidad: any, dcds: any[]): void {
+  if (!unidad || !Array.isArray(dcds)) return;
+  const objetivos = objetivosOficialesTexto(dcds);
+  if (objetivos) unidad.objetivosEspecificos = objetivos;
+  const indicadores = indicadoresOficialesTexto(dcds);
+  if (indicadores) unidad.evaluacion = indicadores;
+}
+
+/**
+ * Prioriza los textos OFICIALES del catálogo MinEduc sobre lo redactado por la IA
+ * en la PCA anual: objetivos generales del área y, por unidad, objetivos
+ * específicos e indicadores de evaluación.
+ */
+function aplicarOficialesPca(aiResult: any, unidades: any[]): void {
+  const objArea = objetivosOficialesTexto(
+    unidades?.flatMap((u: any) => u?.dcdsSeleccionadas)
+  );
+  if (objArea) aiResult.objetivosArea = objArea;
+  (aiResult.unidades ?? []).forEach((unidad: any, idx: number) =>
+    aplicarOficialesUnidadPca(unidad, dcdsDeUnidadPca(unidades, unidad, idx))
+  );
+}
+
+/** Construye el prompt para la IA */function buildPcaPrompt(input: z.infer<typeof FormDataSchema>): string {
   const areaNombre = AREA_NAMES[input.area] || input.area;
   const subnivelNombre = SUBNIVEL_NAMES[input.subnivel] || `Subnivel ${input.subnivel}`;
   const totalSemanas = input.semanasTrabajoTotal - input.semanasEvaluacion;
@@ -100,8 +140,24 @@ function buildPcaPrompt(input: z.infer<typeof FormDataSchema>): string {
     const dcdsTexto = u.dcdsSeleccionadas.length > 0
       ? u.dcdsSeleccionadas.map(d => `  - ${d.codigo}: "${d.enunciado}"`).join("\n")
       : "  (Sin DCD específicas seleccionadas)";
-    return `Unidad ${u.numero}:\nDCD seleccionadas:\n${dcdsTexto}\nDuración: ${u.duracionSemanas} semanas`;
+    // Objetivos e indicadores OFICIALES del catálogo MinEduc: la IA no los
+    // redacta, únicamente los transcribe tal cual.
+    const objOficiales = objetivosOficialesTexto(u.dcdsSeleccionadas);
+    const indOficiales = indicadoresOficialesTexto(u.dcdsSeleccionadas);
+    const objLinea = objOficiales
+      ? `\nOBJETIVOS OFICIALES DEL CATÁLOGO MINEDUC (cópialos EXACTAMENTE en "objetivos_especificos", sin redactar nada nuevo):\n${objOficiales}`
+      : "";
+    const indLinea = indOficiales
+      ? `\nINDICADORES DE EVALUACIÓN OFICIALES DEL CATÁLOGO MINEDUC (cópialos EXACTAMENTE en "evaluacion", sin redactar indicadores nuevos):\n${indOficiales}`
+      : "";
+    return `Unidad ${u.numero}:\nDCD seleccionadas:\n${dcdsTexto}\nDuración: ${u.duracionSemanas} semanas${objLinea}${indLinea}`;
   }).join("\n\n");
+
+  // Objetivos oficiales de TODO el área: unión de los objetivos de las DCD
+  // seleccionadas en todas las unidades.
+  const objAreaOficiales = objetivosOficialesTexto(
+    input.unidades.flatMap((u) => u.dcdsSeleccionadas)
+  );
 
   return `Eres un experto en currículo educativo ecuatoriano. Genera una Planificación Curricular Anual (PCA) completa siguiendo el formato oficial del Ministerio de Educación del Ecuador (Instructivo PCA 2021).
 
@@ -121,6 +177,9 @@ DATOS DEL DOCENTE:
 
 UNIDADES PLANIFICADAS POR EL DOCENTE:
 ${unidadesTexto}
+
+OBJETIVOS OFICIALES DEL ÁREA (catálogo MinEduc) — usa EXACTAMENTE este texto en "objetivos_area", sin reformularlo:
+${objAreaOficiales || "(El catálogo no trae objetivos para estas DCD: redáctalos alineados al currículo oficial.)"}
 
 GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin bloques markdown:
 {
@@ -146,7 +205,12 @@ REGLAS OBLIGATORIAS:
 - Los contenidos DEBEN corresponder exactamente a las DCD indicadas por el docente
 - Las orientaciones metodológicas DEBEN reflejar las metodologías activas seleccionadas
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
-- Los objetivos del área DEBEN ser los del currículo oficial para ${areaNombre} en ${subnivelNombre}
+- Los objetivos del área DEBEN ser los del currículo oficial para ${areaNombre} en ${subnivelNombre}${
+    objAreaOficiales
+      ? " y, si se indicaron OBJETIVOS OFICIALES, transcríbelos exactamente tal cual aparecen"
+      : ""
+  }
+- Cuando una unidad traiga OBJETIVOS o INDICADORES OFICIALES DEL CATÁLOGO, cópialos tal cual en "objetivos_especificos" y "evaluacion" respectivamente; no los reescribas
 - Usa lenguaje técnico-pedagógico apropiado para el nivel de educación
 - Responde SOLO con el JSON, sin nada más`;
 }
@@ -239,7 +303,11 @@ export const pcaRouter = router({
           observaciones: toStr(parsed.observaciones),
         };
 
-        // 5. Guardar resultado en BD
+        // 5. Objetivos e indicadores OFICIALES del catálogo MinEduc: mandan sobre
+        //    lo que acaba de redactar la IA.
+        aplicarOficialesPca(aiResult, input.formData.unidades);
+
+        // 6. Guardar resultado en BD
         await setPcaAiResult(docId, JSON.stringify(aiResult));
 
         // 6. Si es suscriptor anual, desbloquear automáticamente
@@ -387,6 +455,19 @@ export const pcaRouter = router({
         responseKey = "observaciones";
       }
 
+      // Los objetivos generales del área salen del catálogo oficial del MinEduc:
+      // si el catálogo trae texto no hay nada que regenerar con IA.
+      if (input.seccion === "objetivos_area") {
+        const objArea = objetivosOficialesTexto(
+          formData.unidades?.flatMap((u: any) => u?.dcdsSeleccionadas)
+        );
+        if (objArea) {
+          aiResult.objetivosArea = objArea;
+          await setPcaAiResult(input.pcaId, JSON.stringify(aiResult));
+          return { success: true, aiResult };
+        }
+      }
+
       try {
         const result = await invokeLLM({
           messages: [
@@ -413,6 +494,12 @@ export const pcaRouter = router({
               orientacionesMetodologicas: parsed.orientaciones_metodologicas || aiResult.unidades[idx].orientacionesMetodologicas,
               evaluacion: parsed.evaluacion || aiResult.unidades[idx].evaluacion,
             };
+            // Los textos OFICIALES del catálogo MinEduc mandan sobre la IA.
+            aplicarOficialesUnidadPca(
+              aiResult.unidades[idx],
+              formData.unidades?.find((u: any) => u.numero === input.unidadNumero)
+                ?.dcdsSeleccionadas ?? []
+            );
           }
         } else if (responseKey === "objetivos_area") {
           aiResult.objetivosArea = parsed.objetivos_area || aiResult.objetivosArea;

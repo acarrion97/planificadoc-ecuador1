@@ -13,6 +13,7 @@ import { AREAS_INFO, SUBNIVEL_NAMES, TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO, type
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
 import { iconosDcdRuns } from "./dcd-iconos";
+import { prepararBloques } from "./codigos-curriculares";
 
 // ── Colores (mismo esquema que el PDF) ────────────────────────────────────────
 const ROSA      = "D4A5C7";  // encabezados sección (morado/rosa)
@@ -68,6 +69,27 @@ function p(
       }),
     ],
   });
+}
+
+/**
+ * Párrafos de un objetivo o de un indicador: el código curricular oficial en
+ * negrita arriba del texto (igual que en la columna de destrezas). Si el texto
+ * lo redactó la IA y no trae código, se agrega una línea de referencia con el
+ * código de la DCD de la que deriva.
+ */
+function parrafosCodigoTexto(
+  textos: string | string[],
+  codigosDcd: string | string[] | undefined,
+  size: number
+): Paragraph[] {
+  const { referencia, bloques } = prepararBloques(textos, codigosDcd);
+  const out: Paragraph[] = [];
+  if (referencia) out.push(p(referencia, { bold: true, size: Math.max(size - 1, 5), color: "555555" }));
+  for (const b of bloques) {
+    if (b.codigo) out.push(p(b.codigo, { bold: true, size }));
+    out.push(p(b.texto, { size }));
+  }
+  return out.length > 0 ? out : [p("—", { size })];
 }
 
 function tc(
@@ -603,12 +625,22 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
   // ══════════════════════════════════════════════════════════════════════════
   // SECCIÓN 5: OBJETIVOS
   // ══════════════════════════════════════════════════════════════════════════
-  const objText = (plan as any).objetivoAprendizaje
-    || (Array.isArray(plan.destreza?.objetivos) ? plan.destreza.objetivos.join("\n") : plan.destreza?.objetivos || "—");
+  // El objetivo del catálogo trae su código oficial (O.CN.B.5.2. …) y se
+  // imprime en negrita arriba. Los objetivos OFICIALES del MinEduc mandan
+  // sobre los que redactó la IA; solo si el catálogo no trae ninguno se usa
+  // el texto del docente (que en ese caso queda con referencia DCD).
+  const objetivosOficiales: string[] = Array.isArray(plan.destreza?.objetivos)
+    ? plan.destreza.objetivos
+    : [];
+  const objSource: string[] = objetivosOficiales.length > 0
+    ? objetivosOficiales
+    : (plan as any).objetivoAprendizaje
+      ? [String((plan as any).objetivoAprendizaje)]
+      : [String((plan as any).destreza?.objetivos || "")];
 
   children.push(makeTable([
     sectionTitleRow(t("5. OBJETIVOS", "5. OBJECTIVES"), 1, [TW]),
-    new TableRow({ children: [tc([p(objText, { size: 8 })], TW)] }),
+    new TableRow({ children: [tc(parrafosCodigoTexto(objSource, plan.destreza?.codigo, 8), TW)] }),
   ], TW, [TW]));
 
   children.push(sep());
@@ -696,10 +728,10 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
             return runs.length ? [new Paragraph({ children: runs })] : [];
           })(),
         ], M1),
-        // Indicadores
+        // Indicadores — código oficial en negrita arriba del texto
         tc([
           p(t("Indicadores de evaluación:", "Assessment indicators:"), { bold: true, size: 7 }),
-          ...indicadores.map((ind, i) => p(`${i + 1}. ${ind}`, { size: 7 })),
+          ...parrafosCodigoTexto(indicadores, plan.destreza?.codigo, 7),
         ], M2),
         // Estrategias ERCA
         tc(ercaParas, M3),
@@ -708,7 +740,7 @@ export async function generarWordPlanificacion(plan: Planificacion): Promise<Blo
         // Evaluación
         tc([
           p(t("Indicadores de evaluación:", "Assessment indicators:"), { bold: true, size: 7 }),
-          p(evaluacionText, { size: 7 }),
+          ...parrafosCodigoTexto([evaluacionText], plan.destreza?.codigo, 7),
           p(""),
           p(t("Técnica:", "Technique:"), { bold: true, size: 7 }),
           p(tecnicasText, { size: 7 }),

@@ -132,6 +132,22 @@ describe("generarHTMLPlanificacion", () => {
   it("debe incluir el tema seleccionado", () => {
     const html = generarHTMLPlanificacion(mockPlan);
     expect(html).toContain("Fracciones en la cocina ecuatoriana");
+  });
+
+  it("los objetivos oficiales del catálogo MinEduc tienen prioridad sobre los de la IA", () => {
+    const html = generarHTMLPlanificacion(mockPlan);
+    // El código se imprime en negrita aparte, por eso se busca solo el texto
+    expect(html).toContain("Utilizar el sistema de coordenadas");
+    expect(html).toContain("O.M.3.1");
+    // El objetivo redactado por la IA no sustituye al oficial
+    expect(html).not.toContain("Representar y comparar fracciones.");
+  });
+
+  it("usa el objetivo del docente cuando el catálogo no trae ninguno", () => {
+    const html = generarHTMLPlanificacion({
+      ...mockPlan,
+      destreza: { ...mockDestreza, objetivos: [] },
+    });
     expect(html).toContain("Representar y comparar fracciones.");
   });
 
@@ -161,7 +177,9 @@ describe("generarHTMLPlanificacion", () => {
 
   it("debe incluir los indicadores de evaluación", () => {
     const html = generarHTMLPlanificacion(mockPlan);
-    expect(html).toContain("I.M.3.1.1. Aplica estrategias de cálculo.");
+    // Código curricular oficial en su propio bloque (en negrita) y texto debajo
+    expect(html).toContain('<div style="font-weight:700;">I.M.3.1.1</div>');
+    expect(html).toContain("<div>Aplica estrategias de cálculo.</div>");
   });
 
   it("debe funcionar sin tema seleccionado", () => {
