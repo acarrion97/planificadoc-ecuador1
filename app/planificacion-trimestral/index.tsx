@@ -6,8 +6,6 @@ import {
   ScrollView,
   Pressable,
   StyleSheet,
-  Alert,
-  Platform,
   ActivityIndicator,
   Switch,
 } from "react-native";
@@ -26,6 +24,7 @@ import {
 } from "@/data";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "@/data/secciones-planificacion";
 import { DcdMultiSelector, DcdSeleccionada } from "@/components/DcdMultiSelector";
+import { alertaError, alertaAviso, alertaOk, confirmar } from "@/lib/alertas";
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -315,7 +314,7 @@ export default function PlanificacionTrimestralScreen() {
 
   const handleGenerarTitulo = useCallback(async (unidad: Unidad) => {
     if (unidad.dcdsSeleccionadas.length === 0) {
-      Alert.alert("Sin destrezas", "Selecciona al menos una DCD antes de generar el título y objetivos.");
+      alertaAviso("Sin destrezas", "Selecciona al menos una DCD antes de generar el título y objetivos.");
       return;
     }
     setGenerandoUnidadId(unidad.id);
@@ -329,11 +328,11 @@ export default function PlanificacionTrimestralScreen() {
         tituloPropuesto: unidad.titulo.trim() || undefined,
       });
       if (!result.success) {
-        Alert.alert("Error", "No se pudo generar. Intenta de nuevo.");
+        alertaError("No se pudo generar", "Intenta de nuevo.");
         return;
       }
       if (!result.coherente) {
-        Alert.alert(
+        alertaAviso(
           "⚠️ Tema no compatible",
           result.mensajeAlerta || "El tema propuesto no concuerda con las destrezas seleccionadas. Ajusta el tema o cambia las DCD.",
         );
@@ -341,34 +340,30 @@ export default function PlanificacionTrimestralScreen() {
       }
       updateUnidad(unidad.id, { titulo: result.titulo, objetivosEspecificos: result.objetivosEspecificos });
     } catch (err: any) {
-      Alert.alert("Error", err.message || "Error de conexión.");
+      alertaError("Error", err.message || "Error de conexión.");
     } finally {
       setGenerandoUnidadId(null);
     }
   }, [area, subnivel, grado, trimestre, generarTituloMutation, updateUnidad]);
 
-  const handleAreaChange = useCallback((newArea: string) => {
+  const handleAreaChange = useCallback(async (newArea: string) => {
     const anySelected = unidades.some(u => u.dcdsSeleccionadas.length > 0);
     if (anySelected) {
       const msg = "Cambiar el área borrará las destrezas seleccionadas. ¿Continuar?";
-      if (Platform.OS === "web") {
-        if (!confirm(msg)) return;
-      } else {
-        Alert.alert("Cambiar área", msg, [
-          { text: "Cancelar", style: "cancel" },
-          {
-            text: "Sí, cambiar", style: "destructive",
-            onPress: () => {
-              setArea(newArea as Area);
-              setSubnivel(0);
-              setGrado("");
-              setUnidades(prev => prev.map(u => ({ ...u, dcdsSeleccionadas: [] })));
-            },
-          },
-        ]);
-        return;
-      }
+      const ok = await confirmar({
+        titulo: "Cambiar área",
+        mensaje: msg,
+        textoOk: "Sí, cambiar",
+        textoCancelar: "Cancelar",
+        icono: "warning",
+      });
+      if (!ok) return;
+      setArea(newArea as Area);
+      setSubnivel(0);
+      setGrado("");
+      setDeporteEnfoque("");
       setUnidades(prev => prev.map(u => ({ ...u, dcdsSeleccionadas: [] })));
+      return;
     }
     setArea(newArea as Area);
     setSubnivel(0);
@@ -376,7 +371,7 @@ export default function PlanificacionTrimestralScreen() {
     setDeporteEnfoque("");
   }, [unidades]);
 
-  const handleSubnivelChange = useCallback((v: string) => {
+  const handleSubnivelChange = useCallback(async (v: string) => {
     const anySelected = unidades.some(u => u.dcdsSeleccionadas.length > 0);
     const newSub = parseInt(v) as Subnivel;
     const applyChange = () => {
@@ -387,35 +382,30 @@ export default function PlanificacionTrimestralScreen() {
     };
     if (anySelected) {
       const msg = "Cambiar el subnivel borrará las destrezas. ¿Continuar?";
-      if (Platform.OS === "web") {
-        if (!confirm(msg)) return;
-      } else {
-        Alert.alert("Cambiar subnivel", msg, [
-          { text: "Cancelar", style: "cancel" },
-          {
-            text: "Sí, cambiar",
-            onPress: () => {
-              setUnidades(prev => prev.map(u => ({ ...u, dcdsSeleccionadas: [] })));
-              applyChange();
-            },
-          },
-        ]);
-        return;
-      }
+      const ok = await confirmar({
+        titulo: "Cambiar subnivel",
+        mensaje: msg,
+        textoOk: "Sí, cambiar",
+        textoCancelar: "Cancelar",
+        icono: "warning",
+      });
+      if (!ok) return;
       setUnidades(prev => prev.map(u => ({ ...u, dcdsSeleccionadas: [] })));
+      applyChange();
+      return;
     }
     applyChange();
   }, [unidades]);
 
   // ── Validación y envío ──
   const handleGenerar = useCallback(async () => {
-    if (!trimestre)           return Alert.alert("Falta información", "Selecciona el trimestre.");
-    if (!institucion.trim())  return Alert.alert("Falta información", "Ingresa el nombre de la institución.");
-    if (!docente.trim())      return Alert.alert("Falta información", "Ingresa el nombre del docente.");
-    if (!area)                return Alert.alert("Falta información", "Selecciona el área.");
-    if (!subnivel)            return Alert.alert("Falta información", "Selecciona el subnivel.");
-    if (!grado)               return Alert.alert("Falta información", "Selecciona el grado.");
-    if (unidades.length === 0) return Alert.alert("Falta información", "Agrega al menos una unidad.");
+    if (!trimestre)           { await alertaError("Falta información", "Selecciona el trimestre."); return; }
+    if (!institucion.trim())  { await alertaError("Falta información", "Ingresa el nombre de la institución."); return; }
+    if (!docente.trim())      { await alertaError("Falta información", "Ingresa el nombre del docente."); return; }
+    if (!area)                { await alertaError("Falta información", "Selecciona el área."); return; }
+    if (!subnivel)            { await alertaError("Falta información", "Selecciona el subnivel."); return; }
+    if (!grado)               { await alertaError("Falta información", "Selecciona el grado."); return; }
+    if (unidades.length === 0) { await alertaError("Falta información", "Agrega al menos una unidad."); return; }
 
     try {
       const sessionId = await getSessionId();
@@ -465,10 +455,10 @@ export default function PlanificacionTrimestralScreen() {
       if (result.success && result.pcaId) {
         router.push(`/pca-trimestral-preview/${result.pcaId}` as any);
       } else {
-        Alert.alert("Error", result.error || "No se pudo generar la PCT. Intenta de nuevo.");
+        await alertaError("No se pudo generar la PCT", result.error || "Intenta de nuevo.");
       }
     } catch (err: any) {
-      Alert.alert("Error", err.message || "Error de conexión. Verifica tu internet.");
+      await alertaError("Error", err.message || "Error de conexión. Verifica tu internet.");
     }
   }, [
     trimestre, institucion, docente, area, subnivel, grado, anioLectivo, paralelo,
