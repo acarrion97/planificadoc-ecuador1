@@ -41,6 +41,19 @@ async function getSessionId(): Promise<string> {
   return id;
 }
 
+/**
+ * La IA a veces devuelve arrays/objetivos en campos que deben ser texto
+ * (p.ej. objetivosEspecificos: ["…", "…"]). Sin esta normalización el
+ * formulario revienta con "objetivosEspecificos.trim is not a function".
+ */
+function aTexto(v: any): string {
+  if (typeof v === "string") return v;
+  if (v === null || v === undefined) return "";
+  if (Array.isArray(v)) return v.map(aTexto).filter(Boolean).join("\n");
+  if (typeof v === "object") return Object.values(v).map(aTexto).filter(Boolean).join("\n");
+  return String(v);
+}
+
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
 const TRIMESTRES = [
@@ -302,7 +315,15 @@ export default function PlanificacionTrimestralScreen() {
   }, []);
 
   const updateUnidad = useCallback((id: string, patch: Partial<Unidad>) => {
-    setUnidades(prev => prev.map(u => u.id === id ? { ...u, ...patch } : u));
+    // Normaliza campos de texto: la IA puede devolver arrays/objetos y el
+    // formulario haría .trim() sobre ellos ("…trim is not a function").
+    const seguro: Partial<Unidad> = { ...patch };
+    if ("titulo" in seguro)             seguro.titulo = aTexto(seguro.titulo);
+    if ("objetivosEspecificos" in seguro) seguro.objetivosEspecificos = aTexto(seguro.objetivosEspecificos);
+    if ("deporteEnfoque" in seguro && seguro.deporteEnfoque !== undefined) {
+      seguro.deporteEnfoque = aTexto(seguro.deporteEnfoque);
+    }
+    setUnidades(prev => prev.map(u => u.id === id ? { ...u, ...seguro } : u));
   }, []);
 
   const removeUnidad = useCallback((id: string) => {
@@ -325,7 +346,7 @@ export default function PlanificacionTrimestralScreen() {
         grado,
         trimestre: trimestre as string,
         dcdsSeleccionadas: unidad.dcdsSeleccionadas,
-        tituloPropuesto: unidad.titulo.trim() || undefined,
+        tituloPropuesto: aTexto(unidad.titulo).trim() || undefined,
       });
       if (!result.success) {
         alertaError("No se pudo generar", "Intenta de nuevo.");
@@ -430,8 +451,8 @@ export default function PlanificacionTrimestralScreen() {
           numero: u.numero,
           dcdsSeleccionadas: u.dcdsSeleccionadas,
           duracionSemanas: u.duracionSemanas,
-          titulo: u.titulo.trim() || undefined,
-          objetivosEspecificos: u.objetivosEspecificos.trim() || undefined,
+          titulo: aTexto(u.titulo).trim() || undefined,
+          objetivosEspecificos: aTexto(u.objetivosEspecificos).trim() || undefined,
           deporteEnfoque: area === "EF" && u.deporteEnfoque ? u.deporteEnfoque : undefined,
         })),
         modeloPedagogico: modeloPedagogico,
