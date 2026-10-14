@@ -13,6 +13,7 @@ import {
 import { paymentAttribution } from "../../drizzle/schema";
 import { sendTrialStartedEmail } from "../../server/email";
 import { sendMetaPurchase } from "../../server/meta-capi";
+import { stripQuery } from "../_lib/safe-url";
 
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
@@ -41,7 +42,8 @@ async function fireMetaCapi(clientTxId: string, valueCents: number, txEmail?: st
       eventId,
       value: valueCents / 100,
       currency: "USD",
-      eventSourceUrl: row?.sourceUrl ?? "https://planificadoc.app/pago",
+      // Filas antiguas pueden traer email/cédula/teléfono en la URL: nunca enviarlos a Meta.
+      eventSourceUrl: stripQuery(row?.sourceUrl) ?? "https://planificadoc.app/pago",
       fbp: row?.fbp ?? null,
       fbc: row?.fbc ?? null,
       clientIp: row?.clientIp ?? null,
