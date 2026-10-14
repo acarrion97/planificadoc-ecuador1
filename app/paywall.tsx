@@ -7,6 +7,7 @@ import {
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { useAccess } from "@/lib/access-control";
+import { trackEvent } from "@/web/analytics";
 
 const WHATSAPP_NUMBER = "593978833533";
 type PlanType = "monthly" | "annual";
@@ -140,6 +141,7 @@ export default function PaywallScreen() {
     try {
       const result = await registerAccount(regEmail, regPassword, regNombre);
       if (result.success) {
+        trackEvent("sign_up", { method: "email" });
         if (result.hasSubscription) setSuccess(true);
         else { setPayEmail(regEmail.trim().toLowerCase()); setNeedsPayment(true); }
       } else if (result.exists) {

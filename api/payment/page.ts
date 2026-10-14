@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createPaymentTransaction, setPcaClientTxId, getDb } from "../_lib/db";
 import { paymentAttribution } from "../../drizzle/schema";
+import { gaHeadSnippet, gaBeginCheckoutSnippet } from "../_lib/ga";
 
 type PlanType = "monthly" | "annual";
 
@@ -442,6 +443,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const reference   = `PlanificaDoc - Trial 3 dias (verif.) - ${email}`;
       // Para CAPI guardamos el precio real del plan, no el $1 de verificación
       const fbScript = fbTrackingScript(clientTxId, trialPlanCents, email);
+      const gaScript = gaHeadSnippet() + gaBeginCheckoutSnippet(plan, "trial", trialPlanCents);
 
       const html = `<!DOCTYPE html>
 <html lang="es">
@@ -473,6 +475,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     .security-note { text-align: center; font-size: 11px; color: #999; margin-top: 14px; }
     #pp-button { min-height: 260px; }
   </style>
+  ${gaScript}
   ${fbScript}
 </head>
 <body>
@@ -615,6 +618,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // PayPhone appends &id=xxx&clientTransactionId=yyy after the trailing &.
     const responseUrl = `https://planificadoc.app/api/payment/confirm?documentId=${encodeURIComponent(documentId)}&phoneNumber=${encodeURIComponent(phoneNumber)}&cardHolder=${encodeURIComponent(cardHolder)}&`;
     const fbScript = fbTrackingScript(clientTxId, pricing.amount, email);
+    const gaScript = gaHeadSnippet() + gaBeginCheckoutSnippet(plan, "subscription", pricing.amount);
 
     const planLabel = plan === "annual" ? "Anual (12 meses)" : "Mensual";
     const periodLabel = plan === "annual" ? "por año" : "por mes";
@@ -671,6 +675,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     .recurring-note { text-align: center; font-size: 12px; color: #1e3a5f; margin-top: 12px; padding: 10px; background: #e0f2fe; border-radius: 8px; border: 1px solid #bae6fd; }
     .recurring-note strong { display: block; margin-bottom: 4px; }
   </style>
+  ${gaScript}
   ${fbScript}
 </head>
 <body>

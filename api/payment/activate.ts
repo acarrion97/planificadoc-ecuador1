@@ -83,7 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     if (tx.status === "approved") {
-      return res.json({ success: true, message: "Suscripcion ya activada" });
+      return res.json({ success: true, alreadyActivated: true, message: "Suscripcion ya activada" });
     }
 
     // Log FULL PayPhone response to Vercel logs for diagnostics
@@ -127,7 +127,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         } else {
           console.warn("[PayPhone PCA] No pca_document found for clientTxId:", clientTxId);
         }
-        return res.json({ success: true, type: "pca", pcaId: pcaDoc?.id || null });
+        return res.json({ success: true, type: "pca", pcaId: pcaDoc?.id || null, clientTxId, amount: tx.amount / 100 });
       }
 
       // ── Trial: create 3-day trial subscription ──
@@ -192,6 +192,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           email:      tx.email,
           trialEnd:   trialEnd.toISOString(),
           isRecurring: !!cardTokenId,
+          // Para Google Analytics (start_trial): solo se cobró $1 de verificación
+          clientTxId,
+          plan:       trialPlan || "monthly",
+          planValue:  (trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS) / 100,
         });
       }
 
@@ -245,7 +249,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         (e) => console.error("[Meta CAPI]", e)
       );
 
-      res.json({ success: true, email: tx.email, isRecurring: !!cardTokenId });
+      res.json({ success: true, email: tx.email, isRecurring: !!cardTokenId, clientTxId, plan: planType, amount: tx.amount / 100 });
     } else {
       await updatePaymentTransaction(clientTxId, {
         payphoneTransactionId: confirmData.transactionId,
