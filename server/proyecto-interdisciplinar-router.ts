@@ -28,9 +28,53 @@ const ElementoCurricularInput = z.object({
   codigo: z.string().min(1),
 });
 
+const FASES_INPUT = [
+  "planificacion",
+  "gestion",
+  "organizacion",
+  "ejecucion",
+  "socializacion",
+  "evaluacion",
+] as const;
+
+const CriterioRubricaInput = z.object({
+  criterio: z.string().optional(),
+  nivel4: z.string().optional(),
+  nivel3: z.string().optional(),
+  nivel2: z.string().optional(),
+  nivel1: z.string().optional(),
+});
+
+const RubricaInput = z.object({
+  titulo: z.string().optional(),
+  criterios: z.array(CriterioRubricaInput).optional(),
+});
+
+const FaseAreaInput = z.object({
+  fase: z.enum(FASES_INPUT),
+  semana: z.string().optional(),
+  preguntaOrientadora: z.string().optional(),
+  actividades: z.array(z.string()).optional(),
+  recursos: z.array(z.string()).optional(),
+});
+
+const DetalleAreaInput = z.object({
+  areaProyectoId: z.string().min(1),
+  fases: z.array(FaseAreaInput).optional(),
+});
+
+const ActividadDiaAPorDiaInput = z.object({
+  fase: z.enum(FASES_INPUT),
+  dia: z.string().optional(),
+  fecha: z.string().optional(),
+  actividad: z.string().optional(),
+  productoDiario: z.string().optional(),
+  areaProyectoId: z.string().optional(),
+});
+
 const ActividadProyectoInput = z.object({
   id: z.string().optional(),
-  fase: z.enum(["planificacion", "gestion", "evaluacion"]),
+  fase: z.enum(FASES_INPUT),
   actividad: z.string().optional(),
   recursos: z.string().optional(),
   evidencia: z.string().optional(),
@@ -51,9 +95,16 @@ const ProyectoInterdisciplinarInput = z.object({
   productoFinal: z.string().optional(),
   duracion: z.string().optional(),
   metodologia: z.string().optional(),
+  anioLectivo: z.string().optional(),
+  trimestre: z.string().optional(),
+  paralelo: z.string().optional(),
   areas: z.array(AreaProyectoInput).default([]),
   elementosCurriculares: z.array(ElementoCurricularInput).default([]),
   actividades: z.array(ActividadProyectoInput).default([]),
+  detalleAreas: z.array(DetalleAreaInput).optional(),
+  diaPorDia: z.array(ActividadDiaAPorDiaInput).optional(),
+  rubricaDisciplinar: RubricaInput.optional(),
+  rubricaInterdisciplinar: RubricaInput.optional(),
   evaluacionGeneral: z.string().optional(),
   institucion: z.string().optional(),
   docentesParticipantes: z.array(z.string()).optional(),
@@ -547,7 +598,7 @@ Responde ÚNICAMENTE con JSON válido:
           .array(
             z.object({
               id: z.string(),
-              fase: z.enum(["planificacion", "gestion", "evaluacion"]),
+              fase: z.enum(FASES_INPUT),
               actividad: z.string(),
               evidencia: z.string().optional(),
               evaluacion: z.string().optional(),
@@ -665,7 +716,11 @@ Responde ÚNICAMENTE con JSON válido:
   // guía, producto final — cualquiera puede venir vacío) y los elementos
   // curriculares que ya seleccionó (nunca los inventa la IA). Devuelve el
   // proyecto completo: los campos de texto vacíos rellenados, más
-  // actividades por fase y evaluación general generadas desde cero.
+  // actividades por fase (5 fases oficiales), detalle por asignatura y
+  // evaluación general generados desde cero. Las rúbricas NO las genera la
+  // IA: se usan las plantillas oficiales por defecto (data/
+  // proyecto-interdisciplinar-formato.ts) para garantizar fidelidad al
+  // formato.
   generarProyectoCompleto: publicProcedure
     .input(
       z.object({
@@ -693,10 +748,20 @@ Responde ÚNICAMENTE con JSON válido:
         .map((e) => `- [${e.nombreArea}] ${e.codigo}${e.descripcion ? `: ${e.descripcion}` : ""}`)
         .join("\n");
 
-      const prompt = `Eres un experto en proyectos interdisciplinares del Ministerio de Educación del Ecuador (instructivo de Proyecto Interdisciplinar, 3 fases: Planificación, Gestión del proyecto, Evaluación del proyecto).
+      // Áreas participantes deduplicadas (una entrada por asignatura).
+      const areasUnicas = Array.from(
+        new Map(
+          input.elementosCurriculares.map((e) => [e.area, { areaId: e.area, nombreArea: e.nombreArea }])
+        ).values()
+      );
+      const areasTexto = areasUnicas.map((a) => `- id "${a.areaId}": ${a.nombreArea}`).join("\n");
+
+      const prompt = `Eres un experto en proyectos interdisciplinares del Ministerio de Educación del Ecuador (formato oficial "Proyecto Interdisciplinar para la Evaluación Sumativa", 5 fases: 1) Planificación, 2) Organización e investigación con asignación de roles, 3) Ejecución e integración de saberes para la creación del producto, 4) Socialización, presentación y difusión, 5) Evaluación, reflexión y metacognición).
 
 CONTEXTO DEL PROYECTO:
 - Base curricular: ${input.baseCurricular === "destrezas" ? "destrezas con criterios de desempeño" : "competencias específicas (Currículo Nacional por Competencias)"}
+- Asignaturas participantes:
+${areasTexto}
 - Elementos curriculares ya seleccionados por el docente (NO los modifiques, no inventes otros, no inventes códigos):
 ${elementosTexto}
 - Título del proyecto ${input.titulo ? `(ya definido por el docente, respétalo tal cual): ${input.titulo}` : "(el docente no lo definió — proponlo tú)"}
@@ -711,8 +776,9 @@ REGLAS:
 - NO inventes códigos curriculares, destrezas ni competencias específicas; usa solo las ya listadas como contexto.
 - Si un campo ya viene definido arriba, cópialo tal cual en tu respuesta sin cambiarlo.
 - "objetivoGeneral": 1 oración, verbo en infinitivo, integrando las áreas.
-- "actividades": exactamente 2 actividades por cada fase ("planificacion", "gestion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual) e instrumentoEvaluacion (el instrumento concreto: lista de cotejo, rúbrica, escala de valoración, guía de observación, portafolio, etc., más 2-3 criterios a valorar, máximo 25 palabras; elige el tipo según la evidencia y no uses rúbrica en todas). Actividades concretas y breves, coherentes con las áreas y el producto final.
-- "evaluacionGeneral": 1-2 oraciones describiendo cómo se evalúa el proyecto en conjunto (rúbrica y/o portafolio, sugerido por el instructivo oficial).
+- "actividades": exactamente 2 actividades por cada una de las 5 fases ("planificacion", "organizacion", "ejecucion", "socializacion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual) e instrumentoEvaluacion (el instrumento concreto: lista de cotejo, rúbrica, escala de valoración, guía de observación, portafolio, etc., más 2-3 criterios a valorar, máximo 25 palabras; elige el tipo según la evidencia y no uses rúbrica en todas). Actividades concretas y breves, coherentes con las áreas y el producto final.
+- "detalleAreas": un objeto por CADA asignatura participante, con su "areaId" tal cual como aparece arriba, y "fases": 1 objeto por fase del proyecto que esa asignatura trabaje (mínimo 3, idealmente las 5), cada uno con "fase", "semana" ("Semana 1" o "Semana 2" según corresponda), "actividades" (1-2 actividades breves hechas DESDE ESA ASIGNATURA, no genéricas) y "recursos" (2-4 recursos concretos).
+- "evaluacionGeneral": 1-2 oraciones describiendo cómo se evalúa el proyecto en conjunto (la calificación de cada asignatura combina su rúbrica disciplinar con la rúbrica interdisciplinar común del producto final).
 - Sé conciso en todos los campos de texto.
 
 Responde ÚNICAMENTE con JSON válido con esta forma exacta:
@@ -724,6 +790,9 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
   "productoFinal": "string",
   "actividades": [
     { "fase": "planificacion", "actividad": "string", "recursos": "string", "evidencia": "string", "evaluacion": "string", "instrumentoEvaluacion": "string" }
+  ],
+  "detalleAreas": [
+    { "areaId": "string", "fases": [ { "fase": "planificacion", "semana": "Semana 1", "actividades": ["string"], "recursos": ["string"] } ] }
   ],
   "evaluacionGeneral": "string"
 }`;
@@ -737,7 +806,7 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
           },
           { role: "user", content: prompt },
         ],
-        maxTokens: 2200,
+        maxTokens: 3200,
         responseFormat: { type: "json_object" },
       });
 
@@ -757,12 +826,12 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
         }
       }
 
-      const fasesValidas = new Set(["planificacion", "gestion", "evaluacion"]);
+      const fasesValidas = new Set(["planificacion", "organizacion", "ejecucion", "socializacion", "evaluacion"]);
       const actividades = Array.isArray(parsed.actividades)
         ? parsed.actividades
             .filter((a: any) => a && fasesValidas.has(a.fase))
             .map((a: any) => ({
-              fase: a.fase as "planificacion" | "gestion" | "evaluacion",
+              fase: a.fase as "planificacion" | "organizacion" | "ejecucion" | "socializacion" | "evaluacion",
               actividad: typeof a.actividad === "string" ? a.actividad : "",
               recursos: typeof a.recursos === "string" ? a.recursos : "",
               evidencia: typeof a.evidencia === "string" ? a.evidencia : "",
@@ -774,6 +843,32 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
             }))
         : [];
 
+      // Detalle por asignatura: solo se conservan las áreas realmente
+      // participantes (nunca se inventan áreas nuevas desde la IA) y las
+      // fases válidas.
+      const idsAreasValidas = new Set(areasUnicas.map((a) => a.areaId));
+      const detalleAreas = Array.isArray(parsed.detalleAreas)
+        ? parsed.detalleAreas
+            .filter((d: any) => d && typeof d.areaId === "string" && idsAreasValidas.has(d.areaId))
+            .map((d: any) => ({
+              areaId: d.areaId as string,
+              fases: (Array.isArray(d.fases) ? d.fases : [])
+                .filter((f: any) => f && fasesValidas.has(f.fase))
+                .map((f: any) => ({
+                  fase: f.fase as "planificacion" | "organizacion" | "ejecucion" | "socializacion" | "evaluacion",
+                  semana: typeof f.semana === "string" && f.semana.trim() ? f.semana.trim() : undefined,
+                  actividades: (Array.isArray(f.actividades) ? f.actividades : []).filter(
+                    (x: any) => typeof x === "string" && x.trim()
+                  ),
+                  recursos: (Array.isArray(f.recursos) ? f.recursos : []).filter(
+                    (x: any) => typeof x === "string" && x.trim()
+                  ),
+                }))
+                .filter((f: any) => f.actividades.length > 0 || f.recursos.length > 0),
+            }))
+            .filter((d: any) => d.fases.length > 0)
+        : [];
+
       return {
         titulo: typeof parsed.titulo === "string" ? parsed.titulo : undefined,
         contexto: typeof parsed.contexto === "string" ? parsed.contexto : undefined,
@@ -781,6 +876,7 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
         objetivoGeneral: typeof parsed.objetivoGeneral === "string" ? parsed.objetivoGeneral : "",
         productoFinal: typeof parsed.productoFinal === "string" ? parsed.productoFinal : undefined,
         actividades,
+        detalleAreas,
         evaluacionGeneral: typeof parsed.evaluacionGeneral === "string" ? parsed.evaluacionGeneral : "",
       };
     }),

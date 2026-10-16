@@ -74,8 +74,13 @@ export interface ElementoCurricularReferenciado {
 // ACTIVIDADES POR FASE
 // ============================================================
 
-/** Fases oficiales del instructivo de Proyecto Interdisciplinar. */
-export type FaseProyecto = "planificacion" | "gestion" | "evaluacion";
+/**
+ * Fases oficiales del formato "Proyecto Interdisciplinar para la Evaluación
+ * Sumativa" (5 fases). Los proyectos antiguos usaban 3 fases
+ * (planificacion/gestion/evaluacion); "gestion" se migra a "organizacion"
+ * en `normalizarFase` (data/proyecto-interdisciplinar-formato.ts).
+ */
+export type FaseProyecto = "planificacion" | "organizacion" | "ejecucion" | "socializacion" | "evaluacion";
 
 /**
  * Actividad del proyecto, agrupada por fase. `criteriosVinculados` referencia
@@ -92,6 +97,83 @@ export interface ActividadProyectoInterdisciplinar {
   /** Códigos de ElementoCurricularReferenciado.codigo vinculados como criterio/indicador de esta actividad. */
   criteriosVinculados?: string[];
   orderIndex: number;
+}
+
+// ============================================================
+// SECCIÓN POR ASIGNATURA (FORMATO OFICIAL)
+// ============================================================
+
+/**
+ * Plan de una asignatura dentro del proyecto: actividades y recursos por
+ * fase (el formato oficial dedica una sección por asignatura — EFL, ECA,
+ * EF, EESS, LL — con tabla FASE | ACTIVIDADES | RECURSOS).
+ */
+export interface FaseAreaInterdisciplinar {
+  fase: FaseProyecto;
+  /** Etiqueta de semana, opcional (ej. "Semana 1"). */
+  semana?: string;
+  /** Pregunta orientadora propia de la asignatura para esa fase, opcional. */
+  preguntaOrientadora?: string;
+  actividades: string[];
+  recursos: string[];
+}
+
+/** Detalle de una asignatura participante (una fila por área del proyecto). */
+export interface DetalleAreaInterdisciplinar {
+  /** Referencia a AreaProyectoInterdisciplinar.id. */
+  areaProyectoId: string;
+  fases: FaseAreaInterdisciplinar[];
+}
+
+// ============================================================
+// PLANIFICACIÓN DÍA A DÍA (FORMATO OFICIAL)
+// ============================================================
+
+/**
+ * Actividad del cronograma día a día (el formato oficial lo usa en Lengua y
+ * Literatura: Resultado/evidencia general | Día y fecha | Actividad diaria
+ * paso a paso | Producto diario específico).
+ */
+export interface ActividadDiaAPorDia {
+  fase: FaseProyecto;
+  /** Día del cronograma (ej. "Día 1"). */
+  dia: string;
+  /** Día de la semana o fecha (ej. "Lunes"). */
+  fecha: string;
+  /** Actividad diaria paso a paso. */
+  actividad: string;
+  /** Producto específico de ese día. */
+  productoDiario: string;
+  /** Referencia opcional al área (por defecto se asigne a Lengua y Literatura). */
+  areaProyectoId?: string;
+}
+
+// ============================================================
+// INSTRUMENTOS DE EVALUACIÓN (FORMATO OFICIAL)
+// ============================================================
+
+/** Criterio de rúbrica analítica con los 4 niveles del formato oficial. */
+export interface CriterioRubrica {
+  criterio: string;
+  /** 4 – Logro destacado. */
+  nivel4: string;
+  /** 3 – Logro esperado. */
+  nivel3: string;
+  /** 2 – En proceso. */
+  nivel2: string;
+  /** 1 – Requiere apoyo. */
+  nivel1: string;
+}
+
+/**
+ * Rúbrica del formato oficial: disciplinar (por asignatura) o
+ * interdisciplinar (común para el producto final). El puntaje máximo es
+ * 4 puntos por criterio; la calificación se expresa sobre 10.
+ */
+export interface RubricaProyecto {
+  /** Asignatura o eje evaluado (ej. "Matemática" / "Producto final interdisciplinar"). */
+  titulo: string;
+  criterios: CriterioRubrica[];
 }
 
 // ============================================================
@@ -115,12 +197,34 @@ export interface ProyectoInterdisciplinarPlan {
   duracion: string;
   metodologia?: string;
 
+  // ── DATOS INFORMATIVOS DEL FORMATO OFICIAL ──
+  /** Ej. "2026–2027". */
+  anioLectivo?: string;
+  /** Ej. "1", "2", "3". */
+  trimestre?: string;
+  /** Paralelo del curso (ej. "A"); se muestra junto al grado en "Grado/Curso y paralelo". */
+  paralelo?: string;
+
   // ── ÁREAS Y ARTICULACIÓN CURRICULAR ──
   areas: AreaProyectoInterdisciplinar[];
   elementosCurriculares: ElementoCurricularReferenciado[];
 
   // ── ACTIVIDADES POR FASE ──
   actividades: ActividadProyectoInterdisciplinar[];
+
+  // ── SECCIÓN POR ASIGNATURA (FORMATO OFICIAL) ──
+  /** Plan propio de cada asignatura (actividades/recursos por fase). Opcional. */
+  detalleAreas?: DetalleAreaInterdisciplinar[];
+
+  // ── PLANIFICACIÓN DÍA A DÍA (FORMATO OFICIAL) ──
+  /** Cronograma día a día (formato de Lengua y Literatura). Opcional. */
+  diaPorDia?: ActividadDiaAPorDia[];
+
+  // ── INSTRUMENTOS DE EVALUACIÓN (FORMATO OFICIAL) ──
+  /** Rúbrica analítica disciplinar (4–3–2–1, sobre 20 puntos). Opcional. */
+  rubricaDisciplinar?: RubricaProyecto;
+  /** Rúbrica interdisciplinar común del producto final (sobre 24 puntos). Opcional. */
+  rubricaInterdisciplinar?: RubricaProyecto;
 
   // ── EVALUACIÓN GENERAL ──
   /** Método general de evaluación (el instructivo sugiere rúbrica y/o portafolio). */

@@ -15,7 +15,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import type { BaseCurricular, FaseProyecto } from "@/data/types-proyecto-interdisciplinar";
+import type { BaseCurricular, FaseProyecto, RubricaProyecto } from "@/data/types-proyecto-interdisciplinar";
+import {
+  FASES_OFICIALES,
+  normalizarFase,
+  rubricaDisciplinarPorDefecto,
+  rubricaInterdisciplinarPorDefecto,
+  criterioRubricaVacio,
+} from "@/data/proyecto-interdisciplinar-formato";
 import { Subnivel, AREAS_INFO, AREAS_POR_SUBNIVEL, SUBNIVEL_NAMES, filtrarPorAreaYSubnivel, buscarPorCodigo } from "@/data";
 import { MATERIAS_EGB_BGU, gradosDeNivel, competenciasDeGrado, buscarCompetenciaEspecificaEGBBGU } from "@/data/competencias-especificas-egb-bgu";
 
@@ -48,11 +55,11 @@ function mostrarAlerta(titulo: string, mensaje: string): void {
   }
 }
 
-const FASES_PROYECTO: { key: FaseProyecto; label: string }[] = [
-  { key: "planificacion", label: "Planificación" },
-  { key: "gestion", label: "Gestión" },
-  { key: "evaluacion", label: "Evaluación" },
-];
+/** Las 5 fases oficiales del formato "Proyecto Interdisciplinar para la Evaluación Sumativa". */
+const FASES_PROYECTO: { key: FaseProyecto; label: string }[] = FASES_OFICIALES.map((f) => ({
+  key: f.key,
+  label: f.corto,
+}));
 
 /**
  * Subniveles con destrezas organizadas por área (Elemental..Bachillerato).
@@ -139,6 +146,53 @@ interface ActividadEnEdicion {
   criteriosVinculados?: string[];
 }
 
+/** Bloque de una fase dentro del plan de una asignatura (sección del formato oficial). */
+interface FaseAreaEdicion {
+  fase: FaseProyecto;
+  semana: string;
+  preguntaOrientadora: string;
+  /** Una actividad por línea. */
+  actividades: string;
+  /** Un recurso por línea. */
+  recursos: string;
+}
+
+/** Plan de una asignatura dentro del proyecto. */
+interface DetalleAreaEdicion {
+  areaId: string;
+  fases: FaseAreaEdicion[];
+}
+
+/** Fila del cronograma día a día (formato oficial). */
+interface DiaEdicion {
+  id: string;
+  fase: FaseProyecto;
+  dia: string;
+  fecha: string;
+  actividad: string;
+  productoDiario: string;
+}
+
+/** Las 5 fases oficiales vacías, para crear el plan de una asignatura. */
+function fasesVaciasParaArea(): FaseAreaEdicion[] {
+  return FASES_OFICIALES.map((f) => ({
+    fase: f.key,
+    semana: "",
+    preguntaOrientadora: "",
+    actividades: "",
+    recursos: "",
+  }));
+}
+
+function diaVacio(fase: FaseProyecto = "planificacion"): DiaEdicion {
+  return { id: generarIdLocal("dia"), fase, dia: "", fecha: "", actividad: "", productoDiario: "" };
+}
+
+/** Convierte el array de un string multi-línea en lista limpia. */
+function lineasATexto(items: string[] | undefined): string {
+  return (items ?? []).join("\n");
+}
+
 export default function ProyectoInterdisciplinarWizardScreen() {
   const colors = useColors();
   const router = useRouter();
@@ -200,6 +254,22 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   const [duracion, setDuracion] = useState("");
   const [institucion, setInstitucion] = useState("");
   const [docentesTexto, setDocentesTexto] = useState("");
+
+  // ── Datos informativos del formato oficial ──
+  const [anioLectivo, setAnioLectivo] = useState("");
+  const [trimestre, setTrimestre] = useState("");
+  const [paralelo, setParalelo] = useState("");
+
+  // ── Sección por asignatura (formato oficial) ──
+  const [detalleAreas, setDetalleAreas] = useState<DetalleAreaEdicion[]>([]);
+  const [areaDetalleAbierta, setAreaDetalleAbierta] = useState<string | null>(null);
+
+  // ── Planificación día a día (formato oficial) ──
+  const [diaPorDia, setDiaPorDia] = useState<DiaEdicion[]>([]);
+
+  // ── Rúbricas del formato oficial (disciplinar e interdisciplinar) ──
+  const [rubricaDisciplinar, setRubricaDisciplinar] = useState<RubricaProyecto | null>(null);
+  const [rubricaInterdisciplinar, setRubricaInterdisciplinar] = useState<RubricaProyecto | null>(null);
 
   // ── Competencias/destrezas de varias áreas ──
   const [elementos, setElementos] = useState<ElementoEnEdicion[]>([]);
@@ -268,6 +338,38 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       setEvaluacionGeneral(fd.evaluacionGeneral || "");
       setInstitucion(fd.institucion || "");
       setDocentesTexto((fd.docentesParticipantes || []).join("\n"));
+      setAnioLectivo(fd.anioLectivo || "");
+      setTrimestre(fd.trimestre || "");
+      setParalelo(fd.paralelo || "");
+      setDetalleAreas(
+        (fd.detalleAreas || [])
+          .filter((d) => d.areaProyectoId)
+          .map((d) => ({
+            areaId: d.areaProyectoId,
+            fases: FASES_OFICIALES.map((f) => {
+              const bloque = (d.fases || []).find((b) => normalizarFase(b.fase) === f.key);
+              return {
+                fase: f.key,
+                semana: bloque?.semana || "",
+                preguntaOrientadora: bloque?.preguntaOrientadora || "",
+                actividades: lineasATexto(bloque?.actividades),
+                recursos: lineasATexto(bloque?.recursos),
+              };
+            }),
+          }))
+      );
+      setDiaPorDia(
+        (fd.diaPorDia || []).map((d) => ({
+          id: generarIdLocal("dia"),
+          fase: normalizarFase(d.fase),
+          dia: d.dia || "",
+          fecha: d.fecha || "",
+          actividad: d.actividad || "",
+          productoDiario: d.productoDiario || "",
+        }))
+      );
+      setRubricaDisciplinar(fd.rubricaDisciplinar?.criterios?.length ? fd.rubricaDisciplinar : null);
+      setRubricaInterdisciplinar(fd.rubricaInterdisciplinar?.criterios?.length ? fd.rubricaInterdisciplinar : null);
       const primeraArea = fd.areas?.[0];
       if (primeraArea) {
         if (fd.baseCurricular === "destrezas") {
@@ -323,6 +425,35 @@ export default function ProyectoInterdisciplinarWizardScreen() {
     }));
   };
 
+  /** Sección por asignatura del formato oficial → payload del servidor. */
+  const construirDetalleAreasPayload = (fuente: DetalleAreaEdicion[] = detalleAreas) =>
+    fuente
+      .map((d) => ({
+        areaProyectoId: d.areaId,
+        fases: d.fases
+          .filter((f) => f.actividades.trim() || f.recursos.trim() || f.semana.trim() || f.preguntaOrientadora.trim())
+          .map((f) => ({
+            fase: f.fase,
+            semana: f.semana.trim() || undefined,
+            preguntaOrientadora: f.preguntaOrientadora.trim() || undefined,
+            actividades: f.actividades.split("\n").map((t) => t.trim()).filter(Boolean),
+            recursos: f.recursos.split("\n").map((t) => t.trim()).filter(Boolean),
+          })),
+      }))
+      .filter((d) => d.fases.length > 0);
+
+  /** Cronograma día a día del formato oficial → payload del servidor. */
+  const construirDiaPorDiaPayload = (fuente: DiaEdicion[] = diaPorDia) =>
+    fuente
+      .filter((d) => d.actividad.trim() || d.productoDiario.trim())
+      .map((d) => ({
+        fase: d.fase,
+        dia: d.dia.trim() || undefined,
+        fecha: d.fecha.trim() || undefined,
+        actividad: d.actividad.trim() || undefined,
+        productoDiario: d.productoDiario.trim() || undefined,
+      }));
+
   const construirPayload = () => ({
     sessionId,
     baseCurricular,
@@ -332,6 +463,9 @@ export default function ProyectoInterdisciplinarWizardScreen() {
     objetivoGeneral: objetivoGeneral.trim() || undefined,
     productoFinal: productoFinal.trim() || undefined,
     duracion: duracion.trim() || undefined,
+    anioLectivo: anioLectivo.trim() || undefined,
+    trimestre: trimestre.trim() || undefined,
+    paralelo: paralelo.trim() || undefined,
     areas: construirAreas(),
     elementosCurriculares: elementos.map((e) => ({ areaProyectoId: e.area, codigo: e.codigo })),
     actividades: actividades.map((a) => ({
@@ -344,6 +478,10 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       instrumentoEvaluacion: a.instrumentoEvaluacion,
       criteriosVinculados: a.criteriosVinculados,
     })),
+    detalleAreas: construirDetalleAreasPayload(),
+    diaPorDia: construirDiaPorDiaPayload(),
+    rubricaDisciplinar: rubricaDisciplinar?.criterios.length ? rubricaDisciplinar : undefined,
+    rubricaInterdisciplinar: rubricaInterdisciplinar?.criterios.length ? rubricaInterdisciplinar : undefined,
     evaluacionGeneral: evaluacionGeneral.trim() || undefined,
     institucion: institucion.trim() || undefined,
     docentesParticipantes: docentesTexto.split("\n").map((t) => t.trim()).filter(Boolean),
@@ -535,6 +673,35 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       setEvaluacionGeneral(resultado.evaluacionGeneral);
       setActividades(nuevasActividades);
 
+      // Sección por asignatura devuelta por la IA (solo si trae contenido);
+      // si no, se conserva la que el docente haya escrito a mano.
+      const detalleResultado: DetalleAreaEdicion[] = (resultado.detalleAreas || []).map((d: {
+        areaId: string;
+        fases?: { fase: FaseProyecto; semana?: string; actividades?: string[]; recursos?: string[] }[];
+      }) => ({
+        areaId: d.areaId,
+        fases: FASES_OFICIALES.map((f) => {
+          const bloque = (d.fases || []).find((b) => normalizarFase(b.fase) === f.key);
+          return {
+            fase: f.key,
+            semana: bloque?.semana || "",
+            preguntaOrientadora: "",
+            actividades: lineasATexto(bloque?.actividades),
+            recursos: lineasATexto(bloque?.recursos),
+          };
+        }),
+      }));
+      const detalleFinal = detalleResultado.length ? detalleResultado : detalleAreas;
+      setDetalleAreas(detalleFinal);
+
+      // Las rúbricas usan las plantillas oficiales por defecto si el docente
+      // todavía no incluyó las suyas (no las genera la IA: así se garantiza
+      // la fidelidad al formato oficial).
+      const rubricaDiscFinal = rubricaDisciplinar ?? rubricaDisciplinarPorDefecto();
+      const rubricaInterFinal = rubricaInterdisciplinar ?? rubricaInterdisciplinarPorDefecto();
+      setRubricaDisciplinar(rubricaDiscFinal);
+      setRubricaInterdisciplinar(rubricaInterFinal);
+
       const payload = {
         sessionId,
         baseCurricular,
@@ -544,6 +711,9 @@ export default function ProyectoInterdisciplinarWizardScreen() {
         objetivoGeneral: resultado.objetivoGeneral || undefined,
         productoFinal: nuevoProducto || undefined,
         duracion: duracion.trim() || undefined,
+        anioLectivo: anioLectivo.trim() || undefined,
+        trimestre: trimestre.trim() || undefined,
+        paralelo: paralelo.trim() || undefined,
         areas: construirAreas(),
         elementosCurriculares: elementos.map((e) => ({ areaProyectoId: e.area, codigo: e.codigo })),
         actividades: nuevasActividades.map((a) => ({
@@ -555,6 +725,10 @@ export default function ProyectoInterdisciplinarWizardScreen() {
           evaluacion: a.evaluacion,
           instrumentoEvaluacion: a.instrumentoEvaluacion,
         })),
+        detalleAreas: construirDetalleAreasPayload(detalleFinal),
+        diaPorDia: construirDiaPorDiaPayload(),
+        rubricaDisciplinar: rubricaDiscFinal,
+        rubricaInterdisciplinar: rubricaInterFinal,
         evaluacionGeneral: resultado.evaluacionGeneral || undefined,
         institucion: institucion.trim() || undefined,
         docentesParticipantes: docentesTexto.split("\n").map((t) => t.trim()).filter(Boolean),
@@ -788,6 +962,17 @@ export default function ProyectoInterdisciplinarWizardScreen() {
           {/* ── Información institucional ── */}
           {renderSectionHeader("Información institucional", "🏫")}
           {renderField("Institución", institucion, setInstitucion, { placeholder: "Nombre de la unidad educativa" })}
+          <View style={{ flexDirection: "row", gap: 10 }}>
+            <View style={{ flex: 1 }}>
+              {renderField("Año lectivo", anioLectivo, setAnioLectivo, { placeholder: "Ej. 2026–2027" })}
+            </View>
+            <View style={{ flex: 1 }}>
+              {renderField("Trimestre", trimestre, setTrimestre, { placeholder: "Ej. 1" })}
+            </View>
+            <View style={{ flex: 1 }}>
+              {renderField("Paralelo", paralelo, setParalelo, { placeholder: "Ej. A" })}
+            </View>
+          </View>
           {renderField("Docentes participantes (uno por línea)", docentesTexto, setDocentesTexto, {
             multiline: true,
             placeholder: "Un nombre por línea",
@@ -880,6 +1065,239 @@ export default function ProyectoInterdisciplinarWizardScreen() {
               <Text style={{ color: "#fff", fontWeight: "700", fontSize: 16 }}>✨ Generar planificación</Text>
             )}
           </Pressable>
+
+          {/* ── Formato oficial: plan por asignatura ── */}
+          {renderSectionHeader("Plan por asignatura (formato oficial)", "🗂️")}
+          <Text style={[styles.helperText, { color: colors.muted }]}>
+            El formato oficial dedica una sección por asignatura con sus actividades y recursos por fase
+            (Semana 1 y 2). Opcional: si lo dejas vacío, el documento solo muestra las fases generales.
+          </Text>
+          {construirAreas().length === 0 ? (
+            <Text style={{ color: colors.muted, fontSize: 13 }}>
+              Selecciona al menos un elemento curricular para ver las asignaturas del proyecto.
+            </Text>
+          ) : (
+            construirAreas().map((area) => {
+              const detalle = detalleAreas.find((d) => d.areaId === area.id);
+              const abierta = areaDetalleAbierta === area.id;
+              return (
+                <View key={area.id} style={[styles.actividadEvalCard, { borderColor: colors.border, backgroundColor: colors.surface, marginBottom: 10 }]}>
+                  <Pressable
+                    onPress={() => setAreaDetalleAbierta(abierta ? null : area.id)}
+                    style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}
+                  >
+                    <Text style={[styles.subSectionTitle, { color: colors.primary, marginTop: 0, marginBottom: 0 }]}>
+                      {area.nombreArea}
+                    </Text>
+                    <Text style={{ color: colors.muted, fontSize: 16 }}>{abierta ? "▾" : "▸"}</Text>
+                  </Pressable>
+                  {!abierta ? null : !detalle ? (
+                    <Pressable
+                      onPress={() => setDetalleAreas((prev) => [...prev, { areaId: area.id, fases: fasesVaciasParaArea() }])}
+                      style={[styles.exportBtn, { backgroundColor: colors.primary, marginTop: 10 }]}
+                    >
+                      <Text style={{ color: "#fff", fontWeight: "700" }}>+ Agregar plan de esta asignatura</Text>
+                    </Pressable>
+                  ) : (
+                    <View style={{ marginTop: 10 }}>
+                      {detalle.fases.map((f) => (
+                        <View key={f.fase} style={{ borderBottomColor: colors.border, borderBottomWidth: 1, paddingBottom: 8, marginBottom: 8 }}>
+                          <Text style={[styles.fieldLabel, { color: colors.primary }]}>
+                            {FASES_OFICIALES.find((x) => x.key === f.fase)?.label}
+                          </Text>
+                          {renderField("Semana (opcional)", f.semana, (v) =>
+                            setDetalleAreas((prev) => prev.map((d) => d.areaId !== area.id ? d : { ...d, fases: d.fases.map((x) => x.fase === f.fase ? { ...x, semana: v } : x) }))
+                          , { placeholder: "Ej. Semana 1" })}
+                          {renderField("Pregunta orientadora (opcional)", f.preguntaOrientadora, (v) =>
+                            setDetalleAreas((prev) => prev.map((d) => d.areaId !== area.id ? d : { ...d, fases: d.fases.map((x) => x.fase === f.fase ? { ...x, preguntaOrientadora: v } : x) }))
+                          , { placeholder: "Ej. ¿Cómo representamos...?" })}
+                          {renderField("Actividades (una por línea)", f.actividades, (v) =>
+                            setDetalleAreas((prev) => prev.map((d) => d.areaId !== area.id ? d : { ...d, fases: d.fases.map((x) => x.fase === f.fase ? { ...x, actividades: v } : x) }))
+                          , { multiline: true })}
+                          {renderField("Recursos (uno por línea)", f.recursos, (v) =>
+                            setDetalleAreas((prev) => prev.map((d) => d.areaId !== area.id ? d : { ...d, fases: d.fases.map((x) => x.fase === f.fase ? { ...x, recursos: v } : x) }))
+                          , { multiline: true })}
+                        </View>
+                      ))}
+                      <Pressable
+                        onPress={() => setDetalleAreas((prev) => prev.filter((d) => d.areaId !== area.id))}
+                        style={[styles.exportBtn, { backgroundColor: "#B91C1C", marginTop: 4 }]}
+                      >
+                        <Text style={{ color: "#fff", fontWeight: "700" }}>Quitar plan de esta asignatura</Text>
+                      </Pressable>
+                    </View>
+                  )}
+                </View>
+              );
+            })
+          )}
+
+          {/* ── Formato oficial: planificación día a día ── */}
+          {renderSectionHeader("Planificación día a día (formato oficial)", "📅")}
+          <Text style={[styles.helperText, { color: colors.muted }]}>
+            Cronograma paso a paso: fase, día, fecha, actividad diaria y producto específico de cada día. Opcional.
+          </Text>
+          {diaPorDia.map((d, idx) => (
+            <View key={d.id} style={[styles.actividadEvalCard, { borderColor: colors.border, backgroundColor: colors.surface, marginBottom: 10 }]}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <Text style={[styles.subSectionTitle, { color: colors.primary, marginTop: 0, marginBottom: 0 }]}>
+                  Día {idx + 1}
+                </Text>
+                <Pressable onPress={() => setDiaPorDia((prev) => prev.filter((x) => x.id !== d.id))} hitSlop={8}>
+                  <Text style={{ color: "#B91C1C", fontSize: 16, fontWeight: "700" }}>×</Text>
+                </Pressable>
+              </View>
+              <Text style={[styles.fieldLabel, { color: colors.muted }]}>Fase</Text>
+              <View style={styles.selectRow}>
+                {FASES_PROYECTO.map((f) => (
+                  <Pressable
+                    key={f.key}
+                    onPress={() => setDiaPorDia((prev) => prev.map((x) => x.id === d.id ? { ...x, fase: f.key } : x))}
+                    style={[styles.selectChip, { backgroundColor: d.fase === f.key ? colors.primary : "transparent", borderColor: colors.border, paddingHorizontal: 10, paddingVertical: 6 }]}
+                  >
+                    <Text style={{ color: d.fase === f.key ? "#fff" : colors.foreground, fontSize: 11 }}>{f.label}</Text>
+                  </Pressable>
+                ))}
+              </View>
+              <View style={{ flexDirection: "row", gap: 10 }}>
+                <View style={{ flex: 1 }}>
+                  {renderField("Día", d.dia, (v) => setDiaPorDia((prev) => prev.map((x) => x.id === d.id ? { ...x, dia: v } : x)), { placeholder: "Ej. Día 1" })}
+                </View>
+                <View style={{ flex: 1 }}>
+                  {renderField("Fecha", d.fecha, (v) => setDiaPorDia((prev) => prev.map((x) => x.id === d.id ? { ...x, fecha: v } : x)), { placeholder: "Ej. Lunes" })}
+                </View>
+              </View>
+              {renderField("Actividad diaria paso a paso", d.actividad, (v) => setDiaPorDia((prev) => prev.map((x) => x.id === d.id ? { ...x, actividad: v } : x)), { multiline: true })}
+              {renderField("Producto diario específico", d.productoDiario, (v) => setDiaPorDia((prev) => prev.map((x) => x.id === d.id ? { ...x, productoDiario: v } : x)), { multiline: true })}
+            </View>
+          ))}
+          <Pressable
+            onPress={() => setDiaPorDia((prev) => [...prev, diaVacio()])}
+            style={[styles.exportBtn, { backgroundColor: colors.primary, marginBottom: 16 }]}
+          >
+            <Text style={{ color: "#fff", fontWeight: "700" }}>+ Agregar día</Text>
+          </Pressable>
+
+          {/* ── Formato oficial: rúbricas de evaluación ── */}
+          {renderSectionHeader("Instrumentos de evaluación (formato oficial)", "📊")}
+          <Text style={[styles.helperText, { color: colors.muted }]}>
+            El formato oficial usa una rúbrica analítica disciplinar por asignatura (4–3–2–1, sobre 20 puntos)
+            y una rúbrica interdisciplinar común para el producto final (sobre 24 puntos). La nota final de
+            cada asignatura es el promedio entre ambas.
+          </Text>
+          {(
+            [
+              {
+                key: "disc" as const,
+                tituloSeccion: "Rúbrica disciplinar",
+                rubrica: rubricaDisciplinar,
+                setRubrica: setRubricaDisciplinar,
+                porDefecto: () => rubricaDisciplinarPorDefecto(),
+              },
+              {
+                key: "inter" as const,
+                tituloSeccion: "Rúbrica interdisciplinar (común del producto final)",
+                rubrica: rubricaInterdisciplinar,
+                setRubrica: setRubricaInterdisciplinar,
+                porDefecto: () => rubricaInterdisciplinarPorDefecto(),
+              },
+            ]
+          ).map((bloque) => (
+            <View key={bloque.key} style={[styles.actividadEvalCard, { borderColor: colors.border, backgroundColor: colors.surface, marginBottom: 10 }]}>
+              <Text style={[styles.subSectionTitle, { color: colors.primary, marginTop: 0 }]}>{bloque.tituloSeccion}</Text>
+              {!bloque.rubrica ? (
+                <Pressable
+                  onPress={() => bloque.setRubrica(bloque.porDefecto())}
+                  style={[styles.exportBtn, { backgroundColor: colors.primary }]}
+                >
+                  <Text style={{ color: "#fff", fontWeight: "700" }}>+ Incluir esta rúbrica (criterios oficiales)</Text>
+                </Pressable>
+              ) : (
+                <View>
+                  {renderField("Asignatura / eje evaluado", bloque.rubrica.titulo, (v) =>
+                    bloque.setRubrica({ ...(bloque.rubrica as RubricaProyecto), titulo: v })
+                  )}
+                  {bloque.rubrica.criterios.map((c, idx) => (
+                    <View key={idx} style={{ borderBottomColor: colors.border, borderBottomWidth: 1, paddingBottom: 8, marginBottom: 8 }}>
+                      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <Text style={[styles.fieldLabel, { color: colors.muted, marginBottom: 6 }]}>Criterio {idx + 1}</Text>
+                        <Pressable
+                          onPress={() =>
+                            bloque.setRubrica({
+                              ...(bloque.rubrica as RubricaProyecto),
+                              criterios: bloque.rubrica!.criterios.filter((_, i) => i !== idx),
+                            })
+                          }
+                          hitSlop={8}
+                        >
+                          <Text style={{ color: "#B91C1C", fontSize: 16, fontWeight: "700" }}>×</Text>
+                        </Pressable>
+                      </View>
+                      {renderField("Criterio", c.criterio, (v) =>
+                        bloque.setRubrica({
+                          ...(bloque.rubrica as RubricaProyecto),
+                          criterios: bloque.rubrica!.criterios.map((x, i) => i === idx ? { ...x, criterio: v } : x),
+                        })
+                      )}
+                      {renderField("4 – Logro destacado", c.nivel4, (v) =>
+                        bloque.setRubrica({
+                          ...(bloque.rubrica as RubricaProyecto),
+                          criterios: bloque.rubrica!.criterios.map((x, i) => i === idx ? { ...x, nivel4: v } : x),
+                        })
+                      , { multiline: true })}
+                      {renderField("3 – Logro esperado", c.nivel3, (v) =>
+                        bloque.setRubrica({
+                          ...(bloque.rubrica as RubricaProyecto),
+                          criterios: bloque.rubrica!.criterios.map((x, i) => i === idx ? { ...x, nivel3: v } : x),
+                        })
+                      , { multiline: true })}
+                      {renderField("2 – En proceso", c.nivel2, (v) =>
+                        bloque.setRubrica({
+                          ...(bloque.rubrica as RubricaProyecto),
+                          criterios: bloque.rubrica!.criterios.map((x, i) => i === idx ? { ...x, nivel2: v } : x),
+                        })
+                      , { multiline: true })}
+                      {renderField("1 – Requiere apoyo", c.nivel1, (v) =>
+                        bloque.setRubrica({
+                          ...(bloque.rubrica as RubricaProyecto),
+                          criterios: bloque.rubrica!.criterios.map((x, i) => i === idx ? { ...x, nivel1: v } : x),
+                        })
+                      , { multiline: true })}
+                    </View>
+                  ))}
+                  <View style={{ flexDirection: "row", gap: 10 }}>
+                    <Pressable
+                      onPress={() =>
+                        bloque.setRubrica({
+                          ...(bloque.rubrica as RubricaProyecto),
+                          criterios: [...bloque.rubrica!.criterios, criterioRubricaVacio()],
+                        })
+                      }
+                      style={[styles.exportBtn, { flex: 1, backgroundColor: colors.primary }]}
+                    >
+                      <Text style={{ color: "#fff", fontWeight: "700" }}>+ Criterio</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => bloque.setRubrica(bloque.porDefecto())}
+                      style={[styles.exportBtn, { flex: 1, backgroundColor: colors.muted + "60" }]}
+                    >
+                      <Text style={{ color: colors.foreground, fontWeight: "700" }}>Restablecer criterios oficiales</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => bloque.setRubrica(null)}
+                      style={[styles.exportBtn, { flex: 1, backgroundColor: "#B91C1C" }]}
+                    >
+                      <Text style={{ color: "#fff", fontWeight: "700" }}>Quitar rúbrica</Text>
+                    </Pressable>
+                  </View>
+                  <Text style={[styles.helperText, { color: colors.muted, marginTop: 8 }]}>
+                    Puntaje máximo: {bloque.rubrica.criterios.length * 4} puntos. Calificación = (puntaje obtenido ÷{" "}
+                    {bloque.rubrica.criterios.length * 4}) × 10
+                  </Text>
+                </View>
+              )}
+            </View>
+          ))}
 
           {/* ── Resultado generado ── */}
           {generado && (
