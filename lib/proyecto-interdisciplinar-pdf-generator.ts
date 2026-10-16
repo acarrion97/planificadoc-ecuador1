@@ -25,13 +25,17 @@ const COLOR_PRIMARY = "#0F766E";
 const COLOR_SECTION = "#CCFBF1";
 const COLOR_HEADER = "#F0FDFA";
 
-function sectionHeader(label: string, colspan = 6): string {
-  return `
-    <tr>
-      <td colspan="${colspan}" style="background:${COLOR_SECTION};padding:8px 12px;font-weight:bold;color:${COLOR_PRIMARY};font-size:13px;border:1px solid #ccc;">
-        ${label}
-      </td>
-    </tr>`;
+/** Título de sección numerado como TEXTO (no como fila de tabla): el formato
+ * oficial solo usa tablas en las matrices (planificación curricular, fases,
+ * secciones por asignatura, día a día y rúbricas); el resto va numerado en
+ * texto corrido. */
+function sectionTitleHtml(numero: string, titulo: string): string {
+  return `<h2 class="seccion">${numero}. ${escapeHtml(titulo)}</h2>`;
+}
+
+/** Línea de texto con etiqueta en negrita y su valor (patrón del formato oficial). */
+function lineaDatoHtml(label: string, valor: string | undefined): string {
+  return `<p class="dato"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(valor?.trim() || "—")}</p>`;
 }
 
 function headerRow(celdas: string[], colspan = 1): string {
@@ -218,9 +222,7 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
         </tr>`;
           }).join("");
           return `
-    <p style="margin:6px 0 2px 0;background:${COLOR_HEADER};padding:6px 10px;font-weight:bold;border:1px solid #ccc;">
-      ${escapeHtml(area.nombreArea.toUpperCase())}: PROYECTO INTERDISCIPLINARIO — ${escapeHtml(plan.titulo || "")}
-    </p>
+    <p class="subtitulo"><strong>${escapeHtml(area.nombreArea.toUpperCase())}: PROYECTO INTERDISCIPLINARIO — ${escapeHtml(plan.titulo || "")}</strong></p>
     <table>
       ${headerRow(["Fase", "Semana", "Actividades", "Recursos"])}
       ${filas}
@@ -232,7 +234,6 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
   // ── Planificación día a día ──
   const diaPorDiaHtml = plan.diaPorDia?.length
     ? `
-    ${sectionHeader("PLANIFICACIÓN DÍA A DÍA")}
     <table>
       ${headerRow(["Fase", "Día", "Fecha", "Actividad diaria paso a paso", "Producto diario específico"])}
       ${plan.diaPorDia
@@ -252,31 +253,30 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
     </table>`
     : "";
 
-  // ── Instrumentos de evaluación ──
-  const rubricaDisciplinarHtml = plan.rubricaDisciplinar?.criterios.length
-    ? `
-    <p style="margin:8px 0 2px 0;background:${COLOR_HEADER};padding:6px 10px;font-weight:bold;border:1px solid #ccc;">
-      Instrumento de evaluación disciplinar — ${escapeHtml(plan.rubricaDisciplinar.titulo || "Disciplina")}
-    </p>
-    <p style="margin:2px 0 6px 0;font-size:9px;">Proyecto: ${escapeHtml(plan.titulo || "—")} · Grado/Curso: ${escapeHtml(gradoBase || "—")} · Técnica: análisis del desempeño · Instrumento: rúbrica analítica</p>
+  // ── Instrumentos de evaluación (numeración dinámica: N.1 / N.2) ──
+  const rubricaDisciplinarHtml = (num: number): string =>
+    plan.rubricaDisciplinar?.criterios.length
+      ? `
+    <p class="subtitulo"><strong>${num}.1 Instrumento de evaluación disciplinar — ${escapeHtml(plan.rubricaDisciplinar.titulo || "Disciplina")}</strong></p>
+    <p class="dato">Proyecto: ${escapeHtml(plan.titulo || "—")} · Grado/Curso: ${escapeHtml(gradoBase || "—")} · Técnica: análisis del desempeño · Instrumento: rúbrica analítica</p>
     ${tablaRubricaHtml(plan.rubricaDisciplinar, "Criterio disciplinar", "disciplinar")}`
-    : "";
+      : "";
 
-  const rubricaInterdisciplinarHtml = plan.rubricaInterdisciplinar?.criterios.length
-    ? `
-    <p style="margin:8px 0 2px 0;background:${COLOR_HEADER};padding:6px 10px;font-weight:bold;border:1px solid #ccc;">
-      Instrumento de evaluación interdisciplinar — Producto final
-    </p>
-    <p style="margin:2px 0 6px 0;font-size:9px;">Producto final: ${escapeHtml(plan.productoFinal || "—")} · Técnica: análisis del producto y presentación · Instrumento: rúbrica interdisciplinar · Aplicación: conjunta por el equipo docente</p>
+  const rubricaInterdisciplinarHtml = (num: number): string =>
+    plan.rubricaInterdisciplinar?.criterios.length
+      ? `
+    <p class="subtitulo"><strong>${num}.2 Instrumento de evaluación interdisciplinar — Producto final</strong></p>
+    <p class="dato">Producto final: ${escapeHtml(plan.productoFinal || "—")} · Técnica: análisis del producto y presentación · Instrumento: rúbrica interdisciplinar · Aplicación: conjunta por el equipo docente</p>
     ${tablaRubricaHtml(plan.rubricaInterdisciplinar, "Criterio interdisciplinar", "interdisciplinar")}
-    <p style="margin:2px 0 4px 0;">La rúbrica interdisciplinar es común para el producto final; cada asignatura combina su calificación disciplinar con la calificación común del producto interdisciplinar.</p>
-    <p style="margin:2px 0 8px 0;"><strong>Nota final del proyecto en cada asignatura = (calificación disciplinar + calificación interdisciplinar) ÷ 2</strong></p>`
-    : "";
+    <p class="texto">La rúbrica interdisciplinar es común para el producto final; cada asignatura combina su calificación disciplinar con la calificación común del producto interdisciplinar.</p>
+    <p class="texto"><strong>Nota final del proyecto en cada asignatura = (calificación disciplinar + calificación interdisciplinar) ÷ 2</strong></p>`
+      : "";
 
-  const instrumentosHtml =
-    rubricaDisciplinarHtml || rubricaInterdisciplinarHtml
-      ? `${sectionHeader("INSTRUMENTOS DE EVALUACIÓN")}${rubricaDisciplinarHtml}${rubricaInterdisciplinarHtml}`
-      : `${sectionHeader("INSTRUMENTOS DE EVALUACIÓN")}<tr><td colspan="6">Sin instrumentos de evaluación registrados.</td></tr>`;
+  const instrumentosHtml = (num: number): string =>
+    `<h2 class="seccion">${num}. Instrumentos de evaluación</h2>` +
+    (rubricaDisciplinarHtml(num) || rubricaInterdisciplinarHtml(num)
+      ? `${rubricaDisciplinarHtml(num)}${rubricaInterdisciplinarHtml(num)}`
+      : `<p class="texto">Sin instrumentos de evaluación registrados.</p>`);
 
   // ── Firmas ──
   const docentes = plan.docentesParticipantes?.length ? plan.docentesParticipantes : ["Docente responsable"];
@@ -284,14 +284,30 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
     .map((d) => `<td><div class="firma-line"></div><br>${escapeHtml(d)}</td>`)
     .join("");
 
-  // ── Recomendaciones para el docente ──
-  const recomendacionesHtml = `
-    ${plan.adaptaciones ? `<strong>Adaptaciones / inclusión:</strong> ${escapeHtml(plan.adaptaciones)}<br>` : ""}
-    ${plan.observaciones ? `<strong>Observaciones:</strong> ${escapeHtml(plan.observaciones)}<br>` : ""}
-    <span class="disclaimer">Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad
-    del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa
-    y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del
-    Ministerio de Educación.</span>`;
+  // ── Numeración dinámica de secciones (las opcionales se saltan un número):
+  //    1 Datos, 2 Proyecto, 3 Planificación, 4 Fases, [5 Asignatura],
+  //    [6 Día a día], N Instrumentos, N+1 Evaluación, N+2 Recomendaciones,
+  //    N+3 Firmas.
+  let numSeccion = 0;
+  const sigSeccion = (titulo: string): string => {
+    numSeccion += 1;
+    return sectionTitleHtml(String(numSeccion), titulo);
+  };
+
+  const tituloDatos = sigSeccion("Datos informativos");
+  const tituloProyecto = sigSeccion(`Proyecto interdisciplinar: “${plan.titulo || "—"}”`);
+  const tituloPlanificacion = sigSeccion("Planificación del proyecto interdisciplinar");
+  const tituloFases = sigSeccion("Fases del proyecto interdisciplinar");
+  const conAsignatura = detallePorArea.length > 0;
+  const conDiaAPorDia = !!plan.diaPorDia?.length;
+  const tituloAsignatura = conAsignatura ? sigSeccion("Planificación por asignatura") : "";
+  const tituloDiaADia = conDiaAPorDia ? sigSeccion("Planificación día a día") : "";
+  // Los instrumentos generan su propio H2 (para compartir el número con N.1/N.2).
+  const instrumentos = instrumentosHtml(numSeccion + 1);
+  numSeccion += 1;
+  const tituloEvaluacion = sigSeccion("Evaluación general");
+  const tituloRecomendaciones = sigSeccion("Recomendaciones para el docente");
+  const tituloFirmas = sigSeccion("Firmas");
 
   return `<!DOCTYPE html>
 <html lang="es">
@@ -302,106 +318,88 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
     @page { size: A4 landscape; margin: 8mm; }
     * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important; }
     body { font-family:Arial,Helvetica,sans-serif; font-size:10px; color:#1A1A1A; padding:8px; }
+    .titulo-doc { text-align:center; font-weight:bold; font-size:15px; margin:2px 0 2px 0; }
+    .base-curricular { text-align:center; color:#555; font-size:9px; margin-bottom:10px; }
+    h2.seccion { background:${COLOR_SECTION}; color:${COLOR_PRIMARY}; font-weight:bold; font-size:13px; padding:6px 10px; margin:12px 0 6px 0; }
+    p.dato { margin:2px 0 2px 14px; }
+    p.texto { margin:2px 0 2px 14px; }
+    p.subtitulo { margin:8px 0 2px 0; }
     table { border-collapse:collapse; width:100%; margin-bottom:8px; }
     td, th { border:1px solid #ccc; padding:5px 8px; vertical-align:top; font-size:10px; }
     .header-row { background:${COLOR_HEADER}; font-weight:bold; }
-    .section-label { background:${COLOR_SECTION}; color:${COLOR_PRIMARY}; font-weight:bold; font-size:12px; padding:6px 10px; }
     .firma-row td { text-align:center; padding-top:30px; border:none; }
     .firma-line { border-top:1px solid #333; width:150px; margin:0 auto; }
     .disclaimer { font-size:8px; color:#555; }
   </style>
 </head>
 <body>
+  <p class="titulo-doc">PROYECTO INTERDISCIPLINAR PARA LA EVALUACIÓN SUMATIVA</p>
+  <p class="base-curricular">Base curricular: ${baseLabel}</p>
+
+  <!-- 1. Datos informativos (texto numerado) -->
+  ${tituloDatos}
+  ${lineaDatoHtml("Institución educativa", plan.institucion)}
+  ${lineaDatoHtml("Año lectivo", plan.anioLectivo)}
+  ${lineaDatoHtml("Grado/Curso y paralelo", cursoLabel)}
+  ${lineaDatoHtml("Docentes", plan.docentesParticipantes?.join(", "))}
+  ${lineaDatoHtml("Duración", plan.duracion)}
+  ${lineaDatoHtml("Trimestre", plan.trimestre)}
+  ${lineaDatoHtml("Asignaturas", asignaturas)}
+
+  <!-- 2. Proyecto interdisciplinar (2.1–2.4, texto numerado) -->
+  ${tituloProyecto}
+  ${lineaDatoHtml("2.1. Objetivo del proyecto", plan.objetivoGeneral)}
+  ${lineaDatoHtml("2.2. Descripción del proyecto", plan.contexto)}
+  ${
+    plan.objetivosEspecificos?.length
+      ? `<p class="texto"><strong>Objetivos específicos:</strong></p>${plan.objetivosEspecificos
+          .map((o) => `<p class="texto">• ${escapeHtml(o)}</p>`)
+          .join("")}`
+      : ""
+  }
+  ${plan.metodologia ? lineaDatoHtml("Metodología", plan.metodologia) : ""}
+  ${lineaDatoHtml("2.3. Desafío", plan.preguntaGuia)}
+  ${lineaDatoHtml("2.4. Producto", plan.productoFinal)}
+
+  <!-- 3. Planificación del proyecto interdisciplinar (tabla) -->
+  ${tituloPlanificacion}
   <table>
-    <!-- Encabezado -->
-    <tr>
-      <td class="header-row" colspan="3">${escapeHtml(plan.institucion || "Unidad Educativa")}</td>
-      <td class="header-row" style="text-align:right;" colspan="3">Base curricular: ${baseLabel}</td>
-    </tr>
-    <tr>
-      <td colspan="6" style="text-align:center;font-weight:bold;font-size:13px;background:${COLOR_HEADER};">
-        PROYECTO INTERDISCIPLINAR PARA LA EVALUACIÓN SUMATIVA
-      </td>
-    </tr>
-
-    <!-- Datos informativos -->
-    ${sectionHeader("DATOS INFORMATIVOS")}
-    <tr>
-      <td><strong>Institución educativa:</strong></td><td colspan="2">${escapeHtml(plan.institucion || "—")}</td>
-      <td><strong>Año lectivo:</strong></td><td colspan="2">${escapeHtml(plan.anioLectivo || "—")}</td>
-    </tr>
-    <tr>
-      <td><strong>Grado/Curso y paralelo:</strong></td><td colspan="2">${escapeHtml(cursoLabel || "—")}</td>
-      <td><strong>Docentes:</strong></td><td colspan="2">${escapeHtml(plan.docentesParticipantes?.join(", ") || "—")}</td>
-    </tr>
-    <tr>
-      <td><strong>Duración:</strong></td><td colspan="2">${escapeHtml(plan.duracion || "—")}</td>
-      <td><strong>Trimestre:</strong></td><td colspan="2">${escapeHtml(plan.trimestre || "—")}</td>
-    </tr>
-    <tr>
-      <td><strong>Asignaturas:</strong></td><td colspan="5">${escapeHtml(asignaturas || "—")}</td>
-    </tr>
-
-    <!-- Proyecto interdisciplinar -->
-    <tr>
-      <td colspan="6" style="background:${COLOR_HEADER};font-weight:bold;">
-        Proyecto interdisciplinar: ${escapeHtml(plan.titulo || "—")}
-      </td>
-    </tr>
-
-    <!-- Objetivo del proyecto -->
-    ${sectionHeader("OBJETIVO DEL PROYECTO")}
-    <tr><td colspan="6">${escapeHtml(plan.objetivoGeneral || "—")}</td></tr>
-
-    <!-- Descripción del proyecto -->
-    ${sectionHeader("DESCRIPCIÓN DEL PROYECTO")}
-    <tr>
-      <td colspan="6">
-        ${escapeHtml(plan.contexto || "—")}
-        ${plan.objetivosEspecificos?.length ? `<br><strong>Objetivos específicos:</strong><br>${plan.objetivosEspecificos.map((o) => `• ${escapeHtml(o)}`).join("<br>")}` : ""}
-        ${plan.metodologia ? `<br><strong>Metodología:</strong> ${escapeHtml(plan.metodologia)}` : ""}
-      </td>
-    </tr>
-
-    <!-- Desafío / Producto -->
-    ${sectionHeader("DESAFÍO")}
-    <tr><td colspan="6">${escapeHtml(plan.preguntaGuia || "—")}</td></tr>
-    ${sectionHeader("PRODUCTO")}
-    <tr><td colspan="6">${escapeHtml(plan.productoFinal || "—")}</td></tr>
-
-    <!-- Planificación del proyecto interdisciplinar -->
-    ${sectionHeader("PLANIFICACIÓN DEL PROYECTO INTERDISCIPLINAR")}
     ${headerRow(["Asignatura", elementoLabel, "Indicadores de evaluación", "Saberes declarativos", "Saberes procedimentales", "Saberes actitudinales"])}
     ${planificacionHtml}
+  </table>
 
-    <!-- 5 fases oficiales -->
-    ${sectionHeader("FASES DEL PROYECTO INTERDISCIPLINAR")}
+  <!-- 4. Fases oficiales (tabla) -->
+  ${tituloFases}
+  <table>
     ${headerRow(["Fase", "Pregunta orientadora", "Resultado", "Actividades del proyecto"])}
     ${fasesHtml}
+  </table>
 
-    <!-- Sección por asignatura -->
-    ${
-      detallePorArea.length
-        ? `${sectionHeader("PLANIFICACIÓN POR ASIGNATURA")}${seccionesAsignaturaHtml}`
-        : ""
-    }
+  <!-- Planificación por asignatura (opcional) -->
+  ${conAsignatura ? `${tituloAsignatura}${seccionesAsignaturaHtml}` : ""}
 
-    <!-- Planificación día a día -->
-    ${diaPorDiaHtml}
+  <!-- Planificación día a día (opcional) -->
+  ${conDiaAPorDia ? `${tituloDiaADia}${diaPorDiaHtml}` : ""}
 
-    <!-- Instrumentos de evaluación -->
-    ${instrumentosHtml}
+  <!-- Instrumentos de evaluación (rúbricas con fórmulas) -->
+  ${instrumentos}
 
-    <!-- Evaluación general -->
-    ${sectionHeader("EVALUACIÓN GENERAL")}
-    <tr><td colspan="6">${escapeHtml(plan.evaluacionGeneral || "—")}</td></tr>
+  <!-- Evaluación general -->
+  ${tituloEvaluacion}
+  <p class="texto">${escapeHtml(plan.evaluacionGeneral || "—")}</p>
 
-    <!-- Recomendaciones para el docente -->
-    ${sectionHeader("RECOMENDACIONES PARA EL DOCENTE")}
-    <tr><td colspan="6">${recomendacionesHtml}</td></tr>
+  <!-- Recomendaciones para el docente -->
+  ${tituloRecomendaciones}
+  ${plan.adaptaciones ? `<p class="dato"><strong>Adaptaciones / inclusión:</strong> ${escapeHtml(plan.adaptaciones)}</p>` : ""}
+  ${plan.observaciones ? `<p class="dato"><strong>Observaciones:</strong> ${escapeHtml(plan.observaciones)}</p>` : ""}
+  <p class="texto disclaimer">Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad
+    del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa
+    y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del
+    Ministerio de Educación.</p>
 
-    <!-- Firmas -->
-    ${sectionHeader("FIRMAS")}
+  <!-- Firmas (tabla de firmas) -->
+  ${tituloFirmas}
+  <table>
     <tr class="firma-row">
       ${firmasHtml}
     </tr>

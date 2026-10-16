@@ -48,7 +48,6 @@ import { buscarCompetenciaEspecificaEGBBGU } from "../data/competencias-especifi
 // ── Colores ──
 const COLOR_PRIMARY = "0F766E";
 const COLOR_SECTION = "CCFBF1";
-const COLOR_HEADER = "F0FDFA";
 const WHITE = "FFFFFF";
 const BLACK = "1A1A1A";
 
@@ -116,20 +115,49 @@ function makeTable(rows: TableRow[], totalW: number, colWidths: number[]): Table
   });
 }
 
-function sectionRow(label: string, cs = 1): TableRow {
-  return new TableRow({
-    children: [
-      tc([p(label, { bold: true, size: 9, color: COLOR_PRIMARY })], TW, {
-        cs,
-        bg: COLOR_SECTION,
-      }),
-    ],
-  });
-}
 
 /** Fila de encabezado de tabla (texto blanco sobre color primario). */
 function headerCell(text: string, width: number, cs = 1): TableCell {
   return tc([p(text, { bold: true, size: 8, color: WHITE })], width, { bg: COLOR_PRIMARY, cs });
+}
+
+/**
+ * Título de sección NUMERADO como texto (no como fila de tabla): el formato
+ * oficial solo usa tablas en las matrices (planificación curricular, fases,
+ * secciones por asignatura, día a día y rúbricas); el resto va numerado en
+ * texto corrido.
+ */
+function sectionTitle(numero: string, titulo: string): Paragraph {
+  return new Paragraph({
+    spacing: { before: 160, after: 60 },
+    shading: { fill: COLOR_SECTION, type: ShadingType.CLEAR },
+    children: [
+      new TextRun({ text: `${numero}. ${titulo}`, bold: true, size: 10, color: COLOR_PRIMARY, font: "Arial" }),
+    ],
+  });
+}
+
+/** Línea de texto con etiqueta en negrita y su valor (patrón del formato oficial). */
+function lineaDato(label: string, valor: string | undefined, indent = 360): Paragraph {
+  return new Paragraph({
+    indent: { left: indent },
+    spacing: { after: 40, before: 20 },
+    children: [
+      new TextRun({ text: `${label}: `, bold: true, size: 8, color: BLACK, font: "Arial" }),
+      new TextRun({ text: valor?.trim() || "—", size: 8, color: BLACK, font: "Arial" }),
+    ],
+  });
+}
+
+/** Párrafo de texto corrido indentado (continuación de una sección numerada). */
+function textoIndentado(texto: string, opts: { bold?: boolean; indent?: number } = {}): Paragraph {
+  return new Paragraph({
+    indent: { left: opts.indent ?? 360 },
+    spacing: { after: 40, before: 20 },
+    children: [
+      new TextRun({ text: texto, bold: opts.bold ?? false, size: 8, color: BLACK, font: "Arial" }),
+    ],
+  });
 }
 
 /** Resuelve la descripción de un código contra el catálogo VIGENTE (nunca se copia al guardar). */
@@ -239,53 +267,45 @@ export async function generarProyectoInterdisciplinarWord(
       : "Competencias específicas (Currículo Nacional por Competencias)";
 
   // ═══════════════════════════════════════════════════════════════
-  // 1. ENCABEZADO
-  // ═══════════════════════════════════════════════════════════════
-  const COL_INST = Math.floor(TW * 0.6);
-  const COL_BASE = TW - COL_INST;
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], COL_INST, { bg: COLOR_HEADER }),
-            tc([p(`Base curricular: ${baseLabel}`, { size: 8 })], COL_BASE, { bg: COLOR_HEADER }),
-          ],
-        }),
-      ],
-      TW,
-      [COL_INST, COL_BASE]
-    )
-  );
-
-  // ═══════════════════════════════════════════════════════════════
-  // 2. TÍTULO
+  // TÍTULO (texto centrado — el formato oficial NO usa tabla aquí)
   // ═══════════════════════════════════════════════════════════════
   children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc(
-              [p("PROYECTO INTERDISCIPLINAR PARA LA EVALUACIÓN SUMATIVA", { bold: true, size: 12, align: "center" })],
-              TW,
-              { bg: COLOR_HEADER }
-            ),
-          ],
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      spacing: { before: 40, after: 40 },
+      children: [
+        new TextRun({
+          text: "PROYECTO INTERDISCIPLINAR PARA LA EVALUACIÓN SUMATIVA",
+          bold: true,
+          size: 14,
+          font: "Arial",
         }),
       ],
-      TW,
-      [TW]
-    )
+    })
+  );
+  children.push(
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 120 },
+      children: [
+        new TextRun({ text: `Base curricular: ${baseLabel}`, size: 7, color: "555555", font: "Arial" }),
+      ],
+    })
   );
 
-  // ═══════════════════════════════════════════════════════════════
-  // 3. DATOS INFORMATIVOS
-  // ═══════════════════════════════════════════════════════════════
-  children.push(makeTable([sectionRow("Datos informativos")], TW, [TW]));
+  // Numeración dinámica de secciones: el formato oficial numera en texto y
+  // solo usa tablas en las matrices (planificación curricular, fases,
+  // secciones por asignatura, día a día y rúbricas).
+  let numSeccion = 0;
+  const nuevaSeccion = (titulo: string): number => {
+    numSeccion += 1;
+    children.push(sectionTitle(String(numSeccion), titulo));
+    return numSeccion;
+  };
 
-  const COL_LABEL = Math.floor(TW * 0.22);
-  const COL_VALUE = TW - COL_LABEL;
+  // ═══════════════════════════════════════════════════════════════
+  // 1. DATOS INFORMATIVOS (texto numerado)
+  // ═══════════════════════════════════════════════════════════════
   const asignaturas = Array.from(new Set(plan.areas.map((a) => a.nombreArea))).join(", ");
   const primeraArea = plan.areas[0];
   const gradoBase = primeraArea
@@ -293,106 +313,35 @@ export async function generarProyectoInterdisciplinarWord(
     : "";
   const cursoLabel = plan.paralelo ? `${gradoBase} — Paralelo ${plan.paralelo}` : gradoBase;
 
-  function datoRow(label: string, value: string | undefined): TableRow {
-    return new TableRow({
-      children: [
-        tc([p(label, { bold: true, size: 8 })], COL_LABEL, { bg: COLOR_HEADER }),
-        tc([p(value?.trim() || "—", { size: 8 })], COL_VALUE),
-      ],
-    });
+  nuevaSeccion("Datos informativos");
+  children.push(lineaDato("Institución educativa", plan.institucion));
+  children.push(lineaDato("Año lectivo", plan.anioLectivo));
+  children.push(lineaDato("Grado/Curso y paralelo", cursoLabel));
+  children.push(lineaDato("Docentes", plan.docentesParticipantes?.join(", ")));
+  children.push(lineaDato("Duración", plan.duracion));
+  children.push(lineaDato("Trimestre", plan.trimestre));
+  children.push(lineaDato("Asignaturas", asignaturas));
+
+  // ═══════════════════════════════════════════════════════════════
+  // 2. PROYECTO INTERDISCIPLINAR
+  //    2.1 Objetivo / 2.2 Descripción / 2.3 Desafío / 2.4 Producto
+  //    (texto numerado, como en el formato oficial)
+  // ═══════════════════════════════════════════════════════════════
+  nuevaSeccion(`Proyecto interdisciplinar: “${plan.titulo || "—"}”`);
+  children.push(lineaDato("2.1. Objetivo del proyecto", plan.objetivoGeneral));
+  children.push(lineaDato("2.2. Descripción del proyecto", plan.contexto));
+  if (plan.objetivosEspecificos?.length) {
+    children.push(textoIndentado("Objetivos específicos:", { bold: true }));
+    for (const o of plan.objetivosEspecificos) children.push(textoIndentado(`• ${o}`));
   }
-
-  children.push(
-    makeTable(
-      [
-        datoRow("Institución educativa:", plan.institucion),
-        datoRow("Año lectivo:", plan.anioLectivo),
-        datoRow("Grado/Curso y paralelo:", cursoLabel),
-        datoRow("Docentes:", plan.docentesParticipantes?.join(", ")),
-        datoRow("Duración:", plan.duracion),
-        datoRow("Trimestre:", plan.trimestre),
-        datoRow("Asignaturas:", asignaturas),
-      ],
-      TW,
-      [COL_LABEL, COL_VALUE]
-    )
-  );
+  if (plan.metodologia) children.push(lineaDato("Metodología", plan.metodologia));
+  children.push(lineaDato("2.3. Desafío", plan.preguntaGuia));
+  children.push(lineaDato("2.4. Producto", plan.productoFinal));
 
   // ═══════════════════════════════════════════════════════════════
-  // 4. PROYECTO INTERDISCIPLINAR (TÍTULO)
+  // 3. PLANIFICACIÓN DEL PROYECTO INTERDISCIPLINAR (tabla)
   // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [tc([p(`Proyecto interdisciplinar: ${plan.titulo || "—"}`, { bold: true, size: 10 })], TW, { bg: COLOR_HEADER })],
-        }),
-      ],
-      TW,
-      [TW]
-    )
-  );
-
-  // ═══════════════════════════════════════════════════════════════
-  // 5. OBJETIVO DEL PROYECTO
-  // ═══════════════════════════════════════════════════════════════
-  children.push(makeTable([sectionRow("Objetivo del proyecto")], TW, [TW]));
-  children.push(
-    makeTable(
-      [new TableRow({ children: [tc([p(plan.objetivoGeneral || "—", { size: 8 })], TW)] })],
-      TW,
-      [TW]
-    )
-  );
-
-  // ═══════════════════════════════════════════════════════════════
-  // 6. DESCRIPCIÓN DEL PROYECTO / 7. DESAFÍO / 8. PRODUCTO
-  // ═══════════════════════════════════════════════════════════════
-  children.push(makeTable([sectionRow("Descripción del proyecto")], TW, [TW]));
-  children.push(
-    makeTable(
-      [
-        new TableRow({
-          children: [
-            tc(
-              [
-                p(plan.contexto || "—", { size: 8 }),
-                ...(plan.objetivosEspecificos?.length
-                  ? [
-                      p("Objetivos específicos:", { bold: true, size: 8 }),
-                      ...plan.objetivosEspecificos.map((o) => p(`• ${o}`, { size: 8 })),
-                    ]
-                  : []),
-                ...(plan.metodologia
-                  ? [p("Metodología:", { bold: true, size: 8 }), p(plan.metodologia, { size: 8 })]
-                  : []),
-              ],
-              TW
-            ),
-          ],
-        }),
-      ],
-      TW,
-      [TW]
-    )
-  );
-
-  children.push(makeTable([sectionRow("Desafío")], TW, [TW]));
-  children.push(
-    makeTable([new TableRow({ children: [tc([p(plan.preguntaGuia || "—", { size: 8 })], TW)] })], TW, [TW])
-  );
-
-  children.push(makeTable([sectionRow("Producto")], TW, [TW]));
-  children.push(
-    makeTable([new TableRow({ children: [tc([p(plan.productoFinal || "—", { size: 8 })], TW)] })], TW, [TW])
-  );
-
-  // ═══════════════════════════════════════════════════════════════
-  // 9. PLANIFICACIÓN DEL PROYECTO INTERDISCIPLINAR
-  // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
-  children.push(makeTable([sectionRow("Planificación del proyecto interdisciplinar")], TW, [TW]));
+  nuevaSeccion("Planificación del proyecto interdisciplinar");
 
   const elementoLabel = plan.baseCurricular === "destrezas" ? "Destreza con criterio de desempeño" : "Competencia específica";
   // Las destrezas con criterios de desempeño no traen saberes desagregados:
@@ -479,10 +428,9 @@ export async function generarProyectoInterdisciplinarWord(
   );
 
   // ═══════════════════════════════════════════════════════════════
-  // 10. FASES DEL PROYECTO (5 FASES OFICIALES)
+  // FASES DEL PROYECTO (5 FASES OFICIALES — tabla)
   // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
-  children.push(makeTable([sectionRow("Fases del proyecto interdisciplinar")], TW, [TW]));
+  nuevaSeccion("Fases del proyecto interdisciplinar");
 
   const COL_FASE = Math.floor(TW * 0.2);
   const COL_PREG = Math.floor(TW * 0.18);
@@ -539,8 +487,7 @@ export async function generarProyectoInterdisciplinarWord(
     .filter((x): x is { detalle: NonNullable<typeof x.detalle>; area: AreaProyectoInterdisciplinar } => !!x.area);
 
   if (detallePorArea.length > 0) {
-    children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
-    children.push(makeTable([sectionRow("Planificación por asignatura")], TW, [TW]));
+    nuevaSeccion("Planificación por asignatura");
 
     const COL_FASE_ASIG = Math.floor(TW * 0.18);
     const COL_SEMANA = Math.floor(TW * 0.1);
@@ -550,25 +497,9 @@ export async function generarProyectoInterdisciplinarWord(
     for (const { detalle, area } of detallePorArea) {
       children.push(new Paragraph({ spacing: { after: 30 }, children: [] }));
       children.push(
-        makeTable(
-          [
-            new TableRow({
-              children: [
-                tc(
-                  [
-                    p(
-                      `${area.nombreArea.toUpperCase()}: PROYECTO INTERDISCIPLINARIO — ${plan.titulo || ""}`,
-                      { bold: true, size: 8 }
-                    ),
-                  ],
-                  TW,
-                  { bg: COLOR_HEADER }
-                ),
-              ],
-            }),
-          ],
-          TW,
-          [TW]
+        textoIndentado(
+          `${area.nombreArea.toUpperCase()}: PROYECTO INTERDISCIPLINARIO — ${plan.titulo || ""}`,
+          { bold: true, indent: 0 }
         )
       );
 
@@ -614,8 +545,7 @@ export async function generarProyectoInterdisciplinarWord(
   // 12. PLANIFICACIÓN DÍA A DÍA
   // ═══════════════════════════════════════════════════════════════
   if (plan.diaPorDia?.length) {
-    children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
-    children.push(makeTable([sectionRow("Planificación día a día")], TW, [TW]));
+    nuevaSeccion("Planificación día a día");
 
     const COL_FASE_DIA = Math.floor(TW * 0.12);
     const COL_DIA = Math.floor(TW * 0.08);
@@ -662,35 +592,19 @@ export async function generarProyectoInterdisciplinarWord(
   // ═══════════════════════════════════════════════════════════════
   // 13. INSTRUMENTOS DE EVALUACIÓN (RÚBRICAS OFICIALES)
   // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 40, before: 80 }, children: [] }));
-  children.push(makeTable([sectionRow("Instrumentos de evaluación")], TW, [TW]));
+  const numInstrumentos = nuevaSeccion("Instrumentos de evaluación");
 
   if (plan.rubricaDisciplinar?.criterios.length) {
     children.push(new Paragraph({ spacing: { after: 30 }, children: [] }));
     children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: [
-              tc(
-                [
-                  p(`Instrumento de evaluación disciplinar — ${plan.rubricaDisciplinar.titulo || "Disciplina"}`, {
-                    bold: true,
-                    size: 9,
-                  }),
-                  p(
-                    `Proyecto: ${plan.titulo || "—"} · Grado/Curso: ${gradoBase || "—"} · Técnica: análisis del desempeño · Instrumento: rúbrica analítica`,
-                    { size: 7 }
-                  ),
-                ],
-                TW,
-                { bg: COLOR_HEADER }
-              ),
-            ],
-          }),
-        ],
-        TW,
-        [TW]
+      textoIndentado(`${numInstrumentos}.1 Instrumento de evaluación disciplinar — ${plan.rubricaDisciplinar.titulo || "Disciplina"}`, {
+        bold: true,
+        indent: 0,
+      })
+    );
+    children.push(
+      textoIndentado(
+        `Proyecto: ${plan.titulo || "—"} · Grado/Curso: ${gradoBase || "—"} · Técnica: análisis del desempeño · Instrumento: rúbrica analítica`
       )
     );
     children.push(...tablaRubrica(plan.rubricaDisciplinar, "Criterio disciplinar", "disciplinar"));
@@ -699,26 +613,14 @@ export async function generarProyectoInterdisciplinarWord(
   if (plan.rubricaInterdisciplinar?.criterios.length) {
     children.push(new Paragraph({ spacing: { after: 30, before: 80 }, children: [] }));
     children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: [
-              tc(
-                [
-                  p("Instrumento de evaluación interdisciplinar — Producto final", { bold: true, size: 9 }),
-                  p(
-                    `Producto final: ${plan.productoFinal || "—"} · Técnica: análisis del producto y presentación · Instrumento: rúbrica interdisciplinar · Aplicación: conjunta por el equipo docente`,
-                    { size: 7 }
-                  ),
-                ],
-                TW,
-                { bg: COLOR_HEADER }
-              ),
-            ],
-          }),
-        ],
-        TW,
-        [TW]
+      textoIndentado(`${numInstrumentos}.2 Instrumento de evaluación interdisciplinar — Producto final`, {
+        bold: true,
+        indent: 0,
+      })
+    );
+    children.push(
+      textoIndentado(
+        `Producto final: ${plan.productoFinal || "—"} · Técnica: análisis del producto y presentación · Instrumento: rúbrica interdisciplinar · Aplicación: conjunta por el equipo docente`
       )
     );
     children.push(...tablaRubrica(plan.rubricaInterdisciplinar, "Criterio interdisciplinar", "interdisciplinar"));
@@ -737,56 +639,36 @@ export async function generarProyectoInterdisciplinarWord(
   }
 
   if (!plan.rubricaDisciplinar?.criterios.length && !plan.rubricaInterdisciplinar?.criterios.length) {
-    children.push(
-      makeTable(
-        [new TableRow({ children: [tc([p("Sin instrumentos de evaluación registrados.", { size: 8 })], TW)] })],
-        TW,
-        [TW]
-      )
-    );
+    children.push(textoIndentado("Sin instrumentos de evaluación registrados."));
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // 14. EVALUACIÓN GENERAL
+  // EVALUACIÓN GENERAL (texto)
   // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 80, before: 80 }, children: [] }));
-  children.push(makeTable([sectionRow("Evaluación general")], TW, [TW]));
-  children.push(
-    makeTable(
-      [new TableRow({ children: [tc([p(plan.evaluacionGeneral || "—", { size: 8 })], TW)] })],
-      TW,
-      [TW]
-    )
-  );
+  nuevaSeccion("Evaluación general");
+  children.push(textoIndentado(plan.evaluacionGeneral || "—"));
 
   // ═══════════════════════════════════════════════════════════════
-  // 15. RECOMENDACIONES PARA EL DOCENTE
+  // RECOMENDACIONES PARA EL DOCENTE (texto)
   // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 80, before: 120 }, children: [] }));
-  children.push(makeTable([sectionRow("Recomendaciones para el docente")], TW, [TW]));
+  nuevaSeccion("Recomendaciones para el docente");
 
-  const recomendaciones: Paragraph[] = [];
   if (plan.adaptaciones) {
-    recomendaciones.push(p("Adaptaciones / inclusión:", { bold: true, size: 8 }));
-    recomendaciones.push(p(plan.adaptaciones, { size: 8 }));
+    children.push(lineaDato("Adaptaciones / inclusión", plan.adaptaciones));
   }
   if (plan.observaciones) {
-    recomendaciones.push(p("Observaciones:", { bold: true, size: 8 }));
-    recomendaciones.push(p(plan.observaciones, { size: 8 }));
+    children.push(lineaDato("Observaciones", plan.observaciones));
   }
-  recomendaciones.push(
-    p(
-      "Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del Ministerio de Educación.",
-      { size: 7 }
+  children.push(
+    textoIndentado(
+      "Este documento se generó a partir de la información registrada por el docente en PlanificaDoc. Es responsabilidad del docente validar y ajustar el contenido conforme a las disposiciones específicas de su institución educativa y distrito, y verificar la estructura vigente del instructivo oficial de Proyecto Interdisciplinar del Ministerio de Educación."
     )
   );
-  children.push(makeTable([new TableRow({ children: [tc(recomendaciones, TW)] })], TW, [TW]));
 
   // ═══════════════════════════════════════════════════════════════
-  // 16. FIRMAS
+  // FIRMAS (tabla — solo las firmas mantienen tabla en esta sección)
   // ═══════════════════════════════════════════════════════════════
-  children.push(new Paragraph({ spacing: { after: 120 }, children: [] }));
-  children.push(makeTable([sectionRow("Firmas")], TW, [TW]));
+  nuevaSeccion("Firmas");
 
   const docentes = plan.docentesParticipantes?.length ? plan.docentesParticipantes : ["Docente responsable"];
   const COL_FIRMA = Math.floor(TW / docentes.length);
