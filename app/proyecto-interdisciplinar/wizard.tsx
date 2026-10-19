@@ -193,6 +193,19 @@ function lineasATexto(items: string[] | undefined): string {
   return (items ?? []).join("\n");
 }
 
+/**
+ * Año lectivo ecuatoriano vigente: el ciclo va de agosto a julio, así que
+ * desde agosto el año lectivo termina en el año siguiente (ago/2026 → 2026–2027).
+ */
+function anioLectivoActual(hoy: Date = new Date()): string {
+  const anio = hoy.getFullYear();
+  const inicio = hoy.getMonth() >= 7 ? anio : anio - 1;
+  return `${inicio}–${inicio + 1}`;
+}
+
+/** Duraciones predefinidas del selector; cualquier otra se escribe en "Otro…". */
+const DURACIONES_PREDEFINIDAS = ["1 semana", "2 semanas", "3 semanas", "4 semanas"];
+
 export default function ProyectoInterdisciplinarWizardScreen() {
   const colors = useColors();
   const router = useRouter();
@@ -252,12 +265,14 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   const [preguntaGuia, setPreguntaGuia] = useState("");
   const [productoFinal, setProductoFinal] = useState("");
   const [duracion, setDuracion] = useState("");
+  // true cuando la duración no está en el selector ("Otro…") y se escribe a mano.
+  const [duracionOtra, setDuracionOtra] = useState(false);
   const [institucion, setInstitucion] = useState("");
   const [docentesTexto, setDocentesTexto] = useState("");
 
   // ── Datos informativos del formato oficial ──
-  const [anioLectivo, setAnioLectivo] = useState("");
-  const [trimestre, setTrimestre] = useState("");
+  const [anioLectivo, setAnioLectivo] = useState(anioLectivoActual);
+  const [trimestre, setTrimestre] = useState("1");
   const [paralelo, setParalelo] = useState("");
 
   // ── Sección por asignatura (formato oficial) ──
@@ -334,12 +349,14 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       setPreguntaGuia(fd.preguntaGuia || "");
       setProductoFinal(fd.productoFinal || "");
       setDuracion(fd.duracion || "");
+      setDuracionOtra(!!fd.duracion && !DURACIONES_PREDEFINIDAS.includes(fd.duracion));
       setObjetivoGeneral(fd.objetivoGeneral || "");
       setEvaluacionGeneral(fd.evaluacionGeneral || "");
       setInstitucion(fd.institucion || "");
       setDocentesTexto((fd.docentesParticipantes || []).join("\n"));
-      setAnioLectivo(fd.anioLectivo || "");
-      setTrimestre(fd.trimestre || "");
+      // El año lectivo se muestra siempre como el vigente (campo deshabilitado).
+      setAnioLectivo(anioLectivoActual());
+      setTrimestre(fd.trimestre || "1");
       setParalelo(fd.paralelo || "");
       setDetalleAreas(
         (fd.detalleAreas || [])
@@ -806,7 +823,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
     label: string,
     value: string,
     onChange: (v: string) => void,
-    opts: { placeholder?: string; multiline?: boolean; helper?: string; onSugerir?: () => void; sugerirCargando?: boolean } = {}
+    opts: { placeholder?: string; multiline?: boolean; helper?: string; onSugerir?: () => void; sugerirCargando?: boolean; disabled?: boolean } = {}
   ) => (
     <View style={styles.fieldGroup}>
       {opts.onSugerir ? (
@@ -825,6 +842,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
       <TextInput
         value={value}
         onChangeText={onChange}
+        editable={!opts.disabled}
         placeholder={opts.placeholder || label}
         placeholderTextColor={colors.muted + "80"}
         multiline={opts.multiline}
@@ -837,6 +855,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
             color: colors.foreground,
             textAlignVertical: opts.multiline ? "top" : "center",
             minHeight: opts.multiline ? 80 : 44,
+            opacity: opts.disabled ? 0.65 : 1,
           },
         ]}
       />
@@ -955,19 +974,50 @@ export default function ProyectoInterdisciplinarWizardScreen() {
           {renderField("Producto preferido", productoFinal, setProductoFinal, {
             placeholder: "Opcional. Ej. Stand, dossier, podcast...",
           })}
-          {renderField("Duración", duracion, setDuracion, {
-            placeholder: "Ej. 4 semanas, 1 trimestre...",
-          })}
+          {renderSelectChips(
+            "Duración",
+            duracionOtra ? "__otro" : duracion,
+            [
+              ...DURACIONES_PREDEFINIDAS.map((d) => ({ value: d, label: d })),
+              { value: "__otro", label: "Otro…" },
+            ],
+            (v) => {
+              if (v === "__otro") {
+                setDuracionOtra(true);
+                setDuracion("");
+              } else {
+                setDuracionOtra(false);
+                setDuracion(v);
+              }
+            }
+          )}
+          {duracionOtra &&
+            renderField("Duración (personalizada)", duracion, setDuracion, {
+              placeholder: "Ej. 6 semanas, 1 trimestre...",
+            })}
 
           {/* ── Información institucional ── */}
           {renderSectionHeader("Información institucional", "🏫")}
           {renderField("Institución", institucion, setInstitucion, { placeholder: "Nombre de la unidad educativa" })}
+          {renderField("Año lectivo", anioLectivo, setAnioLectivo, {
+            disabled: true,
+            helper: "Se completa automáticamente con el año lectivo vigente.",
+          })}
           <View style={{ flexDirection: "row", gap: 10 }}>
             <View style={{ flex: 1 }}>
-              {renderField("Año lectivo", anioLectivo, setAnioLectivo, { placeholder: "Ej. 2026–2027" })}
-            </View>
-            <View style={{ flex: 1 }}>
-              {renderField("Trimestre", trimestre, setTrimestre, { placeholder: "Ej. 1" })}
+              {renderSelectChips(
+                "Trimestre",
+                trimestre,
+                [
+                  { value: "1", label: "1.er trimestre" },
+                  { value: "2", label: "2.º trimestre" },
+                  { value: "3", label: "3.er trimestre" },
+                  ...(trimestre.trim() && !["1", "2", "3"].includes(trimestre)
+                    ? [{ value: trimestre, label: trimestre }]
+                    : []),
+                ],
+                setTrimestre
+              )}
             </View>
             <View style={{ flex: 1 }}>
               {renderField("Paralelo", paralelo, setParalelo, { placeholder: "Ej. A" })}
