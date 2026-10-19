@@ -76,7 +76,7 @@ function p(
       new TextRun({
         text,
         bold: opts.bold ?? false,
-        size: (opts.size ?? 8) * 2,
+        size: (opts.size ?? 9) * 2,
         color: opts.color ?? BLACK,
         font: "Arial",
       }),
@@ -85,7 +85,7 @@ function p(
 }
 
 /** Una celda de lista: un párrafo por ítem, o "—" si la lista está vacía. */
-function listaParrafos(items: string[], size = 7): Paragraph[] {
+function listaParrafos(items: string[], size = 9): Paragraph[] {
   return items.length > 0 ? items.map((t) => p(t, { size })) : [p("—", { size })];
 }
 
@@ -118,7 +118,7 @@ function makeTable(rows: TableRow[], totalW: number, colWidths: number[]): Table
 
 /** Fila de encabezado de tabla (texto blanco sobre color primario). */
 function headerCell(text: string, width: number, cs = 1): TableCell {
-  return tc([p(text, { bold: true, size: 8, color: WHITE })], width, { bg: COLOR_PRIMARY, cs });
+  return tc([p(text, { bold: true, size: 10, color: WHITE })], width, { bg: COLOR_PRIMARY, cs });
 }
 
 /**
@@ -132,7 +132,7 @@ function sectionTitle(numero: string, titulo: string): Paragraph {
     spacing: { before: 160, after: 60 },
     shading: { fill: COLOR_SECTION, type: ShadingType.CLEAR },
     children: [
-      new TextRun({ text: `${numero}. ${titulo}`, bold: true, size: 10, color: COLOR_PRIMARY, font: "Arial" }),
+      new TextRun({ text: `${numero}. ${titulo}`, bold: true, size: 13, color: COLOR_PRIMARY, font: "Arial" }),
     ],
   });
 }
@@ -143,8 +143,8 @@ function lineaDato(label: string, valor: string | undefined, indent = 360): Para
     indent: { left: indent },
     spacing: { after: 40, before: 20 },
     children: [
-      new TextRun({ text: `${label}: `, bold: true, size: 8, color: BLACK, font: "Arial" }),
-      new TextRun({ text: valor?.trim() || "—", size: 8, color: BLACK, font: "Arial" }),
+      new TextRun({ text: `${label}: `, bold: true, size: 11, color: BLACK, font: "Arial" }),
+      new TextRun({ text: valor?.trim() || "—", size: 11, color: BLACK, font: "Arial" }),
     ],
   });
 }
@@ -155,7 +155,7 @@ function textoIndentado(texto: string, opts: { bold?: boolean; indent?: number }
     indent: { left: opts.indent ?? 360 },
     spacing: { after: 40, before: 20 },
     children: [
-      new TextRun({ text: texto, bold: opts.bold ?? false, size: 8, color: BLACK, font: "Arial" }),
+      new TextRun({ text: texto, bold: opts.bold ?? false, size: 10, color: BLACK, font: "Arial" }),
     ],
   });
 }
@@ -220,11 +220,11 @@ function tablaRubrica(
       new TableRow({
         cantSplit: true,
         children: [
-          tc([p(c.criterio || "—", { bold: true, size: 7 })], COL_CRIT),
-          tc([p(c.nivel4 || "—", { size: 7 })], COL_NIV),
-          tc([p(c.nivel3 || "—", { size: 7 })], COL_NIV),
-          tc([p(c.nivel2 || "—", { size: 7 })], COL_NIV),
-          tc([p(c.nivel1 || "—", { size: 7 })], COL_ULT),
+          tc([p(c.criterio || "—", { bold: true, size: 9 })], COL_CRIT),
+          tc([p(c.nivel4 || "—", { size: 9 })], COL_NIV),
+          tc([p(c.nivel3 || "—", { size: 9 })], COL_NIV),
+          tc([p(c.nivel2 || "—", { size: 9 })], COL_NIV),
+          tc([p(c.nivel1 || "—", { size: 9 })], COL_ULT),
         ],
       })
   );
@@ -250,8 +250,8 @@ function tablaRubrica(
       anchos
     ),
     new Paragraph({ spacing: { after: 60 }, children: [] }),
-    p(`Puntaje máximo: ${maximo} puntos (4 puntos por criterio).`, { bold: true, size: 8 }),
-    p(`Calificación ${nombreCalificacion} = (puntaje obtenido ÷ ${maximo}) × 10`, { size: 8 }),
+    p(`Puntaje máximo: ${maximo} puntos (4 puntos por criterio).`, { bold: true, size: 10 }),
+    p(`Calificación ${nombreCalificacion} = (puntaje obtenido ÷ ${maximo}) × 10`, { size: 10 }),
   ];
 }
 
@@ -288,7 +288,7 @@ export async function generarProyectoInterdisciplinarWord(
       alignment: AlignmentType.CENTER,
       spacing: { after: 120 },
       children: [
-        new TextRun({ text: `Base curricular: ${baseLabel}`, size: 7, color: "555555", font: "Arial" }),
+        new TextRun({ text: `Base curricular: ${baseLabel}`, size: 9, color: "555555", font: "Arial" }),
       ],
     })
   );
@@ -362,7 +362,7 @@ export async function generarProyectoInterdisciplinarWord(
   const filasPlanificacion: TableRow[] = [];
   if (plan.areas.length === 0) {
     filasPlanificacion.push(
-      new TableRow({ cantSplit: true, children: [tc([p("Sin áreas registradas.", { size: 8 })], TW, { cs: NCOLS_PLANIF })] })
+      new TableRow({ cantSplit: true, children: [tc([p("Sin áreas registradas.", { size: 10 })], TW, { cs: NCOLS_PLANIF })] })
     );
   }
   for (const area of plan.areas) {
@@ -372,8 +372,8 @@ export async function generarProyectoInterdisciplinarWord(
         new TableRow({
           cantSplit: true,
           children: [
-            tc([p(area.nombreArea, { bold: true, size: 7 })], COL_ASIG),
-            tc([p("Sin elementos curriculares seleccionados.", { size: 7 })], TW - COL_ASIG, { cs: NCOLS_PLANIF - 1 }),
+            tc([p(area.nombreArea, { bold: true, size: 9 })], COL_ASIG),
+            tc([p("Sin elementos curriculares seleccionados.", { size: 9 })], TW - COL_ASIG, { cs: NCOLS_PLANIF - 1 }),
           ],
         })
       );
@@ -386,8 +386,8 @@ export async function generarProyectoInterdisciplinarWord(
           // Una fila (asignatura + destreza + indicadores) no se parte entre páginas.
           cantSplit: true,
           children: [
-            tc([p(area.nombreArea, { bold: true, size: 7 })], COL_ASIG),
-            tc([p(`${e.codigo}. ${descripcionDeElemento(plan.baseCurricular, e.codigo)}`, { size: 7 })], COL_CE),
+            tc([p(area.nombreArea, { bold: true, size: 9 })], COL_ASIG),
+            tc([p(`${e.codigo}. ${descripcionDeElemento(plan.baseCurricular, e.codigo)}`, { size: 9 })], COL_CE),
             tc(listaParrafos(info.indicadores), COL_IND),
             ...(conSaberes
               ? [
@@ -442,19 +442,19 @@ export async function generarProyectoInterdisciplinarWord(
     const parrafosActividades: Paragraph[] =
       actividadesDeFase.length > 0
         ? actividadesDeFase.flatMap((a) => [
-            p(a.actividad || "—", { size: 7 }),
-            ...(a.evidencia ? [p(`Evidencia: ${a.evidencia}`, { size: 7 })] : []),
-            ...(a.evaluacion ? [p(`Evaluación: ${a.evaluacion}`, { size: 7 })] : []),
-            ...(a.instrumentoEvaluacion ? [p(`Instrumento: ${a.instrumentoEvaluacion}`, { size: 7 })] : []),
+            p(a.actividad || "—", { size: 9 }),
+            ...(a.evidencia ? [p(`Evidencia: ${a.evidencia}`, { size: 9 })] : []),
+            ...(a.evaluacion ? [p(`Evaluación: ${a.evaluacion}`, { size: 9 })] : []),
+            ...(a.instrumentoEvaluacion ? [p(`Instrumento: ${a.instrumentoEvaluacion}`, { size: 9 })] : []),
           ])
-        : [p("—", { size: 7 })];
+        : [p("—", { size: 9 })];
 
     return new TableRow({
       cantSplit: true,
       children: [
-        tc([p(f.label, { bold: true, size: 7 })], COL_FASE),
-        tc([p(f.preguntaOrientadora, { size: 7 })], COL_PREG),
-        tc([p(f.resultado, { size: 7 })], COL_RES),
+        tc([p(f.label, { bold: true, size: 9 })], COL_FASE),
+        tc([p(f.preguntaOrientadora, { size: 9 })], COL_PREG),
+        tc([p(f.resultado, { size: 9 })], COL_RES),
         tc(parrafosActividades, COL_ACT_FASE),
       ],
     });
@@ -511,10 +511,10 @@ export async function generarProyectoInterdisciplinarWord(
           new TableRow({
             cantSplit: true,
             children: [
-              tc([p(f.corto, { bold: true, size: 7 })], COL_FASE_ASIG),
-              tc([p(bloque.semana || "—", { size: 7 })], COL_SEMANA),
-              tc(listaParrafos(bloque.actividades, 7), COL_ACTIV_ASIG),
-              tc(listaParrafos(bloque.recursos, 7), COL_REC_ASIG),
+              tc([p(f.corto, { bold: true, size: 9 })], COL_FASE_ASIG),
+              tc([p(bloque.semana || "—", { size: 9 })], COL_SEMANA),
+              tc(listaParrafos(bloque.actividades, 9), COL_ACTIV_ASIG),
+              tc(listaParrafos(bloque.recursos, 9), COL_REC_ASIG),
             ],
           })
         );
@@ -559,11 +559,11 @@ export async function generarProyectoInterdisciplinarWord(
       return new TableRow({
         cantSplit: true,
         children: [
-          tc([p(fase?.corto || "—", { size: 7 }), ...(area ? [p(area.nombreArea, { size: 7 })] : [])], COL_FASE_DIA),
-          tc([p(d.dia || "—", { size: 7 })], COL_DIA),
-          tc([p(d.fecha || "—", { size: 7 })], COL_FECHA),
-          tc([p(d.actividad || "—", { size: 7 })], COL_ACTIV_DIA),
-          tc([p(d.productoDiario || "—", { size: 7 })], COL_PROD_DIA),
+          tc([p(fase?.corto || "—", { size: 9 }), ...(area ? [p(area.nombreArea, { size: 9 })] : [])], COL_FASE_DIA),
+          tc([p(d.dia || "—", { size: 9 })], COL_DIA),
+          tc([p(d.fecha || "—", { size: 9 })], COL_FECHA),
+          tc([p(d.actividad || "—", { size: 9 })], COL_ACTIV_DIA),
+          tc([p(d.productoDiario || "—", { size: 9 })], COL_PROD_DIA),
         ],
       });
     });
@@ -627,13 +627,13 @@ export async function generarProyectoInterdisciplinarWord(
     children.push(
       p(
         "La rúbrica interdisciplinar es común para el producto final; cada asignatura combina su calificación disciplinar con la calificación común del producto interdisciplinar.",
-        { size: 8 }
+        { size: 10 }
       )
     );
     children.push(
       p("Nota final del proyecto en cada asignatura = (calificación disciplinar + calificación interdisciplinar) ÷ 2", {
         bold: true,
-        size: 8,
+        size: 10,
       })
     );
   }
@@ -680,7 +680,7 @@ export async function generarProyectoInterdisciplinarWord(
       [
         new TableRow({
           children: docentes.map((d, i) =>
-            tc([p("_______________________", { size: 8, align: "center" }), p(d, { size: 8, align: "center" })], anchos[i])
+            tc([p("_______________________", { size: 10, align: "center" }), p(d, { size: 10, align: "center" })], anchos[i])
           ),
         }),
       ],

@@ -317,19 +317,19 @@ export function generarProyectoInterdisciplinarPdf(plan: ProyectoInterdisciplina
   <style>
     @page { size: A4 landscape; margin: 8mm; }
     * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important; }
-    body { font-family:Arial,Helvetica,sans-serif; font-size:10px; color:#1A1A1A; padding:8px; }
-    .titulo-doc { text-align:center; font-weight:bold; font-size:15px; margin:2px 0 2px 0; }
-    .base-curricular { text-align:center; color:#555; font-size:9px; margin-bottom:10px; }
-    h2.seccion { background:${COLOR_SECTION}; color:${COLOR_PRIMARY}; font-weight:bold; font-size:13px; padding:6px 10px; margin:12px 0 6px 0; }
+    body { font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#1A1A1A; padding:8px; }
+    .titulo-doc { text-align:center; font-weight:bold; font-size:17px; margin:2px 0 2px 0; }
+    .base-curricular { text-align:center; color:#555; font-size:11px; margin-bottom:10px; }
+    h2.seccion { background:${COLOR_SECTION}; color:${COLOR_PRIMARY}; font-weight:bold; font-size:15px; padding:6px 10px; margin:12px 0 6px 0; }
     p.dato { margin:2px 0 2px 14px; }
     p.texto { margin:2px 0 2px 14px; }
     p.subtitulo { margin:8px 0 2px 0; }
     table { border-collapse:collapse; width:100%; margin-bottom:8px; }
-    td, th { border:1px solid #ccc; padding:5px 8px; vertical-align:top; font-size:10px; }
+    td, th { border:1px solid #ccc; padding:5px 8px; vertical-align:top; font-size:12px; }
     .header-row { background:${COLOR_HEADER}; font-weight:bold; }
     .firma-row td { text-align:center; padding-top:30px; border:none; }
     .firma-line { border-top:1px solid #333; width:150px; margin:0 auto; }
-    .disclaimer { font-size:8px; color:#555; }
+    .disclaimer { font-size:10px; color:#555; }
   </style>
 </head>
 <body>
