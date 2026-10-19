@@ -775,11 +775,15 @@ Genera el proyecto interdisciplinar completo, integrando REALMENTE todas las ár
 REGLAS:
 - NO inventes códigos curriculares, destrezas ni competencias específicas; usa solo las ya listadas como contexto.
 - Si un campo ya viene definido arriba, cópialo tal cual en tu respuesta sin cambiarlo.
-- "objetivoGeneral": 1 oración, verbo en infinitivo, integrando las áreas.
-- "actividades": exactamente 2 actividades por cada una de las 5 fases ("planificacion", "organizacion", "ejecucion", "socializacion", "evaluacion"), cada una con: actividad (qué hacen los estudiantes), recursos, evidencia (qué queda), evaluacion (cómo se evalúa esa actividad puntual) e instrumentoEvaluacion (el instrumento concreto: lista de cotejo, rúbrica, escala de valoración, guía de observación, portafolio, etc., más 2-3 criterios a valorar, máximo 25 palabras; elige el tipo según la evidencia y no uses rúbrica en todas). Actividades concretas y breves, coherentes con las áreas y el producto final.
-- "detalleAreas": un objeto por CADA asignatura participante, con su "areaId" tal cual como aparece arriba, y "fases": 1 objeto por fase del proyecto que esa asignatura trabaje (mínimo 3, idealmente las 5), cada uno con "fase", "semana" ("Semana 1" o "Semana 2" según corresponda), "actividades" (1-2 actividades breves hechas DESDE ESA ASIGNATURA, no genéricas) y "recursos" (2-4 recursos concretos).
-- "evaluacionGeneral": 1-2 oraciones describiendo cómo se evalúa el proyecto en conjunto (la calificación de cada asignatura combina su rúbrica disciplinar con la rúbrica interdisciplinar común del producto final).
-- Sé conciso en todos los campos de texto.
+- REDACCIÓN DESARROLLADA (como el formato oficial del MinEduc): nada de frases telegráficas ni listas sueltas en los campos de párrafo; escribe textos completos y coherentes con las extensiones mínimas indicadas abajo.
+- "titulo": nombre corto y atractivo del proyecto, entre comillas.
+- "contexto" (Descripción del proyecto): párrafo de 80-120 palabras que describa la situación observada en el aula, qué investigarán los estudiantes, cómo lo harán y qué propondrán; integra TODAS las áreas participantes.
+- "preguntaGuia" (Desafío): 1 pregunta interrogativa de 15-30 palabras que integre el desafío de todas las áreas.
+- "objetivoGeneral": 2-3 oraciones (40-60 palabras), verbos en infinitivo, indicando qué investigarán, cómo y para qué, integrando las áreas.
+- "productoFinal": 40-60 palabras, con el nombre del producto entre comillas y qué contiene cada una de sus partes.
+- "actividades": exactamente 2 actividades por cada una de las 5 fases ("planificacion", "organizacion", "ejecucion", "socializacion", "evaluacion"), cada una con: actividad (1-2 oraciones de 30-50 palabras describiendo pasos concretos que harán los estudiantes), recursos, evidencia (1 oración: qué queda como prueba), evaluacion (1 oración: cómo se evalúa esa actividad puntual) e instrumentoEvaluacion (el instrumento concreto: lista de cotejo, rúbrica, escala de valoración, guía de observación, portafolio, etc., más 2-3 criterios a valorar, máximo 25 palabras; elige el tipo según la evidencia y no uses rúbrica en todas). Coherentes con las áreas y el producto final.
+- "detalleAreas": un objeto por CADA asignatura participante, con su "areaId" tal cual como aparece arriba, y "fases": 1 objeto por fase del proyecto que esa asignatura trabaje (mínimo 3, idealmente las 5), cada uno con "fase", "semana" ("Semana 1" o "Semana 2" según corresponda), "actividades" (1-2 actividades de 25-45 palabras hechas DESDE ESA ASIGNATURA con pasos específicos, no genéricas) y "recursos" (2-4 recursos concretos).
+- "evaluacionGeneral": 2-3 oraciones (40-60 palabras) describiendo cómo se evalúa el proyecto en conjunto (la calificación de cada asignatura combina su rúbrica disciplinar con la rúbrica interdisciplinar común del producto final).
 
 Responde ÚNICAMENTE con JSON válido con esta forma exacta:
 {
@@ -806,7 +810,7 @@ Responde ÚNICAMENTE con JSON válido con esta forma exacta:
           },
           { role: "user", content: prompt },
         ],
-        maxTokens: 3200,
+        maxTokens: 5000,
         responseFormat: { type: "json_object" },
       });
 

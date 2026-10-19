@@ -5,6 +5,7 @@ import {
   rubricaDisciplinarPorDefecto,
   rubricaInterdisciplinarPorDefecto,
 } from "../data/proyecto-interdisciplinar-formato";
+import { MATERIAS_EGB_BGU } from "../data/competencias-especificas-egb-bgu";
 
 function planBase(baseCurricular: "destrezas" | "competencias"): any {
   return {
@@ -67,6 +68,25 @@ describe("Word de Proyecto Interdisciplinar", () => {
     expect(xml).toContain("Competencia específica");
     expect(xml).toContain("Saberes declarativos");
     expect(xml).toContain("Saberes actitudinales");
+  });
+
+  it("en competencias, cada indicador de evaluación lleva su código (formato oficial)", async () => {
+    const materia = MATERIAS_EGB_BGU.find((m) => m.id === "matematica")!;
+    const ce = materia.competencias.find((c) => c.porGrado.some((g) => g.indicadores.length > 0))!;
+    const bloque = ce.porGrado.find((g) => g.indicadores.some((i) => i.codigo))!;
+    const indicador = bloque.indicadores.find((i) => i.codigo)!;
+
+    const plan = planBase("competencias");
+    plan.areas = [
+      { id: "M", areaId: "M", nombreArea: "Matemática", nivel: bloque.nivel, subnivel: bloque.nivel, grado: bloque.grado },
+    ];
+    plan.elementosCurriculares = [
+      { areaProyectoId: "M", codigo: ce.codigo, curriculumVersion: "cnc", area: "M", nivel: bloque.nivel, grado: bloque.grado },
+    ];
+
+    const xml = await documentXml(plan);
+    // P. ej. "I.M.2.5.2." — el código debe anteceder al texto del indicador.
+    expect(xml).toContain(`${indicador.codigo}.`);
   });
 
   it("muestra el instrumento de evaluación de la actividad", async () => {

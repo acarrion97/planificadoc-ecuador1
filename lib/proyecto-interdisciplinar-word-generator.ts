@@ -85,7 +85,7 @@ function p(
 }
 
 /** Una celda de lista: un párrafo por ítem, o "—" si la lista está vacía. */
-function listaParrafos(items: string[], size = 9): Paragraph[] {
+function listaParrafos(items: string[], size = 10): Paragraph[] {
   return items.length > 0 ? items.map((t) => p(t, { size })) : [p("—", { size })];
 }
 
@@ -132,7 +132,7 @@ function sectionTitle(numero: string, titulo: string): Paragraph {
     spacing: { before: 160, after: 60 },
     shading: { fill: COLOR_SECTION, type: ShadingType.CLEAR },
     children: [
-      new TextRun({ text: `${numero}. ${titulo}`, bold: true, size: 13, color: COLOR_PRIMARY, font: "Arial" }),
+      new TextRun({ text: `${numero}. ${titulo}`, bold: true, size: 26, color: COLOR_PRIMARY, font: "Arial" }),
     ],
   });
 }
@@ -143,8 +143,8 @@ function lineaDato(label: string, valor: string | undefined, indent = 360): Para
     indent: { left: indent },
     spacing: { after: 40, before: 20 },
     children: [
-      new TextRun({ text: `${label}: `, bold: true, size: 11, color: BLACK, font: "Arial" }),
-      new TextRun({ text: valor?.trim() || "—", size: 11, color: BLACK, font: "Arial" }),
+      new TextRun({ text: `${label}: `, bold: true, size: 22, color: BLACK, font: "Arial" }),
+      new TextRun({ text: valor?.trim() || "—", size: 22, color: BLACK, font: "Arial" }),
     ],
   });
 }
@@ -155,7 +155,7 @@ function textoIndentado(texto: string, opts: { bold?: boolean; indent?: number }
     indent: { left: opts.indent ?? 360 },
     spacing: { after: 40, before: 20 },
     children: [
-      new TextRun({ text: texto, bold: opts.bold ?? false, size: 10, color: BLACK, font: "Arial" }),
+      new TextRun({ text: texto, bold: opts.bold ?? false, size: 20, color: BLACK, font: "Arial" }),
     ],
   });
 }
@@ -197,7 +197,10 @@ function saberesDeElemento(
   const ce = buscarCompetenciaEspecificaEGBBGU(codigo);
   const porGrado = ce?.porGrado.find((g) => g.nivel === area.nivel && g.grado === area.grado);
   return {
-    indicadores: porGrado?.indicadores.map((i) => i.texto) ?? [],
+    // El formato oficial muestra cada indicador precedido de su código
+    // (p. ej. "I.M.2.5.2. Diferencia entre necesidades y deseos...").
+    indicadores:
+      porGrado?.indicadores.map((i) => (i.codigo ? `${i.codigo}. ${i.texto}` : i.texto)) ?? [],
     declarativos: porGrado?.saberes.declarativos ?? [],
     procedimentales: porGrado?.saberes.procedimentales ?? [],
     actitudinales: porGrado?.saberes.actitudinales ?? [],
@@ -221,10 +224,10 @@ function tablaRubrica(
         cantSplit: true,
         children: [
           tc([p(c.criterio || "—", { bold: true, size: 9 })], COL_CRIT),
-          tc([p(c.nivel4 || "—", { size: 9 })], COL_NIV),
-          tc([p(c.nivel3 || "—", { size: 9 })], COL_NIV),
-          tc([p(c.nivel2 || "—", { size: 9 })], COL_NIV),
-          tc([p(c.nivel1 || "—", { size: 9 })], COL_ULT),
+          tc([p(c.nivel4 || "—", { size: 10 })], COL_NIV),
+          tc([p(c.nivel3 || "—", { size: 10 })], COL_NIV),
+          tc([p(c.nivel2 || "—", { size: 10 })], COL_NIV),
+          tc([p(c.nivel1 || "—", { size: 10 })], COL_ULT),
         ],
       })
   );
@@ -277,7 +280,7 @@ export async function generarProyectoInterdisciplinarWord(
         new TextRun({
           text: "PROYECTO INTERDISCIPLINAR PARA LA EVALUACIÓN SUMATIVA",
           bold: true,
-          size: 14,
+          size: 28,
           font: "Arial",
         }),
       ],
@@ -288,7 +291,7 @@ export async function generarProyectoInterdisciplinarWord(
       alignment: AlignmentType.CENTER,
       spacing: { after: 120 },
       children: [
-        new TextRun({ text: `Base curricular: ${baseLabel}`, size: 9, color: "555555", font: "Arial" }),
+        new TextRun({ text: `Base curricular: ${baseLabel}`, size: 18, color: "555555", font: "Arial" }),
       ],
     })
   );
@@ -373,7 +376,7 @@ export async function generarProyectoInterdisciplinarWord(
           cantSplit: true,
           children: [
             tc([p(area.nombreArea, { bold: true, size: 9 })], COL_ASIG),
-            tc([p("Sin elementos curriculares seleccionados.", { size: 9 })], TW - COL_ASIG, { cs: NCOLS_PLANIF - 1 }),
+            tc([p("Sin elementos curriculares seleccionados.", { size: 10 })], TW - COL_ASIG, { cs: NCOLS_PLANIF - 1 }),
           ],
         })
       );
@@ -387,7 +390,7 @@ export async function generarProyectoInterdisciplinarWord(
           cantSplit: true,
           children: [
             tc([p(area.nombreArea, { bold: true, size: 9 })], COL_ASIG),
-            tc([p(`${e.codigo}. ${descripcionDeElemento(plan.baseCurricular, e.codigo)}`, { size: 9 })], COL_CE),
+            tc([p(`${e.codigo}. ${descripcionDeElemento(plan.baseCurricular, e.codigo)}`, { size: 10 })], COL_CE),
             tc(listaParrafos(info.indicadores), COL_IND),
             ...(conSaberes
               ? [
@@ -442,19 +445,19 @@ export async function generarProyectoInterdisciplinarWord(
     const parrafosActividades: Paragraph[] =
       actividadesDeFase.length > 0
         ? actividadesDeFase.flatMap((a) => [
-            p(a.actividad || "—", { size: 9 }),
-            ...(a.evidencia ? [p(`Evidencia: ${a.evidencia}`, { size: 9 })] : []),
-            ...(a.evaluacion ? [p(`Evaluación: ${a.evaluacion}`, { size: 9 })] : []),
-            ...(a.instrumentoEvaluacion ? [p(`Instrumento: ${a.instrumentoEvaluacion}`, { size: 9 })] : []),
+            p(a.actividad || "—", { size: 10 }),
+            ...(a.evidencia ? [p(`Evidencia: ${a.evidencia}`, { size: 10 })] : []),
+            ...(a.evaluacion ? [p(`Evaluación: ${a.evaluacion}`, { size: 10 })] : []),
+            ...(a.instrumentoEvaluacion ? [p(`Instrumento: ${a.instrumentoEvaluacion}`, { size: 10 })] : []),
           ])
-        : [p("—", { size: 9 })];
+        : [p("—", { size: 10 })];
 
     return new TableRow({
       cantSplit: true,
       children: [
         tc([p(f.label, { bold: true, size: 9 })], COL_FASE),
-        tc([p(f.preguntaOrientadora, { size: 9 })], COL_PREG),
-        tc([p(f.resultado, { size: 9 })], COL_RES),
+        tc([p(f.preguntaOrientadora, { size: 10 })], COL_PREG),
+        tc([p(f.resultado, { size: 10 })], COL_RES),
         tc(parrafosActividades, COL_ACT_FASE),
       ],
     });
@@ -512,9 +515,9 @@ export async function generarProyectoInterdisciplinarWord(
             cantSplit: true,
             children: [
               tc([p(f.corto, { bold: true, size: 9 })], COL_FASE_ASIG),
-              tc([p(bloque.semana || "—", { size: 9 })], COL_SEMANA),
-              tc(listaParrafos(bloque.actividades, 9), COL_ACTIV_ASIG),
-              tc(listaParrafos(bloque.recursos, 9), COL_REC_ASIG),
+              tc([p(bloque.semana || "—", { size: 10 })], COL_SEMANA),
+              tc(listaParrafos(bloque.actividades, 10), COL_ACTIV_ASIG),
+              tc(listaParrafos(bloque.recursos, 10), COL_REC_ASIG),
             ],
           })
         );
@@ -559,11 +562,11 @@ export async function generarProyectoInterdisciplinarWord(
       return new TableRow({
         cantSplit: true,
         children: [
-          tc([p(fase?.corto || "—", { size: 9 }), ...(area ? [p(area.nombreArea, { size: 9 })] : [])], COL_FASE_DIA),
-          tc([p(d.dia || "—", { size: 9 })], COL_DIA),
-          tc([p(d.fecha || "—", { size: 9 })], COL_FECHA),
-          tc([p(d.actividad || "—", { size: 9 })], COL_ACTIV_DIA),
-          tc([p(d.productoDiario || "—", { size: 9 })], COL_PROD_DIA),
+          tc([p(fase?.corto || "—", { size: 10 }), ...(area ? [p(area.nombreArea, { size: 10 })] : [])], COL_FASE_DIA),
+          tc([p(d.dia || "—", { size: 10 })], COL_DIA),
+          tc([p(d.fecha || "—", { size: 10 })], COL_FECHA),
+          tc([p(d.actividad || "—", { size: 10 })], COL_ACTIV_DIA),
+          tc([p(d.productoDiario || "—", { size: 10 })], COL_PROD_DIA),
         ],
       });
     });
