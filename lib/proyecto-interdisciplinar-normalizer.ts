@@ -23,8 +23,14 @@ import type {
   ElementoCurricularReferenciado,
   FaseProyecto,
   ActividadProyectoInterdisciplinar,
+  DetalleAreaInterdisciplinar,
+  FaseAreaInterdisciplinar,
+  ActividadDiaAPorDia,
+  CriterioRubrica,
+  RubricaProyecto,
   ProyectoInterdisciplinarPlan,
 } from "../data/types-proyecto-interdisciplinar";
+import { normalizarFase, esFaseValida } from "../data/proyecto-interdisciplinar-formato";
 import { buscarPorCodigo } from "../data/index";
 import { buscarCompetenciaEspecificaEGBBGU } from "../data/competencias-especificas-egb-bgu";
 
@@ -48,13 +54,49 @@ export interface ElementoCurricularRaw {
 
 export interface ActividadProyectoRaw {
   id?: string;
-  fase: FaseProyecto;
+  /** Fase oficial; se acepta también el valor legacy "gestion" (se migra). */
+  fase: FaseProyecto | "gestion";
   actividad: string;
   recursos?: string;
   evidencia?: string;
   evaluacion?: string;
   instrumentoEvaluacion?: string;
   criteriosVinculados?: string[];
+}
+
+export interface FaseAreaRaw {
+  fase: FaseProyecto | "gestion";
+  semana?: string;
+  preguntaOrientadora?: string;
+  actividades?: string[];
+  recursos?: string[];
+}
+
+export interface DetalleAreaRaw {
+  areaProyectoId: string;
+  fases?: FaseAreaRaw[];
+}
+
+export interface ActividadDiaAPorDiaRaw {
+  fase: FaseProyecto | "gestion";
+  dia?: string;
+  fecha?: string;
+  actividad?: string;
+  productoDiario?: string;
+  areaProyectoId?: string;
+}
+
+export interface CriterioRubricaRaw {
+  criterio?: string;
+  nivel4?: string;
+  nivel3?: string;
+  nivel2?: string;
+  nivel1?: string;
+}
+
+export interface RubricaProyectoRaw {
+  titulo?: string;
+  criterios?: CriterioRubricaRaw[];
 }
 
 export interface ProyectoInterdisciplinarRaw {
@@ -70,9 +112,16 @@ export interface ProyectoInterdisciplinarRaw {
   productoFinal?: string;
   duracion?: string;
   metodologia?: string;
+  anioLectivo?: string;
+  trimestre?: string;
+  paralelo?: string;
   areas: AreaProyectoRaw[];
   elementosCurriculares: ElementoCurricularRaw[];
   actividades: ActividadProyectoRaw[];
+  detalleAreas?: DetalleAreaRaw[];
+  diaPorDia?: ActividadDiaAPorDiaRaw[];
+  rubricaDisciplinar?: RubricaProyectoRaw;
+  rubricaInterdisciplinar?: RubricaProyectoRaw;
   evaluacionGeneral?: string;
   institucion?: string;
   docentesParticipantes?: string[];
@@ -201,7 +250,8 @@ function normalizarActividades(
 ): ActividadProyectoInterdisciplinar[] {
   return raw.map((act, index) => ({
     id: act.id ?? generarId("actividad-pi"),
-    fase: act.fase,
+    // Migra la fase legacy "gestion" a la fase oficial "organizacion".
+    fase: normalizarFase(act.fase),
     actividad: limpiarTexto(act.actividad),
     recursos: limpiarTexto(act.recursos),
     evidencia: limpiarTexto(act.evidencia),
@@ -216,6 +266,85 @@ function normalizarActividades(
     ),
     orderIndex: index,
   }));
+}
+
+// ============================================================
+// NORMALIZACIÓN DEL FORMATO OFICIAL (SECCIÓN POR ASIGNATURA,
+// PLAN DÍA A DÍA Y RÚBRICAS)
+// ============================================================
+
+function normalizarDetalleAreas(
+  raw: DetalleAreaRaw[] | undefined,
+  areas: AreaProyectoInterdisciplinar[]
+): DetalleAreaInterdisciplinar[] | undefined {
+  if (!raw?.length) return undefined;
+  const idsValidos = new Set(areas.map((a) => a.id));
+
+  const detalle: DetalleAreaInterdisciplinar[] = [];
+  for (const d of raw) {
+    // Referencia a un área inexistente: se descarta el registro completo
+    // (mismo criterio de defensa que en elementosCurriculares, pero aquí el
+    // detalle es opcional, así que no se lanza — se ignora).
+    if (!idsValidos.has(d.areaProyectoId)) continue;
+    const fases: FaseAreaInterdisciplinar[] = (d.fases ?? [])
+      .filter((f) => esFaseValida(f.fase))
+      .map((f) => ({
+        fase: normalizarFase(f.fase),
+        semana: f.semana ? limpiarTexto(f.semana) : undefined,
+        preguntaOrientadora: f.preguntaOrientadora
+          ? limpiarTexto(f.preguntaOrientadora)
+          : undefined,
+        actividades: (f.actividades ?? []).map((a) => limpiarTexto(a)).filter(Boolean),
+        recursos: (f.recursos ?? []).map((r) => limpiarTexto(r)).filter(Boolean),
+      }))
+      .filter((f) => f.actividades.length > 0 || f.recursos.length > 0);
+    if (fases.length === 0) continue;
+    detalle.push({ areaProyectoId: d.areaProyectoId, fases });
+  }
+  return detalle.length > 0 ? detalle : undefined;
+}
+
+function normalizarDiaPorDia(
+  raw: ActividadDiaAPorDiaRaw[] | undefined,
+  areas: AreaProyectoInterdisciplinar[]
+): ActividadDiaAPorDia[] | undefined {
+  if (!raw?.length) return undefined;
+  const idsValidos = new Set(areas.map((a) => a.id));
+
+  const filas: ActividadDiaAPorDia[] = [];
+  for (const r of raw) {
+    if (!esFaseValida(r.fase)) continue;
+    const actividad = limpiarTexto(r.actividad);
+    const productoDiario = limpiarTexto(r.productoDiario);
+    if (!actividad && !productoDiario) continue;
+    filas.push({
+      fase: normalizarFase(r.fase),
+      dia: limpiarTexto(r.dia),
+      fecha: limpiarTexto(r.fecha),
+      actividad,
+      productoDiario,
+      areaProyectoId:
+        r.areaProyectoId && idsValidos.has(r.areaProyectoId) ? r.areaProyectoId : undefined,
+    });
+  }
+  return filas.length > 0 ? filas : undefined;
+}
+
+function normalizarRubrica(
+  raw: RubricaProyectoRaw | undefined
+): RubricaProyecto | undefined {
+  if (!raw) return undefined;
+  const criterios: CriterioRubrica[] = (raw.criterios ?? [])
+    .map((c) => ({
+      criterio: limpiarTexto(c.criterio),
+      nivel4: limpiarTexto(c.nivel4),
+      nivel3: limpiarTexto(c.nivel3),
+      nivel2: limpiarTexto(c.nivel2),
+      nivel1: limpiarTexto(c.nivel1),
+    }))
+    .filter((c) => c.criterio);
+  if (criterios.length === 0) return undefined;
+  return { titulo: limpiarTexto(raw.titulo), criterios };
 }
 
 // ============================================================
@@ -234,6 +363,10 @@ export function normalizarProyectoInterdisciplinar(
   );
   const codigosValidos = new Set(elementosCurriculares.map((e) => e.codigo));
   const actividades = normalizarActividades(raw.actividades, codigosValidos);
+  const detalleAreas = normalizarDetalleAreas(raw.detalleAreas, areas);
+  const diaPorDia = normalizarDiaPorDia(raw.diaPorDia, areas);
+  const rubricaDisciplinar = normalizarRubrica(raw.rubricaDisciplinar);
+  const rubricaInterdisciplinar = normalizarRubrica(raw.rubricaInterdisciplinar);
 
   const timestamp = now();
 
@@ -253,9 +386,17 @@ export function normalizarProyectoInterdisciplinar(
     duracion: limpiarTexto(raw.duracion),
     metodologia: raw.metodologia ? limpiarTexto(raw.metodologia) : undefined,
 
+    anioLectivo: raw.anioLectivo ? limpiarTexto(raw.anioLectivo) : undefined,
+    trimestre: raw.trimestre ? limpiarTexto(raw.trimestre) : undefined,
+    paralelo: raw.paralelo ? limpiarTexto(raw.paralelo) : undefined,
+
     areas,
     elementosCurriculares,
     actividades,
+    detalleAreas,
+    diaPorDia,
+    rubricaDisciplinar,
+    rubricaInterdisciplinar,
 
     evaluacionGeneral: raw.evaluacionGeneral
       ? limpiarTexto(raw.evaluacionGeneral)
