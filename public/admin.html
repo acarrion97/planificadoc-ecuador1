@@ -235,6 +235,16 @@
     .badge-web { background: #fff7ed; color: #92400e; }
     .btn-metrics { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
     .btn-metrics:hover { background: #e0e7ff; }
+    .btn-extend { background: #059669; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .btn-extend:hover { background: #047857; }
+    .btn-extend.plan { background: #f59e0b; }
+    .btn-extend.plan:hover { background: #d97706; }
+    .btn-extend.ghost { background: #fff; color: #059669; border: 1px solid #6ee7b7; }
+    .btn-extend.ghost:hover { background: #ecfdf5; }
+    .btn-extend[disabled] { opacity: 0.6; cursor: not-allowed; }
+    .reac-summary { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #166534; margin-bottom: 16px; }
+    .reac-summary div { display: flex; justify-content: space-between; padding: 3px 0; }
+    .reac-hint { font-size: 12px; color: #64748b; margin-top: 6px; }
     .btn-deactivate { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
     .btn-deactivate:hover { background: #dc2626; color: white; }
     /* Modal */
@@ -345,10 +355,11 @@
                 <th>Meses</th>
                 <th>Tarjeta</th>
                 <th>Métricas</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="usersBody">
-              <tr><td colspan="13" class="loading">Cargando...</td></tr>
+              <tr><td colspan="14" class="loading">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -530,6 +541,89 @@
           </button>
           <span class="form-msg" id="expiredMsg"></span>
         </div>
+
+        <div class="toolbar">
+          <div class="section-title" style="margin-bottom:0;">Reactivar acceso expirado (<span id="expiredCount">0</span>)</div>
+          <input type="text" class="search-input" placeholder="Buscar por email o nombre..." oninput="filterExpiredUsers(this.value)" />
+        </div>
+        <div class="table-container">
+          <table id="expiredTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Titular</th>
+                <th>Email</th>
+                <th>Plan</th>
+                <th>Vencimiento</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="expiredBody">
+              <tr><td colspan="6" class="loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reactivate Access Modal -->
+  <div class="modal-overlay" id="reactivateOverlay" onclick="if(event.target===this) closeReactivate()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h3>⚡ Reactivar / Extender acceso</h3>
+          <div class="modal-sub" id="reactivateEmail"></div>
+        </div>
+        <button class="modal-close" onclick="closeReactivate()">✕</button>
+      </div>
+
+      <div id="reactivateCurrent" class="reac-summary" style="display:none;"></div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="reacEmail" placeholder="docente@ejemplo.com" />
+        </div>
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="reacNombre" placeholder="Nombre del docente" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña (opcional)</label>
+          <input type="text" id="reacPassword" placeholder="Dejar vacío = no cambiarla" autocomplete="off" />
+          <span class="reac-hint">Si el docente no tiene cuenta, es obligatoria.</span>
+        </div>
+        <div class="form-group">
+          <label>Plan</label>
+          <select id="reacPlan">
+            <option value="monthly">Mensual</option>
+            <option value="annual">Anual</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Meses de acceso</label>
+          <input type="number" id="reacMonths" min="0" step="1" value="1" />
+          <span class="reac-hint">1 = un mes exacto (mismo día del mes siguiente).</span>
+        </div>
+        <div class="form-group">
+          <label>Días de acceso</label>
+          <input type="number" id="reacDays" min="0" step="1" value="0" />
+          <span class="reac-hint">Solo si prefieres días en vez de meses.</span>
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+          <label>Modo</label>
+          <select id="reacMode">
+            <option value="renew">Reactivar desde hoy (corta el acceso anterior)</option>
+            <option value="extend">Extender sobre el vencimiento actual (suma al final)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-success" onclick="submitReactivate()" id="reacSubmit">⚡ Activar acceso</button>
+        <button class="btn-primary" onclick="closeReactivate()" style="background:#64748b">Cancelar</button>
+        <span class="form-msg" id="reacMsg"></span>
       </div>
     </div>
   </div>
@@ -663,24 +757,27 @@
         const data = await fetchJSON('/api/admin/users');
         allUsers = data.users;
         renderUsers(allUsers);
+        renderExpiredUsers(allUsers.filter(u => u.currentStatus === 'expired'));
       } catch (e) {
-        document.getElementById('usersBody').innerHTML = '<tr><td colspan="13" class="loading">Error al cargar usuarios: ' + e.message + '</td></tr>';
+        document.getElementById('usersBody').innerHTML = '<tr><td colspan="14" class="loading">Error al cargar usuarios: ' + e.message + '</td></tr>';
       }
     }
 
     function renderUsers(users) {
       if (users.length === 0) {
-        document.getElementById('usersBody').innerHTML = '<tr><td colspan="13" class="loading">No hay usuarios</td></tr>';
+        document.getElementById('usersBody').innerHTML = '<tr><td colspan="14" class="loading">No hay usuarios</td></tr>';
         return;
       }
-      document.getElementById('usersBody').innerHTML = users.map((u, i) => `
+      document.getElementById('usersBody').innerHTML = users.map((u, i) => {
+        const safeEmail = (u.email || '').replace(/'/g, "\\'");
+        return `
         <tr>
           <td>${i + 1}</td>
           <td><strong>${u.cardHolder || '-'}</strong></td>
           <td>${u.email}</td>
           <td>${u.documentId || '-'}</td>
           <td>${u.phoneNumber || '-'}</td>
-          <td>${u.currentPlan === 'monthly' ? 'Mensual' : 'Anual'}</td>
+          <td>${u.currentPlan === 'annual' ? 'Anual' : 'Mensual'}</td>
           <td><span class="badge badge-${u.currentStatus}">${getStatusLabel(u.currentStatus)}</span></td>
           <td><span class="badge ${u.isRecurring ? 'badge-recurring' : 'badge-one-time'}">${u.isRecurring ? 'Si' : 'No'}</span></td>
           <td>${formatDate(u.endDate)}</td>
@@ -688,14 +785,18 @@
           <td><span title="${u.payingMonths || 0} meses acumulados" style="font-weight:700;color:#003366;">${u.payingMonths || 0} mes${(u.payingMonths || 0) !== 1 ? 'es' : ''}</span></td>
           <td>${u.cardBrand ? u.cardBrand + ' ****' + u.lastDigits : '-'}</td>
           <td style="white-space:nowrap">
-            <button class="btn-metrics" onclick="openUserMetrics('${u.email.replace(/'/g, "\\'")}')">Ver</button>
+            <button class="btn-metrics" onclick="openUserMetrics('${safeEmail}')">Ver</button>
             ${u.currentStatus === 'cancelled'
               ? '<span style="color:#94a3b8;font-size:11px;margin-left:4px">Desactivado</span>'
-              : `<button class="btn-deactivate" onclick="deactivateUser('${u.email.replace(/'/g, "\\'")}')" style="margin-left:4px">Desactivar</button>`
+              : `<button class="btn-deactivate" onclick="deactivateUser('${safeEmail}')" style="margin-left:4px">Desactivar</button>`
             }
           </td>
+          <td style="white-space:nowrap">
+            <button class="btn-extend" onclick="openReactivate('${safeEmail}')" title="Reactivar o extender el acceso">⚡ Activar</button>
+          </td>
         </tr>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function filterUsers(query) {
@@ -1020,7 +1121,7 @@
     }
 
     function getStatusLabel(status) {
-      const labels = { active: 'Activa', expired: 'Expirada', cancelled: 'Cancelada', past_due: 'Pendiente' };
+      const labels = { active: 'Activa', expired: 'Expirada', cancelled: 'Cancelada', past_due: 'Pendiente', trial: 'Prueba' };
       return labels[status] || status;
     }
 
@@ -1165,6 +1266,127 @@
       } finally {
         btn.disabled = false;
       }
+    }
+
+    // ===== REACTIVAR / EXTENDER ACCESO =====
+    let expiredUsers = [];
+
+    function closeReactivate() {
+      document.getElementById('reactivateOverlay').classList.remove('open');
+      document.getElementById('reacMsg').textContent = '';
+      document.getElementById('reacMsg').className = 'form-msg';
+    }
+
+    function openReactivate(email, months) {
+      const overlay = document.getElementById('reactivateOverlay');
+      const emailInput = document.getElementById('reacEmail');
+      emailInput.value = email || '';
+
+      const user = (allUsers || []).find(u => u.email.toLowerCase() === (email || '').toLowerCase());
+      document.getElementById('reacNombre').value = (user && user.cardHolder) || '';
+      document.getElementById('reacPassword').value = '';
+      document.getElementById('reacPlan').value = user && user.currentPlan === 'annual' ? 'annual' : 'monthly';
+      document.getElementById('reacMonths').value = months || 1;
+      document.getElementById('reacDays').value = 0;
+      document.getElementById('reacMode').value = 'renew';
+
+      document.getElementById('reactivateEmail').textContent = email || 'Nuevo docente';
+      const current = document.getElementById('reactivateCurrent');
+      if (user) {
+        current.style.display = 'block';
+        current.innerHTML = `
+          <div><span>Estado actual</span><strong>${getStatusLabel(user.currentStatus)}</strong></div>
+          <div><span>Vence el</span><strong>${formatDate(user.endDate)}</strong></div>
+          <div><span>Plan actual</span><strong>${user.currentPlan === 'annual' ? 'Anual' : 'Mensual'}</strong></div>
+        `;
+      } else {
+        current.style.display = 'none';
+        current.innerHTML = '';
+      }
+
+      overlay.classList.add('open');
+    }
+
+    async function submitReactivate() {
+      const msg = document.getElementById('reacMsg');
+      const btn = document.getElementById('reacSubmit');
+      const email = document.getElementById('reacEmail').value.trim();
+      const nombre = document.getElementById('reacNombre').value.trim();
+      const password = document.getElementById('reacPassword').value;
+      const plan = document.getElementById('reacPlan').value;
+      const months = parseInt(document.getElementById('reacMonths').value) || 0;
+      const days = parseInt(document.getElementById('reacDays').value) || 0;
+      const mode = document.getElementById('reacMode').value;
+
+      if (!email) { msg.className = 'form-msg err'; msg.textContent = 'El email es obligatorio'; return; }
+      if (months <= 0 && days <= 0) { msg.className = 'form-msg err'; msg.textContent = 'Indica meses o días de acceso'; return; }
+
+      msg.className = 'form-msg'; msg.textContent = 'Activando...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/admin/reactivate-access?key=' + encodeURIComponent(API_KEY), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, nombre, password: password || undefined, plan, months, days, mode })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          msg.className = 'form-msg err';
+          msg.textContent = data.error || 'Error al activar el acceso';
+          return;
+        }
+
+        const extra = [];
+        if (data.accountCreated) extra.push('cuenta creada');
+        if (data.passwordUpdated) extra.push('contraseña actualizada');
+        msg.className = 'form-msg ok';
+        msg.textContent = '✅ Activo hasta ' + formatDate(data.endDate) + (extra.length ? ' (' + extra.join(', ') + ')' : '');
+
+        await loadUsers();
+        await loadMetrics();
+      } catch (e) {
+        msg.className = 'form-msg err';
+        msg.textContent = 'Error de conexión: ' + e.message;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    // ===== USUARIOS EXPIRADOS (reactivación rápida) =====
+    function renderExpiredUsers(users) {
+      expiredUsers = users;
+      const counter = document.getElementById('expiredCount');
+      if (counter) counter.textContent = users.length;
+
+      if (users.length === 0) {
+        document.getElementById('expiredBody').innerHTML = '<tr><td colspan="6" class="loading">No hay usuarios expirados</td></tr>';
+        return;
+      }
+
+      document.getElementById('expiredBody').innerHTML = users.map((u, i) => {
+        const safeEmail = (u.email || '').replace(/'/g, "\\'");
+        return `
+        <tr>
+          <td>${i + 1}</td>
+          <td><strong>${u.cardHolder || '-'}</strong></td>
+          <td>${u.email}</td>
+          <td>${u.currentPlan === 'annual' ? 'Anual' : 'Mensual'}</td>
+          <td>${formatDate(u.endDate)}</td>
+          <td style="white-space:nowrap;">
+            <button class="btn-extend" onclick="openReactivate('${safeEmail}', 1)" title="Reactivar por 1 mes">⚡ 1 mes</button>
+            <button class="btn-extend ghost" onclick="openReactivate('${safeEmail}')" title="Elegir duración y plan">⚙️</button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function filterExpiredUsers(query) {
+      const q = (query || '').toLowerCase();
+      renderExpiredUsers(expiredUsers.filter(u =>
+        (u.email || '').toLowerCase().includes(q) ||
+        (u.cardHolder || '').toLowerCase().includes(q)
+      ));
     }
 
     // ===== USER METRICS MODAL =====
