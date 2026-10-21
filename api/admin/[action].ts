@@ -25,6 +25,20 @@ async function hashPasswordAdmin(password: string): Promise<string> {
   const derived = (await scryptAsync(password, salt, 64)) as Buffer;
   return `${salt}:${derived.toString("hex")}`;
 }
+
+/**
+ * Suma meses calendario a una fecha, recortando al último día del mes destino.
+ * Ej: 31-ene + 1 mes = 28-feb (no 03-mar).
+ */
+function addMonthsExact(date: Date, months: number): Date {
+  const d = new Date(date);
+  const day = d.getDate();
+  d.setDate(1);
+  d.setMonth(d.getMonth() + months);
+  const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  d.setDate(Math.min(day, lastDay));
+  return d;
+}
 import { eq, desc, and, lt, lte, ne, sql as drizzleSql } from "drizzle-orm";
 import { pcaDocuments } from "../../drizzle/schema";
 
@@ -1070,6 +1084,109 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         plan: subscriptionPlan,
         accountCreated,
         durationDays,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+      });
+    }
+
+    // POST /api/admin/reactivate-access — reactiva o extiende el acceso de un usuario por N meses / N días
+    if (action === "reactivate-access") {
+      if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+      const { email, password, nombre, months, days, plan, mode } = req.body || {};
+      if (!email) return res.status(400).json({ error: "email requerido" });
+
+      const normalizedEmail = (email as string).trim().toLowerCase();
+      const durationMonths = parseInt(months as string) || 0;
+      const durationDays = parseInt(days as string) || 0;
+      if (durationMonths <= 0 && durationDays <= 0) {
+        return res.status(400).json({ error: "indica la duracion (months o days)" });
+      }
+      const subscriptionPlan = (plan as string) === "annual" ? "annual" : "monthly";
+      // "renew" (default) = reactiva desde hoy; "extend" = continua sobre el vencimiento vigente
+      const extendFromCurrent = mode === "extend";
+
+      // Suscripción vigente: prioridad active > trial > past_due > expired > cancelled
+      const STATUS_PRIORITY: Record<string, number> = { active: 0, trial: 1, past_due: 2, expired: 3, cancelled: 4 };
+      const allSubs = await db.select().from(subscriptions)
+        .where(eq(subscriptions.email, normalizedEmail))
+        .orderBy(desc(subscriptions.endDate));
+      const currentSub = allSubs.length > 0
+        ? [...allSubs].sort((a, b) => (STATUS_PRIORITY[a.status] ?? 5) - (STATUS_PRIORITY[b.status] ?? 5))[0]
+        : null;
+
+      // Fecha base: hoy, o el vencimiento actual si se pide extender
+      const now = new Date();
+      let startDate = now;
+      if (extendFromCurrent && currentSub) {
+        const currentEnd = new Date(currentSub.endDate);
+        if (currentEnd > now) startDate = currentEnd;
+      }
+      const endDate = durationMonths > 0
+        ? addMonthsExact(startDate, durationMonths)
+        : new Date(startDate.getTime() + durationDays * 24 * 60 * 60 * 1000);
+
+      // Cuenta docente: crear si no existe, actualizar contraseña si se envió
+      const existingAccount = await db.select({ id: docenteAccounts.id, nombre: docenteAccounts.nombre })
+        .from(docenteAccounts).where(eq(docenteAccounts.email, normalizedEmail)).limit(1);
+      const trimmedNombre = ((nombre as string) || existingAccount[0]?.nombre || normalizedEmail.split("@")[0]).trim();
+
+      let accountCreated = false;
+      let passwordUpdated = false;
+      if (existingAccount.length === 0) {
+        if (!password) {
+          return res.status(400).json({
+            error: `No existe cuenta docente para ${normalizedEmail}. Indica una contraseña para crearla.`,
+            code: "ACCOUNT_MISSING",
+          });
+        }
+        await db.insert(docenteAccounts).values({
+          email: normalizedEmail,
+          nombre: trimmedNombre,
+          passwordHash: await hashPasswordAdmin(password as string),
+        });
+        accountCreated = true;
+      } else if (password) {
+        await db.update(docenteAccounts)
+          .set({ passwordHash: await hashPasswordAdmin(password as string), nombre: trimmedNombre })
+          .where(eq(docenteAccounts.email, normalizedEmail));
+        passwordUpdated = true;
+      } else if (nombre) {
+        await db.update(docenteAccounts)
+          .set({ nombre: trimmedNombre })
+          .where(eq(docenteAccounts.email, normalizedEmail));
+      }
+
+      // Cerrar suscripciones vigentes previas
+      await db.execute(
+        drizzleSql`UPDATE subscriptions SET status = 'expired', endDate = NOW() WHERE email = ${normalizedEmail} AND status IN ('active', 'trial', 'past_due')`
+      );
+
+      // Nueva suscripción activa
+      await db.insert(subscriptions).values({
+        email: normalizedEmail,
+        plan: subscriptionPlan,
+        status: "active",
+        amountPaid: 0,
+        transactionId: `ADMIN-REACTIVATE-${Date.now()}`,
+        startDate,
+        endDate,
+        isPromo: false,
+        isRecurring: false,
+        isTrial: false,
+        failedChargeAttempts: 0,
+      });
+
+      return res.json({
+        success: true,
+        email: normalizedEmail,
+        nombre: trimmedNombre,
+        plan: subscriptionPlan,
+        previousStatus: currentSub?.status ?? null,
+        previousEndDate: currentSub?.endDate ?? null,
+        accountCreated,
+        passwordUpdated,
+        durationMonths: durationMonths > 0 ? durationMonths : 0,
+        durationDays: durationMonths > 0 ? 0 : durationDays,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
       });
