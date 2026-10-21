@@ -10,7 +10,7 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
 import { usePlanificacionesBT, type ModuloBTCombinado } from "@/lib/planificaciones-bt-context";
-import { obtenerFiguraPorId, obtenerTodosLosModulos } from "@/data/bachillerato-tecnico";
+import { obtenerFiguraPorId, obtenerModulosSeleccionables } from "@/data/bachillerato-tecnico";
 import type {
   PlanUnidadTrabajoBT, UnidadCompetencia, ResultadoAprendizaje,
   Procedimiento, FaseProcedimiento, ContenidosBT, EstrategiaMetodologicaBT,
@@ -100,7 +100,7 @@ export default function PlanificarBTScreen() {
   const { addPlanBT, obtenerCatalogoModulo } = usePlanificacionesBT();
 
   const figura = useMemo(() => obtenerFiguraPorId(figuraId), [figuraId]);
-  const modulosEstaticos = useMemo(() => obtenerTodosLosModulos(figuraId), [figuraId]);
+  const modulosEstaticos = useMemo(() => obtenerModulosSeleccionables(figuraId), [figuraId]);
 
   const [step, setStep] = useState(0);
   const [selectedModuloCodigo, setSelectedModuloCodigo] = useState<string | null>(null);

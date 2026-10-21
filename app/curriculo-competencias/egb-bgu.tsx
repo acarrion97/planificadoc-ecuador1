@@ -13,7 +13,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { AREAS_INFO, type Area, type Subnivel } from "@/data/types";
+import { AREAS_INFO, AREAS_POR_SUBNIVEL, type Area, type Subnivel } from "@/data/types";
 import { filtrarPorAreaYSubnivel } from "@/data";
 import { CompetenciasEspecificasSelector } from "@/components/CompetenciasEspecificasSelector";
 
@@ -25,28 +25,21 @@ const PASOS: { key: PasoFlujo; label: string }[] = [
 ];
 
 const NIVELES = ["EGB", "BGU"] as const;
-const GRADOS = ["1ro", "2do", "3ro", "4to", "5to", "6to", "7mo", "8vo", "9no", "10mo"];
+
+// Preparatoria (1er grado EGB) no aparece aquí: tiene currículo integrado por
+// ámbitos (no por asignatura) y se planifica desde el flujo "Inicial / Preparatoria".
+const GRADOS_EGB = ["2do", "3ro", "4to", "5to", "6to", "7mo", "8vo", "9no", "10mo"];
+const GRADOS_BGU = ["1ro", "2do", "3ro"];
 const PARALELOS = ["A", "B", "C", "D", "E"];
 const TRIMESTRES = ["Primer Trimestre", "Segundo Trimestre", "Tercer Trimestre"];
 
-const AREAS_EGB: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
-const AREAS_BGU: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "EG", "EFL", "CAI"];
-
-function gradoANumero(grado: string): number {
-  const map: Record<string, number> = {
-    "1ro": 1, "2do": 2, "3ro": 3, "4to": 4, "5to": 5,
-    "6to": 6, "7mo": 7, "8vo": 8, "9no": 9, "10mo": 10,
+function subnivelDeGradoEGB(grado: string): Subnivel {
+  const map: Record<string, Subnivel> = {
+    "2do": 2, "3ro": 2, "4to": 2,
+    "5to": 3, "6to": 3, "7mo": 3,
+    "8vo": 4, "9no": 4, "10mo": 4,
   };
-  return map[grado] || 1;
-}
-
-function subnivelDelGrado(grado: string): Subnivel {
-  const n = gradoANumero(grado);
-  if (n <= 1) return 1;
-  if (n <= 4) return 2;
-  if (n <= 7) return 3;
-  if (n <= 10) return 4;
-  return 5;
+  return map[grado] ?? 2;
 }
 
 const LOWERCASE_WORDS = new Set(["de", "del", "la", "las", "el", "los", "y", "en", "para", "a"]);
@@ -102,12 +95,22 @@ export default function EGBBGUFormScreen() {
   // Solo CE seleccionadas
   const [competenciasEspecificas, setCompetenciasEspecificas] = useState<{ codigo: string; descripcion: string }[]>([]);
 
+  // ── Grado/subnivel/asignaturas disponibles (dependen del nivel) ──
+  const gradosDisponibles = nivel === "BGU" ? GRADOS_BGU : GRADOS_EGB;
+  const subnivelActual: Subnivel = nivel === "BGU" ? 5 : subnivelDeGradoEGB(grado);
+  const areasDisponibles = AREAS_POR_SUBNIVEL[subnivelActual] ?? [];
+
+  function handleNivelSelect(v: "EGB" | "BGU") {
+    setNivel(v);
+    const grados = v === "BGU" ? GRADOS_BGU : GRADOS_EGB;
+    if (!grados.includes(grado)) setGrado(grados[0]);
+  }
+
   // ── Destrezas disponibles ──
   const destrezasDisponibles = useMemo(() => {
     if (!areaCode) return [];
-    const sub = subnivelDelGrado(grado);
-    return filtrarPorAreaYSubnivel(areaCode, sub);
-  }, [areaCode, grado]);
+    return filtrarPorAreaYSubnivel(areaCode, subnivelActual);
+  }, [areaCode, subnivelActual]);
 
   // ── Cargar datos existentes (modo edición) ──
   const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
@@ -128,6 +131,16 @@ export default function EGBBGUFormScreen() {
       setCargando(false);
     }
   }, [planExistente]);
+
+  // Si el área seleccionada deja de estar disponible para el subnivel actual
+  // (p. ej. tras cambiar de nivel/grado, o al cargar datos antiguos con una
+  // combinación que ya no es válida), se limpia junto con sus competencias.
+  useEffect(() => {
+    if (areaCode && !areasDisponibles.includes(areaCode)) {
+      setAreaCode(null);
+      setCompetenciasEspecificas([]);
+    }
+  }, [subnivelActual]);
 
   // ── Mutations ──
   const utils = trpc.useContext();
@@ -307,14 +320,14 @@ export default function EGBBGUFormScreen() {
   const renderDatos = () => (
     <View>
       {renderSectionHeader("Datos Informativos", "📋")}
-      {renderSelectRow("Nivel", NIVELES, nivel, setNivel as (v: string) => void)}
-      {renderSelectRow("Grado", GRADOS, grado, setGrado)}
+      {renderSelectRow("Nivel", NIVELES, nivel, handleNivelSelect as (v: string) => void)}
+      {renderSelectRow(nivel === "BGU" ? "Curso (BGU)" : "Grado", gradosDisponibles, grado, setGrado)}
       {renderSelectRow("Paralelo", PARALELOS, paralelo, setParalelo)}
 
       <View style={styles.fieldGroup}>
         <Text style={[styles.fieldLabel, { color: colors.muted }]}>Área / Asignatura</Text>
         <View style={styles.selectRow}>
-          {(nivel === "BGU" ? AREAS_BGU : AREAS_EGB).map((code) => {
+          {areasDisponibles.map((code) => {
             const info = AREAS_INFO[code];
             if (!info) return null;
             const active = areaCode === code;

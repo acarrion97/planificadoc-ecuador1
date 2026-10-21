@@ -1,6 +1,7 @@
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { iconosDestrezaHTML } from "./dcd-iconos";
+import { prepararBloques, bloquesAHtml, referenciaDcd } from "./codigos-curriculares";
 
 // Mapas ID → nombre legible
 const METODOLOGIA_LABEL: Record<string, string> = Object.fromEntries(
@@ -27,6 +28,19 @@ function toStr(val: any): string {
   return String(val);
 }
 
+/**
+ * HTML de un objetivo o indicador: el código curricular oficial del catálogo
+ * (O.CN.B.5.2, I.CN.B.5.1.1) en negrita arriba del texto, igual que en la
+ * columna de destrezas. Si el texto lo redactó la IA no se inventa código: se
+ * agrega la referencia de la DCD de la que deriva.
+ */
+function htmlConCodigo(
+  textos: string | string[],
+  codigosDcd?: string | Array<string | null | undefined> | null
+): string {
+  return bloquesAHtml(prepararBloques(textos, codigosDcd)) || "—";
+}
+
 export function generarHTMLPca(formData: any, aiResult: any): string {
   const areaInfo      = AREAS_INFO[formData.area as keyof typeof AREAS_INFO];
   const areaName      = areaInfo?.name || formData.area;
@@ -38,6 +52,20 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
   const tecnicaTexto = (formData.tecnicasEvaluacion || []).map((t: string) => TECNICA_LABEL[t] || t).join(", ") || "—";
 
   const aiUnidades: any[] = aiResult?.unidades || [];
+
+  // Códigos DCD del PCA: referencia única para los objetivos generales que
+  // redactó la IA (no traen código oficial del catálogo).
+  const codigosPca = [
+    ...new Set<string>(
+      (formData.unidades || []).flatMap((u: any) =>
+        (u.dcdsSeleccionadas || []).map((d: any) => d.codigo).filter(Boolean)
+      )
+    ),
+  ];
+  const objetivosSinCodigo =
+    prepararBloques(toStr(aiResult?.objetivosArea)).bloques.some((b) => !b.codigo) ||
+    prepararBloques(toStr(aiResult?.objetivosGrado)).bloques.some((b) => !b.codigo);
+  const objetivosRef = objetivosSinCodigo ? referenciaDcd(codigosPca) : "";
 
   // ── Estilos inline (declarados ANTES de usarlos en unidadesFilas) ──
   const BORDER = "border:1px solid #AAAAAA;";
@@ -53,6 +81,7 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
 
   const unidadesFilas = (formData.unidades || []).map((unidad: any, idx: number) => {
     const ai = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
+    const codigosUnidad = (unidad.dcdsSeleccionadas || []).map((d: any) => d.codigo);
     const dcdHTML = (unidad.dcdsSeleccionadas || []).length > 0
       ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
           `<div style="margin-bottom:3px;"><b style="color:#1a6b3a;">${d.codigo}</b> ${d.enunciado}${iconosDestrezaHTML(d.codigo)}</div>`
@@ -63,10 +92,10 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
     <tr>
       <td style="${TD}text-align:center;font-weight:700;font-size:9px;">${unidad.numero}</td>
       <td style="${TD}font-weight:700;font-size:8px;">${ai.titulo || `Unidad ${unidad.numero}`}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.objetivosEspecificos) || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${htmlConCodigo(toStr(ai.objetivosEspecificos), codigosUnidad)}</td>
       <td style="${TD}font-size:7.5px;line-height:1.5;">${dcdHTML}</td>
       <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.orientacionesMetodologicas) || "—"}</td>
-      <td style="${TD}font-size:8px;line-height:1.5;">${toStr(ai.evaluacion) || "—"}</td>
+      <td style="${TD}font-size:8px;line-height:1.5;">${htmlConCodigo(toStr(ai.evaluacion), codigosUnidad)}</td>
       <td style="${TD}text-align:center;font-size:8px;">${ai.duracionSemanas || unidad.duracionSemanas || "—"}</td>
     </tr>`;
   }).join("");
@@ -158,12 +187,13 @@ export function generarHTMLPca(formData: any, aiResult: any): string {
   <tr><td colspan="2" style="${SEC}">3. OBJETIVOS GENERALES</td></tr>
   <tr>
     <td style="${TD}font-size:8px;line-height:1.5;width:50%;">
-      <b>Objetivos del área:</b><br>${toStr(aiResult?.objetivosArea) || "—"}
+      <b>Objetivos del área:</b><br>${htmlConCodigo(toStr(aiResult?.objetivosArea))}
     </td>
     <td style="${TD}font-size:8px;line-height:1.5;width:50%;">
-      <b>Objetivos del grado / curso:</b><br>${toStr(aiResult?.objetivosGrado) || "—"}
+      <b>Objetivos del grado / curso:</b><br>${htmlConCodigo(toStr(aiResult?.objetivosGrado))}
     </td>
   </tr>
+  ${objetivosRef ? `<tr><td colspan="2" style="${TD}font-size:7px;font-weight:700;color:#555;">${objetivosRef}</td></tr>` : ""}
 </table>
 
 <div class="gap"></div>

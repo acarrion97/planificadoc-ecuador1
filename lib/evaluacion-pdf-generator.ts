@@ -83,7 +83,7 @@ export function generarHTMLEvaluacion(ev: EvaluacionDiagnostica): string {
     .map((p) => {
       const detalle = p.opciones?.length
         ? `<div style="font-size:10px;color:${PALETA.muted};margin-top:2px;">${p.opciones
-            .map((o) => `${o.esCorrecta ? "✔" : "•"} ${esc(o.texto)}`)
+            .map((o) => `${o.esCorrecta ? "✔" : "•"} ${esc(o.texto || (o.imagen ? "[imagen]" : ""))}`)
             .join(" · ")}</div>`
         : p.respuestaCorrecta
           ? `<div style="font-size:10px;color:${PALETA.muted};margin-top:2px;">R.: ${esc(p.respuestaCorrecta)}</div>`
@@ -227,7 +227,10 @@ export function generarHTMLPruebaImprimible(
           ? `<div class="opts ${p.tipo === "v_f" ? "vf" : ""}">${(p.opciones ?? [])
               .map((o, i) => {
                 const marcaClave = conClave && o.esCorrecta ? " <span class='clave'>✔</span>" : "";
-                return `<div class="op"><span class="circ"></span> ${LETRAS[i] ?? ""} ${esc(o.texto)}${marcaClave}</div>`;
+                const img = o.imagen && /^data:image\/|^https?:\/\//.test(o.imagen)
+                  ? `<img class="op-img" src="${esc(o.imagen)}" alt="" />`
+                  : "";
+                return `<div class="op"><span class="circ"></span> ${LETRAS[i] ?? ""} ${img}${esc(o.texto)}${marcaClave}</div>`;
               })
               .join("")}</div>`
           : p.tipo === "respuesta_corta"
@@ -275,6 +278,7 @@ export function generarHTMLPruebaImprimible(
   .lines .l { border-bottom: 1px solid #c7c7c7; height: 26px; }
   .box { margin-top: 6px; border: 1px solid #9ca3af; min-height: 96px; padding: 6px; }
   .vf .op { display: inline-block; margin-right: 22px; }
+  .op-img { display: inline-block; max-width: 160px; max-height: 110px; vertical-align: middle; margin-right: 6px; border: 1px solid #ddd; border-radius: 4px; }
   .clave { color: #16a34a; font-weight: 700; }
   .footer { margin-top: 18px; font-size: 10px; color: #9ca3af; border-top: 1px solid #d1d5db; padding-top: 6px; }
 </style>

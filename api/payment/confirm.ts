@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { getPaymentTransaction, updatePaymentTransaction } from "../_lib/db";
+import { gaHeadSnippet } from "../_lib/ga";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Log ALL params PayPhone sends to responseUrl — helps debug tokenization
@@ -116,6 +117,7 @@ function buildConfirmBridgeHTML(config: {
     .note { font-size: 12px; color: #999; margin-top: 16px; }
     .hidden { display: none; }
   </style>
+  ${gaHeadSnippet()}
 </head>
 <body>
   <div class="container">
@@ -175,6 +177,8 @@ function buildConfirmBridgeHTML(config: {
         });
         const activateResult = await activateRes.json();
         console.log('Activate result:', activateResult);
+        // Google Analytics: start_trial / purchase (no puede romper el flujo de pago)
+        try { window.__gaTrackActivation && window.__gaTrackActivation(activateResult, '${config.clientTxId}'); } catch (e) {}
         if (activateResult.success) {
           const recurringMsg = activateResult.isRecurring
             ? '<p style="font-size:13px;color:#059669;margin-top:8px;">🔄 Renovacion automatica activada</p>'

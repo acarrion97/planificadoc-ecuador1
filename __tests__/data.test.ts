@@ -29,7 +29,8 @@ describe("Base de datos de destrezas", () => {
     for (const d of TODAS_LAS_DESTREZAS) {
       expect(d.codigo).toBeTruthy();
       expect(d.area).toBeTruthy();
-      expect(d.subnivel).toBeGreaterThanOrEqual(1);
+      // El catálogo incluye Inicial (subniveles -1 y 0) además de 1-5.
+      expect(d.subnivel).toBeGreaterThanOrEqual(-1);
       expect(d.subnivel).toBeLessThanOrEqual(5);
       expect(d.bloque).toBeGreaterThanOrEqual(1);
       expect(d.descripcion).toBeTruthy();

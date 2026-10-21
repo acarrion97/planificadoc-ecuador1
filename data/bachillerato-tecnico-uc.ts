@@ -1,18 +1,25 @@
 /**
  * Catálogo de Unidades de Competencia (UC → EC → CD) para Bachillerato Técnico.
  *
- * Solo la figura AFDR (Actividad Física, Deporte y Recreación, id "actividad-fisica")
- * tiene contenido real aquí, transcrito directamente de los documentos oficiales:
- *   - perfil-profesional-afdr.pdf
- *   - D-P-E Sesiones Deportivas y Recreativas.docx
+ * - AFDR (Actividad Física, Deporte y Recreación, id "actividad-fisica"): UC con
+ *   EC/CD transcritos directamente de los documentos oficiales:
+ *     - perfil-profesional-afdr.pdf
+ *     - D-P-E Sesiones Deportivas y Recreativas.docx
+ * - Figuras con PDF oficial de "Módulos formativos": la UC asociada que declara
+ *   cada módulo (solo texto de la UC, sin EC/CD), en
+ *   data/bt/modulos-oficiales.generated.ts.
  *
- * Para las demás figuras este archivo no fabrica contenido: se completan desde
- * la app (ver CatalogoUsuarioBT en data/types-bt.ts y lib/planificaciones-bt-context.tsx),
- * nunca generadas por IA sin respaldo humano.
+ * Lo que falte no se fabrica: se completa desde la app (ver CatalogoUsuarioBT en
+ * data/types-bt.ts y lib/planificaciones-bt-context.tsx), nunca generado por IA
+ * sin respaldo humano.
  */
 import type { UnidadCompetencia, ModuloUnidadCompetencia } from "./types-bt";
+import {
+  MODULO_UNIDAD_COMPETENCIA_OFICIALES_BT,
+  UNIDADES_COMPETENCIA_OFICIALES_BT,
+} from "./bt/modulos-oficiales.generated";
 
-export const UNIDADES_COMPETENCIA_BT: UnidadCompetencia[] = [
+const UNIDADES_COMPETENCIA_AFDR: UnidadCompetencia[] = [
   // === AFDR — Módulo "Sesiones deportivas y recreativas" (especialización) ===
   {
     id: "AFDR-UC1",
@@ -105,10 +112,16 @@ export const UNIDADES_COMPETENCIA_BT: UnidadCompetencia[] = [
   },
 ];
 
+export const UNIDADES_COMPETENCIA_BT: UnidadCompetencia[] = [
+  ...UNIDADES_COMPETENCIA_AFDR,
+  ...UNIDADES_COMPETENCIA_OFICIALES_BT,
+];
+
 export const MODULO_UNIDAD_COMPETENCIA_BT: ModuloUnidadCompetencia[] = [
   { moduloId: "AF.2.2", unidadCompetenciaId: "AFDR-UC1" }, // Sesiones deportivas y recreativas
   { moduloId: "AF.2.2", unidadCompetenciaId: "AFDR-UC2" },
   { moduloId: "AF.2.4", unidadCompetenciaId: "AFDR-UC4" }, // Seguridad, higiene y primeros auxilios deportivos
+  ...MODULO_UNIDAD_COMPETENCIA_OFICIALES_BT,
 ];
 
 export function obtenerUnidadesCompetenciaDeModulo(moduloId: string): UnidadCompetencia[] {

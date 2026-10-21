@@ -13,6 +13,7 @@ import {
 import { paymentAttribution } from "../../drizzle/schema";
 import { sendTrialStartedEmail } from "../../server/email";
 import { sendMetaPurchase } from "../../server/meta-capi";
+import { stripQuery } from "../_lib/safe-url";
 
 const MONTHLY_PRICE_CENTS = 699;
 const ANNUAL_PRICE_CENTS = 5871;
@@ -41,7 +42,8 @@ async function fireMetaCapi(clientTxId: string, valueCents: number, txEmail?: st
       eventId,
       value: valueCents / 100,
       currency: "USD",
-      eventSourceUrl: row?.sourceUrl ?? "https://planificadoc.app/pago",
+      // Filas antiguas pueden traer email/cédula/teléfono en la URL: nunca enviarlos a Meta.
+      eventSourceUrl: stripQuery(row?.sourceUrl) ?? "https://planificadoc.app/pago",
       fbp: row?.fbp ?? null,
       fbc: row?.fbc ?? null,
       clientIp: row?.clientIp ?? null,
@@ -83,7 +85,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     if (tx.status === "approved") {
-      return res.json({ success: true, message: "Suscripcion ya activada" });
+      return res.json({ success: true, alreadyActivated: true, message: "Suscripcion ya activada" });
     }
 
     // Log FULL PayPhone response to Vercel logs for diagnostics
@@ -127,7 +129,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         } else {
           console.warn("[PayPhone PCA] No pca_document found for clientTxId:", clientTxId);
         }
-        return res.json({ success: true, type: "pca", pcaId: pcaDoc?.id || null });
+        return res.json({ success: true, type: "pca", pcaId: pcaDoc?.id || null, clientTxId, amount: tx.amount / 100 });
       }
 
       // ── Trial: create 3-day trial subscription ──
@@ -192,6 +194,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           email:      tx.email,
           trialEnd:   trialEnd.toISOString(),
           isRecurring: !!cardTokenId,
+          // Para Google Analytics (start_trial): solo se cobró $1 de verificación
+          clientTxId,
+          plan:       trialPlan || "monthly",
+          planValue:  (trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS) / 100,
         });
       }
 
@@ -245,7 +251,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         (e) => console.error("[Meta CAPI]", e)
       );
 
-      res.json({ success: true, email: tx.email, isRecurring: !!cardTokenId });
+      res.json({ success: true, email: tx.email, isRecurring: !!cardTokenId, clientTxId, plan: planType, amount: tx.amount / 100 });
     } else {
       await updatePaymentTransaction(clientTxId, {
         payphoneTransactionId: confirmData.transactionId,

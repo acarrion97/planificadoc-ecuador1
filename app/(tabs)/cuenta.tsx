@@ -8,11 +8,20 @@ import {
   Platform,
   ActivityIndicator,
   RefreshControl,
+  Linking,
 } from "react-native";
+import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useAccess } from "@/lib/access-control";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { getApiBaseUrl } from "@/constants/oauth";
+import { useThemeContext, type ThemePreference } from "@/lib/theme-provider";
+
+const THEME_OPTIONS: { value: ThemePreference; label: string; icon: string }[] = [
+  { value: "light", label: "Claro", icon: "☀️" },
+  { value: "dark", label: "Oscuro", icon: "🌙" },
+  { value: "system", label: "Sistema", icon: "📱" },
+];
 
 interface SubscriptionDetails {
   plan: string;
@@ -30,8 +39,10 @@ interface CardInfo {
 }
 
 export default function CuentaScreen() {
+  const router = useRouter();
   const { hasAccess, accessMethod, subscribedEmail, subscriptionEndDate, resetAccess } = useAccess();
   const { planificaciones } = usePlanificaciones();
+  const { themePreference, setThemePreference } = useThemeContext();
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [details, setDetails] = useState<SubscriptionDetails | null>(null);
@@ -399,6 +410,83 @@ export default function CuentaScreen() {
             </View>
           </View>
         </View>
+
+        {/* Apariencia */}
+        <View className="bg-surface rounded-2xl p-5 border border-border mb-4">
+          <Text className="text-lg font-semibold text-foreground mb-1">Apariencia</Text>
+          <Text className="text-sm text-muted mb-3">
+            Elige el tema de la aplicación
+          </Text>
+          <View className="flex-row gap-2" accessibilityRole="radiogroup">
+            {THEME_OPTIONS.map((option) => {
+              const selected = themePreference === option.value;
+              return (
+                <TouchableOpacity
+                  key={option.value}
+                  onPress={() => setThemePreference(option.value)}
+                  accessibilityRole="radio"
+                  accessibilityState={{ selected }}
+                  accessibilityLabel={`Tema ${option.label}`}
+                  className={`flex-1 items-center rounded-xl py-3 border ${
+                    selected ? "bg-primary border-primary" : "bg-background border-border"
+                  }`}
+                >
+                  <Text style={{ fontSize: 20 }}>{option.icon}</Text>
+                  <Text
+                    className={`text-sm font-semibold mt-1 ${
+                      selected ? "text-background" : "text-foreground"
+                    }`}
+                  >
+                    {option.label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
+
+        {/* Manual de usuario */}
+        <TouchableOpacity
+          onPress={() => router.push("/ayuda/manual" as any)}
+          activeOpacity={0.85}
+          accessibilityRole="link"
+          accessibilityLabel="Abrir el manual de usuario"
+          className="rounded-2xl p-4 flex-row items-center mb-4 bg-surface border border-border"
+        >
+          <Text style={{ fontSize: 26 }}>{"📘"}</Text>
+          <View style={{ flex: 1, marginLeft: 12 }}>
+            <Text className="text-foreground" style={{ fontSize: 14, fontWeight: "700" }}>
+              Manual de usuario
+            </Text>
+            <Text className="text-muted" style={{ fontSize: 12, marginTop: 2 }}>
+              Gu{"í"}a paso a paso de cada m{"ó"}dulo, en l{"í"}nea y en PDF
+            </Text>
+          </View>
+          <Text className="text-muted" style={{ fontSize: 20 }}>{"›"}</Text>
+        </TouchableOpacity>
+
+        {/* Comunidad: el banner de WhatsApp vive fuera del Inicio (spec inicio-por-intencion) */}
+        <TouchableOpacity
+          onPress={() =>
+            Linking.openURL("https://chat.whatsapp.com/Kx4DtAkSVW4A1SM5xQUIyj?mode=gi_t")
+          }
+          activeOpacity={0.85}
+          accessibilityRole="link"
+          accessibilityLabel="Ingresar a grupo exclusivo de WhatsApp"
+          className="rounded-2xl p-4 flex-row items-center mb-4"
+          style={{ backgroundColor: "#25D366" }}
+        >
+          <Text style={{ fontSize: 28 }}>{"\uD83D\uDCAC"}</Text>
+          <View style={{ flex: 1, marginLeft: 12 }}>
+            <Text style={{ color: "#fff", fontSize: 14, fontWeight: "700", lineHeight: 18 }}>
+              Ingresar a grupo exclusivo de WhatsApp
+            </Text>
+            <Text style={{ color: "#ffffffcc", fontSize: 12, marginTop: 3, lineHeight: 16 }}>
+              Donde muchos m{"á"}s docentes est{"á"}n planificando inteligentemente
+            </Text>
+          </View>
+          <Text style={{ color: "#fff", fontSize: 20 }}>{"\u203A"}</Text>
+        </TouchableOpacity>
 
         {/* Logout Button */}
         <TouchableOpacity

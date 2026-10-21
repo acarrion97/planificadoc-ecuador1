@@ -25,6 +25,8 @@ export type DificultadPregunta = "basica" | "media" | "avanzada";
 export interface OpcionPregunta {
   id: string;
   texto: string;
+  /** Opción visual: data URI (JPEG reducido) de la imagen; puede ir sin texto */
+  imagen?: string;
   esCorrecta: boolean;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View, Text, TextInput, ScrollView, Pressable,
   StyleSheet, Alert, ActivityIndicator, Platform,
@@ -18,6 +18,7 @@ import {
 import { TODAS_LAS_DESTREZAS } from "@/data";
 import { generarWordAdaptacion } from "@/lib/adaptacion-word-generator";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
+import { contextoAdaptacionDesdeCurriculo } from "@/lib/curriculo-competencias-comunidad";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
@@ -274,7 +275,12 @@ function DestrezaBuscador({
 export default function AdaptacionCurricularScreen() {
   const colors = useColors();
   const router = useRouter();
-  const { semanaId, planId } = useLocalSearchParams<{ semanaId?: string; planId?: string }>();
+  // Orígenes aceptados: semana (`semanaId`), plan diario (`planId`) o plan de
+  // Currículo por competencias guardado en servidor (`cxcId`, origen
+  // "curriculo-competencias"). Sin ninguno, el formulario arranca vacío.
+  const { semanaId, planId, cxcId } = useLocalSearchParams<{ semanaId?: string; planId?: string; cxcId?: string }>();
+  const cxcIdNum = Number(cxcId);
+  const esCurriculo = !semanaId && !planId && !!cxcId && !isNaN(cxcIdNum) && cxcIdNum > 0;
   const scrollRef = useRef<ScrollView>(null);
 
   const { getSemana, updateSemana, getPlanificacion, updatePlanificacion } = usePlanificaciones();
@@ -321,6 +327,26 @@ export default function AdaptacionCurricularScreen() {
   const [vinculada, setVinculada] = useState(false);
   const [generateError, setGenerateError] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
+
+  // ── Origen "curriculo-competencias": precarga desde el plan en servidor ──
+  const { data: planCurriculo } = trpc.curriculoCompetencias.getById.useQuery(
+    { id: cxcIdNum },
+    { enabled: esCurriculo }
+  );
+  const curriculoPrecargadoRef = useRef(false);
+  useEffect(() => {
+    if (!esCurriculo || !planCurriculo?.formData || curriculoPrecargadoRef.current) return;
+    curriculoPrecargadoRef.current = true;
+    const ctx = contextoAdaptacionDesdeCurriculo(planCurriculo.formData);
+    // Solo se completan los campos vacíos: no pisa lo que el docente ya escribió.
+    setForm((f) => {
+      const next = { ...f };
+      for (const [k, v] of Object.entries(ctx) as Array<[keyof typeof ctx, string]>) {
+        if (v && !f[k]) (next as any)[k] = v;
+      }
+      return next;
+    });
+  }, [esCurriculo, planCurriculo]);
 
   // Días que el docente selecciona para generar adaptaciones
   const diasDisponibles: string[] = (() => {
@@ -558,6 +584,7 @@ export default function AdaptacionCurricularScreen() {
             onPress={() => {
               if (semanaId) router.replace({ pathname: "/ver-semana/[id]", params: { id: semanaId } });
               else if (planId) router.replace({ pathname: "/ver-plan/[id]", params: { id: planId } });
+              else if (esCurriculo) router.replace({ pathname: "/curriculo-competencias/ver/[id]", params: { id: String(cxcIdNum) } } as any);
               else router.back();
             }}
             style={{ marginRight: 12 }}
@@ -571,6 +598,9 @@ export default function AdaptacionCurricularScreen() {
             )}
             {planId && (
               <Text style={{ fontSize: 11, color: colors.muted }}>Vinculando a planificación diaria</Text>
+            )}
+            {esCurriculo && (
+              <Text style={{ fontSize: 11, color: colors.muted }}>Desde planificación de Currículo por competencias</Text>
             )}
           </View>
         </View>
@@ -591,6 +621,15 @@ export default function AdaptacionCurricularScreen() {
               </View>
             )}
 
+            {esCurriculo && (
+              <View style={{ backgroundColor: "#DCFCE7", borderRadius: 10, padding: 10, borderWidth: 1, borderColor: "#16A34A", marginBottom: 14, flexDirection: "row", alignItems: "center", gap: 8 }}>
+                <Text style={{ fontSize: 16 }}>📋</Text>
+                <Text style={{ fontSize: 11, color: "#15803D", flex: 1 }}>
+                  Datos precargados desde tu planificación de Currículo por competencias (grado, competencia y datos informativos). Puedes ajustarlos para cada estudiante con NEE.
+                </Text>
+              </View>
+            )}
+
             <Field label="Institucion educativa" value={form.institucion} onChangeText={(v) => setField("institucion", v)} colors={colors} disabled={!!semanaId || !!planId} />
             <Field label="Docente" value={form.docente} onChangeText={(v) => setField("docente", v)} colors={colors} disabled={!!semanaId || !!planId} />
             <Field label="Año lectivo" value={form.anioLectivo} onChangeText={(v) => setField("anioLectivo", v)} colors={colors} />
@@ -600,7 +639,17 @@ export default function AdaptacionCurricularScreen() {
                 <Text style={{ fontSize: 12, fontWeight: "600", color: colors.muted }}>Grado / Curso</Text>
                 {(semanaId || planId) && <Text style={{ fontSize: 10, color: "#16A34A", fontWeight: "600" }}>✓ planificación</Text>}
               </View>
-              {(semanaId || planId) ? (
+              {esCurriculo ? (
+                // El plan puede traer un grado fuera de la lista de chips
+                // (p. ej. "Inicial 3-4 años" o varios grados en multigrado).
+                <TextInput
+                  value={form.grado}
+                  onChangeText={(v) => setField("grado", v)}
+                  placeholder="Ej: 8.° EGB"
+                  placeholderTextColor={colors.muted}
+                  style={[styles.input, { borderColor: colors.border, color: colors.text, backgroundColor: colors.surface, height: 40 }]}
+                />
+              ) : (semanaId || planId) ? (
                 <View style={[styles.input, { height: 40, justifyContent: "center", opacity: 0.75, backgroundColor: colors.surface + "BB" }]}>
                   <Text style={{ fontSize: 13, color: colors.muted, paddingHorizontal: 4 }}>{form.grado || "—"}</Text>
                 </View>

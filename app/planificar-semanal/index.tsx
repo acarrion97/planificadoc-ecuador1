@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   Text, View, ScrollView, TextInput, StyleSheet, Alert, Platform,
   ActivityIndicator, Switch, Pressable, FlatList, Modal,
@@ -18,6 +18,7 @@ import {
 } from "@/data";
 import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad, DcdDesagregacion } from "@/data/types";
 import { trpc } from "@/lib/trpc";
+import { objetivosOficialesTexto } from "@/lib/oficiales-curriculares";
 
 // ─── Colores DUA fijos ───────────────────────────────────────
 const DUA_ROSADO = "#EC4899";
@@ -148,6 +149,23 @@ export default function PlanificarSemanalScreen() {
     jueves: makeDia(true),
     viernes: makeDia(true),
   });
+
+  // ─── Objetivos OFICIALES de la unidad (catálogo MinEduc) ────────────────────
+  // Se rellenan con los objetivos de las DCD elegidas en la semana. Solo se
+  // pisan cuando el campo está vacío o cuando el valor actual es el que puso
+  // este efecto: lo que escriba el docente (p. ej. el criterio KAI/CAI) manda.
+  const objetivosOficialesSemana = objetivosOficialesTexto(
+    Object.values(dias).flatMap((d) => d.horas.map((h) => h.codigoDestreza))
+  );
+  const objetivosAutoRef = useRef("");
+  useEffect(() => {
+    if (!objetivosOficialesSemana) return;
+    if (!objetivosUnidad.trim() || objetivosUnidad === objetivosAutoRef.current) {
+      objetivosAutoRef.current = objetivosOficialesSemana;
+      setObjetivosUnidad(objetivosOficialesSemana);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [objetivosOficialesSemana]);
 
   // ── Resultado generado ──
   const [diasConPlanes, setDiasConPlanes] = useState<Record<string, { horaIndex: number; plan: any }[]>>({});
@@ -532,7 +550,7 @@ export default function PlanificarSemanalScreen() {
                   setAsignatura("");
                   setSelectedAreaCode("");
                 }}
-                  style={[styles.trimestreBtn, {
+                  style={[styles.wrapChip, {
                     borderColor: active ? "#003366" : colors.border,
                     backgroundColor: active ? "#003366" : colors.surface,
                   }]}>
@@ -558,7 +576,7 @@ export default function PlanificarSemanalScreen() {
                       if (active) { setAsignatura(""); setSelectedAreaCode(""); }
                       else { setAsignatura(info.name); setSelectedAreaCode(code); }
                     }}
-                      style={[styles.trimestreBtn, {
+                      style={[styles.wrapChip, {
                         borderColor: active ? info.color : colors.border,
                         backgroundColor: active ? info.color + "20" : colors.surface,
                         paddingHorizontal: 12,
@@ -1497,6 +1515,8 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, marginBottom: 4 },
   inputSm: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, marginTop: 4 },
   trimestreBtn: { flex: 1, paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center" },
+  // Chips de etiqueta larga en filas con wrap: base "auto" para que salten de línea en móvil en vez de comprimirse.
+  wrapChip: { flexGrow: 1, flexShrink: 1, flexBasis: "auto", maxWidth: "100%", paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   estiloRow: { flexDirection: "row", alignItems: "center", marginBottom: 8, gap: 6 },
   estiloLabel: { fontSize: 12, fontWeight: "600", width: 100 },
   estiloBarBg: { flex: 1, height: 10, borderRadius: 5, overflow: "hidden" },

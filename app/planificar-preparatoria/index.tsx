@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   Text, View, ScrollView, TextInput, StyleSheet, Alert, Platform,
   ActivityIndicator, Switch, Pressable, Modal,
@@ -14,6 +14,7 @@ import {
 } from "@/data";
 import type { Destreza, ConfiguracionDia, HoraSemanal, PlanificacionSemanal, TemaSugerido, DUAActividad } from "@/data/types";
 import { trpc } from "@/lib/trpc";
+import { objetivosOficialesTexto } from "@/lib/oficiales-curriculares";
 
 // Preparatoria (subnivel 1, 1.° EGB) se organiza por los 7 ámbitos del currículo
 // integrador, no por asignatura. Este flujo reutiliza el mismo backend y la misma
@@ -130,6 +131,23 @@ export default function PlanificarPreparatoriaScreen() {
     jueves: makeDia(true),
     viernes: makeDia(true),
   });
+
+  // ─── Objetivos OFICIALES de la unidad (catálogo MinEduc) ────────────────────
+  // Se rellenan con los objetivos de las DCD elegidas en la semana. Solo se
+  // pisan cuando el campo está vacío o cuando el valor actual es el que puso
+  // este efecto: lo que escriba el docente manda.
+  const objetivosOficialesSemana = objetivosOficialesTexto(
+    Object.values(dias).flatMap((d) => d.horas.map((h) => h.codigoDestreza))
+  );
+  const objetivosAutoRef = useRef("");
+  useEffect(() => {
+    if (!objetivosOficialesSemana) return;
+    if (!objetivosUnidad.trim() || objetivosUnidad === objetivosAutoRef.current) {
+      objetivosAutoRef.current = objetivosOficialesSemana;
+      setObjetivosUnidad(objetivosOficialesSemana);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [objetivosOficialesSemana]);
 
   // ── Resultado generado ──
   const [diasConPlanes, setDiasConPlanes] = useState<Record<string, { horaIndex: number; plan: any }[]>>({});
@@ -475,7 +493,7 @@ export default function PlanificarPreparatoriaScreen() {
               const active = ambitoSeleccionado === k;
               return (
                 <Pressable key={k} onPress={() => handleSelectAmbito(k)}
-                  style={[styles.trimestreBtn, {
+                  style={[styles.wrapChip, {
                     borderColor: active ? "#7C3AED" : colors.border,
                     backgroundColor: active ? "#7C3AED20" : colors.surface,
                     paddingHorizontal: 12,
@@ -1178,6 +1196,8 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, marginBottom: 4 },
   inputSm: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 13, marginTop: 4 },
   trimestreBtn: { flex: 1, paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center" },
+  // Chips de etiqueta larga en filas con wrap: base "auto" para que salten de línea en móvil en vez de comprimirse.
+  wrapChip: { flexGrow: 1, flexShrink: 1, flexBasis: "auto", maxWidth: "100%", paddingVertical: 8, borderRadius: 8, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   diaBlock: { borderWidth: 1, borderRadius: 12, marginBottom: 12, overflow: "hidden" },
   diaHeader: { flexDirection: "row", alignItems: "center", padding: 14, gap: 8 },
   diaTitulo: { fontSize: 16, fontWeight: "700", flex: 1 },

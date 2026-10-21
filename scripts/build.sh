@@ -5,3 +5,4 @@ npx expo export --platform web
 cp public/admin.html dist/admin.html
 cp public/privacy.html dist/privacy.html
 cp public/terms.html dist/terms.html
+mkdir -p dist/manual && cp -r public/manual/. dist/manual/

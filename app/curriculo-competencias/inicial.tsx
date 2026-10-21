@@ -14,14 +14,16 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { COMPETENCIAS_INICIAL, type CompetenciaInicial } from "@/data/competencias-especificas-inicial";
+import { AYUDA_COMPARTIR_COMUNIDAD } from "@/lib/curriculo-competencias-comunidad";
+import { ofrecerAdaptacionNEE, rutaAdaptacionDesdeCurriculo } from "@/lib/curriculo-competencias-nee";
+import { COMPETENCIAS_INICIAL, type CompetenciaInicialCompleta as CompetenciaInicial } from "@/data/competencias-especificas-inicial";
 
 type PasoFlujo = "contexto" | "competencias" | "datos" | "generar";
 
 const PASOS: { key: PasoFlujo; label: string }[] = [
-  { key: "contexto", label: "Contexto" },
-  { key: "competencias", label: "Competencias" },
-  { key: "datos", label: "Datos" },
+  { key: "contexto", label: "Contexto curricular" },
+  { key: "competencias", label: "Competencias específicas" },
+  { key: "datos", label: "Datos administrativos" },
   { key: "generar", label: "Generar" },
 ];
 
@@ -76,6 +78,9 @@ export default function InicialFormScreen() {
       setNoSemanas(fd.noSemanasClase?.toString() || "8");
       setTitulo(fd.situacionAprendizaje?.titulo || "");
       setSituacionAprendizaje(fd.situacionAprendizaje?.descripcion || "");
+      // Switches persistidos como columnas (no viven en formData)
+      setHayNEE(!!(planExistente as any).hayNEE);
+      setCompartir(!!(planExistente as any).compartida);
       if (fd.ambitos?.length > 0) {
         const codes = fd.ambitos.map((a: any) => a.competenciaCodigo).filter(Boolean);
         const selected = COMPETENCIAS_INICIAL.filter(c => codes.includes(c.codigo));
@@ -85,13 +90,27 @@ export default function InicialFormScreen() {
     }
   }, [planExistente]);
 
+  // ── Después de guardar: si hay NEE, ofrecer la adaptación curricular ──
+  const irTrasGuardar = (planId: number | string) => {
+    const verPlan = () => router.push(`/curriculo-competencias/ver/${planId}` as any);
+    if (!hayNEE) {
+      verPlan();
+      return;
+    }
+    ofrecerAdaptacionNEE(() => router.push(rutaAdaptacionDesdeCurriculo(planId) as any), verPlan);
+  };
+
   // ── Mutations ──
   const utils = trpc.useContext();
   const createMutation = trpc.curriculoCompetencias.createInicial.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
       utils.curriculoCompetencias.list.invalidate();
-      Alert.alert("Éxito", "Planificación creada correctamente");
-      router.back();
+      const nuevoId = (data as any)?.id;
+      if (nuevoId) {
+        irTrasGuardar(nuevoId);
+      } else {
+        router.back();
+      }
     },
     onError: () => {
       Alert.alert("Error", "No se pudo crear la planificación.");
@@ -101,8 +120,7 @@ export default function InicialFormScreen() {
   const updateMutation = trpc.curriculoCompetencias.updateInicial.useMutation({
     onSuccess: () => {
       utils.curriculoCompetencias.list.invalidate();
-      Alert.alert("Éxito", "Planificación actualizada correctamente");
-      router.back();
+      irTrasGuardar(id!);
     },
     onError: () => {
       Alert.alert("Error", "No se pudo actualizar la planificación.");
@@ -199,6 +217,8 @@ export default function InicialFormScreen() {
         descripcion: situacionAprendizaje,
       },
       ambitos: ambitosPayload,
+      hayNEE,
+      compartida: compartir,
     };
 
     if (isEdit) {
@@ -288,7 +308,7 @@ export default function InicialFormScreen() {
         </View>
       </View>
 
-      {renderSelect("Grado", grado, GRADOS, setGrado)}
+      {renderSelect("Grados del aula", grado, GRADOS, setGrado)}
 
       <View style={styles.fieldGroup}>
         <Text style={[styles.fieldLabel, { color: colors.muted }]}>Currículo integrado</Text>
@@ -296,16 +316,28 @@ export default function InicialFormScreen() {
           <Text style={{ color: colors.foreground, fontSize: 15 }}>CI — Currículo integrado</Text>
         </View>
       </View>
+
+      <Text style={[styles.helperText, { color: colors.muted, fontStyle: "italic" }]}>
+        Elige un grado o ambos. Cada grado será una columna en la planificación multigrado.
+      </Text>
     </View>
   );
 
   // ── Step 2: Competencias específicas ──
   const renderCompetencias = () => (
     <View>
-      {renderSectionHeader("Competencias específicas", "🧩")}
+      <View style={[styles.sectionHeader, { justifyContent: "space-between" }]}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <Text style={styles.sectionIcon}>🧩</Text>
+          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Competencias específicas</Text>
+        </View>
+        <Text style={[styles.sectionCounter, { color: colors.primary }]}>
+          {competenciasSeleccionadas.length} seleccionadas
+        </Text>
+      </View>
 
       <Text style={[styles.helperText, { color: colors.muted }]}>
-        Confirma que aquí están las competencias de tu materia. Los indicadores y saberes se resuelven al generar.
+        Elige al menos una competencia del subnivel Inicial. Los indicadores y saberes se resuelven por grado al generar.
       </Text>
 
       {/* Search */}
@@ -329,12 +361,14 @@ export default function InicialFormScreen() {
       {competenciasSeleccionadas.length > 0 && (
         <View style={{ marginBottom: 12 }}>
           <Text style={[styles.fieldLabel, { color: colors.muted }]}>
-            Competencias elegidas ({competenciasSeleccionadas.length})
+            Competencias elegidas
           </Text>
           <View style={styles.chipsWrap}>
             {competenciasSeleccionadas.map(comp => (
               <View key={comp.codigo} style={[styles.chip, { backgroundColor: "#EEEDFE", borderColor: "#7C3AED" }]}>
-                <Text style={[styles.chipCode, { color: "#4C1D95" }]}>{comp.codigo}</Text>
+                <Text style={[styles.chipCode, { color: "#4C1D95" }]}>
+                  Inicial · {comp.codigo}
+                </Text>
                 <Text style={[styles.chipDesc, { color: "#6D28D9" }]} numberOfLines={1}>
                   {comp.descripcion.length > 35 ? comp.descripcion.substring(0, 35) + "..." : comp.descripcion}
                 </Text>
@@ -349,7 +383,7 @@ export default function InicialFormScreen() {
 
       {/* Available list */}
       <Text style={[styles.fieldLabel, { color: colors.muted }]}>Agregar competencias</Text>
-      <View style={[styles.listaContainer, { borderColor: colors.border }]}>
+      <ScrollView nestedScrollEnabled style={[styles.listaContainer, { borderColor: colors.border }]}>
         {competenciasFiltradas.map(comp => (
           <Pressable
             key={comp.codigo}
@@ -367,10 +401,17 @@ export default function InicialFormScreen() {
               <Text style={[styles.listaDesc, { color: colors.foreground }]} numberOfLines={2}>
                 {comp.descripcion}
               </Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
+                {comp.competenciasClave.map(ck => (
+                  <View key={ck} style={[styles.ckBadge, { backgroundColor: colors.primary + "15", borderColor: colors.primary + "30" }]}>
+                    <Text style={[styles.ckBadgeText, { color: colors.primary }]}>{ck}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </Pressable>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 
@@ -379,19 +420,23 @@ export default function InicialFormScreen() {
     <View>
       {renderSectionHeader("Datos administrativos", "📋")}
 
-      {renderSelect("Trimestre", trimestre, TRIMESTRES, setTrimestre)}
+      {renderField("Institución", institucion, setInstitucion, {
+        placeholder: "Nombre de la unidad educativa",
+      })}
 
       <View style={styles.row}>
         <View style={{ flex: 1 }}>
-          {renderSelect("Paralelo", paralelo, PARALELOS, setParalelo)}
+          {renderSelect("Trimestre", trimestre, TRIMESTRES, setTrimestre)}
         </View>
         <View style={{ flex: 1 }}>
-          {renderField("N.° de semanas", noSemanas, setNoSemanas, { keyboard: "numeric" })}
+          {renderSelect("Paralelo", paralelo, PARALELOS, setParalelo)}
         </View>
       </View>
 
+      {renderField("N.° de semanas", noSemanas, setNoSemanas, { keyboard: "numeric" })}
+
       {renderField("Título", titulo, setTitulo, {
-        placeholder: "Ej: Pensamiento crítico, voz ética y creación",
+        placeholder: "Ej: Mis nuevos amigos, Explorando la naturaleza",
       })}
 
       {renderField("Situación de aprendizaje", situacionAprendizaje, setSituacionAprendizaje, {
@@ -400,12 +445,8 @@ export default function InicialFormScreen() {
       })}
 
       {renderField("Temas del trimestre", temasTrimestre, setTemasTrimestre, {
-        placeholder: "Opcional. Escribí un tema por línea.\nEj: Lenguas originarias del Ecuador\nDialectos del Ecuador",
+        placeholder: "Opcional. Escribí un tema por línea.\nEj: Mis emociones\nMi familia",
         multiline: true,
-      })}
-
-      {renderField("Institución", institucion, setInstitucion, {
-        placeholder: "Nombre de la unidad educativa",
       })}
 
       {renderField("Docente", docente, setDocente, {
@@ -429,7 +470,7 @@ export default function InicialFormScreen() {
       <View style={[styles.toggleRow, { borderColor: colors.border }]}>
         <View style={{ flex: 1 }}>
           <Text style={[styles.toggleLabel, { color: colors.foreground }]}>¿Compartir con la comunidad?</Text>
-          <Text style={[styles.toggleSub, { color: colors.muted }]}>Otros docentes podrán ver y clonar tu planificación.</Text>
+          <Text style={[styles.toggleSub, { color: colors.muted }]}>{AYUDA_COMPARTIR_COMUNIDAD}</Text>
         </View>
         <Switch
           value={compartir}
@@ -519,14 +560,14 @@ export default function InicialFormScreen() {
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         {/* Header */}
         <View className="px-5 pt-4 pb-2">
-          <Text className="text-base text-muted">
-            {isEdit ? "Editar Planificación" : "Nueva microcurricular por competencias"}
+          <Text className="text-sm text-muted">
+            {isEdit ? "Editar Planificación" : "MÓDULO EXPERIMENTAL · FASE PILOTO (ZONA 6)"}
           </Text>
           <Text className="text-2xl font-bold text-foreground">
-            Currículo por Competencias — Inicial
+            {isEdit ? "Editar microcurricular por competencias · multigrado" : "Nueva microcurricular por competencias · multigrado"}
           </Text>
           <Text className="text-sm text-muted mt-1">
-            Elige las competencias del trimestre; la IA arma las semanas.
+            Elige competencias del subnivel Inicial; la IA arma las semanas de cada grado.
           </Text>
         </View>
 
@@ -613,6 +654,7 @@ const styles = StyleSheet.create({
   },
   sectionIcon: { fontSize: 20 },
   sectionTitle: { fontSize: 18, fontWeight: "700" },
+  sectionCounter: { fontSize: 13, fontWeight: "600" },
   helperText: { fontSize: 13, marginBottom: 12, lineHeight: 18 },
   fieldGroup: { marginBottom: 14 },
   fieldLabel: { fontSize: 12, fontWeight: "600", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 },
@@ -630,6 +672,8 @@ const styles = StyleSheet.create({
   checkbox: { width: 20, height: 20, borderRadius: 4, borderWidth: 2, alignItems: "center", justifyContent: "center", marginTop: 2 },
   listaCodigo: { fontSize: 13, fontWeight: "700", marginBottom: 2 },
   listaDesc: { fontSize: 12, lineHeight: 17 },
+  ckBadge: { paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, borderWidth: 1 },
+  ckBadgeText: { fontSize: 10, fontWeight: "600" },
   toggleRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: 14, borderRadius: 10, borderWidth: 1, marginBottom: 10 },
   toggleLabel: { fontSize: 14, fontWeight: "600" },
   toggleSub: { fontSize: 12, marginTop: 2 },

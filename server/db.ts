@@ -427,6 +427,16 @@ export async function getPcaDocument(id: number) {
 }
 
 /**
+ * Delete a PCA document by ID (Mis planes → Eliminar, design D10).
+ */
+export async function deletePcaDocument(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(pcaDocuments).where(eq(pcaDocuments.id, id));
+}
+
+/**
  * Update the AI result and mark as generated.
  */
 export async function setPcaAiResult(id: number, aiResult: string): Promise<void> {

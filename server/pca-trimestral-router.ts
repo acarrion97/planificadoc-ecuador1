@@ -11,6 +11,12 @@ import {
   getPcaDocumentsBySession,
 } from "./db";
 import { TODAS_LAS_DESTREZAS } from "../data/index";
+import {
+  conOficial,
+  indicadoresOficialesTexto,
+  objetivosOficiales,
+  objetivosOficialesTexto,
+} from "../lib/oficiales-curriculares";
 
 const PCA_TRIMESTRAL_PRICE_CENTS = 999; // $9.99
 
@@ -110,8 +116,17 @@ function buildPcaTrimestralPrompt(input: z.infer<typeof FormDataTrimestralSchema
     const tituloLinea = u.titulo?.trim()
       ? `TÍTULO PREDEFINIDO (úsalo exactamente, no lo cambies): "${u.titulo.trim()}"`
       : "";
+    // Objetivos e indicadores OFICIALES del catálogo MinEduc: la IA no los
+    // redacta, únicamente los transcribe tal cual (o el docente impone los suyos).
+    const objOficiales = objetivosOficialesTexto(u.dcdsSeleccionadas);
+    const indOficiales = indicadoresOficialesTexto(u.dcdsSeleccionadas);
     const objetivosLinea = u.objetivosEspecificos?.trim()
       ? `OBJETIVOS PREDEFINIDOS (úsalos exactamente, no los cambies): "${u.objetivosEspecificos.trim()}"`
+      : objOficiales
+        ? `OBJETIVOS OFICIALES DEL CATÁLOGO MINEDUC (copia este texto EXACTAMENTE en "objetivosEspecificos", sin redactar nada nuevo):\n${objOficiales}`
+        : "";
+    const indicadoresLinea = indOficiales
+      ? `INDICADORES DE EVALUACIÓN OFICIALES DEL CATÁLOGO MINEDUC (copia este texto EXACTAMENTE en "evaluacion", sin redactar indicadores nuevos):\n${indOficiales}`
       : "";
     const modeloFases = input.modeloPedagogico === "ACC"
       ? "Anticipación, Construcción y Consolidación"
@@ -125,9 +140,17 @@ function buildPcaTrimestralPrompt(input: z.infer<typeof FormDataTrimestralSchema
       `Duración: ${u.duracionSemanas} semanas`,
       tituloLinea,
       objetivosLinea,
+      indicadoresLinea,
       deporteLinea,
     ].filter(Boolean).join("\n");
   }).join("\n\n");
+
+  // Objetivos oficiales de TODO el trimestre: unión de los objetivos de las DCD
+  // de todas las unidades (sin repetir), que es lo que debe ir en
+  // "objetivosTrimestre".
+  const objTrimestreOficiales = objetivosOficialesTexto(
+    input.unidades.flatMap((u) => u.dcdsSeleccionadas)
+  );
 
   const eflCtx = input.area === "EFL"
     ? `\n🇬🇧 IDIOMA OBLIGATORIO: Esta planificación es para LENGUA EXTRANJERA (INGLÉS). Todos los títulos de unidades, objetivos específicos, contenidos, actividades de las fases ${input.modeloPedagogico === "ACC" ? "Anticipación, Construcción y Consolidación" : "Experiencia, Reflexión, Conceptualización y Aplicación"} e indicadores de evaluación DEBEN estar redactados EN INGLÉS. Solo los campos administrativos (institución, docente, año lectivo) permanecen en español.`
@@ -161,6 +184,9 @@ DATOS DEL PERÍODO:
 UNIDADES DEL TRIMESTRE:
 ${unidadesTexto}
 
+OBJETIVOS OFICIALES DEL ${input.trimestre.toUpperCase()} (catálogo MinEduc) — usa EXACTAMENTE este texto en "objetivosTrimestre", sin reformularlo:
+${objTrimestreOficiales || "(El catálogo no trae objetivos para estas DCD: redáctalos alineados al currículo oficial.)"}
+
 TAXONOMÍA DE MARZANO — aplica estos niveles en cada fase ${input.modeloPedagogico}:
 ${input.modeloPedagogico === "ACC" ? `- ANTICIPACIÓN → Nivel 1 Recuperación (activar saberes previos: reconocer, recordar, ejecutar procedimientos conocidos)
 - CONSTRUCCIÓN → Niveles 2-3 Comprensión y Análisis (integrar, representar, comparar, clasificar, analizar errores, generalizar)
@@ -193,7 +219,7 @@ GENERA ÚNICAMENTE JSON con esta estructura exacta, sin texto adicional, sin blo
           }`}
         }
       ],
-      "evaluacion": "OBLIGATORIO (no dejar vacío): 3-5 indicadores de logro específicos y observables para las DCD trabajadas, articulados con las técnicas de evaluación elegidas. Cada indicador inicia con verbo en infinitivo observable (ej: Demuestra, Ejecuta, Analiza, Resuelve, Crea).",
+      "evaluacion": "OBLIGATORIO (no dejar vacío): si la unidad trae INDICADORES OFICIALES, transcríbelos tal cual. Si no, escribe 3-5 indicadores de logro específicos y observables para las DCD trabajadas, articulados con las técnicas de evaluación elegidas. Cada indicador inicia con verbo en infinitivo observable (ej: Demuestra, Ejecuta, Analiza, Resuelve, Crea).",
       "duracionSemanas": número
     }
   ]
@@ -205,14 +231,71 @@ REGLAS OBLIGATORIAS:
 - Aplica Taxonomía de Marzano: nivel 1 en Experiencia/Anticipación, niveles 2-3 en Reflexión/Construcción, nivel 4 en Aplicación/Consolidación
 - Exactamente 2 actividades por fase (ni más, ni menos). Concisas pero específicas y progresivas dentro de cada nivel de Marzano
 - Alinea todo al currículo priorizado vigente del Ministerio de Educación del Ecuador
-- El campo "evaluacion" es OBLIGATORIO: NUNCA lo dejes vacío ni como "". Escribe mínimo 3 indicadores de logro específicos y medibles para las DCD de esa unidad
+- El campo "evaluacion" es OBLIGATORIO: NUNCA lo dejes vacío ni como "". Cuando la unidad traiga INDICADORES OFICIALES DEL CATÁLOGO, usa exactamente esos textos; si no, escribe mínimo 3 indicadores de logro específicos y medibles para las DCD de esa unidad
 - Los indicadores DEBEN articularse con las técnicas de evaluación elegidas
-- Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo)
+- Los objetivos del trimestre DEBEN ser específicos para el ${input.trimestre} (no del año completo) y, si se indicaron OBJETIVOS OFICIALES, transcríbelos tal cual
 - Usa lenguaje técnico-pedagógico apropiado para el nivel educativo
 - Responde SOLO con el JSON, sin nada más`;
 }
 
 // ─── Router ──────────────────────────────────────────────────────────────────
+
+type UnidadFormPct = z.infer<typeof UnidadSchema>;
+
+/** Texto que guarda la IA para cada unidad de la PCT. */
+interface UnidadPctIa {
+  numero: number;
+  objetivosEspecificos: string;
+  evaluacion: string;
+  [k: string]: any;
+}
+
+/**
+ * Sustituye en una unidad de la PCT los indicadores de evaluación y, si el
+ * docente no escribió los suyos en el formulario, los objetivos específicos,
+ * por los textos OFICIALES del catálogo MinEduc (si los hay).
+ */
+function aplicarOficialesUnidadPct(
+  unidad: UnidadPctIa | undefined,
+  form: UnidadFormPct | undefined
+): void {
+  if (!unidad) return;
+  const dcds = form?.dcdsSeleccionadas ?? [];
+
+  const indicadores = indicadoresOficialesTexto(dcds);
+  if (indicadores) unidad.evaluacion = indicadores;
+
+  if (!form?.objetivosEspecificos?.trim()) {
+    const objetivos = objetivosOficialesTexto(dcds);
+    if (objetivos) unidad.objetivosEspecificos = objetivos;
+  }
+}
+
+/**
+ * Prioriza los textos OFICIALES del catálogo MinEduc sobre lo redactado por la IA:
+ *
+ * - `evaluacion` (indicadores) y `objetivosTrimestre`: se sustituyen siempre que
+ *   el catálogo trae texto para las DCD seleccionadas.
+ * - `objetivosEspecificos`: solo si el docente NO escribió los suyos en el
+ *   formulario —su entrada explícita manda sobre el catálogo—.
+ *
+ * Si el catálogo no tiene texto para esas DCD se conserva lo que generó la IA.
+ */
+function aplicarOficialesPct(
+  aiResult: { objetivosTrimestre: string; unidades: UnidadPctIa[] },
+  unidades: UnidadFormPct[]
+): void {
+  const objTrimestre = objetivosOficialesTexto(
+    unidades.flatMap((u) => u.dcdsSeleccionadas)
+  );
+  if (objTrimestre) aiResult.objetivosTrimestre = objTrimestre;
+
+  aiResult.unidades.forEach((unidad, idx) => {
+    const form =
+      unidades.find((f) => f.numero === unidad.numero) ?? unidades[idx];
+    aplicarOficialesUnidadPct(unidad, form);
+  });
+}
 
 export const pcaTrimestralRouter = router({
   /**
@@ -323,7 +406,12 @@ export const pcaTrimestralRouter = router({
             : [],
         };
 
-        // 5. Guardar resultado en BD (status → "generated")
+        // 5. Objetivos e indicadores OFICIALES del catálogo MinEduc: el texto del
+        //    Ministerio tiene prioridad sobre lo redactado por la IA. Los objetivos
+        //    que escribió el docente en el formulario se conservan tal cual.
+        aplicarOficialesPct(aiResult, input.formData.unidades);
+
+        // 6. Guardar resultado en BD (status → "generated")
         await setPcaAiResult(docId, JSON.stringify(aiResult));
 
         // 6. Si es suscriptor anual, desbloquear automáticamente
@@ -458,6 +546,35 @@ Responde SOLO con JSON: {"evaluacion": "Indicador 1... Indicador 2... Indicador 
         responseKey = "evaluacion_unidad";
       }
 
+      // Indicadores y objetivos del trimestre salen del catálogo oficial del
+      // MinEduc: si el catálogo trae texto para esas DCD no hay nada que
+      // regenerar con IA, se devuelve el texto oficial tal cual.
+      const oficialSeccion =
+        input.seccion === "objetivos_trimestre"
+          ? objetivosOficialesTexto(
+              formData.unidades?.flatMap((u: any) => u.dcdsSeleccionadas)
+            )
+          : input.seccion === "evaluacion_unidad" && input.unidadNumero != null
+            ? indicadoresOficialesTexto(
+                formData.unidades?.find(
+                  (u: any) => u.numero === input.unidadNumero
+                )?.dcdsSeleccionadas
+              )
+            : "";
+
+      if (oficialSeccion) {
+        if (input.seccion === "objetivos_trimestre") {
+          aiResult.objetivosTrimestre = oficialSeccion;
+        } else if (input.unidadNumero != null) {
+          const idx = aiResult.unidades?.findIndex(
+            (u: any) => u.numero === input.unidadNumero
+          );
+          if (idx >= 0) aiResult.unidades[idx].evaluacion = oficialSeccion;
+        }
+        await setPcaAiResult(input.pcaId, JSON.stringify(aiResult));
+        return { success: true, aiResult };
+      }
+
       try {
         const result = await invokeLLM({
           messages: [
@@ -503,6 +620,16 @@ Responde SOLO con JSON: {"evaluacion": "Indicador 1... Indicador 2... Indicador 
           }
         } else if (responseKey === "objetivos_trimestre") {
           aiResult.objetivosTrimestre = parsed.objetivos_trimestre || aiResult.objetivosTrimestre;
+        }
+
+        // Los textos OFICIALES del catálogo MinEduc mandan sobre lo que acaba de
+        // redactar la IA, pero SOLO en la unidad regenerada: así no se pisan las
+        // ediciones que el docente hizo en las otras.
+        if (input.unidadNumero != null) {
+          aplicarOficialesUnidadPct(
+            aiResult.unidades?.find((u: any) => u.numero === input.unidadNumero),
+            formData.unidades?.find((u: any) => u.numero === input.unidadNumero)
+          );
         }
 
         await setPcaAiResult(input.pcaId, JSON.stringify(aiResult));
@@ -565,12 +692,27 @@ Responde SOLO con JSON válido:
         });
         const raw    = result.choices[0]?.message?.content;
         const parsed = JSON.parse(typeof raw === "string" ? raw : "{}");
+        // La IA puede devolver arrays/objetivos en vez de strings ("objetivosEspecificos":
+        // ["…", "…"]); si se guardan así, el cliente luego revienta con
+        // "objetivosEspecificos.trim is not a function". Siempre se normaliza.
+        const aTexto = (v: any): string => {
+          if (typeof v === "string") return v;
+          if (v === null || v === undefined) return "";
+          if (Array.isArray(v)) return v.map(aTexto).filter(Boolean).join("\n");
+          if (typeof v === "object") return Object.values(v).map(aTexto).filter(Boolean).join("\n");
+          return String(v);
+        };
         return {
-          success:              true,
-          coherente:            parsed.coherente !== false,
-          titulo:               parsed.titulo               || "",
-          objetivosEspecificos: parsed.objetivosEspecificos || "",
-          mensajeAlerta:        parsed.mensajeAlerta        || "",
+          success:       true,
+          coherente:     parsed.coherente !== false,
+          titulo:        aTexto(parsed.titulo),
+          // Los objetivos oficiales del catálogo MinEduc tienen prioridad sobre
+          // los que redacta la IA.
+          objetivosEspecificos: conOficial(
+            objetivosOficiales(input.dcdsSeleccionadas),
+            aTexto(parsed.objetivosEspecificos || parsed.objetivos_especificos)
+          ),
+          mensajeAlerta: aTexto(parsed.mensajeAlerta),
         };
       } catch (err: any) {
         return { success: false, coherente: false, titulo: "", objetivosEspecificos: "", mensajeAlerta: err.message };

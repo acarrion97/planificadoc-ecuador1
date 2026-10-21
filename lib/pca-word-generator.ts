@@ -19,6 +19,7 @@ import {
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { iconosDcdRuns } from "./dcd-iconos";
+import { prepararBloques, referenciaDcd } from "./codigos-curriculares";
 
 // ─── Utilidad ─────────────────────────────────────────────────────────────────
 /** Convierte cualquier valor a string seguro (la IA puede devolver objetos) */
@@ -117,6 +118,29 @@ function textPara(
     spacing: { before: 45, after: 45 },
     children: [run(text || "—", bold, size, color)],
   });
+}
+
+/**
+ * Párrafos de objetivos e indicadores: el código curricular oficial del
+ * catálogo (O.CN.B.5.2, I.CN.B.5.1.1) en negrita arriba del texto, igual que
+ * en la columna de destrezas. Si el texto lo redactó la IA —sin código— no se
+ * inventa ninguno: se agrega una referencia con el código de la DCD.
+ */
+function parrafosConCodigo(
+  textos: string | string[],
+  codigosDcd?: string | Array<string | null | undefined> | null,
+  size = SZ9
+): Paragraph[] {
+  const { referencia, bloques } = prepararBloques(textos, codigosDcd);
+  const out: Paragraph[] = [];
+  if (referencia) {
+    out.push(textPara(referencia, true, Math.max(size - 2, SZ6), AlignmentType.LEFT, "555555"));
+  }
+  for (const b of bloques) {
+    if (b.codigo) out.push(textPara(b.codigo, true, size));
+    out.push(textPara(b.texto, false, size));
+  }
+  return out.length > 0 ? out : [textPara("—", false, size)];
 }
 
 // Bordes de celda estándar
@@ -366,20 +390,59 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
   // ── Sección 3: OBJETIVOS GENERALES ──
   const objetivosHeader = sectionHeaderRow("3. OBJETIVOS GENERALES");
 
+  const etiquetaPara = (label: string) =>
+    new Paragraph({
+      spacing: { before: 35, after: 10 },
+      children: [run(label, true, SZ9, COLOR_PRIMARY_DARK)],
+    });
+
+  // Códigos DCD del PCA: referencia única cuando los objetivos generales los
+  // redactó la IA (no traen código oficial del catálogo).
+  const codigosPca = [
+    ...new Set(
+      unidades.flatMap((u: any) =>
+        (u.dcdsSeleccionadas || []).map((d: any) => d.codigo).filter(Boolean)
+      )
+    ),
+  ];
+  const objetivosSinCodigo =
+    prepararBloques(toStr(aiResult?.objetivosArea)).bloques.some((b) => !b.codigo) ||
+    prepararBloques(toStr(aiResult?.objetivosGrado)).bloques.some((b) => !b.codigo);
+  const objetivosRef = objetivosSinCodigo ? referenciaDcd(codigosPca) : "";
+
   const objetivosData = new TableRow({
     children: [
       makeCell({
-        paragraphs: labeledPara("Objetivos del área:", toStr(aiResult?.objetivosArea) || "—"),
+        paragraphs: [
+          etiquetaPara("Objetivos del área:"),
+          // Código oficial en negrita arriba; si la IA lo redactó, sin inventar códigos
+          ...parrafosConCodigo(toStr(aiResult?.objetivosArea)),
+        ],
         span: 4,
         width: COL_W[0] + COL_W[1] + COL_W[2] + COL_W[3],
       }),
       makeCell({
-        paragraphs: labeledPara("Objetivos del grado / curso:", toStr(aiResult?.objetivosGrado) || "—"),
+        paragraphs: [
+          etiquetaPara("Objetivos del grado / curso:"),
+          ...parrafosConCodigo(toStr(aiResult?.objetivosGrado)),
+        ],
         span: 3,
         width: COL_W[4] + COL_W[5] + COL_W[6],
       }),
     ],
   });
+
+  const objetivosRefRow: TableRow | null = objetivosRef
+    ? new TableRow({
+        children: [
+          makeCell({
+            paragraphs: [textPara(objetivosRef, true, SZ8, AlignmentType.LEFT, "555555")],
+            span: 7,
+            width: CONTENT_W,
+          }),
+        ],
+      })
+    : null;
 
   // ── Sección 4: INSERCIONES CURRICULARES ──
   const insercionesHeader = sectionHeaderRow("4. INSERCIONES CURRICULARES");
@@ -435,6 +498,8 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
         )
       : [textPara("—", false, SZ7)];
 
+    const codigosUnidad = (unidad.dcdsSeleccionadas || []).map((d: any) => d.codigo);
+
     return new TableRow({
       height: { value: UNIDAD_ROW_MIN_HEIGHT, rule: HeightRule.ATLEAST },
       children: [
@@ -448,7 +513,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
           width: COL_W[1],
         }),
         makeCell({
-          paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ9)],
+          paragraphs: parrafosConCodigo(toStr(aiU.objetivosEspecificos), codigosUnidad, SZ9),
           width: COL_W[2],
         }),
         makeCell({
@@ -460,7 +525,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
           width: COL_W[4],
         }),
         makeCell({
-          paragraphs: [textPara(toStr(aiU.evaluacion) || "—", false, SZ9)],
+          paragraphs: parrafosConCodigo(toStr(aiU.evaluacion), codigosUnidad, SZ9),
           width: COL_W[5],
         }),
         makeCell({
@@ -527,6 +592,7 @@ export async function generarWordPca(formData: any, aiResult: any): Promise<Blob
       tiempoData,
       objetivosHeader,
       objetivosData,
+      ...(objetivosRefRow ? [objetivosRefRow] : []),
       insercionesHeader,
       insercionesData,
       unidadesHeader,

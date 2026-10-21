@@ -73,6 +73,13 @@ interface AccessContextValue {
     error?: string;
     exists?: boolean;
   }>;
+  // Recuperación de contraseña (código de un solo uso al correo)
+  requestPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
+  resetPasswordWithCode: (email: string, code: string, password: string) => Promise<{
+    success: boolean;
+    error?: string;
+    attemptsLeft?: number;
+  }>;
   logoutAccount: () => Promise<void>;
   // Legacy / subscription
   unlockWithCode: (code: string) => Promise<{ success: boolean; blocked?: boolean; message?: string }>;
@@ -237,6 +244,39 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  // ─── AUTH: Recuperación de contraseña (código al correo) ───────────────
+  const requestPasswordReset = useCallback(async (email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const baseUrl = getApiBaseUrl();
+      const res = await fetch(`${baseUrl}/api/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase() }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error };
+      return { success: true };
+    } catch {
+      return { success: false, error: "Error de conexión. Verifica tu internet." };
+    }
+  }, []);
+
+  const resetPasswordWithCode = useCallback(async (email: string, code: string, password: string): Promise<{ success: boolean; error?: string; attemptsLeft?: number }> => {
+    try {
+      const baseUrl = getApiBaseUrl();
+      const res = await fetch(`${baseUrl}/api/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), code: code.trim(), password }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error, attemptsLeft: data.attemptsLeft };
+      return { success: true };
+    } catch {
+      return { success: false, error: "Error de conexión. Verifica tu internet." };
+    }
+  }, []);
+
   // ─── AUTH: Logout ────────────────────────────────────────────────────────
   const logoutAccount = useCallback(async () => {
     setAuth({ isLoggedIn: false, token: null, email: null, nombre: null });
@@ -334,6 +374,8 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
         authNombre: auth.nombre,
         loginWithPassword,
         registerAccount,
+        requestPasswordReset,
+        resetPasswordWithCode,
         logoutAccount,
         unlockWithCode,
         unlockWithSubscription,

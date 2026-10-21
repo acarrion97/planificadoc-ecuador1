@@ -365,3 +365,154 @@ export function estrategiasMetodologicasPorSubnivel(
 ): EstrategiasMetodologicasCNC | null {
   return ESTRATEGIAS_METODOLOGICAS_POR_SUBNIVEL[subnivel] ?? null;
 }
+
+// ─── Herramientas oficiales de evaluación diagnóstica (2026) ─────────────────
+
+/**
+ * Las CUATRO herramientas que el MinEduc sugiere para el diseño de la
+ * evaluación diagnóstica, con sus reglas de diseño.
+ *
+ * Fuente: "Herramientas sugeridas para la evaluación diagnóstica" (Ministerio
+ * de Educación, Deporte y Cultura del Ecuador, 2026) — secciones 1 a 4.
+ *
+ * Complementa (no reemplaza) la calibración por subnivel de la "Caja de
+ * herramientas" 2020 de más arriba: aquella dice QUÉ técnica/instrumento es
+ * apropiado para cada subnivel; ésta dice CÓMO debe diseñarse el instrumento
+ * para que sea diagnóstico y no una prueba de memorización.
+ *
+ * A diferencia de la calibración por subnivel, este bloque aplica a TODOS los
+ * niveles y ofertas, incluido Bachillerato Técnico.
+ */
+export interface HerramientaDiagnosticaOficial {
+  nombre: string;
+  /** Para qué sirve, según la fuente */
+  proposito: string;
+  /** Reglas de diseño que la fuente exige para esta herramienta */
+  reglas: string[];
+}
+
+export const FUENTE_HERRAMIENTAS_DIAGNOSTICAS =
+  "Herramientas sugeridas para la evaluación diagnóstica (MinEduc, 2026)";
+
+/**
+ * Etapas del sistema cognitivo de la taxonomía de Marzano que la fuente exige
+ * considerar al plantear preguntas de diagnóstico abiertas (sección 1).
+ */
+export const ETAPAS_MARZANO_DIAGNOSTICO = [
+  "recuperación del conocimiento",
+  "comprensión",
+  "análisis",
+  "utilización del conocimiento (aplicación)",
+  "metacognición",
+] as const;
+
+/**
+ * Escala de valoración CUALITATIVA de la rúbrica de evaluación diagnóstica.
+ *
+ * Fuente: "Herramientas sugeridas para la evaluación diagnóstica" (MinEduc,
+ * 2026), sección 2 "Rúbricas cualitativas" —
+ * rúbrica de ejemplo de cuarto grado.
+ *
+ * NO confundir con `NIVELES_DESEMPENO_RUBRICA` (data/types-cnc.ts), que es la
+ * escala 10-1 de la rúbrica del proyecto interdisciplinar de las Semanas 4-5.
+ * La evaluación diagnóstica es cualitativa por definición ("valoración de
+ * manera cualitativa del estado de desarrollo de los aprendizajes"), por lo
+ * que no lleva rangos numéricos.
+ */
+export const ESCALA_VALORACION_DIAGNOSTICA = [
+  "Inicial",
+  "En desarrollo",
+  "Alcanzado",
+  "Destacado",
+] as const;
+
+export const HERRAMIENTAS_DIAGNOSTICAS_OFICIALES: HerramientaDiagnosticaOficial[] = [
+  {
+    nombre: "Preguntas de diagnóstico abiertas",
+    proposito:
+      "identificar los conocimientos y habilidades con los que ya cuenta el estudiantado sobre una temática",
+    reglas: [
+      `recorre las etapas del sistema cognitivo de la taxonomía de Marzano: ${ETAPAS_MARZANO_DIAGNOSTICO.join(", ")}`,
+      "el error frecuente que debe evitarse es quedarse SOLO en recuperación del conocimiento o memorización (preguntas literales del tipo \"¿qué es X?\")",
+      "trasciende la memorización SIN usar lenguaje complejo para el estudiantado",
+      "cada pregunta parte de una situación concreta e imaginable antes de pedir la respuesta",
+      "incluye siempre al menos una pregunta de metacognición, en todos los subniveles y niveles",
+    ],
+  },
+  {
+    nombre: "Rúbrica cualitativa",
+    proposito:
+      "valorar el progreso frente a aprendizajes previos que son prerrequisito para avanzar",
+    reglas: [
+      "es una matriz de criterios (indicadores de evaluación reales) por niveles de logro",
+      `escala de valoración cualitativa: ${ESCALA_VALORACION_DIAGNOSTICA.join(" / ")} (sin rangos numéricos: el diagnóstico es cualitativo)`,
+      "cada celda describe conductas observables, no adjetivos sueltos",
+      "se aplica DESPUÉS de una actividad lúdico-pedagógica que active el aprendizaje previo (p. ej. estaciones rotativas), durante la cual el o la docente observa y hace preguntas exploratorias",
+      "puede aplicarse de forma grupal o individual",
+    ],
+  },
+  {
+    nombre: "Lista de cotejo",
+    proposito:
+      "verificar si el estudiantado ha interiorizado una o varias temáticas y habilidades ya aprendidas",
+    reglas: [
+      "formato de tres columnas: Indicadores de evaluación | Sí | No | Observaciones",
+      "los criterios son indicadores de evaluación REALES de las destrezas vinculadas con los objetivos de aprendizaje del nuevo año escolar",
+      "se aplica luego de un insumo detonante (video educativo, historia, cuento, conversatorio) sobre la temática a evaluar",
+      "sirve tanto para valoración individual como grupal",
+    ],
+  },
+  {
+    nombre: "Prueba objetiva",
+    proposito: "recoger evidencia uniforme de conocimientos previos en un tiempo determinado",
+    reglas: [
+      "debe cumplir cuatro características: objetividad (criterios de corrección claros y uniformes), validez (evalúa los aprendizajes previstos), confiabilidad (resultados consistentes) e intencionalidad (responde a un propósito evaluativo definido)",
+      "cada ítem parte de un PLANTEAMIENTO o situación previa (texto, imagen o caso) que el estudiantado lee y analiza antes de responder",
+      "agrupa ítems de distinto formato: formato simple (selección simple), ordenamiento, completamiento y emparejamiento",
+      "prioriza la recuperación del conocimiento y su comprensión (los niveles superiores se exploran mejor con preguntas abiertas)",
+      "el o la docente DEBE retroalimentar los resultados para promover la metacognición, en el aula o de forma descriptiva en la misma prueba",
+    ],
+  },
+];
+
+/**
+ * Énfasis cognitivo que la fuente ejemplifica para cada subnivel/nivel
+ * (sección 1, ejemplo "Ley de la conservación de la energía"). Solo se
+ * registran los subniveles que la fuente nombra explícitamente: para los
+ * demás no se inventa un énfasis, se aplica únicamente la regla general
+ * (trascender la memorización + metacognición en todos los niveles).
+ */
+const ENFASIS_MARZANO_POR_SUBNIVEL: Partial<Record<Subnivel, string>> = {
+  2: "recuperación del conocimiento y comprensión",
+  4: "análisis (comparar y contrastar)",
+  5: "utilización del conocimiento (aplicación a un problema real)",
+};
+
+/** Énfasis cognitivo ejemplificado por la fuente para ese subnivel, o `null`. */
+export function enfasisMarzanoPorSubnivel(subnivel: Subnivel): string | null {
+  return ENFASIS_MARZANO_POR_SUBNIVEL[subnivel] ?? null;
+}
+
+/**
+ * Bloque de texto con las cuatro herramientas oficiales y sus reglas de
+ * diseño, listo para inyectar en un prompt de IA. A diferencia de
+ * `textoCalibracionInstrumento`, NO depende del subnivel y nunca devuelve
+ * `null`: la fuente aplica a todos los niveles y ofertas.
+ *
+ * `subnivel` es opcional y solo agrega el énfasis cognitivo que la fuente
+ * ejemplifica para ese subnivel, si lo nombra.
+ */
+export function textoHerramientasDiagnosticasOficiales(subnivel?: Subnivel | null): string {
+  const enfasis = subnivel != null ? enfasisMarzanoPorSubnivel(subnivel) : null;
+  return [
+    "HERRAMIENTAS OFICIALES PARA LA EVALUACIÓN DIAGNÓSTICA (aplican a todos los niveles y ofertas):",
+    "La evaluación diagnóstica valora de manera CUALITATIVA el estado de desarrollo de los aprendizajes al inicio del proceso, previo al abordaje curricular del curso. Debe usar herramientas no tradicionales que superen la mera recuperación de conocimientos por memorización.",
+    ...HERRAMIENTAS_DIAGNOSTICAS_OFICIALES.map(
+      (h) => `- ${h.nombre} — ${h.proposito}:\n${h.reglas.map((r) => `    · ${r}`).join("\n")}`
+    ),
+    enfasis
+      ? `Énfasis cognitivo ejemplificado por la fuente para este subnivel: ${enfasis}. La metacognición se pregunta en TODOS los subniveles y niveles.`
+      : "La fuente no ejemplifica un énfasis cognitivo para este subnivel: aplica la regla general (trascender la memorización y preguntar siempre metacognición).",
+    `(Fuente: ${FUENTE_HERRAMIENTAS_DIAGNOSTICAS})`,
+  ].join("\n");
+}

@@ -10,7 +10,25 @@ import type {
 import {
   normalizarPlanificacionEGBBGU,
   normalizarPlanificacionInicial,
+  normalizarPlanificacionMultigrado,
+  validarSubnivelHomogeneo,
 } from "../lib/curriculo-competencias-normalizer";
+import { ceDisponibleParaGrados, obtenerMateria } from "../data/competencias-especificas-egb-bgu";
+import {
+  determinarFamiliaExportacion,
+  type FamiliaExportacionCurriculoCompetencias,
+} from "../lib/curriculo-competencias-familia";
+import {
+  anonimizarFormData,
+  resumenPlanComunidad,
+  rutaEdicionCurriculoCompetencias,
+} from "../lib/curriculo-competencias-comunidad";
+
+/** Switches del formulario (opcionales: si no llegan, la columna no se toca). */
+const SwitchesInput = {
+  hayNEE: z.boolean().optional(),
+  compartida: z.boolean().optional(),
+};
 
 // ============================================================
 // ZOD SCHEMAS DE ENTRADA
@@ -116,6 +134,7 @@ const PlanificacionEGBBGUInput = z.object({
   sourceDocument: z.string().optional(),
   sourceSection: z.string().optional(),
   sourceVersion: z.string().optional(),
+  ...SwitchesInput,
 });
 
 /** Datos para crear/actualizar una planificación Inicial/Preparatoria */
@@ -123,10 +142,21 @@ const PlanificacionInicialInput = z.object({
   sessionId: z.string().min(1),
   id: z.string().optional(),
   grado: z.string().optional(),
+  nivel: z.string().optional(),
   institucion: z.string().optional(),
   docente: z.string().optional(),
   duracion: z.string().optional(),
+  trimestre: z.string().optional(),
+  paralelo: z.string().optional(),
+  periodoPedagogico: z.string().optional(),
+  noSemanasClase: z.number().optional(),
   objetivoGeneral: z.string().optional(),
+  situacionAprendizaje: z
+    .object({
+      titulo: z.string().optional(),
+      descripcion: z.string().optional(),
+    })
+    .optional(),
   ambitos: z
     .array(
       z.object({
@@ -219,6 +249,89 @@ const PlanificacionInicialInput = z.object({
   sourceDocument: z.string().optional(),
   sourceSection: z.string().optional(),
   sourceVersion: z.string().optional(),
+  ...SwitchesInput,
+});
+
+/** Datos para crear/actualizar una planificación multigrado de Currículo Integrado EGB/BGU */
+const PlanificacionMultigradoInput = z.object({
+  sessionId: z.string().min(1),
+  id: z.string().optional(),
+  institucion: z.string().optional(),
+  docente: z.string().optional(),
+  paralelo: z.string().optional(),
+  asignatura: z.string().optional(),
+  trimestre: z.string().optional(),
+  noSemanasClase: z.number().optional(),
+  nivel: z.string().optional(),
+  grados: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        nivel: z.string().optional(),
+        grado: z.string().optional(),
+        bloqueCurricular: z
+          .object({
+            indicadores: z.array(z.string()).optional(),
+            declarativos: z.array(z.string()).optional(),
+            procedimentales: z.array(z.string()).optional(),
+            actitudinales: z.array(z.string()).optional(),
+          })
+          .optional(),
+      })
+    )
+    .min(2, "La modalidad multigrado requiere 2 o más grados"),
+  competenciaEspecifica: z
+    .union([
+      z.object({
+        codigo: z.string().optional(),
+        descripcion: z.string().optional(),
+      }),
+      z.array(z.object({
+        codigo: z.string().optional(),
+        descripcion: z.string().optional(),
+      })),
+    ])
+    .optional(),
+  situacionAprendizaje: z
+    .object({
+      titulo: z.string().optional(),
+      descripcion: z.string().optional(),
+    })
+    .optional(),
+  conexionInterdisciplinar: z
+    .object({
+      asignaturas: z.array(z.string()).optional(),
+    })
+    .optional(),
+  semanas: z
+    .array(
+      z.object({
+        numero: z.number().optional(),
+        tema: z.string().optional(),
+        actividades: z
+          .array(
+            z.object({
+              gradoId: z.string().optional(),
+              estrategiasDUA: z
+                .object({
+                  inicio: z.string().optional(),
+                  desarrollo: z.string().optional(),
+                  cierre: z.string().optional(),
+                })
+                .optional(),
+              recursos: z.string().optional(),
+              tecnica: z.string().optional(),
+              instrumento: z.string().optional(),
+            })
+          )
+          .optional(),
+      })
+    )
+    .optional(),
+  sourceDocument: z.string().optional(),
+  sourceSection: z.string().optional(),
+  sourceVersion: z.string().optional(),
+  ...SwitchesInput,
 });
 
 // ============================================================
@@ -227,6 +340,101 @@ const PlanificacionInicialInput = z.object({
 
 function ensureTable(db: Awaited<ReturnType<typeof getDb>>): asserts db is NonNullable<Awaited<ReturnType<typeof getDb>>> {
   if (!db) throw new Error("Base de datos no disponible");
+}
+
+/**
+ * El driver mysql2 de drizzle resuelve un INSERT como la tupla cruda
+ * [ResultSetHeader, FieldPacket[]] (no como el ResultSetHeader directo),
+ * así que `insertId` vive en res[0], no en res. Leerlo directo de `res`
+ * devuelve undefined y el cliente termina navegando a un id inexistente.
+ */
+function extractInsertId(res: unknown): number | undefined {
+  const header = Array.isArray(res) ? res[0] : res;
+  const id = (header as any)?.insertId;
+  return typeof id === "number" ? id : undefined;
+}
+
+/**
+ * Revalida en el servidor lo que el wizard ya debería haber impedido en el
+ * cliente: todos los grados pertenecen al mismo subnivel, y la CE elegida
+ * cubre todos los grados seleccionados. Defensa en profundidad — un payload
+ * manipulado no debe poder persistir una combinación inválida (design.md D4).
+ */
+export function validarPlanificacionMultigrado(input: {
+  grados: Array<{ nivel?: string; grado?: string }>;
+  asignatura?: string;
+  competenciaEspecifica?: { codigo?: string; descripcion?: string } | Array<{ codigo?: string; descripcion?: string }>;
+}): void {
+  const grados = input.grados.map((g) => ({ nivel: (g.nivel ?? "").trim() }));
+  const subnivel = validarSubnivelHomogeneo(grados);
+  if (!subnivel.valido) {
+    throw new Error(
+      `Los grados seleccionados pertenecen a subniveles distintos (${subnivel.nivelesEncontrados.join(", ")}); la modalidad multigrado requiere que todos compartan el mismo subnivel.`
+    );
+  }
+
+  // Support both single and array CE format
+  const ces = Array.isArray(input.competenciaEspecifica)
+    ? input.competenciaEspecifica
+    : input.competenciaEspecifica ? [input.competenciaEspecifica] : [];
+
+  if (!input.asignatura || ces.length === 0) {
+    throw new Error("Falta la asignatura o las Competencias Específicas de la planificación multigrado.");
+  }
+
+  const nombresGrados = input.grados.map((g) => (g.grado ?? "").trim()).filter(Boolean);
+  for (const ce of ces) {
+    const ceCodigo = ce.codigo?.trim();
+    if (!ceCodigo) continue;
+    const cobertura = ceDisponibleParaGrados(input.asignatura, ceCodigo, nombresGrados);
+    if (!cobertura.valido) {
+      throw new Error(
+        `La Competencia Específica ${ceCodigo} no cubre el/los grado(s): ${cobertura.gradosNoCubiertos.join(", ")}.`
+      );
+    }
+  }
+}
+
+export { determinarFamiliaExportacion };
+export type { FamiliaExportacionCurriculoCompetencias };
+
+/** Columnas agregadas después de la creación original de la tabla (migración 0010). */
+const COLUMNAS_TARDIAS: Array<{ nombre: string; ddl: string }> = [
+  { nombre: "hay_nee", ddl: "`hay_nee` boolean NOT NULL DEFAULT false" },
+  { nombre: "compartida", ddl: "`compartida` boolean NOT NULL DEFAULT false" },
+];
+
+/** Una vez agregadas las columnas en este proceso, no se repiten los ALTER. */
+let columnasTardiasListas = false;
+
+function esColumnaDuplicada(err: any): boolean {
+  const codigo = err?.code ?? err?.cause?.code;
+  const errno = err?.errno ?? err?.cause?.errno;
+  const mensaje = `${err?.message ?? ""} ${err?.cause?.message ?? ""}`;
+  return codigo === "ER_DUP_FIELDNAME" || errno === 1060 || /Duplicate column/i.test(mensaje);
+}
+
+/**
+ * Agrega en caliente `hay_nee` y `compartida` si la BD todavía no tiene la
+ * migración 0010. Cada columna va en su propio ALTER para que una ya
+ * existente ("Duplicate column") no impida agregar la otra.
+ */
+async function ensureColumnasTardias(db: any): Promise<void> {
+  if (columnasTardiasListas) return;
+  let todasOk = true;
+  for (const col of COLUMNAS_TARDIAS) {
+    try {
+      await db.execute(
+        `ALTER TABLE \`curriculo_competencias_planificaciones\` ADD COLUMN ${col.ddl}`
+      );
+    } catch (err: any) {
+      if (!esColumnaDuplicada(err)) {
+        todasOk = false;
+        console.warn(`[DB] ensureColumnasTardias (${col.nombre}) warning:`, err?.message);
+      }
+    }
+  }
+  columnasTardiasListas = todasOk;
 }
 
 async function ensureCurriculoCompetenciasTable(): Promise<void> {
@@ -249,6 +457,8 @@ async function ensureCurriculoCompetenciasTable(): Promise<void> {
         \`dcd_codigo\` varchar(32),
         \`competencias\` text,
         \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
+        \`hay_nee\` boolean NOT NULL DEFAULT false,
+        \`compartida\` boolean NOT NULL DEFAULT false,
         \`form_data\` text NOT NULL,
         \`ai_result\` text,
         \`source_traceability\` text,
@@ -262,6 +472,65 @@ async function ensureCurriculoCompetenciasTable(): Promise<void> {
       console.warn("[DB] ensureCurriculoCompetenciasTable warning:", err?.message);
     }
   }
+  // Tablas creadas antes de la migración 0010 no tienen los switches.
+  await ensureColumnasTardias(db);
+}
+
+/**
+ * Flags de los switches del formulario. `undefined` = no tocar la columna
+ * (p. ej. el formulario egb-bgu.tsx no tiene estos switches).
+ */
+function flagsDesdeInput(input: { hayNEE?: boolean; compartida?: boolean }) {
+  const flags: { hayNEE?: boolean; compartida?: boolean } = {};
+  if (typeof input.hayNEE === "boolean") flags.hayNEE = input.hayNEE;
+  if (typeof input.compartida === "boolean") flags.compartida = input.compartida;
+  return flags;
+}
+
+/**
+ * Solo el dueño (misma sessionId con la que se creó) puede cambiar los
+ * switches de un plan; así nadie puede publicar en la comunidad el plan de
+ * otro docente enviando `compartida: true` en un update.
+ */
+async function esDuenoDelPlan(
+  db: NonNullable<Awaited<ReturnType<typeof getDb>>>,
+  id: number,
+  sessionId: string
+): Promise<boolean> {
+  const rows = await db
+    .select({ sessionId: curriculoCompetenciasPlanificaciones.sessionId })
+    .from(curriculoCompetenciasPlanificaciones)
+    .where(eq(curriculoCompetenciasPlanificaciones.id, id))
+    .limit(1);
+  return rows.length > 0 && rows[0].sessionId === sessionId;
+}
+
+/** Límite máximo de tarjetas por página en el listado "Comunidad". */
+const LIMITE_COMUNIDAD_MAX = 50;
+
+/**
+ * Fila pública de la comunidad: nunca expone sessionId, docente, institución
+ * ni paralelo; el formData pasa por anonimizarFormData.
+ */
+function planComunidadPublico(row: {
+  id: number;
+  tipo: string;
+  asignatura: string | null;
+  createdAt: Date | null;
+  formData: string;
+}) {
+  let data: any = null;
+  try {
+    data = JSON.parse(row.formData);
+  } catch {
+    data = null;
+  }
+  const formData = anonimizarFormData(data ?? {});
+  return {
+    ...resumenPlanComunidad({ ...row, formData }),
+    tipo: row.tipo,
+    formData,
+  };
 }
 
 // ============================================================
@@ -297,6 +566,8 @@ export const curriculoCompetenciasRouter = router({
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
           : null,
+        // Al crear, quien envía la sessionId es el dueño.
+        ...flagsDesdeInput(input),
       };
 
       const res = await db
@@ -304,7 +575,7 @@ export const curriculoCompetenciasRouter = router({
         .values(row);
 
       return {
-        id: (res as any).insertId as number,
+        id: extractInsertId(res),
         plan,
       };
     }),
@@ -325,18 +596,28 @@ export const curriculoCompetenciasRouter = router({
         grado: plan.grado || null,
         institucion: plan.institucion || null,
         docente: plan.docente || null,
-        paralelo: null,
+        paralelo: plan.paralelo || null,
         asignatura: null,
+        // La columna `nivel` es un enum ["EGB","BGU"] pensado para el tipo
+        // egb_bgu; los niveles de Currículo Integrado ("ELEMENTAL", etc.)
+        // no encajan ahí, así que se dejan solo en formData.
         nivel: null,
-        periodoPedagogico: null,
-        trimestre: null,
+        periodoPedagogico: plan.periodoPedagogico || null,
+        trimestre: plan.trimestre || null,
         dcdCodigo: null,
         competencias: null,
-        status: "draft" as const,
+        // No hay un paso separado de "guardar borrador": el botón del
+        // formulario dice "Generar planificación" y ya arma el documento
+        // completo, así que el plan queda "generated" desde que se crea
+        // (nada en el cliente llama updateStatus, por lo que "draft" se
+        // quedaba fijo para siempre).
+        status: "generated" as const,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
           : null,
+        // Al crear, quien envía la sessionId es el dueño.
+        ...flagsDesdeInput(input),
       };
 
       const res = await db
@@ -344,7 +625,58 @@ export const curriculoCompetenciasRouter = router({
         .values(row);
 
       return {
-        id: (res as any).insertId as number,
+        id: extractInsertId(res),
+        plan,
+      };
+    }),
+
+  // ── CREATE MULTIGRADO (CURRÍCULO INTEGRADO EGB/BGU) ──────────────
+  createMultigrado: publicProcedure
+    .input(PlanificacionMultigradoInput)
+    .mutation(async ({ input }) => {
+      validarPlanificacionMultigrado(input);
+
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const plan = normalizarPlanificacionMultigrado(input, input.id);
+
+      const row = {
+        sessionId: input.sessionId,
+        // Se reutiliza el mismo bucket que Inicial/Integrado single-grade;
+        // `formData.modalidad` es el discriminador explícito que evita
+        // extender la heurística de prefijo de código (design.md D2).
+        tipo: "inicial_preparatoria" as const,
+        // La columna `grado` (varchar corto) no alcanza para listar 2..N
+        // grados combinados; la lista real vive en formData.grados.
+        grado: null,
+        institucion: plan.institucion || null,
+        docente: plan.docente || null,
+        paralelo: plan.paralelo || null,
+        asignatura: plan.asignatura || null,
+        nivel: null,
+        periodoPedagogico: null,
+        trimestre: plan.trimestre || null,
+        dcdCodigo: null,
+        competencias: plan.competenciasEspecifica?.length
+          ? JSON.stringify(plan.competenciasEspecifica.map((c) => c.codigo).filter(Boolean))
+          : null,
+        status: "generated" as const,
+        formData: JSON.stringify(plan),
+        sourceTraceability: plan.source
+          ? JSON.stringify(plan.source)
+          : null,
+        // Al crear, quien envía la sessionId es el dueño.
+        ...flagsDesdeInput(input),
+      };
+
+      const res = await db
+        .insert(curriculoCompetenciasPlanificaciones)
+        .values(row);
+
+      return {
+        id: extractInsertId(res),
         plan,
       };
     }),
@@ -353,6 +685,8 @@ export const curriculoCompetenciasRouter = router({
   getById: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
+      // select() lee todas las columnas: deben existir hay_nee/compartida.
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return null;
 
@@ -386,6 +720,7 @@ export const curriculoCompetenciasRouter = router({
       })
     )
     .query(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return [];
 
@@ -411,14 +746,36 @@ export const curriculoCompetenciasRouter = router({
           paralelo: curriculoCompetenciasPlanificaciones.paralelo,
           dcdCodigo: curriculoCompetenciasPlanificaciones.dcdCodigo,
           status: curriculoCompetenciasPlanificaciones.status,
+          compartida: curriculoCompetenciasPlanificaciones.compartida,
+          hayNEE: curriculoCompetenciasPlanificaciones.hayNEE,
           createdAt: curriculoCompetenciasPlanificaciones.createdAt,
+          formData: curriculoCompetenciasPlanificaciones.formData,
         })
         .from(curriculoCompetenciasPlanificaciones)
         .where(and(...conditions))
         .orderBy(desc(curriculoCompetenciasPlanificaciones.createdAt))
         .limit(50);
 
-      return rows;
+      // `tipo` no distingue Inicial de Currículo Integrado EGB/BGU (ambos se
+      // guardan como "inicial_preparatoria"), así que se deriva la familia real
+      // desde formData sin enviar el JSON completo al cliente.
+      return rows.map(({ formData, ...row }) => {
+        let data: any = null;
+        try {
+          data = JSON.parse(formData as string);
+        } catch {
+          data = null;
+        }
+        const familia = determinarFamiliaExportacion({ tipo: row.tipo, formData: data });
+        const gradosResumen =
+          familia === "curriculo_integrado_multigrado" && Array.isArray(data?.grados)
+            ? data.grados.map((g: any) => g?.grado).filter(Boolean).join(", ")
+            : null;
+        const asignaturaNombre = row.asignatura
+          ? obtenerMateria(row.asignatura)?.nombre ?? row.asignatura
+          : null;
+        return { ...row, familia, gradosResumen, asignaturaNombre };
+      });
     }),
 
   // ── UPDATE EGB/BGU ──────────────────────────────────────────────
@@ -448,9 +805,16 @@ export const curriculoCompetenciasRouter = router({
           : null,
       };
 
+      // Los switches solo se escriben si quien edita es el dueño del plan.
+      const flags = flagsDesdeInput(input);
+      const conFlags =
+        Object.keys(flags).length > 0 && (await esDuenoDelPlan(db, input.id, input.sessionId))
+          ? { ...row, ...flags }
+          : row;
+
       await db
         .update(curriculoCompetenciasPlanificaciones)
-        .set(row)
+        .set(conFlags)
         .where(
           eq(curriculoCompetenciasPlanificaciones.id, input.id)
         );
@@ -472,15 +836,71 @@ export const curriculoCompetenciasRouter = router({
         grado: plan.grado || null,
         institucion: plan.institucion || null,
         docente: plan.docente || null,
+        paralelo: plan.paralelo || null,
+        periodoPedagogico: plan.periodoPedagogico || null,
+        trimestre: plan.trimestre || null,
         formData: JSON.stringify(plan),
         sourceTraceability: plan.source
           ? JSON.stringify(plan.source)
           : null,
       };
 
+      // Los switches solo se escriben si quien edita es el dueño del plan.
+      const flags = flagsDesdeInput(input);
+      const conFlags =
+        Object.keys(flags).length > 0 && (await esDuenoDelPlan(db, input.id, input.sessionId))
+          ? { ...row, ...flags }
+          : row;
+
       await db
         .update(curriculoCompetenciasPlanificaciones)
-        .set(row)
+        .set(conFlags)
+        .where(
+          eq(curriculoCompetenciasPlanificaciones.id, input.id)
+        );
+
+      return { success: true };
+    }),
+
+  // ── UPDATE MULTIGRADO (CURRÍCULO INTEGRADO EGB/BGU) ──────────────
+  updateMultigrado: publicProcedure
+    .input(PlanificacionMultigradoInput.extend({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      validarPlanificacionMultigrado(input);
+
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const plan = normalizarPlanificacionMultigrado(input);
+
+      const row = {
+        grado: null,
+        institucion: plan.institucion || null,
+        docente: plan.docente || null,
+        paralelo: plan.paralelo || null,
+        asignatura: plan.asignatura || null,
+        nivel: null,
+        trimestre: plan.trimestre || null,
+        competencias: plan.competenciasEspecifica?.length
+          ? JSON.stringify(plan.competenciasEspecifica.map((c) => c.codigo).filter(Boolean))
+          : null,
+        formData: JSON.stringify(plan),
+        sourceTraceability: plan.source
+          ? JSON.stringify(plan.source)
+          : null,
+      };
+
+      // Los switches solo se escriben si quien edita es el dueño del plan.
+      const flags = flagsDesdeInput(input);
+      const conFlags =
+        Object.keys(flags).length > 0 && (await esDuenoDelPlan(db, input.id, input.sessionId))
+          ? { ...row, ...flags }
+          : row;
+
+      await db
+        .update(curriculoCompetenciasPlanificaciones)
+        .set(conFlags)
         .where(
           eq(curriculoCompetenciasPlanificaciones.id, input.id)
         );
@@ -509,6 +929,181 @@ export const curriculoCompetenciasRouter = router({
         );
 
       return { success: true };
+    }),
+
+  // ── DUPLICAR (Mis planes, design D10) ────────────────────────────
+  // Copia la fila completa en una NUEVA (mismo formData, timestamps por
+  // defecto). El modelo de datos no cambia y el original queda intacto.
+  // `paid` no se copia: el desbloqueo de descargas es por documento.
+  duplicate: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .limit(1);
+      if (rows.length === 0) throw new Error("Planificación no encontrada");
+
+      const f = rows[0];
+      await db.insert(curriculoCompetenciasPlanificaciones).values({
+        sessionId: f.sessionId,
+        tipo: f.tipo,
+        grado: f.grado,
+        institucion: f.institucion,
+        docente: f.docente,
+        paralelo: f.paralelo,
+        asignatura: f.asignatura,
+        nivel: f.nivel,
+        periodoPedagogico: f.periodoPedagogico,
+        trimestre: f.trimestre,
+        dcdCodigo: f.dcdCodigo,
+        competencias: f.competencias,
+        status: f.status === "paid" ? "generated" : f.status,
+        formData: f.formData,
+        aiResult: f.aiResult,
+        sourceTraceability: f.sourceTraceability,
+        hayNEE: f.hayNEE,
+        // Una copia nunca se publica sola en la comunidad.
+        compartida: false,
+      });
+
+      return { success: true };
+    }),
+
+  // ── COMUNIDAD: listar planificaciones compartidas ────────────────
+  // Biblioteca comunitaria: solo filas con compartida=true, más recientes
+  // primero, anonimizadas (sin sessionId, docente, institución, paralelo,
+  // firmantes ni datos de estudiantes).
+  listCompartidas: publicProcedure
+    .input(
+      z
+        .object({
+          limit: z.number().int().min(1).max(LIMITE_COMUNIDAD_MAX).optional(),
+          offset: z.number().int().min(0).optional(),
+        })
+        .optional()
+    )
+    .query(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      if (!db) return { items: [], hayMas: false };
+
+      const limit = input?.limit ?? 20;
+      const offset = input?.offset ?? 0;
+
+      const rows = await db
+        .select({
+          id: curriculoCompetenciasPlanificaciones.id,
+          tipo: curriculoCompetenciasPlanificaciones.tipo,
+          asignatura: curriculoCompetenciasPlanificaciones.asignatura,
+          createdAt: curriculoCompetenciasPlanificaciones.createdAt,
+          formData: curriculoCompetenciasPlanificaciones.formData,
+        })
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(eq(curriculoCompetenciasPlanificaciones.compartida, true))
+        .orderBy(desc(curriculoCompetenciasPlanificaciones.createdAt))
+        // Se pide una fila extra para saber si hay otra página.
+        .limit(limit + 1)
+        .offset(offset);
+
+      const pagina = rows.slice(0, limit);
+      return {
+        // La tarjeta no necesita el formData completo.
+        items: pagina.map((r) => {
+          const { formData: _omitido, ...resumen } = planComunidadPublico(r as any);
+          return resumen;
+        }),
+        hayMas: rows.length > limit,
+      };
+    }),
+
+  // ── COMUNIDAD: ver una planificación compartida (solo lectura) ───
+  getCompartidaById: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      if (!db) return null;
+
+      const rows = await db
+        .select({
+          id: curriculoCompetenciasPlanificaciones.id,
+          tipo: curriculoCompetenciasPlanificaciones.tipo,
+          asignatura: curriculoCompetenciasPlanificaciones.asignatura,
+          createdAt: curriculoCompetenciasPlanificaciones.createdAt,
+          formData: curriculoCompetenciasPlanificaciones.formData,
+        })
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.compartida, true)
+          )
+        )
+        .limit(1);
+
+      if (rows.length === 0) return null;
+      return planComunidadPublico(rows[0] as any);
+    }),
+
+  // ── COMUNIDAD: duplicar como mío ─────────────────────────────────
+  // Crea una copia propia (sessionId de quien duplica, compartida=false)
+  // a partir del formData ANONIMIZADO: el autor original no viaja en la copia.
+  duplicarCompartida: publicProcedure
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
+    .mutation(async ({ input }) => {
+      await ensureCurriculoCompetenciasTable();
+      const db = await getDb();
+      ensureTable(db);
+
+      const rows = await db
+        .select()
+        .from(curriculoCompetenciasPlanificaciones)
+        .where(
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.compartida, true)
+          )
+        )
+        .limit(1);
+      if (rows.length === 0) throw new Error("La planificación ya no está compartida.");
+
+      const f = rows[0];
+      const formData = anonimizarFormData(JSON.parse(f.formData as string)) as any;
+      formData.sessionId = input.sessionId;
+
+      const res = await db.insert(curriculoCompetenciasPlanificaciones).values({
+        sessionId: input.sessionId,
+        tipo: f.tipo,
+        grado: f.grado,
+        institucion: null,
+        docente: null,
+        paralelo: null,
+        asignatura: f.asignatura,
+        nivel: f.nivel,
+        periodoPedagogico: f.periodoPedagogico,
+        trimestre: f.trimestre,
+        dcdCodigo: f.dcdCodigo,
+        competencias: f.competencias,
+        // `paid` no se hereda: el desbloqueo de descargas es por documento.
+        status: f.status === "paid" ? "generated" : f.status,
+        formData: JSON.stringify(formData),
+        aiResult: null,
+        sourceTraceability: f.sourceTraceability,
+        hayNEE: false,
+        compartida: false,
+      });
+
+      const id = extractInsertId(res);
+      return {
+        id,
+        rutaEdicion: id ? rutaEdicionCurriculoCompetencias(f.tipo, formData, id) : null,
+      };
     }),
 
   // ── DELETE ───────────────────────────────────────────────────────
@@ -549,17 +1144,38 @@ export const curriculoCompetenciasRouter = router({
       const row = rows[0];
       const data = JSON.parse(row.formData as string);
 
+      const familia = determinarFamiliaExportacion({ tipo: row.tipo, formData: data });
+
       let blob: Blob;
-      if (row.tipo === "inicial_preparatoria") {
-        const { generarCurriculoCompetenciasWordInicial } = await import(
-          "../lib/curriculo-competencias-inicial-word-generator"
-        );
-        blob = await generarCurriculoCompetenciasWordInicial(data);
-      } else {
-        const { generarCurriculoCompetenciasWordEGBBGU } = await import(
-          "../lib/curriculo-competencias-word-generator"
-        );
-        blob = await generarCurriculoCompetenciasWordEGBBGU(data);
+      switch (familia) {
+        case "curriculo_integrado_inicial": {
+          const { generarCurriculoCompetenciasWordInicial } = await import(
+            "../lib/curriculo-competencias-inicial-word-generator"
+          );
+          blob = await generarCurriculoCompetenciasWordInicial(data);
+          break;
+        }
+        case "curriculo_integrado_single": {
+          const { generarCurriculoCompetenciasWordEGBBGUIntegrado } = await import(
+            "../lib/curriculo-competencias-egb-bgu-integrado-word-generator"
+          );
+          blob = await generarCurriculoCompetenciasWordEGBBGUIntegrado(data);
+          break;
+        }
+        case "curriculo_integrado_multigrado": {
+          const { generarDocxMultigrado } = await import(
+            "../lib/curriculo-competencias-egb-bgu-integrado-word-generator"
+          );
+          blob = await generarDocxMultigrado(data);
+          break;
+        }
+        case "egb_bgu_dcd":
+        default: {
+          const { generarCurriculoCompetenciasWordEGBBGU } = await import(
+            "../lib/curriculo-competencias-word-generator"
+          );
+          blob = await generarCurriculoCompetenciasWordEGBBGU(data);
+        }
       }
 
       const buffer = await blob.arrayBuffer();
@@ -593,6 +1209,10 @@ export const curriculoCompetenciasRouter = router({
       const row = rows[0];
       const data = JSON.parse(row.formData as string);
 
+      // A diferencia de exportWord, este generador unificado ya distingue
+      // internamente por `modalidad`/`ambitos` (ver
+      // lib/curriculo-competencias-pdf-generator.ts) — no hace falta repetir
+      // aquí la lógica de determinarFamiliaExportacion.
       const { generarCurriculoCompetenciasPdf } = await import(
         "../lib/curriculo-competencias-pdf-generator"
       );
@@ -695,5 +1315,241 @@ Responde ÚNICAMENTE con JSON válido:
       }
 
       return resultado;
+    }),
+
+  // ── SUGERENCIA IA: título/descripción de la situación de aprendizaje ──
+  // (Currículo Integrado — usa competencias específicas CE.*, no DCD)
+  sugerirSituacionAprendizaje: publicProcedure
+    .input(
+      z.object({
+        materia: z.string().optional(),
+        nivel: z.string().optional(),
+        grado: z.string().optional(),
+        competencias: z
+          .array(z.object({ codigo: z.string(), descripcion: z.string() }))
+          .min(1),
+        temasTrimestre: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const competenciasTexto = input.competencias
+        .map((c) => `- ${c.codigo}: ${c.descripcion}`)
+        .join("\n");
+
+      const prompt = `Eres un experto en el Currículo Integrado por Competencias del Ministerio de Educación del Ecuador.
+
+CONTEXTO:
+- Materia: ${input.materia || "No especificada"}
+- Nivel: ${input.nivel || "No especificado"}
+- Grado/Curso: ${input.grado || "No especificado"}
+- Competencias específicas seleccionadas para el trimestre:
+${competenciasTexto}
+${input.temasTrimestre ? `- Temas del trimestre ya definidos por el docente: ${input.temasTrimestre}` : ""}
+
+SOLICITUD:
+Sugiere un título y una descripción breve para la "situación de aprendizaje" (el hilo conductor del trimestre) que integre las competencias listadas.
+
+REGLAS:
+- El título debe ser corto (máximo 10 palabras), concreto y motivador para estudiantes del grado indicado — no repitas literalmente el texto de una competencia.
+- La descripción debe tener 1-2 oraciones, explicando qué van a explorar o producir los estudiantes y por qué conecta con las competencias.
+- No inventes competencias, códigos ni destrezas fuera de las listadas.
+- Si ya hay temas del trimestre definidos por el docente, el título y la descripción deben ser coherentes con ellos.
+
+Responde ÚNICAMENTE con JSON válido:
+{
+  "titulo": "string",
+  "descripcion": "string"
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación microcurricular del sistema educativo ecuatoriano. Responde siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 400,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: { titulo?: string; descripcion?: string };
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      if (!parsed.titulo || typeof parsed.titulo !== "string") {
+        throw new Error("La IA no devolvió un título válido. Intenta de nuevo.");
+      }
+
+      return {
+        titulo: parsed.titulo,
+        descripcion: typeof parsed.descripcion === "string" ? parsed.descripcion : "",
+      };
+    }),
+
+  // ── SUGERENCIA IA: semanas multigrado (tema común + actividad por grado) ──
+  sugerirSemanasMultigrado: publicProcedure
+    .input(
+      z.object({
+        materia: z.string().optional(),
+        nivel: z.string().optional(),
+        competenciasEspecifica: z
+          .array(
+            z.object({
+              codigo: z.string(),
+              descripcion: z.string(),
+            })
+          )
+          .min(1),
+        situacionAprendizaje: z
+          .object({
+            titulo: z.string().optional(),
+            descripcion: z.string().optional(),
+          })
+          .optional(),
+        temasTrimestre: z.string().optional(),
+        noSemanas: z.number().min(1).max(20),
+        grados: z
+          .array(
+            z.object({
+              id: z.string(),
+              grado: z.string(),
+              bloqueCurricular: z.object({
+                indicadores: z.array(z.string()),
+                declarativos: z.array(z.string()),
+                procedimentales: z.array(z.string()),
+                actitudinales: z.array(z.string()),
+              }),
+            })
+          )
+          .min(2),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { invokeLLM, repairJson } = await import("./_core/llm");
+
+      const temasList = (input.temasTrimestre || "")
+        .split("\n")
+        .map((t) => t.trim())
+        .filter(Boolean);
+
+      const gradosTexto = input.grados
+        .map((g) => {
+          const b = g.bloqueCurricular;
+          return `Grado "${g.id}" (${g.grado}):
+- Indicadores: ${b.indicadores.join(" | ") || "—"}
+- Saberes declarativos: ${b.declarativos.join(" | ") || "—"}
+- Saberes procedimentales: ${b.procedimentales.join(" | ") || "—"}
+- Saberes actitudinales: ${b.actitudinales.join(" | ") || "—"}`;
+        })
+        .join("\n\n");
+
+      const prompt = `Eres un experto en el Currículo Integrado por Competencias del Ministerio de Educación del Ecuador, especializado en planificación para aulas MULTIGRADO (varios grados combinados en un mismo espacio y trimestre).
+
+CONTEXTO:
+- Materia: ${input.materia || "No especificada"}
+- Subnivel: ${input.nivel || "No especificado"}
+- Competencia(s) específica(s): ${input.competenciasEspecifica.map((c) => `${c.codigo} — ${c.descripcion}`).join(" / ")}
+- Situación de aprendizaje: ${input.situacionAprendizaje?.titulo || "No especificada"}. ${input.situacionAprendizaje?.descripcion || ""}
+${temasList.length > 0 ? `- Temas sugeridos por el docente, uno por semana en orden: ${temasList.join(" | ")}` : "- El docente no definió temas; propón un tema por semana coherente con la competencia y la situación de aprendizaje."}
+- Número de semanas: ${input.noSemanas}
+
+GRADOS COMBINADOS EN ESTA AULA MULTIGRADO (usa exactamente estos "id" al responder, en el mismo orden que aparecen):
+${gradosTexto}
+
+SOLICITUD:
+Genera el contenido de las ${input.noSemanas} semanas del trimestre. Cada semana tiene UN tema común para todos los grados, y UNA actividad diferenciada POR GRADO (usando el "id" de cada grado tal cual, sin modificarlo).
+
+REGLAS:
+- No inventes destrezas, saberes ni códigos curriculares fuera de los ya listados arriba para cada grado — las actividades deben basarse en esos indicadores y saberes, no en contenido nuevo.
+- Diferencia la complejidad de la actividad según el grado: los grados que aparecen después en la lista deben tener actividades de mayor profundidad/análisis que los primeros, aunque compartan el mismo tema semanal.
+- Cada actividad de grado debe tener: "inicio" (activación/motivación breve), "desarrollo" (actividad principal), "cierre" (síntesis/producto), "recursos" (recurso didáctico concreto, sin inventar URLs específicas), "tecnica" (técnica de evaluación) e "instrumento" (instrumento de evaluación).
+- Sé conciso: 1-2 oraciones por campo de texto (inicio/desarrollo/cierre).
+- No repitas literalmente el mismo texto para todos los grados en una semana.
+- Si el docente ya definió temas, úsalos en el mismo orden, uno por semana. Si hay más semanas que temas, o no hay temas, propone temas adicionales coherentes con la competencia.
+
+Responde ÚNICAMENTE con JSON válido con esta forma exacta:
+{
+  "semanas": [
+    {
+      "numero": 1,
+      "tema": "string",
+      "actividades": [
+        { "gradoId": "string (exactamente el id de arriba)", "inicio": "string", "desarrollo": "string", "cierre": "string", "recursos": "string", "tecnica": "string", "instrumento": "string" }
+      ]
+    }
+  ]
+}`;
+
+      const raw = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content:
+              "Eres un experto en planificación microcurricular del sistema educativo ecuatoriano, especializado en aulas multigrado. Respondes siempre con JSON válido.",
+          },
+          { role: "user", content: prompt },
+        ],
+        maxTokens: 4000,
+        responseFormat: { type: "json_object" },
+      });
+
+      const rawContent = raw.choices?.[0]?.message?.content;
+      if (!rawContent || typeof rawContent !== "string") {
+        throw new Error("Sin respuesta de la IA. Intenta de nuevo.");
+      }
+
+      let parsed: { semanas?: any[] };
+      try {
+        parsed = JSON.parse(rawContent);
+      } catch {
+        try {
+          parsed = JSON.parse(repairJson(rawContent));
+        } catch {
+          throw new Error("La IA devolvió una respuesta incompleta. Intenta de nuevo.");
+        }
+      }
+
+      const gradoIds = new Set(input.grados.map((g) => g.id));
+      const semanas = (parsed.semanas ?? [])
+        .filter((s) => s && typeof s === "object")
+        .map((s: any, i: number) => ({
+          numero: typeof s.numero === "number" ? s.numero : i + 1,
+          tema: typeof s.tema === "string" ? s.tema : "",
+          actividades: (Array.isArray(s.actividades) ? s.actividades : [])
+            .filter((a: any) => a?.gradoId && gradoIds.has(a.gradoId))
+            .map((a: any) => ({
+              gradoId: a.gradoId as string,
+              estrategiasDUA: {
+                inicio: typeof a.inicio === "string" ? a.inicio : "",
+                desarrollo: typeof a.desarrollo === "string" ? a.desarrollo : "",
+                cierre: typeof a.cierre === "string" ? a.cierre : "",
+              },
+              recursos: typeof a.recursos === "string" ? a.recursos : "",
+              tecnica: typeof a.tecnica === "string" ? a.tecnica : "",
+              instrumento: typeof a.instrumento === "string" ? a.instrumento : "",
+            })),
+        }));
+
+      if (semanas.length === 0) {
+        throw new Error("La IA no devolvió semanas válidas. Intenta de nuevo.");
+      }
+
+      return { semanas };
     }),
 });

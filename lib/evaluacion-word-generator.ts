@@ -5,13 +5,14 @@
  */
 import {
   Document, Packer, Paragraph, Table, TableRow, TableCell,
-  TextRun, WidthType, ShadingType, AlignmentType, BorderStyle,
+  TextRun, ImageRun, WidthType, ShadingType, AlignmentType, BorderStyle,
 } from "docx";
-import type { EvaluacionDiagnostica, BrechaCurso } from "../data/types-evaluacion";
+import type { EvaluacionDiagnostica, BrechaCurso, PreguntaDiagnostica } from "../data/types-evaluacion";
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data";
 import {
   ESTATUS_EVALUACION_INFO,
   ESTADO_APRENDIZAJE_INFO,
+  TIPO_PREGUNTA_INFO,
   ORIGEN_CURRICULAR_INFO,
   EstadoAprendizaje,
 } from "../data/types-evaluacion";
@@ -82,6 +83,92 @@ function origenTexto(b: BrechaCurso): string {
   return b.origen === "arrastre" ? `${nombreSubnivel} (arrastre)` : nombreSubnivel;
 }
 
+const LETRAS = ["a.", "b.", "c.", "d.", "e.", "f."];
+const IMG_MAX_ANCHO = 150;
+const IMG_MAX_ALTO = 110;
+
+interface ImagenWord { data: string; width: number; height: number }
+
+/**
+ * Prepara la imagen de una opción para ImageRun. docx 8 no admite SVG (las
+ * opciones visuales de la IA), así que en el navegador toda imagen se
+ * rasteriza a PNG en un canvas, lo que además da su proporción real. Fuera
+ * del navegador solo se aceptan JPEG/PNG en una caja 4:3 fija.
+ */
+async function imagenParaWord(uri: string): Promise<ImagenWord | null> {
+  if (typeof document !== "undefined" && typeof Image !== "undefined") {
+    const img = await new Promise<HTMLImageElement | null>((resolve) => {
+      const el = new Image();
+      el.onload = () => resolve(el);
+      el.onerror = () => resolve(null);
+      el.src = uri;
+    });
+    if (!img) return null;
+    // Un SVG sin width/height puede reportar 0: se usa el viewBox típico 4:3.
+    const w0 = img.naturalWidth || 120;
+    const h0 = img.naturalHeight || 90;
+    const escala = Math.min(IMG_MAX_ANCHO / w0, IMG_MAX_ALTO / h0);
+    const width = Math.round(w0 * escala);
+    const height = Math.round(h0 * escala);
+    const canvas = document.createElement("canvas");
+    // 2x para que no se vea pixelado al imprimir.
+    canvas.width = width * 2;
+    canvas.height = height * 2;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    return { data: canvas.toDataURL("image/png"), width, height };
+  }
+  if (/^data:image\/(jpeg|png);base64,/.test(uri)) {
+    return { data: uri, width: 140, height: 105 };
+  }
+  return null;
+}
+
+/** Sección con el instrumento: preguntas, opciones (con imagen) y clave. */
+async function seccionPreguntas(preguntas: PreguntaDiagnostica[]): Promise<Paragraph[]> {
+  const out: Paragraph[] = [sectionTitle(`Preguntas de la evaluación (${preguntas.length})`)];
+  for (const [idx, p] of preguntas.entries()) {
+    out.push(new Paragraph({
+      spacing: { before: 160, after: 60 },
+      keepNext: true,
+      children: [
+        new TextRun({ text: `${idx + 1}. `, bold: true, size: 20 }),
+        new TextRun({ text: p.enunciado, size: 20 }),
+        new TextRun({ text: `  (${p.puntaje} pt · ${p.dcdCodigo} · ${TIPO_PREGUNTA_INFO[p.tipo].nombre})`, color: "6b7280", size: 16 }),
+      ],
+    }));
+
+    for (const [i, o] of (p.opciones ?? []).entries()) {
+      const imagen = o.imagen ? await imagenParaWord(o.imagen) : null;
+      const runs: (TextRun | ImageRun)[] = [new TextRun({ text: `${LETRAS[i] ?? "•"} `, size: 20 })];
+      if (imagen) {
+        runs.push(new ImageRun({ data: imagen.data, transformation: { width: imagen.width, height: imagen.height } }));
+        if (o.texto) runs.push(new TextRun({ text: "  ", size: 20 }));
+      } else if (o.imagen && !o.texto) {
+        runs.push(new TextRun({ text: "[imagen]", italics: true, color: "6b7280", size: 20 }));
+      }
+      if (o.texto) runs.push(new TextRun({ text: o.texto, size: 20 }));
+      if (o.esCorrecta) runs.push(new TextRun({ text: "  ✔ correcta", bold: true, color: "16A34A", size: 18 }));
+      out.push(new Paragraph({ indent: { left: 360 }, spacing: { after: 60 }, children: runs }));
+    }
+
+    if (p.respuestaCorrecta && (p.tipo === "respuesta_corta" || p.tipo === "ejercicio")) {
+      out.push(new Paragraph({
+        indent: { left: 360 },
+        spacing: { after: 60 },
+        children: [
+          new TextRun({ text: "Respuesta esperada: ", bold: true, color: "16A34A", size: 18 }),
+          new TextRun({ text: p.respuestaCorrecta, size: 18 }),
+        ],
+      }));
+    }
+  }
+  return out;
+}
+
 export async function generarWordEvaluacion(ev: EvaluacionDiagnostica): Promise<Blob> {
   const brechas = calcularBrechasCurso(ev);
   const recomendaciones = generarRecomendaciones(ev);
@@ -110,6 +197,12 @@ export async function generarWordEvaluacion(ev: EvaluacionDiagnostica): Promise<
       ],
     })
   );
+
+  // Igual que la prueba imprimible: todas las preguntas de la evaluación.
+  const preguntasEv = ev.preguntas;
+  if (preguntasEv.length) {
+    children.push(...(await seccionPreguntas(preguntasEv)));
+  }
 
   if (conResultados.length) {
     children.push(sectionTitle(`Resultados por estudiante (${conResultados.length})`));

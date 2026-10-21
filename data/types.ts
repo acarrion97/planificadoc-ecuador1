@@ -361,6 +361,8 @@ export interface PcaDocument {
 }
 
 export const SUBNIVEL_NAMES: Record<Subnivel, string> = {
+  [-1]: "Inicial 1",
+  0: "Inicial 2",
   1: "Preparatoria",
   2: "Básica Elemental",
   3: "Básica Media",
@@ -369,6 +371,8 @@ export const SUBNIVEL_NAMES: Record<Subnivel, string> = {
 };
 
 export const SUBNIVEL_GRADOS: Record<Subnivel, string> = {
+  [-1]: "3 a 4 años",
+  0: "4 a 5 años",
   1: "1er grado EGB",
   2: "2do - 4to grado EGB",
   3: "5to - 7mo grado EGB",
@@ -677,6 +681,24 @@ export const AMBITOS_PREPARATORIA: Record<number, string> = {
   5: "Comprensión y expresión oral y escrita",
   6: "Comprensión y expresión artística",
   7: "Expresión corporal",
+};
+
+/**
+ * Asignaturas ofertadas por subnivel en el Currículo Nacional por Competencias
+ * (EGB Elemental/Media/Superior y Bachillerato General), según los documentos
+ * oficiales del MINEDUC publicados por asignatura y subnivel (uno por cada
+ * área que efectivamente se dicta en ese subnivel — p. ej. no existe un
+ * documento de Educación Física para Elemental, ni de Ciencias Naturales o
+ * Ciencias Sociales "generales" para Bachillerato, que las desagrega en
+ * Biología/Física/Química e Historia/Filosofía/Educación para la Ciudadanía).
+ * Preparatoria (subnivel 1) e Inicial (0, -1) no aparecen aquí: se rigen por
+ * currículo integrado organizado en ámbitos de desarrollo, no por asignatura.
+ */
+export const AREAS_POR_SUBNIVEL: Partial<Record<Subnivel, Area[]>> = {
+  2: ["M", "LL", "CN", "CS", "ECA", "EFL"],
+  3: ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"],
+  4: ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"],
+  5: ["M", "LL", "CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "ECA", "EFL", "EG", "CAI"],
 };
 
 export const AREAS_INFO: Record<Area, AreaInfo> = {

@@ -140,18 +140,26 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   // 1. ENCABEZADO
   // ═══════════════════════════════════════════════════════════════
+  // Anchos en DXA enteros: docx.js usa columnWidths tal cual para el
+  // tblGrid, y con layout FIXED un valor fraccionario (TW * 0.6 sin
+  // redondear) o un grid que no coincide con las celdas reales de cada
+  // fila rompe el ancho de la tabla en Word (queda angosta / "a media
+  // página"). Se calcula la última columna por resta para que la suma
+  // sea exactamente TW.
+  const COL_INST = Math.floor(TW * 0.6);
+  const COL_ANIO = TW - COL_INST;
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], TW * 0.6, { bg: COLOR_HEADER }),
-            tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], TW * 0.4, { bg: COLOR_HEADER }),
+            tc([p(plan.institucion || "Unidad Educativa", { bold: true, size: 9 })], COL_INST, { bg: COLOR_HEADER }),
+            tc([p(`Año lectivo: ${plan.periodoPedagogico || "—"}`, { size: 9 })], COL_ANIO, { bg: COLOR_HEADER }),
           ],
         }),
       ],
       TW,
-      [TW * 0.6, TW * 0.4]
+      [COL_INST, COL_ANIO]
     )
   );
 
@@ -160,7 +168,7 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(
     makeTable(
-      [new TableRow({ children: [tc([p("Planificación microcurricular por competencias - multigrado", { bold: true, size: 12, align: "center" })], TW)] })],
+      [new TableRow({ children: [tc([p("Planificación microcurricular por competencias - multigrado", { bold: true, size: 12, align: "center" })], TW, { bg: COLOR_HEADER })] })],
       TW,
       [TW]
     )
@@ -172,35 +180,49 @@ export async function generarCurriculoCompetenciasWordInicial(
   const grados = ambitos.map((_, i) => gradoLabel(i)).join(", ");
   const numSemanas = plan.noSemanasClase || plan.ambitos?.[0]?.clases?.length || 8;
 
+  // Cada fila con una cantidad distinta de celdas va en su propia tabla
+  // (ver nota del Encabezado sobre columnWidths/tblGrid).
+  const COL_ASIG = Math.floor(TW * 0.4);
+  const COL_GRADOS = Math.floor(TW * 0.4);
+  const COL_PARALELO = TW - COL_ASIG - COL_GRADOS;
+  const COL_TRIM = Math.floor(TW * 0.5);
+  const COL_SEM = TW - COL_TRIM;
+
   children.push(
+    makeTable(
+      [new TableRow({ children: [tc([p("Datos informativos:", { bold: true, size: 8 })], TW)] })],
+      TW,
+      [TW]
+    ),
+    makeTable(
+      [new TableRow({ children: [tc([p(`Docente: ${plan.docente || "—"}`, { size: 8 })], TW)] })],
+      TW,
+      [TW]
+    ),
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p("Datos informativos:", { bold: true, size: 8 })], TW),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc([p(`Docente: ${plan.docente || "—"}`, { size: 8 })], TW),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc([p(`Asignatura: Currículo integrado`, { size: 8 })], TW * 0.4),
-            tc([p(`Grados: ${grados || "—"}`, { size: 8 })], TW * 0.4),
-            tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], TW * 0.2),
-          ],
-        }),
-        new TableRow({
-          children: [
-            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], TW * 0.5),
-            tc([p(`No. de semanas: ${numSemanas}`, { size: 8 })], TW * 0.5),
+            tc([p(`Asignatura: Currículo integrado`, { size: 8 })], COL_ASIG),
+            tc([p(`Grados: ${grados || "—"}`, { size: 8 })], COL_GRADOS),
+            tc([p(`Paralelo: ${plan.paralelo || "—"}`, { size: 8 })], COL_PARALELO),
           ],
         }),
       ],
       TW,
-      [TW]
+      [COL_ASIG, COL_GRADOS, COL_PARALELO]
+    ),
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p(`Trimestre: ${plan.trimestre || "—"}`, { size: 8 })], COL_TRIM),
+            tc([p(`No. de semanas: ${numSemanas}`, { size: 8 })], COL_SEM),
+          ],
+        }),
+      ],
+      TW,
+      [COL_TRIM, COL_SEM]
     )
   );
 
@@ -236,19 +258,22 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Conexión interdisciplinar")], TW, [TW]));
 
-  // Ámbitos con códigos CE entre paréntesis
-  const ambitosLinea = ambitos.map((a) => {
+  // Ámbitos con códigos CE
+  const ambitosConLabels = ambitos.map((a, i) => {
     const ce = extraerCodigosCE(a);
     const ceText = ce.length > 0 ? ` (${ce.join(", ")})` : "";
     return `${a.ambito}${ceText}`;
-  }).join("  ");
+  }).join("\n");
 
   children.push(
     makeTable(
       [
         new TableRow({
           children: [
-            tc([p(ambitosLinea || "—", { size: 8 })], TW),
+            tc([
+              p("Ámbitos:", { bold: true, size: 8 }),
+              p(ambitosConLabels || "—", { size: 8 }),
+            ], TW),
           ],
         }),
       ],
@@ -262,28 +287,25 @@ export async function generarCurriculoCompetenciasWordInicial(
   // ═══════════════════════════════════════════════════════════════
   children.push(makeTable([sectionRow("Competencias específicas")], TW, [TW]));
 
-  // Línea de códigos CE por cada年龄段
-  const ceLines = ambitos.map((a, i) => {
+  // Todos los códigos CE agrupados en una línea
+  const todosCE = ambitos.map((a) => {
     const ce = extraerCodigosCE(a);
-    const ceText = ce.length > 0 ? ce.join(" · ") : (a.competenciaCodigo || "—");
-    return `${gradoLabel(i)}: ${ceText}`;
-  });
+    return ce.length > 0 ? ce.join(", ") : (a.competenciaCodigo || "—");
+  }).filter((c) => c !== "—").join(", ");
 
-  for (const line of ceLines) {
-    children.push(
-      makeTable(
-        [
-          new TableRow({
-            children: [
-              tc([p(line, { size: 8 })], TW),
-            ],
-          }),
-        ],
-        TW,
-        [TW]
-      )
-    );
-  }
+  children.push(
+    makeTable(
+      [
+        new TableRow({
+          children: [
+            tc([p(todosCE || "—", { size: 8 })], TW),
+          ],
+        }),
+      ],
+      TW,
+      [TW]
+    )
+  );
 
   // ═══════════════════════════════════════════════════════════════
   // 7. INDICADORES DE EVALUACIÓN (5 columnas)
@@ -311,10 +333,11 @@ export async function generarCurriculoCompetenciasWordInicial(
 
     if (ceData) {
       const inds = i === 0 ? ceData.indicadores34 : (i === 1 ? ceData.indicadores45 : ceData.indicadores56);
+      const saberes = i === 0 ? ceData.saberes34 : (i === 1 ? ceData.saberes45 : ceData.saberes56);
       indicadorTexts = inds.map((ind) => ind.texto);
-      saberesDeclarativos = ceData.saberes.declarativos;
-      saberesProcedimentales = ceData.saberes.procedimentales;
-      saberesActitudinales = ceData.saberes.actitudinales;
+      saberesDeclarativos = saberes.declarativos;
+      saberesProcedimentales = saberes.procedimentales;
+      saberesActitudinales = saberes.actitudinales;
     } else {
       const destrezas = ambito.destrezas || [];
       const clases = ambito.clases || [];
@@ -328,7 +351,10 @@ export async function generarCurriculoCompetenciasWordInicial(
     for (let j = 0; j < indicadorTexts.length; j++) {
       const indicador = indicadorTexts[j] || "—";
       const idx = j + 1;
-      const ceCode = ambito.competenciaCodigo || "CI";
+      // Los saberes oficiales usan el prefijo "CI.0.X" (sin "CE."); se deriva
+      // del código de competencia específica solo como respaldo cuando el
+      // catálogo no trae saberes para este índice.
+      const ceCode = (ambito.competenciaCodigo || "CE.CI.0").replace(/^CE\./, "");
 
       const declarativos = saberesDeclarativos[j] || `${ceCode}.d.${idx}. Conocer y comprender ${indicador.substring(0, 120).toLowerCase()}`;
       const procedimentales = saberesProcedimentales[j] || `${ceCode}.p.${idx}. Aplicar estrategias para ${indicador.substring(0, 120).toLowerCase()}`;

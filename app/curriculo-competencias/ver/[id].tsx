@@ -3,11 +3,10 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-
-const TIPO_LABELS: Record<string, string> = {
-  egb_bgu: "EGB / BGU",
-  inicial_preparatoria: "Inicial / Preparatoria",
-};
+import { FAMILIA_LABELS, determinarFamiliaExportacion } from "@/lib/curriculo-competencias-familia";
+import { obtenerMateria } from "@/data/competencias-especificas-egb-bgu";
+import { rutaEdicionCurriculoCompetencias } from "@/lib/curriculo-competencias-comunidad";
+import { rutaAdaptacionDesdeCurriculo } from "@/lib/curriculo-competencias-nee";
 
 const STATUS_LABELS: Record<string, string> = {
   draft: "Borrador",
@@ -110,11 +109,17 @@ export default function VerPlanificacionScreen() {
 
   const handleEdit = () => {
     if (!plan) return;
-    if (plan.tipo === "egb_bgu") {
-      router.push(`/curriculo-competencias/egb-bgu?id=${planId}` as any);
-    } else {
-      router.push(`/curriculo-competencias/inicial?id=${planId}` as any);
-    }
+    // Misma regla de ruteo que "Duplicar como mío" en la comunidad (ver
+    // rutaEdicionCurriculoCompetencias): egb_bgu ⇒ egb-bgu; multigrado o
+    // Currículo Integrado EGB/BGU ⇒ egb-bgu-integrado; Inicial ⇒ inicial.
+    router.push(rutaEdicionCurriculoCompetencias(plan.tipo, plan.formData, planId) as any);
+  };
+
+  // Enlace a Adaptación curricular con este plan como origen
+  // ("curriculo-competencias"): el módulo precarga grado, competencia y
+  // datos informativos a partir de `cxcId`.
+  const handleCrearAdaptacion = () => {
+    router.push(rutaAdaptacionDesdeCurriculo(planId) as any);
   };
 
   // ── Estado: ID inválido ──
@@ -202,6 +207,14 @@ export default function VerPlanificacionScreen() {
   const formData = plan.formData as any;
   const source = plan.sourceTraceability as any;
   const isExporting = exportWordMutation.isPending || exportPdfMutation.isPending;
+  const familia = determinarFamiliaExportacion({ tipo: plan.tipo, formData });
+  const esMultigrado = familia === "curriculo_integrado_multigrado";
+  const asignaturaIntegrado = formData?.asignatura
+    ? obtenerMateria(formData.asignatura)?.nombre ?? formData.asignatura
+    : undefined;
+  const gradosMultigrado: string = Array.isArray(formData?.grados)
+    ? formData.grados.map((g: any) => g?.grado).filter(Boolean).join(", ")
+    : "";
 
   return (
     <ScreenContainer className="flex-1">
@@ -213,10 +226,12 @@ export default function VerPlanificacionScreen() {
               <Text className="text-2xl font-bold text-foreground">
                 {plan.tipo === "egb_bgu"
                   ? `${formData?.asignatura || "Sin asignatura"} — ${formData?.grado || "?"}`
-                  : formData?.grado || "Inicial / Preparatoria"}
+                  : esMultigrado
+                    ? `${asignaturaIntegrado || "Sin asignatura"} — ${gradosMultigrado || "multigrado"}`
+                    : formData?.grado || FAMILIA_LABELS[familia]}
               </Text>
               <Text className="text-sm text-muted mt-1">
-                {TIPO_LABELS[plan.tipo] || plan.tipo}
+                {FAMILIA_LABELS[familia] || plan.tipo}
               </Text>
             </View>
             <View style={[styles.statusBadge, { backgroundColor: STATUS_COLORS[plan.status] + "20" }]}>
@@ -232,7 +247,23 @@ export default function VerPlanificacionScreen() {
           <Text style={[styles.sectionTitle, { color: colors.foreground }]}>📋 Datos Informativos</Text>
           <InfoRow label="Institución" value={formData?.institucion} colors={colors} />
           <InfoRow label="Docente" value={formData?.docente} colors={colors} />
-          <InfoRow label="Grado" value={formData?.grado} colors={colors} />
+          {esMultigrado ? (
+            <InfoRow label="Grados" value={gradosMultigrado} colors={colors} />
+          ) : (
+            <InfoRow label="Grado" value={formData?.grado} colors={colors} />
+          )}
+          {esMultigrado && (
+            <>
+              <InfoRow label="Asignatura" value={asignaturaIntegrado} colors={colors} />
+              <InfoRow label="Paralelo" value={formData?.paralelo} colors={colors} />
+              <InfoRow label="Trimestre" value={formData?.trimestre} colors={colors} />
+              <InfoRow
+                label="Competencias"
+                value={(formData?.competenciasEspecifica || []).map((c: any) => c?.codigo).filter(Boolean).join(", ")}
+                colors={colors}
+              />
+            </>
+          )}
           {plan.tipo === "egb_bgu" && (
             <>
               <InfoRow label="Área" value={formData?.asignatura || formData?.areaCode} colors={colors} />
@@ -241,11 +272,35 @@ export default function VerPlanificacionScreen() {
               <InfoRow label="Trimestre" value={formData?.trimestre} colors={colors} />
             </>
           )}
-          {plan.tipo === "inicial_preparatoria" && (
+          {plan.tipo === "inicial_preparatoria" && !esMultigrado && (
             <InfoRow label="Duración" value={formData?.duracion} colors={colors} />
           )}
           <InfoRow label="Período" value={formData?.periodoPedagogico || formData?.duracion} colors={colors} />
         </View>
+
+        {/* ── NEE: enlace a Adaptación curricular ── */}
+        {(plan as any).hayNEE && (
+          <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={[styles.sectionTitle, { color: colors.foreground }]}>🧩 Estudiantes con NEE</Text>
+            <Text style={{ color: colors.muted, fontSize: 13, marginBottom: 10 }}>
+              Marcaste que este paralelo tiene estudiantes con NEE. Crea una adaptación curricular individual por cada estudiante a partir de esta planificación.
+            </Text>
+            <Pressable
+              onPress={handleCrearAdaptacion}
+              style={({ pressed }) => [styles.retryBtn, { backgroundColor: colors.primary, alignItems: "center", opacity: pressed ? 0.85 : 1 }]}
+            >
+              <Text style={{ color: "#fff", fontWeight: "600" }}>Crear adaptación curricular (NEE)</Text>
+            </Pressable>
+          </View>
+        )}
+
+        {(plan as any).compartida && (
+          <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <Text style={{ color: colors.muted, fontSize: 13 }}>
+              🌐 Compartida con la comunidad (sin tus datos personales ni los de tu institución).
+            </Text>
+          </View>
+        )}
 
         {/* ── EGB/BGU: DCD y competencias ── */}
         {plan.tipo === "egb_bgu" && (

@@ -1,6 +1,8 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createPaymentTransaction, setPcaClientTxId, getDb } from "../_lib/db";
 import { paymentAttribution } from "../../drizzle/schema";
+import { gaHeadSnippet, gaBeginCheckoutSnippet } from "../_lib/ga";
+import { stripQuery } from "../_lib/safe-url";
 
 type PlanType = "monthly" | "annual";
 
@@ -33,7 +35,7 @@ function fbTrackingScript(clientTxId: string, valueCents: number, email: string)
           fbp: fbp,
           fbc: fbc,
           email: '${email}',
-          sourceUrl: window.location.href
+          sourceUrl: window.location.origin + window.location.pathname
         })
       }).catch(function() {});
     })();
@@ -86,7 +88,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       email:      b.email     ?? null,
       phone:      b.phone     ?? null,
       userId:     b.userId    ?? null,
-      sourceUrl:  b.sourceUrl ?? null,
+      sourceUrl:  stripQuery(b.sourceUrl),
     }).onDuplicateKeyUpdate({
       set: {
         eventId:    String(b.eventId),
@@ -109,6 +111,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const isTrial = typeParam === "trial";
   const planParam = ((req.query.plan as string) || "monthly").toLowerCase();
   const plan: PlanType = planParam === "annual" ? "annual" : "monthly";
+
+  // fbp/fbc pasados como query params desde paywall.tsx (más confiable que cookies en la nueva pestaña).
+  // Se leen aquí arriba porque los usan los flujos trial y suscripción.
+  const fbpFromUrl = ((req.query.fbp as string) || "").trim() || null;
+  const fbcFromUrl = ((req.query.fbc as string) || "").trim() || null;
   const documentId = ((req.query.documentId as string) || "").trim();
   let phoneNumber = ((req.query.phoneNumber as string) || "").trim();
   // Ensure phone has +593 format as required by PayPhone
@@ -429,7 +436,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               email,
               phone: phoneNumber || null,
               userId: null,
-              sourceUrl: req.headers.referer ?? "https://planificadoc.app",
+              sourceUrl: stripQuery(req.headers.referer) ?? "https://planificadoc.app",
             }).onDuplicateKeyUpdate({ set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
           }
         } catch (attrErr) {
@@ -442,6 +449,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const reference   = `PlanificaDoc - Trial 3 dias (verif.) - ${email}`;
       // Para CAPI guardamos el precio real del plan, no el $1 de verificación
       const fbScript = fbTrackingScript(clientTxId, trialPlanCents, email);
+      const gaScript = gaHeadSnippet() + gaBeginCheckoutSnippet(plan, "trial", trialPlanCents);
 
       const html = `<!DOCTYPE html>
 <html lang="es">
@@ -473,6 +481,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     .security-note { text-align: center; font-size: 11px; color: #999; margin-top: 14px; }
     #pp-button { min-height: 260px; }
   </style>
+  ${gaScript}
   ${fbScript}
 </head>
 <body>
@@ -565,10 +574,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const enableRecurring = true; // always enable since fields are now required
 
-  // Leer fbp/fbc pasados como query params desde paywall.tsx (más confiable que cookies en la nueva pestaña)
-  const fbpFromUrl = ((req.query.fbp as string) || "").trim() || null;
-  const fbcFromUrl = ((req.query.fbc as string) || "").trim() || null;
-
   try {
     const pricing = getPriceForPlan(plan);
     const clientTxId = generateClientTxId(email);
@@ -603,7 +608,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             email,
             phone: phoneNumber || null,
             userId: null,
-            sourceUrl: req.headers.referer ?? "https://planificadoc.app",
+            sourceUrl: stripQuery(req.headers.referer) ?? "https://planificadoc.app",
           }).onDuplicateKeyUpdate({ set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
         }
       } catch (attrErr) {
@@ -615,6 +620,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // PayPhone appends &id=xxx&clientTransactionId=yyy after the trailing &.
     const responseUrl = `https://planificadoc.app/api/payment/confirm?documentId=${encodeURIComponent(documentId)}&phoneNumber=${encodeURIComponent(phoneNumber)}&cardHolder=${encodeURIComponent(cardHolder)}&`;
     const fbScript = fbTrackingScript(clientTxId, pricing.amount, email);
+    const gaScript = gaHeadSnippet() + gaBeginCheckoutSnippet(plan, "subscription", pricing.amount);
 
     const planLabel = plan === "annual" ? "Anual (12 meses)" : "Mensual";
     const periodLabel = plan === "annual" ? "por año" : "por mes";
@@ -671,6 +677,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     .recurring-note { text-align: center; font-size: 12px; color: #1e3a5f; margin-top: 12px; padding: 10px; background: #e0f2fe; border-radius: 8px; border: 1px solid #bae6fd; }
     .recurring-note strong { display: block; margin-bottom: 4px; }
   </style>
+  ${gaScript}
   ${fbScript}
 </head>
 <body>

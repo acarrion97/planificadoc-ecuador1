@@ -181,6 +181,28 @@ export type DocenteAccount = typeof docenteAccounts.$inferSelect;
 export type InsertDocenteAccount = typeof docenteAccounts.$inferInsert;
 
 /**
+ * Password reset codes — recuperación de contraseña con código de 6 dígitos
+ * de un solo uso enviado al correo. Se crea en runtime con
+ * CREATE TABLE IF NOT EXISTS (una fila activa por email).
+ */
+export const passwordResetCodes = mysqlTable("password_reset_codes", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email de la cuenta que solicitó la recuperación */
+  email: varchar("email", { length: 320 }).notNull(),
+  /** HMAC-SHA256 del código (nunca se almacena en texto plano) */
+  codeHash: varchar("codeHash", { length: 128 }).notNull(),
+  /** Intentos fallidos de verificación (máximo 5) */
+  attempts: int("attempts").notNull().default(0),
+  /** Caducidad del código (10 minutos tras el envío) */
+  expiresAt: timestamp("expiresAt").notNull(),
+  /** Cuándo se envió — limita reenvíos a 1 por minuto */
+  sentAt: timestamp("sentAt").notNull(),
+});
+
+export type PasswordResetCode = typeof passwordResetCodes.$inferSelect;
+export type InsertPasswordResetCode = typeof passwordResetCodes.$inferInsert;
+
+/**
  * Docente contacts - manually registered by admin when giving out codes.
  * Tracks who received which code, their contact info, and payment status.
  */
@@ -459,6 +481,13 @@ export const curriculoCompetenciasPlanificaciones = mysqlTable(
       .default("draft")
       .notNull(),
 
+    // ── Switches del formulario (migración 0010) ──
+    // `hayNEE`: el paralelo tiene estudiantes con NEE ⇒ se ofrece crear
+    // adaptaciones curriculares a partir del plan.
+    hayNEE: boolean("hay_nee").default(false).notNull(),
+    // `compartida`: el plan aparece (anonimizado) en la biblioteca "Comunidad".
+    compartida: boolean("compartida").default(false).notNull(),
+
     // ── Datos completos (JSON) ──
     formData: text("form_data").notNull(),
     aiResult: text("ai_result"),
@@ -479,3 +508,45 @@ export type CurriculoCompetenciasRow =
   typeof curriculoCompetenciasPlanificaciones.$inferSelect;
 export type InsertCurriculoCompetencias =
   typeof curriculoCompetenciasPlanificaciones.$inferInsert;
+
+// ============================================================
+// PROYECTO INTERDISCIPLINAR
+// ============================================================
+
+/**
+ * Proyectos interdisciplinares — módulo independiente del ProyectoInterdisciplinar
+ * embebido en Currículo por Competencias (ver openspec/changes/proyecto-interdisciplinar).
+ * Mismo patrón híbrido que curriculoCompetenciasPlanificaciones: columnas
+ * indexadas para listar/buscar + `formData` (JSON) como fuente de verdad.
+ */
+export const proyectosInterdisciplinares = mysqlTable(
+  "proyectos_interdisciplinares",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    sessionId: varchar("session_id", { length: 64 }).notNull(),
+    baseCurricular: mysqlEnum("base_curricular", ["destrezas", "competencias"]).notNull(),
+
+    // ── Campos indexados para listar/buscar ──
+    titulo: varchar("titulo", { length: 256 }).notNull(),
+    nivelPrincipal: varchar("nivel_principal", { length: 32 }),
+    subnivelPrincipal: varchar("subnivel_principal", { length: 32 }),
+    institucion: varchar("institucion", { length: 128 }),
+
+    // ── Estado y metadatos ──
+    estado: mysqlEnum("estado", ["borrador", "generado"])
+      .default("borrador")
+      .notNull(),
+
+    // ── Datos completos (JSON) ──
+    formData: text("form_data").notNull(),
+
+    // ── Timestamps ──
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+  }
+);
+
+export type ProyectoInterdisciplinarRow =
+  typeof proyectosInterdisciplinares.$inferSelect;
+export type InsertProyectoInterdisciplinar =
+  typeof proyectosInterdisciplinares.$inferInsert;

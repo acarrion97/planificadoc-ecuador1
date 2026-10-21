@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Text, View, FlatList, SectionList, ScrollView, StyleSheet } from "react-native";
+import { Text, View, FlatList, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
 import { Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -7,29 +7,114 @@ import { useColors } from "@/hooks/use-colors";
 import {
   AREAS_INFO,
   Area,
-  AreaInfo,
   Subnivel,
   SUBNIVEL_NAMES,
+  TODAS_LAS_DESTREZAS,
+  AMBITOS_PREPARATORIA,
   filtrarPorArea,
   filtrarPorAreaYSubnivel,
   obtenerSubnivelesDeArea,
   obtenerBloquesDeAreaSubnivel,
-  obtenerNombreBloque,
+  obtenerNombreBloqueDestreza,
 } from "@/data";
 
-const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA"];
-const BGU_AREAS: Area[] = ["CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "EFL", "EG"];
+// Asignaturas por sección según el Currículo Priorizado (EGB Elemental/Media/
+// Superior y Bachillerato). Las comunes a EGB y BGU (Matemática, Lengua,
+// Educación Física, ECA, Inglés) aparecen en ambas secciones, cada tarjeta
+// limitada a los subniveles de su sección.
+const EGB_AREAS: Area[] = ["M", "LL", "CN", "CS", "EF", "ECA", "EFL"];
+const BGU_AREAS: Area[] = [
+  "M", "LL", "CN.B", "CN.Q", "CN.F", "CS.H", "CS.F", "CS.EC", "EF", "ECA", "EFL", "EG",
+];
+const EGB_SUBNIVELES: Subnivel[] = [2, 3, 4];
+const BGU_SUBNIVELES: Subnivel[] = [5];
 
-const SECTIONS = [
+/** Emojis de los 7 ámbitos de Preparatoria (orden de AMBITOS_PREPARATORIA). */
+const EMOJI_AMBITOS_PREP = ["🧑", "🤝", "🌍", "🔢", "💬", "🎨", "🤸"];
+/** Cromática propia de los ítems de ámbitos (no son áreas curriculares). */
+const COLOR_AMBITO_PREP = "#8B5CF6";
+
+/** Grados de Educación Inicial (subniveles -1 y 0) como tarjetas del grid. */
+const INI_GRADOS: { subnivel: Subnivel; name: string }[] = [
+  { subnivel: -1, name: "Inicial 1 (3 a 4 años)" },
+  { subnivel: 0, name: "Inicial 2 (4 a 5 años)" },
+];
+
+/** Ítem mínimo del grid: áreas y ámbitos comparten la forma de la tarjeta. */
+type ItemSeccion = {
+  /** Clave única de la tarjeta. */
+  code: string;
+  name: string;
+  emoji: string;
+  color: string;
+  /** Área destino del flujo por subniveles. */
+  area?: Area;
+  /** Subniveles que abarca la tarjeta dentro de su sección (EGB o BGU). */
+  subniveles?: Subnivel[];
+  /** Solo en Inicial: salta directo al listado de ese grado. */
+  subnivel?: Subnivel;
+  /** Solo en Preparatoria: número de ámbito del currículo integrado. */
+  ambito?: number;
+};
+
+type SeccionExplorar = {
+  title: string;
+  subtitle: string;
+  data: ItemSeccion[];
+};
+
+function itemArea(code: Area, subniveles: Subnivel[]): ItemSeccion {
+  const info = AREAS_INFO[code];
+  return {
+    code: `${code}@${subniveles.join("")}`,
+    area: code,
+    subniveles,
+    name: info.name,
+    emoji: info.emoji,
+    color: info.color,
+  };
+}
+
+/** Destrezas del área restringidas a los subniveles indicados (o todas salvo Preparatoria). */
+function destrezasDeArea(area: Area, subniveles: Subnivel[] | null) {
+  return filtrarPorArea(area).filter((d) =>
+    subniveles ? subniveles.includes(d.subnivel) : d.subnivel !== 1
+  );
+}
+
+const SECTIONS: SeccionExplorar[] = [
+  {
+    title: "Educación Inicial",
+    subtitle: "3 a 5 años · currículo por ámbitos",
+    data: INI_GRADOS.map((g) => ({
+      code: `INI.${g.subnivel}`,
+      area: "INI",
+      subnivel: g.subnivel,
+      name: g.name,
+      emoji: AREAS_INFO.INI.emoji,
+      color: AREAS_INFO.INI.color,
+    })),
+  },
+  {
+    title: "Preparatoria",
+    subtitle: "1.° EGB · currículo integrador por ámbitos",
+    data: Object.entries(AMBITOS_PREPARATORIA).map(([n, nombre]) => ({
+      code: `PRE.${n}`,
+      name: nombre,
+      emoji: EMOJI_AMBITOS_PREP[Number(n) - 1] ?? "📘",
+      color: COLOR_AMBITO_PREP,
+      ambito: Number(n),
+    })),
+  },
   {
     title: "Educaci\u00f3n General B\u00e1sica",
     subtitle: "Elemental \u00b7 Media \u00b7 Superior",
-    data: EGB_AREAS.map((code) => AREAS_INFO[code]),
+    data: EGB_AREAS.map((code) => itemArea(code, EGB_SUBNIVELES)),
   },
   {
     title: "Bachillerato General Unificado",
     subtitle: "1ro \u00b7 2do \u00b7 3ro BGU",
-    data: BGU_AREAS.map((code) => AREAS_INFO[code]),
+    data: BGU_AREAS.map((code) => itemArea(code, BGU_SUBNIVELES)),
   },
 ];
 
@@ -42,24 +127,47 @@ export default function ExplorarScreen() {
     (params.area as Area) || null
   );
   const [selectedSubnivel, setSelectedSubnivel] = useState<Subnivel | null>(null);
+  // Subniveles de la sección desde la que se abrió el área (EGB o BGU);
+  // null = todos (p. ej. al llegar por ?area=).
+  const [rangoSubniveles, setRangoSubniveles] = useState<Subnivel[] | null>(null);
+  // Ámbito de Preparatoria elegido (fuera del flujo por área/subnivel).
+  const [ambitoPrep, setAmbitoPrep] = useState<number | null>(null);
 
-  // Subnivel 1 (Preparatoria) se excluye de este recorrido genérico por área:
-  // sus destrezas se organizan por ámbito (ver AMBITOS_PREPARATORIA), no por
-  // bloque de la asignatura, y tienen su propia pantalla dedicada
-  // (/planificar-preparatoria). Mostrarlas aquí resolvería el nombre del
-  // bloque con obtenerNombreBloque(area, bloque), que para subnivel 1 devuelve
-  // el nombre de bloque regular de la asignatura, no el del ámbito — ver
-  // openspec/changes/preparatoria-area-integradora/design.md D7.
+  // Grid de áreas: medimos el ancho real del contenido (onLayout, ya contado
+  // el sidebar); hasta el primer layout se estima con el ancho de la ventana.
+  const { width: windowWidth } = useWindowDimensions();
+  const [anchoGrilla, setAnchoGrilla] = useState(0);
+  const anchoContenido = anchoGrilla || windowWidth - 40;
+  const columnas = anchoContenido >= 940 ? 3 : anchoContenido >= 580 ? 2 : 1;
+  const anchoUtil = Math.max(anchoContenido - 40, 0); // padding horizontal 20 + 20
+  const anchoTarjeta =
+    columnas === 1
+      ? ("100%" as const)
+      : Math.floor((anchoUtil - 12 * (columnas - 1)) / columnas);
+
+  // Inicial y Preparatoria se muestran en su propia sección del grid (grados
+  // y ámbitos), fuera del recorrido genérico por área: sus destrezas se
+  // organizan por ámbito de desarrollo (AREAS_INFO.INI.bloques /
+  // AMBITOS_PREPARATORIA), no por bloque de la asignatura — resolver el nombre
+  // con obtenerNombreBloque(area, bloque) devolvería el bloque regular, no el
+  // ámbito (D7 de openspec/changes/preparatoria-area-integradora). Este filtro
+  // mantiene subnivel 1 fuera del vuelco por área mientras se recorre por
+  // ámbitos.
   const subniveles = useMemo(
-    () => (selectedArea ? obtenerSubnivelesDeArea(selectedArea).filter(s => s !== 1) : []),
-    [selectedArea]
+    () =>
+      selectedArea
+        ? obtenerSubnivelesDeArea(selectedArea).filter((s) =>
+            rangoSubniveles ? rangoSubniveles.includes(s) : s !== 1
+          )
+        : [],
+    [selectedArea, rangoSubniveles]
   );
 
   const destrezas = useMemo(() => {
     if (!selectedArea) return [];
     if (selectedSubnivel) return filtrarPorAreaYSubnivel(selectedArea, selectedSubnivel);
-    return filtrarPorArea(selectedArea).filter(d => d.subnivel !== 1);
-  }, [selectedArea, selectedSubnivel]);
+    return destrezasDeArea(selectedArea, rangoSubniveles);
+  }, [selectedArea, selectedSubnivel, rangoSubniveles]);
 
   const bloques = useMemo(() => {
     if (!selectedArea || !selectedSubnivel) return [];
@@ -69,12 +177,94 @@ export default function ExplorarScreen() {
   const areaInfo = selectedArea ? AREAS_INFO[selectedArea] : null;
 
   const handleBack = () => {
-    if (selectedSubnivel) {
+    // Con un único subnivel (Bachillerato) no hay lista intermedia: volver a áreas.
+    if (selectedSubnivel && subniveles.length > 1) {
       setSelectedSubnivel(null);
-    } else if (selectedArea) {
+    } else {
+      setSelectedSubnivel(null);
       setSelectedArea(null);
+      setRangoSubniveles(null);
     }
   };
+
+  // Vista de ámbito de Preparatoria: destrezas de varias áreas agrupadas por
+  // el ámbito elegido (subnivel 1, `bloque` = número de ámbito).
+  if (ambitoPrep !== null) {
+    const nombreAmbito = AMBITOS_PREPARATORIA[ambitoPrep] ?? `Ámbito ${ambitoPrep}`;
+    const destrezasAmbito = TODAS_LAS_DESTREZAS.filter(
+      (d) => d.subnivel === 1 && d.bloque === ambitoPrep
+    );
+    return (
+      <ScreenContainer key={`ambito-${ambitoPrep}`} className="flex-1">
+        <View className="px-5 pt-4 pb-2">
+          <Pressable
+            onPress={() => setAmbitoPrep(null)}
+            style={({ pressed }) => [
+              styles.backButton,
+              { opacity: pressed ? 0.6 : 1 },
+            ]}
+          >
+            <Text style={{ fontSize: 18 }}>{"\u2190"}</Text>
+            <Text style={{ color: colors.primary, fontSize: 16, marginLeft: 6 }}>
+              {"\u00c1"}reas
+            </Text>
+          </Pressable>
+          <Text className="text-2xl font-bold mt-3">Ámbito {ambitoPrep}</Text>
+          <Text className="text-base text-muted mt-1">{nombreAmbito}</Text>
+          <Text className="text-sm text-muted mt-1">
+            Preparatoria · {destrezasAmbito.length} destrezas
+          </Text>
+        </View>
+        <FlatList
+          data={destrezasAmbito}
+          keyExtractor={(item) => item.codigo}
+          contentContainerStyle={styles.listContent}
+          removeClippedSubviews={false}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => router.push(`/destreza/${item.codigo}` as any)}
+              style={({ pressed }) => [
+                styles.destrezaCard,
+                {
+                  backgroundColor: colors.surface,
+                  borderColor: colors.border,
+                  opacity: pressed ? 0.7 : 1,
+                },
+              ]}
+            >
+              <View style={styles.destrezaHeader}>
+                <View
+                  style={[
+                    styles.codeBadge,
+                    { backgroundColor: AREAS_INFO[item.area].color + "20" },
+                  ]}
+                >
+                  <Text
+                    style={{
+                      color: AREAS_INFO[item.area].color,
+                      fontWeight: "700",
+                      fontSize: 13,
+                    }}
+                  >
+                    {item.codigo}
+                  </Text>
+                </View>
+                <Text className="text-xs text-muted">
+                  {AREAS_INFO[item.area].emoji} {AREAS_INFO[item.area].name}
+                </Text>
+              </View>
+              <Text
+                className="text-sm text-foreground mt-2 leading-5"
+                numberOfLines={3}
+              >
+                {item.descripcion}
+              </Text>
+            </Pressable>
+          )}
+        />
+      </ScreenContainer>
+    );
+  }
 
   // Area selection view with sections
   if (!selectedArea) {
@@ -86,56 +276,89 @@ export default function ExplorarScreen() {
             Navega por {"\u00e1"}reas y subniveles
           </Text>
         </View>
-        <SectionList
-          sections={SECTIONS}
-          keyExtractor={(item) => item.code}
-          contentContainerStyle={styles.listContent}
-          stickySectionHeadersEnabled={false}
-          renderSectionHeader={({ section }) => (
-            <View style={styles.sectionHeader}>
-              <Text className="text-lg font-semibold text-foreground">
-                {section.title}
-              </Text>
-              <Text className="text-xs text-muted mt-1">
-                {section.subtitle}
-              </Text>
-            </View>
-          )}
-          renderItem={({ item }) => {
-            const count = filtrarPorArea(item.code).length;
-            return (
-              <Pressable
-                onPress={() => setSelectedArea(item.code)}
-                style={({ pressed }) => [
-                  styles.areaRow,
-                  {
-                    backgroundColor: colors.surface,
-                    borderColor: colors.border,
-                    opacity: pressed ? 0.7 : 1,
-                  },
-                ]}
-              >
-                <View
-                  style={[
-                    styles.areaIcon,
-                    { backgroundColor: item.color + "15" },
-                  ]}
-                >
-                  <Text style={{ fontSize: 24 }}>{item.emoji}</Text>
-                </View>
-                <View style={{ flex: 1, marginLeft: 14 }}>
-                  <Text className="text-base font-semibold text-foreground">
-                    {item.name}
+        <View
+          style={{ flex: 1 }}
+          onLayout={(e) => setAnchoGrilla(e.nativeEvent.layout.width)}
+        >
+          <ScrollView contentContainerStyle={styles.listContent}>
+            {SECTIONS.map((section) => (
+              <View key={section.title}>
+                <View style={styles.sectionHeader}>
+                  <Text className="text-lg font-semibold text-foreground">
+                    {section.title}
                   </Text>
-                  <Text className="text-sm text-muted">
-                    {count} destrezas
+                  <Text className="text-xs text-muted mt-1">
+                    {section.subtitle}
                   </Text>
                 </View>
-                <Text style={{ fontSize: 18, color: colors.muted }}>{"\u203A"}</Text>
-              </Pressable>
-            );
-          }}
-        />
+                <View style={styles.gridAreas}>
+                  {section.data.map((item, index) => {
+                    // Conteo coherente con lo que la tarjeta efectivamente abre.
+                    const count =
+                      item.ambito !== undefined
+                        ? TODAS_LAS_DESTREZAS.filter(
+                            (d) => d.subnivel === 1 && d.bloque === item.ambito
+                          ).length
+                        : item.subnivel !== undefined && item.area
+                          ? filtrarPorAreaYSubnivel(item.area, item.subnivel).length
+                          : item.area
+                            ? destrezasDeArea(item.area, item.subniveles ?? null).length
+                            : 0;
+                    const ultimaDeFila =
+                      columnas === 1 || (index + 1) % columnas === 0;
+                    return (
+                      <Pressable
+                        key={item.code}
+                        onPress={() => {
+                          if (item.ambito !== undefined) {
+                            setAmbitoPrep(item.ambito);
+                            return;
+                          }
+                          if (item.area) setSelectedArea(item.area);
+                          setRangoSubniveles(item.subniveles ?? null);
+                          if (item.subnivel !== undefined)
+                            setSelectedSubnivel(item.subnivel);
+                          else if (item.subniveles?.length === 1)
+                            setSelectedSubnivel(item.subniveles[0]);
+                        }}
+                        style={({ pressed }) => [
+                          styles.areaRow,
+                          {
+                            width: anchoTarjeta,
+                            marginRight: ultimaDeFila ? 0 : 12,
+                            backgroundColor: colors.surface,
+                            borderColor: colors.border,
+                            opacity: pressed ? 0.7 : 1,
+                          },
+                        ]}
+                      >
+                        <View
+                          style={[
+                            styles.areaIcon,
+                            { backgroundColor: item.color + "15" },
+                          ]}
+                        >
+                          <Text style={{ fontSize: 24 }}>{item.emoji}</Text>
+                        </View>
+                        <View style={{ flex: 1, marginLeft: 14 }}>
+                          <Text className="text-base font-semibold text-foreground">
+                            {item.name}
+                          </Text>
+                          <Text className="text-sm text-muted">
+                            {count} destrezas
+                          </Text>
+                        </View>
+                        <Text style={{ fontSize: 18, color: colors.muted }}>
+                          {"\u203A"}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
       </ScreenContainer>
     );
   }
@@ -273,7 +496,11 @@ export default function ExplorarScreen() {
                 </Text>
               </View>
               <Text className="text-xs text-muted">
-                Bloque {item.bloque}: {obtenerNombreBloque(item.area, item.bloque)}
+                {item.subnivel === 1 || item.area === "INI"
+                  ? `Ámbito ${item.bloque}`
+                  : `Bloque ${item.bloque}`}
+                {": "}
+                {obtenerNombreBloqueDestreza(item)}
               </Text>
             </View>
             <Text
@@ -299,8 +526,12 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 10,
   },
+  gridAreas: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 20,
+  },
   areaRow: {
-    marginHorizontal: 20,
     marginBottom: 10,
     borderRadius: 14,
     padding: 16,

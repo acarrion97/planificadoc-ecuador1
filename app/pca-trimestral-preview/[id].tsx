@@ -8,7 +8,6 @@ import {
   Platform,
   ActivityIndicator,
   TextInput,
-  Alert,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,6 +17,7 @@ import { trpc } from "@/lib/trpc";
 import { AREAS_INFO } from "@/data";
 import { generarHTMLPcaTrimestral } from "@/lib/pca-trimestral-pdf-generator";
 import { generarWordPcaTrimestral } from "@/lib/pca-trimestral-word-generator";
+import { alertaError } from "@/lib/alertas";
 
 const PCT_PRICE    = "$9.99";
 const POLL_INTERVAL_MS = 3000;
@@ -209,10 +209,10 @@ function PayOverlay({ doc, formData, aiResult, pcaId, onPaid, colors }: {
   }, []);
 
   const handlePagar = useCallback(async () => {
-    if (!email.includes("@"))    return Alert.alert("Email requerido",    "Ingresa tu dirección de email.");
-    if (!documentId.trim())      return Alert.alert("Cédula requerida",   "Ingresa tu número de cédula.");
-    if (!phoneNumber.trim())     return Alert.alert("Teléfono requerido", "Ingresa tu número de teléfono.");
-    if (!cardHolder.trim())      return Alert.alert("Titular requerido",  "Ingresa el nombre del titular de la tarjeta.");
+    if (!email.includes("@"))    { await alertaError("Email requerido",    "Ingresa tu dirección de email."); return; }
+    if (!documentId.trim())      { await alertaError("Cédula requerida",   "Ingresa tu número de cédula."); return; }
+    if (!phoneNumber.trim())     { await alertaError("Teléfono requerido", "Ingresa tu número de teléfono."); return; }
+    if (!cardHolder.trim())      { await alertaError("Titular requerido",  "Ingresa el nombre del titular de la tarjeta."); return; }
 
     setOpeningPayment(true);
     const params = new URLSearchParams({
@@ -363,9 +363,9 @@ export default function PcaTrimestralPreviewScreen() {
         unidadNumero,
       });
       if (result.success) refetch();
-      else Alert.alert("Error", result.error || "No se pudo regenerar");
+      else await alertaError("No se pudo regenerar", result.error || "Intenta de nuevo.");
     } catch (err: any) {
-      Alert.alert("Error", err.message);
+      await alertaError("Error", err.message);
     }
   }, [pcaId, regenerarMutation, refetch]);
 
@@ -396,7 +396,7 @@ export default function PcaTrimestralPreviewScreen() {
         await ExpoSharing.shareAsync(uri, { mimeType: "application/pdf", dialogTitle: "Guardar PCT" });
       }
     } catch (err: any) {
-      Alert.alert("Error", "No se pudo exportar el PDF.");
+      await alertaError("Error", "No se pudo exportar el PDF.");
     } finally {
       setExportingPdf(false);
     }
@@ -432,7 +432,7 @@ export default function PcaTrimestralPreviewScreen() {
         });
       }
     } catch (err: any) {
-      Alert.alert("Error", "No se pudo exportar el archivo Word.");
+      await alertaError("Error", "No se pudo exportar el archivo Word.");
       console.error(err);
     } finally {
       setExportingWord(false);

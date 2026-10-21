@@ -2,7 +2,9 @@
  * Genera el documento Word (.docx) del plan "Conecta, Nivela y Crea" (CNC) —
  * las 5 semanas de arranque del año escolar (Semana 1 Conecta, Semanas 2-3
  * Nivela, Semanas 4-5 Crea), en modalidad general (EGB/BGU) o Bachillerato
- * Técnico.
+ * Técnico. Con `plan.planPiloto` (Programa Piloto Sierra-Amazonía, Zona 6)
+ * el documento cubre solo las 3 semanas de "Conecta y nivela": sin la
+ * sección de Semanas 4-5 y con una fila final de abordaje curricular.
  *
  * Estructura replica intencionalmente lib/semanal-word-generator.ts: UNA sola
  * tabla continua de 6 columnas (título colspan → "DATOS INFORMATIVOS" colspan
@@ -26,6 +28,7 @@ import {
   TextRun, WidthType, BorderStyle, ShadingType, AlignmentType, VerticalAlign,
 } from "docx";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import { TITULO_PLAN_PILOTO_CNC, NOTA_ABORDAJE_CURRICULAR_PILOTO } from "../data/types-cnc";
 import type { DUAActividad } from "../data/types";
 import { buscarPorCodigo } from "../data";
 import { obtenerFiguraPorId } from "../data/bachillerato-tecnico";
@@ -282,6 +285,7 @@ function leyendaDuaRow(): TableRow {
 
 export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<Blob> {
   const esBT = plan.modalidad === "bt";
+  const esPiloto = !!plan.planPiloto;
   const rows: TableRow[] = [];
 
   // ══════════════════════════════════════════════════════════════
@@ -297,12 +301,17 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
         children: [
           new Paragraph({
             alignment: AlignmentType.CENTER,
-            children: [new TextRun({ text: "CONECTA, NIVELA Y CREA", bold: true, size: FS * 2 + 6, color: WHITE, font: "Arial" })],
+            children: [new TextRun({
+              text: esPiloto ? TITULO_PLAN_PILOTO_CNC.toUpperCase() : "CONECTA, NIVELA Y CREA",
+              bold: true, size: FS * 2 + 6, color: WHITE, font: "Arial",
+            })],
           }),
           new Paragraph({
             alignment: AlignmentType.CENTER,
             children: [new TextRun({
-              text: esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas",
+              text: esPiloto
+                ? `Arranque del año escolar — 3 semanas${esBT ? " — Bachillerato Técnico" : ""}`
+                : esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas",
               size: FS * 2, color: WHITE, font: "Arial",
             })],
           }),
@@ -326,6 +335,9 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   // SEMANA 1 — CONECTA
   // ══════════════════════════════════════════════════════════════
   rows.push(sectionRow("SEMANA 1 — CONECTA"));
+  const instrumentosDiagnostico = (plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean);
+  // La técnica e instrumento de diagnóstico NO va en una fila propia: su lugar en
+  // el formato oficial es la columna ACTIVIDADES EVALUATIVAS de la Semana 1.
   rows.push(labelValueRow("Metodología declarada:", plan.semana1.metodologiaDeclarada));
   rows.push(headerRow(COLUMNAS_SEMANA));
   rows.push(new TableRow({
@@ -335,10 +347,15 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
       semanaContentCell(indicadoresParaDestrezas(plan.semana1.diagnosticoAcademico)),
       actividadesConDuaCell(plan.semana1.actividadesAdaptacion, plan.semana1.duaActividadesAdaptacion),
       semanaContentCell(plan.aiResult?.recursosSemana1Sugeridos ?? []),
-      semanaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
+      // La columna ACTIVIDADES EVALUATIVAS lleva la técnica + instrumento con que
+      // realmente se recoge la evidencia diagnóstica; "Diagnóstico dual" solo se
+      // usa como respaldo cuando el plan no declara ninguno.
+      instrumentosDiagnostico.length
+        ? actividadesConDuaCell(instrumentosDiagnostico, plan.semana1.duaInstrumentosDiagnostico)
+        : semanaContentCell(["Diagnóstico dual (académico y socioemocional)"]),
     ],
   }));
-  if (plan.semana1.duaActividadesAdaptacion?.length) {
+  if (plan.semana1.duaActividadesAdaptacion?.length || plan.semana1.duaInstrumentosDiagnostico?.length) {
     rows.push(leyendaDuaRow());
   }
 
@@ -357,7 +374,7 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
   rows.push(labelValueRow("Coordinación DECE:", plan.semana1.coordinacionDece));
 
   if (plan.semana1.tecnicasReflexion.filter(Boolean).length) {
-    rows.push(subHeadingRow("Técnicas de reflexión"));
+    rows.push(subHeadingRow("Preguntas de reflexión del cierre (metacognición)"));
     rows.push(bulletsRow(plan.semana1.tecnicasReflexion.filter(Boolean)));
   }
 
@@ -426,6 +443,14 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     }
   } else {
     rows.push(bulletsRow([]));
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // PLAN PILOTO — sin Semanas 4-5: cierre con el abordaje curricular
+  // ══════════════════════════════════════════════════════════════
+  if (esPiloto) {
+    rows.push(labelValueRow("Abordaje curricular:", NOTA_ABORDAJE_CURRICULAR_PILOTO));
+    return empaquetarDocumento(rows);
   }
 
   // ══════════════════════════════════════════════════════════════
@@ -501,6 +526,11 @@ export async function generarWordPlanCNC(plan: PlanConectaNivelaCrea): Promise<B
     }));
   }
 
+  return empaquetarDocumento(rows);
+}
+
+/** Envuelve las filas en la tabla única del documento y lo empaqueta como .docx */
+function empaquetarDocumento(rows: TableRow[]): Promise<Blob> {
   const doc = new Document({
     sections: [
       {

@@ -92,7 +92,11 @@ export default function PlanificarScreen() {
   const [grado, setGrado] = useState(destreza ? SUBNIVEL_GRADOS[destreza.subnivel] : "");
   const [fecha, setFecha] = useState(getTodayDate());
   const [periodos, setPeriodos] = useState("1");
-  const [objetivoAprendizaje, setObjetivoAprendizaje] = useState(destreza?.objetivos[0] || "");
+  // Objetivos e indicadores OFICIALES del catálogo MinEduc: se usan completos
+  // (no solo el primero) y la IA no los sustituye cuando se genera la planificación.
+  const [objetivoAprendizaje, setObjetivoAprendizaje] = useState(
+    destreza?.objetivos.length ? destreza.objetivos.join("\n") : ""
+  );
   const [actividades, setActividades] = useState("");
   const [recursos, setRecursos] = useState("");
   const [evaluacion, setEvaluacion] = useState(destreza?.indicadoresEvaluacion[0] || "");
@@ -220,7 +224,13 @@ export default function PlanificarScreen() {
 
       if (result.success && result.plan) {
         const plan = result.plan;
-        setObjetivoAprendizaje(plan.objetivoClase || destreza.objetivos[0] || "");
+        // Los objetivos oficiales del catálogo MinEduc mandan sobre los que
+        // redacta la IA; solo si el catálogo no trae ninguno se usa el de la IA.
+        setObjetivoAprendizaje(
+          destreza.objetivos.length
+            ? destreza.objetivos.join("\n")
+            : plan.objetivoClase || ""
+        );
         setEstructuraGenerada(plan.estructura);
         setRecursos((plan.recursos || []).join(", "));
         setEvaluacion(plan.evaluacionFormativa || destreza.indicadoresEvaluacion[0] || "");

@@ -17,6 +17,7 @@ import {
 import { AREAS_INFO, SUBNIVEL_NAMES } from "../data/types";
 import { METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION } from "../data/secciones-planificacion";
 import { iconosDcdRuns } from "./dcd-iconos";
+import { prepararBloques } from "./codigos-curriculares";
 
 // ─── Utilidad ─────────────────────────────────────────────────────────────────
 function toStr(val: any): string {
@@ -80,6 +81,34 @@ function textPara(text: string, bold = false, size = SZ7, align: AlignmentType =
   });
 }
 
+/**
+ * Párrafos de objetivos e indicadores: el código curricular oficial del
+ * catálogo (O.CN.B.5.2, I.CN.B.5.1.1) en negrita arriba del texto, igual que
+ * en la columna de destrezas. Si el texto lo redactó la IA no se inventa
+ * código: se agrega la referencia de la DCD de la que deriva.
+ */
+function parrafosConCodigo(
+  textos: string | string[],
+  codigosDcd?: string | Array<string | null | undefined> | null,
+  size = SZ7
+): Paragraph[] {
+  const { referencia, bloques } = prepararBloques(textos, codigosDcd);
+  const out: Paragraph[] = [];
+  if (referencia) {
+    out.push(new Paragraph({
+      spacing: { before: 30, after: 0 },
+      children: [run(referencia, true, Math.max(size - 2, SZ6), "555555")],
+    }));
+  }
+  for (const b of bloques) {
+    if (b.codigo) {
+      out.push(new Paragraph({ spacing: { before: 30, after: 0 }, children: [run(b.codigo, true, size)] }));
+    }
+    out.push(new Paragraph({ spacing: { before: 0, after: 30 }, children: [run(b.texto, false, size)] }));
+  }
+  return out.length > 0 ? out : [textPara("—", false, size)];
+}
+
 const BORDER_THIN = { style: BorderStyle.SINGLE, size: 4, color: "AAAAAA" };
 const BORDER_NONE = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
 const stdBorders = {
@@ -131,27 +160,37 @@ const FASE_LABELS: Record<string, string> = {
 
 /**
  * Divide el campo evaluacion (string con indicadores separados por punto)
- * en párrafos individuales, uno por indicador.
+ * en párrafos individuales, uno por indicador. Conserva el código oficial del
+ * catálogo en negrita arriba de cada texto y, si el indicador lo redactó la
+ * IA, agrega la referencia a la DCD de la que deriva.
  */
-function evaluacionParagraphs(raw: any): Paragraph[] {
+function evaluacionParagraphs(
+  raw: any,
+  codigosDcd?: string | Array<string | null | undefined> | null
+): Paragraph[] {
   const text = toStr(raw);
   if (!text || text === "—") return [textPara("—", false, SZ7)];
 
   // Split by ". " keeping the period at the end of each fragment
-  const partes = text
+  const crudo = text
     .split(/\.\s+/)
     .map((s: string) => s.trim())
-    .filter((s: string) => s.length > 0)
-    .map((s: string) => (s.endsWith(".") ? s : s + "."));
+    .filter((s: string) => s.length > 0);
 
-  if (partes.length <= 1) return [textPara(text, false, SZ7)];
+  const partes: string[] = [];
+  for (let i = 0; i < crudo.length; i++) {
+    const frag = crudo[i];
+    const sig = crudo[i + 1];
+    // Un código ("I.CN.5.1.1") quedó solo al partir por ". ": se reincorpora
+    if (sig && /^[A-Z]{1,3}\.[A-Z0-9]+(?:\.[A-Z0-9]+)+$/.test(frag)) {
+      partes.push(`${frag}. ${sig}`);
+      i++;
+    } else {
+      partes.push(frag.endsWith(".") ? frag : `${frag}.`);
+    }
+  }
 
-  return partes.map((indicador: string, i: number) =>
-    new Paragraph({
-      spacing: { before: i === 0 ? 0 : 40, after: 0 },
-      children: [run(indicador, false, SZ7)],
-    })
-  );
+  return parrafosConCodigo(partes, codigosDcd, SZ7);
 }
 
 /**
@@ -397,10 +436,26 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
   // ── Sección 3: OBJETIVOS DEL TRIMESTRE ──
   const objetivosHeader = sectionHeaderRow("3. OBJETIVOS DEL TRIMESTRE");
 
+  // Códigos DCD del PCT: referencia cuando los objetivos los redactó la IA
+  const codigosPct = [
+    ...new Set(
+      unidades.flatMap((u: any) =>
+        (u.dcdsSeleccionadas || []).map((d: any) => d.codigo).filter(Boolean)
+      )
+    ),
+  ];
+
   const objetivosData = new TableRow({
     children: [
       makeCell({
-        paragraphs: labeledPara(`Objetivos del ${trimestre}:`, toStr(aiResult?.objetivosTrimestre) || "—"),
+        paragraphs: [
+          new Paragraph({
+            spacing: { before: 20, after: 0 },
+            children: [run(`Objetivos del ${trimestre}:`, true, SZ7)],
+          }),
+          // Código oficial en negrita arriba; si la IA los redactó, referencia DCD
+          ...parrafosConCodigo(toStr(aiResult?.objetivosTrimestre), codigosPct, SZ7),
+        ],
         span: 7,
         width: COL_TOTAL,
       }),
@@ -450,6 +505,7 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
 
   const unidadesRows: TableRow[] = unidades.map((unidad: any, idx: number) => {
     const aiU = aiUnidades.find((a: any) => a.numero === unidad.numero) || aiUnidades[idx] || {};
+    const codigosUnidad = (unidad.dcdsSeleccionadas || []).map((d: any) => d.codigo);
     const dcdParrafos = (unidad.dcdsSeleccionadas || []).length > 0
       ? (unidad.dcdsSeleccionadas as any[]).map((d: any) =>
           new Paragraph({
@@ -463,10 +519,10 @@ export async function generarWordPcaTrimestral(formData: any, aiResult: any): Pr
       children: [
         makeCell({ paragraphs: [textPara(String(unidad.numero), true, SZ7, AlignmentType.CENTER)], width: COL_W[0], vAlign: VerticalAlign.CENTER }),
         makeCell({ paragraphs: [textPara(toStr(aiU.titulo) || `Unidad ${unidad.numero}`, true, SZ7)], width: COL_W[1] }),
-        makeCell({ paragraphs: [textPara(toStr(aiU.objetivosEspecificos) || "—", false, SZ7)], width: COL_W[2] }),
+        makeCell({ paragraphs: parrafosConCodigo(toStr(aiU.objetivosEspecificos), codigosUnidad, SZ7), width: COL_W[2] }),
         makeCell({ paragraphs: dcdParrafos, width: COL_W[3] }),
         makeCell({ paragraphs: orientacionesParagraphs(aiU.orientacionesMetodologicas, formData.modeloPedagogico || "ERCA"), width: COL_W[4] }),
-        makeCell({ paragraphs: evaluacionParagraphs(aiU.evaluacion), width: COL_W[5] }),
+        makeCell({ paragraphs: evaluacionParagraphs(aiU.evaluacion, codigosUnidad), width: COL_W[5] }),
         makeCell({ paragraphs: [textPara(String(aiU.duracionSemanas || unidad.duracionSemanas || "—"), false, SZ7, AlignmentType.CENTER)], width: COL_W[6], vAlign: VerticalAlign.CENTER }),
       ],
     });

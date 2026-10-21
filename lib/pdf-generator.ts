@@ -6,12 +6,15 @@ import {
 import type { DUAActividad } from "../data/types";
 import type { PlanUnidadTrabajoBT } from "../data/types-bt";
 import type { PlanConectaNivelaCrea } from "../data/types-cnc";
+import { TITULO_PLAN_PILOTO_CNC, NOTA_ABORDAJE_CURRICULAR_PILOTO } from "../data/types-cnc";
 import { buscarPorCodigo as cncBuscarPorCodigo } from "../data";
 import { obtenerFiguraPorId as obtenerFiguraPorIdBT } from "../data/bachillerato-tecnico";
 import { INSERCIONES_CURRICULARES } from "../data/inserciones-curriculares";
 import { COMPETENCIAS, METODOLOGIAS_ACTIVAS, TECNICAS_EVALUACION, ESTILOS_APRENDIZAJE } from "../data/secciones-planificacion";
 import { HABILIDADES_SOCIOEMOCIONALES } from "../data/habilidades-socioemocionales";
 import { iconosDestrezaHTML } from "./dcd-iconos";
+import { prepararBloques, bloquesAHtml } from "./codigos-curriculares";
+import { objetivosOficialesTexto } from "./oficiales-curriculares";
 
 /**
  * Genera el HTML con formato oficial del Ministerio de Educación de Ecuador 2026-2027
@@ -123,20 +126,31 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
     ? plan.temaSeleccionado.evaluacionFormativa
     : plan.evaluacion || (isEFL ? "Not specified" : "No especificada");
 
-  // Indicadores de evaluación
-  const indicadoresHTML = plan.destreza.indicadoresEvaluacion
-    .map((ind) => `<li>${ind}</li>`)
-    .join("");
+  // Indicadores de evaluación — el código oficial del catálogo (I.CN.B.5.1.1)
+  // se imprime en negrita arriba del texto; si la IA lo redactó, se referencia
+  // la DCD de la que deriva.
+  const indicadoresHTML = bloquesAHtml(
+    prepararBloques(plan.destreza.indicadoresEvaluacion, plan.destreza.codigo),
+    esc
+  );
 
   // Criterios de evaluación
   const criteriosHTML = plan.destreza.criteriosEvaluacion
     .map((crit) => `<li>${crit}</li>`)
     .join("");
 
-  // Objetivos
-  const objetivosHTML = plan.destreza.objetivos
-    .map((obj) => `<li>${obj}</li>`)
-    .join("");
+  // Objetivos — los OFICIALES del catálogo MinEduc mandan sobre los que redactó
+  // la IA; su código se imprime arriba y nunca se inventa uno.
+  const objetivosOficiales: string[] = plan.destreza.objetivos ?? [];
+  const objetivosFuente: string[] = objetivosOficiales.length > 0
+    ? objetivosOficiales
+    : plan.objetivoAprendizaje
+      ? [plan.objetivoAprendizaje]
+      : [];
+  const objetivosHTML = bloquesAHtml(
+    prepararBloques(objetivosFuente, plan.destreza.codigo),
+    esc
+  );
 
   // Metodologías activas
   const metodologiasHTML = (() => {
@@ -641,7 +655,7 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
   <!-- SECCIÓN 5: OBJETIVOS -->
   <div class="seccion-titulo">${isEFL ? "5. OBJECTIVES" : "5. OBJETIVOS"}</div>
   <div class="recursos-box">
-    ${plan.objetivoAprendizaje || (objetivosHTML ? `<ul style="margin:0;padding-left:16px;">${objetivosHTML}</ul>` : (isEFL ? "Not specified" : "No especificado"))}
+    ${objetivosHTML || (isEFL ? "Not specified" : "No especificado")}
   </div>
 
   <!-- SECCIÓN 6: CRITERIOS DE EVALUACIÓN -->
@@ -687,7 +701,7 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
               })()}
             </div>
           ` : ""}
-          ${indicadoresHTML ? `<ul style="margin-top:4px;">${indicadoresHTML}</ul>` : (isEFL ? "Not specified" : "No especificados")}
+          ${indicadoresHTML || (isEFL ? "Not specified" : "No especificados")}
         </td>
         <td>
           <!-- DUA Legend -->
@@ -703,7 +717,7 @@ export function generarHTMLPlanificacion(plan: Planificacion): string {
         </td>
         <td>
           <strong style="font-size:7.5px;">${isEFL ? "Assessment indicators:" : "Indicadores de evaluación:"}</strong><br/>
-          ${evaluacionTexto}
+          ${bloquesAHtml(prepararBloques([evaluacionTexto], plan.destreza.codigo), esc) || esc(evaluacionTexto)}
           <br/><br/>
           <strong style="font-size:7.5px;">${isEFL ? "Technique:" : "Técnica:"}</strong><br/>
           ${plan.tecnicasInstrumentos || (isEFL ? "Direct observation, participation analysis." : "Observación de participación, análisis de casos y reflexión personal.")}
@@ -1009,6 +1023,16 @@ export function generarHTMLSemanal(
   // Una fila por cada hora de clase de cada día activo
   const diasActivos = DIAS.filter((d) => semana.dias[d]?.activo);
 
+  // Códigos DCD de la semana: referencia cuando los objetivos específicos los
+  // redactó la IA (no traen código oficial del catálogo).
+  const codigosSemana = [
+    ...new Set(
+      diasActivos.flatMap((d) =>
+        (semana.dias[d]?.horas || []).map((h) => h.codigoDestreza).filter(Boolean)
+      )
+    ),
+  ];
+
   const filasHTML = diasActivos.map((dia) => {
     const diaConfig = semana.dias[dia];
     const horasConPlan = diaConfig.horas.filter(h => h.temaSeleccionado);
@@ -1023,13 +1047,13 @@ export function generarHTMLSemanal(
         <strong style="color:#003366;font-size:9px;">${hora.codigoDestreza}</strong><br/>
         <span style="font-size:9px;">${hora.descripcionEfectiva ?? hora.destreza?.descripcion ?? ""}</span>
         ${iconosDestrezaHTML(hora.codigoDestreza)}
-        ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:9px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${plan.objetivoClase}</div>` : ""}`;
+        ${plan.objetivoClase ? `<div style="margin-top:3px;font-size:9px;color:#555;font-style:italic;border-left:2px solid #003366;padding-left:4px;">${bloquesAHtml(prepararBloques([plan.objetivoClase], hora.codigoDestreza), esc)}</div>` : ""}`;
 
-      // ── Columna 3: Indicadores de evaluación ──
+      // ── Columna 3: Indicadores de evaluación (código oficial en negrita) ──
       const indicadores = hora.destreza?.indicadoresEvaluacion || [];
-      const indHTML = indicadores.length
-        ? `<ul style="padding-left:10px;margin:0;">${indicadores.map(i => `<li style="font-size:9px;margin-bottom:2px;">${i}</li>`).join("")}</ul>`
-        : `<span style="font-size:9px;color:#888;">—</span>`;
+      const bloquesInd = prepararBloques(indicadores, hora.codigoDestreza);
+      const indHTML = bloquesAHtml(bloquesInd, esc)
+        || `<span style="font-size:9px;color:#888;">—</span>`;
 
       // ── Columna 4: Estrategias ERCA + DUA ──
       const fases = [
@@ -1170,7 +1194,12 @@ export function generarHTMLSemanal(
       <td class="lbl" colspan="1">T&iacute;tulo de unidad de planificaci&oacute;n:</td>
       <td colspan="2">${(semana as any).tituloUnidad || "___"}</td>
       <td class="lbl">Objetivos espec&iacute;ficos de la unidad de planificaci&oacute;n:</td>
-      <td colspan="2">${(semana as any).objetivosUnidad || "___"}</td>
+      <td colspan="2">${bloquesAHtml(prepararBloques(
+        (semana as any).objetivosUnidad?.trim()
+          ? [(semana as any).objetivosUnidad]
+          : objetivosOficialesTexto(codigosSemana),
+        codigosSemana
+      ), esc) || "___"}</td>
     </tr>
   </table>
 
@@ -1417,7 +1446,9 @@ export function generarHTMLPlanBT(plan: PlanUnidadTrabajoBT): string {
 
 /**
  * HTML del plan "Conecta, Nivela y Crea" (CNC) para exportación a PDF —
- * las 5 semanas de arranque del año escolar, modalidad general o BT.
+ * las 5 semanas de arranque del año escolar, modalidad general o BT. Con
+ * `plan.planPiloto` (Programa Piloto Sierra-Amazonía, Zona 6) solo cubre las
+ * 3 semanas de "Conecta y nivela" y cierra con el abordaje curricular.
  */
 /** Indicadores de evaluación reales del catálogo curricular (igual que la tabla de planificación semanal) */
 function cncIndicadoresDe(codigo: string): string[] {
@@ -1472,6 +1503,7 @@ function recursosProyectoCNC(plan: PlanConectaNivelaCrea): string[] {
 
 export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
   const esBT = plan.modalidad === "bt";
+  const esPiloto = !!plan.planPiloto;
 
   const seccion = (label: string) => `<tr><td colspan="6" class="section-row">${esc(label)}</td></tr>`;
   const subheading = (text: string) => `<tr><td colspan="6" class="subheading">${esc(text)}</td></tr>`;
@@ -1509,13 +1541,17 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     return `<td>${leyenda}${items.map((act, idx) => `<div>${esc(act)}${dua?.length ? duaSquaresHTML(dua[idx]) : ""}</div>`).join("")}</td>`;
   };
 
+  const cncInstrumentosDiagnostico = (plan.semana1.instrumentosDiagnostico ?? []).filter(Boolean);
+
   const semana1HTML = `<tr>
       ${semanaCellHTML("SEMANA 1")}
       ${contentCellHTML(plan.semana1.diagnosticoAcademico.map((d) => `${d.destrezaCodigo}: ${d.destrezaDescripcion}`))}
       ${contentCellHTML(cncIndicadoresParaDestrezas(plan.semana1.diagnosticoAcademico))}
       ${actividadesConDuaCellHTML(plan.semana1.actividadesAdaptacion, plan.semana1.duaActividadesAdaptacion)}
       ${contentCellHTML(plan.aiResult?.recursosSemana1Sugeridos ?? [])}
-      ${contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
+      ${cncInstrumentosDiagnostico.length
+        ? actividadesConDuaCellHTML(cncInstrumentosDiagnostico, plan.semana1.duaInstrumentosDiagnostico)
+        : contentCellHTML(["Diagnóstico dual (académico y socioemocional)"])}
     </tr>`;
 
   const nivelacionSemanasHTML = [2, 3].map((numSemana) => {
@@ -1543,7 +1579,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<title>Conecta, Nivela y Crea</title>
+<title>${esPiloto ? "Conecta y nivela" : "Conecta, Nivela y Crea"}</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: Arial, Helvetica, sans-serif; color: #000; margin: 24px; font-size: 8px; }
@@ -1563,8 +1599,10 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
 <body>
   <table class="tabla-plan">
     <tr><td colspan="6" class="title-cell">
-      <div class="titulo">CONECTA, NIVELA Y CREA</div>
-      <div class="subt">${esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas"}</div>
+      <div class="titulo">${esPiloto ? esc(TITULO_PLAN_PILOTO_CNC.toUpperCase()) : "CONECTA, NIVELA Y CREA"}</div>
+      <div class="subt">${esPiloto
+        ? `Arranque del año escolar — 3 semanas${esBT ? " — Bachillerato Técnico" : ""}`
+        : esBT ? "Arranque del año escolar — Bachillerato Técnico" : "Arranque del año escolar — 5 semanas"}</div>
     </td></tr>
 
     ${seccion("DATOS INFORMATIVOS")}
@@ -1585,7 +1623,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${subheading("Diagnóstico socioemocional")}
     ${bullets(plan.semana1.diagnosticoSocioemocional.map((h) => `${h.habilidadId}${h.observaciones ? " — " + h.observaciones : ""}`))}
     ${labelValue("Coordinación DECE:", plan.semana1.coordinacionDece)}
-    ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? subheading("Técnicas de reflexión") : ""}
+    ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? subheading("Preguntas de reflexión del cierre (metacognición)") : ""}
     ${plan.semana1.tecnicasReflexion.filter(Boolean).length ? bullets(plan.semana1.tecnicasReflexion) : ""}
 
     ${seccion("SEMANAS 2-3 — NIVELA")}
@@ -1600,6 +1638,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
     ${plan.semana2y3.parejasConivelacion.length ? `<tr><th colspan="2">Apoya</th><th colspan="2">Apoyado</th><th colspan="2">Destreza foco</th></tr>` : ""}
     ${conivelacionHTML}
 
+    ${esPiloto ? labelValue("Abordaje curricular:", NOTA_ABORDAJE_CURRICULAR_PILOTO) : `
     ${seccion("SEMANAS 4-5 — CREA")}
     <tr><td colspan="6" class="banner-oficial">ESTE PROYECTO CONSTITUYE UNA EVALUACIÓN CUALITATIVA FORMATIVA OFICIAL</td></tr>
     ${esBT && plan.semana4y5BT
@@ -1642,7 +1681,7 @@ export function generarHTMLPlanCNC(plan: PlanConectaNivelaCrea): string {
             ${contentCellHTML(plan.semana4y5.proyecto.actividadesSemana5?.filter(Boolean).length ? plan.semana4y5.proyecto.actividadesSemana5.filter(Boolean) : ["Presentación y socialización del proyecto interdisciplinario"])}
             ${contentCellHTML(recursosProyectoCNC(plan))}
             ${contentCellHTML(["Evaluación cualitativa formativa oficial"])}
-          </tr>`}
+          </tr>`}`}
   </table>
 </body>
 </html>`;
