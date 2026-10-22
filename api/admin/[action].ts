@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import axios from "axios";
 import { handleCors, verifyAdmin } from "../_lib/admin-auth";
-import { getDb } from "../_lib/db";
+import { getDb, syncRecurringFromTokens } from "../_lib/db";
 import { sendRenewalReminderEmail, sendExpiredEmail, sendPromoReactivacionEmail, sendResubscribeEmail } from "../../server/email";
 import {
   subscriptions,
@@ -60,6 +60,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // GET /api/admin/dashboard
     if (action === "dashboard") {
+      // Trigger: si tiene token activo ⇒ recurrente, ANTES de calcular métricas
+      await syncRecurringFromTokens();
+
       const allSubs = await db.select().from(subscriptions);
       const activeSubs = allSubs.filter(s => s.status === "active");
       const approvedTxns = await db.select().from(paymentTransactions).where(eq(paymentTransactions.status, "approved"));
@@ -73,6 +76,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .reduce((sum, t) => sum + t.amount, 0);
       const activeTokens = await db.select().from(cardTokens).where(eq(cardTokens.isActive, true));
 
+      // Regla única del panel: tiene token activo (fuente de verdad) O el flag de la suscripción lo indica
+      const activeTokenEmails = new Set(activeTokens.map(t => t.email.toLowerCase()));
+      const isRecurringSub = (s: typeof activeSubs[0]) =>
+        s.isRecurring || activeTokenEmails.has(s.email.toLowerCase());
+
       return res.json({
         metrics: {
           totalSubscriptions: allSubs.length,
@@ -80,8 +88,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           expiredSubscriptions: allSubs.filter(s => s.status === "expired").length,
           cancelledSubscriptions: allSubs.filter(s => s.status === "cancelled").length,
           pastDueSubscriptions: allSubs.filter(s => s.status === "past_due").length,
-          recurringActive: activeSubs.filter(s => s.isRecurring).length,
-          oneTimeActive: activeSubs.filter(s => !s.isRecurring).length,
+          recurringActive: activeSubs.filter(isRecurringSub).length,
+          oneTimeActive: activeSubs.filter(s => !isRecurringSub(s)).length,
           monthlyPlanActive: activeSubs.filter(s => s.plan === "monthly").length,
           annualPlanActive: activeSubs.filter(s => s.plan === "annual").length,
           totalRevenueCents: totalRevenue,
@@ -95,6 +103,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // GET /api/admin/users
     if (action === "users") {
+      // Trigger: si tiene token activo ⇒ recurrente, ANTES de listar usuarios
+      await syncRecurringFromTokens();
+
       const allSubs = await db.select().from(subscriptions).orderBy(desc(subscriptions.createdAt));
       const allTokens = await db.select().from(cardTokens);
       const allApprovedTxns = await db.select({

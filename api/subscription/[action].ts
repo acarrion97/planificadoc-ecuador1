@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handleCors } from "../_lib/admin-auth";
-import { getDb } from "../_lib/db";
+import { getDb, syncRecurringFromTokens } from "../_lib/db";
 import { subscriptions, cardTokens } from "../../drizzle/schema";
 import { eq, and, desc } from "drizzle-orm";
 
@@ -15,6 +15,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (action === "details") {
     const email = (req.query.email as string)?.trim().toLowerCase();
     if (!email) return res.status(400).json({ error: "Email requerido" });
+
+    // Trigger: si tiene token activo ⇒ la suscripción debe quedar como recurrente
+    // (sincroniza el flag antes de responder y habilita cancel-recurring en la app)
+    await syncRecurringFromTokens();
 
     // First try to find an active subscription; fallback to latest by endDate
     const activeSubs = await db
