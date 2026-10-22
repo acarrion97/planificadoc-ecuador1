@@ -28,25 +28,63 @@ export interface MateriaCurriculoIntegrado {
 }
 
 export const MATERIAS_EGB_BGU: MateriaCurriculoIntegrado[] = [
-  { id: "lengua", nombre: "Lengua y Literatura", competencias: COMPETENCIAS_LENGUA },
-  { id: "matematica", nombre: "Matemática", competencias: COMPETENCIAS_MATEMATICA },
-  { id: "ciencias-naturales", nombre: "Ciencias Naturales", competencias: COMPETENCIAS_CIENCIAS_NATURALES },
-  { id: "ciencias-sociales", nombre: "Ciencias Sociales", competencias: COMPETENCIAS_CIENCIAS_SOCIALES },
+  {
+    id: "lengua",
+    nombre: "Lengua y Literatura",
+    competencias: COMPETENCIAS_LENGUA,
+  },
+  {
+    id: "matematica",
+    nombre: "Matemática",
+    competencias: COMPETENCIAS_MATEMATICA,
+  },
+  {
+    id: "ciencias-naturales",
+    nombre: "Ciencias Naturales",
+    competencias: COMPETENCIAS_CIENCIAS_NATURALES,
+  },
+  {
+    id: "ciencias-sociales",
+    nombre: "Ciencias Sociales",
+    competencias: COMPETENCIAS_CIENCIAS_SOCIALES,
+  },
   { id: "ingles", nombre: "Inglés", competencias: COMPETENCIAS_INGLES },
-  { id: "educacion-fisica", nombre: "Educación Física", competencias: COMPETENCIAS_EF },
-  { id: "eca", nombre: "Educación Cultural y Artística", competencias: COMPETENCIAS_ECA },
-  { id: "emprendimiento", nombre: "Emprendimiento y Gestión", competencias: COMPETENCIAS_EMPRENDIMIENTO },
+  {
+    id: "educacion-fisica",
+    nombre: "Educación Física",
+    competencias: COMPETENCIAS_EF,
+  },
+  {
+    id: "eca",
+    nombre: "Educación Cultural y Artística",
+    competencias: COMPETENCIAS_ECA,
+  },
+  {
+    id: "emprendimiento",
+    nombre: "Emprendimiento y Gestión",
+    competencias: COMPETENCIAS_EMPRENDIMIENTO,
+  },
 ];
 
-export function obtenerMateria(id: string): MateriaCurriculoIntegrado | undefined {
+export function obtenerMateria(
+  id: string,
+): MateriaCurriculoIntegrado | undefined {
   return MATERIAS_EGB_BGU.find((m) => m.id === id);
 }
 
 /** Niveles (hojas de la matriz) disponibles para una materia, en un orden pedagógico razonable. */
 const ORDEN_NIVELES = [
-  "PREPARATORIA", "ELEMENTAL", "MEDIA", "SUPERIOR", "BACHILLERATO",
-  "BIOLOGÍA", "QUÍMICA", "FÍSICA",
-  "HISTORIA Y GEOGRAFÍA", "CIUDADANÍA", "FILOSOFÍA",
+  "PREPARATORIA",
+  "ELEMENTAL",
+  "MEDIA",
+  "SUPERIOR",
+  "BACHILLERATO",
+  "BIOLOGÍA",
+  "QUÍMICA",
+  "FÍSICA",
+  "HISTORIA Y GEOGRAFÍA",
+  "CIUDADANÍA",
+  "FILOSOFÍA",
 ];
 
 export function nivelesDeMateria(materiaId: string): string[] {
@@ -57,7 +95,7 @@ export function nivelesDeMateria(materiaId: string): string[] {
     for (const g of c.porGrado) niveles.add(g.nivel);
   }
   return Array.from(niveles).sort(
-    (a, b) => ORDEN_NIVELES.indexOf(a) - ORDEN_NIVELES.indexOf(b)
+    (a, b) => ORDEN_NIVELES.indexOf(a) - ORDEN_NIVELES.indexOf(b),
   );
 }
 
@@ -78,18 +116,18 @@ export function gradosDeNivel(materiaId: string, nivel: string): string[] {
 export function competenciasDeGrado(
   materiaId: string,
   nivel: string,
-  grado: string
+  grado: string,
 ): CompetenciaEspecificaCompleta[] {
   const materia = obtenerMateria(materiaId);
   if (!materia) return [];
   return materia.competencias.filter((c) =>
-    c.porGrado.some((g) => g.nivel === nivel && g.grado === grado)
+    c.porGrado.some((g) => g.nivel === nivel && g.grado === grado),
   );
 }
 
 /** Busca una competencia específica por código en todas las materias EGB/BGU. */
 export function buscarCompetenciaEspecificaEGBBGU(
-  codigo: string
+  codigo: string,
 ): CompetenciaEspecificaCompleta | undefined {
   for (const materia of MATERIAS_EGB_BGU) {
     const found = materia.competencias.find((c) => c.codigo === codigo);
@@ -101,7 +139,7 @@ export function buscarCompetenciaEspecificaEGBBGU(
 /** Busca una competencia específica por código dentro de una materia concreta. */
 function buscarCEEnMateria(
   materiaId: string,
-  ceCodigo: string
+  ceCodigo: string,
 ): CompetenciaEspecificaCompleta | undefined {
   const materia = obtenerMateria(materiaId);
   return materia?.competencias.find((c) => c.codigo === ceCodigo);
@@ -116,7 +154,7 @@ function buscarCEEnMateria(
 export function ceDisponibleParaGrados(
   materiaId: string,
   ceCodigo: string,
-  grados: string[]
+  grados: string[],
 ): { valido: boolean; gradosNoCubiertos: string[] } {
   const ce = buscarCEEnMateria(materiaId, ceCodigo);
   if (!ce) return { valido: false, gradosNoCubiertos: [...grados] };
@@ -140,7 +178,7 @@ export function ceDisponibleParaGrados(
 export function resolverBloquePorGrado(
   materiaId: string,
   ceCodigo: string,
-  grados: string[]
+  grados: string[],
 ): Record<string, BloqueCurricularGrado> {
   const ce = buscarCEEnMateria(materiaId, ceCodigo);
   const resultado: Record<string, BloqueCurricularGrado> = {};
@@ -187,7 +225,7 @@ export function buscarConexionesInterdisciplinariasMesocurriculo(
   materiaIdActual: string,
   codigoActual: string,
   descripcionActual?: string,
-  indicadoresActuales?: string[]
+  indicadoresActuales?: string[],
 ): ConexionInterdisciplinariaMesocurriculo[] {
   const subnivel = subnivelDeCodigoCE(codigoActual);
   if (!subnivel) return [];
@@ -208,7 +246,8 @@ export function buscarConexionesInterdisciplinariasMesocurriculo(
   const materiasVisitadas = new Set<string>();
 
   for (const materia of MATERIAS_EGB_BGU) {
-    if (materia.id === materiaIdActual || materiasVisitadas.has(materia.nombre)) continue;
+    if (materia.id === materiaIdActual || materiasVisitadas.has(materia.nombre))
+      continue;
 
     for (const competencia of materia.competencias) {
       if (subnivelDeCodigoCE(competencia.codigo) !== subnivel) continue;
