@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, inArray } from "drizzle-orm";
 import {
   subscriptions,
   paymentTransactions,
@@ -165,6 +165,63 @@ export async function getActiveCardToken(email: string) {
 }
 
 // ============= Recurring Billing Queries =============
+
+/**
+ * Sincroniza `subscriptions.isRecurring` con la fuente de verdad: `card_tokens.isActive`.
+ *
+ * Regla: si el usuario TIENE token de cobro recurrente activo → su suscripción vigente
+ * (active/past_due) DEBE quedar marcada como recurrente y vinculada al token.
+ *
+ * Se ejecuta como "trigger" desde:
+ *  - Cron de Vercel `/api/recurring/process` (antes de procesar cobros).
+ *  - Panel admin `/api/admin/dashboard` y `/api/admin/users` (al cargar).
+ *  - Detalles de suscripción `/api/subscription/details` (app cliente).
+ *
+ * Es idempotente: solo escribe cuando encuentra una desincronización.
+ * @returns cantidad de suscripciones corregidas (0 si no hubo cambios o hay error)
+ */
+export async function syncRecurringFromTokens(): Promise<number> {
+  const db = getDb();
+  if (!db) return 0;
+
+  try {
+    const activeTokens = await db
+      .select()
+      .from(cardTokens)
+      .where(eq(cardTokens.isActive, true));
+    if (activeTokens.length === 0) return 0;
+
+    // Índice email (minúsculas) → token activo (solo hay uno por email)
+    const tokenByEmail = new Map(activeTokens.map((t) => [t.email.toLowerCase(), t]));
+
+    const currentSubs = await db
+      .select()
+      .from(subscriptions)
+      .where(inArray(subscriptions.status, ["active", "past_due"]));
+
+    let fixed = 0;
+    for (const sub of currentSubs) {
+      const token = tokenByEmail.get(sub.email.toLowerCase());
+      if (!token) continue; // sin token activo → no es recurrente, no tocar
+      if (sub.isRecurring && sub.cardTokenId === token.id) continue; // ya sincronizada
+
+      await db
+        .update(subscriptions)
+        .set({ isRecurring: true, cardTokenId: token.id })
+        .where(eq(subscriptions.id, sub.id));
+      fixed++;
+    }
+
+    if (fixed > 0) {
+      console.log(`[syncRecurring] ${fixed} suscripción(es) marcada(s) como recurrente(s) por tener token activo`);
+    }
+    return fixed;
+  } catch (error) {
+    // Nunca rompe el flujo principal: el cron/panel siguen funcionando con el flag existente
+    console.error("[syncRecurring] Error sincronizando isRecurring con card_tokens:", error);
+    return 0;
+  }
+}
 
 export async function getSubscriptionsDueForRenewal() {
   const db = getDb();

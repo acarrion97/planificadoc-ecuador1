@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createCipheriv } from "node:crypto";
 import axios from "axios";
-import { getDb } from "../_lib/db";
+import { getDb, syncRecurringFromTokens } from "../_lib/db";
 import { subscriptions, cardTokens, paymentTransactions } from "../../drizzle/schema";
 import { eq, and, lte, gte } from "drizzle-orm";
 import {
@@ -85,6 +85,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let trialsConverted = 0, trialsExpired = 0, trialsReminded = 0;
 
   try {
+    // ── 0. SYNC: token activo ⇒ suscripción recurrente ─────────────────────
+    // Fuente de verdad: card_tokens.isActive. Se ejecuta ANTES de cualquier fase
+    // para garantizar que todo usuario con token de cobro recurrente quede con
+    // isRecurring=true (lo usan la Fase 2 de cobros y el panel admin).
+    const syncedFromTokens = await syncRecurringFromTokens();
+
     // ── 0. TRIALS: Conversión y recordatorio de pruebas gratuitas ──────────
 
     // 0a. Recordatorio 1 día antes de que termine el trial
@@ -577,10 +583,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.log(`[Cron] Suscripción expirada: ${sub.email}`);
     }
 
-    console.log(`[Cron] Completo: trials(${trialsReminded} avisos / ${trialsConverted} convertidos / ${trialsExpired} expirados), ${reminded} avisos, ${processed} cobros (${succeeded} ok / ${failed} fallidos), ${expiredToday.length} expirados`);
+    console.log(`[Cron] Completo: sync(${syncedFromTokens} recurrentes corregidas por token), trials(${trialsReminded} avisos / ${trialsConverted} convertidos / ${trialsExpired} expirados), ${reminded} avisos, ${processed} cobros (${succeeded} ok / ${failed} fallidos), ${expiredToday.length} expirados`);
 
     res.json({
       success: true,
+      syncedRecurring: syncedFromTokens,
       trials: { reminded: trialsReminded, converted: trialsConverted, expired: trialsExpired },
       reminded,
       processed,

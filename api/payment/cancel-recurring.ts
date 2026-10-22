@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handleCors } from "../_lib/admin-auth";
 import { getDb } from "../_lib/db";
-import { subscriptions } from "../../drizzle/schema";
+import { subscriptions, cardTokens } from "../../drizzle/schema";
 import { eq, and } from "drizzle-orm";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -42,8 +42,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     await db
       .update(subscriptions)
-      .set({ status: "cancelled" })
+      .set({ status: "cancelled", isRecurring: false })
       .where(eq(subscriptions.id, activeSub.id));
+
+    // Invariante "token activo ⇔ recurrente": al cancelar se desactiva el token
+    // para que el panel no siga mostrando al usuario como recurrente.
+    await db
+      .update(cardTokens)
+      .set({ isActive: false })
+      .where(eq(cardTokens.email, normalizedEmail));
 
     res.json({
       success: true,

@@ -1,11 +1,10 @@
 /**
  * Tipos compartidos del catálogo de Competencias Específicas — Currículo
  * Integrado (Preparatoria a Bachillerato). Un mismo shape para todas las
- * áreas (Lengua, Matemática, CCNN, CCSS, Inglés, ECA, Emprendimiento),
- * ya que la matriz oficial del MESOCURRICULUM usa la misma estructura de
- * columnas para todas: Competencia específica | Saberes declarativos |
- * Saberes procedimentales | Saberes actitudinales | Indicadores de
- * evaluación, repetida por cada grado dentro de un subnivel/nivel.
+ * áreas (Lengua, Matemática, CCNN, CCSS, Inglés, Educación Física, ECA y
+ * Emprendimiento), normalizando distintas fuentes a la misma estructura:
+ * competencia específica, saberes declarativos/procedimentales/actitudinales e
+ * indicadores de evaluación, desagregados por grado cuando la fuente lo permite.
  */
 
 export interface IndicadorCompetenciaEspecifica {
