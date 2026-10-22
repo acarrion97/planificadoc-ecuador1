@@ -1,11 +1,13 @@
 /**
  * Índice combinado del catálogo de Competencias Específicas — Currículo
- * Integrado para EGB y BGU (Elemental, Media, Superior, Bachillerato).
+ * Integrado para Preparatoria, EGB y BGU.
  *
- * Junta los 7 catálogos por materia (cada uno extraído directamente de su
- * xlsx del MESOCURRICULUM) en una sola lista consultable por código, y
+ * Junta los catálogos por materia en una sola lista consultable por código y
  * expone la agrupación por materia que usa el formulario para el selector
  * de Materia → Nivel → Grado → Competencias.
+ *
+ * Educación Física se extrae de los PDF curriculares suministrados; las demás
+ * materias proceden de sus matrices del MESOCURRICULUM.
  */
 
 import type { CompetenciaEspecificaCompleta } from "./types-competencias-especificas";
@@ -17,6 +19,7 @@ import { COMPETENCIAS_CIENCIAS_SOCIALES } from "./competencias-especificas-cienc
 import { COMPETENCIAS_INGLES } from "./competencias-especificas-ingles";
 import { COMPETENCIAS_ECA } from "./competencias-especificas-eca";
 import { COMPETENCIAS_EMPRENDIMIENTO } from "./competencias-especificas-emprendimiento";
+import { COMPETENCIAS_EF } from "./competencias-especificas-ef";
 
 export interface MateriaCurriculoIntegrado {
   id: string;
@@ -30,6 +33,7 @@ export const MATERIAS_EGB_BGU: MateriaCurriculoIntegrado[] = [
   { id: "ciencias-naturales", nombre: "Ciencias Naturales", competencias: COMPETENCIAS_CIENCIAS_NATURALES },
   { id: "ciencias-sociales", nombre: "Ciencias Sociales", competencias: COMPETENCIAS_CIENCIAS_SOCIALES },
   { id: "ingles", nombre: "Inglés", competencias: COMPETENCIAS_INGLES },
+  { id: "educacion-fisica", nombre: "Educación Física", competencias: COMPETENCIAS_EF },
   { id: "eca", nombre: "Educación Cultural y Artística", competencias: COMPETENCIAS_ECA },
   { id: "emprendimiento", nombre: "Emprendimiento y Gestión", competencias: COMPETENCIAS_EMPRENDIMIENTO },
 ];
@@ -40,7 +44,7 @@ export function obtenerMateria(id: string): MateriaCurriculoIntegrado | undefine
 
 /** Niveles (hojas de la matriz) disponibles para una materia, en un orden pedagógico razonable. */
 const ORDEN_NIVELES = [
-  "ELEMENTAL", "MEDIA", "SUPERIOR", "BACHILLERATO",
+  "PREPARATORIA", "ELEMENTAL", "MEDIA", "SUPERIOR", "BACHILLERATO",
   "BIOLOGÍA", "QUÍMICA", "FÍSICA",
   "HISTORIA Y GEOGRAFÍA", "CIUDADANÍA", "FILOSOFÍA",
 ];
