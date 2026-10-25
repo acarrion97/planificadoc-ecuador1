@@ -17,6 +17,7 @@ import {
 } from "../../drizzle/schema";
 import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
+import { syncPasswordToSupabase, supabaseHashMarker } from "../_lib/supabase-auth";
 
 const scryptAsync = promisify(scrypt);
 
@@ -694,7 +695,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const normalizedEmail = (email as string).trim().toLowerCase();
       const trimmedNombre = (nombre as string).trim();
-      const passwordHash = await hashPasswordAdmin(password as string);
+      // La contraseña manda en Supabase Auth; el hash local solo queda como
+      // respaldo si la sincronización no pudo hacerse.
+      const supaId = await syncPasswordToSupabase(normalizedEmail, password as string, trimmedNombre);
+      const passwordHash = supaId ? supabaseHashMarker(supaId) : await hashPasswordAdmin(password as string);
       const endDateObj = new Date(endDate as string);
 
       // Upsert docenteAccount (actualiza contraseña si ya existe)
@@ -857,7 +861,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (existing.length === 0) {
         return res.status(404).json({ error: `No existe cuenta docente para ${normalized}` });
       }
-      const passwordHash = await hashPasswordAdmin(password as string);
+      const supaId = await syncPasswordToSupabase(normalized, password as string);
+      const passwordHash = supaId ? supabaseHashMarker(supaId) : await hashPasswordAdmin(password as string);
       await db
         .update(docenteAccounts)
         .set({ passwordHash })
@@ -1005,9 +1010,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const { randomBytes: rb, scrypt: sc } = await import("node:crypto");
       const { promisify: prom } = await import("node:util");
       const scryptAsync2 = prom(sc);
-      const salt = rb(16).toString("hex");
-      const derived = (await scryptAsync2(password as string, salt, 64)) as Buffer;
-      const passwordHash = `${salt}:${derived.toString("hex")}`;
+      const supaIdGrant = await syncPasswordToSupabase(normalizedEmail, password as string, trimmedNombre);
+      let passwordHash: string;
+      if (supaIdGrant) {
+        passwordHash = supabaseHashMarker(supaIdGrant);
+      } else {
+        const salt = rb(16).toString("hex");
+        const derived = (await scryptAsync2(password as string, salt, 64)) as Buffer;
+        passwordHash = `${salt}:${derived.toString("hex")}`;
+      }
 
       if (existing.length === 0) {
         await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
@@ -1096,6 +1107,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       let accountCreated = false;
       let passwordUpdated = false;
+      const supaIdReac = password ? await syncPasswordToSupabase(normalizedEmail, password as string, trimmedNombre) : null;
+      const hashReac = password ? (supaIdReac ? supabaseHashMarker(supaIdReac) : await hashPasswordAdmin(password as string)) : null;
       if (existingAccount.length === 0) {
         if (!password) {
           return res.status(400).json({
@@ -1106,12 +1119,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         await db.insert(docenteAccounts).values({
           email: normalizedEmail,
           nombre: trimmedNombre,
-          passwordHash: await hashPasswordAdmin(password as string),
+          passwordHash: hashReac as string,
         });
         accountCreated = true;
       } else if (password) {
         await db.update(docenteAccounts)
-          .set({ passwordHash: await hashPasswordAdmin(password as string), nombre: trimmedNombre })
+          .set({ passwordHash: hashReac as string, nombre: trimmedNombre })
           .where(eq(docenteAccounts.email, normalizedEmail));
         passwordUpdated = true;
       } else if (nombre) {

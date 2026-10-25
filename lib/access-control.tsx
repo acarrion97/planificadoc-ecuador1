@@ -48,6 +48,29 @@ interface AuthState {
   token: string | null;
   email: string | null;
   nombre: string | null;
+  /** Refresh token de Supabase Auth (permite renovar la sesión sin volver a ingresar) */
+  refreshToken?: string | null;
+  /** Marca de tiempo (ms) en la que vence el access token */
+  expiresAt?: number | null;
+}
+
+/** Renueva el access token de Supabase contra /api/auth/refresh. */
+async function fetchRefreshedTokens(
+  refreshToken: string,
+): Promise<{ token: string; refreshToken?: string | null; expiresAt?: number | null } | null> {
+  try {
+    const baseUrl = getApiBaseUrl();
+    const res = await fetch(`${baseUrl}/api/auth/refresh`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.token) return null;
+    return { token: data.token, refreshToken: data.refreshToken, expiresAt: data.expiresAt };
+  } catch {
+    return null;
+  }
 }
 
 interface AccessContextValue {
@@ -129,7 +152,25 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
         if (rawAuth) {
           const authData = JSON.parse(rawAuth);
           if (authData.token && authData.email) {
-            setAuth({ isLoggedIn: true, ...authData });
+            // Si el access token de Supabase está por vencer (o ya venció),
+            // se renueva aquí; si el refresh token ya no sirve, se cierra la
+            // sesión para que el usuario vuelva a ingresar.
+            let sessionOk = true;
+            if (authData.refreshToken && authData.expiresAt && Date.now() >= authData.expiresAt - 30_000) {
+              const renewed = await fetchRefreshedTokens(authData.refreshToken);
+              if (renewed) {
+                authData.token = renewed.token;
+                authData.refreshToken = renewed.refreshToken ?? authData.refreshToken;
+                authData.expiresAt = renewed.expiresAt ?? null;
+                await AsyncStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authData));
+              } else {
+                // Sesión caducada: se borra el token, pero el estado de
+                // acceso (suscripción/código) de abajo se carga igual.
+                await AsyncStorage.removeItem(AUTH_STORAGE_KEY);
+                sessionOk = false;
+              }
+            }
+            if (sessionOk) setAuth({ isLoggedIn: true, ...authData });
           }
         }
 
@@ -189,8 +230,15 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
         return { success: false, error: data.error, notFound: data.notFound };
       }
 
-      // Save auth session
-      const authState: AuthState = { isLoggedIn: true, token: data.token, email: data.email, nombre: data.nombre };
+      // Save auth session (token de Supabase + refresh para renovarla)
+      const authState: AuthState = {
+        isLoggedIn: true,
+        token: data.token,
+        email: data.email,
+        nombre: data.nombre,
+        refreshToken: data.refreshToken ?? null,
+        expiresAt: data.expiresAt ?? null,
+      };
       setAuth(authState);
       await AsyncStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authState));
 
@@ -229,7 +277,14 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
         return { success: false, error: data.error, exists: data.exists };
       }
 
-      const authState: AuthState = { isLoggedIn: true, token: data.token, email: data.email, nombre: data.nombre };
+      const authState: AuthState = {
+        isLoggedIn: true,
+        token: data.token,
+        email: data.email,
+        nombre: data.nombre,
+        refreshToken: data.refreshToken ?? null,
+        expiresAt: data.expiresAt ?? null,
+      };
       setAuth(authState);
       await AsyncStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authState));
 

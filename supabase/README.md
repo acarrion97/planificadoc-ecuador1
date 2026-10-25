@@ -39,7 +39,41 @@ Detalle del rol `authenticated`:
 
 > Los helpers leen `request.jwt.claim.*` / `request.jwt.claims` directamente (el mismo mecanismo de `auth.jwt()`), para no depender de que `authenticated` tenga `USAGE` sobre el esquema `auth`.
 
-**Requisito**: las políticas solo filtran algo cuando hay un JWT; eso exige autenticar con **Supabase Auth**. Mientras la app use su propio login (`docente_accounts` / OAuth propio), el rol `authenticated` no tendrá claims y todo le quedará denegado — es lo esperado, no un fallo.
+**Requisito**: las políticas solo filtran algo cuando hay un JWT. El login con
+email y contraseña ya emite tokens de **Supabase Auth** (`auth.users`), pero el
+cliente todavía no habla con PostgREST/supabase-js: las llamadas al backend
+siguen siendo con la cadena `postgres` (bypasea el RLS). El rol `authenticated`
+solo tendrá claims cuando se empiece a consumir la API de Supabase desde el
+cliente — hasta entonces, sin claims, todo le queda denegado: es lo esperado,
+no un fallo.
+
+## Autenticación — Supabase Auth
+
+El login con email y contraseña lo valida **Supabase Auth** desde el backend
+(`api/_lib/supabase-auth.ts`): registro, login, recuperación de contraseña,
+renovación de sesión y verificación del JWT pasan por `auth.users`.
+
+| Credencial | Dónde se guarda | Quién la valida |
+| --- | --- | --- |
+| Contraseña (email + contraseña) | `auth.users` de Supabase (bcrypt) | Supabase Auth vía GoTrue |
+| Marcador local | `public.docente_accounts."passwordHash"` = `supabase:<user_id>` | Indica que la clave ya NO está en esta tabla |
+| Hash scrypt heredado | misma columna, formato `salt:hash` | Respaldo legacy: se migra a Supabase en el primer login |
+| Código de recuperación de 6 dígitos | `public.password_reset_codes.codeHash` (HMAC-SHA256) | Backend; al aplicarlo también actualiza `auth.users` |
+| Códigos de acceso institucionales | `public.code_activations` | Backend (no crea usuario en Supabase) |
+
+Flujos: `POST /api/auth/register`, `login`, `register-maintenance`,
+`forgot-password`, `reset-password`, `refresh` y `GET /api/auth/me`
+(verifica el access token con el JWKS de `${SUPABASE_URL}/auth/v1`).
+
+- Los usuarios existentes se migran **solos en su próximo login**: si el hash
+  scrypt local coincide con la contraseña escrita, la cuenta se crea en
+  `auth.users` con esa contraseña y en `docente_accounts` queda el marcador.
+- El panel de admin (`create-docente`, `reset-password`, `grant-access`,
+  `reactivate-access`) sincroniza la contraseña con Supabase; si la
+  sincronización falla, conserva el hash local como respaldo.
+- Los usuarios creados por admin quedan **confirmados** (`email_confirm: true`),
+  igual que el registro normal: se entra a la app sin verificar el correo.
+
 
 ## Cómo aplicarla
 
@@ -89,7 +123,19 @@ done
 ```dotenv
 # Cadena de conexión Postgres de Supabase (Settings → Database → Connection string → URI)
 SUPABASE_DB_URL=postgresql://postgres.<PROJECT>:<PASSWORD>@aws-0.<REGION>.pooler.supabase.com:5432/postgres
+
+# Supabase Auth (Settings → API). El backend usa la anon para login/refresh y
+# la service_role para crear usuarios y cambiar contraseñas.
+SUPABASE_URL=https://<PROJECT>.supabase.co
+SUPABASE_ANON_KEY=<anon key>
+SUPABASE_SERVICE_ROLE_KEY=<service_role key>
 ```
+
+> Las tres variables de Auth son **obligatorias en Vercel** para que el login
+> funcione. Si faltan, el backend cae al modo legacy y solo puede validar a los
+> usuarios **aún no migrados** (hash scrypt local): las cuentas con marcador
+> `supabase:<id>` quedan fuera, así que conviene tratarlas como un fallo de
+> despliegue y restaurarlas en cuanto se note.
 
 > `SUPABASE_DB_URL` tiene **prioridad** sobre `DATABASE_URL` en
 > `api/_lib/db.ts`, `server/db.ts`, `server/_core/env.ts` y `drizzle.config.ts`:
@@ -109,11 +155,20 @@ Hecho en esta rama:
 - Migraciones MySQL archivadas en `drizzle/legacy-mysql/`.
 - Triggers `set_updated_at()` de las 17 tablas completos
   (`20261025000000_updated_at_triggers.sql`).
+- Login con email y contraseña sobre **Supabase Auth**
+  (`api/_lib/supabase-auth.ts`): registro, login, recuperación de contraseña,
+  `refresh` y `me`; migración perezosa de las cuentas con hash scrypt heredado.
 
 ## Pendiente
 
-- Migrar el login a **Supabase Auth**: hasta entonces las políticas RLS no
-  filtran nada por claim y todo lo que no sea el backend queda denegado.
+- Que el cliente envíe el access token de Supabase a los endpoints de datos y
+  pasar los procedimientos tRPC a `protectedProcedure` (hoy el token solo se
+  guarda y se renueva en `lib/access-control.tsx`, y `/api/auth/me` es el único
+  endpoint que lo verifica).
+- Decidir si se activa la **confirmación de correo** en Supabase: hoy registro
+  y admin crean usuarios ya confirmados para conservar el acceso inmediato.
+- Códigos de acceso institucionales y OAuth propio siguen **fuera** de
+  Supabase Auth.
 - Revisar que el backend use el connection string (`postgres`) o la
   `service_role` key, nunca la `anon` key.
 

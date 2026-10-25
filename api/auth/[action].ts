@@ -6,6 +6,20 @@ import { eq, desc, sql as drizzleSql } from "drizzle-orm";
 import { createHmac, randomBytes, randomInt, scrypt, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
 import { sendPasswordResetCodeEmail } from "../../server/email";
+import {
+  adminCreateUser,
+  adminFindUserByEmail,
+  adminSetPassword,
+  getBearerToken,
+  isLegacyHash,
+  isSupabaseAuthConfigured,
+  refreshSession,
+  signInWithPassword,
+  supabaseHashMarker,
+  verifyAccessToken,
+  AuthProviderError,
+  type SupabaseSession,
+} from "../_lib/supabase-auth";
 
 const scryptAsync = promisify(scrypt);
 
@@ -64,6 +78,35 @@ function signToken(email: string, nombre: string): string {
 }
 
 /**
+ * Crea la cuenta en Supabase Auth (auth.users) e inicia sesión para devolver
+ * los tokens reales de Supabase. Devuelve además el marcador `supabase:<id>`
+ * que se guarda en docente_accounts.passwordHash (esa tabla ya no almacena
+ * claves, solo indica DÓNDE está la credencial).
+ */
+async function createAccountInSupabase(email: string, password: string, nombre: string) {
+  const user = await adminCreateUser(email, password, nombre);
+  const session = await signInWithPassword(email, password);
+  return { session, marker: supabaseHashMarker(session.user?.id || user.id) };
+}
+
+/** Campos de sesión de la respuesta (token + refresh para poder renovarla). */
+function sessionFields(session: SupabaseSession | null, token: string) {
+  return {
+    token,
+    refreshToken: session?.refreshToken ?? null,
+    expiresAt: session ? Date.now() + session.expiresIn * 1000 : null,
+  };
+}
+
+/** Traduce un fallo de Supabase a una respuesta HTTP (502 con el motivo). */
+function providerErrorResponse(res: any, e: any) {
+  if (e instanceof AuthProviderError) {
+    return res.status(e.status === 400 || e.status === 401 ? 401 : 502).json({ error: e.message });
+  }
+  return res.status(502).json({ error: "No se pudo contactar con el servicio de autenticación. Intenta de nuevo." });
+}
+
+/**
  * Mensaje de error para el cliente.
  *
  * Drizzle lanza `DrizzleQueryError`, cuyo `message` es solo "Failed query: …"
@@ -112,17 +155,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .where(eq(docenteAccounts.email, normalizedEmail))
         .limit(1);
 
+      // Existe también en Supabase Auth (p.ej. creada por el panel de admin
+      // sin fila local): mismo criterio de rechazo que el registro normal.
+      if (isSupabaseAuthConfigured() && (await adminFindUserByEmail(normalizedEmail))) {
+        return res.status(409).json({ error: "Ya existe una cuenta con ese correo. Inicia sesión.", exists: true });
+      }
+
       if (existing.length > 0) {
         return res.status(409).json({ error: "Ya existe una cuenta con ese correo. Inicia sesión.", exists: true });
       }
 
-      const passwordHash = await hashPassword(password as string);
+      // La contraseña se guarda en auth.users (Supabase); en docente_accounts
+      // solo queda el marcador con el id de ese usuario.
+      let session: SupabaseSession | null = null;
+      let passwordHash: string;
+      if (isSupabaseAuthConfigured()) {
+        const created = await createAccountInSupabase(normalizedEmail, password as string, trimmedNombre);
+        session = created.session;
+        passwordHash = created.marker;
+      } else {
+        passwordHash = await hashPassword(password as string);
+      }
+
       await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
 
       const sub = await getActiveSubscription(normalizedEmail);
-      const token = signToken(normalizedEmail, trimmedNombre);
-      return res.json({ success: true, token, email: normalizedEmail, nombre: trimmedNombre, hasActiveSubscription: !!sub, subscriptionEndDate: sub ? sub.endDate : null });
+      const token = session ? session.accessToken : signToken(normalizedEmail, trimmedNombre);
+      return res.json({
+        success: true,
+        ...sessionFields(session, token),
+        email: normalizedEmail,
+        nombre: trimmedNombre,
+        hasActiveSubscription: !!sub,
+        subscriptionEndDate: sub ? sub.endDate : null,
+      });
     } catch (e: any) {
+      if (e instanceof AuthProviderError) return providerErrorResponse(res, e);
       return res.status(500).json({ error: errorMessage(e) });
     }
   }
@@ -159,8 +227,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (existing.length > 0) {
         return res.status(409).json({ error: "Ya existe una cuenta con ese correo. Inicia sesión.", exists: true });
       }
+      if (isSupabaseAuthConfigured() && (await adminFindUserByEmail(normalizedEmail))) {
+        return res.status(409).json({ error: "Ya existe una cuenta con ese correo. Inicia sesión.", exists: true });
+      }
 
-      const passwordHash = await hashPassword(password as string);
+      let session: SupabaseSession | null = null;
+      let passwordHash: string;
+      if (isSupabaseAuthConfigured()) {
+        const created = await createAccountInSupabase(normalizedEmail, password as string, trimmedNombre);
+        session = created.session;
+        passwordHash = created.marker;
+      } else {
+        passwordHash = await hashPassword(password as string);
+      }
       await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
 
       // Acceso gratuito temporal del mantenimiento (solo si freeDays > 0)
@@ -180,10 +259,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
       }
 
-      const token = signToken(normalizedEmail, trimmedNombre);
+      const token = session ? session.accessToken : signToken(normalizedEmail, trimmedNombre);
       return res.json({
         success: true,
-        token,
+        ...sessionFields(session, token),
         email: normalizedEmail,
         nombre: trimmedNombre,
         hasActiveSubscription: subscriptionEndDate !== null,
@@ -191,11 +270,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         maintenanceFree: subscriptionEndDate !== null,
       });
     } catch (e: any) {
+      if (e instanceof AuthProviderError) return providerErrorResponse(res, e);
       return res.status(500).json({ error: errorMessage(e) });
     }
   }
 
   // POST /api/auth/login
+  //
+  // La credencial la valida Supabase Auth (auth.users, bcrypt). Si el correo
+  // todavía no está migrado (hash scrypt heredado en docente_accounts), se
+  // valida con el hash local y, si coincide, la cuenta se migra a Supabase en
+  // este mismo login (migración perezosa): la contraseña que acaba de escribir
+  // el docente pasa a auth.users y en docente_accounts solo queda el marcador
+  // `supabase:<id>`.
   if (action === "login") {
     if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
     const { email, password } = req.body || {};
@@ -205,10 +292,75 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     try {
       const accounts = await db.select().from(docenteAccounts).where(eq(docenteAccounts.email, normalizedEmail)).limit(1);
-      if (accounts.length === 0) {
+      const account = accounts[0];
+
+      if (isSupabaseAuthConfigured()) {
+        // 1) Login normal contra Supabase Auth
+        try {
+          const session = await signInWithPassword(normalizedEmail, password as string);
+          if (account) {
+            await db.update(docenteAccounts).set({ lastLoginAt: new Date() }).where(eq(docenteAccounts.email, normalizedEmail));
+          }
+          const sub = await getActiveSubscription(normalizedEmail);
+          const nombre = account?.nombre || (session.user?.user_metadata?.nombre as string) || normalizedEmail;
+          return res.json({
+            success: true,
+            ...sessionFields(session, session.accessToken),
+            email: normalizedEmail,
+            nombre,
+            hasActiveSubscription: !!sub,
+            subscriptionEndDate: sub ? sub.endDate : null,
+            plan: sub ? sub.plan : null,
+          });
+        } catch (e) {
+          // Solo seguimos si el problema fue "credenciales inválidas"; el resto
+          // (red, 5xx de Supabase) se propaga al catch exterior.
+          if (!(e instanceof AuthProviderError) || e.code !== "invalid_credentials") throw e;
+
+          // 2) La cuenta está en Supabase pero la clave no coincide.
+          const supaUser = await adminFindUserByEmail(normalizedEmail);
+          if (supaUser) {
+            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+          }
+
+          // 3) Cuenta heredada sin migrar.
+          if (!account) {
+            return res.status(401).json({ error: "No encontramos una cuenta con ese correo.", notFound: true });
+          }
+          if (!isLegacyHash(account.passwordHash)) {
+            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+          }
+          const valid = await verifyPassword(password as string, account.passwordHash);
+          if (!valid) {
+            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+          }
+
+          // 4) Migración perezosa: la clave válida se guarda ahora en Supabase.
+          const user = await adminSetPassword(normalizedEmail, password as string);
+          const migrated = await signInWithPassword(normalizedEmail, password as string);
+          await db
+            .update(docenteAccounts)
+            .set({ passwordHash: supabaseHashMarker(user.id), lastLoginAt: new Date() })
+            .where(eq(docenteAccounts.email, normalizedEmail));
+
+          const sub = await getActiveSubscription(normalizedEmail);
+          return res.json({
+            success: true,
+            ...sessionFields(migrated, migrated.accessToken),
+            email: normalizedEmail,
+            nombre: account.nombre,
+            hasActiveSubscription: !!sub,
+            subscriptionEndDate: sub ? sub.endDate : null,
+            plan: sub ? sub.plan : null,
+            migrated: true,
+          });
+        }
+      }
+
+      // ── Modo legacy: Supabase Auth no configurado (entornos de prueba) ──
+      if (!account) {
         return res.status(401).json({ error: "No encontramos una cuenta con ese correo.", notFound: true });
       }
-      const account = accounts[0];
       const valid = await verifyPassword(password as string, account.passwordHash);
       if (!valid) return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
 
@@ -216,8 +368,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const sub = await getActiveSubscription(normalizedEmail);
       const token = signToken(normalizedEmail, account.nombre);
-      return res.json({ success: true, token, email: normalizedEmail, nombre: account.nombre, hasActiveSubscription: !!sub, subscriptionEndDate: sub ? sub.endDate : null, plan: sub ? sub.plan : null });
+      return res.json({ success: true, ...sessionFields(null, token), email: normalizedEmail, nombre: account.nombre, hasActiveSubscription: !!sub, subscriptionEndDate: sub ? sub.endDate : null, plan: sub ? sub.plan : null });
     } catch (e: any) {
+      if (e instanceof AuthProviderError) return providerErrorResponse(res, e);
       return res.status(500).json({ error: errorMessage(e) });
     }
   }
@@ -337,7 +490,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: "El código no es válido o ya fue usado. Solicita uno nuevo." });
       }
 
-      const passwordHash = await hashPassword(password as string);
+      // La contraseña nueva se guarda en Supabase Auth (auth.users) y en
+      // docente_accounts solo queda el marcador `supabase:<id>`.
+      let passwordHash: string;
+      if (isSupabaseAuthConfigured()) {
+        const user = await adminSetPassword(normalizedEmail, password as string);
+        passwordHash = supabaseHashMarker(user.id);
+      } else {
+        passwordHash = await hashPassword(password as string);
+      }
       await db
         .update(docenteAccounts)
         .set({ passwordHash })
@@ -347,7 +508,54 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       return res.json({ success: true, message: "Contraseña actualizada. Ya puedes iniciar sesión." });
     } catch (e: any) {
+      if (e instanceof AuthProviderError) return providerErrorResponse(res, e);
       return res.status(500).json({ error: errorMessage(e) });
+    }
+  }
+
+  // POST /api/auth/refresh — renueva la sesión con el refresh token de Supabase.
+  if (action === "refresh") {
+    if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+    const { refreshToken } = req.body || {};
+    if (!refreshToken) return res.status(400).json({ error: "refreshToken requerido" });
+    if (!isSupabaseAuthConfigured()) return res.status(400).json({ error: "Supabase Auth no está configurado" });
+
+    try {
+      const session = await refreshSession(String(refreshToken));
+      return res.json({ success: true, ...sessionFields(session, session.accessToken), email: session.user?.email ?? null });
+    } catch (e: any) {
+      if (e instanceof AuthProviderError) return res.status(401).json({ error: e.message });
+      return res.status(500).json({ error: errorMessage(e) });
+    }
+  }
+
+  // GET/POST /api/auth/me — valida el access token de Supabase y devuelve el
+  // usuario autenticado. Es la comprobación de sesión real del backend.
+  if (action === "me") {
+    const token = getBearerToken(req);
+    if (!token) return res.status(401).json({ error: "No autenticado" });
+    if (!isSupabaseAuthConfigured()) return res.status(500).json({ error: "Supabase Auth no está configurado" });
+
+    try {
+      const payload = await verifyAccessToken(token);
+      const email = String(payload.email || payload.sub || "");
+      const accounts = email
+        ? await db.select().from(docenteAccounts).where(eq(docenteAccounts.email, email.trim().toLowerCase())).limit(1)
+        : [];
+      const sub = email ? await getActiveSubscription(email.trim().toLowerCase()) : null;
+      return res.json({
+        user: {
+          id: payload.sub,
+          email,
+          nombre: accounts[0]?.nombre ?? (payload.user_metadata?.nombre as string) ?? null,
+          role: payload.role,
+        },
+        hasActiveSubscription: !!sub,
+        subscriptionEndDate: sub ? sub.endDate : null,
+        plan: sub ? sub.plan : null,
+      });
+    } catch (e: any) {
+      return res.status(401).json({ error: "Sesión inválida o expirada. Inicia sesión de nuevo." });
     }
   }
 
