@@ -98,7 +98,7 @@ interface AccessContextValue {
   }>;
   // Registro especial de mantenimiento — solo se ofrece desde el login cuando
   // el correo no existe; crea la cuenta con acceso gratuito temporal.
-  registerMaintenanceAccount: (email: string, password: string, nombre: string) => Promise<{
+  registerMaintenanceAccount: (email: string, password: string, nombre: string, registrationCode: string) => Promise<{
     success: boolean;
     hasSubscription?: boolean;
     error?: string;
@@ -263,13 +263,18 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // ─── AUTH: Registro (compartido: normal y de mantenimiento) ─────────────
-  const registerWith = useCallback(async (path: string, email: string, password: string, nombre: string) => {
+  const registerWith = useCallback(async (path: string, email: string, password: string, nombre: string, registrationCode?: string) => {
     try {
       const baseUrl = getApiBaseUrl();
       const res = await fetch(`${baseUrl}${path}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), password, nombre: nombre.trim() }),
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          password,
+          nombre: nombre.trim(),
+          ...(registrationCode !== undefined ? { registrationCode: registrationCode.trim() } : {}),
+        }),
       });
       const data = await res.json();
 
@@ -313,7 +318,8 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
   );
 
   const registerMaintenanceAccount = useCallback(
-    (email: string, password: string, nombre: string) => registerWith("/api/auth/register-maintenance", email, password, nombre),
+    (email: string, password: string, nombre: string, registrationCode: string) =>
+      registerWith("/api/auth/register-maintenance", email, password, nombre, registrationCode),
     [registerWith],
   );
 

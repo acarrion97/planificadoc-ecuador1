@@ -590,6 +590,8 @@ Available environment variables:
 | `SUPABASE_DB_URL` | Cadena de conexión PostgreSQL de Supabase (**tiene prioridad**) |
 | `DATABASE_URL` | Respaldo de conexión; puede seguir apuntando a la base antigua sin afectar |
 | `JWT_SECRET` | Session signing secret |
+| `MAINTENANCE_REGISTRATION_CODE` | Código secreto requerido para crear cuentas mediante el registro temporal (`/api/auth/register-maintenance`); si no está configurado, ese registro queda deshabilitado |
+| `MAINTENANCE_FREE_DAYS` | Duración en días del acceso gratuito temporal (por defecto, 30) |
 | `VITE_APP_ID` | Manus OAuth app ID |
 | `OAUTH_SERVER_URL` | Manus OAuth backend URL |
 | `VITE_OAUTH_PORTAL_URL` | Manus login portal URL |

@@ -111,6 +111,8 @@ async function callHandler(action: string, body: any, method = "POST") {
 const EMAIL = "Docente@Ejemplo.com"; // llega sin normalizar
 const NORMALIZED = "docente@ejemplo.com";
 const CREDENCIALES = { email: EMAIL, password: "secreta123", nombre: "María González" };
+const REGISTRATION_CODE = "TEMPORAL-2026";
+const MAINTENANCE_CREDENTIALS = { ...CREDENCIALES, registrationCode: REGISTRATION_CODE };
 
 let fake: ReturnType<typeof createFakeDb>;
 
@@ -119,16 +121,18 @@ beforeEach(() => {
   vi.mocked(getDb).mockReturnValue(fake.db as any);
   vi.clearAllMocks();
   delete process.env.MAINTENANCE_FREE_DAYS;
+  process.env.MAINTENANCE_REGISTRATION_CODE = REGISTRATION_CODE;
 });
 
 afterEach(() => {
   delete process.env.MAINTENANCE_FREE_DAYS;
+  delete process.env.MAINTENANCE_REGISTRATION_CODE;
 });
 
 describe("POST /api/auth/register-maintenance", () => {
   it("crea la cuenta y otorga 30 días de acceso gratuito (valor por defecto)", async () => {
     const antes = Date.now();
-    const res = await callHandler("register-maintenance", CREDENCIALES);
+    const res = await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS);
 
     expect(res.statusCode).toBe(200);
     expect(res.body.success).toBe(true);
@@ -172,7 +176,7 @@ describe("POST /api/auth/register-maintenance", () => {
   it("honra MAINTENANCE_FREE_DAYS=0: crea la cuenta pero sin acceso gratuito", async () => {
     process.env.MAINTENANCE_FREE_DAYS = "0";
 
-    const res = await callHandler("register-maintenance", CREDENCIALES);
+    const res = await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS);
 
     expect(res.statusCode).toBe(200);
     expect(res.body.success).toBe(true);
@@ -186,7 +190,7 @@ describe("POST /api/auth/register-maintenance", () => {
   it("respeta una duración personalizada en días", async () => {
     process.env.MAINTENANCE_FREE_DAYS = "7";
 
-    await callHandler("register-maintenance", CREDENCIALES);
+    await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS);
 
     const sub = fake.state.subs[0];
     const dias = (new Date(sub.endDate).getTime() - new Date(sub.startDate).getTime()) / 86_400_000;
@@ -196,7 +200,7 @@ describe("POST /api/auth/register-maintenance", () => {
   it("devuelve 409 con exists cuando la cuenta ya está registrada y no toca suscripciones", async () => {
     fake.state.accounts.push({ id: 1, email: NORMALIZED, nombre: "Ya", passwordHash: "salt:hash" });
 
-    const res = await callHandler("register-maintenance", CREDENCIALES);
+    const res = await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS);
 
     expect(res.statusCode).toBe(409);
     expect(res.body.exists).toBe(true);
@@ -206,10 +210,10 @@ describe("POST /api/auth/register-maintenance", () => {
   });
 
   it("valida campos requeridos y longitud mínima de la contraseña", async () => {
-    const sinNombre = await callHandler("register-maintenance", { email: EMAIL, password: "secreta123" });
+    const sinNombre = await callHandler("register-maintenance", { ...MAINTENANCE_CREDENTIALS, nombre: undefined });
     expect(sinNombre.statusCode).toBe(400);
 
-    const corta = await callHandler("register-maintenance", { ...CREDENCIALES, password: "12345" });
+    const corta = await callHandler("register-maintenance", { ...MAINTENANCE_CREDENTIALS, password: "12345" });
     expect(corta.statusCode).toBe(400);
     expect(corta.body.error).toMatch(/6 caracteres/);
 
@@ -218,8 +222,37 @@ describe("POST /api/auth/register-maintenance", () => {
   });
 
   it("rechaza el método GET", async () => {
-    const res = await callHandler("register-maintenance", CREDENCIALES, "GET");
+    const res = await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS, "GET");
     expect(res.statusCode).toBe(405);
+  });
+
+  it("rechaza un código incorrecto o ausente sin crear la cuenta", async () => {
+    const incorrecto = await callHandler("register-maintenance", { ...CREDENCIALES, registrationCode: "OTRO-CODIGO" });
+    expect(incorrecto.statusCode).toBe(403);
+    expect(incorrecto.body.error).toMatch(/código de registro inválido/i);
+
+    const ausente = await callHandler("register-maintenance", CREDENCIALES);
+    expect(ausente.statusCode).toBe(403);
+    expect(fake.state.accounts).toHaveLength(0);
+  });
+
+  it("acepta el código sin distinguir mayúsculas", async () => {
+    const res = await callHandler("register-maintenance", {
+      ...CREDENCIALES,
+      registrationCode: REGISTRATION_CODE.toLowerCase(),
+    });
+
+    expect(res.statusCode).toBe(200);
+    expect(fake.state.accounts).toHaveLength(1);
+  });
+
+  it("deshabilita el registro temporal si el código no está configurado", async () => {
+    delete process.env.MAINTENANCE_REGISTRATION_CODE;
+
+    const res = await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS);
+
+    expect(res.statusCode).toBe(503);
+    expect(fake.state.accounts).toHaveLength(0);
   });
 });
 

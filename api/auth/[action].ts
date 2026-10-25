@@ -218,12 +218,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // "0" crea la cuenta sin acceso). Nada de esto afecta al registro normal.
   if (action === "register-maintenance") {
     if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-    const { email, password, nombre } = req.body || {};
+    const { email, password, nombre, registrationCode } = req.body || {};
     if (!email || !password || !nombre) {
       return res.status(400).json({ error: "Nombre, correo y contraseña son requeridos" });
     }
     if ((password as string).length < 6) {
       return res.status(400).json({ error: "La contraseña debe tener al menos 6 caracteres" });
+    }
+    const configuredCode = process.env.MAINTENANCE_REGISTRATION_CODE?.trim().toUpperCase();
+    if (!configuredCode) {
+      return res.status(503).json({ error: "El registro temporal no está disponible." });
+    }
+    const submittedCode = typeof registrationCode === "string" ? registrationCode.trim().toUpperCase() : "";
+    const expectedCodeBytes = Buffer.from(configuredCode);
+    const submittedCodeBytes = Buffer.from(submittedCode);
+    if (
+      expectedCodeBytes.length !== submittedCodeBytes.length ||
+      !timingSafeEqual(expectedCodeBytes, submittedCodeBytes)
+    ) {
+      return res.status(403).json({ error: "Código de registro inválido." });
     }
     const normalizedEmail = (email as string).trim().toLowerCase();
     const trimmedNombre = (nombre as string).trim();

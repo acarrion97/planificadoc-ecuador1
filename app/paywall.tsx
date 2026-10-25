@@ -39,6 +39,7 @@ export default function PaywallScreen() {
   const [regLoading, setRegLoading]   = useState(false);
 
   // Registro de mantenimiento — solo se llega aquí desde un login sin usuario
+  const [mntCode, setMntCode] = useState("");
   const [mntLoading, setMntLoading] = useState(false);
   const [mntError, setMntError]     = useState("");
   const [mntInfo, setMntInfo]       = useState("");
@@ -135,6 +136,7 @@ export default function PaywallScreen() {
         setRegEmail(loginEmail.trim().toLowerCase());
         setRegError("");
         setMntError("");
+        setMntCode("");
         setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis.");
         setAuthTab("maintenance");
       } else {
@@ -168,13 +170,14 @@ export default function PaywallScreen() {
   // Registro de mantenimiento — misma validación que el normal, pero contra
   // el endpoint especial que otorga el acceso gratuito temporal.
   const handleRegisterMaintenance = useCallback(async () => {
+    if (!mntCode.trim()) { setMntError("Ingresa el código de registro"); return; }
     if (!regNombre.trim()) { setMntError("Ingresa tu nombre completo"); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(regEmail.trim())) { setMntError("Correo inválido"); return; }
     if (regPassword.length < 6) { setMntError("La contraseña debe tener al menos 6 caracteres"); return; }
     if (regPassword !== regConfirm) { setMntError("Las contraseñas no coinciden"); return; }
     setMntError(""); setMntLoading(true);
     try {
-      const result = await registerMaintenanceAccount(regEmail, regPassword, regNombre);
+      const result = await registerMaintenanceAccount(regEmail, regPassword, regNombre, mntCode);
       if (result.success) {
         trackEvent("sign_up", { method: "email_maintenance" });
         if (result.hasSubscription) setSuccess(true);
@@ -187,7 +190,7 @@ export default function PaywallScreen() {
         setMntError(result.error || "No se pudo crear la cuenta. Intenta de nuevo.");
       }
     } finally { setMntLoading(false); }
-  }, [regNombre, regEmail, regPassword, regConfirm, registerMaintenanceAccount]);
+  }, [mntCode, regNombre, regEmail, regPassword, regConfirm, registerMaintenanceAccount]);
 
   const handlePayWithPayPhone = useCallback(async () => {
     if (!payCardHolder.trim()) { setPayError("Ingresa el nombre del titular"); return; }
@@ -617,6 +620,10 @@ export default function PaywallScreen() {
                   </Text>
                 </View>
                 {mntInfo ? <InfoRow text={mntInfo} icon="🔎" /> : null}
+                <FieldLabel label="Código de registro" colors={colors} />
+                <FieldInput emoji="🔑" placeholder="Ingresa el código que recibiste" value={mntCode}
+                  onChangeText={(t: string) => { setMntCode(t.toUpperCase()); setMntError(""); }}
+                  autoCapitalize="characters" hasError={!!mntError} colors={colors} />
                 <FieldLabel label="Nombre completo" colors={colors} />
                 <FieldInput emoji="👤" placeholder="Ej: María González" value={regNombre}
                   onChangeText={(t: string) => { setRegNombre(t); setMntError(""); }} autoCapitalize="words" colors={colors} />
