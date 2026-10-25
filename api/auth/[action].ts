@@ -77,6 +77,25 @@ function signToken(email: string, nombre: string): string {
   return Buffer.from(payload).toString("base64") + "." + sig;
 }
 
+/**
+ * Mensaje de error para el cliente.
+ *
+ * Drizzle lanza `DrizzleQueryError`, cuyo `message` es solo "Failed query: …"
+ * y guarda la causa real (credenciales, tabla, timeout…) en `.cause`. Aquí se
+ * loguea siempre el stack completo y, fuera de producción (VERCEL_ENV en
+ * preview/development), se añade la causa a la respuesta para poder diagnosticar
+ * sin exponer detalles internos de la BD en planificadoc.app.
+ */
+function errorMessage(e: any): string {
+  const cause = e?.cause;
+  const causeText = typeof cause === "string" ? cause : cause?.message;
+  console.error("[auth] query fallida:", e?.message, "\ncausa:", causeText ?? "(sin causa)", "\n", e?.stack);
+  if (causeText && process.env.VERCEL_ENV !== "production") {
+    return `${e.message}\n→ causa: ${causeText}`;
+  }
+  return e?.message ?? "Error interno. Intenta de nuevo.";
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleCors(req, res)) return;
 
@@ -118,7 +137,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const token = signToken(normalizedEmail, trimmedNombre);
       return res.json({ success: true, token, email: normalizedEmail, nombre: trimmedNombre, hasActiveSubscription: !!sub, subscriptionEndDate: sub ? sub.endDate : null });
     } catch (e: any) {
-      return res.status(500).json({ error: e.message });
+      return res.status(500).json({ error: errorMessage(e) });
     }
   }
 
@@ -186,7 +205,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         maintenanceFree: subscriptionEndDate !== null,
       });
     } catch (e: any) {
-      return res.status(500).json({ error: e.message });
+      return res.status(500).json({ error: errorMessage(e) });
     }
   }
 
@@ -216,7 +235,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const token = signToken(normalizedEmail, account.nombre);
       return res.json({ success: true, token, email: normalizedEmail, nombre: account.nombre, hasActiveSubscription: !!sub, subscriptionEndDate: sub ? sub.endDate : null, plan: sub ? sub.plan : null });
     } catch (e: any) {
-      return res.status(500).json({ error: e.message });
+      return res.status(500).json({ error: errorMessage(e) });
     }
   }
 
@@ -272,7 +291,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       return res.json({ success: true, message: genericMessage });
     } catch (e: any) {
-      return res.status(500).json({ error: e.message });
+      return res.status(500).json({ error: errorMessage(e) });
     }
   }
 
@@ -347,7 +366,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       return res.json({ success: true, message: "Contraseña actualizada. Ya puedes iniciar sesión." });
     } catch (e: any) {
-      return res.status(500).json({ error: e.message });
+      return res.status(500).json({ error: errorMessage(e) });
     }
   }
 
