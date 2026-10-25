@@ -7,12 +7,18 @@
 -- valor del INSERT aunque los routers escriban la columna a mano.
 --
 -- Aplicar con: pnpm db:push   (scripts/db-push.ts)
+--
+-- Idempotente: se puede volver a pegar en el SQL Editor sin errores.
 -- =============================================================================
 
+drop trigger if exists trg_curriculo_competencias_planificaciones_updated_at
+  on public.curriculo_competencias_planificaciones;
 create trigger trg_curriculo_competencias_planificaciones_updated_at
   before update on public.curriculo_competencias_planificaciones
   for each row execute function public.set_updated_at();
 
+drop trigger if exists trg_proyectos_interdisciplinares_updated_at
+  on public.proyectos_interdisciplinares;
 create trigger trg_proyectos_interdisciplinares_updated_at
   before update on public.proyectos_interdisciplinares
   for each row execute function public.set_updated_at();

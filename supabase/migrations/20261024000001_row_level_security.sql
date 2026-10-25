@@ -1,6 +1,11 @@
 -- =============================================================================
 -- Planificadoc — Row Level Security (Supabase / PostgreSQL)
 -- Migración: 20261024000001_row_level_security.sql
+--
+-- ⚠️ YA APLICADA en Supabase (y registrada en public.schema_migrations).
+--    NO volver a ejecutarla: re-crear políticas/checas duplicadas o falla con
+--    "already exists". Para cambios nuevos crear un archivo nuevo y correr
+--    `pnpm db:push`.
 -- Depende de: 20261024000000_init_schema.sql (crea las tablas y set_updated_at)
 --
 -- Modelo de acceso
