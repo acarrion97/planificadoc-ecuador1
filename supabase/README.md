@@ -12,6 +12,12 @@ de Drizzle/MySQL (`drizzle/schema.ts`).
 | --- | --- |
 | `migrations/20261024000000_init_schema.sql` | Esquema completo: 17 tablas, índices, constraints `CHECK` y triggers `set_updated_at()` |
 | `migrations/20261024000001_row_level_security.sql` | Row Level Security: helpers de claims JWT, políticas por usuario, privilegios por columna y acceso `service_role` |
+| `migrations/20261025000000_updated_at_triggers.sql` | Triggers `set_updated_at()` que faltaban en `curriculo_competencias_planificaciones` y `proyectos_interdisciplinares` |
+
+El esquema vivo se contrasta con `drizzle/schema.ts` vía
+`npx tsx scripts/compare-schema.ts`. Las migraciones MySQL/TiDB antiguas
+quedaron archivadas en `drizzle/legacy-mysql/` (el journal está en dialecto
+`mysql` y `drizzle.config.ts` ya es `postgresql`, así que no se leen).
 
 ## Row Level Security
 
@@ -37,7 +43,18 @@ Detalle del rol `authenticated`:
 
 ## Cómo aplicarla
 
-### Opción A — Supabase CLI (recomendada)
+### Opción A — `pnpm db:push` (recomendada)
+
+```bash
+pnpm db:push             # aplica supabase/migrations/*.sql pendientes
+npx tsx scripts/db-push.ts --dry-run   # solo lista qué aplicaría
+```
+
+`scripts/db-push.ts` aplica los `.sql` en orden y lleva la cuenta en la tabla
+`public.schema_migrations`, así que es idempotente (contra una base ya
+inicializada solo marca lo existente y aplica lo nuevo).
+
+### Opción B — Supabase CLI
 
 ```bash
 # 1. Instalar la CLI
@@ -54,12 +71,12 @@ supabase link --project-ref <PROJECT_REF>
 supabase db push
 ```
 
-### Opción B — SQL directo en el editor de Supabase
+### Opción C — SQL directo en el editor de Supabase
 
 Copiar el contenido de `migrations/20261024000000_init_schema.sql` y pegarlo en
 **SQL Editor → Run**.
 
-### Opción C — psql
+### Opción D — psql
 
 ```bash
 for f in supabase/migrations/*.sql; do
@@ -71,13 +88,34 @@ done
 
 ```dotenv
 # Cadena de conexión Postgres de Supabase (Settings → Database → Connection string → URI)
-SUPABASE_DB_URL=postgresql://postgres.<PROJECT>:<PASSWORD>@aws-0.<REGION>.pooler.supabase.com:6543/postgres
-DATABASE_URL=$SUPABASE_DB_URL
+SUPABASE_DB_URL=postgresql://postgres.<PROJECT>:<PASSWORD>@aws-0.<REGION>.pooler.supabase.com:5432/postgres
 ```
 
-> Nota: `drizzle.config.ts` sigue con `dialect: "mysql"` en `main`. Cambiarlo a
-> `postgres` + `drizzle-orm/pg-*` es un paso posterior y queda fuera de esta
-> migración inicial.
+> `SUPABASE_DB_URL` tiene **prioridad** sobre `DATABASE_URL` en
+> `api/_lib/db.ts`, `server/db.ts`, `server/_core/env.ts` y `drizzle.config.ts`:
+> `DATABASE_URL` queda como respaldo y puede seguir apuntando a la base
+> antigua sin que eso afecte. El SSL se normaliza en `shared/pg-ssl.ts`
+> (`sslmode` quitado + `rejectUnauthorized: false`), porque Supabase firma con
+> una CA propia que Node no trae.
+
+## Estado de la migración de runtime
+
+Hecho en esta rama:
+
+- `drizzle/schema.ts` con `drizzle-orm/pg-core`, driver `drizzle-orm/node-postgres`
+  + `pg` (paquete `mysql2` fuera de dependencias).
+- `drizzle.config.ts` en `dialect: "postgresql"`.
+- `db:push` aplica este directorio (`scripts/db-push.ts`, idempotente).
+- Migraciones MySQL archivadas en `drizzle/legacy-mysql/`.
+- Triggers `set_updated_at()` de las 17 tablas completos
+  (`20261025000000_updated_at_triggers.sql`).
+
+## Pendiente
+
+- Migrar el login a **Supabase Auth**: hasta entonces las políticas RLS no
+  filtran nada por claim y todo lo que no sea el backend queda denegado.
+- Revisar que el backend use el connection string (`postgres`) o la
+  `service_role` key, nunca la `anon` key.
 
 ## Decisiones de traducción MySQL → PostgreSQL
 
@@ -92,19 +130,9 @@ DATABASE_URL=$SUPABASE_DB_URL
 - Los payloads que en MySQL son `TEXT` con JSON se mantienen como `text`
   (no `jsonb`), porque el código hace `JSON.stringify`/`JSON.parse` a mano.
 
-## Pendiente (no incluido en este cambio)
-
-- Cambiar `drizzle.config.ts` y los `drizzle-orm/mysql2` imports a Postgres.
-- Migrar el login a **Supabase Auth**: hasta entonces las políticas RLS no
-  filtran nada por claim y todo lo que no sea el backend queda denegado.
-- Revisar que el backend use el connection string (`postgres`) o la
-  `service_role` key, nunca la `anon` key.
-- Triggers `set_updated_at()` sobre `curriculo_competencias_planificaciones` y
-  `proyectos_interdisciplinares` (los routers ya actualizan `updated_at`).
-
 ## Verificación
 
-Ambas migraciones se ejecutaron de principio a fin en un PostgreSQL 16 limpio
+Las migraciones se ejecutaron de principio a fin en un PostgreSQL 16 limpio
 (contenedor, con los roles `anon`/`authenticated`/`service_role` y las
 privilegios por defecto de Supabase emulados). Comprobaciones pasadas:
 

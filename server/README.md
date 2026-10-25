@@ -158,27 +158,27 @@ try {
 Define your tables in `drizzle/schema.ts`:
 
 ```tsx
-import { int, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { boolean, integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 // Users table (already exists)
-export const users = mysqlTable("users", {
-  id: int("id").autoincrement().primaryKey(),
+export const users = pgTable("users", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  role: varchar("role", { length: 16 }).default("user").notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 // Add your tables
-export const items = mysqlTable("items", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull(),
+export const items = pgTable("items", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
+  userId: integer("userId").notNull(),
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description"),
   completed: boolean("completed").default(false).notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 // Export types
@@ -187,15 +187,25 @@ export type Item = typeof items.$inferSelect;
 export type InsertItem = typeof items.$inferInsert;
 ```
 
+> La base es **PostgreSQL (Supabase)**, no MySQL: `drizzle/schema.ts` usa
+> `drizzle-orm/pg-core` y el driver es `drizzle-orm/node-postgres` (`pg`).
+> `updated_at` no lleva `.onUpdateNow()` (no existe en pg): lo mantiene el
+> trigger `set_updated_at()` de cada tabla.
+
 ### Running Migrations
 
-After editing the schema, push changes to the database:
+Las migraciones SQL viven en `supabase/migrations/` (fuente de verdad). Tras
+editar el esquema, agregá un `.sql` ahí y aplicalo:
 
 ```bash
-pnpm db:push
+pnpm db:push                              # aplica lo pendiente
+npx tsx scripts/db-push.ts --dry-run      # solo lista qué aplicaría
 ```
 
-This runs `drizzle-kit generate` and `drizzle-kit migrate`.
+`scripts/db-push.ts` corre los `.sql` en orden y registra en
+`public.schema_migrations` lo que ya está aplicado (idempotente). Para
+contrastar `drizzle/schema.ts` contra la base real:
+`npx tsx scripts/compare-schema.ts`.
 
 ### Query Helpers
 
@@ -217,8 +227,9 @@ export async function createItem(data: InsertItem) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  const result = await db.insert(items).values(data);
-  return result.insertId;
+  // node-postgres no expone insertId: se pide a la BD con .returning()
+  const [row] = await db.insert(items).values(data).returning({ id: items.id });
+  return row.id;
 }
 
 export async function updateItem(id: number, data: Partial<InsertItem>) {
@@ -576,7 +587,8 @@ Available environment variables:
 
 | Variable | Description |
 |----------|-------------|
-| `DATABASE_URL` | MySQL/TiDB connection string |
+| `SUPABASE_DB_URL` | Cadena de conexión PostgreSQL de Supabase (**tiene prioridad**) |
+| `DATABASE_URL` | Respaldo de conexión; puede seguir apuntando a la base antigua sin afectar |
 | `JWT_SECRET` | Session signing secret |
 | `VITE_APP_ID` | Manus OAuth app ID |
 | `OAUTH_SERVER_URL` | Manus OAuth backend URL |
@@ -634,50 +646,55 @@ pnpm test
 
 `drizzle/schema.ts`
 ```ts
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 /**
  * Core user table backing auth flow.
  * Extend this file with additional tables as your product grows.
  * Columns use camelCase to match both database fields and generated types.
  */
-export const users = mysqlTable("users", {
+export const users = pgTable("users", {
   /**
-   * Surrogate primary key. Auto-incremented numeric value managed by the database.
+   * Surrogate primary key. Identity managed by the database.
    * Use this for relations between tables.
    */
-  id: int("id").autoincrement().primaryKey(),
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  role: varchar("role", { length: 16 }).default("user").notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
+  lastSignedIn: timestamp("lastSignedIn", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
-
-// TODO: Add your tables here
 ```
 
 `server/db.ts`
 ```ts
-import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
+import { pgPoolConfig } from "../shared/pg-ssl.js";
 import { InsertUser, users } from "../drizzle/schema";
-import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
+// SUPABASE_DB_URL tiene prioridad; DATABASE_URL es el respaldo.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  const url = process.env.SUPABASE_DB_URL || process.env.DATABASE_URL;
+  if (!_db && url) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      _db = drizzle(
+        new Pool({
+          ...pgPoolConfig(url), // normaliza SSL para Supabase (shared/pg-ssl.ts)
+          max: 10,
+          connectionTimeoutMillis: 15000,
+        }),
+      );
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
@@ -685,79 +702,6 @@ export async function getDb() {
   }
   return _db;
 }
-
-export async function upsertUser(user: InsertUser): Promise<void> {
-  if (!user.openId) {
-    throw new Error("User openId is required for upsert");
-  }
-
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot upsert user: database not available");
-    return;
-  }
-
-  try {
-    const values: InsertUser = {
-      openId: user.openId,
-    };
-    const updateSet: Record<string, unknown> = {};
-
-    const textFields = ["name", "email", "loginMethod"] as const;
-    type TextField = (typeof textFields)[number];
-
-    const assignNullable = (field: TextField) => {
-      const value = user[field];
-      if (value === undefined) return;
-      const normalized = value ?? null;
-      values[field] = normalized;
-      updateSet[field] = normalized;
-    };
-
-    textFields.forEach(assignNullable);
-
-    if (user.lastSignedIn !== undefined) {
-      values.lastSignedIn = user.lastSignedIn;
-      updateSet.lastSignedIn = user.lastSignedIn;
-    }
-    if (user.role !== undefined) {
-      values.role = user.role;
-      updateSet.role = user.role;
-    } else if (user.openId === ENV.ownerOpenId) {
-      values.role = "admin";
-      updateSet.role = "admin";
-    }
-
-    if (!values.lastSignedIn) {
-      values.lastSignedIn = new Date();
-    }
-
-    if (Object.keys(updateSet).length === 0) {
-      updateSet.lastSignedIn = new Date();
-    }
-
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
-      set: updateSet,
-    });
-  } catch (error) {
-    console.error("[Database] Failed to upsert user:", error);
-    throw error;
-  }
-}
-
-export async function getUserByOpenId(openId: string) {
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot get user: database not available");
-    return undefined;
-  }
-
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
-
-  return result.length > 0 ? result[0] : undefined;
-}
-
-// TODO: add feature queries here as your schema grows.
 ```
 
 `server/routers.ts`

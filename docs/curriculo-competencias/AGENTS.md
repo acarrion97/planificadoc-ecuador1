@@ -34,7 +34,7 @@ Contrato técnico para agentes que modifiquen el módulo `curriculo-competencias
 | Archivo | Responsabilidad |
 |---------|----------------|
 | `curriculo-competencias-router.ts` | CRUD + export endpoints (tRPC) |
-| `drizzle/schema.ts` (tabla `curriculo_competencias_planificaciones`) | Esquema MySQL |
+| `drizzle/schema.ts` (tabla `curriculo_competencias_planificaciones`) | Esquema PostgreSQL (Supabase) |
 
 ### UI (`app/curriculo-competencias/`)
 
@@ -112,7 +112,7 @@ normalizarPlanificacionEGBBGU(raw) / normalizarPlanificacionInicial(raw)
   ↓
 Modelo canónico (con SourceTraceability)
   ↓
-tRPC endpoint → Drizzle → MySQL (formData = JSON del canónico)
+tRPC endpoint → Drizzle → PostgreSQL/Supabase (formData = JSON del canónico)
   ↓
 exportWord / exportPdf → lee formData → genera output
 ```
