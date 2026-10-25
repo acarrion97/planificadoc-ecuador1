@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handleCors } from "../_lib/admin-auth";
 import { getDb, getActiveSubscription } from "../_lib/db";
-import { docenteAccounts, passwordResetCodes } from "../../drizzle/schema";
+import { docenteAccounts, passwordResetCodes, subscriptions } from "../../drizzle/schema";
 import { eq, desc, sql as drizzleSql } from "drizzle-orm";
 import { createHmac, randomBytes, randomInt, scrypt, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
@@ -117,6 +117,74 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const sub = await getActiveSubscription(normalizedEmail);
       const token = signToken(normalizedEmail, trimmedNombre);
       return res.json({ success: true, token, email: normalizedEmail, nombre: trimmedNombre, hasActiveSubscription: !!sub, subscriptionEndDate: sub ? sub.endDate : null });
+    } catch (e: any) {
+      return res.status(500).json({ error: e.message });
+    }
+  }
+
+  // POST /api/auth/register-maintenance
+  //
+  // Registro ESPECIAL que solo se ofrece desde el login cuando el correo no
+  // existe (ver app/paywall.tsx → handleLogin → notFound). No sustituye al
+  // registro normal (/register): aquí la cuenta se crea con acceso gratuito
+  // temporal por el mantenimiento preventivo.
+  //
+  // Duración controlada por MAINTENANCE_FREE_DAYS (días, por defecto 30;
+  // "0" crea la cuenta sin acceso). Nada de esto afecta al registro normal.
+  if (action === "register-maintenance") {
+    if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+    const { email, password, nombre } = req.body || {};
+    if (!email || !password || !nombre) {
+      return res.status(400).json({ error: "Nombre, correo y contraseña son requeridos" });
+    }
+    if ((password as string).length < 6) {
+      return res.status(400).json({ error: "La contraseña debe tener al menos 6 caracteres" });
+    }
+    const normalizedEmail = (email as string).trim().toLowerCase();
+    const trimmedNombre = (nombre as string).trim();
+    const freeDays = Number.parseInt(process.env.MAINTENANCE_FREE_DAYS ?? "30", 10);
+
+    try {
+      const existing = await db
+        .select({ id: docenteAccounts.id })
+        .from(docenteAccounts)
+        .where(eq(docenteAccounts.email, normalizedEmail))
+        .limit(1);
+
+      if (existing.length > 0) {
+        return res.status(409).json({ error: "Ya existe una cuenta con ese correo. Inicia sesión.", exists: true });
+      }
+
+      const passwordHash = await hashPassword(password as string);
+      await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
+
+      // Acceso gratuito temporal del mantenimiento (solo si freeDays > 0)
+      let subscriptionEndDate: Date | null = null;
+      if (Number.isFinite(freeDays) && freeDays > 0) {
+        subscriptionEndDate = new Date(Date.now() + freeDays * 24 * 3600 * 1000);
+        await db.insert(subscriptions).values({
+          email: normalizedEmail,
+          plan: "monthly",
+          status: "active",
+          amountPaid: 0,
+          transactionId: `MAINTENANCE-${Date.now()}`,
+          startDate: new Date(),
+          endDate: subscriptionEndDate,
+          isPromo: true,
+          isRecurring: false,
+        });
+      }
+
+      const token = signToken(normalizedEmail, trimmedNombre);
+      return res.json({
+        success: true,
+        token,
+        email: normalizedEmail,
+        nombre: trimmedNombre,
+        hasActiveSubscription: subscriptionEndDate !== null,
+        subscriptionEndDate,
+        maintenanceFree: subscriptionEndDate !== null,
+      });
     } catch (e: any) {
       return res.status(500).json({ error: e.message });
     }
