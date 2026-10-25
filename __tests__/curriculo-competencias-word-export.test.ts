@@ -282,19 +282,25 @@ describe("Word EGB/BGU - Estructura y contenido", () => {
   it("contiene las 4 competencias", async () => {
     const blob = await generarCurriculoCompetenciasWordEGBBGU(PLAN_EGB_BGU);
     const text = await extractDocxText(blob);
-    expect(text).toContain("C");
-    expect(text).toContain("M");
-    expect(text).toContain("CD");
-    expect(text).toContain("CS");
+    // El formato oficial MINEDUC (commit "alinear formato Word con plantilla
+    // oficial MINEDUC") muestra la sección con las CE; las etiquetas
+    // C/M/CD/CS de `competenciasAsociadas` solo las imprime el PDF.
+    expect(text).toContain("COMPETENCIAS ESPECÍFICAS E INDICADORES DE EVALUACIÓN");
+    expect(text).toContain("CE.M.8.1");
+    expect(text).toContain("CE.M.8.2");
   });
 
   it("contiene las fases ERCA", async () => {
     const blob = await generarCurriculoCompetenciasWordEGBBGU(PLAN_EGB_BGU);
     const text = await extractDocxText(blob);
-    expect(text).toContain("Experiencia");
-    expect(text).toContain("Reflexión");
-    expect(text).toContain("Conceptualización");
-    expect(text).toContain("Aplicación");
+    // Las fases ya no se rotulan "Experiencia/Reflexión/…": el formato oficial
+    // las presenta como "Sugerencias para el inicio/desarrollo/cierre" con los
+    // colores ERCA. Lo que no puede perderse es la actividad de cada fase.
+    expect(text).toContain("Sugerencias para el inicio");
+    expect(text).toContain("Observar problemas cotidianos");
+    expect(text).toContain("Analizar los problemas observados");
+    expect(text).toContain("Definir ecuaciones lineales");
+    expect(text).toContain("Resolver ejercicios prácticos");
   });
 
   it("contiene el indicador de evaluación", async () => {
@@ -306,7 +312,11 @@ describe("Word EGB/BGU - Estructura y contenido", () => {
   it("contiene los recursos", async () => {
     const blob = await generarCurriculoCompetenciasWordEGBBGU(PLAN_EGB_BGU);
     const text = await extractDocxText(blob);
-    expect(text).toContain("Cuaderno, lápiz, calculadora");
+    // El generador parte `recursos` por "," y arma un bullet por recurso
+    // ("• Cuaderno", "• lápiz", "• calculadora"), así que no aparecen juntos.
+    expect(text).toContain("Cuaderno");
+    expect(text).toContain("lápiz");
+    expect(text).toContain("calculadora");
   });
 
   it("contiene la técnica de evaluación", async () => {

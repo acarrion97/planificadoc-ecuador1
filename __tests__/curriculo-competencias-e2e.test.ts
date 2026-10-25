@@ -327,9 +327,12 @@ describe("E2E — Flujo completo EGB/BGU", () => {
     // Verificar contenido
     const docXml = await zip.file("word/document.xml")?.async("text");
     expect(docXml).toContain("Unidad Educativa Ejemplo");
-    expect(docXml).toContain("Docente E2E");
+    // El normalizador canonicaliza los nombres (E2E → E2e).
+    expect((docXml || "").toLowerCase()).toContain("docente e2e");
     expect(docXml).toContain("Resuelve problemas con fracciones");
-    expect(docXml).toContain("Experiencia");
+    // El formato oficial ya no rotula la fase "Experiencia": la vuelca como
+    // "Sugerencias para el inicio/desarrollo/cierre" con colores ERCA.
+    expect(docXml).toContain("Sugerencias para el inicio");
   });
 
   it("4. Exporta PDF a partir de datos persistidos", async () => {
@@ -573,7 +576,9 @@ describe("E2E — Flujo completo Inicial/Preparatoria", () => {
     expect(docXml).toContain("Unidad Educativa Inicial");
     expect(docXml).toContain("Docente Inicial E2E");
     expect(docXml).toContain("Socioemocional");
-    expect(docXml).toContain("INICIO");
+    // Antes era la etiqueta en mayúsculas "INICIO"; el generador Inicial ya
+    // usa el rótulo "Sugerencias para el inicio/desarrollo/cierre".
+    expect(docXml).toContain("Sugerencias para el inicio");
   });
 
   it("4. Exporta PDF a partir de datos persistidos", async () => {

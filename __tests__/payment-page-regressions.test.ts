@@ -6,7 +6,9 @@ const fakeDb = {
   insert: () => ({
     values: (v: Record<string, any>) => {
       saved.push(v);
-      return { onDuplicateKeyUpdate: async () => undefined };
+      // drizzle-orm/node-postgres usa onConflictDoUpdate (antes era
+      // onDuplicateKeyUpdate con el driver mysql2).
+      return { onConflictDoUpdate: async () => undefined };
     },
   }),
 };

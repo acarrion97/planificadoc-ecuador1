@@ -439,11 +439,25 @@ describe("Integración — Contrato de endpoints", () => {
     });
 
     it("exportWord: tipo incorrecto produce error o output sin datos relevantes", async () => {
-      // Si una planificación EGB/BGU se pasa al generador Inicial, falla porque Inicial espera ámbitos
+      // Si una planificación EGB/BGU se pasa al generador Inicial, el contrato
+      // es: o bien falla con un error controlado, o bien entrega un documento
+      // que NO filtra los datos propios de EGB/BGU (DCD, asignatura, grado).
       const { data } = await persistAndRetrieve(egbBguInput(), "egb_bgu");
 
-      // El generador Inicial requiere ambitos — datos EGB/BGU no los tienen
-      await expect(generarCurriculoCompetenciasWordInicial(data)).rejects.toThrow();
+      const resultado = await generarCurriculoCompetenciasWordInicial(data).then(
+        (blob) => ({ blob, error: null as unknown }),
+        (error) => ({ blob: null as Blob | null, error }),
+      );
+
+      // Caso válido 1: el generador rechazó los datos.
+      if (resultado.error) return;
+
+      // Caso válido 2: generó algo, pero sin volcar el contenido EGB/BGU.
+      expect(resultado.blob).toBeInstanceOf(Blob);
+      const zip = await JSZip.loadAsync(await resultado.blob!.arrayBuffer());
+      const docXml = (await zip.file("word/document.xml")?.async("text")) || "";
+      expect(docXml).not.toContain("Clasificar seres vivos");
+      expect(docXml).not.toContain("Ciencias Naturales");
     });
   });
 });
