@@ -22,7 +22,8 @@ let _db: ReturnType<typeof drizzle> | null = null;
 // El servidor (dev local / proceso largo) sí puede permitirse un pool normal;
 // en Vercel manda api/_lib/db.ts, que usa max: 1.
 export async function getDb() {
-  const url = process.env.DATABASE_URL || process.env.SUPABASE_DB_URL;
+  // SUPABASE_DB_URL tiene prioridad; DATABASE_URL es el respaldo (ver arriba).
+  const url = process.env.SUPABASE_DB_URL || process.env.DATABASE_URL;
   if (!_db && url) {
     try {
       _db = drizzle(

@@ -13,9 +13,10 @@ import { pgPoolConfig } from "../../shared/pg-ssl";
 let _db: ReturnType<typeof drizzle> | null = null;
 
 export function getDb() {
-  // DATABASE_URL manda; SUPABASE_DB_URL es el respaldo por si la credencial se
-  // guardó con ese nombre (ambas se pueden fijar en Vercel).
-  const url = process.env.DATABASE_URL || process.env.SUPABASE_DB_URL;
+  // SUPABASE_DB_URL tiene prioridad y DATABASE_URL es el respaldo: así no
+  // hace falta tocar ni borrar la variable vieja en Vercel, con agregar la de
+  // Supabase alcanza (si no existe, manda DATABASE_URL).
+  const url = process.env.SUPABASE_DB_URL || process.env.DATABASE_URL;
   if (!_db && url) {
     // Vercel serverless: un pool chico por instancia de función. El Pool no
     // abre conexiones hasta la primera query, así que getDb() sigue siendo
