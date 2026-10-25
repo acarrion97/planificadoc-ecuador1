@@ -10,6 +10,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { docenteAccounts, subscriptions } from "../drizzle/schema";
 import { getDb } from "../api/_lib/db";
+import { legacyPublicUserId, syncPublicUser } from "../api/_lib/users";
 import handler from "../api/auth/[action]";
 
 vi.mock("drizzle-orm", async (importOriginal) => {
@@ -29,6 +30,11 @@ vi.mock("../api/_lib/db", () => ({
   getDb: vi.fn(),
   getActiveSubscription: vi.fn(async () => null),
 }));
+
+vi.mock("../api/_lib/users", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../api/_lib/users")>();
+  return { ...actual, syncPublicUser: vi.fn(async () => 17) };
+});
 
 type Row = Record<string, any>;
 
@@ -111,6 +117,7 @@ let fake: ReturnType<typeof createFakeDb>;
 beforeEach(() => {
   fake = createFakeDb();
   vi.mocked(getDb).mockReturnValue(fake.db as any);
+  vi.clearAllMocks();
   delete process.env.MAINTENANCE_FREE_DAYS;
 });
 
@@ -153,6 +160,13 @@ describe("POST /api/auth/register-maintenance", () => {
     expect(res.body.hasActiveSubscription).toBe(true);
     expect(res.body.maintenanceFree).toBe(true);
     expect(new Date(res.body.subscriptionEndDate).getTime()).toBeCloseTo(new Date(sub.endDate).getTime(), -3);
+    expect(syncPublicUser).toHaveBeenCalledWith({
+      email: NORMALIZED,
+      name: "María González",
+      supabaseId: legacyPublicUserId(NORMALIZED),
+      loginMethod: "legacy",
+      signedIn: true,
+    });
   });
 
   it("honra MAINTENANCE_FREE_DAYS=0: crea la cuenta pero sin acceso gratuito", async () => {
@@ -218,5 +232,12 @@ describe("POST /api/auth/register (registro normal, no debe cambiar)", () => {
     expect(res.body.hasActiveSubscription).toBe(false);
     expect(fake.state.accounts).toHaveLength(1);
     expect(fake.state.subs).toHaveLength(0); // el registro normal nunca otorga acceso
+    expect(syncPublicUser).toHaveBeenCalledWith({
+      email: NORMALIZED,
+      name: "María González",
+      supabaseId: legacyPublicUserId(NORMALIZED),
+      loginMethod: "legacy",
+      signedIn: true,
+    });
   });
 });

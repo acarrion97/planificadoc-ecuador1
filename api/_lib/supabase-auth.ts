@@ -323,9 +323,22 @@ export function getBearerToken(req: any): string | null {
   return null;
 }
 
+/** Prefijo del marcador que se guarda en docente_accounts.passwordHash cuando la clave vive en Supabase. */
+export const SUPABASE_MARKER_PREFIX = "supabase:";
+
 /** Marca que se guarda en docente_accounts.passwordHash cuando la clave vive en Supabase. */
 export function supabaseHashMarker(userId: string): string {
-  return `supabase:${userId}`;
+  return `${SUPABASE_MARKER_PREFIX}${userId}`;
+}
+
+/**
+ * Id de `auth.users` contenido en un marcador `supabase:<id>`.
+ * Devuelve `null` si el hash es scrypt heredado o está vacío.
+ */
+export function supabaseIdFromMarker(passwordHash: string | null | undefined): string | null {
+  if (!passwordHash || !passwordHash.startsWith(SUPABASE_MARKER_PREFIX)) return null;
+  const id = passwordHash.slice(SUPABASE_MARKER_PREFIX.length);
+  return id || null;
 }
 
 /**
@@ -334,6 +347,6 @@ export function supabaseHashMarker(userId: string): string {
  */
 export function isLegacyHash(passwordHash: string | null | undefined): boolean {
   if (!passwordHash) return false;
-  if (passwordHash.startsWith("supabase:")) return false;
+  if (passwordHash.startsWith(SUPABASE_MARKER_PREFIX)) return false;
   return passwordHash.includes(":");
 }

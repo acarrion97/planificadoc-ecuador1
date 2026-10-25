@@ -727,9 +727,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .set({ status: "cancelled" })
         .where(and(eq(subscriptions.email, normalizedEmail), eq(subscriptions.status, "active")));
 
+      // public.users + enlace con suscripciones previas del mismo correo
+      const publicUserId = supaId ? await syncPublicUser({ email: normalizedEmail, name: trimmedNombre, supabaseId: supaId }) : null;
+
       // Crear nueva suscripción con la fecha de vencimiento indicada
       await db.insert(subscriptions).values({
         email: normalizedEmail,
+        ...(publicUserId ? { userId: publicUserId } : {}),
         plan: "monthly",
         status: "active",
         amountPaid: 0,
@@ -854,7 +858,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!email || !password) return res.status(400).json({ error: "email y password requeridos" });
       const normalized = (email as string).trim().toLowerCase();
       const existing = await db
-        .select({ id: docenteAccounts.id })
+        .select({ id: docenteAccounts.id, nombre: docenteAccounts.nombre })
         .from(docenteAccounts)
         .where(eq(docenteAccounts.email, normalized))
         .limit(1);
@@ -867,6 +871,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .update(docenteAccounts)
         .set({ passwordHash })
         .where(eq(docenteAccounts.email, normalized));
+      if (supaId) await syncPublicUser({ email: normalized, name: existing[0].nombre, supabaseId: supaId });
       return res.json({ success: true, message: `Contraseña actualizada para ${normalized}` });
     }
 
@@ -1026,6 +1031,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       } else {
         await db.update(docenteAccounts).set({ passwordHash, nombre: trimmedNombre }).where(eq(docenteAccounts.email, normalizedEmail));
       }
+
+      // public.users antes de crear la suscripción, para que quede enlazada
+      // (`createSubscription` completa `userId` con el usuario del correo).
+      if (supaIdGrant) await syncPublicUser({ email: normalizedEmail, name: trimmedNombre, supabaseId: supaIdGrant });
 
       // Expirar suscripciones activas previas
       await db.execute(

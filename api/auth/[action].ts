@@ -16,10 +16,12 @@ import {
   refreshSession,
   signInWithPassword,
   supabaseHashMarker,
+  supabaseIdFromMarker,
   verifyAccessToken,
   AuthProviderError,
   type SupabaseSession,
 } from "../_lib/supabase-auth";
+import { legacyPublicUserId, syncPublicUser } from "../_lib/users";
 
 const scryptAsync = promisify(scrypt);
 
@@ -179,6 +181,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
 
+      // Refleja la cuenta en public.users y enlaza suscripciones por correo.
+      const supabaseId = supabaseIdFromMarker(passwordHash);
+      await syncPublicUser({
+        email: normalizedEmail,
+        name: trimmedNombre,
+        supabaseId: supabaseId ?? legacyPublicUserId(normalizedEmail),
+        loginMethod: supabaseId ? "supabase" : "legacy",
+        signedIn: true,
+      });
+
       const sub = await getActiveSubscription(normalizedEmail);
       const token = session ? session.accessToken : signToken(normalizedEmail, trimmedNombre);
       return res.json({
@@ -242,12 +254,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
       await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
 
+      // public.users + enlace con suscripciones previas (p.ej. las creadas
+      // desde el pago con este correo antes de registrarse).
+      const newSupabaseId = supabaseIdFromMarker(passwordHash);
+      const publicUserId = await syncPublicUser({
+        email: normalizedEmail,
+        name: trimmedNombre,
+        supabaseId: newSupabaseId ?? legacyPublicUserId(normalizedEmail),
+        loginMethod: newSupabaseId ? "supabase" : "legacy",
+        signedIn: true,
+      });
+
       // Acceso gratuito temporal del mantenimiento (solo si freeDays > 0)
       let subscriptionEndDate: Date | null = null;
       if (Number.isFinite(freeDays) && freeDays > 0) {
         subscriptionEndDate = new Date(Date.now() + freeDays * 24 * 3600 * 1000);
         await db.insert(subscriptions).values({
           email: normalizedEmail,
+          ...(publicUserId ? { userId: publicUserId } : {}),
           plan: "monthly",
           status: "active",
           amountPaid: 0,
@@ -301,8 +325,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           if (account) {
             await db.update(docenteAccounts).set({ lastLoginAt: new Date() }).where(eq(docenteAccounts.email, normalizedEmail));
           }
-          const sub = await getActiveSubscription(normalizedEmail);
           const nombre = account?.nombre || (session.user?.user_metadata?.nombre as string) || normalizedEmail;
+          if (session.user?.id) {
+            await syncPublicUser({ email: normalizedEmail, name: account?.nombre ?? nombre, supabaseId: session.user.id, signedIn: true });
+          }
+          const sub = await getActiveSubscription(normalizedEmail);
           return res.json({
             success: true,
             ...sessionFields(session, session.accessToken),
@@ -342,6 +369,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             .update(docenteAccounts)
             .set({ passwordHash: supabaseHashMarker(user.id), lastLoginAt: new Date() })
             .where(eq(docenteAccounts.email, normalizedEmail));
+          await syncPublicUser({ email: normalizedEmail, name: account.nombre, supabaseId: user.id, signedIn: true });
 
           const sub = await getActiveSubscription(normalizedEmail);
           return res.json({
@@ -365,6 +393,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!valid) return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
 
       await db.update(docenteAccounts).set({ lastLoginAt: new Date() }).where(eq(docenteAccounts.email, normalizedEmail));
+      await syncPublicUser({
+        email: normalizedEmail,
+        name: account.nombre,
+        supabaseId: legacyPublicUserId(normalizedEmail),
+        loginMethod: "legacy",
+        signedIn: true,
+      });
 
       const sub = await getActiveSubscription(normalizedEmail);
       const token = signToken(normalizedEmail, account.nombre);
@@ -503,6 +538,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .update(docenteAccounts)
         .set({ passwordHash })
         .where(eq(docenteAccounts.email, normalizedEmail));
+      const resetSupabaseId = supabaseIdFromMarker(passwordHash);
+      if (resetSupabaseId) {
+        await syncPublicUser({ email: normalizedEmail, name: accounts[0].nombre, supabaseId: resetSupabaseId });
+      }
       // Un solo uso: el código se consume al aplicarse.
       await db.delete(passwordResetCodes).where(eq(passwordResetCodes.email, normalizedEmail));
 
