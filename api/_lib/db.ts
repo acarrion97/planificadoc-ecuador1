@@ -1,4 +1,5 @@
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import { eq, and, desc, inArray } from "drizzle-orm";
 import {
   subscriptions,
@@ -12,7 +13,17 @@ let _db: ReturnType<typeof drizzle> | null = null;
 
 export function getDb() {
   if (!_db && process.env.DATABASE_URL) {
-    _db = drizzle(process.env.DATABASE_URL);
+    // Vercel serverless: un pool chico por instancia de función. El Pool no
+    // abre conexiones hasta la primera query, así que getDb() sigue siendo
+    // síncrono (lo usan ~105 call sites sin await).
+    _db = drizzle(
+      new Pool({
+        connectionString: process.env.DATABASE_URL,
+        max: 1,
+        connectionTimeoutMillis: 15000,
+        idleTimeoutMillis: 30000,
+      }),
+    );
   }
   return _db;
 }
@@ -60,11 +71,14 @@ export async function createSubscription(data: any) {
   const db = getDb();
   if (!db) throw new Error("Database not available");
 
-  const result = await db.insert(subscriptions).values({
-    ...data,
-    email: data.email.toLowerCase(),
-  });
-  return result[0].insertId;
+  const result = await db
+    .insert(subscriptions)
+    .values({
+      ...data,
+      email: data.email.toLowerCase(),
+    })
+    .returning({ id: subscriptions.id });
+  return result[0].id;
 }
 
 // ============= Payment Transaction Queries =============
@@ -137,12 +151,15 @@ export async function saveCardToken(data: any): Promise<number> {
     .set({ isActive: false })
     .where(eq(cardTokens.email, data.email.toLowerCase()));
 
-  const result = await db.insert(cardTokens).values({
-    ...data,
-    email: data.email.toLowerCase(),
-    phoneNumber: phone,
-  });
-  return result[0].insertId;
+  const result = await db
+    .insert(cardTokens)
+    .values({
+      ...data,
+      email: data.email.toLowerCase(),
+      phoneNumber: phone,
+    })
+    .returning({ id: cardTokens.id });
+  return result[0].id;
 }
 
 export async function getActiveCardToken(email: string) {

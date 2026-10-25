@@ -38,20 +38,6 @@ function toTime(v: Date | string | number | null | undefined): number {
 }
 
 /** Crea la tabla en la primera solicitud (patrón runtime DDL del proyecto). */
-async function ensurePasswordResetTable(db: NonNullable<ReturnType<typeof getDb>>) {
-  await db.execute(drizzleSql.raw(
-    `CREATE TABLE IF NOT EXISTS password_reset_codes (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      email VARCHAR(320) NOT NULL,
-      codeHash VARCHAR(128) NOT NULL,
-      attempts INT NOT NULL DEFAULT 0,
-      expiresAt TIMESTAMP NOT NULL,
-      sentAt TIMESTAMP NOT NULL,
-      KEY idx_password_reset_email (email)
-    )`
-  ));
-}
-
 async function hashPassword(password: string): Promise<string> {
   const salt = randomBytes(16).toString("hex");
   const derived = (await scryptAsync(password, salt, 64)) as Buffer;
@@ -226,9 +212,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const valid = await verifyPassword(password as string, account.passwordHash);
       if (!valid) return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
 
-      try {
-        await db.execute(drizzleSql.raw(`ALTER TABLE docente_accounts ADD COLUMN IF NOT EXISTS lastLoginAt TIMESTAMP NULL`));
-      } catch (_) { /* ya existe */ }
       await db.update(docenteAccounts).set({ lastLoginAt: new Date() }).where(eq(docenteAccounts.email, normalizedEmail));
 
       const sub = await getActiveSubscription(normalizedEmail);
@@ -253,7 +236,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const genericMessage = "Si existe una cuenta con ese correo, recibirás un código de 6 dígitos en unos minutos.";
 
     try {
-      await ensurePasswordResetTable(db);
 
       const accounts = await db
         .select()
@@ -310,7 +292,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     try {
-      await ensurePasswordResetTable(db);
 
       const rows = await db
         .select()

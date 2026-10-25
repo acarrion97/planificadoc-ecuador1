@@ -393,7 +393,11 @@ export const pcaRouter = router({
 
       const nuevoId = await createPcaDocument({
         sessionId: input.sessionId,
-        status: original.status === "paid" ? "generated" : original.status,
+        // `status` es varchar+CHECK en Postgres (no enum), así que el valor
+        // crudo se estrecha al tipo de dominio que exige createPcaDocument.
+        status: original.status === "paid"
+          ? "generated"
+          : (original.status as "draft" | "generated" | "paid"),
         formData: original.formData,
         aiResult: original.aiResult ?? undefined,
       });

@@ -343,14 +343,13 @@ function ensureTable(db: Awaited<ReturnType<typeof getDb>>): asserts db is NonNu
 }
 
 /**
- * El driver mysql2 de drizzle resuelve un INSERT como la tupla cruda
- * [ResultSetHeader, FieldPacket[]] (no como el ResultSetHeader directo),
- * así que `insertId` vive en res[0], no en res. Leerlo directo de `res`
- * devuelve undefined y el cliente termina navegando a un id inexistente.
+ * Con `drizzle-orm/node-postgres` el INSERT lleva `.returning({ id })`, así que
+ * la respuesta es un array de filas y el id vive en `res[0].id`. Leerlo de otro
+ * sitio devuelve undefined y el cliente termina navegando a un id inexistente.
  */
 function extractInsertId(res: unknown): number | undefined {
-  const header = Array.isArray(res) ? res[0] : res;
-  const id = (header as any)?.insertId;
+  const row = Array.isArray(res) ? res[0] : res;
+  const id = (row as any)?.id;
   return typeof id === "number" ? id : undefined;
 }
 
@@ -407,75 +406,11 @@ const COLUMNAS_TARDIAS: Array<{ nombre: string; ddl: string }> = [
 /** Una vez agregadas las columnas en este proceso, no se repiten los ALTER. */
 let columnasTardiasListas = false;
 
-function esColumnaDuplicada(err: any): boolean {
-  const codigo = err?.code ?? err?.cause?.code;
-  const errno = err?.errno ?? err?.cause?.errno;
-  const mensaje = `${err?.message ?? ""} ${err?.cause?.message ?? ""}`;
-  return codigo === "ER_DUP_FIELDNAME" || errno === 1060 || /Duplicate column/i.test(mensaje);
-}
-
 /**
  * Agrega en caliente `hay_nee` y `compartida` si la BD todavía no tiene la
  * migración 0010. Cada columna va en su propio ALTER para que una ya
  * existente ("Duplicate column") no impida agregar la otra.
  */
-async function ensureColumnasTardias(db: any): Promise<void> {
-  if (columnasTardiasListas) return;
-  let todasOk = true;
-  for (const col of COLUMNAS_TARDIAS) {
-    try {
-      await db.execute(
-        `ALTER TABLE \`curriculo_competencias_planificaciones\` ADD COLUMN ${col.ddl}`
-      );
-    } catch (err: any) {
-      if (!esColumnaDuplicada(err)) {
-        todasOk = false;
-        console.warn(`[DB] ensureColumnasTardias (${col.nombre}) warning:`, err?.message);
-      }
-    }
-  }
-  columnasTardiasListas = todasOk;
-}
-
-async function ensureCurriculoCompetenciasTable(): Promise<void> {
-  const db = await getDb();
-  if (!db) return;
-  try {
-    await (db as any).execute(`
-      CREATE TABLE IF NOT EXISTS \`curriculo_competencias_planificaciones\` (
-        \`id\` int NOT NULL AUTO_INCREMENT,
-        \`session_id\` varchar(64) NOT NULL,
-        \`tipo\` enum('egb_bgu','inicial_preparatoria') NOT NULL,
-        \`grado\` varchar(32),
-        \`institucion\` varchar(128),
-        \`docente\` varchar(128),
-        \`paralelo\` varchar(16),
-        \`asignatura\` varchar(64),
-        \`nivel\` enum('EGB','BGU'),
-        \`periodo_pedagogico\` varchar(64),
-        \`trimestre\` varchar(32),
-        \`dcd_codigo\` varchar(32),
-        \`competencias\` text,
-        \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
-        \`hay_nee\` boolean NOT NULL DEFAULT false,
-        \`compartida\` boolean NOT NULL DEFAULT false,
-        \`form_data\` text NOT NULL,
-        \`ai_result\` text,
-        \`source_traceability\` text,
-        \`created_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        \`updated_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        PRIMARY KEY (\`id\`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-    `);
-  } catch (err: any) {
-    if (!err?.message?.includes("already exists")) {
-      console.warn("[DB] ensureCurriculoCompetenciasTable warning:", err?.message);
-    }
-  }
-  // Tablas creadas antes de la migración 0010 no tienen los switches.
-  await ensureColumnasTardias(db);
-}
-
 /**
  * Flags de los switches del formulario. `undefined` = no tocar la columna
  * (p. ej. el formulario egb-bgu.tsx no tiene estos switches).
@@ -542,7 +477,6 @@ export const curriculoCompetenciasRouter = router({
   createEGBBGU: publicProcedure
     .input(PlanificacionEGBBGUInput)
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -572,7 +506,8 @@ export const curriculoCompetenciasRouter = router({
 
       const res = await db
         .insert(curriculoCompetenciasPlanificaciones)
-        .values(row);
+        .values(row)
+        .returning({ id: curriculoCompetenciasPlanificaciones.id });
 
       return {
         id: extractInsertId(res),
@@ -584,7 +519,6 @@ export const curriculoCompetenciasRouter = router({
   createInicial: publicProcedure
     .input(PlanificacionInicialInput)
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -622,7 +556,8 @@ export const curriculoCompetenciasRouter = router({
 
       const res = await db
         .insert(curriculoCompetenciasPlanificaciones)
-        .values(row);
+        .values(row)
+        .returning({ id: curriculoCompetenciasPlanificaciones.id });
 
       return {
         id: extractInsertId(res),
@@ -636,7 +571,6 @@ export const curriculoCompetenciasRouter = router({
     .mutation(async ({ input }) => {
       validarPlanificacionMultigrado(input);
 
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -673,7 +607,8 @@ export const curriculoCompetenciasRouter = router({
 
       const res = await db
         .insert(curriculoCompetenciasPlanificaciones)
-        .values(row);
+        .values(row)
+        .returning({ id: curriculoCompetenciasPlanificaciones.id });
 
       return {
         id: extractInsertId(res),
@@ -686,7 +621,6 @@ export const curriculoCompetenciasRouter = router({
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
       // select() lee todas las columnas: deben existir hay_nee/compartida.
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return null;
 
@@ -720,7 +654,6 @@ export const curriculoCompetenciasRouter = router({
       })
     )
     .query(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return [];
 
@@ -782,7 +715,6 @@ export const curriculoCompetenciasRouter = router({
   updateEGBBGU: publicProcedure
     .input(PlanificacionEGBBGUInput.extend({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -826,7 +758,6 @@ export const curriculoCompetenciasRouter = router({
   updateInicial: publicProcedure
     .input(PlanificacionInicialInput.extend({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -868,7 +799,6 @@ export const curriculoCompetenciasRouter = router({
     .mutation(async ({ input }) => {
       validarPlanificacionMultigrado(input);
 
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -917,7 +847,6 @@ export const curriculoCompetenciasRouter = router({
       })
     )
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -938,7 +867,6 @@ export const curriculoCompetenciasRouter = router({
   duplicate: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -989,7 +917,6 @@ export const curriculoCompetenciasRouter = router({
         .optional()
     )
     .query(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return { items: [], hayMas: false };
 
@@ -1026,7 +953,6 @@ export const curriculoCompetenciasRouter = router({
   getCompartidaById: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       if (!db) return null;
 
@@ -1057,7 +983,6 @@ export const curriculoCompetenciasRouter = router({
   duplicarCompartida: publicProcedure
     .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -1097,7 +1022,8 @@ export const curriculoCompetenciasRouter = router({
         sourceTraceability: f.sourceTraceability,
         hayNEE: false,
         compartida: false,
-      });
+      })
+        .returning({ id: curriculoCompetenciasPlanificaciones.id });
 
       const id = extractInsertId(res);
       return {
@@ -1110,7 +1036,6 @@ export const curriculoCompetenciasRouter = router({
   delete: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -1127,7 +1052,6 @@ export const curriculoCompetenciasRouter = router({
   exportWord: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 
@@ -1192,7 +1116,6 @@ export const curriculoCompetenciasRouter = router({
   exportPdf: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureCurriculoCompetenciasTable();
       const db = await getDb();
       ensureTable(db);
 

@@ -12,42 +12,6 @@ import { generarDesagregacionDCD } from "./dcd-desagregacion-service";
  * Toda operación se valida por `sessionId` (mismo esquema que adaptaciones-router).
  */
 
-async function ensureDcdDesagregacionesTable(): Promise<void> {
-  const db = await getDb();
-  if (!db) return;
-  try {
-    await (db as any).execute(`
-      CREATE TABLE IF NOT EXISTS \`dcd_desagregaciones\` (
-        \`id\` int NOT NULL AUTO_INCREMENT,
-        \`sessionId\` varchar(320) NOT NULL,
-        \`codigoDCD\` varchar(64) NOT NULL,
-        \`subnivel\` int NOT NULL,
-        \`grado\` int NOT NULL,
-        \`gradoMaximo\` int NOT NULL,
-        \`descripcionDCD\` text NOT NULL,
-        \`indicadorOriginal\` text NOT NULL,
-        \`dcdGraduada\` text NOT NULL,
-        \`indicadorGraduado\` text NOT NULL,
-        \`procesoCognitivo\` varchar(128),
-        \`estado\` enum('generado','editado','aprobado') NOT NULL DEFAULT 'generado',
-        \`version\` int NOT NULL DEFAULT 1,
-        \`aiResult\` text,
-        \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        PRIMARY KEY (\`id\`),
-        UNIQUE KEY \`uq_dcd_session_grado\` (\`sessionId\`, \`codigoDCD\`, \`grado\`),
-        INDEX \`idx_dcd_session\` (\`sessionId\`),
-        INDEX \`idx_dcd_codigo\` (\`codigoDCD\`),
-        INDEX \`idx_dcd_created\` (\`createdAt\`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-    `);
-  } catch (err: any) {
-    if (!err?.message?.includes("already exists")) {
-      console.warn("[DB] ensureDcdDesagregacionesTable warning:", err?.message);
-    }
-  }
-}
-
 export const dcdDesagregacionesRouter = router({
   /** 4.1 Resuelve el ladder existente (reutilización). Con `grado` devuelve solo esa fila. */
   get: publicProcedure
@@ -62,7 +26,6 @@ export const dcdDesagregacionesRouter = router({
       try {
         const db = await getDb();
         if (!db) return [];
-        await ensureDcdDesagregacionesTable();
 
         if (input.grado != null) {
           return await db
@@ -108,7 +71,6 @@ export const dcdDesagregacionesRouter = router({
       try {
         const db = await getDb();
         if (db) {
-          await ensureDcdDesagregacionesTable();
           await db
             .delete(dcdDesagregaciones)
             .where(
@@ -155,7 +117,6 @@ export const dcdDesagregacionesRouter = router({
       try {
         const db = await getDb();
         if (!db) throw new Error("Database not available");
-        await ensureDcdDesagregacionesTable();
         await db
           .update(dcdDesagregaciones)
           .set({
@@ -188,7 +149,6 @@ export const dcdDesagregacionesRouter = router({
       try {
         const db = await getDb();
         if (!db) throw new Error("Database not available");
-        await ensureDcdDesagregacionesTable();
         await db
           .update(dcdDesagregaciones)
           .set({ estado: "aprobado" })

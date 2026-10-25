@@ -1,18 +1,18 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, uniqueIndex } from "drizzle-orm/mysql-core";
+import { boolean, integer, pgTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/pg-core";
 
 /**
  * Core user table backing auth flow.
  */
-export const users = mysqlTable("users", {
-  id: int("id").autoincrement().primaryKey(),
+export const users = pgTable("users", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  role: varchar("role", { length: 16 }).default("user").notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
+  lastSignedIn: timestamp("lastSignedIn", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type User = typeof users.$inferSelect;
@@ -22,26 +22,26 @@ export type InsertUser = typeof users.$inferInsert;
  * Subscriptions table - tracks active subscriptions for users.
  * A user can have multiple subscription records (history), but only one active at a time.
  */
-export const subscriptions = mysqlTable("subscriptions", {
-  id: int("id").autoincrement().primaryKey(),
+export const subscriptions = pgTable("subscriptions", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email used for the subscription (primary identifier for non-OAuth users) */
   email: varchar("email", { length: 320 }).notNull(),
   /** Optional link to users table if user also has OAuth */
-  userId: int("userId"),
+  userId: integer("userId"),
   /** Subscription plan: 'monthly' or 'annual' */
   plan: varchar("plan", { length: 32 }).notNull().default("monthly"),
   /** Status: active, expired, cancelled, past_due (grace period), trial (3-day free trial) */
-  status: mysqlEnum("status", ["active", "expired", "cancelled", "past_due", "trial"]).default("active").notNull(),
+  status: varchar("status", { length: 16 }).default("active").notNull(),
   /** Amount paid in cents */
-  amountPaid: int("amountPaid").notNull(),
+  amountPaid: integer("amountPaid").notNull(),
   /** PayPhone transaction ID */
   transactionId: varchar("transactionId", { length: 64 }),
   /** PayPhone authorization code */
   authorizationCode: varchar("authorizationCode", { length: 64 }),
   /** Start date of the subscription period */
-  startDate: timestamp("startDate").defaultNow().notNull(),
+  startDate: timestamp("startDate", { withTimezone: true }).defaultNow().notNull(),
   /** End date of the subscription period */
-  endDate: timestamp("endDate").notNull(),
+  endDate: timestamp("endDate", { withTimezone: true }).notNull(),
   /** Whether this is a promotional/introductory price */
   isPromo: boolean("isPromo").default(false).notNull(),
   /** Whether this subscription uses recurring billing */
@@ -51,12 +51,12 @@ export const subscriptions = mysqlTable("subscriptions", {
   /** Plan to charge when trial converts: 'monthly' | 'annual' */
   trialPlan: varchar("trialPlan", { length: 32 }),
   /** Card token ID reference for recurring billing */
-  cardTokenId: int("cardTokenId"),
+  cardTokenId: integer("cardTokenId"),
   /** Number of failed recurring charge attempts */
-  failedChargeAttempts: int("failedChargeAttempts").default(0).notNull(),
+  failedChargeAttempts: integer("failedChargeAttempts").default(0).notNull(),
   /** Last failed charge date */
-  lastChargeAttempt: timestamp("lastChargeAttempt"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  lastChargeAttempt: timestamp("lastChargeAttempt", { withTimezone: true }),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type Subscription = typeof subscriptions.$inferSelect;
@@ -66,8 +66,8 @@ export type InsertSubscription = typeof subscriptions.$inferInsert;
  * Card tokens table - stores tokenized card data for recurring payments.
  * Each user (by email) can have one active token at a time.
  */
-export const cardTokens = mysqlTable("card_tokens", {
-  id: int("id").autoincrement().primaryKey(),
+export const cardTokens = pgTable("card_tokens", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email of the card holder */
   email: varchar("email", { length: 320 }).notNull(),
   /** PayPhone card token (cToken) */
@@ -84,8 +84,8 @@ export const cardTokens = mysqlTable("card_tokens", {
   lastDigits: varchar("lastDigits", { length: 8 }),
   /** Whether this token is active */
   isActive: boolean("isActive").default(true).notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type CardToken = typeof cardTokens.$inferSelect;
@@ -94,20 +94,20 @@ export type InsertCardToken = typeof cardTokens.$inferInsert;
 /**
  * Payment transactions - log of all PayPhone payment attempts.
  */
-export const paymentTransactions = mysqlTable("payment_transactions", {
-  id: int("id").autoincrement().primaryKey(),
+export const paymentTransactions = pgTable("payment_transactions", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Client-generated unique transaction ID */
   clientTransactionId: varchar("clientTransactionId", { length: 64 }).notNull().unique(),
   /** Email of the payer */
   email: varchar("email", { length: 320 }).notNull(),
   /** Amount in cents */
-  amount: int("amount").notNull(),
+  amount: integer("amount").notNull(),
   /** PayPhone transaction ID (set after confirmation) */
-  payphoneTransactionId: int("payphoneTransactionId"),
+  payphoneTransactionId: integer("payphoneTransactionId"),
   /** Status: pending, approved, cancelled, error */
-  status: mysqlEnum("status", ["pending", "approved", "cancelled", "error"]).default("pending").notNull(),
+  status: varchar("status", { length: 16 }).default("pending").notNull(),
   /** PayPhone status code */
-  statusCode: int("statusCode"),
+  statusCode: integer("statusCode"),
   /** PayPhone authorization code */
   authorizationCode: varchar("authorizationCode", { length: 64 }),
   /** Card type used */
@@ -121,7 +121,7 @@ export const paymentTransactions = mysqlTable("payment_transactions", {
   /** Whether this transaction was a recurring charge (not user-initiated) */
   isRecurringCharge: boolean("isRecurringCharge").default(false).notNull(),
   /** Card token ID used for this recurring charge */
-  cardTokenId: int("cardTokenId"),
+  cardTokenId: integer("cardTokenId"),
   /** Card holder name (captured at payment form) */
   cardHolder: varchar("cardHolder", { length: 255 }),
   /** Document ID / cédula (captured at payment form) */
@@ -130,8 +130,8 @@ export const paymentTransactions = mysqlTable("payment_transactions", {
   phoneNumber: varchar("phoneNumber", { length: 20 }),
   /** Plan: monthly or annual */
   plan: varchar("plan", { length: 16 }),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type PaymentTransaction = typeof paymentTransactions.$inferSelect;
@@ -141,8 +141,8 @@ export type InsertPaymentTransaction = typeof paymentTransactions.$inferInsert;
  * Code activations - tracks when users activate access with a promotional code.
  * Used to detect potential code sharing (same code from multiple devices).
  */
-export const codeActivations = mysqlTable("code_activations", {
-  id: int("id").autoincrement().primaryKey(),
+export const codeActivations = pgTable("code_activations", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** The code that was activated */
   code: varchar("code", { length: 64 }).notNull(),
   /** Device fingerprint (unique per device installation) */
@@ -153,7 +153,7 @@ export const codeActivations = mysqlTable("code_activations", {
   email: varchar("email", { length: 320 }),
   /** IP address at time of activation */
   ipAddress: varchar("ipAddress", { length: 64 }),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type CodeActivation = typeof codeActivations.$inferSelect;
@@ -163,8 +163,8 @@ export type InsertCodeActivation = typeof codeActivations.$inferInsert;
  * Docente accounts - email + password login for teachers.
  * Separate from OAuth users. Subscription check is still by email.
  */
-export const docenteAccounts = mysqlTable("docente_accounts", {
-  id: int("id").autoincrement().primaryKey(),
+export const docenteAccounts = pgTable("docente_accounts", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email (unique identifier) */
   email: varchar("email", { length: 320 }).notNull().unique(),
   /** Full name of the teacher */
@@ -172,9 +172,9 @@ export const docenteAccounts = mysqlTable("docente_accounts", {
   /** scrypt-hashed password (salt:hash format) */
   passwordHash: varchar("passwordHash", { length: 512 }).notNull(),
   /** Timestamp of the most recent successful login (null if never logged in since tracking started) */
-  lastLoginAt: timestamp("lastLoginAt"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  lastLoginAt: timestamp("lastLoginAt", { withTimezone: true }),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type DocenteAccount = typeof docenteAccounts.$inferSelect;
@@ -185,18 +185,18 @@ export type InsertDocenteAccount = typeof docenteAccounts.$inferInsert;
  * de un solo uso enviado al correo. Se crea en runtime con
  * CREATE TABLE IF NOT EXISTS (una fila activa por email).
  */
-export const passwordResetCodes = mysqlTable("password_reset_codes", {
-  id: int("id").autoincrement().primaryKey(),
+export const passwordResetCodes = pgTable("password_reset_codes", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email de la cuenta que solicitó la recuperación */
   email: varchar("email", { length: 320 }).notNull(),
   /** HMAC-SHA256 del código (nunca se almacena en texto plano) */
   codeHash: varchar("codeHash", { length: 128 }).notNull(),
   /** Intentos fallidos de verificación (máximo 5) */
-  attempts: int("attempts").notNull().default(0),
+  attempts: integer("attempts").notNull().default(0),
   /** Caducidad del código (10 minutos tras el envío) */
-  expiresAt: timestamp("expiresAt").notNull(),
+  expiresAt: timestamp("expiresAt", { withTimezone: true }).notNull(),
   /** Cuándo se envió — limita reenvíos a 1 por minuto */
-  sentAt: timestamp("sentAt").notNull(),
+  sentAt: timestamp("sentAt", { withTimezone: true }).notNull(),
 });
 
 export type PasswordResetCode = typeof passwordResetCodes.$inferSelect;
@@ -206,8 +206,8 @@ export type InsertPasswordResetCode = typeof passwordResetCodes.$inferInsert;
  * Docente contacts - manually registered by admin when giving out codes.
  * Tracks who received which code, their contact info, and payment status.
  */
-export const docenteContacts = mysqlTable("docente_contacts", {
-  id: int("id").autoincrement().primaryKey(),
+export const docenteContacts = pgTable("docente_contacts", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Access code given to this teacher */
   code: varchar("code", { length: 64 }).notNull(),
   /** Teacher's full name */
@@ -221,10 +221,10 @@ export const docenteContacts = mysqlTable("docente_contacts", {
   /** Whether they paid for the code */
   pago: boolean("pago").default(false).notNull(),
   /** Amount charged (0 = free) in cents */
-  montoCobrado: int("montoCobrado").default(0).notNull(),
+  montoCobrado: integer("montoCobrado").default(0).notNull(),
   /** Optional notes */
   notas: text("notas"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type DocenteContact = typeof docenteContacts.$inferSelect;
@@ -234,12 +234,12 @@ export type InsertDocenteContact = typeof docenteContacts.$inferInsert;
  * PCA Documents - Planificación Curricular Anual generada con IA.
  * El docente llena el formulario, la IA genera el contenido, el pago lo desbloquea.
  */
-export const pcaDocuments = mysqlTable("pca_documents", {
-  id: int("id").autoincrement().primaryKey(),
+export const pcaDocuments = pgTable("pca_documents", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email del docente (o deviceId como fallback) */
   sessionId: varchar("sessionId", { length: 320 }).notNull(),
   /** Estado: draft=en borrador, generated=IA generó, paid=desbloqueado */
-  status: mysqlEnum("status", ["draft", "generated", "paid"]).default("draft").notNull(),
+  status: varchar("status", { length: 16 }).default("draft").notNull(),
   /** JSON del formulario completo (PcaFormData) */
   formData: text("formData").notNull(),
   /** JSON del resultado de la IA (PcaAiResult), nulo hasta generar */
@@ -247,13 +247,13 @@ export const pcaDocuments = mysqlTable("pca_documents", {
   /** ClientTransactionId de PayPhone (se llena al iniciar pago) */
   clientTransactionId: varchar("clientTransactionId", { length: 64 }),
   /** ID de transacción PayPhone (se llena tras pago exitoso) */
-  payphoneTransactionId: int("payphoneTransactionId"),
+  payphoneTransactionId: integer("payphoneTransactionId"),
   /** Código de autorización PayPhone */
   authorizationCode: varchar("authorizationCode", { length: 64 }),
   /** Monto pagado en centavos (siempre 1499 = $14.99) */
-  amountPaid: int("amountPaid"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  amountPaid: integer("amountPaid"),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type PcaDocumentRow = typeof pcaDocuments.$inferSelect;
@@ -264,18 +264,18 @@ export type InsertPcaDocument = typeof pcaDocuments.$inferInsert;
  * planificacion is created or deleted. Identified by email (subscribers) or
  * code (code-based users).
  */
-export const planificacionStats = mysqlTable("planificacion_stats", {
-  id: int("id").autoincrement().primaryKey(),
+export const planificacionStats = pgTable("planificacion_stats", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Primary identifier: email for subscribers, access code for code users */
   identifier: varchar("identifier", { length: 320 }).notNull().unique(),
   /** 'email' | 'code' */
   identifierType: varchar("identifierType", { length: 16 }).notNull().default("email"),
   /** Total planificaciones currently saved on the device */
-  count: int("count").notNull().default(0),
+  count: integer("count").notNull().default(0),
   /** Platform of the last sync: ios | android | web */
   platform: varchar("platform", { length: 16 }),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type PlanificacionStats = typeof planificacionStats.$inferSelect;
@@ -285,8 +285,8 @@ export type InsertPlanificacionStats = typeof planificacionStats.$inferInsert;
  * Adaptaciones Curriculares — documentos generados con IA para estudiantes con NEE.
  * Privacy-first: no se requiere nombre real; se usa código anónimo de estudiante.
  */
-export const curricularAdaptations = mysqlTable("curricular_adaptations", {
-  id: int("id").autoincrement().primaryKey(),
+export const curricularAdaptations = pgTable("curricular_adaptations", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email del docente o deviceId como fallback */
   sessionId: varchar("sessionId", { length: 320 }).notNull(),
   /** Código anónimo del estudiante — sin nombre real */
@@ -296,7 +296,7 @@ export const curricularAdaptations = mysqlTable("curricular_adaptations", {
   docente: varchar("docente", { length: 255 }),
   anioLectivo: varchar("anioLectivo", { length: 20 }),
   area: varchar("area", { length: 20 }).notNull(),
-  subnivel: int("subnivel"),
+  subnivel: integer("subnivel"),
   grado: varchar("grado", { length: 64 }).notNull(),
   paralelo: varchar("paralelo", { length: 20 }),
   periodoPedagogico: varchar("periodoPedagogico", { length: 64 }),
@@ -305,7 +305,7 @@ export const curricularAdaptations = mysqlTable("curricular_adaptations", {
   codigoDestreza: varchar("codigoDestreza", { length: 64 }),
   descripcionDestreza: text("descripcionDestreza"),
   /** 1 = acceso, 2 = proceso, 3 = resultado */
-  gradoAdaptacion: mysqlEnum("gradoAdaptacion", ["1", "2", "3"]).notNull(),
+  gradoAdaptacion: varchar("gradoAdaptacion", { length: 4 }).notNull(),
   /** Tipo de NEE — nunca diagnóstico médico */
   tipoNEE: varchar("tipoNEE", { length: 64 }).notNull(),
   estiloAprendizaje: varchar("estiloAprendizaje", { length: 64 }),
@@ -315,10 +315,10 @@ export const curricularAdaptations = mysqlTable("curricular_adaptations", {
   /** JSON del resultado de la IA (AdaptacionAiResult) */
   aiResult: text("aiResult"),
   /** Número de versión: se incrementa en cada regeneración */
-  version: int("version").default(1).notNull(),
-  status: mysqlEnum("status", ["draft", "generated"]).default("draft").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  version: integer("version").default(1).notNull(),
+  status: varchar("status", { length: 16 }).default("draft").notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type CurricularAdaptationRow = typeof curricularAdaptations.$inferSelect;
@@ -330,19 +330,19 @@ export type InsertCurricularAdaptation = typeof curricularAdaptations.$inferInse
  * planificación; la app funciona sin esta tabla si falla. Una fila por
  * (sessionId, codigoDCD, grado): la UNIQUE habilita la reutilización sin regenerar.
  */
-export const dcdDesagregaciones = mysqlTable(
+export const dcdDesagregaciones = pgTable(
   "dcd_desagregaciones",
   {
-    id: int("id").autoincrement().primaryKey(),
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
     /** Email del docente o deviceId como fallback */
     sessionId: varchar("sessionId", { length: 320 }).notNull(),
     /** Código de la DCD oficial del catálogo (nunca se modifica) */
     codigoDCD: varchar("codigoDCD", { length: 64 }).notNull(),
-    subnivel: int("subnivel").notNull(),
+    subnivel: integer("subnivel").notNull(),
     /** Grado destino de esta versión graduada (p. ej. 3) */
-    grado: int("grado").notNull(),
+    grado: integer("grado").notNull(),
     /** Último grado del subnivel — recibe la versión completa */
-    gradoMaximo: int("gradoMaximo").notNull(),
+    gradoMaximo: integer("gradoMaximo").notNull(),
     /** Snapshot del texto oficial de la DCD */
     descripcionDCD: text("descripcionDCD").notNull(),
     /** Texto oficial del indicador de evaluación asociado */
@@ -354,15 +354,15 @@ export const dcdDesagregaciones = mysqlTable(
     /** Proceso cognitivo esperado para el grado (referencia Marzano) */
     procesoCognitivo: varchar("procesoCognitivo", { length: 128 }),
     /** Estado de la fila */
-    estado: mysqlEnum("estado", ["generado", "editado", "aprobado"])
+    estado: varchar("estado", { length: 16 })
       .default("generado")
       .notNull(),
     /** Número de versión: se incrementa en cada regeneración */
-    version: int("version").default(1).notNull(),
+    version: integer("version").default(1).notNull(),
     /** JSON crudo de la respuesta de la IA */
     aiResult: text("aiResult"),
-    createdAt: timestamp("createdAt").defaultNow().notNull(),
-    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+    createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
   },
   (t) => [uniqueIndex("uq_dcd_session_grado").on(t.sessionId, t.codigoDCD, t.grado)]
 );
@@ -375,8 +375,8 @@ export type InsertDcdDesagregacion = typeof dcdDesagregaciones.$inferInsert;
  * de arranque del año escolar (MinEduc). Respaldo best-effort en la nube,
  * igual que curricularAdaptations; la app funciona sin esta tabla si falla.
  */
-export const connectaNivelaCrea = mysqlTable("connecta_nivela_crea", {
-  id: int("id").autoincrement().primaryKey(),
+export const connectaNivelaCrea = pgTable("connecta_nivela_crea", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email del docente o deviceId como fallback */
   sessionId: varchar("sessionId", { length: 320 }).notNull(),
   institucion: varchar("institucion", { length: 255 }),
@@ -386,16 +386,16 @@ export const connectaNivelaCrea = mysqlTable("connecta_nivela_crea", {
   paralelo: varchar("paralelo", { length: 20 }),
   subnivel: varchar("subnivel", { length: 64 }),
   /** "general" | "bt" */
-  modalidad: mysqlEnum("modalidad", ["general", "bt"]).default("general").notNull(),
+  modalidad: varchar("modalidad", { length: 16 }).default("general").notNull(),
   figuraProfesionalId: varchar("figuraProfesionalId", { length: 64 }),
   moduloId: varchar("moduloId", { length: 64 }),
   /** JSON del formulario completo (Semana1/2y3/4y5 + extras BT) */
   form: text("form"),
   /** JSON del resultado de la IA (ConectaNivelaCreaAiResult) */
   aiResult: text("aiResult"),
-  status: mysqlEnum("status", ["draft", "generated"]).default("draft").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  status: varchar("status", { length: 16 }).default("draft").notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type ConnectaNivelaCreaRow = typeof connectaNivelaCrea.$inferSelect;
@@ -407,18 +407,18 @@ export type InsertConnectaNivelaCrea = typeof connectaNivelaCrea.$inferInsert;
  * la app funciona sin esta tabla si falla. Mismo patrón que
  * connectaNivelaCrea: formulario y resultado IA como JSON.
  */
-export const evaluacionesDiagnosticas = mysqlTable("evaluaciones_diagnosticas", {
-  id: int("id").autoincrement().primaryKey(),
+export const evaluacionesDiagnosticas = pgTable("evaluaciones_diagnosticas", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
   /** Email del docente o deviceId como fallback */
   sessionId: varchar("sessionId", { length: 320 }).notNull(),
   /** Estado de la evaluación local */
-  status: mysqlEnum("status", ["borrador", "publicada", "aplicada", "analizada"]).default("borrador").notNull(),
+  status: varchar("status", { length: 16 }).default("borrador").notNull(),
   /** JSON de la EvaluacionDiagnostica completa */
   form: text("form"),
   /** JSON de preguntas sugeridas por IA (si las hubo) */
   aiResult: text("aiResult"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type EvaluacionDiagnosticaRow = typeof evaluacionesDiagnosticas.$inferSelect;
@@ -428,10 +428,10 @@ export type InsertEvaluacionDiagnostica = typeof evaluacionesDiagnosticas.$infer
  * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.
  * Se recuperan en activate.ts para enviar el evento Purchase a Meta CAPI.
  */
-export const paymentAttribution = mysqlTable("payment_attribution", {
+export const paymentAttribution = pgTable("payment_attribution", {
   clientTxId:  varchar("client_tx_id", { length: 64 }).primaryKey(),
   eventId:     varchar("event_id",     { length: 64 }).notNull(),
-  valueCents:  int("value_cents").notNull(),
+  valueCents:  integer("value_cents").notNull(),
   currency:    varchar("currency",     { length: 8  }).notNull().default("USD"),
   fbp:         varchar("fbp",          { length: 128 }),
   fbc:         varchar("fbc",          { length: 255 }),
@@ -442,7 +442,7 @@ export const paymentAttribution = mysqlTable("payment_attribution", {
   userId:      varchar("user_id",      { length: 64  }),
   sourceUrl:   varchar("source_url",   { length: 512 }),
   sent:        boolean("sent").notNull().default(false),
-  createdAt:   timestamp("created_at").defaultNow(),
+  createdAt:   timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
 // ============================================================
@@ -455,12 +455,12 @@ export const paymentAttribution = mysqlTable("payment_attribution", {
  * Los campos clave están indexados para búsquedas frecuentes;
  * el modelo completo se persiste en `formData` (JSON).
  */
-export const curriculoCompetenciasPlanificaciones = mysqlTable(
+export const curriculoCompetenciasPlanificaciones = pgTable(
   "curriculo_competencias_planificaciones",
   {
-    id: int("id").autoincrement().primaryKey(),
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
     sessionId: varchar("session_id", { length: 64 }).notNull(),
-    tipo: mysqlEnum("tipo", ["egb_bgu", "inicial_preparatoria"]).notNull(),
+    tipo: varchar("tipo", { length: 24 }).notNull(),
 
     // ── Campos indexados para consultas frecuentes ──
     grado: varchar("grado", { length: 32 }),
@@ -470,14 +470,14 @@ export const curriculoCompetenciasPlanificaciones = mysqlTable(
 
     // ── EGB/BGU específicos (nullable para Inicial) ──
     asignatura: varchar("asignatura", { length: 64 }),
-    nivel: mysqlEnum("nivel", ["EGB", "BGU"]),
+    nivel: varchar("nivel", { length: 8 }),
     periodoPedagogico: varchar("periodo_pedagogico", { length: 64 }),
     trimestre: varchar("trimestre", { length: 32 }),
     dcdCodigo: varchar("dcd_codigo", { length: 32 }),
     competencias: text("competencias"), // JSON array de códigos
 
     // ── Estado y metadatos ──
-    status: mysqlEnum("status", ["draft", "generated", "paid"])
+    status: varchar("status", { length: 16 })
       .default("draft")
       .notNull(),
 
@@ -494,8 +494,8 @@ export const curriculoCompetenciasPlanificaciones = mysqlTable(
     sourceTraceability: text("source_traceability"), // JSON SourceTraceability
 
     // ── Timestamps ──
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (t) => [
     // Índices para búsquedas frecuentes
@@ -519,12 +519,12 @@ export type InsertCurriculoCompetencias =
  * Mismo patrón híbrido que curriculoCompetenciasPlanificaciones: columnas
  * indexadas para listar/buscar + `formData` (JSON) como fuente de verdad.
  */
-export const proyectosInterdisciplinares = mysqlTable(
+export const proyectosInterdisciplinares = pgTable(
   "proyectos_interdisciplinares",
   {
-    id: int("id").autoincrement().primaryKey(),
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
     sessionId: varchar("session_id", { length: 64 }).notNull(),
-    baseCurricular: mysqlEnum("base_curricular", ["destrezas", "competencias"]).notNull(),
+    baseCurricular: varchar("base_curricular", { length: 16 }).notNull(),
 
     // ── Campos indexados para listar/buscar ──
     titulo: varchar("titulo", { length: 256 }).notNull(),
@@ -533,7 +533,7 @@ export const proyectosInterdisciplinares = mysqlTable(
     institucion: varchar("institucion", { length: 128 }),
 
     // ── Estado y metadatos ──
-    estado: mysqlEnum("estado", ["borrador", "generado"])
+    estado: varchar("estado", { length: 16 })
       .default("borrador")
       .notNull(),
 
@@ -541,8 +541,8 @@ export const proyectosInterdisciplinares = mysqlTable(
     formData: text("form_data").notNull(),
 
     // ── Timestamps ──
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   }
 );
 

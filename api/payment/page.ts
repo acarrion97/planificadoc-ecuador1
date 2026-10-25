@@ -89,7 +89,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       phone:      b.phone     ?? null,
       userId:     b.userId    ?? null,
       sourceUrl:  stripQuery(b.sourceUrl),
-    }).onDuplicateKeyUpdate({
+    }).onConflictDoUpdate({
+      target: paymentAttribution.clientTxId,
       set: {
         eventId:    String(b.eventId),
         valueCents: Math.round(Number(b.value) * 100),
@@ -437,7 +438,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               phone: phoneNumber || null,
               userId: null,
               sourceUrl: stripQuery(req.headers.referer) ?? "https://planificadoc.app",
-            }).onDuplicateKeyUpdate({ set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
+            }).onConflictDoUpdate({ target: paymentAttribution.clientTxId, set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
           }
         } catch (attrErr) {
           console.warn("[PayPhone Trial] No se pudo guardar fbp/fbc desde URL:", attrErr);
@@ -609,7 +610,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             phone: phoneNumber || null,
             userId: null,
             sourceUrl: stripQuery(req.headers.referer) ?? "https://planificadoc.app",
-          }).onDuplicateKeyUpdate({ set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
+          }).onConflictDoUpdate({ target: paymentAttribution.clientTxId, set: { fbp: fbpFromUrl, fbc: fbcFromUrl } });
         }
       } catch (attrErr) {
         console.warn("[PayPhone] No se pudo guardar fbp/fbc desde URL:", attrErr);

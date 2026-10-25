@@ -134,30 +134,6 @@ Responde ÚNICAMENTE con JSON válido con este esquema:
 
 // ─── Router ───────────────────────────────────────────────────────────────────
 
-async function ensureEvaluacionTable(): Promise<void> {
-  const db = await getDb();
-  if (!db) return;
-  try {
-    await (db as any).execute(`
-      CREATE TABLE IF NOT EXISTS \`evaluaciones_diagnosticas\` (
-        \`id\` int NOT NULL AUTO_INCREMENT,
-        \`sessionId\` varchar(320) NOT NULL,
-        \`status\` enum('borrador','publicada','aplicada','analizada') NOT NULL DEFAULT 'borrador',
-        \`form\` text,
-        \`aiResult\` text,
-        \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        PRIMARY KEY (\`id\`),
-        KEY \`idx_ev_sessionId\` (\`sessionId\`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-    `);
-  } catch (err: any) {
-    if (!err?.message?.includes("already exists")) {
-      console.warn("[DB] ensureEvaluacionTable warning:", err?.message);
-    }
-  }
-}
-
 export const evaluacionRouter = router({
   /**
    * Sugiere un nombre conciso y profesional para la evaluación diagnóstica.
@@ -305,7 +281,6 @@ Responde ÚNICAMENTE con JSON válido:
     .input(GuardarBackupSchema)
     .mutation(async ({ input }) => {
       try {
-        await ensureEvaluacionTable();
         const db = await getDb();
         if (!db) return { id: null };
 
@@ -323,8 +298,11 @@ Responde ÚNICAMENTE con JSON válido:
             .where(eq(evaluacionesDiagnosticas.id, input.existingId));
           return { id: input.existingId };
         }
-        const res = await db.insert(evaluacionesDiagnosticas).values(row);
-        return { id: (res as any).insertId as number };
+        const res = await db
+          .insert(evaluacionesDiagnosticas)
+          .values(row)
+          .returning({ id: evaluacionesDiagnosticas.id });
+        return { id: res[0].id };
       } catch (err) {
         console.warn("[evaluacion] DB backup failed (non-critical):", err);
         return { id: null };

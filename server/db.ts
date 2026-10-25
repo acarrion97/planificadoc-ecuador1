@@ -1,5 +1,6 @@
 import { eq, and, desc } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import {
   InsertUser,
   users,
@@ -17,10 +18,19 @@ import { ENV } from "./_core/env";
 let _db: ReturnType<typeof drizzle> | null = null;
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
+// El servidor (dev local / proceso largo) sí puede permitirse un pool normal;
+// en Vercel manda api/_lib/db.ts, que usa max: 1.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      _db = drizzle(
+        new Pool({
+          connectionString: process.env.DATABASE_URL,
+          max: 10,
+          connectionTimeoutMillis: 15000,
+          idleTimeoutMillis: 30000,
+        }),
+      );
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
@@ -79,7 +89,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.lastSignedIn = new Date();
     }
 
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
+    await db.insert(users).values(values).onConflictDoUpdate({
+      target: users.openId,
       set: updateSet,
     });
   } catch (error) {
@@ -146,11 +157,14 @@ export async function createSubscription(data: InsertSubscription) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const result = await db.insert(subscriptions).values({
-    ...data,
-    email: data.email.toLowerCase(),
-  });
-  return result[0].insertId;
+  const result = await db
+    .insert(subscriptions)
+    .values({
+      ...data,
+      email: data.email.toLowerCase(),
+    })
+    .returning({ id: subscriptions.id });
+  return result[0].id;
 }
 
 // ============= Payment Transaction Queries =============
@@ -241,11 +255,14 @@ export async function saveCardToken(data: InsertCardToken): Promise<number> {
     .where(eq(cardTokens.email, data.email.toLowerCase()));
 
   // Insert new token
-  const result = await db.insert(cardTokens).values({
-    ...data,
-    email: data.email.toLowerCase(),
-  });
-  return result[0].insertId;
+  const result = await db
+    .insert(cardTokens)
+    .values({
+      ...data,
+      email: data.email.toLowerCase(),
+    })
+    .returning({ id: cardTokens.id });
+  return result[0].id;
 }
 
 /**
@@ -355,38 +372,6 @@ export async function deactivateCardToken(id: number) {
  * Se llama antes de cualquier operación PCA para garantizar que la tabla está presente
  * incluso si la migración no se ejecutó durante el build.
  */
-async function ensurePcaTable(): Promise<void> {
-  const db = await getDb();
-  if (!db) return;
-
-  try {
-    // sql`` from drizzle-orm/mysql2 allows raw SQL execution
-    await (db as any).execute(`
-      CREATE TABLE IF NOT EXISTS \`pca_documents\` (
-        \`id\` int NOT NULL AUTO_INCREMENT,
-        \`sessionId\` varchar(320) NOT NULL,
-        \`status\` enum('draft','generated','paid') NOT NULL DEFAULT 'draft',
-        \`formData\` text NOT NULL,
-        \`aiResult\` text,
-        \`clientTransactionId\` varchar(64) DEFAULT NULL,
-        \`payphoneTransactionId\` int DEFAULT NULL,
-        \`authorizationCode\` varchar(64) DEFAULT NULL,
-        \`amountPaid\` int DEFAULT NULL,
-        \`createdAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        \`updatedAt\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        PRIMARY KEY (\`id\`),
-        KEY \`idx_pca_sessionId\` (\`sessionId\`),
-        KEY \`idx_pca_clientTxId\` (\`clientTransactionId\`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-    `);
-  } catch (err: any) {
-    // Si ya existe o hay otro error no crítico, continuar
-    if (!err?.message?.includes("already exists")) {
-      console.warn("[DB] ensurePcaTable warning:", err?.message);
-    }
-  }
-}
-
 /**
  * Create a new PCA document (status=draft or generated).
  */
@@ -396,18 +381,20 @@ export async function createPcaDocument(data: {
   formData: string;
   aiResult?: string | null;
 }): Promise<number> {
-  await ensurePcaTable();
 
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const result = await db.insert(pcaDocuments).values({
-    sessionId: data.sessionId,
-    status: data.status,
-    formData: data.formData,
-    aiResult: data.aiResult ?? null,
-  } as InsertPcaDocument);
-  return result[0].insertId;
+  const result = await db
+    .insert(pcaDocuments)
+    .values({
+      sessionId: data.sessionId,
+      status: data.status,
+      formData: data.formData,
+      aiResult: data.aiResult ?? null,
+    } as InsertPcaDocument)
+    .returning({ id: pcaDocuments.id });
+  return result[0].id;
 }
 
 /**

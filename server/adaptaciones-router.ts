@@ -370,8 +370,11 @@ export const adaptacionesRouter = router({
               .where(eq(curricularAdaptations.id, input.existingId));
             return { id: input.existingId, aiResult };
           } else {
-            const res = await db.insert(curricularAdaptations).values(row);
-            return { id: (res as any).insertId as number, aiResult };
+            const res = await db
+              .insert(curricularAdaptations)
+              .values(row)
+              .returning({ id: curricularAdaptations.id });
+            return { id: res[0].id, aiResult };
           }
         }
       } catch (err) {

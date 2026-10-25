@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { and, desc, eq, like, or } from "drizzle-orm";
+import { and, desc, eq, ilike, or } from "drizzle-orm";
 import { publicProcedure, router } from "./_core/trpc";
 import { getDb } from "./db";
 import { proyectosInterdisciplinares } from "../drizzle/schema";
@@ -123,14 +123,13 @@ function ensureDb(
 }
 
 /**
- * El driver mysql2 de drizzle resuelve un INSERT como la tupla cruda
- * [ResultSetHeader, FieldPacket[]] (no como el ResultSetHeader directo),
- * así que `insertId` vive en res[0], no en res (mismo patrón que
- * curriculo-competencias-router.ts).
+ * Con `drizzle-orm/node-postgres` el INSERT lleva `.returning({ id })`, así que
+ * la respuesta es un array de filas y el id vive en `res[0].id` (mismo patrón
+ * que curriculo-competencias-router.ts).
  */
 function extractInsertId(res: unknown): number | undefined {
-  const header = Array.isArray(res) ? res[0] : res;
-  const id = (header as any)?.insertId;
+  const row = Array.isArray(res) ? res[0] : res;
+  const id = (row as any)?.id;
   return typeof id === "number" ? id : undefined;
 }
 
@@ -143,33 +142,6 @@ function nivelPrincipalDe(plan: ProyectoInterdisciplinarPlan): {
     nivelPrincipal: primera?.nivel || null,
     subnivelPrincipal: primera?.subnivel || null,
   };
-}
-
-async function ensureProyectoInterdisciplinarTable(): Promise<void> {
-  const db = await getDb();
-  if (!db) return;
-  try {
-    await (db as any).execute(`
-      CREATE TABLE IF NOT EXISTS \`proyectos_interdisciplinares\` (
-        \`id\` int NOT NULL AUTO_INCREMENT,
-        \`session_id\` varchar(64) NOT NULL,
-        \`base_curricular\` enum('destrezas','competencias') NOT NULL,
-        \`titulo\` varchar(256) NOT NULL,
-        \`nivel_principal\` varchar(32),
-        \`subnivel_principal\` varchar(32),
-        \`institucion\` varchar(128),
-        \`estado\` enum('borrador','generado') NOT NULL DEFAULT 'borrador',
-        \`form_data\` text NOT NULL,
-        \`created_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        \`updated_at\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        PRIMARY KEY (\`id\`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-    `);
-  } catch (err: any) {
-    if (!err?.message?.includes("already exists")) {
-      console.warn("[DB] ensureProyectoInterdisciplinarTable warning:", err?.message);
-    }
-  }
 }
 
 function aFila(plan: ProyectoInterdisciplinarPlan) {
@@ -195,7 +167,6 @@ export const proyectoInterdisciplinarRouter = router({
   create: publicProcedure
     .input(ProyectoInterdisciplinarInput)
     .mutation(async ({ input }) => {
-      await ensureProyectoInterdisciplinarTable();
       const db = await getDb();
       ensureDb(db);
 
@@ -205,7 +176,8 @@ export const proyectoInterdisciplinarRouter = router({
 
       const res = await db
         .insert(proyectosInterdisciplinares)
-        .values(aFila(plan));
+        .values(aFila(plan))
+        .returning({ id: proyectosInterdisciplinares.id });
 
       return { id: extractInsertId(res), plan };
     }),
@@ -214,7 +186,6 @@ export const proyectoInterdisciplinarRouter = router({
   update: publicProcedure
     .input(ProyectoInterdisciplinarInput.extend({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureProyectoInterdisciplinarTable();
       const db = await getDb();
       ensureDb(db);
 
@@ -228,8 +199,9 @@ export const proyectoInterdisciplinarRouter = router({
       const plan = normalizarProyectoInterdisciplinar({
         ...(input as ProyectoInterdisciplinarRaw),
         // El estado (borrador/generado) se cambia solo vía updateStatus,
-        // nunca implícitamente al editar campos.
-        estado: rows[0].estado,
+        // nunca implícitamente al editar campos. La columna es varchar+CHECK
+        // en Postgres (no enum), así que el valor crudo se estrecha aquí.
+        estado: rows[0].estado as "borrador" | "generado",
       });
 
       await db
@@ -244,7 +216,6 @@ export const proyectoInterdisciplinarRouter = router({
   updateStatus: publicProcedure
     .input(z.object({ id: z.number(), estado: z.enum(["borrador", "generado"]) }))
     .mutation(async ({ input }) => {
-      await ensureProyectoInterdisciplinarTable();
       const db = await getDb();
       ensureDb(db);
 
@@ -275,7 +246,6 @@ export const proyectoInterdisciplinarRouter = router({
   duplicate: publicProcedure
     .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .mutation(async ({ input }) => {
-      await ensureProyectoInterdisciplinarTable();
       const db = await getDb();
       ensureDb(db);
 
@@ -300,7 +270,8 @@ export const proyectoInterdisciplinarRouter = router({
 
       const res = await db
         .insert(proyectosInterdisciplinares)
-        .values(aFila(copia));
+        .values(aFila(copia))
+        .returning({ id: proyectosInterdisciplinares.id });
 
       return { id: extractInsertId(res), plan: copia };
     }),
@@ -309,7 +280,6 @@ export const proyectoInterdisciplinarRouter = router({
   delete: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      await ensureProyectoInterdisciplinarTable();
       const db = await getDb();
       ensureDb(db);
 
@@ -447,8 +417,10 @@ export const proyectoInterdisciplinarRouter = router({
           and(
             eq(proyectosInterdisciplinares.sessionId, input.sessionId),
             or(
-              like(proyectosInterdisciplinares.titulo, patron),
-              like(proyectosInterdisciplinares.formData, patron)
+              // ilike = case-insensitive (el LIKE de MySQL lo era por defecto;
+              // en Postgres LIKE distingue mayúsculas y rompería la búsqueda)
+              ilike(proyectosInterdisciplinares.titulo, patron),
+              ilike(proyectosInterdisciplinares.formData, patron)
             )
           )
         )

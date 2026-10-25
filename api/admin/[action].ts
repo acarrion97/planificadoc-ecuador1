@@ -321,44 +321,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // GET /api/admin/migrate-contact-fields
-    // Agrega columnas de contacto a payment_transactions y crea tabla docente_accounts
+    //
+    // Histórico: creaba docente_accounts / docente_contacts y añadía las
+    // columnas de contacto a payment_transactions con DDL MySQL. En Supabase
+    // esas tablas y columnas ya existen (supabase/migrations/…init_schema.sql)
+    // y el DDL en runtime se eliminó al migrar el driver a Postgres.
     if (action === "migrate-contact-fields") {
-      const alterStatements = [
-        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS cardHolder VARCHAR(255) NULL`,
-        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS documentId VARCHAR(20) NULL`,
-        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS phoneNumber VARCHAR(20) NULL`,
-        `ALTER TABLE payment_transactions ADD COLUMN IF NOT EXISTS plan VARCHAR(16) NULL`,
-        `CREATE TABLE IF NOT EXISTS docente_accounts (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          email VARCHAR(320) NOT NULL UNIQUE,
-          nombre VARCHAR(255) NOT NULL,
-          passwordHash VARCHAR(512) NOT NULL,
-          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-          updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
-        )`,
-        `CREATE TABLE IF NOT EXISTS docente_contacts (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          code VARCHAR(64) NOT NULL,
-          nombre VARCHAR(255) NOT NULL,
-          email VARCHAR(320) NULL,
-          phoneNumber VARCHAR(20) NULL,
-          institucion VARCHAR(255) NULL,
-          pago BOOLEAN NOT NULL DEFAULT FALSE,
-          montoCobrado INT NOT NULL DEFAULT 0,
-          notas TEXT NULL,
-          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
-        )`,
-      ];
-      const results: string[] = [];
-      for (const stmt of alterStatements) {
-        try {
-          await db.execute(drizzleSql.raw(stmt));
-          results.push(`✅ ${stmt.substring(0, 70)}`);
-        } catch (e: any) {
-          results.push(`❌ ${e.message}`);
-        }
-      }
-      return res.json({ results, message: "Migración completada" });
+      return res.json({
+        results: ["ℹ️ Esquema ya aplicado en supabase/migrations — nada que migrar"],
+        message: "Migración completada",
+      });
     }
 
     // GET /api/admin/diag-tokens → muestra exactamente qué campos hay en payphoneResponse de cada transacción aprobada
@@ -398,13 +370,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (action === "fix-recurring") {
       const results: string[] = [];
 
-      // 1. Ampliar columna cardToken a TEXT (por si el JWT supera 255 chars)
-      try {
-        await db.execute(drizzleSql.raw(`ALTER TABLE card_tokens MODIFY COLUMN cardToken TEXT NOT NULL`));
-        results.push("✅ cardToken column expanded to TEXT");
-      } catch (e: any) {
-        results.push(`ℹ️ cardToken alter: ${e.message}`);
-      }
+      // 1. Ampliar columna cardToken a TEXT (por si el JWT supera 255 chars).
+      //    Ya está así en Supabase: card_tokens.cardToken es text.
+      results.push("ℹ️ cardToken ya es text en Supabase — nada que alterar");
 
       // 2. Buscar transacciones aprobadas con cardToken O ctoken en payphoneResponse
       const approvedTxns = await db.select().from(paymentTransactions).where(eq(paymentTransactions.status, "approved"));
@@ -454,17 +422,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           }
 
           await db.update(cardTokens).set({ isActive: false }).where(eq(cardTokens.email, t.email));
-          const insertResult = await db.insert(cardTokens).values({
-            email: t.email,
-            cardToken: tokenValue,
-            cardHolder: (t as any).cardHolder || parsed.optionalParameter4 || parsed.cardHolder || "",
-            documentId: (t as any).documentId || parsed.document || parsed.documentId || "",
-            phoneNumber: (t as any).phoneNumber || parsed.phoneNumber || "",
-            cardBrand: t.cardBrand || parsed.cardBrand || "",
-            lastDigits: t.lastDigits || parsed.lastDigits || "",
-            isActive: true,
-          } as any);
-          const newTokenId = insertResult[0].insertId;
+          const insertResult = await db
+            .insert(cardTokens)
+            .values({
+              email: t.email,
+              cardToken: tokenValue,
+              cardHolder: (t as any).cardHolder || parsed.optionalParameter4 || parsed.cardHolder || "",
+              documentId: (t as any).documentId || parsed.document || parsed.documentId || "",
+              phoneNumber: (t as any).phoneNumber || parsed.phoneNumber || "",
+              cardBrand: t.cardBrand || parsed.cardBrand || "",
+              lastDigits: t.lastDigits || parsed.lastDigits || "",
+              isActive: true,
+            } as any)
+            .returning({ id: cardTokens.id });
+          const newTokenId = insertResult[0].id;
 
           // Update subscription to isRecurring=true
           if (existingSubs.length > 0) {
@@ -559,21 +530,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // GET /api/admin/planificacion-stats → lista usuarios con cantidad de planificaciones creadas
     if (action === "planificacion-stats") {
-      // Ensure table exists
-      try {
-        await db.execute(drizzleSql.raw(`
-          CREATE TABLE IF NOT EXISTS planificacion_stats (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            identifier VARCHAR(320) NOT NULL UNIQUE,
-            identifierType VARCHAR(16) NOT NULL DEFAULT 'email',
-            count INT NOT NULL DEFAULT 0,
-            platform VARCHAR(16) NULL,
-            updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
-          )
-        `));
-      } catch (_) { /* ya existe */ }
-
       const stats = await db
         .select()
         .from(planificacionStats)
@@ -598,10 +554,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const { email } = req.query;
       if (!email) return res.status(400).json({ error: "email requerido" });
       const normalized = (email as string).trim().toLowerCase();
-
-      try {
-        await db.execute(drizzleSql.raw(`ALTER TABLE docente_accounts ADD COLUMN IF NOT EXISTS lastLoginAt TIMESTAMP NULL`));
-      } catch (_) { /* ya existe */ }
 
       try {
         const account = await db
@@ -794,24 +746,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // POST /api/admin/run-trial-migration — adds trial columns to DB (run once)
+    //
+    // Histórico: en MySQL alteraba el ENUM de status y añadía isTrial/trialPlan
+    // con `AFTER`. En Supabase ya están (status es varchar(16)+CHECK, isTrial
+    // boolean, trialPlan varchar(32)) — ver supabase/migrations/…init_schema.sql.
     if (action === "run-trial-migration") {
-      const results: string[] = [];
-      try {
-        await db.execute(drizzleSql`ALTER TABLE subscriptions MODIFY COLUMN status ENUM('active','expired','cancelled','past_due','trial') NOT NULL DEFAULT 'active'`);
-        results.push("✅ status enum updated (added trial)");
-      } catch (e: any) { results.push("ℹ️ status enum: " + e.message); }
-
-      try {
-        await db.execute(drizzleSql`ALTER TABLE subscriptions ADD COLUMN isTrial tinyint(1) NOT NULL DEFAULT 0 AFTER isRecurring`);
-        results.push("✅ isTrial column added");
-      } catch (e: any) { results.push("ℹ️ isTrial: " + e.message); }
-
-      try {
-        await db.execute(drizzleSql`ALTER TABLE subscriptions ADD COLUMN trialPlan varchar(32) DEFAULT NULL AFTER isTrial`);
-        results.push("✅ trialPlan column added");
-      } catch (e: any) { results.push("ℹ️ trialPlan: " + e.message); }
-
-      return res.json({ success: true, results });
+      return res.json({
+        success: true,
+        results: ["ℹ️ Columnas de trial ya existen en Supabase — nada que migrar"],
+      });
     }
 
     // POST /api/admin/fix-email — fixes email typo in subscriptions
@@ -1333,27 +1276,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       try {
         const r1 = await db.delete(subscriptions).where(eq(subscriptions.email, normalized));
-        log.push(`subscriptions: ${(r1[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+        log.push(`subscriptions: ${r1.rowCount ?? "?"} filas eliminadas`);
       } catch (e: any) { log.push(`subscriptions ERROR: ${e.message}`); }
 
       try {
         const r2 = await db.delete(cardTokens).where(eq(cardTokens.email, normalized));
-        log.push(`card_tokens: ${(r2[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+        log.push(`card_tokens: ${r2.rowCount ?? "?"} filas eliminadas`);
       } catch (e: any) { log.push(`card_tokens ERROR: ${e.message}`); }
 
       try {
         const r3 = await db.delete(paymentTransactions).where(eq(paymentTransactions.email, normalized));
-        log.push(`payment_transactions: ${(r3[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+        log.push(`payment_transactions: ${r3.rowCount ?? "?"} filas eliminadas`);
       } catch (e: any) { log.push(`payment_transactions ERROR: ${e.message}`); }
 
       try {
         const r4 = await db.delete(docenteAccounts).where(eq(docenteAccounts.email, normalized));
-        log.push(`docente_accounts: ${(r4[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+        log.push(`docente_accounts: ${r4.rowCount ?? "?"} filas eliminadas`);
       } catch (e: any) { log.push(`docente_accounts ERROR: ${e.message}`); }
 
       try {
         const r5 = await db.delete(planificacionStats).where(eq(planificacionStats.identifier, normalized));
-        log.push(`planificacion_stats: ${(r5[0] as any)?.affectedRows ?? "?"} filas eliminadas`);
+        log.push(`planificacion_stats: ${r5.rowCount ?? "?"} filas eliminadas`);
       } catch (e: any) { log.push(`planificacion_stats ERROR: ${e.message}`); }
 
       return res.json({ success: true, email: normalized, log });
@@ -1396,27 +1339,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // POST /api/admin/migrate-payment-attribution — crea la tabla si no existe
+    //
+    // Histórico: el DDL vivía en el runtime con MySQL. La tabla ya existe en
+    // Supabase (supabase/migrations/…init_schema.sql) y la fuente de verdad de
+    // el esquema es esa carpeta, no el código.
     if (action === "migrate-payment-attribution") {
       if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-      await db.execute(`
-        CREATE TABLE IF NOT EXISTS payment_attribution (
-          client_tx_id  VARCHAR(64)  PRIMARY KEY,
-          event_id      VARCHAR(64)  NOT NULL,
-          value_cents   INT          NOT NULL,
-          currency      VARCHAR(8)   NOT NULL DEFAULT 'USD',
-          fbp           VARCHAR(128),
-          fbc           VARCHAR(255),
-          client_ip     VARCHAR(64),
-          user_agent    VARCHAR(512),
-          email         VARCHAR(255),
-          phone         VARCHAR(32),
-          user_id       VARCHAR(64),
-          source_url    VARCHAR(512),
-          sent          BOOLEAN      NOT NULL DEFAULT FALSE,
-          created_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
-        )
-      `);
-      return res.json({ success: true, message: "Tabla payment_attribution creada (o ya existía)" });
+      return res.json({
+        success: true,
+        message: "Tabla payment_attribution ya existe en Supabase (nada que crear)",
+      });
     }
 
     // POST /api/admin/send-reminders — envía recordatorio a usuarios activos sin token activo

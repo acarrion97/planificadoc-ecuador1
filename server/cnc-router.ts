@@ -483,8 +483,11 @@ export const cncRouter = router({
               .where(eq(connectaNivelaCrea.id, input.existingId));
             return { id: input.existingId, aiResult };
           } else {
-            const res = await db.insert(connectaNivelaCrea).values(row);
-            return { id: (res as any).insertId as number, aiResult };
+            const res = await db
+              .insert(connectaNivelaCrea)
+              .values(row)
+              .returning({ id: connectaNivelaCrea.id });
+            return { id: res[0].id, aiResult };
           }
         }
       } catch (err) {
