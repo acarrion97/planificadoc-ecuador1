@@ -1,6 +1,7 @@
 import { eq, and, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
+import { pgPoolConfig } from "../shared/pg-ssl.js";
 import {
   InsertUser,
   users,
@@ -21,11 +22,12 @@ let _db: ReturnType<typeof drizzle> | null = null;
 // El servidor (dev local / proceso largo) sí puede permitirse un pool normal;
 // en Vercel manda api/_lib/db.ts, que usa max: 1.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  const url = process.env.DATABASE_URL || process.env.SUPABASE_DB_URL;
+  if (!_db && url) {
     try {
       _db = drizzle(
         new Pool({
-          connectionString: process.env.DATABASE_URL,
+          ...pgPoolConfig(url),
           max: 10,
           connectionTimeoutMillis: 15000,
           idleTimeoutMillis: 30000,

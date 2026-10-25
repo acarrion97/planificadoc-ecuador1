@@ -8,17 +8,21 @@ import {
   codeActivations,
   pcaDocuments,
 } from "../../drizzle/schema";
+import { pgPoolConfig } from "../../shared/pg-ssl";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
 export function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  // DATABASE_URL manda; SUPABASE_DB_URL es el respaldo por si la credencial se
+  // guardó con ese nombre (ambas se pueden fijar en Vercel).
+  const url = process.env.DATABASE_URL || process.env.SUPABASE_DB_URL;
+  if (!_db && url) {
     // Vercel serverless: un pool chico por instancia de función. El Pool no
     // abre conexiones hasta la primera query, así que getDb() sigue siendo
     // síncrono (lo usan ~105 call sites sin await).
     _db = drizzle(
       new Pool({
-        connectionString: process.env.DATABASE_URL,
+        ...pgPoolConfig(url),
         max: 1,
         connectionTimeoutMillis: 15000,
         idleTimeoutMillis: 30000,
