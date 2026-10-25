@@ -10,18 +10,20 @@
  * Endpoints usados (todos contra `${SUPABASE_URL}/auth/v1`):
  *   - POST   /token?grant_type=password          → login (apikey anon)
  *   - POST   /token?grant_type=refresh_token     → renueva la sesión (apikey anon)
+ *   - GET    /user                               → valida el access token (apikey anon)
  *   - GET    /admin/users?email=                 → busca usuario (service role)
  *   - POST   /admin/users                        → crea usuario confirmado (service role)
  *   - PUT    /admin/users/{id}                   → cambia contraseña (service role)
- *   - GET    /.well-known/jwks.json              → verifica el JWT de acceso
+ *
+ * ATENCIÓN: este archivo se compila a CommonJS en Vercel. No se puede importar
+ * `jose` aquí (es ESM-only y provoca `ERR_REQUIRE_ESM` → FUNCTION_INVOCATION_FAILED);
+ * por eso la verificación del token se delega en GoTrue en vez de hacerse local.
  *
  * Nunca lanza excepciones no controladas hacia los flujos que no piden
  * autenticación: `syncPasswordToSupabase` (usado por el panel de admin) solo
  * registra el error y devuelve false, para que un problema de Supabase no
  * rompa la operación administrativa.
  */
-import { createRemoteJWKSet, jwtVerify } from "jose";
-
 const AUTH_PREFIX = "/auth/v1";
 
 export type SupabaseUser = {
@@ -255,30 +257,58 @@ export async function syncPasswordToSupabase(email: string, password: string, no
   }
 }
 
-// ── Verificación del JWT de acceso ───────────────────────────────────────────
-
-let jwks: ReturnType<typeof createRemoteJWKSet> | null = null;
-
-function getJwks() {
-  const cfg = getConfig();
-  if (!cfg) throw new AuthProviderError("not_configured", "Supabase Auth no está configurado");
-  if (!jwks) {
-    jwks = createRemoteJWKSet(new URL(`${cfg.url}${AUTH_PREFIX}/.well-known/jwks.json`));
-  }
-  return jwks;
-}
+// ── Verificación del acceso ──────────────────────────────────────────────────
 
 /**
- * Verifica un access_token de Supabase (firma + expiración + issuer).
- * Devuelve el payload con `sub`, `email` y `role`, o lanza.
+ * Verifica un access_token de Supabase Auth.
+ *
+ * Se delega en GoTrue (`GET /auth/v1/user`), que comprueba firma y expiración
+ * en su lado. Así el backend no tiene que verificar el JWT por su cuenta:
+ * evita cachear el JWKS y, sobre todo, evita importar `jose` aquí — que es
+ * ESM-only y revienta las funciones CommonJS de Vercel con `ERR_REQUIRE_ESM`.
  */
-export async function verifyAccessToken(token: string): Promise<Record<string, any>> {
+export type VerifiedUser = {
+  sub: string;
+  email?: string;
+  role?: string;
+  user_metadata?: Record<string, unknown>;
+};
+
+export async function verifyAccessToken(token: string): Promise<VerifiedUser> {
   const cfg = getConfig();
   if (!cfg) throw new AuthProviderError("not_configured", "Supabase Auth no está configurado");
-  const { payload } = await jwtVerify(token, getJwks(), {
-    issuer: `${cfg.url}${AUTH_PREFIX}`,
-  });
-  return payload as Record<string, any>;
+
+  let res: Response;
+  try {
+    res = await fetch(`${cfg.url}${AUTH_PREFIX}/user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: cfg.anon,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (e) {
+    throw new AuthProviderError("provider_error", "No se pudo verificar la sesión con Supabase");
+  }
+
+  let json: any = null;
+  try {
+    json = await res.json();
+  } catch {
+    json = null;
+  }
+
+  if (!res.ok || !json?.id) {
+    throw new AuthProviderError("invalid_credentials", "Sesión inválida o expirada", res.status);
+  }
+
+  return {
+    sub: String(json.id),
+    email: json.email ?? undefined,
+    role: json.role ?? undefined,
+    user_metadata: json.user_metadata ?? undefined,
+  };
 }
 
 /** Extrae el Bearer token de una request de Vercel/Express. */

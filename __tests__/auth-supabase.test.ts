@@ -7,10 +7,9 @@
  * se comprueba que las contraseñas viven allí y que el hash scrypt heredado de
  * docente_accounts se migra en el primer login ("migración perezosa").
  */
-import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createHash, randomBytes, scrypt as scryptCb } from "node:crypto";
 import { promisify } from "node:util";
-import { SignJWT, calculateJwkThumbprint, exportJWK, generateKeyPair } from "jose";
 import { docenteAccounts, passwordResetCodes } from "../drizzle/schema";
 import { sendPasswordResetCodeEmail } from "../server/email";
 import { getDb } from "../api/_lib/db";
@@ -121,7 +120,6 @@ type SupaUser = { id: string; email: string; password: string; metadata: { nombr
 
 const supa = { users: [] as SupaUser[] };
 const fetchLog: { url: string; method: string; body: any }[] = [];
-let jwksKeys: any[] = [];
 
 function jsonResponse(status: number, json: any) {
   return {
@@ -189,8 +187,20 @@ async function fakeFetch(input: any, init: any = {}) {
     return jsonResponse(200, { id: user.id, email: user.email });
   }
 
-  if (url.includes("/.well-known/jwks.json")) {
-    return jsonResponse(200, { keys: jwksKeys });
+  // GET /auth/v1/user → lo que el backend usa para validar el access token.
+  if (url.includes("/auth/v1/user")) {
+    const header = init.headers || {};
+    const auth = String(header.Authorization || header.authorization || "");
+    const token = auth.replace(/^Bearer\s+/i, "").trim();
+    const user = supa.users.find((u) => token === `at-${u.id}` || token === `at2-${u.id}`);
+    if (!user) return jsonResponse(401, { code: 401, msg: "invalid JWT" });
+    return jsonResponse(200, {
+      id: user.id,
+      aud: "authenticated",
+      role: "authenticated",
+      email: user.email,
+      user_metadata: user.metadata,
+    });
   }
 
   return jsonResponse(404, { msg: `ruta no implementada en el GoTrue falso: ${url}` });
@@ -222,19 +232,6 @@ const callsTo = (fragment: string) => fetchLog.filter((c) => c.url.includes(frag
 
 let fake: ReturnType<typeof createFakeDb>;
 
-/**
- * Par RS256 + JWKS: se generan UNA sola vez porque `createRemoteJWKSet`
- * cachea el JWKS; si cambiaran entre tests, la firma no coincidiría.
- */
-beforeAll(async () => {
-  const { privateKey, publicKey } = await generateKeyPair("RS256");
-  const jwk = await exportJWK(publicKey);
-  const kid = await calculateJwkThumbprint(jwk);
-  jwksKeys = [{ ...jwk, kid, alg: "RS256", use: "sig" }];
-  (globalThis as any).__testPrivateKey = privateKey;
-  (globalThis as any).__testKid = kid;
-});
-
 beforeEach(async () => {
   fake = createFakeDb();
   vi.mocked(getDb).mockReturnValue(fake.db as any);
@@ -253,16 +250,6 @@ afterEach(() => {
   vi.unstubAllEnvs();
   vi.unstubAllGlobals();
 });
-
-async function validAccessToken(email = EMAIL) {
-  return await new SignJWT({ email, role: "authenticated" })
-    .setProtectedHeader({ alg: "RS256", kid: (globalThis as any).__testKid })
-    .setIssuer(`${SUPABASE_URL}/auth/v1`)
-    .setSubject("su-1")
-    .setIssuedAt()
-    .setExpirationTime("1h")
-    .sign((globalThis as any).__testPrivateKey);
-}
 
 describe("configuración", () => {
   it("reconoce Supabase Auth como proveedor activo con las variables definidas", () => {
@@ -424,27 +411,34 @@ describe("POST /api/auth/refresh (Supabase Auth)", () => {
   });
 });
 
-describe("GET /api/auth/me (verificación del JWT de Supabase)", () => {
+describe("GET /api/auth/me (verificación del access token)", () => {
   it("devuelve 401 sin token", async () => {
     const res = await callHandler("me", undefined, "GET");
     expect(res.statusCode).toBe(401);
   });
 
-  it("devuelve 401 con un token manipulado", async () => {
-    const res = await callHandler("me", undefined, "GET", { authorization: `Bearer ${await validAccessToken()}.manipulado` });
+  it("devuelve 401 con un token que Supabase no emitió", async () => {
+    const res = await callHandler("me", undefined, "GET", { authorization: "Bearer at-su-1-manipulado" });
     expect(res.statusCode).toBe(401);
   });
 
-  it("devuelve el usuario autenticado con un JWT válido", async () => {
+  it("devuelve el usuario autenticado con el access token del login", async () => {
+    supa.users.push({ id: "su-1", email: EMAIL, password: "secreta1", metadata: { nombre: NOMBRE } });
     fake.state.accounts.push({ id: 1, email: EMAIL, nombre: NOMBRE, passwordHash: supabaseHashMarker("su-1") });
-    const token = await validAccessToken();
 
-    const res = await callHandler("me", undefined, "GET", { authorization: `Bearer ${token}` });
+    const login = await callHandler("login", { email: EMAIL, password: "secreta1" });
+    expect(login.statusCode).toBe(200);
+
+    const res = await callHandler("me", undefined, "GET", { authorization: `Bearer ${login.body.token}` });
 
     expect(res.statusCode).toBe(200);
+    expect(res.body.user.id).toBe("su-1");
     expect(res.body.user.email).toBe(EMAIL);
     expect(res.body.user.nombre).toBe(NOMBRE);
     expect(res.body.user.role).toBe("authenticated");
+
+    // La verificación delega en GoTrue (GET /auth/v1/user)
+    expect(callsTo("/auth/v1/user")).toHaveLength(1);
   });
 
   it("no usa el digest del correo como credencial (el hash nunca autentica)", async () => {
