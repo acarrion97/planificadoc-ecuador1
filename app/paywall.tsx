@@ -38,7 +38,7 @@ export default function PaywallScreen() {
   const [regError, setRegError]       = useState("");
   const [regLoading, setRegLoading]   = useState(false);
 
-  // Registro de mantenimiento — solo se llega aquí desde un login sin usuario
+  // Registro de mantenimiento — se ofrece cuando el login no se puede completar
   const [mntCode, setMntCode] = useState("");
   const [mntLoading, setMntLoading] = useState(false);
   const [mntError, setMntError]     = useState("");
@@ -130,14 +130,15 @@ export default function PaywallScreen() {
       if (result.success) {
         if (result.hasSubscription) setSuccess(true);
         else { setPayEmail(loginEmail.trim().toLowerCase()); setNeedsPayment(true); }
-      } else if (result.notFound) {
-        // Correo inexistente → se ofrece el registro ESPECIAL de mantenimiento
-        // (gratis), distinto del registro normal de la pestaña "Registrarse".
+      } else if (result.notFound || result.invalidCredentials) {
+        // El registro de mantenimiento es distinto del registro normal de la pestaña "Registrarse".
         setRegEmail(loginEmail.trim().toLowerCase());
         setRegError("");
         setMntError("");
         setMntCode("");
-        setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis.");
+        setMntInfo(result.notFound
+          ? "No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis."
+          : "No pudimos iniciar sesión. Puedes intentar el registro por mantenimiento; si ya tienes una cuenta, vuelve al inicio de sesión para recuperar tu contraseña.");
         setAuthTab("maintenance");
       } else {
         setLoginError(result.error || "Correo o contraseña incorrectos");
@@ -620,10 +621,11 @@ export default function PaywallScreen() {
                   </Text>
                 </View>
                 {mntInfo ? <InfoRow text={mntInfo} icon="🔎" /> : null}
-                <FieldLabel label="Código de registro" colors={colors} />
-                <FieldInput emoji="🔑" placeholder="Ingresa el código que recibiste" value={mntCode}
+                <FieldLabel label="Código de mantenimiento" colors={colors} />
+                <FieldInput emoji="🔑" placeholder="Ingresa tu código de mantenimiento" value={mntCode}
                   onChangeText={(t: string) => { setMntCode(t.toUpperCase()); setMntError(""); }}
                   autoCapitalize="characters" hasError={!!mntError} colors={colors} />
+                <Text style={[s.formHint, { color: colors.muted }]}>Verificaremos el código al crear tu cuenta.</Text>
                 <FieldLabel label="Nombre completo" colors={colors} />
                 <FieldInput emoji="👤" placeholder="Ej: María González" value={regNombre}
                   onChangeText={(t: string) => { setRegNombre(t); setMntError(""); }} autoCapitalize="words" colors={colors} />

@@ -291,6 +291,7 @@ describe("POST /api/auth/login (Supabase Auth)", () => {
     expect(res.statusCode).toBe(401);
     expect(res.body.error).toContain("Contraseña incorrecta");
     expect(res.body.notFound).toBeUndefined();
+    expect(res.body.invalidCredentials).toBe(true);
   });
 
   it("migra a Supabase en el primer login de una cuenta con hash scrypt heredado", async () => {
@@ -317,6 +318,7 @@ describe("POST /api/auth/login (Supabase Auth)", () => {
 
     expect(res.statusCode).toBe(401);
     expect(res.body.error).toContain("Contraseña incorrecta");
+    expect(res.body.invalidCredentials).toBe(true);
     expect(supa.users).toHaveLength(0);
     expect(fake.state.accounts[0].passwordHash).toBe(antes);
     expect(callsTo("/auth/v1/admin/users").filter((c) => c.method === "POST")).toHaveLength(0);
@@ -327,6 +329,7 @@ describe("POST /api/auth/login (Supabase Auth)", () => {
 
     expect(res.statusCode).toBe(401);
     expect(res.body.notFound).toBe(true);
+    expect(res.body.invalidCredentials).toBeUndefined();
     expect(res.body.error).toContain("No encontramos una cuenta");
   });
 });

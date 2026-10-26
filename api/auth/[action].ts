@@ -360,7 +360,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           // 2) La cuenta está en Supabase pero la clave no coincide.
           const supaUser = await adminFindUserByEmail(normalizedEmail);
           if (supaUser) {
-            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo.", invalidCredentials: true });
           }
 
           // 3) Cuenta heredada sin migrar.
@@ -368,11 +368,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return res.status(401).json({ error: "No encontramos una cuenta con ese correo.", notFound: true });
           }
           if (!isLegacyHash(account.passwordHash)) {
-            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo.", invalidCredentials: true });
           }
           const valid = await verifyPassword(password as string, account.passwordHash);
           if (!valid) {
-            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+            return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo.", invalidCredentials: true });
           }
 
           // 4) Migración perezosa: la clave válida se guarda ahora en Supabase.
@@ -403,7 +403,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(401).json({ error: "No encontramos una cuenta con ese correo.", notFound: true });
       }
       const valid = await verifyPassword(password as string, account.passwordHash);
-      if (!valid) return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo." });
+      if (!valid) return res.status(401).json({ error: "Contraseña incorrecta. Intenta de nuevo.", invalidCredentials: true });
 
       await db.update(docenteAccounts).set({ lastLoginAt: new Date() }).where(eq(docenteAccounts.email, normalizedEmail));
       await syncPublicUser({
