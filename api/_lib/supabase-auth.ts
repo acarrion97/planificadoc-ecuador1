@@ -176,18 +176,40 @@ export async function refreshSession(refreshToken: string): Promise<SupabaseSess
 
 // ── Administración de usuarios ───────────────────────────────────────────────
 
-/** Busca un usuario por email. Devuelve null si no existe o si no hay service key. */
+/**
+ * Busca un usuario por email. Devuelve null si no existe o si no hay service key.
+ *
+ * ATENCIÓN: GoTrue NO filtra por `email` en `GET /admin/users` — ignora el
+ * parámetro y devuelve siempre las primeras filas del listado. Por eso aquí se
+ * pagina el listado y se compara el correo en el cliente. Con la versión
+ * anterior (que leía `users[0]` del resultado filtrado) cualquier correo
+ * "existía": los registros respondían 409 y el login no devolvía `notFound`,
+ * además de poder cambiarse la contraseña al usuario equivocado.
+ */
 export async function adminFindUserByEmail(email: string): Promise<SupabaseUser | null> {
   const cfg = getConfig();
   if (!cfg?.service) return null;
+  const target = (email ?? "").trim().toLowerCase();
+  if (!target) return null;
+
+  const perPage = 200;
+  const maxPages = 25; // 5.000 cuentas: tope para no paginar sin fin
+
   try {
-    const res = await callGoTrue(`/admin/users?email=${encodeURIComponent(email)}&page=1&per_page=1`, {
-      method: "GET",
-      service: true,
-    });
-    if (!res.ok) return null;
-    const user = res.json?.users?.[0];
-    return user ? { id: user.id, email: user.email, user_metadata: user.user_metadata, aud: user.aud, created_at: user.created_at } : null;
+    for (let page = 1; page <= maxPages; page++) {
+      const res = await callGoTrue(`/admin/users?page=${page}&per_page=${perPage}`, { method: "GET", service: true });
+      if (!res.ok) return null;
+
+      const users = res.json?.users;
+      if (!Array.isArray(users) || users.length === 0) return null;
+
+      const match = users.find((u: any) => String(u?.email ?? "").trim().toLowerCase() === target);
+      if (match) {
+        return { id: match.id, email: match.email, user_metadata: match.user_metadata, aud: match.aud, created_at: match.created_at };
+      }
+      if (users.length < perPage) return null; // última página alcanzada
+    }
+    return null;
   } catch (e) {
     console.error("[supabase-auth] adminFindUserByEmail falló:", e);
     return null;

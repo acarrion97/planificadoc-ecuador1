@@ -18,6 +18,7 @@ import {
 import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
 import { syncPasswordToSupabase, supabaseHashMarker } from "../_lib/supabase-auth";
+import { syncPublicUser } from "../_lib/users";
 
 const scryptAsync = promisify(scrypt);
 

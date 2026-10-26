@@ -10,7 +10,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createHash, randomBytes, scrypt as scryptCb } from "node:crypto";
 import { promisify } from "node:util";
-import { docenteAccounts, passwordResetCodes } from "../drizzle/schema";
+import { docenteAccounts, passwordResetCodes, subscriptions as subscriptionsTable, users as usersTable } from "../drizzle/schema";
 import { sendPasswordResetCodeEmail } from "../server/email";
 import { getDb } from "../api/_lib/db";
 import { isSupabaseAuthConfigured, syncPasswordToSupabase, isLegacyHash, supabaseHashMarker } from "../api/_lib/supabase-auth";
@@ -44,9 +44,14 @@ type Row = Record<string, any>;
 
 /** Fake db con la misma forma del query builder de drizzle (igual que el resto de suites). */
 function createFakeDb() {
-  const state = { accounts: [] as Row[], codes: [] as Row[] };
+  const state = { accounts: [] as Row[], codes: [] as Row[], users: [] as Row[], subs: [] as Row[] };
 
-  const rowsOf = (table: any): Row[] => (table === docenteAccounts ? state.accounts : state.codes);
+  const rowsOf = (table: any): Row[] => {
+    if (table === docenteAccounts) return state.accounts;
+    if (table === usersTable) return state.users;
+    if (table === subscriptionsTable) return state.subs;
+    return state.codes;
+  };
 
   const colKey = (table: any, col: any): string => {
     for (const [k, v] of Object.entries(table)) if (v === col) return k;
@@ -86,15 +91,41 @@ function createFakeDb() {
     return api;
   };
 
+  /**
+   * INSERT con `onConflictDoUpdate` + `returning` (la forma en que
+   * `api/_lib/users.ts` hace el upsert de `public.users`).
+   */
+  const insertBuilder = (table: any, values: Row) => {
+    let conflict: any = null;
+    const exec = (): Row[] => {
+      const rows = rowsOf(table);
+      if (conflict) {
+        const targetCol = colKey(table, conflict.target);
+        const existing = rows.find((r) => r[targetCol] === values[targetCol]);
+        if (existing) {
+          Object.assign(existing, conflict.set ?? {});
+          return [existing];
+        }
+      }
+      const row: Row = { id: rows.length + 1, ...values };
+      rows.push(row);
+      return [row];
+    };
+    const api: any = {
+      onConflictDoUpdate(opts: any) { conflict = opts; return api; },
+      returning() { return api; },
+      then(onFulfilled: any, onRejected: any) {
+        return Promise.resolve().then(exec).then(onFulfilled, onRejected);
+      },
+    };
+    return api;
+  };
+
   const db = {
     execute: vi.fn(async () => []),
     select: vi.fn(() => ({ from: selectBuilder })),
     insert: vi.fn((table: any) => ({
-      values: async (v: Row) => {
-        const rows = rowsOf(table);
-        rows.push({ id: rows.length + 1, ...v });
-        return { insertId: rows.length };
-      },
+      values: (v: Row) => insertBuilder(table, v),
     })),
     update: vi.fn((table: any) => ({
       set: (data: Row) => ({
@@ -164,10 +195,16 @@ async function fakeFetch(input: any, init: any = {}) {
     });
   }
 
-  if (url.includes("/auth/v1/admin/users?email=")) {
-    const email = decodeURIComponent(url.split("email=")[1].split("&")[0]);
-    const user = findUser(email);
-    return jsonResponse(200, { users: user ? [{ id: user.id, email: user.email, user_metadata: user.metadata }] : [] });
+  // GET /auth/v1/admin/users → listado paginado. GoTrue NO filtra por `email`
+  // (ignora el parámetro), así que devuelve las filas de la página pedida y el
+  // backend es quien compara el correo. Así se reproduce el bug real.
+  if (method === "GET" && url.includes("/auth/v1/admin/users")) {
+    const u = new URL(url);
+    const page = Number(u.searchParams.get("page") || "1");
+    const perPage = Number(u.searchParams.get("per_page") || "50");
+    const start = (page - 1) * perPage;
+    const slice = supa.users.slice(start, start + perPage);
+    return jsonResponse(200, { users: slice.map((x) => ({ id: x.id, email: x.email, user_metadata: x.metadata })) });
   }
 
   if (method === "POST" && url.endsWith("/auth/v1/admin/users")) {
@@ -280,6 +317,12 @@ describe("POST /api/auth/login (Supabase Auth)", () => {
     expect(fake.state.accounts[0].lastLoginAt).toBeInstanceOf(Date);
     // La contraseña jamás viaja en claro a la BD propia
     expect(fake.state.accounts[0].passwordHash).toBe(supabaseHashMarker("su-9"));
+    // Y public.users queda poblada con el id de auth.users
+    expect(fake.state.users).toHaveLength(1);
+    expect(fake.state.users[0].openId).toBe("su-9");
+    expect(fake.state.users[0].email).toBe(EMAIL);
+    expect(fake.state.users[0].loginMethod).toBe("supabase");
+    expect(fake.state.users[0].lastSignedIn).toBeInstanceOf(Date);
   });
 
   it("rechaza la contraseña incorrecta sin filtrar más detalle", async () => {
@@ -329,6 +372,20 @@ describe("POST /api/auth/login (Supabase Auth)", () => {
     expect(res.body.notFound).toBe(true);
     expect(res.body.error).toContain("No encontramos una cuenta");
   });
+
+  it("no confunde el correo con otro usuario de auth.users (GoTrue no filtra por email)", async () => {
+    // GoTrue devuelve el listado SIN filtrar por email: si el backend se fiara
+    // de la primera fila, cualquier correo parecería existir, el login
+    // respondería "Contraseña incorrecta" y nunca llegaría el notFound que
+    // abre el registro de mantenimiento.
+    supa.users.push({ id: "su-9", email: "otra@ejemplo.com", password: "secreta1", metadata: {} });
+
+    const res = await callHandler("login", { email: "nadie@ejemplo.com", password: "secreta1" });
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body.notFound).toBe(true);
+    expect(res.body.error).toContain("No encontramos una cuenta");
+  });
 });
 
 describe("POST /api/auth/register (Supabase Auth)", () => {
@@ -347,6 +404,10 @@ describe("POST /api/auth/register (Supabase Auth)", () => {
     expect(fake.state.accounts).toHaveLength(1);
     expect(fake.state.accounts[0].passwordHash).toBe(supabaseHashMarker("su-1"));
     expect(fake.state.accounts[0].passwordHash).not.toContain("secreta1");
+    // public.users se crea también en el registro
+    expect(fake.state.users).toHaveLength(1);
+    expect(fake.state.users[0].openId).toBe("su-1");
+    expect(fake.state.users[0].name).toBe(NOMBRE);
   });
 
   it("rechaza con 409 un correo ya registrado en Supabase", async () => {
@@ -357,6 +418,60 @@ describe("POST /api/auth/register (Supabase Auth)", () => {
     expect(res.statusCode).toBe(409);
     expect(res.body.exists).toBe(true);
     expect(fake.state.accounts).toHaveLength(0);
+  });
+
+  it("crea la cuenta aunque auth.users ya tenga otros usuarios", async () => {
+    // Regresión: el listado de GoTrue no va filtrado por correo, así que hay
+    // que compararlo en el backend; si no, el registro respondía siempre 409.
+    supa.users.push({ id: "su-9", email: "otra@ejemplo.com", password: "secreta1", metadata: {} });
+
+    const res = await callHandler("register", { email: EMAIL, password: "secreta1", nombre: NOMBRE });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(fake.state.accounts).toHaveLength(1);
+    expect(fake.state.accounts[0].email).toBe(EMAIL);
+  });
+});
+
+describe("POST /api/auth/register-maintenance (Supabase Auth)", () => {
+  it("crea la cuenta con el código de mantenimiento y da el acceso gratuito", async () => {
+    vi.stubEnv("MAINTENANCE_REGISTRATION_CODE", "CLAVE-2026");
+    supa.users.push({ id: "su-9", email: "otra@ejemplo.com", password: "secreta1", metadata: {} });
+
+    const res = await callHandler("register-maintenance", {
+      email: EMAIL,
+      password: "secreta1",
+      nombre: NOMBRE,
+      registrationCode: "clave-2026", // se compara sin distinguir mayúsculas
+    });
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.maintenanceFree).toBe(true);
+    expect(fake.state.accounts).toHaveLength(1);
+    expect(supa.users.map((u) => u.email)).toContain(EMAIL);
+    // public.users creada y la suscripción de mantenimiento ya enlazada
+    expect(fake.state.users).toHaveLength(1);
+    expect(fake.state.users[0].email).toBe(EMAIL);
+    expect(fake.state.subs).toHaveLength(1);
+    expect(fake.state.subs[0].userId).toBe(fake.state.users[0].id);
+  });
+
+  it("rechaza con 403 un código incorrecto sin crear nada", async () => {
+    vi.stubEnv("MAINTENANCE_REGISTRATION_CODE", "CLAVE-2026");
+
+    const res = await callHandler("register-maintenance", {
+      email: EMAIL,
+      password: "secreta1",
+      nombre: NOMBRE,
+      registrationCode: "OTRA-CLAVE",
+    });
+
+    expect(res.statusCode).toBe(403);
+    expect(res.body.error).toContain("inválido");
+    expect(fake.state.accounts).toHaveLength(0);
+    expect(supa.users).toHaveLength(0);
   });
 });
 
