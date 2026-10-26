@@ -38,7 +38,7 @@ export default function PaywallScreen() {
   const [regError, setRegError]       = useState("");
   const [regLoading, setRegLoading]   = useState(false);
 
-  // Registro de mantenimiento — se ofrece cuando el login no se puede completar
+  // Registro de mantenimiento — solo se ofrece si el correo no tiene cuenta
   const [mntCode, setMntCode] = useState("");
   const [mntLoading, setMntLoading] = useState(false);
   const [mntError, setMntError]     = useState("");
@@ -130,15 +130,14 @@ export default function PaywallScreen() {
       if (result.success) {
         if (result.hasSubscription) setSuccess(true);
         else { setPayEmail(loginEmail.trim().toLowerCase()); setNeedsPayment(true); }
-      } else if (result.notFound || result.invalidCredentials) {
-        // El registro de mantenimiento es distinto del registro normal de la pestaña "Registrarse".
+      } else if (result.notFound) {
+        // Correo inexistente → se ofrece el registro ESPECIAL de mantenimiento
+        // (gratis), distinto del registro normal de la pestaña "Registrarse".
         setRegEmail(loginEmail.trim().toLowerCase());
         setRegError("");
         setMntError("");
         setMntCode("");
-        setMntInfo(result.notFound
-          ? "No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis."
-          : "No pudimos iniciar sesión. Puedes intentar el registro por mantenimiento; si ya tienes una cuenta, vuelve al inicio de sesión para recuperar tu contraseña.");
+        setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis.");
         setAuthTab("maintenance");
       } else {
         setLoginError(result.error || "Correo o contraseña incorrectos");

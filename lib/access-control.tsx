@@ -89,7 +89,6 @@ interface AccessContextValue {
     hasSubscription?: boolean;
     error?: string;
     notFound?: boolean;
-    invalidCredentials?: boolean;
   }>;
   registerAccount: (email: string, password: string, nombre: string) => Promise<{
     success: boolean;
@@ -228,7 +227,7 @@ export function AccessProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
 
       if (!res.ok) {
-        return { success: false, error: data.error, notFound: data.notFound, invalidCredentials: data.invalidCredentials };
+        return { success: false, error: data.error, notFound: data.notFound };
       }
 
       // Save auth session (token de Supabase + refresh para renovarla)
