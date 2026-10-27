@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq, desc } from "drizzle-orm";
+import { and, eq, desc } from "drizzle-orm";
 import { publicProcedure, router } from "./_core/trpc";
 import { invokeLLM, repairJson } from "./_core/llm";
 import { getDb } from "./db";
@@ -52,6 +52,7 @@ const SugerirNombreResultSchema = z.object({
 
 const GuardarBackupSchema = z.object({
   sessionId: z.string().min(1),
+  localId: z.string().min(1).max(128).optional(),
   status: z.enum(["borrador", "publicada", "aplicada", "analizada"]),
   form: z.string().min(1),
   aiResult: z.string().optional(),
@@ -286,21 +287,42 @@ Responde ÚNICAMENTE con JSON válido:
 
         const row = {
           sessionId: input.sessionId,
+          localId: input.localId ?? null,
           status: input.status,
           form: input.form,
           aiResult: input.aiResult ?? null,
         };
 
         if (input.existingId) {
-          await db
+          const updated = await db
             .update(evaluacionesDiagnosticas)
-            .set(row)
-            .where(eq(evaluacionesDiagnosticas.id, input.existingId));
-          return { id: input.existingId };
+            .set({
+              status: row.status,
+              form: row.form,
+              aiResult: row.aiResult,
+              ...(input.localId ? { localId: input.localId } : {}),
+              updatedAt: new Date(),
+            })
+            .where(
+              and(
+                eq(evaluacionesDiagnosticas.id, input.existingId),
+                eq(evaluacionesDiagnosticas.sessionId, input.sessionId),
+              ),
+            )
+            .returning({ id: evaluacionesDiagnosticas.id });
+          if (updated.length === 0) return { id: null };
+          return { id: updated[0].id };
         }
         const res = await db
           .insert(evaluacionesDiagnosticas)
           .values(row)
+          .onConflictDoUpdate({
+            target: [
+              evaluacionesDiagnosticas.sessionId,
+              evaluacionesDiagnosticas.localId,
+            ],
+            set: { ...row, updatedAt: new Date() },
+          })
           .returning({ id: evaluacionesDiagnosticas.id });
         return { id: res[0].id };
       } catch (err) {
@@ -320,14 +342,19 @@ Responde ÚNICAMENTE con JSON válido:
           .select({
             id: evaluacionesDiagnosticas.id,
             sessionId: evaluacionesDiagnosticas.sessionId,
+            localId: evaluacionesDiagnosticas.localId,
             status: evaluacionesDiagnosticas.status,
+            form: evaluacionesDiagnosticas.form,
+            aiResult: evaluacionesDiagnosticas.aiResult,
             createdAt: evaluacionesDiagnosticas.createdAt,
+            updatedAt: evaluacionesDiagnosticas.updatedAt,
           })
           .from(evaluacionesDiagnosticas)
           .where(eq(evaluacionesDiagnosticas.sessionId, input.sessionId))
           .orderBy(desc(evaluacionesDiagnosticas.createdAt))
           .limit(50);
-      } catch {
+      } catch (error) {
+        console.warn("[evaluacion] backup restore list failed (non-critical):", error);
         return [];
       }
     }),

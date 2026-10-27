@@ -2,6 +2,7 @@ import { Text, View, StyleSheet, ScrollView, Pressable, ActivityIndicator, Alert
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
+import { useDeviceSessionId } from "@/hooks/use-device-session-id";
 import { trpc } from "@/lib/trpc";
 import { FAMILIA_LABELS, determinarFamiliaExportacion } from "@/lib/curriculo-competencias-familia";
 import { obtenerMateria } from "@/data/competencias-especificas-egb-bgu";
@@ -23,14 +24,15 @@ const STATUS_COLORS: Record<string, string> = {
 export default function VerPlanificacionScreen() {
   const colors = useColors();
   const router = useRouter();
+  const sessionId = useDeviceSessionId();
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const planId = Number(id);
   const isValidId = !isNaN(planId) && planId > 0;
 
   const { data: plan, isLoading, error } = trpc.curriculoCompetencias.getById.useQuery(
-    { id: planId },
-    { enabled: isValidId }
+    { id: planId, sessionId },
+    { enabled: isValidId && sessionId.length > 0 }
   );
 
   const utils = trpc.useContext();
@@ -89,7 +91,7 @@ export default function VerPlanificacionScreen() {
   });
 
   const handleDelete = () => {
-    const confirmDelete = () => deleteMutation.mutate({ id: planId });
+    const confirmDelete = () => deleteMutation.mutate({ id: planId, sessionId });
 
     if (Platform.OS === "web") {
       if (confirm("¿Eliminar esta planificación? Esta acción no se puede deshacer.")) {
@@ -393,7 +395,7 @@ export default function VerPlanificacionScreen() {
             <Text style={{ color: "#fff", fontWeight: "700" }}>Editar</Text>
           </Pressable>
           <Pressable
-            onPress={() => exportWordMutation.mutate({ id: planId })}
+            onPress={() => exportWordMutation.mutate({ id: planId, sessionId })}
             disabled={isExporting || deleteMutation.isPending}
             style={[styles.navBtn, { backgroundColor: "#2563EB", opacity: isExporting || deleteMutation.isPending ? 0.5 : 1 }]}
           >
@@ -407,7 +409,7 @@ export default function VerPlanificacionScreen() {
             )}
           </Pressable>
           <Pressable
-            onPress={() => exportPdfMutation.mutate({ id: planId })}
+            onPress={() => exportPdfMutation.mutate({ id: planId, sessionId })}
             disabled={isExporting || deleteMutation.isPending}
             style={[styles.navBtn, { backgroundColor: "#DC2626", opacity: isExporting || deleteMutation.isPending ? 0.5 : 1 }]}
           >

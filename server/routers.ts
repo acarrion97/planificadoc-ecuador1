@@ -14,6 +14,7 @@ import { dcdDesagregacionesRouter } from "./dcd-desagregacion-router";
 import { curriculoCompetenciasRouter } from "./curriculo-competencias-router";
 import { proyectoInterdisciplinarRouter } from "./proyecto-interdisciplinar-router";
 import { asistenteRouter } from "./asistente-router";
+import { planificacionLocalRouter } from "./planificacion-local-router";
 
 export const appRouter = router({
   // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -41,6 +42,7 @@ export const appRouter = router({
   curriculoCompetencias: curriculoCompetenciasRouter,
   proyectoInterdisciplinar: proyectoInterdisciplinarRouter,
   asistente: asistenteRouter,
+  planificacionLocal: planificacionLocalRouter,
 });
 
 export type AppRouter = typeof appRouter;

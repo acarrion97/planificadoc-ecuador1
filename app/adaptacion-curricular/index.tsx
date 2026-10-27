@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { shareAsync } from "expo-sharing";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
+import { useDeviceSessionId } from "@/hooks/use-device-session-id";
 import { trpc } from "@/lib/trpc";
 import {
   TIPOS_NEE_INFO, GRADO_ADAPTACION_INFO,
@@ -273,6 +274,7 @@ function DestrezaBuscador({
 // ─── Pantalla principal ───────────────────────────────────────────────────────
 
 export default function AdaptacionCurricularScreen() {
+  const sessionId = useDeviceSessionId();
   const colors = useColors();
   const router = useRouter();
   // Orígenes aceptados: semana (`semanaId`), plan diario (`planId`) o plan de
@@ -330,8 +332,8 @@ export default function AdaptacionCurricularScreen() {
 
   // ── Origen "curriculo-competencias": precarga desde el plan en servidor ──
   const { data: planCurriculo } = trpc.curriculoCompetencias.getById.useQuery(
-    { id: cxcIdNum },
-    { enabled: esCurriculo }
+    { id: cxcIdNum, sessionId },
+    { enabled: esCurriculo && sessionId.length > 0 }
   );
   const curriculoPrecargadoRef = useRef(false);
   useEffect(() => {

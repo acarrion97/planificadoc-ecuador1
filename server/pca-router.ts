@@ -407,8 +407,12 @@ export const pcaRouter = router({
 
   /** Eliminar un documento desde Mis planes. */
   delete: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .mutation(async ({ input }) => {
+      const document = await getPcaDocument(input.id);
+      if (!document || document.sessionId !== input.sessionId) {
+        throw new Error("No tienes permiso para eliminar este documento.");
+      }
       await deletePcaDocument(input.id);
       return { success: true };
     }),

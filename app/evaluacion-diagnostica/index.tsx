@@ -43,6 +43,7 @@ import {
 import { useEvaluaciones } from "@/lib/evaluaciones-context";
 import { UMBRALES_DEFECTO, subnivelDesdeGrado, subnivelDelGradoAnterior, esBachilleratoTecnico } from "@/lib/evaluacion-utils";
 import { trpc } from "@/lib/trpc";
+import { mostrarAlerta } from "@/lib/platform-alert";
 import { elegirImagenReducida } from "@/lib/elegir-imagen";
 import { Image } from "expo-image";
 
@@ -588,9 +589,24 @@ export default function EvaluacionDiagnosticaScreen() {
     await addEvaluacion(ev);
     try {
       const sid = await sessionId();
-      await backupMutation.mutateAsync({ sessionId: sid, status: ev.status, form: JSON.stringify(ev) });
+      const result = await backupMutation.mutateAsync({
+        sessionId: sid,
+        localId: ev.id,
+        status: ev.status,
+        form: JSON.stringify(ev),
+      });
+      if (result.id === null) {
+        mostrarAlerta(
+          "Respaldo en la nube no disponible",
+          "La evaluación se guardó en este dispositivo, pero no se pudo respaldar en la nube.",
+        );
+      }
     } catch (e) {
       console.warn("[evaluacion] backup failed (non-critical):", e);
+      mostrarAlerta(
+        "Respaldo en la nube no disponible",
+        "La evaluación se guardó en este dispositivo, pero no se pudo respaldar en la nube.",
+      );
     }
   }
 

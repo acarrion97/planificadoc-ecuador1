@@ -425,8 +425,8 @@ export default function ProyectoInterdisciplinarWizardScreen() {
   // ── Cargar datos existentes (modo edición) ──
   const { data: proyectoExistente } =
     trpc.proyectoInterdisciplinar.getById.useQuery(
-      { id: Number(id) },
-      { enabled: isEdit },
+      { id: Number(id), sessionId },
+      { enabled: isEdit && sessionId.length > 0 },
     );
 
   useEffect(() => {
@@ -960,6 +960,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
         throw new Error("No se pudo guardar el proyecto generado.");
       await updateStatusMutation.mutateAsync({
         id: projectId,
+        sessionId,
         estado: "generado",
       });
 
@@ -2322,7 +2323,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
               <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
                 <Pressable
                   onPress={() =>
-                    isEdit && exportWordMutation.mutate({ id: Number(id) })
+                    isEdit && exportWordMutation.mutate({ id: Number(id), sessionId })
                   }
                   disabled={!isEdit || exportWordMutation.isPending}
                   style={[
@@ -2344,7 +2345,7 @@ export default function ProyectoInterdisciplinarWizardScreen() {
                 </Pressable>
                 <Pressable
                   onPress={() =>
-                    isEdit && exportPdfMutation.mutate({ id: Number(id) })
+                    isEdit && exportPdfMutation.mutate({ id: Number(id), sessionId })
                   }
                   disabled={!isEdit || exportPdfMutation.isPending}
                   style={[

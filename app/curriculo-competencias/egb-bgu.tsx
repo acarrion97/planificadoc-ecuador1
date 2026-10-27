@@ -12,6 +12,7 @@ import {
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
+import { useDeviceSessionId } from "@/hooks/use-device-session-id";
 import { trpc } from "@/lib/trpc";
 import { AREAS_INFO, AREAS_POR_SUBNIVEL, type Area, type Subnivel } from "@/data/types";
 import { filtrarPorAreaYSubnivel } from "@/data";
@@ -71,6 +72,7 @@ function inferirTransversales(codigoCE: string): string[] {
 export default function EGBBGUFormScreen() {
   const colors = useColors();
   const router = useRouter();
+  const sessionId = useDeviceSessionId();
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = !!id;
   const [paso, setPaso] = useState<PasoFlujo>("datos");
@@ -114,8 +116,8 @@ export default function EGBBGUFormScreen() {
 
   // ── Cargar datos existentes (modo edición) ──
   const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
-    { id: Number(id) },
-    { enabled: isEdit }
+    { id: Number(id), sessionId },
+    { enabled: isEdit && sessionId.length > 0 }
   );
 
   useEffect(() => {
@@ -215,7 +217,7 @@ export default function EGBBGUFormScreen() {
     const dcd = destrezasMatch[0];
 
     const payload = {
-      sessionId: "default",
+      sessionId,
       nivel,
       grado,
       paralelo,

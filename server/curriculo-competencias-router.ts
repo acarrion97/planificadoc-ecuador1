@@ -30,13 +30,19 @@ const SwitchesInput = {
   compartida: z.boolean().optional(),
 };
 
+const sessionIdSchema = z
+  .string()
+  .min(1)
+  .max(320)
+  .refine((sessionId) => sessionId !== "default", "Se requiere una sesión de dispositivo válida.");
+
 // ============================================================
 // ZOD SCHEMAS DE ENTRADA
 // ============================================================
 
 /** Datos para crear/actualizar una planificación EGB/BGU */
 const PlanificacionEGBBGUInput = z.object({
-  sessionId: z.string().min(1),
+  sessionId: sessionIdSchema,
   id: z.string().optional(), // si se provee, es update
   fecha: z.string().optional(),
   institucion: z.string().optional(),
@@ -139,7 +145,7 @@ const PlanificacionEGBBGUInput = z.object({
 
 /** Datos para crear/actualizar una planificación Inicial/Preparatoria */
 const PlanificacionInicialInput = z.object({
-  sessionId: z.string().min(1),
+  sessionId: sessionIdSchema,
   id: z.string().optional(),
   grado: z.string().optional(),
   nivel: z.string().optional(),
@@ -254,7 +260,7 @@ const PlanificacionInicialInput = z.object({
 
 /** Datos para crear/actualizar una planificación multigrado de Currículo Integrado EGB/BGU */
 const PlanificacionMultigradoInput = z.object({
-  sessionId: z.string().min(1),
+  sessionId: sessionIdSchema,
   id: z.string().optional(),
   institucion: z.string().optional(),
   docente: z.string().optional(),
@@ -618,7 +624,7 @@ export const curriculoCompetenciasRouter = router({
 
   // ── GET BY ID ────────────────────────────────────────────────────
   getById: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: sessionIdSchema }))
     .query(async ({ input }) => {
       // select() lee todas las columnas: deben existir hay_nee/compartida.
       const db = await getDb();
@@ -627,7 +633,12 @@ export const curriculoCompetenciasRouter = router({
       const rows = await db
         .select()
         .from(curriculoCompetenciasPlanificaciones)
-        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .where(
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
 
       if (rows.length === 0) return null;
@@ -649,7 +660,7 @@ export const curriculoCompetenciasRouter = router({
   list: publicProcedure
     .input(
       z.object({
-        sessionId: z.string(),
+        sessionId: sessionIdSchema,
         tipo: z.enum(["egb_bgu", "inicial_preparatoria"]).optional(),
       })
     )
@@ -717,6 +728,9 @@ export const curriculoCompetenciasRouter = router({
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para modificar esta planificación.");
+      }
 
       const plan = normalizarPlanificacionEGBBGU(input);
 
@@ -748,7 +762,10 @@ export const curriculoCompetenciasRouter = router({
         .update(curriculoCompetenciasPlanificaciones)
         .set(conFlags)
         .where(
-          eq(curriculoCompetenciasPlanificaciones.id, input.id)
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          ),
         );
 
       return { success: true };
@@ -760,6 +777,9 @@ export const curriculoCompetenciasRouter = router({
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para modificar esta planificación.");
+      }
 
       const plan = normalizarPlanificacionInicial(input);
 
@@ -787,7 +807,10 @@ export const curriculoCompetenciasRouter = router({
         .update(curriculoCompetenciasPlanificaciones)
         .set(conFlags)
         .where(
-          eq(curriculoCompetenciasPlanificaciones.id, input.id)
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          ),
         );
 
       return { success: true };
@@ -801,6 +824,9 @@ export const curriculoCompetenciasRouter = router({
 
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para modificar esta planificación.");
+      }
 
       const plan = normalizarPlanificacionMultigrado(input);
 
@@ -832,7 +858,10 @@ export const curriculoCompetenciasRouter = router({
         .update(curriculoCompetenciasPlanificaciones)
         .set(conFlags)
         .where(
-          eq(curriculoCompetenciasPlanificaciones.id, input.id)
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          ),
         );
 
       return { success: true };
@@ -843,18 +872,25 @@ export const curriculoCompetenciasRouter = router({
     .input(
       z.object({
         id: z.number(),
+        sessionId: sessionIdSchema,
         status: z.enum(["draft", "generated", "paid"]),
       })
     )
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para modificar esta planificación.");
+      }
 
       await db
         .update(curriculoCompetenciasPlanificaciones)
         .set({ status: input.status })
         .where(
-          eq(curriculoCompetenciasPlanificaciones.id, input.id)
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          )
         );
 
       return { success: true };
@@ -865,10 +901,13 @@ export const curriculoCompetenciasRouter = router({
   // defecto). El modelo de datos no cambia y el original queda intacto.
   // `paid` no se copia: el desbloqueo de descargas es por documento.
   duplicate: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: sessionIdSchema }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para duplicar esta planificación.");
+      }
 
       const rows = await db
         .select()
@@ -879,7 +918,7 @@ export const curriculoCompetenciasRouter = router({
 
       const f = rows[0];
       await db.insert(curriculoCompetenciasPlanificaciones).values({
-        sessionId: f.sessionId,
+        sessionId: input.sessionId,
         tipo: f.tipo,
         grado: f.grado,
         institucion: f.institucion,
@@ -981,7 +1020,7 @@ export const curriculoCompetenciasRouter = router({
   // Crea una copia propia (sessionId de quien duplica, compartida=false)
   // a partir del formData ANONIMIZADO: el autor original no viaja en la copia.
   duplicarCompartida: publicProcedure
-    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
+    .input(z.object({ id: z.number(), sessionId: sessionIdSchema }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
@@ -1034,15 +1073,21 @@ export const curriculoCompetenciasRouter = router({
 
   // ── DELETE ───────────────────────────────────────────────────────
   delete: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: sessionIdSchema }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para eliminar esta planificación.");
+      }
 
       await db
         .delete(curriculoCompetenciasPlanificaciones)
         .where(
-          eq(curriculoCompetenciasPlanificaciones.id, input.id)
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          )
         );
 
       return { success: true };
@@ -1050,15 +1095,23 @@ export const curriculoCompetenciasRouter = router({
 
   // ── EXPORT WORD ─────────────────────────────────────────────────
   exportWord: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: sessionIdSchema }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para exportar esta planificación.");
+      }
 
       const rows = await db
         .select()
         .from(curriculoCompetenciasPlanificaciones)
-        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .where(
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
 
       if (rows.length === 0) {
@@ -1114,15 +1167,23 @@ export const curriculoCompetenciasRouter = router({
 
   // ── EXPORT PDF ──────────────────────────────────────────────────
   exportPdf: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: sessionIdSchema }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureTable(db);
+      if (!(await esDuenoDelPlan(db, input.id, input.sessionId))) {
+        throw new Error("No tienes permiso para exportar esta planificación.");
+      }
 
       const rows = await db
         .select()
         .from(curriculoCompetenciasPlanificaciones)
-        .where(eq(curriculoCompetenciasPlanificaciones.id, input.id))
+        .where(
+          and(
+            eq(curriculoCompetenciasPlanificaciones.id, input.id),
+            eq(curriculoCompetenciasPlanificaciones.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
 
       if (rows.length === 0) {

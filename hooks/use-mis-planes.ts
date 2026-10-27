@@ -15,9 +15,9 @@
  * información (brecha documentada en design.md D10).
  */
 import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { trpc } from "@/lib/trpc";
+import { getDeviceSessionId } from "@/lib/local-cloud-backup";
 import { usePlanificaciones } from "@/lib/planificaciones-context";
 import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import { usePlanificacionesBT } from "@/lib/planificaciones-bt-context";
@@ -37,19 +37,6 @@ import {
   type FilaProyectoListado,
   type PlanResumen,
 } from "@/lib/mis-planes";
-
-/** Mismo sessionId que usa `app/curriculo-competencias/index.tsx`. */
-const CXC_SESSION_ID = "default";
-
-/** Mismo patrón de id de dispositivo que PCA y Proyecto (app existentes). */
-async function getDeviceId(): Promise<string> {
-  let id = await AsyncStorage.getItem("@planificadoc_device_id");
-  if (!id) {
-    id = Math.random().toString(36).substring(2, 18) + Date.now().toString(36);
-    await AsyncStorage.setItem("@planificadoc_device_id", id);
-  }
-  return id;
-}
 
 /** Plan de la lista con sus acciones de gestión (spec: Continuar/Eliminar/Duplicar). */
 export interface PlanGestion extends PlanResumen {
@@ -75,9 +62,9 @@ export function useMisPlanes(): { planes: PlanGestion[]; cargando: boolean } {
   const [sessionId, setSessionId] = useState("");
   useEffect(() => {
     let vivo = true;
-    getDeviceId().then((id) => {
+    getDeviceSessionId().then((id) => {
       if (vivo) setSessionId(id);
-    });
+    }).catch((error: unknown) => console.warn("[mis-planes] device session unavailable:", error));
     return () => {
       vivo = false;
     };
@@ -90,7 +77,10 @@ export function useMisPlanes(): { planes: PlanGestion[]; cargando: boolean } {
     { sessionId },
     { enabled: sessionId.length > 0 }
   );
-  const filasCxc = trpc.curriculoCompetencias.list.useQuery({ sessionId: CXC_SESSION_ID });
+  const filasCxc = trpc.curriculoCompetencias.list.useQuery(
+    { sessionId },
+    { enabled: sessionId.length > 0 },
+  );
   const filasProyecto = trpc.proyectoInterdisciplinar.list.useQuery(
     { sessionId },
     { enabled: sessionId.length > 0 }
@@ -158,7 +148,7 @@ export function useMisPlanes(): { planes: PlanGestion[]; cargando: boolean } {
     planes.push({
       ...resumenPca(doc, esTrimestral ? "trimestral" : "anual"),
       eliminar: async () => {
-        await mutPcaDelete.mutateAsync({ id: doc.id });
+        await mutPcaDelete.mutateAsync({ id: doc.id, sessionId });
         await docsPca.refetch();
       },
       duplicar: async () => {
@@ -173,11 +163,11 @@ export function useMisPlanes(): { planes: PlanGestion[]; cargando: boolean } {
     planes.push({
       ...resumenCxc(fila),
       eliminar: async () => {
-        await mutCxcDelete.mutateAsync({ id: fila.id });
+        await mutCxcDelete.mutateAsync({ id: fila.id, sessionId });
         await filasCxc.refetch();
       },
       duplicar: async () => {
-        await mutCxcDuplicate.mutateAsync({ id: fila.id });
+        await mutCxcDuplicate.mutateAsync({ id: fila.id, sessionId });
         await filasCxc.refetch();
       },
     });
@@ -188,7 +178,7 @@ export function useMisPlanes(): { planes: PlanGestion[]; cargando: boolean } {
     planes.push({
       ...resumenProyecto(fila),
       eliminar: async () => {
-        await mutProyectoDelete.mutateAsync({ id: fila.id });
+        await mutProyectoDelete.mutateAsync({ id: fila.id, sessionId });
         await filasProyecto.refetch();
       },
       duplicar: async () => {

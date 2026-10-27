@@ -42,6 +42,7 @@ import { usePlanificacionesCNC } from "@/lib/planificaciones-cnc-context";
 import type { PlanConectaNivelaCrea } from "@/data/types-cnc";
 import { diagnosticoAcademicoDesdeBrechas, nivelDominanteEstado } from "@/lib/cnc-diagnostico";
 import { trpc } from "@/lib/trpc";
+import { mostrarAlerta } from "@/lib/platform-alert";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function nuevoId() {
@@ -123,6 +124,7 @@ export default function VerEvaluacionScreen() {
 
   const [ev, setEv] = useState<EvaluacionDiagnostica | null>(null);
   const evRef = useRef<EvaluacionDiagnostica | null>(null);
+  const backupFailureAlerted = useRef(false);
 
   useEffect(() => {
     const found = evaluaciones.find((e) => e.id === id) ?? null;
@@ -340,8 +342,29 @@ export default function VerEvaluacionScreen() {
     if (!e) return;
     try {
       const sid = await sessionId();
-      await backupMutation.mutateAsync({ sessionId: sid, status: e.status, form: JSON.stringify(e) });
-    } catch (e) { console.warn("[evaluacion] backup failed (non-critical):", e); }
+      const result = await backupMutation.mutateAsync({
+        sessionId: sid,
+        localId: e.id,
+        status: e.status,
+        form: JSON.stringify(e),
+      });
+      if (result.id === null && !backupFailureAlerted.current) {
+        backupFailureAlerted.current = true;
+        mostrarAlerta(
+          "Respaldo en la nube no disponible",
+          "Los cambios siguen guardados en este dispositivo, pero no se pudieron respaldar en la nube.",
+        );
+      }
+    } catch (error) {
+      console.warn("[evaluacion] backup failed (non-critical):", error);
+      if (!backupFailureAlerted.current) {
+        backupFailureAlerted.current = true;
+        mostrarAlerta(
+          "Respaldo en la nube no disponible",
+          "Los cambios siguen guardados en este dispositivo, pero no se pudieron respaldar en la nube.",
+        );
+      }
+    }
   }
 
   async function handleExport(formato: "word" | "pdf") {
