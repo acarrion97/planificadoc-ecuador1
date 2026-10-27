@@ -214,8 +214,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // registro normal (/register): aquí la cuenta se crea con acceso gratuito
   // temporal por el mantenimiento preventivo.
   //
-  // Duración controlada por MAINTENANCE_FREE_DAYS (días, por defecto 30;
-  // "0" crea la cuenta sin acceso). Nada de esto afecta al registro normal.
+  // Duración controlada por MAINTENANCE_FREE_DAYS (días, por defecto 365 = 1
+  // año; "0" crea la cuenta sin acceso). Con un año o más la suscripción se
+  // guarda como plan "annual" (mismos beneficios que el plan anual de pago,
+  // p.ej. PCA/PCT incluidos); por debajo queda como "monthly". Nada de esto
+  // afecta al registro normal.
   if (action === "register-maintenance") {
     if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
     const { email, password, nombre, registrationCode } = req.body || {};
@@ -240,7 +243,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
     const normalizedEmail = (email as string).trim().toLowerCase();
     const trimmedNombre = (nombre as string).trim();
-    const freeDays = Number.parseInt(process.env.MAINTENANCE_FREE_DAYS ?? "30", 10);
+    const freeDays = Number.parseInt(process.env.MAINTENANCE_FREE_DAYS ?? "365", 10);
 
     try {
       const existing = await db
@@ -278,14 +281,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         signedIn: true,
       });
 
-      // Acceso gratuito temporal del mantenimiento (solo si freeDays > 0)
+      // Acceso gratuito del mantenimiento (solo si freeDays > 0). Por defecto
+      // dura 1 año, así que se registra como suscripción anual.
       let subscriptionEndDate: Date | null = null;
       if (Number.isFinite(freeDays) && freeDays > 0) {
         subscriptionEndDate = new Date(Date.now() + freeDays * 24 * 3600 * 1000);
         await db.insert(subscriptions).values({
           email: normalizedEmail,
           ...(publicUserId ? { userId: publicUserId } : {}),
-          plan: "monthly",
+          plan: freeDays >= 365 ? "annual" : "monthly",
           status: "active",
           amountPaid: 0,
           transactionId: `MAINTENANCE-${Date.now()}`,

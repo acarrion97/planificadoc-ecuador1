@@ -137,7 +137,7 @@ export default function PaywallScreen() {
         setRegError("");
         setMntError("");
         setMntCode("");
-        setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis.");
+        setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis, con suscripción de 1 año.");
         setAuthTab("maintenance");
       } else {
         setLoginError(result.error || "Correo o contraseña incorrectos");
@@ -616,7 +616,7 @@ export default function PaywallScreen() {
                   <Text style={s.mntBannerTitle}>🛠️ Registro gratis por mantenimiento preventivo</Text>
                   <Text style={s.mntBannerText}>
                     Estamos realizando un mantenimiento preventivo. Mientras dura, puedes crear tu cuenta
-                    sin costo y usar PlanificaDoc de forma temporal y gratuita.
+                    sin costo con una suscripción de 1 año y usar PlanificaDoc sin pagar durante ese tiempo.
                   </Text>
                 </View>
                 {mntInfo ? <InfoRow text={mntInfo} icon="🔎" /> : null}
