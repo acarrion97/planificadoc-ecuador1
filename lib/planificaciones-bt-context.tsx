@@ -7,6 +7,8 @@
  */
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { trpc } from "@/lib/trpc";
+import { getDeviceSessionId, mergeMissingById } from "@/lib/local-cloud-backup";
 import type { PlanUnidadTrabajoBT, CatalogoUsuarioBT, ModuloFormativoBTExtras, UnidadCompetencia } from "@/data/types-bt";
 import { obtenerFiguraPorId, tieneCatalogoCompleto as tieneCatalogoCompletoEstatico, type ModuloFormativo } from "@/data/bachillerato-tecnico";
 import { obtenerUnidadesCompetenciaDeModulo } from "@/data/bachillerato-tecnico-uc";
@@ -90,6 +92,19 @@ export function PlanificacionesBTProvider({ children }: { children: React.ReactN
     catalogoUsuarioBT: CATALOGO_VACIO,
     catalogoUsuarioBTLoaded: false,
   });
+  const [sessionId, setSessionId] = React.useState("");
+  const backups = trpc.planificacionLocal.listar.useQuery(
+    { sessionId, tipo: "bt" },
+    { enabled: sessionId.length > 0 },
+  );
+  const backupMutation = trpc.planificacionLocal.guardar.useMutation();
+  const deleteBackupMutation = trpc.planificacionLocal.eliminar.useMutation();
+
+  useEffect(() => {
+    getDeviceSessionId().then(setSessionId).catch((error: unknown) => {
+      console.warn("[planificaciones-bt] device session unavailable; cloud backup disabled:", error);
+    });
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -101,6 +116,26 @@ export function PlanificacionesBTProvider({ children }: { children: React.ReactN
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (!backups.data) return;
+    const restored = mergeMissingById(
+      state.planesBT,
+      backups.data.filter((row) => row.tipo === "bt"),
+      "bt",
+    );
+    if (restored.length === state.planesBT.length) return;
+    dispatch({ type: "SET_ALL_BT", payload: restored });
+    AsyncStorage.setItem(STORAGE_KEY_BT, JSON.stringify(restored)).catch((error: unknown) => {
+      console.warn("[planificaciones-bt] could not persist restored cloud records locally:", error);
+    });
+  }, [backups.data, state.planesBT]);
+
+  useEffect(() => {
+    if (backups.error) {
+      console.warn("[planificaciones-bt] cloud restore unavailable (non-critical):", backups.error);
+    }
+  }, [backups.error]);
 
   useEffect(() => {
     (async () => {
@@ -121,29 +156,57 @@ export function PlanificacionesBTProvider({ children }: { children: React.ReactN
     await AsyncStorage.setItem(STORAGE_KEY_CATALOGO_BT, JSON.stringify(catalogo));
   }, []);
 
+  const guardarBackup = useCallback((item: PlanUnidadTrabajoBT) => {
+    if (!sessionId) return;
+    void backupMutation.mutateAsync({
+      sessionId,
+      tipo: "bt",
+      itemId: item.id,
+      form: JSON.stringify(item),
+    }).then((result) => {
+      if (result.id === null) console.warn("[planificaciones-bt] cloud backup unavailable");
+    }).catch((error: unknown) => {
+      console.warn("[planificaciones-bt] cloud backup failed (non-critical):", error);
+    });
+  }, [backupMutation, sessionId]);
+
+  const eliminarBackup = useCallback((itemId: string) => {
+    if (!sessionId) return;
+    void deleteBackupMutation.mutateAsync({ sessionId, tipo: "bt", itemId })
+      .then(({ success }) => {
+        if (!success) console.warn("[planificaciones-bt] cloud backup delete unavailable");
+      })
+      .catch((error: unknown) => {
+        console.warn("[planificaciones-bt] cloud backup delete failed (non-critical):", error);
+      });
+  }, [deleteBackupMutation, sessionId]);
+
   const addPlanBT = useCallback(async (p: PlanUnidadTrabajoBT) => {
     dispatch({ type: "ADD_BT", payload: p });
-    await AsyncStorage.getItem(STORAGE_KEY_BT).then((raw) => {
+    await AsyncStorage.getItem(STORAGE_KEY_BT).then(async (raw) => {
       const current: PlanUnidadTrabajoBT[] = raw ? JSON.parse(raw) : [];
-      persistPlanes([p, ...current]);
+      await persistPlanes([p, ...current.filter((item) => item.id !== p.id)]);
     });
-  }, [persistPlanes]);
+    guardarBackup(p);
+  }, [guardarBackup, persistPlanes]);
 
   const updatePlanBT = useCallback(async (p: PlanUnidadTrabajoBT) => {
     dispatch({ type: "UPDATE_BT", payload: p });
     await AsyncStorage.getItem(STORAGE_KEY_BT).then((raw) => {
       const current: PlanUnidadTrabajoBT[] = raw ? JSON.parse(raw) : [];
-      persistPlanes(current.map((x) => (x.id === p.id ? p : x)));
+      return persistPlanes(current.map((x) => (x.id === p.id ? p : x)));
     });
-  }, [persistPlanes]);
+    guardarBackup(p);
+  }, [guardarBackup, persistPlanes]);
 
   const deletePlanBT = useCallback(async (id: string) => {
     dispatch({ type: "DELETE_BT", payload: id });
     await AsyncStorage.getItem(STORAGE_KEY_BT).then((raw) => {
       const current: PlanUnidadTrabajoBT[] = raw ? JSON.parse(raw) : [];
-      persistPlanes(current.filter((x) => x.id !== id));
+      return persistPlanes(current.filter((x) => x.id !== id));
     });
-  }, [persistPlanes]);
+    eliminarBackup(id);
+  }, [eliminarBackup, persistPlanes]);
 
   const getPlanBT = useCallback(
     (id: string) => state.planesBT.find((p) => p.id === id),

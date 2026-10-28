@@ -172,7 +172,7 @@ export default function CuentaScreen() {
 
   const getPlanLabel = (plan: string) => {
     if (plan === "monthly") return "Mensual";
-    if (plan === "annual") return "Anual";
+    if (plan === "anual") return "Anual";
     return plan;
   };
 

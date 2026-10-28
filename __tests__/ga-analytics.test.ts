@@ -42,13 +42,13 @@ describe("Google Analytics en las páginas de pago", () => {
   it("start_trial al activar una prueba (no es un purchase, solo se cobró $1)", () => {
     const win = run(gaHeadSnippet(), CONFIRM_URL);
     win.__gaTrackActivation(
-      { success: true, type: "trial", clientTxId: "PDOC-1", plan: "annual", planValue: 58.71 },
+      { success: true, type: "trial", clientTxId: "PDOC-1", plan: "anual", planValue: 58.71 },
       "fallback",
     );
     const ev = events(win);
     expect(ev).toHaveLength(1);
     expect(ev[0][1]).toBe("start_trial");
-    expect(ev[0][2]).toMatchObject({ transaction_id: "PDOC-1", plan: "annual", plan_value: 58.71 });
+    expect(ev[0][2]).toMatchObject({ transaction_id: "PDOC-1", plan: "anual", plan_value: 58.71 });
     expect(ev[0][2]).not.toHaveProperty("value");
   });
 
@@ -73,7 +73,7 @@ describe("Google Analytics en las páginas de pago", () => {
 
   it("usa el id del servidor de respaldo si la respuesta no trae clientTxId", () => {
     const win = run(gaHeadSnippet(), CONFIRM_URL);
-    win.__gaTrackActivation({ success: true, plan: "annual", amount: 58.71 }, "PDOC-FALLBACK");
+    win.__gaTrackActivation({ success: true, plan: "anual", amount: 58.71 }, "PDOC-FALLBACK");
     expect(events(win)[0][2].transaction_id).toBe("PDOC-FALLBACK");
   });
 
@@ -87,12 +87,12 @@ describe("Google Analytics en las páginas de pago", () => {
   });
 
   it("begin_checkout lleva el plan y el precio reales", () => {
-    const win = run(gaHeadSnippet() + gaBeginCheckoutSnippet("annual", "subscription", 5871), CONFIRM_URL);
+    const win = run(gaHeadSnippet() + gaBeginCheckoutSnippet("anual", "subscription", 5871), CONFIRM_URL);
     const ev = events(win);
     expect(ev).toHaveLength(1);
     expect(ev[0][1]).toBe("begin_checkout");
-    expect(ev[0][2]).toMatchObject({ currency: "USD", value: 58.71, plan: "annual", flow: "subscription" });
-    expect(ev[0][2].items[0]).toMatchObject({ item_id: "plan_annual", price: 58.71 });
+    expect(ev[0][2]).toMatchObject({ currency: "USD", value: 58.71, plan: "anual", flow: "subscription" });
+    expect(ev[0][2].items[0]).toMatchObject({ item_id: "plan_anual", price: 58.71 });
   });
 
   it("begin_checkout no rompe la página si Analytics no cargó", () => {

@@ -1,9 +1,9 @@
-export type PlanType = "monthly" | "annual";
+export type PlanType = "monthly" | "anual";
 
 // Prices in cents
 export const PRICING = {
   monthly: 699, // $6.99
-  annual: 5871, // $58.71
+  anual: 5871, // $58.71
 };
 
 export function getPriceForPlan(plan: PlanType): number {
@@ -11,5 +11,5 @@ export function getPriceForPlan(plan: PlanType): number {
 }
 
 export function getPlanDuration(plan: PlanType): number {
-  return plan === "annual" ? 365 : 30;
+  return plan === "anual" ? 365 : 30;
 }

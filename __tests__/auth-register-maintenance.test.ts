@@ -130,7 +130,7 @@ afterEach(() => {
 });
 
 describe("POST /api/auth/register-maintenance", () => {
-  it("crea la cuenta y otorga 30 días de acceso gratuito (valor por defecto)", async () => {
+  it("crea la cuenta y otorga 1 año (365 días) de acceso gratuito (valor por defecto)", async () => {
     const antes = Date.now();
     const res = await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS);
 
@@ -146,19 +146,20 @@ describe("POST /api/auth/register-maintenance", () => {
     expect(fake.state.accounts[0].passwordHash).toMatch(/^[0-9a-f]+:/);
     expect(fake.state.accounts[0].passwordHash).not.toContain("secreta123");
 
-    // Suscripción gratuita y promocional
+    // Suscripción gratuita, promocional y de 1 año (plan anual)
     expect(fake.state.subs).toHaveLength(1);
     const sub = fake.state.subs[0];
     expect(sub.email).toBe(NORMALIZED);
     expect(sub.status).toBe("active");
+    expect(sub.plan).toBe("anual");
     expect(sub.amountPaid).toBe(0);
     expect(sub.isPromo).toBe(true);
     expect(sub.isRecurring).toBe(false);
     expect(String(sub.transactionId)).toContain("MAINTENANCE");
 
     const dias = (new Date(sub.endDate).getTime() - new Date(sub.startDate).getTime()) / 86_400_000;
-    expect(dias).toBeGreaterThan(29.9);
-    expect(dias).toBeLessThan(30.1);
+    expect(dias).toBeGreaterThan(364.9);
+    expect(dias).toBeLessThan(365.1);
     expect(new Date(sub.startDate).getTime()).toBeGreaterThanOrEqual(antes - 1000);
 
     expect(res.body.hasActiveSubscription).toBe(true);
@@ -187,12 +188,13 @@ describe("POST /api/auth/register-maintenance", () => {
     expect(res.body.subscriptionEndDate).toBeNull();
   });
 
-  it("respeta una duración personalizada en días", async () => {
+  it("respeta una duración personalizada en días (y entonces no es plan anual)", async () => {
     process.env.MAINTENANCE_FREE_DAYS = "7";
 
     await callHandler("register-maintenance", MAINTENANCE_CREDENTIALS);
 
     const sub = fake.state.subs[0];
+    expect(sub.plan).toBe("monthly");
     const dias = (new Date(sub.endDate).getTime() - new Date(sub.startDate).getTime()) / 86_400_000;
     expect(Math.round(dias)).toBe(7);
   });

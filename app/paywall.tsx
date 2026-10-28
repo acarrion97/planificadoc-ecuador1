@@ -10,7 +10,7 @@ import { useAccess } from "@/lib/access-control";
 import { trackEvent } from "@/web/analytics";
 
 const WHATSAPP_NUMBER = "593978833533";
-type PlanType = "monthly" | "annual";
+type PlanType = "monthly" | "anual";
 type AuthTab = "login" | "register" | "code" | "forgot" | "reset" | "maintenance";
 
 // ─── Pantalla principal ───────────────────────────────────────────────────────
@@ -22,7 +22,7 @@ export default function PaywallScreen() {
   const { loginWithPassword, registerAccount, registerMaintenanceAccount, requestPasswordReset, resetPasswordWithCode, unlockWithCode, unlockWithSubscription } = useAccess();
 
   const [authTab, setAuthTab]           = useState<AuthTab>("login");
-  const [selectedPlan, setSelectedPlan] = useState<PlanType>("annual");
+  const [selectedPlan, setSelectedPlan] = useState<PlanType>("anual");
 
   // Login
   const [loginEmail, setLoginEmail]       = useState("");
@@ -137,7 +137,7 @@ export default function PaywallScreen() {
         setRegError("");
         setMntError("");
         setMntCode("");
-        setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis.");
+        setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis, con suscripción de 1 año.");
         setAuthTab("maintenance");
       } else {
         setLoginError(result.error || "Correo o contraseña incorrectos");
@@ -391,7 +391,7 @@ export default function PaywallScreen() {
 
             {/* ANUAL */}
             <Pressable
-              onPress={() => setSelectedPlan("annual")}
+              onPress={() => setSelectedPlan("anual")}
               style={({ pressed }) => [s.planCard, s.planCardDark, { opacity: pressed ? 0.93 : 1 }]}
             >
               <View style={s.planBadgeGold}>
@@ -421,9 +421,9 @@ export default function PaywallScreen() {
                 ))}
               </View>
 
-              <View style={[s.planSelectBtn, selectedPlan === "annual" ? s.planSelectBtnGold : s.planSelectBtnGoldOutline]}>
-                <Text style={[s.planSelectBtnText, { color: selectedPlan === "annual" ? "#1e293b" : "#fbbf24" }]}>
-                  {selectedPlan === "annual" ? "✓ Seleccionado" : "Obtener plan anual"}
+              <View style={[s.planSelectBtn, selectedPlan === "anual" ? s.planSelectBtnGold : s.planSelectBtnGoldOutline]}>
+                <Text style={[s.planSelectBtnText, { color: selectedPlan === "anual" ? "#1e293b" : "#fbbf24" }]}>
+                  {selectedPlan === "anual" ? "✓ Seleccionado" : "Obtener plan anual"}
                 </Text>
               </View>
               <Text style={[s.planSelectNote, { color: "#94a3b8" }]}>✨ La opción más completa y económica</Text>
@@ -460,16 +460,16 @@ export default function PaywallScreen() {
             onPress={handlePayWithPayPhone}
             style={({ pressed }) => [
               s.payBtn,
-              { backgroundColor: selectedPlan === "annual" ? "#059669" : "#2563eb", opacity: pressed ? 0.9 : 1 },
+              { backgroundColor: selectedPlan === "anual" ? "#059669" : "#2563eb", opacity: pressed ? 0.9 : 1 },
             ]}
           >
             <Text style={{ fontSize: 22 }}>💳</Text>
             <View>
               <Text style={s.payBtnText}>
-                Pagar {selectedPlan === "annual" ? "$58.71" : "$6.99"}
+                Pagar {selectedPlan === "anual" ? "$58.71" : "$6.99"}
               </Text>
               <Text style={s.payBtnSub}>
-                {selectedPlan === "annual" ? "Plan Anual · Visa / Mastercard" : "Plan Mensual · Visa / Mastercard"}
+                {selectedPlan === "anual" ? "Plan Anual · Visa / Mastercard" : "Plan Mensual · Visa / Mastercard"}
               </Text>
             </View>
           </Pressable>
@@ -616,7 +616,7 @@ export default function PaywallScreen() {
                   <Text style={s.mntBannerTitle}>🛠️ Registro gratis por mantenimiento preventivo</Text>
                   <Text style={s.mntBannerText}>
                     Estamos realizando un mantenimiento preventivo. Mientras dura, puedes crear tu cuenta
-                    sin costo y usar PlanificaDoc de forma temporal y gratuita.
+                    sin costo con una suscripción de 1 año y usar PlanificaDoc sin pagar durante ese tiempo.
                   </Text>
                 </View>
                 {mntInfo ? <InfoRow text={mntInfo} icon="🔎" /> : null}
@@ -846,7 +846,7 @@ function BenefitsBox({ colors, onBrand }: { colors: any; onBrand?: boolean }) {
 function PricePills({ colors, onBrand }: { colors: any; onBrand?: boolean }) {
   return (
     <View style={s.previewPills}>
-      <View style={[s.pill, onBrand ? s.pillAnnualBrand : { backgroundColor: colors.success + "18", borderColor: colors.success + "40" }]}>
+      <View style={[s.pill, onBrand ? s.pillAnualBrand : { backgroundColor: colors.success + "18", borderColor: colors.success + "40" }]}>
         <Text style={[s.pillText, { color: onBrand ? "#6EE7B7" : colors.success }]}>⭐ Anual — $4.89/mes</Text>
       </View>
       <View style={[s.pill, onBrand ? s.pillMonthlyBrand : { backgroundColor: colors.primary + "12", borderColor: colors.primary + "30" }]}>
@@ -901,7 +901,7 @@ const s = StyleSheet.create({
   valueText:     { fontSize: 13, flex: 1, lineHeight: 18 },
 
   previewPills:  { flexDirection: "row", gap: 10, marginTop: 16, alignSelf: "stretch" },
-  pillAnnualBrand:  { backgroundColor: "rgba(5,150,105,0.22)", borderColor: "rgba(16,185,129,0.45)" },
+  pillAnualBrand:  { backgroundColor: "rgba(5,150,105,0.22)", borderColor: "rgba(16,185,129,0.45)" },
   pillMonthlyBrand: { backgroundColor: "rgba(255,255,255,0.10)", borderColor: "rgba(255,255,255,0.28)" },
   pill:          { flex: 1, borderRadius: 10, borderWidth: 1, paddingVertical: 8, alignItems: "center" },
   pillText:      { fontSize: 12, fontWeight: "700" },

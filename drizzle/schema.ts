@@ -28,7 +28,7 @@ export const subscriptions = pgTable("subscriptions", {
   email: varchar("email", { length: 320 }).notNull(),
   /** Optional link to users table if user also has OAuth */
   userId: integer("userId"),
-  /** Subscription plan: 'monthly' or 'annual' */
+  /** Subscription plan: 'monthly' or 'anual' */
   plan: varchar("plan", { length: 32 }).notNull().default("monthly"),
   /** Status: active, expired, cancelled, past_due (grace period), trial (3-day free trial) */
   status: varchar("status", { length: 16 }).default("active").notNull(),
@@ -48,7 +48,7 @@ export const subscriptions = pgTable("subscriptions", {
   isRecurring: boolean("isRecurring").default(false).notNull(),
   /** Whether this is a 3-day free trial (card on file, charges after trialPlan period) */
   isTrial: boolean("isTrial").default(false).notNull(),
-  /** Plan to charge when trial converts: 'monthly' | 'annual' */
+  /** Plan to charge when trial converts: 'monthly' | 'anual' */
   trialPlan: varchar("trialPlan", { length: 32 }),
   /** Card token ID reference for recurring billing */
   cardTokenId: integer("cardTokenId"),
@@ -128,7 +128,7 @@ export const paymentTransactions = pgTable("payment_transactions", {
   documentId: varchar("documentId", { length: 20 }),
   /** Phone number (captured at payment form, for follow-up) */
   phoneNumber: varchar("phoneNumber", { length: 20 }),
-  /** Plan: monthly or annual */
+  /** Plan: monthly or anual */
   plan: varchar("plan", { length: 16 }),
   createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
@@ -407,22 +407,60 @@ export type InsertConnectaNivelaCrea = typeof connectaNivelaCrea.$inferInsert;
  * la app funciona sin esta tabla si falla. Mismo patrón que
  * connectaNivelaCrea: formulario y resultado IA como JSON.
  */
-export const evaluacionesDiagnosticas = pgTable("evaluaciones_diagnosticas", {
-  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
-  /** Email del docente o deviceId como fallback */
-  sessionId: varchar("sessionId", { length: 320 }).notNull(),
-  /** Estado de la evaluación local */
-  status: varchar("status", { length: 16 }).default("borrador").notNull(),
-  /** JSON de la EvaluacionDiagnostica completa */
-  form: text("form"),
-  /** JSON de preguntas sugeridas por IA (si las hubo) */
-  aiResult: text("aiResult"),
-  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
-});
+export const evaluacionesDiagnosticas = pgTable(
+  "evaluaciones_diagnosticas",
+  {
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
+    /** Email del docente o deviceId como fallback */
+    sessionId: varchar("sessionId", { length: 320 }).notNull(),
+    /** ID estable del registro local para evitar backups duplicados */
+    localId: varchar("localId", { length: 128 }),
+    /** Estado de la evaluación local */
+    status: varchar("status", { length: 16 }).default("borrador").notNull(),
+    /** JSON de la EvaluacionDiagnostica completa */
+    form: text("form"),
+    /** JSON de preguntas sugeridas por IA (si las hubo) */
+    aiResult: text("aiResult"),
+    createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    ownerLocalIdUnique: uniqueIndex("uq_evaluaciones_diagnosticas_owner_local_id").on(
+      table.sessionId,
+      table.localId,
+    ),
+  }),
+);
 
 export type EvaluacionDiagnosticaRow = typeof evaluacionesDiagnosticas.$inferSelect;
 export type InsertEvaluacionDiagnostica = typeof evaluacionesDiagnosticas.$inferInsert;
+
+/**
+ * Respaldo por registro de las colecciones que viven en AsyncStorage.
+ * La clave de dispositivo identifica el espacio del docente; el id local
+ * mantiene los upserts idempotentes y permite propagar eliminaciones.
+ */
+export const planificacionesLocales = pgTable(
+  "planificaciones_locales",
+  {
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
+    sessionId: varchar("session_id", { length: 320 }).notNull(),
+    tipo: varchar("tipo", { length: 16 }).notNull(),
+    itemId: varchar("item_id", { length: 128 }).notNull(),
+    form: text("form").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    ownerItemUnique: uniqueIndex("uq_planificaciones_locales_owner_item").on(
+      table.sessionId,
+      table.tipo,
+      table.itemId,
+    ),
+  }),
+);
+
+export type PlanificacionLocalRow = typeof planificacionesLocales.$inferSelect;
 
 /**
  * Meta CAPI — señales de atribución guardadas antes de redirigir a PayPhone.

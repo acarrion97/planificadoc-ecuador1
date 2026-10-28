@@ -12,6 +12,7 @@ import {
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
+import { useDeviceSessionId } from "@/hooks/use-device-session-id";
 import { trpc } from "@/lib/trpc";
 import {
   FAMILIA_LABELS,
@@ -40,6 +41,7 @@ const STATUS_COLORS: Record<string, string> = {
 export default function CurriculoCompetenciasScreen() {
   const colors = useColors();
   const router = useRouter();
+  const sessionId = useDeviceSessionId();
   const [filtro, setFiltro] = useState<TipoFilter>("all");
   const [seccion, setSeccion] = useState<Seccion>("mias");
   const [paginasComunidad, setPaginasComunidad] = useState(1);
@@ -55,9 +57,10 @@ export default function CurriculoCompetenciasScreen() {
     data: todasLasPlanificaciones,
     isLoading,
     refetch,
-  } = trpc.curriculoCompetencias.list.useQuery({
-    sessionId: "default",
-  });
+  } = trpc.curriculoCompetencias.list.useQuery(
+    { sessionId },
+    { enabled: sessionId.length > 0 },
+  );
 
   // El filtro se aplica por familia (no por la columna `tipo`): los planes de
   // Currículo Integrado EGB/BGU se guardan como "inicial_preparatoria" y
@@ -75,7 +78,7 @@ export default function CurriculoCompetenciasScreen() {
   const handleDelete = (id: number, label: string) => {
     if (Platform.OS === "web") {
       if (confirm(`¿Eliminar la planificación "${label}"?`)) {
-        deleteMutation.mutate({ id });
+        deleteMutation.mutate({ id, sessionId });
       }
     } else {
       Alert.alert("Eliminar planificación", `¿Deseas eliminar "${label}"?`, [
@@ -83,7 +86,7 @@ export default function CurriculoCompetenciasScreen() {
         {
           text: "Eliminar",
           style: "destructive",
-          onPress: () => deleteMutation.mutate({ id }),
+          onPress: () => deleteMutation.mutate({ id, sessionId }),
         },
       ]);
     }

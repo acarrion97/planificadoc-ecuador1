@@ -1,4 +1,4 @@
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { pgPoolConfig } from "../shared/pg-ssl.js";
@@ -490,7 +490,7 @@ export async function getPcaDocumentsBySession(sessionId: string) {
 }
 
 /**
- * Mark a PCA document as paid without charging (for annual subscribers).
+ * Mark a PCA document as paid without charging (for anual subscribers).
  * amountPaid is set to 0 to distinguish from a real PayPhone payment.
  */
 export async function setPcaStatusPaidFree(id: number): Promise<void> {
@@ -504,10 +504,11 @@ export async function setPcaStatusPaidFree(id: number): Promise<void> {
 }
 
 /**
- * Returns the active annual subscription for an email, or null if none.
- * Used to auto-unlock PCA/PCT documents for annual plan subscribers.
+ * Returns the active anual subscription for an email, or null if none.
+ * Accepts both the legacy "annual" value and the current "anual" value.
+ * Used to auto-unlock PCA/PCT documents for anual plan subscribers.
  */
-export async function getActiveAnnualSubscription(email: string) {
+export async function getActiveAnualSubscription(email: string) {
   const db = await getDb();
   if (!db) return null;
 
@@ -517,9 +518,9 @@ export async function getActiveAnnualSubscription(email: string) {
     .from(subscriptions)
     .where(
       and(
-        eq(subscriptions.email, email.toLowerCase()),
+        eq(subscriptions.email, email.trim().toLowerCase()),
         eq(subscriptions.status, "active"),
-        eq(subscriptions.plan, "annual")
+        inArray(subscriptions.plan, ["anual", "annual"])
       )
     )
     .orderBy(desc(subscriptions.endDate))

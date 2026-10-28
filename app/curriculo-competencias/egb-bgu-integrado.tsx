@@ -13,6 +13,7 @@ import {
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
+import { useDeviceSessionId } from "@/hooks/use-device-session-id";
 import { trpc } from "@/lib/trpc";
 import { AYUDA_COMPARTIR_COMUNIDAD } from "@/lib/curriculo-competencias-comunidad";
 import { ofrecerAdaptacionNEE, rutaAdaptacionDesdeCurriculo } from "@/lib/curriculo-competencias-nee";
@@ -54,6 +55,7 @@ const PARALELOS = ["A", "B", "C", "D", "E"];
 export default function EGBBGUIntegradoFormScreen() {
   const colors = useColors();
   const router = useRouter();
+  const sessionId = useDeviceSessionId();
   const { id } = useLocalSearchParams<{ id?: string }>();
   const isEdit = !!id;
   const [paso, setPaso] = useState<PasoFlujo>("contexto");
@@ -235,8 +237,8 @@ export default function EGBBGUIntegradoFormScreen() {
 
   // ── Cargar datos existentes (modo edición) ──
   const { data: planExistente } = trpc.curriculoCompetencias.getById.useQuery(
-    { id: Number(id) },
-    { enabled: isEdit }
+    { id: Number(id), sessionId },
+    { enabled: isEdit && sessionId.length > 0 }
   );
 
   useEffect(() => {
@@ -487,7 +489,7 @@ export default function EGBBGUIntegradoFormScreen() {
     }));
 
     const payload = {
-      sessionId: "default",
+      sessionId,
       institucion,
       docente,
       paralelo,
@@ -555,7 +557,7 @@ export default function EGBBGUIntegradoFormScreen() {
     }
 
     const payload = {
-      sessionId: "default",
+      sessionId,
       grado,
       nivel,
       institucion,

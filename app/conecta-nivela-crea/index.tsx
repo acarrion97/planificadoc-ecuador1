@@ -9,6 +9,7 @@ import { shareAsync } from "expo-sharing";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
+import { mostrarAlerta } from "@/lib/platform-alert";
 import { TODAS_LAS_DESTREZAS, obtenerNombreSubnivel, AREAS_INFO } from "@/data";
 import type { Subnivel, DUAActividad } from "@/data/types";
 import { HABILIDADES_SOCIOEMOCIONALES } from "@/data/habilidades-socioemocionales";
@@ -606,6 +607,12 @@ export default function ConectaNivelaCreaScreen() {
         },
         sessionId,
       });
+      if (res.id === null) {
+        mostrarAlerta(
+          "Respaldo en la nube no disponible",
+          "El plan seguirá disponible en este dispositivo, pero no se pudo respaldar en la nube.",
+        );
+      }
       if (!res?.aiResult) {
         setGenerateError("La IA no devolvió resultados. Intenta de nuevo.");
         return;

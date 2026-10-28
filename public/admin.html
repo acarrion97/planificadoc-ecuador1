@@ -598,7 +598,7 @@
           <label>Plan</label>
           <select id="reacPlan">
             <option value="monthly">Mensual</option>
-            <option value="annual">Anual</option>
+            <option value="anual">Anual</option>
           </select>
         </div>
         <div class="form-group">
@@ -732,7 +732,7 @@
           </div>
           <div class="metric-card">
             <div class="label">Plan Anual</div>
-            <div class="value">${m.annualPlanActive}</div>
+            <div class="value">${m.anualPlanActive}</div>
             <div class="sub">activas</div>
           </div>
           <div class="metric-card">
@@ -777,7 +777,7 @@
           <td>${u.email}</td>
           <td>${u.documentId || '-'}</td>
           <td>${u.phoneNumber || '-'}</td>
-          <td>${u.currentPlan === 'annual' ? 'Anual' : 'Mensual'}</td>
+          <td>${u.currentPlan === 'anual' ? 'Anual' : 'Mensual'}</td>
           <td><span class="badge badge-${u.currentStatus}">${getStatusLabel(u.currentStatus)}</span></td>
           <td><span class="badge ${u.isRecurring ? 'badge-recurring' : 'badge-one-time'}">${u.isRecurring ? 'Si' : 'No'}</span></td>
           <td>${formatDate(u.endDate)}</td>
@@ -1285,7 +1285,7 @@
       const user = (allUsers || []).find(u => u.email.toLowerCase() === (email || '').toLowerCase());
       document.getElementById('reacNombre').value = (user && user.cardHolder) || '';
       document.getElementById('reacPassword').value = '';
-      document.getElementById('reacPlan').value = user && user.currentPlan === 'annual' ? 'annual' : 'monthly';
+      document.getElementById('reacPlan').value = user && user.currentPlan === 'anual' ? 'anual' : 'monthly';
       document.getElementById('reacMonths').value = months || 1;
       document.getElementById('reacDays').value = 0;
       document.getElementById('reacMode').value = 'renew';
@@ -1297,7 +1297,7 @@
         current.innerHTML = `
           <div><span>Estado actual</span><strong>${getStatusLabel(user.currentStatus)}</strong></div>
           <div><span>Vence el</span><strong>${formatDate(user.endDate)}</strong></div>
-          <div><span>Plan actual</span><strong>${user.currentPlan === 'annual' ? 'Anual' : 'Mensual'}</strong></div>
+          <div><span>Plan actual</span><strong>${user.currentPlan === 'anual' ? 'Anual' : 'Mensual'}</strong></div>
         `;
       } else {
         current.style.display = 'none';
@@ -1371,7 +1371,7 @@
           <td>${i + 1}</td>
           <td><strong>${u.cardHolder || '-'}</strong></td>
           <td>${u.email}</td>
-          <td>${u.currentPlan === 'annual' ? 'Anual' : 'Mensual'}</td>
+          <td>${u.currentPlan === 'anual' ? 'Anual' : 'Mensual'}</td>
           <td>${formatDate(u.endDate)}</td>
           <td style="white-space:nowrap;">
             <button class="btn-extend" onclick="openReactivate('${safeEmail}', 1)" title="Reactivar por 1 mes">⚡ 1 mes</button>

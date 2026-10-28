@@ -9,6 +9,8 @@
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { EvaluacionDiagnostica, PreguntaDiagnostica } from "@/data/types-evaluacion";
+import { trpc } from "@/lib/trpc";
+import { getDeviceSessionId, mergeMissingById } from "@/lib/local-cloud-backup";
 
 const STORAGE_KEY_EVALUACIONES = "@planificadoc_evaluaciones";
 const STORAGE_KEY_BANCO = "@planificadoc_banco_preguntas";
@@ -92,6 +94,23 @@ export function EvaluacionesProvider({ children }: { children: React.ReactNode }
     bancoPreguntas: [],
     bancoLoaded: false,
   });
+  const [sessionId, setSessionId] = React.useState("");
+  const backups = trpc.planificacionLocal.listar.useQuery(
+    { sessionId, tipo: "evaluacion" },
+    { enabled: sessionId.length > 0 },
+  );
+  const legacyBackups = trpc.evaluacion.list.useQuery(
+    { sessionId },
+    { enabled: sessionId.length > 0 },
+  );
+  const backupMutation = trpc.planificacionLocal.guardar.useMutation();
+  const deleteBackupMutation = trpc.planificacionLocal.eliminar.useMutation();
+
+  useEffect(() => {
+    getDeviceSessionId().then(setSessionId).catch((error: unknown) => {
+      console.warn("[evaluaciones] device session unavailable; cloud backup disabled:", error);
+    });
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -103,6 +122,51 @@ export function EvaluacionesProvider({ children }: { children: React.ReactNode }
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (!backups.data && !legacyBackups.data) return;
+    const registrosLegados = (legacyBackups.data ?? []).flatMap((row) => {
+      if (!row.form) return [];
+      try {
+        const parsed: unknown = JSON.parse(row.form);
+        if (
+          typeof parsed !== "object" ||
+          parsed === null ||
+          !("id" in parsed) ||
+          typeof parsed.id !== "string"
+        ) {
+          console.warn("[evaluaciones] legacy cloud backup has no valid id; skipped");
+          return [];
+        }
+        return [{ tipo: "evaluacion", itemId: parsed.id, form: row.form }];
+      } catch (error) {
+        console.warn("[evaluaciones] legacy cloud backup could not be parsed; skipped:", error);
+        return [];
+      }
+    });
+    const restored = mergeMissingById(
+      state.evaluaciones,
+      [
+        ...(backups.data ?? []).filter((row) => row.tipo === "evaluacion"),
+        ...registrosLegados,
+      ],
+      "evaluacion",
+    );
+    if (restored.length === state.evaluaciones.length) return;
+    dispatch({ type: "SET_ALL_EVALUACIONES", payload: restored });
+    AsyncStorage.setItem(STORAGE_KEY_EVALUACIONES, JSON.stringify(restored)).catch((error: unknown) => {
+      console.warn("[evaluaciones] could not persist restored cloud records locally:", error);
+    });
+  }, [backups.data, legacyBackups.data, state.evaluaciones]);
+
+  useEffect(() => {
+    if (backups.error) {
+      console.warn("[evaluaciones] cloud restore unavailable (non-critical):", backups.error);
+    }
+    if (legacyBackups.error) {
+      console.warn("[evaluaciones] legacy cloud restore unavailable (non-critical):", legacyBackups.error);
+    }
+  }, [backups.error, legacyBackups.error]);
 
   useEffect(() => {
     (async () => {
@@ -123,14 +187,40 @@ export function EvaluacionesProvider({ children }: { children: React.ReactNode }
     await AsyncStorage.setItem(STORAGE_KEY_BANCO, JSON.stringify(list));
   }, []);
 
+  const guardarBackup = useCallback((item: EvaluacionDiagnostica) => {
+    if (!sessionId) return;
+    void backupMutation.mutateAsync({
+      sessionId,
+      tipo: "evaluacion",
+      itemId: item.id,
+      form: JSON.stringify(item),
+    }).then((result) => {
+      if (result.id === null) console.warn("[evaluaciones] cloud backup unavailable");
+    }).catch((error: unknown) => {
+      console.warn("[evaluaciones] cloud backup failed (non-critical):", error);
+    });
+  }, [backupMutation, sessionId]);
+
+  const eliminarBackup = useCallback((itemId: string) => {
+    if (!sessionId) return;
+    void deleteBackupMutation.mutateAsync({ sessionId, tipo: "evaluacion", itemId })
+      .then(({ success }) => {
+        if (!success) console.warn("[evaluaciones] cloud backup delete unavailable");
+      })
+      .catch((error: unknown) => {
+        console.warn("[evaluaciones] cloud backup delete failed (non-critical):", error);
+      });
+  }, [deleteBackupMutation, sessionId]);
+
   const addEvaluacion = useCallback(
     async (e: EvaluacionDiagnostica) => {
       dispatch({ type: "ADD_EVALUACION", payload: e });
       const raw = await AsyncStorage.getItem(STORAGE_KEY_EVALUACIONES);
       const current: EvaluacionDiagnostica[] = raw ? JSON.parse(raw) : [];
-      await persistEvaluaciones([e, ...current]);
+      await persistEvaluaciones([e, ...current.filter((item) => item.id !== e.id)]);
+      guardarBackup(e);
     },
-    [persistEvaluaciones]
+    [guardarBackup, persistEvaluaciones]
   );
 
   const updateEvaluacion = useCallback(
@@ -139,8 +229,9 @@ export function EvaluacionesProvider({ children }: { children: React.ReactNode }
       const raw = await AsyncStorage.getItem(STORAGE_KEY_EVALUACIONES);
       const current: EvaluacionDiagnostica[] = raw ? JSON.parse(raw) : [];
       await persistEvaluaciones(current.map((x) => (x.id === e.id ? e : x)));
+      guardarBackup(e);
     },
-    [persistEvaluaciones]
+    [guardarBackup, persistEvaluaciones]
   );
 
   const deleteEvaluacion = useCallback(
@@ -149,8 +240,9 @@ export function EvaluacionesProvider({ children }: { children: React.ReactNode }
       const raw = await AsyncStorage.getItem(STORAGE_KEY_EVALUACIONES);
       const current: EvaluacionDiagnostica[] = raw ? JSON.parse(raw) : [];
       await persistEvaluaciones(current.filter((x) => x.id !== id));
+      eliminarBackup(id);
     },
-    [persistEvaluaciones]
+    [eliminarBackup, persistEvaluaciones]
   );
 
   const getEvaluacion = useCallback(

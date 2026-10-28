@@ -122,6 +122,24 @@ function ensureDb(
   if (!db) throw new Error("Base de datos no disponible");
 }
 
+async function exigirPropiedadProyecto(
+  db: NonNullable<Awaited<ReturnType<typeof getDb>>>,
+  id: number,
+  sessionId: string,
+) {
+  const rows = await db
+    .select({ sessionId: proyectosInterdisciplinares.sessionId })
+    .from(proyectosInterdisciplinares)
+    .where(
+      and(
+        eq(proyectosInterdisciplinares.id, id),
+        eq(proyectosInterdisciplinares.sessionId, sessionId),
+      ),
+    )
+    .limit(1);
+  if (rows.length === 0) throw new Error("Proyecto no encontrado o sin permiso.");
+}
+
 /**
  * Con `drizzle-orm/node-postgres` el INSERT lleva `.returning({ id })`, así que
  * la respuesta es un array de filas y el id vive en `res[0].id` (mismo patrón
@@ -189,10 +207,16 @@ export const proyectoInterdisciplinarRouter = router({
       const db = await getDb();
       ensureDb(db);
 
+      await exigirPropiedadProyecto(db, input.id, input.sessionId);
       const rows = await db
         .select({ estado: proyectosInterdisciplinares.estado })
         .from(proyectosInterdisciplinares)
-        .where(eq(proyectosInterdisciplinares.id, input.id))
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
       if (rows.length === 0) throw new Error("Proyecto no encontrado");
 
@@ -207,22 +231,37 @@ export const proyectoInterdisciplinarRouter = router({
       await db
         .update(proyectosInterdisciplinares)
         .set(aFila(plan))
-        .where(eq(proyectosInterdisciplinares.id, input.id));
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        );
 
       return { success: true, plan };
     }),
 
   // ── UPDATE STATUS (borrador ↔ generado) ──────────────────────────
   updateStatus: publicProcedure
-    .input(z.object({ id: z.number(), estado: z.enum(["borrador", "generado"]) }))
+    .input(z.object({
+      id: z.number(),
+      sessionId: z.string().min(1),
+      estado: z.enum(["borrador", "generado"]),
+    }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureDb(db);
 
+      await exigirPropiedadProyecto(db, input.id, input.sessionId);
       const rows = await db
         .select()
         .from(proyectosInterdisciplinares)
-        .where(eq(proyectosInterdisciplinares.id, input.id))
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
       if (rows.length === 0) throw new Error("Proyecto no encontrado");
 
@@ -237,7 +276,12 @@ export const proyectoInterdisciplinarRouter = router({
       await db
         .update(proyectosInterdisciplinares)
         .set({ estado: input.estado, formData: JSON.stringify(plan) })
-        .where(eq(proyectosInterdisciplinares.id, input.id));
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        );
 
       return { success: true };
     }),
@@ -249,10 +293,16 @@ export const proyectoInterdisciplinarRouter = router({
       const db = await getDb();
       ensureDb(db);
 
+      await exigirPropiedadProyecto(db, input.id, input.sessionId);
       const rows = await db
         .select()
         .from(proyectosInterdisciplinares)
-        .where(eq(proyectosInterdisciplinares.id, input.id))
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
       if (rows.length === 0) throw new Error("Proyecto no encontrado");
 
@@ -278,21 +328,27 @@ export const proyectoInterdisciplinarRouter = router({
 
   // ── DELETE ────────────────────────────────────────────────────────
   delete: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureDb(db);
 
+      await exigirPropiedadProyecto(db, input.id, input.sessionId);
       await db
         .delete(proyectosInterdisciplinares)
-        .where(eq(proyectosInterdisciplinares.id, input.id));
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        );
 
       return { success: true };
     }),
 
   // ── GET BY ID ────────────────────────────────────────────────────
   getById: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .query(async ({ input }) => {
       const db = await getDb();
       if (!db) return null;
@@ -300,7 +356,12 @@ export const proyectoInterdisciplinarRouter = router({
       const rows = await db
         .select()
         .from(proyectosInterdisciplinares)
-        .where(eq(proyectosInterdisciplinares.id, input.id))
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
       if (rows.length === 0) return null;
 
@@ -310,15 +371,21 @@ export const proyectoInterdisciplinarRouter = router({
 
   // ── EXPORT WORD ─────────────────────────────────────────────────
   exportWord: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureDb(db);
+      await exigirPropiedadProyecto(db, input.id, input.sessionId);
 
       const rows = await db
         .select()
         .from(proyectosInterdisciplinares)
-        .where(eq(proyectosInterdisciplinares.id, input.id))
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
       if (rows.length === 0) throw new Error("Proyecto no encontrado");
 
@@ -341,15 +408,21 @@ export const proyectoInterdisciplinarRouter = router({
 
   // ── EXPORT PDF ──────────────────────────────────────────────────
   exportPdf: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .mutation(async ({ input }) => {
       const db = await getDb();
       ensureDb(db);
+      await exigirPropiedadProyecto(db, input.id, input.sessionId);
 
       const rows = await db
         .select()
         .from(proyectosInterdisciplinares)
-        .where(eq(proyectosInterdisciplinares.id, input.id))
+        .where(
+          and(
+            eq(proyectosInterdisciplinares.id, input.id),
+            eq(proyectosInterdisciplinares.sessionId, input.sessionId),
+          ),
+        )
         .limit(1);
       if (rows.length === 0) throw new Error("Proyecto no encontrado");
 

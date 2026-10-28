@@ -86,12 +86,12 @@ export default function ProyectoInterdisciplinarListScreen() {
     const label = titulo || "(sin título)";
     if (Platform.OS === "web") {
       if (confirm(`¿Eliminar el proyecto "${label}"?`)) {
-        deleteMutation.mutate({ id });
+        deleteMutation.mutate({ id, sessionId });
       }
     } else {
       Alert.alert("Eliminar proyecto", `¿Deseas eliminar "${label}"?`, [
         { text: "Cancelar", style: "cancel" },
-        { text: "Eliminar", style: "destructive", onPress: () => deleteMutation.mutate({ id }) },
+        { text: "Eliminar", style: "destructive", onPress: () => deleteMutation.mutate({ id, sessionId }) },
       ]);
     }
   };

@@ -7,6 +7,8 @@
  */
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { trpc } from "@/lib/trpc";
+import { getDeviceSessionId, mergeMissingById } from "@/lib/local-cloud-backup";
 import type { PlanConectaNivelaCrea } from "@/data/types-cnc";
 
 const STORAGE_KEY_CNC = "@planificadoc_cnc_planes";
@@ -56,6 +58,19 @@ export function PlanificacionesCNCProvider({ children }: { children: React.React
     planesCNC: [],
     planesCNCLoaded: false,
   });
+  const [sessionId, setSessionId] = React.useState("");
+  const backups = trpc.planificacionLocal.listar.useQuery(
+    { sessionId, tipo: "cnc" },
+    { enabled: sessionId.length > 0 },
+  );
+  const backupMutation = trpc.planificacionLocal.guardar.useMutation();
+  const deleteBackupMutation = trpc.planificacionLocal.eliminar.useMutation();
+
+  useEffect(() => {
+    getDeviceSessionId().then(setSessionId).catch((error: unknown) => {
+      console.warn("[planificaciones-cnc] device session unavailable; cloud backup disabled:", error);
+    });
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -68,33 +83,81 @@ export function PlanificacionesCNCProvider({ children }: { children: React.React
     })();
   }, []);
 
+  useEffect(() => {
+    if (!backups.data) return;
+    const restored = mergeMissingById(
+      state.planesCNC,
+      backups.data.filter((row) => row.tipo === "cnc"),
+      "cnc",
+    );
+    if (restored.length === state.planesCNC.length) return;
+    dispatch({ type: "SET_ALL_CNC", payload: restored });
+    AsyncStorage.setItem(STORAGE_KEY_CNC, JSON.stringify(restored)).catch((error: unknown) => {
+      console.warn("[planificaciones-cnc] could not persist restored cloud records locally:", error);
+    });
+  }, [backups.data, state.planesCNC]);
+
+  useEffect(() => {
+    if (backups.error) {
+      console.warn("[planificaciones-cnc] cloud restore unavailable (non-critical):", backups.error);
+    }
+  }, [backups.error]);
+
   const persistPlanes = useCallback(async (planes: PlanConectaNivelaCrea[]) => {
     await AsyncStorage.setItem(STORAGE_KEY_CNC, JSON.stringify(planes));
   }, []);
 
+  const guardarBackup = useCallback((item: PlanConectaNivelaCrea) => {
+    if (!sessionId) return;
+    void backupMutation.mutateAsync({
+      sessionId,
+      tipo: "cnc",
+      itemId: item.id,
+      form: JSON.stringify(item),
+    }).then((result) => {
+      if (result.id === null) console.warn("[planificaciones-cnc] cloud backup unavailable");
+    }).catch((error: unknown) => {
+      console.warn("[planificaciones-cnc] cloud backup failed (non-critical):", error);
+    });
+  }, [backupMutation, sessionId]);
+
+  const eliminarBackup = useCallback((itemId: string) => {
+    if (!sessionId) return;
+    void deleteBackupMutation.mutateAsync({ sessionId, tipo: "cnc", itemId })
+      .then(({ success }) => {
+        if (!success) console.warn("[planificaciones-cnc] cloud backup delete unavailable");
+      })
+      .catch((error: unknown) => {
+        console.warn("[planificaciones-cnc] cloud backup delete failed (non-critical):", error);
+      });
+  }, [deleteBackupMutation, sessionId]);
+
   const addPlanCNC = useCallback(async (p: PlanConectaNivelaCrea) => {
     dispatch({ type: "ADD_CNC", payload: p });
-    await AsyncStorage.getItem(STORAGE_KEY_CNC).then((raw) => {
+    await AsyncStorage.getItem(STORAGE_KEY_CNC).then(async (raw) => {
       const current: PlanConectaNivelaCrea[] = raw ? JSON.parse(raw) : [];
-      persistPlanes([p, ...current]);
+      await persistPlanes([p, ...current.filter((item) => item.id !== p.id)]);
     });
-  }, [persistPlanes]);
+    guardarBackup(p);
+  }, [guardarBackup, persistPlanes]);
 
   const updatePlanCNC = useCallback(async (p: PlanConectaNivelaCrea) => {
     dispatch({ type: "UPDATE_CNC", payload: p });
     await AsyncStorage.getItem(STORAGE_KEY_CNC).then((raw) => {
       const current: PlanConectaNivelaCrea[] = raw ? JSON.parse(raw) : [];
-      persistPlanes(current.map((x) => (x.id === p.id ? p : x)));
+      return persistPlanes(current.map((x) => (x.id === p.id ? p : x)));
     });
-  }, [persistPlanes]);
+    guardarBackup(p);
+  }, [guardarBackup, persistPlanes]);
 
   const deletePlanCNC = useCallback(async (id: string) => {
     dispatch({ type: "DELETE_CNC", payload: id });
     await AsyncStorage.getItem(STORAGE_KEY_CNC).then((raw) => {
       const current: PlanConectaNivelaCrea[] = raw ? JSON.parse(raw) : [];
-      persistPlanes(current.filter((x) => x.id !== id));
+      return persistPlanes(current.filter((x) => x.id !== id));
     });
-  }, [persistPlanes]);
+    eliminarBackup(id);
+  }, [eliminarBackup, persistPlanes]);
 
   const getPlanCNC = useCallback(
     (id: string) => state.planesCNC.find((p) => p.id === id),

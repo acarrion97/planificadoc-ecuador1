@@ -269,7 +269,7 @@ function buildAdminHTML(adminKey: string): string {
           </div>
           <div class="metric-card">
             <div class="label">Plan Anual</div>
-            <div class="value">\${m.annualPlanActive}</div>
+            <div class="value">\${m.anualPlanActive}</div>
             <div class="sub">activas</div>
           </div>
           <div class="metric-card">

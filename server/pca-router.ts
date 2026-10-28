@@ -7,7 +7,7 @@ import {
   getPcaDocument,
   setPcaAiResult,
   setPcaStatusPaidFree,
-  getActiveAnnualSubscription,
+  getActiveAnualSubscription,
   setPcaClientTxId,
   getPcaDocumentsBySession,
 } from "./db";
@@ -228,10 +228,10 @@ export const pcaRouter = router({
     }))
     .mutation(async ({ input }) => {
       // 0. Verificar suscripción anual → PCA incluida sin costo
-      let isAnnualSubscriber = false;
+      let isAnualSubscriber = false;
       if (input.email) {
-        const annualSub = await getActiveAnnualSubscription(input.email);
-        isAnnualSubscriber = !!annualSub;
+        const anualSub = await getActiveAnualSubscription(input.email);
+        isAnualSubscriber = !!anualSub;
       }
 
       // 1. Crear documento en BD con status "draft"
@@ -311,7 +311,7 @@ export const pcaRouter = router({
         await setPcaAiResult(docId, JSON.stringify(aiResult));
 
         // 6. Si es suscriptor anual, desbloquear automáticamente
-        if (isAnnualSubscriber) {
+        if (isAnualSubscriber) {
           await setPcaStatusPaidFree(docId);
           return { success: true, pcaId: docId, autoUnlocked: true };
         }
@@ -407,8 +407,12 @@ export const pcaRouter = router({
 
   /** Eliminar un documento desde Mis planes. */
   delete: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), sessionId: z.string().min(1) }))
     .mutation(async ({ input }) => {
+      const document = await getPcaDocument(input.id);
+      if (!document || document.sessionId !== input.sessionId) {
+        throw new Error("No tienes permiso para eliminar este documento.");
+      }
       await deletePcaDocument(input.id);
       return { success: true };
     }),

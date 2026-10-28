@@ -59,7 +59,7 @@ export async function processRecurringBilling(): Promise<{
         continue;
       }
 
-      const pricing = getPriceForPlan(sub.plan as "monthly" | "annual");
+      const pricing = getPriceForPlan(sub.plan as "monthly" | "anual");
 
       const result = await chargeWithToken({
         cardToken: cardToken.cardToken,
@@ -163,7 +163,7 @@ export async function processRecurringBilling(): Promise<{
         continue;
       }
 
-      const pricing = getPriceForPlan(sub.plan as "monthly" | "annual");
+      const pricing = getPriceForPlan(sub.plan as "monthly" | "anual");
 
       const result = await chargeWithToken({
         cardToken: cardToken.cardToken,

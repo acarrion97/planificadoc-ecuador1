@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq, desc } from "drizzle-orm";
+import { and, eq, desc } from "drizzle-orm";
 import { publicProcedure, router } from "./_core/trpc";
 import { invokeLLM, repairJson } from "./_core/llm";
 import { getDb } from "./db";
@@ -478,10 +478,14 @@ export const cncRouter = router({
           };
 
           if (input.existingId) {
-            await db.update(connectaNivelaCrea)
+            const updated = await db.update(connectaNivelaCrea)
               .set(row)
-              .where(eq(connectaNivelaCrea.id, input.existingId));
-            return { id: input.existingId, aiResult };
+              .where(and(
+                eq(connectaNivelaCrea.id, input.existingId),
+                eq(connectaNivelaCrea.sessionId, input.sessionId),
+              ))
+              .returning({ id: connectaNivelaCrea.id });
+            return { id: updated[0]?.id ?? null, aiResult };
           } else {
             const res = await db
               .insert(connectaNivelaCrea)
@@ -702,13 +706,17 @@ ${esBT
             grado: connectaNivelaCrea.grado,
             modalidad: connectaNivelaCrea.modalidad,
             status: connectaNivelaCrea.status,
+            form: connectaNivelaCrea.form,
+            aiResult: connectaNivelaCrea.aiResult,
             createdAt: connectaNivelaCrea.createdAt,
+            updatedAt: connectaNivelaCrea.updatedAt,
           })
           .from(connectaNivelaCrea)
           .where(eq(connectaNivelaCrea.sessionId, input.sessionId))
           .orderBy(desc(connectaNivelaCrea.createdAt))
           .limit(50);
-      } catch {
+      } catch (error) {
+        console.warn("[cnc] backup restore list failed (non-critical):", error);
         return [];
       }
     }),
