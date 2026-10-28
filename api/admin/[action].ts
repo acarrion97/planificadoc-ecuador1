@@ -93,7 +93,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           recurringActive: activeSubs.filter(isRecurringSub).length,
           oneTimeActive: activeSubs.filter(s => !isRecurringSub(s)).length,
           monthlyPlanActive: activeSubs.filter(s => s.plan === "monthly").length,
-          annualPlanActive: activeSubs.filter(s => s.plan === "annual").length,
+          anualPlanActive: activeSubs.filter(s => s.plan === "anual").length,
           totalRevenueCents: totalRevenue,
           monthlyRevenueCents: monthlyRevenue,
           activeCardTokens: activeTokens.length,
@@ -188,7 +188,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         user.subscriptionCount += 1;
         // Acumular meses pagados (excluir trials y registros sin pago)
         if (sub.status !== "trial" && sub.amountPaid > 0) {
-          user.payingMonths += sub.plan === "annual" ? 12 : 1;
+          user.payingMonths += sub.plan === "anual" ? 12 : 1;
         }
       }
       const userList = Array.from(userMap.values());
@@ -206,7 +206,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           phoneNumber: (t as any).phoneNumber || "",
           cardHolder: (t as any).cardHolder || "",
           documentId: (t as any).documentId || "",
-          plan: (t as any).plan || (t.amount >= 5871 ? "annual" : "monthly"),
+          plan: (t as any).plan || (t.amount >= 5871 ? "anual" : "monthly"),
           amount: t.amount,
           status: t.status,
           cardBrand: t.cardBrand,
@@ -946,7 +946,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!email || !ed) return res.status(400).json({ error: "email y endDate requeridos" });
       const normalized = (email as string).trim().toLowerCase();
       const amount = parseInt(ap) || 699;
-      const subPlan = (pl as string) === "annual" ? "annual" : "monthly";
+      const subPlan = (pl as string) === "anual" ? "anual" : "monthly";
       const start = sd ? new Date(sd as string) : new Date();
       const end = new Date(ed as string);
       await db.insert(subscriptions).values({
@@ -1006,7 +1006,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const normalizedEmail = (email as string).trim().toLowerCase();
       const trimmedNombre = (nombre as string || normalizedEmail.split("@")[0]).trim();
       const durationDays = parseInt(days) || 7;
-      const subscriptionPlan = (plan as string) === "annual" ? "annual" : "monthly";
+      const subscriptionPlan = (plan as string) === "anual" ? "anual" : "monthly";
 
       // Crear o actualizar cuenta
       let accountCreated = false;
@@ -1086,7 +1086,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (durationMonths <= 0 && durationDays <= 0) {
         return res.status(400).json({ error: "indica la duracion (months o days)" });
       }
-      const subscriptionPlan = (plan as string) === "annual" ? "annual" : "monthly";
+      const subscriptionPlan = (plan as string) === "anual" ? "anual" : "monthly";
       // "renew" (default) = reactiva desde hoy; "extend" = continua sobre el vencimiento vigente
       const extendFromCurrent = mode === "extend";
 

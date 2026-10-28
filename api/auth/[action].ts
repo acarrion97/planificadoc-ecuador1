@@ -216,7 +216,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   //
   // Duración controlada por MAINTENANCE_FREE_DAYS (días, por defecto 365 = 1
   // año; "0" crea la cuenta sin acceso). Con un año o más la suscripción se
-  // guarda como plan "annual" (mismos beneficios que el plan anual de pago,
+  // guarda como plan "anual" (mismos beneficios que el plan anual de pago,
   // p.ej. PCA/PCT incluidos); por debajo queda como "monthly". Nada de esto
   // afecta al registro normal.
   if (action === "register-maintenance") {
@@ -289,7 +289,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         await db.insert(subscriptions).values({
           email: normalizedEmail,
           ...(publicUserId ? { userId: publicUserId } : {}),
-          plan: freeDays >= 365 ? "annual" : "monthly",
+          plan: freeDays >= 365 ? "anual" : "monthly",
           status: "active",
           amountPaid: 0,
           transactionId: `MAINTENANCE-${Date.now()}`,

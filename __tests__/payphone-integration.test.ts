@@ -12,26 +12,26 @@ describe("PayPhone Integration", () => {
       expect(pricing.monthlyEquivalent).toBe(699);
     });
 
-    it("should return annual price of $58.71 (5871 cents)", () => {
-      const pricing = getPriceForPlan("annual");
+    it("should return anual price of $58.71 (5871 cents)", () => {
+      const pricing = getPriceForPlan("anual");
       expect(pricing.amount).toBe(5871);
-      expect(pricing.plan).toBe("annual");
+      expect(pricing.plan).toBe("anual");
       expect(pricing.label).toContain("58.71");
       expect(pricing.durationMonths).toBe(12);
       expect(pricing.monthlyEquivalent).toBe(489);
     });
 
-    it("annual plan should be cheaper per month than monthly", () => {
+    it("anual plan should be cheaper per month than monthly", () => {
       const monthly = getPriceForPlan("monthly");
-      const annual = getPriceForPlan("annual");
-      expect(annual.monthlyEquivalent).toBeLessThan(monthly.monthlyEquivalent);
+      const anual = getPriceForPlan("anual");
+      expect(anual.monthlyEquivalent).toBeLessThan(monthly.monthlyEquivalent);
     });
 
-    it("annual plan should save approximately 30%", () => {
+    it("anual plan should save approximately 30%", () => {
       const monthly = getPriceForPlan("monthly");
-      const annual = getPriceForPlan("annual");
+      const anual = getPriceForPlan("anual");
       const monthlyCostForYear = monthly.amount * 12; // 8388
-      const savings = ((monthlyCostForYear - annual.amount) / monthlyCostForYear) * 100;
+      const savings = ((monthlyCostForYear - anual.amount) / monthlyCostForYear) * 100;
       expect(savings).toBeGreaterThan(28);
       expect(savings).toBeLessThan(32);
     });
@@ -64,15 +64,15 @@ describe("PayPhone Integration", () => {
         await fn();
       });
 
-    itConServidor("should return pricing info with monthly and annual options", async () => {
+    itConServidor("should return pricing info with monthly and anual options", async () => {
       const res = await fetch(`${BASE_URL}/api/payment/pricing`);
       expect(res.status).toBe(200);
       const data = await res.json();
       expect(data.monthly).toBeDefined();
       expect(data.monthly.amount).toBe(699);
-      expect(data.annual).toBeDefined();
-      expect(data.annual.amount).toBe(5871);
-      expect(data.annual.savings).toBe("30%");
+      expect(data.anual).toBeDefined();
+      expect(data.anual.amount).toBe(5871);
+      expect(data.anual.savings).toBe("30%");
     });
 
     itConServidor("should return inactive status for non-subscriber", async () => {
@@ -82,7 +82,7 @@ describe("PayPhone Integration", () => {
       expect(data.active).toBe(false);
       expect(data.pricing).toBeDefined();
       expect(data.pricing.monthly.amount).toBe(699);
-      expect(data.pricing.annual.amount).toBe(5871);
+      expect(data.pricing.anual.amount).toBe(5871);
     });
 
     itConServidor("should return error for missing email on status", async () => {
@@ -104,8 +104,8 @@ describe("PayPhone Integration", () => {
       expect(html).toContain("Suscripcion Recurrente");
     });
 
-    itConServidor("should return annual payment page HTML when plan=annual", async () => {
-      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=annual&documentId=1234567890&phoneNumber=593978833533&cardHolder=Juan+Perez`);
+    itConServidor("should return anual payment page HTML when plan=anual", async () => {
+      const res = await fetch(`${BASE_URL}/api/payment/page?email=docente@test.com&plan=anual&documentId=1234567890&phoneNumber=593978833533&cardHolder=Juan+Perez`);
       expect(res.status).toBe(200);
       const html = await res.text();
       expect(html).toContain("PlanificaDoc");

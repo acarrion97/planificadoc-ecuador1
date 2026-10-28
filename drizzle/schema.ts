@@ -28,7 +28,7 @@ export const subscriptions = pgTable("subscriptions", {
   email: varchar("email", { length: 320 }).notNull(),
   /** Optional link to users table if user also has OAuth */
   userId: integer("userId"),
-  /** Subscription plan: 'monthly' or 'annual' */
+  /** Subscription plan: 'monthly' or 'anual' */
   plan: varchar("plan", { length: 32 }).notNull().default("monthly"),
   /** Status: active, expired, cancelled, past_due (grace period), trial (3-day free trial) */
   status: varchar("status", { length: 16 }).default("active").notNull(),
@@ -48,7 +48,7 @@ export const subscriptions = pgTable("subscriptions", {
   isRecurring: boolean("isRecurring").default(false).notNull(),
   /** Whether this is a 3-day free trial (card on file, charges after trialPlan period) */
   isTrial: boolean("isTrial").default(false).notNull(),
-  /** Plan to charge when trial converts: 'monthly' | 'annual' */
+  /** Plan to charge when trial converts: 'monthly' | 'anual' */
   trialPlan: varchar("trialPlan", { length: 32 }),
   /** Card token ID reference for recurring billing */
   cardTokenId: integer("cardTokenId"),
@@ -128,7 +128,7 @@ export const paymentTransactions = pgTable("payment_transactions", {
   documentId: varchar("documentId", { length: 20 }),
   /** Phone number (captured at payment form, for follow-up) */
   phoneNumber: varchar("phoneNumber", { length: 20 }),
-  /** Plan: monthly or annual */
+  /** Plan: monthly or anual */
   plan: varchar("plan", { length: 16 }),
   createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),

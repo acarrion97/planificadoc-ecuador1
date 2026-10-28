@@ -52,7 +52,7 @@ beforeEach(() => {
 
 describe("página de pago: prueba gratis", () => {
   it("se genera sin error (antes fallaba con HTTP 500: fbpFromUrl usada antes de declararse)", async () => {
-    const r = await call({ query: { ...BUYER, plan: "annual", type: "trial", fbp: "fb.1.1.2", fbc: "fb.1.1.abc" } });
+    const r = await call({ query: { ...BUYER, plan: "anual", type: "trial", fbp: "fb.1.1.2", fbc: "fb.1.1.abc" } });
     expect(r.status).toBe(200);
     expect(r.body).toContain("Prueba Gratuita");
     expect(r.body).toContain("'begin_checkout'");
@@ -73,7 +73,7 @@ describe("página de pago: prueba gratis", () => {
 
 describe("página de pago: suscripción", () => {
   it("se genera con begin_checkout y el precio real del plan", async () => {
-    const r = await call({ query: { ...BUYER, plan: "annual" } });
+    const r = await call({ query: { ...BUYER, plan: "anual" } });
     expect(r.status).toBe(200);
     expect(r.body).toContain('"value":58.71');
     expect(r.body).toContain('"flow":"subscription"');

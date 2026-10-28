@@ -8,12 +8,12 @@
 
 export const GA_MEASUREMENT_ID = "G-1C66PK389J";
 
-type PlanType = "monthly" | "annual";
+type PlanType = "monthly" | "anual";
 type CheckoutFlow = "trial" | "subscription";
 
 const PLAN_ITEM: Record<PlanType, { item_id: string; item_name: string }> = {
   monthly: { item_id: "plan_monthly", item_name: "Plan mensual" },
-  annual: { item_id: "plan_annual", item_name: "Plan anual" },
+  anual: { item_id: "plan_anual", item_name: "Plan anual" },
 };
 
 /**
@@ -58,7 +58,7 @@ export function gaHeadSnippet(): string {
               currency: 'USD',
               items: [{
                 item_id: isPca ? 'pca_document' : 'plan_' + (resp.plan || 'monthly'),
-                item_name: isPca ? 'Documento PCA' : (resp.plan === 'annual' ? 'Plan anual' : 'Plan mensual'),
+                item_name: isPca ? 'Documento PCA' : (resp.plan === 'anual' ? 'Plan anual' : 'Plan mensual'),
                 price: amount,
                 quantity: 1
               }]

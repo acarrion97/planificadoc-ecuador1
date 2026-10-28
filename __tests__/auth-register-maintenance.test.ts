@@ -151,7 +151,7 @@ describe("POST /api/auth/register-maintenance", () => {
     const sub = fake.state.subs[0];
     expect(sub.email).toBe(NORMALIZED);
     expect(sub.status).toBe("active");
-    expect(sub.plan).toBe("annual");
+    expect(sub.plan).toBe("anual");
     expect(sub.amountPaid).toBe(0);
     expect(sub.isPromo).toBe(true);
     expect(sub.isRecurring).toBe(false);

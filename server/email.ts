@@ -105,7 +105,7 @@ const btnStyle = `
 // ── Email 1: Aviso 7 días antes del vencimiento (solo plan No-recurrente) ─────
 
 export async function sendRenewalReminderEmail(email: string, plan: string, vencimiento: string): Promise<boolean> {
-  const planLabel = plan === "annual" ? "Anual" : "Mensual";
+  const planLabel = plan === "anual" ? "Anual" : "Mensual";
   const html = wrapTemplate(`
     <h2 style="color:#003366;margin:0 0 16px;">Tu suscripción vence pronto ⏰</h2>
     <p style="color:#333;font-size:14px;line-height:1.6;">
@@ -136,7 +136,7 @@ export async function sendRenewalReminderEmail(email: string, plan: string, venc
 // ── Email 2: Suscripción expirada ─────────────────────────────────────────────
 
 export async function sendExpiredEmail(email: string, plan: string): Promise<boolean> {
-  const planLabel = plan === "annual" ? "Anual" : "Mensual";
+  const planLabel = plan === "anual" ? "Anual" : "Mensual";
   const html = wrapTemplate(`
     <h2 style="color:#cc0000;margin:0 0 16px;">Tu suscripción ha expirado 😔</h2>
     <p style="color:#333;font-size:14px;line-height:1.6;">
@@ -162,7 +162,7 @@ export async function sendExpiredEmail(email: string, plan: string): Promise<boo
 // ── Email 3: Confirmación de cobro recurrente exitoso ─────────────────────────
 
 export async function sendRenewalSuccessEmail(email: string, plan: string, nuevoVencimiento: string, monto: string): Promise<boolean> {
-  const planLabel = plan === "annual" ? "Anual" : "Mensual";
+  const planLabel = plan === "anual" ? "Anual" : "Mensual";
   const html = wrapTemplate(`
     <h2 style="color:#006633;margin:0 0 16px;">¡Suscripción renovada! ✅</h2>
     <p style="color:#333;font-size:14px;line-height:1.6;">
@@ -197,7 +197,7 @@ export async function sendRenewalSuccessEmail(email: string, plan: string, nuevo
 // ── Email 4: Cobro fallido ─────────────────────────────────────────────────────
 
 export async function sendChargeFailedEmail(email: string, plan: string, intento: number, maxIntentos: number): Promise<boolean> {
-  const planLabel = plan === "annual" ? "Anual" : "Mensual";
+  const planLabel = plan === "anual" ? "Anual" : "Mensual";
   const esUltimo = intento >= maxIntentos;
   const html = wrapTemplate(`
     <h2 style="color:#cc6600;margin:0 0 16px;">
@@ -243,8 +243,8 @@ export async function sendChargeFailedEmail(email: string, plan: string, intento
 // ── Email 5a: Bienvenida al trial (3 días gratis) ────────────────────────────
 
 export async function sendTrialStartedEmail(email: string, plan: string, trialEnd: string): Promise<boolean> {
-  const planLabel  = plan === "annual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
-  const planAmount = plan === "annual" ? "$57.71" : "$5.99"; // descontando $1 de verificación
+  const planLabel  = plan === "anual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
+  const planAmount = plan === "anual" ? "$57.71" : "$5.99"; // descontando $1 de verificación
   const html = wrapTemplate(`
     <h2 style="color:#065f46;margin:0 0 16px;">¡Tu prueba gratuita ha comenzado! 🎉</h2>
     <p style="color:#333;font-size:15px;line-height:1.7;">
@@ -281,8 +281,8 @@ export async function sendTrialStartedEmail(email: string, plan: string, trialEn
 // ── Email 5b: Recordatorio 1 día antes de que termine el trial ───────────────
 
 export async function sendTrialEndingEmail(email: string, plan: string, chargeDate: string): Promise<boolean> {
-  const planLabel  = plan === "annual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
-  const planAmount = plan === "annual" ? "$57.71" : "$5.99";
+  const planLabel  = plan === "anual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
+  const planAmount = plan === "anual" ? "$57.71" : "$5.99";
   const html = wrapTemplate(`
     <h2 style="color:#92400e;margin:0 0 16px;">Tu prueba gratuita termina mañana ⏰</h2>
     <p style="color:#333;font-size:15px;line-height:1.7;">
@@ -311,7 +311,7 @@ export async function sendTrialEndingEmail(email: string, plan: string, chargeDa
 // ── Email 5c: Trial convertido a suscripción activa ──────────────────────────
 
 export async function sendTrialConvertedEmail(email: string, plan: string, amount: string, nextDate: string): Promise<boolean> {
-  const planLabel = plan === "annual" ? "Anual" : "Mensual";
+  const planLabel = plan === "anual" ? "Anual" : "Mensual";
   const html = wrapTemplate(`
     <h2 style="color:#006633;margin:0 0 16px;">¡Bienvenido/a a PlanificaDoc Premium! ✅</h2>
     <p style="color:#333;font-size:14px;line-height:1.6;">

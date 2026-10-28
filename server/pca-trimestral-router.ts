@@ -6,7 +6,7 @@ import {
   getPcaDocument,
   setPcaAiResult,
   setPcaStatusPaidFree,
-  getActiveAnnualSubscription,
+  getActiveAnualSubscription,
   setPcaClientTxId,
   getPcaDocumentsBySession,
 } from "./db";
@@ -310,12 +310,12 @@ export const pcaTrimestralRouter = router({
     }))
     .mutation(async ({ input }) => {
       // 0. Verificar suscripción anual → PCT incluida sin costo
-      let isAnnualSubscriber = false;
+      let isAnualSubscriber = false;
       if (input.email) {
-        const annualSub = await getActiveAnnualSubscription(input.email);
-        isAnnualSubscriber = !!annualSub;
-        if (isAnnualSubscriber) {
-          console.log("[pca-trimestral-router] Annual subscriber detected:", input.email);
+        const anualSub = await getActiveAnualSubscription(input.email);
+        isAnualSubscriber = !!anualSub;
+        if (isAnualSubscriber) {
+          console.log("[pca-trimestral-router] Anual subscriber detected:", input.email);
         }
       }
 
@@ -415,7 +415,7 @@ export const pcaTrimestralRouter = router({
         await setPcaAiResult(docId, JSON.stringify(aiResult));
 
         // 6. Si es suscriptor anual, desbloquear automáticamente
-        if (isAnnualSubscriber) {
+        if (isAnualSubscriber) {
           await setPcaStatusPaidFree(docId);
           return { success: true, pcaId: docId, autoUnlocked: true };
         }

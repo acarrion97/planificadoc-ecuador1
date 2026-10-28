@@ -16,10 +16,10 @@ const PAYPHONE_TOKEN_CHARGE_URL = "https://pay.payphonetodoesposible.com/api/tra
 
 // Pricing in cents (PayPhone uses integer cents)
 const MONTHLY_PRICE_CENTS = 699; // $6.99/mes
-const ANNUAL_PRICE_CENTS = 5871; // $58.71/año ($4.89/mes x 12) - ahorro 30% vs mensual
-const ANNUAL_MONTHLY_EQUIVALENT = 489; // $4.89/mes equivalent
+const ANUAL_PRICE_CENTS = 5871; // $58.71/año ($4.89/mes x 12) - ahorro 30% vs mensual
+const ANUAL_MONTHLY_EQUIVALENT = 489; // $4.89/mes equivalent
 
-type PlanType = "monthly" | "annual";
+type PlanType = "monthly" | "anual";
 
 /**
  * Get the price for a given plan type.
@@ -31,12 +31,12 @@ export function getPriceForPlan(plan: PlanType): {
   monthlyEquivalent: number;
   durationMonths: number;
 } {
-  if (plan === "annual") {
+  if (plan === "anual") {
     return {
-      amount: ANNUAL_PRICE_CENTS,
-      plan: "annual",
+      amount: ANUAL_PRICE_CENTS,
+      plan: "anual",
       label: "$58.71/año ($4.89/mes)",
-      monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
+      monthlyEquivalent: ANUAL_MONTHLY_EQUIVALENT,
       durationMonths: 12,
     };
   }
@@ -135,13 +135,13 @@ export function registerPayPhoneRoutes(app: Express) {
   const payphoneStoreId = process.env.PAYPHONE_STORE_ID || "";
 
   /**
-   * GET /api/payment/page?email=xxx&plan=monthly|annual&documentId=xxx&phoneNumber=xxx&cardHolder=xxx
+   * GET /api/payment/page?email=xxx&plan=monthly|anual&documentId=xxx&phoneNumber=xxx&cardHolder=xxx
    * Serves the PayPhone Payment Box HTML page with tokenization enabled.
    */
   app.get("/api/payment/page", async (req: Request, res: Response) => {
     const email = (req.query.email as string || "").trim().toLowerCase();
     const planParam = (req.query.plan as string || "monthly").toLowerCase();
-    const plan: PlanType = planParam === "annual" ? "annual" : "monthly";
+    const plan: PlanType = planParam === "anual" ? "anual" : "monthly";
     const documentId = (req.query.documentId as string || "").trim();
     let phoneNumber = (req.query.phoneNumber as string || "").trim();
     // Ensure phone has +593 format as required by PayPhone
@@ -185,7 +185,7 @@ export function registerPayPhoneRoutes(app: Express) {
       const responseUrl = `https://planificadoc.app/api/payment/confirm?${tokenParams}`;
 
       const totalAmount = pricing.amount;
-      const planLabel = plan === "annual" ? "Anual" : "Mensual";
+      const planLabel = plan === "anual" ? "Anual" : "Mensual";
       const reference = `PlanificaDoc - Suscripcion ${planLabel} Recurrente - ${email}`;
 
       const html = buildPaymentPageHTML({
@@ -322,9 +322,9 @@ export function registerPayPhoneRoutes(app: Express) {
         }
 
         // Determine plan duration based on amount paid
-        const isAnnual = tx.amount === ANNUAL_PRICE_CENTS;
-        const durationMonths = isAnnual ? 12 : 1;
-        const planType = isAnnual ? "annual" : "monthly";
+        const isAnual = tx.amount === ANUAL_PRICE_CENTS;
+        const durationMonths = isAnual ? 12 : 1;
+        const planType = isAnual ? "anual" : "monthly";
 
         const startDate = new Date();
         const endDate = new Date();
@@ -403,8 +403,8 @@ export function registerPayPhoneRoutes(app: Express) {
               amount: MONTHLY_PRICE_CENTS,
             label: "$6.99/mes",
           },
-          annual: {
-            amount: ANNUAL_PRICE_CENTS,
+          anual: {
+            amount: ANUAL_PRICE_CENTS,
             label: "$58.71/año ($4.89/mes)",
             savings: "30%",
             },
@@ -430,10 +430,10 @@ export function registerPayPhoneRoutes(app: Express) {
           monthlyEquivalent: MONTHLY_PRICE_CENTS,
           durationMonths: 1,
         },
-        annual: {
-          amount: ANNUAL_PRICE_CENTS,
+        anual: {
+          amount: ANUAL_PRICE_CENTS,
           label: "$58.71/año ($4.89/mes)",
-          monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
+          monthlyEquivalent: ANUAL_MONTHLY_EQUIVALENT,
           durationMonths: 12,
           savings: "30%",
         },
@@ -446,10 +446,10 @@ export function registerPayPhoneRoutes(app: Express) {
           monthlyEquivalent: MONTHLY_PRICE_CENTS,
           durationMonths: 1,
         },
-        annual: {
-          amount: ANNUAL_PRICE_CENTS,
+        anual: {
+          amount: ANUAL_PRICE_CENTS,
           label: "$58.71/año ($4.89/mes)",
-          monthlyEquivalent: ANNUAL_MONTHLY_EQUIVALENT,
+          monthlyEquivalent: ANUAL_MONTHLY_EQUIVALENT,
           durationMonths: 12,
           savings: "30%",
         },
@@ -506,9 +506,9 @@ function buildPaymentPageHTML(config: {
   phoneNumber: string;
   cardHolder: string;
 }): string {
-  const planLabel = config.plan === "annual" ? "Anual (12 meses)" : "Mensual";
-  const periodLabel = config.plan === "annual" ? "por año" : "por mes";
-  const savingsBadge = config.plan === "annual"
+  const planLabel = config.plan === "anual" ? "Anual (12 meses)" : "Mensual";
+  const periodLabel = config.plan === "anual" ? "por año" : "por mes";
+  const savingsBadge = config.plan === "anual"
     ? '<div class="savings-badge">Ahorras 30%</div>'
     : "";
 
@@ -553,7 +553,7 @@ function buildPaymentPageHTML(config: {
       font-size: 48px;
     }
     .price-card {
-      background: ${config.plan === "annual" ? "linear-gradient(135deg, #059669, #10b981)" : "linear-gradient(135deg, #1e3a5f, #2563eb)"};
+      background: ${config.plan === "anual" ? "linear-gradient(135deg, #059669, #10b981)" : "linear-gradient(135deg, #1e3a5f, #2563eb)"};
       color: white;
       border-radius: 14px;
       padding: 20px;

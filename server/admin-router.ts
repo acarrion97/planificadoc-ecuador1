@@ -83,7 +83,7 @@ export function registerAdminRoutes(app: Express) {
 
       // Plans breakdown
       const monthlyPlanActive = activeSubs.filter(s => s.plan === "monthly").length;
-      const annualPlanActive = activeSubs.filter(s => s.plan === "annual").length;
+      const anualPlanActive = activeSubs.filter(s => s.plan === "anual").length;
 
       // Card tokens
       const activeTokens = await db
@@ -101,7 +101,7 @@ export function registerAdminRoutes(app: Express) {
           recurringActive: recurringSubs.length,
           oneTimeActive: oneTimeSubs.length,
           monthlyPlanActive,
-          annualPlanActive,
+          anualPlanActive,
           totalRevenueCents: totalRevenue,
           monthlyRevenueCents: monthlyRevenue,
           activeCardTokens: activeTokens.length,
@@ -691,7 +691,7 @@ export function registerAdminRoutes(app: Express) {
         res.status(400).json({ error: "indica la duracion (months o days)" });
         return;
       }
-      const subscriptionPlan = (plan as string) === "annual" ? "annual" : "monthly";
+      const subscriptionPlan = (plan as string) === "anual" ? "anual" : "monthly";
       // "renew" (default) = reactiva desde hoy; "extend" = continua sobre el vencimiento vigente
       const extendFromCurrent = mode === "extend";
 

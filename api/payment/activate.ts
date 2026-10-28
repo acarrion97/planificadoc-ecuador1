@@ -16,7 +16,7 @@ import { sendMetaPurchase } from "../../server/meta-capi";
 import { stripQuery } from "../_lib/safe-url";
 
 const MONTHLY_PRICE_CENTS = 699;
-const ANNUAL_PRICE_CENTS = 5871;
+const ANUAL_PRICE_CENTS = 5871;
 
 async function fireMetaCapi(clientTxId: string, valueCents: number, txEmail?: string, txPhone?: string) {
   try {
@@ -98,7 +98,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ── Detect payment type ──
     const isPcaPayment = tx.plan === "pca";
     const isTrialPayment = (tx.plan || "").startsWith("trial-");
-    const trialPlan = isTrialPayment ? (tx.plan || "").replace("trial-", "") : null; // "monthly" | "annual"
+    const trialPlan = isTrialPayment ? (tx.plan || "").replace("trial-", "") : null; // "monthly" | "anual"
 
     if (Number(confirmData.statusCode) === 3 && confirmData.transactionStatus?.toLowerCase() === "approved") {
       await updatePaymentTransaction(clientTxId, {
@@ -177,7 +177,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log(`[PayPhone Trial] Trial started for ${tx.email}, plan=${trialPlan}, ends=${trialEnd.toISOString()}`);
 
         // Meta CAPI: disparar Purchase con el valor real del plan (no $1)
-        fireMetaCapi(clientTxId, trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS, tx.email, tx.phoneNumber ?? undefined).catch(
+        fireMetaCapi(clientTxId, trialPlan === "anual" ? ANUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS, tx.email, tx.phoneNumber ?? undefined).catch(
           (e) => console.error("[Meta CAPI Trial]", e)
         );
 
@@ -197,7 +197,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           // Para Google Analytics (start_trial): solo se cobró $1 de verificación
           clientTxId,
           plan:       trialPlan || "monthly",
-          planValue:  (trialPlan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS) / 100,
+          planValue:  (trialPlan === "anual" ? ANUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS) / 100,
         });
       }
 
@@ -223,9 +223,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.warn("[PayPhone] No card token found in response - isRecurring will be false");
       }
 
-      const isAnnual = tx.amount === ANNUAL_PRICE_CENTS;
-      const durationMonths = isAnnual ? 12 : 1;
-      const planType = isAnnual ? "annual" : "monthly";
+      const isAnual = tx.amount === ANUAL_PRICE_CENTS;
+      const durationMonths = isAnual ? 12 : 1;
+      const planType = isAnual ? "anual" : "monthly";
 
       const startDate = new Date();
       const endDate = new Date();

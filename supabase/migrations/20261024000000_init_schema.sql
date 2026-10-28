@@ -77,7 +77,7 @@ create table if not exists public.subscriptions (
   "createdAt"          timestamptz  not null default now(),
   constraint ck_subscriptions_status
     check ("status" in ('active', 'expired', 'cancelled', 'past_due', 'trial')),
-  constraint ck_subscriptions_plan check ("plan" in ('monthly', 'annual'))
+  constraint ck_subscriptions_plan check ("plan" in ('monthly', 'anual'))
 );
 
 create index if not exists idx_subscriptions_email    on public.subscriptions ("email");

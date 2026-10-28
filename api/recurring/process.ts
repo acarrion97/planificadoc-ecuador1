@@ -18,7 +18,7 @@ import { docenteAccounts } from "../../drizzle/schema";
 
 const PAYPHONE_TOKEN_CHARGE_URL = "https://pay.payphonetodoesposible.com/api/transaction/web";
 const MONTHLY_PRICE_CENTS = 699;
-const ANNUAL_PRICE_CENTS = 5871;
+const ANUAL_PRICE_CENTS = 5871;
 const MAX_RETRY_ATTEMPTS = 3;
 
 function encryptCardHolder(cardHolder: string, key: string): string {
@@ -119,7 +119,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // 0b. Convertir trials vencidos → cobrar plan
     const TRIAL_MONTHLY_PRICE = 599; // $5.99 (descontando $1 de verificación)
-    const TRIAL_ANNUAL_PRICE  = 5771; // $57.71 (descontando $1 de verificación)
+    const TRIAL_ANUAL_PRICE  = 5771; // $57.71 (descontando $1 de verificación)
 
     const dueTrials = await db
       .select()
@@ -133,7 +133,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     for (const trial of dueTrials) {
       const planForCharge = (trial as any).trialPlan || trial.plan || "monthly";
-      const amount = planForCharge === "annual" ? TRIAL_ANNUAL_PRICE : TRIAL_MONTHLY_PRICE;
+      const amount = planForCharge === "anual" ? TRIAL_ANUAL_PRICE : TRIAL_MONTHLY_PRICE;
       processed++;
 
       const tokens = await db
@@ -191,7 +191,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           const newEndDate = new Date();
-          newEndDate.setMonth(newEndDate.getMonth() + (planForCharge === "annual" ? 12 : 1));
+          newEndDate.setMonth(newEndDate.getMonth() + (planForCharge === "anual" ? 12 : 1));
 
           await db.update(subscriptions).set({
             status: "active",
@@ -306,7 +306,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       const token = tokens[0];
-      const amount = sub.plan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS;
+      const amount = sub.plan === "anual" ? ANUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS;
       const clientTxId = `PDOC-REC-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
 
       try {
@@ -365,7 +365,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           // vencida hace >30 días genere un newEndDate que siga siendo pasado y
           // el cron la vuelva a cobrar al día siguiente.
           const newEndDate = new Date(now);
-          newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
+          newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "anual" ? 12 : 1));
 
           await db.update(subscriptions).set({
             endDate: newEndDate,
@@ -460,7 +460,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       const token = tokens[0];
-      const amount = sub.plan === "annual" ? ANNUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS;
+      const amount = sub.plan === "anual" ? ANUAL_PRICE_CENTS : MONTHLY_PRICE_CENTS;
       const clientTxId = `PDOC-REC-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
 
       try {
@@ -503,7 +503,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         if (Number(data.statusCode) === 3 && data.transactionStatus?.toLowerCase() === "approved") {
           // Siempre desde now para que el nuevo período empiece hoy, no desde endDate vencida
           const newEndDate = new Date(now);
-          newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "annual" ? 12 : 1));
+          newEndDate.setMonth(newEndDate.getMonth() + (sub.plan === "anual" ? 12 : 1));
 
           await db.update(subscriptions).set({
             status: "active",

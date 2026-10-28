@@ -4,7 +4,7 @@ import { paymentAttribution } from "../../drizzle/schema";
 import { gaHeadSnippet, gaBeginCheckoutSnippet } from "../_lib/ga";
 import { stripQuery } from "../_lib/safe-url";
 
-type PlanType = "monthly" | "annual";
+type PlanType = "monthly" | "anual";
 
 // Snippet JS que se inyecta en cada página de pago para capturar _fbp/_fbc
 // y llamar a /api/payphone/track antes de renderizar el botón de PayPhone.
@@ -43,14 +43,14 @@ function fbTrackingScript(clientTxId: string, valueCents: number, email: string)
 }
 
 const MONTHLY_PRICE_CENTS = 699;
-const ANNUAL_PRICE_CENTS = 5871;
+const ANUAL_PRICE_CENTS = 5871;
 const PCA_PRICE_CENTS = 1499;
 const PCT_TRIMESTRAL_PRICE_CENTS = 999; // $9.99
 const TRIAL_VERIFICATION_CENTS = 100;  // $1.00 verificación de tarjeta para trial
 
 function getPriceForPlan(plan: PlanType) {
-  if (plan === "annual") {
-    return { amount: ANNUAL_PRICE_CENTS, plan: "annual" as const, label: "$58.71/año ($4.89/mes)", durationMonths: 12 };
+  if (plan === "anual") {
+    return { amount: ANUAL_PRICE_CENTS, plan: "anual" as const, label: "$58.71/año ($4.89/mes)", durationMonths: 12 };
   }
   return { amount: MONTHLY_PRICE_CENTS, plan: "monthly" as const, label: "$6.99/mes", durationMonths: 1 };
 }
@@ -111,7 +111,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const isTrial = typeParam === "trial";
   const planParam = ((req.query.plan as string) || "monthly").toLowerCase();
-  const plan: PlanType = planParam === "annual" ? "annual" : "monthly";
+  const plan: PlanType = planParam === "anual" ? "anual" : "monthly";
 
   // fbp/fbc pasados como query params desde paywall.tsx (más confiable que cookies en la nueva pestaña).
   // Se leen aquí arriba porque los usan los flujos trial y suscripción.
@@ -402,9 +402,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     try {
       const clientTxId = generateClientTxId(email);
-      const planLabel = plan === "annual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
-      const planFull  = plan === "annual" ? "$58.71" : "$6.99";
-      const planPeriod = plan === "annual" ? "al año" : "al mes";
+      const planLabel = plan === "anual" ? "Anual ($58.71/año)" : "Mensual ($6.99/mes)";
+      const planFull  = plan === "anual" ? "$58.71" : "$6.99";
+      const planPeriod = plan === "anual" ? "al año" : "al mes";
 
       await createPaymentTransaction({
         clientTransactionId: clientTxId,
@@ -418,7 +418,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
 
       // Guardar atribución Meta desde query params (fbp/fbc pasados por paywall.tsx)
-      const trialPlanCents = plan === "annual" ? 5871 : 699;
+      const trialPlanCents = plan === "anual" ? 5871 : 699;
       if (fbpFromUrl || fbcFromUrl) {
         try {
           const db = getDb();
@@ -506,7 +506,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     <div class="verif-note">
       <strong>⚠️ Nota importante sobre el cobro de $1.00</strong>
       Para verificar tu tarjeta se realizara un cargo de <strong>$1.00</strong> ahora mismo.
-      Este valor sera <strong>descontado de tu primera mensualidad</strong> (pagaras ${plan === "annual" ? "$57.71" : "$5.99"} en 3 dias en lugar de ${planFull}).
+      Este valor sera <strong>descontado de tu primera mensualidad</strong> (pagaras ${plan === "anual" ? "$57.71" : "$5.99"} en 3 dias en lugar de ${planFull}).
     </div>
     <div class="payment-section">
       <h3>💳 Agrega tu tarjeta para iniciar la prueba</h3>
@@ -623,10 +623,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const fbScript = fbTrackingScript(clientTxId, pricing.amount, email);
     const gaScript = gaHeadSnippet() + gaBeginCheckoutSnippet(plan, "subscription", pricing.amount);
 
-    const planLabel = plan === "annual" ? "Anual (12 meses)" : "Mensual";
-    const periodLabel = plan === "annual" ? "por año" : "por mes";
+    const planLabel = plan === "anual" ? "Anual (12 meses)" : "Mensual";
+    const periodLabel = plan === "anual" ? "por año" : "por mes";
     const reference = `PlanificaDoc - Suscripcion ${planLabel} - ${email}`;
-    const savingsBadge = plan === "annual" ? '<div class="savings-badge">Ahorras 30%</div>' : "";
+    const savingsBadge = plan === "anual" ? '<div class="savings-badge">Ahorras 30%</div>' : "";
 
     const html = `<!DOCTYPE html>
 <html lang="es">
@@ -661,7 +661,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     .logo-section h1 { font-size: 22px; color: #1e3a5f; margin-top: 8px; }
     .logo-section .emoji-logo { font-size: 48px; }
     .price-card {
-      background: ${plan === "annual" ? "linear-gradient(135deg, #059669, #10b981)" : "linear-gradient(135deg, #1e3a5f, #2563eb)"};
+      background: ${plan === "anual" ? "linear-gradient(135deg, #059669, #10b981)" : "linear-gradient(135deg, #1e3a5f, #2563eb)"};
       color: white; border-radius: 14px; padding: 20px; text-align: center; margin-bottom: 24px; position: relative;
     }
     .price-card .amount { font-size: 36px; font-weight: 800; }
