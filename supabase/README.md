@@ -61,7 +61,7 @@ renovación de sesión y verificación del JWT pasan por `auth.users`.
 | Código de recuperación de 6 dígitos | `public.password_reset_codes.codeHash` (HMAC-SHA256) | Backend; al aplicarlo también actualiza `auth.users` |
 | Códigos de acceso institucionales | `public.code_activations` | Backend (no crea usuario en Supabase) |
 
-Flujos: `POST /api/auth/register`, `login`, `register-maintenance`,
+Flujos: `POST /api/auth/register` y `login`,
 `forgot-password`, `reset-password`, `refresh` y `GET /api/auth/me`
 (verifica el access token con el JWKS de `${SUPABASE_URL}/auth/v1`).
 
