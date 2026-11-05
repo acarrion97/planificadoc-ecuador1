@@ -376,8 +376,7 @@ describe("POST /api/auth/login (Supabase Auth)", () => {
   it("no confunde el correo con otro usuario de auth.users (GoTrue no filtra por email)", async () => {
     // GoTrue devuelve el listado SIN filtrar por email: si el backend se fiara
     // de la primera fila, cualquier correo parecería existir, el login
-    // respondería "Contraseña incorrecta" y nunca llegaría el notFound que
-    // abre el registro de mantenimiento.
+    // respondería "Contraseña incorrecta" en lugar de indicar que no existe.
     supa.users.push({ id: "su-9", email: "otra@ejemplo.com", password: "secreta1", metadata: {} });
 
     const res = await callHandler("login", { email: "nadie@ejemplo.com", password: "secreta1" });
@@ -431,47 +430,6 @@ describe("POST /api/auth/register (Supabase Auth)", () => {
     expect(res.body.success).toBe(true);
     expect(fake.state.accounts).toHaveLength(1);
     expect(fake.state.accounts[0].email).toBe(EMAIL);
-  });
-});
-
-describe("POST /api/auth/register-maintenance (Supabase Auth)", () => {
-  it("crea la cuenta con el código de mantenimiento y da el acceso gratuito", async () => {
-    vi.stubEnv("MAINTENANCE_REGISTRATION_CODE", "CLAVE-2026");
-    supa.users.push({ id: "su-9", email: "otra@ejemplo.com", password: "secreta1", metadata: {} });
-
-    const res = await callHandler("register-maintenance", {
-      email: EMAIL,
-      password: "secreta1",
-      nombre: NOMBRE,
-      registrationCode: "clave-2026", // se compara sin distinguir mayúsculas
-    });
-
-    expect(res.statusCode).toBe(200);
-    expect(res.body.success).toBe(true);
-    expect(res.body.maintenanceFree).toBe(true);
-    expect(fake.state.accounts).toHaveLength(1);
-    expect(supa.users.map((u) => u.email)).toContain(EMAIL);
-    // public.users creada y la suscripción de mantenimiento ya enlazada
-    expect(fake.state.users).toHaveLength(1);
-    expect(fake.state.users[0].email).toBe(EMAIL);
-    expect(fake.state.subs).toHaveLength(1);
-    expect(fake.state.subs[0].userId).toBe(fake.state.users[0].id);
-  });
-
-  it("rechaza con 403 un código incorrecto sin crear nada", async () => {
-    vi.stubEnv("MAINTENANCE_REGISTRATION_CODE", "CLAVE-2026");
-
-    const res = await callHandler("register-maintenance", {
-      email: EMAIL,
-      password: "secreta1",
-      nombre: NOMBRE,
-      registrationCode: "OTRA-CLAVE",
-    });
-
-    expect(res.statusCode).toBe(403);
-    expect(res.body.error).toContain("inválido");
-    expect(fake.state.accounts).toHaveLength(0);
-    expect(supa.users).toHaveLength(0);
   });
 });
 

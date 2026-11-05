@@ -11,7 +11,7 @@ import { trackEvent } from "@/web/analytics";
 
 const WHATSAPP_NUMBER = "593978833533";
 type PlanType = "monthly" | "anual";
-type AuthTab = "login" | "register" | "code" | "forgot" | "reset" | "maintenance";
+type AuthTab = "login" | "register" | "code" | "forgot" | "reset";
 
 // ─── Pantalla principal ───────────────────────────────────────────────────────
 
@@ -19,7 +19,7 @@ export default function PaywallScreen() {
   const colors = useColors();
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const isWide = windowWidth >= 900; // ≥900px: login en dos columnas (panel de marca + tarjeta)
-  const { loginWithPassword, registerAccount, registerMaintenanceAccount, requestPasswordReset, resetPasswordWithCode, unlockWithCode, unlockWithSubscription } = useAccess();
+  const { loginWithPassword, registerAccount, requestPasswordReset, resetPasswordWithCode, unlockWithCode, unlockWithSubscription } = useAccess();
 
   const [authTab, setAuthTab]           = useState<AuthTab>("login");
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("anual");
@@ -37,12 +37,6 @@ export default function PaywallScreen() {
   const [regConfirm, setRegConfirm]   = useState("");
   const [regError, setRegError]       = useState("");
   const [regLoading, setRegLoading]   = useState(false);
-
-  // Registro de mantenimiento — solo se ofrece si el correo no tiene cuenta
-  const [mntCode, setMntCode] = useState("");
-  const [mntLoading, setMntLoading] = useState(false);
-  const [mntError, setMntError]     = useState("");
-  const [mntInfo, setMntInfo]       = useState("");
 
   // Payment step
   const [needsPayment, setNeedsPayment]   = useState(false);
@@ -131,14 +125,7 @@ export default function PaywallScreen() {
         if (result.hasSubscription) setSuccess(true);
         else { setPayEmail(loginEmail.trim().toLowerCase()); setNeedsPayment(true); }
       } else if (result.notFound) {
-        // Correo inexistente → se ofrece el registro ESPECIAL de mantenimiento
-        // (gratis), distinto del registro normal de la pestaña "Registrarse".
-        setRegEmail(loginEmail.trim().toLowerCase());
-        setRegError("");
-        setMntError("");
-        setMntCode("");
-        setMntInfo("No encontramos una cuenta con ese correo. Durante el mantenimiento preventivo puedes crearla gratis, con suscripción de 1 año.");
-        setAuthTab("maintenance");
+        setLoginError("No encontramos una cuenta con ese correo. Puedes crearla desde Registrarse.");
       } else {
         setLoginError(result.error || "Correo o contraseña incorrectos");
       }
@@ -166,31 +153,6 @@ export default function PaywallScreen() {
       }
     } finally { setRegLoading(false); }
   }, [regNombre, regEmail, regPassword, regConfirm, registerAccount]);
-
-  // Registro de mantenimiento — misma validación que el normal, pero contra
-  // el endpoint especial que otorga el acceso gratuito temporal.
-  const handleRegisterMaintenance = useCallback(async () => {
-    if (!mntCode.trim()) { setMntError("Ingresa el código de registro"); return; }
-    if (!regNombre.trim()) { setMntError("Ingresa tu nombre completo"); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(regEmail.trim())) { setMntError("Correo inválido"); return; }
-    if (regPassword.length < 6) { setMntError("La contraseña debe tener al menos 6 caracteres"); return; }
-    if (regPassword !== regConfirm) { setMntError("Las contraseñas no coinciden"); return; }
-    setMntError(""); setMntLoading(true);
-    try {
-      const result = await registerMaintenanceAccount(regEmail, regPassword, regNombre, mntCode);
-      if (result.success) {
-        trackEvent("sign_up", { method: "email_maintenance" });
-        if (result.hasSubscription) setSuccess(true);
-        else { setPayEmail(regEmail.trim().toLowerCase()); setNeedsPayment(true); }
-      } else if (result.exists) {
-        setAuthTab("login");
-        setLoginEmail(regEmail.trim().toLowerCase());
-        setLoginError("Ya tienes una cuenta con ese correo. Ingresa tu contraseña.");
-      } else {
-        setMntError(result.error || "No se pudo crear la cuenta. Intenta de nuevo.");
-      }
-    } finally { setMntLoading(false); }
-  }, [mntCode, regNombre, regEmail, regPassword, regConfirm, registerMaintenanceAccount]);
 
   const handlePayWithPayPhone = useCallback(async () => {
     if (!payCardHolder.trim()) { setPayError("Ingresa el nombre del titular"); return; }
@@ -609,53 +571,6 @@ export default function PaywallScreen() {
               </View>
             )}
 
-            {/* REGISTRO DE MANTENIMIENTO — solo se abre desde un login sin usuario */}
-            {authTab === "maintenance" && (
-              <View style={s.formBox}>
-                <View style={s.mntBanner}>
-                  <Text style={s.mntBannerTitle}>🛠️ Registro gratis por mantenimiento preventivo</Text>
-                  <Text style={s.mntBannerText}>
-                    Estamos realizando un mantenimiento preventivo. Mientras dura, puedes crear tu cuenta
-                    sin costo con una suscripción de 1 año y usar PlanificaDoc sin pagar durante ese tiempo.
-                  </Text>
-                </View>
-                {mntInfo ? <InfoRow text={mntInfo} icon="🔎" /> : null}
-                <FieldLabel label="Código de mantenimiento" colors={colors} />
-                <FieldInput emoji="🔑" placeholder="Ingresa tu código de mantenimiento" value={mntCode}
-                  onChangeText={(t: string) => { setMntCode(t.toUpperCase()); setMntError(""); }}
-                  autoCapitalize="characters" hasError={!!mntError} colors={colors} />
-                <Text style={[s.formHint, { color: colors.muted }]}>Verificaremos el código al crear tu cuenta.</Text>
-                <FieldLabel label="Nombre completo" colors={colors} />
-                <FieldInput emoji="👤" placeholder="Ej: María González" value={regNombre}
-                  onChangeText={(t: string) => { setRegNombre(t); setMntError(""); }} autoCapitalize="words" colors={colors} />
-                <FieldLabel label="Correo electrónico" colors={colors} mt />
-                <FieldInput emoji="📧" placeholder="docente@ejemplo.com" value={regEmail}
-                  onChangeText={(t: string) => { setRegEmail(t); setMntError(""); }}
-                  keyboardType="email-address" autoCapitalize="none" colors={colors} />
-                <FieldLabel label="Contraseña" colors={colors} mt />
-                <FieldInput emoji="🔒" placeholder="Mínimo 6 caracteres" value={regPassword}
-                  onChangeText={(t: string) => { setRegPassword(t); setMntError(""); }}
-                  secureTextEntry autoCapitalize="none" colors={colors} />
-                <FieldLabel label="Confirmar contraseña" colors={colors} mt />
-                <FieldInput emoji="🔒" placeholder="Repite tu contraseña" value={regConfirm}
-                  onChangeText={(t: string) => { setRegConfirm(t); setMntError(""); }}
-                  secureTextEntry autoCapitalize="none" hasError={!!mntError} colors={colors} />
-                {mntError ? <ErrorRow text={mntError} /> : null}
-                <Pressable
-                  onPress={handleRegisterMaintenance} disabled={mntLoading}
-                  style={({ pressed }) => [s.authBtn, { backgroundColor: "#059669", opacity: mntLoading ? 0.6 : pressed ? 0.9 : 1 }]}
-                >
-                  {mntLoading
-                    ? <ActivityIndicator size="small" color="#fff" />
-                    : <><Text style={{ fontSize: 18 }}>🎁</Text><Text style={s.authBtnText}>Crear cuenta gratis</Text></>
-                  }
-                </Pressable>
-                <Pressable onPress={() => { setAuthTab("login"); setLoginError(""); }} style={s.switchLink}>
-                  <Text style={[s.switchLinkText, { color: colors.primary }]}>¿Ya tienes cuenta? Inicia sesión →</Text>
-                </Pressable>
-              </View>
-            )}
-
             {/* CODE */}
             {authTab === "code" && (
               <View style={s.formBox}>
@@ -919,9 +834,6 @@ const s = StyleSheet.create({
   errorText:     { fontSize: 12, fontWeight: "500", flex: 1, color: "#DC2626" },
   infoRow:       { flexDirection: "row", alignItems: "flex-start", gap: 6, marginTop: 8, paddingHorizontal: 10, paddingVertical: 9, borderRadius: 10, borderWidth: 1, borderColor: "#05966940", backgroundColor: "#05966912" },
   infoText:      { fontSize: 12, fontWeight: "500", flex: 1, color: "#059669", lineHeight: 17 },
-  mntBanner:     { borderWidth: 1, borderColor: "#F59E0B66", backgroundColor: "#F59E0B1A", borderRadius: 12, padding: 12, marginBottom: 12, gap: 4 },
-  mntBannerTitle:{ fontSize: 13, fontWeight: "700", color: "#B45309", lineHeight: 18 },
-  mntBannerText: { fontSize: 12, lineHeight: 17, color: "#92400E" },
   forgotLink:    { alignItems: "flex-end", marginTop: 6, marginBottom: 2, paddingVertical: 2 },
   forgotLinkText:{ fontSize: 13, fontWeight: "600" },
   authBtn:       { flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: 15, borderRadius: 14, gap: 10, marginTop: 14 },

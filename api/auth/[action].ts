@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { handleCors } from "../_lib/admin-auth";
 import { getDb, getActiveSubscription } from "../_lib/db";
-import { docenteAccounts, passwordResetCodes, subscriptions } from "../../drizzle/schema";
+import { docenteAccounts, passwordResetCodes } from "../../drizzle/schema";
 import { eq, desc, sql as drizzleSql } from "drizzle-orm";
 import { createHmac, randomBytes, randomInt, scrypt, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
@@ -133,6 +133,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const action = req.query.action as string;
 
   if (!action) return res.status(400).json({ error: "Acción requerida" });
+  if (action === "register-maintenance") {
+    return res.status(410).json({ error: "El registro de mantenimiento ya no está disponible. Usa el registro normal." });
+  }
 
   const db = getDb();
   if (!db) return res.status(500).json({ error: "Base de datos no disponible" });
@@ -200,115 +203,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         nombre: trimmedNombre,
         hasActiveSubscription: !!sub,
         subscriptionEndDate: sub ? sub.endDate : null,
-      });
-    } catch (e: any) {
-      if (e instanceof AuthProviderError) return providerErrorResponse(res, e);
-      return res.status(500).json({ error: errorMessage(e) });
-    }
-  }
-
-  // POST /api/auth/register-maintenance
-  //
-  // Registro ESPECIAL que solo se ofrece desde el login cuando el correo no
-  // existe (ver app/paywall.tsx → handleLogin → notFound). No sustituye al
-  // registro normal (/register): aquí la cuenta se crea con acceso gratuito
-  // temporal por el mantenimiento preventivo.
-  //
-  // Duración controlada por MAINTENANCE_FREE_DAYS (días, por defecto 365 = 1
-  // año; "0" crea la cuenta sin acceso). Con un año o más la suscripción se
-  // guarda como plan "anual" (mismos beneficios que el plan anual de pago,
-  // p.ej. PCA/PCT incluidos); por debajo queda como "monthly". Nada de esto
-  // afecta al registro normal.
-  if (action === "register-maintenance") {
-    if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-    const { email, password, nombre, registrationCode } = req.body || {};
-    if (!email || !password || !nombre) {
-      return res.status(400).json({ error: "Nombre, correo y contraseña son requeridos" });
-    }
-    if ((password as string).length < 6) {
-      return res.status(400).json({ error: "La contraseña debe tener al menos 6 caracteres" });
-    }
-    const configuredCode = process.env.MAINTENANCE_REGISTRATION_CODE?.trim().toUpperCase();
-    if (!configuredCode) {
-      return res.status(503).json({ error: "El registro temporal no está disponible." });
-    }
-    const submittedCode = typeof registrationCode === "string" ? registrationCode.trim().toUpperCase() : "";
-    const expectedCodeBytes = Buffer.from(configuredCode);
-    const submittedCodeBytes = Buffer.from(submittedCode);
-    if (
-      expectedCodeBytes.length !== submittedCodeBytes.length ||
-      !timingSafeEqual(expectedCodeBytes, submittedCodeBytes)
-    ) {
-      return res.status(403).json({ error: "Código de registro inválido." });
-    }
-    const normalizedEmail = (email as string).trim().toLowerCase();
-    const trimmedNombre = (nombre as string).trim();
-    const freeDays = Number.parseInt(process.env.MAINTENANCE_FREE_DAYS ?? "365", 10);
-
-    try {
-      const existing = await db
-        .select({ id: docenteAccounts.id })
-        .from(docenteAccounts)
-        .where(eq(docenteAccounts.email, normalizedEmail))
-        .limit(1);
-
-      if (existing.length > 0) {
-        return res.status(409).json({ error: "Ya existe una cuenta con ese correo. Inicia sesión.", exists: true });
-      }
-      if (isSupabaseAuthConfigured() && (await adminFindUserByEmail(normalizedEmail))) {
-        return res.status(409).json({ error: "Ya existe una cuenta con ese correo. Inicia sesión.", exists: true });
-      }
-
-      let session: SupabaseSession | null = null;
-      let passwordHash: string;
-      if (isSupabaseAuthConfigured()) {
-        const created = await createAccountInSupabase(normalizedEmail, password as string, trimmedNombre);
-        session = created.session;
-        passwordHash = created.marker;
-      } else {
-        passwordHash = await hashPassword(password as string);
-      }
-      await db.insert(docenteAccounts).values({ email: normalizedEmail, nombre: trimmedNombre, passwordHash });
-
-      // public.users + enlace con suscripciones previas (p.ej. las creadas
-      // desde el pago con este correo antes de registrarse).
-      const newSupabaseId = supabaseIdFromMarker(passwordHash);
-      const publicUserId = await syncPublicUser({
-        email: normalizedEmail,
-        name: trimmedNombre,
-        supabaseId: newSupabaseId ?? legacyPublicUserId(normalizedEmail),
-        loginMethod: newSupabaseId ? "supabase" : "legacy",
-        signedIn: true,
-      });
-
-      // Acceso gratuito del mantenimiento (solo si freeDays > 0). Por defecto
-      // dura 1 año, así que se registra como suscripción anual.
-      let subscriptionEndDate: Date | null = null;
-      if (Number.isFinite(freeDays) && freeDays > 0) {
-        subscriptionEndDate = new Date(Date.now() + freeDays * 24 * 3600 * 1000);
-        await db.insert(subscriptions).values({
-          email: normalizedEmail,
-          ...(publicUserId ? { userId: publicUserId } : {}),
-          plan: freeDays >= 365 ? "anual" : "monthly",
-          status: "active",
-          amountPaid: 0,
-          transactionId: `MAINTENANCE-${Date.now()}`,
-          startDate: new Date(),
-          endDate: subscriptionEndDate,
-          isPromo: true,
-          isRecurring: false,
-        });
-      }
-
-      const token = session ? session.accessToken : signToken(normalizedEmail, trimmedNombre);
-      return res.json({
-        success: true,
-        ...sessionFields(session, token),
-        email: normalizedEmail,
-        nombre: trimmedNombre,
-        hasActiveSubscription: subscriptionEndDate !== null,
-        subscriptionEndDate,
-        maintenanceFree: subscriptionEndDate !== null,
       });
     } catch (e: any) {
       if (e instanceof AuthProviderError) return providerErrorResponse(res, e);
